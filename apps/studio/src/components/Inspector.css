@@ -5,31 +5,31 @@
   top: 0;
   width: 320px;
   height: 100%;
-  background: white;
-  border-left: 1px solid #e0e0e0;
+  background: var(--panel-bg);
+  border-left: 1px solid var(--panel-border);
   padding: 16px;
   overflow-y: auto;
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .inspector h2 {
   margin: 0 0 16px 0;
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: var(--panel-text);
 }
 
 .inspector h3 {
   margin: 16px 0 8px 0;
   font-size: 14px;
   font-weight: 600;
-  color: #666;
+  color: var(--panel-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .inspector .empty-state {
-  color: #999;
+  color: var(--panel-text-tertiary);
   font-size: 14px;
   text-align: center;
   margin-top: 32px;
@@ -50,23 +50,24 @@
 .inspector .param label {
   font-size: 12px;
   font-weight: 500;
-  color: #666;
+  color: var(--panel-text-secondary);
   text-transform: capitalize;
 }
 
 .inspector .param input {
   padding: 6px 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-md);
   font-size: 14px;
-  background: white;
+  background: var(--panel-bg);
+  color: var(--panel-text);
   transition: border-color 0.2s;
 }
 
 .inspector .param input:focus {
   outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0, 160, 255, 0.1);
 }
 
 .inspector .outputs {
@@ -77,45 +78,45 @@
 
 .inspector .output {
   padding: 8px;
-  background: #f8f8f8;
-  border-radius: 4px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
   font-size: 12px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .inspector .output-name {
   font-weight: 500;
   margin-bottom: 4px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .inspector .output-value {
-  color: #4caf50;
+  color: var(--success);
   font-family: 'Monaco', 'Menlo', monospace;
   font-size: 11px;
 }
 
 .inspector .state {
   padding: 8px;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   font-size: 12px;
   margin-top: 8px;
 }
 
 .inspector .state.error {
-  background: #ffebee;
-  color: #c62828;
-  border: 1px solid #ffcdd2;
+  background: rgba(244, 67, 54, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(244, 67, 54, 0.3);
 }
 
 .inspector .state.computing {
-  background: #e3f2fd;
-  color: #1565c0;
-  border: 1px solid #bbdefb;
+  background: rgba(0, 160, 255, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(0, 160, 255, 0.3);
 }
 
 .inspector .state.dirty {
-  background: #fff3e0;
-  color: #e65100;
-  border: 1px solid #ffe0b2;
+  background: rgba(255, 152, 0, 0.1);
+  color: var(--warning);
+  border: 1px solid rgba(255, 152, 0, 0.3);
 }

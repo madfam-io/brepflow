@@ -27,7 +27,7 @@
   padding: 6px 12px;
   margin: 2px 0;
   background: var(--bg-tertiary);
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   cursor: move;
   font-size: 13px;
   transition: all 0.2s;
@@ -55,11 +55,29 @@
   left: 8px;
   background: var(--bg-secondary);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   padding: 4px;
   display: flex;
   gap: 4px;
   z-index: 10;
+}
+
+.viewport-toolbar button {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.viewport-toolbar button:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 .viewport-toolbar .separator {
@@ -129,7 +147,7 @@
 .console {
   background: var(--bg-primary);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   padding: 8px;
   max-height: 200px;
   overflow-y: auto;
@@ -165,7 +183,7 @@
   color: var(--accent);
   padding: 8px 12px;
   background: var(--bg-secondary);
-  border-radius: 4px;
+  border-radius: var(--radius-md);
 }
 
 .status {
@@ -173,7 +191,7 @@
   color: var(--text-secondary);
   padding: 4px 8px;
   background: var(--bg-secondary);
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   font-family: monospace;
 }
 

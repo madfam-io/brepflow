@@ -4,8 +4,8 @@
   gap: 20px;
   height: 50px;
   padding: 0 20px;
-  background: #1e1e1e;
-  border-bottom: 1px solid #333;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
 }
 
 .toolbar-group {
@@ -15,40 +15,43 @@
 
 .toolbar-btn {
   padding: 8px 16px;
-  background: #2d2d2d;
-  color: #fff;
-  border: 1px solid #444;
-  border-radius: 4px;
+  background: var(--bg-quaternary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .toolbar-btn:hover {
-  background: #3d3d3d;
-  border-color: #555;
+  background: var(--bg-tertiary);
+  border-color: var(--border-lighter);
 }
 
 .toolbar-btn.primary {
-  background: #0066cc;
-  border-color: #0066cc;
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .toolbar-btn.primary:hover {
-  background: #0052a3;
+  background: var(--accent-hover);
 }
 
 .toolbar-btn.danger {
-  background: #cc3333;
-  border-color: #cc3333;
+  background: var(--danger);
+  border-color: var(--danger);
 }
 
 .toolbar-btn.danger:hover {
-  background: #a32929;
+  background: var(--danger-hover);
 }
 
 .toolbar-info {
   margin-left: auto;
-  color: #888;
+  color: var(--text-tertiary);
   font-size: 12px;
 }

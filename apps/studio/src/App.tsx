@@ -28,6 +28,7 @@ import { ErrorBoundary, WASMErrorBoundary, GeometryErrorBoundary } from './lib/e
 import { MonitoringDashboard } from './components/monitoring/MonitoringDashboard';
 import { useMonitoring, useHealthMonitoring } from './hooks/useMonitoring';
 import { initializeMonitoring } from './lib/monitoring';
+import { Icon } from './components/common/Icon';
 import './App.css';
 
 function AppContent() {
@@ -217,13 +218,17 @@ function AppContent() {
                     style={{
                       background: 'rgba(255, 255, 255, 0.9)',
                       border: '1px solid #d1d5db',
-                      borderRadius: '4px',
+                      borderRadius: 'var(--radius-md)',
                       padding: '0.5rem',
                       cursor: 'pointer',
-                      fontSize: '0.75rem'
+                      fontSize: '0.75rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.25rem'
                     }}
                   >
-                    🔧 Monitor
+                    <Icon name="monitor" size={14} />
+                    Monitor
                   </button>
                 </Panel>
               </ReactFlow>

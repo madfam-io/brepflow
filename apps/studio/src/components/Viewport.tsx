@@ -1,7 +1,8 @@
-import React, { useRef, useEffect, useCallback, useMemo } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three-stdlib';
 import { useGraphStore } from '../store/graph-store';
+import { Icon } from './common/Icon';
 import type { MeshData, ShapeHandle } from '@brepflow/types';
 
 export function Viewport() {
@@ -184,14 +185,28 @@ export function Viewport() {
   return (
     <div className="viewport" ref={mountRef}>
       <div className="viewport-toolbar">
-        <button title="Shaded">🎨</button>
-        <button title="Wireframe">📐</button>
-        <button title="X-Ray">👁️</button>
-        <button title="Section">✂️</button>
+        <button title="Shaded">
+          <Icon name="shaded" size={16} />
+        </button>
+        <button title="Wireframe">
+          <Icon name="wireframe" size={16} />
+        </button>
+        <button title="X-Ray">
+          <Icon name="xray" size={16} />
+        </button>
+        <button title="Section">
+          <Icon name="section" size={16} />
+        </button>
         <span className="separator">|</span>
-        <button title="Fit View">🎯</button>
-        <button title="Isolate">🔍</button>
-        <button title="Hide">👻</button>
+        <button title="Fit View">
+          <Icon name="fit-view" size={16} />
+        </button>
+        <button title="Isolate">
+          <Icon name="zoom" size={16} />
+        </button>
+        <button title="Hide">
+          <Icon name="hide" size={16} />
+        </button>
       </div>
     </div>
   );
