@@ -221,7 +221,7 @@ export class GraphManager {
     try {
       this.detectCycles();
     } catch (error) {
-      errors.push(error.message);
+      errors.push(error instanceof Error ? error.message : String(error));
     }
 
     // Check for missing connections

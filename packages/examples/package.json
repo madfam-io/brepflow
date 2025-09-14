@@ -1,0 +1,10 @@
+{
+  "name": "@brepflow/examples",
+  "version": "0.1.0",
+  "description": "BrepFlow example graphs and fixtures",
+  "private": true,
+  "scripts": {
+    "validate": "brepflow validate graphs/*.bflow.json",
+    "render": "brepflow render graphs/simple-box.bflow.json --mock"
+  }
+}

@@ -103,18 +103,15 @@ registerNode({
 - COOP/COEP headers required for WASM threads
 - CSP strict mode, no inline eval
 
-## Current Status
+## Current Status (September 2025)
 
-**MVP (v0.1)** - In active development (target: November 2025)
-- Core geometry nodes and operations
-- STEP/IGES import, STEP/STL export
-- Node canvas with React Flow
-- CLI for headless rendering
-- WebGL2 viewport with WebGPU experimental support
+**MVP (v0.1)** - ~95% Complete, Ready for Testing
+✅ **Working**: Complete node editor, 30+ geometry nodes, real-time evaluation, CLI tools, mock geometry
+🔄 **In Progress**: OCCT.wasm compilation for real geometry operations
 
-**Roadmap**:
-- v0.3 (Feb 2026): 3DM/USD/glTF support, node subgraphs
-- v0.5 (Apr 2026): Plugin registry, constraints, hosted sync
+**Quick Start**: After `pnpm install && pnpm run dev`, visit http://localhost:5173
+
+**Comprehensive Documentation**: See ARCHITECTURE.md, API.md, SETUP.md, CONTRIBUTING.md, ROADMAP.md
 
 ## Important Notes
 

@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import ReactFlow, {
-  Node,
-  Edge,
+  Node as RFNode,
+  Edge as RFEdge,
   addEdge,
   Background,
   Controls,
@@ -10,46 +10,118 @@ import ReactFlow, {
   useEdgesState,
   Connection,
   Panel,
+  ReactFlowProvider,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
 import { NodePanel } from './components/NodePanel';
 import { Viewport } from './components/Viewport';
 import { Inspector } from './components/Inspector';
+import { Toolbar } from './components/Toolbar';
+import { useGraphStore } from './store/graph-store';
+import { convertToReactFlow, convertFromReactFlow } from './utils/graph-converter';
 import './App.css';
 
-const initialNodes: Node[] = [
-  {
-    id: '1',
-    type: 'input',
-    data: { label: 'Sketch' },
-    position: { x: 100, y: 100 },
-  },
-  {
-    id: '2',
-    data: { label: 'Extrude' },
-    position: { x: 300, y: 100 },
-  },
-];
+function AppContent() {
+  const {
+    graph,
+    selectedNodes,
+    addNode,
+    removeNode,
+    updateNode,
+    addEdge: addGraphEdge,
+    removeEdge,
+    selectNode,
+    evaluateGraph,
+  } = useGraphStore();
 
-const initialEdges: Edge[] = [];
+  // Convert graph to ReactFlow format
+  const { nodes: rfNodes, edges: rfEdges } = convertToReactFlow(graph);
 
-function App() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+  const [nodes, setNodes, onNodesChange] = useNodesState(rfNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(rfEdges);
+
+  // Sync ReactFlow state with graph store
+  useEffect(() => {
+    const { nodes: newNodes, edges: newEdges } = convertToReactFlow(graph);
+    setNodes(newNodes);
+    setEdges(newEdges);
+  }, [graph, setNodes, setEdges]);
 
   const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
+    (params: Connection) => {
+      if (params.source && params.target && params.sourceHandle && params.targetHandle) {
+        addGraphEdge({
+          source: params.source,
+          sourceHandle: params.sourceHandle,
+          target: params.target,
+          targetHandle: params.targetHandle,
+        });
+      }
+    },
+    [addGraphEdge]
   );
 
-  const onNodeClick = useCallback((_: React.MouseEvent, node: Node) => {
-    setSelectedNode(node);
+  const onNodeClick = useCallback((_: React.MouseEvent, node: RFNode) => {
+    selectNode(node.id);
+  }, [selectNode]);
+
+  const onNodesDelete = useCallback((nodes: RFNode[]) => {
+    nodes.forEach(node => removeNode(node.id));
+  }, [removeNode]);
+
+  const onEdgesDelete = useCallback((edges: RFEdge[]) => {
+    edges.forEach(edge => removeEdge(edge.id));
+  }, [removeEdge]);
+
+  const onDrop = useCallback(
+    (event: React.DragEvent) => {
+      event.preventDefault();
+
+      const nodeType = event.dataTransfer.getData('application/reactflow');
+      if (!nodeType) return;
+
+      const reactFlowBounds = event.currentTarget.getBoundingClientRect();
+      const position = {
+        x: event.clientX - reactFlowBounds.left,
+        y: event.clientY - reactFlowBounds.top,
+      };
+
+      addNode({
+        type: nodeType,
+        position,
+        inputs: {},
+        params: {},
+      });
+    },
+    [addNode]
+  );
+
+  const onDragOver = useCallback((event: React.DragEvent) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
   }, []);
+
+  const selectedNode = selectedNodes.size === 1
+    ? graph.nodes.find(n => n.id === Array.from(selectedNodes)[0])
+    : null;
+
+  // Auto-evaluate when graph changes
+  useEffect(() => {
+    const dirtyNodes = graph.nodes.filter(n => n.dirty);
+    if (dirtyNodes.length > 0) {
+      // Debounce evaluation
+      const timer = setTimeout(() => {
+        evaluateGraph();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [graph, evaluateGraph]);
 
   return (
     <div className="app">
+      <Toolbar />
+
       <div className="sidebar-left">
         <NodePanel />
       </div>
@@ -63,6 +135,11 @@ function App() {
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onNodeClick={onNodeClick}
+            onNodesDelete={onNodesDelete}
+            onEdgesDelete={onEdgesDelete}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            deleteKeyCode="Delete"
             fitView
           >
             <Background variant="dots" gap={12} size={1} />
@@ -73,7 +150,9 @@ function App() {
             </Panel>
             <Panel position="bottom-left">
               <div className="status">
-                Units: mm | Tolerance: 0.001 | {crossOriginIsolated ? '✅ WASM Ready' : '⚠️ WASM Limited'}
+                Units: {graph.units} | Tolerance: {graph.tolerance} |
+                Nodes: {graph.nodes.length} |
+                {crossOriginIsolated ? ' ✅ WASM Ready' : ' ⚠️ WASM Limited'}
               </div>
             </Panel>
           </ReactFlow>
@@ -85,9 +164,17 @@ function App() {
       </div>
 
       <div className="sidebar-right">
-        <Inspector selectedNode={selectedNode} />
+        <Inspector selectedNode={selectedNode} onParamChange={updateNode} />
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <ReactFlowProvider>
+      <AppContent />
+    </ReactFlowProvider>
   );
 }
 

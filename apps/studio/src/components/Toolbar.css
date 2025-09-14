@@ -1,0 +1,54 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 50px;
+  padding: 0 20px;
+  background: #1e1e1e;
+  border-bottom: 1px solid #333;
+}
+
+.toolbar-group {
+  display: flex;
+  gap: 8px;
+}
+
+.toolbar-btn {
+  padding: 8px 16px;
+  background: #2d2d2d;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.toolbar-btn:hover {
+  background: #3d3d3d;
+  border-color: #555;
+}
+
+.toolbar-btn.primary {
+  background: #0066cc;
+  border-color: #0066cc;
+}
+
+.toolbar-btn.primary:hover {
+  background: #0052a3;
+}
+
+.toolbar-btn.danger {
+  background: #cc3333;
+  border-color: #cc3333;
+}
+
+.toolbar-btn.danger:hover {
+  background: #a32929;
+}
+
+.toolbar-info {
+  margin-left: auto;
+  color: #888;
+  font-size: 12px;
+}

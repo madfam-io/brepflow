@@ -87,7 +87,7 @@ export interface NodeDefinition<I = any, O = any, P = any> {
 }
 
 // Parameter specifications
-export interface ParamSpec<T> {
+export interface ParamSpec<T = any> {
   [key: string]: ParamDefinition;
 }
 

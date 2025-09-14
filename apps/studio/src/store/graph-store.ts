@@ -41,7 +41,8 @@ interface GraphState {
   removeEdge: (edgeId: string) => void;
 
   // Selection
-  selectNode: (nodeId: NodeId, multi?: boolean) => void;
+  selectNode: (nodeId: NodeId | null) => void;
+  selectNodes: (nodeIds: NodeId[]) => void;
   deselectNode: (nodeId: NodeId) => void;
   clearSelection: () => void;
   setHoveredNode: (nodeId: NodeId | null) => void;
@@ -53,7 +54,9 @@ interface GraphState {
   // File operations
   loadGraph: (json: string) => void;
   saveGraph: () => string;
-  exportGraph: (format: 'json' | 'step' | 'stl') => Promise<void>;
+  exportGraph: () => GraphInstance;
+  importGraph: (graph: GraphInstance) => void;
+  clearGraph: () => void;
 
   // Utility
   clearErrors: () => void;
@@ -127,15 +130,16 @@ export const useGraphStore = create<GraphState>()(
         },
 
         // Selection
-        selectNode: (nodeId, multi = false) => {
-          const { selectedNodes } = get();
-          if (multi) {
-            selectedNodes.add(nodeId);
+        selectNode: (nodeId) => {
+          if (nodeId) {
+            set({ selectedNodes: new Set([nodeId]) });
           } else {
-            selectedNodes.clear();
-            selectedNodes.add(nodeId);
+            set({ selectedNodes: new Set() });
           }
-          set({ selectedNodes: new Set(selectedNodes) });
+        },
+
+        selectNodes: (nodeIds) => {
+          set({ selectedNodes: new Set(nodeIds) });
         },
 
         deselectNode: (nodeId) => {
@@ -206,9 +210,33 @@ export const useGraphStore = create<GraphState>()(
           return graphManager.toJSON();
         },
 
-        exportGraph: async (format) => {
-          // TODO: Implement export functionality
-          console.log(`Exporting graph as ${format}`);
+        exportGraph: () => {
+          return graphManager.getGraph();
+        },
+
+        importGraph: (graph) => {
+          graphManager.setGraph(graph);
+          set({
+            graph,
+            selectedNodes: new Set(),
+            errors: new Map(),
+          });
+        },
+
+        clearGraph: () => {
+          const emptyGraph: GraphInstance = {
+            version: '0.1.0',
+            units: 'mm',
+            tolerance: 0.001,
+            nodes: [],
+            edges: [],
+          };
+          graphManager.setGraph(emptyGraph);
+          set({
+            graph: emptyGraph,
+            selectedNodes: new Set(),
+            errors: new Map(),
+          });
         },
 
         // Utility

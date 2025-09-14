@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@brepflow/types": "workspace:*",
-    "comlink": "^4.4.1"
+    "comlink": "^4.4.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.7",
     "tsup": "^8.0.0",
     "vitest": "^1.2.0"
   }

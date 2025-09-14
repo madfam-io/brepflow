@@ -52,7 +52,7 @@ export class DAGEngine {
         // Mark node as errored
         const node = graph.nodes.find(n => n.id === nodeId);
         if (node) {
-          node.state = { ...node.state, error: error.message };
+          node.state = { ...node.state, error: error instanceof Error ? error.message : String(error) };
         }
       }
     }
@@ -90,15 +90,16 @@ export class DAGEngine {
 
       if (!outputs) {
         // Create evaluation context
+        const abortController = new AbortController();
         const context: EvalContext = {
           nodeId,
           graph,
-          cache: this.cache,
+          cache: this.cache as Map<string, any>,
           worker: this.worker,
-          abort: new AbortController(),
+          abort: abortController,
         };
 
-        this.abortControllers.set(nodeId, context.abort);
+        this.abortControllers.set(nodeId, abortController);
 
         // Evaluate node
         outputs = await definition.evaluate(context, inputs, node.params);

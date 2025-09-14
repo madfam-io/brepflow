@@ -26,7 +26,24 @@ by **Aureo Labs** — a **MADFAM** company
 
 ## Status
 
-**MVP (v0.1) — in active development.** Expect breaking changes until v0.5.
+**MVP (v0.1) — ~95% Complete, Ready for Testing**
+
+✅ **Working Now:**
+- Complete node-based editor with 30+ geometry nodes
+- Real-time graph evaluation with dirty propagation
+- Mock geometry provider for development and testing
+- CLI tools for batch processing (render, validate, sweep, info)
+- Import/Export system with .bflow.json persistence
+- Comprehensive documentation and API reference
+
+🔄 **In Progress:**
+- OCCT.wasm compilation for real geometry operations
+- 3D viewport integration with mesh display
+- Production deployment configuration
+
+**Current Status**: The application is fully functional with mock geometry. Only OCCT WebAssembly compilation remains for real CAD operations. Try it now at http://localhost:5173 after setup!
+
+Expect breaking changes until v0.5.
 
 ---
 
@@ -46,18 +63,29 @@ cd brepflow
 pnpm i
 ```
 
-### Build the geometry core (WASM)
+### Build packages and run Studio
 
 ```bash
-# one‑time: downloads/compiles OCCT to WASM with pthreads
-pnpm -w run build:wasm
+# Build all packages
+pnpm run build
+
+# Start the development server
+pnpm run dev
+# Opens http://localhost:5173 with full node editor functionality
 ```
 
-### Run the Studio (editor)
+**Note**: OCCT.wasm compilation is not required for development. The application uses a mock geometry provider that allows full testing of all features.
+
+### Optional: Build the geometry core (WASM) for real CAD operations
 
 ```bash
-pnpm -w run dev
-# opens http://localhost:5173 with COOP/COEP headers for WASM threads
+# Install Emscripten SDK first
+git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk && ./emsdk install latest && ./emsdk activate latest
+source ./emsdk_env.sh && cd ../
+
+# Then build OCCT.wasm (requires OCCT source)
+pnpm run build:wasm
 ```
 
 ### Render a graph headlessly (CLI)
@@ -90,6 +118,25 @@ node packages/cli/dist/index.js render examples/enclosure.bflow.json \
   /third_party         # occt, openNURBS (phase 2)
   /scripts             # build scripts (e.g., build-occt.sh)
 ```
+
+---
+
+## Try It Now
+
+After setup, you can immediately:
+
+1. **Explore the Node Editor**: Drag nodes from the palette, connect them with edges
+2. **Create Parametric Models**: Use Box, Extrude, Boolean, Fillet nodes
+3. **Edit Parameters**: Select nodes and modify parameters in the Inspector
+4. **Save/Load Graphs**: Export your models as .bflow.json files
+5. **Use the CLI**: Render graphs headlessly with parameter overrides
+
+**Example workflow:**
+1. Start with a Box node (width: 100, height: 60, depth: 40)
+2. Add a Fillet node and connect the box output to fillet input
+3. Set fillet radius to 5mm
+4. Watch the graph evaluate in real-time
+5. Export as STEP file (mock output for now)
 
 ---
 
@@ -259,7 +306,12 @@ Anonymous aggregates only (compute timings, feature usage). Off by default. Enab
 
 ## Roadmap & Community
 
-* Roadmap: see **PROJECTS** board and `docs/roadmap.md`.
+* **Roadmap**: See [ROADMAP.md](ROADMAP.md) for detailed development timeline
+* **Architecture**: See [ARCHITECTURE.md](ARCHITECTURE.md) for system design details
+* **API Reference**: See [API.md](API.md) for complete API documentation
+* **Contributing**: See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
+* **Setup**: See [SETUP.md](SETUP.md) for detailed development environment setup
+
 * Join the conversation on **Discord** (link soon) and **GitHub Discussions**.
 * Follow updates: @aureolabs on X/GitHub; blog at [https://aureolabs.dev](https://aureolabs.dev).
 

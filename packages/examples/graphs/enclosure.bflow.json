@@ -1,0 +1,120 @@
+{
+  "version": "0.1.0",
+  "units": "mm",
+  "tolerance": 0.001,
+  "metadata": {
+    "created": "2025-09-13T12:00:00Z",
+    "author": "BrepFlow Examples",
+    "description": "Parametric enclosure with mounting bosses"
+  },
+  "nodes": [
+    {
+      "id": "base",
+      "type": "Solid::Box",
+      "position": { "x": 100, "y": 100 },
+      "inputs": {},
+      "params": {
+        "width": "@L",
+        "height": "@W",
+        "depth": "@H"
+      }
+    },
+    {
+      "id": "shell",
+      "type": "Features::Shell",
+      "position": { "x": 300, "y": 100 },
+      "inputs": {
+        "shape": { "nodeId": "base", "socketId": "shape" }
+      },
+      "params": {
+        "thickness": "@wall",
+        "inside": true
+      }
+    },
+    {
+      "id": "boss1",
+      "type": "Solid::Cylinder",
+      "position": { "x": 100, "y": 250 },
+      "inputs": {},
+      "params": {
+        "radius": 4,
+        "height": "@H"
+      }
+    },
+    {
+      "id": "boss_pattern",
+      "type": "Transform::ArrayLinear",
+      "position": { "x": 300, "y": 250 },
+      "inputs": {
+        "shape": { "nodeId": "boss1", "socketId": "shape" }
+      },
+      "params": {
+        "count": 4,
+        "spacing": { "x": 30, "y": 0, "z": 0 }
+      }
+    },
+    {
+      "id": "union",
+      "type": "Boolean::Union",
+      "position": { "x": 500, "y": 175 },
+      "inputs": {
+        "shapes": [
+          { "nodeId": "shell", "socketId": "shape" },
+          { "nodeId": "boss_pattern", "socketId": "shapes" }
+        ]
+      },
+      "params": {
+        "simplify": true
+      }
+    },
+    {
+      "id": "fillet",
+      "type": "Features::Fillet",
+      "position": { "x": 700, "y": 175 },
+      "inputs": {
+        "shape": { "nodeId": "union", "socketId": "shape" }
+      },
+      "params": {
+        "radius": 2,
+        "selectAll": false
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "base",
+      "sourceHandle": "shape",
+      "target": "shell",
+      "targetHandle": "shape"
+    },
+    {
+      "id": "e2",
+      "source": "boss1",
+      "sourceHandle": "shape",
+      "target": "boss_pattern",
+      "targetHandle": "shape"
+    },
+    {
+      "id": "e3",
+      "source": "shell",
+      "sourceHandle": "shape",
+      "target": "union",
+      "targetHandle": "shapes"
+    },
+    {
+      "id": "e4",
+      "source": "boss_pattern",
+      "sourceHandle": "shapes",
+      "target": "union",
+      "targetHandle": "shapes"
+    },
+    {
+      "id": "e5",
+      "source": "union",
+      "sourceHandle": "shape",
+      "target": "fillet",
+      "targetHandle": "shape"
+    }
+  ]
+}

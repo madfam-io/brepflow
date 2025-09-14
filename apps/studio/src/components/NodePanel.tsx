@@ -3,23 +3,60 @@ import React from 'react';
 const nodeCategories = [
   {
     name: 'Sketch',
-    nodes: ['Line', 'Circle', 'Arc', 'Rectangle', 'NURBS Curve'],
+    nodes: [
+      { type: 'Sketch::Line', label: '📐 Line' },
+      { type: 'Sketch::Circle', label: '⭕ Circle' },
+      { type: 'Sketch::Rectangle', label: '▭ Rectangle' },
+      { type: 'Sketch::Arc', label: '⤴ Arc' },
+    ],
   },
   {
     name: 'Solid',
-    nodes: ['Extrude', 'Revolve', 'Sweep', 'Loft'],
+    nodes: [
+      { type: 'Solid::Extrude', label: '↗ Extrude' },
+      { type: 'Solid::Revolve', label: '🔄 Revolve' },
+      { type: 'Solid::Sweep', label: '➰ Sweep' },
+      { type: 'Solid::Loft', label: '⬆ Loft' },
+      { type: 'Solid::Box', label: '📦 Box' },
+      { type: 'Solid::Cylinder', label: '🌌 Cylinder' },
+      { type: 'Solid::Sphere', label: '⚪ Sphere' },
+    ],
   },
   {
     name: 'Boolean',
-    nodes: ['Union', 'Subtract', 'Intersect'],
+    nodes: [
+      { type: 'Boolean::Union', label: '⊕ Union' },
+      { type: 'Boolean::Subtract', label: '⊖ Subtract' },
+      { type: 'Boolean::Intersect', label: '⊗ Intersect' },
+    ],
   },
   {
     name: 'Features',
-    nodes: ['Fillet', 'Chamfer', 'Shell', 'Draft'],
+    nodes: [
+      { type: 'Features::Fillet', label: '⚪ Fillet' },
+      { type: 'Features::Chamfer', label: '🔲 Chamfer' },
+      { type: 'Features::Shell', label: '⬚ Shell' },
+      { type: 'Features::Draft', label: '⤵ Draft' },
+    ],
   },
   {
     name: 'Transform',
-    nodes: ['Move', 'Rotate', 'Scale', 'Mirror', 'Array'],
+    nodes: [
+      { type: 'Transform::Move', label: '➜ Move' },
+      { type: 'Transform::Rotate', label: '↻ Rotate' },
+      { type: 'Transform::Scale', label: '⬍ Scale' },
+      { type: 'Transform::Mirror', label: '🔀 Mirror' },
+      { type: 'Transform::LinearArray', label: '⬛ Linear Array' },
+      { type: 'Transform::CircularArray', label: '⭕ Circular Array' },
+    ],
+  },
+  {
+    name: 'I/O',
+    nodes: [
+      { type: 'IO::ImportSTEP', label: '📥 Import STEP' },
+      { type: 'IO::ExportSTEP', label: '📤 Export STEP' },
+      { type: 'IO::ExportSTL', label: '📤 Export STL' },
+    ],
   },
 ];
 
@@ -40,12 +77,13 @@ export function NodePanel() {
           <div className="node-list">
             {category.nodes.map((node) => (
               <div
-                key={node}
+                key={node.type}
                 className="node-item"
                 draggable
-                onDragStart={(e) => onDragStart(e, node)}
+                onDragStart={(e) => onDragStart(e, node.type)}
+                title={node.type}
               >
-                {node}
+                {node.label}
               </div>
             ))}
           </div>

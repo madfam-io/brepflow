@@ -86,6 +86,10 @@ pnpm format       # Format code
 pnpm build        # Build all packages
 pnpm build:wasm   # Build OCCT.wasm
 
+# Package-specific commands
+pnpm build --filter @brepflow/engine-core    # Build specific package
+pnpm test --filter @brepflow/nodes-core      # Test specific package
+
 # Utilities
 pnpm clean        # Clean build artifacts
 ```
@@ -99,6 +103,55 @@ For full functionality (WASM threads), your browser needs:
 
 The development server automatically sets the required COOP/COEP headers.
 
+## IDE Setup
+
+### VS Code (Recommended)
+
+Install these extensions for the best development experience:
+
+```bash
+# Required extensions
+code --install-extension ms-vscode.vscode-typescript-next
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension esbenp.prettier-vscode
+
+# Recommended extensions
+code --install-extension bradlc.vscode-tailwindcss
+code --install-extension formulahendry.auto-rename-tag
+code --install-extension ms-vscode.vscode-json
+```
+
+#### VS Code Settings
+
+Add to `.vscode/settings.json`:
+```json
+{
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.turbo": true
+  }
+}
+```
+
+## Environment Variables
+
+Create `.env.local` in `apps/studio/`:
+```bash
+# Use mock geometry during development (no OCCT required)
+VITE_USE_MOCK_GEOMETRY=true
+
+# API base URL (if using backend services)
+VITE_API_BASE_URL=http://localhost:3001
+```
+
 ## Troubleshooting
 
 ### SharedArrayBuffer not available
@@ -109,10 +162,27 @@ The development server automatically sets the required COOP/COEP headers.
 ### Build fails
 - Ensure Node.js ≥ 20 and pnpm ≥ 9 are installed
 - Try cleaning and reinstalling: `pnpm clean && pnpm install`
+- Check for TypeScript errors: `pnpm typecheck`
+
+### TypeScript errors
+- Clear TypeScript cache: `rm -rf apps/studio/.vite`
+- Rebuild type packages: `pnpm build --filter @brepflow/types`
+- Check for circular dependencies
+
+### Worker loading issues
+- Verify worker.js is accessible at `/worker.js`
+- Check browser console for CORS or CSP errors
+- Ensure COOP/COEP headers are set correctly
 
 ### OCCT.wasm build fails
 - Ensure Emscripten SDK is properly installed and activated
 - Check that OCCT source is downloaded to `third_party/occt/`
+- Verify CMake and build tools are available
+
+### Performance issues during development
+- Use `pnpm dev --host` to bind to all interfaces
+- Increase Node.js memory: `export NODE_OPTIONS="--max-old-space-size=4096"`
+- Disable source maps in production builds
 
 ## Next Steps
 
