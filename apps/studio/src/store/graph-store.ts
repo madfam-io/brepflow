@@ -75,14 +75,14 @@ export const useGraphStore = create<GraphState>()(
           const geometryAPI = getGeometryAPI(); // Uses OCCT by default now
           await geometryAPI.init();
           console.log('🚀 Geometry API initialized successfully');
-          return new DAGEngine({ geometryAPI });
+          return new DAGEngine({ worker: geometryAPI });
         } catch (error) {
           console.error('❌ Failed to initialize geometry API:', error);
           // Fall back to mock mode
           const mockGeometryAPI = getGeometryAPI(true);
           await mockGeometryAPI.init();
           console.warn('⚠️ Using mock geometry API');
-          return new DAGEngine({ geometryAPI: mockGeometryAPI });
+          return new DAGEngine({ worker: mockGeometryAPI });
         }
       };
 

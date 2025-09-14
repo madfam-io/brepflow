@@ -34,7 +34,7 @@ export class GeometryAPI implements WorkerAPI {
   async invoke<T = any>(operation: string, params: any): Promise<T> {
     if (this.useMock && this.implementation instanceof MockGeometry) {
       // Map operations to mock methods
-      return this.invokeMock(operation, params) as T;
+      return await this.invokeMock(operation, params) as T;
     }
 
     return this.implementation.invoke(operation, params);
@@ -43,7 +43,7 @@ export class GeometryAPI implements WorkerAPI {
   /**
    * Invoke mock operation
    */
-  private invokeMock(operation: string, params: any): any {
+  private async invokeMock(operation: string, params: any): Promise<any> {
     const mock = this.implementation as MockGeometry;
 
     switch (operation) {
@@ -80,7 +80,7 @@ export class GeometryAPI implements WorkerAPI {
 
       case 'TESSELLATE':
         return {
-          mesh: mock.tessellate(params.shape, params.deflection),
+          mesh: await mock.tessellate(params.shape, params.deflection),
           bbox: params.shape.bbox,
         };
 
@@ -110,10 +110,10 @@ export class GeometryAPI implements WorkerAPI {
   async tessellate(shapeId: string, deflection: number): Promise<MeshData> {
     if (this.useMock && this.implementation instanceof MockGeometry) {
       const shape: ShapeHandle = { id: shapeId, type: 'solid' };
-      return this.implementation.tessellate(shape, deflection);
+      return await this.implementation.tessellate(shape, deflection);
     }
 
-    return this.implementation.tessellate(shapeId, deflection);
+    return await this.implementation.tessellate(shapeId, deflection);
   }
 
   /**
@@ -152,7 +152,9 @@ export class GeometryAPI implements WorkerAPI {
       this.implementation = new MockGeometry();
     } else {
       this.implementation = new WorkerClient();
-      await this.implementation.init();
+      if (this.implementation.init) {
+        await this.implementation.init();
+      }
     }
   }
 }

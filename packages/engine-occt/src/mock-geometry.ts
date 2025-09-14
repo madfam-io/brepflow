@@ -3,13 +3,15 @@ import type {
   Vec3,
   BoundingBox,
   MeshData,
+  WorkerAPI,
+  HandleId,
 } from '@brepflow/types';
 import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Mock geometry provider for testing without OCCT
  */
-export class MockGeometry {
+export class MockGeometry implements WorkerAPI {
   private shapes = new Map<string, MockShape>();
 
   /**
@@ -278,8 +280,59 @@ export class MockGeometry {
     return this.createHandle('solid', bbox);
   }
 
-  // Tessellation
-  tessellate(shape: ShapeHandle, deflection: number): MeshData {
+  // Legacy tessellation method removed - using async version below
+
+  // WorkerAPI interface implementation
+  async invoke<T>(operation: string, params: any): Promise<T> {
+    switch (operation) {
+      case 'createBox':
+        return this.createBox(params.center, params.width, params.height, params.depth) as T;
+      case 'createSphere':
+        return this.createSphere(params.center, params.radius) as T;
+      case 'createCylinder':
+        return this.createCylinder(params.center, params.axis, params.radius, params.height) as T;
+      case 'createLine':
+        return this.createLine(params.start, params.end) as T;
+      case 'createCircle':
+        return this.createCircle(params.center, params.radius, params.normal) as T;
+      case 'extrude':
+        return this.extrude(params.profile, params.direction, params.distance) as T;
+      case 'booleanUnion':
+        return this.booleanUnion(params.shapes) as T;
+      case 'booleanSubtract':
+        return this.booleanSubtract(params.base, params.tools) as T;
+      case 'booleanIntersect':
+        return this.booleanIntersect(params.shapes) as T;
+      case 'tessellate':
+        return this.tessellate(params.shape, params.deflection) as T;
+      default:
+        throw new Error(`Unknown operation: ${operation}`);
+    }
+  }
+
+  async init(): Promise<void> {
+    // Mock initialization - no-op
+  }
+
+  // Updated tessellate method for WorkerAPI compatibility
+  async tessellate(shapeId: HandleId | ShapeHandle, deflection: number): Promise<MeshData> {
+    if (typeof shapeId === 'string') {
+      const shape = this.shapes.get(shapeId);
+      return shape ? shape.mesh : this.generateBoxMesh();
+    } else {
+      // Handle ShapeHandle object
+      const shape = this.shapes.get(shapeId.id);
+      return shape ? shape.mesh : this.generateBoxMesh();
+    }
+  }
+
+  // Updated dispose method for WorkerAPI compatibility
+  async dispose(handleId: HandleId): Promise<void> {
+    this.shapes.delete(handleId);
+  }
+
+  // Legacy synchronous methods for backward compatibility
+  tessellateSync(shape: ShapeHandle, deflection: number): MeshData {
     const mockShape = this.shapes.get(shape.id);
     if (mockShape) {
       return mockShape.mesh;
@@ -287,8 +340,7 @@ export class MockGeometry {
     return this.generateBoxMesh();
   }
 
-  // Cleanup
-  dispose(handleId: string): void {
+  disposeSync(handleId: string): void {
     this.shapes.delete(handleId);
   }
 }

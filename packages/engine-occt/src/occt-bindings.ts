@@ -42,7 +42,7 @@ export async function loadOCCT(): Promise<OCCTModule> {
     // Import the WASM module
     // Note: The current build is ExpToCasExe which is a specific tool
     // We need to create a proper OCCT geometry API wrapper
-    const createModule = await import('../wasm/occt.js');
+    const createModule = await import('../wasm/occt.js') as any;
     wasmModule = await createModule.createOCCTModule();
 
     console.log('OCCT WASM module loaded successfully');

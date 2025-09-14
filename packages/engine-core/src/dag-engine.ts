@@ -28,6 +28,11 @@ export class DAGEngine {
     this.registry = options.registry || NodeRegistry.getInstance();
   }
 
+  // Expose geometry API for compatibility
+  get geometryAPI(): WorkerAPI {
+    return this.worker;
+  }
+
   /**
    * Evaluate a graph with dirty propagation
    */

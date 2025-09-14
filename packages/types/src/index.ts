@@ -134,6 +134,7 @@ export interface Edge {
 
 // Worker API
 export interface WorkerAPI {
+  init?(): Promise<void>;
   invoke<T = any>(operation: string, params: any): Promise<T>;
   tessellate(shapeId: HandleId, deflection: number): Promise<MeshData>;
   dispose(handleId: HandleId): Promise<void>;

@@ -1,4 +1,4 @@
-import type { NodeDefinition, ShapeHandle } from '@brepflow/types';
+import type { NodeDefinition, ShapeHandle, Vec3 } from '@brepflow/types';
 
 export const FilletNode: NodeDefinition<
   { shape: ShapeHandle; edges?: ShapeHandle[] },

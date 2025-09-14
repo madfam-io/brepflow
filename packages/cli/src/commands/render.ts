@@ -4,7 +4,8 @@ import ora from 'ora';
 import fs from 'fs-extra';
 import path from 'path';
 import type { GraphInstance, ExportFormat } from '@brepflow/types';
-import { GraphManager, DAGEngine, registerCoreNodes } from '@brepflow/engine-core';
+import { GraphManager, DAGEngine } from '@brepflow/engine-core';
+import { registerCoreNodes } from '@brepflow/nodes-core';
 import { getGeometryAPI } from '@brepflow/engine-occt';
 
 export const renderCommand = new Command('render')
