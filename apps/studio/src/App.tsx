@@ -13,6 +13,13 @@ import ReactFlow, {
   ReactFlowProvider,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
+import CustomNode from './components/nodes/CustomNode';
+
+const nodeTypes = {
+  default: CustomNode,
+  input: CustomNode,
+  output: CustomNode,
+};
 
 import { NodePanel } from './components/NodePanel';
 import { Viewport } from './components/Viewport';
@@ -181,6 +188,7 @@ function AppContent() {
               <ReactFlow
                 nodes={nodes}
                 edges={edges}
+                nodeTypes={nodeTypes}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}

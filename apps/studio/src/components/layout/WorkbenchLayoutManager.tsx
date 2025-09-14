@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
 import { PanelGroup, Panel, PanelResizeHandle } from 'react-resizable-panels';
-import { ResizablePanel, WorkbenchLayout } from './ResizablePanel';
 import { LayoutControls } from './LayoutControls';
 import { useLayoutStore } from '../../store/layout-store';
 import type { PanelId } from '../../types/layout';
@@ -24,9 +23,9 @@ interface PanelComponentProps {
 }
 
 const PanelComponent: React.FC<PanelComponentProps> = ({ panelId, children }) => (
-  <ResizablePanel id={panelId}>
+  <div className={`panel-content-wrapper panel-${panelId}`}>
     {children}
-  </ResizablePanel>
+  </div>
 );
 
 export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
@@ -40,6 +39,50 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
     getScreenSize,
     isInitialized
   } = useLayoutStore();
+
+  // Auto-recovery for collapsed panels - immediate and aggressive
+  useEffect(() => {
+    const fixPanels = () => {
+      const leftSidebar = document.getElementById('left-sidebar');
+      const rightSidebar = document.getElementById('right-sidebar');
+
+      if (leftSidebar) {
+        const width = parseFloat(window.getComputedStyle(leftSidebar).width);
+        if (width < 50) {
+          leftSidebar.style.cssText = 'width: 20% !important; flex: 0 0 20% !important; min-width: 240px !important;';
+        }
+      }
+
+      if (rightSidebar) {
+        const width = parseFloat(window.getComputedStyle(rightSidebar).width);
+        if (width < 50) {
+          rightSidebar.style.cssText = 'width: 25% !important; flex: 0 0 25% !important; min-width: 320px !important;';
+        }
+      }
+    };
+
+    // Fix immediately and repeatedly
+    fixPanels();
+    const timer1 = setTimeout(fixPanels, 0);
+    const timer2 = setTimeout(fixPanels, 50);
+    const timer3 = setTimeout(fixPanels, 100);
+    const timer4 = setTimeout(fixPanels, 200);
+    const timer5 = setTimeout(fixPanels, 500);
+
+    // Keep checking for a bit
+    const interval = setInterval(fixPanels, 250);
+    const stopTimer = setTimeout(() => clearInterval(interval), 3000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+      clearTimeout(timer4);
+      clearTimeout(timer5);
+      clearTimeout(stopTimer);
+      clearInterval(interval);
+    };
+  }, []);
 
   // Handle window resize for responsive layout
   useEffect(() => {
@@ -107,7 +150,6 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
               defaultSize={5}
               minSize={3}
               maxSize={10}
-              collapsible={false}
             >
               <div className="top-panels-container">
                 {topPanels.map(panelId => (
@@ -132,7 +174,8 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
                   defaultSize={20}
                   minSize={15}
                   maxSize={35}
-                  collapsible
+                  collapsible={false}
+                  style={{ minWidth: '240px' }}
                 >
                   <div className="left-panels-container">
                     {leftPanels.map(panelId => (
@@ -184,7 +227,8 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
                   defaultSize={25}
                   minSize={20}
                   maxSize={40}
-                  collapsible
+                  collapsible={false}
+                  style={{ minWidth: '320px' }}
                 >
                   <div className="right-panels-container">
                     {rightPanels.map(panelId => (
@@ -208,7 +252,6 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
               defaultSize={25}
               minSize={15}
               maxSize={50}
-              collapsible
             >
               <div className="bottom-panels-container">
                 {bottomPanels.map(panelId => (
