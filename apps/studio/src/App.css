@@ -1,0 +1,242 @@
+.app {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-primary);
+}
+
+.sidebar-left {
+  width: 240px;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.sidebar-right {
+  width: 320px;
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.node-editor {
+  flex: 1;
+  position: relative;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.viewport-3d {
+  height: 40%;
+  position: relative;
+  background: var(--bg-primary);
+}
+
+/* Node Panel */
+.node-panel details {
+  margin-bottom: 8px;
+}
+
+.node-panel summary {
+  cursor: pointer;
+  padding: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.node-panel summary:hover {
+  color: var(--text-primary);
+}
+
+.node-list {
+  padding: 4px 0;
+}
+
+.node-item {
+  padding: 6px 12px;
+  margin: 2px 0;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  cursor: move;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.node-item:hover {
+  background: var(--accent);
+}
+
+.search-input {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* Viewport */
+.viewport {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.viewport-toolbar {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+  z-index: 10;
+}
+
+.viewport-toolbar .separator {
+  margin: 0 4px;
+  color: var(--border);
+}
+
+/* Inspector */
+.inspector-section {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.inspector-section:last-child {
+  border-bottom: none;
+}
+
+.node-id {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-family: monospace;
+}
+
+.parameter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.parameter label {
+  flex: 0 0 100px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.parameter input,
+.parameter select {
+  flex: 1;
+}
+
+.unit {
+  flex: 0 0 30px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.compute-time,
+.compute-status {
+  font-size: 13px;
+  margin: 4px 0;
+}
+
+.compute-status {
+  color: var(--success);
+}
+
+.inspector-empty {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* Console */
+.console {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.console-entry {
+  margin: 4px 0;
+  padding: 4px;
+}
+
+.console-entry.info {
+  color: var(--text-primary);
+}
+
+.console-entry.success {
+  color: var(--success);
+}
+
+.console-entry.warning {
+  color: var(--warning);
+}
+
+.console-entry.error {
+  color: var(--error);
+}
+
+/* React Flow overrides */
+.logo {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--accent);
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+.status {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.react-flow {
+  background: var(--bg-primary);
+}
+
+.react-flow__node {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.react-flow__node.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.react-flow__edge-path {
+  stroke: var(--accent);
+}
+
+.react-flow__handle {
+  background: var(--accent);
+  border: 2px solid var(--bg-primary);
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@brepflow/engine-core",
+  "version": "0.1.0",
+  "description": "BrepFlow DAG evaluation engine",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@brepflow/types": "workspace:*",
+    "xxhash-wasm": "^1.0.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.7",
+    "tsup": "^8.0.0",
+    "vitest": "^1.2.0"
+  }
+}

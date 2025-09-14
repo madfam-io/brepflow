@@ -1,0 +1,33 @@
+{
+  "name": "@brepflow/studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "BrepFlow Studio - Node-based parametric CAD editor",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@brepflow/engine-core": "workspace:*",
+    "@brepflow/engine-occt": "workspace:*",
+    "@brepflow/viewport": "workspace:*",
+    "@brepflow/types": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "reactflow": "^11.10.0",
+    "zustand": "^4.5.0",
+    "comlink": "^4.4.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^5.0.0",
+    "vitest": "^1.2.0"
+  }
+}

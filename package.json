@@ -1,0 +1,41 @@
+{
+  "name": "brepflow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Web-first, node-based parametric CAD on exact B-Rep/NURBS",
+  "author": "Aureo Labs (a MADFAM company)",
+  "license": "MPL-2.0",
+  "homepage": "https://brepflow.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aureolabs/brepflow.git"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "build:wasm": "bash scripts/build-occt.sh",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.2.0",
+    "turbo": "^1.12.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@brepflow/engine-occt",
+  "version": "0.1.0",
+  "description": "BrepFlow OCCT.wasm worker bindings",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@brepflow/types": "workspace:*",
+    "comlink": "^4.4.1"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "vitest": "^1.2.0"
+  }
+}

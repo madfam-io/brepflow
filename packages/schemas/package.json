@@ -1,0 +1,21 @@
+{
+  "name": "@brepflow/schemas",
+  "version": "0.1.0",
+  "description": "BrepFlow JSON schemas",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "validate": "ajv compile -s schemas/*.json",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@brepflow/types": "workspace:*",
+    "ajv": "^8.12.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0"
+  }
+}

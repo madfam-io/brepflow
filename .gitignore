@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+*.wasm
+*.wasm.map
+build-occt/
+
+# Testing
+coverage/
+.nyc_output
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Turbo
+.turbo
+
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Third party sources
+third_party/occt/
+third_party/openNURBS/
+
+# Temporary files
+*.tmp
+.cache/

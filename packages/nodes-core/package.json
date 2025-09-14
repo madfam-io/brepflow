@@ -1,0 +1,23 @@
+{
+  "name": "@brepflow/nodes-core",
+  "version": "0.1.0",
+  "description": "BrepFlow core geometry nodes",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@brepflow/types": "workspace:*",
+    "@brepflow/engine-core": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "vitest": "^1.2.0"
+  }
+}

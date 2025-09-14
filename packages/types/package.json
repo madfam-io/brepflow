@@ -1,0 +1,17 @@
+{
+  "name": "@brepflow/types",
+  "version": "0.1.0",
+  "description": "BrepFlow shared TypeScript types",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint . --ext .ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0"
+  }
+}
