@@ -22,7 +22,10 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "clean": "turbo run clean && rm -rf node_modules",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "lockfile:check": "pnpm install --lockfile-only --frozen-lockfile",
+    "lockfile:update": "pnpm install",
+    "pre-deploy": "pnpm lockfile:check && pnpm build"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",

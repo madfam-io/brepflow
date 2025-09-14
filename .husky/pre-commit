@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Verify pnpm lockfile is synchronized with package.json files
+echo "🔍 Checking lockfile synchronization..."
+
+# Check if any package.json files have been modified
+if git diff --cached --name-only | grep -q "package\.json"; then
+  echo "📦 Package.json changes detected, verifying lockfile..."
+
+  # Run pnpm install --lockfile-only to check sync without installing
+  if ! pnpm install --lockfile-only --silent; then
+    echo "❌ Lockfile is out of sync with package.json changes!"
+    echo "💡 Run 'pnpm install' to update the lockfile"
+    exit 1
+  fi
+
+  # Check if lockfile needs to be committed
+  if git diff --quiet pnpm-lock.yaml; then
+    echo "✅ Lockfile is synchronized"
+  else
+    echo "⚠️  Lockfile needs to be committed"
+    echo "📝 Adding updated pnpm-lock.yaml to commit"
+    git add pnpm-lock.yaml
+  fi
+fi
+
+echo "🚀 Pre-commit checks passed!"
