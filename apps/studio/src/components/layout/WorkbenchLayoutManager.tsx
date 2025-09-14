@@ -59,14 +59,6 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
       .sort(([_, a], [__, b]) => a.order - b.order)
       .map(([id]) => id as PanelId);
 
-    // Debug logging
-    console.log('🔍 Layout Debug:', {
-      layoutName: currentLayout.name,
-      allPanels: Object.keys(currentLayout.panels),
-      visiblePanels: panels,
-      nodePanelConfig: currentLayout.panels.nodePanel
-    });
-
     return panels;
   }, [currentLayout.panels, currentLayout.name]);
 
@@ -101,14 +93,6 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
   const bottomPanels = visiblePanels.filter(id => currentLayout.panels[id].position === 'bottom');
   const topPanels = visiblePanels.filter(id => currentLayout.panels[id].position === 'top');
 
-  // Debug panel positions
-  console.log('📐 Panel Positions:', {
-    left: leftPanels,
-    right: rightPanels,
-    center: centerPanels,
-    bottom: bottomPanels,
-    top: topPanels
-  });
 
   return (
     <div className="workbench-layout">
@@ -145,11 +129,9 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
               <>
                 <Panel
                   id="left-sidebar"
-                  defaultSize={leftPanels.reduce((acc, id) =>
-                    acc + (currentLayout.panels[id].size.width as number || 280), 0
-                  )}
-                  minSize={200}
-                  maxSize={500}
+                  defaultSize={20}
+                  minSize={15}
+                  maxSize={35}
                   collapsible
                 >
                   <div className="left-panels-container">
@@ -174,7 +156,7 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
                         id={`center-${panelId}`}
                         defaultSize={
                           typeof currentLayout.panels[panelId].size.height === 'string'
-                            ? parseFloat(currentLayout.panels[panelId].size.height as string)
+                            ? Math.min(Math.max(parseFloat((currentLayout.panels[panelId].size.height as string).replace('%', '')), 15), 85)
                             : 50
                         }
                         minSize={15}
@@ -199,11 +181,9 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
                 <PanelResizeHandle className="panel-resize-handle" />
                 <Panel
                   id="right-sidebar"
-                  defaultSize={rightPanels.reduce((acc, id) =>
-                    acc + (currentLayout.panels[id].size.width as number || 320), 0
-                  )}
-                  minSize={200}
-                  maxSize={500}
+                  defaultSize={25}
+                  minSize={20}
+                  maxSize={40}
                   collapsible
                 >
                   <div className="right-panels-container">
@@ -225,11 +205,9 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
             <PanelResizeHandle className="panel-resize-handle horizontal" />
             <Panel
               id="bottom-area"
-              defaultSize={bottomPanels.reduce((acc, id) =>
-                acc + (currentLayout.panels[id].size.height as number || 120), 0
-              )}
-              minSize={80}
-              maxSize={400}
+              defaultSize={25}
+              minSize={15}
+              maxSize={50}
               collapsible
             >
               <div className="bottom-panels-container">
