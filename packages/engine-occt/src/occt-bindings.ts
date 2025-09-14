@@ -42,6 +42,7 @@ export async function loadOCCT(): Promise<OCCTModule> {
     // Import the WASM module
     // Note: The current build is ExpToCasExe which is a specific tool
     // We need to create a proper OCCT geometry API wrapper
+    // @ts-ignore - WASM module lacks TypeScript declarations
     const createModule = await import('../wasm/occt.js') as any;
     wasmModule = await createModule.createOCCTModule();
 
@@ -151,9 +152,10 @@ export async function loadOCCT(): Promise<OCCTModule> {
       }
     };
 
-  } catch (error) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error('Failed to load OCCT WASM module:', error);
-    throw new Error(`OCCT initialization failed: ${error.message}`);
+    throw new Error(`OCCT initialization failed: ${errorMessage}`);
   }
 
   return occtModule;

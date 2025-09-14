@@ -99,7 +99,7 @@ export class DAGEngine {
         const context: EvalContext = {
           nodeId,
           graph,
-          cache: this.cache as Map<string, any>,
+          cache: this.cache as unknown as Map<string, any>,
           worker: this.worker,
           abort: abortController,
         };

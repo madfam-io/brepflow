@@ -13,7 +13,10 @@
   },
   "dependencies": {
     "@brepflow/types": "workspace:*",
-    "ajv": "^8.12.0"
+    "@types/three": "^0.180.0",
+    "ajv": "^8.12.0",
+    "three": "^0.180.0",
+    "three-stdlib": "^2.36.0"
   },
   "devDependencies": {
     "tsup": "^8.0.0"

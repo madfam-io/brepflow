@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useCallback, useMemo } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three-stdlib';
 import { useGraphStore } from '../store/graph-store';
 import type { MeshData, ShapeHandle } from '@brepflow/types';
 
@@ -54,12 +54,12 @@ export function Viewport() {
 
     // Find nodes with geometry results
     const geometryNodes = graph.nodes.filter(node =>
-      node.outputs.geometry && node.outputs.geometry.value
+      node.outputs?.geometry && node.outputs.geometry.value
     );
 
     for (const node of geometryNodes) {
       try {
-        const shapeHandle = node.outputs.geometry.value as ShapeHandle;
+        const shapeHandle = node.outputs?.geometry?.value as ShapeHandle;
         if (!shapeHandle || !shapeHandle.id) continue;
 
         // Tessellate the shape

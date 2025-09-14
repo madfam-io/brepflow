@@ -305,6 +305,24 @@ export class MockGeometry implements WorkerAPI {
         return this.booleanIntersect(params.shapes) as T;
       case 'tessellate':
         return this.tessellate(params.shape, params.deflection) as T;
+      case 'MAKE_BOX':
+        return this.createBox(params.center, params.width, params.height, params.depth) as T;
+      case 'MAKE_SPHERE':
+        return this.createSphere(params.center, params.radius) as T;
+      case 'MAKE_CYLINDER':
+        return this.createCylinder(params.center, params.axis, params.radius, params.height) as T;
+      case 'MAKE_FILLET':
+        // Mock fillet - return shape as-is with new ID
+        return this.createHandle('solid', params.shape?.bbox) as T;
+      case 'MAKE_CHAMFER':
+        // Mock chamfer - return shape as-is with new ID
+        return this.createHandle('solid', params.shape?.bbox) as T;
+      case 'MAKE_SHELL':
+        // Mock shell - return shape as-is with new ID
+        return this.createHandle('solid', params.shape?.bbox) as T;
+      case 'MAKE_DRAFT':
+        // Mock draft - return shape as-is with new ID
+        return this.createHandle('solid', params.shape?.bbox) as T;
       default:
         throw new Error(`Unknown operation: ${operation}`);
     }

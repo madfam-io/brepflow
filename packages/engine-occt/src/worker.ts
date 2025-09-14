@@ -24,7 +24,7 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
             occtModule = await loadOCCT();
             isInitialized = true;
             console.log('OCCT worker initialized successfully');
-          } catch (error) {
+          } catch (error: unknown) {
             console.warn('OCCT initialization failed, falling back to mock geometry:', error);
             isInitialized = false;
           }
@@ -225,14 +225,15 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
     };
     self.postMessage(response);
 
-  } catch (error) {
+  } catch (error: unknown) {
     // Send error response
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     const response: WorkerResponse = {
       id: request.id,
       success: false,
       error: {
         code: 'WORKER_ERROR',
-        message: error.message || 'Unknown error',
+        message: errorMessage,
         details: error,
       },
     };
