@@ -52,10 +52,10 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, [getScreenSize, updateScreenSize]);
 
-  // Get visible panels in order
+  // Get visible panels in order (including minimized ones)
   const visiblePanels = useMemo(() => {
     return Object.entries(currentLayout.panels)
-      .filter(([_, panel]) => panel.visible && !panel.minimized)
+      .filter(([_, panel]) => panel.visible)
       .sort(([_, a], [__, b]) => a.order - b.order)
       .map(([id]) => id as PanelId);
   }, [currentLayout.panels]);
