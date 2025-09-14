@@ -1,0 +1,121 @@
+/* Inspector Component Styles */
+.inspector {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 320px;
+  height: 100%;
+  background: white;
+  border-left: 1px solid #e0e0e0;
+  padding: 16px;
+  overflow-y: auto;
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.inspector h2 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.inspector h3 {
+  margin: 16px 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.inspector .empty-state {
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 32px;
+}
+
+.inspector .params {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inspector .param {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inspector .param label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  text-transform: capitalize;
+}
+
+.inspector .param input {
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background: white;
+  transition: border-color 0.2s;
+}
+
+.inspector .param input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+.inspector .outputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inspector .output {
+  padding: 8px;
+  background: #f8f8f8;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #666;
+}
+
+.inspector .output-name {
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.inspector .output-value {
+  color: #4caf50;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 11px;
+}
+
+.inspector .state {
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.inspector .state.error {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.inspector .state.computing {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+}
+
+.inspector .state.dirty {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffe0b2;
+}
