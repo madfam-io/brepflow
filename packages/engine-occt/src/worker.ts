@@ -59,22 +59,27 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
 
       case 'MAKE_BOX':
         if (isInitialized && occtModule) {
-          result = await occtModule.makeBox(
+          const occtShape = occtModule.makeBox(
             request.params.width,
             request.params.height,
             request.params.depth
           );
-          // Add center and bbox info for compatibility
-          result.bbox = {
-            min: {
-              x: request.params.center.x - request.params.width/2,
-              y: request.params.center.y - request.params.height/2,
-              z: request.params.center.z - request.params.depth/2
-            },
-            max: {
-              x: request.params.center.x + request.params.width/2,
-              y: request.params.center.y + request.params.height/2,
-              z: request.params.center.z + request.params.depth/2
+
+          // Transform OCCT handle to our standard format
+          result = {
+            id: occtShape.id,
+            type: occtShape.type,
+            bbox: {
+              min: {
+                x: occtShape.bbox_min_x,
+                y: occtShape.bbox_min_y,
+                z: occtShape.bbox_min_z
+              },
+              max: {
+                x: occtShape.bbox_max_x,
+                y: occtShape.bbox_max_y,
+                z: occtShape.bbox_max_z
+              }
             }
           };
         } else {
@@ -89,21 +94,26 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
 
       case 'MAKE_CYLINDER':
         if (isInitialized && occtModule) {
-          result = await occtModule.makeCylinder(
+          const occtShape = occtModule.makeCylinder(
             request.params.radius,
             request.params.height
           );
-          // Add center and bbox info for compatibility
-          result.bbox = {
-            min: {
-              x: request.params.center.x - request.params.radius,
-              y: request.params.center.y - request.params.radius,
-              z: request.params.center.z
-            },
-            max: {
-              x: request.params.center.x + request.params.radius,
-              y: request.params.center.y + request.params.radius,
-              z: request.params.center.z + request.params.height
+
+          // Transform OCCT handle to our standard format
+          result = {
+            id: occtShape.id,
+            type: occtShape.type,
+            bbox: {
+              min: {
+                x: occtShape.bbox_min_x,
+                y: occtShape.bbox_min_y,
+                z: occtShape.bbox_min_z
+              },
+              max: {
+                x: occtShape.bbox_max_x,
+                y: occtShape.bbox_max_y,
+                z: occtShape.bbox_max_z
+              }
             }
           };
         } else {
@@ -118,18 +128,23 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
 
       case 'MAKE_SPHERE':
         if (isInitialized && occtModule) {
-          result = await occtModule.makeSphere(request.params.radius);
-          // Add center and bbox info for compatibility
-          result.bbox = {
-            min: {
-              x: request.params.center.x - request.params.radius,
-              y: request.params.center.y - request.params.radius,
-              z: request.params.center.z - request.params.radius
-            },
-            max: {
-              x: request.params.center.x + request.params.radius,
-              y: request.params.center.y + request.params.radius,
-              z: request.params.center.z + request.params.radius
+          const occtShape = occtModule.makeSphere(request.params.radius);
+
+          // Transform OCCT handle to our standard format
+          result = {
+            id: occtShape.id,
+            type: occtShape.type,
+            bbox: {
+              min: {
+                x: occtShape.bbox_min_x,
+                y: occtShape.bbox_min_y,
+                z: occtShape.bbox_min_z
+              },
+              max: {
+                x: occtShape.bbox_max_x,
+                y: occtShape.bbox_max_y,
+                z: occtShape.bbox_max_z
+              }
             }
           };
         } else {
@@ -152,7 +167,23 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
         if (isInitialized && occtModule && request.params.shapes.length >= 2) {
           let unionResult = request.params.shapes[0];
           for (let i = 1; i < request.params.shapes.length; i++) {
-            unionResult = await occtModule.booleanUnion(unionResult, request.params.shapes[i]);
+            const occtShape = occtModule.booleanUnion(unionResult!.id, request.params.shapes[i]!.id);
+            unionResult = {
+              id: occtShape.id,
+              type: occtShape.type,
+              bbox: {
+                min: {
+                  x: occtShape.bbox_min_x,
+                  y: occtShape.bbox_min_y,
+                  z: occtShape.bbox_min_z
+                },
+                max: {
+                  x: occtShape.bbox_max_x,
+                  y: occtShape.bbox_max_y,
+                  z: occtShape.bbox_max_z
+                }
+              }
+            };
           }
           result = unionResult;
         } else {
@@ -164,7 +195,23 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
         if (isInitialized && occtModule) {
           let subtractResult = request.params.base;
           for (const tool of request.params.tools) {
-            subtractResult = await occtModule.booleanSubtract(subtractResult, tool);
+            const occtShape = occtModule.booleanSubtract(subtractResult.id, tool.id);
+            subtractResult = {
+              id: occtShape.id,
+              type: occtShape.type,
+              bbox: {
+                min: {
+                  x: occtShape.bbox_min_x,
+                  y: occtShape.bbox_min_y,
+                  z: occtShape.bbox_min_z
+                },
+                max: {
+                  x: occtShape.bbox_max_x,
+                  y: occtShape.bbox_max_y,
+                  z: occtShape.bbox_max_z
+                }
+              }
+            };
           }
           result = subtractResult;
         } else {
@@ -179,7 +226,23 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
         if (isInitialized && occtModule && request.params.shapes.length >= 2) {
           let intersectResult = request.params.shapes[0];
           for (let i = 1; i < request.params.shapes.length; i++) {
-            intersectResult = await occtModule.booleanIntersect(intersectResult, request.params.shapes[i]);
+            const occtShape = occtModule.booleanIntersect(intersectResult!.id, request.params.shapes[i]!.id);
+            intersectResult = {
+              id: occtShape.id,
+              type: occtShape.type,
+              bbox: {
+                min: {
+                  x: occtShape.bbox_min_x,
+                  y: occtShape.bbox_min_y,
+                  z: occtShape.bbox_min_z
+                },
+                max: {
+                  x: occtShape.bbox_max_x,
+                  y: occtShape.bbox_max_y,
+                  z: occtShape.bbox_max_z
+                }
+              }
+            };
           }
           result = intersectResult;
         } else {
@@ -189,8 +252,8 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
 
       case 'TESSELLATE':
         if (isInitialized && occtModule) {
-          const mesh = await occtModule.tessellate(
-            request.params.shape,
+          const mesh = occtModule.tessellate(
+            request.params.shape.id,
             request.params.deflection
           );
           result = {
@@ -210,7 +273,11 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
         break;
 
       case 'DISPOSE':
-        mockGeometry.dispose(request.params.handle);
+        if (isInitialized && occtModule) {
+          occtModule.deleteShape(request.params.handle);
+        } else {
+          mockGeometry.dispose(request.params.handle);
+        }
         result = { disposed: true };
         break;
 

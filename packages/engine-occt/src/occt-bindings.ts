@@ -1,172 +1,329 @@
 // OCCT.wasm TypeScript Bindings
-// Auto-generated scaffold - implement actual bindings
+// Real OCCT integration with WebAssembly
 
 export interface OCCTModule {
   // Geometry operations
-  makeBox(dx: number, dy: number, dz: number): Promise<ShapeHandle>;
-  makeSphere(radius: number): Promise<ShapeHandle>;
-  makeCylinder(radius: number, height: number): Promise<ShapeHandle>;
+  makeBox(dx: number, dy: number, dz: number): ShapeHandle;
+  makeSphere(radius: number): ShapeHandle;
+  makeCylinder(radius: number, height: number): ShapeHandle;
 
   // Boolean operations
-  booleanUnion(shape1: ShapeHandle, shape2: ShapeHandle): Promise<ShapeHandle>;
-  booleanSubtract(shape1: ShapeHandle, shape2: ShapeHandle): Promise<ShapeHandle>;
-  booleanIntersect(shape1: ShapeHandle, shape2: ShapeHandle): Promise<ShapeHandle>;
+  booleanUnion(shape1Id: string, shape2Id: string): ShapeHandle;
+  booleanSubtract(shape1Id: string, shape2Id: string): ShapeHandle;
+  booleanIntersect(shape1Id: string, shape2Id: string): ShapeHandle;
+
+  // Feature operations
+  makeFillet(shapeId: string, radius: number): ShapeHandle;
+  makeChamfer(shapeId: string, distance: number): ShapeHandle;
 
   // Tessellation
-  tessellate(shape: ShapeHandle, deflection: number): Promise<MeshData>;
+  tessellate(shapeId: string, precision?: number, angle?: number): MeshData;
+  tessellateWithParams(shapeId: string, precision: number, angle: number): MeshData;
 
-  // STEP I/O
-  importSTEP(data: ArrayBuffer): Promise<ShapeHandle[]>;
-  exportSTEP(shapes: ShapeHandle[]): Promise<ArrayBuffer>;
+  // Memory management
+  deleteShape(shapeId: string): void;
+  getShapeCount(): number;
+
+  // Vector types for interfacing with Emscripten
+  VectorFloat: any;
+  VectorUint: any;
 }
 
 export interface ShapeHandle {
   id: string;
   type: 'solid' | 'surface' | 'curve';
+  bbox_min_x: number;
+  bbox_min_y: number;
+  bbox_min_z: number;
+  bbox_max_x: number;
+  bbox_max_y: number;
+  bbox_max_z: number;
+  hash: string;
 }
 
 export interface MeshData {
   positions: Float32Array;
   normals: Float32Array;
   indices: Uint32Array;
+  edges: Uint32Array;
 }
 
-// Module loader
+// Module loader with real OCCT WASM integration
 let occtModule: OCCTModule | null = null;
 let wasmModule: any = null;
+let wasmLoaded = false;
+
+/**
+ * Memory management utilities for OCCT shapes
+ */
+export class OCCTMemoryManager {
+  private static trackedShapes = new Set<string>();
+
+  static trackShape(shapeId: string): void {
+    this.trackedShapes.add(shapeId);
+  }
+
+  static untrackShape(shapeId: string): void {
+    this.trackedShapes.delete(shapeId);
+  }
+
+  static getTrackedShapes(): string[] {
+    return Array.from(this.trackedShapes);
+  }
+
+  static getShapeCount(): number {
+    return this.trackedShapes.size;
+  }
+
+  static cleanup(): void {
+    if (occtModule && wasmLoaded) {
+      // Clean up all tracked shapes
+      for (const shapeId of this.trackedShapes) {
+        try {
+          occtModule.deleteShape(shapeId);
+        } catch (error) {
+          console.warn(`Failed to delete shape ${shapeId}:`, error);
+        }
+      }
+    }
+    this.trackedShapes.clear();
+  }
+}
 
 export async function loadOCCT(): Promise<OCCTModule> {
   if (occtModule) return occtModule;
 
-  let wasmLoaded = false;
-
   try {
     // Try to dynamically import the WASM module
-    // In production deployment, this may fail if WASM files aren't accessible
-    // Using dynamic import to make this truly optional at runtime
     const wasmPath = '../wasm/occt.js';
     const createModule = await import(wasmPath);
     wasmModule = await (createModule as any).createOCCTModule();
     wasmLoaded = true;
     console.log('OCCT WASM module loaded successfully');
+
+    // Verify the module has the expected functions
+    if (!wasmModule.makeBox || !wasmModule.tessellate) {
+      throw new Error('OCCT WASM module missing expected functions');
+    }
+
   } catch (error: unknown) {
     // This catch handles both import failures and WASM initialization failures
-    console.warn('Failed to load OCCT WASM module, using mock implementation');
+    console.warn('Failed to load OCCT WASM module, falling back to mock implementation');
     console.log('Note: This is expected in production deployment where WASM files are not available');
+    wasmLoaded = false;
   }
 
-  // Create OCCT module with mock implementations
-  // In the future, when wasmLoaded is true, these can call actual WASM functions
-  occtModule = {
-    makeBox: async (dx, dy, dz) => {
-      console.log(`Creating box: ${dx} x ${dy} x ${dz}`);
+  // Create OCCT module with real WASM implementation or fallback to mock
+  if (wasmLoaded && wasmModule) {
+    // Real OCCT WASM implementation
+    occtModule = {
+      makeBox: (dx: number, dy: number, dz: number): ShapeHandle => {
+        console.log(`Creating OCCT box: ${dx} x ${dy} x ${dz}`);
+        try {
+          const shape = wasmModule.makeBox(dx, dy, dz);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to create box - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT makeBox failed:', error);
+          throw new Error(`Failed to create box: ${error instanceof Error ? error.message : error}`);
+        }
+      },
 
-      // Generate a unique shape handle
-      const handle: ShapeHandle = {
-        id: `box_${Math.random().toString(36).substring(7)}`,
-        type: 'solid'
-      };
+      makeSphere: (radius: number): ShapeHandle => {
+        console.log(`Creating OCCT sphere: radius ${radius}`);
+        try {
+          const shape = wasmModule.makeSphere(radius);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to create sphere - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT makeSphere failed:', error);
+          throw new Error(`Failed to create sphere: ${error instanceof Error ? error.message : error}`);
+        }
+      },
 
-      // Store the box parameters for later use
-      // In a real implementation, this would call OCCT C++ functions
-      return handle;
-    },
+      makeCylinder: (radius: number, height: number): ShapeHandle => {
+        console.log(`Creating OCCT cylinder: radius ${radius}, height ${height}`);
+        try {
+          const shape = wasmModule.makeCylinder(radius, height);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to create cylinder - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT makeCylinder failed:', error);
+          throw new Error(`Failed to create cylinder: ${error instanceof Error ? error.message : error}`);
+        }
+      },
 
-    makeSphere: async (radius) => {
-      console.log(`Creating sphere: radius ${radius}`);
+      booleanUnion: (shape1Id: string, shape2Id: string): ShapeHandle => {
+        console.log(`OCCT boolean union: ${shape1Id} ∪ ${shape2Id}`);
+        const shape = wasmModule.booleanUnion(shape1Id, shape2Id);
+        OCCTMemoryManager.trackShape(shape.id);
+        return shape;
+      },
 
-      const handle: ShapeHandle = {
-        id: `sphere_${Math.random().toString(36).substring(7)}`,
-        type: 'solid'
-      };
+      booleanSubtract: (shape1Id: string, shape2Id: string): ShapeHandle => {
+        console.log(`OCCT boolean subtract: ${shape1Id} - ${shape2Id}`);
+        const shape = wasmModule.booleanSubtract(shape1Id, shape2Id);
+        OCCTMemoryManager.trackShape(shape.id);
+        return shape;
+      },
 
-      return handle;
-    },
+      booleanIntersect: (shape1Id: string, shape2Id: string): ShapeHandle => {
+        console.log(`OCCT boolean intersect: ${shape1Id} ∩ ${shape2Id}`);
+        const shape = wasmModule.booleanIntersect(shape1Id, shape2Id);
+        OCCTMemoryManager.trackShape(shape.id);
+        return shape;
+      },
 
-    makeCylinder: async (radius, height) => {
-      console.log(`Creating cylinder: radius ${radius}, height ${height}`);
+      makeFillet: (shapeId: string, radius: number): ShapeHandle => {
+        console.log(`OCCT fillet: ${shapeId} with radius ${radius}`);
+        const shape = wasmModule.makeFillet(shapeId, radius);
+        OCCTMemoryManager.trackShape(shape.id);
+        return shape;
+      },
 
-      const handle: ShapeHandle = {
-        id: `cylinder_${Math.random().toString(36).substring(7)}`,
-        type: 'solid'
-      };
+      makeChamfer: (shapeId: string, distance: number): ShapeHandle => {
+        console.log(`OCCT chamfer: ${shapeId} with distance ${distance}`);
+        const shape = wasmModule.makeChamfer(shapeId, distance);
+        OCCTMemoryManager.trackShape(shape.id);
+        return shape;
+      },
 
-      return handle;
-    },
+      tessellate: (shapeId: string, precision = 0.1, angle = 0.5): MeshData => {
+        console.log(`OCCT tessellating: ${shapeId} with precision ${precision}`);
+        try {
+          const rawMesh = wasmModule.tessellate(shapeId, precision, angle);
+          if (!rawMesh || !rawMesh.positions) {
+            throw new Error('OCCT failed to tessellate - invalid mesh data returned');
+          }
 
-    booleanUnion: async (shape1, shape2) => {
-      console.log(`Boolean union: ${shape1.id} ∪ ${shape2.id}`);
+          // Convert WASM vectors to TypedArrays
+          return {
+            positions: new Float32Array(rawMesh.positions),
+            normals: new Float32Array(rawMesh.normals),
+            indices: new Uint32Array(rawMesh.indices),
+            edges: new Uint32Array(rawMesh.edges)
+          };
+        } catch (error) {
+          console.error('OCCT tessellate failed:', error);
+          throw new Error(`Failed to tessellate shape: ${error instanceof Error ? error.message : error}`);
+        }
+      },
 
-      const handle: ShapeHandle = {
-        id: `union_${Math.random().toString(36).substring(7)}`,
-        type: 'solid'
-      };
+      tessellateWithParams: (shapeId: string, precision: number, angle: number): MeshData => {
+        return occtModule!.tessellate(shapeId, precision, angle);
+      },
 
-      return handle;
-    },
+      deleteShape: (shapeId: string): void => {
+        wasmModule.deleteShape(shapeId);
+        OCCTMemoryManager.untrackShape(shapeId);
+      },
 
-    booleanSubtract: async (shape1, shape2) => {
-      console.log(`Boolean subtract: ${shape1.id} - ${shape2.id}`);
+      getShapeCount: (): number => {
+        return wasmModule.getShapeCount();
+      },
 
-      const handle: ShapeHandle = {
-        id: `subtract_${Math.random().toString(36).substring(7)}`,
-        type: 'solid'
-      };
+      VectorFloat: wasmModule.VectorFloat,
+      VectorUint: wasmModule.VectorUint
+    };
+  } else {
+    // Fallback mock implementation
+    occtModule = {
+      makeBox: (dx: number, dy: number, dz: number): ShapeHandle => {
+        console.log(`Mock creating box: ${dx} x ${dy} x ${dz}`);
+        return createMockHandle('box', 'solid');
+      },
 
-      return handle;
-    },
+      makeSphere: (radius: number): ShapeHandle => {
+        console.log(`Mock creating sphere: radius ${radius}`);
+        return createMockHandle('sphere', 'solid');
+      },
 
-    booleanIntersect: async (shape1, shape2) => {
-      console.log(`Boolean intersect: ${shape1.id} ∩ ${shape2.id}`);
+      makeCylinder: (radius: number, height: number): ShapeHandle => {
+        console.log(`Mock creating cylinder: radius ${radius}, height ${height}`);
+        return createMockHandle('cylinder', 'solid');
+      },
 
-      const handle: ShapeHandle = {
-        id: `intersect_${Math.random().toString(36).substring(7)}`,
-        type: 'solid'
-      };
+      booleanUnion: (shape1Id: string, shape2Id: string): ShapeHandle => {
+        console.log(`Mock boolean union: ${shape1Id} ∪ ${shape2Id}`);
+        return createMockHandle('union', 'solid');
+      },
 
-      return handle;
-    },
+      booleanSubtract: (shape1Id: string, shape2Id: string): ShapeHandle => {
+        console.log(`Mock boolean subtract: ${shape1Id} - ${shape2Id}`);
+        return createMockHandle('subtract', 'solid');
+      },
 
-    tessellate: async (shape, deflection) => {
-      console.log(`Tessellating shape: ${shape.id} with deflection ${deflection}`);
+      booleanIntersect: (shape1Id: string, shape2Id: string): ShapeHandle => {
+        console.log(`Mock boolean intersect: ${shape1Id} ∩ ${shape2Id}`);
+        return createMockHandle('intersect', 'solid');
+      },
 
-      // Generate basic mesh data for testing
-      // In a real implementation, this would tessellate the actual OCCT shape
-      const meshData: MeshData = generateBasicMesh(shape, deflection);
+      makeFillet: (shapeId: string, radius: number): ShapeHandle => {
+        console.log(`Mock fillet: ${shapeId} with radius ${radius}`);
+        return createMockHandle('fillet', 'solid');
+      },
 
-      return meshData;
-    },
+      makeChamfer: (shapeId: string, distance: number): ShapeHandle => {
+        console.log(`Mock chamfer: ${shapeId} with distance ${distance}`);
+        return createMockHandle('chamfer', 'solid');
+      },
 
-    importSTEP: async (data) => {
-      console.log(`Importing STEP file: ${data.byteLength} bytes`);
+      tessellate: (shapeId: string, precision = 0.1, angle = 0.5): MeshData => {
+        console.log(`Mock tessellating: ${shapeId} with precision ${precision}`);
+        return generateBasicMesh(shapeId, precision);
+      },
 
-      // Placeholder for STEP import
-      const handles: ShapeHandle[] = [{
-        id: `step_import_${Math.random().toString(36).substring(7)}`,
-        type: 'solid'
-      }];
+      tessellateWithParams: (shapeId: string, precision: number, angle: number): MeshData => {
+        return occtModule!.tessellate(shapeId, precision, angle);
+      },
 
-      return handles;
-    },
+      deleteShape: (shapeId: string): void => {
+        console.log(`Mock deleting shape: ${shapeId}`);
+      },
 
-    exportSTEP: async (shapes) => {
-      console.log(`Exporting ${shapes.length} shapes to STEP`);
+      getShapeCount: (): number => {
+        return 0;
+      },
 
-      // Placeholder for STEP export
-      const stepData = new ArrayBuffer(1024);
-
-      return stepData;
-    }
-  };
+      VectorFloat: null,
+      VectorUint: null
+    };
+  }
 
   return occtModule;
 }
 
 /**
- * Generate basic mesh data for testing
- * This will be replaced with actual OCCT tessellation
+ * Create a mock shape handle for fallback implementation
  */
-function generateBasicMesh(shape: ShapeHandle, deflection: number): MeshData {
+function createMockHandle(prefix: string, type: 'solid' | 'surface' | 'curve'): ShapeHandle {
+  const id = `${prefix}_${Math.random().toString(36).substring(7)}`;
+  return {
+    id,
+    type,
+    bbox_min_x: -50,
+    bbox_min_y: -50,
+    bbox_min_z: -50,
+    bbox_max_x: 50,
+    bbox_max_y: 50,
+    bbox_max_z: 50,
+    hash: id.substring(0, 16)
+  };
+}
+
+/**
+ * Generate basic mesh data for testing (fallback implementation)
+ */
+function generateBasicMesh(shapeId: string, deflection: number): MeshData {
   // Generate a simple box mesh for testing
   const size = 50;
 
@@ -210,5 +367,5 @@ function generateBasicMesh(shape: ShapeHandle, deflection: number): MeshData {
     0, 4, 5, 0, 5, 1
   ]);
 
-  return { positions, normals, indices };
+  return { positions, normals, indices, edges: new Uint32Array([0, 1, 2, 3]) };
 }
