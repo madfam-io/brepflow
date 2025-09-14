@@ -95,7 +95,8 @@ export const sweepCommand = new Command('sweep')
             console.log(chalk.green(`[${variantIndex + 1}/${parameterSets.length}] ✓ Variant complete`));
 
           } catch (error) {
-            console.log(chalk.red(`[${variantIndex + 1}/${parameterSets.length}] ✗ Variant failed: ${error.message}`));
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            console.log(chalk.red(`[${variantIndex + 1}/${parameterSets.length}] ✗ Variant failed: ${errorMessage}`));
             results.push({
               index: variantIndex,
               parameters: params,
@@ -130,7 +131,8 @@ export const sweepCommand = new Command('sweep')
       console.log(chalk.gray(`Output directory: ${outputDir}`));
 
     } catch (error) {
-      spinner.fail(`Error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      spinner.fail(`Error: ${errorMessage}`);
       process.exit(1);
     }
   });

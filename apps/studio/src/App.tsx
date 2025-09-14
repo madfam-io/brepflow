@@ -142,7 +142,7 @@ function AppContent() {
             deleteKeyCode="Delete"
             fitView
           >
-            <Background variant="dots" gap={12} size={1} />
+            <Background variant={'dots' as any} gap={12} size={1} />
             <Controls />
             <MiniMap />
             <Panel position="top-left">
@@ -164,7 +164,7 @@ function AppContent() {
       </div>
 
       <div className="sidebar-right">
-        <Inspector selectedNode={selectedNode} onParamChange={updateNode} />
+        <Inspector selectedNode={selectedNode || null} onParamChange={updateNode} />
       </div>
     </div>
   );

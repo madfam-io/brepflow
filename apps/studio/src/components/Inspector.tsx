@@ -84,7 +84,7 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
             <div key={key} className="inspector-field">
               <label>{key}</label>
               <div className="inspector-value">
-                {value ? '✓ Computed' : '⏳ Pending'}
+                {value ? <span>✓ Computed</span> : <span>⏳ Pending</span>}
               </div>
             </div>
           ))}
@@ -96,7 +96,7 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
           <h4>State</h4>
           <div className="inspector-state">
             {selectedNode.state.error ? (
-              <div className="error">❌ {selectedNode.state.error}</div>
+              <div className="error">❌ {String(selectedNode.state.error)}</div>
             ) : selectedNode.dirty ? (
               <div className="warning">⚠️ Needs evaluation</div>
             ) : (

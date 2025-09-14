@@ -98,5 +98,5 @@ function getNodeLabel(node: NodeInstance): string {
     }
   }
 
-  return label;
+  return label || 'Unknown';
 }

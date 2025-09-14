@@ -48,7 +48,8 @@ export const infoCommand = new Command('info')
       }
 
     } catch (error) {
-      console.error(chalk.red(`Error: ${error.message}`));
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(chalk.red(`Error: ${errorMessage}`));
       process.exit(1);
     }
   });

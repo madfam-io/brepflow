@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
 import fs from 'fs-extra';
+import path from 'path';
 import Ajv from 'ajv';
 import type { GraphInstance } from '@brepflow/types';
 import { GraphManager } from '@brepflow/engine-core';

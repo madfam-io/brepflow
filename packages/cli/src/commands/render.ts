@@ -107,7 +107,8 @@ export const renderCommand = new Command('render')
       console.log(chalk.gray(`Output directory: ${outputDir}`));
 
     } catch (error) {
-      spinner.fail(`Error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      spinner.fail(`Error: ${errorMessage}`);
       if (options.verbose) {
         console.error(error);
       }
