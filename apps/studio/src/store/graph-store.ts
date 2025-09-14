@@ -14,6 +14,9 @@ import {
 } from '@brepflow/engine-core';
 import { getGeometryAPI } from '@brepflow/engine-occt';
 import { registerCoreNodes } from '@brepflow/nodes-core';
+import { ErrorManager } from '../lib/error-handling/error-manager';
+import { ErrorCode } from '../lib/error-handling/types';
+import { MetricsCollector } from '../lib/monitoring/metrics-collector';
 
 // Register core nodes on initialization
 registerCoreNodes();
@@ -75,9 +78,39 @@ export const useGraphStore = create<GraphState>()(
           const geometryAPI = getGeometryAPI(); // Uses OCCT by default now
           await geometryAPI.init();
           console.log('🚀 Geometry API initialized successfully');
+
+          // Record successful initialization
+          try {
+            const metricsCollector = MetricsCollector.getInstance();
+            metricsCollector.incrementCounter('geometry_api_initializations', { status: 'success' });
+          } catch (e) {
+            // Metrics collector might not be ready yet
+          }
+
           return new DAGEngine({ worker: geometryAPI });
         } catch (error) {
           console.error('❌ Failed to initialize geometry API:', error);
+
+          // Report error to monitoring system
+          try {
+            const errorManager = ErrorManager.getInstance();
+            errorManager.fromJavaScriptError(
+              error instanceof Error ? error : new Error(String(error)),
+              ErrorCode.GEOMETRY_ENGINE_NOT_INITIALIZED,
+              {
+                context: {
+                  wasmSupport: crossOriginIsolated,
+                  initializationAttempt: 'primary'
+                }
+              }
+            );
+
+            const metricsCollector = MetricsCollector.getInstance();
+            metricsCollector.incrementCounter('geometry_api_initializations', { status: 'failed_fallback' });
+          } catch (e) {
+            // Monitoring system might not be ready yet
+          }
+
           // Fall back to mock mode
           const mockGeometryAPI = getGeometryAPI(true);
           await mockGeometryAPI.init();
@@ -171,15 +204,55 @@ export const useGraphStore = create<GraphState>()(
           const { dagEngine, graphManager } = get();
           if (!dagEngine) {
             console.warn('DAG engine not initialized');
+
+            // Report engine not ready error
+            try {
+              const errorManager = ErrorManager.getInstance();
+              errorManager.createError(
+                ErrorCode.GEOMETRY_ENGINE_NOT_INITIALIZED,
+                'DAG engine not initialized',
+                {
+                  userMessage: 'Geometry engine is not ready. Please wait a moment and try again.'
+                }
+              );
+            } catch (e) {
+              // Error manager not ready
+            }
+
             return;
           }
 
           set({ isEvaluating: true, evaluationProgress: 0 });
 
+          const startTime = performance.now();
+
           try {
             const dirtyNodes = graphManager.getDirtyNodes();
+
+            // Record evaluation metrics
+            try {
+              const metricsCollector = MetricsCollector.getInstance();
+              metricsCollector.incrementCounter('graph_evaluations_started', {
+                dirtyNodeCount: dirtyNodes.length.toString()
+              });
+            } catch (e) {
+              // Metrics collector not ready
+            }
+
             await dagEngine.evaluate(graphManager.getGraph(), dirtyNodes);
             graphManager.clearDirtyFlags();
+
+            const duration = performance.now() - startTime;
+
+            // Record successful evaluation
+            try {
+              const metricsCollector = MetricsCollector.getInstance();
+              metricsCollector.recordTiming('graph_evaluation_duration_ms', duration);
+              metricsCollector.incrementCounter('graph_evaluations_completed', { status: 'success' });
+            } catch (e) {
+              // Metrics collector not ready
+            }
+
             set({
               graph: graphManager.getGraph(),
               isEvaluating: false,
@@ -187,6 +260,31 @@ export const useGraphStore = create<GraphState>()(
             });
           } catch (error) {
             console.error('Evaluation failed:', error);
+
+            const duration = performance.now() - startTime;
+
+            // Report evaluation error
+            try {
+              const errorManager = ErrorManager.getInstance();
+              errorManager.fromJavaScriptError(
+                error instanceof Error ? error : new Error(String(error)),
+                ErrorCode.EVALUATION_TIMEOUT,
+                {
+                  context: {
+                    evaluationDuration: duration,
+                    nodeCount: graphManager.getGraph().nodes.length,
+                    edgeCount: graphManager.getGraph().edges.length
+                  }
+                }
+              );
+
+              const metricsCollector = MetricsCollector.getInstance();
+              metricsCollector.recordTiming('graph_evaluation_duration_ms', duration, { status: 'failed' });
+              metricsCollector.incrementCounter('graph_evaluations_completed', { status: 'failed' });
+            } catch (e) {
+              // Monitoring system not ready
+            }
+
             set({
               isEvaluating: false,
               evaluationProgress: 0,
