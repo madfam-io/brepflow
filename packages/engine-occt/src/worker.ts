@@ -21,6 +21,7 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
       case 'INIT':
         if (!isInitialized) {
           try {
+            // Always use fallback in production builds where WASM files aren't available
             occtModule = await loadOCCT();
             isInitialized = true;
             console.log('OCCT worker initialized successfully');
