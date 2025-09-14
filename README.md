@@ -9,7 +9,7 @@ by **Aureo Labs** — a **MADFAM** company
 
 * **Site**: [https://brepflow.com](https://brepflow.com)
 * **Studio (app)**: `/apps/studio`
-* **Docs**: `docs/` (coming soon)
+* **Docs**: `docs/`
 
 ---
 
@@ -265,7 +265,7 @@ Plugins run in a sandboxed worker and cannot access DOM/network without explicit
 
 We welcome issues, PRs, and node plugins.
 
-1. Read **CONTRIBUTING.md** and **CODE\_OF\_CONDUCT.md**.
+1. Read [docs/development/CONTRIBUTING.md](docs/development/CONTRIBUTING.md) and **CODE\_OF\_CONDUCT.md**.
 2. Fork, create a feature branch, run `pnpm test` before PR.
 3. For geometry changes, include a new **golden STEP** in `/packages/examples/golden/`.
 
@@ -306,11 +306,11 @@ Anonymous aggregates only (compute timings, feature usage). Off by default. Enab
 
 ## Roadmap & Community
 
-* **Roadmap**: See [ROADMAP.md](ROADMAP.md) for detailed development timeline
-* **Architecture**: See [ARCHITECTURE.md](ARCHITECTURE.md) for system design details
-* **API Reference**: See [API.md](API.md) for complete API documentation
-* **Contributing**: See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
-* **Setup**: See [SETUP.md](SETUP.md) for detailed development environment setup
+* **Roadmap**: See [docs/project/ROADMAP.md](docs/project/ROADMAP.md) for detailed development timeline
+* **Architecture**: See [docs/technical/ARCHITECTURE.md](docs/technical/ARCHITECTURE.md) for system design details
+* **API Reference**: See [docs/technical/API.md](docs/technical/API.md) for complete API documentation
+* **Contributing**: See [docs/development/CONTRIBUTING.md](docs/development/CONTRIBUTING.md) for contribution guidelines
+* **Setup**: See [docs/development/SETUP.md](docs/development/SETUP.md) for detailed development environment setup
 
 * Join the conversation on **Discord** (link soon) and **GitHub Discussions**.
 * Follow updates: @aureolabs on X/GitHub; blog at [https://aureolabs.dev](https://aureolabs.dev).
