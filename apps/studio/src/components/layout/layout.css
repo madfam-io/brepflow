@@ -1,0 +1,613 @@
+/* Layout System Styles */
+
+.workbench-layout {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.workbench-layout.focus-mode {
+  position: relative;
+}
+
+.main-panel-group {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.main-content-group {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Panel Wrapper */
+.panel-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.panel-wrapper[data-panel="nodePanel"] {
+  background: var(--bg-secondary);
+}
+
+.panel-wrapper[data-panel="nodeEditor"] {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-wrapper[data-panel="viewport3d"] {
+  background: var(--bg-primary);
+}
+
+.panel-wrapper[data-panel="inspector"] {
+  background: var(--bg-secondary);
+}
+
+.panel-wrapper[data-panel="console"] {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border);
+}
+
+/* Resizable Panel */
+.resizable-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.resizable-panel.hidden {
+  display: none;
+}
+
+.resizable-panel.minimized .panel-content {
+  display: none;
+}
+
+.resizable-panel.focused {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1000;
+  background: var(--bg-primary);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+}
+
+.resizable-panel.dimmed {
+  pointer-events: none;
+}
+
+/* Panel Header */
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  min-height: 32px;
+  user-select: none;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.minimized-indicator {
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.panel-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.panel-control-button {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 3px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.panel-control-button:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.panel-control-button.focus-button:hover {
+  color: var(--accent);
+}
+
+.panel-control-button.close-button:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Panel Content */
+.panel-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel Resize Handles */
+.panel-resize-handle {
+  background: var(--border);
+  transition: all 0.2s ease;
+}
+
+.panel-resize-handle:hover,
+.panel-resize-handle[data-resize-handle-state="hover"] {
+  background: var(--accent);
+}
+
+.panel-resize-handle[data-resize-handle-active] {
+  background: var(--accent);
+}
+
+.panel-resize-handle:not(.horizontal) {
+  width: 4px;
+  cursor: ew-resize;
+}
+
+.panel-resize-handle.horizontal {
+  height: 4px;
+  cursor: ns-resize;
+}
+
+/* Console Panel */
+.console-panel {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border);
+  resize: vertical;
+  overflow: hidden;
+}
+
+/* Layout Controls */
+.layout-controls {
+  position: fixed;
+  z-index: 999;
+}
+
+.layout-controls.floating {
+  top: 60px;
+  right: 20px;
+}
+
+.layout-controls.top {
+  top: 10px;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.layout-controls.bottom {
+  bottom: 20px;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.layout-controls.focus-mode {
+  top: 20px;
+  left: 20px;
+}
+
+.layout-controls-toggle {
+  width: 48px;
+  height: 48px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.layout-controls-toggle:hover {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.layout-controls-menu {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 320px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.control-section {
+  margin-bottom: 20px;
+}
+
+.control-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-header {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 8px 0;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+  transition: color 0.2s ease;
+}
+
+.section-header:hover {
+  color: var(--accent);
+}
+
+/* Layout Presets */
+.preset-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.preset-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  background: var(--bg-tertiary);
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.preset-button:hover {
+  background: var(--bg-primary);
+  border-color: var(--border);
+}
+
+.preset-button.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.preset-icon {
+  font-size: 20px;
+}
+
+.preset-name {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Panel Controls */
+.panel-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.panel-toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-toggle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg-tertiary);
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.panel-toggle:hover {
+  background: var(--bg-primary);
+  border-color: var(--border);
+}
+
+.panel-toggle.visible {
+  background: var(--accent);
+  color: white;
+}
+
+.panel-toggle.hidden {
+  opacity: 0.6;
+}
+
+.panel-icon {
+  font-size: 14px;
+}
+
+.panel-name {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.panel-minimize {
+  width: 28px;
+  height: 28px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.panel-minimize:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.panel-minimize.minimized {
+  background: var(--warning);
+  color: white;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.action-button {
+  padding: 8px 12px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.action-button:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.action-button.danger {
+  background: var(--error);
+  color: white;
+  border-color: var(--error);
+}
+
+.action-button.danger:hover {
+  background: #dc2626;
+}
+
+/* Exit Focus Button */
+.exit-focus-button {
+  padding: 12px 20px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.exit-focus-button:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* Dialog Styles */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.dialog {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  width: 400px;
+  max-width: 90vw;
+}
+
+.dialog.large {
+  width: 600px;
+}
+
+.dialog h3 {
+  margin: 0 0 16px 0;
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.dialog input,
+.dialog textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.dialog input:focus,
+.dialog textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.dialog textarea {
+  resize: vertical;
+  font-family: 'Courier New', monospace;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.dialog-actions button {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.dialog-actions button:first-child {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+.dialog-actions button:first-child:hover {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.dialog-actions button:last-child {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.dialog-actions button:last-child:hover {
+  background: #4f46e5;
+}
+
+.dialog-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .layout-controls.floating {
+    top: 10px;
+    right: 10px;
+  }
+
+  .layout-controls-menu {
+    width: 280px;
+    max-height: 60vh;
+  }
+
+  .preset-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dialog {
+    width: 320px;
+    padding: 16px;
+  }
+
+  .dialog.large {
+    width: 320px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .layout-controls-menu {
+    width: 300px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .resizable-panel,
+  .panel-control-button,
+  .layout-controls-toggle,
+  .preset-button,
+  .panel-toggle,
+  .action-button {
+    transition: none;
+  }
+
+  .layout-controls-toggle {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .panel-resize-handle {
+    background: var(--text-primary);
+  }
+
+  .panel-resize-handle:hover,
+  .panel-resize-handle[data-resize-handle-state="hover"],
+  .panel-resize-handle[data-resize-handle-active] {
+    background: var(--accent);
+  }
+}

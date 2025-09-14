@@ -1,0 +1,894 @@
+/* Welcome Screen Styles */
+.welcome-screen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  overflow: auto;
+}
+
+.welcome-screen-content {
+  max-width: 800px;
+  margin: 2rem;
+  text-align: center;
+  color: white;
+}
+
+.welcome-header {
+  margin-bottom: 3rem;
+}
+
+.logo-animation {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.welcome-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #fff, #e6f3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.skill-question {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+.skill-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.skill-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  color: #2d3748;
+  cursor: pointer;
+  position: relative;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.skill-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.skill-card.recommended {
+  border-color: #10b981;
+  box-shadow: 0 0 0 1px #10b981, 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.skill-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.skill-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1a202c;
+}
+
+.skill-description {
+  font-size: 1rem;
+  opacity: 0.8;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+.recommended-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #10b981;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  transform: rotate(12deg);
+}
+
+.welcome-footer {
+  margin-top: 2rem;
+  opacity: 0.8;
+}
+
+.welcome-promise {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Playground Manager Styles */
+.playground-manager {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.playground-content {
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+.playground-header {
+  margin-bottom: 3rem;
+}
+
+.playground-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #fff, #e6f3ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.playground-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.playground-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.playground-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  color: #2d3748;
+  cursor: pointer;
+  position: relative;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.playground-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.playground-card.active {
+  border-color: #10b981;
+  box-shadow: 0 0 0 1px #10b981, 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.playground-card.completed {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 1px #6366f1, 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.playground-encouragement {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* First Shape Playground Styles */
+.first-shape-playground {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  position: relative;
+}
+
+.playground-layout {
+  display: flex;
+  height: 100%;
+}
+
+.instructions-panel {
+  width: 400px;
+  background: white;
+  border-right: 1px solid #e2e8f0;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Hint System Styles */
+.hint-card {
+  position: fixed;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border: 2px solid transparent;
+  max-width: 320px;
+  min-width: 280px;
+}
+
+.hint-card.hint-low {
+  border-color: rgba(107, 114, 128, 0.3);
+}
+
+.hint-card.hint-medium {
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.hint-card.hint-high {
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2), 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Progress Tracker Styles */
+.progress-tracker {
+  background: white;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.progress-tracker.progress-sidebar {
+  width: 100%;
+  max-width: 320px;
+}
+
+.milestone {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 2px solid #e5e7eb;
+  background: white;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.milestone.active {
+  border-color: #6366f1;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.milestone.completed {
+  border-color: #10b981;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.05));
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+}
+
+/* Orchestrator Styles */
+.tour-overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.main-app-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.progress-tracker-container {
+  position: fixed;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  z-index: 100;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 2rem;
+  }
+
+  .skill-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-card {
+    padding: 1.5rem;
+  }
+
+  .playground-layout {
+    flex-direction: column;
+  }
+
+  .instructions-panel {
+    width: 100%;
+    height: 50vh;
+  }
+
+  .progress-tracker-container {
+    position: fixed;
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    transform: none;
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .progress-tracker-container {
+    position: fixed;
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    transform: none;
+    max-height: 200px;
+  }
+}
+
+/* Building Blocks Playground Styles */
+.building-blocks-playground {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.building-blocks-playground .playground-content {
+  background: white;
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+}
+
+.building-blocks-playground h2 {
+  font-size: 2rem;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.building-blocks-playground p {
+  font-size: 1.2rem;
+  color: #4a5568;
+  margin: 0;
+}
+
+/* Sketch to Solid Playground Styles */
+.sketch-to-solid-playground {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sketch-to-solid-playground .playground-content {
+  background: white;
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+}
+
+.sketch-to-solid-playground h2 {
+  font-size: 2rem;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.sketch-to-solid-playground p {
+  font-size: 1.2rem;
+  color: #4a5568;
+  margin: 0;
+}
+
+/* Additional HintSystem styles */
+.hint-system {
+  pointer-events: none;
+}
+
+.hint-system * {
+  pointer-events: auto;
+}
+
+.hint-toggle-global {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 999;
+}
+
+.global-hint-button {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(99, 102, 241, 0.3);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+  transition: all 0.3s ease;
+}
+
+.global-hint-button:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+/* Additional hint card styles */
+.hint-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hint-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.hint-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+  flex: 1;
+}
+
+.hint-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.hint-expand-button,
+.hint-dismiss-button {
+  background: none;
+  border: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+.hint-expand-button:hover,
+.hint-dismiss-button:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.hint-content {
+  margin-top: 0.75rem;
+  overflow: hidden;
+}
+
+.hint-content p {
+  color: #4a5568;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0 0 0.75rem 0;
+}
+
+.hint-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hint-settings-button {
+  background: #f3f4f6;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hint-settings-button:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* FirstShapePlayground specific styles */
+.instructions-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+.instructions-header p {
+  color: #4a5568;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.objectives-list {
+  margin-bottom: 2rem;
+}
+
+.objective {
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.objective.current {
+  border-color: #6366f1;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.objective.completed {
+  border-color: #10b981;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(5, 150, 105, 0.05));
+}
+
+.objective-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.objective-status {
+  font-size: 1.2rem;
+  margin-right: 0.75rem;
+}
+
+.objective-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+}
+
+.objective-description {
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.complete-objective-button {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  transition: background 0.2s ease;
+}
+
+.complete-objective-button:hover {
+  background: #5856eb;
+}
+
+.help-section {
+  background: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.help-section h4 {
+  color: #1e40af;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.help-tips p {
+  color: #1e3a8a;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.help-tips strong {
+  color: #1e40af;
+}
+
+.progress-indicator {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1.5rem;
+}
+
+.progress-bar {
+  background: #e2e8f0;
+  border-radius: 0.5rem;
+  height: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  height: 100%;
+  border-radius: 0.5rem;
+}
+
+.progress-text {
+  color: #4a5568;
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 0;
+}
+
+.workspace-placeholder {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.workspace-content {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+}
+
+.workspace-content h3 {
+  color: #2d3748;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.workspace-content p {
+  color: #4a5568;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.simulation-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.node-panel-demo,
+.viewport-demo {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.node-panel-demo h4,
+.viewport-demo h4 {
+  color: #2d3748;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.demo-nodes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.demo-node {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.demo-node:hover {
+  background: #f1f5f9;
+}
+
+.demo-viewport {
+  background: #1a202c;
+  border-radius: 0.5rem;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.demo-box {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.celebration-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.celebration-message {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* PlaygroundManager additional styles */
+.playground-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.playground-header-bar {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.exit-playground-button {
+  background: #6b7280;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.playground-active-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+}
+
+.playground-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.playground-card .playground-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a202c;
+  background: none;
+  -webkit-text-fill-color: initial;
+  margin: 0;
+}
+
+.completed-badge {
+  background: #10b981;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+}
+
+.playground-description {
+  font-size: 1rem;
+  opacity: 0.8;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.playground-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.difficulty-badge {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+}
+
+.time-estimate {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.playground-action {
+  text-align: center;
+}
+
+.start-button {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.start-button:hover {
+  background: #5856eb;
+}
+
+/* Missing FirstShapePlayground responsive styles */
+@media (max-width: 1024px) {
+  .playground-layout {
+    flex-direction: column;
+  }
+
+  .instructions-panel {
+    width: 100%;
+    height: 50vh;
+  }
+
+  .simulation-area {
+    grid-template-columns: 1fr;
+  }
+}

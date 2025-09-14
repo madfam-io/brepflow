@@ -18,7 +18,11 @@ import { NodePanel } from './components/NodePanel';
 import { Viewport } from './components/Viewport';
 import { Inspector } from './components/Inspector';
 import { Toolbar } from './components/Toolbar';
+import { Console } from './components/Console';
+import { OnboardingOrchestrator } from './components/onboarding/OnboardingOrchestrator';
+import { WorkbenchLayoutManager } from './components/layout/WorkbenchLayoutManager';
 import { useGraphStore } from './store/graph-store';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { convertToReactFlow, convertFromReactFlow } from './utils/graph-converter';
 import './App.css';
 
@@ -34,6 +38,9 @@ function AppContent() {
     selectNode,
     evaluateGraph,
   } = useGraphStore();
+
+  // Initialize keyboard shortcuts for layout system
+  useKeyboardShortcuts();
 
   // Convert graph to ReactFlow format
   const { nodes: rfNodes, edges: rfEdges } = convertToReactFlow(graph);
@@ -119,15 +126,11 @@ function AppContent() {
   }, [graph, evaluateGraph]);
 
   return (
-    <div className="app">
-      <Toolbar />
-
-      <div className="sidebar-left">
-        <NodePanel />
-      </div>
-
-      <div className="main-content">
-        <div className="node-editor">
+    <WorkbenchLayoutManager controlsPosition="floating">
+      {{
+        toolbar: <Toolbar />,
+        nodePanel: <NodePanel />,
+        nodeEditor: (
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -156,24 +159,21 @@ function AppContent() {
               </div>
             </Panel>
           </ReactFlow>
-        </div>
-
-        <div className="viewport-3d">
-          <Viewport />
-        </div>
-      </div>
-
-      <div className="sidebar-right">
-        <Inspector selectedNode={selectedNode || null} onParamChange={updateNode} />
-      </div>
-    </div>
+        ),
+        viewport3d: <Viewport />,
+        inspector: <Inspector selectedNode={selectedNode || null} onParamChange={updateNode} />,
+        console: <Console />
+      }}
+    </WorkbenchLayoutManager>
   );
 }
 
 function App() {
   return (
     <ReactFlowProvider>
-      <AppContent />
+      <OnboardingOrchestrator>
+        <AppContent />
+      </OnboardingOrchestrator>
     </ReactFlowProvider>
   );
 }
