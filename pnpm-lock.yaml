@@ -101,6 +101,9 @@ importers:
       three:
         specifier: ^0.167.0
         version: 0.167.1
+      uuid:
+        specifier: ^9.0.0
+        version: 9.0.1
       zustand:
         specifier: ^4.5.0
         version: 4.5.7(@types/react@18.3.24)(react@18.3.1)
@@ -114,6 +117,9 @@ importers:
       '@types/three':
         specifier: ^0.167.0
         version: 0.167.2
+      '@types/uuid':
+        specifier: ^9.0.0
+        version: 9.0.8
       '@vitejs/plugin-react':
         specifier: ^4.2.0
         version: 4.7.0(vite@5.4.20)
