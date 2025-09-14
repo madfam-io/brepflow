@@ -174,8 +174,10 @@ function displayInfo(info: any): void {
   if (info.parameters) {
     console.log(chalk.blue('\n⚙️ Parameters:'));
     for (const [key, values] of Object.entries(info.parameters)) {
-      const value = values[0];
-      console.log(chalk.gray(`  ${key}:`), value.value);
+      if (Array.isArray(values) && values.length > 0) {
+        const value = values[0];
+        console.log(chalk.gray(`  ${key}:`), value.value);
+      }
     }
   }
 

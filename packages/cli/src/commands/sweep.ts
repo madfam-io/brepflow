@@ -61,7 +61,13 @@ export const sweepCommand = new Command('sweep')
       // Process each parameter set
       console.log(chalk.blue(`\nProcessing ${parameterSets.length} variants...\n`));
 
-      const results = [];
+      const results: Array<{
+        index: number;
+        parameters: any;
+        timestamp: string;
+        success: boolean;
+        error?: string;
+      }> = [];
       const parallel = parseInt(options.parallel, 10);
 
       for (let i = 0; i < parameterSets.length; i += parallel) {
@@ -100,7 +106,8 @@ export const sweepCommand = new Command('sweep')
             results.push({
               index: variantIndex,
               parameters: params,
-              error: error.message,
+              timestamp: new Date().toISOString(),
+              error: errorMessage,
               success: false,
             });
           }
@@ -144,18 +151,21 @@ function parseCSV(content: string): any[] {
   const lines = content.trim().split('\n');
   if (lines.length < 2) return [];
 
-  const headers = lines[0].split(',').map(h => h.trim());
+  const headers = lines[0]?.split(',').map(h => h.trim()) || [];
   const paramSets = [];
 
   for (let i = 1; i < lines.length; i++) {
-    const values = lines[i].split(',').map(v => v.trim());
+    const values = lines[i]?.split(',').map(v => v.trim()) || [];
     const params: any = {};
 
-    for (let j = 0; j < headers.length; j++) {
+    for (let j = 0; j < Math.min(headers.length, values.length); j++) {
+      const header = headers[j];
       const value = values[j];
-      // Try to parse as number
-      const numValue = parseFloat(value);
-      params[headers[j]] = isNaN(numValue) ? value : numValue;
+      if (header && value !== undefined) {
+        // Try to parse as number
+        const numValue = parseFloat(value);
+        params[header] = isNaN(numValue) ? value : numValue;
+      }
     }
 
     paramSets.push(params);
@@ -200,12 +210,14 @@ async function renderVariant(
   // Apply parameters
   for (const param of params) {
     const [key, value] = param.split('=');
-    // Apply to all nodes with matching param names
-    for (const node of graph.nodes) {
-      if (node.params && key in node.params) {
-        const numValue = parseFloat(value);
-        node.params[key] = isNaN(numValue) ? value : numValue;
-        node.dirty = true;
+    if (key && value !== undefined) {
+      // Apply to all nodes with matching param names
+      for (const node of graph.nodes) {
+        if (node.params && key in node.params) {
+          const numValue = parseFloat(value);
+          node.params[key] = isNaN(numValue) ? value : numValue;
+          node.dirty = true;
+        }
       }
     }
   }

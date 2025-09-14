@@ -81,7 +81,8 @@ export const renderCommand = new Command('render')
           exportResults.push(result);
           spinner.succeed(`Exported ${result.filename}`);
         } catch (error) {
-          spinner.warn(`Failed to export ${format}: ${error.message}`);
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          spinner.warn(`Failed to export ${format}: ${errorMessage}`);
         }
       }
 

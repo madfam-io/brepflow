@@ -30,7 +30,8 @@ export const validateCommand = new Command('validate')
         graph = JSON.parse(graphContent);
         spinner.succeed('Graph loaded');
       } catch (error) {
-        spinner.fail(`Invalid JSON: ${error.message}`);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        spinner.fail(`Invalid JSON: ${errorMessage}`);
         process.exit(1);
       }
 
@@ -109,7 +110,8 @@ export const validateCommand = new Command('validate')
       }
 
     } catch (error) {
-      spinner.fail(`Error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      spinner.fail(`Error: ${errorMessage}`);
       process.exit(1);
     }
   });
@@ -143,7 +145,8 @@ async function validateSchema(graph: GraphInstance, schemaPath?: string): Promis
       });
     }
   } catch (error) {
-    errors.push(`Schema validation error: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    errors.push(`Schema validation error: ${errorMessage}`);
   }
 
   return errors;
