@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { devtools, subscribeWithSelector } from 'zustand/middleware';
 import type { LayoutStore, WorkbenchLayout, PanelId, PanelConfig, LayoutPresetId, ScreenSize, PanelSize, FocusMode } from '../types/layout';
 import { LAYOUT_PRESETS, getDefaultLayoutForScreenSize, getScreenSizeFromWidth } from '../config/layout-presets';
+import { getSafeLayout, validateLayout } from '../utils/layout-recovery';
 
 const STORAGE_KEY = 'brepflow-layout-state';
 const LAYOUTS_KEY = 'brepflow-saved-layouts';
@@ -52,19 +53,30 @@ function saveLayoutsToStorage(layouts: WorkbenchLayout[]) {
 
 function getInitialLayout(): WorkbenchLayout {
   const screenSize = getInitialScreenSize();
-  const storedLayout = getStoredLayout();
 
-  if (storedLayout && storedLayout.metadata.screenSize === screenSize) {
+  console.log('🖥️ Layout Initialization:', {
+    screenSize,
+    windowWidth: typeof window !== 'undefined' ? window.innerWidth : 'undefined'
+  });
+
+  // Use the safe layout recovery function
+  const layout = getSafeLayout();
+
+  // Validate the screen size matches current window
+  if (layout.metadata.screenSize !== screenSize) {
+    console.log('📱 Screen size changed, adapting layout');
+    const adaptedLayout = getDefaultLayoutForScreenSize(screenSize);
     return {
-      ...storedLayout,
+      ...adaptedLayout,
       metadata: {
-        ...storedLayout.metadata,
+        ...adaptedLayout.metadata,
         modified: new Date(),
-      },
+      }
     };
   }
 
-  return getDefaultLayoutForScreenSize(screenSize);
+  console.log('📋 Using layout:', layout.name);
+  return layout;
 }
 
 function createUpdatedLayout(

@@ -54,11 +54,21 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
 
   // Get visible panels in order (including minimized ones)
   const visiblePanels = useMemo(() => {
-    return Object.entries(currentLayout.panels)
+    const panels = Object.entries(currentLayout.panels)
       .filter(([_, panel]) => panel.visible)
       .sort(([_, a], [__, b]) => a.order - b.order)
       .map(([id]) => id as PanelId);
-  }, [currentLayout.panels]);
+
+    // Debug logging
+    console.log('🔍 Layout Debug:', {
+      layoutName: currentLayout.name,
+      allPanels: Object.keys(currentLayout.panels),
+      visiblePanels: panels,
+      nodePanelConfig: currentLayout.panels.nodePanel
+    });
+
+    return panels;
+  }, [currentLayout.panels, currentLayout.name]);
 
   // If focus mode is active, render focused panel only
   if (focusMode.focusedPanel) {
@@ -90,6 +100,15 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
   const centerPanels = visiblePanels.filter(id => currentLayout.panels[id].position === 'center');
   const bottomPanels = visiblePanels.filter(id => currentLayout.panels[id].position === 'bottom');
   const topPanels = visiblePanels.filter(id => currentLayout.panels[id].position === 'top');
+
+  // Debug panel positions
+  console.log('📐 Panel Positions:', {
+    left: leftPanels,
+    right: rightPanels,
+    center: centerPanels,
+    bottom: bottomPanels,
+    top: topPanels
+  });
 
   return (
     <div className="workbench-layout">
