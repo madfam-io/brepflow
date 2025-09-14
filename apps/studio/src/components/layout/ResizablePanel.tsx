@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, type ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLayoutStore } from '../../store/layout-store';
 import type { PanelId, PanelConfig } from '../../types/layout';
