@@ -41,8 +41,27 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         severity: ErrorSeverity.HIGH,
         category: 'ui' as any,
         context: {
-          componentStack: errorInfo.componentStack,
-          errorBoundary: this.constructor.name
+          componentStack: errorInfo.componentStack ?? undefined,
+          errorBoundary: this.constructor.name,
+          timestamp: Date.now(),
+          sessionId: 'error-boundary-session',
+          buildVersion: import.meta.env.VITE_BUILD_VERSION ?? 'development',
+          nodeId: undefined,
+          operationId: undefined,
+          userId: undefined,
+          userAgent: navigator.userAgent,
+          url: window.location.href,
+          stackTrace: error.stack,
+          lineno: undefined,
+          colno: undefined,
+          duration: undefined,
+          nodeCount: undefined,
+          edgeCount: undefined,
+          memoryUsage: undefined,
+          expectedErrors: undefined,
+          wasmRelated: false,
+          geometryOperation: false,
+          asyncError: false
         }
       }
     );
@@ -146,8 +165,27 @@ export class WASMErrorBoundary extends Component<ErrorBoundaryProps, ErrorBounda
       {
         severity: isWASMError ? ErrorSeverity.CRITICAL : ErrorSeverity.HIGH,
         context: {
-          componentStack: errorInfo.componentStack,
-          wasmRelated: isWASMError
+          componentStack: errorInfo.componentStack ?? undefined,
+          wasmRelated: isWASMError,
+          timestamp: Date.now(),
+          sessionId: 'wasm-error-boundary-session',
+          buildVersion: import.meta.env.VITE_BUILD_VERSION ?? 'development',
+          errorBoundary: this.constructor.name,
+          nodeId: undefined,
+          operationId: undefined,
+          userId: undefined,
+          userAgent: navigator.userAgent,
+          url: window.location.href,
+          stackTrace: error.stack,
+          lineno: undefined,
+          colno: undefined,
+          duration: undefined,
+          nodeCount: undefined,
+          edgeCount: undefined,
+          memoryUsage: undefined,
+          expectedErrors: undefined,
+          geometryOperation: false,
+          asyncError: false
         }
       }
     );
@@ -217,8 +255,27 @@ export class GeometryErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
       {
         severity: ErrorSeverity.MEDIUM,
         context: {
-          componentStack: errorInfo.componentStack,
-          geometryOperation: true
+          componentStack: errorInfo.componentStack ?? undefined,
+          geometryOperation: true,
+          timestamp: Date.now(),
+          sessionId: 'geometry-error-boundary-session',
+          buildVersion: import.meta.env.VITE_BUILD_VERSION ?? 'development',
+          errorBoundary: this.constructor.name,
+          nodeId: undefined,
+          operationId: undefined,
+          userId: undefined,
+          userAgent: navigator.userAgent,
+          url: window.location.href,
+          stackTrace: error.stack,
+          lineno: undefined,
+          colno: undefined,
+          duration: undefined,
+          nodeCount: undefined,
+          edgeCount: undefined,
+          memoryUsage: undefined,
+          expectedErrors: undefined,
+          wasmRelated: false,
+          asyncError: false
         }
       }
     );
@@ -266,7 +323,27 @@ export function useAsyncError() {
     errorManager.fromJavaScriptError(error, ErrorCode.RUNTIME, {
       context: {
         ...context,
-        asyncError: true
+        asyncError: true,
+        timestamp: Date.now(),
+        sessionId: 'async-error-session',
+        buildVersion: import.meta.env.VITE_BUILD_VERSION || 'development',
+        errorBoundary: 'useAsyncError',
+        nodeId: context?.nodeId,
+        operationId: context?.operationId,
+        userId: context?.userId,
+        userAgent: navigator.userAgent,
+        url: window.location.href,
+        stackTrace: error.stack,
+        lineno: context?.lineno,
+        colno: context?.colno,
+        duration: context?.duration,
+        nodeCount: context?.nodeCount,
+        edgeCount: context?.edgeCount,
+        memoryUsage: context?.memoryUsage,
+        expectedErrors: context?.expectedErrors,
+        wasmRelated: context?.wasmRelated ?? false,
+        geometryOperation: context?.geometryOperation ?? false,
+        componentStack: context?.componentStack
       }
     });
   }, [errorManager]);

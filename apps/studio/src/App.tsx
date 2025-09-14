@@ -272,6 +272,14 @@ function App() {
           sampleRate: environment === 'production' ? 0.1 : 1.0,
           includeStackTrace: true
         },
+        performance: {
+          enabled: true,
+          sampleRate: environment === 'production' ? 0.1 : 1.0
+        },
+        userAnalytics: {
+          enabled: false,
+          anonymize: true
+        },
         logging: {
           level: environment === 'production' ? 'warn' : 'debug',
           console: true,

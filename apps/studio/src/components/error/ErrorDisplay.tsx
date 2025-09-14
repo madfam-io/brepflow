@@ -142,6 +142,7 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
     category: 'runtime' as any,
     severity: ErrorSeverity.MEDIUM,
     message: error?.message || 'An unexpected error occurred',
+    technicalDetails: error?.stack,
     userMessage: 'Something went wrong. Please try refreshing the page.',
     context: {
       timestamp: Date.now(),
@@ -153,7 +154,9 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
       id: 'reset',
       label: 'Try Again',
       description: 'Attempt to recover from this error',
-      action: () => true
+      action: () => true,
+      destructive: false,
+      requiresConfirmation: false
     }],
     reportedToService: false,
     occurredAt: new Date()
@@ -263,10 +266,10 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
                 disabled={isExecutingRecovery === action.id}
                 style={{
                   padding: '0.5rem 1rem',
-                  border: action.destructive ? '1px solid #ef4444' : '1px solid #d1d5db',
+                  border: (action.destructive ?? false) ? '1px solid #ef4444' : '1px solid #d1d5db',
                   borderRadius: '6px',
-                  backgroundColor: action.destructive ? '#fef2f2' : '#ffffff',
-                  color: action.destructive ? '#dc2626' : '#374151',
+                  backgroundColor: (action.destructive ?? false) ? '#fef2f2' : '#ffffff',
+                  color: (action.destructive ?? false) ? '#dc2626' : '#374151',
                   cursor: isExecutingRecovery ? 'not-allowed' : 'pointer',
                   fontSize: '0.875rem',
                   fontWeight: '500',

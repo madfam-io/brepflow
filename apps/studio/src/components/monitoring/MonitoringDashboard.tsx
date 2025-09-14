@@ -6,6 +6,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { MonitoringSystem } from '../../lib/monitoring/monitoring-system';
 import { HealthAlert } from '../../lib/monitoring/health-monitor';
 import { BrepFlowError } from '../../lib/error-handling/types';
+import styles from './MonitoringDashboard.module.css';
 
 interface MonitoringDashboardProps {
   isVisible: boolean;
@@ -36,7 +37,7 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
 
       // Auto-refresh every 5 seconds when visible
       const interval = setInterval(refreshData, 5000);
-      setRefreshInterval(interval);
+      setRefreshInterval(Number(interval));
 
       return () => {
         if (interval) {
@@ -76,53 +77,53 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
   };
 
   const renderHealthTab = () => (
-    <div className="monitoring-tab-content">
-      <div className="health-overview">
+    <div className={styles['monitoring-tab-content']}>
+      <div className={styles['health-overview']}>
         <h3>System Health</h3>
-        <div className="health-metrics">
-          <div className="metric">
+        <div className={styles['health-metrics']}>
+          <div className={styles.metric}>
             <label>Memory Usage:</label>
             <span>{formatBytes(dashboardData.systemHealth.memoryUsage)}</span>
           </div>
-          <div className="metric">
+          <div className={styles.metric}>
             <label>Error Rate:</label>
             <span style={{ color: dashboardData.systemHealth.errorRate > 5 ? '#dc2626' : '#10b981' }}>
               {formatPercent(dashboardData.systemHealth.errorRate)}
             </span>
           </div>
-          <div className="metric">
+          <div className={styles.metric}>
             <label>Avg Response Time:</label>
             <span style={{ color: dashboardData.systemHealth.averageResponseTime > 1000 ? '#f59e0b' : '#10b981' }}>
               {dashboardData.systemHealth.averageResponseTime.toFixed(0)}ms
             </span>
           </div>
-          <div className="metric">
+          <div className={styles.metric}>
             <label>Active Workers:</label>
             <span>{dashboardData.systemHealth.activeWorkers}</span>
           </div>
         </div>
       </div>
 
-      <div className="active-alerts">
+      <div className={styles['active-alerts']}>
         <h3>Active Alerts ({dashboardData.activeAlerts.length})</h3>
         {dashboardData.activeAlerts.length === 0 ? (
-          <p className="no-alerts">✅ No active alerts</p>
+          <p className={styles['no-alerts']}>✅ No active alerts</p>
         ) : (
-          <div className="alerts-list">
+          <div className={styles['alerts-list']}>
             {dashboardData.activeAlerts.map((alert: HealthAlert) => (
               <div
                 key={alert.id}
-                className="alert-item"
+                className={styles['alert-item']}
                 style={{ borderLeft: `4px solid ${getSeverityColor(alert.severity)}` }}
               >
-                <div className="alert-header">
-                  <span className="alert-type">{alert.type}</span>
-                  <span className="alert-severity" style={{ color: getSeverityColor(alert.severity) }}>
+                <div className={styles['alert-header']}>
+                  <span className={styles['alert-type']}>{alert.type}</span>
+                  <span className={styles['alert-severity']} style={{ color: getSeverityColor(alert.severity) }}>
                     {alert.severity}
                   </span>
-                  <span className="alert-time">{formatTime(alert.timestamp)}</span>
+                  <span className={styles['alert-time']}>{formatTime(alert.timestamp)}</span>
                 </div>
-                <div className="alert-message">{alert.message}</div>
+                <div className={styles['alert-message']}>{alert.message}</div>
               </div>
             ))}
           </div>
@@ -132,25 +133,25 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
   );
 
   const renderErrorsTab = () => (
-    <div className="monitoring-tab-content">
-      <div className="errors-overview">
+    <div className={styles['monitoring-tab-content']}>
+      <div className={styles['errors-overview']}>
         <h3>Recent Errors ({dashboardData.activeErrors.length} active)</h3>
         {dashboardData.activeErrors.length === 0 ? (
-          <p className="no-errors">✅ No active errors</p>
+          <p className={styles['no-errors']}>✅ No active errors</p>
         ) : (
-          <div className="errors-list">
+          <div className={styles['errors-list']}>
             {dashboardData.activeErrors.slice(0, 10).map((error: BrepFlowError) => (
-              <div key={error.id} className="error-item">
-                <div className="error-header">
-                  <span className="error-code">{error.code}</span>
-                  <span className="error-severity" style={{ color: getSeverityColor(error.severity) }}>
+              <div key={error.id} className={styles['error-item']}>
+                <div className={styles['error-header']}>
+                  <span className={styles['error-code']}>{error.code}</span>
+                  <span className={styles['error-severity']} style={{ color: getSeverityColor(error.severity) }}>
                     {error.severity}
                   </span>
-                  <span className="error-time">{formatTime(error.occurredAt.getTime())}</span>
+                  <span className={styles['error-time']}>{formatTime(error.occurredAt.getTime())}</span>
                 </div>
-                <div className="error-message">{error.userMessage}</div>
+                <div className={styles['error-message']}>{error.userMessage}</div>
                 {error.context.nodeId && (
-                  <div className="error-context">Node: {error.context.nodeId}</div>
+                  <div className={styles['error-context']}>Node: {error.context.nodeId}</div>
                 )}
               </div>
             ))}
@@ -161,27 +162,27 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
   );
 
   const renderMetricsTab = () => (
-    <div className="monitoring-tab-content">
-      <div className="metrics-overview">
+    <div className={styles['monitoring-tab-content']}>
+      <div className={styles['metrics-overview']}>
         <h3>Performance Metrics</h3>
 
-        <div className="metrics-section">
+        <div className={styles['metrics-section']}>
           <h4>Counters</h4>
-          <div className="metrics-grid">
+          <div className={styles['metrics-grid']}>
             {Object.entries(dashboardData.metrics.counters).map(([key, value]) => (
-              <div key={key} className="metric-item">
+              <div key={key} className={styles['metric-item']}>
                 <label>{key}:</label>
-                <span>{value}</span>
+                <span>{String(value)}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="metrics-section">
+        <div className={styles['metrics-section']}>
           <h4>Gauges</h4>
-          <div className="metrics-grid">
+          <div className={styles['metrics-grid']}>
             {Object.entries(dashboardData.metrics.gauges).map(([key, value]) => (
-              <div key={key} className="metric-item">
+              <div key={key} className={styles['metric-item']}>
                 <label>{key}:</label>
                 <span>
                   {typeof value === 'number' ?
@@ -194,13 +195,13 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
           </div>
         </div>
 
-        <div className="metrics-section">
+        <div className={styles['metrics-section']}>
           <h4>Response Times</h4>
-          <div className="metrics-grid">
+          <div className={styles['metrics-grid']}>
             {Object.entries(dashboardData.metrics.histograms).map(([key, stats]: [string, any]) => (
-              <div key={key} className="histogram-item">
+              <div key={key} className={styles['histogram-item']}>
                 <label>{key}:</label>
-                <div className="histogram-stats">
+                <div className={styles['histogram-stats']}>
                   <span>Avg: {stats.avg.toFixed(1)}ms</span>
                   <span>P95: {stats.p95.toFixed(1)}ms</span>
                   <span>Count: {stats.count}</span>
@@ -214,13 +215,18 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
   );
 
   const renderLogsTab = () => (
-    <div className="monitoring-tab-content">
-      <div className="logs-overview">
+    <div className={styles['monitoring-tab-content']}>
+      <div className={styles['logs-overview']}>
         <h3>System Logs</h3>
         <p>Logs are available in the browser console. Enable remote logging to view them here.</p>
-        <div className="log-controls">
+        <div className={styles['log-controls']}>
           <button onClick={() => console.clear()}>Clear Console</button>
-          <button onClick={() => window.open('', '_blank')?.console?.log('Console opened')}>
+          <button onClick={() => {
+            const newWindow = window.open('', '_blank');
+            if (newWindow && (newWindow as any).console) {
+              (newWindow as any).console.log('Console opened');
+            }
+          }}>
             Open Console
           </button>
         </div>
@@ -229,48 +235,48 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
   );
 
   return (
-    <div className="monitoring-dashboard-overlay">
-      <div className="monitoring-dashboard">
-        <div className="dashboard-header">
+    <div className={styles['monitoring-dashboard-overlay']}>
+      <div className={styles['monitoring-dashboard']}>
+        <div className={styles['dashboard-header']}>
           <h2>🔧 Monitoring Dashboard</h2>
-          <div className="dashboard-controls">
-            <button onClick={refreshData} className="refresh-btn">
+          <div className={styles['dashboard-controls']}>
+            <button onClick={refreshData} className={styles['refresh-btn']}>
               🔄 Refresh
             </button>
-            <button onClick={onClose} className="close-btn">
+            <button onClick={onClose} className={styles['close-btn']}>
               ✕
             </button>
           </div>
         </div>
 
-        <div className="dashboard-tabs">
+        <div className={styles['dashboard-tabs']}>
           <button
-            className={`tab ${selectedTab === 'health' ? 'active' : ''}`}
+            className={`${styles.tab} ${selectedTab === 'health' ? styles.active : ''}`}
             onClick={() => setSelectedTab('health')}
           >
             Health
           </button>
           <button
-            className={`tab ${selectedTab === 'errors' ? 'active' : ''}`}
+            className={`${styles.tab} ${selectedTab === 'errors' ? styles.active : ''}`}
             onClick={() => setSelectedTab('errors')}
           >
             Errors ({dashboardData.activeErrors.length})
           </button>
           <button
-            className={`tab ${selectedTab === 'metrics' ? 'active' : ''}`}
+            className={`${styles.tab} ${selectedTab === 'metrics' ? styles.active : ''}`}
             onClick={() => setSelectedTab('metrics')}
           >
             Metrics
           </button>
           <button
-            className={`tab ${selectedTab === 'logs' ? 'active' : ''}`}
+            className={`${styles.tab} ${selectedTab === 'logs' ? styles.active : ''}`}
             onClick={() => setSelectedTab('logs')}
           >
             Logs
           </button>
         </div>
 
-        <div className="dashboard-content">
+        <div className={styles['dashboard-content']}>
           {selectedTab === 'health' && renderHealthTab()}
           {selectedTab === 'errors' && renderErrorsTab()}
           {selectedTab === 'metrics' && renderMetricsTab()}
@@ -278,245 +284,6 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({
         </div>
       </div>
 
-      <style jsx>{`
-        .monitoring-dashboard-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.7);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 10000;
-          font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        .monitoring-dashboard {
-          background: white;
-          border-radius: 8px;
-          width: 90vw;
-          height: 90vh;
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-        }
-
-        .dashboard-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 1rem 1.5rem;
-          border-bottom: 1px solid #e5e7eb;
-          background: #f9fafb;
-        }
-
-        .dashboard-header h2 {
-          margin: 0;
-          color: #1f2937;
-        }
-
-        .dashboard-controls {
-          display: flex;
-          gap: 0.5rem;
-        }
-
-        .refresh-btn, .close-btn {
-          padding: 0.5rem 1rem;
-          border: 1px solid #d1d5db;
-          border-radius: 6px;
-          background: white;
-          cursor: pointer;
-          font-size: 0.875rem;
-        }
-
-        .refresh-btn:hover, .close-btn:hover {
-          background: #f3f4f6;
-        }
-
-        .dashboard-tabs {
-          display: flex;
-          border-bottom: 1px solid #e5e7eb;
-          background: #f9fafb;
-        }
-
-        .tab {
-          padding: 1rem 1.5rem;
-          border: none;
-          background: transparent;
-          cursor: pointer;
-          border-bottom: 3px solid transparent;
-          font-weight: 500;
-          color: #6b7280;
-        }
-
-        .tab:hover {
-          background: #f3f4f6;
-        }
-
-        .tab.active {
-          color: #3b82f6;
-          border-bottom-color: #3b82f6;
-          background: white;
-        }
-
-        .dashboard-content {
-          flex: 1;
-          overflow: auto;
-          padding: 1.5rem;
-        }
-
-        .monitoring-tab-content h3 {
-          margin: 0 0 1rem 0;
-          color: #1f2937;
-        }
-
-        .health-metrics {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 1rem;
-          margin-bottom: 2rem;
-        }
-
-        .metric {
-          padding: 1rem;
-          background: #f9fafb;
-          border-radius: 6px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .metric label {
-          font-weight: 500;
-          color: #374151;
-        }
-
-        .metric span {
-          font-weight: 600;
-          color: #1f2937;
-        }
-
-        .no-alerts, .no-errors {
-          color: #10b981;
-          font-weight: 500;
-          text-align: center;
-          padding: 2rem;
-          background: #f0fdf4;
-          border-radius: 6px;
-        }
-
-        .alerts-list, .errors-list {
-          space-y: 0.5rem;
-        }
-
-        .alert-item, .error-item {
-          padding: 1rem;
-          background: #f9fafb;
-          border-radius: 6px;
-          margin-bottom: 0.5rem;
-        }
-
-        .alert-header, .error-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 0.5rem;
-        }
-
-        .alert-type, .error-code {
-          font-weight: 600;
-          text-transform: uppercase;
-          font-size: 0.75rem;
-          color: #374151;
-        }
-
-        .alert-severity, .error-severity {
-          font-weight: 500;
-          text-transform: capitalize;
-          font-size: 0.875rem;
-        }
-
-        .alert-time, .error-time {
-          font-size: 0.75rem;
-          color: #6b7280;
-        }
-
-        .alert-message, .error-message {
-          color: #374151;
-          font-size: 0.875rem;
-        }
-
-        .error-context {
-          font-size: 0.75rem;
-          color: #6b7280;
-          margin-top: 0.5rem;
-        }
-
-        .metrics-section {
-          margin-bottom: 2rem;
-        }
-
-        .metrics-section h4 {
-          margin: 0 0 0.75rem 0;
-          color: #374151;
-          font-size: 1rem;
-        }
-
-        .metrics-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 0.75rem;
-        }
-
-        .metric-item, .histogram-item {
-          padding: 0.75rem;
-          background: #f9fafb;
-          border-radius: 4px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .histogram-stats {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          gap: 0.25rem;
-        }
-
-        .histogram-stats span {
-          font-size: 0.75rem;
-          color: #6b7280;
-        }
-
-        .logs-overview {
-          text-align: center;
-          padding: 2rem;
-        }
-
-        .log-controls {
-          display: flex;
-          justify-content: center;
-          gap: 1rem;
-          margin-top: 1rem;
-        }
-
-        .log-controls button {
-          padding: 0.75rem 1.5rem;
-          border: 1px solid #d1d5db;
-          border-radius: 6px;
-          background: white;
-          cursor: pointer;
-          font-size: 0.875rem;
-        }
-
-        .log-controls button:hover {
-          background: #f3f4f6;
-        }
-      `}</style>
     </div>
   );
 };

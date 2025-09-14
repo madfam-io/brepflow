@@ -247,7 +247,22 @@ export function configureSentry(dsn: string): Partial<MonitoringSystemConfig> {
         enabled: true,
         endpoint: 'https://sentry.io/api/hooks/error/',
         apiKey: dsn,
+        sampleRate: 1.0,
         includeStackTrace: true
+      },
+      performance: {
+        enabled: false,
+        sampleRate: 0
+      },
+      userAnalytics: {
+        enabled: false,
+        anonymize: true
+      },
+      logging: {
+        level: 'error',
+        console: true,
+        remote: false,
+        structured: true
       }
     }
   };
@@ -260,11 +275,24 @@ export function configureDataDog(apiKey: string, site: string = 'datadoghq.com')
       errorReporting: {
         enabled: true,
         endpoint: `https://browser-http-intake.logs.${site}/v1/input/${apiKey}`,
-        apiKey
+        apiKey,
+        sampleRate: 1.0,
+        includeStackTrace: true
       },
       performance: {
         enabled: true,
-        endpoint: `https://browser-http-intake.logs.${site}/v1/input/${apiKey}`
+        endpoint: `https://browser-http-intake.logs.${site}/v1/input/${apiKey}`,
+        sampleRate: 1.0
+      },
+      userAnalytics: {
+        enabled: false,
+        anonymize: true
+      },
+      logging: {
+        level: 'info',
+        console: true,
+        remote: true,
+        structured: true
       }
     }
   };
@@ -274,10 +302,25 @@ export function configureDataDog(apiKey: string, site: string = 'datadoghq.com')
 export function configureLogRocket(appId: string): Partial<MonitoringSystemConfig> {
   return {
     monitoring: {
+      errorReporting: {
+        enabled: false,
+        sampleRate: 0,
+        includeStackTrace: false
+      },
+      performance: {
+        enabled: false,
+        sampleRate: 0
+      },
       userAnalytics: {
         enabled: true,
         endpoint: `https://r.lr-ingest.io/${appId}/init`,
         anonymize: false // LogRocket handles privacy
+      },
+      logging: {
+        level: 'info',
+        console: true,
+        remote: true,
+        structured: true
       }
     }
   };
@@ -295,15 +338,25 @@ export function configureCustomWebhook(
       errorReporting: {
         enabled: !!errorEndpoint,
         endpoint: errorEndpoint,
-        apiKey
+        apiKey,
+        sampleRate: 1.0,
+        includeStackTrace: true
       },
       performance: {
         enabled: !!performanceEndpoint,
-        endpoint: performanceEndpoint
+        endpoint: performanceEndpoint,
+        sampleRate: 1.0
       },
       userAnalytics: {
         enabled: !!analyticsEndpoint,
-        endpoint: analyticsEndpoint
+        endpoint: analyticsEndpoint,
+        anonymize: true
+      },
+      logging: {
+        level: 'info',
+        console: true,
+        remote: !!errorEndpoint,
+        structured: true
       }
     }
   };

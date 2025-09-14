@@ -14,9 +14,44 @@ import {
 } from './types';
 import { Logger } from '../logging/logger';
 import { MetricsCollector } from '../monitoring/metrics-collector';
-import { EventEmitter } from 'events';
 
-export class ErrorManager extends EventEmitter {
+// Simple browser-compatible EventEmitter
+class SimpleEventEmitter {
+  private events: Record<string, Function[]> = {};
+
+  on(event: string, callback: Function) {
+    if (!this.events[event]) {
+      this.events[event] = [];
+    }
+    this.events[event].push(callback);
+  }
+
+  emit(event: string, ...args: any[]) {
+    if (this.events[event]) {
+      this.events[event].forEach(callback => callback(...args));
+    }
+  }
+
+  off(event: string, callback?: Function) {
+    if (!this.events[event]) return;
+
+    if (callback) {
+      this.events[event] = this.events[event].filter(cb => cb !== callback);
+    } else {
+      delete this.events[event];
+    }
+  }
+
+  removeAllListeners(event?: string) {
+    if (event) {
+      delete this.events[event];
+    } else {
+      this.events = {};
+    }
+  }
+}
+
+export class ErrorManager extends SimpleEventEmitter {
   private static instance: ErrorManager | null = null;
   private errors: Map<string, BrepFlowError> = new Map();
   private config: MonitoringConfig;

@@ -37,7 +37,7 @@ export function useMonitoring() {
   const executeMonitoredOperation = useCallback(async <T>(
     operation: () => Promise<T>,
     operationName: string,
-    options?: Parameters<typeof monitoringSystem.executeMonitoredOperation>[2]
+    options?: Parameters<NonNullable<typeof monitoringSystem>['executeMonitoredOperation']>[2]
   ): Promise<T> => {
     if (!monitoringSystem) {
       throw new Error('Monitoring system not available');

@@ -257,7 +257,10 @@ export const MonitoredForm: React.FC<{
         </div>
 
         <MonitoredButton
-          onClick={() => handleSubmit}
+          onClick={() => {
+            const formEvent = new Event('submit', { bubbles: true, cancelable: true }) as any;
+            handleSubmit(formEvent);
+          }}
           operation="form_submit_button"
         >
           Submit
