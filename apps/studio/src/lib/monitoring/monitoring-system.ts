@@ -276,11 +276,11 @@ export class MonitoringSystem {
    * Get monitoring dashboard data
    */
   public getMonitoringDashboard(): {
-    systemHealth: ReturnType<typeof this.healthMonitor.getCurrentHealth>;
-    activeErrors: ReturnType<typeof this.errorManager.getActiveErrors>;
+    systemHealth: ReturnType<HealthMonitor['getCurrentHealth']>;
+    activeErrors: ReturnType<ErrorManager['getActiveErrors']>;
     activeAlerts: HealthAlert[];
-    metrics: ReturnType<typeof this.metricsCollector.exportMetrics>;
-    retryStats: ReturnType<typeof this.retryHandler.getRetryStats>;
+    metrics: ReturnType<MetricsCollector['exportMetrics']>;
+    retryStats: ReturnType<RetryHandler['getRetryStats']>;
   } {
     return {
       systemHealth: this.healthMonitor.getCurrentHealth(),
@@ -316,7 +316,7 @@ export class MonitoringSystem {
     timestamp: number;
     sessionId: string;
     buildVersion: string;
-    dashboard: ReturnType<typeof this.getMonitoringDashboard>;
+    dashboard: ReturnType<MonitoringSystem['getMonitoringDashboard']>;
     config: MonitoringSystemConfig;
   } {
     return {

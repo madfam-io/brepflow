@@ -21,18 +21,17 @@ export type { HealthAlert, HealthThresholds } from './health-monitor';
 
 // Retry handling
 export { RetryHandler } from './retry-handler';
-export type { RetryConfig, RetryResult } from './retry-handler';
+export type { RetryResult, RetryContext } from './retry-handler';
 
 // Logging
-export { Logger, ChildLogger, TimingLogger } from '../logging/logger';
+export { Logger } from '../logging/logger';
 export type { LogEntry, LogLevel } from '../logging/logger';
 
-// UI components
-export { ErrorDisplay } from '../../components/error/ErrorDisplay';
-export { MonitoringDashboard } from '../../components/monitoring/MonitoringDashboard';
+// Configuration types
+export type { MonitoringConfig, RetryConfig } from '../error-handling/types';
 
-// Configuration
-export type { MonitoringConfig, RetryConfig as RetryConfiguration } from '../error-handling/types';
+import type { MonitoringSystemConfig } from './monitoring-system';
+import { MonitoringSystem } from './monitoring-system';
 
 // Default configurations
 export const DEFAULT_MONITORING_CONFIG: MonitoringSystemConfig = {

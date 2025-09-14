@@ -122,7 +122,7 @@ export class MetricsCollector {
   /**
    * Start timing operation
    */
-  public startTiming(name: string): () => void {
+  public startTiming(name: string): (labels?: Record<string, string>) => void {
     const startTime = performance.now();
 
     return (labels: Record<string, string> = {}) => {
@@ -223,10 +223,10 @@ export class MetricsCollector {
       count: values.length,
       sum,
       avg: values.length > 0 ? sum / values.length : 0,
-      min: sorted[0] || 0,
-      max: sorted[sorted.length - 1] || 0,
-      p95: sorted[Math.floor(sorted.length * 0.95)] || 0,
-      p99: sorted[Math.floor(sorted.length * 0.99)] || 0
+      min: sorted[0] ?? 0,
+      max: sorted[sorted.length - 1] ?? 0,
+      p95: sorted[Math.floor(sorted.length * 0.95)] ?? 0,
+      p99: sorted[Math.floor(sorted.length * 0.99)] ?? 0
     };
   }
 
@@ -236,10 +236,10 @@ export class MetricsCollector {
   public exportMetrics(): {
     counters: Record<string, number>;
     gauges: Record<string, number>;
-    histograms: Record<string, ReturnType<typeof this.getHistogramStats>>;
+    histograms: Record<string, ReturnType<MetricsCollector['getHistogramStats']>>;
     systemHealth: SystemHealth;
   } {
-    const histogramStats: Record<string, ReturnType<typeof this.getHistogramStats>> = {};
+    const histogramStats: Record<string, ReturnType<MetricsCollector['getHistogramStats']>> = {};
 
     for (const [key] of this.histograms) {
       const { name, labels } = this.parseMetricKey(key);
@@ -324,7 +324,7 @@ export class MetricsCollector {
       const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
 
       if (navigation) {
-        const startTime = navigation.navigationStart || navigation.fetchStart || 0;
+        const startTime = (navigation as any).navigationStart || navigation.fetchStart || 0;
         this.recordTiming('page_load_time_ms', navigation.loadEventEnd - startTime);
         this.recordTiming('dom_content_loaded_ms', navigation.domContentLoadedEventEnd - startTime);
         this.recordTiming('first_paint_ms', navigation.responseEnd - startTime);
@@ -404,7 +404,7 @@ export class MetricsCollector {
       }
     }
 
-    return { name, labels };
+    return { name: name ?? key, labels };
   }
 
   /**

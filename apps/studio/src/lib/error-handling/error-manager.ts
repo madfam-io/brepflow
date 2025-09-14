@@ -365,15 +365,48 @@ export class ErrorManager extends EventEmitter {
    */
   private generateUserMessage(code: ErrorCode, technicalMessage: string): string {
     const userMessages: Record<ErrorCode, string> = {
+      // Geometry errors
       [ErrorCode.GEOMETRY_COMPUTATION_FAILED]: 'Unable to compute geometry. Please check your parameters and try again.',
+      [ErrorCode.INVALID_GEOMETRY_PARAMETERS]: 'Invalid geometry parameters provided. Please check your input values.',
+      [ErrorCode.GEOMETRY_ENGINE_NOT_INITIALIZED]: 'Geometry engine is not ready. Please wait and try again.',
+
+      // WASM errors
       [ErrorCode.WASM_MODULE_LOAD_FAILED]: 'Failed to load the geometry engine. Please refresh the page.',
+      [ErrorCode.WASM_EXECUTION_ERROR]: 'Geometry processing failed. Please try a different approach.',
+      [ErrorCode.SHARED_ARRAY_BUFFER_NOT_AVAILABLE]: 'Advanced features are disabled due to browser security settings.',
+
+      // Network errors
+      [ErrorCode.API_REQUEST_FAILED]: 'Network request failed. Please check your connection and try again.',
       [ErrorCode.NETWORK_TIMEOUT]: 'Network request timed out. Please check your connection and try again.',
+      [ErrorCode.CONNECTION_LOST]: 'Connection lost. Please check your network and try again.',
+
+      // Validation errors
       [ErrorCode.INVALID_NODE_CONNECTION]: 'Invalid node connection. Please check that input and output types match.',
       [ErrorCode.CIRCULAR_DEPENDENCY]: 'Circular dependency detected in the node graph. Please remove the circular connection.',
+      [ErrorCode.MISSING_REQUIRED_INPUT]: 'Required input is missing. Please provide all necessary inputs.',
+
+      // Runtime errors
+      [ErrorCode.RUNTIME]: 'A runtime error occurred. Please try again.',
+      [ErrorCode.EVALUATION_TIMEOUT]: 'Operation timed out. Please try with simpler parameters.',
+      [ErrorCode.MEMORY_LIMIT_EXCEEDED]: 'Out of memory. Please close other tabs or refresh the page.',
+      [ErrorCode.WORKER_THREAD_CRASHED]: 'Processing thread crashed. Please refresh the page.',
+
+      // User input errors
+      [ErrorCode.INVALID_PARAMETER_VALUE]: 'Invalid parameter value. Please check your input.',
       [ErrorCode.FILE_IMPORT_FAILED]: 'Failed to import file. Please check the file format and try again.',
-      [ErrorCode.SHARED_ARRAY_BUFFER_NOT_AVAILABLE]: 'Advanced features are disabled due to browser security settings.',
-      // Add more user messages as needed
-    } as const;
+      [ErrorCode.UNSUPPORTED_FILE_FORMAT]: 'File format not supported. Please use a supported format.',
+
+      // System errors
+      [ErrorCode.SYSTEM]: 'A system error occurred. Please refresh the page.',
+      [ErrorCode.LOCAL_STORAGE_QUOTA_EXCEEDED]: 'Storage limit exceeded. Please clear browser data.',
+      [ErrorCode.BROWSER_NOT_SUPPORTED]: 'Your browser is not supported. Please use a modern browser.',
+      [ErrorCode.PERMISSIONS_DENIED]: 'Permission denied. Please check your browser settings.',
+
+      // UI errors
+      [ErrorCode.COMPONENT_RENDER_ERROR]: 'Component failed to render. Please refresh the page.',
+      [ErrorCode.EVENT_HANDLER_ERROR]: 'An interaction error occurred. Please try again.',
+      [ErrorCode.LAYOUT_UPDATE_FAILED]: 'Layout update failed. Please refresh the page.'
+    };
 
     return userMessages[code] || `An error occurred: ${technicalMessage}`;
   }
@@ -395,14 +428,26 @@ export class ErrorManager extends EventEmitter {
    * Get default recovery actions for error code
    */
   private getDefaultRecoveryActions(code: ErrorCode): RecoveryAction[] {
+    const basicRetry = {
+      id: 'retry',
+      label: 'Retry',
+      description: 'Try the operation again',
+      action: () => true
+    };
+
+    const refresh = {
+      id: 'refresh',
+      label: 'Refresh Page',
+      description: 'Refresh the page to reset the application',
+      action: () => { window.location.reload(); return true; },
+      destructive: true,
+      requiresConfirmation: true
+    };
+
     const actions: Record<ErrorCode, RecoveryAction[]> = {
+      // Geometry errors
       [ErrorCode.GEOMETRY_COMPUTATION_FAILED]: [
-        {
-          id: 'retry',
-          label: 'Retry',
-          description: 'Try the operation again',
-          action: () => true // Will be overridden by caller
-        },
+        basicRetry,
         {
           id: 'reset-parameters',
           label: 'Reset Parameters',
@@ -411,29 +456,112 @@ export class ErrorManager extends EventEmitter {
           requiresConfirmation: true
         }
       ],
-      [ErrorCode.NETWORK_TIMEOUT]: [
+      [ErrorCode.INVALID_GEOMETRY_PARAMETERS]: [
         {
-          id: 'retry',
-          label: 'Retry',
-          description: 'Retry the network request',
+          id: 'fix-parameters',
+          label: 'Check Parameters',
+          description: 'Review and fix parameter values',
           action: () => true
         }
       ],
-      [ErrorCode.WASM_MODULE_LOAD_FAILED]: [
+      [ErrorCode.GEOMETRY_ENGINE_NOT_INITIALIZED]: [basicRetry, refresh],
+
+      // WASM errors
+      [ErrorCode.WASM_MODULE_LOAD_FAILED]: [refresh],
+      [ErrorCode.WASM_EXECUTION_ERROR]: [basicRetry, refresh],
+      [ErrorCode.SHARED_ARRAY_BUFFER_NOT_AVAILABLE]: [
         {
-          id: 'reload',
-          label: 'Reload Page',
-          description: 'Reload the application',
-          action: () => {
-            window.location.reload();
-            return true;
-          },
+          id: 'enable-headers',
+          label: 'Enable Headers',
+          description: 'Contact administrator to enable COOP/COEP headers',
+          action: () => true
+        }
+      ],
+
+      // Network errors
+      [ErrorCode.API_REQUEST_FAILED]: [basicRetry],
+      [ErrorCode.NETWORK_TIMEOUT]: [basicRetry],
+      [ErrorCode.CONNECTION_LOST]: [basicRetry],
+
+      // Validation errors
+      [ErrorCode.INVALID_NODE_CONNECTION]: [
+        {
+          id: 'disconnect',
+          label: 'Disconnect',
+          description: 'Remove invalid connection',
+          action: () => true
+        }
+      ],
+      [ErrorCode.CIRCULAR_DEPENDENCY]: [
+        {
+          id: 'break-cycle',
+          label: 'Break Cycle',
+          description: 'Remove circular connection',
+          action: () => true
+        }
+      ],
+      [ErrorCode.MISSING_REQUIRED_INPUT]: [
+        {
+          id: 'fix-inputs',
+          label: 'Fix Inputs',
+          description: 'Connect required inputs',
+          action: () => true
+        }
+      ],
+
+      // Runtime errors
+      [ErrorCode.RUNTIME]: [basicRetry, refresh],
+      [ErrorCode.EVALUATION_TIMEOUT]: [basicRetry],
+      [ErrorCode.MEMORY_LIMIT_EXCEEDED]: [refresh],
+      [ErrorCode.WORKER_THREAD_CRASHED]: [refresh],
+
+      // User input errors
+      [ErrorCode.INVALID_PARAMETER_VALUE]: [
+        {
+          id: 'fix-value',
+          label: 'Fix Value',
+          description: 'Correct the parameter value',
+          action: () => true
+        }
+      ],
+      [ErrorCode.FILE_IMPORT_FAILED]: [basicRetry],
+      [ErrorCode.UNSUPPORTED_FILE_FORMAT]: [
+        {
+          id: 'convert-format',
+          label: 'Convert Format',
+          description: 'Convert to a supported format',
+          action: () => true
+        }
+      ],
+
+      // System errors
+      [ErrorCode.SYSTEM]: [refresh],
+      [ErrorCode.LOCAL_STORAGE_QUOTA_EXCEEDED]: [
+        {
+          id: 'clear-storage',
+          label: 'Clear Storage',
+          description: 'Clear browser storage to free space',
+          action: () => { localStorage.clear(); return true; },
           destructive: true,
           requiresConfirmation: true
         }
-      ]
+      ],
+      [ErrorCode.BROWSER_NOT_SUPPORTED]: [],
+      [ErrorCode.PERMISSIONS_DENIED]: [
+        {
+          id: 'grant-permissions',
+          label: 'Grant Permissions',
+          description: 'Enable required browser permissions',
+          action: () => true
+        }
+      ],
+
+      // UI errors
+      [ErrorCode.COMPONENT_RENDER_ERROR]: [refresh],
+      [ErrorCode.EVENT_HANDLER_ERROR]: [basicRetry],
+      [ErrorCode.LAYOUT_UPDATE_FAILED]: [refresh]
     };
 
-    return actions[code] || [];
+    return actions[code] || [basicRetry];
   }
 }

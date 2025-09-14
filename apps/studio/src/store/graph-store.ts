@@ -100,7 +100,7 @@ export const useGraphStore = create<GraphState>()(
               {
                 context: {
                   wasmSupport: crossOriginIsolated,
-                  initializationAttempt: 'primary'
+                  initializationAttempt: 1
                 }
               }
             );
@@ -233,7 +233,7 @@ export const useGraphStore = create<GraphState>()(
             try {
               const metricsCollector = MetricsCollector.getInstance();
               metricsCollector.incrementCounter('graph_evaluations_started', {
-                dirtyNodeCount: dirtyNodes.length.toString()
+                dirtyNodeCount: dirtyNodes.size.toString()
               });
             } catch (e) {
               // Metrics collector not ready

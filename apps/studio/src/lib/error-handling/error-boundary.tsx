@@ -47,7 +47,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       }
     );
 
-    this.setState({ errorId: brepFlowError.id });
+    this.setState({ errorId: brepFlowError.id ?? null });
 
     // Call custom error handler if provided
     this.props.onError?.(error, errorInfo);
@@ -152,7 +152,7 @@ export class WASMErrorBoundary extends Component<ErrorBoundaryProps, ErrorBounda
       }
     );
 
-    this.setState({ errorId: brepFlowError.id });
+    this.setState({ errorId: brepFlowError.id ?? null });
     this.props.onError?.(error, errorInfo);
   }
 
@@ -223,7 +223,7 @@ export class GeometryErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
       }
     );
 
-    this.setState({ errorId: brepFlowError.id });
+    this.setState({ errorId: brepFlowError.id ?? null });
     this.props.onError?.(error, errorInfo);
   }
 

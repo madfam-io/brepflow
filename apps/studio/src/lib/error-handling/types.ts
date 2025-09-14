@@ -88,6 +88,15 @@ export interface ErrorContext {
   alertId?: string;
   initializationAttempt?: number;
   nodeCount?: number;
+  // Additional missing properties
+  lineno?: number;
+  colno?: number;
+  duration?: number;
+  edgeCount?: number;
+  expectedErrors?: ErrorCode[];
+  wasmRelated?: boolean;
+  geometryOperation?: boolean;
+  asyncError?: boolean;
 }
 
 export interface BrepFlowError {
