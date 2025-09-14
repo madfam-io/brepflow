@@ -40,6 +40,8 @@
     "node_modules",
     "dist",
     "build",
+    "build-occt",
+    "third_party",
     "coverage",
     "**/*.spec.ts",
     "**/*.test.ts"

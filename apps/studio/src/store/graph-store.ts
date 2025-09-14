@@ -12,6 +12,7 @@ import {
   NodeRegistry,
   ComputeCache,
 } from '@brepflow/engine-core';
+import { getGeometryAPI } from '@brepflow/engine-occt';
 import { registerCoreNodes } from '@brepflow/nodes-core';
 
 // Register core nodes on initialization
@@ -68,12 +69,21 @@ export const useGraphStore = create<GraphState>()(
     subscribeWithSelector((set, get) => {
       const graphManager = new GraphManager();
 
-      // Initialize DAG engine when worker is available
+      // Initialize DAG engine with OCCT geometry API
       const initEngine = async () => {
-        // TODO: Initialize worker when WASM is ready
-        // const worker = await initWorker();
-        // return new DAGEngine({ worker });
-        return null;
+        try {
+          const geometryAPI = getGeometryAPI(); // Uses OCCT by default now
+          await geometryAPI.init();
+          console.log('🚀 Geometry API initialized successfully');
+          return new DAGEngine({ geometryAPI });
+        } catch (error) {
+          console.error('❌ Failed to initialize geometry API:', error);
+          // Fall back to mock mode
+          const mockGeometryAPI = getGeometryAPI(true);
+          await mockGeometryAPI.init();
+          console.warn('⚠️ Using mock geometry API');
+          return new DAGEngine({ geometryAPI: mockGeometryAPI });
+        }
       };
 
       initEngine().then(engine => {

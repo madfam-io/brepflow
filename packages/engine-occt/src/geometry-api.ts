@@ -163,9 +163,9 @@ let geometryAPI: GeometryAPI | null = null;
 /**
  * Get or create geometry API instance
  */
-export function getGeometryAPI(useMock = true): GeometryAPI {
+export function getGeometryAPI(useMock = false): GeometryAPI {
   if (!geometryAPI) {
-    // Default to mock for now until OCCT is ready
+    // Default to OCCT now that WASM is available
     geometryAPI = new GeometryAPI(useMock);
   }
   return geometryAPI;
