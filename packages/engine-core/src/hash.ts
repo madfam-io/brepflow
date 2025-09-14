@@ -37,7 +37,7 @@ export function hash(data: string): string {
   // This uses a simple FNV-1a hash as fallback until xxhash initializes
   let hash = 2166136261;
   for (let i = 0; i < bytes.length; i++) {
-    hash ^= bytes[i];
+    hash ^= bytes[i]!;
     hash = Math.imul(hash, 16777619);
   }
 
@@ -92,7 +92,7 @@ export async function hashGeometry(data: ArrayBuffer): Promise<string> {
   const bytes = new Uint8Array(data);
   let hash = 2166136261;
   for (let i = 0; i < bytes.length; i++) {
-    hash ^= bytes[i];
+    hash ^= bytes[i]!;
     hash = Math.imul(hash, 16777619);
   }
   return (hash >>> 0).toString(16).padStart(8, '0').substring(0, 16);
