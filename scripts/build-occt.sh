@@ -35,7 +35,7 @@ fi
 echo -e "${GREEN}✓ Emscripten found:${NC} $(emcc --version | head -n1)"
 
 # Check/Download OCCT
-OCCT_VERSION="7.7.0"
+OCCT_VERSION="7.8.0"
 OCCT_DIR="$THIRD_PARTY_DIR/occt"
 
 if [ ! -d "$OCCT_DIR" ]; then
@@ -65,6 +65,7 @@ echo -e "${YELLOW}Configuring OCCT with CMake...${NC}"
 
 emcmake cmake "$OCCT_DIR" \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DBUILD_SHARED_LIBS=OFF \
     -DBUILD_MODULE_ApplicationFramework=OFF \
     -DBUILD_MODULE_DataExchange=ON \
