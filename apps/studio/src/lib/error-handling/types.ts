@@ -42,6 +42,7 @@ export enum ErrorCode {
   MISSING_REQUIRED_INPUT = 'MISSING_REQUIRED_INPUT',
 
   // Runtime errors
+  RUNTIME = 'RUNTIME',
   EVALUATION_TIMEOUT = 'EVALUATION_TIMEOUT',
   MEMORY_LIMIT_EXCEEDED = 'MEMORY_LIMIT_EXCEEDED',
   WORKER_THREAD_CRASHED = 'WORKER_THREAD_CRASHED',
@@ -52,6 +53,7 @@ export enum ErrorCode {
   UNSUPPORTED_FILE_FORMAT = 'UNSUPPORTED_FILE_FORMAT',
 
   // System errors
+  SYSTEM = 'SYSTEM',
   LOCAL_STORAGE_QUOTA_EXCEEDED = 'LOCAL_STORAGE_QUOTA_EXCEEDED',
   BROWSER_NOT_SUPPORTED = 'BROWSER_NOT_SUPPORTED',
   PERMISSIONS_DENIED = 'PERMISSIONS_DENIED',
@@ -73,6 +75,19 @@ export interface ErrorContext {
   userId?: string;
   buildVersion: string;
   additionalData?: Record<string, any>;
+  // Additional properties used in components
+  componentStack?: string;
+  filename?: string;
+  rejectionType?: string;
+  errorName?: string;
+  operationName?: string;
+  operationId?: string;
+  wasmSupport?: boolean;
+  evaluationDuration?: number;
+  alertType?: string;
+  alertId?: string;
+  initializationAttempt?: number;
+  nodeCount?: number;
 }
 
 export interface BrepFlowError {
@@ -105,6 +120,12 @@ export interface ErrorBoundaryProps {
   fallback?: React.ComponentType<{ error: Error; resetError: () => void }>;
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
   isolate?: boolean;
+}
+
+export interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+  errorId: string | null;
 }
 
 export interface PerformanceMetric {
@@ -166,4 +187,21 @@ export interface RetryConfig {
   baseDelay: number;
   maxDelay: number;
   retryableErrors: ErrorCode[];
+}
+
+// Monitoring system configurations
+export interface MonitoringSystemConfig {
+  enabled: boolean;
+  config: MonitoringConfig;
+  retryConfig: RetryConfig;
+  enableDebugMode?: boolean;
+}
+
+export interface MonitoringSystem {
+  initialize(config: MonitoringSystemConfig): Promise<void>;
+  reportError(error: BrepFlowError): void;
+  recordMetric(metric: PerformanceMetric): void;
+  recordUserEvent(event: UserEvent): void;
+  getSystemHealth(): SystemHealth;
+  shutdown(): Promise<void>;
 }

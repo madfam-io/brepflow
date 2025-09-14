@@ -24,11 +24,11 @@ export interface MonitoringSystemConfig {
 export class MonitoringSystem {
   private static instance: MonitoringSystem | null = null;
   private config: MonitoringSystemConfig;
-  private errorManager: ErrorManager;
-  private metricsCollector: MetricsCollector;
-  private healthMonitor: HealthMonitor;
-  private logger: Logger;
-  private retryHandler: RetryHandler;
+  private errorManager!: ErrorManager;
+  private metricsCollector!: MetricsCollector;
+  private healthMonitor!: HealthMonitor;
+  private logger!: Logger;
+  private retryHandler!: RetryHandler;
   private initialized: boolean = false;
   private sessionId: string;
 

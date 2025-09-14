@@ -222,11 +222,11 @@ export class MetricsCollector {
     return {
       count: values.length,
       sum,
-      avg: sum / values.length,
-      min: sorted[0],
-      max: sorted[sorted.length - 1],
-      p95: sorted[Math.floor(sorted.length * 0.95)],
-      p99: sorted[Math.floor(sorted.length * 0.99)]
+      avg: values.length > 0 ? sum / values.length : 0,
+      min: sorted[0] || 0,
+      max: sorted[sorted.length - 1] || 0,
+      p95: sorted[Math.floor(sorted.length * 0.95)] || 0,
+      p99: sorted[Math.floor(sorted.length * 0.99)] || 0
     };
   }
 
@@ -324,9 +324,10 @@ export class MetricsCollector {
       const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
 
       if (navigation) {
-        this.recordTiming('page_load_time_ms', navigation.loadEventEnd - navigation.navigationStart);
-        this.recordTiming('dom_content_loaded_ms', navigation.domContentLoadedEventEnd - navigation.navigationStart);
-        this.recordTiming('first_paint_ms', navigation.responseEnd - navigation.navigationStart);
+        const startTime = navigation.navigationStart || navigation.fetchStart || 0;
+        this.recordTiming('page_load_time_ms', navigation.loadEventEnd - startTime);
+        this.recordTiming('dom_content_loaded_ms', navigation.domContentLoadedEventEnd - startTime);
+        this.recordTiming('first_paint_ms', navigation.responseEnd - startTime);
       }
     }
   }

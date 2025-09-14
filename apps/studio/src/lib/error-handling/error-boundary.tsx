@@ -3,15 +3,9 @@
  */
 
 import React, { Component, ReactNode } from 'react';
-import { ErrorBoundaryProps, ErrorCode, ErrorSeverity } from './types';
+import { ErrorBoundaryProps, ErrorBoundaryState, ErrorCode, ErrorSeverity } from './types';
 import { ErrorManager } from './error-manager';
 import { ErrorDisplay } from '../../components/error/ErrorDisplay';
-
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
-  errorId: string | null;
-}
 
 /**
  * Generic Error Boundary with comprehensive error handling
