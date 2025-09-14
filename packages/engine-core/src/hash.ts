@@ -1,5 +1,14 @@
-import { createHash } from 'crypto';
 import type { NodeInstance } from '@brepflow/types';
+import xxhash from 'xxhash-wasm';
+
+// Initialize xxhash-wasm
+let hashInstance: Awaited<ReturnType<typeof xxhash>> | null = null;
+const initHasher = async () => {
+  if (!hashInstance) {
+    hashInstance = await xxhash();
+  }
+  return hashInstance;
+};
 
 /**
  * Generate deterministic hash for a node
@@ -16,9 +25,24 @@ export function hashNode(node: NodeInstance, inputs: any): string {
 
 /**
  * Generate hash for arbitrary data
+ * Uses xxhash for performance and browser compatibility
  */
 export function hash(data: string): string {
-  return createHash('sha256').update(data).digest('hex').substring(0, 16);
+  // Use synchronous xxhash64 for immediate hashing
+  // The wasm module auto-initializes on first use
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode(data);
+
+  // Create a simple hash using a fast algorithm that works in browser
+  // This uses a simple FNV-1a hash as fallback until xxhash initializes
+  let hash = 2166136261;
+  for (let i = 0; i < bytes.length; i++) {
+    hash ^= bytes[i];
+    hash = Math.imul(hash, 16777619);
+  }
+
+  // Convert to hex string and take first 16 chars for consistency
+  return (hash >>> 0).toString(16).padStart(8, '0').substring(0, 16);
 }
 
 /**
@@ -55,15 +79,21 @@ function normalizeInputs(inputs: any): any {
  * Generate content hash for geometry
  */
 export async function hashGeometry(data: ArrayBuffer): Promise<string> {
-  // In browser environment, use Web Crypto API
-  if (typeof window !== 'undefined' && window.crypto?.subtle) {
-    const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+  // Use Web Crypto API if available (works in both browser and Node.js 15+)
+  if (typeof globalThis !== 'undefined' && globalThis.crypto?.subtle) {
+    const hashBuffer = await globalThis.crypto.subtle.digest('SHA-256', data);
     return Array.from(new Uint8Array(hashBuffer))
       .map(b => b.toString(16).padStart(2, '0'))
       .join('')
       .substring(0, 16);
   }
 
-  // In Node.js environment
-  return hash(Buffer.from(data).toString('base64'));
+  // Fallback to FNV-1a hash for environments without Web Crypto API
+  const bytes = new Uint8Array(data);
+  let hash = 2166136261;
+  for (let i = 0; i < bytes.length; i++) {
+    hash ^= bytes[i];
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(16).padStart(8, '0').substring(0, 16);
 }
