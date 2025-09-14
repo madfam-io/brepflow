@@ -50,6 +50,9 @@ importers:
       '@brepflow/engine-occt':
         specifier: workspace:*
         version: link:../../packages/engine-occt
+      '@brepflow/nodes-core':
+        specifier: workspace:^
+        version: link:../../packages/nodes-core
       '@brepflow/types':
         specifier: workspace:*
         version: link:../../packages/types

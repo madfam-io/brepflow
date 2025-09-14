@@ -15,6 +15,7 @@
   "dependencies": {
     "@brepflow/engine-core": "workspace:*",
     "@brepflow/engine-occt": "workspace:*",
+    "@brepflow/nodes-core": "workspace:^",
     "@brepflow/types": "workspace:*",
     "@brepflow/viewport": "workspace:*",
     "comlink": "^4.4.1",
