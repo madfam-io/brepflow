@@ -31,7 +31,7 @@ export class WorkerClient implements WorkerAPI {
         } else {
           // Use default worker path
           this.worker = new Worker(
-            new URL('./worker.js', import.meta.url),
+            new URL('./worker.mjs', import.meta.url),
             { type: 'module' }
           );
         }
