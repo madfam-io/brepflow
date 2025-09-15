@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx turbo run build --filter=@brepflow/studio --force && find . -name 'dist' -type d && ls -la apps/studio/ && if [ -d apps/studio/dist ]; then cp -r apps/studio/dist ./dist; else echo 'Studio dist not found, checking for build in apps/studio/build'; if [ -d apps/studio/build ]; then cp -r apps/studio/build ./dist; else echo 'No build output found'; fi; fi",
+  "buildCommand": "npx turbo run build --filter=@brepflow/studio --force && cp -r apps/studio/dist ./dist",
   "installCommand": "pnpm install",
   "outputDirectory": "dist",
   "headers": [
