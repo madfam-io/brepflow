@@ -1,3 +1,4 @@
+console.log('🔥 APP.TSX LOADING - DEBUG TEST');
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactFlow, {
   Node as RFNode,
@@ -82,12 +83,25 @@ function AppContent() {
   const [nodes, setNodes, onNodesChange] = useNodesState(rfNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(rfEdges);
 
+  // Debug: Log the nodes data with graph object reference
+  console.log('🔍 DEBUG - Graph reference:', graph, 'nodes:', graph.nodes.length, graph.nodes);
+  console.log('🔍 DEBUG - React Flow nodes:', rfNodes.length, rfNodes);
+  console.log('🔍 DEBUG - Nodes state snapshot:', nodes.length, nodes);
+
+  // Force immediate sync if there's a mismatch
+  if (nodes.length !== rfNodes.length) {
+    console.log('🚨 FORCE SYNC - Mismatch detected, forcing immediate sync');
+    setNodes(rfNodes);
+    setEdges(rfEdges);
+  }
+
   // Sync ReactFlow state with graph store
   useEffect(() => {
     const { nodes: newNodes, edges: newEdges } = convertToReactFlow(graph);
+    console.log('🔄 DEBUG - Syncing nodes:', newNodes.length, newNodes);
     setNodes(newNodes);
     setEdges(newEdges);
-  }, [graph, setNodes, setEdges]);
+  }, [graph, graph.nodes, graph.edges]);
 
   const onConnect = useCallback(
     (params: Connection) => {
@@ -185,6 +199,7 @@ function AppContent() {
           ),
           nodeEditor: (
             <ErrorBoundary>
+              {console.log('🚨 DIRECT DEBUG - nodes passed to ReactFlow:', nodes.length, nodes)}
               <ReactFlow
                 nodes={nodes}
                 edges={edges}

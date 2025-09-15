@@ -204,9 +204,12 @@ export const WorkbenchLayoutManager: React.FC<WorkbenchLayoutManagerProps> = ({
                         }
                         minSize={15}
                         maxSize={85}
+                        style={{ height: '100%', overflow: 'hidden' }}
                       >
                         <PanelComponent panelId={panelId}>
-                          {children[panelId]}
+                          <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+                            {children[panelId]}
+                          </div>
                         </PanelComponent>
                       </Panel>
                       {index < centerPanels.length - 1 && (

@@ -1,6 +1,247 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useLayoutStore } from '../store/layout-store';
 import { PanelId } from '../types/layout';
+import { useGraphStore } from '../store/graph-store';
+
+export interface KeyboardShortcut {
+  key: string;
+  ctrl?: boolean;
+  shift?: boolean;
+  alt?: boolean;
+  meta?: boolean;
+  description: string;
+  category: string;
+  action: () => void;
+  global?: boolean;
+}
+
+export interface ShortcutContext {
+  name: string;
+  shortcuts: KeyboardShortcut[];
+  priority: number;
+}
+
+class KeyboardShortcutManager {
+  private contexts: Map<string, ShortcutContext> = new Map();
+  private globalShortcuts: Map<string, KeyboardShortcut> = new Map();
+  private activeContext: string | null = null;
+  private listeners: Set<(shortcuts: KeyboardShortcut[]) => void> = new Set();
+  private actionCallbacks: Map<string, () => void> = new Map();
+
+  constructor() {
+    this.initializeGlobalShortcuts();
+    this.bindEvents();
+  }
+
+  private initializeGlobalShortcuts(): void {
+    const globalShortcuts: KeyboardShortcut[] = [
+      {
+        key: 'z',
+        ctrl: true,
+        description: 'Undo last action',
+        category: 'Edit',
+        action: () => this.triggerGlobalAction('undo'),
+        global: true,
+      },
+      {
+        key: 'y',
+        ctrl: true,
+        description: 'Redo last action',
+        category: 'Edit',
+        action: () => this.triggerGlobalAction('redo'),
+        global: true,
+      },
+      {
+        key: 'a',
+        ctrl: true,
+        description: 'Select all',
+        category: 'Selection',
+        action: () => this.triggerGlobalAction('selectAll'),
+        global: true,
+      },
+      {
+        key: 'c',
+        ctrl: true,
+        description: 'Copy selection',
+        category: 'Edit',
+        action: () => this.triggerGlobalAction('copy'),
+        global: true,
+      },
+      {
+        key: 'v',
+        ctrl: true,
+        description: 'Paste',
+        category: 'Edit',
+        action: () => this.triggerGlobalAction('paste'),
+        global: true,
+      },
+      {
+        key: 'Delete',
+        description: 'Delete selection',
+        category: 'Edit',
+        action: () => this.triggerGlobalAction('delete'),
+        global: true,
+      },
+      {
+        key: 'Escape',
+        description: 'Cancel current operation',
+        category: 'Navigation',
+        action: () => this.triggerGlobalAction('cancel'),
+        global: true,
+      },
+    ];
+
+    for (const shortcut of globalShortcuts) {
+      this.globalShortcuts.set(this.getShortcutKey(shortcut), shortcut);
+    }
+  }
+
+  private bindEvents(): void {
+    document.addEventListener('keydown', this.handleKeyDown.bind(this));
+  }
+
+  private handleKeyDown(event: KeyboardEvent): void {
+    if (this.isTypingContext(event.target as Element)) {
+      return;
+    }
+
+    const shortcutKey = this.getEventKey(event);
+
+    // Check active context first
+    if (this.activeContext) {
+      const context = this.contexts.get(this.activeContext);
+      if (context) {
+        const contextShortcut = context.shortcuts.find(s =>
+          this.getShortcutKey(s) === shortcutKey
+        );
+        if (contextShortcut) {
+          event.preventDefault();
+          event.stopPropagation();
+          contextShortcut.action();
+          return;
+        }
+      }
+    }
+
+    // Check global shortcuts
+    const globalShortcut = this.globalShortcuts.get(shortcutKey);
+    if (globalShortcut) {
+      event.preventDefault();
+      event.stopPropagation();
+      globalShortcut.action();
+    }
+  }
+
+  private isTypingContext(target: Element | null): boolean {
+    if (!target) return false;
+
+    const tagName = target.tagName.toLowerCase();
+    const contentEditable = (target as HTMLElement).contentEditable;
+
+    return (
+      tagName === 'input' ||
+      tagName === 'textarea' ||
+      tagName === 'select' ||
+      contentEditable === 'true' ||
+      target.closest('[contenteditable="true"]') !== null
+    );
+  }
+
+  private getEventKey(event: KeyboardEvent): string {
+    const modifiers = [];
+    if (event.ctrlKey || event.metaKey) modifiers.push('ctrl');
+    if (event.shiftKey) modifiers.push('shift');
+    if (event.altKey) modifiers.push('alt');
+
+    return [...modifiers, event.key].join('+');
+  }
+
+  private getShortcutKey(shortcut: KeyboardShortcut): string {
+    const modifiers = [];
+    if (shortcut.ctrl || shortcut.meta) modifiers.push('ctrl');
+    if (shortcut.shift) modifiers.push('shift');
+    if (shortcut.alt) modifiers.push('alt');
+
+    return [...modifiers, shortcut.key].join('+');
+  }
+
+  private triggerGlobalAction(action: string): void {
+    const callback = this.actionCallbacks.get(action);
+    if (callback) {
+      callback();
+    }
+  }
+
+  registerActionCallback(action: string, callback: () => void): void {
+    this.actionCallbacks.set(action, callback);
+  }
+
+  unregisterActionCallback(action: string): void {
+    this.actionCallbacks.delete(action);
+  }
+
+  registerContext(context: ShortcutContext): void {
+    this.contexts.set(context.name, context);
+    this.notifyListeners();
+  }
+
+  unregisterContext(name: string): void {
+    this.contexts.delete(name);
+    if (this.activeContext === name) {
+      this.activeContext = null;
+    }
+    this.notifyListeners();
+  }
+
+  setActiveContext(name: string | null): void {
+    this.activeContext = name;
+    this.notifyListeners();
+  }
+
+  getActiveShortcuts(): KeyboardShortcut[] {
+    const shortcuts: KeyboardShortcut[] = [];
+
+    shortcuts.push(...Array.from(this.globalShortcuts.values()));
+
+    if (this.activeContext) {
+      const context = this.contexts.get(this.activeContext);
+      if (context) {
+        shortcuts.push(...context.shortcuts);
+      }
+    }
+
+    return shortcuts;
+  }
+
+  getAllShortcuts(): { [category: string]: KeyboardShortcut[] } {
+    const shortcuts = this.getActiveShortcuts();
+    const grouped: { [category: string]: KeyboardShortcut[] } = {};
+
+    for (const shortcut of shortcuts) {
+      if (!grouped[shortcut.category]) {
+        grouped[shortcut.category] = [];
+      }
+      grouped[shortcut.category].push(shortcut);
+    }
+
+    return grouped;
+  }
+
+  subscribe(listener: (shortcuts: KeyboardShortcut[]) => void): () => void {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
+  private notifyListeners(): void {
+    const shortcuts = this.getActiveShortcuts();
+    for (const listener of this.listeners) {
+      listener(shortcuts);
+    }
+  }
+}
+
+// Global instance
+export const shortcutManager = new KeyboardShortcutManager();
 
 interface KeyboardShortcuts {
   [key: string]: () => void;
@@ -19,7 +260,134 @@ export const useKeyboardShortcuts = () => {
     focusMode
   } = useLayoutStore();
 
+  const { evaluateGraph, clearGraph } = useGraphStore();
+
+  // Register global actions
   useEffect(() => {
+    shortcutManager.registerActionCallback('undo', () => {
+      console.log('Undo action triggered');
+    });
+
+    shortcutManager.registerActionCallback('redo', () => {
+      console.log('Redo action triggered');
+    });
+
+    shortcutManager.registerActionCallback('selectAll', () => {
+      console.log('Select all action triggered');
+    });
+
+    shortcutManager.registerActionCallback('copy', () => {
+      console.log('Copy action triggered');
+    });
+
+    shortcutManager.registerActionCallback('paste', () => {
+      console.log('Paste action triggered');
+    });
+
+    shortcutManager.registerActionCallback('delete', () => {
+      console.log('Delete action triggered');
+    });
+
+    shortcutManager.registerActionCallback('cancel', () => {
+      if (focusMode.focusedPanel) {
+        exitFocusMode();
+      }
+    });
+
+    return () => {
+      shortcutManager.unregisterActionCallback('undo');
+      shortcutManager.unregisterActionCallback('redo');
+      shortcutManager.unregisterActionCallback('selectAll');
+      shortcutManager.unregisterActionCallback('copy');
+      shortcutManager.unregisterActionCallback('paste');
+      shortcutManager.unregisterActionCallback('delete');
+      shortcutManager.unregisterActionCallback('cancel');
+    };
+  }, [focusMode, exitFocusMode]);
+
+  useEffect(() => {
+    // Register layout shortcuts context
+    const layoutShortcuts: KeyboardShortcut[] = [
+      {
+        key: '1',
+        ctrl: true,
+        shift: true,
+        description: 'Toggle Node Panel',
+        category: 'Panels',
+        action: () => togglePanelVisibility('nodePanel'),
+      },
+      {
+        key: '2',
+        ctrl: true,
+        shift: true,
+        description: 'Toggle Node Editor',
+        category: 'Panels',
+        action: () => togglePanelVisibility('nodeEditor'),
+      },
+      {
+        key: '3',
+        ctrl: true,
+        shift: true,
+        description: 'Toggle 3D Viewport',
+        category: 'Panels',
+        action: () => togglePanelVisibility('viewport3d'),
+      },
+      {
+        key: '4',
+        ctrl: true,
+        shift: true,
+        description: 'Toggle Inspector',
+        category: 'Panels',
+        action: () => togglePanelVisibility('inspector'),
+      },
+      {
+        key: '5',
+        ctrl: true,
+        shift: true,
+        description: 'Toggle Console',
+        category: 'Panels',
+        action: () => togglePanelVisibility('console'),
+      },
+      {
+        key: 'F5',
+        description: 'Evaluate Graph',
+        category: 'Graph',
+        action: () => evaluateGraph(),
+      },
+      {
+        key: 'f',
+        description: 'Toggle Focus Mode',
+        category: 'View',
+        action: () => {
+          if (focusMode.focusedPanel) {
+            exitFocusMode();
+          } else {
+            const visiblePanels = Object.entries(currentLayout.panels)
+              .filter(([_, panel]) => panel.visible)
+              .sort(([_, a], [__, b]) => a.order - b.order)
+              .map(([id]) => id as PanelId);
+
+            if (visiblePanels.length > 0 && visiblePanels[0]) {
+              enterFocusMode(visiblePanels[0]);
+            }
+          }
+        },
+      },
+    ];
+
+    const layoutContext: ShortcutContext = {
+      name: 'layout',
+      shortcuts: layoutShortcuts,
+      priority: 1,
+    };
+
+    shortcutManager.registerContext(layoutContext);
+    shortcutManager.setActiveContext('layout');
+
+    return () => {
+      shortcutManager.unregisterContext('layout');
+    };
+
     const shortcuts: KeyboardShortcuts = {
       // Panel visibility toggles
       'ctrl+shift+1': () => togglePanelVisibility('nodePanel'),
@@ -95,42 +463,6 @@ export const useKeyboardShortcuts = () => {
         }
       }
     };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      // Don't trigger shortcuts when typing in inputs
-      if (event.target instanceof HTMLInputElement ||
-          event.target instanceof HTMLTextAreaElement ||
-          event.target instanceof HTMLSelectElement ||
-          (event.target as HTMLElement).contentEditable === 'true') {
-        return;
-      }
-
-      // Build shortcut key string
-      const parts: string[] = [];
-      if (event.ctrlKey) parts.push('ctrl');
-      if (event.altKey) parts.push('alt');
-      if (event.shiftKey) parts.push('shift');
-      if (event.metaKey) parts.push('meta');
-
-      // Add the main key
-      const key = event.key.toLowerCase();
-      parts.push(key);
-
-      const shortcut = parts.join('+');
-
-      if (shortcuts[shortcut]) {
-        event.preventDefault();
-        shortcuts[shortcut]();
-      }
-    };
-
-    // Add global shortcut listener
-    document.addEventListener('keydown', handleKeyDown);
-
-    // Cleanup
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
   }, [
     togglePanelVisibility,
     minimizePanel,
@@ -140,46 +472,78 @@ export const useKeyboardShortcuts = () => {
     loadPreset,
     resetToDefault,
     currentLayout,
-    focusMode
+    focusMode,
+    evaluateGraph,
+    clearGraph
   ]);
 
-  // Return shortcut info for help display
+  const [currentShortcuts, setCurrentShortcuts] = useState<KeyboardShortcut[]>([]);
+
+  useEffect(() => {
+    const unsubscribe = shortcutManager.subscribe(setCurrentShortcuts);
+    return unsubscribe;
+  }, []);
+
   return {
-    shortcuts: {
-      panel_visibility: {
-        description: 'Toggle panel visibility',
-        shortcuts: [
-          'Ctrl+Shift+1 - Node Panel',
-          'Ctrl+Shift+2 - Node Editor',
-          'Ctrl+Shift+3 - 3D Viewport',
-          'Ctrl+Shift+4 - Inspector',
-          'Ctrl+Shift+5 - Console'
-        ]
-      },
-      panel_focus: {
-        description: 'Focus panels',
-        shortcuts: [
-          'F - Toggle focus mode',
-          'Ctrl+F+1-5 - Focus specific panel',
-          'Escape - Exit focus mode'
-        ]
-      },
-      panel_minimize: {
-        description: 'Minimize/maximize panels',
-        shortcuts: [
-          'Ctrl+M+1-5 - Toggle panel minimize'
-        ]
-      },
-      layout_presets: {
-        description: 'Switch layout presets',
-        shortcuts: [
-          'Ctrl+Alt+1 - Guided layout',
-          'Ctrl+Alt+2 - Professional layout',
-          'Ctrl+Alt+3 - Modeling layout',
-          'Ctrl+Alt+4 - Node-focused layout',
-          'Ctrl+Alt+0 - Reset to default'
-        ]
+    shortcuts: shortcutManager.getAllShortcuts(),
+    currentShortcuts,
+    manager: shortcutManager
+  };
+};
+
+/**
+ * Hook for using keyboard shortcuts in specific contexts
+ */
+export function useContextualShortcuts(
+  shortcuts: KeyboardShortcut[] = [],
+  contextName?: string
+): {
+  shortcuts: KeyboardShortcut[];
+  registerShortcut: (shortcut: KeyboardShortcut) => void;
+  setContext: (name: string | null) => void;
+} {
+  const contextRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (contextName && shortcuts.length > 0) {
+      const context: ShortcutContext = {
+        name: contextName,
+        shortcuts,
+        priority: 1,
+      };
+
+      shortcutManager.registerContext(context);
+      contextRef.current = contextName;
+
+      return () => {
+        shortcutManager.unregisterContext(contextName);
+      };
+    }
+  }, [contextName, shortcuts]);
+
+  const registerShortcut = useCallback((shortcut: KeyboardShortcut) => {
+    if (contextRef.current) {
+      const context = shortcutManager.contexts.get(contextRef.current);
+      if (context) {
+        context.shortcuts.push(shortcut);
       }
     }
+  }, []);
+
+  const setContext = useCallback((name: string | null) => {
+    shortcutManager.setActiveContext(name);
+  }, []);
+
+  const [currentShortcuts, setCurrentShortcuts] = useState<KeyboardShortcut[]>([]);
+
+  useEffect(() => {
+    const unsubscribe = shortcutManager.subscribe(setCurrentShortcuts);
+    return unsubscribe;
+  }, []);
+
+  return {
+    shortcuts: currentShortcuts,
+    registerShortcut,
+    setContext,
   };
 };
