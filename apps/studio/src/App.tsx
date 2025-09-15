@@ -77,8 +77,8 @@ function AppContent() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [recordUserInteraction]);
 
-  // Convert graph to ReactFlow format
-  const { nodes: rfNodes, edges: rfEdges } = convertToReactFlow(graph);
+  // Convert graph to ReactFlow format with enhanced node data
+  const { nodes: rfNodes, edges: rfEdges } = convertToReactFlow(graph, selectedNodes, errors);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(rfNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(rfEdges);
@@ -97,11 +97,11 @@ function AppContent() {
 
   // Sync ReactFlow state with graph store
   useEffect(() => {
-    const { nodes: newNodes, edges: newEdges } = convertToReactFlow(graph);
+    const { nodes: newNodes, edges: newEdges } = convertToReactFlow(graph, selectedNodes, errors);
     console.log('🔄 DEBUG - Syncing nodes:', newNodes.length, newNodes);
     setNodes(newNodes);
     setEdges(newEdges);
-  }, [graph, graph.nodes, graph.edges]);
+  }, [graph, graph.nodes, graph.edges, selectedNodes, errors]);
 
   const onConnect = useCallback(
     (params: Connection) => {
@@ -253,8 +253,54 @@ function AppContent() {
                 onDragOver={onDragOver}
                 deleteKeyCode="Delete"
                 fitView
-                connectionLineStyle={{ stroke: '#4a5568', strokeWidth: 2 }}
-                defaultEdgeOptions={{ type: 'smoothstep', animated: true }}
+                snapToGrid={true}
+                snapGrid={[15, 15]}
+                multiSelectionKeyCode="Shift"
+                selectionKeyCode="Shift"
+                panOnScroll={true}
+                panOnScrollMode={"horizontal"}
+                zoomOnScroll={true}
+                zoomOnPinch={true}
+                connectionLineStyle={{
+                  stroke: 'var(--color-primary-500)',
+                  strokeWidth: 3,
+                  strokeDasharray: '5,5',
+                  animation: 'dash 1s linear infinite',
+                }}
+                connectionLineComponent={({ fromX, fromY, toX, toY }) => (
+                  <g>
+                    <path
+                      fill="none"
+                      stroke="var(--color-primary-500)"
+                      strokeWidth={3}
+                      strokeDasharray="5,5"
+                      d={`M${fromX},${fromY} Q ${fromX + 50},${fromY} ${toX - 50},${toY} T${toX},${toY}`}
+                      style={{
+                        animation: 'dash 1s linear infinite',
+                      }}
+                    />
+                    <circle
+                      cx={toX}
+                      cy={toY}
+                      r={4}
+                      fill="var(--color-primary-500)"
+                      stroke="var(--color-surface-primary)"
+                      strokeWidth={2}
+                    />
+                  </g>
+                )}
+                defaultEdgeOptions={{
+                  type: 'smoothstep',
+                  animated: true,
+                  style: {
+                    stroke: 'var(--color-primary-500)',
+                    strokeWidth: 2,
+                  },
+                  markerEnd: {
+                    type: 'arrowclosed',
+                    color: 'var(--color-primary-500)',
+                  },
+                }}
               >
                 <Background variant={'dots' as any} gap={12} size={1} />
                 <Controls />

@@ -293,42 +293,179 @@ export function Viewport() {
 
   return (
     <div className="viewport" ref={mountRef}>
+      {/* Compact Toolbar with Professional Layout */}
       <div className="viewport-toolbar">
-        <button title="Shaded">
-          <Icon name="shaded" size={16} />
-        </button>
-        <button title="Wireframe">
-          <Icon name="wireframe" size={16} />
-        </button>
-        <button title="X-Ray">
-          <Icon name="xray" size={16} />
-        </button>
-        <button title="Section">
-          <Icon name="section" size={16} />
-        </button>
-        <span className="separator">|</span>
-        <button title="Fit View">
-          <Icon name="fit-view" size={16} />
-        </button>
-        <button title="Isolate">
-          <Icon name="zoom" size={16} />
-        </button>
-        <button title="Hide">
-          <Icon name="hide" size={16} />
-        </button>
-        <span className="separator">|</span>
-        <button
-          className={showMeasurementTools ? 'active' : ''}
-          onClick={() => setShowMeasurementTools(!showMeasurementTools)}
-          title="Measurement Tools"
-        >
-          <Icon name="settings" size={16} />
-        </button>
+        <div className="toolbar-group display-controls">
+          <button className="toolbar-btn compact" title="Shaded (S)">
+            <Icon name="shaded" size={14} />
+          </button>
+          <button className="toolbar-btn compact" title="Wireframe (W)">
+            <Icon name="wireframe" size={14} />
+          </button>
+          <button className="toolbar-btn compact" title="X-Ray (X)">
+            <Icon name="xray" size={14} />
+          </button>
+          <button className="toolbar-btn compact" title="Section (Alt+S)">
+            <Icon name="section" size={14} />
+          </button>
+        </div>
+        
+        <div className="toolbar-separator" />
+        
+        <div className="toolbar-group navigation-controls">
+          <button className="toolbar-btn compact" title="Fit View (F)">
+            <Icon name="fit-view" size={14} />
+          </button>
+          <button className="toolbar-btn compact" title="Zoom Selection (Z)">
+            <Icon name="zoom" size={14} />
+          </button>
+          <button className="toolbar-btn compact" title="Hide Selected (H)">
+            <Icon name="hide" size={14} />
+          </button>
+        </div>
+        
+        <div className="toolbar-separator" />
+        
+        <div className="toolbar-group tools-controls">
+          <button
+            className={`toolbar-btn compact ${showMeasurementTools ? 'active' : ''}`}
+            onClick={() => setShowMeasurementTools(!showMeasurementTools)}
+            title="Measurement Tools (M)"
+          >
+            <Icon name="settings" size={14} />
+          </button>
+        </div>
+        
+        <div className="toolbar-spacer" />
+        
+        {/* Compact Status Indicators */}
+        <div className="viewport-status">
+          <div className="status-indicator">
+            <span className="status-label">Triangles:</span>
+            <span className="status-value">12.5K</span>
+          </div>
+          <div className="status-indicator">
+            <span className="status-label">FPS:</span>
+            <span className="status-value">60</span>
+          </div>
+        </div>
       </div>
 
+      {/* Coordinate Display - Bottom Right */}
+      <div className="coordinate-display">
+        <div className="coordinate-item">
+          <span className="coord-label">X:</span>
+          <span className="coord-value">0.00</span>
+        </div>
+        <div className="coordinate-item">
+          <span className="coord-label">Y:</span>
+          <span className="coord-value">0.00</span>
+        </div>
+        <div className="coordinate-item">
+          <span className="coord-label">Z:</span>
+          <span className="coord-value">0.00</span>
+        </div>
+      </div>
+
+      {/* Navigation Cube - Top Right */}
+      <div className="navigation-cube">
+        <div className="cube-face front" title="Front View (1)">F</div>
+        <div className="cube-face back" title="Back View (Ctrl+1)">B</div>
+        <div className="cube-face top" title="Top View (7)">T</div>
+        <div className="cube-face bottom" title="Bottom View (Ctrl+7)">⊥</div>
+        <div className="cube-face left" title="Left View (3)">L</div>
+        <div className="cube-face right" title="Right View (Ctrl+3)">R</div>
+        <div className="cube-center" title="Isometric View (0)">ISO</div>
+      </div>
+
+      {/* Compact Grid/Scale Indicator */}
+      <div className="scale-indicator">
+        <div className="scale-bar">
+          <div className="scale-tick" />
+          <span className="scale-label">10mm</span>
+          <div className="scale-tick" />
+        </div>
+        <div className="grid-info">
+          <span className="grid-size">Grid: 1mm</span>
+        </div>
+      </div>
+
+      {/* Measurement Tools Panel - Compact */}
       {showMeasurementTools && (
-        <div className="measurement-tools-placeholder">
-          <div>Measurement tools will be available in a future release</div>
+        <div className="measurement-panel compact">
+          <div className="panel-header compact">
+            <h4 className="panel-title">Measure</h4>
+            <button 
+              className="close-btn"
+              onClick={() => setShowMeasurementTools(false)}
+              title="Close"
+            >
+              ×
+            </button>
+          </div>
+          <div className="measurement-tools">
+            <button className="tool-btn" title="Distance">
+              <Icon name="ruler" size={12} />
+              <span>Distance</span>
+            </button>
+            <button className="tool-btn" title="Angle">
+              <Icon name="angle" size={12} />
+              <span>Angle</span>
+            </button>
+            <button className="tool-btn" title="Radius">
+              <Icon name="circle" size={12} />
+              <span>Radius</span>
+            </button>
+          </div>
+          
+          {/* Active Measurements List */}
+          {measurements.length > 0 && (
+            <div className="measurements-list">
+              <div className="list-header">Active Measurements</div>
+              {measurements.slice(0, 3).map((measurement) => (
+                <div key={measurement.id} className="measurement-item">
+                  <span className="measurement-type">{measurement.type}</span>
+                  <span className="measurement-value">
+                    {measurement.value.toFixed(2)} {measurement.unit}
+                  </span>
+                  <button 
+                    className="delete-btn"
+                    onClick={() => handleMeasurementDelete(measurement.id)}
+                    title="Delete measurement"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+              {measurements.length > 3 && (
+                <div className="more-measurements">
+                  +{measurements.length - 3} more
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Selection Info Panel - Bottom Left */}
+      <div className="selection-info">
+        <div className="info-item">
+          <span className="info-label">Selected:</span>
+          <span className="info-value">None</span>
+        </div>
+      </div>
+
+      {/* Performance Monitor - Top Left (Development) */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="performance-monitor">
+          <div className="perf-item">
+            <span className="perf-label">GPU:</span>
+            <span className="perf-value">98%</span>
+          </div>
+          <div className="perf-item">
+            <span className="perf-label">Memory:</span>
+            <span className="perf-value">245MB</span>
+          </div>
         </div>
       )}
     </div>

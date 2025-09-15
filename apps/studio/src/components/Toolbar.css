@@ -1,53 +1,97 @@
 .toolbar {
   display: flex;
   align-items: center;
-  gap: 20px;
-  height: 50px;
-  padding: 0 20px;
-  background: var(--bg-primary);
-  border-bottom: 1px solid var(--border);
+  gap: var(--spacing-4);
+  height: 44px; /* Reduced from 50px for better density */
+  padding: 0 var(--spacing-4);
+  background: var(--color-surface-primary);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-toolbar);
+  backdrop-filter: blur(8px);
+  position: relative;
+  z-index: var(--z-index-sticky);
 }
 
 .toolbar-group {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-2);
+  align-items: center;
 }
 
 .toolbar-btn {
-  padding: 8px 16px;
-  background: var(--bg-quaternary);
-  color: var(--text-primary);
-  border: 1px solid var(--border-light);
+  padding: var(--spacing-2) var(--spacing-4);
+  background: var(--color-surface-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-tight);
+  transition: var(--transition-button);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--spacing-2);
+  box-shadow: var(--shadow-button);
+  position: relative;
+  overflow: hidden;
+}
+
+.toolbar-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-button);
+  opacity: 0;
+  transition: var(--transition-hover);
 }
 
 .toolbar-btn:hover {
-  background: var(--bg-tertiary);
-  border-color: var(--border-lighter);
+  background: var(--color-surface-tertiary);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-button-hover);
+  transform: translateY(-1px);
+}
+
+.toolbar-btn:hover::before {
+  opacity: 1;
+}
+
+.toolbar-btn:focus {
+  outline: none;
+  box-shadow: var(--shadow-focus), var(--shadow-button);
+}
+
+.toolbar-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 .toolbar-btn.primary {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--gradient-primary);
+  border-color: var(--color-primary-600);
+  color: var(--color-text-inverse);
 }
 
 .toolbar-btn.primary:hover {
-  background: var(--accent-hover);
+  background: var(--color-primary-700);
+  border-color: var(--color-primary-700);
+  transform: translateY(-1px);
 }
 
 .toolbar-btn.danger {
-  background: var(--danger);
-  border-color: var(--danger);
+  background: var(--color-error);
+  border-color: var(--color-error-dark);
+  color: var(--color-text-inverse);
 }
 
 .toolbar-btn.danger:hover {
-  background: var(--danger-hover);
+  background: var(--color-error-dark);
+  border-color: var(--color-error-dark);
+  transform: translateY(-1px);
 }
 
 .toolbar-info {

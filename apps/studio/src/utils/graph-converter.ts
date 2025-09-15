@@ -4,7 +4,11 @@ import type { GraphInstance, NodeInstance, Edge } from '@brepflow/types';
 /**
  * Convert BrepFlow graph to ReactFlow format
  */
-export function convertToReactFlow(graph: GraphInstance): {
+export function convertToReactFlow(
+  graph: GraphInstance,
+  selectedNodes?: Set<string>,
+  errors?: Map<string, string>
+): {
   nodes: RFNode[];
   edges: RFEdge[];
 } {
@@ -14,6 +18,11 @@ export function convertToReactFlow(graph: GraphInstance): {
     position: node.position || { x: 0, y: 0 },
     data: {
       label: getNodeLabel(node),
+      type: node.type,
+      nodeData: node,
+      isSelected: selectedNodes?.has(node.id) || false,
+      hasError: errors?.has(node.id) || false,
+      isExecuting: node.state === 'executing' || false,
       ...node,
     },
   }));
@@ -25,6 +34,15 @@ export function convertToReactFlow(graph: GraphInstance): {
     target: edge.target,
     targetHandle: edge.targetHandle,
     type: 'smoothstep',
+    animated: true,
+    style: {
+      stroke: 'var(--color-primary-500)',
+      strokeWidth: 2,
+    },
+    markerEnd: {
+      type: 'arrowclosed',
+      color: 'var(--color-primary-500)',
+    },
   }));
 
   return { nodes, edges };
