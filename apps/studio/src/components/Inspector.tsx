@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import type { NodeInstance } from '@brepflow/types';
-import { GeometryPreview } from './previews/GeometryPreview';
 import { StatusIcon } from './icons/IconSystem';
 import './Inspector.css';
 
@@ -244,7 +243,11 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
         {expandedSections.preview && (
           <div className="inspector-section-content">
             <div className="inspector-preview-container">
-              <GeometryPreview node={selectedNode} size={280} />
+              <div className="geometry-preview-placeholder">
+                <div className="preview-icon">📐</div>
+                <div className="preview-text">Geometry Preview</div>
+                <div className="preview-note">Preview will be available in future release</div>
+              </div>
             </div>
           </div>
         )}

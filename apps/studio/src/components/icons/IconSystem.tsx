@@ -18,7 +18,7 @@ import {
   // Status
   CheckCircle, AlertCircle, XCircle, Clock,
   // Measurement
-  Ruler, Triangle, Calculator,
+  Ruler, Triangle, Calculator, CircleDot,
   // Navigation
   Grid3X3, Layers3, Palette, Lightbulb
 } from 'lucide-react';
@@ -125,13 +125,14 @@ export const IconMap = {
   // Measurement Tools
   'measure-distance': Ruler,
   'measure-angle': Triangle,
-  'measure-radius': Circle,
+  'measure-radius': CircleDot,
   'measure-area': Calculator,
   'visibility': Eye,
 
   // UI Elements
   'help': Lightbulb,
   'info': AlertCircle,
+  'ruler': Ruler,
 } as const;
 
 export type IconName = keyof typeof IconMap;

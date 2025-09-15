@@ -3,7 +3,15 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three-stdlib';
 import { useGraphStore } from '../store/graph-store';
 import { Icon } from './common/Icon';
-import { MeasurementTools, type Measurement } from './viewport/MeasurementTools';
+// import { MeasurementTools, type Measurement } from './viewport/MeasurementTools';
+
+// Temporary type definition for measurements
+type Measurement = {
+  id: string;
+  type: 'distance' | 'angle' | 'radius';
+  value: number;
+  unit: string;
+};
 import type { MeshData, ShapeHandle } from '@brepflow/types';
 
 export function Viewport() {
@@ -314,19 +322,14 @@ export function Viewport() {
           onClick={() => setShowMeasurementTools(!showMeasurementTools)}
           title="Measurement Tools"
         >
-          <Icon name="measure-distance" size={16} />
+          <Icon name="ruler" size={16} />
         </button>
       </div>
 
-      {showMeasurementTools && sceneRef.current && cameraRef.current && rendererRef.current && (
-        <MeasurementTools
-          scene={sceneRef.current}
-          camera={cameraRef.current}
-          renderer={rendererRef.current}
-          onMeasurementCreate={handleMeasurementCreate}
-          onMeasurementUpdate={handleMeasurementUpdate}
-          onMeasurementDelete={handleMeasurementDelete}
-        />
+      {showMeasurementTools && (
+        <div className="measurement-tools-placeholder">
+          <div>Measurement tools will be available in a future release</div>
+        </div>
       )}
     </div>
   );
