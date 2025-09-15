@@ -69,7 +69,8 @@ third_party/*.tar.gz
 # Build directories
 build-occt/
 
-# WASM build outputs (generated)
-packages/engine-occt/wasm/*.wasm
-packages/engine-occt/wasm/*.js
-packages/engine-occt/wasm/*.worker.js
+# WASM build outputs - INCLUDE for production deployment
+# packages/engine-occt/wasm/*.wasm
+# packages/engine-occt/wasm/*.js
+# packages/engine-occt/wasm/*.worker.js
+# NOTE: WASM files are included in git for reliable production deployment
