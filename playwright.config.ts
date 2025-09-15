@@ -15,8 +15,7 @@ export default defineConfig({
     timeout: 15000, // Allow time for geometry rendering
     toHaveScreenshot: {
       threshold: 0.15, // Allow 15% difference for Three.js rendering variations
-      animations: 'disabled',
-      mode: 'rgb'
+      animations: 'disabled'
     }
   },
   reporter: [
