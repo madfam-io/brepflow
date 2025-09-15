@@ -1,4 +1,5 @@
 import type { Node as RFNode, Edge as RFEdge } from 'reactflow';
+import { MarkerType } from 'reactflow';
 import type { GraphInstance, NodeInstance, Edge } from '@brepflow/types';
 
 /**
@@ -22,7 +23,7 @@ export function convertToReactFlow(
       nodeData: node,
       isSelected: selectedNodes?.has(node.id) || false,
       hasError: errors?.has(node.id) || false,
-      isExecuting: node.state === 'executing' || false,
+      isExecuting: (node.state as unknown as string) === 'executing' || false,
       ...node,
     },
   }));
@@ -40,7 +41,7 @@ export function convertToReactFlow(
       strokeWidth: 2,
     },
     markerEnd: {
-      type: 'arrowclosed',
+      type: MarkerType.Arrow,
       color: 'var(--color-primary-500)',
     },
   }));

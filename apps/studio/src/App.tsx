@@ -12,6 +12,7 @@ import ReactFlow, {
   Connection,
   Panel,
   ReactFlowProvider,
+  MarkerType,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import CustomNode from './components/nodes/CustomNode';
@@ -37,6 +38,7 @@ import { MonitoringDashboard } from './components/monitoring/MonitoringDashboard
 import { useMonitoring, useHealthMonitoring } from './hooks/useMonitoring';
 import { initializeMonitoring } from './lib/monitoring';
 import { Icon } from './components/common/Icon';
+import { NodeParameterDialog } from './components/dialogs/NodeParameterDialog';
 import './App.css';
 
 function AppContent() {
@@ -55,6 +57,17 @@ function AppContent() {
   const { recordUserInteraction, executeWasmOperation } = useMonitoring();
   const { alerts } = useHealthMonitoring();
   const [showMonitoringDashboard, setShowMonitoringDashboard] = useState(false);
+
+  // Parameter dialog state
+  const [parameterDialog, setParameterDialog] = useState<{
+    isOpen: boolean;
+    nodeType: string;
+    position: { x: number; y: number };
+  }>({
+    isOpen: false,
+    nodeType: '',
+    position: { x: 0, y: 0 },
+  });
 
   // Initialize keyboard shortcuts for layout system
   useKeyboardShortcuts();
@@ -78,6 +91,7 @@ function AppContent() {
   }, [recordUserInteraction]);
 
   // Convert graph to ReactFlow format with enhanced node data
+  const errors = new Map<string, string>(); // TODO: Implement proper error tracking
   const { nodes: rfNodes, edges: rfEdges } = convertToReactFlow(graph, selectedNodes, errors);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(rfNodes);
@@ -183,23 +197,53 @@ function AppContent() {
         y: event.clientY - reactFlowBounds.top,
       };
 
-      const defaultParams = getDefaultParams(nodeType);
-
-      addNode({
-        type: nodeType,
+      // Open parameter dialog instead of directly creating node
+      setParameterDialog({
+        isOpen: true,
+        nodeType,
         position,
-        inputs: {},
-        params: defaultParams,
       });
 
-      console.log('📦 Node added with params:', nodeType, defaultParams);
+      console.log('📦 Opening parameter dialog for:', nodeType, 'at position:', position);
     },
-    [addNode]
+    []
   );
 
   const onDragOver = useCallback((event: React.DragEvent) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = 'move';
+  }, []);
+
+  // Handle parameter dialog confirmation
+  const handleParameterDialogConfirm = useCallback(
+    (params: Record<string, any>) => {
+      if (!parameterDialog.nodeType) return;
+
+      addNode({
+        type: parameterDialog.nodeType,
+        position: parameterDialog.position,
+        inputs: {},
+        params,
+      });
+
+      console.log('📦 Node added with configured params:', parameterDialog.nodeType, params);
+
+      recordUserInteraction({
+        type: 'node_created',
+        target: parameterDialog.nodeType,
+        data: { params, position: parameterDialog.position }
+      });
+    },
+    [parameterDialog, addNode, recordUserInteraction]
+  );
+
+  // Handle parameter dialog close
+  const handleParameterDialogClose = useCallback(() => {
+    setParameterDialog({
+      isOpen: false,
+      nodeType: '',
+      position: { x: 0, y: 0 },
+    });
   }, []);
 
   const selectedNode = selectedNodes.size === 1
@@ -258,7 +302,6 @@ function AppContent() {
                 multiSelectionKeyCode="Shift"
                 selectionKeyCode="Shift"
                 panOnScroll={true}
-                panOnScrollMode={"horizontal"}
                 zoomOnScroll={true}
                 zoomOnPinch={true}
                 connectionLineStyle={{
@@ -297,7 +340,7 @@ function AppContent() {
                     strokeWidth: 2,
                   },
                   markerEnd: {
-                    type: 'arrowclosed',
+                    type: MarkerType.Arrow,
                     color: 'var(--color-primary-500)',
                   },
                 }}
@@ -368,6 +411,14 @@ function AppContent() {
       <MonitoringDashboard
         isVisible={showMonitoringDashboard}
         onClose={() => setShowMonitoringDashboard(false)}
+      />
+
+      {/* Node Parameter Dialog */}
+      <NodeParameterDialog
+        isOpen={parameterDialog.isOpen}
+        nodeType={parameterDialog.nodeType}
+        onConfirm={handleParameterDialogConfirm}
+        onClose={handleParameterDialogClose}
       />
     </>
   );
