@@ -1,7 +1,11 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import type { NodeInstance } from '@brepflow/types';
 import { StatusIcon } from './icons/IconSystem';
 import { Icon } from './common/Icon';
+import { NodeMetricsCollector, NodePerformanceData } from '../lib/monitoring/node-metrics';
+import { ErrorDiagnosticsEngine, NodeErrorDiagnostic } from '../lib/diagnostics/error-diagnostics';
+import { NodeConfigurationManager } from '../lib/configuration/node-config';
+import { ErrorCode } from '../lib/error-handling/types';
 import './Inspector.css';
 
 interface InspectorProps {
@@ -205,9 +209,19 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     parameters: true,
     preview: true,
+    performance: false,
+    diagnostics: false,
+    configuration: false,
     inputs: false,
     outputs: false
   });
+  const [performanceData, setPerformanceData] = useState<NodePerformanceData | null>(null);
+  const [diagnostics, setDiagnostics] = useState<NodeErrorDiagnostic[]>([]);
+  const [showConfigurationDialog, setShowConfigurationDialog] = useState(false);
+
+  const nodeMetricsCollector = useMemo(() => NodeMetricsCollector.getInstance(), []);
+  const diagnosticsEngine = useMemo(() => ErrorDiagnosticsEngine.getInstance(), []);
+  const configManager = useMemo(() => NodeConfigurationManager.getInstance(), []);
 
   const parameterConfigs = useMemo(() => {
     return selectedNode ? getNodeParameterConfig(selectedNode.type) : [];
@@ -256,6 +270,20 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
     const parts = type.split('::');
     return parts[parts.length - 1];
   }, []);
+
+  // Load performance data and diagnostics when node changes
+  useEffect(() => {
+    if (selectedNode) {
+      const perfData = nodeMetricsCollector.getNodePerformanceData(selectedNode.id);
+      setPerformanceData(perfData);
+
+      const nodeHistory = diagnosticsEngine.getErrorHistory(selectedNode.id);
+      setDiagnostics(nodeHistory);
+    } else {
+      setPerformanceData(null);
+      setDiagnostics([]);
+    }
+  }, [selectedNode, nodeMetricsCollector, diagnosticsEngine]);
 
   if (!selectedNode) {
     return (
@@ -407,6 +435,206 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
         </div>
       )}
 
+      {/* Performance Section */}
+      {performanceData && (
+        <div className="inspector-section">
+          <div
+            className="inspector-section-header"
+            onClick={() => toggleSection('performance')}
+          >
+            <h4>Performance</h4>
+            <span className={`expand-icon ${expandedSections.performance ? 'expanded' : ''}`}>▼</span>
+          </div>
+          {expandedSections.performance && (
+            <div className="inspector-section-content">
+              <div className="performance-metrics">
+                <div className="metric-item">
+                  <label>Compute Time</label>
+                  <div className="metric-value">
+                    {performanceData.metrics.averageComputeTime.toFixed(2)}ms
+                    {performanceData.trends.computeTimeGrowth !== 0 && (
+                      <span className={`trend ${performanceData.trends.computeTimeGrowth > 0 ? 'increasing' : 'decreasing'}`}>
+                        {performanceData.trends.computeTimeGrowth > 0 ? '↗' : '↘'} {Math.abs(performanceData.trends.computeTimeGrowth).toFixed(1)}%
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="metric-item">
+                  <label>Memory Usage</label>
+                  <div className="metric-value">
+                    {(performanceData.metrics.peakMemoryUsage / 1024 / 1024).toFixed(2)}MB
+                    {performanceData.trends.memoryGrowth !== 0 && (
+                      <span className={`trend ${performanceData.trends.memoryGrowth > 0 ? 'increasing' : 'decreasing'}`}>
+                        {performanceData.trends.memoryGrowth > 0 ? '↗' : '↘'} {Math.abs(performanceData.trends.memoryGrowth).toFixed(1)}%
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="metric-item">
+                  <label>Success Rate</label>
+                  <div className="metric-value">
+                    {performanceData.metrics.successRate.toFixed(1)}%
+                    <div className={`reliability-indicator ${performanceData.trends.reliability > 90 ? 'excellent' : performanceData.trends.reliability > 75 ? 'good' : 'warning'}`}>
+                      {performanceData.trends.reliability > 90 ? '●' : performanceData.trends.reliability > 75 ? '●' : '●'}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="metric-item">
+                  <label>Evaluations</label>
+                  <div className="metric-value">
+                    {performanceData.metrics.evaluationCount}
+                    <span className="metric-detail">total runs</span>
+                  </div>
+                </div>
+
+                <div className="metric-item">
+                  <label>Last Evaluated</label>
+                  <div className="metric-value">
+                    {new Date(performanceData.metrics.lastEvaluated).toLocaleTimeString()}
+                    <span className="metric-detail">
+                      {new Date(performanceData.metrics.lastEvaluated).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Diagnostics Section */}
+      {diagnostics.length > 0 && (
+        <div className="inspector-section">
+          <div
+            className="inspector-section-header"
+            onClick={() => toggleSection('diagnostics')}
+          >
+            <h4>Diagnostics</h4>
+            <span className={`expand-icon ${expandedSections.diagnostics ? 'expanded' : ''}`}>▼</span>
+          </div>
+          {expandedSections.diagnostics && (
+            <div className="inspector-section-content">
+              {diagnostics.slice(0, 3).map((diagnostic, index) => (
+                <div key={index} className={`diagnostic-item severity-${diagnostic.severity}`}>
+                  <div className="diagnostic-header">
+                    <Icon name="warning" size={16} />
+                    <span className="diagnostic-title">{diagnostic.errorCode}</span>
+                    <span className="diagnostic-time">
+                      {new Date(diagnostic.timestamp).toLocaleTimeString()}
+                    </span>
+                  </div>
+                  <div className="diagnostic-message">{diagnostic.errorMessage}</div>
+                  {diagnostic.suggestions.length > 0 && (
+                    <div className="diagnostic-suggestions">
+                      <div className="suggestion-header">Suggestions:</div>
+                      {diagnostic.suggestions.slice(0, 2).map((suggestion, suggIndex) => (
+                        <div key={suggIndex} className="suggestion-item">
+                          <div className="suggestion-title">
+                            <Icon name="success" size={12} />
+                            {suggestion.title}
+                          </div>
+                          <div className="suggestion-description">{suggestion.description}</div>
+                          {suggestion.estimatedTime && (
+                            <div className="suggestion-time">Est. time: {suggestion.estimatedTime}</div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              {diagnostics.length > 3 && (
+                <div className="diagnostic-more">
+                  +{diagnostics.length - 3} more diagnostic entries
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Configuration Section */}
+      <div className="inspector-section">
+        <div
+          className="inspector-section-header"
+          onClick={() => toggleSection('configuration')}
+        >
+          <h4>Configuration</h4>
+          <span className={`expand-icon ${expandedSections.configuration ? 'expanded' : ''}`}>▼</span>
+        </div>
+        {expandedSections.configuration && (
+          <div className="inspector-section-content">
+            <div className="configuration-actions">
+              <button
+                className="config-button export"
+                onClick={() => {
+                  const config = configManager.exportNodeConfiguration(selectedNode, {
+                    author: 'Studio User',
+                    notes: `Configuration exported from ${selectedNode.type} node`
+                  });
+                  console.log('Configuration exported:', config);
+                  // Could show a toast notification here
+                }}
+              >
+                <Icon name="export" size={16} />
+                Export Config
+              </button>
+
+              <button
+                className="config-button import"
+                onClick={() => setShowConfigurationDialog(true)}
+              >
+                <Icon name="import" size={16} />
+                Import Config
+              </button>
+
+              <button
+                className="config-button save"
+                onClick={() => {
+                  const blob = new Blob(
+                    [JSON.stringify(selectedNode, null, 2)],
+                    { type: 'application/json' }
+                  );
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `${selectedNode.type}_${selectedNode.id}.json`;
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(url);
+                }}
+              >
+                <Icon name="save" size={16} />
+                Save to File
+              </button>
+            </div>
+
+            <div className="configuration-info">
+              <div className="config-item">
+                <label>Node Type</label>
+                <div className="config-value">{selectedNode.type}</div>
+              </div>
+              <div className="config-item">
+                <label>Parameters</label>
+                <div className="config-value">
+                  {Object.keys(selectedNode.params || {}).length} parameters
+                </div>
+              </div>
+              <div className="config-item">
+                <label>Inputs</label>
+                <div className="config-value">
+                  {Object.keys(selectedNode.inputs || {}).length} connections
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Position Section */}
       <div className="inspector-section">
         <h4>Position</h4>
@@ -431,6 +659,27 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
           </div>
         </div>
       </div>
+
+      {/* Configuration Dialog (placeholder for now) */}
+      {showConfigurationDialog && (
+        <div className="config-dialog-overlay" onClick={() => setShowConfigurationDialog(false)}>
+          <div className="config-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="config-dialog-header">
+              <h3>Import Configuration</h3>
+              <button onClick={() => setShowConfigurationDialog(false)}>
+                <Icon name="close" size={16} />
+              </button>
+            </div>
+            <div className="config-dialog-content">
+              <p>Configuration import functionality will be available in the next update.</p>
+              <p>You can currently export configurations for backup and sharing.</p>
+            </div>
+            <div className="config-dialog-actions">
+              <button onClick={() => setShowConfigurationDialog(false)}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -444,4 +444,43 @@ export class MetricsCollector {
     // For now, return 0
     return 0;
   }
+
+  /**
+   * Record a counter value directly
+   */
+  public recordCounter(name: string, value: number, labels: Record<string, string> = {}): void {
+    const key = this.createMetricKey(name, labels);
+    this.counters.set(key, value);
+  }
+
+  /**
+   * Record a gauge value directly
+   */
+  public recordGauge(name: string, value: number, labels: Record<string, string> = {}): void {
+    const key = this.createMetricKey(name, labels);
+    this.gauges.set(key, value);
+  }
+
+  /**
+   * Record a performance metric directly
+   */
+  public recordMetric(metric: PerformanceMetric): void {
+    this.addMetric(metric);
+  }
+
+  /**
+   * Remove a counter
+   */
+  public removeCounter(name: string, labels: Record<string, string> = {}): void {
+    const key = this.createMetricKey(name, labels);
+    this.counters.delete(key);
+  }
+
+  /**
+   * Remove a gauge
+   */
+  public removeGauge(name: string, labels: Record<string, string> = {}): void {
+    const key = this.createMetricKey(name, labels);
+    this.gauges.delete(key);
+  }
 }
