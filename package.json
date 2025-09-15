@@ -19,6 +19,11 @@
     "build": "turbo run build",
     "build:wasm": "bash scripts/build-occt.sh",
     "test": "turbo run test",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:report": "playwright show-report",
+    "test:all": "pnpm test && pnpm test:e2e",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "clean": "turbo run clean && rm -rf node_modules",
@@ -28,6 +33,7 @@
     "pre-deploy": "pnpm lockfile:check && pnpm build"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.0",
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
@@ -41,6 +47,7 @@
     "eslint-plugin-react": "^7.33.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "jsdom": "^27.0.0",
+    "playwright": "^1.55.0",
     "prettier": "^3.2.0",
     "turbo": "^1.12.0",
     "typescript": "^5.3.0",
