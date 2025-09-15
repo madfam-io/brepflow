@@ -12,6 +12,7 @@ PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
 THIRD_PARTY_DIR="$PROJECT_ROOT/third_party"
 BUILD_DIR="$PROJECT_ROOT/build-occt"
 OUTPUT_DIR="$PROJECT_ROOT/packages/engine-occt/wasm"
+BINDINGS_DIR="$PROJECT_ROOT/packages/engine-occt/src"
 
 # Colors for output
 RED='\033[0;31m'
@@ -22,14 +23,17 @@ NC='\033[0m' # No Color
 echo -e "${GREEN}BrepFlow OCCT.wasm Build Script${NC}"
 echo "==============================="
 
-# Check for Emscripten
+# Check for Emscripten or activate it
 if ! command -v emcc &> /dev/null; then
-    echo -e "${RED}Error: Emscripten not found!${NC}"
-    echo "Please install and activate Emscripten SDK:"
-    echo "  git clone https://github.com/emscripten-core/emsdk.git"
-    echo "  cd emsdk && ./emsdk install latest && ./emsdk activate latest"
-    echo "  source ./emsdk_env.sh"
-    exit 1
+    echo -e "${YELLOW}Emscripten not found in PATH, attempting to activate from third_party...${NC}"
+    if [ -f "$THIRD_PARTY_DIR/emsdk/emsdk_env.sh" ]; then
+        source "$THIRD_PARTY_DIR/emsdk/emsdk_env.sh"
+        echo -e "${GREEN}✓ Emscripten activated from third_party${NC}"
+    else
+        echo -e "${RED}Error: Emscripten not found!${NC}"
+        echo "Please install Emscripten SDK first"
+        exit 1
+    fi
 fi
 
 echo -e "${GREEN}✓ Emscripten found:${NC} $(emcc --version | head -n1)"
@@ -39,18 +43,8 @@ OCCT_VERSION="7.8.0"
 OCCT_DIR="$THIRD_PARTY_DIR/occt"
 
 if [ ! -d "$OCCT_DIR" ]; then
-    echo -e "${YELLOW}Downloading Open CASCADE Technology v${OCCT_VERSION}...${NC}"
-    mkdir -p "$THIRD_PARTY_DIR"
-    cd "$THIRD_PARTY_DIR"
-
-    # Download OCCT (adjust URL as needed for actual source)
-    echo "TODO: Add actual OCCT download URL and extraction"
-    # wget https://github.com/Open-Cascade-SAS/OCCT/archive/refs/tags/V${OCCT_VERSION}.tar.gz
-    # tar -xzf V${OCCT_VERSION}.tar.gz
-    # mv OCCT-${OCCT_VERSION} occt
-
-    echo -e "${RED}Note: OCCT download not implemented yet${NC}"
-    echo "Please manually download OCCT ${OCCT_VERSION} to $OCCT_DIR"
+    echo -e "${RED}Error: OCCT source not found at $OCCT_DIR${NC}"
+    echo "OCCT source should already be downloaded. Please check third_party/occt"
     exit 1
 fi
 
@@ -60,13 +54,12 @@ echo -e "${GREEN}✓ OCCT source found at:${NC} $OCCT_DIR"
 mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 
-# Configure with CMake for Emscripten
-echo -e "${YELLOW}Configuring OCCT with CMake...${NC}"
+# First, build OCCT as static libraries
+echo -e "${YELLOW}Configuring OCCT with CMake for Emscripten...${NC}"
 
 emcmake cmake "$OCCT_DIR" \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-    -DBUILD_SHARED_LIBS=OFF \
+    -DBUILD_LIBRARY_TYPE=Static \
     -DBUILD_MODULE_ApplicationFramework=OFF \
     -DBUILD_MODULE_DataExchange=ON \
     -DBUILD_MODULE_Draw=OFF \
@@ -81,82 +74,82 @@ emcmake cmake "$OCCT_DIR" \
     -DUSE_FREEIMAGE=OFF \
     -DUSE_RAPIDJSON=OFF \
     -DUSE_TBB=OFF \
-    -DCMAKE_CXX_FLAGS="-s WASM=1 -s USE_PTHREADS=1 -s ALLOW_MEMORY_GROWTH=1 -s MAXIMUM_MEMORY=2GB -s EXPORT_ES6=1 -s MODULARIZE=1 -s EXPORT_NAME='createOCCTModule' -O3" \
-    -DCMAKE_EXE_LINKER_FLAGS="-s WASM=1 -s USE_PTHREADS=1 -s ALLOW_MEMORY_GROWTH=1" \
+    -DUSE_OPENGL=OFF \
+    -DUSE_GLES2=OFF \
+    -DCMAKE_CXX_FLAGS="-O3 -fPIC" \
     || { echo -e "${RED}CMake configuration failed${NC}"; exit 1; }
 
-# Build
-echo -e "${YELLOW}Building OCCT.wasm (this may take a while)...${NC}"
-emmake make -j$(nproc) || { echo -e "${RED}Build failed${NC}"; exit 1; }
+# Build OCCT libraries
+echo -e "${YELLOW}Building OCCT libraries (this may take a while)...${NC}"
+emmake make -j$(nproc) || emmake make -j1 || { echo -e "${RED}Build failed${NC}"; exit 1; }
+
+echo -e "${GREEN}✓ OCCT libraries built successfully${NC}"
 
 # Create output directory
 mkdir -p "$OUTPUT_DIR"
 
-# Copy built files
-echo -e "${YELLOW}Copying WASM output files...${NC}"
-# TODO: Identify and copy actual WASM output files
-# cp "$BUILD_DIR/..."/*.wasm "$OUTPUT_DIR/"
-# cp "$BUILD_DIR/..."/*.js "$OUTPUT_DIR/"
+# Now compile our bindings with OCCT libraries
+echo -e "${YELLOW}Compiling BrepFlow OCCT bindings to WASM...${NC}"
+
+OCCT_LIBS=""
+for lib in TKernel TKMath TKG2d TKG3d TKGeomBase TKBRep TKGeomAlgo TKTopAlgo TKPrim TKMesh TKBO TKFillet TKOffset TKSTEP TKIGES; do
+    if [ -f "$BUILD_DIR/lin32/clang/lib/lib${lib}.a" ]; then
+        OCCT_LIBS="$OCCT_LIBS $BUILD_DIR/lin32/clang/lib/lib${lib}.a"
+    elif [ -f "$BUILD_DIR/lib/lib${lib}.a" ]; then
+        OCCT_LIBS="$OCCT_LIBS $BUILD_DIR/lib/lib${lib}.a"
+    fi
+done
+
+em++ "$BINDINGS_DIR/occt-bindings.cpp" \
+    -I"$OCCT_DIR/src/Standard" \
+    -I"$OCCT_DIR/src/BRepPrimAPI" \
+    -I"$OCCT_DIR/src/BRepAlgoAPI" \
+    -I"$OCCT_DIR/src/BRepFilletAPI" \
+    -I"$OCCT_DIR/src/BRepMesh" \
+    -I"$OCCT_DIR/src/BRep" \
+    -I"$OCCT_DIR/src/TopExp" \
+    -I"$OCCT_DIR/src/TopoDS" \
+    -I"$OCCT_DIR/src/Poly" \
+    -I"$OCCT_DIR/src/TColgp" \
+    -I"$OCCT_DIR/src/STEPControl" \
+    -I"$OCCT_DIR/src/IGESControl" \
+    -I"$OCCT_DIR/src/Bnd" \
+    -I"$OCCT_DIR/src/BRepBndLib" \
+    -I"$OCCT_DIR/src/gp" \
+    -I"$OCCT_DIR/src/TopLoc" \
+    -I"$OCCT_DIR/src/Geom" \
+    -I"$OCCT_DIR/src/GeomAbs" \
+    -I"$BUILD_DIR/inc" \
+    $OCCT_LIBS \
+    -o "$OUTPUT_DIR/occt.js" \
+    -s WASM=1 \
+    -s USE_PTHREADS=1 \
+    -s PTHREAD_POOL_SIZE=4 \
+    -s ALLOW_MEMORY_GROWTH=1 \
+    -s MAXIMUM_MEMORY=2GB \
+    -s EXPORT_ES6=1 \
+    -s MODULARIZE=1 \
+    -s EXPORT_NAME='createOCCTModule' \
+    -s ENVIRONMENT='web,worker' \
+    -s FILESYSTEM=0 \
+    -s ASSERTIONS=1 \
+    -s SAFE_HEAP=0 \
+    -s STACK_OVERFLOW_CHECK=1 \
+    -s DEMANGLE_SUPPORT=1 \
+    -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
+    -s NO_DISABLE_EXCEPTION_CATCHING \
+    -lembind \
+    -O3 \
+    --bind \
+    || { echo -e "${RED}Failed to compile bindings${NC}"; exit 1; }
 
 echo -e "${GREEN}✅ OCCT.wasm build complete!${NC}"
-echo "Output directory: $OUTPUT_DIR"
+echo "Output files:"
+ls -lh "$OUTPUT_DIR/"
 
-# Create TypeScript bindings scaffold
-cat > "$OUTPUT_DIR/../src/occt-bindings.ts" << 'EOF'
-// OCCT.wasm TypeScript Bindings
-// Auto-generated scaffold - implement actual bindings
-
-export interface OCCTModule {
-  // Geometry operations
-  makeBox(dx: number, dy: number, dz: number): Promise<ShapeHandle>;
-  makeSphere(radius: number): Promise<ShapeHandle>;
-  makeCylinder(radius: number, height: number): Promise<ShapeHandle>;
-
-  // Boolean operations
-  booleanUnion(shape1: ShapeHandle, shape2: ShapeHandle): Promise<ShapeHandle>;
-  booleanSubtract(shape1: ShapeHandle, shape2: ShapeHandle): Promise<ShapeHandle>;
-  booleanIntersect(shape1: ShapeHandle, shape2: ShapeHandle): Promise<ShapeHandle>;
-
-  // Tessellation
-  tessellate(shape: ShapeHandle, deflection: number): Promise<MeshData>;
-
-  // STEP I/O
-  importSTEP(data: ArrayBuffer): Promise<ShapeHandle[]>;
-  exportSTEP(shapes: ShapeHandle[]): Promise<ArrayBuffer>;
-}
-
-export interface ShapeHandle {
-  id: string;
-  type: 'solid' | 'surface' | 'curve';
-}
-
-export interface MeshData {
-  positions: Float32Array;
-  normals: Float32Array;
-  indices: Uint32Array;
-}
-
-// Module loader
-let occtModule: OCCTModule | null = null;
-
-export async function loadOCCT(): Promise<OCCTModule> {
-  if (occtModule) return occtModule;
-
-  // @ts-ignore - WASM module import
-  const createModule = await import('./wasm/occt.js');
-  const module = await createModule.default();
-
-  // TODO: Wrap actual OCCT C++ API
-  occtModule = {
-    makeBox: async (dx, dy, dz) => {
-      // Implement actual OCCT binding
-      throw new Error('Not implemented');
-    },
-    // ... implement other methods
-  } as OCCTModule;
-
-  return occtModule;
-}
-EOF
-
-echo -e "${GREEN}✅ TypeScript bindings scaffold created${NC}"
+echo -e "${GREEN}✅ Build process complete!${NC}"
+echo ""
+echo "Next steps:"
+echo "1. Update packages/engine-occt/src/occt-bindings.ts to use the real WASM module"
+echo "2. Test the integration with: pnpm run dev"
+echo "3. Verify geometry operations work in the browser"

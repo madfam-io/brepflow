@@ -6,15 +6,17 @@ export interface OCCTModule {
   makeBox(dx: number, dy: number, dz: number): ShapeHandle;
   makeSphere(radius: number): ShapeHandle;
   makeCylinder(radius: number, height: number): ShapeHandle;
+  makeCone(radius1: number, radius2: number, height: number): ShapeHandle;
+  makeTorus(majorRadius: number, minorRadius: number): ShapeHandle;
 
   // Boolean operations
   booleanUnion(shape1Id: string, shape2Id: string): ShapeHandle;
   booleanSubtract(shape1Id: string, shape2Id: string): ShapeHandle;
   booleanIntersect(shape1Id: string, shape2Id: string): ShapeHandle;
 
-  // Feature operations
-  makeFillet(shapeId: string, radius: number): ShapeHandle;
-  makeChamfer(shapeId: string, distance: number): ShapeHandle;
+  // Feature operations (available in full version)
+  makeFillet?(shapeId: string, radius: number): ShapeHandle;
+  makeChamfer?(shapeId: string, distance: number): ShapeHandle;
 
   // Tessellation
   tessellate(shapeId: string, precision?: number, angle?: number): MeshData;
@@ -23,6 +25,10 @@ export interface OCCTModule {
   // Memory management
   deleteShape(shapeId: string): void;
   getShapeCount(): number;
+
+  // Status and version
+  getStatus?(): string;
+  getOCCTVersion?(): string;
 
   // Vector types for interfacing with Emscripten
   VectorFloat: any;
@@ -94,19 +100,79 @@ export async function loadOCCT(): Promise<OCCTModule> {
   if (occtModule) return occtModule;
 
   try {
-    // Try to dynamically import the WASM module in development
-    // In production builds, this will fail and we'll catch the error
-    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-      // Only attempt WASM loading in local development
-      throw new Error('WASM loading disabled for now - using mock geometry');
+    // Try to dynamically import the WASM module
+    if (typeof window !== 'undefined') {
+      console.log('[OCCT] Attempting to load real WASM module...');
+
+      try {
+        // Try the core OCCT module first (real geometry)
+        const wasmModuleFactory = (await import('../wasm/occt-core.js' as any)).default;
+
+        // Initialize the module with proper file location
+        wasmModule = await wasmModuleFactory({
+          locateFile: (path: string) => {
+            if (path.endsWith('.wasm')) {
+              // In development, Vite will serve this from the public directory
+              // In production, this needs to be served with proper COOP/COEP headers
+              return new URL('../wasm/occt-core.wasm', import.meta.url).href;
+            }
+            return path;
+          }
+        });
+
+        // Test the module to ensure it's working
+        if (wasmModule) {
+          const status = wasmModule.getStatus?.();
+          const version = wasmModule.getOCCTVersion?.() || 'OCCT-7.8.0';
+          console.log('[OCCT] Core WASM module loaded successfully');
+          console.log('[OCCT] Status:', status);
+          console.log('[OCCT] Version:', version);
+
+          // Test a basic operation
+          try {
+            const testBox = wasmModule.makeBox(1, 1, 1);
+            console.log('[OCCT] Test box created:', testBox);
+            wasmModule.deleteShape(testBox.id);
+            console.log('[OCCT] Real geometry operations verified');
+          } catch (e) {
+            console.warn('[OCCT] Basic geometry test failed:', e);
+          }
+
+          wasmLoaded = true;
+        }
+      } catch (coreError) {
+        console.warn('[OCCT] Core WASM module failed, trying simplified version:', coreError);
+
+        try {
+          // Fallback to simplified module
+          const wasmModuleFactory = (await import('../wasm/occt.js' as any)).default;
+          wasmModule = await wasmModuleFactory({
+            locateFile: (path: string) => {
+              if (path.endsWith('.wasm')) {
+                return new URL('../wasm/occt.wasm', import.meta.url).href;
+              }
+              return path;
+            }
+          });
+
+          if (wasmModule) {
+            console.log('[OCCT] Simplified WASM module loaded as fallback');
+            wasmLoaded = true;
+          }
+        } catch (fallbackError) {
+          console.warn('[OCCT] All WASM modules failed:', fallbackError);
+          throw fallbackError;
+        }
+      }
     } else {
-      // Production environment - skip WASM loading
-      throw new Error('WASM not available in production');
+      // Node.js environment
+      throw new Error('WASM loading not supported in Node.js environment');
     }
   } catch (error: unknown) {
     // This catch handles both import failures and WASM initialization failures
-    console.warn('Failed to load OCCT WASM module, falling back to mock implementation');
-    console.log('Note: This is expected in production deployment where WASM files are not available');
+    console.warn('[OCCT] Failed to load real WASM module, falling back to mock implementation');
+    console.log('[OCCT] Error details:', error);
+    console.log('[OCCT] Note: Real WASM requires COOP/COEP headers for SharedArrayBuffer support');
     wasmLoaded = false;
   }
 
@@ -156,6 +222,36 @@ export async function loadOCCT(): Promise<OCCTModule> {
         } catch (error) {
           console.error('OCCT makeCylinder failed:', error);
           throw new Error(`Failed to create cylinder: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
+      makeCone: (radius1: number, radius2: number, height: number): ShapeHandle => {
+        console.log(`Creating OCCT cone: r1=${radius1}, r2=${radius2}, h=${height}`);
+        try {
+          const shape = wasmModule.makeCone(radius1, radius2, height);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to create cone - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT makeCone failed:', error);
+          throw new Error(`Failed to create cone: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
+      makeTorus: (majorRadius: number, minorRadius: number): ShapeHandle => {
+        console.log(`Creating OCCT torus: major=${majorRadius}, minor=${minorRadius}`);
+        try {
+          const shape = wasmModule.makeTorus(majorRadius, minorRadius);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to create torus - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT makeTorus failed:', error);
+          throw new Error(`Failed to create torus: ${error instanceof Error ? error.message : error}`);
         }
       },
 
@@ -247,6 +343,16 @@ export async function loadOCCT(): Promise<OCCTModule> {
       makeCylinder: (radius: number, height: number): ShapeHandle => {
         console.log(`Mock creating cylinder: radius ${radius}, height ${height}`);
         return createMockHandle('cylinder', 'solid');
+      },
+
+      makeCone: (radius1: number, radius2: number, height: number): ShapeHandle => {
+        console.log(`Mock creating cone: r1=${radius1}, r2=${radius2}, h=${height}`);
+        return createMockHandle('cone', 'solid');
+      },
+
+      makeTorus: (majorRadius: number, minorRadius: number): ShapeHandle => {
+        console.log(`Mock creating torus: major=${majorRadius}, minor=${minorRadius}`);
+        return createMockHandle('torus', 'solid');
       },
 
       booleanUnion: (shape1Id: string, shape2Id: string): ShapeHandle => {

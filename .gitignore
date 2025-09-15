@@ -60,3 +60,16 @@ third_party/openNURBS/
 # Temporary files
 *.tmp
 .cache/
+# Third-party build tools (downloaded separately)
+third_party/emsdk/
+third_party/OCCT-*
+third_party/occt/
+third_party/*.tar.gz
+
+# Build directories
+build-occt/
+
+# WASM build outputs (generated)
+packages/engine-occt/wasm/*.wasm
+packages/engine-occt/wasm/*.js
+packages/engine-occt/wasm/*.worker.js

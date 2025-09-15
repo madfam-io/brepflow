@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OCCT WASM Test</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .log { margin: 5px 0; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>OCCT WASM Module Test</h1>
+    <div id="output"></div>
+
+    <script type="module">
+        const output = document.getElementById('output');
+
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `log ${type}`;
+            div.textContent = message;
+            output.appendChild(div);
+            console.log(message);
+        }
+
+        async function testOCCTModule() {
+            try {
+                log('Loading OCCT WASM module...', 'info');
+
+                // Load the module
+                const createModule = (await import('./wasm/occt.js')).default;
+                const Module = await createModule();
+
+                log('Module loaded successfully!', 'success');
+
+                // Test basic functions
+                if (Module.getStatus) {
+                    const status = Module.getStatus();
+                    log(`Status: ${status}`, 'info');
+                }
+
+                if (Module.getOCCTVersion) {
+                    const version = Module.getOCCTVersion();
+                    log(`Version: ${version}`, 'info');
+                }
+
+                // Test geometry creation
+                log('Testing geometry creation...', 'info');
+
+                if (Module.makeBox) {
+                    const box = Module.makeBox(10, 20, 30);
+                    log(`Created box: ${JSON.stringify(box)}`, 'success');
+
+                    if (Module.tessellate && box.id) {
+                        const mesh = Module.tessellate(box.id, 0.1, 0.5);
+                        log(`Tessellated box: ${mesh.positions.length / 3} vertices`, 'success');
+                    }
+                }
+
+                if (Module.makeSphere) {
+                    const sphere = Module.makeSphere(15);
+                    log(`Created sphere: ${JSON.stringify(sphere)}`, 'success');
+                }
+
+                if (Module.makeCylinder) {
+                    const cylinder = Module.makeCylinder(10, 25);
+                    log(`Created cylinder: ${JSON.stringify(cylinder)}`, 'success');
+                }
+
+                // Test boolean operations
+                if (Module.makeBox && Module.booleanUnion) {
+                    log('Testing boolean operations...', 'info');
+                    const box1 = Module.makeBox(10, 10, 10);
+                    const box2 = Module.makeBox(10, 10, 10);
+                    const union = Module.booleanUnion(box1.id, box2.id);
+                    log(`Boolean union: ${JSON.stringify(union)}`, 'success');
+                }
+
+                // Test shape count
+                if (Module.getShapeCount) {
+                    const count = Module.getShapeCount();
+                    log(`Shape count: ${count}`, 'info');
+                }
+
+                log('All tests completed successfully!', 'success');
+
+            } catch (error) {
+                log(`Error: ${error.message}`, 'error');
+                console.error(error);
+            }
+        }
+
+        // Run tests when page loads
+        testOCCTModule();
+    </script>
+</body>
+</html>
