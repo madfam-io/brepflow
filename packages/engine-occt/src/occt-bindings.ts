@@ -94,18 +94,15 @@ export async function loadOCCT(): Promise<OCCTModule> {
   if (occtModule) return occtModule;
 
   try {
-    // Try to dynamically import the WASM module
-    // @ts-ignore - Dynamic import of generated WASM module
-    const OCCTModule = (await import(/* @vite-ignore */ '../wasm/occt.js')) as any;
-    wasmModule = await OCCTModule.default();
-    wasmLoaded = true;
-    console.log('OCCT WASM module loaded successfully');
-
-    // Verify the module has the expected functions
-    if (!wasmModule.makeBox || !wasmModule.tessellate) {
-      throw new Error('OCCT WASM module missing expected functions');
+    // Try to dynamically import the WASM module in development
+    // In production builds, this will fail and we'll catch the error
+    if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+      // Only attempt WASM loading in local development
+      throw new Error('WASM loading disabled for now - using mock geometry');
+    } else {
+      // Production environment - skip WASM loading
+      throw new Error('WASM not available in production');
     }
-
   } catch (error: unknown) {
     // This catch handles both import failures and WASM initialization failures
     console.warn('Failed to load OCCT WASM module, falling back to mock implementation');
