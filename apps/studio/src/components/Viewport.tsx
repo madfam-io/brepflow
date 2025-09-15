@@ -322,7 +322,7 @@ export function Viewport() {
           onClick={() => setShowMeasurementTools(!showMeasurementTools)}
           title="Measurement Tools"
         >
-          <Icon name="ruler" size={16} />
+          <Icon name="Settings" size={16} />
         </button>
       </div>
 

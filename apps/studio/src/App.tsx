@@ -239,7 +239,6 @@ function AppContent() {
           ),
           nodeEditor: (
             <ErrorBoundary>
-              {console.log('🚨 DIRECT DEBUG - nodes passed to ReactFlow:', nodes.length, nodes)}
               <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -254,7 +253,6 @@ function AppContent() {
                 onDragOver={onDragOver}
                 deleteKeyCode="Delete"
                 fitView
-                connectionLineType="smoothstep"
                 connectionLineStyle={{ stroke: '#4a5568', strokeWidth: 2 }}
                 defaultEdgeOptions={{ type: 'smoothstep', animated: true }}
               >
