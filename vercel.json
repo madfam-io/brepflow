@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx turbo run build --filter=@brepflow/studio && cp -r apps/studio/dist ./dist",
+  "buildCommand": "npx turbo run build --filter=@brepflow/studio --force && cp -r apps/studio/dist ./dist",
   "installCommand": "pnpm install",
   "outputDirectory": "dist",
   "headers": [
