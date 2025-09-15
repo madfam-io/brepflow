@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGraphStore } from '../store/graph-store';
-import { Icon } from './common/Icon';
+import { ToolbarIcon } from './icons/IconSystem';
 import './Toolbar.css';
 
 export function Toolbar() {
@@ -59,22 +59,22 @@ export function Toolbar() {
     <div className="toolbar">
       <div className="toolbar-group">
         <button onClick={handleEvaluate} className="toolbar-btn primary">
-          ▶ Evaluate
+          <ToolbarIcon action="evaluate" size={16} /> Evaluate
         </button>
       </div>
 
       <div className="toolbar-group">
         <button onClick={handleImport} className="toolbar-btn">
-          <Icon name="import" size={16} /> Import
+          <ToolbarIcon action="import" size={16} /> Import
         </button>
         <button onClick={handleExport} className="toolbar-btn">
-          <Icon name="export" size={16} /> Export
+          <ToolbarIcon action="export" size={16} /> Export
         </button>
       </div>
 
       <div className="toolbar-group">
         <button onClick={handleClear} className="toolbar-btn danger">
-          <Icon name="trash" size={16} /> Clear
+          <ToolbarIcon action="clear" size={16} /> Clear
         </button>
       </div>
 

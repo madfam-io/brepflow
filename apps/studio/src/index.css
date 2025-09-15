@@ -1,39 +1,37 @@
+/* Import professional design tokens */
+@import './design-system/tokens.css';
+
+/* Backward compatibility - map old tokens to new design system */
 :root {
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #242424;
-  --bg-tertiary: #2a2a2a;
-  --bg-quaternary: #2d2d2d;
-  --text-primary: #e0e0e0;
-  --text-secondary: #a0a0a0;
-  --text-tertiary: #888;
-  --accent: #00a0ff;
-  --accent-hover: #0080ff;
-  --border: #333;
-  --border-light: #444;
-  --border-lighter: #555;
-  --success: #4caf50;
-  --warning: #ff9800;
-  --error: #f44336;
-  --danger: #cc3333;
-  --danger-hover: #a32929;
+  /* Legacy token mapping for existing components */
+  --bg-primary: var(--color-bg-primary);
+  --bg-secondary: var(--color-bg-secondary);
+  --bg-tertiary: var(--color-bg-tertiary);
+  --bg-quaternary: var(--color-surface-quaternary);
 
-  /* Consistent spacing and sizing */
-  --radius-sm: 3px;
-  --radius-md: 4px;
-  --radius-lg: 6px;
-  --radius-xl: 8px;
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --text-tertiary: var(--color-text-tertiary);
 
-  /* Shadow system */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.2);
+  --accent: var(--color-primary-600);
+  --accent-hover: var(--color-primary-700);
+
+  --border: var(--color-border);
+  --border-light: var(--color-border-light);
+  --border-lighter: var(--color-border-strong);
+
+  --success: var(--color-success);
+  --warning: var(--color-warning);
+  --error: var(--color-error);
+  --danger: var(--color-error);
+  --danger-hover: var(--color-error-dark);
 
   /* Panel background for components that need light theme elements */
-  --panel-bg: #ffffff;
-  --panel-border: #e0e0e0;
-  --panel-text: #333;
-  --panel-text-secondary: #666;
-  --panel-text-tertiary: #999;
+  --panel-bg: var(--color-surface-primary);
+  --panel-border: var(--color-border);
+  --panel-text: var(--color-text-primary);
+  --panel-text-secondary: var(--color-text-secondary);
+  --panel-text-tertiary: var(--color-text-tertiary);
 }
 
 * {
@@ -49,9 +47,7 @@ html, body, #root {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-family-ui);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--bg-primary);

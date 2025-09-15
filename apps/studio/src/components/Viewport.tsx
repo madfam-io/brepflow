@@ -1,16 +1,36 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three-stdlib';
 import { useGraphStore } from '../store/graph-store';
 import { Icon } from './common/Icon';
+import { MeasurementTools, type Measurement } from './viewport/MeasurementTools';
 import type { MeshData, ShapeHandle } from '@brepflow/types';
 
 export function Viewport() {
   const mountRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const geometryGroupRef = useRef<THREE.Group | null>(null);
   const { graph, dagEngine } = useGraphStore();
+
+  const [measurements, setMeasurements] = useState<Measurement[]>([]);
+  const [showMeasurementTools, setShowMeasurementTools] = useState(false);
+
+  // Measurement handlers
+  const handleMeasurementCreate = useCallback((measurement: Measurement) => {
+    setMeasurements(prev => [...prev, measurement]);
+  }, []);
+
+  const handleMeasurementUpdate = useCallback((measurement: Measurement) => {
+    setMeasurements(prev =>
+      prev.map(m => m.id === measurement.id ? measurement : m)
+    );
+  }, []);
+
+  const handleMeasurementDelete = useCallback((measurementId: string) => {
+    setMeasurements(prev => prev.filter(m => m.id !== measurementId));
+  }, []);
 
   // Create Three.js mesh from tessellated geometry
   const createMeshFromTessellation = useCallback((meshData: MeshData, nodeId: string): THREE.Mesh => {
@@ -192,6 +212,7 @@ export function Viewport() {
     );
     camera.position.set(100, 100, 100);
     camera.lookAt(0, 0, 0);
+    cameraRef.current = camera;
 
     // Renderer setup
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -287,7 +308,26 @@ export function Viewport() {
         <button title="Hide">
           <Icon name="hide" size={16} />
         </button>
+        <span className="separator">|</span>
+        <button
+          className={showMeasurementTools ? 'active' : ''}
+          onClick={() => setShowMeasurementTools(!showMeasurementTools)}
+          title="Measurement Tools"
+        >
+          <Icon name="measure-distance" size={16} />
+        </button>
       </div>
+
+      {showMeasurementTools && sceneRef.current && cameraRef.current && rendererRef.current && (
+        <MeasurementTools
+          scene={sceneRef.current}
+          camera={cameraRef.current}
+          renderer={rendererRef.current}
+          onMeasurementCreate={handleMeasurementCreate}
+          onMeasurementUpdate={handleMeasurementUpdate}
+          onMeasurementDelete={handleMeasurementDelete}
+        />
+      )}
     </div>
   );
 }
