@@ -1,5 +1,5 @@
 {
-  "buildCommand": "turbo run build",
+  "buildCommand": "npx turbo run build --filter=@brepflow/studio",
   "installCommand": "pnpm install",
   "outputDirectory": "apps/studio/dist",
   "headers": [
