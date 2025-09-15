@@ -550,7 +550,7 @@ export function useContextualShortcuts(
 
   const registerShortcut = useCallback((shortcut: KeyboardShortcut) => {
     if (contextRef.current) {
-      const context = shortcutManager.contexts.get(contextRef.current);
+      const context = (shortcutManager as any).contexts.get(contextRef.current);
       if (context) {
         context.shortcuts.push(shortcut);
       }
