@@ -5,6 +5,15 @@
   position: relative;
   background: var(--color-neutral-900);
   overflow: hidden;
+  /* Ensure consistent sizing for Three.js canvas */
+  min-width: 0;
+  min-height: 0;
+}
+
+.viewport canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 /* === ENHANCED VIEWPORT TOOLBAR === */

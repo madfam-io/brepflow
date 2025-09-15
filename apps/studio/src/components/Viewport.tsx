@@ -206,83 +206,136 @@ export function Viewport() {
   useEffect(() => {
     if (!mountRef.current) return;
 
-    // Scene setup
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x1e1e1e);
-    sceneRef.current = scene;
+    const initializeViewport = () => {
+      const container = mountRef.current;
+      if (!container) return;
 
-    // Camera setup
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      mountRef.current.clientWidth / mountRef.current.clientHeight,
-      0.1,
-      10000
-    );
-    camera.position.set(100, 100, 100);
-    camera.lookAt(0, 0, 0);
-    cameraRef.current = camera;
+      // Validate container has proper dimensions before proceeding
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
 
-    // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    mountRef.current.appendChild(renderer.domElement);
-    rendererRef.current = renderer;
+      if (containerWidth === 0 || containerHeight === 0) {
+        // Container not ready, try again on next frame
+        requestAnimationFrame(initializeViewport);
+        return;
+      }
 
-    // Controls
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
+      // Scene setup
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x1e1e1e);
+      sceneRef.current = scene;
 
-    // Grid
-    const gridHelper = new THREE.GridHelper(200, 20, 0x444444, 0x222222);
-    scene.add(gridHelper);
+      // Camera setup with validated dimensions
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        containerWidth / containerHeight,
+        0.1,
+        10000
+      );
+      camera.position.set(100, 100, 100);
+      camera.lookAt(0, 0, 0);
+      cameraRef.current = camera;
 
-    // Axes
-    const axesHelper = new THREE.AxesHelper(50);
-    scene.add(axesHelper);
+      // Renderer setup with validated dimensions
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(containerWidth, containerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+      rendererRef.current = renderer;
 
-    // Geometry group for CAD objects
-    const geometryGroup = new THREE.Group();
-    geometryGroup.name = 'geometry';
-    scene.add(geometryGroup);
-    geometryGroupRef.current = geometryGroup;
+      // Controls
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
 
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-    scene.add(ambientLight);
+      // Grid
+      const gridHelper = new THREE.GridHelper(200, 20, 0x444444, 0x222222);
+      scene.add(gridHelper);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.4);
-    directionalLight.position.set(100, 100, 50);
-    scene.add(directionalLight);
+      // Axes
+      const axesHelper = new THREE.AxesHelper(50);
+      scene.add(axesHelper);
 
-    // Store camera reference for geometry fitting
-    scene.userData.camera = camera;
+      // Geometry group for CAD objects
+      const geometryGroup = new THREE.Group();
+      geometryGroup.name = 'geometry';
+      scene.add(geometryGroup);
+      geometryGroupRef.current = geometryGroup;
 
-    // Animation loop
-    const animate = () => {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.4);
+      directionalLight.position.set(100, 100, 50);
+      scene.add(directionalLight);
+
+      // Store camera reference for geometry fitting
+      scene.userData.camera = camera;
+
+      // Animation loop
+      const animate = () => {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      };
+      animate();
+
+      // Enhanced resize handling with ResizeObserver
+      const handleResize = (width: number, height: number) => {
+        if (width > 0 && height > 0 && camera && renderer) {
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+          renderer.setSize(width, height);
+        }
+      };
+
+      // Use ResizeObserver for container resize detection
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const { width, height } = entry.contentRect;
+          handleResize(width, height);
+        }
+      });
+
+      if (container) {
+        resizeObserver.observe(container);
+      }
+
+      // Fallback window resize handler
+      const handleWindowResize = () => {
+        if (container) {
+          handleResize(container.clientWidth, container.clientHeight);
+        }
+      };
+      window.addEventListener('resize', handleWindowResize);
+
+      // Cleanup function
+      const cleanup = () => {
+        resizeObserver.disconnect();
+        window.removeEventListener('resize', handleWindowResize);
+        if (container && renderer.domElement && container.contains(renderer.domElement)) {
+          container.removeChild(renderer.domElement);
+        }
+        renderer.dispose();
+        controls.dispose();
+      };
+
+      // Store cleanup function for access in outer scope
+      sceneRef.current.userData.cleanup = cleanup;
     };
-    animate();
 
-    // Handle resize
-    const handleResize = () => {
-      if (!mountRef.current) return;
-      camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
-    };
-    window.addEventListener('resize', handleResize);
+    // Start initialization with delay to ensure layout is ready
+    const timeoutId = setTimeout(() => {
+      requestAnimationFrame(initializeViewport);
+    }, 0);
 
     // Cleanup
     return () => {
-      window.removeEventListener('resize', handleResize);
-      if (mountRef.current && renderer.domElement) {
-        mountRef.current.removeChild(renderer.domElement);
+      clearTimeout(timeoutId);
+      if (sceneRef.current?.userData?.cleanup) {
+        sceneRef.current.userData.cleanup();
       }
-      renderer.dispose();
     };
   }, []);
 
