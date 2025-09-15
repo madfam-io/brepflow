@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm run build",
+  "buildCommand": "turbo run build",
   "installCommand": "pnpm install",
   "outputDirectory": "apps/studio/dist",
   "headers": [
