@@ -405,15 +405,15 @@ export function Viewport() {
           </div>
           <div className="measurement-tools">
             <button className="tool-btn" title="Distance">
-              <Icon name="ruler" size={12} />
+              <Icon name="line" size={12} />
               <span>Distance</span>
             </button>
             <button className="tool-btn" title="Angle">
-              <Icon name="angle" size={12} />
+              <Icon name="rotate" size={12} />
               <span>Angle</span>
             </button>
             <button className="tool-btn" title="Radius">
-              <Icon name="circle" size={12} />
+              <Icon name="sphere" size={12} />
               <span>Radius</span>
             </button>
           </div>
