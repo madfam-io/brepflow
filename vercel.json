@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm --filter @brepflow/studio run build && cp -r apps/studio/dist ./dist",
+  "buildCommand": "pnpm --filter @brepflow/studio^... run build && pnpm --filter @brepflow/studio run build && cp -r apps/studio/dist ./dist",
   "installCommand": "pnpm install",
   "outputDirectory": "dist",
   "headers": [
