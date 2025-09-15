@@ -260,32 +260,59 @@ export const useKeyboardShortcuts = () => {
     focusMode
   } = useLayoutStore();
 
-  const { evaluateGraph, clearGraph } = useGraphStore();
+  const {
+    evaluateGraph,
+    clearGraph,
+    selectedNodes,
+    removeNode,
+    removeEdge,
+    graph,
+    undo,
+    redo
+  } = useGraphStore();
 
   // Register global actions
   useEffect(() => {
     shortcutManager.registerActionCallback('undo', () => {
+      undo();
       console.log('Undo action triggered');
     });
 
     shortcutManager.registerActionCallback('redo', () => {
+      redo();
       console.log('Redo action triggered');
     });
 
     shortcutManager.registerActionCallback('selectAll', () => {
+      // TODO: Implement select all nodes
       console.log('Select all action triggered');
     });
 
     shortcutManager.registerActionCallback('copy', () => {
+      // TODO: Implement copy selected nodes
       console.log('Copy action triggered');
     });
 
     shortcutManager.registerActionCallback('paste', () => {
+      // TODO: Implement paste nodes
       console.log('Paste action triggered');
     });
 
     shortcutManager.registerActionCallback('delete', () => {
-      console.log('Delete action triggered');
+      // Delete selected nodes and their connected edges
+      if (selectedNodes.size > 0) {
+        // First, find and remove edges connected to selected nodes
+        const edgesToRemove = graph.edges.filter(edge =>
+          selectedNodes.has(edge.source) || selectedNodes.has(edge.target)
+        );
+
+        edgesToRemove.forEach(edge => removeEdge(edge.id));
+
+        // Then remove the nodes
+        selectedNodes.forEach(nodeId => removeNode(nodeId));
+
+        console.log(`Deleted ${selectedNodes.size} nodes and ${edgesToRemove.length} edges`);
+      }
     });
 
     shortcutManager.registerActionCallback('cancel', () => {
@@ -303,7 +330,7 @@ export const useKeyboardShortcuts = () => {
       shortcutManager.unregisterActionCallback('delete');
       shortcutManager.unregisterActionCallback('cancel');
     };
-  }, [focusMode, exitFocusMode]);
+  }, [focusMode, exitFocusMode, selectedNodes, removeNode, removeEdge, graph, undo, redo]);
 
   useEffect(() => {
     // Register layout shortcuts context

@@ -46,32 +46,112 @@ export function Viewport() {
     return mesh;
   }, []);
 
+  // Create simple geometry based on node type (mock implementation)
+  const createSimpleGeometry = useCallback((node: any): THREE.Mesh | null => {
+    const type = node.type.split('::')[1]?.toLowerCase();
+    let geometry: THREE.BufferGeometry | null = null;
+
+    switch (type) {
+      case 'box':
+        const width = node.params?.width || 100;
+        const height = node.params?.height || 100;
+        const depth = node.params?.depth || 100;
+        geometry = new THREE.BoxGeometry(width, height, depth);
+        break;
+
+      case 'cylinder':
+        const radius = node.params?.radius || 50;
+        const cylHeight = node.params?.height || 100;
+        geometry = new THREE.CylinderGeometry(radius, radius, cylHeight, 32);
+        break;
+
+      case 'sphere':
+        const sphereRadius = node.params?.radius || 50;
+        geometry = new THREE.SphereGeometry(sphereRadius, 32, 16);
+        break;
+
+      case 'union':
+      case 'subtract':
+      case 'intersect':
+        // For Boolean operations, create a placeholder mesh
+        // In a real implementation, this would compute the actual Boolean result
+        geometry = new THREE.BoxGeometry(80, 80, 80);
+        break;
+
+      default:
+        return null;
+    }
+
+    if (!geometry) return null;
+
+    // Create material with node-specific color
+    const hue = Math.abs(node.id.split('').reduce((a: number, b: string) => a + b.charCodeAt(0), 0)) % 360;
+    const material = new THREE.MeshPhongMaterial({
+      color: new THREE.Color().setHSL(hue / 360, 0.7, 0.6),
+      opacity: 0.9,
+      transparent: true,
+      side: THREE.DoubleSide,
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.userData = { nodeId: node.id, type: 'geometry' };
+
+    // Position based on node position in graph (scaled down)
+    if (node.position) {
+      mesh.position.x = (node.position.x - 400) * 0.2;
+      mesh.position.z = (node.position.y - 300) * 0.2;
+    }
+
+    return mesh;
+  }, []);
+
   // Update 3D scene with current graph geometry
   const updateSceneGeometry = useCallback(async () => {
-    if (!geometryGroupRef.current || !dagEngine) return;
+    if (!geometryGroupRef.current) return;
 
     // Clear existing geometry
     geometryGroupRef.current.clear();
 
-    // Find nodes with geometry results
-    const geometryNodes = graph.nodes.filter(node =>
-      node.outputs?.geometry && node.outputs.geometry.value
-    );
+    // Process all nodes with shape outputs
+    const geometryNodes = graph.nodes.filter(node => {
+      // Check if node has a shape output with a value
+      return node.outputs?.shape?.value || node.outputs?.geometry?.value;
+    });
 
-    for (const node of geometryNodes) {
-      try {
-        const shapeHandle = node.outputs?.geometry?.value as ShapeHandle;
-        if (!shapeHandle || !shapeHandle.id) continue;
+    // If no real geometry yet, fall back to simple visualization for testing
+    if (geometryNodes.length === 0) {
+      const displayNodes = graph.nodes.filter(node =>
+        node.type.startsWith('Solid::') || node.type.startsWith('Boolean::')
+      );
 
-        // Tessellate the shape
-        const meshData = await dagEngine.geometryAPI.tessellate(shapeHandle.id, 0.1);
+      for (const node of displayNodes) {
+        const mesh = createSimpleGeometry(node);
+        if (mesh) {
+          geometryGroupRef.current.add(mesh);
+        }
+      }
+    } else {
+      // Use real tessellation for nodes with shape outputs
+      for (const node of geometryNodes) {
+        try {
+          const shapeHandle = (node.outputs?.shape?.value || node.outputs?.geometry?.value) as ShapeHandle;
+          if (!shapeHandle || !shapeHandle.id || !dagEngine) continue;
 
-        // Create Three.js mesh
-        const mesh = createMeshFromTessellation(meshData, node.id);
-        geometryGroupRef.current.add(mesh);
+          // Tessellate the shape with better quality
+          const meshData = await dagEngine.geometryAPI.tessellate(shapeHandle.id, 0.01);
 
-      } catch (error) {
-        console.warn(`Failed to tessellate geometry for node ${node.id}:`, error);
+          // Create Three.js mesh
+          const mesh = createMeshFromTessellation(meshData, node.id);
+          geometryGroupRef.current.add(mesh);
+
+        } catch (error) {
+          console.warn(`Failed to tessellate geometry for node ${node.id}:`, error);
+          // Fall back to simple geometry on error
+          const mesh = createSimpleGeometry(node);
+          if (mesh) {
+            geometryGroupRef.current.add(mesh);
+          }
+        }
       }
     }
 
@@ -93,7 +173,7 @@ export function Viewport() {
         camera.lookAt(center);
       }
     }
-  }, [graph.nodes, dagEngine, createMeshFromTessellation]);
+  }, [graph.nodes, dagEngine, createMeshFromTessellation, createSimpleGeometry]);
 
   useEffect(() => {
     if (!mountRef.current) return;

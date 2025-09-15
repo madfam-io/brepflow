@@ -105,13 +105,15 @@ function AppContent() {
 
   const onConnect = useCallback(
     (params: Connection) => {
-      if (params.source && params.target && params.sourceHandle && params.targetHandle) {
+      console.log('🔗 Connection attempt:', params);
+      if (params.source && params.target) {
         addGraphEdge({
           source: params.source,
-          sourceHandle: params.sourceHandle,
+          sourceHandle: params.sourceHandle || 'output',
           target: params.target,
-          targetHandle: params.targetHandle,
+          targetHandle: params.targetHandle || 'input',
         });
+        console.log('✅ Edge added between', params.source, 'and', params.target);
       }
     },
     [addGraphEdge]
@@ -134,6 +136,40 @@ function AppContent() {
     edges.forEach(edge => removeEdge(edge.id));
   }, [removeEdge]);
 
+  // Get default parameters based on node type
+  const getDefaultParams = (nodeType: string) => {
+    const type = nodeType.split('::')[1]?.toLowerCase();
+
+    switch (type) {
+      case 'box':
+        return { width: 100, height: 100, depth: 100 };
+      case 'cylinder':
+        return { radius: 50, height: 100 };
+      case 'sphere':
+        return { radius: 50 };
+      case 'extrude':
+        return { distance: 100 };
+      case 'revolve':
+        return { angle: 360 };
+      case 'fillet':
+        return { radius: 10 };
+      case 'chamfer':
+        return { distance: 10 };
+      case 'move':
+        return { x: 0, y: 0, z: 0 };
+      case 'rotate':
+        return { x: 0, y: 0, z: 90 };
+      case 'scale':
+        return { factor: 2 };
+      case 'lineararray':
+        return { count: 5, spacing: 50 };
+      case 'circulararray':
+        return { count: 6, angle: 360 };
+      default:
+        return {};
+    }
+  };
+
   const onDrop = useCallback(
     (event: React.DragEvent) => {
       event.preventDefault();
@@ -147,12 +183,16 @@ function AppContent() {
         y: event.clientY - reactFlowBounds.top,
       };
 
+      const defaultParams = getDefaultParams(nodeType);
+
       addNode({
         type: nodeType,
         position,
         inputs: {},
-        params: {},
+        params: defaultParams,
       });
+
+      console.log('📦 Node added with params:', nodeType, defaultParams);
     },
     [addNode]
   );
@@ -214,6 +254,9 @@ function AppContent() {
                 onDragOver={onDragOver}
                 deleteKeyCode="Delete"
                 fitView
+                connectionLineType="smoothstep"
+                connectionLineStyle={{ stroke: '#4a5568', strokeWidth: 2 }}
+                defaultEdgeOptions={{ type: 'smoothstep', animated: true }}
               >
                 <Background variant={'dots' as any} gap={12} size={1} />
                 <Controls />

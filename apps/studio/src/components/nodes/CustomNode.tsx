@@ -46,11 +46,13 @@ export function CustomNode({ data }: CustomNodeProps) {
       <Handle
         type="target"
         position={Position.Left}
+        id="input"
         style={{
           background: '#4a5568',
           border: '2px solid #ffffff',
-          width: '10px',
-          height: '10px'
+          width: '12px',
+          height: '12px',
+          cursor: 'crosshair'
         }}
       />
 
@@ -58,11 +60,13 @@ export function CustomNode({ data }: CustomNodeProps) {
       <Handle
         type="source"
         position={Position.Right}
+        id="output"
         style={{
           background: '#4a5568',
           border: '2px solid #ffffff',
-          width: '10px',
-          height: '10px'
+          width: '12px',
+          height: '12px',
+          cursor: 'crosshair'
         }}
       />
     </div>

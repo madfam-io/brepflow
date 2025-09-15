@@ -17,6 +17,14 @@ import { registerCoreNodes } from '@brepflow/nodes-core';
 import { ErrorManager } from '../lib/error-handling/error-manager';
 import { ErrorCode } from '../lib/error-handling/types';
 import { MetricsCollector } from '../lib/monitoring/metrics-collector';
+import {
+  UndoRedoManager,
+  AddNodeCommand,
+  RemoveNodeCommand,
+  UpdateNodeCommand,
+  AddEdgeCommand,
+  RemoveEdgeCommand,
+} from '../lib/undo-redo';
 
 // Register core nodes on initialization
 registerCoreNodes();
@@ -62,6 +70,12 @@ interface GraphState {
   importGraph: (graph: GraphInstance) => void;
   clearGraph: () => void;
 
+  // Undo/Redo
+  undo: () => void;
+  redo: () => void;
+  canUndo: () => boolean;
+  canRedo: () => boolean;
+
   // Utility
   clearErrors: () => void;
   setError: (nodeId: NodeId, error: string) => void;
@@ -71,6 +85,7 @@ export const useGraphStore = create<GraphState>()(
   devtools(
     subscribeWithSelector((set, get) => {
       const graphManager = new GraphManager();
+      const undoRedoManager = new UndoRedoManager();
 
       // Initialize DAG engine with OCCT geometry API
       const initEngine = async () => {
@@ -142,13 +157,52 @@ export const useGraphStore = create<GraphState>()(
 
         addNode: (node) => {
           const newNode = graphManager.addNode(node);
+
+          // Create undo command
+          const command = new AddNodeCommand(
+            newNode,
+            (n) => {
+              const added = graphManager.addNode(n);
+              set({ graph: graphManager.getGraph() });
+              return added;
+            },
+            (id) => {
+              graphManager.removeNode(id);
+              set({ graph: graphManager.getGraph() });
+            }
+          );
+          undoRedoManager.execute(command);
+
           set({ graph: graphManager.getGraph() });
           return newNode;
         },
 
         removeNode: (nodeId) => {
           const { selectedNodes } = get();
-          graphManager.removeNode(nodeId);
+          const nodeToRemove = graphManager.getGraph().nodes.find(n => n.id === nodeId);
+
+          if (nodeToRemove) {
+            // Create undo command
+            const command = new RemoveNodeCommand(
+              nodeToRemove,
+              (n) => {
+                const added = graphManager.addNode(n);
+                set({ graph: graphManager.getGraph() });
+                return added;
+              },
+              (id) => {
+                graphManager.removeNode(id);
+                const updatedSelectedNodes = new Set(get().selectedNodes);
+                updatedSelectedNodes.delete(id);
+                set({
+                  graph: graphManager.getGraph(),
+                  selectedNodes: updatedSelectedNodes
+                });
+              }
+            );
+            undoRedoManager.execute(command);
+          }
+
           selectedNodes.delete(nodeId);
           set({
             graph: graphManager.getGraph(),
@@ -157,18 +211,68 @@ export const useGraphStore = create<GraphState>()(
         },
 
         updateNode: (nodeId, updates) => {
-          graphManager.updateNode(nodeId, updates);
+          const node = graphManager.getGraph().nodes.find(n => n.id === nodeId);
+          if (node) {
+            const oldState = { ...node };
+
+            // Create undo command
+            const command = new UpdateNodeCommand(
+              nodeId,
+              oldState,
+              updates,
+              (id, upd) => {
+                graphManager.updateNode(id, upd);
+                set({ graph: graphManager.getGraph() });
+              }
+            );
+            undoRedoManager.execute(command);
+          }
+
           set({ graph: graphManager.getGraph() });
         },
 
         addEdge: (edge) => {
           const newEdge = graphManager.addEdge(edge);
+
+          // Create undo command
+          const command = new AddEdgeCommand(
+            newEdge,
+            (e) => {
+              const added = graphManager.addEdge(e);
+              set({ graph: graphManager.getGraph() });
+              return added;
+            },
+            (id) => {
+              graphManager.removeEdge(id);
+              set({ graph: graphManager.getGraph() });
+            }
+          );
+          undoRedoManager.execute(command);
+
           set({ graph: graphManager.getGraph() });
           return newEdge;
         },
 
         removeEdge: (edgeId) => {
-          graphManager.removeEdge(edgeId);
+          const edgeToRemove = graphManager.getGraph().edges.find(e => e.id === edgeId);
+
+          if (edgeToRemove) {
+            // Create undo command
+            const command = new RemoveEdgeCommand(
+              edgeToRemove,
+              (e) => {
+                const added = graphManager.addEdge(e);
+                set({ graph: graphManager.getGraph() });
+                return added;
+              },
+              (id) => {
+                graphManager.removeEdge(id);
+                set({ graph: graphManager.getGraph() });
+              }
+            );
+            undoRedoManager.execute(command);
+          }
+
           set({ graph: graphManager.getGraph() });
         },
 
@@ -340,11 +444,29 @@ export const useGraphStore = create<GraphState>()(
             edges: [],
           };
           graphManager.setGraph(emptyGraph);
+          undoRedoManager.clear(); // Clear undo history when clearing graph
           set({
             graph: emptyGraph,
             selectedNodes: new Set(),
             errors: new Map(),
           });
+        },
+
+        // Undo/Redo
+        undo: () => {
+          undoRedoManager.undo();
+        },
+
+        redo: () => {
+          undoRedoManager.redo();
+        },
+
+        canUndo: () => {
+          return undoRedoManager.canUndo();
+        },
+
+        canRedo: () => {
+          return undoRedoManager.canRedo();
         },
 
         // Utility
