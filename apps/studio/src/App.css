@@ -24,13 +24,25 @@
 }
 
 .node-item {
-  padding: 6px 12px;
+  padding: 8px 12px;
   margin: 2px 0;
   background: var(--bg-tertiary);
   border-radius: var(--radius-md);
   cursor: move;
   font-size: 13px;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.node-item-icon {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+.node-item-label {
+  flex: 1;
 }
 
 .node-item:hover {
@@ -217,4 +229,51 @@
 .react-flow__handle {
   background: var(--accent);
   border: 2px solid var(--bg-primary);
+}
+
+/* Geometry Preview Styles */
+.geometry-preview {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.geometry-preview.computing {
+  background: var(--bg-tertiary);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.geometry-preview.error {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: var(--error);
+}
+
+.geometry-preview.success canvas {
+  border-radius: var(--radius-md);
+}
+
+.preview-overlay {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-overlay .status-icon {
+  color: white;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }

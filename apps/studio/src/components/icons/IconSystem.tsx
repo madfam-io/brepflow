@@ -1,0 +1,197 @@
+import React from 'react';
+import {
+  // Geometry icons
+  Box, Circle, Square, Move, RotateCw, Scale, FlipHorizontal,
+  // Sketch icons
+  Pencil, RectangleHorizontal, Spline,
+  // Boolean operations
+  Plus, Minus, X,
+  // Features
+  CornerDownRight, Scissors, Layers, TrendingDown,
+  // Transform
+  Move3d, RotateCcw, Copy,
+  // File operations
+  Upload, Download, Save, FolderOpen,
+  // UI controls
+  Play, Pause, Square as Stop, Trash2, Settings,
+  Eye, EyeOff, ZoomIn, ZoomOut, Maximize2,
+  // Status
+  CheckCircle, AlertCircle, XCircle, Clock,
+  // Measurement
+  Ruler, Triangle, Calculator,
+  // Navigation
+  Grid3X3, Layers3, Palette, Lightbulb
+} from 'lucide-react';
+import { clsx } from 'clsx';
+
+export interface IconProps {
+  name: string;
+  size?: number;
+  className?: string;
+  strokeWidth?: number;
+}
+
+// Professional icon mapping for all BrepFlow operations
+export const IconMap = {
+  // Node Categories - Sketch
+  'Sketch::Line': Pencil,
+  'Sketch::Circle': Circle,
+  'Sketch::Rectangle': RectangleHorizontal,
+  'Sketch::Arc': Circle,
+  'Sketch::Spline': Spline,
+  'Sketch::Point': Square,
+  'Sketch::Polygon': RectangleHorizontal,
+
+  // Node Categories - Solid
+  'Solid::Extrude': CornerDownRight,
+  'Solid::Revolve': RotateCw,
+  'Solid::Sweep': Move3d,
+  'Solid::Loft': Layers,
+  'Solid::Box': Box,
+  'Solid::Cylinder': Circle,
+  'Solid::Sphere': Circle,
+  'Solid::Cone': Triangle,
+  'Solid::Torus': Circle,
+
+  // Node Categories - Boolean
+  'Boolean::Union': Plus,
+  'Boolean::Subtract': Minus,
+  'Boolean::Intersect': X,
+  'Boolean::Difference': Minus,
+  'Boolean::XOR': XCircle,
+
+  // Node Categories - Features
+  'Features::Fillet': CornerDownRight,
+  'Features::Chamfer': Scissors,
+  'Features::Shell': Layers,
+  'Features::Draft': TrendingDown,
+  'Features::Hole': Circle,
+  'Features::Thread': RotateCw,
+  'Features::Pattern': Copy,
+
+  // Node Categories - Transform
+  'Transform::Move': Move,
+  'Transform::Rotate': RotateCw,
+  'Transform::Scale': Scale,
+  'Transform::Mirror': FlipHorizontal,
+  'Transform::LinearArray': Copy,
+  'Transform::CircularArray': RotateCcw,
+  'Transform::Matrix': Grid3X3,
+
+  // Node Categories - I/O
+  'IO::ImportSTEP': Upload,
+  'IO::ExportSTEP': Download,
+  'IO::ExportSTL': Download,
+  'IO::ImportIGES': Upload,
+  'IO::ExportIGES': Download,
+  'IO::ImportOBJ': Upload,
+  'IO::ExportOBJ': Download,
+
+  // Node Categories - Analysis
+  'Analysis::Volume': Calculator,
+  'Analysis::Area': Square,
+  'Analysis::Length': Ruler,
+  'Analysis::Mass': Scale,
+  'Analysis::CenterOfMass': Move,
+  'Analysis::BoundingBox': Box,
+
+  // Toolbar Actions
+  'evaluate': Play,
+  'pause': Pause,
+  'stop': Stop,
+  'import': Upload,
+  'export': Download,
+  'save': Save,
+  'open': FolderOpen,
+  'clear': Trash2,
+  'settings': Settings,
+
+  // Viewport Controls
+  'zoom-in': ZoomIn,
+  'zoom-out': ZoomOut,
+  'fit-view': Maximize2,
+  'toggle-grid': Grid3X3,
+  'toggle-wireframe': Layers3,
+  'toggle-shaded': Palette,
+  'toggle-visibility': Eye,
+  'hide': EyeOff,
+
+  // Node Status
+  'success': CheckCircle,
+  'warning': AlertCircle,
+  'error': XCircle,
+  'computing': Clock,
+
+  // Measurement Tools
+  'measure-distance': Ruler,
+  'measure-angle': Triangle,
+  'measure-radius': Circle,
+  'measure-area': Calculator,
+  'visibility': Eye,
+
+  // UI Elements
+  'help': Lightbulb,
+  'info': AlertCircle,
+} as const;
+
+export type IconName = keyof typeof IconMap;
+
+export const Icon: React.FC<IconProps> = ({
+  name,
+  size = 16,
+  className,
+  strokeWidth = 2
+}) => {
+  const IconComponent = IconMap[name as IconName];
+
+  if (!IconComponent) {
+    console.warn(`Icon "${name}" not found in IconMap`);
+    return <AlertCircle size={size} className={className} strokeWidth={strokeWidth} />;
+  }
+
+  return (
+    <IconComponent
+      size={size}
+      className={clsx('icon', className)}
+      strokeWidth={strokeWidth}
+    />
+  );
+};
+
+// Convenience components for common use cases
+export const NodeIcon: React.FC<{ nodeType: string; size?: number; className?: string }> = ({
+  nodeType,
+  size = 16,
+  className
+}) => {
+  return <Icon name={nodeType} size={size} className={clsx('node-icon', className)} />;
+};
+
+export const ToolbarIcon: React.FC<{ action: string; size?: number; className?: string }> = ({
+  action,
+  size = 16,
+  className
+}) => {
+  return <Icon name={action} size={size} className={clsx('toolbar-icon', className)} />;
+};
+
+export const StatusIcon: React.FC<{
+  status: 'success' | 'warning' | 'error' | 'computing';
+  size?: number;
+  className?: string;
+}> = ({ status, size = 16, className }) => {
+  const statusColors = {
+    success: 'text-success',
+    warning: 'text-warning',
+    error: 'text-error',
+    computing: 'text-info'
+  };
+
+  return (
+    <Icon
+      name={status}
+      size={size}
+      className={clsx('status-icon', statusColors[status], className)}
+    />
+  );
+};

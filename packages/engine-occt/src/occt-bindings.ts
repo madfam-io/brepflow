@@ -96,7 +96,7 @@ export async function loadOCCT(): Promise<OCCTModule> {
   try {
     // Try to dynamically import the WASM module
     // @ts-ignore - Dynamic import of generated WASM module
-    const OCCTModule = (await import('../wasm/occt.js')) as any;
+    const OCCTModule = (await import(/* @vite-ignore */ '../wasm/occt.js')) as any;
     wasmModule = await OCCTModule.default();
     wasmLoaded = true;
     console.log('OCCT WASM module loaded successfully');
