@@ -3,10 +3,17 @@
  */
 
 import React, { Component, ReactNode, ErrorInfo } from 'react';
-import { ProductionLogger } from '@brepflow/engine-occt';
 import { getConfig } from '@brepflow/engine-core';
 
-const logger = new ProductionLogger('ErrorBoundary');
+// Lazy logger initialization to avoid constructor issues during module loading
+let logger: any = null;
+const getLogger = () => {
+  if (!logger) {
+    const { ProductionLogger } = require('@brepflow/engine-occt');
+    logger = new ProductionLogger('ErrorBoundary');
+  }
+  return logger;
+};
 
 interface Props {
   children: ReactNode;
@@ -46,7 +53,7 @@ export class ProductionErrorBoundary extends Component<Props, State> {
     const { errorId } = this.state;
     
     // Log to production logging system
-    logger.error('React error boundary caught error', {
+    getLogger().error('React error boundary caught error', {
       errorId,
       message: error.message,
       stack: error.stack,
@@ -82,12 +89,12 @@ export class ProductionErrorBoundary extends Component<Props, State> {
       // });
 
       // For now, just log that we would report
-      logger.info('Error reported to monitoring service', {
+      getLogger().info('Error reported to monitoring service', {
         errorId: this.state.errorId,
       });
     } catch (reportError) {
       // Silently fail to avoid recursive errors
-      logger.warn('Failed to report error to service', reportError);
+      getLogger().warn('Failed to report error to service', reportError);
     }
   }
 

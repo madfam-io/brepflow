@@ -3,11 +3,18 @@
  * Manages Web Worker communication with real OCCT geometry operations
  */
 
-import { ProductionLogger } from './production-logger';
 import { getConfig } from '@brepflow/engine-core';
 import type { WorkerAPI, WorkerRequest, WorkerResponse } from '@brepflow/types';
 
-const logger = new ProductionLogger('ProductionWorkerAPI');
+// Lazy logger initialization to avoid constructor issues during module loading
+let logger: any = null;
+const getLogger = () => {
+  if (!logger) {
+    const { ProductionLogger } = require('./production-logger');
+    logger = new ProductionLogger('ProductionWorkerAPI');
+  }
+  return logger;
+};
 
 export interface ProductionWorkerConfig {
   wasmPath: string;
@@ -33,11 +40,11 @@ export class ProductionWorkerAPI implements WorkerAPI {
 
   async init(): Promise<void> {
     if (this.isInitialized) {
-      logger.debug('Worker already initialized');
+      getLogger().debug('Worker already initialized');
       return;
     }
 
-    logger.info('Initializing production OCCT worker');
+    getLogger().info('Initializing production OCCT worker');
 
     // Check environment
     const envConfig = getConfig();
@@ -66,9 +73,9 @@ export class ProductionWorkerAPI implements WorkerAPI {
       await this.invoke('INIT', {});
       this.isInitialized = true;
       
-      logger.info('Production OCCT worker initialized successfully');
+      getLogger().info('Production OCCT worker initialized successfully');
     } catch (error) {
-      logger.error('Failed to initialize production worker', error);
+      getLogger().error('Failed to initialize production worker', error);
       this.cleanup();
       throw new Error(`Worker initialization failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
@@ -103,12 +110,12 @@ export class ProductionWorkerAPI implements WorkerAPI {
     };
 
     this.worker.onerror = (event) => {
-      logger.error('Worker error', event);
+      getLogger().error('Worker error', event);
       this.handleWorkerError(new Error(`Worker error: ${event.message}`));
     };
 
     this.worker.onmessageerror = (event) => {
-      logger.error('Worker message error', event);
+      getLogger().error('Worker message error', event);
       this.handleWorkerError(new Error('Worker message error'));
     };
   }
@@ -116,7 +123,7 @@ export class ProductionWorkerAPI implements WorkerAPI {
   private handleWorkerEvent(event: any): void {
     switch (event.type) {
       case 'MEMORY_PRESSURE':
-        logger.warn('Worker memory pressure detected', {
+        getLogger().warn('Worker memory pressure detected', {
           usedMB: event.usedMB,
           threshold: event.threshold,
         });
@@ -124,11 +131,11 @@ export class ProductionWorkerAPI implements WorkerAPI {
         break;
         
       case 'WORKER_ERROR':
-        logger.error('Worker reported error', event.error);
+        getLogger().error('Worker reported error', event.error);
         break;
         
       default:
-        logger.debug('Unknown worker event', event);
+        getLogger().debug('Unknown worker event', event);
     }
   }
 
@@ -177,7 +184,7 @@ export class ProductionWorkerAPI implements WorkerAPI {
       // Send request
       this.worker!.postMessage(request);
       
-      logger.debug(`Sent request ${requestId}: ${operation}`, params);
+      getLogger().debug(`Sent request ${requestId}: ${operation}`, params);
     });
   }
 
@@ -209,7 +216,7 @@ export class ProductionWorkerAPI implements WorkerAPI {
     }
 
     this.isInitialized = false;
-    logger.info('Worker cleaned up');
+    getLogger().info('Worker cleaned up');
   }
 
   // Health check
@@ -218,7 +225,7 @@ export class ProductionWorkerAPI implements WorkerAPI {
       const result = await this.invoke('HEALTH_CHECK', {});
       return !!(result as any)?.healthy;
     } catch (error) {
-      logger.error('Health check failed', error);
+      getLogger().error('Health check failed', error);
       return false;
     }
   }
@@ -229,7 +236,7 @@ export class ProductionWorkerAPI implements WorkerAPI {
       const result = await this.invoke('HEALTH_CHECK', {});
       return (result as any)?.memoryUsage || 0;
     } catch (error) {
-      logger.error('Failed to get memory usage', error);
+      getLogger().error('Failed to get memory usage', error);
       return 0;
     }
   }
@@ -239,7 +246,7 @@ export class ProductionWorkerAPI implements WorkerAPI {
     try {
       await this.invoke('CLEANUP', {});
     } catch (error) {
-      logger.error('Cleanup failed', error);
+      getLogger().error('Cleanup failed', error);
     }
   }
 
@@ -252,7 +259,7 @@ export class ProductionWorkerAPI implements WorkerAPI {
       });
       return result;
     } catch (error) {
-      logger.error('Tessellation failed', error);
+      getLogger().error('Tessellation failed', error);
       throw error;
     }
   }
@@ -262,7 +269,7 @@ export class ProductionWorkerAPI implements WorkerAPI {
     try {
       await this.invoke('DISPOSE', { handleId });
     } catch (error) {
-      logger.error('Dispose failed', error);
+      getLogger().error('Dispose failed', error);
     }
   }
 

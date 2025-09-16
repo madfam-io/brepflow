@@ -5,17 +5,25 @@
 
 import { WorkerAPI } from '@brepflow/engine-occt';
 import { GeometryAPIFactory } from '@brepflow/engine-core';
-import { ProductionLogger, GeometryValidator } from '@brepflow/engine-occt';
+import { GeometryValidator } from '@brepflow/engine-occt';
 
 export class ProductionGeometryService {
   private static instance: ProductionGeometryService;
   private api: WorkerAPI | null = null;
-  private logger = new ProductionLogger('GeometryService');
+  private logger: any = null;
   private validator = new GeometryValidator();
   private initializationPromise: Promise<void> | null = null;
   private healthCheckInterval: NodeJS.Timeout | null = null;
 
   private constructor() {}
+
+  private getLogger() {
+    if (!this.logger) {
+      const { ProductionLogger } = require('@brepflow/engine-occt');
+      this.logger = new ProductionLogger('GeometryService');
+    }
+    return this.logger;
+  }
 
   static getInstance(): ProductionGeometryService {
     if (!ProductionGeometryService.instance) {
@@ -42,7 +50,7 @@ export class ProductionGeometryService {
 
   private async doInitialize(): Promise<void> {
     try {
-      this.logger.info('Initializing production geometry service');
+      this.getLogger().info('Initializing production geometry service');
 
       // Get production API - no mocks allowed
       this.api = await GeometryAPIFactory.getProductionAPI({
@@ -57,9 +65,9 @@ export class ProductionGeometryService {
       // Start health monitoring
       this.startHealthMonitoring();
 
-      this.logger.info('Production geometry service initialized successfully');
+      this.getLogger().info('Production geometry service initialized successfully');
     } catch (error) {
-      this.logger.error('Failed to initialize production geometry service', error);
+      this.getLogger().error('Failed to initialize production geometry service', error);
       throw new Error(`Production geometry initialization failed: ${error.message}`);
     }
   }
@@ -72,12 +80,12 @@ export class ProductionGeometryService {
       try {
         const health = await this.checkHealth();
         if (!health.healthy) {
-          this.logger.warn('Geometry service health check failed', health);
+          this.getLogger().warn('Geometry service health check failed', health);
           // Attempt recovery
           await this.recover();
         }
       } catch (error) {
-        this.logger.error('Health check error', error);
+        this.getLogger().error('Health check error', error);
       }
     }, 30000); // Check every 30 seconds
   }
@@ -130,7 +138,7 @@ export class ProductionGeometryService {
    * Attempt to recover from failures
    */
   private async recover(): Promise<void> {
-    this.logger.warn('Attempting geometry service recovery');
+    this.getLogger().warn('Attempting geometry service recovery');
 
     try {
       // Stop current monitoring
@@ -150,9 +158,9 @@ export class ProductionGeometryService {
       this.initializationPromise = null;
       await this.initialize();
 
-      this.logger.info('Geometry service recovered successfully');
+      this.getLogger().info('Geometry service recovered successfully');
     } catch (error) {
-      this.logger.error('Failed to recover geometry service', error);
+      this.getLogger().error('Failed to recover geometry service', error);
       throw error;
     }
   }
@@ -196,7 +204,7 @@ export class ProductionGeometryService {
 
       return result;
     } catch (error) {
-      this.logger.error(`Geometry operation failed: ${operation}`, { params, error });
+      this.getLogger().error(`Geometry operation failed: ${operation}`, { params, error });
       throw error;
     }
   }
@@ -271,7 +279,7 @@ export class ProductionGeometryService {
       try {
         await this.api.terminate();
       } catch (error) {
-        this.logger.error('Error during disposal', error);
+        this.getLogger().error('Error during disposal', error);
       }
       this.api = null;
     }

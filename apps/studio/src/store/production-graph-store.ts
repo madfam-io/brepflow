@@ -19,11 +19,18 @@ import ReactFlow, {
 import { DAGEngine } from '@brepflow/engine-core';
 import { getGeometryAPI } from '../services/geometry-api';
 import { v4 as uuidv4 } from 'uuid';
-import { ProductionLogger } from '@brepflow/engine-occt';
 import { getConfig } from '@brepflow/engine-core';
 import type { GraphInstance } from '@brepflow/types';
 
-const logger = new ProductionLogger('GraphStore');
+// Lazy logger initialization to avoid constructor issues during module loading
+let logger: any = null;
+const getLogger = () => {
+  if (!logger) {
+    const { ProductionLogger } = require('@brepflow/engine-occt');
+    logger = new ProductionLogger('GraphStore');
+  }
+  return logger;
+};
 
 export type NodeData = {
   label: string;
@@ -96,14 +103,14 @@ export const useProductionGraphStore = create<GraphState>()(
       const initEngine = async () => {
         const state = get();
         if (state.isInitialized && state.dagEngine) {
-          logger.info('Engine already initialized');
+          getLogger().info('Engine already initialized');
           return state.dagEngine;
         }
 
         const config = getConfig();
         
         try {
-          logger.info('Initializing production geometry engine...');
+          getLogger().info('Initializing production geometry engine...');
           
           // Check configuration
           if (config.enableMockGeometry && config.isProduction) {
@@ -127,13 +134,13 @@ export const useProductionGraphStore = create<GraphState>()(
           // Create DAG engine with real geometry
           const engine = new DAGEngine({ worker: geometryAPI });
           
-          logger.info('Production geometry engine initialized successfully', {
+          getLogger().info('Production geometry engine initialized successfully', {
             version: (initResult as any).version,
           });
 
           return engine;
         } catch (error) {
-          logger.error('Failed to initialize production geometry engine', error);
+          getLogger().error('Failed to initialize production geometry engine', error);
           
           // In production, we fail hard
           if (config.isProduction) {
@@ -145,7 +152,7 @@ export const useProductionGraphStore = create<GraphState>()(
           
           // In development, we can fall back to mock with warning
           if (config.isDevelopment && config.enableMockGeometry) {
-            logger.warn('⚠️ Development mode: Falling back to mock geometry');
+            getLogger().warn('⚠️ Development mode: Falling back to mock geometry');
             const mockAPI = await getGeometryAPI(true);
             await mockAPI.init();
             return new DAGEngine({ worker: mockAPI });
@@ -194,10 +201,10 @@ export const useProductionGraphStore = create<GraphState>()(
               state.geometryVersion = 'OCCT 7.8.0'; // Get from actual engine
             });
             
-            logger.info('Store initialized with production geometry engine');
+            getLogger().info('Store initialized with production geometry engine');
           } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-            logger.error('Store initialization failed', error);
+            getLogger().error('Store initialization failed', error);
             
             set((state) => {
               state.dagEngine = null;
@@ -219,7 +226,7 @@ export const useProductionGraphStore = create<GraphState>()(
               await state.dagEngine.geometryAPI.invoke('CLEANUP', {});
               await state.dagEngine.geometryAPI.invoke('SHUTDOWN', {});
             } catch (error) {
-              logger.warn('Error during engine cleanup', error);
+              getLogger().warn('Error during engine cleanup', error);
             }
           }
 
@@ -245,7 +252,7 @@ export const useProductionGraphStore = create<GraphState>()(
             const result = await state.dagEngine.geometryAPI.invoke('HEALTH_CHECK', {});
             return !!(result && (result as any).healthy);
           } catch (error) {
-            logger.error('Health check failed', error);
+            getLogger().error('Health check failed', error);
             return false;
           }
         },
@@ -294,7 +301,7 @@ export const useProductionGraphStore = create<GraphState>()(
             syncGraph(state);
           });
           
-          logger.debug('Node added', { nodeId, type });
+          getLogger().debug('Node added', { nodeId, type });
         },
 
         deleteNode: (nodeId) => {
@@ -306,7 +313,7 @@ export const useProductionGraphStore = create<GraphState>()(
             syncGraph(state);
           });
           
-          logger.debug('Node deleted', { nodeId });
+          getLogger().debug('Node deleted', { nodeId });
         },
 
         removeNode: (nodeId) => {
@@ -318,7 +325,7 @@ export const useProductionGraphStore = create<GraphState>()(
             state.selectedNodes = state.selectedNodes.filter(id => id !== nodeId);
             syncGraph(state);
           });
-          logger.debug('Node removed', { nodeId });
+          getLogger().debug('Node removed', { nodeId });
         },
 
         updateNode: (nodeId, data) => {
@@ -354,7 +361,7 @@ export const useProductionGraphStore = create<GraphState>()(
             state.edges.push(newEdge);
             syncGraph(state);
           });
-          logger.debug('Edge added', { sourceId, targetId });
+          getLogger().debug('Edge added', { sourceId, targetId });
         },
 
         removeEdge: (edgeId) => {
@@ -362,7 +369,7 @@ export const useProductionGraphStore = create<GraphState>()(
             state.edges = state.edges.filter((edge) => edge.id !== edgeId);
             syncGraph(state);
           });
-          logger.debug('Edge removed', { edgeId });
+          getLogger().debug('Edge removed', { edgeId });
         },
 
         selectNode: (nodeId) => {
@@ -381,7 +388,7 @@ export const useProductionGraphStore = create<GraphState>()(
             throw new Error('DAG engine not initialized');
           }
 
-          const timer = logger.startTimer('Graph evaluation');
+          const timer = getLogger().startTimer('Graph evaluation');
 
           try {
             // Mark all nodes as evaluating
@@ -425,7 +432,7 @@ export const useProductionGraphStore = create<GraphState>()(
             timer(); // Log evaluation time
             
           } catch (error) {
-            logger.error('Graph evaluation failed', error);
+            getLogger().error('Graph evaluation failed', error);
             
             set((state) => {
               state.nodes.forEach((node) => {
@@ -444,7 +451,7 @@ export const useProductionGraphStore = create<GraphState>()(
             state.edges = [];
             syncGraph(state);
           });
-          logger.info('Graph cleared');
+          getLogger().info('Graph cleared');
         },
 
         exportGraph: () => {
@@ -471,7 +478,7 @@ export const useProductionGraphStore = create<GraphState>()(
             })),
           };
           
-          logger.info('Graph exported', {
+          getLogger().info('Graph exported', {
             nodeCount: state.nodes.length,
             edgeCount: state.edges.length,
           });
@@ -499,13 +506,13 @@ export const useProductionGraphStore = create<GraphState>()(
               syncGraph(state);
             });
             
-            logger.info('Graph imported', {
+            getLogger().info('Graph imported', {
               nodeCount: data.nodes.length,
               edgeCount: data.edges?.length || 0,
             });
             
           } catch (error) {
-            logger.error('Graph import failed', error);
+            getLogger().error('Graph import failed', error);
             throw error;
           }
         },

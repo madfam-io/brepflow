@@ -4,10 +4,17 @@
  */
 
 import { getConfig, shouldUseMockGeometry } from './config/environment';
-import { ProductionLogger } from '@brepflow/engine-occt';
 import type { WorkerAPI } from '@brepflow/types';
 
-const logger = new ProductionLogger('GeometryAPIFactory');
+// Lazy logger initialization to avoid constructor issues during module loading
+let logger: any = null;
+const getLogger = () => {
+  if (!logger) {
+    const { ProductionLogger } = require('@brepflow/engine-occt');
+    logger = new ProductionLogger('GeometryAPIFactory');
+  }
+  return logger;
+};
 
 export interface GeometryAPIConfig {
   forceMode?: 'real' | 'mock';
@@ -32,7 +39,7 @@ export class GeometryAPIFactory {
     const useMock = options.forceMode === 'mock' || 
                    (options.forceMode !== 'real' && shouldUseMockGeometry());
 
-    logger.info('Creating geometry API', {
+    getLogger().info('Creating geometry API', {
       useMock,
       environment: config.mode,
       forceMode: options.forceMode,
@@ -58,13 +65,13 @@ export class GeometryAPIFactory {
 
     // Return cached instance if available
     if (this.realAPI) {
-      logger.debug('Returning cached real geometry API');
+      getLogger().debug('Returning cached real geometry API');
       return this.realAPI;
     }
 
     // Return existing initialization promise if in progress
     if (this.initializationPromise) {
-      logger.debug('Waiting for existing real API initialization');
+      getLogger().debug('Waiting for existing real API initialization');
       return this.initializationPromise;
     }
 
@@ -85,8 +92,8 @@ export class GeometryAPIFactory {
    */
   private static async initializeRealAPI(options: GeometryAPIConfig): Promise<WorkerAPI> {
     const config = getConfig();
-    
-    logger.info('Initializing real OCCT geometry API');
+
+    getLogger().info('Initializing real OCCT geometry API');
 
     try {
       // Dynamic import to avoid loading in environments where it's not available
@@ -112,15 +119,15 @@ export class GeometryAPIFactory {
         throw new Error('Geometry API health check failed after initialization');
       }
 
-      logger.info('Real OCCT geometry API initialized successfully');
+      getLogger().info('Real OCCT geometry API initialized successfully');
       return api;
 
     } catch (error) {
-      logger.error('Failed to initialize real OCCT geometry API', error);
-      
+      getLogger().error('Failed to initialize real OCCT geometry API', error);
+
       // In development, optionally fall back to mock if allowed
       if (config.isDevelopment && config.enableMockGeometry) {
-        logger.warn('Development mode: Falling back to mock geometry after real API failed');
+        getLogger().warn('Development mode: Falling back to mock geometry after real API failed');
         return this.getMockAPI();
       }
       
@@ -139,7 +146,7 @@ export class GeometryAPIFactory {
         await api.init();
         return;
       } catch (error) {
-        logger.warn(`Geometry API initialization attempt ${i + 1} failed`, error);
+        getLogger().warn(`Geometry API initialization attempt ${i + 1} failed`, error);
         
         if (i === attempts - 1) {
           throw error;
@@ -156,21 +163,21 @@ export class GeometryAPIFactory {
    */
   private static async getMockAPI(): Promise<WorkerAPI> {
     if (this.mockAPI) {
-      logger.debug('Returning cached mock geometry API');
+      getLogger().debug('Returning cached mock geometry API');
       return this.mockAPI;
     }
 
-    logger.info('Initializing mock geometry API');
+    getLogger().info('Initializing mock geometry API');
 
     try {
       const { MockGeometry } = await import('@brepflow/engine-occt');
       this.mockAPI = new MockGeometry();
       await this.mockAPI.init();
-      
-      logger.info('Mock geometry API initialized successfully');
+
+      getLogger().info('Mock geometry API initialized successfully');
       return this.mockAPI;
     } catch (error) {
-      logger.error('Failed to initialize mock geometry API', error);
+      getLogger().error('Failed to initialize mock geometry API', error);
       throw new Error('Failed to initialize fallback mock geometry API');
     }
   }
@@ -192,7 +199,7 @@ export class GeometryAPIFactory {
       const response = await fetch(wasmPath, { method: 'HEAD' });
       return response.ok;
     } catch (error) {
-      logger.debug('Real API availability check failed', error);
+      getLogger().debug('Real API availability check failed', error);
       return false;
     }
   }
@@ -204,7 +211,7 @@ export class GeometryAPIFactory {
     this.realAPI = null;
     this.mockAPI = null;
     this.initializationPromise = null;
-    logger.debug('Geometry API factory reset');
+    getLogger().debug('Geometry API factory reset');
   }
 
   /**
