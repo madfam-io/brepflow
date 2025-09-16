@@ -6,3 +6,6 @@ export * from './production-worker';
 export * from './production-api';
 export * from './production-logger';
 export * from './geometry-validator';
+
+// Re-export WorkerAPI type from types package
+export type { WorkerAPI } from '@brepflow/types';

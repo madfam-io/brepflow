@@ -44,6 +44,7 @@
     "third_party",
     "coverage",
     "**/*.spec.ts",
-    "**/*.test.ts"
+    "**/*.test.ts",
+    "apps/marketing/**/*"
   ]
 }

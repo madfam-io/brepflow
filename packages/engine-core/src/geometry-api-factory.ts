@@ -223,6 +223,18 @@ export class GeometryAPIFactory {
   }
 
   /**
+   * Get production API with strict configuration
+   */
+  static async getProductionAPI(config?: any): Promise<WorkerAPI> {
+    return this.getAPI({
+      forceMode: 'real',
+      validateOutput: true,
+      enableRetry: false,
+      ...config
+    });
+  }
+
+  /**
    * Create API for specific use case
    */
   static async createForUseCase(useCase: 'development' | 'testing' | 'production'): Promise<WorkerAPI> {
@@ -253,14 +265,17 @@ export class GeometryAPIFactory {
 }
 
 // Convenience exports
-export const getGeometryAPI = (forceMock = false) => 
+export const getGeometryAPI = (forceMock = false) =>
   GeometryAPIFactory.getAPI({ forceMode: forceMock ? 'mock' : undefined });
 
-export const getRealGeometryAPI = () => 
+export const getRealGeometryAPI = () =>
   GeometryAPIFactory.getAPI({ forceMode: 'real' });
 
-export const getMockGeometryAPI = () => 
+export const getMockGeometryAPI = () =>
   GeometryAPIFactory.getAPI({ forceMode: 'mock' });
 
-export const isRealGeometryAvailable = () => 
+export const getProductionAPI = (config?: any) =>
+  GeometryAPIFactory.getAPI({ forceMode: 'real', ...config });
+
+export const isRealGeometryAvailable = () =>
   GeometryAPIFactory.isRealAPIAvailable();

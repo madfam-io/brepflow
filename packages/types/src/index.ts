@@ -45,11 +45,29 @@ export type SocketType =
   | 'Shape'
   | 'Curve'
   | 'Surface'
+  | 'Solid'
   | 'Vector'
   | 'Number'
   | 'Boolean'
   | 'String'
-  | 'Array';
+  | 'Array'
+  | 'Geometry'
+  | 'Point'
+  | 'Plane'
+  | 'Matrix'
+  | 'Box'
+  | 'Any'
+  | 'Point[]'
+  | 'Curve[]'
+  | 'Surface[]'
+  | 'Vector[]'
+  | 'Number[]'
+  | 'Boolean[]'
+  | 'Number[][]'
+  | 'Point[][]'
+  | 'Geometry[]'
+  | 'Any[]'
+  | 'Any[][]';
 
 export interface SocketRef {
   nodeId: NodeId;
@@ -61,6 +79,7 @@ export interface SocketSpec {
   label?: string;
   multiple?: boolean;
   optional?: boolean;
+  required?: boolean;
 }
 
 // Node types
@@ -138,6 +157,25 @@ export interface WorkerAPI {
   invoke<T = any>(operation: string, params: any): Promise<T>;
   tessellate(shapeId: HandleId, deflection: number): Promise<MeshData>;
   dispose(handleId: HandleId): Promise<void>;
+}
+
+// Worker communication types
+export interface WorkerRequest {
+  id: number;
+  type: string;
+  params: any;
+}
+
+export interface WorkerResponse {
+  id?: number;
+  success?: boolean;
+  result?: any;
+  error?: {
+    message: string;
+    code?: string;
+    details?: any;
+  };
+  type?: string;
 }
 
 // Geometry handles

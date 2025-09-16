@@ -17,6 +17,37 @@ export class GeometryValidator {
   }
 
   /**
+   * Generic validation method
+   */
+  async validate(result: any): Promise<{ valid: boolean; errors: string[] }> {
+    if (!this.enabled) {
+      return { valid: true, errors: [] };
+    }
+
+    const errors: string[] = [];
+
+    try {
+      // Validate based on result type
+      if (result?.type === 'shape' || result?.id) {
+        this.validateShape(result, 'shape');
+      } else if (result?.positions && result?.indices) {
+        this.validateMesh(result);
+      } else if (typeof result === 'string' && (result.includes('STEP') || result.includes('IGES'))) {
+        // Likely an export result
+        const format = result.includes('STEP') ? 'STEP' : 'IGES';
+        this.validateExport(result, format.toLowerCase());
+      }
+    } catch (error) {
+      errors.push(error instanceof Error ? error.message : 'Validation failed');
+    }
+
+    return {
+      valid: errors.length === 0,
+      errors
+    };
+  }
+
+  /**
    * Validate shape handle integrity
    */
   validateShape(shape: any, type: string): void {
@@ -170,9 +201,24 @@ export class GeometryValidator {
   }
 
   /**
-   * Validate export data
+   * Validate export data - returns validation result
    */
-  validateExport(data: any, format: string): void {
+  async validateExport(data: any, format: string): Promise<{ valid: boolean; message?: string }> {
+    try {
+      this.validateExportInternal(data, format);
+      return { valid: true };
+    } catch (error) {
+      return {
+        valid: false,
+        message: error instanceof Error ? error.message : 'Export validation failed'
+      };
+    }
+  }
+
+  /**
+   * Internal export validation (throws on error)
+   */
+  private validateExportInternal(data: any, format: string): void {
     if (!getConfig().enableExportValidation) return;
 
     switch (format) {
