@@ -1,5 +1,10 @@
 {
   "buildCommand": "pnpm --filter @brepflow/studio^... run build && pnpm --filter @brepflow/studio run build && find . -name 'dist' -path '*/studio/*' | head -1 | xargs dirname | xargs -I {} cp -r {}/dist ./dist",
   "installCommand": "pnpm install",
-  "outputDirectory": "dist"
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/[...slug]"
+    }
+  ]
 }
