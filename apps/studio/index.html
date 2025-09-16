@@ -2,22 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp" />
-    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
-    <meta http-equiv="Cross-Origin-Resource-Policy" content="cross-origin" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BrepFlow Studio - Parametric CAD</title>
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      // CRITICAL: Fetch headers function to set COOP/COEP headers
-      fetch('/api/index').then(response => {
-        console.log('Headers response:', response.headers);
-        console.log('SharedArrayBuffer available:', typeof SharedArrayBuffer !== 'undefined');
-      }).catch(err => console.error('Headers fetch failed:', err));
-    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
