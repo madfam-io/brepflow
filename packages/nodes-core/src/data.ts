@@ -60,11 +60,14 @@ export const listItemNode: NodeDefinition = {
       return { item: items[0], items };
     } else {
       // Return single item
-      const idx = params.wrap 
-        ? ((params.index % list.length) + list.length) % list.length 
+      const idx = params.wrap
+        ? ((params.index % list.length) + list.length) % list.length
         : params.index;
       return { item: list[idx], items: [list[idx]] };
     }
+  },
+  execute: async (inputs, params, context) => {
+    return listItemNode.evaluate(inputs, params, context);
   },
 };
 
@@ -91,6 +94,9 @@ export const listLengthNode: NodeDefinition = {
   evaluate: async (inputs, params, context) => {
     const length = inputs.list ? inputs.list.length : 0;
     return { length };
+  },
+  execute: async (inputs, params, context) => {
+    return listLengthNode.evaluate(inputs, params, context);
   },
 };
 
@@ -143,15 +149,18 @@ export const listRangeNode: NodeDefinition = {
     const start = inputs.start ?? params.start;
     const end = inputs.end ?? params.end;
     const count = inputs.count ?? params.count;
-    
+
     const range = [];
     const step = (end - start) / (count - 1);
-    
+
     for (let i = 0; i < count; i++) {
       range.push(start + i * step);
     }
-    
+
     return { range };
+  },
+  execute: async (inputs, params, context) => {
+    return listRangeNode.evaluate(inputs, params, context);
   },
 };
 
@@ -205,9 +214,9 @@ export const seriesNode: NodeDefinition = {
     const step = inputs.step ?? params.step;
     const count = params.count;
     const type = params.type;
-    
+
     const series = [];
-    
+
     if (type === 'arithmetic') {
       for (let i = 0; i < count; i++) {
         series.push(start + i * step);
@@ -223,8 +232,11 @@ export const seriesNode: NodeDefinition = {
         [a, b] = [b, a + b];
       }
     }
-    
+
     return { series };
+  },
+  execute: async (inputs, params, context) => {
+    return seriesNode.evaluate(inputs, params, context);
   },
 };
 
@@ -265,9 +277,12 @@ export const flattenNode: NodeDefinition = {
         return acc.concat(val);
       }, []);
     };
-    
+
     const flat = flatten(inputs.tree, params.depth);
     return { flat };
+  },
+  execute: async (inputs, params, context) => {
+    return flattenNode.evaluate(inputs, params, context);
   },
 };
 
@@ -311,10 +326,18 @@ export const partitionNode: NodeDefinition = {
     
     const partitions = [];
     for (let i = 0; i < list.length; i += step) {
-      partitions.push(list.slice(i, i + size));
+      const partition = list.slice(i, i + size);
+      // If there's overlap, only include full-sized partitions (except first)
+      // If there's no overlap, include all partitions including partial ones
+      if (params.overlap === 0 || partition.length === size) {
+        partitions.push(partition);
+      }
     }
     
     return { partitions };
+  },
+  execute: async (inputs, params, context) => {
+    return partitionNode.evaluate(inputs, params, context);
   },
 };
 
@@ -359,21 +382,24 @@ export const sortListNode: NodeDefinition = {
       if (typeof item === 'string') return item.charCodeAt(0);
       return i;
     });
-    
+
     // Create array of indices
     const indexed = list.map((item, i) => ({ item, key: keys[i], index: i }));
-    
+
     // Sort
     indexed.sort((a, b) => {
       const result = a.key < b.key ? -1 : a.key > b.key ? 1 : 0;
       return params.reverse ? -result : result;
     });
-    
+
     // Extract sorted items and indices
     const sorted = indexed.map(x => x.item);
     const indices = indexed.map(x => x.index);
-    
+
     return { sorted, indices };
+  },
+  execute: async (inputs, params, context) => {
+    return sortListNode.evaluate(inputs, params, context);
   },
 };
 
@@ -400,6 +426,9 @@ export const reverseListNode: NodeDefinition = {
   evaluate: async (inputs, params, context) => {
     const reversed = [...inputs.list].reverse();
     return { reversed };
+  },
+  execute: async (inputs, params, context) => {
+    return reverseListNode.evaluate(inputs, params, context);
   },
 };
 
@@ -437,7 +466,7 @@ export const shiftListNode: NodeDefinition = {
   evaluate: async (inputs, params, context) => {
     const list = inputs.list;
     const offset = params.offset % list.length;
-    
+
     let shifted;
     if (params.wrap) {
       if (offset > 0) {
@@ -448,8 +477,11 @@ export const shiftListNode: NodeDefinition = {
     } else {
       shifted = Array(Math.abs(offset)).fill(null).concat(list.slice(0, -Math.abs(offset)));
     }
-    
+
     return { shifted };
+  },
+  execute: async (inputs, params, context) => {
+    return shiftListNode.evaluate(inputs, params, context);
   },
 };
 
@@ -491,10 +523,10 @@ export const cullPatternNode: NodeDefinition = {
     const list = inputs.list;
     const pattern = inputs.pattern;
     const invert = params.invert;
-    
+
     const culled = [];
     const removed = [];
-    
+
     list.forEach((item, i) => {
       const keep = pattern[i % pattern.length];
       if ((keep && !invert) || (!keep && invert)) {
@@ -503,8 +535,11 @@ export const cullPatternNode: NodeDefinition = {
         removed.push(item);
       }
     });
-    
+
     return { culled, removed };
+  },
+  execute: async (inputs, params, context) => {
+    return cullPatternNode.evaluate(inputs, params, context);
   },
 };
 
@@ -536,11 +571,11 @@ export const weaveNode: NodeDefinition = {
   evaluate: async (inputs, params, context) => {
     const lists = inputs.lists;
     const pattern = inputs.pattern || lists.map((_, i) => i);
-    
+
     const woven = [];
     const maxLength = Math.max(...lists.map(l => l.length));
     const indices = new Array(lists.length).fill(0);
-    
+
     for (let i = 0; i < maxLength * lists.length; i++) {
       const listIndex = pattern[i % pattern.length] % lists.length;
       if (indices[listIndex] < lists[listIndex].length) {
@@ -548,8 +583,11 @@ export const weaveNode: NodeDefinition = {
         indices[listIndex]++;
       }
     }
-    
+
     return { woven };
+  },
+  execute: async (inputs, params, context) => {
+    return weaveNode.evaluate(inputs, params, context);
   },
 };
 

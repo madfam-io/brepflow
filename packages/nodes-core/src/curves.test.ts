@@ -68,7 +68,7 @@ describe('Curve Nodes', () => {
     });
 
     it('should validate degree bounds', () => {
-      const params = nurbsCurveNode.parameters;
+      const params = nurbsCurveNode.params;
       expect(params.degree.min).toBe(1);
       expect(params.degree.max).toBe(7);
       expect(params.degree.default).toBe(3);
@@ -152,7 +152,7 @@ describe('Curve Nodes', () => {
     });
 
     it('should support different corner styles', () => {
-      const params = offsetCurveNode.parameters;
+      const params = offsetCurveNode.params;
       expect(params.corner.options).toEqual(['round', 'sharp', 'smooth']);
       expect(params.corner.default).toBe('round');
     });
@@ -204,7 +204,7 @@ describe('Curve Nodes', () => {
     });
 
     it('should validate sample count bounds', () => {
-      const params = curvatureAnalysisNode.parameters;
+      const params = curvatureAnalysisNode.params;
       expect(params.samples.min).toBe(10);
       expect(params.samples.max).toBe(1000);
       expect(params.samples.default).toBe(100);
@@ -233,7 +233,7 @@ describe('Curve Nodes', () => {
         byLength: params.byLength,
       });
       expect(result.points).toHaveLength(10);
-      expect(result.parameters).toHaveLength(10);
+      expect(result.params).toHaveLength(10);
       expect(result.tangents).toHaveLength(10);
     });
 
@@ -284,13 +284,13 @@ describe('Curve Nodes', () => {
     });
 
     it('should support different continuity levels', () => {
-      const params = blendCurvesNode.parameters;
+      const params = blendCurvesNode.params;
       expect(params.continuity.options).toEqual(['G0', 'G1', 'G2', 'G3']);
       expect(params.continuity.default).toBe('G1');
     });
 
     it('should validate bulge parameter bounds', () => {
-      const params = blendCurvesNode.parameters;
+      const params = blendCurvesNode.params;
       expect(params.bulge.min).toBe(0);
       expect(params.bulge.max).toBe(2);
       expect(params.bulge.default).toBe(0.5);
@@ -390,7 +390,7 @@ describe('Curve Nodes', () => {
     });
 
     it('should validate tolerance bounds', () => {
-      const params = curveIntersectionNode.parameters;
+      const params = curveIntersectionNode.params;
       expect(params.tolerance.min).toBe(0.0001);
       expect(params.tolerance.max).toBe(1);
       expect(params.tolerance.default).toBe(0.001);

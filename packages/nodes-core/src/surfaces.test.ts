@@ -75,7 +75,7 @@ describe('Surface Nodes', () => {
     });
 
     it('should validate degree bounds', () => {
-      const params = nurbsSurfaceNode.parameters;
+      const params = nurbsSurfaceNode.params;
       expect(params.degreeU.min).toBe(1);
       expect(params.degreeU.max).toBe(7);
       expect(params.degreeV.min).toBe(1);
@@ -162,13 +162,13 @@ describe('Surface Nodes', () => {
     });
 
     it('should support different continuity levels', () => {
-      const params = networkSurfaceNode.parameters;
+      const params = networkSurfaceNode.params;
       expect(params.continuity.options).toEqual(['G0', 'G1', 'G2']);
       expect(params.continuity.default).toBe('G1');
     });
 
     it('should validate tolerance bounds', () => {
-      const params = networkSurfaceNode.parameters;
+      const params = networkSurfaceNode.params;
       expect(params.tolerance.min).toBe(0.001);
       expect(params.tolerance.max).toBe(1);
       expect(params.tolerance.default).toBe(0.01);
@@ -334,7 +334,7 @@ describe('Surface Nodes', () => {
     });
 
     it('should validate UV parameter bounds', () => {
-      const params = isotrimNode.parameters;
+      const params = isotrimNode.params;
       expect(params.uMin.min).toBe(0);
       expect(params.uMin.max).toBe(1);
       expect(params.uMax.min).toBe(0);
@@ -442,7 +442,7 @@ describe('Surface Nodes', () => {
     });
 
     it('should validate continuity options', () => {
-      const params = blendSurfacesNode.parameters;
+      const params = blendSurfacesNode.params;
       expect(params.continuity.options).toEqual(['G0', 'G1', 'G2']);
       expect(params.continuity.default).toBe('G1');
     });
