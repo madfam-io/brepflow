@@ -234,6 +234,29 @@ export class ProductionWorkerAPI implements WorkerAPI {
     }
   }
 
+  // Tessellate shape for rendering
+  async tessellate(shapeId: string, deflection: number): Promise<any> {
+    try {
+      const result = await this.invoke('TESSELLATE', {
+        shapeId,
+        deflection,
+      });
+      return result;
+    } catch (error) {
+      logger.error('Tessellation failed', error);
+      throw error;
+    }
+  }
+
+  // Dispose of a shape handle
+  async dispose(handleId: string): Promise<void> {
+    try {
+      await this.invoke('DISPOSE', { handleId });
+    } catch (error) {
+      logger.error('Dispose failed', error);
+    }
+  }
+
   // Get worker status
   getStatus(): {
     initialized: boolean;
