@@ -1,0 +1,301 @@
+/**
+ * Production Geometry Service
+ * Handles all geometry operations with real OCCT implementation
+ */
+
+import { WorkerAPI } from '@brepflow/engine-occt';
+import { GeometryAPIFactory } from '@brepflow/engine-core';
+import { ProductionLogger } from '@brepflow/engine-occt/src/production-logger';
+import { GeometryValidator } from '@brepflow/engine-occt/src/geometry-validator';
+
+export class ProductionGeometryService {
+  private static instance: ProductionGeometryService;
+  private api: WorkerAPI | null = null;
+  private logger = new ProductionLogger('GeometryService');
+  private validator = new GeometryValidator();
+  private initializationPromise: Promise<void> | null = null;
+  private healthCheckInterval: NodeJS.Timeout | null = null;
+
+  private constructor() {}
+
+  static getInstance(): ProductionGeometryService {
+    if (!ProductionGeometryService.instance) {
+      ProductionGeometryService.instance = new ProductionGeometryService();
+    }
+    return ProductionGeometryService.instance;
+  }
+
+  /**
+   * Initialize the geometry service with production configuration
+   */
+  async initialize(): Promise<void> {
+    if (this.api) {
+      return; // Already initialized
+    }
+
+    if (this.initializationPromise) {
+      return this.initializationPromise;
+    }
+
+    this.initializationPromise = this.doInitialize();
+    await this.initializationPromise;
+  }
+
+  private async doInitialize(): Promise<void> {
+    try {
+      this.logger.info('Initializing production geometry service');
+
+      // Get production API - no mocks allowed
+      this.api = await GeometryAPIFactory.getProductionAPI({
+        enableMock: false,
+        requireRealOCCT: true,
+        validateOutput: true,
+        initTimeout: 30000,
+        enableRetry: true,
+        retryAttempts: 3,
+      });
+
+      // Start health monitoring
+      this.startHealthMonitoring();
+
+      this.logger.info('Production geometry service initialized successfully');
+    } catch (error) {
+      this.logger.error('Failed to initialize production geometry service', error);
+      throw new Error(`Production geometry initialization failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Start periodic health checks
+   */
+  private startHealthMonitoring(): void {
+    this.healthCheckInterval = setInterval(async () => {
+      try {
+        const health = await this.checkHealth();
+        if (!health.healthy) {
+          this.logger.warn('Geometry service health check failed', health);
+          // Attempt recovery
+          await this.recover();
+        }
+      } catch (error) {
+        this.logger.error('Health check error', error);
+      }
+    }, 30000); // Check every 30 seconds
+  }
+
+  /**
+   * Stop health monitoring
+   */
+  private stopHealthMonitoring(): void {
+    if (this.healthCheckInterval) {
+      clearInterval(this.healthCheckInterval);
+      this.healthCheckInterval = null;
+    }
+  }
+
+  /**
+   * Check service health
+   */
+  async checkHealth(): Promise<{
+    healthy: boolean;
+    details: Record<string, any>;
+  }> {
+    if (!this.api) {
+      return {
+        healthy: false,
+        details: { error: 'API not initialized' },
+      };
+    }
+
+    try {
+      const result = await this.api.invoke('HEALTH_CHECK', {});
+      const memoryUsage = await this.api.invoke('GET_MEMORY_USAGE', {});
+
+      return {
+        healthy: true,
+        details: {
+          api: 'connected',
+          memory: memoryUsage,
+          timestamp: new Date().toISOString(),
+        },
+      };
+    } catch (error) {
+      return {
+        healthy: false,
+        details: { error: error.message },
+      };
+    }
+  }
+
+  /**
+   * Attempt to recover from failures
+   */
+  private async recover(): Promise<void> {
+    this.logger.warn('Attempting geometry service recovery');
+
+    try {
+      // Stop current monitoring
+      this.stopHealthMonitoring();
+
+      // Clear current API
+      if (this.api) {
+        try {
+          await this.api.terminate();
+        } catch (e) {
+          // Ignore termination errors
+        }
+        this.api = null;
+      }
+
+      // Reinitialize
+      this.initializationPromise = null;
+      await this.initialize();
+
+      this.logger.info('Geometry service recovered successfully');
+    } catch (error) {
+      this.logger.error('Failed to recover geometry service', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Execute a geometry operation with validation
+   */
+  async execute<T = any>(
+    operation: string,
+    params: any,
+    options: {
+      validate?: boolean;
+      timeout?: number;
+    } = {}
+  ): Promise<T> {
+    if (!this.api) {
+      throw new Error('Geometry service not initialized');
+    }
+
+    const { validate = true, timeout = 30000 } = options;
+
+    try {
+      // Set timeout for operation
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Operation timeout')), timeout);
+      });
+
+      // Execute operation with timeout
+      const result = await Promise.race([
+        this.api.invoke(operation, params),
+        timeoutPromise,
+      ]) as T;
+
+      // Validate if required
+      if (validate && this.shouldValidate(operation)) {
+        const validationResult = await this.validator.validate(result);
+        if (!validationResult.valid) {
+          throw new Error(`Validation failed: ${validationResult.errors.join(', ')}`);
+        }
+      }
+
+      return result;
+    } catch (error) {
+      this.logger.error(`Geometry operation failed: ${operation}`, { params, error });
+      throw error;
+    }
+  }
+
+  /**
+   * Determine if an operation result should be validated
+   */
+  private shouldValidate(operation: string): boolean {
+    const validatedOperations = [
+      'MAKE_BOX',
+      'MAKE_SPHERE',
+      'MAKE_CYLINDER',
+      'MAKE_CONE',
+      'MAKE_TORUS',
+      'BOOLEAN_UNION',
+      'BOOLEAN_INTERSECTION',
+      'BOOLEAN_DIFFERENCE',
+      'FILLET',
+      'CHAMFER',
+      'EXTRUDE',
+      'REVOLVE',
+      'EXPORT_STEP',
+      'EXPORT_IGES',
+      'EXPORT_STL',
+    ];
+    return validatedOperations.includes(operation);
+  }
+
+  /**
+   * Export geometry with validation
+   */
+  async export(
+    shape: any,
+    format: 'STEP' | 'IGES' | 'STL' | 'OBJ',
+    options: Record<string, any> = {}
+  ): Promise<string | ArrayBuffer> {
+    if (!this.api) {
+      throw new Error('Geometry service not initialized');
+    }
+
+    // Always validate exports in production
+    const exportOperation = `EXPORT_${format}`;
+    const result = await this.execute(exportOperation, {
+      shape,
+      ...options,
+    }, {
+      validate: true,
+      timeout: 60000, // Longer timeout for exports
+    });
+
+    // Additional export validation
+    if (format === 'STEP' || format === 'IGES') {
+      const exportValidation = await this.validator.validateExport(
+        result as string,
+        format
+      );
+      if (!exportValidation.valid) {
+        throw new Error(`Export validation failed: ${exportValidation.message}`);
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Clean up resources
+   */
+  async dispose(): Promise<void> {
+    this.stopHealthMonitoring();
+
+    if (this.api) {
+      try {
+        await this.api.terminate();
+      } catch (error) {
+        this.logger.error('Error during disposal', error);
+      }
+      this.api = null;
+    }
+
+    this.initializationPromise = null;
+  }
+
+  /**
+   * Get service metrics
+   */
+  async getMetrics(): Promise<{
+    operations: number;
+    errors: number;
+    averageExecutionTime: number;
+    memoryUsage: any;
+  }> {
+    const health = await this.checkHealth();
+    
+    return {
+      operations: 0, // Would be tracked in production
+      errors: 0, // Would be tracked in production
+      averageExecutionTime: 0, // Would be calculated
+      memoryUsage: health.details.memory || {},
+    };
+  }
+}

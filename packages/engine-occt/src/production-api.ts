@@ -1,0 +1,264 @@
+/**
+ * Production OCCT Worker API
+ * Manages Web Worker communication with real OCCT geometry operations
+ */
+
+import { ProductionLogger } from './production-logger';
+import { getConfig } from '@brepflow/engine-core';
+import type { WorkerAPI, WorkerRequest, WorkerResponse } from '@brepflow/types';
+
+const logger = new ProductionLogger('ProductionWorkerAPI');
+
+export interface ProductionWorkerConfig {
+  wasmPath: string;
+  initTimeout: number;
+  validateOutput: boolean;
+  memoryThreshold: number;
+}
+
+export class ProductionWorkerAPI implements WorkerAPI {
+  private worker: Worker | null = null;
+  private requestId = 0;
+  private pendingRequests = new Map<number, {
+    resolve: (value: any) => void;
+    reject: (error: Error) => void;
+    timeout: NodeJS.Timeout;
+  }>();
+  private isInitialized = false;
+  private config: ProductionWorkerConfig;
+
+  constructor(config: ProductionWorkerConfig) {
+    this.config = config;
+  }
+
+  async init(): Promise<void> {
+    if (this.isInitialized) {
+      logger.debug('Worker already initialized');
+      return;
+    }
+
+    logger.info('Initializing production OCCT worker');
+
+    // Check environment
+    const envConfig = getConfig();
+    if (envConfig.isProduction && envConfig.enableMockGeometry) {
+      throw new Error('Cannot initialize production worker with mock geometry enabled');
+    }
+
+    // Create worker
+    try {
+      // In production builds, the worker should be pre-built
+      const workerUrl = new URL('./production-worker.ts', import.meta.url).href;
+      this.worker = new Worker(workerUrl, { type: 'module' });
+      
+      this.setupWorkerHandlers();
+      
+      // Initialize OCCT
+      await this.invoke('INIT', {});
+      this.isInitialized = true;
+      
+      logger.info('Production OCCT worker initialized successfully');
+    } catch (error) {
+      logger.error('Failed to initialize production worker', error);
+      this.cleanup();
+      throw new Error(`Worker initialization failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }
+
+  private setupWorkerHandlers(): void {
+    if (!this.worker) return;
+
+    this.worker.onmessage = (event: MessageEvent<WorkerResponse>) => {
+      const response = event.data;
+      
+      if (response.id !== undefined) {
+        // Handle request response
+        const pending = this.pendingRequests.get(response.id);
+        if (pending) {
+          clearTimeout(pending.timeout);
+          this.pendingRequests.delete(response.id);
+          
+          if (response.success) {
+            pending.resolve(response.result);
+          } else {
+            const error = new Error(response.error?.message || 'Worker operation failed');
+            (error as any).code = response.error?.code;
+            (error as any).details = response.error?.details;
+            pending.reject(error);
+          }
+        }
+      } else {
+        // Handle worker events (memory pressure, etc.)
+        this.handleWorkerEvent(response);
+      }
+    };
+
+    this.worker.onerror = (event) => {
+      logger.error('Worker error', event);
+      this.handleWorkerError(new Error(`Worker error: ${event.message}`));
+    };
+
+    this.worker.onmessageerror = (event) => {
+      logger.error('Worker message error', event);
+      this.handleWorkerError(new Error('Worker message error'));
+    };
+  }
+
+  private handleWorkerEvent(event: any): void {
+    switch (event.type) {
+      case 'MEMORY_PRESSURE':
+        logger.warn('Worker memory pressure detected', {
+          usedMB: event.usedMB,
+          threshold: event.threshold,
+        });
+        // Could trigger worker restart here
+        break;
+        
+      case 'WORKER_ERROR':
+        logger.error('Worker reported error', event.error);
+        break;
+        
+      default:
+        logger.debug('Unknown worker event', event);
+    }
+  }
+
+  private handleWorkerError(error: Error): void {
+    // Reject all pending requests
+    for (const [id, pending] of this.pendingRequests) {
+      clearTimeout(pending.timeout);
+      pending.reject(error);
+    }
+    this.pendingRequests.clear();
+    
+    // Mark as not initialized
+    this.isInitialized = false;
+  }
+
+  async invoke<T>(operation: string, params: any): Promise<T> {
+    if (!this.worker) {
+      throw new Error('Worker not initialized');
+    }
+
+    if (operation !== 'INIT' && !this.isInitialized) {
+      throw new Error('Worker not ready - call init() first');
+    }
+
+    const requestId = ++this.requestId;
+    const request: WorkerRequest = {
+      id: requestId,
+      type: operation,
+      params,
+    };
+
+    return new Promise<T>((resolve, reject) => {
+      // Set up timeout
+      const timeout = setTimeout(() => {
+        this.pendingRequests.delete(requestId);
+        reject(new Error(`Operation ${operation} timed out after ${this.config.initTimeout}ms`));
+      }, this.config.initTimeout);
+
+      // Store pending request
+      this.pendingRequests.set(requestId, {
+        resolve,
+        reject,
+        timeout,
+      });
+
+      // Send request
+      this.worker!.postMessage(request);
+      
+      logger.debug(`Sent request ${requestId}: ${operation}`, params);
+    });
+  }
+
+  async dispose(): Promise<void> {
+    if (this.worker) {
+      try {
+        // Attempt graceful shutdown
+        await this.invoke('SHUTDOWN', {}).catch(() => {
+          // Ignore shutdown errors
+        });
+      } finally {
+        this.cleanup();
+      }
+    }
+  }
+
+  private cleanup(): void {
+    // Clear pending requests
+    for (const [id, pending] of this.pendingRequests) {
+      clearTimeout(pending.timeout);
+      pending.reject(new Error('Worker terminated'));
+    }
+    this.pendingRequests.clear();
+
+    // Terminate worker
+    if (this.worker) {
+      this.worker.terminate();
+      this.worker = null;
+    }
+
+    this.isInitialized = false;
+    logger.info('Worker cleaned up');
+  }
+
+  // Health check
+  async healthCheck(): Promise<boolean> {
+    try {
+      const result = await this.invoke('HEALTH_CHECK', {});
+      return !!(result as any)?.healthy;
+    } catch (error) {
+      logger.error('Health check failed', error);
+      return false;
+    }
+  }
+
+  // Memory management
+  async getMemoryUsage(): Promise<number> {
+    try {
+      const result = await this.invoke('HEALTH_CHECK', {});
+      return (result as any)?.memoryUsage || 0;
+    } catch (error) {
+      logger.error('Failed to get memory usage', error);
+      return 0;
+    }
+  }
+
+  // Force cleanup of geometry objects
+  async cleanup(): Promise<void> {
+    try {
+      await this.invoke('CLEANUP', {});
+    } catch (error) {
+      logger.error('Cleanup failed', error);
+    }
+  }
+
+  // Get worker status
+  getStatus(): {
+    initialized: boolean;
+    pendingRequests: number;
+    workerId: string | null;
+  } {
+    return {
+      initialized: this.isInitialized,
+      pendingRequests: this.pendingRequests.size,
+      workerId: this.worker ? 'production-worker' : null,
+    };
+  }
+}
+
+// Factory function for easy creation
+export function createProductionAPI(overrides: Partial<ProductionWorkerConfig> = {}): ProductionWorkerAPI {
+  const config = getConfig();
+  
+  const fullConfig: ProductionWorkerConfig = {
+    wasmPath: config.occtWasmPath,
+    initTimeout: config.occtInitTimeout,
+    validateOutput: config.validateGeometryOutput,
+    memoryThreshold: config.workerRestartThresholdMB,
+    ...overrides,
+  };
+
+  return new ProductionWorkerAPI(fullConfig);
+}

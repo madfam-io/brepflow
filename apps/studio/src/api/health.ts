@@ -2,7 +2,7 @@
  * Health check endpoints for production monitoring
  */
 
-import { getConfig } from '@brepflow/engine-core/src/config/environment';
+import { getConfig } from '@brepflow/engine-core';
 import { ProductionLogger } from '@brepflow/engine-occt/src/production-logger';
 
 const logger = new ProductionLogger('HealthCheck');

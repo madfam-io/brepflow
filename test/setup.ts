@@ -1,60 +1,58 @@
-import { expect, afterEach } from 'vitest';
-import { cleanup } from '@testing-library/react';
-import '@testing-library/jest-dom/vitest';
+import { vi } from 'vitest';
 
-// Extend matchers
-declare global {
-  namespace Vi {
-    interface Assertion {
-      toBeWithinRange(min: number, max: number): void;
-    }
-  }
-}
+// Setup global test environment
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
 
-// Add custom matchers if needed
-expect.extend({
-  toBeWithinRange(received: number, min: number, max: number) {
-    const pass = received >= min && received <= max;
-    if (pass) {
-      return {
-        message: () => `expected ${received} not to be within range ${min} - ${max}`,
-        pass: true,
-      };
-    } else {
-      return {
-        message: () => `expected ${received} to be within range ${min} - ${max}`,
-        pass: false,
-      };
-    }
-  },
-});
-
-// Cleanup after each test
-afterEach(() => {
-  cleanup();
-});
-
-// Mock browser APIs if needed
-global.ResizeObserver = class ResizeObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-};
-
-// Mock WebGL context for Three.js tests
-HTMLCanvasElement.prototype.getContext = function(contextType: string) {
-  if (contextType === 'webgl' || contextType === 'webgl2') {
+// Mock WebGL context for viewport tests
+HTMLCanvasElement.prototype.getContext = vi.fn((contextType: string) => {
+  if (contextType === 'webgl2' || contextType === 'webgl') {
     return {
-      canvas: this,
-      drawingBufferWidth: 800,
-      drawingBufferHeight: 600,
-      getExtension: () => null,
-      getParameter: () => 0,
-      createBuffer: () => ({}),
-      createProgram: () => ({}),
-      createShader: () => ({}),
-      createTexture: () => ({}),
+      getExtension: vi.fn(),
+      getParameter: vi.fn(),
+      createShader: vi.fn(),
+      shaderSource: vi.fn(),
+      compileShader: vi.fn(),
+      attachShader: vi.fn(),
+      createProgram: vi.fn(),
+      linkProgram: vi.fn(),
+      useProgram: vi.fn(),
+      getProgramParameter: vi.fn(() => true),
+      getShaderParameter: vi.fn(() => true),
+      enable: vi.fn(),
+      disable: vi.fn(),
+      clearColor: vi.fn(),
+      clear: vi.fn(),
+      viewport: vi.fn(),
+      drawArrays: vi.fn(),
+      drawElements: vi.fn(),
     };
   }
   return null;
-} as any;
+}) as any;
+
+// Mock Worker for WASM tests
+global.Worker = vi.fn().mockImplementation(() => ({
+  postMessage: vi.fn(),
+  onmessage: vi.fn(),
+  terminate: vi.fn(),
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+})) as any;
+
+// Mock SharedArrayBuffer for WASM threading
+global.SharedArrayBuffer = ArrayBuffer as any;
+
+// Mock performance API
+global.performance = {
+  ...global.performance,
+  now: vi.fn(() => Date.now()),
+};
+
+// Set test timeout
+vi.setConfig({
+  testTimeout: 10000, // 10 seconds
+});

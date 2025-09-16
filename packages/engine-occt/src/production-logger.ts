@@ -3,7 +3,7 @@
  * Structured logging with proper levels and no console.log in production
  */
 
-import { getConfig } from '@brepflow/engine-core/src/config/environment';
+import { getConfig } from '@brepflow/engine-core';
 
 export type LogLevel = 'error' | 'warn' | 'info' | 'debug';
 

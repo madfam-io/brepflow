@@ -3,7 +3,7 @@
  * Ensures all geometry operations produce valid results
  */
 
-import { getConfig } from '@brepflow/engine-core/src/config/environment';
+import { getConfig } from '@brepflow/engine-core';
 
 export class GeometryValidator {
   private enabled: boolean;

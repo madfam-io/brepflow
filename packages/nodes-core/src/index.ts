@@ -7,6 +7,10 @@ import { booleanNodes } from './boolean';
 import { featureNodes } from './features';
 import { transformNodes } from './transform';
 import { ioNodes } from './io';
+import { curveNodes } from './curves';
+import { surfaceNodes } from './surfaces';
+import { dataNodes } from './data';
+import { analysisNodes } from './analysis';
 
 // Register all core nodes
 export function registerCoreNodes(): void {
@@ -19,6 +23,10 @@ export function registerCoreNodes(): void {
     ...featureNodes,
     ...transformNodes,
     ...ioNodes,
+    ...curveNodes,
+    ...surfaceNodes,
+    ...dataNodes,
+    ...analysisNodes,
   ]);
 }
 
@@ -29,3 +37,7 @@ export * from './boolean';
 export * from './features';
 export * from './transform';
 export * from './io';
+export * from './curves';
+export * from './surfaces';
+export * from './data';
+export * from './analysis';
