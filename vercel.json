@@ -1,14 +1,15 @@
 {
   "buildCommand": "pnpm --filter @brepflow/studio^... run build && pnpm --filter @brepflow/studio run build",
   "installCommand": "pnpm install",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/functions/studio"
+      "destination": "/api/studio"
     }
   ],
   "functions": {
-    "functions/studio.js": {
+    "api/studio.js": {
       "maxDuration": 30
     }
   }
