@@ -18,7 +18,7 @@ export class WorkerClient implements WorkerAPI {
   constructor(private workerUrl?: string) {}
 
   /**
-   * Initialize the worker
+   * Initialize the worker with robust path resolution
    */
   async init(): Promise<void> {
     if (this.initPromise) return this.initPromise;
