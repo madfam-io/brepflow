@@ -158,7 +158,7 @@ export class ProductionErrorBoundary extends Component<Props, State> {
           )}
         </div>
 
-        <style jsx>{`
+        <style>{`
           .error-boundary-fallback {
             min-height: 100vh;
             display: flex;

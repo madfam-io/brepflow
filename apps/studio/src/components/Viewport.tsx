@@ -244,7 +244,7 @@ export function Viewport() {
       rendererRef.current = renderer;
 
       // Controls
-      const controls = new OrbitControls(camera, renderer.domElement);
+      const controls = new OrbitControls(camera as any, renderer.domElement);
       controls.enableDamping = true;
       controls.dampingFactor = 0.05;
 
