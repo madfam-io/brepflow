@@ -5,11 +5,11 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/api/studio"
+      "destination": "/functions/studio.js"
     }
   ],
   "functions": {
-    "api/studio.js": {
+    "functions/studio.js": {
       "maxDuration": 30
     }
   }
