@@ -29,11 +29,18 @@ export class WorkerClient implements WorkerAPI {
         if (this.workerUrl) {
           this.worker = new Worker(this.workerUrl, { type: 'module' });
         } else {
-          // Use default worker path
-          this.worker = new Worker(
-            new URL('./worker.mjs', import.meta.url),
-            { type: 'module' }
-          );
+          // Use default worker path - resolve from engine-occt package
+          try {
+            // Try to resolve worker from engine-occt dist
+            const workerUrl = new URL('../engine-occt/dist/worker.mjs', import.meta.url).href;
+            this.worker = new Worker(workerUrl, { type: 'module' });
+          } catch {
+            // Fallback to relative path for development
+            this.worker = new Worker(
+              new URL('./worker.mjs', import.meta.url),
+              { type: 'module' }
+            );
+          }
         }
 
         // Set up message handling
