@@ -79,7 +79,7 @@ function AppContent() {
   // Sync ReactFlow changes back to graph
   useEffect(() => {
     const timer = setTimeout(() => {
-      const updatedGraph = convertFromReactFlow(nodes, edges, graph);
+      const updatedGraph = convertFromReactFlow(nodes, edges);
       if (JSON.stringify(updatedGraph) !== JSON.stringify(graph)) {
         // Update graph store with ReactFlow changes
       }
@@ -97,9 +97,12 @@ function AppContent() {
   const onConnect = useCallback(
     (params: Connection) => {
       if (params.source && params.target && params.sourceHandle && params.targetHandle) {
-        recordUserInteraction('edge_created', {
-          source: params.source,
-          target: params.target,
+        recordUserInteraction({
+          type: 'edge_created',
+          data: {
+            source: params.source,
+            target: params.target,
+          }
         });
 
         const [sourcePort] = params.sourceHandle.split(':');
@@ -128,7 +131,7 @@ function AppContent() {
   const onNodesDelete = useCallback(
     (nodesToDelete: RFNode[]) => {
       nodesToDelete.forEach(node => {
-        recordUserInteraction('node_deleted', { nodeId: node.id });
+        recordUserInteraction({ type: 'node_deleted', data: { nodeId: node.id } });
         removeNode(node.id);
       });
     },
@@ -138,7 +141,7 @@ function AppContent() {
   const onEdgesDelete = useCallback(
     (edgesToDelete: RFEdge[]) => {
       edgesToDelete.forEach(edge => {
-        recordUserInteraction('edge_deleted', { edgeId: edge.id });
+        recordUserInteraction({ type: 'edge_deleted', data: { edgeId: edge.id } });
         removeEdge(edge.id);
       });
     },
@@ -147,7 +150,7 @@ function AppContent() {
 
   const onNodeClick = useCallback(
     (_: React.MouseEvent, node: RFNode) => {
-      recordUserInteraction('node_selected', { nodeId: node.id });
+      recordUserInteraction({ type: 'node_selected', data: { nodeId: node.id } });
       selectNode(node.id);
     },
     [selectNode, recordUserInteraction]
@@ -163,7 +166,7 @@ function AppContent() {
 
   const handleAddNode = useCallback(
     (type: string, position?: { x: number; y: number }) => {
-      recordUserInteraction('node_added', { type });
+      recordUserInteraction({ type: 'node_added', data: { type } });
       const nodePosition = position || { x: 250, y: 250 };
       addNode(type, nodePosition);
     },
@@ -171,7 +174,7 @@ function AppContent() {
   );
 
   const handleEvaluate = useCallback(async () => {
-    recordUserInteraction('graph_evaluated', {});
+    recordUserInteraction({ type: 'graph_evaluated' });
     await evaluateGraph();
   }, [evaluateGraph, recordUserInteraction]);
 
@@ -185,7 +188,7 @@ function AppContent() {
     'e': handleEvaluate,
   };
 
-  useKeyboardShortcuts(shortcuts);
+  useKeyboardShortcuts();
 
   // Initialize monitoring
   useEffect(() => {
@@ -222,13 +225,13 @@ function AppContent() {
   }
 
   return (
-    <WorkbenchLayoutManager
-      toolbar={<Toolbar onEvaluate={handleEvaluate} />}
-      nodePanel={<NodePanel onAddNode={handleAddNode} />}
-      inspector={<Inspector />}
-      console={<Console />}
-      viewport={<Viewport />}
-      flowEditor={
+    <WorkbenchLayoutManager>{{
+      toolbar: <Toolbar />,
+      nodePanel: <NodePanel />,
+      inspector: <Inspector selectedNode={null} onParamChange={() => {}} />,
+      console: <Console />,
+      viewport3d: <Viewport />,
+      nodeEditor:
         <div style={{ width: '100%', height: '100%' }}>
           <ReactFlow
             nodes={nodes}
@@ -243,7 +246,7 @@ function AppContent() {
             nodeTypes={nodeTypes}
             fitView
           >
-            <Background variant="dots" gap={12} size={1} />
+            <Background variant={'dots' as any} gap={12} size={1} />
             <Controls />
             <MiniMap />
             <Panel position="top-right">
@@ -252,14 +255,17 @@ function AppContent() {
                 className="monitoring-toggle"
                 title="Toggle Monitoring Dashboard"
               >
-                <Icon name="activity" size={20} />
+                <Icon name="monitor" size={20} />
               </button>
             </Panel>
           </ReactFlow>
 
           {showMonitoringDashboard && (
             <div className="monitoring-overlay">
-              <MonitoringDashboard />
+              <MonitoringDashboard
+                isVisible={showMonitoringDashboard}
+                onClose={() => setShowMonitoringDashboard(false)}
+              />
             </div>
           )}
 
@@ -273,8 +279,7 @@ function AppContent() {
             </div>
           )}
         </div>
-      }
-    />
+    }}</WorkbenchLayoutManager>
   );
 }
 

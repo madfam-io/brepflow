@@ -103,7 +103,7 @@ export interface NodeDefinition<I = any, O = any, P = any> {
   outputs: Record<keyof O, SocketSpec>;
   params: ParamSpec<P>;
   evaluate: (ctx: EvalContext, inputs: I, params: P) => Promise<O>;
-  execute?: (inputs: I, params: P, context: any) => Promise<O>;
+  execute?: (inputs: I, params: P, context: EvalContext) => Promise<O>;
 }
 
 // Parameter specifications
@@ -162,9 +162,24 @@ export interface WorkerAPI {
 }
 
 // Worker communication types
+export type WorkerMessageType =
+  | 'INIT'
+  | 'HEALTH_CHECK'
+  | 'CLEANUP'
+  | 'SHUTDOWN'
+  | 'MAKE_BOX'
+  | 'MAKE_SPHERE'
+  | 'MAKE_CYLINDER'
+  | 'MAKE_CONE'
+  | 'MAKE_TORUS'
+  | 'MAKE_EXTRUDE'
+  | 'TESSELLATE'
+  | 'DISPOSE'
+  | string;
+
 export interface WorkerRequest {
   id: number;
-  type: string;
+  type: WorkerMessageType;
   params: any;
 }
 

@@ -44,7 +44,7 @@ export const nurbsSurfaceNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('CREATE_NURBS_SURFACE', {
+    const result = await context.worker.invoke('CREATE_NURBS_SURFACE', {
       points: inputs.points,
       weights: inputs.weights,
       degreeU: params.degreeU,
@@ -53,7 +53,7 @@ export const nurbsSurfaceNode: NodeDefinition = {
     return { surface: result };
   },
   evaluate: async (inputs, params, context) => {
-    return nurbsSurfaceNode.execute(inputs, params, context);
+    return nurbsSurfaceNode.execute!(inputs, params, context);
   },
 };
 
@@ -96,7 +96,7 @@ export const loftSurfaceNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('LOFT_SURFACE', {
+    const result = await context.worker.invoke('LOFT_SURFACE', {
       curves: inputs.curves,
       guides: inputs.guides,
       closed: params.closed,
@@ -106,7 +106,7 @@ export const loftSurfaceNode: NodeDefinition = {
     return { surface: result };
   },
   evaluate: async (inputs, params, context) => {
-    return loftSurfaceNode.execute(inputs, params, context);
+    return loftSurfaceNode.execute!(inputs, params, context);
   },
 };
 
@@ -148,7 +148,7 @@ export const networkSurfaceNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('NETWORK_SURFACE', {
+    const result = await context.worker.invoke('NETWORK_SURFACE', {
       uCurves: inputs.uCurves,
       vCurves: inputs.vCurves,
       continuity: params.continuity,
@@ -157,7 +157,7 @@ export const networkSurfaceNode: NodeDefinition = {
     return { surface: result };
   },
   evaluate: async (inputs, params, context) => {
-    return networkSurfaceNode.execute(inputs, params, context);
+    return networkSurfaceNode.execute!(inputs, params, context);
   },
 };
 
@@ -200,7 +200,7 @@ export const patchSurfaceNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('PATCH_SURFACE', {
+    const result = await context.worker.invoke('PATCH_SURFACE', {
       boundaries: inputs.boundaries,
       internal: inputs.internal,
       spans: params.spans,
@@ -209,7 +209,7 @@ export const patchSurfaceNode: NodeDefinition = {
     return { surface: result };
   },
   evaluate: async (inputs, params, context) => {
-    return patchSurfaceNode.execute(inputs, params, context);
+    return patchSurfaceNode.execute!(inputs, params, context);
   },
 };
 
@@ -245,7 +245,7 @@ export const offsetSurfaceNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('OFFSET_SURFACE', {
+    const result = await context.worker.invoke('OFFSET_SURFACE', {
       surface: inputs.surface,
       distance: params.distance,
       createSolid: params.solid,
@@ -253,7 +253,7 @@ export const offsetSurfaceNode: NodeDefinition = {
     return { offset: result };
   },
   evaluate: async (inputs, params, context) => {
-    return offsetSurfaceNode.execute(inputs, params, context);
+    return offsetSurfaceNode.execute!(inputs, params, context);
   },
 };
 
@@ -308,7 +308,7 @@ export const surfaceCurvatureNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('SURFACE_CURVATURE', {
+    const result = await context.worker.invoke('SURFACE_CURVATURE', {
       surface: inputs.surface,
       points: inputs.points,
       samplesU: params.samplesU,
@@ -322,7 +322,7 @@ export const surfaceCurvatureNode: NodeDefinition = {
     };
   },
   evaluate: async (inputs, params, context) => {
-    return surfaceCurvatureNode.execute(inputs, params, context);
+    return surfaceCurvatureNode.execute!(inputs, params, context);
   },
 };
 
@@ -372,7 +372,7 @@ export const isotrimNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('ISOTRIM', {
+    const result = await context.worker.invoke('ISOTRIM', {
       surface: inputs.surface,
       uMin: params.uMin,
       uMax: params.uMax,
@@ -382,7 +382,7 @@ export const isotrimNode: NodeDefinition = {
     return { trimmed: result };
   },
   evaluate: async (inputs, params, context) => {
-    return isotrimNode.execute(inputs, params, context);
+    return isotrimNode.execute!(inputs, params, context);
   },
 };
 
@@ -423,7 +423,7 @@ export const surfaceSplitNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('SPLIT_SURFACE', {
+    const result = await context.worker.invoke('SPLIT_SURFACE', {
       surface: inputs.surface,
       splitters: inputs.splitters,
       keepAll: params.keepAll,
@@ -432,7 +432,7 @@ export const surfaceSplitNode: NodeDefinition = {
     return { fragments: result };
   },
   evaluate: async (inputs, params, context) => {
-    return surfaceSplitNode.execute(inputs, params, context);
+    return surfaceSplitNode.execute!(inputs, params, context);
   },
 };
 
@@ -484,7 +484,7 @@ export const blendSurfacesNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('BLEND_SURFACES', {
+    const result = await context.worker.invoke('BLEND_SURFACES', {
       surface1: inputs.surface1,
       surface2: inputs.surface2,
       edge1: inputs.edge1,
@@ -495,7 +495,7 @@ export const blendSurfacesNode: NodeDefinition = {
     return { blend: result };
   },
   evaluate: async (inputs, params, context) => {
-    return blendSurfacesNode.execute(inputs, params, context);
+    return blendSurfacesNode.execute!(inputs, params, context);
   },
 };
 

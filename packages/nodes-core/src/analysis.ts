@@ -44,7 +44,7 @@ export const distanceNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('MEASURE_DISTANCE', {
+    const result = await context.worker.invoke('MEASURE_DISTANCE', {
       geometryA: inputs.geometryA,
       geometryB: inputs.geometryB,
       signed: params.signed,
@@ -56,7 +56,7 @@ export const distanceNode: NodeDefinition = {
     };
   },
   evaluate: async (context, inputs, params) => {
-    return distanceNode.execute(inputs, params, context);
+    return distanceNode.execute!(inputs, params, context);
   },
 };
 
@@ -98,7 +98,7 @@ export const closestPointNode: NodeDefinition = {
   },
   params: {},
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('CLOSEST_POINT', {
+    const result = await context.worker.invoke('CLOSEST_POINT', {
       point: inputs.point,
       geometry: inputs.geometry,
     });
@@ -110,7 +110,7 @@ export const closestPointNode: NodeDefinition = {
     };
   },
   evaluate: async (context, inputs, params) => {
-    return closestPointNode.execute(inputs, params, context);
+    return closestPointNode.execute!(inputs, params, context);
   },
 };
 
@@ -144,7 +144,7 @@ export const areaNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('CALCULATE_AREA', {
+    const result = await context.worker.invoke('CALCULATE_AREA', {
       geometry: inputs.geometry,
       worldSpace: params.worldSpace,
     });
@@ -154,7 +154,7 @@ export const areaNode: NodeDefinition = {
     };
   },
   evaluate: async (context, inputs, params) => {
-    return areaNode.execute(inputs, params, context);
+    return areaNode.execute!(inputs, params, context);
   },
 };
 
@@ -187,7 +187,7 @@ export const volumeNode: NodeDefinition = {
   },
   params: {},
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('CALCULATE_VOLUME', {
+    const result = await context.worker.invoke('CALCULATE_VOLUME', {
       solid: inputs.solid,
     });
     return {
@@ -197,7 +197,7 @@ export const volumeNode: NodeDefinition = {
     };
   },
   evaluate: async (context, inputs, params) => {
-    return volumeNode.execute(inputs, params, context);
+    return volumeNode.execute!(inputs, params, context);
   },
 };
 
@@ -253,14 +253,14 @@ export const massPropertiesNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('MASS_PROPERTIES', {
+    const result = await context.worker.invoke('MASS_PROPERTIES', {
       geometry: inputs.geometry,
       density: params.density,
     });
     return result;
   },
   evaluate: async (context, inputs, params) => {
-    return massPropertiesNode.execute(inputs, params, context);
+    return massPropertiesNode.execute!(inputs, params, context);
   },
 };
 
@@ -312,7 +312,7 @@ export const boundingBoxNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('BOUNDING_BOX', {
+    const result = await context.worker.invoke('BOUNDING_BOX', {
       geometry: inputs.geometry,
       alignment: params.alignment || 'world',
       plane: inputs.plane || params.plane || null,
@@ -320,7 +320,7 @@ export const boundingBoxNode: NodeDefinition = {
     return result;
   },
   evaluate: async (context, inputs, params) => {
-    return boundingBoxNode.execute(inputs, params, context);
+    return boundingBoxNode.execute!(inputs, params, context);
   },
 };
 
@@ -370,7 +370,7 @@ export const intersectionNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('INTERSECTION', {
+    const result = await context.worker.invoke('INTERSECTION', {
       geometryA: inputs.geometryA,
       geometryB: inputs.geometryB,
       tolerance: params.tolerance,
@@ -380,7 +380,7 @@ export const intersectionNode: NodeDefinition = {
     };
   },
   evaluate: async (context, inputs, params) => {
-    return intersectionNode.execute(inputs, params, context);
+    return intersectionNode.execute!(inputs, params, context);
   },
 };
 
@@ -439,7 +439,7 @@ export const evaluateCurveNode: NodeDefinition = {
   execute: async (inputs, params, context) => {
     const t = inputs.parameter ?? params.parameter;
     
-    const result = await context.invoke('EVALUATE_CURVE', {
+    const result = await context.worker.invoke('EVALUATE_CURVE', {
       curve: inputs.curve,
       parameter: t,
       normalized: params.normalized,
@@ -447,7 +447,7 @@ export const evaluateCurveNode: NodeDefinition = {
     return result;
   },
   evaluate: async (context, inputs, params) => {
-    return evaluateCurveNode.execute(inputs, params, context);
+    return evaluateCurveNode.execute!(inputs, params, context);
   },
 };
 
@@ -514,7 +514,7 @@ export const evaluateSurfaceNode: NodeDefinition = {
     const u = inputs.u ?? params.u;
     const v = inputs.v ?? params.v;
     
-    const result = await context.invoke('EVALUATE_SURFACE', {
+    const result = await context.worker.invoke('EVALUATE_SURFACE', {
       surface: inputs.surface,
       u: u,
       v: v,
@@ -522,7 +522,7 @@ export const evaluateSurfaceNode: NodeDefinition = {
     return result;
   },
   evaluate: async (context, inputs, params) => {
-    return evaluateSurfaceNode.execute(inputs, params, context);
+    return evaluateSurfaceNode.execute!(inputs, params, context);
   },
 };
 
@@ -575,7 +575,7 @@ export const collisionDetectionNode: NodeDefinition = {
     },
   },
   execute: async (inputs, params, context) => {
-    const result = await context.invoke('COLLISION_DETECTION', {
+    const result = await context.worker.invoke('COLLISION_DETECTION', {
       geometryA: inputs.geometryA,
       geometryB: inputs.geometryB,
       tolerance: params.tolerance || 0.001,
@@ -584,7 +584,7 @@ export const collisionDetectionNode: NodeDefinition = {
     return result;
   },
   evaluate: async (context, inputs, params) => {
-    return collisionDetectionNode.execute(inputs, params, context);
+    return collisionDetectionNode.execute!(inputs, params, context);
   },
 };
 

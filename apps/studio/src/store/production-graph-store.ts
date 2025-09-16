@@ -21,6 +21,7 @@ import { getGeometryAPI } from '../services/geometry-api';
 import { v4 as uuidv4 } from 'uuid';
 import { ProductionLogger } from '@brepflow/engine-occt';
 import { getConfig } from '@brepflow/engine-core';
+import type { GraphInstance } from '@brepflow/types';
 
 const logger = new ProductionLogger('GraphStore');
 
@@ -40,8 +41,11 @@ export type GraphState = {
   dagEngine: DAGEngine | null;
   isInitialized: boolean;
   initError: string | null;
+  initializationError: string | null;
   geometryVersion: string | null;
-  
+  graph: GraphInstance;
+  selectedNodes: string[];
+
   // Actions
   initializeEngine: () => Promise<void>;
   resetEngine: () => Promise<void>;
@@ -50,8 +54,13 @@ export type GraphState = {
   onEdgesChange: (changes: EdgeChange[]) => void;
   onConnect: (connection: Connection) => void;
   addNode: (type: string, position: { x: number; y: number }) => void;
+  removeNode: (nodeId: string) => void;
+  updateNode: (nodeId: string, data: any) => void;
   deleteNode: (nodeId: string) => void;
   updateNodeParam: (nodeId: string, paramName: string, value: any) => void;
+  addEdge: (sourceId: string, sourcePort: string, targetId: string, targetPort: string) => void;
+  removeEdge: (edgeId: string) => void;
+  selectNode: (nodeId: string | null) => void;
   evaluateGraph: () => Promise<void>;
   clearGraph: () => void;
   exportGraph: () => any;
@@ -61,6 +70,29 @@ export type GraphState = {
 export const useProductionGraphStore = create<GraphState>()(
   persist(
     immer((set, get) => {
+      const syncGraph = (state: any) => {
+        state.graph = {
+          version: '0.1.0',
+          units: 'mm' as const,
+          tolerance: 0.001,
+          nodes: state.nodes.map((node: Node<NodeData>) => ({
+            id: node.id,
+            type: node.data.type,
+            position: node.position,
+            params: node.data.params,
+            inputs: node.data.inputs,
+            outputs: node.data.outputs,
+          })),
+          edges: state.edges.map((edge: Edge) => ({
+            id: edge.id!,
+            source: edge.source,
+            target: edge.target,
+            sourceHandle: edge.sourceHandle || '',
+            targetHandle: edge.targetHandle || '',
+          })),
+        };
+      };
+
       const initEngine = async () => {
         const state = get();
         if (state.isInitialized && state.dagEngine) {
@@ -129,7 +161,10 @@ export const useProductionGraphStore = create<GraphState>()(
         dagEngine: null,
         isInitialized: false,
         initError: null,
+        initializationError: null,
         geometryVersion: null,
+        graph: { version: '0.1.0', units: 'mm' as const, tolerance: 0.001, nodes: [], edges: [] },
+        selectedNodes: [],
 
         initializeEngine: async () => {
           set((state) => {
@@ -168,6 +203,7 @@ export const useProductionGraphStore = create<GraphState>()(
               state.dagEngine = null;
               state.isInitialized = false;
               state.initError = errorMessage;
+              state.initializationError = errorMessage;
             });
             
             // Re-throw for UI to handle
@@ -217,12 +253,14 @@ export const useProductionGraphStore = create<GraphState>()(
         onNodesChange: (changes) => {
           set((state) => {
             state.nodes = applyNodeChanges(changes, state.nodes) as Node<NodeData>[];
+            syncGraph(state);
           });
         },
 
         onEdgesChange: (changes) => {
           set((state) => {
             state.edges = applyEdgeChanges(changes, state.edges);
+            syncGraph(state);
           });
         },
 
@@ -230,6 +268,7 @@ export const useProductionGraphStore = create<GraphState>()(
           set((state) => {
             if (connection.source && connection.target) {
               state.edges = addEdge(connection, state.edges);
+              syncGraph(state);
             }
           });
         },
@@ -252,6 +291,7 @@ export const useProductionGraphStore = create<GraphState>()(
 
           set((state) => {
             state.nodes.push(newNode);
+            syncGraph(state);
           });
           
           logger.debug('Node added', { nodeId, type });
@@ -263,9 +303,32 @@ export const useProductionGraphStore = create<GraphState>()(
             state.edges = state.edges.filter(
               (edge) => edge.source !== nodeId && edge.target !== nodeId
             );
+            syncGraph(state);
           });
           
           logger.debug('Node deleted', { nodeId });
+        },
+
+        removeNode: (nodeId) => {
+          set((state) => {
+            state.nodes = state.nodes.filter((node) => node.id !== nodeId);
+            state.edges = state.edges.filter(
+              (edge) => edge.source !== nodeId && edge.target !== nodeId
+            );
+            state.selectedNodes = state.selectedNodes.filter(id => id !== nodeId);
+            syncGraph(state);
+          });
+          logger.debug('Node removed', { nodeId });
+        },
+
+        updateNode: (nodeId, data) => {
+          set((state) => {
+            const node = state.nodes.find((n) => n.id === nodeId);
+            if (node) {
+              Object.assign(node.data, data);
+              syncGraph(state);
+            }
+          });
         },
 
         updateNodeParam: (nodeId, paramName, value) => {
@@ -273,6 +336,41 @@ export const useProductionGraphStore = create<GraphState>()(
             const node = state.nodes.find((n) => n.id === nodeId);
             if (node) {
               node.data.params[paramName] = value;
+              syncGraph(state);
+            }
+          });
+        },
+
+        addEdge: (sourceId, sourcePort, targetId, targetPort) => {
+          const edgeId = `${sourceId}:${sourcePort}-${targetId}:${targetPort}`;
+          set((state) => {
+            const newEdge: Edge = {
+              id: edgeId,
+              source: sourceId,
+              sourceHandle: sourcePort,
+              target: targetId,
+              targetHandle: targetPort,
+            };
+            state.edges.push(newEdge);
+            syncGraph(state);
+          });
+          logger.debug('Edge added', { sourceId, targetId });
+        },
+
+        removeEdge: (edgeId) => {
+          set((state) => {
+            state.edges = state.edges.filter((edge) => edge.id !== edgeId);
+            syncGraph(state);
+          });
+          logger.debug('Edge removed', { edgeId });
+        },
+
+        selectNode: (nodeId) => {
+          set((state) => {
+            if (nodeId === null) {
+              state.selectedNodes = [];
+            } else {
+              state.selectedNodes = [nodeId];
             }
           });
         },
@@ -344,6 +442,7 @@ export const useProductionGraphStore = create<GraphState>()(
           set((state) => {
             state.nodes = [];
             state.edges = [];
+            syncGraph(state);
           });
           logger.info('Graph cleared');
         },
@@ -397,6 +496,7 @@ export const useProductionGraphStore = create<GraphState>()(
                 },
               }));
               state.edges = data.edges || [];
+              syncGraph(state);
             });
             
             logger.info('Graph imported', {
