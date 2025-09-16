@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WASM Local Test</title>
+    <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
+</head>
+<body>
+    <h1>BrepFlow WASM Test</h1>
+    <div id="status">Loading...</div>
+    <div id="results"></div>
+    
+    <script type="module">
+        async function testWASM() {
+            const statusEl = document.getElementById('status');
+            const resultsEl = document.getElementById('results');
+            
+            try {
+                statusEl.textContent = 'Loading WASM module...';
+                
+                // Test direct WASM loading
+                const wasmResponse = await fetch('/packages/engine-occt/wasm/occt-core.wasm');
+                if (!wasmResponse.ok) {
+                    throw new Error(`Failed to fetch WASM: ${wasmResponse.status}`);
+                }
+                
+                statusEl.textContent = 'WASM file loaded, initializing module...';
+                
+                // Try to import the JS loader
+                const script = document.createElement('script');
+                script.src = '/packages/engine-occt/wasm/occt-core.js';
+                script.type = 'module';
+                
+                await new Promise((resolve, reject) => {
+                    script.onload = resolve;
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+                
+                statusEl.textContent = '✅ WASM module loaded successfully!';
+                
+                // Try to test SharedArrayBuffer
+                if (typeof SharedArrayBuffer !== 'undefined') {
+                    resultsEl.innerHTML += '<p>✅ SharedArrayBuffer is available</p>';
+                } else {
+                    resultsEl.innerHTML += '<p>❌ SharedArrayBuffer not available</p>';
+                }
+                
+                // Test Worker creation
+                try {
+                    const testWorker = new Worker('/packages/engine-occt/dist/worker.mjs', { type: 'module' });
+                    resultsEl.innerHTML += '<p>✅ Worker can be created</p>';
+                    testWorker.terminate();
+                } catch (e) {
+                    resultsEl.innerHTML += `<p>⚠️ Worker creation failed: ${e.message}</p>`;
+                }
+                
+            } catch (error) {
+                statusEl.textContent = `❌ Error: ${error.message}`;
+                console.error('WASM test failed:', error);
+            }
+        }
+        
+        testWASM();
+    </script>
+</body>
+</html>

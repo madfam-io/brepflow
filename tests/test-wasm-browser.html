@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrepFlow WASM Test - Complete Verification</title>
+    <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #00ff00;
+        }
+        .test-section {
+            border: 1px solid #00ff00;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .pass { color: #00ff00; }
+        .fail { color: #ff0000; }
+        .info { color: #ffff00; }
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            background: #0a0a0a;
+        }
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #00cc00; }
+    </style>
+</head>
+<body>
+    <h1>🔬 BrepFlow WASM Complete Functionality Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Controls</h2>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <div id="results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Console Output</h2>
+        <div id="console"></div>
+    </div>
+
+    <script type="module">
+        window.log = function(message, type = 'info') {
+            const console = document.getElementById('console');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.innerHTML = `[${new Date().toISOString().split('T')[1].split('.')[0]}] ${message}`;
+            console.appendChild(entry);
+            console.scrollTop = console.scrollHeight;
+        };
+
+        window.clearLog = function() {
+            document.getElementById('console').innerHTML = '';
+            document.getElementById('results').innerHTML = '';
+        };
+
+        window.runAllTests = async function() {
+            clearLog();
+            log('Starting comprehensive WASM tests...', 'info');
+            
+            const results = {
+                total: 0,
+                passed: 0,
+                failed: 0,
+                tests: []
+            };
+
+            // Test 1: Check browser environment
+            results.total++;
+            try {
+                log('Test 1: Checking browser environment...', 'info');
+                
+                const hasSharedArrayBuffer = typeof SharedArrayBuffer !== 'undefined';
+                const hasWorker = typeof Worker !== 'undefined';
+                const hasWasm = typeof WebAssembly !== 'undefined';
+                
+                if (hasSharedArrayBuffer && hasWorker && hasWasm) {
+                    log('✅ Browser environment ready (SharedArrayBuffer, Worker, WASM)', 'pass');
+                    results.passed++;
+                    results.tests.push({ name: 'Browser Environment', status: 'PASS' });
+                } else {
+                    throw new Error(`Missing: SAB:${hasSharedArrayBuffer} Worker:${hasWorker} WASM:${hasWasm}`);
+                }
+            } catch (e) {
+                log(`❌ Test 1 failed: ${e.message}`, 'fail');
+                results.failed++;
+                results.tests.push({ name: 'Browser Environment', status: 'FAIL', error: e.message });
+            }
+
+            // Test 2: Load WASM file directly
+            results.total++;
+            try {
+                log('Test 2: Loading WASM file directly...', 'info');
+                
+                const wasmResponse = await fetch('/packages/engine-occt/wasm/occt-core.wasm');
+                if (!wasmResponse.ok) {
+                    throw new Error(`HTTP ${wasmResponse.status}`);
+                }
+                
+                const wasmBuffer = await wasmResponse.arrayBuffer();
+                log(`✅ WASM file loaded: ${(wasmBuffer.byteLength / 1024 / 1024).toFixed(2)} MB`, 'pass');
+                results.passed++;
+                results.tests.push({ name: 'WASM File Loading', status: 'PASS' });
+            } catch (e) {
+                log(`❌ Test 2 failed: ${e.message}`, 'fail');
+                results.failed++;
+                results.tests.push({ name: 'WASM File Loading', status: 'FAIL', error: e.message });
+            }
+
+            // Test 3: Import GeometryAPI
+            results.total++;
+            try {
+                log('Test 3: Importing GeometryAPI...', 'info');
+                
+                const module = await import('/packages/engine-occt/dist/index.mjs');
+                window.GeometryAPI = module.GeometryAPI;
+                
+                if (window.GeometryAPI) {
+                    log('✅ GeometryAPI imported successfully', 'pass');
+                    results.passed++;
+                    results.tests.push({ name: 'GeometryAPI Import', status: 'PASS' });
+                } else {
+                    throw new Error('GeometryAPI not found in module');
+                }
+            } catch (e) {
+                log(`❌ Test 3 failed: ${e.message}`, 'fail');
+                results.failed++;
+                results.tests.push({ name: 'GeometryAPI Import', status: 'FAIL', error: e.message });
+            }
+
+            // Test 4: Create and init mock API
+            results.total++;
+            try {
+                log('Test 4: Testing mock geometry mode...', 'info');
+                
+                const mockAPI = new window.GeometryAPI(true);
+                await mockAPI.init();
+                
+                const mockBox = await mockAPI.invoke('CREATE_BOX', {
+                    width: 10,
+                    height: 20,
+                    depth: 30
+                });
+                
+                if (mockBox && mockBox.id) {
+                    log(`✅ Mock mode working: Box ID ${mockBox.id}`, 'pass');
+                    results.passed++;
+                    results.tests.push({ name: 'Mock Geometry Mode', status: 'PASS' });
+                    await mockAPI.terminate();
+                } else {
+                    throw new Error('Mock box creation failed');
+                }
+            } catch (e) {
+                log(`❌ Test 4 failed: ${e.message}`, 'fail');
+                results.failed++;
+                results.tests.push({ name: 'Mock Geometry Mode', status: 'FAIL', error: e.message });
+            }
+
+            // Test 5: Create and init real WASM API
+            results.total++;
+            try {
+                log('Test 5: Testing REAL WASM geometry mode...', 'info');
+                
+                const realAPI = new window.GeometryAPI(false);
+                window.realAPI = realAPI; // Keep reference for manual testing
+                
+                log('Initializing real WASM Worker...', 'info');
+                await realAPI.init();
+                
+                log('✅ Real WASM API initialized!', 'pass');
+                results.passed++;
+                results.tests.push({ name: 'Real WASM Initialization', status: 'PASS' });
+            } catch (e) {
+                log(`❌ Test 5 failed: ${e.message}`, 'fail');
+                results.failed++;
+                results.tests.push({ name: 'Real WASM Initialization', status: 'FAIL', error: e.message });
+            }
+
+            // Test 6: Real geometry operations
+            if (window.realAPI) {
+                results.total++;
+                try {
+                    log('Test 6: Testing real geometry operations...', 'info');
+                    
+                    const realBox = await window.realAPI.invoke('CREATE_BOX', {
+                        width: 100,
+                        height: 50,
+                        depth: 25
+                    });
+                    
+                    if (realBox && realBox.id) {
+                        log(`✅ Real WASM box created: ${realBox.id}`, 'pass');
+                        
+                        // Test tessellation
+                        const mesh = await window.realAPI.tessellate(realBox.id, 0.01);
+                        if (mesh && mesh.positions) {
+                            log(`✅ Real tessellation: ${mesh.positions.length} vertices`, 'pass');
+                            results.passed++;
+                            results.tests.push({ name: 'Real Geometry Operations', status: 'PASS' });
+                        } else {
+                            throw new Error('Tessellation failed');
+                        }
+                    } else {
+                        throw new Error('Real box creation failed');
+                    }
+                } catch (e) {
+                    log(`❌ Test 6 failed: ${e.message}`, 'fail');
+                    results.failed++;
+                    results.tests.push({ name: 'Real Geometry Operations', status: 'FAIL', error: e.message });
+                }
+            }
+
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <h3>Test Summary</h3>
+                <div class="log-entry">Total Tests: ${results.total}</div>
+                <div class="log-entry pass">Passed: ${results.passed}</div>
+                <div class="log-entry fail">Failed: ${results.failed}</div>
+                <div class="log-entry info">Success Rate: ${Math.round(results.passed/results.total * 100)}%</div>
+                <h4>Individual Tests:</h4>
+                ${results.tests.map(t => `
+                    <div class="log-entry ${t.status === 'PASS' ? 'pass' : 'fail'}">
+                        ${t.name}: ${t.status} ${t.error ? `(${t.error})` : ''}
+                    </div>
+                `).join('')}
+            `;
+
+            // Final verdict
+            if (results.passed === results.total) {
+                log('🎉 ALL TESTS PASSED! WASM is 100% functional!', 'pass');
+            } else {
+                log(`⚠️ ${results.failed} tests failed. WASM is ${Math.round(results.passed/results.total * 100)}% functional`, 'fail');
+            }
+        };
+
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 1000);
+        });
+    </script>
+</body>
+</html>

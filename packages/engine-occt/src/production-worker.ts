@@ -40,7 +40,7 @@ function startMemoryMonitoring() {
       logger.debug(`Memory usage: ${usedMB}MB / ${totalMB}MB`);
       
       // Check for memory pressure
-      const threshold = parseInt(process.env.WORKER_RESTART_THRESHOLD_MB || '1800');
+      const threshold = parseInt((typeof process !== 'undefined' ? process.env.WORKER_RESTART_THRESHOLD_MB : undefined) || '1800');
       if (usedMB > threshold) {
         logger.warn(`Memory threshold exceeded: ${usedMB}MB > ${threshold}MB`);
         self.postMessage({

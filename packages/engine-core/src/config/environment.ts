@@ -51,7 +51,11 @@ class EnvironmentManager {
    * Parse and validate environment configuration
    */
   private parseConfig(): EnvironmentConfig {
-    const mode = (process.env.BREPFLOW_MODE || process.env.NODE_ENV || 'development') as 'production' | 'development' | 'test';
+    // Check if we're in a browser environment
+    const isBrowser = typeof window !== 'undefined';
+    const processEnv = isBrowser ? {} : (typeof process !== 'undefined' ? process.env : {});
+    
+    const mode = (processEnv.BREPFLOW_MODE || processEnv.NODE_ENV || 'development') as 'production' | 'development' | 'test';
     const isProduction = mode === 'production';
     const isDevelopment = mode === 'development';
 
@@ -62,38 +66,38 @@ class EnvironmentManager {
       isDevelopment,
 
       // Geometry Engine
-      enableMockGeometry: this.parseBoolean(process.env.ENABLE_MOCK_GEOMETRY, isDevelopment),
-      requireRealOCCT: this.parseBoolean(process.env.REQUIRE_REAL_OCCT, isProduction),
-      occtWasmPath: process.env.OCCT_WASM_PATH || '/assets/wasm',
-      occtInitTimeout: this.parseNumber(process.env.OCCT_INIT_TIMEOUT, 30000),
-      validateGeometryOutput: this.parseBoolean(process.env.VALIDATE_GEOMETRY_OUTPUT, isProduction),
+      enableMockGeometry: this.parseBoolean(processEnv.ENABLE_MOCK_GEOMETRY, isDevelopment),
+      requireRealOCCT: this.parseBoolean(processEnv.REQUIRE_REAL_OCCT, isProduction),
+      occtWasmPath: processEnv.OCCT_WASM_PATH || '/assets/wasm',
+      occtInitTimeout: this.parseNumber(processEnv.OCCT_INIT_TIMEOUT, 30000),
+      validateGeometryOutput: this.parseBoolean(processEnv.VALIDATE_GEOMETRY_OUTPUT, isProduction),
 
       // Performance
-      maxWorkerMemoryMB: this.parseNumber(process.env.MAX_WORKER_MEMORY_MB, 2048),
-      enableMemoryMonitoring: this.parseBoolean(process.env.ENABLE_MEMORY_MONITORING, true),
-      meshCacheSizeMB: this.parseNumber(process.env.MESH_CACHE_SIZE_MB, 512),
-      workerRestartThresholdMB: this.parseNumber(process.env.WORKER_RESTART_THRESHOLD_MB, 1800),
+      maxWorkerMemoryMB: this.parseNumber(processEnv.MAX_WORKER_MEMORY_MB, 2048),
+      enableMemoryMonitoring: this.parseBoolean(processEnv.ENABLE_MEMORY_MONITORING, true),
+      meshCacheSizeMB: this.parseNumber(processEnv.MESH_CACHE_SIZE_MB, 512),
+      workerRestartThresholdMB: this.parseNumber(processEnv.WORKER_RESTART_THRESHOLD_MB, 1800),
 
       // Security
-      enableCSP: this.parseBoolean(process.env.ENABLE_CSP, isProduction),
-      requireCorsValidation: this.parseBoolean(process.env.REQUIRE_CORS_VALIDATION, isProduction),
-      allowedOrigins: this.parseStringArray(process.env.ALLOWED_ORIGINS, ['https://brepflow.com']),
+      enableCSP: this.parseBoolean(processEnv.ENABLE_CSP, isProduction),
+      requireCorsValidation: this.parseBoolean(processEnv.REQUIRE_CORS_VALIDATION, isProduction),
+      allowedOrigins: this.parseStringArray(processEnv.ALLOWED_ORIGINS, ['https://brepflow.com']),
 
       // Logging
-      logLevel: (process.env.LOG_LEVEL || (isDevelopment ? 'debug' : 'error')) as 'error' | 'warn' | 'info' | 'debug',
-      enableErrorReporting: this.parseBoolean(process.env.ENABLE_ERROR_REPORTING, isProduction),
-      sentryDSN: process.env.SENTRY_DSN,
-      enablePerformanceMonitoring: this.parseBoolean(process.env.ENABLE_PERFORMANCE_MONITORING, isProduction),
+      logLevel: (processEnv.LOG_LEVEL || (isDevelopment ? 'debug' : 'error')) as 'error' | 'warn' | 'info' | 'debug',
+      enableErrorReporting: this.parseBoolean(processEnv.ENABLE_ERROR_REPORTING, isProduction),
+      sentryDSN: processEnv.SENTRY_DSN,
+      enablePerformanceMonitoring: this.parseBoolean(processEnv.ENABLE_PERFORMANCE_MONITORING, isProduction),
 
       // Features
-      enableExportValidation: this.parseBoolean(process.env.ENABLE_EXPORT_VALIDATION, isProduction),
-      enableHealthChecks: this.parseBoolean(process.env.ENABLE_HEALTH_CHECKS, true),
-      enableAdminDashboard: this.parseBoolean(process.env.ENABLE_ADMIN_DASHBOARD, isDevelopment),
+      enableExportValidation: this.parseBoolean(processEnv.ENABLE_EXPORT_VALIDATION, isProduction),
+      enableHealthChecks: this.parseBoolean(processEnv.ENABLE_HEALTH_CHECKS, true),
+      enableAdminDashboard: this.parseBoolean(processEnv.ENABLE_ADMIN_DASHBOARD, isDevelopment),
 
       // Export
-      maxExportSizeMB: this.parseNumber(process.env.MAX_EXPORT_SIZE_MB, 100),
-      supportedFormats: this.parseStringArray(process.env.SUPPORTED_FORMATS, ['step', 'iges', 'stl', 'obj']),
-      requireExportValidation: this.parseBoolean(process.env.REQUIRE_EXPORT_VALIDATION, isProduction),
+      maxExportSizeMB: this.parseNumber(processEnv.MAX_EXPORT_SIZE_MB, 100),
+      supportedFormats: this.parseStringArray(processEnv.SUPPORTED_FORMATS, ['step', 'iges', 'stl', 'obj']),
+      requireExportValidation: this.parseBoolean(processEnv.REQUIRE_EXPORT_VALIDATION, isProduction),
     };
   }
 

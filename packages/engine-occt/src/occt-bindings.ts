@@ -106,15 +106,25 @@ export async function loadOCCT(): Promise<OCCTModule> {
 
       try {
         // Try the core OCCT module first (real geometry)
-        const wasmModuleFactory = (await import('../wasm/occt-core.js' as any)).default;
+        const wasmModuleFactory = (await import('../wasm/occt-core.js')).default;
 
         // Initialize the module with proper file location
         wasmModule = await wasmModuleFactory({
           locateFile: (path: string) => {
             if (path.endsWith('.wasm')) {
-              // In development, Vite will serve this from the public directory
-              // In production, this needs to be served with proper COOP/COEP headers
-              return new URL('../wasm/occt-core.wasm', import.meta.url).href;
+              // Try multiple paths for WASM file
+              const possiblePaths = [
+                // Production path (copied by Vite plugin)
+                new URL('/wasm/occt-core.wasm', window.location.origin).href,
+                // Vite dev server path
+                new URL('../wasm/occt-core.wasm', import.meta.url).href,
+                // Fallback to assets (Vite production build)
+                new URL('/assets/occt-core.wasm', window.location.origin).href,
+              ];
+              
+              // Return the first path (production takes precedence)
+              console.log('[OCCT] Attempting WASM load from:', possiblePaths[0]);
+              return possiblePaths[0];
             }
             return path;
           }
@@ -145,11 +155,18 @@ export async function loadOCCT(): Promise<OCCTModule> {
 
         try {
           // Fallback to simplified module
-          const wasmModuleFactory = (await import('../wasm/occt.js' as any)).default;
+          const wasmModuleFactory = (await import('../wasm/occt.js')).default;
           wasmModule = await wasmModuleFactory({
             locateFile: (path: string) => {
               if (path.endsWith('.wasm')) {
-                return new URL('../wasm/occt.wasm', import.meta.url).href;
+                // Try multiple paths for WASM file
+                const possiblePaths = [
+                  new URL('/wasm/occt.wasm', window.location.origin).href,
+                  new URL('../wasm/occt.wasm', import.meta.url).href,
+                  new URL('/assets/occt.wasm', window.location.origin).href,
+                ];
+                console.log('[OCCT] Fallback WASM load from:', possiblePaths[0]);
+                return possiblePaths[0];
               }
               return path;
             }
