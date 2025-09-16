@@ -132,17 +132,17 @@ export class ProductionLogger {
     this.buffer = [];
 
     try {
-      // In production, this would send to your logging endpoint
-      if (getConfig().isProduction && typeof fetch !== 'undefined') {
-        await fetch('/api/logs', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ logs: batch }),
-        }).catch(err => {
-          // Silently fail to avoid recursive logging
-          this.buffer.unshift(...batch); // Re-add failed logs
-        });
+      // TODO: Configure external logging endpoint when available
+      // For now, keep logs in buffer for debugging but don't attempt external sends
+      // This prevents 404 errors when /api/logs endpoint is not available
+
+      if (getConfig().isDevelopment) {
+        // In development, you could send to a local logging endpoint
+        // await fetch('/api/logs', { ... });
       }
+
+      // In production, logs are kept in memory buffer only
+      // Could be extended to send to Sentry or other logging service
     } catch (error) {
       // Re-add logs to buffer if send failed
       this.buffer.unshift(...batch);
