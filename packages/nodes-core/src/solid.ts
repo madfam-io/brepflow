@@ -18,13 +18,13 @@ export const ExtrudeNode: NodeDefinition<
   },
   params: {
     distance: {
-      id: 'number',
+      type: 'number',
       label: 'Distance',
       default: 25,
       min: 0.001,
     },
     draft: {
-      id: 'number',
+      type: 'number',
       label: 'Draft Angle',
       default: 0,
       min: -45,
@@ -62,19 +62,19 @@ export const RevolveNode: NodeDefinition<
   },
   params: {
     angle: {
-      id: 'number',
+      type: 'number',
       label: 'Angle',
       default: 360,
       min: 0.1,
       max: 360,
     },
     origin: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Axis Origin',
       default: { x: 0, y: 0, z: 0 },
     },
     direction: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Axis Direction',
       default: { x: 0, y: 1, z: 0 },
     },
@@ -109,14 +109,14 @@ export const SweepNode: NodeDefinition<
   },
   params: {
     twist: {
-      id: 'number',
+      type: 'number',
       label: 'Twist',
       default: 0,
       min: -360,
       max: 360,
     },
     scale: {
-      id: 'number',
+      type: 'number',
       label: 'End Scale',
       default: 1,
       min: 0.1,
@@ -151,12 +151,12 @@ export const LoftNode: NodeDefinition<
   },
   params: {
     ruled: {
-      id: 'boolean',
+      type: 'boolean',
       label: 'Ruled',
       default: false,
     },
     closed: {
-      id: 'boolean',
+      type: 'boolean',
       label: 'Closed',
       default: false,
     },
@@ -192,19 +192,19 @@ export const BoxNode: NodeDefinition<
   },
   params: {
     width: {
-      id: 'number',
+      type: 'number',
       label: 'Width',
       default: 100,
       min: 0.001,
     },
     height: {
-      id: 'number',
+      type: 'number',
       label: 'Height',
       default: 60,
       min: 0.001,
     },
     depth: {
-      id: 'number',
+      type: 'number',
       label: 'Depth',
       default: 40,
       min: 0.001,
@@ -241,13 +241,13 @@ export const CylinderNode: NodeDefinition<
   },
   params: {
     radius: {
-      id: 'number',
+      type: 'number',
       label: 'Radius',
       default: 30,
       min: 0.001,
     },
     height: {
-      id: 'number',
+      type: 'number',
       label: 'Height',
       default: 60,
       min: 0.001,
@@ -284,7 +284,7 @@ export const SphereNode: NodeDefinition<
   },
   params: {
     radius: {
-      id: 'number',
+      type: 'number',
       label: 'Radius',
       default: 30,
       min: 0.001,

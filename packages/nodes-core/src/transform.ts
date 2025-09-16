@@ -17,7 +17,7 @@ export const MoveNode: NodeDefinition<
   },
   params: {
     offset: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Offset',
       default: { x: 0, y: 0, z: 0 },
     },
@@ -48,19 +48,19 @@ export const RotateNode: NodeDefinition<
   },
   params: {
     angle: {
-      id: 'number',
+      type: 'number',
       label: 'Angle',
       default: 90,
       min: -360,
       max: 360,
     },
     axis: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Axis',
       default: { x: 0, y: 0, z: 1 },
     },
     origin: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Origin',
       default: { x: 0, y: 0, z: 0 },
     },
@@ -93,14 +93,14 @@ export const ScaleNode: NodeDefinition<
   },
   params: {
     scale: {
-      id: 'number',
+      type: 'number',
       label: 'Scale',
       default: 1,
       min: 0.001,
       max: 100,
     },
     origin: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Origin',
       default: { x: 0, y: 0, z: 0 },
     },
@@ -132,13 +132,13 @@ export const MirrorNode: NodeDefinition<
   },
   params: {
     plane: {
-      id: 'enum',
+      type: 'enum',
       label: 'Plane',
       default: 'XY',
       options: ['XY', 'XZ', 'YZ'],
     },
     origin: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Origin',
       default: { x: 0, y: 0, z: 0 },
     },
@@ -170,14 +170,14 @@ export const ArrayLinearNode: NodeDefinition<
   },
   params: {
     count: {
-      id: 'number',
+      type: 'number',
       label: 'Count',
       default: 5,
       min: 1,
       max: 100,
     },
     spacing: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Spacing',
       default: { x: 50, y: 0, z: 0 },
     },
@@ -220,26 +220,26 @@ export const ArrayCircularNode: NodeDefinition<
   },
   params: {
     count: {
-      id: 'number',
+      type: 'number',
       label: 'Count',
       default: 6,
       min: 2,
       max: 100,
     },
     angle: {
-      id: 'number',
+      type: 'number',
       label: 'Total Angle',
       default: 360,
       min: 0,
       max: 360,
     },
     axis: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Axis',
       default: { x: 0, y: 0, z: 1 },
     },
     center: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Center',
       default: { x: 0, y: 0, z: 0 },
     },

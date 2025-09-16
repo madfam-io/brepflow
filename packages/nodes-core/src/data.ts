@@ -44,7 +44,7 @@ export const listItemNode: NodeDefinition = {
       default: false,
     },
   },
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const list = inputs.list;
     if (!list || list.length === 0) {
       return { item: null, items: [] };
@@ -67,7 +67,7 @@ export const listItemNode: NodeDefinition = {
     }
   },
   execute: async (inputs, params, context) => {
-    return listItemNode.evaluate(inputs, params, context);
+    return listItemNode.evaluate(context, inputs, params);
   },
 };
 
@@ -91,12 +91,12 @@ export const listLengthNode: NodeDefinition = {
     },
   },
   params: {},
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const length = inputs.list ? inputs.list.length : 0;
     return { length };
   },
   execute: async (inputs, params, context) => {
-    return listLengthNode.evaluate(inputs, params, context);
+    return listLengthNode.evaluate(context, inputs, params);
   },
 };
 
@@ -145,7 +145,7 @@ export const listRangeNode: NodeDefinition = {
       max: 10000,
     },
   },
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const start = inputs.start ?? params.start;
     const end = inputs.end ?? params.end;
     const count = inputs.count ?? params.count;
@@ -160,7 +160,7 @@ export const listRangeNode: NodeDefinition = {
     return { range };
   },
   execute: async (inputs, params, context) => {
-    return listRangeNode.evaluate(inputs, params, context);
+    return listRangeNode.evaluate(context, inputs, params);
   },
 };
 
@@ -204,12 +204,12 @@ export const seriesNode: NodeDefinition = {
       max: 10000,
     },
     type: {
-      type: 'select',
+      type: 'enum',
       default: 'arithmetic',
       options: ['arithmetic', 'geometric', 'fibonacci'],
     },
   },
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const start = inputs.start ?? params.start;
     const step = inputs.step ?? params.step;
     const count = params.count;
@@ -236,7 +236,7 @@ export const seriesNode: NodeDefinition = {
     return { series };
   },
   execute: async (inputs, params, context) => {
-    return seriesNode.evaluate(inputs, params, context);
+    return seriesNode.evaluate(context, inputs, params);
   },
 };
 
@@ -267,7 +267,7 @@ export const flattenNode: NodeDefinition = {
       max: 10,
     },
   },
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const flatten = (arr: any, depth: number): any[] => {
       if (depth === 0 || !Array.isArray(arr)) return [arr];
       return arr.reduce((acc, val) => {
@@ -282,7 +282,7 @@ export const flattenNode: NodeDefinition = {
     return { flat };
   },
   execute: async (inputs, params, context) => {
-    return flattenNode.evaluate(inputs, params, context);
+    return flattenNode.evaluate(context, inputs, params);
   },
 };
 
@@ -319,7 +319,7 @@ export const partitionNode: NodeDefinition = {
       max: 100,
     },
   },
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const list = inputs.list;
     const size = params.size;
     const step = Math.max(1, size - params.overlap);
@@ -337,7 +337,7 @@ export const partitionNode: NodeDefinition = {
     return { partitions };
   },
   execute: async (inputs, params, context) => {
-    return partitionNode.evaluate(inputs, params, context);
+    return partitionNode.evaluate(context, inputs, params);
   },
 };
 
@@ -375,7 +375,7 @@ export const sortListNode: NodeDefinition = {
       default: false,
     },
   },
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const list = [...inputs.list];
     const keys = inputs.keys || list.map((item, i) => {
       if (typeof item === 'number') return item;
@@ -399,7 +399,7 @@ export const sortListNode: NodeDefinition = {
     return { sorted, indices };
   },
   execute: async (inputs, params, context) => {
-    return sortListNode.evaluate(inputs, params, context);
+    return sortListNode.evaluate(context, inputs, params);
   },
 };
 
@@ -423,12 +423,12 @@ export const reverseListNode: NodeDefinition = {
     },
   },
   params: {},
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const reversed = [...inputs.list].reverse();
     return { reversed };
   },
   execute: async (inputs, params, context) => {
-    return reverseListNode.evaluate(inputs, params, context);
+    return reverseListNode.evaluate(context, inputs, params);
   },
 };
 
@@ -463,7 +463,7 @@ export const shiftListNode: NodeDefinition = {
       default: true,
     },
   },
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const list = inputs.list;
     const offset = params.offset % list.length;
 
@@ -481,7 +481,7 @@ export const shiftListNode: NodeDefinition = {
     return { shifted };
   },
   execute: async (inputs, params, context) => {
-    return shiftListNode.evaluate(inputs, params, context);
+    return shiftListNode.evaluate(context, inputs, params);
   },
 };
 
@@ -519,7 +519,7 @@ export const cullPatternNode: NodeDefinition = {
       default: false,
     },
   },
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const list = inputs.list;
     const pattern = inputs.pattern;
     const invert = params.invert;
@@ -539,7 +539,7 @@ export const cullPatternNode: NodeDefinition = {
     return { culled, removed };
   },
   execute: async (inputs, params, context) => {
-    return cullPatternNode.evaluate(inputs, params, context);
+    return cullPatternNode.evaluate(context, inputs, params);
   },
 };
 
@@ -568,7 +568,7 @@ export const weaveNode: NodeDefinition = {
     },
   },
   params: {},
-  evaluate: async (inputs, params, context) => {
+  evaluate: async (ctx, inputs, params) => {
     const lists = inputs.lists;
     const pattern = inputs.pattern || lists.map((_, i) => i);
 
@@ -587,7 +587,7 @@ export const weaveNode: NodeDefinition = {
     return { woven };
   },
   execute: async (inputs, params, context) => {
-    return weaveNode.evaluate(inputs, params, context);
+    return weaveNode.evaluate(context, inputs, params);
   },
 };
 

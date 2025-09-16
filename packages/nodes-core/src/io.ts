@@ -15,7 +15,7 @@ export const ImportSTEPNode: NodeDefinition<
   },
   params: {
     filepath: {
-      id: 'string',
+      type: 'string',
       label: 'File Path',
       default: '',
     },
@@ -49,12 +49,12 @@ export const ExportSTEPNode: NodeDefinition<
   },
   params: {
     filepath: {
-      id: 'string',
+      type: 'string',
       label: 'File Path',
       default: 'output.step',
     },
     asAssembly: {
-      id: 'boolean',
+      type: 'boolean',
       label: 'As Assembly',
       default: false,
     },
@@ -90,17 +90,17 @@ export const ExportSTLNode: NodeDefinition<
   },
   params: {
     filepath: {
-      id: 'string',
+      type: 'string',
       label: 'File Path',
       default: 'output.stl',
     },
     binary: {
-      id: 'boolean',
+      type: 'boolean',
       label: 'Binary Format',
       default: true,
     },
     deflection: {
-      id: 'number',
+      type: 'number',
       label: 'Deflection',
       default: 0.1,
       min: 0.001,

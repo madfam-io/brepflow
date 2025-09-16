@@ -136,7 +136,7 @@ export const networkSurfaceNode: NodeDefinition = {
   },
   params: {
     continuity: {
-      type: 'select',
+      type: 'enum',
       default: 'G1',
       options: ['G0', 'G1', 'G2'],
     },
@@ -472,7 +472,7 @@ export const blendSurfacesNode: NodeDefinition = {
   },
   params: {
     continuity: {
-      type: 'select',
+      type: 'enum',
       default: 'G1',
       options: ['G0', 'G1', 'G2'],
     },

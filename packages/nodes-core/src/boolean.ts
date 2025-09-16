@@ -17,7 +17,7 @@ export const UnionNode: NodeDefinition<
   },
   params: {
     simplify: {
-      id: 'boolean',
+      type: 'boolean',
       label: 'Simplify',
       default: true,
     },
@@ -53,7 +53,7 @@ export const SubtractNode: NodeDefinition<
   },
   params: {
     simplify: {
-      id: 'boolean',
+      type: 'boolean',
       label: 'Simplify',
       default: true,
     },
@@ -89,7 +89,7 @@ export const IntersectNode: NodeDefinition<
   },
   params: {
     simplify: {
-      id: 'boolean',
+      type: 'boolean',
       label: 'Simplify',
       default: true,
     },

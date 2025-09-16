@@ -18,13 +18,13 @@ export const FilletNode: NodeDefinition<
   },
   params: {
     radius: {
-      id: 'number',
+      type: 'number',
       label: 'Radius',
       default: 5,
       min: 0.001,
     },
     selectAll: {
-      id: 'boolean',
+      type: 'boolean',
       label: 'All Edges',
       default: false,
     },
@@ -58,13 +58,13 @@ export const ChamferNode: NodeDefinition<
   },
   params: {
     distance: {
-      id: 'number',
+      type: 'number',
       label: 'Distance',
       default: 3,
       min: 0.001,
     },
     selectAll: {
-      id: 'boolean',
+      type: 'boolean',
       label: 'All Edges',
       default: false,
     },
@@ -98,13 +98,13 @@ export const ShellNode: NodeDefinition<
   },
   params: {
     thickness: {
-      id: 'number',
+      type: 'number',
       label: 'Thickness',
       default: 2,
       min: 0.001,
     },
     inside: {
-      id: 'boolean',
+      type: 'boolean',
       label: 'Inside',
       default: true,
     },
@@ -138,14 +138,14 @@ export const DraftNode: NodeDefinition<
   },
   params: {
     angle: {
-      id: 'number',
+      type: 'number',
       label: 'Angle',
       default: 3,
       min: 0,
       max: 45,
     },
     pullDirection: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Pull Direction',
       default: { x: 0, y: 0, z: 1 },
     },

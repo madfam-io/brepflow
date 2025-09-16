@@ -147,7 +147,7 @@ export const offsetCurveNode: NodeDefinition = {
       max: 1000,
     },
     corner: {
-      type: 'select',
+      type: 'enum',
       default: 'round',
       options: ['round', 'sharp', 'smooth'],
     },
@@ -314,7 +314,7 @@ export const blendCurvesNode: NodeDefinition = {
   },
   params: {
     continuity: {
-      type: 'select',
+      type: 'enum',
       default: 'G1',
       options: ['G0', 'G1', 'G2', 'G3'],
     },

@@ -306,7 +306,7 @@ export const boundingBoxNode: NodeDefinition = {
   },
   params: {
     alignment: {
-      type: 'select',
+      type: 'enum',
       default: 'world',
       options: ['world', 'plane', 'oriented'],
     },
@@ -364,7 +364,7 @@ export const intersectionNode: NodeDefinition = {
       max: 1,
     },
     type: {
-      type: 'select',
+      type: 'enum',
       default: 'all',
       options: ['all', 'curves', 'points'],
     },

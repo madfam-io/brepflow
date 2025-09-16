@@ -18,12 +18,12 @@ export const LineNode: NodeDefinition<
   },
   params: {
     start: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Start Point',
       default: { x: 0, y: 0, z: 0 },
     },
     end: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'End Point',
       default: { x: 100, y: 0, z: 0 },
     },
@@ -55,18 +55,18 @@ export const CircleNode: NodeDefinition<
   },
   params: {
     center: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Center',
       default: { x: 0, y: 0, z: 0 },
     },
     radius: {
-      id: 'number',
+      type: 'number',
       label: 'Radius',
       default: 50,
       min: 0.001,
     },
     normal: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Normal',
       default: { x: 0, y: 0, z: 1 },
     },
@@ -101,18 +101,18 @@ export const RectangleNode: NodeDefinition<
   },
   params: {
     center: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Center',
       default: { x: 0, y: 0, z: 0 },
     },
     width: {
-      id: 'number',
+      type: 'number',
       label: 'Width',
       default: 100,
       min: 0.001,
     },
     height: {
-      id: 'number',
+      type: 'number',
       label: 'Height',
       default: 60,
       min: 0.001,
@@ -149,25 +149,25 @@ export const ArcNode: NodeDefinition<
   },
   params: {
     center: {
-      id: 'vec3',
+      type: 'vec3',
       label: 'Center',
       default: { x: 0, y: 0, z: 0 },
     },
     radius: {
-      id: 'number',
+      type: 'number',
       label: 'Radius',
       default: 50,
       min: 0.001,
     },
     startAngle: {
-      id: 'number',
+      type: 'number',
       label: 'Start Angle',
       default: 0,
       min: 0,
       max: 360,
     },
     endAngle: {
-      id: 'number',
+      type: 'number',
       label: 'End Angle',
       default: 90,
       min: 0,
