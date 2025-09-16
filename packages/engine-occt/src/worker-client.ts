@@ -31,11 +31,21 @@ export class WorkerClient implements WorkerAPI {
         } else {
           // Use default worker path - resolve from engine-occt package
           try {
-            // Try to resolve worker from engine-occt dist
-            const workerUrl = new URL('../engine-occt/dist/worker.mjs', import.meta.url).href;
-            this.worker = new Worker(workerUrl, { type: 'module' });
+            // In production, check if we're in a bundled environment
+            if (import.meta.url.includes('/assets/')) {
+              // Production bundle - use relative path from assets
+              const workerPath = './worker' + '.mjs';
+              this.worker = new Worker(
+                new URL(workerPath, import.meta.url),
+                { type: 'module' }
+              );
+            } else {
+              // Development - try engine-occt dist path
+              const workerUrl = new URL('../engine-occt/dist/worker.mjs', import.meta.url).href;
+              this.worker = new Worker(workerUrl, { type: 'module' });
+            }
           } catch {
-            // Fallback: construct path dynamically to avoid Vite static analysis
+            // Final fallback: construct path dynamically to avoid Vite static analysis
             const workerPath = './worker' + '.mjs';
             this.worker = new Worker(
               new URL(workerPath, import.meta.url),

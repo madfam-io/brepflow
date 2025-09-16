@@ -58,11 +58,18 @@ export class ProductionWorkerAPI implements WorkerAPI {
       // Use robust path resolution to handle bundling scenarios
       let workerUrl: string;
       try {
-        // Try to resolve worker from engine-occt dist first
-        workerUrl = new URL('../engine-occt/dist/worker.mjs', import.meta.url).href;
+        // In production, check if we're in a bundled environment
+        if (import.meta.url.includes('/assets/')) {
+          // Production bundle - use relative path from assets
+          const workerFile = './worker' + '.mjs';
+          workerUrl = new URL(workerFile, import.meta.url).href;
+        } else {
+          // Development - try engine-occt dist path
+          workerUrl = new URL('../engine-occt/dist/worker.mjs', import.meta.url).href;
+        }
       } catch {
-        // Fallback: construct path dynamically to avoid Vite static analysis
-        const workerFile = './production-worker' + '.ts';
+        // Final fallback: construct path dynamically to avoid Vite static analysis
+        const workerFile = './worker' + '.mjs';
         workerUrl = new URL(workerFile, import.meta.url).href;
       }
       this.worker = new Worker(workerUrl, { type: 'module' });
