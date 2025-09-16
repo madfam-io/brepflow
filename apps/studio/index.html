@@ -11,6 +11,13 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // CRITICAL: Fetch headers function to set COOP/COEP headers
+      fetch('/api/index').then(response => {
+        console.log('Headers response:', response.headers);
+        console.log('SharedArrayBuffer available:', typeof SharedArrayBuffer !== 'undefined');
+      }).catch(err => console.error('Headers fetch failed:', err));
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
