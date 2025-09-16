@@ -3,8 +3,8 @@
  */
 
 import React, { Component, ReactNode, ErrorInfo } from 'react';
-import { ProductionLogger } from '@brepflow/engine-occt/src/production-logger';
-import { getConfig } from '@brepflow/engine-core/src/config/environment';
+import { ProductionLogger } from '@brepflow/engine-occt';
+import { getConfig } from '@brepflow/engine-core';
 
 const logger = new ProductionLogger('ErrorBoundary');
 

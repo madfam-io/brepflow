@@ -4,7 +4,7 @@
  */
 
 import { getConfig, shouldUseMockGeometry } from './config/environment';
-import { ProductionLogger } from '@brepflow/engine-occt/src/production-logger';
+import { ProductionLogger } from '@brepflow/engine-occt';
 import type { WorkerAPI } from '@brepflow/types';
 
 const logger = new ProductionLogger('GeometryAPIFactory');
@@ -90,7 +90,7 @@ export class GeometryAPIFactory {
 
     try {
       // Dynamic import to avoid loading in environments where it's not available
-      const { ProductionWorkerAPI } = await import('@brepflow/engine-occt/src/production-api');
+      const { ProductionWorkerAPI } = await import('@brepflow/engine-occt');
       
       const api = new ProductionWorkerAPI({
         wasmPath: config.occtWasmPath,
@@ -163,7 +163,7 @@ export class GeometryAPIFactory {
     logger.info('Initializing mock geometry API');
 
     try {
-      const { MockGeometry } = await import('@brepflow/engine-occt/src/mock-geometry');
+      const { MockGeometry } = await import('@brepflow/engine-occt');
       this.mockAPI = new MockGeometry();
       await this.mockAPI.init();
       

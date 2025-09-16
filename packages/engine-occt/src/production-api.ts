@@ -226,7 +226,7 @@ export class ProductionWorkerAPI implements WorkerAPI {
   }
 
   // Force cleanup of geometry objects
-  async cleanup(): Promise<void> {
+  async cleanupGeometry(): Promise<void> {
     try {
       await this.invoke('CLEANUP', {});
     } catch (error) {

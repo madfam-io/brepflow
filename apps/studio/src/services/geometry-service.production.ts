@@ -5,8 +5,7 @@
 
 import { WorkerAPI } from '@brepflow/engine-occt';
 import { GeometryAPIFactory } from '@brepflow/engine-core';
-import { ProductionLogger } from '@brepflow/engine-occt/src/production-logger';
-import { GeometryValidator } from '@brepflow/engine-occt/src/geometry-validator';
+import { ProductionLogger, GeometryValidator } from '@brepflow/engine-occt';
 
 export class ProductionGeometryService {
   private static instance: ProductionGeometryService;
