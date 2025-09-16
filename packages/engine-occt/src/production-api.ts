@@ -48,7 +48,15 @@ export class ProductionWorkerAPI implements WorkerAPI {
     // Create worker
     try {
       // In production builds, the worker should be pre-built
-      const workerUrl = new URL('./production-worker.ts', import.meta.url).href;
+      // Use robust path resolution to handle bundling scenarios
+      let workerUrl: string;
+      try {
+        // Try to resolve worker from engine-occt dist first
+        workerUrl = new URL('../engine-occt/dist/worker.mjs', import.meta.url).href;
+      } catch {
+        // Fallback to relative path for development/unbundled scenarios
+        workerUrl = new URL('./production-worker.ts', import.meta.url).href;
+      }
       this.worker = new Worker(workerUrl, { type: 'module' });
       
       this.setupWorkerHandlers();
