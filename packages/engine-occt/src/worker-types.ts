@@ -24,7 +24,10 @@ export type WorkerRequest =
   | ImportSTEPRequest
   | ExportSTEPRequest
   | ExportSTLRequest
-  | DisposeRequest;
+  | DisposeRequest
+  | HealthCheckRequest
+  | CleanupRequest
+  | ShutdownRequest;
 
 export interface WorkerResponse<T = any> {
   id: string;
@@ -253,6 +256,21 @@ export interface DisposeRequest extends BaseRequest {
   };
 }
 
+export interface HealthCheckRequest extends BaseRequest {
+  type: 'HEALTH_CHECK';
+  params: {};
+}
+
+export interface CleanupRequest extends BaseRequest {
+  type: 'CLEANUP';
+  params: {};
+}
+
+export interface ShutdownRequest extends BaseRequest {
+  type: 'SHUTDOWN';
+  params: {};
+}
+
 // Result types
 export interface GeometryResult {
   handle: ShapeHandle;
@@ -273,4 +291,10 @@ export interface ExportResult {
   data?: ArrayBuffer;
   filepath?: string;
   success: boolean;
+}
+
+export interface HealthCheckResult {
+  healthy: boolean;
+  memoryUsage: number;
+  uptime: number;
 }

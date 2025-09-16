@@ -103,6 +103,7 @@ export interface NodeDefinition<I = any, O = any, P = any> {
   outputs: Record<keyof O, SocketSpec>;
   params: ParamSpec<P>;
   evaluate: (ctx: EvalContext, inputs: I, params: P) => Promise<O>;
+  execute?: (inputs: I, params: P, context: any) => Promise<O>;
 }
 
 // Parameter specifications

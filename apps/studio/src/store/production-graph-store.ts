@@ -83,7 +83,7 @@ export const useProductionGraphStore = create<GraphState>()(
           }
 
           // Initialize real geometry API
-          const geometryAPI = getGeometryAPI(false); // Never use mock in production
+          const geometryAPI = await getGeometryAPI(false); // Never use mock in production
           await geometryAPI.init();
 
           // Verify it's real OCCT
@@ -114,7 +114,7 @@ export const useProductionGraphStore = create<GraphState>()(
           // In development, we can fall back to mock with warning
           if (config.isDevelopment && config.enableMockGeometry) {
             logger.warn('⚠️ Development mode: Falling back to mock geometry');
-            const mockAPI = getGeometryAPI(true);
+            const mockAPI = await getGeometryAPI(true);
             await mockAPI.init();
             return new DAGEngine({ worker: mockAPI });
           }
