@@ -3,9 +3,9 @@
  * Handles startup sequence, validation, and health checks
  */
 
-import { GeometryAPIFactory, isRealGeometryAvailable } from '@brepflow/engine-core/src/geometry-api-factory';
+import { GeometryAPIFactory, isRealGeometryAvailable } from '@brepflow/engine-core';
 import { getConfig } from '@brepflow/engine-core';
-import { ProductionLogger } from '@brepflow/engine-occt/src/production-logger';
+import { ProductionLogger } from '@brepflow/engine-occt';
 import { healthCheckService } from '../api/health';
 
 const logger = new ProductionLogger('Initialization');

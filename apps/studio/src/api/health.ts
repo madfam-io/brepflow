@@ -3,7 +3,7 @@
  */
 
 import { getConfig } from '@brepflow/engine-core';
-import { ProductionLogger } from '@brepflow/engine-occt/src/production-logger';
+import { ProductionLogger } from '@brepflow/engine-occt';
 
 const logger = new ProductionLogger('HealthCheck');
 

@@ -19,7 +19,7 @@ import ReactFlow, {
 import { DAGEngine } from '@brepflow/engine-core';
 import { getGeometryAPI } from '../services/geometry-api';
 import { v4 as uuidv4 } from 'uuid';
-import { ProductionLogger } from '@brepflow/engine-occt/src/production-logger';
+import { ProductionLogger } from '@brepflow/engine-occt';
 import { getConfig } from '@brepflow/engine-core';
 
 const logger = new ProductionLogger('GraphStore');

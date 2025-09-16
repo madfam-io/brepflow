@@ -172,7 +172,7 @@ export class ProductionWorkerAPI implements WorkerAPI {
     });
   }
 
-  async dispose(): Promise<void> {
+  async shutdown(): Promise<void> {
     if (this.worker) {
       try {
         // Attempt graceful shutdown
