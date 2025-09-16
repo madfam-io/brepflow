@@ -37,13 +37,13 @@ export const distanceNode: NodeDefinition = {
       label: 'Closest Point B',
     },
   },
-  parameters: {
+  params: {
     signed: {
       type: 'boolean',
       default: false,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('MEASURE_DISTANCE', {
       geometryA: inputs.geometryA,
       geometryB: inputs.geometryB,
@@ -93,8 +93,8 @@ export const closestPointNode: NodeDefinition = {
       label: 'Normal',
     },
   },
-  parameters: {},
-  execute: async (inputs, params, context) => {
+  params: {},
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('CLOSEST_POINT', {
       point: inputs.point,
       geometry: inputs.geometry,
@@ -131,13 +131,13 @@ export const areaNode: NodeDefinition = {
       label: 'Centroid',
     },
   },
-  parameters: {
+  params: {
     worldSpace: {
       type: 'boolean',
       default: true,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('CALCULATE_AREA', {
       geometry: inputs.geometry,
       worldSpace: params.worldSpace,
@@ -176,8 +176,8 @@ export const volumeNode: NodeDefinition = {
       label: 'Surface Area',
     },
   },
-  parameters: {},
-  execute: async (inputs, params, context) => {
+  params: {},
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('CALCULATE_VOLUME', {
       solid: inputs.solid,
     });
@@ -224,7 +224,7 @@ export const massPropertiesNode: NodeDefinition = {
       label: 'Principal Axes',
     },
   },
-  parameters: {
+  params: {
     density: {
       type: 'number',
       default: 1.0,
@@ -232,7 +232,7 @@ export const massPropertiesNode: NodeDefinition = {
       max: 100000,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('MASS_PROPERTIES', {
       geometry: inputs.geometry,
       density: params.density,
@@ -287,14 +287,14 @@ export const boundingBoxNode: NodeDefinition = {
       label: 'Diagonal',
     },
   },
-  parameters: {
+  params: {
     aligned: {
       type: 'select',
       default: 'world',
       options: ['world', 'plane', 'oriented'],
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('BOUNDING_BOX', {
       geometry: inputs.geometry,
       plane: inputs.plane,
@@ -342,7 +342,7 @@ export const intersectionNode: NodeDefinition = {
       label: 'Intersection Count',
     },
   },
-  parameters: {
+  params: {
     tolerance: {
       type: 'number',
       default: 0.001,
@@ -355,7 +355,7 @@ export const intersectionNode: NodeDefinition = {
       options: ['all', 'curves', 'points'],
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('INTERSECTION_ANALYSIS', {
       geometryA: inputs.geometryA,
       geometryB: inputs.geometryB,
@@ -410,7 +410,7 @@ export const evaluateCurveNode: NodeDefinition = {
       label: 'Frame',
     },
   },
-  parameters: {
+  params: {
     parameter: {
       type: 'number',
       default: 0.5,
@@ -422,7 +422,7 @@ export const evaluateCurveNode: NodeDefinition = {
       default: true,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const t = inputs.parameter ?? params.parameter;
     
     const result = await context.invoke('EVALUATE_CURVE', {
@@ -485,7 +485,7 @@ export const evaluateSurfaceNode: NodeDefinition = {
       label: 'Frame',
     },
   },
-  parameters: {
+  params: {
     u: {
       type: 'number',
       default: 0.5,
@@ -499,7 +499,7 @@ export const evaluateSurfaceNode: NodeDefinition = {
       max: 1,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const u = inputs.u ?? params.u;
     const v = inputs.v ?? params.v;
     
@@ -550,7 +550,7 @@ export const collisionDetectionNode: NodeDefinition = {
       label: 'Minimum Clearance',
     },
   },
-  parameters: {
+  params: {
     tolerance: {
       type: 'number',
       default: 0.001,
@@ -558,7 +558,7 @@ export const collisionDetectionNode: NodeDefinition = {
       max: 10,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('COLLISION_DETECTION', {
       geometryA: inputs.geometryA,
       geometryB: inputs.geometryB,

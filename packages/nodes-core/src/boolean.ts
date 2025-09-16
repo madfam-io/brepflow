@@ -5,7 +5,7 @@ export const UnionNode: NodeDefinition<
   { shape: ShapeHandle },
   { simplify?: boolean }
 > = {
-  type: 'Boolean::Union',
+  id: 'Boolean::Union',
   category: 'Boolean',
   label: 'Union',
   description: 'Boolean union of multiple shapes',
@@ -17,7 +17,7 @@ export const UnionNode: NodeDefinition<
   },
   params: {
     simplify: {
-      type: 'boolean',
+      id: 'boolean',
       label: 'Simplify',
       default: true,
     },
@@ -40,7 +40,7 @@ export const SubtractNode: NodeDefinition<
   { shape: ShapeHandle },
   { simplify?: boolean }
 > = {
-  type: 'Boolean::Subtract',
+  id: 'Boolean::Subtract',
   category: 'Boolean',
   label: 'Subtract',
   description: 'Boolean subtraction',
@@ -53,7 +53,7 @@ export const SubtractNode: NodeDefinition<
   },
   params: {
     simplify: {
-      type: 'boolean',
+      id: 'boolean',
       label: 'Simplify',
       default: true,
     },
@@ -77,7 +77,7 @@ export const IntersectNode: NodeDefinition<
   { shape: ShapeHandle },
   { simplify?: boolean }
 > = {
-  type: 'Boolean::Intersect',
+  id: 'Boolean::Intersect',
   category: 'Boolean',
   label: 'Intersect',
   description: 'Boolean intersection of shapes',
@@ -89,7 +89,7 @@ export const IntersectNode: NodeDefinition<
   },
   params: {
     simplify: {
-      type: 'boolean',
+      id: 'boolean',
       label: 'Simplify',
       default: true,
     },

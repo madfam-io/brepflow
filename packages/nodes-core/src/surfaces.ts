@@ -29,7 +29,7 @@ export const nurbsSurfaceNode: NodeDefinition = {
       label: 'NURBS Surface',
     },
   },
-  parameters: {
+  params: {
     degreeU: {
       type: 'number',
       default: 3,
@@ -43,7 +43,7 @@ export const nurbsSurfaceNode: NodeDefinition = {
       max: 7,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('CREATE_NURBS_SURFACE', {
       points: inputs.points,
       weights: inputs.weights,
@@ -78,7 +78,7 @@ export const loftSurfaceNode: NodeDefinition = {
       label: 'Lofted Surface',
     },
   },
-  parameters: {
+  params: {
     closed: {
       type: 'boolean',
       default: false,
@@ -92,7 +92,7 @@ export const loftSurfaceNode: NodeDefinition = {
       default: false,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('LOFT_SURFACE', {
       curves: inputs.curves,
       guides: inputs.guides,
@@ -128,7 +128,7 @@ export const networkSurfaceNode: NodeDefinition = {
       label: 'Network Surface',
     },
   },
-  parameters: {
+  params: {
     continuity: {
       type: 'select',
       default: 'G1',
@@ -141,7 +141,7 @@ export const networkSurfaceNode: NodeDefinition = {
       max: 1,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('NETWORK_SURFACE', {
       uCurves: inputs.uCurves,
       vCurves: inputs.vCurves,
@@ -176,7 +176,7 @@ export const patchSurfaceNode: NodeDefinition = {
       label: 'Patch Surface',
     },
   },
-  parameters: {
+  params: {
     spans: {
       type: 'number',
       default: 10,
@@ -190,7 +190,7 @@ export const patchSurfaceNode: NodeDefinition = {
       max: 10,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('PATCH_SURFACE', {
       boundaries: inputs.boundaries,
       internal: inputs.internal,
@@ -220,7 +220,7 @@ export const offsetSurfaceNode: NodeDefinition = {
       label: 'Offset Surface',
     },
   },
-  parameters: {
+  params: {
     distance: {
       type: 'number',
       default: 10,
@@ -232,7 +232,7 @@ export const offsetSurfaceNode: NodeDefinition = {
       default: false,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('OFFSET_SURFACE', {
       surface: inputs.surface,
       distance: params.distance,
@@ -278,7 +278,7 @@ export const surfaceCurvatureNode: NodeDefinition = {
       label: 'Principal Curvature 2',
     },
   },
-  parameters: {
+  params: {
     samplesU: {
       type: 'number',
       default: 20,
@@ -292,7 +292,7 @@ export const surfaceCurvatureNode: NodeDefinition = {
       max: 100,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('SURFACE_CURVATURE', {
       surface: inputs.surface,
       points: inputs.points,
@@ -327,7 +327,7 @@ export const isotrimNode: NodeDefinition = {
       label: 'Trimmed Surface',
     },
   },
-  parameters: {
+  params: {
     uMin: {
       type: 'number',
       default: 0,
@@ -353,7 +353,7 @@ export const isotrimNode: NodeDefinition = {
       max: 1,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('ISOTRIM', {
       surface: inputs.surface,
       uMin: params.uMin,
@@ -389,7 +389,7 @@ export const surfaceSplitNode: NodeDefinition = {
       label: 'Surface Fragments',
     },
   },
-  parameters: {
+  params: {
     keepAll: {
       type: 'boolean',
       default: true,
@@ -401,7 +401,7 @@ export const surfaceSplitNode: NodeDefinition = {
       max: 1,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('SPLIT_SURFACE', {
       surface: inputs.surface,
       splitters: inputs.splitters,
@@ -446,7 +446,7 @@ export const blendSurfacesNode: NodeDefinition = {
       label: 'Blend Surface',
     },
   },
-  parameters: {
+  params: {
     continuity: {
       type: 'select',
       default: 'G1',
@@ -459,7 +459,7 @@ export const blendSurfacesNode: NodeDefinition = {
       max: 2,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('BLEND_SURFACES', {
       surface1: inputs.surface1,
       surface2: inputs.surface2,

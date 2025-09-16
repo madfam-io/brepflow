@@ -28,7 +28,7 @@ export const listItemNode: NodeDefinition = {
       label: 'Items',
     },
   },
-  parameters: {
+  params: {
     index: {
       type: 'number',
       default: 0,
@@ -44,7 +44,7 @@ export const listItemNode: NodeDefinition = {
       default: false,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const list = inputs.list;
     if (!list || list.length === 0) {
       return { item: null, items: [] };
@@ -87,8 +87,8 @@ export const listLengthNode: NodeDefinition = {
       label: 'Length',
     },
   },
-  parameters: {},
-  execute: async (inputs, params, context) => {
+  params: {},
+  evaluate: async (inputs, params, context) => {
     const length = inputs.list ? inputs.list.length : 0;
     return { length };
   },
@@ -123,7 +123,7 @@ export const listRangeNode: NodeDefinition = {
       label: 'Range',
     },
   },
-  parameters: {
+  params: {
     start: {
       type: 'number',
       default: 0,
@@ -139,7 +139,7 @@ export const listRangeNode: NodeDefinition = {
       max: 10000,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const start = inputs.start ?? params.start;
     const end = inputs.end ?? params.end;
     const count = inputs.count ?? params.count;
@@ -179,7 +179,7 @@ export const seriesNode: NodeDefinition = {
       label: 'Series',
     },
   },
-  parameters: {
+  params: {
     start: {
       type: 'number',
       default: 0,
@@ -200,7 +200,7 @@ export const seriesNode: NodeDefinition = {
       options: ['arithmetic', 'geometric', 'fibonacci'],
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const start = inputs.start ?? params.start;
     const step = inputs.step ?? params.step;
     const count = params.count;
@@ -247,7 +247,7 @@ export const flattenNode: NodeDefinition = {
       label: 'Flattened List',
     },
   },
-  parameters: {
+  params: {
     depth: {
       type: 'number',
       default: 1,
@@ -255,7 +255,7 @@ export const flattenNode: NodeDefinition = {
       max: 10,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const flatten = (arr: any, depth: number): any[] => {
       if (depth === 0 || !Array.isArray(arr)) return [arr];
       return arr.reduce((acc, val) => {
@@ -290,7 +290,7 @@ export const partitionNode: NodeDefinition = {
       label: 'Partitions',
     },
   },
-  parameters: {
+  params: {
     size: {
       type: 'number',
       default: 3,
@@ -304,7 +304,7 @@ export const partitionNode: NodeDefinition = {
       max: 100,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const list = inputs.list;
     const size = params.size;
     const step = Math.max(1, size - params.overlap);
@@ -346,13 +346,13 @@ export const sortListNode: NodeDefinition = {
       label: 'Sort Indices',
     },
   },
-  parameters: {
+  params: {
     reverse: {
       type: 'boolean',
       default: false,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const list = [...inputs.list];
     const keys = inputs.keys || list.map((item, i) => {
       if (typeof item === 'number') return item;
@@ -396,8 +396,8 @@ export const reverseListNode: NodeDefinition = {
       label: 'Reversed List',
     },
   },
-  parameters: {},
-  execute: async (inputs, params, context) => {
+  params: {},
+  evaluate: async (inputs, params, context) => {
     const reversed = [...inputs.list].reverse();
     return { reversed };
   },
@@ -422,7 +422,7 @@ export const shiftListNode: NodeDefinition = {
       label: 'Shifted List',
     },
   },
-  parameters: {
+  params: {
     offset: {
       type: 'number',
       default: 1,
@@ -434,7 +434,7 @@ export const shiftListNode: NodeDefinition = {
       default: true,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const list = inputs.list;
     const offset = params.offset % list.length;
     
@@ -481,13 +481,13 @@ export const cullPatternNode: NodeDefinition = {
       label: 'Removed Items',
     },
   },
-  parameters: {
+  params: {
     invert: {
       type: 'boolean',
       default: false,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const list = inputs.list;
     const pattern = inputs.pattern;
     const invert = params.invert;
@@ -532,8 +532,8 @@ export const weaveNode: NodeDefinition = {
       label: 'Woven List',
     },
   },
-  parameters: {},
-  execute: async (inputs, params, context) => {
+  params: {},
+  evaluate: async (inputs, params, context) => {
     const lists = inputs.lists;
     const pattern = inputs.pattern || lists.map((_, i) => i);
     

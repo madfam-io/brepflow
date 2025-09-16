@@ -95,7 +95,7 @@ export interface NodeInstance<I = any, O = any, P = any> {
 }
 
 export interface NodeDefinition<I = any, O = any, P = any> {
-  type: string;
+  id: string;
   category: string;
   label: string;
   description?: string;
@@ -157,6 +157,7 @@ export interface WorkerAPI {
   invoke<T = any>(operation: string, params: any): Promise<T>;
   tessellate(shapeId: HandleId, deflection: number): Promise<MeshData>;
   dispose(handleId: HandleId): Promise<void>;
+  terminate?(): Promise<void>;
 }
 
 // Worker communication types

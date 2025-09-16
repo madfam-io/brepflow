@@ -5,7 +5,7 @@ export const ImportSTEPNode: NodeDefinition<
   { shapes: ShapeHandle[] },
   { filepath: string }
 > = {
-  type: 'IO::ImportSTEP',
+  id: 'IO::ImportSTEP',
   category: 'IO',
   label: 'Import STEP',
   description: 'Import STEP file',
@@ -15,7 +15,7 @@ export const ImportSTEPNode: NodeDefinition<
   },
   params: {
     filepath: {
-      type: 'string',
+      id: 'string',
       label: 'File Path',
       default: '',
     },
@@ -37,7 +37,7 @@ export const ExportSTEPNode: NodeDefinition<
   { success: boolean },
   { filepath: string; asAssembly?: boolean }
 > = {
-  type: 'IO::ExportSTEP',
+  id: 'IO::ExportSTEP',
   category: 'IO',
   label: 'Export STEP',
   description: 'Export shapes to STEP file',
@@ -49,12 +49,12 @@ export const ExportSTEPNode: NodeDefinition<
   },
   params: {
     filepath: {
-      type: 'string',
+      id: 'string',
       label: 'File Path',
       default: 'output.step',
     },
     asAssembly: {
-      type: 'boolean',
+      id: 'boolean',
       label: 'As Assembly',
       default: false,
     },
@@ -78,7 +78,7 @@ export const ExportSTLNode: NodeDefinition<
   { success: boolean },
   { filepath: string; binary?: boolean; deflection?: number }
 > = {
-  type: 'IO::ExportSTL',
+  id: 'IO::ExportSTL',
   category: 'IO',
   label: 'Export STL',
   description: 'Export shape to STL file',
@@ -90,17 +90,17 @@ export const ExportSTLNode: NodeDefinition<
   },
   params: {
     filepath: {
-      type: 'string',
+      id: 'string',
       label: 'File Path',
       default: 'output.stl',
     },
     binary: {
-      type: 'boolean',
+      id: 'boolean',
       label: 'Binary Format',
       default: true,
     },
     deflection: {
-      type: 'number',
+      id: 'number',
       label: 'Deflection',
       default: 0.1,
       min: 0.001,

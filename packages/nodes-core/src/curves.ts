@@ -39,7 +39,7 @@ export const nurbsCurveNode: NodeDefinition = {
       label: 'NURBS Curve',
     },
   },
-  parameters: {
+  params: {
     degree: {
       type: 'number',
       default: 3,
@@ -51,7 +51,7 @@ export const nurbsCurveNode: NodeDefinition = {
       default: false,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('CREATE_NURBS_CURVE', {
       points: inputs.points,
       weights: inputs.weights || null,
@@ -86,7 +86,7 @@ export const interpolateCurveNode: NodeDefinition = {
       label: 'Interpolated Curve',
     },
   },
-  parameters: {
+  params: {
     closed: {
       type: 'boolean',
       default: false,
@@ -98,7 +98,7 @@ export const interpolateCurveNode: NodeDefinition = {
       max: 1,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('INTERPOLATE_CURVE', {
       points: inputs.points,
       tangents: inputs.tangents,
@@ -133,7 +133,7 @@ export const offsetCurveNode: NodeDefinition = {
       label: 'Offset Curve',
     },
   },
-  parameters: {
+  params: {
     distance: {
       type: 'number',
       default: 10,
@@ -146,7 +146,7 @@ export const offsetCurveNode: NodeDefinition = {
       options: ['round', 'sharp', 'smooth'],
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('OFFSET_CURVE', {
       curve: inputs.curve,
       distance: params.distance,
@@ -188,7 +188,7 @@ export const curvatureAnalysisNode: NodeDefinition = {
       label: 'Inflection Points',
     },
   },
-  parameters: {
+  params: {
     samples: {
       type: 'number',
       default: 100,
@@ -196,7 +196,7 @@ export const curvatureAnalysisNode: NodeDefinition = {
       max: 1000,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('ANALYZE_CURVATURE', {
       curve: inputs.curve,
       samples: params.samples,
@@ -228,7 +228,7 @@ export const divideCurveNode: NodeDefinition = {
       type: 'Point[]',
       label: 'Division Points',
     },
-    parameters: {
+    params: {
       type: 'Number[]',
       label: 'Parameters',
     },
@@ -237,7 +237,7 @@ export const divideCurveNode: NodeDefinition = {
       label: 'Tangents',
     },
   },
-  parameters: {
+  params: {
     count: {
       type: 'number',
       default: 10,
@@ -249,7 +249,7 @@ export const divideCurveNode: NodeDefinition = {
       default: false,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('DIVIDE_CURVE', {
       curve: inputs.curve,
       count: params.count,
@@ -257,7 +257,7 @@ export const divideCurveNode: NodeDefinition = {
     });
     return {
       points: result.points,
-      parameters: result.params,
+      params: result.params,
       tangents: result.tangents,
     };
   },
@@ -297,7 +297,7 @@ export const blendCurvesNode: NodeDefinition = {
       label: 'Blend Curve',
     },
   },
-  parameters: {
+  params: {
     continuity: {
       type: 'select',
       default: 'G1',
@@ -310,7 +310,7 @@ export const blendCurvesNode: NodeDefinition = {
       max: 2,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('BLEND_CURVES', {
       curve1: inputs.curve1,
       curve2: inputs.curve2,
@@ -352,13 +352,13 @@ export const projectCurveNode: NodeDefinition = {
       label: 'Projected Curves',
     },
   },
-  parameters: {
+  params: {
     keepOriginal: {
       type: 'boolean',
       default: false,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('PROJECT_CURVE', {
       curve: inputs.curve,
       target: inputs.target,
@@ -401,7 +401,7 @@ export const curveIntersectionNode: NodeDefinition = {
       label: 'Parameters on B',
     },
   },
-  parameters: {
+  params: {
     tolerance: {
       type: 'number',
       default: 0.001,
@@ -409,7 +409,7 @@ export const curveIntersectionNode: NodeDefinition = {
       max: 1,
     },
   },
-  execute: async (inputs, params, context) => {
+  evaluate: async (inputs, params, context) => {
     const result = await context.invoke('CURVE_INTERSECTION', {
       curveA: inputs.curveA,
       curveB: inputs.curveB,

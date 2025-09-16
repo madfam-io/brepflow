@@ -155,7 +155,7 @@ export class WorkerClient implements WorkerAPI {
   /**
    * Terminate worker
    */
-  terminate(): void {
+  async terminate(): Promise<void> {
     if (this.worker) {
       this.worker.terminate();
       this.worker = null;

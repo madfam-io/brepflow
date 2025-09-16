@@ -5,7 +5,7 @@ export const MoveNode: NodeDefinition<
   { shape: ShapeHandle },
   { offset: Vec3 }
 > = {
-  type: 'Transform::Move',
+  id: 'Transform::Move',
   category: 'Transform',
   label: 'Move',
   description: 'Move shape by offset',
@@ -17,7 +17,7 @@ export const MoveNode: NodeDefinition<
   },
   params: {
     offset: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Offset',
       default: { x: 0, y: 0, z: 0 },
     },
@@ -36,7 +36,7 @@ export const RotateNode: NodeDefinition<
   { shape: ShapeHandle },
   { angle: number; axis: Vec3; origin?: Vec3 }
 > = {
-  type: 'Transform::Rotate',
+  id: 'Transform::Rotate',
   category: 'Transform',
   label: 'Rotate',
   description: 'Rotate shape around axis',
@@ -48,19 +48,19 @@ export const RotateNode: NodeDefinition<
   },
   params: {
     angle: {
-      type: 'number',
+      id: 'number',
       label: 'Angle',
       default: 90,
       min: -360,
       max: 360,
     },
     axis: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Axis',
       default: { x: 0, y: 0, z: 1 },
     },
     origin: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Origin',
       default: { x: 0, y: 0, z: 0 },
     },
@@ -81,7 +81,7 @@ export const ScaleNode: NodeDefinition<
   { shape: ShapeHandle },
   { scale: Vec3 | number; origin?: Vec3 }
 > = {
-  type: 'Transform::Scale',
+  id: 'Transform::Scale',
   category: 'Transform',
   label: 'Scale',
   description: 'Scale shape',
@@ -93,14 +93,14 @@ export const ScaleNode: NodeDefinition<
   },
   params: {
     scale: {
-      type: 'number',
+      id: 'number',
       label: 'Scale',
       default: 1,
       min: 0.001,
       max: 100,
     },
     origin: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Origin',
       default: { x: 0, y: 0, z: 0 },
     },
@@ -120,7 +120,7 @@ export const MirrorNode: NodeDefinition<
   { shape: ShapeHandle },
   { plane: 'XY' | 'XZ' | 'YZ'; origin?: Vec3 }
 > = {
-  type: 'Transform::Mirror',
+  id: 'Transform::Mirror',
   category: 'Transform',
   label: 'Mirror',
   description: 'Mirror shape across plane',
@@ -132,13 +132,13 @@ export const MirrorNode: NodeDefinition<
   },
   params: {
     plane: {
-      type: 'enum',
+      id: 'enum',
       label: 'Plane',
       default: 'XY',
       options: ['XY', 'XZ', 'YZ'],
     },
     origin: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Origin',
       default: { x: 0, y: 0, z: 0 },
     },
@@ -158,7 +158,7 @@ export const ArrayLinearNode: NodeDefinition<
   { shapes: ShapeHandle[] },
   { count: number; spacing: Vec3 }
 > = {
-  type: 'Transform::ArrayLinear',
+  id: 'Transform::ArrayLinear',
   category: 'Transform',
   label: 'Linear Array',
   description: 'Create linear array of shapes',
@@ -170,14 +170,14 @@ export const ArrayLinearNode: NodeDefinition<
   },
   params: {
     count: {
-      type: 'number',
+      id: 'number',
       label: 'Count',
       default: 5,
       min: 1,
       max: 100,
     },
     spacing: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Spacing',
       default: { x: 50, y: 0, z: 0 },
     },
@@ -208,7 +208,7 @@ export const ArrayCircularNode: NodeDefinition<
   { shapes: ShapeHandle[] },
   { count: number; angle: number; axis: Vec3; center?: Vec3 }
 > = {
-  type: 'Transform::ArrayCircular',
+  id: 'Transform::ArrayCircular',
   category: 'Transform',
   label: 'Circular Array',
   description: 'Create circular array of shapes',
@@ -220,26 +220,26 @@ export const ArrayCircularNode: NodeDefinition<
   },
   params: {
     count: {
-      type: 'number',
+      id: 'number',
       label: 'Count',
       default: 6,
       min: 2,
       max: 100,
     },
     angle: {
-      type: 'number',
+      id: 'number',
       label: 'Total Angle',
       default: 360,
       min: 0,
       max: 360,
     },
     axis: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Axis',
       default: { x: 0, y: 0, z: 1 },
     },
     center: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Center',
       default: { x: 0, y: 0, z: 0 },
     },

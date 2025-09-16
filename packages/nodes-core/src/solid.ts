@@ -5,7 +5,7 @@ export const ExtrudeNode: NodeDefinition<
   { shape: ShapeHandle },
   { distance: number; draft?: number }
 > = {
-  type: 'Solid::Extrude',
+  id: 'Solid::Extrude',
   category: 'Solid',
   label: 'Extrude',
   description: 'Extrude a profile to create a solid',
@@ -18,13 +18,13 @@ export const ExtrudeNode: NodeDefinition<
   },
   params: {
     distance: {
-      type: 'number',
+      id: 'number',
       label: 'Distance',
       default: 25,
       min: 0.001,
     },
     draft: {
-      type: 'number',
+      id: 'number',
       label: 'Draft Angle',
       default: 0,
       min: -45,
@@ -49,7 +49,7 @@ export const RevolveNode: NodeDefinition<
   { shape: ShapeHandle },
   { angle: number; origin?: Vec3; direction?: Vec3 }
 > = {
-  type: 'Solid::Revolve',
+  id: 'Solid::Revolve',
   category: 'Solid',
   label: 'Revolve',
   description: 'Revolve a profile around an axis',
@@ -62,19 +62,19 @@ export const RevolveNode: NodeDefinition<
   },
   params: {
     angle: {
-      type: 'number',
+      id: 'number',
       label: 'Angle',
       default: 360,
       min: 0.1,
       max: 360,
     },
     origin: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Axis Origin',
       default: { x: 0, y: 0, z: 0 },
     },
     direction: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Axis Direction',
       default: { x: 0, y: 1, z: 0 },
     },
@@ -96,7 +96,7 @@ export const SweepNode: NodeDefinition<
   { shape: ShapeHandle },
   { twist?: number; scale?: number }
 > = {
-  type: 'Solid::Sweep',
+  id: 'Solid::Sweep',
   category: 'Solid',
   label: 'Sweep',
   description: 'Sweep a profile along a path',
@@ -109,14 +109,14 @@ export const SweepNode: NodeDefinition<
   },
   params: {
     twist: {
-      type: 'number',
+      id: 'number',
       label: 'Twist',
       default: 0,
       min: -360,
       max: 360,
     },
     scale: {
-      type: 'number',
+      id: 'number',
       label: 'End Scale',
       default: 1,
       min: 0.1,
@@ -139,7 +139,7 @@ export const LoftNode: NodeDefinition<
   { shape: ShapeHandle },
   { ruled?: boolean; closed?: boolean }
 > = {
-  type: 'Solid::Loft',
+  id: 'Solid::Loft',
   category: 'Solid',
   label: 'Loft',
   description: 'Create a loft between multiple profiles',
@@ -151,12 +151,12 @@ export const LoftNode: NodeDefinition<
   },
   params: {
     ruled: {
-      type: 'boolean',
+      id: 'boolean',
       label: 'Ruled',
       default: false,
     },
     closed: {
-      type: 'boolean',
+      id: 'boolean',
       label: 'Closed',
       default: false,
     },
@@ -180,7 +180,7 @@ export const BoxNode: NodeDefinition<
   { shape: ShapeHandle },
   { width: number; height: number; depth: number }
 > = {
-  type: 'Solid::Box',
+  id: 'Solid::Box',
   category: 'Solid',
   label: 'Box',
   description: 'Create a box primitive',
@@ -192,19 +192,19 @@ export const BoxNode: NodeDefinition<
   },
   params: {
     width: {
-      type: 'number',
+      id: 'number',
       label: 'Width',
       default: 100,
       min: 0.001,
     },
     height: {
-      type: 'number',
+      id: 'number',
       label: 'Height',
       default: 60,
       min: 0.001,
     },
     depth: {
-      type: 'number',
+      id: 'number',
       label: 'Depth',
       default: 40,
       min: 0.001,
@@ -228,7 +228,7 @@ export const CylinderNode: NodeDefinition<
   { shape: ShapeHandle },
   { radius: number; height: number }
 > = {
-  type: 'Solid::Cylinder',
+  id: 'Solid::Cylinder',
   category: 'Solid',
   label: 'Cylinder',
   description: 'Create a cylinder primitive',
@@ -241,13 +241,13 @@ export const CylinderNode: NodeDefinition<
   },
   params: {
     radius: {
-      type: 'number',
+      id: 'number',
       label: 'Radius',
       default: 30,
       min: 0.001,
     },
     height: {
-      type: 'number',
+      id: 'number',
       label: 'Height',
       default: 60,
       min: 0.001,
@@ -272,7 +272,7 @@ export const SphereNode: NodeDefinition<
   { shape: ShapeHandle },
   { radius: number }
 > = {
-  type: 'Solid::Sphere',
+  id: 'Solid::Sphere',
   category: 'Solid',
   label: 'Sphere',
   description: 'Create a sphere primitive',
@@ -284,7 +284,7 @@ export const SphereNode: NodeDefinition<
   },
   params: {
     radius: {
-      type: 'number',
+      id: 'number',
       label: 'Radius',
       default: 30,
       min: 0.001,

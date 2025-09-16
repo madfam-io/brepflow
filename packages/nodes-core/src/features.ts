@@ -5,7 +5,7 @@ export const FilletNode: NodeDefinition<
   { shape: ShapeHandle },
   { radius: number; selectAll?: boolean }
 > = {
-  type: 'Features::Fillet',
+  id: 'Features::Fillet',
   category: 'Features',
   label: 'Fillet',
   description: 'Apply fillet to edges',
@@ -18,13 +18,13 @@ export const FilletNode: NodeDefinition<
   },
   params: {
     radius: {
-      type: 'number',
+      id: 'number',
       label: 'Radius',
       default: 5,
       min: 0.001,
     },
     selectAll: {
-      type: 'boolean',
+      id: 'boolean',
       label: 'All Edges',
       default: false,
     },
@@ -45,7 +45,7 @@ export const ChamferNode: NodeDefinition<
   { shape: ShapeHandle },
   { distance: number; selectAll?: boolean }
 > = {
-  type: 'Features::Chamfer',
+  id: 'Features::Chamfer',
   category: 'Features',
   label: 'Chamfer',
   description: 'Apply chamfer to edges',
@@ -58,13 +58,13 @@ export const ChamferNode: NodeDefinition<
   },
   params: {
     distance: {
-      type: 'number',
+      id: 'number',
       label: 'Distance',
       default: 3,
       min: 0.001,
     },
     selectAll: {
-      type: 'boolean',
+      id: 'boolean',
       label: 'All Edges',
       default: false,
     },
@@ -85,7 +85,7 @@ export const ShellNode: NodeDefinition<
   { shape: ShapeHandle },
   { thickness: number; inside?: boolean }
 > = {
-  type: 'Features::Shell',
+  id: 'Features::Shell',
   category: 'Features',
   label: 'Shell',
   description: 'Create a hollow shell',
@@ -98,13 +98,13 @@ export const ShellNode: NodeDefinition<
   },
   params: {
     thickness: {
-      type: 'number',
+      id: 'number',
       label: 'Thickness',
       default: 2,
       min: 0.001,
     },
     inside: {
-      type: 'boolean',
+      id: 'boolean',
       label: 'Inside',
       default: true,
     },
@@ -125,7 +125,7 @@ export const DraftNode: NodeDefinition<
   { shape: ShapeHandle },
   { angle: number; pullDirection?: Vec3 }
 > = {
-  type: 'Features::Draft',
+  id: 'Features::Draft',
   category: 'Features',
   label: 'Draft',
   description: 'Apply draft angle to faces',
@@ -138,14 +138,14 @@ export const DraftNode: NodeDefinition<
   },
   params: {
     angle: {
-      type: 'number',
+      id: 'number',
       label: 'Angle',
       default: 3,
       min: 0,
       max: 45,
     },
     pullDirection: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Pull Direction',
       default: { x: 0, y: 0, z: 1 },
     },

@@ -5,7 +5,7 @@ export const LineNode: NodeDefinition<
   { curve: ShapeHandle },
   { start: Vec3; end: Vec3 }
 > = {
-  type: 'Sketch::Line',
+  id: 'Sketch::Line',
   category: 'Sketch',
   label: 'Line',
   description: 'Create a line between two points',
@@ -18,12 +18,12 @@ export const LineNode: NodeDefinition<
   },
   params: {
     start: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Start Point',
       default: { x: 0, y: 0, z: 0 },
     },
     end: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'End Point',
       default: { x: 100, y: 0, z: 0 },
     },
@@ -42,7 +42,7 @@ export const CircleNode: NodeDefinition<
   { curve: ShapeHandle },
   { center: Vec3; radius: number; normal: Vec3 }
 > = {
-  type: 'Sketch::Circle',
+  id: 'Sketch::Circle',
   category: 'Sketch',
   label: 'Circle',
   description: 'Create a circle',
@@ -55,18 +55,18 @@ export const CircleNode: NodeDefinition<
   },
   params: {
     center: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Center',
       default: { x: 0, y: 0, z: 0 },
     },
     radius: {
-      type: 'number',
+      id: 'number',
       label: 'Radius',
       default: 50,
       min: 0.001,
     },
     normal: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Normal',
       default: { x: 0, y: 0, z: 1 },
     },
@@ -89,7 +89,7 @@ export const RectangleNode: NodeDefinition<
   { curve: ShapeHandle },
   { center: Vec3; width: number; height: number }
 > = {
-  type: 'Sketch::Rectangle',
+  id: 'Sketch::Rectangle',
   category: 'Sketch',
   label: 'Rectangle',
   description: 'Create a rectangle',
@@ -101,18 +101,18 @@ export const RectangleNode: NodeDefinition<
   },
   params: {
     center: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Center',
       default: { x: 0, y: 0, z: 0 },
     },
     width: {
-      type: 'number',
+      id: 'number',
       label: 'Width',
       default: 100,
       min: 0.001,
     },
     height: {
-      type: 'number',
+      id: 'number',
       label: 'Height',
       default: 60,
       min: 0.001,
@@ -135,7 +135,7 @@ export const ArcNode: NodeDefinition<
   { curve: ShapeHandle },
   { center: Vec3; radius: number; startAngle: number; endAngle: number }
 > = {
-  type: 'Sketch::Arc',
+  id: 'Sketch::Arc',
   category: 'Sketch',
   label: 'Arc',
   description: 'Create an arc',
@@ -149,25 +149,25 @@ export const ArcNode: NodeDefinition<
   },
   params: {
     center: {
-      type: 'vec3',
+      id: 'vec3',
       label: 'Center',
       default: { x: 0, y: 0, z: 0 },
     },
     radius: {
-      type: 'number',
+      id: 'number',
       label: 'Radius',
       default: 50,
       min: 0.001,
     },
     startAngle: {
-      type: 'number',
+      id: 'number',
       label: 'Start Angle',
       default: 0,
       min: 0,
       max: 360,
     },
     endAngle: {
-      type: 'number',
+      id: 'number',
       label: 'End Angle',
       default: 90,
       min: 0,

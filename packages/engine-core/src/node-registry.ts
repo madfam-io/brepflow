@@ -18,13 +18,13 @@ export class NodeRegistry {
    * Register a node definition
    */
   registerNode(definition: NodeDefinition): void {
-    this.nodes.set(definition.type, definition);
+    this.nodes.set(definition.id, definition);
 
     // Update category index
     if (!this.categories.has(definition.category)) {
       this.categories.set(definition.category, new Set());
     }
-    this.categories.get(definition.category)!.add(definition.type);
+    this.categories.get(definition.category)!.add(definition.id);
   }
 
   /**
