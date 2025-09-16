@@ -35,9 +35,10 @@ export class WorkerClient implements WorkerAPI {
             const workerUrl = new URL('../engine-occt/dist/worker.mjs', import.meta.url).href;
             this.worker = new Worker(workerUrl, { type: 'module' });
           } catch {
-            // Fallback to relative path for development
+            // Fallback: construct path dynamically to avoid Vite static analysis
+            const workerPath = './worker' + '.mjs';
             this.worker = new Worker(
-              new URL('./worker.mjs', import.meta.url),
+              new URL(workerPath, import.meta.url),
               { type: 'module' }
             );
           }

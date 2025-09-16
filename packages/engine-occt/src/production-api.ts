@@ -54,8 +54,9 @@ export class ProductionWorkerAPI implements WorkerAPI {
         // Try to resolve worker from engine-occt dist first
         workerUrl = new URL('../engine-occt/dist/worker.mjs', import.meta.url).href;
       } catch {
-        // Fallback to relative path for development/unbundled scenarios
-        workerUrl = new URL('./production-worker.ts', import.meta.url).href;
+        // Fallback: construct path dynamically to avoid Vite static analysis
+        const workerFile = './production-worker' + '.ts';
+        workerUrl = new URL(workerFile, import.meta.url).href;
       }
       this.worker = new Worker(workerUrl, { type: 'module' });
       
