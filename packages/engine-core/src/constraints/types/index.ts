@@ -48,10 +48,8 @@ export enum ConstraintType {
   PERPENDICULAR = 'perpendicular',
   HORIZONTAL = 'horizontal',
   VERTICAL = 'vertical',
-  TANGENT = 'tangent',
   ANGLE = 'angle',
-  RADIUS = 'radius',
-  EQUAL_LENGTH = 'equal_length'
+  RADIUS = 'radius'
 }
 
 /**
