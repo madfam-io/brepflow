@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { useLayoutStore } from '../store/layout-store';
 import { PanelId } from '../types/layout';
 import { useGraphStore } from '../store/graph-store';
+import { useClipboard } from './useClipboard';
 
 export interface KeyboardShortcut {
   key: string;
@@ -268,8 +269,12 @@ export const useKeyboardShortcuts = () => {
     removeEdge,
     graph,
     undo,
-    redo
+    redo,
+    selectNode,
+    addNode
   } = useGraphStore();
+
+  const { copyNodes, pasteNodes, hasClipboardData } = useClipboard();
 
   // Register global actions
   useEffect(() => {
@@ -284,18 +289,32 @@ export const useKeyboardShortcuts = () => {
     });
 
     shortcutManager.registerActionCallback('selectAll', () => {
-      // TODO: Implement select all nodes
-      console.log('Select all action triggered');
+      // Select all nodes in the current graph
+      const allNodeIds = graph.nodes.map(node => node.id);
+      graph.nodes.forEach(node => selectNode(node.id));
+      console.log(`Selected all ${allNodeIds.length} nodes`);
     });
 
     shortcutManager.registerActionCallback('copy', () => {
-      // TODO: Implement copy selected nodes
-      console.log('Copy action triggered');
+      // Copy selected nodes to clipboard
+      if (selectedNodes.size > 0) {
+        const nodesToCopy = graph.nodes.filter(node => selectedNodes.has(node.id));
+        copyNodes(nodesToCopy);
+        console.log(`📋 Copied ${nodesToCopy.length} selected nodes`);
+      } else {
+        console.log('No nodes selected to copy');
+      }
     });
 
     shortcutManager.registerActionCallback('paste', () => {
-      // TODO: Implement paste nodes
-      console.log('Paste action triggered');
+      // Paste nodes from clipboard
+      if (hasClipboardData()) {
+        const pastedNodes = pasteNodes();
+        pastedNodes.forEach(node => addNode(node));
+        console.log(`📋 Pasted ${pastedNodes.length} nodes`);
+      } else {
+        console.log('No nodes in clipboard to paste');
+      }
     });
 
     shortcutManager.registerActionCallback('delete', () => {

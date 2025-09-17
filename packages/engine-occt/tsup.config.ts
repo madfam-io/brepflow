@@ -2,9 +2,9 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig([
   {
-    // Main entry - build both CJS and ESM
+    // Main entry - ESM only (import.meta usage requires ESM)
     entry: ['src/index.ts'],
-    format: ['cjs', 'esm'],
+    format: ['esm'],
     dts: false, // Temporarily disable DTS until TypeScript issues are resolved
     splitting: false,
     sourcemap: true,

@@ -16,7 +16,7 @@ import type {
 declare const Module: any;
 
 interface OCCTHandle {
-  $$: { ptr: number };
+  "$$": { ptr: number };
   delete(): void;
 }
 
@@ -1107,7 +1107,21 @@ export class RealOCCT implements WorkerAPI {
 
     if (params.matrix) {
       // Apply transformation matrix
-      // TODO: Set matrix values
+      // Expecting 4x4 transformation matrix as array of 16 values or object with properties
+      const matrix = Array.isArray(params.matrix) ? params.matrix : [
+        params.matrix.m11 || 1, params.matrix.m12 || 0, params.matrix.m13 || 0, params.matrix.m14 || 0,
+        params.matrix.m21 || 0, params.matrix.m22 || 1, params.matrix.m23 || 0, params.matrix.m24 || 0,
+        params.matrix.m31 || 0, params.matrix.m32 || 0, params.matrix.m33 || 1, params.matrix.m34 || 0,
+        params.matrix.m41 || 0, params.matrix.m42 || 0, params.matrix.m43 || 0, params.matrix.m44 || 1
+      ];
+      
+      // OCCT uses 3x4 transformation matrix (rotation + translation)
+      // Extract rotation matrix (3x3) and translation vector (3x1)
+      trsf.SetValues(
+        matrix[0], matrix[1], matrix[2], matrix[3],   // Row 1: m11, m12, m13, m14
+        matrix[4], matrix[5], matrix[6], matrix[7],   // Row 2: m21, m22, m23, m24
+        matrix[8], matrix[9], matrix[10], matrix[11]  // Row 3: m31, m32, m33, m34
+      );
     }
 
     const transformer = new this.occt.BRepBuilderAPI_Transform(shape, trsf, true);

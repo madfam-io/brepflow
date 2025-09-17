@@ -8,7 +8,8 @@ import type { GraphInstance, NodeInstance, Edge } from '@brepflow/types';
 export function convertToReactFlow(
   graph: GraphInstance,
   selectedNodes?: Set<string>,
-  errors?: Map<string, string>
+  errors?: Map<string, string>,
+  onOpenParameterDialog?: (nodeType: string, position: { x: number; y: number }) => void
 ): {
   nodes: RFNode[];
   edges: RFEdge[];
@@ -24,6 +25,8 @@ export function convertToReactFlow(
       isSelected: selectedNodes?.has(node.id) || false,
       hasError: errors?.has(node.id) || false,
       isExecuting: (node.state as unknown as string) === 'executing' || false,
+      onOpenParameterDialog,
+      nodeType: node.type,
       ...node,
     },
   }));

@@ -32,6 +32,7 @@ import { OnboardingOrchestrator } from './components/onboarding/OnboardingOrches
 import { WorkbenchLayoutManager } from './components/layout/WorkbenchLayoutManager';
 import { useGraphStore } from './store/graph-store';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
+import { useErrorTracking } from './hooks/useErrorTracking';
 import { convertToReactFlow, convertFromReactFlow } from './utils/graph-converter';
 import { ErrorBoundary, WASMErrorBoundary, GeometryErrorBoundary } from './lib/error-handling/error-boundary';
 import { MonitoringDashboard } from './components/monitoring/MonitoringDashboard';
@@ -91,8 +92,16 @@ function AppContent() {
   }, [recordUserInteraction]);
 
   // Convert graph to ReactFlow format with enhanced node data
-  const errors = new Map<string, string>(); // TODO: Implement proper error tracking
-  const { nodes: rfNodes, edges: rfEdges } = convertToReactFlow(graph, selectedNodes, errors);
+  const errorTracker = useErrorTracking();
+  const handleOpenParameterDialog = useCallback((nodeType: string, position: { x: number; y: number }) => {
+    setParameterDialog({
+      isOpen: true,
+      nodeType,
+      position,
+    });
+  }, []);
+
+  const { nodes: rfNodes, edges: rfEdges } = convertToReactFlow(graph, selectedNodes, errorTracker.errors, handleOpenParameterDialog);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(rfNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(rfEdges);

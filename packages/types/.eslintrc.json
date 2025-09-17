@@ -1,0 +1,22 @@
+{
+  "extends": ["../../.eslintrc.json"],
+  "settings": {
+    "react": {
+      "version": "999.999.999"
+    }
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "react/prop-types": "off"
+  },
+  "overrides": [
+    {
+      "files": ["src/index.d.ts", "src/index.ts"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
+  ]
+}
