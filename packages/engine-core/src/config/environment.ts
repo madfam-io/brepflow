@@ -65,9 +65,9 @@ class EnvironmentManager {
       isProduction,
       isDevelopment,
 
-      // Geometry Engine
-      enableMockGeometry: this.parseBoolean(processEnv.ENABLE_MOCK_GEOMETRY, isDevelopment),
-      requireRealOCCT: this.parseBoolean(processEnv.REQUIRE_REAL_OCCT, isProduction),
+      // Geometry Engine - ALWAYS USE REAL OCCT NOW
+      enableMockGeometry: false, // Mock geometry is deprecated - always use real OCCT
+      requireRealOCCT: true, // Always require real OCCT
       occtWasmPath: processEnv.OCCT_WASM_PATH || '/assets/wasm',
       occtInitTimeout: this.parseNumber(processEnv.OCCT_INIT_TIMEOUT, 30000),
       validateGeometryOutput: this.parseBoolean(processEnv.VALIDATE_GEOMETRY_OUTPUT, isProduction),
