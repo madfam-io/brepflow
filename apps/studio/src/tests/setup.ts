@@ -330,6 +330,10 @@ vi.mock('../lib/undo-redo', () => {
       this.undoStack = [];
       this.redoStack = [];
     }
+
+    getHistory() {
+      return [...this.undoStack];
+    }
   }
 
   class MockAddNodeCommand {
