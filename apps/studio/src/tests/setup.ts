@@ -295,11 +295,17 @@ vi.mock('../lib/undo-redo', () => {
   class MockUndoRedoManager {
     undoStack = [];
     redoStack = [];
+    maxHistorySize = 100;
 
     execute(command) {
       command.execute();
       this.undoStack.push(command);
       this.redoStack = [];
+
+      // Limit history size like the real implementation
+      if (this.undoStack.length > this.maxHistorySize) {
+        this.undoStack.shift();
+      }
     }
 
     undo() {
@@ -341,6 +347,11 @@ vi.mock('../lib/undo-redo', () => {
       this.node = node;
       this.executeFunc = execute;
       this.undoFunc = undo;
+      // Add description property as a getter
+      Object.defineProperty(this, 'description', {
+        get: () => `Add ${this.node.type} node`,
+        enumerable: true
+      });
     }
 
     execute() {
@@ -361,6 +372,11 @@ vi.mock('../lib/undo-redo', () => {
       this.node = node;
       this.executeFunc = execute;
       this.undoFunc = undo;
+      // Add description property as a getter
+      Object.defineProperty(this, 'description', {
+        get: () => `Remove ${this.node.type} node`,
+        enumerable: true
+      });
     }
 
     execute() {
@@ -382,6 +398,11 @@ vi.mock('../lib/undo-redo', () => {
       this.oldState = oldState;
       this.updates = updates;
       this.apply = apply;
+      // Add description property as a getter
+      Object.defineProperty(this, 'description', {
+        get: () => `Update node parameters`,
+        enumerable: true
+      });
     }
 
     execute() {
@@ -402,6 +423,11 @@ vi.mock('../lib/undo-redo', () => {
       this.edge = edge;
       this.executeFunc = execute;
       this.undoFunc = undo;
+      // Add description property as a getter
+      Object.defineProperty(this, 'description', {
+        get: () => `Connect nodes`,
+        enumerable: true
+      });
     }
 
     execute() {
@@ -422,6 +448,11 @@ vi.mock('../lib/undo-redo', () => {
       this.edge = edge;
       this.executeFunc = execute;
       this.undoFunc = undo;
+      // Add description property as a getter
+      Object.defineProperty(this, 'description', {
+        get: () => `Disconnect nodes`,
+        enumerable: true
+      });
     }
 
     execute() {
@@ -453,12 +484,37 @@ vi.mock('../lib/error-handling/error-manager', () => ({
     getInstance: vi.fn(() => ({
       reportError: vi.fn(),
       clearErrors: vi.fn(),
+      // Add event handling methods for useErrorMonitoring
+      on: vi.fn(),
+      off: vi.fn(),
+      getActiveErrors: vi.fn(() => []),
+      resolveError: vi.fn()
     })),
   },
   ErrorCode: {
     GRAPH_INVALID: 'GRAPH_INVALID',
     NODE_NOT_FOUND: 'NODE_NOT_FOUND',
     EDGE_NOT_FOUND: 'EDGE_NOT_FOUND',
+  },
+}));
+
+// Mock lib/monitoring/index
+vi.mock('../lib/monitoring', () => ({
+  initializeMonitoring: vi.fn(() => Promise.resolve({
+    initialize: vi.fn().mockResolvedValue(undefined),
+    start: vi.fn(),
+    stop: vi.fn(),
+    recordMetric: vi.fn(),
+    recordEvent: vi.fn(),
+  })),
+  MonitoringSystem: {
+    getInstance: vi.fn(() => ({
+      initialize: vi.fn().mockResolvedValue(undefined),
+      start: vi.fn(),
+      stop: vi.fn(),
+      recordMetric: vi.fn(),
+      recordEvent: vi.fn(),
+    })),
   },
 }));
 
@@ -469,8 +525,55 @@ vi.mock('../lib/monitoring/metrics-collector', () => ({
       recordMetric: vi.fn(),
       incrementCounter: vi.fn(),
       recordTiming: vi.fn(),
+      setGauge: vi.fn(),
+      recordHistogram: vi.fn(),
+      startTimer: vi.fn(() => vi.fn()),
+      exportMetrics: vi.fn(() => ({
+        counters: {},
+        timers: {},
+        gauges: {},
+        histograms: {}
+      }))
     })),
   },
+}));
+
+vi.mock('../lib/monitoring/monitoring-system', () => ({
+  MonitoringSystem: {
+    getInstance: vi.fn(() => ({
+      initialize: vi.fn().mockResolvedValue(undefined),
+      start: vi.fn(),
+      stop: vi.fn(),
+      recordMetric: vi.fn(),
+      recordEvent: vi.fn(),
+      startOperation: vi.fn(() => vi.fn()),
+      measureFrameRate: vi.fn(),
+      getMetrics: vi.fn(() => ({
+        fps: 60,
+        frameTime: 16.67,
+        memory: { used: 100000000, total: 200000000, limit: 500000000 },
+      })),
+      // Add missing methods for useMonitoring tests
+      recordUserInteraction: vi.fn(),
+      executeMonitoredOperation: vi.fn(async (operation) => await operation()),
+      executeWasmOperation: vi.fn(async (operation) => await operation()),
+      executeNetworkOperation: vi.fn(async (operation) => await operation()),
+      getMonitoringDashboard: vi.fn(() => ({
+        systemHealth: { status: 'healthy', cpu: 45, memory: 60 },
+        activeAlerts: []
+      }))
+    })),
+  },
+}));
+
+// Mock layout presets
+vi.mock('../config/layout-presets', () => ({
+  LAYOUT_PRESETS: {
+    guided: { id: 'guided', name: 'Guided Learning' },
+    professional: { id: 'professional', name: 'Professional' },
+    modeling: { id: 'modeling', name: 'Modeling' },
+    nodeFocused: { id: 'nodeFocused', name: 'Node Focused' }
+  }
 }));
 
 // Mock comlink for worker communication
