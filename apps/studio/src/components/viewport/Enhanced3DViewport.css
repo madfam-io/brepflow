@@ -1,0 +1,640 @@
+/* Professional 3D Viewport */
+.enhanced-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--color-neutral-900);
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-viewport);
+}
+
+.viewport-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+/* Enhanced Viewport Toolbar */
+.viewport-toolbar {
+  position: absolute;
+  top: var(--spacing-3);
+  left: var(--spacing-3);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-viewport-tool);
+  z-index: 10;
+  max-width: calc(100% - var(--spacing-6));
+  flex-wrap: wrap;
+}
+
+.viewport-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: 0 var(--spacing-1);
+}
+
+.viewport-toolbar-group:not(:last-child)::after {
+  content: '';
+  width: 1px;
+  height: 20px;
+  background: var(--color-border);
+  margin: 0 var(--spacing-2);
+}
+
+.viewport-tool-btn {
+  position: relative;
+  transition: var(--transition-button);
+}
+
+.viewport-tool-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--color-engineering-500);
+  border-radius: 50%;
+}
+
+/* Enhanced Navigation Cube */
+.navigation-cube {
+  position: absolute;
+  top: var(--spacing-3);
+  right: var(--spacing-3);
+  width: 120px;
+  height: 120px;
+  z-index: 20;
+  perspective: 800px;
+  user-select: none;
+}
+
+.cube-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--duration-smooth) var(--ease-smooth);
+}
+
+.cube-face {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-precise);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-sm);
+}
+
+.cube-face:hover {
+  background: var(--color-engineering-100);
+  border-color: var(--color-engineering-300);
+  color: var(--color-engineering-700);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+.cube-face.active {
+  background: var(--color-engineering-500);
+  color: white;
+  border-color: var(--color-engineering-600);
+}
+
+/* Standard view positions */
+.cube-face-iso {
+  transform: translate3d(42px, 42px, 18px);
+}
+.cube-face-front {
+  transform: translate3d(42px, 42px, 36px);
+}
+.cube-face-back {
+  transform: translate3d(42px, 42px, 0px) rotateY(180deg);
+}
+.cube-face-right {
+  transform: translate3d(60px, 42px, 18px) rotateY(90deg);
+}
+.cube-face-left {
+  transform: translate3d(24px, 42px, 18px) rotateY(-90deg);
+}
+.cube-face-top {
+  transform: translate3d(42px, 24px, 18px) rotateX(90deg);
+}
+.cube-face-bottom {
+  transform: translate3d(42px, 60px, 18px) rotateX(-90deg);
+}
+
+.cube-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  background: var(--color-engineering-500);
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: white;
+  cursor: pointer;
+  transition: var(--transition-button);
+  box-shadow: var(--shadow-button);
+  z-index: 1;
+}
+
+.cube-center:hover {
+  background: var(--color-engineering-600);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Enhanced Coordinate Display */
+.coordinate-display {
+  position: absolute;
+  bottom: var(--spacing-3);
+  right: var(--spacing-3);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-3);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-viewport-tool);
+  z-index: 10;
+  min-width: 120px;
+}
+
+.coordinate-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-1);
+}
+
+.coordinate-item:last-child {
+  margin-bottom: 0;
+}
+
+.coord-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  min-width: 12px;
+  text-align: center;
+}
+
+.coord-value {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-technical);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  background: var(--color-surface-secondary);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  min-width: 60px;
+  text-align: right;
+  border: 1px solid var(--color-border);
+}
+
+/* Scale Indicator */
+.scale-indicator {
+  position: absolute;
+  bottom: var(--spacing-3);
+  left: var(--spacing-3);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2) var(--spacing-3);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-viewport-tool);
+  z-index: 10;
+}
+
+.scale-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-1);
+}
+
+.scale-line {
+  width: 50px;
+  height: 2px;
+  background: var(--color-text-primary);
+  position: relative;
+}
+
+.scale-line::before,
+.scale-line::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 8px;
+  background: var(--color-text-primary);
+  top: -3px;
+}
+
+.scale-line::before { left: 0; }
+.scale-line::after { right: 0; }
+
+.scale-label {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.grid-info {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+
+.grid-size {
+  font-family: var(--font-family-mono);
+}
+
+/* Performance Monitor */
+.performance-monitor {
+  position: absolute;
+  top: 120px;
+  left: var(--spacing-3);
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2);
+  backdrop-filter: blur(8px);
+  color: white;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  z-index: 5;
+  min-width: 120px;
+}
+
+.perf-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-1);
+}
+
+.perf-item:last-child {
+  margin-bottom: 0;
+}
+
+.perf-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.perf-value {
+  color: var(--color-warning-400);
+  font-weight: var(--font-weight-semibold);
+}
+
+.perf-value.good {
+  color: var(--color-success-400);
+}
+
+.perf-value.bad {
+  color: var(--color-error-400);
+}
+
+/* Measurement Panel */
+.measurement-panel {
+  position: absolute;
+  top: 80px;
+  left: var(--spacing-3);
+  width: 320px;
+  max-height: calc(100vh - 200px);
+  z-index: 30;
+}
+
+.measurement-tools {
+  margin-bottom: var(--spacing-4);
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-2);
+}
+
+.measurement-tool-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-3);
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-button);
+  text-align: center;
+}
+
+.measurement-tool-btn:hover {
+  background: var(--color-surface-tertiary);
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.measurement-tool-btn.active {
+  background: var(--color-engineering-100);
+  border-color: var(--color-engineering-300);
+  color: var(--color-engineering-700);
+}
+
+.tool-icon {
+  color: var(--color-text-secondary);
+}
+
+.measurement-tool-btn.active .tool-icon {
+  color: var(--color-engineering-600);
+}
+
+.tool-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* Measurements List */
+.measurements-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.measurements-header {
+  padding: var(--spacing-2) 0 var(--spacing-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--spacing-2);
+}
+
+.measurements-header h4 {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  margin: 0;
+}
+
+.measurement-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--duration-fast) var(--ease-precise);
+}
+
+.measurement-item:hover {
+  background: var(--color-surface-secondary);
+  margin: 0 calc(-1 * var(--spacing-3));
+  padding-left: var(--spacing-3);
+  padding-right: var(--spacing-3);
+  border-radius: var(--radius-sm);
+}
+
+.measurement-item:last-child {
+  border-bottom: none;
+}
+
+.measurement-info {
+  flex: 1;
+}
+
+.measurement-type {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: capitalize;
+  margin-bottom: var(--spacing-1);
+}
+
+.measurement-value {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.measurement-unit {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-left: var(--spacing-1);
+}
+
+.measurement-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.measurement-action-btn {
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-precise);
+}
+
+.measurement-item:hover .measurement-action-btn {
+  opacity: 1;
+}
+
+.measurement-action-btn.delete:hover {
+  background: var(--color-error-100);
+  color: var(--color-error-600);
+}
+
+/* Empty State */
+.measurements-empty {
+  padding: var(--spacing-6);
+  text-align: center;
+  color: var(--color-text-tertiary);
+}
+
+.measurements-empty-icon {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-3);
+  opacity: 0.5;
+}
+
+.measurements-empty-text {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-1);
+}
+
+.measurements-empty-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-quaternary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .viewport-toolbar {
+    width: calc(100% - var(--spacing-6));
+    max-width: none;
+  }
+
+  .viewport-toolbar-group {
+    gap: var(--spacing-1);
+    padding: 0;
+  }
+
+  .viewport-toolbar-group:not(:last-child)::after {
+    margin: 0 var(--spacing-1);
+  }
+
+  .navigation-cube {
+    width: 80px;
+    height: 80px;
+  }
+
+  .cube-face {
+    width: 24px;
+    height: 24px;
+    font-size: 8px;
+  }
+
+  .cube-face-iso {
+    transform: translate3d(28px, 28px, 12px);
+  }
+  .cube-face-front {
+    transform: translate3d(28px, 28px, 24px);
+  }
+  .cube-face-back {
+    transform: translate3d(28px, 28px, 0px) rotateY(180deg);
+  }
+  .cube-face-right {
+    transform: translate3d(40px, 28px, 12px) rotateY(90deg);
+  }
+  .cube-face-left {
+    transform: translate3d(16px, 28px, 12px) rotateY(-90deg);
+  }
+  .cube-face-top {
+    transform: translate3d(28px, 16px, 12px) rotateX(90deg);
+  }
+  .cube-face-bottom {
+    transform: translate3d(28px, 40px, 12px) rotateX(-90deg);
+  }
+
+  .cube-center {
+    width: 16px;
+    height: 16px;
+    font-size: 8px;
+  }
+
+  .coordinate-display {
+    bottom: var(--spacing-2);
+    right: var(--spacing-2);
+    padding: var(--spacing-2);
+  }
+
+  .scale-indicator {
+    bottom: var(--spacing-2);
+    left: var(--spacing-2);
+    padding: var(--spacing-2);
+  }
+
+  .measurement-panel {
+    width: calc(100vw - var(--spacing-6));
+    left: var(--spacing-3);
+    right: var(--spacing-3);
+  }
+
+  .tool-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .measurement-tool-btn {
+    padding: var(--spacing-2);
+  }
+}
+
+/* Dark Theme Support */
+@media (prefers-color-scheme: dark) {
+  .viewport-toolbar,
+  .coordinate-display,
+  .scale-indicator {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: var(--color-border);
+  }
+
+  .cube-face {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: var(--color-border);
+    color: var(--color-text-primary);
+  }
+
+  .cube-face:hover {
+    background: var(--color-engineering-900);
+    color: var(--color-engineering-100);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .viewport-toolbar,
+  .coordinate-display,
+  .scale-indicator,
+  .cube-face {
+    border-width: 2px;
+  }
+
+  .measurement-tool-btn {
+    border-width: 2px;
+  }
+
+  .measurement-item {
+    border-bottom-width: 2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .cube-container,
+  .cube-face,
+  .cube-center,
+  .viewport-tool-btn,
+  .measurement-tool-btn,
+  .measurement-action-btn {
+    transition: none;
+  }
+
+  .cube-face:hover,
+  .cube-center:hover {
+    transform: none;
+  }
+}
+
+/* Accessibility Focus */
+.viewport-tool-btn:focus-visible,
+.cube-face:focus-visible,
+.cube-center:focus-visible,
+.measurement-tool-btn:focus-visible {
+  outline: 2px solid var(--color-engineering-500);
+  outline-offset: 2px;
+}

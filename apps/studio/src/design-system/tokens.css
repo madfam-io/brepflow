@@ -2,46 +2,136 @@
 /* Professional CAD design system with enterprise-grade foundations */
 
 :root {
-  /* === PRIMARY COLOR PALETTE === */
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;  /* Primary brand color */
-  --color-primary-600: #2563eb;  /* Primary interactive */
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+  /* === ENGINEERING COLOR PALETTE === */
+  /* Engineering Blue - Primary Brand */
+  --color-engineering-50: #f0f7ff;
+  --color-engineering-100: #e0efff;
+  --color-engineering-200: #bae0ff;
+  --color-engineering-300: #7cc8ff;
+  --color-engineering-400: #36abff;
+  --color-engineering-500: #0891ff;  /* Primary engineering */
+  --color-engineering-600: #0070f3;  /* Primary interactive */
+  --color-engineering-700: #0060df;
+  --color-engineering-800: #004fb8;
+  --color-engineering-900: #003d91;
 
-  /* === NEUTRAL COLOR PALETTE === */
-  --color-neutral-50: #f8fafc;
-  --color-neutral-100: #f1f5f9;
-  --color-neutral-200: #e2e8f0;
-  --color-neutral-300: #cbd5e1;
-  --color-neutral-400: #94a3b8;
-  --color-neutral-500: #64748b;
-  --color-neutral-600: #475569;
-  --color-neutral-700: #334155;
-  --color-neutral-800: #1e293b;
-  --color-neutral-900: #0f172a;
+  /* Legacy primary mapping */
+  --color-primary-50: var(--color-engineering-50);
+  --color-primary-100: var(--color-engineering-100);
+  --color-primary-200: var(--color-engineering-200);
+  --color-primary-300: var(--color-engineering-300);
+  --color-primary-400: var(--color-engineering-400);
+  --color-primary-500: var(--color-engineering-500);
+  --color-primary-600: var(--color-engineering-600);
+  --color-primary-700: var(--color-engineering-700);
+  --color-primary-800: var(--color-engineering-800);
+  --color-primary-900: var(--color-engineering-900);
 
-  /* === SEMANTIC COLORS === */
+  /* === TECHNICAL GRAY PALETTE === */
+  /* Technical Gray - Professional Neutral */
+  --color-technical-50: #f7f8fa;
+  --color-technical-100: #eef0f3;
+  --color-technical-200: #d8dce2;
+  --color-technical-300: #b3bac5;
+  --color-technical-400: #8892a3;
+  --color-technical-500: #64748b;  /* Primary Gray */
+  --color-technical-600: #4a5568;
+  --color-technical-700: #374151;
+  --color-technical-800: #1f2937;
+  --color-technical-900: #111827;
+
+  /* Legacy neutral mapping */
+  --color-neutral-50: var(--color-technical-50);
+  --color-neutral-100: var(--color-technical-100);
+  --color-neutral-200: var(--color-technical-200);
+  --color-neutral-300: var(--color-technical-300);
+  --color-neutral-400: var(--color-technical-400);
+  --color-neutral-500: var(--color-technical-500);
+  --color-neutral-600: var(--color-technical-600);
+  --color-neutral-700: var(--color-technical-700);
+  --color-neutral-800: var(--color-technical-800);
+  --color-neutral-900: var(--color-technical-900);
+
+  /* === PRECISION ORANGE PALETTE === */
+  /* Precision Orange - Accent for Measurements */
+  --color-precision-50: #fff7ed;
+  --color-precision-100: #ffedd5;
+  --color-precision-200: #fed7aa;
+  --color-precision-300: #fdba74;
+  --color-precision-400: #fb923c;
+  --color-precision-500: #f97316;  /* Precision Accent */
+  --color-precision-600: #ea580c;
+  --color-precision-700: #c2410c;
+  --color-precision-800: #9a3412;
+  --color-precision-900: #7c2d12;
+
+  /* === ENHANCED SEMANTIC COLORS === */
   --color-success: #10b981;
-  --color-success-light: #6ee7b7;
-  --color-success-dark: #047857;
+  --color-success-50: #ecfdf5;
+  --color-success-100: #d1fae5;
+  --color-success-200: #a7f3d0;
+  --color-success-300: #6ee7b7;
+  --color-success-400: #34d399;
+  --color-success-500: #10b981;
+  --color-success-600: #059669;
+  --color-success-700: #047857;
+  --color-success-800: #065f46;
+  --color-success-900: #064e3b;
 
   --color-warning: #f59e0b;
-  --color-warning-light: #fbbf24;
-  --color-warning-dark: #d97706;
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-200: #fde68a;
+  --color-warning-300: #fcd34d;
+  --color-warning-400: #fbbf24;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+  --color-warning-800: #92400e;
+  --color-warning-900: #78350f;
 
   --color-error: #ef4444;
-  --color-error-light: #fca5a5;
-  --color-error-dark: #dc2626;
+  --color-error-50: #fef2f2;
+  --color-error-100: #fee2e2;
+  --color-error-200: #fecaca;
+  --color-error-300: #fca5a5;
+  --color-error-400: #f87171;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+  --color-error-700: #b91c1c;
+  --color-error-800: #991b1b;
+  --color-error-900: #7f1d1d;
 
-  --color-info: #3b82f6;
-  --color-info-light: #93c5fd;
-  --color-info-dark: #1d4ed8;
+  --color-info: var(--color-engineering-500);
+  --color-info-50: var(--color-engineering-50);
+  --color-info-100: var(--color-engineering-100);
+  --color-info-200: var(--color-engineering-200);
+  --color-info-300: var(--color-engineering-300);
+  --color-info-400: var(--color-engineering-400);
+  --color-info-500: var(--color-engineering-500);
+  --color-info-600: var(--color-engineering-600);
+  --color-info-700: var(--color-engineering-700);
+  --color-info-800: var(--color-engineering-800);
+  --color-info-900: var(--color-engineering-900);
+
+  /* === CAD-SPECIFIC STATUS COLORS === */
+  /* Geometry States */
+  --color-geometry-valid: var(--color-success-500);
+  --color-geometry-invalid: var(--color-error-500);
+  --color-geometry-pending: var(--color-warning-500);
+  --color-geometry-preview: #8b5cf6;
+
+  /* Node States */
+  --color-node-selected: var(--color-engineering-500);
+  --color-node-executing: var(--color-warning-500);
+  --color-node-error: var(--color-error-500);
+  --color-node-success: var(--color-success-500);
+
+  /* Connection Types */
+  --color-connection-shape: var(--color-engineering-500);
+  --color-connection-number: var(--color-success-500);
+  --color-connection-vector: #8b5cf6;
+  --color-connection-boolean: var(--color-warning-500);
 
   /* === SURFACE COLORS === */
   --color-surface-primary: #ffffff;
@@ -119,7 +209,12 @@
   --radius-2xl: 1rem;      /* 16px */
   --radius-full: 9999px;   /* Fully rounded */
 
-  /* === ENHANCED SHADOW SYSTEM === */
+  /* === PROFESSIONAL CAD SHADOW SYSTEM === */
+  /* Surface Elevation System */
+  --shadow-surface-flat: none;
+  --shadow-surface-raised: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-surface-elevated: 0 2px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+
   /* Base shadows with improved depth perception */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
@@ -129,42 +224,63 @@
   --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.15);
   --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.06);
 
-  /* Focused shadows with brand color */
-  --shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  --shadow-focus-ring: 0 0 0 2px var(--color-primary-500);
+  /* Enhanced Focus Shadows */
+  --shadow-focus: 0 0 0 3px rgba(8, 145, 255, 0.12);
+  --shadow-focus-ring: 0 0 0 2px var(--color-engineering-500);
+  --shadow-focus-error: 0 0 0 3px rgba(239, 68, 68, 0.12);
+  --shadow-focus-success: 0 0 0 3px rgba(16, 185, 129, 0.12);
 
   /* Component-specific shadows for CAD interface */
   --shadow-panel: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.03);
   --shadow-toolbar: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-viewport: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-node: 0 2px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-button: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
-  --shadow-button-hover: 0 2px 6px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-dropdown: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 20px 40px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.1);
 
-  /* === ANIMATION SYSTEM === */
-  /* Professional easing curves */
+  /* Interactive Shadows */
+  --shadow-button: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-button-hover: 0 3px 8px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-button-active: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-input: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-input-hover: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  /* Node & Graph Shadows */
+  --shadow-node: 0 2px 6px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-node-selected: 0 4px 12px rgba(8, 145, 255, 0.15), 0 2px 6px rgba(8, 145, 255, 0.1);
+  --shadow-node-error: 0 4px 12px rgba(239, 68, 68, 0.15), 0 2px 6px rgba(239, 68, 68, 0.1);
+
+  /* Viewport & 3D Shadows */
+  --shadow-viewport: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-viewport-tool: 0 3px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.06);
+
+  /* === PROFESSIONAL CAD ANIMATION SYSTEM === */
+  /* CAD Interface Easing Curves */
   --ease-linear: linear;
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-precise: cubic-bezier(0.4, 0, 0.2, 1);      /* UI interactions */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Panel transitions */
+  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);    /* Snapping actions */
+  --ease-technical: cubic-bezier(0.4, 0, 0.6, 1);    /* Technical animations */
   --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --ease-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  /* Animation durations for different interaction types */
-  --duration-instant: 100ms;
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 350ms;
+  /* Professional Duration Scale */
+  --duration-instant: 100ms;          /* Micro-interactions */
+  --duration-fast: 150ms;             /* Button states */
+  --duration-normal: 200ms;           /* Panel transitions */
+  --duration-smooth: 300ms;           /* Complex animations */
+  --duration-slow: 400ms;             /* Page transitions */
   --duration-slower: 500ms;
 
-  /* Component-specific transitions */
-  --transition-panel: all var(--duration-normal) var(--ease-out);
-  --transition-button: all var(--duration-fast) var(--ease-out);
+  /* Enhanced Component-specific transitions */
+  --transition-panel: all var(--duration-smooth) var(--ease-smooth);
+  --transition-button: all var(--duration-fast) var(--ease-precise);
   --transition-hover: all var(--duration-fast) var(--ease-in-out);
   --transition-focus: box-shadow var(--duration-fast) var(--ease-out);
   --transition-transform: transform var(--duration-fast) var(--ease-smooth);
+  --transition-input: all var(--duration-fast) var(--ease-precise);
+  --transition-node: all var(--duration-fast) var(--ease-precise);
 
   /* === GRADIENTS FOR VISUAL DEPTH === */
   --gradient-panel: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
@@ -173,12 +289,30 @@
   --gradient-surface: linear-gradient(135deg, var(--color-surface-primary) 0%, var(--color-surface-secondary) 100%);
   --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
 
-  /* === ENHANCED TYPOGRAPHY === */
-  /* Letter spacing for different contexts */
-  --letter-spacing-tight: -0.02em;
-  --letter-spacing-normal: 0;
-  --letter-spacing-wide: 0.02em;
+  /* === ENHANCED TYPOGRAPHY SYSTEM === */
+  /* Display Typography - Large hero text and major headings */
+  --font-size-display-xl: 3.75rem;    /* 60px - Major headers */
+  --font-size-display-lg: 3rem;       /* 48px - Section headers */
+  --font-size-display-md: 2.25rem;    /* 36px - Panel headers */
+
+  /* Technical Typography */
+  --font-size-technical: 0.8125rem;   /* 13px - Coordinates, measurements */
+  --font-size-code: 0.75rem;          /* 12px - Code, node types */
+  --font-size-xxs: 0.6875rem;         /* 11px - Technical annotations */
+
+  /* Professional Letter Spacing */
+  --letter-spacing-tight: -0.01em;    /* Display text */
+  --letter-spacing-normal: 0;         /* Body text */
+  --letter-spacing-wide: 0.025em;     /* All caps, labels */
   --letter-spacing-wider: 0.05em;
+  --letter-spacing-technical: 0.01em; /* Technical measurements */
+  --letter-spacing-mono: 0;           /* Monospace text */
+
+  /* Enhanced Line Heights */
+  --line-height-tight: 1.2;          /* Headlines */
+  --line-height-snug: 1.375;         /* UI text */
+  --line-height-base: 1.5;           /* Body text */
+  --line-height-relaxed: 1.625;      /* Reading content */
 
   /* Text shadows for depth */
   --text-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
