@@ -301,6 +301,101 @@ export const SphereNode: NodeDefinition<
   },
 };
 
+export const ConeNode: NodeDefinition<
+  { center?: Vec3; axis?: Vec3 },
+  { shape: ShapeHandle },
+  { baseRadius: number; topRadius: number; height: number }
+> = {
+  id: 'Solid::Cone',
+  category: 'Solid',
+  label: 'Cone',
+  description: 'Create a cone primitive',
+  inputs: {
+    center: { type: 'Vector', optional: true },
+    axis: { type: 'Vector', optional: true },
+  },
+  outputs: {
+    shape: { type: 'Shape' },
+  },
+  params: {
+    baseRadius: {
+      type: 'number',
+      label: 'Base Radius',
+      default: 30,
+      min: 0.001,
+    },
+    topRadius: {
+      type: 'number',
+      label: 'Top Radius',
+      default: 0,
+      min: 0,
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 60,
+      min: 0.001,
+    },
+  },
+  async evaluate(ctx, inputs, params) {
+    const center = inputs.center || { x: 0, y: 0, z: 0 };
+    const axis = inputs.axis || { x: 0, y: 0, z: 1 };
+
+    const result = await ctx.worker.invoke('MAKE_CONE', {
+      center,
+      axis,
+      baseRadius: params.baseRadius,
+      topRadius: params.topRadius,
+      height: params.height,
+    });
+    return { shape: result };
+  },
+};
+
+export const TorusNode: NodeDefinition<
+  { center?: Vec3; axis?: Vec3 },
+  { shape: ShapeHandle },
+  { majorRadius: number; minorRadius: number }
+> = {
+  id: 'Solid::Torus',
+  category: 'Solid',
+  label: 'Torus',
+  description: 'Create a torus primitive',
+  inputs: {
+    center: { type: 'Vector', optional: true },
+    axis: { type: 'Vector', optional: true },
+  },
+  outputs: {
+    shape: { type: 'Shape' },
+  },
+  params: {
+    majorRadius: {
+      type: 'number',
+      label: 'Major Radius',
+      default: 40,
+      min: 0.001,
+    },
+    minorRadius: {
+      type: 'number',
+      label: 'Minor Radius',
+      default: 15,
+      min: 0.001,
+    },
+  },
+  async evaluate(ctx, inputs, params) {
+    const center = inputs.center || { x: 0, y: 0, z: 0 };
+    const axis = inputs.axis || { x: 0, y: 0, z: 1 };
+
+    const result = await ctx.worker.invoke('MAKE_TORUS', {
+      center,
+      axis,
+      majorRadius: params.majorRadius,
+      minorRadius: params.minorRadius,
+    });
+    return { shape: result };
+  },
+};
+
 export const solidNodes = [
   ExtrudeNode,
   RevolveNode,
@@ -309,4 +404,6 @@ export const solidNodes = [
   BoxNode,
   CylinderNode,
   SphereNode,
+  ConeNode,
+  TorusNode,
 ];

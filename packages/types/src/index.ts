@@ -121,13 +121,42 @@ export interface ParamDefinition {
   options?: string[];
 }
 
+// Constraint system integration
+export interface ConstraintElement {
+  id: string;
+  type: 'point' | 'line' | 'circle' | 'arc';
+  data: any;
+}
+
+export interface ConstraintInfo {
+  elements: ConstraintElement[];
+  activeConstraints: string[];
+}
+
+// Enhanced output types for constraint-aware nodes
+export interface ParametricOutput<T = any> {
+  geometry: T;
+  constraints?: ConstraintInfo;
+}
+
 // Evaluation context
 export interface EvalContext {
   nodeId: NodeId;
   graph: GraphInstance;
   cache: Map<string, any>;
   worker: WorkerAPI;
+  constraintManager?: any; // ConstraintManager from engine-core
   abort?: AbortController;
+}
+
+// Constraint system persistence
+export interface ConstraintSystemState {
+  geometry: Array<[string, any]>;
+  constraints: Array<[string, any]>;
+  variables: Array<[string, number]>;
+  solved: boolean;
+  lastSolveTime: number;
+  iterations: number;
 }
 
 // Graph types
@@ -137,6 +166,7 @@ export interface GraphInstance {
   tolerance: number;
   nodes: NodeInstance[];
   edges: Edge[];
+  constraints?: ConstraintSystemState;
   metadata?: {
     created?: string;
     author?: string;
@@ -201,6 +231,28 @@ export interface ShapeHandle {
   type: 'solid' | 'surface' | 'curve';
   bbox?: BoundingBox;
   hash?: string;
+}
+
+// Assembly handle
+export interface AssemblyHandle {
+  id: HandleId;
+  name: string;
+  parts: ShapeHandle[];
+  mates: MateConstraint[];
+  visible: boolean;
+  hash?: string;
+}
+
+// Assembly constraint types
+export interface MateConstraint {
+  id: string;
+  type: 'coincident' | 'concentric' | 'parallel' | 'perpendicular' | 'tangent' | 'distance' | 'angle';
+  part1: HandleId;
+  part2: HandleId;
+  axis1?: Vec3;
+  axis2?: Vec3;
+  distance?: number;
+  angle?: number;
 }
 
 // Mesh data

@@ -161,4 +161,47 @@ export const DraftNode: NodeDefinition<
   },
 };
 
-export const featureNodes = [FilletNode, ChamferNode, ShellNode, DraftNode];
+export const OffsetNode: NodeDefinition<
+  { shape: ShapeHandle },
+  { shape: ShapeHandle },
+  { distance: number; join?: 'arc' | 'intersection' }
+> = {
+  id: 'Features::Offset',
+  category: 'Features',
+  label: 'Offset',
+  description: 'Create offset shape',
+  inputs: {
+    shape: { type: 'Shape' },
+  },
+  outputs: {
+    shape: { type: 'Shape' },
+  },
+  params: {
+    distance: {
+      type: 'number',
+      label: 'Distance',
+      default: 2,
+      min: -100,
+      max: 100,
+    },
+    join: {
+      type: 'select',
+      label: 'Join Type',
+      default: 'arc',
+      options: [
+        { value: 'arc', label: 'Arc' },
+        { value: 'intersection', label: 'Intersection' },
+      ],
+    },
+  },
+  async evaluate(ctx, inputs, params) {
+    const result = await ctx.worker.invoke('MAKE_OFFSET', {
+      shape: inputs.shape,
+      distance: params.distance,
+      join: params.join,
+    });
+    return { shape: result };
+  },
+};
+
+export const featureNodes = [FilletNode, ChamferNode, ShellNode, DraftNode, OffsetNode];

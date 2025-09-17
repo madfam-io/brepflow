@@ -19,6 +19,8 @@ export type WorkerRequest =
   | MakeFilletRequest
   | MakeChamferRequest
   | MakeShellRequest
+  | MakeDraftRequest
+  | MakeOffsetRequest
   | TransformRequest
   | TessellateRequest
   | ImportSTEPRequest
@@ -197,6 +199,25 @@ export interface MakeShellRequest extends BaseRequest {
     faces?: ShapeHandle[];
     thickness: number;
     inside?: boolean;
+  };
+}
+
+export interface MakeDraftRequest extends BaseRequest {
+  type: 'MAKE_DRAFT';
+  params: {
+    shape: ShapeHandle;
+    neutralPlane?: ShapeHandle;
+    angle: number;
+    pullDirection?: Vec3;
+  };
+}
+
+export interface MakeOffsetRequest extends BaseRequest {
+  type: 'MAKE_OFFSET';
+  params: {
+    shape: ShapeHandle;
+    distance: number;
+    join?: 'arc' | 'intersection';
   };
 }
 

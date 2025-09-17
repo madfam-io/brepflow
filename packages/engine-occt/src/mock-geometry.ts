@@ -323,6 +323,9 @@ export class MockGeometry implements WorkerAPI {
       case 'MAKE_DRAFT':
         // Mock draft - return shape as-is with new ID
         return this.createHandle('solid', params.shape?.bbox) as T;
+      case 'MAKE_OFFSET':
+        // Mock offset - return shape as-is with new ID
+        return this.createHandle('solid', params.shape?.bbox) as T;
       default:
         throw new Error(`Unknown operation: ${operation}`);
     }

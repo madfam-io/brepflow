@@ -187,4 +187,148 @@ export const ArcNode: NodeDefinition<
   },
 };
 
-export const sketchNodes = [LineNode, CircleNode, RectangleNode, ArcNode];
+export const PointNode: NodeDefinition<
+  { position?: Vec3 },
+  { point: ShapeHandle },
+  { x: number; y: number; z: number }
+> = {
+  id: 'Sketch::Point',
+  category: 'Sketch',
+  label: 'Point',
+  description: 'Create a point in 3D space',
+  inputs: {
+    position: { type: 'Vector', optional: true },
+  },
+  outputs: {
+    point: { type: 'Point' },
+  },
+  params: {
+    x: {
+      type: 'number',
+      label: 'X',
+      default: 0,
+    },
+    y: {
+      type: 'number',
+      label: 'Y',
+      default: 0,
+    },
+    z: {
+      type: 'number',
+      label: 'Z',
+      default: 0,
+    },
+  },
+  async evaluate(ctx, inputs, params) {
+    const position = inputs.position || { x: params.x, y: params.y, z: params.z };
+
+    const result = await ctx.worker.invoke('CREATE_POINT', {
+      x: position.x,
+      y: position.y,
+      z: position.z,
+    });
+    return { point: result };
+  },
+};
+
+export const EllipseNode: NodeDefinition<
+  { center?: Vec3; normal?: Vec3 },
+  { curve: ShapeHandle },
+  { center: Vec3; majorRadius: number; minorRadius: number; normal: Vec3 }
+> = {
+  id: 'Sketch::Ellipse',
+  category: 'Sketch',
+  label: 'Ellipse',
+  description: 'Create an ellipse',
+  inputs: {
+    center: { type: 'Vector', optional: true },
+    normal: { type: 'Vector', optional: true },
+  },
+  outputs: {
+    curve: { type: 'Curve' },
+  },
+  params: {
+    center: {
+      type: 'vec3',
+      label: 'Center',
+      default: { x: 0, y: 0, z: 0 },
+    },
+    majorRadius: {
+      type: 'number',
+      label: 'Major Radius',
+      default: 50,
+      min: 0.001,
+    },
+    minorRadius: {
+      type: 'number',
+      label: 'Minor Radius',
+      default: 30,
+      min: 0.001,
+    },
+    normal: {
+      type: 'vec3',
+      label: 'Normal',
+      default: { x: 0, y: 0, z: 1 },
+    },
+  },
+  async evaluate(ctx, inputs, params) {
+    const center = inputs.center || params.center;
+    const normal = inputs.normal || params.normal;
+
+    const result = await ctx.worker.invoke('CREATE_ELLIPSE', {
+      center,
+      majorRadius: params.majorRadius,
+      minorRadius: params.minorRadius,
+      normal,
+    });
+    return { curve: result };
+  },
+};
+
+export const PolygonNode: NodeDefinition<
+  { points?: Vec3[] },
+  { curve: ShapeHandle },
+  { points: Vec3[]; closed: boolean }
+> = {
+  id: 'Sketch::Polygon',
+  category: 'Sketch',
+  label: 'Polygon',
+  description: 'Create a polygon from points',
+  inputs: {
+    points: { type: 'Vector', multiple: true, optional: true },
+  },
+  outputs: {
+    curve: { type: 'Curve' },
+  },
+  params: {
+    points: {
+      type: 'vec3array',
+      label: 'Points',
+      default: [
+        { x: 0, y: 0, z: 0 },
+        { x: 50, y: 0, z: 0 },
+        { x: 25, y: 43.3, z: 0 }, // Triangle by default
+      ],
+    },
+    closed: {
+      type: 'boolean',
+      label: 'Closed',
+      default: true,
+    },
+  },
+  async evaluate(ctx, inputs, params) {
+    const points = inputs.points || params.points;
+
+    if (!points || points.length < 3) {
+      throw new Error('Polygon requires at least 3 points');
+    }
+
+    const result = await ctx.worker.invoke('CREATE_POLYGON', {
+      points,
+      closed: params.closed,
+    });
+    return { curve: result };
+  },
+};
+
+export const sketchNodes = [LineNode, CircleNode, RectangleNode, ArcNode, PointNode, EllipseNode, PolygonNode];
