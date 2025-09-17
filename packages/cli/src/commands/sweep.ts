@@ -3,7 +3,6 @@ import chalk from 'chalk';
 import ora from 'ora';
 import fs from 'fs-extra';
 import path from 'path';
-import { renderCommand } from './render';
 
 export const sweepCommand = new Command('sweep')
   .description('Sweep parameters over a graph to generate variants')
@@ -25,7 +24,7 @@ export const sweepCommand = new Command('sweep')
       }
 
       // Load parameter matrix
-      let parameterSets: any[] = [];
+      let parameterSets: Record<string, unknown>[] = [];
 
       if (options.matrix) {
         // Load from CSV
@@ -63,7 +62,7 @@ export const sweepCommand = new Command('sweep')
 
       const results: Array<{
         index: number;
-        parameters: any;
+        parameters: Record<string, unknown>;
         timestamp: string;
         success: boolean;
         error?: string;
@@ -147,7 +146,7 @@ export const sweepCommand = new Command('sweep')
 /**
  * Parse CSV content to parameter sets
  */
-function parseCSV(content: string): any[] {
+function parseCSV(content: string): Record<string, unknown>[] {
   const lines = content.trim().split('\n');
   if (lines.length < 2) return [];
 
@@ -156,7 +155,7 @@ function parseCSV(content: string): any[] {
 
   for (let i = 1; i < lines.length; i++) {
     const values = lines[i]?.split(',').map(v => v.trim()) || [];
-    const params: any = {};
+    const params: Record<string, unknown> = {};
 
     for (let j = 0; j < Math.min(headers.length, values.length); j++) {
       const header = headers[j];
@@ -177,7 +176,7 @@ function parseCSV(content: string): any[] {
 /**
  * Generate default parameter sweep
  */
-function generateDefaultSweep(): any[] {
+function generateDefaultSweep(): Record<string, unknown>[] {
   return [
     { L: 100, W: 60, H: 40 },
     { L: 120, W: 80, H: 40 },
@@ -193,7 +192,7 @@ async function renderVariant(
   graphPath: string,
   outputDir: string,
   params: string[],
-  options: any
+  options: { export?: string; mock?: boolean }
 ): Promise<void> {
   // Import render logic
   const { GraphManager, DAGEngine } = await import('@brepflow/engine-core');

@@ -74,7 +74,7 @@ export class GeometryValidator {
   /**
    * Validate topology (manifold, watertight, etc.)
    */
-  async validateTopology(shape: ShapeHandle): Promise<{
+  async validateTopology(_shape: ShapeHandle): Promise<{
     isManifold: boolean;
     isWatertight: boolean;
     hasSelfIntersections: boolean;

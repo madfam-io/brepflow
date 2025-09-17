@@ -1,4 +1,4 @@
-import type { NodeDefinition, ShapeHandle, Vec3, AssemblyHandle } from '@brepflow/types';
+import type { NodeDefinition, ShapeHandle, AssemblyHandle } from '@brepflow/types';
 
 export const CoincidentConstraintNode: NodeDefinition<
   { assembly: AssemblyHandle; part1: ShapeHandle; part2: ShapeHandle; element1?: ShapeHandle; element2?: ShapeHandle },

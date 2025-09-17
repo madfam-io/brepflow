@@ -60,11 +60,11 @@ export const ParametricLineNode: NodeDefinition<
         const lineId = `${ctx.nodeId}_line`;
 
         // Register points with constraint manager
-        const startPoint = ctx.constraintManager.createPoint(startPointId, start.x, start.y, false);
-        const endPoint = ctx.constraintManager.createPoint(endPointId, end.x, end.y, false);
+        ctx.constraintManager.createPoint(startPointId, start.x, start.y, false);
+        ctx.constraintManager.createPoint(endPointId, end.x, end.y, false);
         
         // Register line with constraint manager
-        const line = ctx.constraintManager.createLine(lineId, startPointId, endPointId);
+        ctx.constraintManager.createLine(lineId, startPointId, endPointId);
 
         // Create constraint elements for output
         const constraintElements: ConstraintElement[] = [
@@ -166,10 +166,10 @@ export const ParametricCircleNode: NodeDefinition<
         const circleId = `${ctx.nodeId}_circle`;
 
         // Register center point with constraint manager
-        const centerPoint = ctx.constraintManager.createPoint(centerPointId, center.x, center.y, false);
+        ctx.constraintManager.createPoint(centerPointId, center.x, center.y, false);
         
         // Register circle with constraint manager
-        const circle = ctx.constraintManager.createCircle(circleId, centerPointId, params.radius);
+        ctx.constraintManager.createCircle(circleId, centerPointId, params.radius);
 
         // Create constraint elements for output
         const constraintElements: ConstraintElement[] = [
@@ -267,7 +267,7 @@ export const ParametricPointNode: NodeDefinition<
         const pointId = `${ctx.nodeId}_point`;
 
         // Register point with constraint manager
-        const point = ctx.constraintManager.createPoint(pointId, position.x, position.y, params.fixed);
+        ctx.constraintManager.createPoint(pointId, position.x, position.y, params.fixed);
 
         // Create constraint elements for output
         const constraintElements: ConstraintElement[] = [
@@ -390,14 +390,14 @@ export const ConstraintNode: NodeDefinition<
       }
 
       // Add constraint to system
-      const constraintId = ctx.constraintManager.addConstraint(
+      ctx.constraintManager.addConstraint(
         params.constraintType.toUpperCase(),
         elementIds,
         constraintParams,
         params.priority
       );
 
-      console.log(`Applied constraint ${constraintId} of type ${params.constraintType}`);
+      // Applied constraint ${constraintId} of type ${params.constraintType}
       return { result: true };
 
     } catch (error) {
@@ -464,8 +464,8 @@ export const SolverNode: NodeDefinition<
       // Solve constraint system
       const result = await ctx.constraintManager.solve();
 
-      console.log(`Constraint solving: ${result.success ? 'SUCCESS' : 'FAILED'}`);
-      console.log(`Iterations: ${result.iterations}, Residual: ${result.residual}`);
+      // Constraint solving: ${result.success ? 'SUCCESS' : 'FAILED'}
+      // Iterations: ${result.iterations}, Residual: ${result.residual}
 
       return {
         solved: result.success,

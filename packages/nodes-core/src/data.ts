@@ -91,7 +91,7 @@ export const listLengthNode: NodeDefinition = {
     },
   },
   params: {},
-  evaluate: async (ctx, inputs, params) => {
+  evaluate: async (ctx, inputs, _params) => {
     const length = inputs.list ? inputs.list.length : 0;
     return { length };
   },
@@ -423,7 +423,7 @@ export const reverseListNode: NodeDefinition = {
     },
   },
   params: {},
-  evaluate: async (ctx, inputs, params) => {
+  evaluate: async (ctx, inputs, _params) => {
     const reversed = [...inputs.list].reverse();
     return { reversed };
   },
@@ -568,7 +568,7 @@ export const weaveNode: NodeDefinition = {
     },
   },
   params: {},
-  evaluate: async (ctx, inputs, params) => {
+  evaluate: async (ctx, inputs, _params) => {
     const lists = inputs.lists;
     const pattern = inputs.pattern || lists.map((_, i) => i);
 

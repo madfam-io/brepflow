@@ -7,7 +7,7 @@
 
 import { test, expect, Page } from '@playwright/test';
 import fs from 'fs/promises';
-import path from 'path';
+// import path from 'path';
 
 // Test configuration
 const TEST_OUTPUT_DIR = './test-outputs/e2e-abacus';

@@ -1,7 +1,39 @@
-import type { NodeDefinition, ShapeHandle, ExportFormat } from '@brepflow/types';
+import type { NodeDefinition, ShapeHandle } from '@brepflow/types';
+
+export const FileInputNode: NodeDefinition<
+  Record<string, never>,
+  { content: string },
+  { path: string }
+> = {
+  id: 'IO::FileInput',
+  category: 'IO',
+  label: 'File Input',
+  description: 'Read file content',
+  inputs: {},
+  outputs: {
+    content: { type: 'string' },
+  },
+  params: {
+    path: {
+      type: 'string',
+      label: 'File Path',
+      default: '',
+    },
+  },
+  async evaluate(ctx, inputs, params) {
+    if (!params.path) {
+      throw new Error('File path is required');
+    }
+
+    const result = await ctx.worker.invoke('READ_FILE', {
+      path: params.path,
+    });
+    return { content: result };
+  },
+};
 
 export const ImportSTEPNode: NodeDefinition<
-  {},
+  Record<string, never>,
   { shapes: ShapeHandle[] },
   { filepath: string }
 > = {
@@ -9,7 +41,7 @@ export const ImportSTEPNode: NodeDefinition<
   category: 'IO',
   label: 'Import STEP',
   description: 'Import STEP file',
-  inputs: {},
+  inputs: Record<string, never> as Record<string, never>,
   outputs: {
     shapes: { type: 'Shape', multiple: true },
   },

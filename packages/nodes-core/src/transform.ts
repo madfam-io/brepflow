@@ -1,4 +1,4 @@
-import type { NodeDefinition, ShapeHandle, Vec3, Mat4 } from '@brepflow/types';
+import type { NodeDefinition, ShapeHandle, Vec3 } from '@brepflow/types';
 
 export const MoveNode: NodeDefinition<
   { shape: ShapeHandle },

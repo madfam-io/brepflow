@@ -71,7 +71,7 @@ export const renderCommand = new Command('render')
 
       // Export results
       const formats = options.export.split(',') as ExportFormat[];
-      const exportResults: any[] = [];
+      const exportResults: unknown[] = [];
 
       for (const format of formats) {
         spinner.start(`Exporting ${format.toUpperCase()}...`);
@@ -121,7 +121,7 @@ export const renderCommand = new Command('render')
  * Apply parameter overrides to graph
  */
 function applyParameters(graph: GraphInstance, params: string[]): void {
-  const paramMap = new Map<string, any>();
+  const paramMap = new Map<string, unknown>();
 
   // Parse parameters
   for (const param of params) {
@@ -160,8 +160,8 @@ async function exportFormat(
   graph: GraphInstance,
   format: ExportFormat,
   outputDir: string,
-  options: any
-): Promise<any> {
+  options: { mock?: boolean }
+): Promise<{ file: string; format: ExportFormat }> {
   // Find output nodes
   const outputNodes = graph.nodes.filter(n =>
     n.type.includes('Export') ||

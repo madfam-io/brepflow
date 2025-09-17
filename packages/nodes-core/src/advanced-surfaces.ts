@@ -264,7 +264,7 @@ export const TrimSurfaceNode: NodeDefinition<
 export const UntrimSurfaceNode: NodeDefinition<
   { surface: ShapeHandle },
   { surface: ShapeHandle },
-  {}
+  Record<string, never>
 > = {
   id: 'Surface::Untrim',
   category: 'Surface',
@@ -277,7 +277,7 @@ export const UntrimSurfaceNode: NodeDefinition<
     surface: { type: 'Surface' },
   },
   params: {},
-  async evaluate(ctx, inputs, params) {
+  async evaluate(ctx, inputs, _params) {
     const result = await ctx.worker.invoke('UNTRIM_SURFACE', {
       surface: inputs.surface,
     });

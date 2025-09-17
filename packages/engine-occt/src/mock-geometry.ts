@@ -152,7 +152,7 @@ export class MockGeometry implements WorkerAPI {
     return this.createHandle('curve', bbox);
   }
 
-  createCircle(center: Vec3, radius: number, normal: Vec3): ShapeHandle {
+  createCircle(center: Vec3, radius: number, _normal: Vec3): ShapeHandle {
     const bbox: BoundingBox = {
       min: {
         x: center.x - radius,

@@ -261,6 +261,21 @@ Plugins run in a sandboxed worker and cannot access DOM/network without explicit
 
 ---
 
+## Documentation
+
+All project documentation is organized in the `docs/` directory:
+
+- **[Documentation Index](docs/README.md)** - Complete documentation overview
+- **[Architecture](docs/technical/ARCHITECTURE.md)** - System design and technical architecture
+- **[API Reference](docs/technical/API.md)** - Complete API documentation
+- **[Setup Guide](docs/development/SETUP.md)** - Development environment setup
+- **[Contributing](docs/development/CONTRIBUTING.md)** - Contribution guidelines
+- **[Roadmap](docs/product/ROADMAP.md)** - Product roadmap and milestones
+- **[Implementation Guides](docs/implementation/)** - Feature implementation details
+- **[Business Strategy](docs/business/)** - Go-to-market and business planning
+
+---
+
 ## Contributing
 
 We welcome issues, PRs, and node plugins.

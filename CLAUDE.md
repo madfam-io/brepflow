@@ -111,7 +111,7 @@ registerNode({
 
 **Quick Start**: After `pnpm install && pnpm run dev`, visit http://localhost:5173
 
-**Comprehensive Documentation**: See ARCHITECTURE.md, API.md, SETUP.md, CONTRIBUTING.md, ROADMAP.md
+**Comprehensive Documentation**: See docs/technical/ARCHITECTURE.md, docs/api/API.md, docs/development/SETUP.md, docs/development/CONTRIBUTING.md, docs/product/ROADMAP.md
 
 ## Important Notes
 

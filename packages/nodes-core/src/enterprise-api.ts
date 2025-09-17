@@ -1,4 +1,4 @@
-import type { NodeDefinition, ShapeHandle } from '@brepflow/types';
+import type { NodeDefinition } from '@brepflow/types';
 
 export const BatchProcessingNode: NodeDefinition<
   { operations: any[] },

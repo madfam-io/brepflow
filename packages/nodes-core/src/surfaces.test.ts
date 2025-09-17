@@ -231,7 +231,7 @@ describe('Surface Nodes', () => {
 
       mockContext.invoke.mockResolvedValue(expectedResult);
 
-      const result = await offsetSurfaceNode.execute(inputs, params, mockContext);
+      await offsetSurfaceNode.execute(inputs, params, mockContext);
 
       expect(mockContext.invoke).toHaveBeenCalledWith('OFFSET_SURFACE', {
         surface: inputs.surface,
@@ -247,7 +247,7 @@ describe('Surface Nodes', () => {
 
       mockContext.invoke.mockResolvedValue({ type: 'Solid' });
 
-      const result = await offsetSurfaceNode.execute(inputs, params, mockContext);
+      await offsetSurfaceNode.execute(inputs, params, mockContext);
 
       expect(mockContext.invoke).toHaveBeenCalledWith('OFFSET_SURFACE', {
         surface: inputs.surface,

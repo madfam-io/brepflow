@@ -195,4 +195,4 @@ For more information, see:
 - [README.md](README.md) - Project overview
 - [PRD.md](PRD.md) - Product requirements
 - [SOFTWARE_SPEC.md](SOFTWARE_SPEC.md) - Technical specification
-- [ROADMAP.md](ROADMAP.md) - Development timeline
+- [ROADMAP.md](../project/ROADMAP.md) - Development timeline

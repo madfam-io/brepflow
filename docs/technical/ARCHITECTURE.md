@@ -259,6 +259,6 @@ FROM node:20-alpine
 ## 🔗 Related Documentation
 
 - [README.md](README.md) - Project overview and quick start
-- [SETUP.md](SETUP.md) - Development environment setup
-- [API.md](API.md) - API documentation
-- [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
+- [SETUP.md](../development/SETUP.md) - Development environment setup
+- [API.md](../api/API.md) - API documentation
+- [CONTRIBUTING.md](../development/CONTRIBUTING.md) - Contribution guidelines

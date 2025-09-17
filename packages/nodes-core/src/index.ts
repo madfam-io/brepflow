@@ -21,6 +21,10 @@ import { importExportNodes } from './import-export';
 import { meshTopologyNodes } from './mesh-topology';
 import { manufacturingNodes } from './manufacturing';
 import { enterpriseApiNodes } from './enterprise-api';
+import * as advancedFilletNodes from './advanced-fillets';
+import * as sheetMetalNodes from './sheet-metal';
+import { constraintNodes } from './constraints-parametric';
+import { advancedAssemblyNodes } from './assembly-advanced';
 
 // Register all core nodes
 export function registerCoreNodes(): void {
@@ -42,11 +46,15 @@ export function registerCoreNodes(): void {
     ...advancedSurfaceNodes,
     ...patternNodes,
     ...constraints3DNodes,
+    ...constraintNodes,
+    ...advancedAssemblyNodes,
     ...simulationNodes,
     ...importExportNodes,
     ...meshTopologyNodes,
     ...manufacturingNodes,
     ...enterpriseApiNodes,
+    ...Object.values(advancedFilletNodes),
+    ...Object.values(sheetMetalNodes)
   ]);
 }
 
@@ -71,3 +79,5 @@ export * from './import-export';
 export * from './mesh-topology';
 export * from './manufacturing';
 export * from './enterprise-api';
+export * from './constraints-parametric';
+export * from './assembly-advanced';

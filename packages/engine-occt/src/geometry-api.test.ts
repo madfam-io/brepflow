@@ -1,8 +1,5 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { GeometryAPI, getGeometryAPI, createGeometryAPI } from './geometry-api';
-import { WorkerClient } from './worker-client';
-import { MockGeometry } from './mock-geometry';
-import type { ShapeHandle, MeshData } from '@brepflow/types';
 
 // Mock the dependencies
 vi.mock('./worker-client', () => ({

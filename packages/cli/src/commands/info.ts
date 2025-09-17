@@ -85,8 +85,8 @@ function countParameters(graph: GraphInstance): number {
 /**
  * Collect all parameters
  */
-function collectParameters(graph: GraphInstance): Record<string, any[]> {
-  const params: Record<string, any[]> = {};
+function collectParameters(graph: GraphInstance): Record<string, unknown[]> {
+  const params: Record<string, unknown[]> = {};
 
   for (const node of graph.nodes) {
     if (node.params) {
@@ -110,7 +110,15 @@ function collectParameters(graph: GraphInstance): Record<string, any[]> {
 /**
  * Display information in readable format
  */
-function displayInfo(info: any): void {
+function displayInfo(info: {
+  file: string;
+  version: string;
+  units: string;
+  tolerance: number;
+  nodes: number;
+  edges: number;
+  parameters: Record<string, unknown[]>;
+}): void {
   console.log(chalk.blue('\n📊 BrepFlow Graph Information\n'));
 
   // Basic info

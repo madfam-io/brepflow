@@ -49,7 +49,7 @@ export const MeshNode: NodeDefinition<
 };
 
 export const MaterialNode: NodeDefinition<
-  {},
+  Record<string, never>,
   { material: any },
   { name: string; density: number; youngsModulus: number; poissonsRatio: number; yieldStrength: number }
 > = {

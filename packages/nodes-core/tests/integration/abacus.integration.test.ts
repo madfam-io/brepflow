@@ -15,7 +15,7 @@ import { describe, test, expect, beforeAll, afterAll } from 'vitest';
 import { GeometryAPI } from '@brepflow/engine-occt';
 import { NodeRegistry, GraphEvaluator } from '@brepflow/engine-core';
 import { registerCoreNodes } from '../../src/index';
-import type { GraphDefinition, NodeInstance, Vec3 } from '@brepflow/types';
+import type { GraphDefinition, NodeInstance } from '@brepflow/types';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -82,7 +82,7 @@ const ABACUS_CONFIGS: AbacusConfiguration[] = [
 
 describe('Parametric Abacus Integration Tests', () => {
   let geometryAPI: GeometryAPI;
-  let nodeRegistry: NodeRegistry;
+  // let nodeRegistry: NodeRegistry;
   let graphEvaluator: GraphEvaluator;
 
   beforeAll(async () => {
@@ -361,7 +361,7 @@ describe('Parametric Abacus Integration Tests', () => {
       const maxTime = config.params.rodCount * config.params.beadsPerRod * 10; // 10ms per bead
       expect(evaluationTime).toBeLessThan(Math.max(maxTime, 5000)); // At least 5 seconds max
       
-      console.log(`${config.name} abacus (${config.expectedBeadCount} beads): ${evaluationTime.toFixed(2)}ms`);
+      // ${config.name} abacus (${config.expectedBeadCount} beads): ${evaluationTime.toFixed(2)}ms
     });
 
     test('Constraint solver convergence performance', async () => {

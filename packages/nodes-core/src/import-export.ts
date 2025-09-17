@@ -1,7 +1,7 @@
 import type { NodeDefinition, ShapeHandle } from '@brepflow/types';
 
 export const ImportSTEPNode: NodeDefinition<
-  {},
+  Record<string, never>,
   { shapes: ShapeHandle[] },
   { filePath: string; units: string; healGeometry: boolean }
 > = {
@@ -42,7 +42,7 @@ export const ImportSTEPNode: NodeDefinition<
 };
 
 export const ImportIGESNode: NodeDefinition<
-  {},
+  Record<string, never>,
   { shapes: ShapeHandle[] },
   { filePath: string; units: string; healGeometry: boolean }
 > = {
@@ -83,7 +83,7 @@ export const ImportIGESNode: NodeDefinition<
 };
 
 export const ImportSTLNode: NodeDefinition<
-  {},
+  Record<string, never>,
   { mesh: any },
   { filePath: string; units: string }
 > = {

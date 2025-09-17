@@ -226,7 +226,8 @@ export class GraphManager {
 
     // Check for missing connections
     for (const node of this.graph.nodes) {
-      for (const [inputName, socketRef] of Object.entries(node.inputs)) {
+      for (const [key, socketRef] of Object.entries(node.inputs)) {
+        const _inputName = key.split(':')[1];
         if (!socketRef) continue;
 
         const refs = Array.isArray(socketRef) ? socketRef : [socketRef];

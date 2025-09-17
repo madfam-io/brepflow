@@ -288,7 +288,7 @@ describe('Analysis Nodes', () => {
 
       mockContext.invoke.mockResolvedValue(mockBox);
 
-      const result = await boundingBoxNode.execute(inputs, params, mockContext);
+      await boundingBoxNode.execute(inputs, params, mockContext);
 
       expect(mockContext.invoke).toHaveBeenCalledWith('BOUNDING_BOX', {
         geometry: inputs.geometry,
@@ -319,7 +319,7 @@ describe('Analysis Nodes', () => {
 
       mockContext.invoke.mockResolvedValue(mockBox);
 
-      const result = await boundingBoxNode.execute(inputs, params, mockContext);
+      await boundingBoxNode.execute(inputs, params, mockContext);
 
       expect(mockContext.invoke).toHaveBeenCalledWith('BOUNDING_BOX', {
         geometry: inputs.geometry,
