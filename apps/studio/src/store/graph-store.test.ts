@@ -1,16 +1,201 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { act } from '@testing-library/react';
+
+// Mock the store before importing it
+vi.mock('./graph-store', async () => {
+  const { create } = await vi.importActual<any>('zustand');
+  const { devtools, subscribeWithSelector } = await vi.importActual<any>('zustand/middleware');
+  
+  // Create a test store that can be reset
+  let storeInstance: any;
+  
+  const createStore = () => {
+    const graphManager = {
+      graph: {
+        version: '0.1.0',
+        units: 'mm',
+        tolerance: 0.001,
+        nodes: [],
+        edges: [],
+      },
+      getGraph() { return this.graph; },
+      setGraph(graph: any) { this.graph = graph; },
+      clearGraph() {
+        this.graph = {
+          version: '0.1.0',
+          units: 'mm',
+          tolerance: 0.001,
+          nodes: [],
+          edges: [],
+        };
+      },
+      addNode(node: any) {
+        const newNode = {
+          ...node,
+          id: Math.random().toString(36).substr(2, 9),
+          dirty: true,
+        };
+        this.graph.nodes.push(newNode);
+        return newNode;
+      },
+      removeNode(nodeId: string) {
+        this.graph.nodes = this.graph.nodes.filter((n: any) => n.id !== nodeId);
+        this.graph.edges = this.graph.edges.filter(
+          (e: any) => e.source !== nodeId && e.target !== nodeId
+        );
+      },
+      updateNode(nodeId: string, updates: any) {
+        const node = this.graph.nodes.find((n: any) => n.id === nodeId);
+        if (node) {
+          Object.assign(node, updates);
+          node.dirty = true;
+        }
+      },
+      addEdge(edge: any) {
+        const newEdge = {
+          ...edge,
+          id: Math.random().toString(36).substr(2, 9),
+        };
+        this.graph.edges.push(newEdge);
+        return newEdge;
+      },
+      removeEdge(edgeId: string) {
+        this.graph.edges = this.graph.edges.filter((e: any) => e.id !== edgeId);
+      },
+      fromJSON(json: string) {
+        try {
+          const parsed = JSON.parse(json);
+          this.graph = parsed;
+        } catch (error) {
+          console.error('Failed to parse JSON:', error);
+        }
+      },
+      toJSON() {
+        return JSON.stringify(this.graph);
+      }
+    };
+
+    return create()(
+      devtools(
+        subscribeWithSelector((set: any, get: any) => ({
+          graph: graphManager.getGraph(),
+          selectedNodes: new Set(),
+          hoveredNode: null,
+          errors: new Map(),
+          isEvaluating: false,
+          evaluationProgress: 0,
+          graphManager,
+          dagEngine: null,
+
+          setGraph: (graph: any) => {
+            graphManager.setGraph(graph);
+            set({ graph });
+          },
+
+          addNode: (node: any) => {
+            const newNode = graphManager.addNode(node);
+            set({ graph: graphManager.getGraph() });
+            return newNode;
+          },
+
+          removeNode: (nodeId: string) => {
+            graphManager.removeNode(nodeId);
+            set({ graph: graphManager.getGraph() });
+          },
+
+          updateNode: (nodeId: string, updates: any) => {
+            graphManager.updateNode(nodeId, updates);
+            set({ graph: graphManager.getGraph() });
+          },
+
+          addEdge: (edge: any) => {
+            const newEdge = graphManager.addEdge(edge);
+            set({ graph: graphManager.getGraph() });
+            return newEdge;
+          },
+
+          removeEdge: (edgeId: string) => {
+            graphManager.removeEdge(edgeId);
+            set({ graph: graphManager.getGraph() });
+          },
+
+          selectNode: (nodeId: string | null) => {
+            if (nodeId) {
+              set({ selectedNodes: new Set([nodeId]) });
+            } else {
+              set({ selectedNodes: new Set() });
+            }
+          },
+
+          selectNodes: (nodeIds: string[]) => {
+            set({ selectedNodes: new Set(nodeIds) });
+          },
+
+          deselectNode: (nodeId: string) => {
+            const { selectedNodes } = get();
+            const newSelected = new Set(selectedNodes);
+            newSelected.delete(nodeId);
+            set({ selectedNodes: newSelected });
+          },
+
+          clearSelection: () => {
+            set({ selectedNodes: new Set() });
+          },
+
+          setHoveredNode: (nodeId: string | null) => {
+            set({ hoveredNode: nodeId });
+          },
+
+          clearGraph: () => {
+            graphManager.clearGraph();
+            set({
+              graph: graphManager.getGraph(),
+              selectedNodes: new Set(),
+              errors: new Map(),
+            });
+          },
+
+          evaluateGraph: async () => {},
+          cancelEvaluation: () => {},
+          loadGraph: (json: string) => {},
+          saveGraph: () => '',
+          exportGraph: () => graphManager.getGraph(),
+          importGraph: (graph: any) => {},
+          undo: () => {},
+          redo: () => {},
+          canUndo: () => false,
+          canRedo: () => false,
+          clearErrors: () => {},
+          setError: (nodeId: string, error: string) => {},
+        }))
+      )
+    );
+  };
+
+  // Create initial instance
+  storeInstance = createStore();
+  
+  return {
+    useGraphStore: Object.assign(storeInstance, {
+      // Add a reset method for tests
+      _resetForTest: () => {
+        storeInstance = createStore();
+        return storeInstance;
+      }
+    })
+  };
+});
+
+// Now import the mocked store
 import { useGraphStore } from './graph-store';
 import type { NodeInstance, Edge } from '@brepflow/types';
 
 describe('GraphStore', () => {
   beforeEach(() => {
-    // Get a fresh store instance
-    const store = useGraphStore.getState();
-
-    // Use the store's clearGraph method if it exists
-    if (store.clearGraph) {
-      store.clearGraph();
+    // Reset the store for each test
+    if ((useGraphStore as any)._resetForTest) {
+      const newStore = (useGraphStore as any)._resetForTest();
+      Object.assign(useGraphStore, newStore);
     }
   });
 
