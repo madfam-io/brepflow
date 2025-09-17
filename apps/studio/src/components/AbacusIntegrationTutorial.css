@@ -1,0 +1,276 @@
+/* Abacus Integration Tutorial Styles */
+
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.tutorial-panel {
+  background: linear-gradient(145deg, #1a1b23, #252730);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.tutorial-header {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 20px 24px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tutorial-header h2 {
+  margin: 0;
+  font-size: 1.4em;
+  font-weight: 600;
+  flex: 1;
+}
+
+.tutorial-progress {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: 500;
+  margin: 0 15px;
+}
+
+.tutorial-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.tutorial-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.tutorial-content {
+  padding: 24px;
+  color: #e1e5e9;
+  line-height: 1.6;
+}
+
+.tutorial-content p {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+}
+
+.tutorial-action {
+  background: rgba(103, 126, 234, 0.1);
+  border: 1px solid rgba(103, 126, 234, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 16px 0;
+  color: #a5b4fc;
+}
+
+.tutorial-action strong {
+  color: #c7d2fe;
+}
+
+.tutorial-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tutorial-controls button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 80px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(103, 126, 234, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e1e5e9;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tutorial-progress-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.tutorial-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.tutorial-hint {
+  padding: 16px 24px;
+  background: rgba(34, 197, 94, 0.1);
+  border-top: 1px solid rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  font-size: 14px;
+  text-align: center;
+}
+
+.tutorial-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+/* Highlight effect for target elements */
+.tutorial-highlight {
+  position: relative;
+  z-index: 9999;
+  box-shadow: 0 0 0 4px rgba(103, 126, 234, 0.5),
+              0 0 0 8px rgba(103, 126, 234, 0.2);
+  border-radius: 8px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(103, 126, 234, 0.5),
+                0 0 0 8px rgba(103, 126, 234, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(103, 126, 234, 0.7),
+                0 0 0 12px rgba(103, 126, 234, 0.1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .tutorial-panel {
+    width: 95%;
+    margin: 20px;
+  }
+
+  .tutorial-header {
+    padding: 16px 20px;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .tutorial-header h2 {
+    font-size: 1.2em;
+  }
+
+  .tutorial-content {
+    padding: 20px;
+  }
+
+  .tutorial-controls {
+    padding: 16px 20px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tutorial-controls button {
+    width: 100%;
+  }
+
+  .tutorial-progress-bar {
+    order: -1;
+    margin-bottom: 8px;
+  }
+}
+
+/* Dark theme integration */
+.dark .tutorial-panel {
+  background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .tutorial-content {
+  color: #d1d5db;
+}
+
+.dark .tutorial-action {
+  background: rgba(103, 126, 234, 0.08);
+  border-color: rgba(103, 126, 234, 0.2);
+  color: #9ca3af;
+}
+
+/* Animation for step transitions */
+.tutorial-content {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

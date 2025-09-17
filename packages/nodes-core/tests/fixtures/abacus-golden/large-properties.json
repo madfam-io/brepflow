@@ -1,0 +1,20 @@
+{
+  "volume": 48562.7,
+  "surfaceArea": 67238.9,
+  "centerOfMass": {
+    "x": 0.0,
+    "y": 210.0,
+    "z": 0.0
+  },
+  "boundingBox": {
+    "min": { "x": -242.5, "y": 0.0, "z": -12.5 },
+    "max": { "x": 242.5, "y": 420.0, "z": 12.5 }
+  },
+  "momentOfInertia": {
+    "Ixx": 485627.4,
+    "Iyy": 1456882.2,
+    "Izz": 1942509.6
+  },
+  "generated": "2025-01-16T10:30:00.000Z",
+  "configuration": "large"
+}

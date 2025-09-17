@@ -68,7 +68,7 @@ export function Community() {
             </span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Be part of a growing community that's reimagining parametric CAD for the web era
+            Be part of a growing community that&apos;s reimagining parametric CAD for the web era
           </p>
         </motion.div>
 

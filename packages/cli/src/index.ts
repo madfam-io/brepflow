@@ -1,10 +1,6 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import chalk from 'chalk';
-import ora from 'ora';
-import fs from 'fs-extra';
-import path from 'path';
 import { renderCommand } from './commands/render';
 import { sweepCommand } from './commands/sweep';
 import { validateCommand } from './commands/validate';

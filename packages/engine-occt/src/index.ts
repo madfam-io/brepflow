@@ -2,7 +2,7 @@ export * from './worker-client';
 export * from './worker-types';
 export * from './geometry-api';
 export * from './real-occt-bindings';
-export * from './occt-worker';
+// Note: occt-worker.ts is not exported here - it's loaded as a Web Worker
 export * from './production-worker';
 export * from './production-api';
 export * from './production-logger';

@@ -10,8 +10,14 @@ import type { WorkerRequest, WorkerResponse } from './worker-types';
 let occt: RealOCCT | null = null;
 let isInitialized = false;
 
-// Load OCCT WASM module
-importScripts('/wasm/occt-core.js');
+// Load OCCT WASM module - only in worker context
+if (typeof importScripts !== 'undefined') {
+  try {
+    importScripts('/wasm/occt-core.js');
+  } catch (error) {
+    console.warn('[OCCTWorker] WASM not available:', error);
+  }
+}
 
 // Handle worker messages
 self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {

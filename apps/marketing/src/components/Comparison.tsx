@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Check, X, Minus } from 'lucide-react';
 
@@ -154,7 +154,7 @@ export function Comparison() {
                     {comp.name}
                   </div>
                   {comp.highlight && (
-                    <div className="text-xs text-purple-400 mt-1">✨ That's us!</div>
+                    <div className="text-xs text-purple-400 mt-1">✨ That&apos;s us!</div>
                   )}
                 </motion.div>
               ))}

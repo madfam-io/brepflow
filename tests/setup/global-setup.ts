@@ -16,8 +16,8 @@ async function globalSetup(config: FullConfig) {
     console.log('📱 Pre-warming BrepFlow Studio application...');
     await page.goto('http://localhost:5173');
 
-    // Wait for the app to be ready (adjust selector based on actual app structure)
-    await page.waitForSelector('[data-testid="app-ready"], .app-container', {
+    // Wait for the app to be ready - use actual BrepFlow Studio selectors
+    await page.waitForSelector('h1:has-text("Welcome to BrepFlow Studio!"), h2:has-text("What\'s your experience"), #root:not(:empty)', {
       timeout: 30000
     });
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Hero } from './components/Hero';
 import { Features } from './components/Features';
 import { LiveDemo } from './components/LiveDemo';
