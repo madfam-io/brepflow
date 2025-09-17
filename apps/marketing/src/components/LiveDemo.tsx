@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, RotateCw, Maximize2, X } from 'lucide-react';
 import { GlowButton } from './ui/GlowButton';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Github, MessageCircle, Users, BookOpen, Star, GitFork } from 'lucide-react';
@@ -145,8 +144,11 @@ export function Community() {
                 placeholder="Enter your email"
                 className="flex-1 px-6 py-3 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               />
-              <GlowButton type="submit" variant="primary">
-                Subscribe
+              <GlowButton
+                href="mailto:hello@brepflow.com"
+                variant="primary"
+              >
+                Contact Us
               </GlowButton>
             </form>
             

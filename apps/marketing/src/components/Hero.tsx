@@ -1,5 +1,3 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Environment } from '@react-three/drei';
 import { NodeFlowVisualization } from './three/NodeFlowVisualization';
@@ -12,13 +10,8 @@ interface HeroProps {
 }
 
 export function Hero({ onDemoClick }: HeroProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 300], [0, 100]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
   return (
-    <section ref={containerRef} className="relative min-h-screen overflow-hidden">
+    <section className="relative min-h-screen overflow-hidden">
       {/* Background gradient mesh */}
       <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
       
@@ -36,29 +29,16 @@ export function Hero({ onDemoClick }: HeroProps) {
       </div>
 
       {/* Content */}
-      <motion.div
-        style={{ y, opacity }}
-        className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-center"
-      >
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 text-center">
         {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-6"
-        >
+        <div className="mb-6">
           <span className="px-4 py-2 text-sm font-medium text-accent-400 bg-accent-900/20 border border-accent-800/30 rounded-full backdrop-blur-sm">
             ✨ The Future of CAD is Here
           </span>
-        </motion.div>
+        </div>
 
         {/* Main heading with gradient */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-6 text-6xl md:text-7xl lg:text-8xl font-bold"
-        >
+        <h1 className="mb-6 text-6xl md:text-7xl lg:text-8xl font-bold">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
             Parametric CAD
           </span>
@@ -67,27 +47,17 @@ export function Hero({ onDemoClick }: HeroProps) {
             words={['in Your Browser', 'Without Installation', 'Collaborative', 'Open Source']}
             className="text-white"
           />
-        </motion.h1>
+        </h1>
 
         {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-3xl mb-12 text-xl md:text-2xl text-gray-300"
-        >
+        <p className="max-w-3xl mb-12 text-xl md:text-2xl text-gray-300">
           BrepFlow brings <span className="text-accent-400 font-semibold">Grasshopper-style</span> visual programming 
           with <span className="text-accent-400 font-semibold">manufacturing-grade geometry</span> to the web. 
           No plugins. No installations. Just powerful CAD in your browser.
-        </motion.p>
+        </p>
 
         {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row gap-4 mb-12"
-        >
+        <div className="flex flex-col sm:flex-row gap-4 mb-12">
           <GlowButton
             onClick={onDemoClick}
             size="large"
@@ -114,15 +84,10 @@ export function Hero({ onDemoClick }: HeroProps) {
               View on GitHub
             </span>
           </GlowButton>
-        </motion.div>
+        </div>
 
         {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="grid grid-cols-3 gap-8 md:gap-16"
-        >
+        <div className="grid grid-cols-3 gap-8 md:gap-16">
           <div className="text-center">
             <div className="text-3xl md:text-4xl font-bold text-white">78+</div>
             <div className="text-sm text-gray-400">Geometry Nodes</div>
@@ -135,28 +100,15 @@ export function Hero({ onDemoClick }: HeroProps) {
             <div className="text-3xl md:text-4xl font-bold text-white">0</div>
             <div className="text-sm text-gray-400">Installation Steps</div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center"
-          >
-            <motion.div
-              animate={{ y: [2, 8, 2] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2"
-            />
-          </motion.div>
-        </motion.div>
-      </motion.div>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+          <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+            <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mt-2 animate-bounce" />
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

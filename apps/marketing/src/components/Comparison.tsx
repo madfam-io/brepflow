@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Check, X, Minus } from 'lucide-react';
@@ -88,7 +88,7 @@ export function Comparison() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
 
-  const renderFeatureValue = (value: any, featureKey: string, isHighlight: boolean) => {
+  const renderFeatureValue = (value: any, isHighlight: boolean) => {
     if (typeof value === 'boolean') {
       return value ? (
         <Check className={`w-5 h-5 ${isHighlight ? 'text-green-400' : 'text-green-500'}`} />
@@ -177,14 +177,17 @@ export function Comparison() {
                 {competitors.map((comp) => (
                   <div
                     key={`${comp.name}-${key}`}
-                    className={`text-center ${
-                      comp.highlight ? 'text-white' : 'text-gray-500'
+                    className={`p-4 text-center transition-colors ${
+                      comp.features[key as keyof typeof comp.features] !== undefined 
+                        ? comp.features[key as keyof typeof comp.features]
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-red-100 text-red-800'
+                        : 'bg-gray-100 text-gray-600'
                     }`}
                   >
                     {renderFeatureValue(
                       comp.features[key as keyof typeof comp.features],
-                      key,
-                      comp.highlight
+                      comp.highlight ?? false
                     )}
                   </div>
                 ))}

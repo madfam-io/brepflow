@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { BentoGrid } from './ui/BentoGrid';
@@ -109,7 +108,16 @@ export function Features() {
                 ${feature.size === 'small' ? 'col-span-1 row-span-1' : ''}
               `}
             >
-              <FeatureCard {...feature} />
+              <FeatureCard
+                id={feature.id}
+                key={feature.id}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+                gradient={feature.gradient}
+                size={feature.size as "small" | "medium" | "large"}
+                demo={feature.demo}
+              />
             </motion.div>
           ))}
         </BentoGrid>
