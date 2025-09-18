@@ -8,6 +8,7 @@ import type {
 import { NodeRegistry } from './node-registry';
 import { ComputeCache } from './cache';
 import { hashNode } from './hash';
+import { GeometryProxy } from '@brepflow/engine-occt';
 
 export interface DAGEngineOptions {
   worker: WorkerAPI;
@@ -96,13 +97,17 @@ export class DAGEngine {
       if (!outputs) {
         // Create evaluation context
         const abortController = new AbortController();
-        const context: EvalContext = {
+        // Create base context
+        const baseContext: EvalContext = {
           nodeId,
           graph,
           cache: this.cache as unknown as Map<string, any>,
           worker: this.worker,
           abort: abortController,
         };
+
+        // Enhance context with geometry proxy for node compatibility
+        const context = this.createEnhancedContext(baseContext);
 
         this.abortControllers.set(nodeId, abortController);
 
@@ -128,6 +133,18 @@ export class DAGEngine {
     } finally {
       this.evaluating.delete(nodeId);
     }
+  }
+
+  /**
+   * Create enhanced context with geometry adapter
+   * This bridges the gap between context.worker and context.geometry
+   */
+  private createEnhancedContext(baseContext: EvalContext): any {
+    const geometry = new GeometryProxy(baseContext.worker);
+    return {
+      ...baseContext,
+      geometry // Add geometry proxy that nodes expect
+    };
   }
 
   /**

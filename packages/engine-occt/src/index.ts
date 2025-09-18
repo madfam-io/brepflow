@@ -8,6 +8,8 @@ export * from './production-api';
 export * from './production-logger';
 export * from './geometry-validator';
 export * from './mock-geometry'; // Keep for tests
+export * from './node-adapter'; // OCCT node adapter for real geometry
+export * from './occt-operation-router'; // Operation routing for OCCT
 
 // Re-export WorkerAPI type from types package
 export type { WorkerAPI } from '@brepflow/types';
