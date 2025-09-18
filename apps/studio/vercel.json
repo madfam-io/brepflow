@@ -1,7 +1,8 @@
 {
-  "buildCommand": "cd ../.. && pnpm install && pnpm --filter @brepflow/studio... run build",
+  "buildCommand": "cd ../.. && pnpm install --frozen-lockfile && pnpm --filter @brepflow/studio... run build",
   "outputDirectory": "dist",
   "framework": null,
+  "installCommand": "pnpm install --frozen-lockfile",
   "headers": [
     {
       "source": "/(.*)",
