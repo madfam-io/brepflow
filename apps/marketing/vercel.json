@@ -1,6 +1,6 @@
 {
-  "buildCommand": "cd ../.. && pnpm --filter @brepflow/marketing run build",
   "installCommand": "cd ../.. && pnpm install",
+  "buildCommand": "pnpm run build",
   "outputDirectory": "dist",
-  "framework": null
+  "framework": "vite"
 }
