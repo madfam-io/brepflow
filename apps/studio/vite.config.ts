@@ -24,6 +24,7 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, './src'),
       'xxhash-wasm': resolve(__dirname, './src/polyfills/xxhash-mock.ts'),
+      'uuid': resolve(__dirname, './src/polyfills/uuid-mock.ts'),
     },
   },
   optimizeDeps: {
@@ -34,7 +35,7 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
-      external: ['xxhash-wasm', 'path', 'url', 'fs', 'crypto'],
+      external: ['xxhash-wasm', 'path', 'url', 'fs', 'crypto', 'uuid'],
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
