@@ -1,8 +1,7 @@
 {
-  "root": "apps/studio",
-  "buildCommand": "cd ../.. && pnpm --filter @brepflow/studio... run build",
-  "installCommand": "cd ../.. && pnpm install",
-  "outputDirectory": "dist",
+  "buildCommand": "pnpm --filter @brepflow/studio... run build",
+  "installCommand": "pnpm install",
+  "outputDirectory": "apps/studio/dist",
   "framework": null,
   "headers": [
     {
