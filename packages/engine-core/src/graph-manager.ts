@@ -5,6 +5,7 @@ import type {
   NodeId,
   SocketRef,
 } from '@brepflow/types';
+import { createNodeId, createEdgeId } from '@brepflow/types';
 import { v4 as uuidv4 } from 'uuid';
 
 export class GraphManager {
@@ -52,7 +53,7 @@ export class GraphManager {
   addNode(node: Omit<NodeInstance, 'id'>): NodeInstance {
     const newNode: NodeInstance = {
       ...node,
-      id: uuidv4(),
+      id: createNodeId(uuidv4()),
       dirty: true,
     };
 
@@ -110,7 +111,7 @@ export class GraphManager {
   addEdge(edge: Omit<Edge, 'id'>): Edge {
     const newEdge: Edge = {
       ...edge,
-      id: uuidv4(),
+      id: createEdgeId(uuidv4()),
     };
 
     this.graph.edges.push(newEdge);

@@ -6,6 +6,7 @@ import { createLibraryConfig } from '../../config/tsup.base.config';
  */
 export default createLibraryConfig({
   entry: ['src/index.ts'],
+  dts: false, // TODO: Re-enable after fixing branded type issues
   // Engine-specific externals
   external: [
     'react',

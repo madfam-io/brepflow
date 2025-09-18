@@ -11,7 +11,7 @@ export default defineConfig([
     ...createLibraryConfig({
       entry: ['src/index.ts'],
       format: ['esm'], // ESM only for import.meta
-      dts: true, // Re-enable DTS with proper configuration
+      dts: false, // TODO: Re-enable after fixing branded type issues
     }),
   },
   {
