@@ -1,7 +1,7 @@
 {
   "buildCommand": "pnpm --filter @brepflow/studio^... run build && pnpm --filter @brepflow/studio run build",
   "installCommand": "pnpm install",
-  "outputDirectory": "dist",
+  "outputDirectory": "apps/studio/dist",
   "rewrites": [
     {
       "source": "/(.*)",
