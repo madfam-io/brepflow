@@ -1,5 +1,6 @@
 {
-  "buildCommand": "cd ../.. && pnpm install --frozen-lockfile && cd apps/marketing && pnpm run build",
+  "buildCommand": "cd ../.. && pnpm install --frozen-lockfile && cd apps/marketing && NODE_ENV=production pnpm run build",
   "outputDirectory": "dist",
-  "installCommand": "pnpm install --frozen-lockfile"
+  "installCommand": "pnpm install --frozen-lockfile",
+  "framework": "vite"
 }
