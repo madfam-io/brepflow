@@ -46,7 +46,7 @@ export default defineConfig({
     sourcemap: true,
     chunkSizeWarningLimit: 600, // Increase warning limit for necessary large chunks
     rollupOptions: {
-      external: ['path', 'url', 'fs', 'crypto', 'uuid', 'xxhash-wasm'], // Externalize Node.js modules for build
+      // Don't externalize - these are polyfilled/mocked
       output: {
         manualChunks: (id) => {
           // Core React dependencies
