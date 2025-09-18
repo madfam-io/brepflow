@@ -24,6 +24,8 @@ const nodeTypes = {
 };
 
 import { NodePanel } from './components/NodePanel';
+import { EnhancedNodePalette } from './components/node-palette/EnhancedNodePalette';
+import './components/node-palette/EnhancedNodePalette.css';
 import { Viewport } from './components/Viewport';
 import { Inspector } from './components/Inspector';
 import { Toolbar } from './components/Toolbar';
@@ -289,7 +291,15 @@ function AppContent() {
           ),
           nodePanel: (
             <ErrorBoundary>
-              <NodePanel />
+              <EnhancedNodePalette
+                onNodeDragStart={(event, nodeType) => {
+                  event.dataTransfer.setData('application/reactflow', nodeType);
+                  event.dataTransfer.effectAllowed = 'move';
+                }}
+                enableAdvancedSearch={true}
+                enableCategoryTree={true}
+                defaultViewMode="list"
+              />
             </ErrorBoundary>
           ),
           nodeEditor: (

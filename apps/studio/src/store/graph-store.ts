@@ -14,7 +14,8 @@ import {
   ComputeCache,
 } from '@brepflow/engine-core';
 import { getGeometryAPI } from '../services/geometry-api';
-import { registerCoreNodes } from '@brepflow/nodes-core';
+// Temporarily commented out due to build issues
+// import { registerCoreNodes } from '@brepflow/nodes-core';
 import { ErrorManager } from '../lib/error-handling/error-manager';
 import { ErrorCode } from '../lib/error-handling/types';
 import { MetricsCollector } from '../lib/monitoring/metrics-collector';
@@ -28,7 +29,8 @@ import {
 } from '../lib/undo-redo';
 
 // Register core nodes on initialization
-registerCoreNodes();
+// Temporarily commented out due to build issues
+// registerCoreNodes();
 
 interface GraphState {
   // Graph data

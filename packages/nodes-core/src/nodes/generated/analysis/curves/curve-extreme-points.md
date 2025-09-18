@@ -1,5 +1,5 @@
 
-# CurveExtremePoints Node
+# CurveExtremePo}ints Node
 
 **Category:** Analysis / Curves
 

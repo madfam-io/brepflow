@@ -1,5 +1,6 @@
 
 import { NodeDefinition } from '@brepflow/types';
+import { NumberParam, BooleanParam, StringParam, EnumParam, Vector3Param } from '../params';
 
 interface Params {
   axis: string;
@@ -27,7 +28,7 @@ export const CurveExtremePointsNode: NodeDefinition<CurveExtremePointsInputs, Cu
   },
 
   params: {
-        axis: {
+        axis: EnumParam({
       "default": "all",
       "options": [
         "X",
@@ -35,10 +36,10 @@ export const CurveExtremePointsNode: NodeDefinition<CurveExtremePointsInputs, Cu
         "Z",
         "all"
       ]
-    },
-    markPoints: {
+    }),
+    markPoints: BooleanParam({
       "default": true
-    }
+    })
   },
 
   inputs: {

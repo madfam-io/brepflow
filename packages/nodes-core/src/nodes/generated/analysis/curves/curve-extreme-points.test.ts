@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveExtremePointsNode } from './curveextremepoints-node';
+import { CurveExtremePointsNode } from './curve-extreme-points.node';
 import { createTestContext } from '../test-utils';
 
 describe('CurveExtremePointsNode', () => {
