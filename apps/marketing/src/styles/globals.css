@@ -15,11 +15,11 @@
   }
 
   * {
-    @apply border-border;
+    border-color: theme('colors.gray.800');
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-white;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
