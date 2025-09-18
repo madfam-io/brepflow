@@ -2,8 +2,8 @@
  * Node configuration management for export/import and templates
  */
 
-import type { NodeInstance } from '@brepflow/types';
-import { NodeId } from '@brepflow/types';
+import type { NodeInstance, NodeId } from '@brepflow/types';
+import { createNodeId } from '@brepflow/types';
 
 export interface NodeConfiguration {
   id: string;
@@ -509,7 +509,7 @@ export class NodeConfigurationManager {
   }
 
   private generateNodeId(): NodeId {
-    return NodeId(`node_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+    return createNodeId(`node_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   }
 
   private inferCategory(nodeType: string): string {

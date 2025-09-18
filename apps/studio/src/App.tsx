@@ -34,7 +34,8 @@ import { useGraphStore } from './store/graph-store';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useErrorTracking } from './hooks/useErrorTracking';
 import { convertToReactFlow, convertFromReactFlow } from './utils/graph-converter';
-import { NodeId, SocketId } from '@brepflow/types';
+import type { NodeId, SocketId } from '@brepflow/types';
+import { createNodeId, createSocketId } from '@brepflow/types';
 import { ErrorBoundary, WASMErrorBoundary, GeometryErrorBoundary } from './lib/error-handling/error-boundary';
 import { MonitoringDashboard } from './components/monitoring/MonitoringDashboard';
 import { useMonitoring, useHealthMonitoring } from './hooks/useMonitoring';
@@ -132,10 +133,10 @@ function AppContent() {
       console.log('🔗 Connection attempt:', params);
       if (params.source && params.target) {
         addGraphEdge({
-          source: NodeId(params.source),
-          sourceHandle: SocketId(params.sourceHandle || 'output'),
-          target: NodeId(params.target),
-          targetHandle: SocketId(params.targetHandle || 'input'),
+          source: createNodeId(params.source),
+          sourceHandle: createSocketId(params.sourceHandle || 'output'),
+          target: createNodeId(params.target),
+          targetHandle: createSocketId(params.targetHandle || 'input'),
         });
         console.log('✅ Edge added between', params.source, 'and', params.target);
       }
@@ -144,7 +145,7 @@ function AppContent() {
   );
 
   const onNodeClick = useCallback((_: React.MouseEvent, node: RFNode) => {
-    selectNode(NodeId(node.id));
+    selectNode(createNodeId(node.id));
     recordUserInteraction({
       type: 'node_click',
       target: node.type,
@@ -153,7 +154,7 @@ function AppContent() {
   }, [selectNode, recordUserInteraction]);
 
   const onNodesDelete = useCallback((nodes: RFNode[]) => {
-    nodes.forEach(node => removeNode(NodeId(node.id)));
+    nodes.forEach(node => removeNode(createNodeId(node.id)));
   }, [removeNode]);
 
   const onEdgesDelete = useCallback((edges: RFEdge[]) => {

@@ -21,7 +21,7 @@ import { getGeometryAPI } from '../services/geometry-api';
 import { v4 as uuidv4 } from 'uuid';
 import { getConfig } from '@brepflow/engine-core';
 import type { GraphInstance, NodeId } from '@brepflow/types';
-import { NodeId as createNodeId } from '@brepflow/types';
+import { createNodeId } from '@brepflow/types';
 
 // Lazy logger initialization to avoid constructor issues during module loading
 let logger: any = null;

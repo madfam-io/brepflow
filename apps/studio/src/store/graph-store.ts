@@ -6,7 +6,7 @@ import type {
   Edge,
   NodeId,
 } from '@brepflow/types';
-import { NodeId as createNodeId } from '@brepflow/types';
+import { createNodeId } from '@brepflow/types';
 import {
   GraphManager,
   DAGEngine,

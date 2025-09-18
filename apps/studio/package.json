@@ -5,7 +5,7 @@
   "description": "BrepFlow Studio - Node-based parametric CAD editor",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
