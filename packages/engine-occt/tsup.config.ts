@@ -1,4 +1,4 @@
-import { createWorkerConfig, createLibraryConfig } from '../../build/tsup.base.config';
+import { createWorkerConfig, createLibraryConfig } from '../../config/tsup.base.config';
 import { defineConfig } from 'tsup';
 
 /**

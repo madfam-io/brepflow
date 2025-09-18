@@ -1,4 +1,4 @@
-import { createLibraryConfig } from '../../build/tsup.base.config';
+import { createLibraryConfig } from '../../config/tsup.base.config';
 
 /**
  * Types package build configuration
