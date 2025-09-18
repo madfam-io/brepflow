@@ -1,6 +1,6 @@
 {
   "installCommand": "cd ../.. && pnpm install",
-  "buildCommand": "pnpm run build",
-  "outputDirectory": "dist",
-  "framework": "vite"
+  "buildCommand": "cd apps/marketing && pnpm run build",
+  "outputDirectory": "apps/marketing/dist",
+  "framework": null
 }
