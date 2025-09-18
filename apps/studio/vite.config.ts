@@ -26,17 +26,19 @@ export default defineConfig({
       'xxhash-wasm': resolve(__dirname, './src/polyfills/xxhash-mock.ts'),
       'uuid': resolve(__dirname, './src/polyfills/uuid-mock.ts'),
       'path': resolve(__dirname, './src/polyfills/path-mock.ts'),
+      'url': resolve(__dirname, './src/polyfills/url-mock.ts'),
+      'fs': resolve(__dirname, './src/polyfills/fs-mock.ts'),
+      'crypto': resolve(__dirname, './src/polyfills/crypto-mock.ts'),
     },
   },
   optimizeDeps: {
-    exclude: ['@brepflow/engine-occt', 'xxhash-wasm', 'uuid', 'path'], // Exclude WASM modules and Node.js deps from optimization
+    exclude: ['@brepflow/engine-occt', 'xxhash-wasm', 'uuid', 'path', 'url', 'fs', 'crypto'], // Exclude WASM modules and Node.js deps from optimization
   },
   build: {
     target: 'esnext',
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
-      external: ['xxhash-wasm', 'path', 'url', 'fs', 'crypto', 'uuid'],
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
