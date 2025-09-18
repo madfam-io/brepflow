@@ -2,10 +2,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { wasmPlugin } from './vite-plugin-wasm';
+import { nodePolyfillsPlugin } from './vite-plugin-node-polyfills';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), wasmPlugin()],
+  plugins: [react(), wasmPlugin(), nodePolyfillsPlugin()],
   define: {
     global: 'globalThis',
   },
@@ -39,6 +40,7 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
+      external: ['xxhash-wasm', 'path', 'url', 'fs', 'crypto', 'uuid'],
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
