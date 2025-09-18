@@ -6,7 +6,7 @@ import { resolve } from 'path'
 export default defineConfig({
   plugins: [react()],
   css: {
-    postcss: './postcss.config.js',
+    postcss: './postcss.config.mjs',
   },
   build: {
     outDir: 'dist',
