@@ -6,6 +6,7 @@ import { createLibraryConfig } from '../../config/tsup.base.config';
  */
 export default createLibraryConfig({
   entry: ['src/index.ts'],
+  format: ['esm'], // ESM only for import.meta.url support
   dts: false, // TODO: Re-enable after fixing branded type issues
   shims: false, // Disable ESM shims to avoid Node.js module imports
   // Additional node categories can be added as entry points

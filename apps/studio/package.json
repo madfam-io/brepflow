@@ -2,6 +2,7 @@
   "name": "@brepflow/studio",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "BrepFlow Studio - Node-based parametric CAD editor",
   "scripts": {
     "dev": "vite",
