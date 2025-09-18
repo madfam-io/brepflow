@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd ../.. && pnpm --filter @brepflow/marketing^... run build && pnpm --filter @brepflow/marketing run build && mkdir -p dist && cp -r apps/marketing/dist/* dist/",
+  "installCommand": "cd ../.. && pnpm install",
+  "outputDirectory": "../../dist",
+  "framework": null
+}

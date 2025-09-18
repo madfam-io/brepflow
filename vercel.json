@@ -1,7 +1,8 @@
 {
-  "buildCommand": "pnpm --filter @brepflow/studio^... run build && pnpm --filter @brepflow/studio run build",
+  "buildCommand": "pnpm --filter @brepflow/studio^... run build && pnpm --filter @brepflow/studio run build && mkdir -p dist && cp -r apps/studio/dist/* dist/",
   "installCommand": "pnpm install",
-  "outputDirectory": "apps/studio/dist",
+  "outputDirectory": "dist",
+  "framework": null,
   "rewrites": [
     {
       "source": "/(.*)",
