@@ -25,10 +25,11 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
       'xxhash-wasm': resolve(__dirname, './src/polyfills/xxhash-mock.ts'),
       'uuid': resolve(__dirname, './src/polyfills/uuid-mock.ts'),
+      'path': resolve(__dirname, './src/polyfills/path-mock.ts'),
     },
   },
   optimizeDeps: {
-    exclude: ['@brepflow/engine-occt', 'xxhash-wasm', 'uuid'], // Exclude WASM modules and Node.js deps from optimization
+    exclude: ['@brepflow/engine-occt', 'xxhash-wasm', 'uuid', 'path'], // Exclude WASM modules and Node.js deps from optimization
   },
   build: {
     target: 'esnext',
