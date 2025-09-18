@@ -195,7 +195,7 @@ export const ComponentShowcase: React.FC = () => {
             <PanelSection title="Coordinate Input">
               <CoordinateInput
                 value={coordinateValue}
-                onChange={setCoordinateValue}
+                onChange={(value) => setCoordinateValue({ x: value.x ?? 0, y: value.y ?? 0, z: value.z ?? 0 })}
                 unit="mm"
                 precision={2}
               />

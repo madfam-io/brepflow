@@ -217,7 +217,7 @@ export const EnhancedStudioExample: React.FC = () => {
           <PanelSection title="Position">
             <CoordinateInput
               value={nodeParameters.position}
-              onChange={(value) => setNodeParameters(prev => ({ ...prev, position: value }))}
+              onChange={(value) => setNodeParameters(prev => ({ ...prev, position: { x: value.x ?? 0, y: value.y ?? 0, z: value.z ?? 0 } }))}
               unit="mm"
               precision={1}
               size="sm"

@@ -1,6 +1,7 @@
 import type { Node as RFNode, Edge as RFEdge } from 'reactflow';
 import { MarkerType } from 'reactflow';
-import type { GraphInstance, NodeInstance, Edge } from '@brepflow/types';
+import type { GraphInstance, NodeInstance, Edge, NodeId, EdgeId, SocketId } from '@brepflow/types';
+import { NodeId as createNodeId, EdgeId as createEdgeId, SocketId as createSocketId } from '@brepflow/types';
 import type { ErrorInfo } from '../hooks/useErrorTracking';
 
 /**
@@ -61,7 +62,7 @@ export function convertFromReactFlow(
   edges: RFEdge[]
 ): GraphInstance {
   const graphNodes: NodeInstance[] = nodes.map(node => ({
-    id: node.id,
+    id: createNodeId(node.id),
     type: node.data?.type || node.type || 'unknown',
     position: node.position,
     inputs: node.data?.inputs || {},
@@ -72,11 +73,11 @@ export function convertFromReactFlow(
   }));
 
   const graphEdges: Edge[] = edges.map(edge => ({
-    id: edge.id,
-    source: edge.source,
-    sourceHandle: edge.sourceHandle || '',
-    target: edge.target,
-    targetHandle: edge.targetHandle || '',
+    id: createEdgeId(edge.id),
+    source: createNodeId(edge.source),
+    sourceHandle: createSocketId(edge.sourceHandle || ''),
+    target: createNodeId(edge.target),
+    targetHandle: createSocketId(edge.targetHandle || ''),
   }));
 
   return {

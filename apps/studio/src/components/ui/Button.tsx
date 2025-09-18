@@ -1,6 +1,5 @@
 import React from 'react';
-import { Icon } from '../common/Icon';
-import type { IconName } from '../icons/IconSystem';
+import { Icon, type IconName } from '../icons/IconSystem';
 import './Button.css';
 
 export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {

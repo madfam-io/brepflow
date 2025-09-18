@@ -20,7 +20,8 @@ import { DAGEngine } from '@brepflow/engine-core';
 import { getGeometryAPI } from '../services/geometry-api';
 import { v4 as uuidv4 } from 'uuid';
 import { getConfig } from '@brepflow/engine-core';
-import type { GraphInstance } from '@brepflow/types';
+import type { GraphInstance, NodeId } from '@brepflow/types';
+import { NodeId as createNodeId } from '@brepflow/types';
 
 // Lazy logger initialization to avoid constructor issues during module loading
 let logger: any = null;
@@ -419,7 +420,7 @@ export const useProductionGraphStore = create<GraphState>()(
             };
 
             // Evaluate with dirty propagation
-            const dirtyNodes = new Set(state.nodes.map((n) => n.id));
+            const dirtyNodes = new Set(state.nodes.map((n) => createNodeId(n.id)));
             await state.dagEngine.evaluate(graphInstance as any, dirtyNodes);
 
             // Update node statuses

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Icon } from '../common/Icon';
+import { Icon } from '../icons/IconSystem';
 import './Panel.css';
 
 export interface PanelSectionProps {

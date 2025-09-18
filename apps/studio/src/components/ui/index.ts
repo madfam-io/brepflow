@@ -2,12 +2,10 @@
 // Professional CAD-grade components for BrepFlow Studio
 
 // Core Components
-export { default as Button, IconButton } from './Button';
-export { default as Input } from './Input';
-export { default as NumberInput } from './NumberInput';
-export { default as CoordinateInput } from './CoordinateInput';
-export { default as Vec3Input } from './CoordinateInput'; // Vec3Input is an alias for CoordinateInput
-export { default as Panel } from './Panel';
+export { Button, IconButton } from './Button';
+export { Input, CoordinateInput as Vec3Input } from './Input';
+export { NumberInput, CoordinateInput } from './NumberInput';
+export { Panel } from './Panel';
 
 export { PanelSection } from './PanelSection';
 export type { PanelSectionProps } from './PanelSection';

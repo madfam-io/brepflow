@@ -6,13 +6,14 @@ import type {
   Edge,
   NodeId,
 } from '@brepflow/types';
+import { NodeId as createNodeId } from '@brepflow/types';
 import {
   GraphManager,
   DAGEngine,
   NodeRegistry,
   ComputeCache,
 } from '@brepflow/engine-core';
-import { getGeometryAPI } from '@brepflow/engine-occt';
+import { getGeometryAPI } from '../services/geometry-api';
 import { registerCoreNodes } from '@brepflow/nodes-core';
 import { ErrorManager } from '../lib/error-handling/error-manager';
 import { ErrorCode } from '../lib/error-handling/types';
@@ -170,7 +171,7 @@ export const useGraphStore = create<GraphState>()(
               return added;
             },
             (id) => {
-              graphManager.removeNode(id);
+              graphManager.removeNode(createNodeId(id));
               set({ graph: graphManager.getGraph() });
             }
           );
@@ -194,9 +195,9 @@ export const useGraphStore = create<GraphState>()(
                 return added;
               },
               (id) => {
-                graphManager.removeNode(id);
+                graphManager.removeNode(createNodeId(id));
                 const updatedSelectedNodes = new Set(get().selectedNodes);
-                updatedSelectedNodes.delete(id);
+                updatedSelectedNodes.delete(createNodeId(id));
                 set({
                   graph: graphManager.getGraph(),
                   selectedNodes: updatedSelectedNodes
@@ -224,7 +225,7 @@ export const useGraphStore = create<GraphState>()(
               oldState,
               updates,
               (id, upd) => {
-                graphManager.updateNode(id, upd);
+                graphManager.updateNode(createNodeId(id), upd);
                 set({ graph: graphManager.getGraph() });
               }
             );

@@ -3,6 +3,7 @@
  */
 
 import type { NodeInstance } from '@brepflow/types';
+import { NodeId } from '@brepflow/types';
 
 export interface NodeConfiguration {
   id: string;
@@ -507,8 +508,8 @@ export class NodeConfigurationManager {
     return `config_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
-  private generateNodeId(): string {
-    return `node_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  private generateNodeId(): NodeId {
+    return NodeId(`node_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   }
 
   private inferCategory(nodeType: string): string {

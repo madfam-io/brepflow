@@ -1,11 +1,12 @@
 import React from 'react';
 
-type IconName =
+export type IconName =
   | 'monitor' | 'refresh' | 'close' | 'settings' | 'warning' | 'error' | 'success' | 'info'
   | 'folder' | 'save' | 'trash' | 'import' | 'export'
   | 'shaded' | 'wireframe' | 'xray' | 'section' | 'fit-view' | 'zoom' | 'hide'
   | 'box' | 'cylinder' | 'sphere' | 'line' | 'revolve' | 'sweep' | 'fillet' | 'chamfer'
-  | 'move' | 'rotate' | 'mirror' | 'pattern';
+  | 'move' | 'rotate' | 'mirror' | 'pattern'
+  | 'loader' | 'visibility' | 'x' | 'alert-circle' | 'chevron-up' | 'chevron-down' | 'chevron-right' | 'computing' | 'play';
 
 interface IconProps {
   name: IconName;
@@ -52,7 +53,18 @@ const IconSVGs: Record<IconName, string> = {
   move: '<path stroke="currentColor" stroke-width="2" fill="none" d="M5 12h14M12 5l7 7-7 7"/>',
   rotate: '<path stroke="currentColor" stroke-width="2" fill="none" d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/>',
   mirror: '<path stroke="currentColor" stroke-width="2" fill="none" d="M12 2v20M2 12h20"/>',
-  pattern: '<path stroke="currentColor" stroke-width="2" fill="none" d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h6v6h-6z"/>'
+  pattern: '<path stroke="currentColor" stroke-width="2" fill="none" d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h6v6h-6z"/>',
+
+  // Additional UI icons
+  loader: '<path stroke="currentColor" stroke-width="2" fill="none" d="M21 12a9 9 0 1 1-6.219-8.56"/>',
+  visibility: '<path stroke="currentColor" stroke-width="2" fill="none" d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>',
+  x: '<path stroke="currentColor" stroke-width="2" fill="none" d="M18 6 6 18M6 6l12 12"/>',
+  'alert-circle': '<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><path stroke="currentColor" stroke-width="2" fill="none" d="M12 8v4M12 16h.01"/>',
+  'chevron-up': '<path stroke="currentColor" stroke-width="2" fill="none" d="m18 15-6-6-6 6"/>',
+  'chevron-down': '<path stroke="currentColor" stroke-width="2" fill="none" d="m6 9 6 6 6-6"/>',
+  'chevron-right': '<path stroke="currentColor" stroke-width="2" fill="none" d="m9 18 6-6-6-6"/>',
+  computing: '<path stroke="currentColor" stroke-width="2" fill="none" d="M4 4h16v16H4V4zM8 8h8v8H8V8zM12 12h.01"/>',
+  play: '<path stroke="currentColor" stroke-width="2" fill="currentColor" d="M8 5v14l11-7z"/>'
 };
 
 export const Icon: React.FC<IconProps> = ({ name, size = 16, className = '', title }) => {

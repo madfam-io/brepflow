@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Icon } from '../common/Icon';
-import type { IconName } from '../icons/IconSystem';
+import { Icon, type IconName } from '../icons/IconSystem';
 import './Input.css';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {

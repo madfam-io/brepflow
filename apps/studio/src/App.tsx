@@ -34,6 +34,7 @@ import { useGraphStore } from './store/graph-store';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useErrorTracking } from './hooks/useErrorTracking';
 import { convertToReactFlow, convertFromReactFlow } from './utils/graph-converter';
+import { NodeId, SocketId } from '@brepflow/types';
 import { ErrorBoundary, WASMErrorBoundary, GeometryErrorBoundary } from './lib/error-handling/error-boundary';
 import { MonitoringDashboard } from './components/monitoring/MonitoringDashboard';
 import { useMonitoring, useHealthMonitoring } from './hooks/useMonitoring';
@@ -131,10 +132,10 @@ function AppContent() {
       console.log('🔗 Connection attempt:', params);
       if (params.source && params.target) {
         addGraphEdge({
-          source: params.source,
-          sourceHandle: params.sourceHandle || 'output',
-          target: params.target,
-          targetHandle: params.targetHandle || 'input',
+          source: NodeId(params.source),
+          sourceHandle: SocketId(params.sourceHandle || 'output'),
+          target: NodeId(params.target),
+          targetHandle: SocketId(params.targetHandle || 'input'),
         });
         console.log('✅ Edge added between', params.source, 'and', params.target);
       }
@@ -143,7 +144,7 @@ function AppContent() {
   );
 
   const onNodeClick = useCallback((_: React.MouseEvent, node: RFNode) => {
-    selectNode(node.id);
+    selectNode(NodeId(node.id));
     recordUserInteraction({
       type: 'node_click',
       target: node.type,
@@ -152,7 +153,7 @@ function AppContent() {
   }, [selectNode, recordUserInteraction]);
 
   const onNodesDelete = useCallback((nodes: RFNode[]) => {
-    nodes.forEach(node => removeNode(node.id));
+    nodes.forEach(node => removeNode(NodeId(node.id)));
   }, [removeNode]);
 
   const onEdgesDelete = useCallback((edges: RFEdge[]) => {
