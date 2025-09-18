@@ -26,7 +26,11 @@ import * as sheetMetalNodes from './sheet-metal';
 import { constraintNodes } from './constraints-parametric';
 import { advancedAssemblyNodes } from './assembly-advanced';
 
-// Register all core nodes
+// Import enhanced registry system
+import { EnhancedNodeRegistry } from './registry/enhanced-node-registry';
+import { initializeNodeRegistry, getRegistryStatus } from './registry/node-discovery';
+
+// Register all core nodes (legacy method)
 export function registerCoreNodes(): void {
   const registry = NodeRegistry.getInstance();
 
@@ -58,6 +62,36 @@ export function registerCoreNodes(): void {
   ]);
 }
 
+// Enhanced registration with all 1012+ nodes
+export async function registerAllNodes(): Promise<EnhancedNodeRegistry> {
+  console.log('🚀 Registering all 1012+ nodes with enhanced registry...');
+
+  // Initialize enhanced registry with all generated nodes
+  const enhancedRegistry = await initializeNodeRegistry();
+
+  // Also register legacy nodes for backward compatibility
+  const legacyNodes = [
+    ...sketchNodes,
+    ...solidNodes,
+    ...booleanNodes,
+    ...featureNodes,
+    ...transformNodes,
+    ...ioNodes,
+  ];
+
+  enhancedRegistry.registerNodes(legacyNodes);
+
+  const status = getRegistryStatus();
+  console.log(`✅ Enhanced registry initialized with ${status.nodeCount} total nodes`);
+
+  return enhancedRegistry;
+}
+
+// Get the enhanced registry instance
+export function getEnhancedRegistry(): EnhancedNodeRegistry {
+  return EnhancedNodeRegistry.getInstance();
+}
+
 // Export individual node categories
 export * from './sketch';
 export * from './sketch-parametric';
@@ -81,3 +115,7 @@ export * from './manufacturing';
 export * from './enterprise-api';
 export * from './constraints-parametric';
 export * from './assembly-advanced';
+
+// Export enhanced registry system
+export * from './registry/enhanced-node-registry';
+export * from './registry/node-discovery';

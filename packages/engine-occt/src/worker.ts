@@ -4,10 +4,12 @@
 
 import { loadOCCT } from './occt-bindings';
 import { MockGeometry } from './mock-geometry';
+import { occtProductionAPI } from './occt-production';
 import type { WorkerRequest, WorkerResponse } from './worker-types';
 
 let occtModule: any = null;
 let isInitialized = false;
+let useProduction = false;
 const mockGeometry = new MockGeometry(); // Fallback for operations not yet implemented
 
 // Handle messages from main thread
@@ -21,16 +23,27 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
       case 'INIT':
         if (!isInitialized) {
           try {
-            // Always use fallback in production builds where WASM files aren't available
-            occtModule = await loadOCCT();
+            // Try production API first for real OCCT operations
+            await occtProductionAPI.ensureInitialized();
+            useProduction = true;
             isInitialized = true;
-            console.log('OCCT worker initialized successfully');
-          } catch (error: unknown) {
-            console.warn('OCCT initialization failed, falling back to mock geometry:', error);
-            isInitialized = false;
+            console.log('OCCT worker initialized with production API');
+          } catch (prodError) {
+            console.warn('Production API failed, trying fallback:', prodError);
+            try {
+              // Fallback to standard bindings
+              occtModule = await loadOCCT();
+              isInitialized = true;
+              useProduction = false;
+              console.log('OCCT worker initialized with fallback bindings');
+            } catch (error: unknown) {
+              console.warn('All OCCT initialization failed, using mock geometry:', error);
+              isInitialized = false;
+              useProduction = false;
+            }
           }
         }
-        result = { initialized: isInitialized };
+        result = { initialized: isInitialized, production: useProduction };
         break;
 
       case 'CREATE_LINE':
@@ -58,7 +71,15 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
         break;
 
       case 'MAKE_BOX':
-        if (isInitialized && occtModule) {
+        if (useProduction && isInitialized) {
+          // Use production API for real OCCT operations
+          const response = await occtProductionAPI.execute({
+            id: request.id || 'box',
+            type: 'MAKE_BOX',
+            params: request.params
+          });
+          result = response.result;
+        } else if (isInitialized && occtModule) {
           const occtShape = occtModule.makeBox(
             request.params.width,
             request.params.height,

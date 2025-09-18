@@ -15,17 +15,20 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "generate": "tsx src/generator/generate.ts",
     "test": "vitest",
     "lint": "eslint . --ext .ts,.tsx",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@brepflow/types": "workspace:*",
-    "@brepflow/engine-core": "workspace:*"
+    "@brepflow/engine-core": "workspace:*",
+    "@brepflow/types": "workspace:*"
   },
   "devDependencies": {
+    "@types/node": "^20.11.0",
     "tsup": "^8.0.0",
+    "tsx": "^4.20.5",
     "vitest": "^3.2.4"
   }
 }

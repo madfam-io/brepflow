@@ -1,0 +1,29 @@
+
+import { describe, it, expect } from 'vitest';
+import { SurfaceCurvatureNode } from './surfacecurvature-node';
+import { createTestContext } from '../test-utils';
+
+describe('SurfaceCurvatureNode', () => {
+  it('should create SurfaceCurvature', async () => {
+    const context = createTestContext();
+    const inputs = {
+      surface: /* test value */
+    };
+    const params = {
+      uSamples: 50,
+      vSamples: 50,
+      curvatureType: "gaussian",
+      colorMap: true
+    };
+
+    const result = await SurfaceCurvatureNode.evaluate(context, inputs, params);
+
+    expect(result).toBeDefined();
+    expect(result.curvatureMap).toBeDefined();
+    expect(result.maxCurvature).toBeDefined();
+    expect(result.minCurvature).toBeDefined();
+    expect(result.averageCurvature).toBeDefined();
+  });
+
+  
+});

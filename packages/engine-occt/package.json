@@ -18,7 +18,9 @@
     "test": "vitest",
     "lint": "eslint . --ext .ts,.tsx",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "build:bindings": "bash scripts/compile-bindings.sh",
+    "build:wasm": "bash scripts/build-bindings.sh"
   },
   "dependencies": {
     "@brepflow/types": "workspace:*",

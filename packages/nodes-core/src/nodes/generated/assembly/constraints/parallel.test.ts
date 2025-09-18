@@ -1,0 +1,26 @@
+
+import { describe, it, expect } from 'vitest';
+import { ParallelNode } from './parallel-node';
+import { createTestContext } from '../test-utils';
+
+describe('ParallelNode', () => {
+  it('should create Parallel', async () => {
+    const context = createTestContext();
+    const inputs = {
+      entity1: /* test value */,
+      entity2: /* test value */
+    };
+    const params = {
+      offset: 0,
+      flip: false
+    };
+
+    const result = await ParallelNode.evaluate(context, inputs, params);
+
+    expect(result).toBeDefined();
+    expect(result.constrained).toBeDefined();
+    expect(result.constraint).toBeDefined();
+  });
+
+  
+});
