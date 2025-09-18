@@ -17,8 +17,7 @@
   "dependencies": {
     "@brepflow/engine-core": "workspace:*",
     "@brepflow/engine-occt": "workspace:*",
-    // Temporarily commented out due to build issues
-    // "@brepflow/nodes-core": "workspace:^",
+    "@brepflow/nodes-core": "workspace:*",
     "@brepflow/types": "workspace:*",
     "@brepflow/viewport": "workspace:*",
     "@dnd-kit/core": "^6.3.1",

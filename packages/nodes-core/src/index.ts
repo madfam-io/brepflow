@@ -1,6 +1,6 @@
 import { NodeRegistry } from '@brepflow/engine-core';
 
-// Import node definitions
+// Import core node definitions (only existing files)
 import { sketchNodes } from './sketch';
 import { parametricSketchNodes } from './sketch-parametric';
 import { solidNodes } from './solid';
@@ -14,16 +14,9 @@ import { dataNodes } from './data';
 import { analysisNodes } from './analysis';
 import { assemblyNodes } from './assembly';
 import { advancedSurfaceNodes } from './advanced-surfaces';
-import { patternNodes } from './patterns';
-import { constraints3DNodes } from './constraints-3d';
 import { simulationNodes } from './simulation';
-import { importExportNodes } from './import-export';
-import { meshTopologyNodes } from './mesh-topology';
-import { manufacturingNodes } from './manufacturing';
-import { enterpriseApiNodes } from './enterprise-api';
 import * as advancedFilletNodes from './advanced-fillets';
 import * as sheetMetalNodes from './sheet-metal';
-import { constraintNodes } from './constraints-parametric';
 import { advancedAssemblyNodes } from './assembly-advanced';
 
 // Import enhanced registry system
@@ -48,15 +41,8 @@ export function registerCoreNodes(): void {
     ...analysisNodes,
     ...assemblyNodes,
     ...advancedSurfaceNodes,
-    ...patternNodes,
-    ...constraints3DNodes,
-    ...constraintNodes,
     ...advancedAssemblyNodes,
     ...simulationNodes,
-    ...importExportNodes,
-    ...meshTopologyNodes,
-    ...manufacturingNodes,
-    ...enterpriseApiNodes,
     ...Object.values(advancedFilletNodes),
     ...Object.values(sheetMetalNodes)
   ]);
@@ -92,7 +78,7 @@ export function getEnhancedRegistry(): EnhancedNodeRegistry {
   return EnhancedNodeRegistry.getInstance();
 }
 
-// Export individual node categories
+// Export individual node categories (only existing modules)
 export * from './sketch';
 export * from './sketch-parametric';
 export * from './solid';
@@ -106,14 +92,7 @@ export * from './data';
 export * from './analysis';
 export * from './assembly';
 export * from './advanced-surfaces';
-export * from './patterns';
-export * from './constraints-3d';
 export * from './simulation';
-export * from './import-export';
-export * from './mesh-topology';
-export * from './manufacturing';
-export * from './enterprise-api';
-export * from './constraints-parametric';
 export * from './assembly-advanced';
 
 // Export enhanced registry system
