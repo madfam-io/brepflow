@@ -4,31 +4,48 @@
 export interface OCCTModule {
   // Geometry operations
   makeBox(dx: number, dy: number, dz: number): ShapeHandle;
+  makeBoxWithOrigin(x: number, y: number, z: number, dx: number, dy: number, dz: number): ShapeHandle;
   makeSphere(radius: number): ShapeHandle;
+  makeSphereWithCenter(cx: number, cy: number, cz: number, radius: number): ShapeHandle;
   makeCylinder(radius: number, height: number): ShapeHandle;
   makeCone(radius1: number, radius2: number, height: number): ShapeHandle;
   makeTorus(majorRadius: number, minorRadius: number): ShapeHandle;
+
+  // Advanced operations
+  extrude(profileId: string, dx: number, dy: number, dz: number): ShapeHandle;
+  revolve(profileId: string, angle: number, axisX: number, axisY: number, axisZ: number, originX: number, originY: number, originZ: number): ShapeHandle;
 
   // Boolean operations
   booleanUnion(shape1Id: string, shape2Id: string): ShapeHandle;
   booleanSubtract(shape1Id: string, shape2Id: string): ShapeHandle;
   booleanIntersect(shape1Id: string, shape2Id: string): ShapeHandle;
 
-  // Feature operations (available in full version)
-  makeFillet?(shapeId: string, radius: number): ShapeHandle;
-  makeChamfer?(shapeId: string, distance: number): ShapeHandle;
+  // Feature operations
+  makeFillet(shapeId: string, radius: number): ShapeHandle;
+  makeChamfer(shapeId: string, distance: number): ShapeHandle;
+  makeShell(shapeId: string, thickness: number): ShapeHandle;
+
+  // Transformation operations
+  transform(shapeId: string, tx: number, ty: number, tz: number, rx: number, ry: number, rz: number, sx: number, sy: number, sz: number): ShapeHandle;
+  copyShape(shapeId: string): ShapeHandle;
 
   // Tessellation
   tessellate(shapeId: string, precision?: number, angle?: number): MeshData;
   tessellateWithParams(shapeId: string, precision: number, angle: number): MeshData;
 
+  // File I/O operations
+  importSTEP(fileData: string): ShapeHandle;
+  exportSTEP(shapeId: string): string;
+  exportSTL(shapeId: string, binary?: boolean): string;
+
   // Memory management
   deleteShape(shapeId: string): void;
   getShapeCount(): number;
+  clearAllShapes(): void;
 
   // Status and version
-  getStatus?(): string;
-  getOCCTVersion?(): string;
+  getStatus(): string;
+  getOCCTVersion(): string;
 
   // Vector types for interfacing with Emscripten
   VectorFloat: any;
@@ -45,6 +62,11 @@ export interface ShapeHandle {
   bbox_max_y: number;
   bbox_max_z: number;
   hash: string;
+  volume?: number;
+  area?: number;
+  centerX?: number;
+  centerY?: number;
+  centerZ?: number;
 }
 
 export interface MeshData {
@@ -52,6 +74,10 @@ export interface MeshData {
   normals: Float32Array;
   indices: Uint32Array;
   edges: Uint32Array;
+  uvs?: Float32Array;
+  vertexCount?: number;
+  triangleCount?: number;
+  edgeCount?: number;
 }
 
 // Module loader with real OCCT WASM integration
@@ -272,6 +298,66 @@ export async function loadOCCT(): Promise<OCCTModule> {
         }
       },
 
+      makeBoxWithOrigin: (x: number, y: number, z: number, dx: number, dy: number, dz: number): ShapeHandle => {
+        console.log(`Creating OCCT box with origin: (${x},${y},${z}) size ${dx}x${dy}x${dz}`);
+        try {
+          const shape = wasmModule.makeBoxWithOrigin(x, y, z, dx, dy, dz);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to create box with origin - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT makeBoxWithOrigin failed:', error);
+          throw new Error(`Failed to create box with origin: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
+      makeSphereWithCenter: (cx: number, cy: number, cz: number, radius: number): ShapeHandle => {
+        console.log(`Creating OCCT sphere with center: (${cx},${cy},${cz}) radius ${radius}`);
+        try {
+          const shape = wasmModule.makeSphereWithCenter(cx, cy, cz, radius);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to create sphere with center - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT makeSphereWithCenter failed:', error);
+          throw new Error(`Failed to create sphere with center: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
+      extrude: (profileId: string, dx: number, dy: number, dz: number): ShapeHandle => {
+        console.log(`OCCT extrude: ${profileId} by vector (${dx},${dy},${dz})`);
+        try {
+          const shape = wasmModule.extrude(profileId, dx, dy, dz);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to extrude - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT extrude failed:', error);
+          throw new Error(`Failed to extrude: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
+      revolve: (profileId: string, angle: number, axisX: number, axisY: number, axisZ: number, originX: number, originY: number, originZ: number): ShapeHandle => {
+        console.log(`OCCT revolve: ${profileId} by ${angle} around axis (${axisX},${axisY},${axisZ}) origin (${originX},${originY},${originZ})`);
+        try {
+          const shape = wasmModule.revolve(profileId, angle, axisX, axisY, axisZ, originX, originY, originZ);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to revolve - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT revolve failed:', error);
+          throw new Error(`Failed to revolve: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
       booleanUnion: (shape1Id: string, shape2Id: string): ShapeHandle => {
         console.log(`OCCT boolean union: ${shape1Id} ∪ ${shape2Id}`);
         const shape = wasmModule.booleanUnion(shape1Id, shape2Id);
@@ -307,6 +393,51 @@ export async function loadOCCT(): Promise<OCCTModule> {
         return shape;
       },
 
+      makeShell: (shapeId: string, thickness: number): ShapeHandle => {
+        console.log(`OCCT shell: ${shapeId} with thickness ${thickness}`);
+        try {
+          const shape = wasmModule.makeShell(shapeId, thickness);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to create shell - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT makeShell failed:', error);
+          throw new Error(`Failed to create shell: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
+      transform: (shapeId: string, tx: number, ty: number, tz: number, rx: number, ry: number, rz: number, sx: number, sy: number, sz: number): ShapeHandle => {
+        console.log(`OCCT transform: ${shapeId} translate(${tx},${ty},${tz}) rotate(${rx},${ry},${rz}) scale(${sx},${sy},${sz})`);
+        try {
+          const shape = wasmModule.transform(shapeId, tx, ty, tz, rx, ry, rz, sx, sy, sz);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to transform - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT transform failed:', error);
+          throw new Error(`Failed to transform: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
+      copyShape: (shapeId: string): ShapeHandle => {
+        console.log(`OCCT copy: ${shapeId}`);
+        try {
+          const shape = wasmModule.copyShape(shapeId);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to copy shape - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT copyShape failed:', error);
+          throw new Error(`Failed to copy shape: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
       tessellate: (shapeId: string, precision = 0.1, angle = 0.5): MeshData => {
         console.log(`OCCT tessellating: ${shapeId} with precision ${precision}`);
         try {
@@ -315,12 +446,16 @@ export async function loadOCCT(): Promise<OCCTModule> {
             throw new Error('OCCT failed to tessellate - invalid mesh data returned');
           }
 
-          // Convert WASM vectors to TypedArrays
+          // Convert WASM vectors to TypedArrays with enhanced data
           return {
             positions: new Float32Array(rawMesh.positions),
             normals: new Float32Array(rawMesh.normals),
             indices: new Uint32Array(rawMesh.indices),
-            edges: new Uint32Array(rawMesh.edges)
+            edges: new Uint32Array(rawMesh.edges),
+            uvs: rawMesh.uvs ? new Float32Array(rawMesh.uvs) : undefined,
+            vertexCount: rawMesh.vertexCount,
+            triangleCount: rawMesh.triangleCount,
+            edgeCount: rawMesh.edgeCount
           };
         } catch (error) {
           console.error('OCCT tessellate failed:', error);
@@ -332,6 +467,41 @@ export async function loadOCCT(): Promise<OCCTModule> {
         return occtModule!.tessellate(shapeId, precision, angle);
       },
 
+      importSTEP: (fileData: string): ShapeHandle => {
+        console.log(`OCCT importing STEP file: ${fileData.length} bytes`);
+        try {
+          const shape = wasmModule.importSTEP(fileData);
+          if (!shape || !shape.id) {
+            throw new Error('OCCT failed to import STEP - invalid shape returned');
+          }
+          OCCTMemoryManager.trackShape(shape.id);
+          return shape;
+        } catch (error) {
+          console.error('OCCT importSTEP failed:', error);
+          throw new Error(`Failed to import STEP: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
+      exportSTEP: (shapeId: string): string => {
+        console.log(`OCCT exporting STEP: ${shapeId}`);
+        try {
+          return wasmModule.exportSTEP(shapeId);
+        } catch (error) {
+          console.error('OCCT exportSTEP failed:', error);
+          throw new Error(`Failed to export STEP: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
+      exportSTL: (shapeId: string, binary = true): string => {
+        console.log(`OCCT exporting STL: ${shapeId} (binary: ${binary})`);
+        try {
+          return wasmModule.exportSTL(shapeId, binary);
+        } catch (error) {
+          console.error('OCCT exportSTL failed:', error);
+          throw new Error(`Failed to export STL: ${error instanceof Error ? error.message : error}`);
+        }
+      },
+
       deleteShape: (shapeId: string): void => {
         wasmModule.deleteShape(shapeId);
         OCCTMemoryManager.untrackShape(shapeId);
@@ -339,6 +509,19 @@ export async function loadOCCT(): Promise<OCCTModule> {
 
       getShapeCount: (): number => {
         return wasmModule.getShapeCount();
+      },
+
+      clearAllShapes: (): void => {
+        wasmModule.clearAllShapes();
+        OCCTMemoryManager.cleanup();
+      },
+
+      getStatus: (): string => {
+        return wasmModule.getStatus();
+      },
+
+      getOCCTVersion: (): string => {
+        return wasmModule.getOCCTVersion();
       },
 
       VectorFloat: wasmModule.VectorFloat,
@@ -372,6 +555,26 @@ export async function loadOCCT(): Promise<OCCTModule> {
         return createMockHandle('torus', 'solid');
       },
 
+      makeBoxWithOrigin: (x: number, y: number, z: number, dx: number, dy: number, dz: number): ShapeHandle => {
+        console.log(`Mock creating box with origin: (${x},${y},${z}) size ${dx}x${dy}x${dz}`);
+        return createMockHandle('box_origin', 'solid');
+      },
+
+      makeSphereWithCenter: (cx: number, cy: number, cz: number, radius: number): ShapeHandle => {
+        console.log(`Mock creating sphere with center: (${cx},${cy},${cz}) radius ${radius}`);
+        return createMockHandle('sphere_center', 'solid');
+      },
+
+      extrude: (profileId: string, dx: number, dy: number, dz: number): ShapeHandle => {
+        console.log(`Mock extrude: ${profileId} by vector (${dx},${dy},${dz})`);
+        return createMockHandle('extrude', 'solid');
+      },
+
+      revolve: (profileId: string, angle: number, axisX: number, axisY: number, axisZ: number, originX: number, originY: number, originZ: number): ShapeHandle => {
+        console.log(`Mock revolve: ${profileId} by ${angle} around axis (${axisX},${axisY},${axisZ})`);
+        return createMockHandle('revolve', 'solid');
+      },
+
       booleanUnion: (shape1Id: string, shape2Id: string): ShapeHandle => {
         console.log(`Mock boolean union: ${shape1Id} ∪ ${shape2Id}`);
         return createMockHandle('union', 'solid');
@@ -397,6 +600,21 @@ export async function loadOCCT(): Promise<OCCTModule> {
         return createMockHandle('chamfer', 'solid');
       },
 
+      makeShell: (shapeId: string, thickness: number): ShapeHandle => {
+        console.log(`Mock shell: ${shapeId} with thickness ${thickness}`);
+        return createMockHandle('shell', 'solid');
+      },
+
+      transform: (shapeId: string, tx: number, ty: number, tz: number, rx: number, ry: number, rz: number, sx: number, sy: number, sz: number): ShapeHandle => {
+        console.log(`Mock transform: ${shapeId} translate(${tx},${ty},${tz}) rotate(${rx},${ry},${rz}) scale(${sx},${sy},${sz})`);
+        return createMockHandle('transformed', 'solid');
+      },
+
+      copyShape: (shapeId: string): ShapeHandle => {
+        console.log(`Mock copy: ${shapeId}`);
+        return createMockHandle('copy', 'solid');
+      },
+
       tessellate: (shapeId: string, precision = 0.1, angle = 0.5): MeshData => {
         console.log(`Mock tessellating: ${shapeId} with precision ${precision}`);
         return generateBasicMesh(shapeId, precision);
@@ -406,12 +624,39 @@ export async function loadOCCT(): Promise<OCCTModule> {
         return occtModule!.tessellate(shapeId, precision, angle);
       },
 
+      importSTEP: (fileData: string): ShapeHandle => {
+        console.log(`Mock importing STEP file: ${fileData.length} bytes`);
+        return createMockHandle('step_import', 'solid');
+      },
+
+      exportSTEP: (shapeId: string): string => {
+        console.log(`Mock exporting STEP: ${shapeId}`);
+        return "STEP file mock data";
+      },
+
+      exportSTL: (shapeId: string, binary = true): string => {
+        console.log(`Mock exporting STL: ${shapeId} (binary: ${binary})`);
+        return "STL file mock data";
+      },
+
       deleteShape: (shapeId: string): void => {
         console.log(`Mock deleting shape: ${shapeId}`);
       },
 
       getShapeCount: (): number => {
         return 0;
+      },
+
+      clearAllShapes: (): void => {
+        console.log(`Mock clearing all shapes`);
+      },
+
+      getStatus: (): string => {
+        return "Mock OCCT implementation | Shapes: 0 | Memory: OK";
+      },
+
+      getOCCTVersion: (): string => {
+        return "7.8.0-mock";
       },
 
       VectorFloat: null,
