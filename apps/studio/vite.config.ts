@@ -28,7 +28,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ['@brepflow/engine-occt', 'xxhash-wasm'], // Exclude WASM modules from optimization
+    exclude: ['@brepflow/engine-occt', 'xxhash-wasm', 'uuid'], // Exclude WASM modules and Node.js deps from optimization
   },
   build: {
     target: 'esnext',
