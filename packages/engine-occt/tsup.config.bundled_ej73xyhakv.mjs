@@ -1,0 +1,28 @@
+// tsup.config.ts
+import { defineConfig } from "tsup";
+var tsup_config_default = defineConfig([
+  {
+    // Main entry - ESM only (import.meta usage requires ESM)
+    entry: ["src/index.ts"],
+    format: ["esm"],
+    dts: false,
+    // Temporarily disable DTS until TypeScript issues are resolved
+    splitting: false,
+    sourcemap: true,
+    clean: true
+  },
+  {
+    // Worker entry - only ESM (CJS doesn't support top-level await needed by WASM)
+    entry: ["src/worker.ts"],
+    format: ["esm"],
+    dts: false,
+    splitting: false,
+    sourcemap: true,
+    clean: false
+    // Don't clean since we run after main build
+  }
+]);
+export {
+  tsup_config_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsidHN1cC5jb25maWcudHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImNvbnN0IF9faW5qZWN0ZWRfZmlsZW5hbWVfXyA9IFwiL1VzZXJzL2FsZG9ydWl6bHVuYS9sYWJzcGFjZS9icmVwZmxvdy9wYWNrYWdlcy9lbmdpbmUtb2NjdC90c3VwLmNvbmZpZy50c1wiO2NvbnN0IF9faW5qZWN0ZWRfZGlybmFtZV9fID0gXCIvVXNlcnMvYWxkb3J1aXpsdW5hL2xhYnNwYWNlL2JyZXBmbG93L3BhY2thZ2VzL2VuZ2luZS1vY2N0XCI7Y29uc3QgX19pbmplY3RlZF9pbXBvcnRfbWV0YV91cmxfXyA9IFwiZmlsZTovLy9Vc2Vycy9hbGRvcnVpemx1bmEvbGFic3BhY2UvYnJlcGZsb3cvcGFja2FnZXMvZW5naW5lLW9jY3QvdHN1cC5jb25maWcudHNcIjtpbXBvcnQgeyBkZWZpbmVDb25maWcgfSBmcm9tICd0c3VwJztcblxuZXhwb3J0IGRlZmF1bHQgZGVmaW5lQ29uZmlnKFtcbiAge1xuICAgIC8vIE1haW4gZW50cnkgLSBFU00gb25seSAoaW1wb3J0Lm1ldGEgdXNhZ2UgcmVxdWlyZXMgRVNNKVxuICAgIGVudHJ5OiBbJ3NyYy9pbmRleC50cyddLFxuICAgIGZvcm1hdDogWydlc20nXSxcbiAgICBkdHM6IGZhbHNlLCAvLyBUZW1wb3JhcmlseSBkaXNhYmxlIERUUyB1bnRpbCBUeXBlU2NyaXB0IGlzc3VlcyBhcmUgcmVzb2x2ZWRcbiAgICBzcGxpdHRpbmc6IGZhbHNlLFxuICAgIHNvdXJjZW1hcDogdHJ1ZSxcbiAgICBjbGVhbjogdHJ1ZSxcbiAgfSxcbiAge1xuICAgIC8vIFdvcmtlciBlbnRyeSAtIG9ubHkgRVNNIChDSlMgZG9lc24ndCBzdXBwb3J0IHRvcC1sZXZlbCBhd2FpdCBuZWVkZWQgYnkgV0FTTSlcbiAgICBlbnRyeTogWydzcmMvd29ya2VyLnRzJ10sXG4gICAgZm9ybWF0OiBbJ2VzbSddLFxuICAgIGR0czogZmFsc2UsXG4gICAgc3BsaXR0aW5nOiBmYWxzZSxcbiAgICBzb3VyY2VtYXA6IHRydWUsXG4gICAgY2xlYW46IGZhbHNlLCAvLyBEb24ndCBjbGVhbiBzaW5jZSB3ZSBydW4gYWZ0ZXIgbWFpbiBidWlsZFxuICB9XG5dKTsiXSwKICAibWFwcGluZ3MiOiAiO0FBQTRULFNBQVMsb0JBQW9CO0FBRXpWLElBQU8sc0JBQVEsYUFBYTtBQUFBLEVBQzFCO0FBQUE7QUFBQSxJQUVFLE9BQU8sQ0FBQyxjQUFjO0FBQUEsSUFDdEIsUUFBUSxDQUFDLEtBQUs7QUFBQSxJQUNkLEtBQUs7QUFBQTtBQUFBLElBQ0wsV0FBVztBQUFBLElBQ1gsV0FBVztBQUFBLElBQ1gsT0FBTztBQUFBLEVBQ1Q7QUFBQSxFQUNBO0FBQUE7QUFBQSxJQUVFLE9BQU8sQ0FBQyxlQUFlO0FBQUEsSUFDdkIsUUFBUSxDQUFDLEtBQUs7QUFBQSxJQUNkLEtBQUs7QUFBQSxJQUNMLFdBQVc7QUFBQSxJQUNYLFdBQVc7QUFBQSxJQUNYLE9BQU87QUFBQTtBQUFBLEVBQ1Q7QUFDRixDQUFDOyIsCiAgIm5hbWVzIjogW10KfQo=

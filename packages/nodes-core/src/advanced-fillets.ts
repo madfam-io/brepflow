@@ -1,4 +1,5 @@
-import type { NodeDefinition, ShapeHandle } from '@brepflow/types';
+import { NodeDefinition, SocketType, EvalContext } from '@brepflow/types';
+import { NumberParam, BoolParam, StringParam } from './utils/param-utils';
 
 /**
  * Variable Radius Fillet Node
@@ -150,6 +151,220 @@ export const SetbackFilletNode: NodeDefinition<
       radius: params.radius,
       setback1: params.setback1,
       setback2: params.setback2
+    });
+    return { shape: result };
+  }
+};
+
+export const MultiEdgeFillet = {
+  type: 'Features::MultiEdgeFillet',
+  category: 'Features',
+  description: 'Apply fillets to multiple edges with different radii',
+  icon: 'Features::Fillet',
+  
+  inputs: {
+    shape: { 
+      type: 'Shape' as SocketType,
+      label: 'Shape',
+      required: true
+    },
+    edges: { 
+      type: 'Shape' as SocketType,
+      label: 'Edges',
+      multiple: true
+    }
+  },
+  
+  outputs: {
+    shape: { 
+      type: 'Shape' as SocketType,
+      label: 'Filleted Shape'
+    }
+  },
+  
+  params: {
+    radii: NumberParam({ default: 2.0, min: 0.01, label: 'Radii' }),
+    useVariableRadius: BoolParam({ default: false, label: 'Variable Radius' }),
+    edgeSelection: {
+      type: 'enum' as const,
+      default: 'manual',
+      options: [
+        { value: 'manual', label: 'Manual Selection' },
+        { value: 'byAngle', label: 'By Angle' },
+        { value: 'byLength', label: 'By Length' }
+      ],
+      label: 'Edge Selection'
+    }
+  },
+  
+  evaluate: async (ctx, inputs, params) => {
+    const result = await ctx.geom.invoke('MULTI_EDGE_FILLET', {
+      shape: inputs.shape,
+      edges: inputs.edges,
+      radii: params.radii,
+      useVariableRadius: params.useVariableRadius,
+      edgeSelection: params.edgeSelection
+    });
+    return { shape: result };
+  }
+};
+
+export const ChamferEdges = {
+  type: 'Features::ChamferEdges',
+  category: 'Features',
+  description: 'Apply chamfers to edges',
+  icon: 'Features::Chamfer',
+  
+  inputs: {
+    shape: { 
+      type: 'Shape' as SocketType,
+      label: 'Shape'
+    },
+    edges: { 
+      type: 'Shape' as SocketType,
+      label: 'Edges',
+      multiple: true
+    },
+    distance1: { 
+      type: 'Number' as SocketType,
+      label: 'Distance 1'
+    },
+    distance2: { 
+      type: 'Number' as SocketType,
+      label: 'Distance 2',
+      optional: true
+    }
+  },
+  
+  outputs: {
+    shape: { 
+      type: 'Shape' as SocketType,
+      label: 'Chamfered Shape'
+    }
+  },
+  
+  params: {
+    symmetric: BoolParam({ default: true, label: 'Symmetric' }),
+    edgeSelection: {
+      type: 'enum' as const,
+      default: 'manual',
+      options: [
+        { value: 'manual', label: 'Manual' },
+        { value: 'all', label: 'All Edges' }
+      ],
+      label: 'Edge Selection'
+    }
+  },
+  
+  evaluate: async (ctx, inputs, params) => {
+    const result = await ctx.geom.invoke('CHAMFER_EDGES', {
+      shape: inputs.shape,
+      edges: inputs.edges,
+      distance1: inputs.distance1,
+      distance2: inputs.distance2 || inputs.distance1,
+      symmetric: params.symmetric,
+      edgeSelection: params.edgeSelection
+    });
+    return { shape: result };
+  }
+};
+
+export const BlendCorners = {
+  type: 'Features::BlendCorners',
+  category: 'Features',
+  description: 'Blend corners with smooth transitions',
+  icon: 'Features::Fillet',
+  
+  inputs: {
+    shape: { 
+      type: 'Shape' as SocketType,
+      label: 'Shape'
+    },
+    vertices: { 
+      type: 'Shape' as SocketType,
+      label: 'Vertices',
+      multiple: true
+    },
+    radius: { 
+      type: 'Number' as SocketType,
+      label: 'Blend Radius'
+    },
+    continuity: { 
+      type: 'Number' as SocketType,
+      label: 'Continuity',
+      optional: true
+    }
+  },
+  
+  outputs: {
+    shape: { 
+      type: 'Shape' as SocketType,
+      label: 'Blended Shape'
+    }
+  },
+  
+  params: {
+    blendType: {
+      type: 'enum' as const,
+      default: 'spherical',
+      options: [
+        { value: 'spherical', label: 'Spherical' },
+        { value: 'continuous', label: 'Continuous' }
+      ],
+      label: 'Blend Type'
+    }
+  },
+  
+  evaluate: async (ctx, inputs, params) => {
+    const result = await ctx.geom.invoke('BLEND_CORNERS', {
+      shape: inputs.shape,
+      vertices: inputs.vertices,
+      radius: inputs.radius,
+      continuity: inputs.continuity || 1,
+      blendType: params.blendType
+    });
+    return { shape: result };
+  }
+};
+
+export const VariableRadiusFillet = {
+  type: 'Features::VariableRadiusFillet',
+  category: 'Features',
+  description: 'Apply fillets with varying radius along edges',
+  icon: 'Features::Fillet',
+  
+  inputs: {
+    shape: { 
+      type: 'Shape' as SocketType,
+      label: 'Shape'
+    },
+    edges: { 
+      type: 'Shape' as SocketType,
+      label: 'Edges',
+      multiple: true
+    }
+  },
+  
+  outputs: {
+    shape: { 
+      type: 'Shape' as SocketType,
+      label: 'Filleted Shape'
+    }
+  },
+  
+  params: {
+    startRadius: NumberParam({ default: 2.0, min: 0.01, label: 'Start Radius' }),
+    endRadius: NumberParam({ default: 5.0, min: 0.01, label: 'End Radius' }),
+    interpolation: StringParam({ default: 'linear', label: 'Interpolation' })
+  },
+  
+  evaluate: async (ctx, inputs, params) => {
+    const result = await ctx.geom.invoke('VARIABLE_RADIUS_FILLET', {
+      shape: inputs.shape,
+      edges: inputs.edges,
+      startRadius: params.startRadius,
+      endRadius: params.endRadius,
+      interpolation: params.interpolation
     });
     return { shape: result };
   }

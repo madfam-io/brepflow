@@ -1,10 +1,17 @@
-import { defineConfig } from 'tsup';
+import { createLibraryConfig } from '../../build/tsup.base.config';
 
-export default defineConfig({
+/**
+ * Viewport build configuration
+ * Three.js-based 3D rendering and interaction
+ */
+export default createLibraryConfig({
   entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
-  dts: true,
-  splitting: false,
-  sourcemap: true,
-  clean: true,
+  external: [
+    'react',
+    'react-dom',
+    'three',
+    '@react-three/fiber',
+    '@react-three/drei',
+    /^@brepflow\//,
+  ],
 });

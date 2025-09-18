@@ -18,10 +18,19 @@ beforeAll(() => {
   }));
 
   // Mock PerformanceObserver
-  global.PerformanceObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    disconnect: vi.fn(),
-  }));
+  const mockPerformanceObserver = vi.fn();
+  mockPerformanceObserver.prototype.observe = vi.fn();
+  mockPerformanceObserver.prototype.disconnect = vi.fn();
+  mockPerformanceObserver.prototype.takeRecords = vi.fn(() => []);
+  // Add supportedEntryTypes as a static property
+  Object.defineProperty(mockPerformanceObserver, 'supportedEntryTypes', {
+    value: ['measure', 'navigation'],
+    writable: false,
+    enumerable: true,
+    configurable: true
+  });
+
+  global.PerformanceObserver = mockPerformanceObserver as any;
 
   // Mock requestAnimationFrame
   global.requestAnimationFrame = vi.fn((cb) => {
@@ -146,6 +155,8 @@ vi.mock('@brepflow/engine-core', () => {
   let graphManagerInstances = [];
 
   class MockGraphManager {
+    graph: any;
+    
     constructor() {
       this.graph = {
         version: '0.1.0',
@@ -343,6 +354,10 @@ vi.mock('../lib/undo-redo', () => {
   }
 
   class MockAddNodeCommand {
+    node: any;
+    executeFunc: any;
+    undoFunc: any;
+    
     constructor(node, execute, undo) {
       this.node = node;
       this.executeFunc = execute;
@@ -368,6 +383,10 @@ vi.mock('../lib/undo-redo', () => {
   }
 
   class MockRemoveNodeCommand {
+    node: any;
+    executeFunc: any;
+    undoFunc: any;
+    
     constructor(node, execute, undo) {
       this.node = node;
       this.executeFunc = execute;
@@ -393,6 +412,11 @@ vi.mock('../lib/undo-redo', () => {
   }
 
   class MockUpdateNodeCommand {
+    nodeId: any;
+    oldState: any;
+    updates: any;
+    apply: any;
+    
     constructor(nodeId, oldState, updates, apply) {
       this.nodeId = nodeId;
       this.oldState = oldState;
@@ -419,6 +443,10 @@ vi.mock('../lib/undo-redo', () => {
   }
 
   class MockAddEdgeCommand {
+    edge: any;
+    executeFunc: any;
+    undoFunc: any;
+    
     constructor(edge, execute, undo) {
       this.edge = edge;
       this.executeFunc = execute;
@@ -444,6 +472,10 @@ vi.mock('../lib/undo-redo', () => {
   }
 
   class MockRemoveEdgeCommand {
+    edge: any;
+    executeFunc: any;
+    undoFunc: any;
+    
     constructor(edge, execute, undo) {
       this.edge = edge;
       this.executeFunc = execute;

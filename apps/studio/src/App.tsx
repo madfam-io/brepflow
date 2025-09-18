@@ -120,11 +120,11 @@ function AppContent() {
 
   // Sync ReactFlow state with graph store
   useEffect(() => {
-    const { nodes: newNodes, edges: newEdges } = convertToReactFlow(graph, selectedNodes, errors);
+    const { nodes: newNodes, edges: newEdges } = convertToReactFlow(graph, selectedNodes, errorTracker.errors);
     console.log('🔄 DEBUG - Syncing nodes:', newNodes.length, newNodes);
     setNodes(newNodes);
     setEdges(newEdges);
-  }, [graph, graph.nodes, graph.edges, selectedNodes, errors]);
+  }, [graph, graph.nodes, graph.edges, selectedNodes, errorTracker.errors]);
 
   const onConnect = useCallback(
     (params: Connection) => {

@@ -1,6 +1,7 @@
 import type { Node as RFNode, Edge as RFEdge } from 'reactflow';
 import { MarkerType } from 'reactflow';
 import type { GraphInstance, NodeInstance, Edge } from '@brepflow/types';
+import type { ErrorInfo } from '../hooks/useErrorTracking';
 
 /**
  * Convert BrepFlow graph to ReactFlow format
@@ -8,7 +9,7 @@ import type { GraphInstance, NodeInstance, Edge } from '@brepflow/types';
 export function convertToReactFlow(
   graph: GraphInstance,
   selectedNodes?: Set<string>,
-  errors?: Map<string, string>,
+  errors?: Map<string, ErrorInfo>,
   onOpenParameterDialog?: (nodeType: string, position: { x: number; y: number }) => void
 ): {
   nodes: RFNode[];

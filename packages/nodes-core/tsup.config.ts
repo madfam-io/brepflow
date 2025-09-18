@@ -1,10 +1,12 @@
-import { defineConfig } from 'tsup';
+import { createLibraryConfig } from '../../build/tsup.base.config';
 
-export default defineConfig({
+/**
+ * Nodes Core build configuration
+ * Built-in node definitions for BrepFlow
+ */
+export default createLibraryConfig({
   entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
-  dts: false, // Temporarily disable DTS until TypeScript issues are resolved
-  splitting: false,
-  sourcemap: true,
-  clean: true,
+  dts: true, // Re-enable DTS with proper configuration
+  // Additional node categories can be added as entry points
+  // entry: ['src/index.ts', 'src/geometry/index.ts', 'src/math/index.ts'],
 });

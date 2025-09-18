@@ -1,4 +1,9 @@
-import type { Graph, Node, Edge, Connection } from '@brepflow/types';
+import { NodeId, EdgeId, SocketId, GraphInstance, NodeInstance, Edge as EdgeType } from '@brepflow/types';
+
+// Re-export types for convenience
+export type Graph = GraphInstance;
+export type Node = NodeInstance;
+export type Edge = EdgeType;
 
 // User and Session Types
 export interface User {

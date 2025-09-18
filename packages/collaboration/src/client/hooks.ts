@@ -1,6 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useCollaboration } from './collaboration-provider';
-import type { Presence, Node, Edge } from '../types';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useAwareness, useDoc } from './collaboration-provider';
+import type { 
+  CollaborationContext,
+  Presence,
+  SelectionState,
+  EditingState,
+  CursorPosition,
+  ViewportState,
+  Operation
+} from '../types';
 
 /**
  * Hook to get and update cursor position
@@ -143,25 +151,59 @@ export function useEditingStatus() {
   };
 }
 
-/**
- * Hook to get presence information
- */
-export function usePresence() {
-  const { presence, currentUser, isConnected } = useCollaboration();
+export function useCollaboration() {
+  const awareness = useAwareness();
+  const doc = useDoc();
+  const [presence, setPresence] = useState<Map<number, Presence>>(new Map());
 
-  const activeUsers = presence.map((p) => ({
-    id: p.user.id,
-    name: p.user.name,
-    avatar: p.user.avatar,
-    color: p.user.color,
-    isCurrentUser: p.user.id === currentUser.id,
-  }));
+  useEffect(() => {
+    const handleChange = () => {
+      const states = awareness.getStates();
+      const presenceMap = new Map<number, Presence>();
+      states.forEach((state, clientId) => {
+        if (state.user) {
+          presenceMap.set(clientId, state as Presence);
+        }
+      });
+      setPresence(presenceMap);
+    };
 
+    awareness.on('change', handleChange);
+    handleChange(); // Initial state
+
+    return () => awareness.off('change', handleChange);
+  }, [awareness]);
+  
   return {
-    activeUsers,
-    userCount: activeUsers.length + 1, // Include current user
-    isConnected,
+    awareness,
+    doc,
+    presence,
+    connected: awareness.getStates().size > 0,
+    currentUser: { id: 'current', name: 'Current User', color: '#000000', avatar: '' },
+    updateCursor: (position: CursorPosition) => {
+      awareness.setLocalStateField('cursor', position);
+    },
+    updateSelection: (selection: SelectionState) => {
+      awareness.setLocalStateField('selection', selection);
+    },
+    updateViewport: (viewport: ViewportState) => {
+      awareness.setLocalStateField('viewport', viewport);
+    },
+    setEditing: (editing: EditingState) => {
+      awareness.setLocalStateField('editing', editing);
+    },
+    submitOperation: (operation: Operation) => {
+      doc.transact(() => {
+        // Apply operation to doc
+      });
+    },
+    document: doc
   };
+}
+
+export function usePresence() {
+  const { presence } = useCollaboration();
+  return presence;
 }
 
 /**

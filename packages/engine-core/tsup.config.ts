@@ -1,10 +1,16 @@
-import { defineConfig } from 'tsup';
+import { createLibraryConfig } from '../../build/tsup.base.config';
 
-export default defineConfig({
+/**
+ * Engine Core build configuration
+ * DAG evaluation, caching, and core execution logic
+ */
+export default createLibraryConfig({
   entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
-  dts: true, // Enable DTS generation for proper type resolution
-  splitting: false,
-  sourcemap: true,
-  clean: true,
+  // Engine-specific externals
+  external: [
+    'react',
+    'react-dom',
+    /^@brepflow\//,
+    'vitest',
+  ],
 });

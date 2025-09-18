@@ -27,9 +27,9 @@ export class DimensionalConstraint {
       if (!e1.position || !e2.position) return Infinity;
 
       const distance = Math.sqrt(
-        Math.pow(e1.position[0] - e2.position[0], 2) +
-        Math.pow(e1.position[1] - e2.position[1], 2) +
-        Math.pow(e1.position[2] - e2.position[2], 2)
+        Math.pow(e1.position.x - e2.position.x, 2) +
+        Math.pow(e1.position.y - e2.position.y, 2) +
+        Math.pow(e1.position.z - e2.position.z, 2)
       );
 
       return Math.abs(distance - targetValue);
@@ -100,10 +100,14 @@ export class DimensionalConstraint {
   }
 
   private dot(a: Vec3, b: Vec3): number {
-    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+    return a.x * b.x + a.y * b.y + a.z * b.z;
   }
 
   private subtract(a: Vec3, b: Vec3): Vec3 {
-    return [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+    return {
+      x: a.x - b.x,
+      y: a.y - b.y,
+      z: a.z - b.z
+    };
   }
 }

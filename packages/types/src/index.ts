@@ -1,24 +1,54 @@
-// Core BrepFlow types
+/**
+ * Core BrepFlow types
+ * Centralized type definitions for the entire monorepo
+ */
 
-export type NodeId = string;
-export type SocketId = string;
-export type HandleId = string;
+// Re-export core types from structured modules
+export {
+  // Branded identifier types
+  NodeId,
+  EdgeId,
+  SocketId,
+  HandleId,
+  GraphId,
+  UserId,
+  SessionId,
+  ProjectId
+} from './core/identifiers';
 
-// Geometry types
-export interface Vec3 {
-  x: number;
-  y: number;
-  z: number;
-}
+export {
+  // Geometry primitives
+  Vec3,
+  Vec2,
+  Quaternion,
+  Mat4,
+  Mat2,
+  Mat3,
+  BoundingBox,
+  Ray,
+  Plane,
+  Transform,
+  Color
+} from './core/geometry';
 
-export interface Mat4 {
-  elements: number[]; // 16 elements
-}
+export {
+  // Error handling system
+  ErrorCode,
+  ErrorSeverity,
+  ErrorContext,
+  BrepFlowError,
+  GeometryError,
+  ValidationError,
+  NetworkError,
+  StateError,
+  ErrorRecoveryStrategy,
+  ErrorHandler
+} from './core/errors';
 
-export interface BoundingBox {
-  min: Vec3;
-  max: Vec3;
-}
+// Legacy type exports for backward compatibility
+// These will be deprecated in Phase 2
+import type { Vec3, Vec2, Mat2, Mat4, BoundingBox, Quaternion } from './core/geometry';
+import type { NodeId, EdgeId, SocketId, HandleId } from './core/identifiers';
 
 // Parameter types
 export type ParamValue =
@@ -172,6 +202,29 @@ export interface GraphInstance {
     author?: string;
     description?: string;
   };
+}
+
+// Type aliases for compatibility
+export type Graph = GraphInstance;
+export type Node = NodeInstance;
+export type Connection = Edge;
+
+// Re-export utility functions for creating branded types
+export { NodeId as createNodeId } from './core/identifiers';
+export { EdgeId as createEdgeId } from './core/identifiers';
+export { SocketId as createSocketId } from './core/identifiers';
+export { HandleId as createHandleId } from './core/identifiers';
+export { GraphId as createGraphId } from './core/identifiers';
+export { UserId as createUserId } from './core/identifiers';
+export { SessionId as createSessionId } from './core/identifiers';
+export { ProjectId as createProjectId } from './core/identifiers';
+
+// Constraint handle type
+export interface ConstraintHandle {
+  id: string;
+  type: string;
+  entities: string[];
+  parameters: Record<string, number>;
 }
 
 export interface Edge {

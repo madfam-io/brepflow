@@ -304,7 +304,7 @@ export const Enhanced3DViewport: React.FC<ViewportProps> = ({
                   onClick={() => handleToolSelect(tool.id)}
                 >
                   <div className="tool-icon">
-                    <IconButton icon={tool.icon} size="sm" variant="ghost" />
+                    <IconButton icon={tool.icon} size="sm" variant="ghost" aria-label={tool.label} />
                   </div>
                   <span className="tool-label">{tool.label}</span>
                 </button>

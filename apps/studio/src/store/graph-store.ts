@@ -87,10 +87,10 @@ export const useGraphStore = create<GraphState>()(
       const graphManager = new GraphManager();
       const undoRedoManager = new UndoRedoManager();
 
-      // Initialize DAG engine with OCCT geometry API
+      // Initialize DAG engine with geometry API
       const initEngine = async () => {
         try {
-          const geometryAPI = getGeometryAPI(); // Uses OCCT by default now
+          const geometryAPI = await getGeometryAPI();
           await geometryAPI.init();
           console.log('🚀 Geometry API initialized successfully');
 
@@ -127,14 +127,17 @@ export const useGraphStore = create<GraphState>()(
           }
 
           // Fall back to mock mode
-          const mockGeometryAPI = getGeometryAPI(true);
+          const mockGeometryAPI = await getGeometryAPI(true);
           await mockGeometryAPI.init();
           console.warn('⚠️ Using mock geometry API');
           return new DAGEngine({ worker: mockGeometryAPI });
         }
       };
 
+      // Initialize engine asynchronously
+      let dagEngine: DAGEngine | null = null;
       initEngine().then(engine => {
+        dagEngine = engine;
         set({ dagEngine: engine });
       });
 
@@ -144,7 +147,7 @@ export const useGraphStore = create<GraphState>()(
         selectedNodes: new Set(),
         hoveredNode: null,
         graphManager,
-        dagEngine: null,
+        dagEngine,
         isEvaluating: false,
         evaluationProgress: 0,
         errors: new Map(),

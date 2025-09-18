@@ -20,7 +20,11 @@ import {
   // Measurement
   Ruler, Triangle, Calculator, CircleDot,
   // Navigation
-  Grid3X3, Layers3, Palette, Lightbulb
+  Grid3X3, Layers3, Palette, Lightbulb,
+  // Additional icons for error fixing
+  Loader, ChevronUp, ChevronDown, ChevronRight, Sun,
+  MoreVertical, Mail, Activity, Zap, Menu, Folder,
+  HelpCircle, StopCircle, RotateCcw as Rotate3d, Maximize
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -133,6 +137,36 @@ export const IconMap = {
   'help': Lightbulb,
   'info': AlertCircle,
   'ruler': Ruler,
+  
+  // Additional UI icons
+  'loader': Loader,
+  'chevron-up': ChevronUp,
+  'chevron-down': ChevronDown,
+  'chevron-right': ChevronRight,
+  'sun': Sun,
+  'more-vertical': MoreVertical,
+  'mail': Mail,
+  'activity': Activity,
+  'zap': Zap,
+  'menu': Menu,
+  'folder': Folder,
+  'help-circle': HelpCircle,
+  'stop-circle': StopCircle,
+  'rotate-3d': Rotate3d,
+  'maximize': Maximize,
+  'alert-circle': AlertCircle,
+  'x': X,
+  'copy': Copy,
+  'trash-2': Trash2,
+  'eye': Eye,
+  'move': Move,
+  'grid-3x3': Grid3X3,
+  'scissors': Scissors,
+  'layers': Layers,
+  'triangle': Triangle,
+  'circle': Circle,
+  'download': Download,
+  'play': Play,
 } as const;
 
 export type IconName = keyof typeof IconMap;

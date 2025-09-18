@@ -198,6 +198,32 @@ export function useCollaboration() {
   return context;
 }
 
+/**
+ * Hook to access awareness state (presence, cursors, etc.)
+ */
+export function useAwareness() {
+  const { presence, currentUser, updateCursor, updateSelection, updateViewport } = useCollaboration();
+  return {
+    presence,
+    currentUser,
+    updateCursor,
+    updateSelection,
+    updateViewport,
+  };
+}
+
+/**
+ * Hook to access document state and operations
+ */
+export function useDoc() {
+  const { document, submitOperation, isConnected } = useCollaboration();
+  return {
+    document,
+    submitOperation,
+    isConnected,
+  };
+}
+
 function generateOperationId(): string {
   return `op_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 }

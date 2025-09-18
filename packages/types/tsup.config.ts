@@ -1,10 +1,11 @@
-import { defineConfig } from 'tsup';
+import { createLibraryConfig } from '../../build/tsup.base.config';
 
-export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
-  dts: true,
-  splitting: false,
-  sourcemap: true,
-  clean: true,
+/**
+ * Types package build configuration
+ * Core type definitions for the entire BrepFlow monorepo
+ */
+export default createLibraryConfig({
+  entry: ['src/index.ts', 'src/core/index.ts'],
+  // Types package has no external dependencies
+  external: [],
 });

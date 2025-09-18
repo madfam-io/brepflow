@@ -3,7 +3,7 @@ import { Icon } from '../common/Icon';
 import { IconButton } from './Button';
 import './Panel.css';
 
-export interface PanelProps {
+export interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   subtitle?: string;
   headerActions?: React.ReactNode;
@@ -13,7 +13,6 @@ export interface PanelProps {
   minWidth?: number;
   maxWidth?: number;
   variant?: 'default' | 'primary' | 'secondary' | 'floating' | 'compact';
-  className?: string;
   children: React.ReactNode;
   onResize?: (width: number) => void;
   onCollapse?: (collapsed: boolean) => void;

@@ -4,7 +4,7 @@
  * using numerical methods (Newton-Raphson iteration)
  */
 
-import { Vec2, Mat2 } from '@brepflow/types';
+import type { Vec2, Mat2 } from '@brepflow/types';
 
 export enum ConstraintType {
   // Geometric constraints

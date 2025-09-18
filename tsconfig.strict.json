@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    // Type Checking - Maximum strictness
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    // Module Resolution
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+
+    // Emit
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "importHelpers": true,
+    "importsNotUsedAsValues": "error",
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    // JavaScript Support
+    "allowJs": false,
+    "checkJs": false,
+
+    // Language and Environment
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker"],
+    "module": "ESNext",
+    "jsx": "react-jsx",
+
+    // Projects
+    "incremental": true,
+    "composite": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
+
+    // Output
+    "outDir": "dist",
+    "rootDir": "src",
+
+    // Interop Constraints
+    "forceConsistentCasingInFileNames": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+
+    // Skip Lib Check for faster builds
+    "skipLibCheck": false,
+    "skipDefaultLibCheck": false,
+
+    // Completeness
+    "noEmitOnError": true,
+
+    // Advanced
+    "preserveConstEnums": true,
+    "preserveWatchOutput": true,
+    "pretty": true,
+    "stripInternal": true,
+    "useDefineForClassFields": true,
+
+    // Path Mapping
+    "baseUrl": ".",
+    "paths": {
+      "@brepflow/types": ["packages/types/src"],
+      "@brepflow/types/*": ["packages/types/src/*"],
+      "@brepflow/engine-core": ["packages/engine-core/src"],
+      "@brepflow/engine-core/*": ["packages/engine-core/src/*"],
+      "@brepflow/engine-occt": ["packages/engine-occt/src"],
+      "@brepflow/engine-occt/*": ["packages/engine-occt/src/*"],
+      "@brepflow/nodes-core": ["packages/nodes-core/src"],
+      "@brepflow/nodes-core/*": ["packages/nodes-core/src/*"],
+      "@brepflow/viewport": ["packages/viewport/src"],
+      "@brepflow/viewport/*": ["packages/viewport/src/*"],
+      "@brepflow/constraint-solver": ["packages/constraint-solver/src"],
+      "@brepflow/constraint-solver/*": ["packages/constraint-solver/src/*"],
+      "@brepflow/collaboration": ["packages/collaboration/src"],
+      "@brepflow/collaboration/*": ["packages/collaboration/src/*"],
+      "@brepflow/schemas": ["packages/schemas/src"],
+      "@brepflow/schemas/*": ["packages/schemas/src/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    ".turbo",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/test/**",
+    "**/tests/**",
+    "**/__tests__/**",
+    "**/vitest.config.ts",
+    "**/vite.config.ts",
+    "**/tsup.config.ts"
+  ]
+}

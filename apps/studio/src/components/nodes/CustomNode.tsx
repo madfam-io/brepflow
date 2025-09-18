@@ -8,11 +8,13 @@ interface CustomNodeProps {
   data: {
     label: string;
     type?: string;
+    nodeType?: string;
     nodeData?: NodeInstance;
     isSelected?: boolean;
     isHovered?: boolean;
     hasError?: boolean;
     isExecuting?: boolean;
+    onOpenParameterDialog?: (nodeType: string, position: { x: number; y: number }) => void;
   };
   selected?: boolean;
 }

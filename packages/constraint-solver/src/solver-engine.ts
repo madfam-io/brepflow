@@ -90,12 +90,16 @@ export class ConstraintSolverEngine {
 
         const entityGradients = gradients.get(entityId) ?? new Map<string, number>();
 
-        // Compute gradients for position parameters
+        // Numerical gradient for position
         if (entity.position) {
           for (let i = 0; i < 3; i++) {
             const delta = 1e-5;
-            const modifiedEntity = { ...entity, position: [...entity.position] as [number, number, number] };
-            modifiedEntity.position[i] += delta;
+            const posArray = [entity.position.x, entity.position.y, entity.position.z];
+            posArray[i] += delta;
+            const modifiedEntity = {
+              ...entity,
+              position: { x: posArray[0], y: posArray[1], z: posArray[2] }
+            };
 
             const modifiedEntities = new Map(entities);
             modifiedEntities.set(entityId, modifiedEntity);
@@ -163,12 +167,10 @@ export class ConstraintSolverEngine {
 
       // Apply position updates
       if (entity.position) {
-        const newPosition = [...entity.position] as [number, number, number];
-        for (let i = 0; i < 3; i++) {
-          const update = entityUpdates.get(`pos_${i}`) ?? 0;
-          newPosition[i] += update;
-        }
-        updatedEntity.position = newPosition;
+        const posX = entity.position.x + (entityUpdates.get('pos_0') ?? 0);
+        const posY = entity.position.y + (entityUpdates.get('pos_1') ?? 0);
+        const posZ = entity.position.z + (entityUpdates.get('pos_2') ?? 0);
+        updatedEntity.position = { x: posX, y: posY, z: posZ };
       }
 
       // Apply parameter updates

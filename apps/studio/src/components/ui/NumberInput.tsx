@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Icon } from '../common/Icon';
 import './Input.css';
 
-export interface NumberInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'value'> {
+export interface NumberInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'value' | 'size'> {
   value?: number;
   onValueChange?: (value: number | undefined) => void;
   min?: number;

@@ -28,9 +28,9 @@ export class GeometricConstraint {
     if (!e1?.position || !e2?.position) return Infinity;
 
     return Math.sqrt(
-      Math.pow(e1.position[0] - e2.position[0], 2) +
-      Math.pow(e1.position[1] - e2.position[1], 2) +
-      Math.pow(e1.position[2] - e2.position[2], 2)
+      Math.pow(e1.position.x - e2.position.x, 2) +
+      Math.pow(e1.position.y - e2.position.y, 2) +
+      Math.pow(e1.position.z - e2.position.z, 2)
     );
   }
 
@@ -72,14 +72,14 @@ export class GeometricConstraint {
     const [entity] = this.getEntities(entities);
     if (!entity?.direction) return Infinity;
 
-    return Math.abs(entity.direction[1]);
+    return Math.abs(entity.direction.y);
   }
 
   private evaluateVertical(entities: Map<string, ConstraintEntity>): number {
     const [entity] = this.getEntities(entities);
     if (!entity?.direction) return Infinity;
 
-    return Math.abs(entity.direction[0]);
+    return Math.abs(entity.direction.x);
   }
 
   private getEntities(entities: Map<string, ConstraintEntity>): ConstraintEntity[] {
@@ -89,10 +89,14 @@ export class GeometricConstraint {
   }
 
   private dot(a: Vec3, b: Vec3): number {
-    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+    return a.x * b.x + a.y * b.y + a.z * b.z;
   }
 
   private subtract(a: Vec3, b: Vec3): Vec3 {
-    return [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+    return {
+      x: a.x - b.x,
+      y: a.y - b.y,
+      z: a.z - b.z
+    };
   }
 }

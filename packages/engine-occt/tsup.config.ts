@@ -1,22 +1,25 @@
+import { createWorkerConfig, createLibraryConfig } from '../../build/tsup.base.config';
 import { defineConfig } from 'tsup';
 
+/**
+ * Engine OCCT build configuration
+ * WASM geometry engine with worker-based execution
+ */
 export default defineConfig([
   {
-    // Main entry - ESM only (import.meta usage requires ESM)
-    entry: ['src/index.ts'],
-    format: ['esm'],
-    dts: false, // Temporarily disable DTS until TypeScript issues are resolved
-    splitting: false,
-    sourcemap: true,
-    clean: true,
+    // Main entry - Library configuration for ESM
+    ...createLibraryConfig({
+      entry: ['src/index.ts'],
+      format: ['esm'], // ESM only for import.meta
+      dts: true, // Re-enable DTS with proper configuration
+    }),
   },
   {
-    // Worker entry - only ESM (CJS doesn't support top-level await needed by WASM)
-    entry: ['src/worker.ts'],
-    format: ['esm'],
-    dts: false,
-    splitting: false,
-    sourcemap: true,
+    // Worker entry - Worker-specific configuration
+    ...createWorkerConfig({
+      entry: ['src/worker.ts'],
+      dts: false, // Workers don't need type definitions
+    }),
     clean: false, // Don't clean since we run after main build
   }
 ]);
