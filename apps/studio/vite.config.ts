@@ -33,14 +33,18 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ['@brepflow/engine-occt', 'xxhash-wasm', 'uuid', 'path', 'url', 'fs', 'crypto'], // Exclude WASM modules and Node.js deps from optimization
+    exclude: ['@brepflow/engine-occt'], // Exclude WASM modules from optimization
+    include: ['path', 'url', 'fs', 'crypto', 'uuid', 'xxhash-wasm'], // Force inclusion of polyfilled modules
+  },
+  ssr: {
+    noExternal: ['path', 'url', 'fs', 'crypto', 'uuid', 'xxhash-wasm'], // Prevent externalization
   },
   build: {
     target: 'esnext',
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
-      external: ['xxhash-wasm', 'path', 'url', 'fs', 'crypto', 'uuid'],
+      external: ['path', 'url', 'fs', 'crypto', 'uuid', 'xxhash-wasm'], // Externalize Node.js modules for build
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],

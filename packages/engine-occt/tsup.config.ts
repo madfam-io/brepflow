@@ -12,6 +12,7 @@ export default defineConfig([
       entry: ['src/index.ts'],
       format: ['esm'], // ESM only for import.meta
       dts: false, // TODO: Re-enable after fixing branded type issues
+      shims: false, // Disable ESM shims to avoid Node.js module imports
     }),
   },
   {
@@ -19,6 +20,7 @@ export default defineConfig([
     ...createWorkerConfig({
       entry: ['src/worker.ts'],
       dts: false, // Workers don't need type definitions
+      shims: false, // Disable ESM shims to avoid Node.js module imports
     }),
     clean: false, // Don't clean since we run after main build
   }

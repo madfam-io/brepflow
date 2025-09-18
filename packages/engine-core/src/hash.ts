@@ -1,14 +1,4 @@
 import type { NodeInstance } from '@brepflow/types';
-import xxhash from 'xxhash-wasm';
-
-// Initialize xxhash-wasm
-let hashInstance: Awaited<ReturnType<typeof xxhash>> | null = null;
-const initHasher = async () => {
-  if (!hashInstance) {
-    hashInstance = await xxhash();
-  }
-  return hashInstance;
-};
 
 /**
  * Generate deterministic hash for a node

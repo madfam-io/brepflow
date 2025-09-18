@@ -6,7 +6,7 @@ import type {
   SocketRef,
 } from '@brepflow/types';
 import { createNodeId, createEdgeId } from '@brepflow/types';
-import { v4 as uuidv4 } from 'uuid';
+import { uuidv4 } from './utils/uuid';
 
 export class GraphManager {
   private graph: GraphInstance;
