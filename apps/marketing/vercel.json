@@ -1,6 +1,4 @@
 {
-  "installCommand": "cd ../.. && pnpm install",
-  "buildCommand": "cd apps/marketing && pnpm run build",
-  "outputDirectory": "apps/marketing/dist",
-  "framework": null
+  "buildCommand": "cd ../.. && pnpm install && cd apps/marketing && pnpm run build",
+  "outputDirectory": "dist"
 }
