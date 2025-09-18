@@ -7,7 +7,7 @@ describe('AdaptiveTessellationNode', () => {
   it('should create AdaptiveTessellation', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       minEdgeLength: 0.1,

@@ -7,7 +7,7 @@ describe('BendTableNode', () => {
   it('should create BendTable', async () => {
     const context = createTestContext();
     const inputs = {
-      tableData: /* test value */
+      tableData: null
     };
     const params = {
       tableType: "k-factor"

@@ -7,7 +7,7 @@ describe('CurvatureAnalysisNode', () => {
   it('should create CurvatureAnalysis', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       analysisType: "gaussian",

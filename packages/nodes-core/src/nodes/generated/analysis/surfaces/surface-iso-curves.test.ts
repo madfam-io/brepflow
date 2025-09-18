@@ -7,7 +7,7 @@ describe('SurfaceIsoCurvesNode', () => {
   it('should create SurfaceIsoCurves', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       uCount: 10,

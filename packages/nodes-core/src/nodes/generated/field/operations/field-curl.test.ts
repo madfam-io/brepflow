@@ -7,7 +7,7 @@ describe('FieldCurlNode', () => {
   it('should create FieldCurl', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */
+      field: null
     };
     const params = {
       

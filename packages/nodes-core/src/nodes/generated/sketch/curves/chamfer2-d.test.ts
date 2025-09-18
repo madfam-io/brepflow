@@ -7,7 +7,7 @@ describe('Chamfer2DNode', () => {
   it('should create Chamfer2D', async () => {
     const context = createTestContext();
     const inputs = {
-      wire: /* test value */
+      wire: null
     };
     const params = {
       distance: 5

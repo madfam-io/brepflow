@@ -7,8 +7,8 @@ describe('TreeShiftNode', () => {
   it('should create TreeShift', async () => {
     const context = createTestContext();
     const inputs = {
-      tree: /* test value */,
-      offset: /* test value */
+      tree: null,
+      offset: null
     };
     const params = {
       

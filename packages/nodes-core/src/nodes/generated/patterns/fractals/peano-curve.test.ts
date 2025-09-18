@@ -7,7 +7,7 @@ describe('PeanoCurveNode', () => {
   it('should create PeanoCurve', async () => {
     const context = createTestContext();
     const inputs = {
-      bounds: /* test value */
+      bounds: null
     };
     const params = {
       order: 3

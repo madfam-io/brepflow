@@ -7,7 +7,7 @@ describe('ToNumberNode', () => {
   it('should create ToNumber', async () => {
     const context = createTestContext();
     const inputs = {
-      data: /* test value */
+      data: null
     };
     const params = {
       

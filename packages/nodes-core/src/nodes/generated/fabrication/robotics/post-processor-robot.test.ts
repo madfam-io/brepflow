@@ -7,7 +7,7 @@ describe('PostProcessorRobotNode', () => {
   it('should create PostProcessorRobot', async () => {
     const context = createTestContext();
     const inputs = {
-      trajectory: /* test value */
+      trajectory: null
     };
     const params = {
       robotBrand: "abb"

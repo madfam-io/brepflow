@@ -7,8 +7,8 @@ describe('ListSliceNode', () => {
   it('should create ListSlice', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */,
-      start: /* test value */
+      list: null,
+      start: null
     };
     const params = {
       

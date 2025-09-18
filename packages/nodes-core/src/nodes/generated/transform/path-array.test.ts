@@ -7,8 +7,8 @@ describe('PathArrayNode', () => {
   it('should create PathArray', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */,
-      path: /* test value */
+      shape: null,
+      path: null
     };
     const params = {
       count: 10,

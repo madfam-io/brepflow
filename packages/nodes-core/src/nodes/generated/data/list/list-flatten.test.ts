@@ -7,7 +7,7 @@ describe('ListFlattenNode', () => {
   it('should create ListFlatten', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */
+      list: null
     };
     const params = {
       depth: 1

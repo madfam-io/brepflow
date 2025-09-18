@@ -7,7 +7,7 @@ describe('MicroJointsNode', () => {
   it('should create MicroJoints', async () => {
     const context = createTestContext();
     const inputs = {
-      cutPath: /* test value */
+      cutPath: null
     };
     const params = {
       jointWidth: 0.2,

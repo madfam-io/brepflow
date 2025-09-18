@@ -7,7 +7,7 @@ describe('RobotSimulationNode', () => {
   it('should create RobotSimulation', async () => {
     const context = createTestContext();
     const inputs = {
-      program: /* test value */
+      program: null
     };
     const params = {
       timeStep: 0.01,

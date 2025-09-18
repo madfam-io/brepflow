@@ -7,7 +7,7 @@ describe('PackingOptimizeNode', () => {
   it('should create PackingOptimize', async () => {
     const context = createTestContext();
     const inputs = {
-      parts: /* test value */
+      parts: null
     };
     const params = {
       containerSize: [100,100,100],

@@ -7,7 +7,7 @@ describe('UnionNode', () => {
   it('should create Union', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */
+      shapes: null
     };
     const params = {
       keepOriginals: false,

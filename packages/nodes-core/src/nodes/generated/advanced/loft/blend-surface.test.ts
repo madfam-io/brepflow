@@ -7,8 +7,8 @@ describe('BlendSurfaceNode', () => {
   it('should create BlendSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      surface1: /* test value */,
-      surface2: /* test value */
+      surface1: null,
+      surface2: null
     };
     const params = {
       continuity: "G1",

@@ -7,7 +7,7 @@ describe('HistoricWallRestorationNode', () => {
   it('should create HistoricWallRestoration', async () => {
     const context = createTestContext();
     const inputs = {
-      existingWall: /* test value */
+      existingWall: null
     };
     const params = {
       period: "victorian",

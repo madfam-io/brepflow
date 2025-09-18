@@ -7,7 +7,7 @@ describe('NoiseFieldNode', () => {
   it('should create NoiseField', async () => {
     const context = createTestContext();
     const inputs = {
-      domain: /* test value */
+      domain: null
     };
     const params = {
       type: "perlin",

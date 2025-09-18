@@ -7,7 +7,7 @@ describe('MatrixDeterminantNode', () => {
   it('should create MatrixDeterminant', async () => {
     const context = createTestContext();
     const inputs = {
-      matrix: /* test value */
+      matrix: null
     };
     const params = {
       

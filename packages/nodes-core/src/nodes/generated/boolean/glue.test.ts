@@ -7,7 +7,7 @@ describe('GlueNode', () => {
   it('should create Glue', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */
+      shapes: null
     };
     const params = {
       tolerance: 1e-7

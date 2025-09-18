@@ -7,8 +7,8 @@ describe('MultiplyNode', () => {
   it('should create Multiply', async () => {
     const context = createTestContext();
     const inputs = {
-      a: /* test value */,
-      b: /* test value */
+      a: null,
+      b: null
     };
     const params = {
       

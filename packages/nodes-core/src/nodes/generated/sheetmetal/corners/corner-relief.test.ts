@@ -7,8 +7,8 @@ describe('CornerReliefNode', () => {
   it('should create CornerRelief', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      corners: /* test value */
+      sheet: null,
+      corners: null
     };
     const params = {
       reliefType: "circular",

@@ -7,7 +7,7 @@ describe('Log10Node', () => {
   it('should create Log10', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

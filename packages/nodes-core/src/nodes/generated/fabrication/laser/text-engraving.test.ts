@@ -7,8 +7,8 @@ describe('TextEngravingNode', () => {
   it('should create TextEngraving', async () => {
     const context = createTestContext();
     const inputs = {
-      text: /* test value */,
-      position: /* test value */
+      text: null,
+      position: null
     };
     const params = {
       font: "single-line",

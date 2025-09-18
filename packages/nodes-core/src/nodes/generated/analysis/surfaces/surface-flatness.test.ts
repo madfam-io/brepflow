@@ -7,7 +7,7 @@ describe('SurfaceFlatnessNode', () => {
   it('should create SurfaceFlatness', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       tolerance: 0.1,

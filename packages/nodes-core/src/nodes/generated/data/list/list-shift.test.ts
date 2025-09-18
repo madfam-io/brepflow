@@ -7,8 +7,8 @@ describe('ListShiftNode', () => {
   it('should create ListShift', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */,
-      offset: /* test value */
+      list: null,
+      offset: null
     };
     const params = {
       wrap: true

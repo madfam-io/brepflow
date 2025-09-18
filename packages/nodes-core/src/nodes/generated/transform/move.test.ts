@@ -7,7 +7,7 @@ describe('MoveNode', () => {
   it('should create Move', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       x: 0,

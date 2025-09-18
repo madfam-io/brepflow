@@ -7,8 +7,8 @@ describe('MotionStudyNode', () => {
   it('should create MotionStudy', async () => {
     const context = createTestContext();
     const inputs = {
-      assembly: /* test value */,
-      drivers: /* test value */
+      assembly: null,
+      drivers: null
     };
     const params = {
       steps: 10,

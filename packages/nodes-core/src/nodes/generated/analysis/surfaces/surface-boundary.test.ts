@@ -7,7 +7,7 @@ describe('SurfaceBoundaryNode', () => {
   it('should create SurfaceBoundary', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       includeHoles: true,

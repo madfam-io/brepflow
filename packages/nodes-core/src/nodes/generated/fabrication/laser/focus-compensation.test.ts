@@ -7,7 +7,7 @@ describe('FocusCompensationNode', () => {
   it('should create FocusCompensation', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       focalLength: 50,

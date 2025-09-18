@@ -7,7 +7,7 @@ describe('MarkovChainNode', () => {
   it('should create MarkovChain', async () => {
     const context = createTestContext();
     const inputs = {
-      transitionMatrix: /* test value */
+      transitionMatrix: null
     };
     const params = {
       states: 5,

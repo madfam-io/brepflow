@@ -7,7 +7,7 @@ describe('MovablePartitionNode', () => {
   it('should create MovablePartition', async () => {
     const context = createTestContext();
     const inputs = {
-      path: /* test value */
+      path: null
     };
     const params = {
       panelWidth: 1200,

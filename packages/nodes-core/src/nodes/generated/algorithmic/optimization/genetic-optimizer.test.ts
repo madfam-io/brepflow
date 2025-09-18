@@ -7,8 +7,8 @@ describe('GeneticOptimizerNode', () => {
   it('should create GeneticOptimizer', async () => {
     const context = createTestContext();
     const inputs = {
-      objectives: /* test value */,
-      bounds: /* test value */
+      objectives: null,
+      bounds: null
     };
     const params = {
       populationSize: 100,

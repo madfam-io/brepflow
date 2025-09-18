@@ -7,8 +7,8 @@ describe('SplitNode', () => {
   it('should create Split', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */,
-      tools: /* test value */
+      shapes: null,
+      tools: null
     };
     const params = {
       keepAll: true

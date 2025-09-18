@@ -7,8 +7,8 @@ describe('BeadNode', () => {
   it('should create Bead', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      path: /* test value */
+      sheet: null,
+      path: null
     };
     const params = {
       beadWidth: 10,

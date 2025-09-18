@@ -7,7 +7,7 @@ describe('DeformNode', () => {
   it('should create Deform', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       method: "bend",

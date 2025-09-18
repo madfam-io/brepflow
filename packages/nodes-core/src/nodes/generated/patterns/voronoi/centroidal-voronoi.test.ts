@@ -7,7 +7,7 @@ describe('CentroidalVoronoiNode', () => {
   it('should create CentroidalVoronoi', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       iterations: 10,

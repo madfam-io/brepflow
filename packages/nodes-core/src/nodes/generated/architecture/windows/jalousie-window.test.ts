@@ -7,7 +7,7 @@ describe('JalousieWindowNode', () => {
   it('should create JalousieWindow', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       slats: 10,

@@ -7,7 +7,7 @@ describe('IGESImportNode', () => {
   it('should create IGESImport', async () => {
     const context = createTestContext();
     const inputs = {
-      filePath: /* test value */
+      filePath: null
     };
     const params = {
       units: "auto",

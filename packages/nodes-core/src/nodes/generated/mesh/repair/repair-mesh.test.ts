@@ -7,7 +7,7 @@ describe('RepairMeshNode', () => {
   it('should create RepairMesh', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       fillHoles: true,

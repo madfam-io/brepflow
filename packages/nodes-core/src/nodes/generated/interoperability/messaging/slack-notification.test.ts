@@ -7,7 +7,7 @@ describe('SlackNotificationNode', () => {
   it('should create SlackNotification', async () => {
     const context = createTestContext();
     const inputs = {
-      message: /* test value */
+      message: null
     };
     const params = {
       webhookUrl: "",

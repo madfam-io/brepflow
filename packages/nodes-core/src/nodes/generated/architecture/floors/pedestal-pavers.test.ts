@@ -7,7 +7,7 @@ describe('PedestalPaversNode', () => {
   it('should create PedestalPavers', async () => {
     const context = createTestContext();
     const inputs = {
-      area: /* test value */
+      area: null
     };
     const params = {
       paverSize: 600,

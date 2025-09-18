@@ -7,7 +7,7 @@ describe('TreeSimplifyNode', () => {
   it('should create TreeSimplify', async () => {
     const context = createTestContext();
     const inputs = {
-      tree: /* test value */
+      tree: null
     };
     const params = {
       

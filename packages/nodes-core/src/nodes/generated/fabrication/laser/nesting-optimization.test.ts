@@ -7,8 +7,8 @@ describe('NestingOptimizationNode', () => {
   it('should create NestingOptimization', async () => {
     const context = createTestContext();
     const inputs = {
-      parts: /* test value */,
-      sheet: /* test value */
+      parts: null,
+      sheet: null
     };
     const params = {
       spacing: 2,

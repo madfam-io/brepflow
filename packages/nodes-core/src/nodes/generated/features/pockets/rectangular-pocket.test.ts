@@ -7,8 +7,8 @@ describe('RectangularPocketNode', () => {
   it('should create RectangularPocket', async () => {
     const context = createTestContext();
     const inputs = {
-      face: /* test value */,
-      position: /* test value */
+      face: null,
+      position: null
     };
     const params = {
       width: 50,

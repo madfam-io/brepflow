@@ -7,7 +7,7 @@ describe('SurfaceAreaNode', () => {
   it('should create SurfaceArea', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       precision: 0.01,

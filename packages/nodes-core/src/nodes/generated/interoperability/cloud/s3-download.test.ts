@@ -7,8 +7,8 @@ describe('S3DownloadNode', () => {
   it('should create S3Download', async () => {
     const context = createTestContext();
     const inputs = {
-      key: /* test value */,
-      localPath: /* test value */
+      key: null,
+      localPath: null
     };
     const params = {
       bucket: "",

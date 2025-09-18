@@ -7,9 +7,9 @@ describe('RayIntersectionNode', () => {
   it('should create RayIntersection', async () => {
     const context = createTestContext();
     const inputs = {
-      rayOrigin: /* test value */,
-      rayDirection: /* test value */,
-      targets: /* test value */
+      rayOrigin: null,
+      rayDirection: null,
+      targets: null
     };
     const params = {
       tolerance: 0.01,

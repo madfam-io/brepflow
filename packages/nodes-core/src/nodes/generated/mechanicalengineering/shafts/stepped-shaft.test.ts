@@ -7,7 +7,7 @@ describe('SteppedShaftNode', () => {
   it('should create SteppedShaft', async () => {
     const context = createTestContext();
     const inputs = {
-      centerline: /* test value */
+      centerline: null
     };
     const params = {
       sections: "20x50,25x80,20x30",

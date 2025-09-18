@@ -7,7 +7,7 @@ describe('ComplexConjugateNode', () => {
   it('should create ComplexConjugate', async () => {
     const context = createTestContext();
     const inputs = {
-      complex: /* test value */
+      complex: null
     };
     const params = {
       

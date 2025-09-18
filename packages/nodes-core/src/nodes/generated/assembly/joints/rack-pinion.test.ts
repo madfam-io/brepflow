@@ -7,8 +7,8 @@ describe('RackPinionNode', () => {
   it('should create RackPinion', async () => {
     const context = createTestContext();
     const inputs = {
-      rack: /* test value */,
-      pinion: /* test value */
+      rack: null,
+      pinion: null
     };
     const params = {
       module: 1

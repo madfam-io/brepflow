@@ -7,7 +7,7 @@ describe('HealShapeNode', () => {
   it('should create HealShape', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       tolerance: 0.01,

@@ -7,8 +7,8 @@ describe('WallJoinNode', () => {
   it('should create WallJoin', async () => {
     const context = createTestContext();
     const inputs = {
-      wall1: /* test value */,
-      wall2: /* test value */
+      wall1: null,
+      wall2: null
     };
     const params = {
       joinType: "miter"

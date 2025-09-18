@@ -7,8 +7,8 @@ describe('SurfaceDeviationNode', () => {
   it('should create SurfaceDeviation', async () => {
     const context = createTestContext();
     const inputs = {
-      testSurface: /* test value */,
-      referenceSurface: /* test value */
+      testSurface: null,
+      referenceSurface: null
     };
     const params = {
       samples: 100,

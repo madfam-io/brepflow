@@ -7,7 +7,7 @@ describe('WrapNode', () => {
   it('should create Wrap', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       type: "cylinder",

@@ -7,7 +7,7 @@ describe('MoorishPatternNode', () => {
   it('should create MoorishPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      region: /* test value */
+      region: null
     };
     const params = {
       style: "alhambra",

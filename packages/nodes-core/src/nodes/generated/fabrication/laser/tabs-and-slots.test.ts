@@ -7,7 +7,7 @@ describe('TabsAndSlotsNode', () => {
   it('should create TabsAndSlots', async () => {
     const context = createTestContext();
     const inputs = {
-      edges: /* test value */
+      edges: null
     };
     const params = {
       tabWidth: 10,

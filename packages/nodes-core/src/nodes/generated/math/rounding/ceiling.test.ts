@@ -7,7 +7,7 @@ describe('CeilingNode', () => {
   it('should create Ceiling', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

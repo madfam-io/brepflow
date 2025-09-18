@@ -7,7 +7,7 @@ describe('MeshOffsetNode', () => {
   it('should create MeshOffset', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       offsetDistance: 1,

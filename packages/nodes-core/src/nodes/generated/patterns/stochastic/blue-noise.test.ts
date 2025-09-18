@@ -7,7 +7,7 @@ describe('BlueNoiseNode', () => {
   it('should create BlueNoise', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       count: 100,

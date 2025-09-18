@@ -7,7 +7,7 @@ describe('PathPlanningNode', () => {
   it('should create PathPlanning', async () => {
     const context = createTestContext();
     const inputs = {
-      waypoints: /* test value */
+      waypoints: null
     };
     const params = {
       algorithm: "rrt",

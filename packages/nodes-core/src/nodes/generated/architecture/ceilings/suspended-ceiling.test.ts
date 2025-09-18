@@ -7,7 +7,7 @@ describe('SuspendedCeilingNode', () => {
   it('should create SuspendedCeiling', async () => {
     const context = createTestContext();
     const inputs = {
-      roomBoundary: /* test value */
+      roomBoundary: null
     };
     const params = {
       tileSize: "600x600",

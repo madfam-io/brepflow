@@ -7,7 +7,7 @@ describe('ApollonianGasketNode', () => {
   it('should create ApollonianGasket', async () => {
     const context = createTestContext();
     const inputs = {
-      outerCircle: /* test value */
+      outerCircle: null
     };
     const params = {
       depth: 5,

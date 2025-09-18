@@ -7,7 +7,7 @@ describe('ConveyorTrackingNode', () => {
   it('should create ConveyorTracking', async () => {
     const context = createTestContext();
     const inputs = {
-      objectPositions: /* test value */
+      objectPositions: null
     };
     const params = {
       conveyorSpeed: 100,

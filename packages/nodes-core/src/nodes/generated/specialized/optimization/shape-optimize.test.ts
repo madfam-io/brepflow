@@ -7,8 +7,8 @@ describe('ShapeOptimizeNode', () => {
   it('should create ShapeOptimize', async () => {
     const context = createTestContext();
     const inputs = {
-      initialShape: /* test value */,
-      boundaryConditions: /* test value */
+      initialShape: null,
+      boundaryConditions: null
     };
     const params = {
       objective: "min-weight",

@@ -7,7 +7,7 @@ describe('SetPowerSetNode', () => {
   it('should create SetPowerSet', async () => {
     const context = createTestContext();
     const inputs = {
-      set: /* test value */
+      set: null
     };
     const params = {
       

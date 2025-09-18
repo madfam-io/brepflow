@@ -7,8 +7,8 @@ describe('AngleMeasurementNode', () => {
   it('should create AngleMeasurement', async () => {
     const context = createTestContext();
     const inputs = {
-      vector1: /* test value */,
-      vector2: /* test value */
+      vector1: null,
+      vector2: null
     };
     const params = {
       units: "degrees",

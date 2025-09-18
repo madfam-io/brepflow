@@ -7,7 +7,7 @@ describe('SoundproofWallNode', () => {
   it('should create SoundproofWall', async () => {
     const context = createTestContext();
     const inputs = {
-      wallPath: /* test value */
+      wallPath: null
     };
     const params = {
       stcRating: 50,

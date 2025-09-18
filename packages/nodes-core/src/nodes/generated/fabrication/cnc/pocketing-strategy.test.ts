@@ -7,8 +7,8 @@ describe('PocketingStrategyNode', () => {
   it('should create PocketingStrategy', async () => {
     const context = createTestContext();
     const inputs = {
-      pocket: /* test value */,
-      depth: /* test value */
+      pocket: null,
+      depth: null
     };
     const params = {
       pattern: "spiral",

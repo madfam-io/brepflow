@@ -7,7 +7,7 @@ describe('PrintTimeEstimateNode', () => {
   it('should create PrintTimeEstimate', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       printSpeed: 60,

@@ -7,7 +7,7 @@ describe('PostTensionedSlabNode', () => {
   it('should create PostTensionedSlab', async () => {
     const context = createTestContext();
     const inputs = {
-      slabOutline: /* test value */
+      slabOutline: null
     };
     const params = {
       slabThickness: 200,

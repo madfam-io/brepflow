@@ -7,7 +7,7 @@ describe('NaturalLogNode', () => {
   it('should create NaturalLog', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

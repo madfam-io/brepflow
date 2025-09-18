@@ -7,7 +7,7 @@ describe('RangeNode', () => {
   it('should create Range', async () => {
     const context = createTestContext();
     const inputs = {
-      values: /* test value */
+      values: null
     };
     const params = {
       

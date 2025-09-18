@@ -7,7 +7,7 @@ describe('VerticalNode', () => {
   it('should create Vertical', async () => {
     const context = createTestContext();
     const inputs = {
-      entity: /* test value */
+      entity: null
     };
     const params = {
       

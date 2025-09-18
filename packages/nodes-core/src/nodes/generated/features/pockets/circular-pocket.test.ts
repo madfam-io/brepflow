@@ -7,8 +7,8 @@ describe('CircularPocketNode', () => {
   it('should create CircularPocket', async () => {
     const context = createTestContext();
     const inputs = {
-      face: /* test value */,
-      position: /* test value */
+      face: null,
+      position: null
     };
     const params = {
       diameter: 40,

@@ -7,7 +7,7 @@ describe('VisionGuidanceNode', () => {
   it('should create VisionGuidance', async () => {
     const context = createTestContext();
     const inputs = {
-      targetFeatures: /* test value */
+      targetFeatures: null
     };
     const params = {
       cameraType: "3d",

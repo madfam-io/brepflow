@@ -7,7 +7,7 @@ describe('FieldFluxNode', () => {
   it('should create FieldFlux', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       

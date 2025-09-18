@@ -7,7 +7,7 @@ describe('PierceOptimizationNode', () => {
   it('should create PierceOptimization', async () => {
     const context = createTestContext();
     const inputs = {
-      closedPaths: /* test value */
+      closedPaths: null
     };
     const params = {
       preferCorners: true,

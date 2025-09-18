@@ -7,8 +7,8 @@ describe('IGESExportNode', () => {
   it('should create IGESExport', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */,
-      filePath: /* test value */
+      shapes: null,
+      filePath: null
     };
     const params = {
       units: "mm",

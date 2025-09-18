@@ -7,7 +7,7 @@ describe('RoboticMillingNode', () => {
   it('should create RoboticMilling', async () => {
     const context = createTestContext();
     const inputs = {
-      millingPaths: /* test value */
+      millingPaths: null
     };
     const params = {
       spindleSpeed: 10000,

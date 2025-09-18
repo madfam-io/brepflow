@@ -7,7 +7,7 @@ describe('CasementWindowNode', () => {
   it('should create CasementWindow', async () => {
     const context = createTestContext();
     const inputs = {
-      position: /* test value */
+      position: null
     };
     const params = {
       width: 600,

@@ -7,8 +7,8 @@ describe('StepDraftNode', () => {
   it('should create StepDraft', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */,
-      draftData: /* test value */
+      solid: null,
+      draftData: null
     };
     const params = {
       steps: 2

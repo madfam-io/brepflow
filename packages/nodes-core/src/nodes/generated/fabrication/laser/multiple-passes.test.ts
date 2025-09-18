@@ -7,7 +7,7 @@ describe('MultiplePassesNode', () => {
   it('should create MultiplePasses', async () => {
     const context = createTestContext();
     const inputs = {
-      paths: /* test value */
+      paths: null
     };
     const params = {
       passes: 2,

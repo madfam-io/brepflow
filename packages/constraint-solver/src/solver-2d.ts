@@ -1,353 +1,278 @@
-/**
- * 2D Parametric Constraint Solver
- * Implements a geometric constraint solver for 2D sketching
- * using numerical methods (Newton-Raphson iteration)
- */
-
-import type { Vec2, Mat2 } from '@brepflow/types';
-
-export enum ConstraintType {
-  // Geometric constraints
-  COINCIDENT = 'coincident',
-  PARALLEL = 'parallel',
-  PERPENDICULAR = 'perpendicular',
-  HORIZONTAL = 'horizontal',
-  VERTICAL = 'vertical',
-  TANGENT = 'tangent',
-  CONCENTRIC = 'concentric',
-  COLINEAR = 'colinear',
-  
-  // Dimensional constraints
-  DISTANCE = 'distance',
-  ANGLE = 'angle',
-  RADIUS = 'radius',
-  DIAMETER = 'diameter',
-  LENGTH = 'length',
-  
-  // Relational constraints
-  EQUAL = 'equal',
-  SYMMETRIC = 'symmetric',
-  MIDPOINT = 'midpoint',
-  
-  // Fixed constraints
-  FIXED = 'fixed',
-  FIXED_X = 'fixed_x',
-  FIXED_Y = 'fixed_y'
-}
-
-export interface SketchEntity {
-  id: string;
-  type: 'point' | 'line' | 'circle' | 'arc' | 'spline';
-  params: number[]; // Parameters that can be solved
-  fixed: boolean[];  // Which parameters are fixed
-}
-
-export interface Constraint2D {
-  id: string;
-  type: ConstraintType;
-  entities: string[]; // Entity IDs involved
-  value?: number; // For dimensional constraints
-  weight: number; // Constraint importance (0-1)
-}
+import { Point2D, Constraint2D, ConstraintType, Variable, SolveResult } from '@brepflow/types';
+import * as numeric from 'numeric';
 
 export class Solver2D {
-  private entities: Map<string, SketchEntity> = new Map();
-  private constraints: Map<string, Constraint2D> = new Map();
+  private constraints: Constraint2D[] = [];
+  private variables: Variable[] = [];
   private parameters: number[] = [];
-  private parameterMap: Map<string, number[]> = new Map();
-  
-  // Solver configuration
+
+  // Solver parameters
+  private readonly TOLERANCE = 1e-8;
   private readonly MAX_ITERATIONS = 100;
-  private readonly TOLERANCE = 1e-6;
   private readonly DAMPING_FACTOR = 0.8;
-  
-  /**
-   * Add a sketch entity to the solver
-   */
-  addEntity(entity: SketchEntity): void {
-    this.entities.set(entity.id, entity);
-    this.updateParameterMap();
+
+  constructor() {
+    // Initialize solver
   }
-  
+
   /**
    * Add a constraint to the solver
    */
   addConstraint(constraint: Constraint2D): void {
-    // Validate entities exist
-    for (const entityId of constraint.entities) {
-      if (!this.entities.has(entityId)) {
-        throw new Error(`Entity ${entityId} not found`);
+    this.constraints.push(constraint);
+  }
+
+  /**
+   * Add a variable to the solver
+   */
+  addVariable(variable: Variable): void {
+    this.variables.push(variable);
+    this.parameters.push(variable.value);
+  }
+
+  /**
+   * Remove all constraints and variables
+   */
+  clear(): void {
+    this.constraints = [];
+    this.variables = [];
+    this.parameters = [];
+  }
+
+  /**
+   * Get current variable values
+   */
+  getVariableValues(): { [id: string]: number } {
+    const result: { [id: string]: number } = {};
+    for (let i = 0; i < this.variables.length; i++) {
+      result[this.variables[i].id] = this.parameters[i];
+    }
+    return result;
+  }
+
+  /**
+   * Set initial values for variables
+   */
+  setInitialValues(values: { [id: string]: number }): void {
+    for (let i = 0; i < this.variables.length; i++) {
+      const variable = this.variables[i];
+      if (values[variable.id] !== undefined) {
+        this.parameters[i] = values[variable.id];
+        variable.value = values[variable.id];
       }
     }
-    this.constraints.set(constraint.id, constraint);
   }
-  
+
   /**
    * Solve the constraint system using Newton-Raphson method
    */
-  solve(): { success: boolean; iterations: number; error: number } {
-    this.buildParameterArray();
-    
+  solve(): SolveResult {
+    if (this.constraints.length === 0) {
+      return {
+        success: true,
+        iterations: 0,
+        error: 0,
+        variables: this.getVariableValues()
+      };
+    }
+
+    if (this.parameters.length === 0) {
+      return {
+        success: true,
+        iterations: 0,
+        error: 0,
+        variables: {}
+      };
+    }
+
     let iteration = 0;
     let error = Number.MAX_VALUE;
-    
+
     while (iteration < this.MAX_ITERATIONS && error > this.TOLERANCE) {
       const residuals = this.computeResiduals();
       const jacobian = this.computeJacobian();
-      
+
       // Solve J * delta = -R for parameter updates
       const delta = this.solveLinearSystem(jacobian, residuals);
-      
+
       // Apply damped update
       for (let i = 0; i < this.parameters.length; i++) {
         this.parameters[i] += this.DAMPING_FACTOR * delta[i];
       }
-      
+
       // Update entities with new parameters
       this.updateEntities();
-      
+
       // Calculate error
       error = Math.sqrt(residuals.reduce((sum, r) => sum + r * r, 0));
       iteration++;
     }
-    
+
     return {
       success: error <= this.TOLERANCE,
-      iterations: iteration,
-      error: error
+      iterations,
+      error,
+      variables: this.getVariableValues()
     };
   }
-  
+
   /**
-   * Compute constraint residuals (error terms)
+   * Update entity positions based on current parameter values
+   */
+  private updateEntities(): void {
+    for (let i = 0; i < this.variables.length; i++) {
+      this.variables[i].value = this.parameters[i];
+    }
+  }
+
+  /**
+   * Compute constraint residuals
    */
   private computeResiduals(): number[] {
     const residuals: number[] = [];
-    
-    for (const constraint of this.constraints.values()) {
-      const r = this.evaluateConstraint(constraint);
-      residuals.push(...r);
+
+    for (const constraint of this.constraints) {
+      switch (constraint.type) {
+        case ConstraintType.Distance:
+          if (constraint.entities.length >= 2) {
+            const p1 = constraint.entities[0] as Point2D;
+            const p2 = constraint.entities[1] as Point2D;
+            const dist = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
+            residuals.push(dist - (constraint.targetValue || 0));
+          }
+          break;
+
+        case ConstraintType.Horizontal:
+          if (constraint.entities.length >= 2) {
+            const p1 = constraint.entities[0] as Point2D;
+            const p2 = constraint.entities[1] as Point2D;
+            residuals.push(p1.y - p2.y);
+          }
+          break;
+
+        case ConstraintType.Vertical:
+          if (constraint.entities.length >= 2) {
+            const p1 = constraint.entities[0] as Point2D;
+            const p2 = constraint.entities[1] as Point2D;
+            residuals.push(p1.x - p2.x);
+          }
+          break;
+
+        case ConstraintType.Coincident:
+          if (constraint.entities.length >= 2) {
+            const p1 = constraint.entities[0] as Point2D;
+            const p2 = constraint.entities[1] as Point2D;
+            residuals.push(p1.x - p2.x);
+            residuals.push(p1.y - p2.y);
+          }
+          break;
+
+        case ConstraintType.Fixed:
+          if (constraint.entities.length >= 1) {
+            const p = constraint.entities[0] as Point2D;
+            const target = constraint.targetValue || { x: p.x, y: p.y };
+            if (typeof target === 'object' && 'x' in target && 'y' in target) {
+              residuals.push(p.x - target.x);
+              residuals.push(p.y - target.y);
+            }
+          }
+          break;
+
+        default:
+          // Skip unknown constraint types
+          break;
+      }
     }
-    
+
     return residuals;
   }
-  
+
   /**
-   * Compute Jacobian matrix (partial derivatives)
+   * Compute Jacobian matrix (partial derivatives of constraints w.r.t. parameters)
    */
   private computeJacobian(): number[][] {
-    const numConstraints = this.getConstraintCount();
+    const numConstraints = this.computeResiduals().length;
     const numParams = this.parameters.length;
-    const jacobian: number[][] = Array(numConstraints)
-      .fill(0)
-      .map(() => Array(numParams).fill(0));
-    
-    const h = 1e-7; // Finite difference step
-    
-    for (let j = 0; j < numParams; j++) {
-      // Store original value
-      const original = this.parameters[j];
-      
-      // Forward difference
-      this.parameters[j] = original + h;
-      this.updateEntities();
-      const residualsPlus = this.computeResiduals();
-      
-      // Backward difference
-      this.parameters[j] = original - h;
-      this.updateEntities();
-      const residualsMinus = this.computeResiduals();
-      
-      // Central difference approximation
-      for (let i = 0; i < numConstraints; i++) {
-        jacobian[i][j] = (residualsPlus[i] - residualsMinus[i]) / (2 * h);
-      }
-      
-      // Restore original value
-      this.parameters[j] = original;
+
+    if (numConstraints === 0 || numParams === 0) {
+      return [];
     }
-    
-    this.updateEntities();
+
+    const jacobian: number[][] = [];
+    const epsilon = 1e-8;
+
+    for (let i = 0; i < numConstraints; i++) {
+      jacobian[i] = [];
+
+      for (let j = 0; j < numParams; j++) {
+        // Compute partial derivative using finite differences
+        const originalParam = this.parameters[j];
+
+        // Forward difference
+        this.parameters[j] = originalParam + epsilon;
+        this.updateEntities();
+        const residualsPlus = this.computeResiduals();
+
+        // Backward difference
+        this.parameters[j] = originalParam - epsilon;
+        this.updateEntities();
+        const residualsMinus = this.computeResiduals();
+
+        // Restore original value
+        this.parameters[j] = originalParam;
+        this.updateEntities();
+
+        // Central difference
+        const derivative = (residualsPlus[i] - residualsMinus[i]) / (2 * epsilon);
+        jacobian[i][j] = derivative;
+      }
+    }
+
     return jacobian;
   }
-  
-  /**
-   * Evaluate a single constraint
-   */
-  private evaluateConstraint(constraint: Constraint2D): number[] {
-    switch (constraint.type) {
-      case ConstraintType.COINCIDENT:
-        return this.evaluateCoincident(constraint);
-      case ConstraintType.DISTANCE:
-        return this.evaluateDistance(constraint);
-      case ConstraintType.PARALLEL:
-        return this.evaluateParallel(constraint);
-      case ConstraintType.PERPENDICULAR:
-        return this.evaluatePerpendicular(constraint);
-      case ConstraintType.HORIZONTAL:
-        return this.evaluateHorizontal(constraint);
-      case ConstraintType.VERTICAL:
-        return this.evaluateVertical(constraint);
-      case ConstraintType.ANGLE:
-        return this.evaluateAngle(constraint);
-      case ConstraintType.RADIUS:
-        return this.evaluateRadius(constraint);
-      case ConstraintType.FIXED:
-        return this.evaluateFixed(constraint);
-      default:
-        return [0];
-    }
-  }
-  
-  /**
-   * Constraint evaluation functions
-   */
-  private evaluateCoincident(constraint: Constraint2D): number[] {
-    const [e1, e2] = constraint.entities.map(id => this.entities.get(id)!);
-    if (e1.type === 'point' && e2.type === 'point') {
-      const dx = e1.params[0] - e2.params[0];
-      const dy = e1.params[1] - e2.params[1];
-      return [dx * constraint.weight, dy * constraint.weight];
-    }
-    return [0];
-  }
-  
-  private evaluateDistance(constraint: Constraint2D): number[] {
-    const [e1, e2] = constraint.entities.map(id => this.entities.get(id)!);
-    const targetDistance = constraint.value || 0;
-    
-    if (e1.type === 'point' && e2.type === 'point') {
-      const dx = e1.params[0] - e2.params[0];
-      const dy = e1.params[1] - e2.params[1];
-      const currentDistance = Math.sqrt(dx * dx + dy * dy);
-      return [(currentDistance - targetDistance) * constraint.weight];
-    }
-    return [0];
-  }
-  
-  private evaluateParallel(constraint: Constraint2D): number[] {
-    const [e1, e2] = constraint.entities.map(id => this.entities.get(id)!);
-    if (e1.type === 'line' && e2.type === 'line') {
-      // Lines defined by two points each
-      const dx1 = e1.params[2] - e1.params[0];
-      const dy1 = e1.params[3] - e1.params[1];
-      const dx2 = e2.params[2] - e2.params[0];
-      const dy2 = e2.params[3] - e2.params[1];
-      
-      // Cross product should be zero for parallel lines
-      const cross = dx1 * dy2 - dy1 * dx2;
-      return [cross * constraint.weight];
-    }
-    return [0];
-  }
-  
-  private evaluatePerpendicular(constraint: Constraint2D): number[] {
-    const [e1, e2] = constraint.entities.map(id => this.entities.get(id)!);
-    if (e1.type === 'line' && e2.type === 'line') {
-      const dx1 = e1.params[2] - e1.params[0];
-      const dy1 = e1.params[3] - e1.params[1];
-      const dx2 = e2.params[2] - e2.params[0];
-      const dy2 = e2.params[3] - e2.params[1];
-      
-      // Dot product should be zero for perpendicular lines
-      const dot = dx1 * dx2 + dy1 * dy2;
-      return [dot * constraint.weight];
-    }
-    return [0];
-  }
-  
-  private evaluateHorizontal(constraint: Constraint2D): number[] {
-    const entity = this.entities.get(constraint.entities[0])!;
-    if (entity.type === 'line') {
-      const dy = entity.params[3] - entity.params[1];
-      return [dy * constraint.weight];
-    }
-    return [0];
-  }
-  
-  private evaluateVertical(constraint: Constraint2D): number[] {
-    const entity = this.entities.get(constraint.entities[0])!;
-    if (entity.type === 'line') {
-      const dx = entity.params[2] - entity.params[0];
-      return [dx * constraint.weight];
-    }
-    return [0];
-  }
-  
-  private evaluateAngle(constraint: Constraint2D): number[] {
-    const [e1, e2] = constraint.entities.map(id => this.entities.get(id)!);
-    const targetAngle = constraint.value || 0;
-    
-    if (e1.type === 'line' && e2.type === 'line') {
-      const dx1 = e1.params[2] - e1.params[0];
-      const dy1 = e1.params[3] - e1.params[1];
-      const dx2 = e2.params[2] - e2.params[0];
-      const dy2 = e2.params[3] - e2.params[1];
-      
-      const angle1 = Math.atan2(dy1, dx1);
-      const angle2 = Math.atan2(dy2, dx2);
-      let angleDiff = angle2 - angle1;
-      
-      // Normalize angle difference to [-π, π]
-      while (angleDiff > Math.PI) angleDiff -= 2 * Math.PI;
-      while (angleDiff < -Math.PI) angleDiff += 2 * Math.PI;
-      
-      return [(angleDiff - targetAngle) * constraint.weight];
-    }
-    return [0];
-  }
-  
-  private evaluateRadius(constraint: Constraint2D): number[] {
-    const entity = this.entities.get(constraint.entities[0])!;
-    const targetRadius = constraint.value || 0;
-    
-    if (entity.type === 'circle' || entity.type === 'arc') {
-      const currentRadius = entity.params[2]; // Assuming [cx, cy, r]
-      return [(currentRadius - targetRadius) * constraint.weight];
-    }
-    return [0];
-  }
-  
-  private evaluateFixed(constraint: Constraint2D): number[] {
-    const entity = this.entities.get(constraint.entities[0])!;
-    const residuals: number[] = [];
-    
-    for (let i = 0; i < entity.params.length; i++) {
-      if (entity.fixed[i]) {
-        // This parameter should not change from its initial value
-        residuals.push(0); // Placeholder - would track original value
-      }
-    }
-    return residuals;
-  }
-  
+
   /**
    * Solve linear system using Gaussian elimination
    */
   private solveLinearSystem(A: number[][], b: number[]): number[] {
+    if (A.length === 0 || b.length === 0) {
+      return [];
+    }
+
     const n = b.length;
-    const m = A[0].length;
-    
+    const m = A[0]?.length || 0;
+
+    if (m === 0) {
+      return [];
+    }
+
     // Use least squares if overdetermined
     if (n > m) {
       return this.leastSquares(A, b);
     }
-    
+
     // Standard Gaussian elimination for square or underdetermined systems
     const augmented = A.map((row, i) => [...row, -b[i]]);
-    
+
     // Forward elimination
     for (let i = 0; i < Math.min(n, m); i++) {
-      // Partial pivoting
+      // Find pivot
       let maxRow = i;
       for (let k = i + 1; k < n; k++) {
         if (Math.abs(augmented[k][i]) > Math.abs(augmented[maxRow][i])) {
           maxRow = k;
         }
       }
+
+      // Swap rows
       [augmented[i], augmented[maxRow]] = [augmented[maxRow], augmented[i]];
-      
-      // Make all rows below this one 0 in current column
+
+      // Skip if pivot is too small
+      if (Math.abs(augmented[i][i]) < 1e-12) {
+        continue;
+      }
+
+      // Eliminate column
       for (let k = i + 1; k < n; k++) {
         const factor = augmented[k][i] / augmented[i][i];
         for (let j = i; j <= m; j++) {
@@ -355,110 +280,40 @@ export class Solver2D {
         }
       }
     }
-    
+
     // Back substitution
-    const x = new Array(m).fill(0);
+    const solution = new Array(m).fill(0);
     for (let i = Math.min(n, m) - 1; i >= 0; i--) {
-      x[i] = augmented[i][m];
-      for (let j = i + 1; j < m; j++) {
-        x[i] -= augmented[i][j] * x[j];
+      if (Math.abs(augmented[i][i]) < 1e-12) {
+        continue;
       }
-      x[i] /= augmented[i][i];
+
+      solution[i] = augmented[i][m];
+      for (let j = i + 1; j < m; j++) {
+        solution[i] -= augmented[i][j] * solution[j];
+      }
+      solution[i] /= augmented[i][i];
     }
-    
-    return x;
+
+    return solution;
   }
-  
+
   /**
-   * Least squares solution for overdetermined systems
+   * Solve overdetermined system using least squares
    */
   private leastSquares(A: number[][], b: number[]): number[] {
-    // Solve A^T * A * x = A^T * b
-    const At = this.transpose(A);
-    const AtA = this.matrixMultiply(At, A);
-    const Atb = this.vectorMultiply(At, b);
-    return this.solveLinearSystem(AtA, Atb);
-  }
-  
-  private transpose(A: number[][]): number[][] {
-    return A[0].map((_, i) => A.map(row => row[i]));
-  }
-  
-  private matrixMultiply(A: number[][], B: number[][]): number[][] {
-    const result: number[][] = [];
-    for (let i = 0; i < A.length; i++) {
-      result[i] = [];
-      for (let j = 0; j < B[0].length; j++) {
-        result[i][j] = 0;
-        for (let k = 0; k < B.length; k++) {
-          result[i][j] += A[i][k] * B[k][j];
-        }
-      }
+    try {
+      // Use numeric.js for least squares solution
+      // Solve A^T * A * x = A^T * b
+      const AT = numeric.transpose(A);
+      const ATA = numeric.dot(AT, A);
+      const ATb = numeric.dot(AT, b);
+
+      return numeric.solve(ATA, ATb);
+    } catch (e) {
+      // Fallback to simple solution if numeric.js fails
+      console.warn('Least squares failed, using fallback:', e);
+      return new Array(A[0]?.length || 0).fill(0);
     }
-    return result;
-  }
-  
-  private vectorMultiply(A: number[][], b: number[]): number[] {
-    return A.map(row => row.reduce((sum, val, i) => sum + val * b[i], 0));
-  }
-  
-  /**
-   * Helper methods
-   */
-  private buildParameterArray(): void {
-    this.parameters = [];
-    this.parameterMap.clear();
-    
-    for (const [id, entity] of this.entities) {
-      const indices: number[] = [];
-      for (let i = 0; i < entity.params.length; i++) {
-        if (!entity.fixed[i]) {
-          indices.push(this.parameters.length);
-          this.parameters.push(entity.params[i]);
-        } else {
-          indices.push(-1); // Fixed parameter
-        }
-      }
-      this.parameterMap.set(id, indices);
-    }
-  }
-  
-  private updateParameterMap(): void {
-    // Called when entities are added/removed
-    this.buildParameterArray();
-  }
-  
-  private updateEntities(): void {
-    for (const [id, entity] of this.entities) {
-      const indices = this.parameterMap.get(id)!;
-      for (let i = 0; i < indices.length; i++) {
-        if (indices[i] >= 0) {
-          entity.params[i] = this.parameters[indices[i]];
-        }
-      }
-    }
-  }
-  
-  private getConstraintCount(): number {
-    let count = 0;
-    for (const constraint of this.constraints.values()) {
-      count += this.evaluateConstraint(constraint).length;
-    }
-    return count;
-  }
-  
-  /**
-   * Export solver state for debugging
-   */
-  getState(): {
-    entities: SketchEntity[];
-    constraints: Constraint2D[];
-    parameters: number[];
-  } {
-    return {
-      entities: Array.from(this.entities.values()),
-      constraints: Array.from(this.constraints.values()),
-      parameters: [...this.parameters]
-    };
   }
 }

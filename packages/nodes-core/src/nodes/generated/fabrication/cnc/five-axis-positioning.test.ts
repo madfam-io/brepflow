@@ -7,7 +7,7 @@ describe('FiveAxisPositioningNode', () => {
   it('should create FiveAxisPositioning', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       leadAngle: 10,

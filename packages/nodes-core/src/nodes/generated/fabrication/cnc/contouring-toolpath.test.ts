@@ -7,7 +7,7 @@ describe('ContouringToolpathNode', () => {
   it('should create ContouringToolpath', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       levels: 10,

@@ -7,8 +7,8 @@ describe('GrasshopperExportNode', () => {
   it('should create GrasshopperExport', async () => {
     const context = createTestContext();
     const inputs = {
-      definition: /* test value */,
-      filePath: /* test value */
+      definition: null,
+      filePath: null
     };
     const params = {
       version: "GH1",

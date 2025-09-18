@@ -7,7 +7,7 @@ describe('SlabOnGradeNode', () => {
   it('should create SlabOnGrade', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       thickness: 150,

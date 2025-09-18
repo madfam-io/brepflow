@@ -7,8 +7,8 @@ describe('InletOutletNode', () => {
   it('should create InletOutlet', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */,
-      boundaryFaces: /* test value */
+      mesh: null,
+      boundaryFaces: null
     };
     const params = {
       boundaryType: "velocity-inlet",

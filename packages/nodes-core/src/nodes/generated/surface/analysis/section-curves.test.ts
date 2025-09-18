@@ -7,7 +7,7 @@ describe('SectionCurvesNode', () => {
   it('should create SectionCurves', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       planeNormal: [0,0,1],

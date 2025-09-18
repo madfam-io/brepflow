@@ -7,7 +7,7 @@ describe('BinaryTreeNode', () => {
   it('should create BinaryTree', async () => {
     const context = createTestContext();
     const inputs = {
-      root: /* test value */
+      root: null
     };
     const params = {
       depth: 5,

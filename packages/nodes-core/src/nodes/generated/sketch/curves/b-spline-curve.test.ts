@@ -7,7 +7,7 @@ describe('BSplineCurveNode', () => {
   it('should create BSplineCurve', async () => {
     const context = createTestContext();
     const inputs = {
-      controlPoints: /* test value */
+      controlPoints: null
     };
     const params = {
       degree: 3,

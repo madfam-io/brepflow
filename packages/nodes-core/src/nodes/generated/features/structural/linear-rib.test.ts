@@ -7,8 +7,8 @@ describe('LinearRibNode', () => {
   it('should create LinearRib', async () => {
     const context = createTestContext();
     const inputs = {
-      face: /* test value */,
-      path: /* test value */
+      face: null,
+      path: null
     };
     const params = {
       thickness: 3,

@@ -7,7 +7,7 @@ describe('ComplexMagnitudeNode', () => {
   it('should create ComplexMagnitude', async () => {
     const context = createTestContext();
     const inputs = {
-      complex: /* test value */
+      complex: null
     };
     const params = {
       

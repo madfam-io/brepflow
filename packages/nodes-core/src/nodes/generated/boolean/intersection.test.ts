@@ -7,7 +7,7 @@ describe('IntersectionNode', () => {
   it('should create Intersection', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */
+      shapes: null
     };
     const params = {
       keepOriginals: false,

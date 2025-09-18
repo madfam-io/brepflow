@@ -7,7 +7,7 @@ describe('ForceControlNode', () => {
   it('should create ForceControl', async () => {
     const context = createTestContext();
     const inputs = {
-      contactSurface: /* test value */
+      contactSurface: null
     };
     const params = {
       forceLimit: 100,

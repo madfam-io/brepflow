@@ -7,7 +7,7 @@ describe('SquareRootNode', () => {
   it('should create SquareRoot', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

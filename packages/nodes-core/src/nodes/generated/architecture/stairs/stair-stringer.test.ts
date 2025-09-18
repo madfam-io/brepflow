@@ -7,7 +7,7 @@ describe('StairStringerNode', () => {
   it('should create StairStringer', async () => {
     const context = createTestContext();
     const inputs = {
-      stairProfile: /* test value */
+      stairProfile: null
     };
     const params = {
       type: "closed",

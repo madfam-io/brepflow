@@ -7,8 +7,8 @@ describe('ListRemoveNode', () => {
   it('should create ListRemove', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */,
-      index: /* test value */
+      list: null,
+      index: null
     };
     const params = {
       

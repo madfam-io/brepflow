@@ -7,7 +7,7 @@ describe('TessellateNode', () => {
   it('should create Tessellate', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       linearDeflection: 0.1,

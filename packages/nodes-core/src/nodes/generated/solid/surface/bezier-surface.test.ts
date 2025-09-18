@@ -7,7 +7,7 @@ describe('BezierSurfaceNode', () => {
   it('should create BezierSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      controlPoints: /* test value */
+      controlPoints: null
     };
     const params = {
       uDegree: 3,

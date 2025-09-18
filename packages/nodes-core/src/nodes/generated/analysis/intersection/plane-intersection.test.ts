@@ -7,8 +7,8 @@ describe('PlaneIntersectionNode', () => {
   it('should create PlaneIntersection', async () => {
     const context = createTestContext();
     const inputs = {
-      geometry: /* test value */,
-      plane: /* test value */
+      geometry: null,
+      plane: null
     };
     const params = {
       tolerance: 0.01

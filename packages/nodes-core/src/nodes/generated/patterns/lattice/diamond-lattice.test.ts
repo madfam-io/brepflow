@@ -7,7 +7,7 @@ describe('DiamondLatticeNode', () => {
   it('should create DiamondLattice', async () => {
     const context = createTestContext();
     const inputs = {
-      bounds: /* test value */
+      bounds: null
     };
     const params = {
       cellSize: 10,

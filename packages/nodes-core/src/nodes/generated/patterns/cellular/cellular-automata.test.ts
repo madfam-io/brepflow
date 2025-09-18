@@ -7,7 +7,7 @@ describe('CellularAutomataNode', () => {
   it('should create CellularAutomata', async () => {
     const context = createTestContext();
     const inputs = {
-      initialState: /* test value */
+      initialState: null
     };
     const params = {
       rule: 30,

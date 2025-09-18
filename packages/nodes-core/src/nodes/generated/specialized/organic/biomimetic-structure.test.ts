@@ -7,7 +7,7 @@ describe('BiomimeticStructureNode', () => {
   it('should create BiomimeticStructure', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       inspiration: "bone",

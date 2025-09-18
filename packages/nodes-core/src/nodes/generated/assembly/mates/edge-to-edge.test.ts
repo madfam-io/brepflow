@@ -7,8 +7,8 @@ describe('EdgeToEdgeNode', () => {
   it('should create EdgeToEdge', async () => {
     const context = createTestContext();
     const inputs = {
-      edge1: /* test value */,
-      edge2: /* test value */
+      edge1: null,
+      edge2: null
     };
     const params = {
       alignment: "aligned"

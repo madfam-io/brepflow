@@ -7,7 +7,7 @@ describe('RetainingRingNode', () => {
   it('should create RetainingRing', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       shaftDiameter: 10,

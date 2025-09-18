@@ -7,7 +7,7 @@ describe('MengerSpongeNode', () => {
   it('should create MengerSponge', async () => {
     const context = createTestContext();
     const inputs = {
-      cube: /* test value */
+      cube: null
     };
     const params = {
       iterations: 3

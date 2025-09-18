@@ -7,7 +7,7 @@ describe('TruncateNode', () => {
   it('should create Truncate', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

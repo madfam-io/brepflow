@@ -7,7 +7,7 @@ describe('ContextFreeArtNode', () => {
   it('should create ContextFreeArt', async () => {
     const context = createTestContext();
     const inputs = {
-      canvas: /* test value */
+      canvas: null
     };
     const params = {
       rules: "CIRCLE{},SQUARE{r 45}",

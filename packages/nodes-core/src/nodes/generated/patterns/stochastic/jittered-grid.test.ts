@@ -7,7 +7,7 @@ describe('JitteredGridNode', () => {
   it('should create JitteredGrid', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       gridSize: 10,

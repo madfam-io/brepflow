@@ -7,7 +7,7 @@ describe('ParapetWallNode', () => {
   it('should create ParapetWall', async () => {
     const context = createTestContext();
     const inputs = {
-      roofEdge: /* test value */
+      roofEdge: null
     };
     const params = {
       height: 1000,

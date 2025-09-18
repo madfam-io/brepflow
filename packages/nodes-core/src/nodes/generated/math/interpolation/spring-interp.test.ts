@@ -7,10 +7,10 @@ describe('SpringInterpNode', () => {
   it('should create SpringInterp', async () => {
     const context = createTestContext();
     const inputs = {
-      current: /* test value */,
-      target: /* test value */,
-      velocity: /* test value */,
-      deltaTime: /* test value */
+      current: null,
+      target: null,
+      velocity: null,
+      deltaTime: null
     };
     const params = {
       stiffness: 100,

@@ -7,8 +7,8 @@ describe('PickAndPlaceNode', () => {
   it('should create PickAndPlace', async () => {
     const context = createTestContext();
     const inputs = {
-      pickPoints: /* test value */,
-      placePoints: /* test value */
+      pickPoints: null,
+      placePoints: null
     };
     const params = {
       gripperType: "parallel",

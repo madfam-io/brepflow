@@ -7,7 +7,7 @@ describe('ExportDXFNode', () => {
   it('should create ExportDXF', async () => {
     const context = createTestContext();
     const inputs = {
-      flatPattern: /* test value */
+      flatPattern: null
     };
     const params = {
       inclueBendLines: true,

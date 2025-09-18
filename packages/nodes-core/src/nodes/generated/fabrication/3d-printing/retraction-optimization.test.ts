@@ -7,7 +7,7 @@ describe('RetractionOptimizationNode', () => {
   it('should create RetractionOptimization', async () => {
     const context = createTestContext();
     const inputs = {
-      toolpath: /* test value */
+      toolpath: null
     };
     const params = {
       retractionDistance: 1,

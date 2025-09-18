@@ -7,7 +7,7 @@ describe('SurfaceAttractorNode', () => {
   it('should create SurfaceAttractor', async () => {
     const context = createTestContext();
     const inputs = {
-      surfaces: /* test value */
+      surfaces: null
     };
     const params = {
       strength: 1,

@@ -7,8 +7,8 @@ describe('LogBaseNode', () => {
   it('should create LogBase', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */,
-      base: /* test value */
+      value: null,
+      base: null
     };
     const params = {
       

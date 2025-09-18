@@ -7,7 +7,7 @@ describe('PatchSurfaceNode', () => {
   it('should create PatchSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      boundaryEdges: /* test value */
+      boundaryEdges: null
     };
     const params = {
       continuity: "G1",

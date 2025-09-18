@@ -7,7 +7,7 @@ describe('ExportFEANode', () => {
   it('should create ExportFEA', async () => {
     const context = createTestContext();
     const inputs = {
-      feaModel: /* test value */
+      feaModel: null
     };
     const params = {
       format: "nastran",

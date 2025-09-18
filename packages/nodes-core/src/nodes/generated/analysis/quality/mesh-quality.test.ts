@@ -7,7 +7,7 @@ describe('MeshQualityNode', () => {
   it('should create MeshQuality', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       aspectRatioThreshold: 5,

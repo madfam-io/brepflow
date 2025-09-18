@@ -7,7 +7,7 @@ describe('ExportSTEPNode', () => {
   it('should create ExportSTEP', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       version: "AP214",

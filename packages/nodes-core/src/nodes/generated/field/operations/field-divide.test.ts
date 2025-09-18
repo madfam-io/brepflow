@@ -7,8 +7,8 @@ describe('FieldDivideNode', () => {
   it('should create FieldDivide', async () => {
     const context = createTestContext();
     const inputs = {
-      fieldA: /* test value */,
-      fieldB: /* test value */
+      fieldA: null,
+      fieldB: null
     };
     const params = {
       epsilon: 0.001

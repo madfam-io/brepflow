@@ -7,7 +7,7 @@ describe('BoundaryNode', () => {
   it('should create Boundary', async () => {
     const context = createTestContext();
     const inputs = {
-      curves: /* test value */
+      curves: null
     };
     const params = {
       type: "surface",

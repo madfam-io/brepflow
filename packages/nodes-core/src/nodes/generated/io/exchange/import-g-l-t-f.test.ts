@@ -7,7 +7,7 @@ describe('ImportGLTFNode', () => {
   it('should create ImportGLTF', async () => {
     const context = createTestContext();
     const inputs = {
-      fileData: /* test value */
+      fileData: null
     };
     const params = {
       importAnimations: false,

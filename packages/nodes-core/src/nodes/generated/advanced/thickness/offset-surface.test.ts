@@ -7,7 +7,7 @@ describe('OffsetSurfaceNode', () => {
   it('should create OffsetSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       offset: 5,

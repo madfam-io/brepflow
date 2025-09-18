@@ -7,7 +7,7 @@ describe('ImportBREPNode', () => {
   it('should create ImportBREP', async () => {
     const context = createTestContext();
     const inputs = {
-      fileData: /* test value */
+      fileData: null
     };
     const params = {
       version: "auto"

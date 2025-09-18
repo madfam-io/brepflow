@@ -7,7 +7,7 @@ describe('JointLimitAvoidanceNode', () => {
   it('should create JointLimitAvoidance', async () => {
     const context = createTestContext();
     const inputs = {
-      jointTrajectory: /* test value */
+      jointTrajectory: null
     };
     const params = {
       margin: 5

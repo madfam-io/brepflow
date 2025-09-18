@@ -7,7 +7,7 @@ describe('WaveFunctionCollapseNode', () => {
   it('should create WaveFunctionCollapse', async () => {
     const context = createTestContext();
     const inputs = {
-      tileset: /* test value */
+      tileset: null
     };
     const params = {
       tilesetSize: 5,

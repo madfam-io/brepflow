@@ -7,7 +7,7 @@ describe('IsocurveExtractNode', () => {
   it('should create IsocurveExtract', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       direction: "both",

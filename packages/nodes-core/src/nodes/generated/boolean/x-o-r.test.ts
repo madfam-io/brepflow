@@ -7,7 +7,7 @@ describe('XORNode', () => {
   it('should create XOR', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */
+      shapes: null
     };
     const params = {
       keepOriginals: false,

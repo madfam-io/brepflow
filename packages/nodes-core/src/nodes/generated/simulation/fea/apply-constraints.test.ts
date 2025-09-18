@@ -7,8 +7,8 @@ describe('ApplyConstraintsNode', () => {
   it('should create ApplyConstraints', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */,
-      constraintFaces: /* test value */
+      mesh: null,
+      constraintFaces: null
     };
     const params = {
       constraintType: "fixed",

@@ -7,7 +7,7 @@ describe('SpiralStairNode', () => {
   it('should create SpiralStair', async () => {
     const context = createTestContext();
     const inputs = {
-      centerPoint: /* test value */
+      centerPoint: null
     };
     const params = {
       diameter: 2000,

@@ -7,7 +7,7 @@ describe('GCodePostProcessorNode', () => {
   it('should create GCodePostProcessor', async () => {
     const context = createTestContext();
     const inputs = {
-      toolpaths: /* test value */
+      toolpaths: null
     };
     const params = {
       flavor: "marlin",

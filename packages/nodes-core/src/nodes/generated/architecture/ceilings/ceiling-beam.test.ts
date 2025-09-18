@@ -7,7 +7,7 @@ describe('CeilingBeamNode', () => {
   it('should create CeilingBeam', async () => {
     const context = createTestContext();
     const inputs = {
-      ceilingArea: /* test value */
+      ceilingArea: null
     };
     const params = {
       beamDepth: 300,

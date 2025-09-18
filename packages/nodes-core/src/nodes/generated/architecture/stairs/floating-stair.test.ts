@@ -7,8 +7,8 @@ describe('FloatingStairNode', () => {
   it('should create FloatingStair', async () => {
     const context = createTestContext();
     const inputs = {
-      wallLine: /* test value */,
-      riseRun: /* test value */
+      wallLine: null,
+      riseRun: null
     };
     const params = {
       cantileverDepth: 100,

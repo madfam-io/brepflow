@@ -7,7 +7,7 @@ describe('MedianNode', () => {
   it('should create Median', async () => {
     const context = createTestContext();
     const inputs = {
-      values: /* test value */
+      values: null
     };
     const params = {
       

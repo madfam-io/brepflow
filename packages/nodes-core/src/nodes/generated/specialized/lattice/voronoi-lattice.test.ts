@@ -7,7 +7,7 @@ describe('VoronoiLatticeNode', () => {
   it('should create VoronoiLattice', async () => {
     const context = createTestContext();
     const inputs = {
-      boundingShape: /* test value */
+      boundingShape: null
     };
     const params = {
       seedCount: 100,

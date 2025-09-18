@@ -7,7 +7,7 @@ describe('DragonCurveNode', () => {
   it('should create DragonCurve', async () => {
     const context = createTestContext();
     const inputs = {
-      startSegment: /* test value */
+      startSegment: null
     };
     const params = {
       iterations: 10,

@@ -7,7 +7,7 @@ describe('GeodesicPatternNode', () => {
   it('should create GeodesicPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      sphere: /* test value */
+      sphere: null
     };
     const params = {
       frequency: 3,

@@ -7,7 +7,7 @@ describe('SupportGenerationNode', () => {
   it('should create SupportGeneration', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       type: "tree",

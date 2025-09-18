@@ -7,8 +7,8 @@ describe('CompositeFloorNode', () => {
   it('should create CompositeFloor', async () => {
     const context = createTestContext();
     const inputs = {
-      floorOutline: /* test value */,
-      beams: /* test value */
+      floorOutline: null,
+      beams: null
     };
     const params = {
       deckType: "3-inch",

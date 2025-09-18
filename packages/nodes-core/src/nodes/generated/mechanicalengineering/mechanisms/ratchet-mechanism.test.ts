@@ -7,7 +7,7 @@ describe('RatchetMechanismNode', () => {
   it('should create RatchetMechanism', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       wheelDiameter: 50,

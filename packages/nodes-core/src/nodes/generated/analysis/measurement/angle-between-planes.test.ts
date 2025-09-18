@@ -7,8 +7,8 @@ describe('AngleBetweenPlanesNode', () => {
   it('should create AngleBetweenPlanes', async () => {
     const context = createTestContext();
     const inputs = {
-      plane1: /* test value */,
-      plane2: /* test value */
+      plane1: null,
+      plane2: null
     };
     const params = {
       unit: "degrees"

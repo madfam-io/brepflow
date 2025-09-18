@@ -7,7 +7,7 @@ describe('ToJSONNode', () => {
   it('should create ToJSON', async () => {
     const context = createTestContext();
     const inputs = {
-      data: /* test value */
+      data: null
     };
     const params = {
       pretty: false

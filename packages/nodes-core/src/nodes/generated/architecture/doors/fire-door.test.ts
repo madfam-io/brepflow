@@ -7,7 +7,7 @@ describe('FireDoorNode', () => {
   it('should create FireDoor', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       rating: "60-min",

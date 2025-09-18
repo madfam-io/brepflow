@@ -7,8 +7,8 @@ describe('SweepNode', () => {
   it('should create Sweep', async () => {
     const context = createTestContext();
     const inputs = {
-      profile: /* test value */,
-      path: /* test value */
+      profile: null,
+      path: null
     };
     const params = {
       twistAngle: 0,

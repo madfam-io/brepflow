@@ -7,7 +7,7 @@ describe('Export3MFNode', () => {
   it('should create Export3MF', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       includeColors: true,

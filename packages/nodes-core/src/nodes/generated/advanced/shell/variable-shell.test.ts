@@ -7,9 +7,9 @@ describe('VariableShellNode', () => {
   it('should create VariableShell', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */,
-      facesToRemove: /* test value */,
-      thicknessMap: /* test value */
+      solid: null,
+      facesToRemove: null,
+      thicknessMap: null
     };
     const params = {
       

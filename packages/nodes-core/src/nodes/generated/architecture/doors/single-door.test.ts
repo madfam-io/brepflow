@@ -7,7 +7,7 @@ describe('SingleDoorNode', () => {
   it('should create SingleDoor', async () => {
     const context = createTestContext();
     const inputs = {
-      position: /* test value */
+      position: null
     };
     const params = {
       width: 900,

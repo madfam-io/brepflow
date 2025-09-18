@@ -7,7 +7,7 @@ describe('HexBoltNode', () => {
   it('should create HexBolt', async () => {
     const context = createTestContext();
     const inputs = {
-      position: /* test value */
+      position: null
     };
     const params = {
       diameter: "M6",

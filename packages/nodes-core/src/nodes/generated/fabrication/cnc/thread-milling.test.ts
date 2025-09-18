@@ -7,7 +7,7 @@ describe('ThreadMillingNode', () => {
   it('should create ThreadMilling', async () => {
     const context = createTestContext();
     const inputs = {
-      holes: /* test value */
+      holes: null
     };
     const params = {
       threadPitch: 1.5,

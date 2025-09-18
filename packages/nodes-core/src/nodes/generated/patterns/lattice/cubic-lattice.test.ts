@@ -7,7 +7,7 @@ describe('CubicLatticeNode', () => {
   it('should create CubicLattice', async () => {
     const context = createTestContext();
     const inputs = {
-      bounds: /* test value */
+      bounds: null
     };
     const params = {
       cellSize: 10,

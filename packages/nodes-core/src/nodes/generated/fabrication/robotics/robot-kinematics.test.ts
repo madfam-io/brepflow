@@ -7,7 +7,7 @@ describe('RobotKinematicsNode', () => {
   it('should create RobotKinematics', async () => {
     const context = createTestContext();
     const inputs = {
-      target: /* test value */
+      target: null
     };
     const params = {
       robotType: "6-axis",

@@ -7,7 +7,7 @@ describe('CofferedCeilingNode', () => {
   it('should create CofferedCeiling', async () => {
     const context = createTestContext();
     const inputs = {
-      ceilingBoundary: /* test value */
+      ceilingBoundary: null
     };
     const params = {
       cofferSize: 1200,

@@ -7,7 +7,7 @@ describe('EnvelopeNode', () => {
   it('should create Envelope', async () => {
     const context = createTestContext();
     const inputs = {
-      assembly: /* test value */
+      assembly: null
     };
     const params = {
       type: "bounding"

@@ -7,8 +7,8 @@ describe('PLYExportNode', () => {
   it('should create PLYExport', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */,
-      filePath: /* test value */
+      points: null,
+      filePath: null
     };
     const params = {
       format: "binary",

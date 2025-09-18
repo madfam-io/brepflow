@@ -7,8 +7,8 @@ describe('MatrixTransformNode', () => {
   it('should create MatrixTransform', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */,
-      matrix: /* test value */
+      shape: null,
+      matrix: null
     };
     const params = {
       

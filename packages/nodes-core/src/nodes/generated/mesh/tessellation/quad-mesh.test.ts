@@ -7,7 +7,7 @@ describe('QuadMeshNode', () => {
   it('should create QuadMesh', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       targetQuadSize: 5,

@@ -7,8 +7,8 @@ describe('GeometryMatchingNode', () => {
   it('should create GeometryMatching', async () => {
     const context = createTestContext();
     const inputs = {
-      source: /* test value */,
-      target: /* test value */
+      source: null,
+      target: null
     };
     const params = {
       algorithm: "icp",

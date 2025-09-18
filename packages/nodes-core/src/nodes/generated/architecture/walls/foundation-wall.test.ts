@@ -7,7 +7,7 @@ describe('FoundationWallNode', () => {
   it('should create FoundationWall', async () => {
     const context = createTestContext();
     const inputs = {
-      foundationLine: /* test value */
+      foundationLine: null
     };
     const params = {
       depth: 1500,

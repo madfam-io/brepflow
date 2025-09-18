@@ -7,8 +7,8 @@ describe('SlotNode', () => {
   it('should create Slot', async () => {
     const context = createTestContext();
     const inputs = {
-      slot: /* test value */,
-      slider: /* test value */
+      slot: null,
+      slider: null
     };
     const params = {
       freeRotation: true

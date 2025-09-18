@@ -7,7 +7,7 @@ describe('JobTimeEstimateNode', () => {
   it('should create JobTimeEstimate', async () => {
     const context = createTestContext();
     const inputs = {
-      cuttingPaths: /* test value */
+      cuttingPaths: null
     };
     const params = {
       rapidSpeed: 500

@@ -7,7 +7,7 @@ describe('ScaleNode', () => {
   it('should create Scale', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       scaleX: 1,

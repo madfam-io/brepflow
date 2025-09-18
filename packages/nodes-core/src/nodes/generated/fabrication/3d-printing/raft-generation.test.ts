@@ -7,7 +7,7 @@ describe('RaftGenerationNode', () => {
   it('should create RaftGeneration', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       raftLayers: 3,

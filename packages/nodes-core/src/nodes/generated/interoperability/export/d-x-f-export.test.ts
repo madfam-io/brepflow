@@ -7,8 +7,8 @@ describe('DXFExportNode', () => {
   it('should create DXFExport', async () => {
     const context = createTestContext();
     const inputs = {
-      curves: /* test value */,
-      filePath: /* test value */
+      curves: null,
+      filePath: null
     };
     const params = {
       version: "2000",

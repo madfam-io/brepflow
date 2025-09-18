@@ -7,7 +7,7 @@ describe('UniversalJointNode', () => {
   it('should create UniversalJoint', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       yokeDiameter: 30,

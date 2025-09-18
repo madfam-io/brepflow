@@ -7,7 +7,7 @@ describe('PointAttractorNode', () => {
   it('should create PointAttractor', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       strength: 1,

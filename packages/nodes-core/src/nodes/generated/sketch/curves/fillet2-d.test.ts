@@ -7,7 +7,7 @@ describe('Fillet2DNode', () => {
   it('should create Fillet2D', async () => {
     const context = createTestContext();
     const inputs = {
-      wire: /* test value */
+      wire: null
     };
     const params = {
       radius: 5,

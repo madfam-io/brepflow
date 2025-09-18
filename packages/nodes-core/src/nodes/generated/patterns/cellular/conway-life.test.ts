@@ -7,7 +7,7 @@ describe('ConwayLifeNode', () => {
   it('should create ConwayLife', async () => {
     const context = createTestContext();
     const inputs = {
-      initialCells: /* test value */
+      initialCells: null
     };
     const params = {
       generations: 10,

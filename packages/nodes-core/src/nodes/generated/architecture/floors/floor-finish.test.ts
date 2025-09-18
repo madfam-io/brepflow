@@ -7,7 +7,7 @@ describe('FloorFinishNode', () => {
   it('should create FloorFinish', async () => {
     const context = createTestContext();
     const inputs = {
-      floorArea: /* test value */
+      floorArea: null
     };
     const params = {
       material: "tile",

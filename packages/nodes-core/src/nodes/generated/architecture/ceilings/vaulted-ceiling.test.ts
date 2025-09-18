@@ -7,7 +7,7 @@ describe('VaultedCeilingNode', () => {
   it('should create VaultedCeiling', async () => {
     const context = createTestContext();
     const inputs = {
-      ceilingOutline: /* test value */
+      ceilingOutline: null
     };
     const params = {
       vaultType: "barrel",

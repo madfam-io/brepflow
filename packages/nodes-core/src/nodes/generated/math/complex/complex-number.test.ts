@@ -7,8 +7,8 @@ describe('ComplexNumberNode', () => {
   it('should create ComplexNumber', async () => {
     const context = createTestContext();
     const inputs = {
-      real: /* test value */,
-      imaginary: /* test value */
+      real: null,
+      imaginary: null
     };
     const params = {
       

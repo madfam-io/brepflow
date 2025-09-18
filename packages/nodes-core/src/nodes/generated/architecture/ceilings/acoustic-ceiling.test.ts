@@ -7,7 +7,7 @@ describe('AcousticCeilingNode', () => {
   it('should create AcousticCeiling', async () => {
     const context = createTestContext();
     const inputs = {
-      ceilingArea: /* test value */
+      ceilingArea: null
     };
     const params = {
       nrc: 0.85,

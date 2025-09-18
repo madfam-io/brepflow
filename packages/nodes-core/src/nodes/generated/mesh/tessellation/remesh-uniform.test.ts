@@ -7,7 +7,7 @@ describe('RemeshUniformNode', () => {
   it('should create RemeshUniform', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       targetEdgeLength: 1,

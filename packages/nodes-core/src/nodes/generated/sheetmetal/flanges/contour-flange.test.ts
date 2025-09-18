@@ -7,8 +7,8 @@ describe('ContourFlangeNode', () => {
   it('should create ContourFlange', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      contour: /* test value */
+      sheet: null,
+      contour: null
     };
     const params = {
       angle: 90,

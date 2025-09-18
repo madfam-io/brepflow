@@ -7,7 +7,7 @@ describe('VehicleRampNode', () => {
   it('should create VehicleRamp', async () => {
     const context = createTestContext();
     const inputs = {
-      rampPath: /* test value */
+      rampPath: null
     };
     const params = {
       gradient: 0.15,

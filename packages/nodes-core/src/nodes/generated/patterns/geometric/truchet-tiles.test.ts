@@ -7,7 +7,7 @@ describe('TruchetTilesNode', () => {
   it('should create TruchetTiles', async () => {
     const context = createTestContext();
     const inputs = {
-      grid: /* test value */
+      grid: null
     };
     const params = {
       tileType: "arc",

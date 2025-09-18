@@ -7,8 +7,8 @@ describe('SketchedBendNode', () => {
   it('should create SketchedBend', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      bendLine: /* test value */
+      sheet: null,
+      bendLine: null
     };
     const params = {
       angle: 90,

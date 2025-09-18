@@ -7,7 +7,7 @@ describe('KelvinLatticeNode', () => {
   it('should create KelvinLattice', async () => {
     const context = createTestContext();
     const inputs = {
-      bounds: /* test value */
+      bounds: null
     };
     const params = {
       cellSize: 10,

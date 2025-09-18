@@ -7,8 +7,8 @@ describe('IntersectCurvesNode', () => {
   it('should create IntersectCurves', async () => {
     const context = createTestContext();
     const inputs = {
-      curve1: /* test value */,
-      curve2: /* test value */
+      curve1: null,
+      curve2: null
     };
     const params = {
       tolerance: 0.01,

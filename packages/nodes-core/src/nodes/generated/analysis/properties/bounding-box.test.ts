@@ -7,7 +7,7 @@ describe('BoundingBoxNode', () => {
   it('should create BoundingBox', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       

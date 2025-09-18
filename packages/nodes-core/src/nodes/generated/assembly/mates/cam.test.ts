@@ -7,8 +7,8 @@ describe('CamNode', () => {
   it('should create Cam', async () => {
     const context = createTestContext();
     const inputs = {
-      cam: /* test value */,
-      follower: /* test value */
+      cam: null,
+      follower: null
     };
     const params = {
       

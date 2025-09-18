@@ -7,7 +7,7 @@ describe('StringTrimNode', () => {
   it('should create StringTrim', async () => {
     const context = createTestContext();
     const inputs = {
-      string: /* test value */
+      string: null
     };
     const params = {
       mode: "both"

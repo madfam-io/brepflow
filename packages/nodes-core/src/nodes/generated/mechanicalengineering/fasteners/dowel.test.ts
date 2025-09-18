@@ -7,7 +7,7 @@ describe('DowelNode', () => {
   it('should create Dowel', async () => {
     const context = createTestContext();
     const inputs = {
-      position: /* test value */
+      position: null
     };
     const params = {
       diameter: 6,

@@ -7,7 +7,7 @@ describe('MazeGeneratorNode', () => {
   it('should create MazeGenerator', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       algorithm: "recursive-backtracker",

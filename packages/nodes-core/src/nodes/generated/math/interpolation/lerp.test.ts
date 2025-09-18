@@ -7,9 +7,9 @@ describe('LerpNode', () => {
   it('should create Lerp', async () => {
     const context = createTestContext();
     const inputs = {
-      a: /* test value */,
-      b: /* test value */,
-      t: /* test value */
+      a: null,
+      b: null,
+      t: null
     };
     const params = {
       

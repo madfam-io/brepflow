@@ -7,7 +7,7 @@ describe('WinderStairNode', () => {
   it('should create WinderStair', async () => {
     const context = createTestContext();
     const inputs = {
-      path: /* test value */
+      path: null
     };
     const params = {
       winderCount: 3,

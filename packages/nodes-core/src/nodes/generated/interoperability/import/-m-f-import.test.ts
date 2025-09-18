@@ -7,7 +7,7 @@ describe('3MFImportNode', () => {
   it('should create 3MFImport', async () => {
     const context = createTestContext();
     const inputs = {
-      filePath: /* test value */
+      filePath: null
     };
     const params = {
       loadTextures: true,

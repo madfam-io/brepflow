@@ -7,7 +7,7 @@ describe('ProbeRoutineNode', () => {
   it('should create ProbeRoutine', async () => {
     const context = createTestContext();
     const inputs = {
-      feature: /* test value */
+      feature: null
     };
     const params = {
       probeType: "corner"

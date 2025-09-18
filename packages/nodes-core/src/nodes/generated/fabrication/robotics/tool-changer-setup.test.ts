@@ -7,7 +7,7 @@ describe('ToolChangerSetupNode', () => {
   it('should create ToolChangerSetup', async () => {
     const context = createTestContext();
     const inputs = {
-      toolRack: /* test value */
+      toolRack: null
     };
     const params = {
       toolCount: 6

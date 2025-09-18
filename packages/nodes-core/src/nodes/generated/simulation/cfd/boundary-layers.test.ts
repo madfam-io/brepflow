@@ -7,8 +7,8 @@ describe('BoundaryLayersNode', () => {
   it('should create BoundaryLayers', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */,
-      wallFaces: /* test value */
+      mesh: null,
+      wallFaces: null
     };
     const params = {
       firstLayerHeight: 0.01,

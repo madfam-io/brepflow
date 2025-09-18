@@ -7,7 +7,7 @@ describe('SkyLightNode', () => {
   it('should create SkyLight', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       type: "pyramid",

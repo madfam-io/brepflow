@@ -7,7 +7,7 @@ describe('ImportACISNode', () => {
   it('should create ImportACIS', async () => {
     const context = createTestContext();
     const inputs = {
-      fileData: /* test value */
+      fileData: null
     };
     const params = {
       version: "auto",

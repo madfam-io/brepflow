@@ -7,7 +7,7 @@ describe('StringLengthNode', () => {
   it('should create StringLength', async () => {
     const context = createTestContext();
     const inputs = {
-      string: /* test value */
+      string: null
     };
     const params = {
       

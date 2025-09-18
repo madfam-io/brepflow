@@ -7,9 +7,9 @@ describe('StringReplaceNode', () => {
   it('should create StringReplace', async () => {
     const context = createTestContext();
     const inputs = {
-      string: /* test value */,
-      search: /* test value */,
-      replace: /* test value */
+      string: null,
+      search: null,
+      replace: null
     };
     const params = {
       global: true

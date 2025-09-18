@@ -7,7 +7,7 @@ describe('WormShaftNode', () => {
   it('should create WormShaft', async () => {
     const context = createTestContext();
     const inputs = {
-      axis: /* test value */
+      axis: null
     };
     const params = {
       module: 2,

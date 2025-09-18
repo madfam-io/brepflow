@@ -7,7 +7,7 @@ describe('AwningWindowNode', () => {
   it('should create AwningWindow', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       opening: 0

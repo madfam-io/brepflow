@@ -7,9 +7,9 @@ describe('LouverNode', () => {
   it('should create Louver', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      position: /* test value */,
-      direction: /* test value */
+      sheet: null,
+      position: null,
+      direction: null
     };
     const params = {
       louverLength: 30,

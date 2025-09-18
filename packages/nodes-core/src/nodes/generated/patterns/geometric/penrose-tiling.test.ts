@@ -7,7 +7,7 @@ describe('PenroseTilingNode', () => {
   it('should create PenroseTiling', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       type: "P2",

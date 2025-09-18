@@ -7,8 +7,8 @@ describe('ClosedCornerNode', () => {
   it('should create ClosedCorner', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      faces: /* test value */
+      sheet: null,
+      faces: null
     };
     const params = {
       cornerType: "overlap",

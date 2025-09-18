@@ -7,8 +7,8 @@ describe('EscapeStairNode', () => {
   it('should create EscapeStair', async () => {
     const context = createTestContext();
     const inputs = {
-      stairwell: /* test value */,
-      floors: /* test value */
+      stairwell: null,
+      floors: null
     };
     const params = {
       enclosure: "enclosed",

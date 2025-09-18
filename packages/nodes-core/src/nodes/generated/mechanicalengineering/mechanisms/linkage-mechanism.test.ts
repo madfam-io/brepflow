@@ -7,7 +7,7 @@ describe('LinkageMechanismNode', () => {
   it('should create LinkageMechanism', async () => {
     const context = createTestContext();
     const inputs = {
-      basePoints: /* test value */
+      basePoints: null
     };
     const params = {
       type: "four-bar",

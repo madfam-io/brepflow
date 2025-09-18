@@ -7,7 +7,7 @@ describe('ShapeDescriptorNode', () => {
   it('should create ShapeDescriptor', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       descriptor: "moments",

@@ -7,7 +7,7 @@ describe('ArcTangentNode', () => {
   it('should create ArcTangent', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       angleUnit: "radians"

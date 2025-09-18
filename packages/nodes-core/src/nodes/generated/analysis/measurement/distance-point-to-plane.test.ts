@@ -7,8 +7,8 @@ describe('DistancePointToPlaneNode', () => {
   it('should create DistancePointToPlane', async () => {
     const context = createTestContext();
     const inputs = {
-      point: /* test value */,
-      plane: /* test value */
+      point: null,
+      plane: null
     };
     const params = {
       

@@ -7,8 +7,8 @@ describe('FieldColorNode', () => {
   it('should create FieldColor', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */,
-      field: /* test value */
+      mesh: null,
+      field: null
     };
     const params = {
       gradient: "rainbow"

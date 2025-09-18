@@ -7,8 +7,8 @@ describe('PlaneToPlaneNode', () => {
   it('should create PlaneToPlane', async () => {
     const context = createTestContext();
     const inputs = {
-      plane1: /* test value */,
-      plane2: /* test value */
+      plane1: null,
+      plane2: null
     };
     const params = {
       distance: 0,

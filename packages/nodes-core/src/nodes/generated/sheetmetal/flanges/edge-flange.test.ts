@@ -7,8 +7,8 @@ describe('EdgeFlangeNode', () => {
   it('should create EdgeFlange', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      edge: /* test value */
+      sheet: null,
+      edge: null
     };
     const params = {
       height: 25,

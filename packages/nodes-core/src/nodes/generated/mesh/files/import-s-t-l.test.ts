@@ -7,7 +7,7 @@ describe('ImportSTLNode', () => {
   it('should create ImportSTL', async () => {
     const context = createTestContext();
     const inputs = {
-      fileData: /* test value */
+      fileData: null
     };
     const params = {
       units: "mm",

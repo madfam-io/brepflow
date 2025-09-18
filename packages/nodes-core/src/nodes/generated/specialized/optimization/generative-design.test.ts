@@ -7,8 +7,8 @@ describe('GenerativeDesignNode', () => {
   it('should create GenerativeDesign', async () => {
     const context = createTestContext();
     const inputs = {
-      designSpace: /* test value */,
-      requirements: /* test value */
+      designSpace: null,
+      requirements: null
     };
     const params = {
       objectives: ["weight","strength"],

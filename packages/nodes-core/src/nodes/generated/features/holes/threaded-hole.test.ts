@@ -7,8 +7,8 @@ describe('ThreadedHoleNode', () => {
   it('should create ThreadedHole', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */,
-      position: /* test value */
+      solid: null,
+      position: null
     };
     const params = {
       threadSize: "M6",

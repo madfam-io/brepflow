@@ -7,8 +7,8 @@ describe('GraphLayoutNode', () => {
   it('should create GraphLayout', async () => {
     const context = createTestContext();
     const inputs = {
-      nodes: /* test value */,
-      edges: /* test value */
+      nodes: null,
+      edges: null
     };
     const params = {
       algorithm: "force-directed",

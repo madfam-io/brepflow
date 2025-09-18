@@ -7,8 +7,8 @@ describe('RestMachiningNode', () => {
   it('should create RestMachining', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */,
-      previousPaths: /* test value */
+      model: null,
+      previousPaths: null
     };
     const params = {
       previousTool: 10,

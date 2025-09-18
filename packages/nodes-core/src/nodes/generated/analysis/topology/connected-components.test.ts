@@ -7,7 +7,7 @@ describe('ConnectedComponentsNode', () => {
   it('should create ConnectedComponents', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       

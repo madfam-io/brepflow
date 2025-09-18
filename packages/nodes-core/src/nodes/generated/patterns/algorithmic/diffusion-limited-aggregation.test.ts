@@ -7,7 +7,7 @@ describe('DiffusionLimitedAggregationNode', () => {
   it('should create DiffusionLimitedAggregation', async () => {
     const context = createTestContext();
     const inputs = {
-      seed: /* test value */
+      seed: null
     };
     const params = {
       particles: 1000,

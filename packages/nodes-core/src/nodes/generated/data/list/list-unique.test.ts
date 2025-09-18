@@ -7,7 +7,7 @@ describe('ListUniqueNode', () => {
   it('should create ListUnique', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */
+      list: null
     };
     const params = {
       

@@ -7,8 +7,8 @@ describe('StringSubstringNode', () => {
   it('should create StringSubstring', async () => {
     const context = createTestContext();
     const inputs = {
-      string: /* test value */,
-      start: /* test value */
+      string: null,
+      start: null
     };
     const params = {
       

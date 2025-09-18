@@ -7,7 +7,7 @@ describe('HyperbolicSineNode', () => {
   it('should create HyperbolicSine', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

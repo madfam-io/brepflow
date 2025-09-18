@@ -7,7 +7,7 @@ describe('LoadingDockNode', () => {
   it('should create LoadingDock', async () => {
     const context = createTestContext();
     const inputs = {
-      dockPosition: /* test value */
+      dockPosition: null
     };
     const params = {
       dockHeight: 1200,

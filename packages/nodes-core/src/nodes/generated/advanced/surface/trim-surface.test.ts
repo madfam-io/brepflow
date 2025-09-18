@@ -7,8 +7,8 @@ describe('TrimSurfaceNode', () => {
   it('should create TrimSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */,
-      trimmingCurves: /* test value */
+      surface: null,
+      trimmingCurves: null
     };
     const params = {
       keepRegion: "inside",

@@ -7,8 +7,8 @@ describe('JogNode', () => {
   it('should create Jog', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      jogLine: /* test value */
+      sheet: null,
+      jogLine: null
     };
     const params = {
       jogOffset: 10,

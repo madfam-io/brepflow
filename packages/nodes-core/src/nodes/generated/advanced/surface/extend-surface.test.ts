@@ -7,8 +7,8 @@ describe('ExtendSurfaceNode', () => {
   it('should create ExtendSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */,
-      edges: /* test value */
+      surface: null,
+      edges: null
     };
     const params = {
       extensionLength: 10,

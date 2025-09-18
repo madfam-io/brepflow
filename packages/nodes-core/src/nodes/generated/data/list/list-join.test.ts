@@ -7,7 +7,7 @@ describe('ListJoinNode', () => {
   it('should create ListJoin', async () => {
     const context = createTestContext();
     const inputs = {
-      lists: /* test value */
+      lists: null
     };
     const params = {
       

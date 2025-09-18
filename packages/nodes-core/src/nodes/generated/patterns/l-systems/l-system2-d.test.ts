@@ -7,7 +7,7 @@ describe('LSystem2DNode', () => {
   it('should create LSystem2D', async () => {
     const context = createTestContext();
     const inputs = {
-      startPoint: /* test value */
+      startPoint: null
     };
     const params = {
       axiom: "F",

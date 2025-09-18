@@ -7,8 +7,8 @@ describe('PartingLineDraftNode', () => {
   it('should create PartingLineDraft', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */,
-      partingEdges: /* test value */
+      solid: null,
+      partingEdges: null
     };
     const params = {
       upperAngle: 3,

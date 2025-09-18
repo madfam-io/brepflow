@@ -7,7 +7,7 @@ describe('DecimateMeshNode', () => {
   it('should create DecimateMesh', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       targetTriangles: 1000,

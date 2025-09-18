@@ -7,7 +7,7 @@ describe('FieldVectorArrowsNode', () => {
   it('should create FieldVectorArrows', async () => {
     const context = createTestContext();
     const inputs = {
-      domain: /* test value */
+      domain: null
     };
     const params = {
       arrowScale: 1,

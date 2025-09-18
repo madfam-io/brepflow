@@ -7,8 +7,8 @@ describe('CurveOnSurfaceNode', () => {
   it('should create CurveOnSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */,
-      uvPoints: /* test value */
+      surface: null,
+      uvPoints: null
     };
     const params = {
       

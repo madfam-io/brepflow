@@ -7,7 +7,7 @@ describe('RigidCouplingNode', () => {
   it('should create RigidCoupling', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       shaft1Diameter: 20,

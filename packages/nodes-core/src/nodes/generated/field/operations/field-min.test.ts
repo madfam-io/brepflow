@@ -7,7 +7,7 @@ describe('FieldMinNode', () => {
   it('should create FieldMin', async () => {
     const context = createTestContext();
     const inputs = {
-      fields: /* test value */
+      fields: null
     };
     const params = {
       

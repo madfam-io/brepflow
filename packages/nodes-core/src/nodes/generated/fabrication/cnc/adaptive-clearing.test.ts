@@ -7,8 +7,8 @@ describe('AdaptiveClearingNode', () => {
   it('should create AdaptiveClearing', async () => {
     const context = createTestContext();
     const inputs = {
-      region: /* test value */,
-      depth: /* test value */
+      region: null,
+      depth: null
     };
     const params = {
       optimalLoad: 0.4,

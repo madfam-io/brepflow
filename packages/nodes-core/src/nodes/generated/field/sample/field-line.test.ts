@@ -7,8 +7,8 @@ describe('FieldLineNode', () => {
   it('should create FieldLine', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */,
-      seeds: /* test value */
+      field: null,
+      seeds: null
     };
     const params = {
       stepSize: 1,

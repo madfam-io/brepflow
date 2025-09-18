@@ -7,7 +7,7 @@ describe('RackGearNode', () => {
   it('should create RackGear', async () => {
     const context = createTestContext();
     const inputs = {
-      path: /* test value */
+      path: null
     };
     const params = {
       module: 2,

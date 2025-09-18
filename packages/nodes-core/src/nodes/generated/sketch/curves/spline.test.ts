@@ -7,7 +7,7 @@ describe('SplineNode', () => {
   it('should create Spline', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       degree: 3,

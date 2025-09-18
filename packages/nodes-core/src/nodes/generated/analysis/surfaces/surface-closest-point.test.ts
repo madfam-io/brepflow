@@ -7,8 +7,8 @@ describe('SurfaceClosestPointNode', () => {
   it('should create SurfaceClosestPoint', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */,
-      point: /* test value */
+      surface: null,
+      point: null
     };
     const params = {
       tolerance: 0.01,

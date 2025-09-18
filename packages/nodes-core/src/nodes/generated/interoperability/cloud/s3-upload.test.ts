@@ -7,8 +7,8 @@ describe('S3UploadNode', () => {
   it('should create S3Upload', async () => {
     const context = createTestContext();
     const inputs = {
-      filePath: /* test value */,
-      key: /* test value */
+      filePath: null,
+      key: null
     };
     const params = {
       bucket: "",

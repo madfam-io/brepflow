@@ -7,7 +7,7 @@ describe('GravityAttractorNode', () => {
   it('should create GravityAttractor', async () => {
     const context = createTestContext();
     const inputs = {
-      bodies: /* test value */
+      bodies: null
     };
     const params = {
       mass: 100,

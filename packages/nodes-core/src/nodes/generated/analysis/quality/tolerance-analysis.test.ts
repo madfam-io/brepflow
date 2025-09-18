@@ -7,8 +7,8 @@ describe('ToleranceAnalysisNode', () => {
   it('should create ToleranceAnalysis', async () => {
     const context = createTestContext();
     const inputs = {
-      measured: /* test value */,
-      nominal: /* test value */
+      measured: null,
+      nominal: null
     };
     const params = {
       nominalTolerance: 0.1,

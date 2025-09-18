@@ -7,7 +7,7 @@ describe('CutQualityNode', () => {
   it('should create CutQuality', async () => {
     const context = createTestContext();
     const inputs = {
-      material: /* test value */
+      material: null
     };
     const params = {
       speed: 20,

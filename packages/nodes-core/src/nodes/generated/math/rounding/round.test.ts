@@ -7,7 +7,7 @@ describe('RoundNode', () => {
   it('should create Round', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

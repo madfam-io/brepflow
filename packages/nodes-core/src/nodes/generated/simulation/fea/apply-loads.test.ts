@@ -7,8 +7,8 @@ describe('ApplyLoadsNode', () => {
   it('should create ApplyLoads', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */,
-      applicationFaces: /* test value */
+      mesh: null,
+      applicationFaces: null
     };
     const params = {
       loadType: "force",

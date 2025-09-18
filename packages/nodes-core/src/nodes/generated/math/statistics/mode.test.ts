@@ -7,7 +7,7 @@ describe('ModeNode', () => {
   it('should create Mode', async () => {
     const context = createTestContext();
     const inputs = {
-      values: /* test value */
+      values: null
     };
     const params = {
       

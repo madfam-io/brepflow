@@ -7,7 +7,7 @@ describe('LatticeStructureNode', () => {
   it('should create LatticeStructure', async () => {
     const context = createTestContext();
     const inputs = {
-      boundingShape: /* test value */
+      boundingShape: null
     };
     const params = {
       cellType: "cubic",

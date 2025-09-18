@@ -7,7 +7,7 @@ describe('AverageNode', () => {
   it('should create Average', async () => {
     const context = createTestContext();
     const inputs = {
-      values: /* test value */
+      values: null
     };
     const params = {
       

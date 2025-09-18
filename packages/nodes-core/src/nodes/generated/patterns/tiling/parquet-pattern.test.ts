@@ -7,7 +7,7 @@ describe('ParquetPatternNode', () => {
   it('should create ParquetPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       pattern: "herringbone",

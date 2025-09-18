@@ -7,7 +7,7 @@ describe('GasSpringNode', () => {
   it('should create GasSpring', async () => {
     const context = createTestContext();
     const inputs = {
-      mountPoint: /* test value */
+      mountPoint: null
     };
     const params = {
       cylinderDiameter: 20,

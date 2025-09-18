@@ -7,7 +7,7 @@ describe('PostProcessorNode', () => {
   it('should create PostProcessor', async () => {
     const context = createTestContext();
     const inputs = {
-      toolpaths: /* test value */
+      toolpaths: null
     };
     const params = {
       machine: "haas",

@@ -7,7 +7,7 @@ describe('OldhamCouplingNode', () => {
   it('should create OldhamCoupling', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       hubDiameter: 40,

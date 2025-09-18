@@ -7,7 +7,7 @@ describe('JSONGeneratorNode', () => {
   it('should create JSONGenerator', async () => {
     const context = createTestContext();
     const inputs = {
-      data: /* test value */
+      data: null
     };
     const params = {
       indent: 2,

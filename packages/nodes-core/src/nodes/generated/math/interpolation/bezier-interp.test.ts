@@ -7,8 +7,8 @@ describe('BezierInterpNode', () => {
   it('should create BezierInterp', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */,
-      t: /* test value */
+      points: null,
+      t: null
     };
     const params = {
       

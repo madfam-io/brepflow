@@ -7,7 +7,7 @@ describe('ExportSTLNode', () => {
   it('should create ExportSTL', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       format: "binary",

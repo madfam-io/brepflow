@@ -7,7 +7,7 @@ describe('ConvexHullNode', () => {
   it('should create ConvexHull', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       

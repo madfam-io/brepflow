@@ -7,7 +7,7 @@ describe('CoolingAnalysisNode', () => {
   it('should create CoolingAnalysis', async () => {
     const context = createTestContext();
     const inputs = {
-      slices: /* test value */
+      slices: null
     };
     const params = {
       fanSpeed: 100,

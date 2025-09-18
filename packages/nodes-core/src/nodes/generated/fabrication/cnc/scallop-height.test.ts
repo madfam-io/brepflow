@@ -7,7 +7,7 @@ describe('ScallopHeightNode', () => {
   it('should create ScallopHeight', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       ballRadius: 3,

@@ -7,7 +7,7 @@ describe('CurveInflectionPointsNode', () => {
   it('should create CurveInflectionPoints', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       tolerance: 0.01,

@@ -7,7 +7,7 @@ describe('ZebraAnalysisNode', () => {
   it('should create ZebraAnalysis', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       stripeCount: 20,

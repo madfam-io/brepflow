@@ -7,7 +7,7 @@ describe('SurfaceNormalsNode', () => {
   it('should create SurfaceNormals', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       density: 20,

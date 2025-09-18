@@ -7,7 +7,7 @@ describe('SubdivisionSurfaceNode', () => {
   it('should create SubdivisionSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      controlMesh: /* test value */
+      controlMesh: null
     };
     const params = {
       scheme: "catmull-clark",

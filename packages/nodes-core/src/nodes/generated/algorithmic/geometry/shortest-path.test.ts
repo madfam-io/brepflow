@@ -7,9 +7,9 @@ describe('ShortestPathNode', () => {
   it('should create ShortestPath', async () => {
     const context = createTestContext();
     const inputs = {
-      graph: /* test value */,
-      start: /* test value */,
-      end: /* test value */
+      graph: null,
+      start: null,
+      end: null
     };
     const params = {
       algorithm: "dijkstra",

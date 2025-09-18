@@ -7,7 +7,7 @@ describe('FieldHeatMapNode', () => {
   it('should create FieldHeatMap', async () => {
     const context = createTestContext();
     const inputs = {
-      plane: /* test value */
+      plane: null
     };
     const params = {
       resolution: 50,

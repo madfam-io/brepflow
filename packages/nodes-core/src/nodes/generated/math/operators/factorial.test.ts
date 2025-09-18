@@ -7,7 +7,7 @@ describe('FactorialNode', () => {
   it('should create Factorial', async () => {
     const context = createTestContext();
     const inputs = {
-      n: /* test value */
+      n: null
     };
     const params = {
       

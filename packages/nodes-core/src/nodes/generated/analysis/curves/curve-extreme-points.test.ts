@@ -7,7 +7,7 @@ describe('CurveExtremePointsNode', () => {
   it('should create CurveExtremePoints', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       axis: "all",

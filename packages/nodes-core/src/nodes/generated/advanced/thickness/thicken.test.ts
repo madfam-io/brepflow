@@ -7,7 +7,7 @@ describe('ThickenNode', () => {
   it('should create Thicken', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       thickness: 5,

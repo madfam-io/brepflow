@@ -7,8 +7,8 @@ describe('SwitchbackRampNode', () => {
   it('should create SwitchbackRamp', async () => {
     const context = createTestContext();
     const inputs = {
-      startPoint: /* test value */,
-      totalRise: /* test value */
+      startPoint: null,
+      totalRise: null
     };
     const params = {
       runLength: 9000,

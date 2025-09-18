@@ -7,7 +7,7 @@ describe('FieldColorMapNode', () => {
   it('should create FieldColorMap', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       colorScheme: "\"viridis\"",

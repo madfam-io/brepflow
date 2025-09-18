@@ -7,7 +7,7 @@ describe('TreePathsNode', () => {
   it('should create TreePaths', async () => {
     const context = createTestContext();
     const inputs = {
-      tree: /* test value */
+      tree: null
     };
     const params = {
       

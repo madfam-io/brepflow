@@ -7,7 +7,7 @@ describe('SmoothMeshNode', () => {
   it('should create SmoothMesh', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       iterations: 5,

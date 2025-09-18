@@ -7,11 +7,11 @@ describe('HermiteInterpNode', () => {
   it('should create HermiteInterp', async () => {
     const context = createTestContext();
     const inputs = {
-      p0: /* test value */,
-      p1: /* test value */,
-      m0: /* test value */,
-      m1: /* test value */,
-      t: /* test value */
+      p0: null,
+      p1: null,
+      m0: null,
+      m1: null,
+      t: null
     };
     const params = {
       

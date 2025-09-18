@@ -7,7 +7,7 @@ describe('TiltUpPanelNode', () => {
   it('should create TiltUpPanel', async () => {
     const context = createTestContext();
     const inputs = {
-      panelOutline: /* test value */
+      panelOutline: null
     };
     const params = {
       panelThickness: 200,

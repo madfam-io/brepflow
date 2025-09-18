@@ -7,7 +7,7 @@ describe('DutchDoorNode', () => {
   it('should create DutchDoor', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       splitHeight: 1050,

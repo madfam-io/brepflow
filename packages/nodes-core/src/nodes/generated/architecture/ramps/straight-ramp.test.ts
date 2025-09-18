@@ -7,8 +7,8 @@ describe('StraightRampNode', () => {
   it('should create StraightRamp', async () => {
     const context = createTestContext();
     const inputs = {
-      startPoint: /* test value */,
-      endPoint: /* test value */
+      startPoint: null,
+      endPoint: null
     };
     const params = {
       slope: 0.083,

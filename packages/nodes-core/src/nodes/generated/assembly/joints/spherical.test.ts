@@ -7,9 +7,9 @@ describe('SphericalNode', () => {
   it('should create Spherical', async () => {
     const context = createTestContext();
     const inputs = {
-      part1: /* test value */,
-      part2: /* test value */,
-      center: /* test value */
+      part1: null,
+      part2: null,
+      center: null
     };
     const params = {
       coneAngle: 45

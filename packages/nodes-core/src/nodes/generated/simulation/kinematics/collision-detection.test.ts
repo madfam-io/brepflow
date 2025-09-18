@@ -7,7 +7,7 @@ describe('CollisionDetectionNode', () => {
   it('should create CollisionDetection', async () => {
     const context = createTestContext();
     const inputs = {
-      bodies: /* test value */
+      bodies: null
     };
     const params = {
       detectionType: "discrete",

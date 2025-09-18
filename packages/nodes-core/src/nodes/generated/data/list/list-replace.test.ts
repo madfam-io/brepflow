@@ -7,9 +7,9 @@ describe('ListReplaceNode', () => {
   it('should create ListReplace', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */,
-      item: /* test value */,
-      index: /* test value */
+      list: null,
+      item: null,
+      index: null
     };
     const params = {
       

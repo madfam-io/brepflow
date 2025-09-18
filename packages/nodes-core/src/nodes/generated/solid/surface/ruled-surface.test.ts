@@ -7,8 +7,8 @@ describe('RuledSurfaceNode', () => {
   it('should create RuledSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      curve1: /* test value */,
-      curve2: /* test value */
+      curve1: null,
+      curve2: null
     };
     const params = {
       

@@ -7,7 +7,7 @@ describe('HoneycombPatternNode', () => {
   it('should create HoneycombPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       cellSize: 10,

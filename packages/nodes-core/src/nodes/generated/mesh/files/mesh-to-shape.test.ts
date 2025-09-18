@@ -7,7 +7,7 @@ describe('MeshToShapeNode', () => {
   it('should create MeshToShape', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       tolerance: 0.01,

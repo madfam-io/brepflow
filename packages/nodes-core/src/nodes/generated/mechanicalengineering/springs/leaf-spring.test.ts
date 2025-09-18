@@ -7,7 +7,7 @@ describe('LeafSpringNode', () => {
   it('should create LeafSpring', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       leafCount: 5,

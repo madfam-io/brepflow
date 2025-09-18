@@ -7,7 +7,7 @@ describe('PolarArrayNode', () => {
   it('should create PolarArray', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       count: 8,

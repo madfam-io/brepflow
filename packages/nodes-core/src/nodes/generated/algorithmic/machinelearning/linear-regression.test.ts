@@ -7,9 +7,9 @@ describe('LinearRegressionNode', () => {
   it('should create LinearRegression', async () => {
     const context = createTestContext();
     const inputs = {
-      trainingData: /* test value */,
-      features: /* test value */,
-      target: /* test value */
+      trainingData: null,
+      features: null,
+      target: null
     };
     const params = {
       regularization: "none",

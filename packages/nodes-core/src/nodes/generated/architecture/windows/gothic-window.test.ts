@@ -7,7 +7,7 @@ describe('GothicWindowNode', () => {
   it('should create GothicWindow', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       style: "equilateral",

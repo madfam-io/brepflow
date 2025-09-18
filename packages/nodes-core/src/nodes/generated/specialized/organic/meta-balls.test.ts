@@ -7,8 +7,8 @@ describe('MetaBallsNode', () => {
   it('should create MetaBalls', async () => {
     const context = createTestContext();
     const inputs = {
-      centers: /* test value */,
-      radii: /* test value */
+      centers: null,
+      radii: null
     };
     const params = {
       threshold: 1,

@@ -7,7 +7,7 @@ describe('SafetyZonesNode', () => {
   it('should create SafetyZones', async () => {
     const context = createTestContext();
     const inputs = {
-      workArea: /* test value */
+      workArea: null
     };
     const params = {
       margin: 5

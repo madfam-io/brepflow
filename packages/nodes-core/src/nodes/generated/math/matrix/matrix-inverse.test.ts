@@ -7,7 +7,7 @@ describe('MatrixInverseNode', () => {
   it('should create MatrixInverse', async () => {
     const context = createTestContext();
     const inputs = {
-      matrix: /* test value */
+      matrix: null
     };
     const params = {
       

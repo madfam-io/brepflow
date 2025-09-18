@@ -7,8 +7,8 @@ describe('ListItemNode', () => {
   it('should create ListItem', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */,
-      index: /* test value */
+      list: null,
+      index: null
     };
     const params = {
       wrap: false

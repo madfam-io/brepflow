@@ -7,11 +7,11 @@ describe('RemapNode', () => {
   it('should create Remap', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */,
-      fromMin: /* test value */,
-      fromMax: /* test value */,
-      toMin: /* test value */,
-      toMax: /* test value */
+      value: null,
+      fromMin: null,
+      fromMax: null,
+      toMin: null,
+      toMax: null
     };
     const params = {
       

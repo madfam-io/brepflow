@@ -7,7 +7,7 @@ describe('ExportOBJNode', () => {
   it('should create ExportOBJ', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       exportNormals: true,

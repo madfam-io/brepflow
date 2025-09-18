@@ -7,7 +7,7 @@ describe('FluidDomainNode', () => {
   it('should create FluidDomain', async () => {
     const context = createTestContext();
     const inputs = {
-      geometry: /* test value */
+      geometry: null
     };
     const params = {
       domainType: "external",

@@ -7,8 +7,8 @@ describe('DifferenceNode', () => {
   it('should create Difference', async () => {
     const context = createTestContext();
     const inputs = {
-      base: /* test value */,
-      tools: /* test value */
+      base: null,
+      tools: null
     };
     const params = {
       keepOriginals: false,

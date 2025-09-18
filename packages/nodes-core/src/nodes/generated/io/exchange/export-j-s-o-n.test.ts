@@ -7,7 +7,7 @@ describe('ExportJSONNode', () => {
   it('should create ExportJSON', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */
+      shapes: null
     };
     const params = {
       format: "brepflow",

@@ -7,8 +7,8 @@ describe('ListFilterNode', () => {
   it('should create ListFilter', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */,
-      mask: /* test value */
+      list: null,
+      mask: null
     };
     const params = {
       

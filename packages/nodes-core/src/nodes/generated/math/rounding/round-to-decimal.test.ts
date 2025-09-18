@@ -7,7 +7,7 @@ describe('RoundToDecimalNode', () => {
   it('should create RoundToDecimal', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       decimals: 2

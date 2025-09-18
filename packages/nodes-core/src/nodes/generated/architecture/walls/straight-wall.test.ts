@@ -7,7 +7,7 @@ describe('StraightWallNode', () => {
   it('should create StraightWall', async () => {
     const context = createTestContext();
     const inputs = {
-      centerline: /* test value */
+      centerline: null
     };
     const params = {
       height: 3000,

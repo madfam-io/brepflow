@@ -7,8 +7,8 @@ describe('ClearanceCheckNode', () => {
   it('should create ClearanceCheck', async () => {
     const context = createTestContext();
     const inputs = {
-      movingObject: /* test value */,
-      obstacles: /* test value */
+      movingObject: null,
+      obstacles: null
     };
     const params = {
       requiredClearance: 5,

@@ -7,7 +7,7 @@ describe('ExportDXFNode', () => {
   it('should create ExportDXF', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */
+      shapes: null
     };
     const params = {
       version: "R2010",

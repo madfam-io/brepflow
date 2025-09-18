@@ -7,8 +7,8 @@ describe('HelicalRampNode', () => {
   it('should create HelicalRamp', async () => {
     const context = createTestContext();
     const inputs = {
-      centerPoint: /* test value */,
-      levels: /* test value */
+      centerPoint: null,
+      levels: null
     };
     const params = {
       radius: 15000,

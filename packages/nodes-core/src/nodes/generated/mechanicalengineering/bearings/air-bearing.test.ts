@@ -7,7 +7,7 @@ describe('AirBearingNode', () => {
   it('should create AirBearing', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       diameter: 50,

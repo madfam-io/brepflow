@@ -7,7 +7,7 @@ describe('ImportIGESNode', () => {
   it('should create ImportIGES', async () => {
     const context = createTestContext();
     const inputs = {
-      fileData: /* test value */
+      fileData: null
     };
     const params = {
       readSurfaces: true,

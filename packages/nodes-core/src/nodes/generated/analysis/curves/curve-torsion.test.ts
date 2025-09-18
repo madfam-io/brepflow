@@ -7,7 +7,7 @@ describe('CurveTorsionNode', () => {
   it('should create CurveTorsion', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       samples: 100,

@@ -7,7 +7,7 @@ describe('ImportJSONNode', () => {
   it('should create ImportJSON', async () => {
     const context = createTestContext();
     const inputs = {
-      jsonData: /* test value */
+      jsonData: null
     };
     const params = {
       format: "brepflow"

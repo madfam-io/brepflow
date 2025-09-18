@@ -7,7 +7,7 @@ describe('GreenRoofNode', () => {
   it('should create GreenRoof', async () => {
     const context = createTestContext();
     const inputs = {
-      roofSurface: /* test value */
+      roofSurface: null
     };
     const params = {
       type: "extensive",

@@ -7,8 +7,8 @@ describe('SubtractNode', () => {
   it('should create Subtract', async () => {
     const context = createTestContext();
     const inputs = {
-      a: /* test value */,
-      b: /* test value */
+      a: null,
+      b: null
     };
     const params = {
       

@@ -7,7 +7,7 @@ describe('CutOrderOptimizationNode', () => {
   it('should create CutOrderOptimization', async () => {
     const context = createTestContext();
     const inputs = {
-      paths: /* test value */
+      paths: null
     };
     const params = {
       innerFirst: true,

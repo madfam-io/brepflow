@@ -7,7 +7,7 @@ describe('GeometryValidationNode', () => {
   it('should create GeometryValidation', async () => {
     const context = createTestContext();
     const inputs = {
-      geometry: /* test value */
+      geometry: null
     };
     const params = {
       tolerance: 0.01,

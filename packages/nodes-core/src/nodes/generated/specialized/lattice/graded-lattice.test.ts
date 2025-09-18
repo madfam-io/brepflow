@@ -7,7 +7,7 @@ describe('GradedLatticeNode', () => {
   it('should create GradedLattice', async () => {
     const context = createTestContext();
     const inputs = {
-      boundingShape: /* test value */
+      boundingShape: null
     };
     const params = {
       minDensity: 0.2,

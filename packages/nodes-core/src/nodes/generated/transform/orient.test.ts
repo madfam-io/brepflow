@@ -7,9 +7,9 @@ describe('OrientNode', () => {
   it('should create Orient', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */,
-      fromDirection: /* test value */,
-      toDirection: /* test value */
+      shape: null,
+      fromDirection: null,
+      toDirection: null
     };
     const params = {
       

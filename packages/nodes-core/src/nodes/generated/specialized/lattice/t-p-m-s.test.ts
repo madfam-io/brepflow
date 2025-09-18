@@ -7,7 +7,7 @@ describe('TPMSNode', () => {
   it('should create TPMS', async () => {
     const context = createTestContext();
     const inputs = {
-      boundingBox: /* test value */
+      boundingBox: null
     };
     const params = {
       type: "gyroid",

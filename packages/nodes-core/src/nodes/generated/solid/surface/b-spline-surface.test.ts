@@ -7,7 +7,7 @@ describe('BSplineSurfaceNode', () => {
   it('should create BSplineSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      controlPoints: /* test value */
+      controlPoints: null
     };
     const params = {
       uDegree: 3,

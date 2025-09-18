@@ -7,8 +7,8 @@ describe('AxisToAxisNode', () => {
   it('should create AxisToAxis', async () => {
     const context = createTestContext();
     const inputs = {
-      axis1: /* test value */,
-      axis2: /* test value */
+      axis1: null,
+      axis2: null
     };
     const params = {
       colinear: true,

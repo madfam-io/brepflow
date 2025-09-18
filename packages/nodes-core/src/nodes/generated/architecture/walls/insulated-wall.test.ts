@@ -7,7 +7,7 @@ describe('InsulatedWallNode', () => {
   it('should create InsulatedWall', async () => {
     const context = createTestContext();
     const inputs = {
-      wallCavity: /* test value */
+      wallCavity: null
     };
     const params = {
       insulationType: "batt",

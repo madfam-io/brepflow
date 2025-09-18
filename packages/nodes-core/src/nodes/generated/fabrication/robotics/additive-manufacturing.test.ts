@@ -7,7 +7,7 @@ describe('AdditiveManufacturingNode', () => {
   it('should create AdditiveManufacturing', async () => {
     const context = createTestContext();
     const inputs = {
-      printPaths: /* test value */
+      printPaths: null
     };
     const params = {
       nozzleSize: 4,

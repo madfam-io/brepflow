@@ -7,7 +7,7 @@ describe('ProximityAnalysisNode', () => {
   it('should create ProximityAnalysis', async () => {
     const context = createTestContext();
     const inputs = {
-      objects: /* test value */
+      objects: null
     };
     const params = {
       threshold: 1,

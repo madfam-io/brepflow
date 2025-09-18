@@ -7,7 +7,7 @@ describe('ToolCompensationNode', () => {
   it('should create ToolCompensation', async () => {
     const context = createTestContext();
     const inputs = {
-      path: /* test value */
+      path: null
     };
     const params = {
       toolRadius: 3,

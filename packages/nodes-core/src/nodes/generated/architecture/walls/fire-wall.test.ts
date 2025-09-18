@@ -7,7 +7,7 @@ describe('FireWallNode', () => {
   it('should create FireWall', async () => {
     const context = createTestContext();
     const inputs = {
-      path: /* test value */
+      path: null
     };
     const params = {
       fireRating: "2-hour",

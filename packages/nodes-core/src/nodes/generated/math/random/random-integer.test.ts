@@ -7,8 +7,8 @@ describe('RandomIntegerNode', () => {
   it('should create RandomInteger', async () => {
     const context = createTestContext();
     const inputs = {
-      min: /* test value */,
-      max: /* test value */
+      min: null,
+      max: null
     };
     const params = {
       seed: -1

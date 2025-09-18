@@ -7,8 +7,8 @@ describe('RectanglePackingNode', () => {
   it('should create RectanglePacking', async () => {
     const context = createTestContext();
     const inputs = {
-      container: /* test value */,
-      rectangles: /* test value */
+      container: null,
+      rectangles: null
     };
     const params = {
       algorithm: "maxrects"

@@ -7,8 +7,8 @@ describe('STLExportNode', () => {
   it('should create STLExport', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */,
-      filePath: /* test value */
+      shapes: null,
+      filePath: null
     };
     const params = {
       format: "binary",

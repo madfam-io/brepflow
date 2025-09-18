@@ -7,8 +7,8 @@ describe('TreeMergeNode', () => {
   it('should create TreeMerge', async () => {
     const context = createTestContext();
     const inputs = {
-      treeA: /* test value */,
-      treeB: /* test value */
+      treeA: null,
+      treeB: null
     };
     const params = {
       

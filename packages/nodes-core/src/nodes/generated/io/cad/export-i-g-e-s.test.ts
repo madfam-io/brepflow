@@ -7,7 +7,7 @@ describe('ExportIGESNode', () => {
   it('should create ExportIGES', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       brepMode: "faces",

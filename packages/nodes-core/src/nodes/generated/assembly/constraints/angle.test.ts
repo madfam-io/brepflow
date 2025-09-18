@@ -7,8 +7,8 @@ describe('AngleNode', () => {
   it('should create Angle', async () => {
     const context = createTestContext();
     const inputs = {
-      entity1: /* test value */,
-      entity2: /* test value */
+      entity1: null,
+      entity2: null
     };
     const params = {
       angle: 90

@@ -7,8 +7,8 @@ describe('SampleFieldNode', () => {
   it('should create SampleField', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */,
-      points: /* test value */
+      field: null,
+      points: null
     };
     const params = {
       

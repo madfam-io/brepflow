@@ -7,7 +7,7 @@ describe('InfillOptimizationNode', () => {
   it('should create InfillOptimization', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       minDensity: 0.1,

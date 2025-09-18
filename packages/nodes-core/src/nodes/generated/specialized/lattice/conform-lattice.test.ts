@@ -7,8 +7,8 @@ describe('ConformLatticeNode', () => {
   it('should create ConformLattice', async () => {
     const context = createTestContext();
     const inputs = {
-      targetShape: /* test value */,
-      latticePattern: /* test value */
+      targetShape: null,
+      latticePattern: null
     };
     const params = {
       conformType: "volume",

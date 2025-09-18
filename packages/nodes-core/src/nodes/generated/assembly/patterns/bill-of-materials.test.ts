@@ -7,7 +7,7 @@ describe('BillOfMaterialsNode', () => {
   it('should create BillOfMaterials', async () => {
     const context = createTestContext();
     const inputs = {
-      assembly: /* test value */
+      assembly: null
     };
     const params = {
       includeSubAssemblies: true,

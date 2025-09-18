@@ -7,9 +7,9 @@ describe('PlanarNode', () => {
   it('should create Planar', async () => {
     const context = createTestContext();
     const inputs = {
-      part1: /* test value */,
-      part2: /* test value */,
-      plane: /* test value */
+      part1: null,
+      part2: null,
+      plane: null
     };
     const params = {
       

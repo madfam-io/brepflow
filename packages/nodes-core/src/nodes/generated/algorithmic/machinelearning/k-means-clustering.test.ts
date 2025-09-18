@@ -7,7 +7,7 @@ describe('KMeansClusteringNode', () => {
   it('should create KMeansClustering', async () => {
     const context = createTestContext();
     const inputs = {
-      data: /* test value */
+      data: null
     };
     const params = {
       clusters: 3,

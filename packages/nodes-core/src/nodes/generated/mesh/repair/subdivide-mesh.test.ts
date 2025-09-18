@@ -7,7 +7,7 @@ describe('SubdivideMeshNode', () => {
   it('should create SubdivideMesh', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       subdivisionType: "loop",

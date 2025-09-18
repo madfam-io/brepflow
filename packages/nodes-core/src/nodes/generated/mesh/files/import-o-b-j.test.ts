@@ -7,7 +7,7 @@ describe('ImportOBJNode', () => {
   it('should create ImportOBJ', async () => {
     const context = createTestContext();
     const inputs = {
-      fileData: /* test value */
+      fileData: null
     };
     const params = {
       importMaterials: true,

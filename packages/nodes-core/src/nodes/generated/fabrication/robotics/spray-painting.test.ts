@@ -7,7 +7,7 @@ describe('SprayPaintingNode', () => {
   it('should create SprayPainting', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       sprayWidth: 100,

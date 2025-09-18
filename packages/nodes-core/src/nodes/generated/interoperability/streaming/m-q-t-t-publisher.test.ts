@@ -7,7 +7,7 @@ describe('MQTTPublisherNode', () => {
   it('should create MQTTPublisher', async () => {
     const context = createTestContext();
     const inputs = {
-      payload: /* test value */
+      payload: null
     };
     const params = {
       broker: "",

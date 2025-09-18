@@ -7,7 +7,7 @@ describe('BrickPatternNode', () => {
   it('should create BrickPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       bond: "running",

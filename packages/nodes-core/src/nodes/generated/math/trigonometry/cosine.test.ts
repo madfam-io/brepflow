@@ -7,7 +7,7 @@ describe('CosineNode', () => {
   it('should create Cosine', async () => {
     const context = createTestContext();
     const inputs = {
-      angle: /* test value */
+      angle: null
     };
     const params = {
       angleUnit: "radians"

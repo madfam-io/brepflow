@@ -7,7 +7,7 @@ describe('PerlinNoiseNode', () => {
   it('should create PerlinNoise', async () => {
     const context = createTestContext();
     const inputs = {
-      x: /* test value */
+      x: null
     };
     const params = {
       octaves: 4,

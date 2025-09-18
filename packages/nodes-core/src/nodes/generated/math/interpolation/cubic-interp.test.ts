@@ -7,11 +7,11 @@ describe('CubicInterpNode', () => {
   it('should create CubicInterp', async () => {
     const context = createTestContext();
     const inputs = {
-      v0: /* test value */,
-      v1: /* test value */,
-      v2: /* test value */,
-      v3: /* test value */,
-      t: /* test value */
+      v0: null,
+      v1: null,
+      v2: null,
+      v3: null,
+      t: null
     };
     const params = {
       

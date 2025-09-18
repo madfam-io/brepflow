@@ -7,7 +7,7 @@ describe('FoldingDoorNode', () => {
   it('should create FoldingDoor', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       panels: 4,

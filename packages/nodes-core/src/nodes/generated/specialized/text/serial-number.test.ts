@@ -7,7 +7,7 @@ describe('SerialNumberNode', () => {
   it('should create SerialNumber', async () => {
     const context = createTestContext();
     const inputs = {
-      count: /* test value */
+      count: null
     };
     const params = {
       prefix: "SN",

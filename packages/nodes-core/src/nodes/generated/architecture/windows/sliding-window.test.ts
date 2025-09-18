@@ -7,7 +7,7 @@ describe('SlidingWindowNode', () => {
   it('should create SlidingWindow', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       panels: 2,

@@ -7,7 +7,7 @@ describe('GridArrayNode', () => {
   it('should create GridArray', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       countX: 3,

@@ -7,8 +7,8 @@ describe('WrapNode', () => {
   it('should create Wrap', async () => {
     const context = createTestContext();
     const inputs = {
-      targetSurface: /* test value */,
-      sketch: /* test value */
+      targetSurface: null,
+      sketch: null
     };
     const params = {
       wrapType: "emboss",

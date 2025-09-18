@@ -7,7 +7,7 @@ describe('FieldInvertNode', () => {
   it('should create FieldInvert', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */
+      field: null
     };
     const params = {
       

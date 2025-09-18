@@ -7,7 +7,7 @@ describe('KeywayJointNode', () => {
   it('should create KeywayJoint', async () => {
     const context = createTestContext();
     const inputs = {
-      shaftCenter: /* test value */
+      shaftCenter: null
     };
     const params = {
       shaftDiameter: 20,

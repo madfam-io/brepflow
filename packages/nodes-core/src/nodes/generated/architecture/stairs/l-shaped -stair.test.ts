@@ -7,7 +7,7 @@ describe('LShaped StairNode', () => {
   it('should create LShaped Stair', async () => {
     const context = createTestContext();
     const inputs = {
-      startPoint: /* test value */
+      startPoint: null
     };
     const params = {
       totalRise: 3000,

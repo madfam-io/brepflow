@@ -7,7 +7,7 @@ describe('UnfoldNode', () => {
   it('should create Unfold', async () => {
     const context = createTestContext();
     const inputs = {
-      foldedShape: /* test value */
+      foldedShape: null
     };
     const params = {
       kFactor: 0.44,

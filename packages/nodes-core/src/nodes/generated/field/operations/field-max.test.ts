@@ -7,7 +7,7 @@ describe('FieldMaxNode', () => {
   it('should create FieldMax', async () => {
     const context = createTestContext();
     const inputs = {
-      fields: /* test value */
+      fields: null
     };
     const params = {
       

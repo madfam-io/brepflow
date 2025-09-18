@@ -7,9 +7,9 @@ describe('TabNode', () => {
   it('should create Tab', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      edge: /* test value */,
-      position: /* test value */
+      sheet: null,
+      edge: null,
+      position: null
     };
     const params = {
       tabWidth: 20,

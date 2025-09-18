@@ -7,7 +7,7 @@ describe('SurfaceParametrizationNode', () => {
   it('should create SurfaceParametrization', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       showGrid: true,

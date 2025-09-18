@@ -7,9 +7,9 @@ describe('ShadowAnalysisNode', () => {
   it('should create ShadowAnalysis', async () => {
     const context = createTestContext();
     const inputs = {
-      lightSource: /* test value */,
-      objects: /* test value */,
-      groundPlane: /* test value */
+      lightSource: null,
+      objects: null,
+      groundPlane: null
     };
     const params = {
       lightType: "directional",

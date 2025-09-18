@@ -7,7 +7,7 @@ describe('FlockingPatternNode', () => {
   it('should create FlockingPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       agents: 50,

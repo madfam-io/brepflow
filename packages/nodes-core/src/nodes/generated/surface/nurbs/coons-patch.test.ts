@@ -7,10 +7,10 @@ describe('CoonsPatchNode', () => {
   it('should create CoonsPatch', async () => {
     const context = createTestContext();
     const inputs = {
-      edge1: /* test value */,
-      edge2: /* test value */,
-      edge3: /* test value */,
-      edge4: /* test value */
+      edge1: null,
+      edge2: null,
+      edge3: null,
+      edge4: null
     };
     const params = {
       

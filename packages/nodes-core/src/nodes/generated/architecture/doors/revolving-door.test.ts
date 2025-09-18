@@ -7,7 +7,7 @@ describe('RevolvingDoorNode', () => {
   it('should create RevolvingDoor', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       diameter: 2000,

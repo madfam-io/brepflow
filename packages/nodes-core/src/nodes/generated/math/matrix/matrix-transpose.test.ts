@@ -7,7 +7,7 @@ describe('MatrixTransposeNode', () => {
   it('should create MatrixTranspose', async () => {
     const context = createTestContext();
     const inputs = {
-      matrix: /* test value */
+      matrix: null
     };
     const params = {
       

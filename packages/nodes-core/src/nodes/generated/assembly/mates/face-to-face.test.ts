@@ -7,8 +7,8 @@ describe('FaceToFaceNode', () => {
   it('should create FaceToFace', async () => {
     const context = createTestContext();
     const inputs = {
-      face1: /* test value */,
-      face2: /* test value */
+      face1: null,
+      face2: null
     };
     const params = {
       offset: 0,

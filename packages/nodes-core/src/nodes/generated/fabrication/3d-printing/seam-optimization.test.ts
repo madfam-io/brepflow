@@ -7,7 +7,7 @@ describe('SeamOptimizationNode', () => {
   it('should create SeamOptimization', async () => {
     const context = createTestContext();
     const inputs = {
-      slices: /* test value */
+      slices: null
     };
     const params = {
       strategy: "hidden"

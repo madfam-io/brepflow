@@ -7,7 +7,7 @@ describe('RobotCalibrationNode', () => {
   it('should create RobotCalibration', async () => {
     const context = createTestContext();
     const inputs = {
-      measurementPoints: /* test value */
+      measurementPoints: null
     };
     const params = {
       method: "dh-parameters"

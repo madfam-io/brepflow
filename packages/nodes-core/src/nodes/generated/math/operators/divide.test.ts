@@ -7,8 +7,8 @@ describe('DivideNode', () => {
   it('should create Divide', async () => {
     const context = createTestContext();
     const inputs = {
-      a: /* test value */,
-      b: /* test value */
+      a: null,
+      b: null
     };
     const params = {
       

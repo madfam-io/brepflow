@@ -7,7 +7,7 @@ describe('ListReverseNode', () => {
   it('should create ListReverse', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */
+      list: null
     };
     const params = {
       

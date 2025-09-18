@@ -7,8 +7,8 @@ describe('ListFindNode', () => {
   it('should create ListFind', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */,
-      pattern: /* test value */
+      list: null,
+      pattern: null
     };
     const params = {
       

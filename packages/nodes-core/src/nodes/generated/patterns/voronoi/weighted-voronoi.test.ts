@@ -7,8 +7,8 @@ describe('WeightedVoronoiNode', () => {
   it('should create WeightedVoronoi', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */,
-      weights: /* test value */
+      points: null,
+      weights: null
     };
     const params = {
       powerExponent: 2

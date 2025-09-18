@@ -7,7 +7,7 @@ describe('AirAssistNode', () => {
   it('should create AirAssist', async () => {
     const context = createTestContext();
     const inputs = {
-      material: /* test value */
+      material: null
     };
     const params = {
       pressure: 20,

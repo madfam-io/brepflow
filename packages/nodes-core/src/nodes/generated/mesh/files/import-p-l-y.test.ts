@@ -7,7 +7,7 @@ describe('ImportPLYNode', () => {
   it('should create ImportPLY', async () => {
     const context = createTestContext();
     const inputs = {
-      fileData: /* test value */
+      fileData: null
     };
     const params = {
       importColors: true,

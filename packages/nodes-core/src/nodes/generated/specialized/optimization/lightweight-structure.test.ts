@@ -7,7 +7,7 @@ describe('LightweightStructureNode', () => {
   it('should create LightweightStructure', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */
+      solid: null
     };
     const params = {
       targetWeight: 0.5,

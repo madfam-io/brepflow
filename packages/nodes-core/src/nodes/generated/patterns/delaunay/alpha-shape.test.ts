@@ -7,7 +7,7 @@ describe('AlphaShapeNode', () => {
   it('should create AlphaShape', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       alpha: 1

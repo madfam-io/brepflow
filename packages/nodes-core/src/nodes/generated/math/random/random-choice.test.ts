@@ -7,7 +7,7 @@ describe('RandomChoiceNode', () => {
   it('should create RandomChoice', async () => {
     const context = createTestContext();
     const inputs = {
-      choices: /* test value */
+      choices: null
     };
     const params = {
       seed: -1

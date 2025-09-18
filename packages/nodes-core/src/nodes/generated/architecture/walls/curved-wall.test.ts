@@ -7,7 +7,7 @@ describe('CurvedWallNode', () => {
   it('should create CurvedWall', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       height: 3000,

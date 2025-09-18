@@ -7,7 +7,7 @@ describe('IroningPassNode', () => {
   it('should create IroningPass', async () => {
     const context = createTestContext();
     const inputs = {
-      topSurfaces: /* test value */
+      topSurfaces: null
     };
     const params = {
       ironingSpeed: 20,

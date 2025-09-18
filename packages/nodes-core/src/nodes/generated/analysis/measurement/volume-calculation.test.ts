@@ -7,7 +7,7 @@ describe('VolumeCalculationNode', () => {
   it('should create VolumeCalculation', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */
+      solid: null
     };
     const params = {
       precision: 0.01,

@@ -7,7 +7,7 @@ describe('PlanetaryGearSetNode', () => {
   it('should create PlanetaryGearSet', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       sunTeeth: 20,

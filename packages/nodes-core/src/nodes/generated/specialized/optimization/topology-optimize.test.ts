@@ -7,9 +7,9 @@ describe('TopologyOptimizeNode', () => {
   it('should create TopologyOptimize', async () => {
     const context = createTestContext();
     const inputs = {
-      designSpace: /* test value */,
-      loads: /* test value */,
-      constraints: /* test value */
+      designSpace: null,
+      loads: null,
+      constraints: null
     };
     const params = {
       volumeFraction: 0.3,

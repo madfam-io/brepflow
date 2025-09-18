@@ -7,8 +7,8 @@ describe('LanceNode', () => {
   it('should create Lance', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      sketch: /* test value */
+      sheet: null,
+      sketch: null
     };
     const params = {
       lanceLength: 20,

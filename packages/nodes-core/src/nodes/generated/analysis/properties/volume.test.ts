@@ -7,7 +7,7 @@ describe('VolumeNode', () => {
   it('should create Volume', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */
+      solid: null
     };
     const params = {
       

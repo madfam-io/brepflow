@@ -7,7 +7,7 @@ describe('BowWindowNode', () => {
   it('should create BowWindow', async () => {
     const context = createTestContext();
     const inputs = {
-      wallOpening: /* test value */
+      wallOpening: null
     };
     const params = {
       projection: 600,

@@ -7,7 +7,7 @@ describe('VaseModeNode', () => {
   it('should create VaseMode', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       bottomLayers: 3

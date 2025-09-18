@@ -7,9 +7,9 @@ describe('DecisionTreeNode', () => {
   it('should create DecisionTree', async () => {
     const context = createTestContext();
     const inputs = {
-      trainingData: /* test value */,
-      features: /* test value */,
-      target: /* test value */
+      trainingData: null,
+      features: null,
+      target: null
     };
     const params = {
       maxDepth: 5,

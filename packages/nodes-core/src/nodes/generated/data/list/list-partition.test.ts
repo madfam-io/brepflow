@@ -7,8 +7,8 @@ describe('ListPartitionNode', () => {
   it('should create ListPartition', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */,
-      size: /* test value */
+      list: null,
+      size: null
     };
     const params = {
       

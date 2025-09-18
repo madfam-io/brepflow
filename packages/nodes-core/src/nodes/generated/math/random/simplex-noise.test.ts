@@ -7,7 +7,7 @@ describe('SimplexNoiseNode', () => {
   it('should create SimplexNoise', async () => {
     const context = createTestContext();
     const inputs = {
-      x: /* test value */
+      x: null
     };
     const params = {
       scale: 1,

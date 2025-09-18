@@ -7,7 +7,7 @@ describe('CurveAreaMomentsNode', () => {
   it('should create CurveAreaMoments', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       precision: 0.01,

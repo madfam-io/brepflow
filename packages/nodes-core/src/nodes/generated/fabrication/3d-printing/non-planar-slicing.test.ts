@@ -7,7 +7,7 @@ describe('NonPlanarSlicingNode', () => {
   it('should create NonPlanarSlicing', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       maxAngle: 30

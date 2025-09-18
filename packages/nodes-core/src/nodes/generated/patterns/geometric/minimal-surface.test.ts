@@ -7,7 +7,7 @@ describe('MinimalSurfaceNode', () => {
   it('should create MinimalSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      box: /* test value */
+      box: null
     };
     const params = {
       type: "gyroid",

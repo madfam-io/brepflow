@@ -7,7 +7,7 @@ describe('DraftAnalysisNode', () => {
   it('should create DraftAnalysis', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       pullDirection: [0,0,1],

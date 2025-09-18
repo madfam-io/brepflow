@@ -7,7 +7,7 @@ describe('IslamicGridNode', () => {
   it('should create IslamicGrid', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       gridType: "octagonal",

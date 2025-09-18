@@ -7,7 +7,7 @@ describe('FieldWarpNode', () => {
   it('should create FieldWarp', async () => {
     const context = createTestContext();
     const inputs = {
-      deformation: /* test value */
+      deformation: null
     };
     const params = {
       strength: 1

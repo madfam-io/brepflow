@@ -7,7 +7,7 @@ describe('HyperbolicTilingNode', () => {
   it('should create HyperbolicTiling', async () => {
     const context = createTestContext();
     const inputs = {
-      disk: /* test value */
+      disk: null
     };
     const params = {
       p: 7,

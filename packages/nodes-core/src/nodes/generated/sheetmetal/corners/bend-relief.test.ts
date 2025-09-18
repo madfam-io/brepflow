@@ -7,8 +7,8 @@ describe('BendReliefNode', () => {
   it('should create BendRelief', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      bends: /* test value */
+      sheet: null,
+      bends: null
     };
     const params = {
       reliefType: "rectangular",

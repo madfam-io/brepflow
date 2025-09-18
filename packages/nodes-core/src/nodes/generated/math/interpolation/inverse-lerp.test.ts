@@ -7,9 +7,9 @@ describe('InverseLerpNode', () => {
   it('should create InverseLerp', async () => {
     const context = createTestContext();
     const inputs = {
-      a: /* test value */,
-      b: /* test value */,
-      value: /* test value */
+      a: null,
+      b: null,
+      value: null
     };
     const params = {
       

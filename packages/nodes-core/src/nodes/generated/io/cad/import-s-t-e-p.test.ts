@@ -7,7 +7,7 @@ describe('ImportSTEPNode', () => {
   it('should create ImportSTEP', async () => {
     const context = createTestContext();
     const inputs = {
-      fileData: /* test value */
+      fileData: null
     };
     const params = {
       readColors: true,

@@ -7,8 +7,8 @@ describe('TreeBranchNode', () => {
   it('should create TreeBranch', async () => {
     const context = createTestContext();
     const inputs = {
-      tree: /* test value */,
-      path: /* test value */
+      tree: null,
+      path: null
     };
     const params = {
       

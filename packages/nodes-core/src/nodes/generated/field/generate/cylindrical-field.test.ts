@@ -7,7 +7,7 @@ describe('CylindricalFieldNode', () => {
   it('should create CylindricalField', async () => {
     const context = createTestContext();
     const inputs = {
-      axis: /* test value */
+      axis: null
     };
     const params = {
       radius: 50,

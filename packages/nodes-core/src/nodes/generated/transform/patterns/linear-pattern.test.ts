@@ -7,7 +7,7 @@ describe('LinearPatternNode', () => {
   it('should create LinearPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       count: 5,

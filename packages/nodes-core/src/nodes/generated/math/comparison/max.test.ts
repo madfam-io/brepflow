@@ -7,7 +7,7 @@ describe('MaxNode', () => {
   it('should create Max', async () => {
     const context = createTestContext();
     const inputs = {
-      values: /* test value */
+      values: null
     };
     const params = {
       

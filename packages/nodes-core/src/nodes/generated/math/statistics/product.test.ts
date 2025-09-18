@@ -7,7 +7,7 @@ describe('ProductNode', () => {
   it('should create Product', async () => {
     const context = createTestContext();
     const inputs = {
-      values: /* test value */
+      values: null
     };
     const params = {
       

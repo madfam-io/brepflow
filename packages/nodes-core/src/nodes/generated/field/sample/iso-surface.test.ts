@@ -7,7 +7,7 @@ describe('IsoSurfaceNode', () => {
   it('should create IsoSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */
+      field: null
     };
     const params = {
       value: 0.5,

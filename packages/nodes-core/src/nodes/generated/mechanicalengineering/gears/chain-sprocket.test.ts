@@ -7,7 +7,7 @@ describe('ChainSprocketNode', () => {
   it('should create ChainSprocket', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       chainPitch: 12.7,

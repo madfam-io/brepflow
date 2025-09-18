@@ -7,7 +7,7 @@ describe('HighSpeedMachiningNode', () => {
   it('should create HighSpeedMachining', async () => {
     const context = createTestContext();
     const inputs = {
-      toolpath: /* test value */
+      toolpath: null
     };
     const params = {
       cornerRadius: 2,

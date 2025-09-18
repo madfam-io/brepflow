@@ -7,7 +7,7 @@ describe('BrimGenerationNode', () => {
   it('should create BrimGeneration', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       brimWidth: 10,

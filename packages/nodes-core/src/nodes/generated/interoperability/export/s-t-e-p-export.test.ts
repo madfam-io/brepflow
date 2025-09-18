@@ -7,8 +7,8 @@ describe('STEPExportNode', () => {
   it('should create STEPExport', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */,
-      filePath: /* test value */
+      shapes: null,
+      filePath: null
     };
     const params = {
       version: "AP214",

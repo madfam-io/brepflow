@@ -7,7 +7,7 @@ describe('HoneycombStructureNode', () => {
   it('should create HoneycombStructure', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       cellSize: 5,

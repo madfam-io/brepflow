@@ -7,7 +7,7 @@ describe('MonumentalStairNode', () => {
   it('should create MonumentalStair', async () => {
     const context = createTestContext();
     const inputs = {
-      footprint: /* test value */
+      footprint: null
     };
     const params = {
       style: "imperial",

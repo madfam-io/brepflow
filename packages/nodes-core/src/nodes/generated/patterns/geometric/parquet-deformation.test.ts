@@ -7,7 +7,7 @@ describe('ParquetDeformationNode', () => {
   it('should create ParquetDeformation', async () => {
     const context = createTestContext();
     const inputs = {
-      baseTile: /* test value */
+      baseTile: null
     };
     const params = {
       deformationType: "radial",

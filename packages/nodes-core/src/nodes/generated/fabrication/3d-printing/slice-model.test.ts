@@ -7,7 +7,7 @@ describe('SliceModelNode', () => {
   it('should create SliceModel', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       layerHeight: 0.2,

@@ -7,7 +7,7 @@ describe('VoronoiOffsetNode', () => {
   it('should create VoronoiOffset', async () => {
     const context = createTestContext();
     const inputs = {
-      cells: /* test value */
+      cells: null
     };
     const params = {
       offset: 1,

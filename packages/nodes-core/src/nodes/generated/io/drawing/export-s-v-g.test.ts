@@ -7,7 +7,7 @@ describe('ExportSVGNode', () => {
   it('should create ExportSVG', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */
+      shapes: null
     };
     const params = {
       projection: "top",

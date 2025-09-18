@@ -7,7 +7,7 @@ describe('SineNode', () => {
   it('should create Sine', async () => {
     const context = createTestContext();
     const inputs = {
-      angle: /* test value */
+      angle: null
     };
     const params = {
       angleUnit: "radians"

@@ -7,7 +7,7 @@ describe('SumNode', () => {
   it('should create Sum', async () => {
     const context = createTestContext();
     const inputs = {
-      values: /* test value */
+      values: null
     };
     const params = {
       

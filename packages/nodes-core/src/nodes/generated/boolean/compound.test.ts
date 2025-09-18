@@ -7,7 +7,7 @@ describe('CompoundNode', () => {
   it('should create Compound', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */
+      shapes: null
     };
     const params = {
       

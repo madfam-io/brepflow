@@ -7,8 +7,8 @@ describe('MinimumDistanceNode', () => {
   it('should create MinimumDistance', async () => {
     const context = createTestContext();
     const inputs = {
-      shape1: /* test value */,
-      shape2: /* test value */
+      shape1: null,
+      shape2: null
     };
     const params = {
       

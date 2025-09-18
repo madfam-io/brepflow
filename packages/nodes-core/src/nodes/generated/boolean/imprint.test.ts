@@ -7,8 +7,8 @@ describe('ImprintNode', () => {
   it('should create Imprint', async () => {
     const context = createTestContext();
     const inputs = {
-      base: /* test value */,
-      imprint: /* test value */
+      base: null,
+      imprint: null
     };
     const params = {
       depth: 1

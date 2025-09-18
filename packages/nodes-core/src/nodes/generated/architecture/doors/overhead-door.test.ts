@@ -7,7 +7,7 @@ describe('OverheadDoorNode', () => {
   it('should create OverheadDoor', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       sections: 4,

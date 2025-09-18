@@ -7,7 +7,7 @@ describe('HollowShaftNode', () => {
   it('should create HollowShaft', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       outerDiameter: 40,

@@ -7,7 +7,7 @@ describe('ToolpathGenerationNode', () => {
   it('should create ToolpathGeneration', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       strategy: "parallel",

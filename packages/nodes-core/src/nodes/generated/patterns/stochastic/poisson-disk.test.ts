@@ -7,7 +7,7 @@ describe('PoissonDiskNode', () => {
   it('should create PoissonDisk', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       radius: 5,

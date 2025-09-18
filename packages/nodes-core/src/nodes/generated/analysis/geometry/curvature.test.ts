@@ -7,7 +7,7 @@ describe('CurvatureNode', () => {
   it('should create Curvature', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       parameter: 0.5

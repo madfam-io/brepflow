@@ -7,7 +7,7 @@ describe('LoftNode', () => {
   it('should create Loft', async () => {
     const context = createTestContext();
     const inputs = {
-      profiles: /* test value */
+      profiles: null
     };
     const params = {
       ruled: false,

@@ -7,7 +7,7 @@ describe('MomentOfInertiaNode', () => {
   it('should create MomentOfInertia', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */
+      solid: null
     };
     const params = {
       

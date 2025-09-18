@@ -7,8 +7,8 @@ describe('SimulatedAnnealingNode', () => {
   it('should create SimulatedAnnealing', async () => {
     const context = createTestContext();
     const inputs = {
-      objective: /* test value */,
-      initialSolution: /* test value */
+      objective: null,
+      initialSolution: null
     };
     const params = {
       initialTemp: 1000,

@@ -7,7 +7,7 @@ describe('InterpolateCurveNode', () => {
   it('should create InterpolateCurve', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       degree: 3,

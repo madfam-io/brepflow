@@ -7,7 +7,7 @@ describe('CompositeCurveNode', () => {
   it('should create CompositeCurve', async () => {
     const context = createTestContext();
     const inputs = {
-      curves: /* test value */
+      curves: null
     };
     const params = {
       continuity: "G1",

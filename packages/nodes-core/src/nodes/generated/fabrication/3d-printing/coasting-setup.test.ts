@@ -7,7 +7,7 @@ describe('CoastingSetupNode', () => {
   it('should create CoastingSetup', async () => {
     const context = createTestContext();
     const inputs = {
-      extrusions: /* test value */
+      extrusions: null
     };
     const params = {
       coastVolume: 0.064,

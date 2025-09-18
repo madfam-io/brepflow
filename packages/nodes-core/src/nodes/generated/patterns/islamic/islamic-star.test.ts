@@ -7,7 +7,7 @@ describe('IslamicStarNode', () => {
   it('should create IslamicStar', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       points: 8,

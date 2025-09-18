@@ -7,7 +7,7 @@ describe('ReflectionLinesNode', () => {
   it('should create ReflectionLines', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       lineCount: 10,

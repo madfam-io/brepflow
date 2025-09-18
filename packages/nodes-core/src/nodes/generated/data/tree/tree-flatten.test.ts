@@ -7,7 +7,7 @@ describe('TreeFlattenNode', () => {
   it('should create TreeFlatten', async () => {
     const context = createTestContext();
     const inputs = {
-      tree: /* test value */
+      tree: null
     };
     const params = {
       depth: 1

@@ -7,7 +7,7 @@ describe('NegateNode', () => {
   it('should create Negate', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

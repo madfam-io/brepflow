@@ -7,7 +7,7 @@ describe('FieldConvolutionNode', () => {
   it('should create FieldConvolution', async () => {
     const context = createTestContext();
     const inputs = {
-      kernel: /* test value */
+      kernel: null
     };
     const params = {
       kernelSize: 3

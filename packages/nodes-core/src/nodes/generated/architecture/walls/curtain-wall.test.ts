@@ -7,7 +7,7 @@ describe('CurtainWallNode', () => {
   it('should create CurtainWall', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       gridU: 1500,

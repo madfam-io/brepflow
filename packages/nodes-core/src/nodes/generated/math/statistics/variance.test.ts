@@ -7,7 +7,7 @@ describe('VarianceNode', () => {
   it('should create Variance', async () => {
     const context = createTestContext();
     const inputs = {
-      values: /* test value */
+      values: null
     };
     const params = {
       sample: false

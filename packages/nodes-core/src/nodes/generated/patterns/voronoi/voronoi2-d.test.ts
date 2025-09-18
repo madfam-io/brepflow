@@ -7,7 +7,7 @@ describe('Voronoi2DNode', () => {
   it('should create Voronoi2D', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       boundary: "box",

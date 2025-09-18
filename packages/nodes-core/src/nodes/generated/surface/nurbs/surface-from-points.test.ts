@@ -7,9 +7,9 @@ describe('SurfaceFromPointsNode', () => {
   it('should create SurfaceFromPoints', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */,
-      uCount: /* test value */,
-      vCount: /* test value */
+      points: null,
+      uCount: null,
+      vCount: null
     };
     const params = {
       degreeU: 3,

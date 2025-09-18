@@ -7,7 +7,7 @@ describe('BevelGearNode', () => {
   it('should create BevelGear', async () => {
     const context = createTestContext();
     const inputs = {
-      apex: /* test value */
+      apex: null
     };
     const params = {
       module: 3,

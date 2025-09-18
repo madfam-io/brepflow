@@ -7,7 +7,7 @@ describe('GeometrySimplificationNode', () => {
   it('should create GeometrySimplification', async () => {
     const context = createTestContext();
     const inputs = {
-      geometry: /* test value */
+      geometry: null
     };
     const params = {
       algorithm: "quadric",

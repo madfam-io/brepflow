@@ -7,7 +7,7 @@ describe('TangentNode', () => {
   it('should create Tangent', async () => {
     const context = createTestContext();
     const inputs = {
-      angle: /* test value */
+      angle: null
     };
     const params = {
       angleUnit: "radians"

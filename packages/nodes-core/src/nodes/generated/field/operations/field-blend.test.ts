@@ -7,9 +7,9 @@ describe('FieldBlendNode', () => {
   it('should create FieldBlend', async () => {
     const context = createTestContext();
     const inputs = {
-      fieldA: /* test value */,
-      fieldB: /* test value */,
-      factor: /* test value */
+      fieldA: null,
+      fieldB: null,
+      factor: null
     };
     const params = {
       mode: "linear"

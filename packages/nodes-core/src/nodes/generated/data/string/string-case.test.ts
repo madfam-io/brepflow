@@ -7,7 +7,7 @@ describe('StringCaseNode', () => {
   it('should create StringCase', async () => {
     const context = createTestContext();
     const inputs = {
-      string: /* test value */
+      string: null
     };
     const params = {
       case: "lower"

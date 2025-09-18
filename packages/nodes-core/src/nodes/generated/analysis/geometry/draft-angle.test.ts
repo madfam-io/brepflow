@@ -7,7 +7,7 @@ describe('DraftAngleNode', () => {
   it('should create DraftAngle', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */
+      solid: null
     };
     const params = {
       pullDirection: [0,0,1],

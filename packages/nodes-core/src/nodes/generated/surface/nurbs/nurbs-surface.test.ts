@@ -7,7 +7,7 @@ describe('NurbsSurfaceNode', () => {
   it('should create NurbsSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      controlPoints: /* test value */
+      controlPoints: null
     };
     const params = {
       degreeU: 3,

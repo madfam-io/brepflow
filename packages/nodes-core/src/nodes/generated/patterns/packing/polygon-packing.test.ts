@@ -7,8 +7,8 @@ describe('PolygonPackingNode', () => {
   it('should create PolygonPacking', async () => {
     const context = createTestContext();
     const inputs = {
-      container: /* test value */,
-      polygons: /* test value */
+      container: null,
+      polygons: null
     };
     const params = {
       rotations: true,

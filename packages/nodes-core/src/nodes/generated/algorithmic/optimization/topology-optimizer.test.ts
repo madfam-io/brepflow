@@ -7,9 +7,9 @@ describe('TopologyOptimizerNode', () => {
   it('should create TopologyOptimizer', async () => {
     const context = createTestContext();
     const inputs = {
-      designDomain: /* test value */,
-      loads: /* test value */,
-      supports: /* test value */
+      designDomain: null,
+      loads: null,
+      supports: null
     };
     const params = {
       densityElements: 100,

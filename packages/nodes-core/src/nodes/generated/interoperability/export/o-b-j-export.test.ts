@@ -7,8 +7,8 @@ describe('OBJExportNode', () => {
   it('should create OBJExport', async () => {
     const context = createTestContext();
     const inputs = {
-      meshes: /* test value */,
-      filePath: /* test value */
+      meshes: null,
+      filePath: null
     };
     const params = {
       includeNormals: true,

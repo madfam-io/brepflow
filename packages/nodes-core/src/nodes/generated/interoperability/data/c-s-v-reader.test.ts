@@ -7,7 +7,7 @@ describe('CSVReaderNode', () => {
   it('should create CSVReader', async () => {
     const context = createTestContext();
     const inputs = {
-      filePath: /* test value */
+      filePath: null
     };
     const params = {
       delimiter: ",",

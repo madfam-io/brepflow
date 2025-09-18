@@ -7,7 +7,7 @@ describe('ClerestroyWindowNode', () => {
   it('should create ClerestroyWindow', async () => {
     const context = createTestContext();
     const inputs = {
-      wallTop: /* test value */
+      wallTop: null
     };
     const params = {
       height: 600,

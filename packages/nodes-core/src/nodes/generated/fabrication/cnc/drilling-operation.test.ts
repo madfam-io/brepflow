@@ -7,8 +7,8 @@ describe('DrillingOperationNode', () => {
   it('should create DrillingOperation', async () => {
     const context = createTestContext();
     const inputs = {
-      holes: /* test value */,
-      depths: /* test value */
+      holes: null,
+      depths: null
     };
     const params = {
       drillDiameter: 8,

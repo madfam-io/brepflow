@@ -7,7 +7,7 @@ describe('TreeGeneratorNode', () => {
   it('should create TreeGenerator', async () => {
     const context = createTestContext();
     const inputs = {
-      base: /* test value */
+      base: null
     };
     const params = {
       treeType: "oak",

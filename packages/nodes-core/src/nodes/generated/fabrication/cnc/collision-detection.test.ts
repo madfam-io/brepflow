@@ -7,8 +7,8 @@ describe('CollisionDetectionNode', () => {
   it('should create CollisionDetection', async () => {
     const context = createTestContext();
     const inputs = {
-      toolpath: /* test value */,
-      model: /* test value */
+      toolpath: null,
+      model: null
     };
     const params = {
       toolLength: 50,

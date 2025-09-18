@@ -7,8 +7,8 @@ describe('DeleteFaceNode', () => {
   it('should create DeleteFace', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */,
-      facesToDelete: /* test value */
+      shape: null,
+      facesToDelete: null
     };
     const params = {
       healingType: "extend"

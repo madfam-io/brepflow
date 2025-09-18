@@ -7,7 +7,7 @@ describe('OffsetNode', () => {
   it('should create Offset', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       distance: 10,

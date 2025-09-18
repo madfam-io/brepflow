@@ -7,7 +7,7 @@ describe('BezierCurveNode', () => {
   it('should create BezierCurve', async () => {
     const context = createTestContext();
     const inputs = {
-      controlPoints: /* test value */
+      controlPoints: null
     };
     const params = {
       

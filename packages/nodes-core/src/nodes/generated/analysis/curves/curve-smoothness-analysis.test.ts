@@ -7,7 +7,7 @@ describe('CurveSmoothnessAnalysisNode', () => {
   it('should create CurveSmoothnessAnalysis', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       continuityLevel: "G2",

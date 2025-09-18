@@ -7,8 +7,8 @@ describe('MountingBossNode', () => {
   it('should create MountingBoss', async () => {
     const context = createTestContext();
     const inputs = {
-      face: /* test value */,
-      position: /* test value */
+      face: null,
+      position: null
     };
     const params = {
       outerDiameter: 12,

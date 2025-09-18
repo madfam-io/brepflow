@@ -7,7 +7,7 @@ describe('GeneticAlgorithmNode', () => {
   it('should create GeneticAlgorithm', async () => {
     const context = createTestContext();
     const inputs = {
-      fitness: /* test value */
+      fitness: null
     };
     const params = {
       population: 50,

@@ -7,7 +7,7 @@ describe('VoxelMeshNode', () => {
   it('should create VoxelMesh', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       voxelSize: 1,

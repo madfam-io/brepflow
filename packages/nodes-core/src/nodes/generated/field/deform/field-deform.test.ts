@@ -7,8 +7,8 @@ describe('FieldDeformNode', () => {
   it('should create FieldDeform', async () => {
     const context = createTestContext();
     const inputs = {
-      geometry: /* test value */,
-      field: /* test value */
+      geometry: null,
+      field: null
     };
     const params = {
       strength: 10

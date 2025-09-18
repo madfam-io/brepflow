@@ -7,7 +7,7 @@ describe('CurbRampNode', () => {
   it('should create CurbRamp', async () => {
     const context = createTestContext();
     const inputs = {
-      curbLine: /* test value */
+      curbLine: null
     };
     const params = {
       type: "perpendicular",

@@ -7,7 +7,7 @@ describe('CleanupPathsNode', () => {
   it('should create CleanupPaths', async () => {
     const context = createTestContext();
     const inputs = {
-      paths: /* test value */
+      paths: null
     };
     const params = {
       tolerance: 0.01,

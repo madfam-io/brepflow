@@ -7,8 +7,8 @@ describe('VoronoiOnSurfaceNode', () => {
   it('should create VoronoiOnSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */,
-      points: /* test value */
+      surface: null,
+      points: null
     };
     const params = {
       geodesic: true

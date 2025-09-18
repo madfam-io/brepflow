@@ -7,7 +7,7 @@ describe('TuringPatternNode', () => {
   it('should create TuringPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      domain: /* test value */
+      domain: null
     };
     const params = {
       model: "gray-scott",

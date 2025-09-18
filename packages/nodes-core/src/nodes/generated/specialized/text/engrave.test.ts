@@ -7,8 +7,8 @@ describe('EngraveNode', () => {
   it('should create Engrave', async () => {
     const context = createTestContext();
     const inputs = {
-      targetFace: /* test value */,
-      pattern: /* test value */
+      targetFace: null,
+      pattern: null
     };
     const params = {
       depth: 1,

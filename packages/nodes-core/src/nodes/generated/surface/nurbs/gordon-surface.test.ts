@@ -7,8 +7,8 @@ describe('GordonSurfaceNode', () => {
   it('should create GordonSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      uCurves: /* test value */,
-      vCurves: /* test value */
+      uCurves: null,
+      vCurves: null
     };
     const params = {
       

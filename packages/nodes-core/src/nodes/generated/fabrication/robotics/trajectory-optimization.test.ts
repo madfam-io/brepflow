@@ -7,7 +7,7 @@ describe('TrajectoryOptimizationNode', () => {
   it('should create TrajectoryOptimization', async () => {
     const context = createTestContext();
     const inputs = {
-      trajectory: /* test value */
+      trajectory: null
     };
     const params = {
       objective: "time",

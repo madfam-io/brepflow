@@ -7,7 +7,7 @@ describe('TreePruneNode', () => {
   it('should create TreePrune', async () => {
     const context = createTestContext();
     const inputs = {
-      tree: /* test value */
+      tree: null
     };
     const params = {
       

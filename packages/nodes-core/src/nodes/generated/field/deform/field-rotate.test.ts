@@ -7,8 +7,8 @@ describe('FieldRotateNode', () => {
   it('should create FieldRotate', async () => {
     const context = createTestContext();
     const inputs = {
-      geometry: /* test value */,
-      field: /* test value */
+      geometry: null,
+      field: null
     };
     const params = {
       maxAngle: 180

@@ -7,7 +7,7 @@ describe('NeuralPatternNode', () => {
   it('should create NeuralPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      inputPoints: /* test value */
+      inputPoints: null
     };
     const params = {
       neurons: 100,

@@ -7,7 +7,7 @@ describe('CantorSetNode', () => {
   it('should create CantorSet', async () => {
     const context = createTestContext();
     const inputs = {
-      segment: /* test value */
+      segment: null
     };
     const params = {
       iterations: 5,

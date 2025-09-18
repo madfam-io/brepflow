@@ -7,8 +7,8 @@ describe('ConstrainedDelaunayNode', () => {
   it('should create ConstrainedDelaunay', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */,
-      boundary: /* test value */
+      points: null,
+      boundary: null
     };
     const params = {
       refinement: true,

@@ -7,7 +7,7 @@ describe('ConicalSlicingNode', () => {
   it('should create ConicalSlicing', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       axis: "[0, 0, 1]"

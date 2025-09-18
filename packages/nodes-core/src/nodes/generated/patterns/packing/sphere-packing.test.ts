@@ -7,8 +7,8 @@ describe('SpherePackingNode', () => {
   it('should create SpherePacking', async () => {
     const context = createTestContext();
     const inputs = {
-      container: /* test value */,
-      radius: /* test value */
+      container: null,
+      radius: null
     };
     const params = {
       packingType: "hexagonal"

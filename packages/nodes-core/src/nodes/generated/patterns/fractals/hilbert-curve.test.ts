@@ -7,7 +7,7 @@ describe('HilbertCurveNode', () => {
   it('should create HilbertCurve', async () => {
     const context = createTestContext();
     const inputs = {
-      bounds: /* test value */
+      bounds: null
     };
     const params = {
       order: 4,

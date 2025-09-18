@@ -7,9 +7,9 @@ describe('RevoluteNode', () => {
   it('should create Revolute', async () => {
     const context = createTestContext();
     const inputs = {
-      part1: /* test value */,
-      part2: /* test value */,
-      axis: /* test value */
+      part1: null,
+      part2: null,
+      axis: null
     };
     const params = {
       minAngle: -180,

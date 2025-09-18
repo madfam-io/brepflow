@@ -7,7 +7,7 @@ describe('SetCombinationsNode', () => {
   it('should create SetCombinations', async () => {
     const context = createTestContext();
     const inputs = {
-      set: /* test value */
+      set: null
     };
     const params = {
       k: 2

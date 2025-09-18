@@ -7,7 +7,7 @@ describe('NeedleBearingNode', () => {
   it('should create NeedleBearing', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       innerDiameter: 15,

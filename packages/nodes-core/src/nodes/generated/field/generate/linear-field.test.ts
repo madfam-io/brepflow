@@ -7,7 +7,7 @@ describe('LinearFieldNode', () => {
   it('should create LinearField', async () => {
     const context = createTestContext();
     const inputs = {
-      bounds: /* test value */
+      bounds: null
     };
     const params = {
       direction: [1,0,0],

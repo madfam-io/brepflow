@@ -7,7 +7,7 @@ describe('PrismNode', () => {
   it('should create Prism', async () => {
     const context = createTestContext();
     const inputs = {
-      profile: /* test value */
+      profile: null
     };
     const params = {
       height: 100,

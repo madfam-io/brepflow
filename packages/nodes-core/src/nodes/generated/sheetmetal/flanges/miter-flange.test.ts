@@ -7,8 +7,8 @@ describe('MiterFlangeNode', () => {
   it('should create MiterFlange', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      edges: /* test value */
+      sheet: null,
+      edges: null
     };
     const params = {
       height: 25,

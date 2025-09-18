@@ -7,7 +7,7 @@ describe('ImportParasolidNode', () => {
   it('should create ImportParasolid', async () => {
     const context = createTestContext();
     const inputs = {
-      fileData: /* test value */
+      fileData: null
     };
     const params = {
       healGeometry: true,

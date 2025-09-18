@@ -7,7 +7,7 @@ describe('PowerMappingNode', () => {
   it('should create PowerMapping', async () => {
     const context = createTestContext();
     const inputs = {
-      geometry: /* test value */
+      geometry: null
     };
     const params = {
       material: "acrylic",

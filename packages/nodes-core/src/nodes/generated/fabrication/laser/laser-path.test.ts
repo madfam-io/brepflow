@@ -7,7 +7,7 @@ describe('LaserPathNode', () => {
   it('should create LaserPath', async () => {
     const context = createTestContext();
     const inputs = {
-      profiles: /* test value */
+      profiles: null
     };
     const params = {
       kerf: 0.15,

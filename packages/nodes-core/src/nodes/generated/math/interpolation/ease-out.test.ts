@@ -7,7 +7,7 @@ describe('EaseOutNode', () => {
   it('should create EaseOut', async () => {
     const context = createTestContext();
     const inputs = {
-      t: /* test value */
+      t: null
     };
     const params = {
       power: 2

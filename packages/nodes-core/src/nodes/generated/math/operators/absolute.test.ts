@@ -7,7 +7,7 @@ describe('AbsoluteNode', () => {
   it('should create Absolute', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

@@ -7,7 +7,7 @@ describe('ToolWearNode', () => {
   it('should create ToolWear', async () => {
     const context = createTestContext();
     const inputs = {
-      toolpath: /* test value */
+      toolpath: null
     };
     const params = {
       material: "steel",

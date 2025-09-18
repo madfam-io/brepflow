@@ -7,7 +7,7 @@ describe('RollupDoorNode', () => {
   it('should create RollupDoor', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       slatHeight: 75,

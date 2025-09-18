@@ -7,8 +7,8 @@ describe('CoincidentNode', () => {
   it('should create Coincident', async () => {
     const context = createTestContext();
     const inputs = {
-      entity1: /* test value */,
-      entity2: /* test value */
+      entity1: null,
+      entity2: null
     };
     const params = {
       tolerance: 0.001

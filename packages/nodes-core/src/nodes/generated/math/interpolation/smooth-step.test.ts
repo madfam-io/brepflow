@@ -7,9 +7,9 @@ describe('SmoothStepNode', () => {
   it('should create SmoothStep', async () => {
     const context = createTestContext();
     const inputs = {
-      edge0: /* test value */,
-      edge1: /* test value */,
-      x: /* test value */
+      edge0: null,
+      edge1: null,
+      x: null
     };
     const params = {
       

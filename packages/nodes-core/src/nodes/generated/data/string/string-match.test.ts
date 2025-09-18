@@ -7,8 +7,8 @@ describe('StringMatchNode', () => {
   it('should create StringMatch', async () => {
     const context = createTestContext();
     const inputs = {
-      string: /* test value */,
-      pattern: /* test value */
+      string: null,
+      pattern: null
     };
     const params = {
       global: false

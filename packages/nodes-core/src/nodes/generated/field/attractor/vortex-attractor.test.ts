@@ -7,7 +7,7 @@ describe('VortexAttractorNode', () => {
   it('should create VortexAttractor', async () => {
     const context = createTestContext();
     const inputs = {
-      axis: /* test value */
+      axis: null
     };
     const params = {
       strength: 1,

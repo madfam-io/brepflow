@@ -7,7 +7,7 @@ describe('DoubleSkinnedFacadeNode', () => {
   it('should create DoubleSkinnedFacade', async () => {
     const context = createTestContext();
     const inputs = {
-      buildingFace: /* test value */
+      buildingFace: null
     };
     const params = {
       cavityWidth: 600,

@@ -7,7 +7,7 @@ describe('FieldRemapNode', () => {
   it('should create FieldRemap', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */
+      field: null
     };
     const params = {
       fromMin: 0,

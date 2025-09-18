@@ -7,8 +7,8 @@ describe('CutterEngagementNode', () => {
   it('should create CutterEngagement', async () => {
     const context = createTestContext();
     const inputs = {
-      toolpath: /* test value */,
-      stock: /* test value */
+      toolpath: null,
+      stock: null
     };
     const params = {
       toolDiameter: 10

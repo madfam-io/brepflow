@@ -7,8 +7,8 @@ describe('ParticleSwarmOptimizerNode', () => {
   it('should create ParticleSwarmOptimizer', async () => {
     const context = createTestContext();
     const inputs = {
-      objective: /* test value */,
-      bounds: /* test value */
+      objective: null,
+      bounds: null
     };
     const params = {
       swarmSize: 50,

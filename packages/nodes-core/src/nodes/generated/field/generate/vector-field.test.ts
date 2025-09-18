@@ -7,7 +7,7 @@ describe('VectorFieldNode', () => {
   it('should create VectorField', async () => {
     const context = createTestContext();
     const inputs = {
-      domain: /* test value */
+      domain: null
     };
     const params = {
       expressionX: "y",

@@ -7,8 +7,8 @@ describe('GearNode', () => {
   it('should create Gear', async () => {
     const context = createTestContext();
     const inputs = {
-      gear1: /* test value */,
-      gear2: /* test value */
+      gear1: null,
+      gear2: null
     };
     const params = {
       ratio: 1,

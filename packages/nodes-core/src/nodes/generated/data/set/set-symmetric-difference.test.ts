@@ -7,8 +7,8 @@ describe('SetSymmetricDifferenceNode', () => {
   it('should create SetSymmetricDifference', async () => {
     const context = createTestContext();
     const inputs = {
-      setA: /* test value */,
-      setB: /* test value */
+      setA: null,
+      setB: null
     };
     const params = {
       

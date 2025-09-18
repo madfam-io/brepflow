@@ -7,7 +7,7 @@ describe('FieldClampNode', () => {
   it('should create FieldClamp', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */
+      field: null
     };
     const params = {
       min: 0,

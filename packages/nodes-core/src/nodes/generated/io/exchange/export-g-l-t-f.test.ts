@@ -7,7 +7,7 @@ describe('ExportGLTFNode', () => {
   it('should create ExportGLTF', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       format: "glb",

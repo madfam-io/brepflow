@@ -7,7 +7,7 @@ describe('DistanceFieldNode', () => {
   it('should create DistanceField', async () => {
     const context = createTestContext();
     const inputs = {
-      geometry: /* test value */
+      geometry: null
     };
     const params = {
       maxDistance: 100,

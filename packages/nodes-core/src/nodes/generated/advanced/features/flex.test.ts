@@ -7,8 +7,8 @@ describe('FlexNode', () => {
   it('should create Flex', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */,
-      bendPlane: /* test value */
+      solid: null,
+      bendPlane: null
     };
     const params = {
       bendAngle: 90,

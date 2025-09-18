@@ -7,7 +7,7 @@ describe('VoxelGridNode', () => {
   it('should create VoxelGrid', async () => {
     const context = createTestContext();
     const inputs = {
-      geometry: /* test value */
+      geometry: null
     };
     const params = {
       voxelSize: 1,

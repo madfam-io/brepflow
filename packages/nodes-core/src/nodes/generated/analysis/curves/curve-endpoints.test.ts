@@ -7,7 +7,7 @@ describe('CurveEndpointsNode', () => {
   it('should create CurveEndpoints', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       tangentLength: 10,

@@ -7,7 +7,7 @@ describe('TopologyInfoNode', () => {
   it('should create TopologyInfo', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       

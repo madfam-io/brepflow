@@ -7,9 +7,9 @@ describe('GeodesicCurveNode', () => {
   it('should create GeodesicCurve', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */,
-      startPoint: /* test value */,
-      endPoint: /* test value */
+      surface: null,
+      startPoint: null,
+      endPoint: null
     };
     const params = {
       

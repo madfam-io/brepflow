@@ -7,7 +7,7 @@ describe('PlantGrowthNode', () => {
   it('should create PlantGrowth', async () => {
     const context = createTestContext();
     const inputs = {
-      ground: /* test value */
+      ground: null
     };
     const params = {
       species: "fern",

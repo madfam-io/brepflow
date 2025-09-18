@@ -7,8 +7,8 @@ describe('IsEqualNode', () => {
   it('should create IsEqual', async () => {
     const context = createTestContext();
     const inputs = {
-      a: /* test value */,
-      b: /* test value */
+      a: null,
+      b: null
     };
     const params = {
       tolerance: 0.0001

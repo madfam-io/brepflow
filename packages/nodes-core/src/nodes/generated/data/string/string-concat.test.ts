@@ -7,7 +7,7 @@ describe('StringConcatNode', () => {
   it('should create StringConcat', async () => {
     const context = createTestContext();
     const inputs = {
-      strings: /* test value */
+      strings: null
     };
     const params = {
       separator: ""

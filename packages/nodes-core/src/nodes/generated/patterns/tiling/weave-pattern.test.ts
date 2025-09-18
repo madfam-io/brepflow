@@ -7,7 +7,7 @@ describe('WeavePatternNode', () => {
   it('should create WeavePattern', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       weaveType: "plain",

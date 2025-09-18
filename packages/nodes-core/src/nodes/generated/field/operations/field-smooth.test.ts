@@ -7,7 +7,7 @@ describe('FieldSmoothNode', () => {
   it('should create FieldSmooth', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */
+      field: null
     };
     const params = {
       iterations: 3,

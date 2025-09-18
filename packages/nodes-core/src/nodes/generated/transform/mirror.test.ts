@@ -7,7 +7,7 @@ describe('MirrorNode', () => {
   it('should create Mirror', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       planeOriginX: 0,

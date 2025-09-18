@@ -7,7 +7,7 @@ describe('WeldingPathNode', () => {
   it('should create WeldingPath', async () => {
     const context = createTestContext();
     const inputs = {
-      seamPath: /* test value */
+      seamPath: null
     };
     const params = {
       weldType: "mig",

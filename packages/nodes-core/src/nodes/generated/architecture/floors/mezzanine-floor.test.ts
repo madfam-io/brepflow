@@ -7,7 +7,7 @@ describe('MezzanineFloorNode', () => {
   it('should create MezzanineFloor', async () => {
     const context = createTestContext();
     const inputs = {
-      mezzanineOutline: /* test value */
+      mezzanineOutline: null
     };
     const params = {
       structureType: "steel",

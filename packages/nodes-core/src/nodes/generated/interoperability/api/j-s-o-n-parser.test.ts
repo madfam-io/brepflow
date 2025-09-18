@@ -7,7 +7,7 @@ describe('JSONParserNode', () => {
   it('should create JSONParser', async () => {
     const context = createTestContext();
     const inputs = {
-      jsonData: /* test value */
+      jsonData: null
     };
     const params = {
       path: "",

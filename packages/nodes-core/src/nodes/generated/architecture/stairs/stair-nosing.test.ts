@@ -7,7 +7,7 @@ describe('StairNosingNode', () => {
   it('should create StairNosing', async () => {
     const context = createTestContext();
     const inputs = {
-      treadEdges: /* test value */
+      treadEdges: null
     };
     const params = {
       projection: 25,

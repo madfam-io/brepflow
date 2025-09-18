@@ -7,9 +7,9 @@ describe('DeformNode', () => {
   it('should create Deform', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */,
-      controlPoints: /* test value */,
-      targetPoints: /* test value */
+      shape: null,
+      controlPoints: null,
+      targetPoints: null
     };
     const params = {
       deformType: "point",

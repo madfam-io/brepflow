@@ -7,7 +7,7 @@ describe('CurveAttractorNode', () => {
   it('should create CurveAttractor', async () => {
     const context = createTestContext();
     const inputs = {
-      curves: /* test value */
+      curves: null
     };
     const params = {
       strength: 1,

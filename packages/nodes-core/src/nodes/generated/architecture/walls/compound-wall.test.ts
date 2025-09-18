@@ -7,7 +7,7 @@ describe('CompoundWallNode', () => {
   it('should create CompoundWall', async () => {
     const context = createTestContext();
     const inputs = {
-      path: /* test value */
+      path: null
     };
     const params = {
       layers: 3,

@@ -7,7 +7,7 @@ describe('PolylineNode', () => {
   it('should create Polyline', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       closed: false

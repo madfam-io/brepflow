@@ -7,7 +7,7 @@ describe('FluidCouplingNode', () => {
   it('should create FluidCoupling', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       impellerDiameter: 150,

@@ -7,9 +7,9 @@ describe('SlotNode', () => {
   it('should create Slot', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      edge: /* test value */,
-      position: /* test value */
+      sheet: null,
+      edge: null,
+      position: null
     };
     const params = {
       slotWidth: 20,

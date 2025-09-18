@@ -7,8 +7,8 @@ describe('ForwardKinematicsNode', () => {
   it('should create ForwardKinematics', async () => {
     const context = createTestContext();
     const inputs = {
-      mechanism: /* test value */,
-      jointValues: /* test value */
+      mechanism: null,
+      jointValues: null
     };
     const params = {
       timeStep: 0.01,

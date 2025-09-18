@@ -7,7 +7,7 @@ describe('HelicalSweepNode', () => {
   it('should create HelicalSweep', async () => {
     const context = createTestContext();
     const inputs = {
-      profile: /* test value */
+      profile: null
     };
     const params = {
       pitch: 10,

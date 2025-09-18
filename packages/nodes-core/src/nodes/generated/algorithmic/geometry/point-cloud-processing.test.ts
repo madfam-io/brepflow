@@ -7,7 +7,7 @@ describe('PointCloudProcessingNode', () => {
   it('should create PointCloudProcessing', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       operation: "filter",

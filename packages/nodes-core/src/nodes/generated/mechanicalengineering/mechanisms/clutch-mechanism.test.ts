@@ -7,7 +7,7 @@ describe('ClutchMechanismNode', () => {
   it('should create ClutchMechanism', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       type: "friction",

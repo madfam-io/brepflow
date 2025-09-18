@@ -7,7 +7,7 @@ describe('KerfBendingNode', () => {
   it('should create KerfBending', async () => {
     const context = createTestContext();
     const inputs = {
-      bendZone: /* test value */
+      bendZone: null
     };
     const params = {
       bendRadius: 50,

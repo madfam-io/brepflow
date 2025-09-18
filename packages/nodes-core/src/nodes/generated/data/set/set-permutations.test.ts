@@ -7,7 +7,7 @@ describe('SetPermutationsNode', () => {
   it('should create SetPermutations', async () => {
     const context = createTestContext();
     const inputs = {
-      set: /* test value */
+      set: null
     };
     const params = {
       k: -1

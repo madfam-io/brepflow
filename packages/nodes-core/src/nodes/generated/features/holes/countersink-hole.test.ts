@@ -7,8 +7,8 @@ describe('CountersinkHoleNode', () => {
   it('should create CountersinkHole', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */,
-      position: /* test value */
+      solid: null,
+      position: null
     };
     const params = {
       holeDiameter: 6.5,

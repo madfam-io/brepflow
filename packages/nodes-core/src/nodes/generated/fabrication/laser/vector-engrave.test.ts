@@ -7,7 +7,7 @@ describe('VectorEngraveNode', () => {
   it('should create VectorEngrave', async () => {
     const context = createTestContext();
     const inputs = {
-      vectors: /* test value */
+      vectors: null
     };
     const params = {
       depth: 0.5,

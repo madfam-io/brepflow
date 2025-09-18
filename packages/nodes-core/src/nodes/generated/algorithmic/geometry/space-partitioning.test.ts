@@ -7,7 +7,7 @@ describe('SpacePartitioningNode', () => {
   it('should create SpacePartitioning', async () => {
     const context = createTestContext();
     const inputs = {
-      objects: /* test value */
+      objects: null
     };
     const params = {
       type: "octree",

@@ -7,7 +7,7 @@ describe('SurfaceRoughnessNode', () => {
   it('should create SurfaceRoughness', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       sampleDensity: 50,

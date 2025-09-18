@@ -7,8 +7,8 @@ describe('AlternatingTreadStairNode', () => {
   it('should create AlternatingTreadStair', async () => {
     const context = createTestContext();
     const inputs = {
-      startPoint: /* test value */,
-      totalRise: /* test value */
+      startPoint: null,
+      totalRise: null
     };
     const params = {
       angle: 56,

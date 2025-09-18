@@ -7,7 +7,7 @@ describe('SierpinskiTriangleNode', () => {
   it('should create SierpinskiTriangle', async () => {
     const context = createTestContext();
     const inputs = {
-      triangle: /* test value */
+      triangle: null
     };
     const params = {
       iterations: 5,

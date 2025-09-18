@@ -7,9 +7,9 @@ describe('VisibilityGraphNode', () => {
   it('should create VisibilityGraph', async () => {
     const context = createTestContext();
     const inputs = {
-      obstacles: /* test value */,
-      start: /* test value */,
-      goal: /* test value */
+      obstacles: null,
+      start: null,
+      goal: null
     };
     const params = {
       epsilon: 0.01,

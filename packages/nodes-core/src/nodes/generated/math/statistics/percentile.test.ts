@@ -7,7 +7,7 @@ describe('PercentileNode', () => {
   it('should create Percentile', async () => {
     const context = createTestContext();
     const inputs = {
-      values: /* test value */
+      values: null
     };
     const params = {
       percentile: 50

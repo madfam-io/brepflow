@@ -7,8 +7,8 @@ describe('BeltNode', () => {
   it('should create Belt', async () => {
     const context = createTestContext();
     const inputs = {
-      pulley1: /* test value */,
-      pulley2: /* test value */
+      pulley1: null,
+      pulley2: null
     };
     const params = {
       ratio: 1

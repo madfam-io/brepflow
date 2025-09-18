@@ -7,7 +7,7 @@ describe('MuqarnasNode', () => {
   it('should create Muqarnas', async () => {
     const context = createTestContext();
     const inputs = {
-      base: /* test value */
+      base: null
     };
     const params = {
       levels: 3,

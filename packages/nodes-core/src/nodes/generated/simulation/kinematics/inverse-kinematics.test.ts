@@ -7,8 +7,8 @@ describe('InverseKinematicsNode', () => {
   it('should create InverseKinematics', async () => {
     const context = createTestContext();
     const inputs = {
-      mechanism: /* test value */,
-      targetPose: /* test value */
+      mechanism: null,
+      targetPose: null
     };
     const params = {
       solver: "jacobian",

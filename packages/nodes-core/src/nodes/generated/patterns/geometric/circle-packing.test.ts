@@ -7,7 +7,7 @@ describe('CirclePackingNode', () => {
   it('should create CirclePacking', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       packingType: "hexagonal",

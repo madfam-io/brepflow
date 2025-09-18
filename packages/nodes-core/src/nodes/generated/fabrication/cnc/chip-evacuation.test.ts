@@ -7,7 +7,7 @@ describe('ChipEvacuationNode', () => {
   it('should create ChipEvacuation', async () => {
     const context = createTestContext();
     const inputs = {
-      pocket: /* test value */
+      pocket: null
     };
     const params = {
       flutes: 2,

@@ -7,8 +7,8 @@ describe('CorrelationNode', () => {
   it('should create Correlation', async () => {
     const context = createTestContext();
     const inputs = {
-      x: /* test value */,
-      y: /* test value */
+      x: null,
+      y: null
     };
     const params = {
       

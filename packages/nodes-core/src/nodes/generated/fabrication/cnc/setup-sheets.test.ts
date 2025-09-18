@@ -7,7 +7,7 @@ describe('SetupSheetsNode', () => {
   it('should create SetupSheets', async () => {
     const context = createTestContext();
     const inputs = {
-      operations: /* test value */
+      operations: null
     };
     const params = {
       includeToolList: true,

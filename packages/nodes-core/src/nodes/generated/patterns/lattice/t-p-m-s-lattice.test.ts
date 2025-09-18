@@ -7,7 +7,7 @@ describe('TPMSLatticeNode', () => {
   it('should create TPMSLattice', async () => {
     const context = createTestContext();
     const inputs = {
-      bounds: /* test value */
+      bounds: null
     };
     const params = {
       type: "gyroid",

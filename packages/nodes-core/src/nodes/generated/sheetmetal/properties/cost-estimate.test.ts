@@ -7,7 +7,7 @@ describe('CostEstimateNode', () => {
   it('should create CostEstimate', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */
+      sheet: null
     };
     const params = {
       materialCostPerKg: 2,

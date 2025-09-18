@@ -7,9 +7,9 @@ describe('ClampNode', () => {
   it('should create Clamp', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */,
-      min: /* test value */,
-      max: /* test value */
+      value: null,
+      min: null,
+      max: null
     };
     const params = {
       

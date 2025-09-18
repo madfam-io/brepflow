@@ -7,7 +7,7 @@ describe('WipeTowerNode', () => {
   it('should create WipeTower', async () => {
     const context = createTestContext();
     const inputs = {
-      printHeight: /* test value */
+      printHeight: null
     };
     const params = {
       towerWidth: 60,

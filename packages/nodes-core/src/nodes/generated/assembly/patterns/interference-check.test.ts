@@ -7,7 +7,7 @@ describe('InterferenceCheckNode', () => {
   it('should create InterferenceCheck', async () => {
     const context = createTestContext();
     const inputs = {
-      assembly: /* test value */
+      assembly: null
     };
     const params = {
       clearance: 0

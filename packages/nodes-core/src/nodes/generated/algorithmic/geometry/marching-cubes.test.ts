@@ -7,7 +7,7 @@ describe('MarchingCubesNode', () => {
   it('should create MarchingCubes', async () => {
     const context = createTestContext();
     const inputs = {
-      scalarField: /* test value */
+      scalarField: null
     };
     const params = {
       isovalue: 0,

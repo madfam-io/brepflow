@@ -7,7 +7,7 @@ describe('DomeNode', () => {
   it('should create Dome', async () => {
     const context = createTestContext();
     const inputs = {
-      face: /* test value */
+      face: null
     };
     const params = {
       height: 10,

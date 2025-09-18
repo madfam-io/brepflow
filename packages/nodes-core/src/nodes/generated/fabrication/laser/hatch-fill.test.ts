@@ -7,7 +7,7 @@ describe('HatchFillNode', () => {
   it('should create HatchFill', async () => {
     const context = createTestContext();
     const inputs = {
-      region: /* test value */
+      region: null
     };
     const params = {
       angle: 45,

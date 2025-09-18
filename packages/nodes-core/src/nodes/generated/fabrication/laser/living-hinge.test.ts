@@ -7,7 +7,7 @@ describe('LivingHingeNode', () => {
   it('should create LivingHinge', async () => {
     const context = createTestContext();
     const inputs = {
-      hingeArea: /* test value */
+      hingeArea: null
     };
     const params = {
       pattern: "straight",

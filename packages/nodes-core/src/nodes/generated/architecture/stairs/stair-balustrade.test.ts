@@ -7,7 +7,7 @@ describe('StairBalustradeNode', () => {
   it('should create StairBalustrade', async () => {
     const context = createTestContext();
     const inputs = {
-      stairSide: /* test value */
+      stairSide: null
     };
     const params = {
       style: "vertical",

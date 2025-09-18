@@ -7,8 +7,8 @@ describe('FixedNode', () => {
   it('should create Fixed', async () => {
     const context = createTestContext();
     const inputs = {
-      part1: /* test value */,
-      part2: /* test value */
+      part1: null,
+      part2: null
     };
     const params = {
       

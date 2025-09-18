@@ -7,7 +7,7 @@ describe('ExcelReaderNode', () => {
   it('should create ExcelReader', async () => {
     const context = createTestContext();
     const inputs = {
-      filePath: /* test value */
+      filePath: null
     };
     const params = {
       sheetName: "",

@@ -7,8 +7,8 @@ describe('CurveSurfaceIntersectionNode', () => {
   it('should create CurveSurfaceIntersection', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */,
-      surface: /* test value */
+      curve: null,
+      surface: null
     };
     const params = {
       tolerance: 0.01,

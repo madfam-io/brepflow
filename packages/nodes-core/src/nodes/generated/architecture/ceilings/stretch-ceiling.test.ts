@@ -7,7 +7,7 @@ describe('StretchCeilingNode', () => {
   it('should create StretchCeiling', async () => {
     const context = createTestContext();
     const inputs = {
-      ceilingBoundary: /* test value */
+      ceilingBoundary: null
     };
     const params = {
       fabricType: "matte",

@@ -7,7 +7,7 @@ describe('ExponentialNode', () => {
   it('should create Exponential', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

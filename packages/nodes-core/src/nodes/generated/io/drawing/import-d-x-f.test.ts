@@ -7,7 +7,7 @@ describe('ImportDXFNode', () => {
   it('should create ImportDXF', async () => {
     const context = createTestContext();
     const inputs = {
-      fileData: /* test value */
+      fileData: null
     };
     const params = {
       importAs: "2d",

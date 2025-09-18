@@ -7,7 +7,7 @@ describe('FlexibleSubAssemblyNode', () => {
   it('should create FlexibleSubAssembly', async () => {
     const context = createTestContext();
     const inputs = {
-      components: /* test value */
+      components: null
     };
     const params = {
       flexibility: "flexible"

@@ -7,7 +7,7 @@ describe('BridgeGenerationNode', () => {
   it('should create BridgeGeneration', async () => {
     const context = createTestContext();
     const inputs = {
-      cutPath: /* test value */
+      cutPath: null
     };
     const params = {
       bridgeWidth: 2,

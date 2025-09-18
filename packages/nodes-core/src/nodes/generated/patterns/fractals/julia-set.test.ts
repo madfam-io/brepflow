@@ -7,7 +7,7 @@ describe('JuliaSetNode', () => {
   it('should create JuliaSet', async () => {
     const context = createTestContext();
     const inputs = {
-      bounds: /* test value */
+      bounds: null
     };
     const params = {
       cReal: -0.7,

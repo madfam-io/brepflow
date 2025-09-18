@@ -7,8 +7,8 @@ describe('SetSubsetNode', () => {
   it('should create SetSubset', async () => {
     const context = createTestContext();
     const inputs = {
-      setA: /* test value */,
-      setB: /* test value */
+      setA: null,
+      setB: null
     };
     const params = {
       

@@ -7,7 +7,7 @@ describe('LeadInOutNode', () => {
   it('should create LeadInOut', async () => {
     const context = createTestContext();
     const inputs = {
-      paths: /* test value */
+      paths: null
     };
     const params = {
       leadLength: 2,

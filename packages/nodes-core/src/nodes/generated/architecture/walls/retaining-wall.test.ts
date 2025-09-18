@@ -7,7 +7,7 @@ describe('RetainingWallNode', () => {
   it('should create RetainingWall', async () => {
     const context = createTestContext();
     const inputs = {
-      path: /* test value */
+      path: null
     };
     const params = {
       height: 2000,

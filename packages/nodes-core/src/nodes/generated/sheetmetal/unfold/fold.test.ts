@@ -7,9 +7,9 @@ describe('FoldNode', () => {
   it('should create Fold', async () => {
     const context = createTestContext();
     const inputs = {
-      flatPattern: /* test value */,
-      bendLines: /* test value */,
-      bendAngles: /* test value */
+      flatPattern: null,
+      bendLines: null,
+      bendAngles: null
     };
     const params = {
       foldSequence: "auto",

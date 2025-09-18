@@ -7,7 +7,7 @@ describe('RectangularPatternNode', () => {
   it('should create RectangularPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       countX: 4,

@@ -7,7 +7,7 @@ describe('StrangeAttractorNode', () => {
   it('should create StrangeAttractor', async () => {
     const context = createTestContext();
     const inputs = {
-      initial: /* test value */
+      initial: null
     };
     const params = {
       type: "lorenz",

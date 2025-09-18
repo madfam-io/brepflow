@@ -7,7 +7,7 @@ describe('RadiantFloorNode', () => {
   it('should create RadiantFloor', async () => {
     const context = createTestContext();
     const inputs = {
-      floorArea: /* test value */
+      floorArea: null
     };
     const params = {
       pipeSpacing: 200,

@@ -7,8 +7,8 @@ describe('ProjectCurveNode', () => {
   it('should create ProjectCurve', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */,
-      surface: /* test value */
+      curve: null,
+      surface: null
     };
     const params = {
       projectionDirection: [0,0,-1],

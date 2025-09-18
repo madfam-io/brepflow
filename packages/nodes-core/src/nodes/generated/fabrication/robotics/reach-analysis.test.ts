@@ -7,8 +7,8 @@ describe('ReachAnalysisNode', () => {
   it('should create ReachAnalysis', async () => {
     const context = createTestContext();
     const inputs = {
-      robotModel: /* test value */,
-      workspace: /* test value */
+      robotModel: null,
+      workspace: null
     };
     const params = {
       resolution: 50

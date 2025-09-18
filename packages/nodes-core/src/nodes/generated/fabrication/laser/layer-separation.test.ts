@@ -7,7 +7,7 @@ describe('LayerSeparationNode', () => {
   it('should create LayerSeparation', async () => {
     const context = createTestContext();
     const inputs = {
-      drawing: /* test value */
+      drawing: null
     };
     const params = {
       separateBy: "color"

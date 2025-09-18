@@ -7,7 +7,7 @@ describe('GreenWallNode', () => {
   it('should create GreenWall', async () => {
     const context = createTestContext();
     const inputs = {
-      wallSurface: /* test value */
+      wallSurface: null
     };
     const params = {
       moduleSize: 600,

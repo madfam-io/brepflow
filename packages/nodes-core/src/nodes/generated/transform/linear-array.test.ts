@@ -7,7 +7,7 @@ describe('LinearArrayNode', () => {
   it('should create LinearArray', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       count: 5,

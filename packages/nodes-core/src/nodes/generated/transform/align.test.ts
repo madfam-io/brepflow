@@ -7,7 +7,7 @@ describe('AlignNode', () => {
   it('should create Align', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */
+      shapes: null
     };
     const params = {
       alignX: "center",

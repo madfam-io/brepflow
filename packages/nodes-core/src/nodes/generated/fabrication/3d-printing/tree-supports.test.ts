@@ -7,7 +7,7 @@ describe('TreeSupportsNode', () => {
   it('should create TreeSupports', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       branchAngle: 40,

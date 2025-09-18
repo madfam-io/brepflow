@@ -7,8 +7,8 @@ describe('CurveClosestPointNode', () => {
   it('should create CurveClosestPoint', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */,
-      point: /* test value */
+      curve: null,
+      point: null
     };
     const params = {
       tolerance: 0.01,

@@ -7,7 +7,7 @@ describe('TrochoidalMillingNode', () => {
   it('should create TrochoidalMilling', async () => {
     const context = createTestContext();
     const inputs = {
-      slot: /* test value */
+      slot: null
     };
     const params = {
       trochoidWidth: 2,

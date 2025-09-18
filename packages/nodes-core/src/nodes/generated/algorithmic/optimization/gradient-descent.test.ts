@@ -7,8 +7,8 @@ describe('GradientDescentNode', () => {
   it('should create GradientDescent', async () => {
     const context = createTestContext();
     const inputs = {
-      objective: /* test value */,
-      initialPoint: /* test value */
+      objective: null,
+      initialPoint: null
     };
     const params = {
       learningRate: 0.01,

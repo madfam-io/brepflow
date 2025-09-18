@@ -7,7 +7,7 @@ describe('BronzeBushingNode', () => {
   it('should create BronzeBushing', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       innerDiameter: 10,

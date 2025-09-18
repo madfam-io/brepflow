@@ -84,6 +84,8 @@ export interface MeshData {
 let occtModule: OCCTModule | null = null;
 let wasmModule: any = null;
 let wasmLoaded = false;
+let wasmLoadAttempted = false;
+let wasmLoadError: Error | null = null;
 
 /**
  * Memory management utilities for OCCT shapes
@@ -122,615 +124,451 @@ export class OCCTMemoryManager {
   }
 }
 
-export async function loadOCCT(): Promise<OCCTModule> {
-  if (occtModule) return occtModule;
-
-  try {
-    // Try to dynamically import the WASM module
-    if (typeof window !== 'undefined') {
-      console.log('[OCCT] Attempting to load real WASM module...');
-
-      try {
-        // Try the core OCCT module first (real geometry)
-        const wasmModuleFactory = (await import('../wasm/occt-core.js')).default;
-
-        // Initialize the module with proper file location
-        wasmModule = await wasmModuleFactory({
-          locateFile: (path: string) => {
-            if (path.endsWith('.wasm')) {
-              // Try multiple paths for WASM file
-              const possiblePaths = [
-                // Production path (copied by Vite plugin)
-                new URL('/wasm/occt-core.wasm', window.location.origin).href,
-                // Vite dev server path
-                new URL('../wasm/occt-core.wasm', import.meta.url).href,
-                // Fallback to assets (Vite production build)
-                new URL('/assets/occt-core.wasm', window.location.origin).href,
-              ];
-              
-              // Return the first path (production takes precedence)
-              console.log('[OCCT] Attempting WASM load from:', possiblePaths[0]);
-              return possiblePaths[0];
-            }
-            return path;
-          }
+/**
+ * Error boundary wrapper for WASM operations
+ * Ensures the platform can gracefully handle WASM loading failures
+ */
+function createErrorBoundaryWrapper<T extends (...args: any[]) => any>(
+  operation: string,
+  fn: T
+): T {
+  return ((...args: Parameters<T>) => {
+    try {
+      const result = fn(...args);
+      if (result instanceof Promise) {
+        return result.catch((error: any) => {
+          console.error(`[OCCT] Operation '${operation}' failed:`, error);
+          throw new Error(`OCCT operation '${operation}' failed: ${error.message || error}`);
         });
-
-        // Test the module to ensure it's working
-        if (wasmModule) {
-          const status = wasmModule.getStatus?.();
-          const version = wasmModule.getOCCTVersion?.() || 'OCCT-7.8.0';
-          console.log('[OCCT] Core WASM module loaded successfully');
-          console.log('[OCCT] Status:', status);
-          console.log('[OCCT] Version:', version);
-
-          // Test a basic operation
-          try {
-            const testBox = wasmModule.makeBox(1, 1, 1);
-            console.log('[OCCT] Test box created:', testBox);
-            wasmModule.deleteShape(testBox.id);
-            console.log('[OCCT] Real geometry operations verified');
-          } catch (e) {
-            console.warn('[OCCT] Basic geometry test failed:', e);
-          }
-
-          wasmLoaded = true;
-        }
-      } catch (coreError) {
-        console.warn('[OCCT] Core WASM module failed, trying simplified version:', coreError);
-
-        try {
-          // Fallback to simplified module
-          const wasmModuleFactory = (await import('../wasm/occt.js')).default;
-          wasmModule = await wasmModuleFactory({
-            locateFile: (path: string) => {
-              if (path.endsWith('.wasm')) {
-                // Try multiple paths for WASM file
-                const possiblePaths = [
-                  new URL('/wasm/occt.wasm', window.location.origin).href,
-                  new URL('../wasm/occt.wasm', import.meta.url).href,
-                  new URL('/assets/occt.wasm', window.location.origin).href,
-                ];
-                console.log('[OCCT] Fallback WASM load from:', possiblePaths[0]);
-                return possiblePaths[0];
-              }
-              return path;
-            }
-          });
-
-          if (wasmModule) {
-            console.log('[OCCT] Simplified WASM module loaded as fallback');
-            wasmLoaded = true;
-          }
-        } catch (fallbackError) {
-          console.warn('[OCCT] All WASM modules failed:', fallbackError);
-          throw fallbackError;
-        }
       }
-    } else {
-      // Node.js environment
-      throw new Error('WASM loading not supported in Node.js environment');
+      return result;
+    } catch (error: any) {
+      console.error(`[OCCT] Operation '${operation}' failed:`, error);
+      throw new Error(`OCCT operation '${operation}' failed: ${error.message || error}`);
     }
-  } catch (error: unknown) {
-    // This catch handles both import failures and WASM initialization failures
-    console.warn('[OCCT] Failed to load real WASM module, falling back to mock implementation');
-    console.log('[OCCT] Error details:', error);
-    console.log('[OCCT] Note: Real WASM requires COOP/COEP headers for SharedArrayBuffer support');
-    wasmLoaded = false;
-  }
-
-  // Create OCCT module with real WASM implementation or fallback to mock
-  if (wasmLoaded && wasmModule) {
-    // Real OCCT WASM implementation
-    occtModule = {
-      makeBox: (dx: number, dy: number, dz: number): ShapeHandle => {
-        console.log(`Creating OCCT box: ${dx} x ${dy} x ${dz}`);
-        try {
-          const shape = wasmModule.makeBox(dx, dy, dz);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to create box - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT makeBox failed:', error);
-          throw new Error(`Failed to create box: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      makeSphere: (radius: number): ShapeHandle => {
-        console.log(`Creating OCCT sphere: radius ${radius}`);
-        try {
-          const shape = wasmModule.makeSphere(radius);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to create sphere - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT makeSphere failed:', error);
-          throw new Error(`Failed to create sphere: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      makeCylinder: (radius: number, height: number): ShapeHandle => {
-        console.log(`Creating OCCT cylinder: radius ${radius}, height ${height}`);
-        try {
-          const shape = wasmModule.makeCylinder(radius, height);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to create cylinder - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT makeCylinder failed:', error);
-          throw new Error(`Failed to create cylinder: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      makeCone: (radius1: number, radius2: number, height: number): ShapeHandle => {
-        console.log(`Creating OCCT cone: r1=${radius1}, r2=${radius2}, h=${height}`);
-        try {
-          const shape = wasmModule.makeCone(radius1, radius2, height);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to create cone - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT makeCone failed:', error);
-          throw new Error(`Failed to create cone: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      makeTorus: (majorRadius: number, minorRadius: number): ShapeHandle => {
-        console.log(`Creating OCCT torus: major=${majorRadius}, minor=${minorRadius}`);
-        try {
-          const shape = wasmModule.makeTorus(majorRadius, minorRadius);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to create torus - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT makeTorus failed:', error);
-          throw new Error(`Failed to create torus: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      makeBoxWithOrigin: (x: number, y: number, z: number, dx: number, dy: number, dz: number): ShapeHandle => {
-        console.log(`Creating OCCT box with origin: (${x},${y},${z}) size ${dx}x${dy}x${dz}`);
-        try {
-          const shape = wasmModule.makeBoxWithOrigin(x, y, z, dx, dy, dz);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to create box with origin - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT makeBoxWithOrigin failed:', error);
-          throw new Error(`Failed to create box with origin: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      makeSphereWithCenter: (cx: number, cy: number, cz: number, radius: number): ShapeHandle => {
-        console.log(`Creating OCCT sphere with center: (${cx},${cy},${cz}) radius ${radius}`);
-        try {
-          const shape = wasmModule.makeSphereWithCenter(cx, cy, cz, radius);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to create sphere with center - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT makeSphereWithCenter failed:', error);
-          throw new Error(`Failed to create sphere with center: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      extrude: (profileId: string, dx: number, dy: number, dz: number): ShapeHandle => {
-        console.log(`OCCT extrude: ${profileId} by vector (${dx},${dy},${dz})`);
-        try {
-          const shape = wasmModule.extrude(profileId, dx, dy, dz);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to extrude - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT extrude failed:', error);
-          throw new Error(`Failed to extrude: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      revolve: (profileId: string, angle: number, axisX: number, axisY: number, axisZ: number, originX: number, originY: number, originZ: number): ShapeHandle => {
-        console.log(`OCCT revolve: ${profileId} by ${angle} around axis (${axisX},${axisY},${axisZ}) origin (${originX},${originY},${originZ})`);
-        try {
-          const shape = wasmModule.revolve(profileId, angle, axisX, axisY, axisZ, originX, originY, originZ);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to revolve - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT revolve failed:', error);
-          throw new Error(`Failed to revolve: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      booleanUnion: (shape1Id: string, shape2Id: string): ShapeHandle => {
-        console.log(`OCCT boolean union: ${shape1Id} ∪ ${shape2Id}`);
-        const shape = wasmModule.booleanUnion(shape1Id, shape2Id);
-        OCCTMemoryManager.trackShape(shape.id);
-        return shape;
-      },
-
-      booleanSubtract: (shape1Id: string, shape2Id: string): ShapeHandle => {
-        console.log(`OCCT boolean subtract: ${shape1Id} - ${shape2Id}`);
-        const shape = wasmModule.booleanSubtract(shape1Id, shape2Id);
-        OCCTMemoryManager.trackShape(shape.id);
-        return shape;
-      },
-
-      booleanIntersect: (shape1Id: string, shape2Id: string): ShapeHandle => {
-        console.log(`OCCT boolean intersect: ${shape1Id} ∩ ${shape2Id}`);
-        const shape = wasmModule.booleanIntersect(shape1Id, shape2Id);
-        OCCTMemoryManager.trackShape(shape.id);
-        return shape;
-      },
-
-      makeFillet: (shapeId: string, radius: number): ShapeHandle => {
-        console.log(`OCCT fillet: ${shapeId} with radius ${radius}`);
-        const shape = wasmModule.makeFillet(shapeId, radius);
-        OCCTMemoryManager.trackShape(shape.id);
-        return shape;
-      },
-
-      makeChamfer: (shapeId: string, distance: number): ShapeHandle => {
-        console.log(`OCCT chamfer: ${shapeId} with distance ${distance}`);
-        const shape = wasmModule.makeChamfer(shapeId, distance);
-        OCCTMemoryManager.trackShape(shape.id);
-        return shape;
-      },
-
-      makeShell: (shapeId: string, thickness: number): ShapeHandle => {
-        console.log(`OCCT shell: ${shapeId} with thickness ${thickness}`);
-        try {
-          const shape = wasmModule.makeShell(shapeId, thickness);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to create shell - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT makeShell failed:', error);
-          throw new Error(`Failed to create shell: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      transform: (shapeId: string, tx: number, ty: number, tz: number, rx: number, ry: number, rz: number, sx: number, sy: number, sz: number): ShapeHandle => {
-        console.log(`OCCT transform: ${shapeId} translate(${tx},${ty},${tz}) rotate(${rx},${ry},${rz}) scale(${sx},${sy},${sz})`);
-        try {
-          const shape = wasmModule.transform(shapeId, tx, ty, tz, rx, ry, rz, sx, sy, sz);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to transform - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT transform failed:', error);
-          throw new Error(`Failed to transform: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      copyShape: (shapeId: string): ShapeHandle => {
-        console.log(`OCCT copy: ${shapeId}`);
-        try {
-          const shape = wasmModule.copyShape(shapeId);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to copy shape - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT copyShape failed:', error);
-          throw new Error(`Failed to copy shape: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      tessellate: (shapeId: string, precision = 0.1, angle = 0.5): MeshData => {
-        console.log(`OCCT tessellating: ${shapeId} with precision ${precision}`);
-        try {
-          const rawMesh = wasmModule.tessellate(shapeId, precision, angle);
-          if (!rawMesh || !rawMesh.positions) {
-            throw new Error('OCCT failed to tessellate - invalid mesh data returned');
-          }
-
-          // Convert WASM vectors to TypedArrays with enhanced data
-          return {
-            positions: new Float32Array(rawMesh.positions),
-            normals: new Float32Array(rawMesh.normals),
-            indices: new Uint32Array(rawMesh.indices),
-            edges: new Uint32Array(rawMesh.edges),
-            uvs: rawMesh.uvs ? new Float32Array(rawMesh.uvs) : undefined,
-            vertexCount: rawMesh.vertexCount,
-            triangleCount: rawMesh.triangleCount,
-            edgeCount: rawMesh.edgeCount
-          };
-        } catch (error) {
-          console.error('OCCT tessellate failed:', error);
-          throw new Error(`Failed to tessellate shape: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      tessellateWithParams: (shapeId: string, precision: number, angle: number): MeshData => {
-        return occtModule!.tessellate(shapeId, precision, angle);
-      },
-
-      importSTEP: (fileData: string): ShapeHandle => {
-        console.log(`OCCT importing STEP file: ${fileData.length} bytes`);
-        try {
-          const shape = wasmModule.importSTEP(fileData);
-          if (!shape || !shape.id) {
-            throw new Error('OCCT failed to import STEP - invalid shape returned');
-          }
-          OCCTMemoryManager.trackShape(shape.id);
-          return shape;
-        } catch (error) {
-          console.error('OCCT importSTEP failed:', error);
-          throw new Error(`Failed to import STEP: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      exportSTEP: (shapeId: string): string => {
-        console.log(`OCCT exporting STEP: ${shapeId}`);
-        try {
-          return wasmModule.exportSTEP(shapeId);
-        } catch (error) {
-          console.error('OCCT exportSTEP failed:', error);
-          throw new Error(`Failed to export STEP: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      exportSTL: (shapeId: string, binary = true): string => {
-        console.log(`OCCT exporting STL: ${shapeId} (binary: ${binary})`);
-        try {
-          return wasmModule.exportSTL(shapeId, binary);
-        } catch (error) {
-          console.error('OCCT exportSTL failed:', error);
-          throw new Error(`Failed to export STL: ${error instanceof Error ? error.message : error}`);
-        }
-      },
-
-      deleteShape: (shapeId: string): void => {
-        wasmModule.deleteShape(shapeId);
-        OCCTMemoryManager.untrackShape(shapeId);
-      },
-
-      getShapeCount: (): number => {
-        return wasmModule.getShapeCount();
-      },
-
-      clearAllShapes: (): void => {
-        wasmModule.clearAllShapes();
-        OCCTMemoryManager.cleanup();
-      },
-
-      getStatus: (): string => {
-        return wasmModule.getStatus();
-      },
-
-      getOCCTVersion: (): string => {
-        return wasmModule.getOCCTVersion();
-      },
-
-      VectorFloat: wasmModule.VectorFloat,
-      VectorUint: wasmModule.VectorUint
-    };
-  } else {
-    // Fallback mock implementation
-    occtModule = {
-      makeBox: (dx: number, dy: number, dz: number): ShapeHandle => {
-        console.log(`Mock creating box: ${dx} x ${dy} x ${dz}`);
-        return createMockHandle('box', 'solid');
-      },
-
-      makeSphere: (radius: number): ShapeHandle => {
-        console.log(`Mock creating sphere: radius ${radius}`);
-        return createMockHandle('sphere', 'solid');
-      },
-
-      makeCylinder: (radius: number, height: number): ShapeHandle => {
-        console.log(`Mock creating cylinder: radius ${radius}, height ${height}`);
-        return createMockHandle('cylinder', 'solid');
-      },
-
-      makeCone: (radius1: number, radius2: number, height: number): ShapeHandle => {
-        console.log(`Mock creating cone: r1=${radius1}, r2=${radius2}, h=${height}`);
-        return createMockHandle('cone', 'solid');
-      },
-
-      makeTorus: (majorRadius: number, minorRadius: number): ShapeHandle => {
-        console.log(`Mock creating torus: major=${majorRadius}, minor=${minorRadius}`);
-        return createMockHandle('torus', 'solid');
-      },
-
-      makeBoxWithOrigin: (x: number, y: number, z: number, dx: number, dy: number, dz: number): ShapeHandle => {
-        console.log(`Mock creating box with origin: (${x},${y},${z}) size ${dx}x${dy}x${dz}`);
-        return createMockHandle('box_origin', 'solid');
-      },
-
-      makeSphereWithCenter: (cx: number, cy: number, cz: number, radius: number): ShapeHandle => {
-        console.log(`Mock creating sphere with center: (${cx},${cy},${cz}) radius ${radius}`);
-        return createMockHandle('sphere_center', 'solid');
-      },
-
-      extrude: (profileId: string, dx: number, dy: number, dz: number): ShapeHandle => {
-        console.log(`Mock extrude: ${profileId} by vector (${dx},${dy},${dz})`);
-        return createMockHandle('extrude', 'solid');
-      },
-
-      revolve: (profileId: string, angle: number, axisX: number, axisY: number, axisZ: number, originX: number, originY: number, originZ: number): ShapeHandle => {
-        console.log(`Mock revolve: ${profileId} by ${angle} around axis (${axisX},${axisY},${axisZ})`);
-        return createMockHandle('revolve', 'solid');
-      },
-
-      booleanUnion: (shape1Id: string, shape2Id: string): ShapeHandle => {
-        console.log(`Mock boolean union: ${shape1Id} ∪ ${shape2Id}`);
-        return createMockHandle('union', 'solid');
-      },
-
-      booleanSubtract: (shape1Id: string, shape2Id: string): ShapeHandle => {
-        console.log(`Mock boolean subtract: ${shape1Id} - ${shape2Id}`);
-        return createMockHandle('subtract', 'solid');
-      },
-
-      booleanIntersect: (shape1Id: string, shape2Id: string): ShapeHandle => {
-        console.log(`Mock boolean intersect: ${shape1Id} ∩ ${shape2Id}`);
-        return createMockHandle('intersect', 'solid');
-      },
-
-      makeFillet: (shapeId: string, radius: number): ShapeHandle => {
-        console.log(`Mock fillet: ${shapeId} with radius ${radius}`);
-        return createMockHandle('fillet', 'solid');
-      },
-
-      makeChamfer: (shapeId: string, distance: number): ShapeHandle => {
-        console.log(`Mock chamfer: ${shapeId} with distance ${distance}`);
-        return createMockHandle('chamfer', 'solid');
-      },
-
-      makeShell: (shapeId: string, thickness: number): ShapeHandle => {
-        console.log(`Mock shell: ${shapeId} with thickness ${thickness}`);
-        return createMockHandle('shell', 'solid');
-      },
-
-      transform: (shapeId: string, tx: number, ty: number, tz: number, rx: number, ry: number, rz: number, sx: number, sy: number, sz: number): ShapeHandle => {
-        console.log(`Mock transform: ${shapeId} translate(${tx},${ty},${tz}) rotate(${rx},${ry},${rz}) scale(${sx},${sy},${sz})`);
-        return createMockHandle('transformed', 'solid');
-      },
-
-      copyShape: (shapeId: string): ShapeHandle => {
-        console.log(`Mock copy: ${shapeId}`);
-        return createMockHandle('copy', 'solid');
-      },
-
-      tessellate: (shapeId: string, precision = 0.1, angle = 0.5): MeshData => {
-        console.log(`Mock tessellating: ${shapeId} with precision ${precision}`);
-        return generateBasicMesh(shapeId, precision);
-      },
-
-      tessellateWithParams: (shapeId: string, precision: number, angle: number): MeshData => {
-        return occtModule!.tessellate(shapeId, precision, angle);
-      },
-
-      importSTEP: (fileData: string): ShapeHandle => {
-        console.log(`Mock importing STEP file: ${fileData.length} bytes`);
-        return createMockHandle('step_import', 'solid');
-      },
-
-      exportSTEP: (shapeId: string): string => {
-        console.log(`Mock exporting STEP: ${shapeId}`);
-        return "STEP file mock data";
-      },
-
-      exportSTL: (shapeId: string, binary = true): string => {
-        console.log(`Mock exporting STL: ${shapeId} (binary: ${binary})`);
-        return "STL file mock data";
-      },
-
-      deleteShape: (shapeId: string): void => {
-        console.log(`Mock deleting shape: ${shapeId}`);
-      },
-
-      getShapeCount: (): number => {
-        return 0;
-      },
-
-      clearAllShapes: (): void => {
-        console.log(`Mock clearing all shapes`);
-      },
-
-      getStatus: (): string => {
-        return "Mock OCCT implementation | Shapes: 0 | Memory: OK";
-      },
-
-      getOCCTVersion: (): string => {
-        return "7.8.0-mock";
-      },
-
-      VectorFloat: null,
-      VectorUint: null
-    };
-  }
-
-  return occtModule;
+  }) as T;
 }
 
 /**
- * Create a mock shape handle for fallback implementation
+ * Attempts to dynamically load the WASM module with proper error boundaries
+ * This function will be called when WASM files are actually available
  */
-function createMockHandle(prefix: string, type: 'solid' | 'surface' | 'curve'): ShapeHandle {
-  const id = `${prefix}_${Math.random().toString(36).substring(7)}`;
+async function attemptWASMLoad(): Promise<any> {
+  // This function will attempt to load WASM when it's available
+  // For now, we use a dynamic import approach that won't break Vite
+
+  try {
+    // Check if we're in a browser environment
+    if (typeof window === 'undefined') {
+      console.log('[OCCT] Non-browser environment detected, WASM loading deferred');
+      return null;
+    }
+
+    // Check for required browser features
+    if (!window.SharedArrayBuffer) {
+      console.warn('[OCCT] SharedArrayBuffer not available. Real geometry requires COOP/COEP headers.');
+      console.warn('[OCCT] Add these headers to your server:');
+      console.warn('[OCCT]   Cross-Origin-Opener-Policy: same-origin');
+      console.warn('[OCCT]   Cross-Origin-Embedder-Policy: require-corp');
+      return null;
+    }
+
+    // Attempt to load the WASM module dynamically
+    // This approach uses fetch to check if the file exists first
+    const wasmPath = new URL('../wasm/occt-core.js', import.meta.url).href;
+
+    // First check if the file exists
+    const checkResponse = await fetch(wasmPath, { method: 'HEAD' }).catch(() => null);
+    if (!checkResponse || !checkResponse.ok) {
+      console.log('[OCCT] WASM files not found. Run "pnpm run build:wasm" to compile OCCT.');
+      return null;
+    }
+
+    // If file exists, load it dynamically
+    console.log('[OCCT] Loading WASM module...');
+    const module = await import(wasmPath);
+    const wasmModuleFactory = module.default || module;
+
+    // Initialize the WASM module
+    const wasmInstance = await wasmModuleFactory({
+      locateFile: (file: string) => {
+        return new URL(`../wasm/${file}`, import.meta.url).href;
+      },
+      print: (text: string) => console.log('[OCCT WASM]', text),
+      printErr: (text: string) => console.error('[OCCT WASM Error]', text),
+    });
+
+    console.log('[OCCT] WASM module loaded successfully');
+    return wasmInstance;
+  } catch (error) {
+    // This is not a failure - it's expected when WASM isn't compiled yet
+    if (error.message?.includes('Failed to resolve import')) {
+      console.log('[OCCT] WASM not yet compiled. Run "pnpm run build:wasm" to enable real geometry.');
+    } else {
+      console.log('[OCCT] WASM loading deferred:', error.message);
+    }
+    return null;
+  }
+}
+
+/**
+ * Creates the real OCCT module implementation with error boundaries
+ */
+function createRealOCCTModule(wasm: any): OCCTModule {
   return {
-    id,
-    type,
-    bbox_min_x: -50,
-    bbox_min_y: -50,
-    bbox_min_z: -50,
-    bbox_max_x: 50,
-    bbox_max_y: 50,
-    bbox_max_z: 50,
-    hash: id.substring(0, 16)
+    makeBox: createErrorBoundaryWrapper('makeBox', (dx: number, dy: number, dz: number) => {
+      console.log(`[OCCT] Creating box: ${dx} x ${dy} x ${dz}`);
+      const shape = wasm.makeBox(dx, dy, dz);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      return shape;
+    }),
+
+    makeBoxWithOrigin: createErrorBoundaryWrapper('makeBoxWithOrigin',
+      (x: number, y: number, z: number, dx: number, dy: number, dz: number) => {
+        console.log(`[OCCT] Creating box with origin: (${x},${y},${z}) size ${dx}x${dy}x${dz}`);
+        const shape = wasm.makeBoxWithOrigin(x, y, z, dx, dy, dz);
+        if (!shape || !shape.id) {
+          throw new Error('Invalid shape returned from WASM');
+        }
+        OCCTMemoryManager.trackShape(shape.id);
+        return shape;
+    }),
+
+    makeSphere: createErrorBoundaryWrapper('makeSphere', (radius: number) => {
+      console.log(`[OCCT] Creating sphere: radius ${radius}`);
+      const shape = wasm.makeSphere(radius);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      return shape;
+    }),
+
+    makeSphereWithCenter: createErrorBoundaryWrapper('makeSphereWithCenter',
+      (cx: number, cy: number, cz: number, radius: number) => {
+        console.log(`[OCCT] Creating sphere with center: (${cx},${cy},${cz}) radius ${radius}`);
+        const shape = wasm.makeSphereWithCenter(cx, cy, cz, radius);
+        if (!shape || !shape.id) {
+          throw new Error('Invalid shape returned from WASM');
+        }
+        OCCTMemoryManager.trackShape(shape.id);
+        return shape;
+    }),
+
+    makeCylinder: createErrorBoundaryWrapper('makeCylinder', (radius: number, height: number) => {
+      console.log(`[OCCT] Creating cylinder: radius ${radius}, height ${height}`);
+      const shape = wasm.makeCylinder(radius, height);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      return shape;
+    }),
+
+    makeCone: createErrorBoundaryWrapper('makeCone', (radius1: number, radius2: number, height: number) => {
+      console.log(`[OCCT] Creating cone: r1=${radius1}, r2=${radius2}, h=${height}`);
+      const shape = wasm.makeCone(radius1, radius2, height);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      return shape;
+    }),
+
+    makeTorus: createErrorBoundaryWrapper('makeTorus', (majorRadius: number, minorRadius: number) => {
+      console.log(`[OCCT] Creating torus: major=${majorRadius}, minor=${minorRadius}`);
+      const shape = wasm.makeTorus(majorRadius, minorRadius);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      return shape;
+    }),
+
+    // Advanced operations
+    extrude: createErrorBoundaryWrapper('extrude',
+      (profileId: string, dx: number, dy: number, dz: number) => {
+        console.log(`[OCCT] Extruding profile ${profileId}: (${dx}, ${dy}, ${dz})`);
+        const shape = wasm.extrude(profileId, dx, dy, dz);
+        if (!shape || !shape.id) {
+          throw new Error('Invalid shape returned from WASM');
+        }
+        OCCTMemoryManager.trackShape(shape.id);
+        return shape;
+    }),
+
+    revolve: createErrorBoundaryWrapper('revolve',
+      (profileId: string, angle: number, axisX: number, axisY: number, axisZ: number,
+       originX: number, originY: number, originZ: number) => {
+        console.log(`[OCCT] Revolving profile ${profileId}: angle=${angle}`);
+        const shape = wasm.revolve(profileId, angle, axisX, axisY, axisZ, originX, originY, originZ);
+        if (!shape || !shape.id) {
+          throw new Error('Invalid shape returned from WASM');
+        }
+        OCCTMemoryManager.trackShape(shape.id);
+        return shape;
+    }),
+
+    // Boolean operations
+    booleanUnion: createErrorBoundaryWrapper('booleanUnion', (shape1Id: string, shape2Id: string) => {
+      console.log(`[OCCT] Boolean union: ${shape1Id} + ${shape2Id}`);
+      const shape = wasm.booleanUnion(shape1Id, shape2Id);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      OCCTMemoryManager.untrackShape(shape1Id);
+      OCCTMemoryManager.untrackShape(shape2Id);
+      return shape;
+    }),
+
+    booleanSubtract: createErrorBoundaryWrapper('booleanSubtract', (shape1Id: string, shape2Id: string) => {
+      console.log(`[OCCT] Boolean subtract: ${shape1Id} - ${shape2Id}`);
+      const shape = wasm.booleanSubtract(shape1Id, shape2Id);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      OCCTMemoryManager.untrackShape(shape1Id);
+      OCCTMemoryManager.untrackShape(shape2Id);
+      return shape;
+    }),
+
+    booleanIntersect: createErrorBoundaryWrapper('booleanIntersect', (shape1Id: string, shape2Id: string) => {
+      console.log(`[OCCT] Boolean intersect: ${shape1Id} ∩ ${shape2Id}`);
+      const shape = wasm.booleanIntersect(shape1Id, shape2Id);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      OCCTMemoryManager.untrackShape(shape1Id);
+      OCCTMemoryManager.untrackShape(shape2Id);
+      return shape;
+    }),
+
+    // Feature operations
+    makeFillet: createErrorBoundaryWrapper('makeFillet', (shapeId: string, radius: number) => {
+      console.log(`[OCCT] Creating fillet on ${shapeId}: radius=${radius}`);
+      const shape = wasm.makeFillet(shapeId, radius);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      OCCTMemoryManager.untrackShape(shapeId);
+      return shape;
+    }),
+
+    makeChamfer: createErrorBoundaryWrapper('makeChamfer', (shapeId: string, distance: number) => {
+      console.log(`[OCCT] Creating chamfer on ${shapeId}: distance=${distance}`);
+      const shape = wasm.makeChamfer(shapeId, distance);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      OCCTMemoryManager.untrackShape(shapeId);
+      return shape;
+    }),
+
+    makeShell: createErrorBoundaryWrapper('makeShell', (shapeId: string, thickness: number) => {
+      console.log(`[OCCT] Creating shell from ${shapeId}: thickness=${thickness}`);
+      const shape = wasm.makeShell(shapeId, thickness);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      OCCTMemoryManager.untrackShape(shapeId);
+      return shape;
+    }),
+
+    // Transformation operations
+    transform: createErrorBoundaryWrapper('transform',
+      (shapeId: string, tx: number, ty: number, tz: number,
+       rx: number, ry: number, rz: number,
+       sx: number, sy: number, sz: number) => {
+        console.log(`[OCCT] Transforming ${shapeId}`);
+        const shape = wasm.transform(shapeId, tx, ty, tz, rx, ry, rz, sx, sy, sz);
+        if (!shape || !shape.id) {
+          throw new Error('Invalid shape returned from WASM');
+        }
+        OCCTMemoryManager.trackShape(shape.id);
+        OCCTMemoryManager.untrackShape(shapeId);
+        return shape;
+    }),
+
+    copyShape: createErrorBoundaryWrapper('copyShape', (shapeId: string) => {
+      console.log(`[OCCT] Copying shape ${shapeId}`);
+      const shape = wasm.copyShape(shapeId);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      return shape;
+    }),
+
+    // Tessellation
+    tessellate: createErrorBoundaryWrapper('tessellate',
+      (shapeId: string, precision?: number, angle?: number) => {
+        console.log(`[OCCT] Tessellating ${shapeId}: precision=${precision}, angle=${angle}`);
+        return wasm.tessellate(shapeId, precision || 0.01, angle || 0.5);
+    }),
+
+    tessellateWithParams: createErrorBoundaryWrapper('tessellateWithParams',
+      (shapeId: string, precision: number, angle: number) => {
+        console.log(`[OCCT] Tessellating ${shapeId}: precision=${precision}, angle=${angle}`);
+        return wasm.tessellateWithParams(shapeId, precision, angle);
+    }),
+
+    // File I/O
+    importSTEP: createErrorBoundaryWrapper('importSTEP', (fileData: string) => {
+      console.log(`[OCCT] Importing STEP file: ${fileData.length} bytes`);
+      const shape = wasm.importSTEP(fileData);
+      if (!shape || !shape.id) {
+        throw new Error('Invalid shape returned from WASM');
+      }
+      OCCTMemoryManager.trackShape(shape.id);
+      return shape;
+    }),
+
+    exportSTEP: createErrorBoundaryWrapper('exportSTEP', (shapeId: string) => {
+      console.log(`[OCCT] Exporting ${shapeId} to STEP`);
+      return wasm.exportSTEP(shapeId);
+    }),
+
+    exportSTL: createErrorBoundaryWrapper('exportSTL', (shapeId: string, binary?: boolean) => {
+      console.log(`[OCCT] Exporting ${shapeId} to STL (${binary ? 'binary' : 'ASCII'})`);
+      return wasm.exportSTL(shapeId, binary);
+    }),
+
+    // Memory management
+    deleteShape: createErrorBoundaryWrapper('deleteShape', (shapeId: string) => {
+      console.log(`[OCCT] Deleting shape ${shapeId}`);
+      wasm.deleteShape(shapeId);
+      OCCTMemoryManager.untrackShape(shapeId);
+    }),
+
+    getShapeCount: createErrorBoundaryWrapper('getShapeCount', () => {
+      return wasm.getShapeCount();
+    }),
+
+    clearAllShapes: createErrorBoundaryWrapper('clearAllShapes', () => {
+      console.log('[OCCT] Clearing all shapes');
+      wasm.clearAllShapes();
+      OCCTMemoryManager.cleanup();
+    }),
+
+    // Status and version
+    getStatus: createErrorBoundaryWrapper('getStatus', () => {
+      return wasm.getStatus();
+    }),
+
+    getOCCTVersion: createErrorBoundaryWrapper('getOCCTVersion', () => {
+      return wasm.getOCCTVersion();
+    }),
+
+    // Vector types
+    VectorFloat: wasm.VectorFloat,
+    VectorUint: wasm.VectorUint,
   };
 }
 
 /**
- * Generate basic mesh data for testing (fallback implementation)
+ * Main OCCT loader with proper error boundaries and fallback handling
+ * This ensures the platform always has geometry capabilities, either real or mock
  */
-function generateBasicMesh(shapeId: string, deflection: number): MeshData {
-  // Generate a simple box mesh for testing
-  const size = 50;
+export async function loadOCCT(): Promise<OCCTModule | null> {
+  // Return cached module if already loaded
+  if (occtModule) {
+    return occtModule;
+  }
 
-  // Box vertices (8 corners)
-  const positions = new Float32Array([
-    -size, -size, -size,  // 0
-     size, -size, -size,  // 1
-     size,  size, -size,  // 2
-    -size,  size, -size,  // 3
-    -size, -size,  size,  // 4
-     size, -size,  size,  // 5
-     size,  size,  size,  // 6
-    -size,  size,  size   // 7
-  ]);
+  // Prevent multiple load attempts
+  if (wasmLoadAttempted) {
+    if (wasmLoadError) {
+      console.log('[OCCT] Previous WASM load failed, using mock geometry');
+      return null;
+    }
+    return occtModule;
+  }
 
-  // Generate normals (simple cube normals)
-  const normals = new Float32Array([
-    -1, -1, -1,  // 0
-     1, -1, -1,  // 1
-     1,  1, -1,  // 2
-    -1,  1, -1,  // 3
-    -1, -1,  1,  // 4
-     1, -1,  1,  // 5
-     1,  1,  1,  // 6
-    -1,  1,  1   // 7
-  ]);
+  wasmLoadAttempted = true;
 
-  // Box faces (12 triangles = 36 indices)
-  const indices = new Uint32Array([
-    // Front face
-    0, 1, 2, 0, 2, 3,
-    // Back face
-    4, 7, 6, 4, 6, 5,
-    // Left face
-    0, 3, 7, 0, 7, 4,
-    // Right face
-    1, 5, 6, 1, 6, 2,
-    // Top face
-    3, 2, 6, 3, 6, 7,
-    // Bottom face
-    0, 4, 5, 0, 5, 1
-  ]);
+  try {
+    // Attempt to load the real WASM module
+    console.log('[OCCT] Attempting to load real OCCT WASM module...');
+    wasmModule = await attemptWASMLoad();
 
-  return { positions, normals, indices, edges: new Uint32Array([0, 1, 2, 3]) };
+    if (wasmModule) {
+      // Successfully loaded WASM - create real OCCT module
+      console.log('[OCCT] ✅ Real OCCT WASM loaded successfully!');
+      occtModule = createRealOCCTModule(wasmModule);
+      wasmLoaded = true;
+
+      // Test the module
+      try {
+        const version = occtModule.getOCCTVersion();
+        console.log(`[OCCT] Running OCCT version: ${version}`);
+      } catch (e) {
+        console.log('[OCCT] OCCT module loaded (version check not available)');
+      }
+
+      return occtModule;
+    } else {
+      // WASM not available yet - this is expected before compilation
+      console.log('[OCCT] Real WASM not available. Using mock geometry.');
+      console.log('[OCCT] To enable real geometry:');
+      console.log('[OCCT]   1. Run: pnpm run build:wasm');
+      console.log('[OCCT]   2. Ensure server has COOP/COEP headers for SharedArrayBuffer');
+      return null;
+    }
+  } catch (error) {
+    // Error loading WASM - log and fall back to mock
+    wasmLoadError = error as Error;
+    console.log('[OCCT] Could not load WASM module, using mock geometry');
+    console.log('[OCCT] This is expected if WASM hasn\'t been compiled yet');
+
+    // Return null to trigger mock fallback
+    return null;
+  }
 }
+
+/**
+ * Gets the current OCCT module if loaded
+ */
+export function getOCCTModule(): OCCTModule | null {
+  return occtModule;
+}
+
+/**
+ * Checks if real OCCT WASM is loaded
+ */
+export function isWASMLoaded(): boolean {
+  return wasmLoaded;
+}
+
+/**
+ * Gets the WASM load error if any
+ */
+export function getWASMLoadError(): Error | null {
+  return wasmLoadError;
+}
+
+/**
+ * Resets the WASM loader state (useful for retrying after compilation)
+ */
+export function resetWASMLoader(): void {
+  if (occtModule && wasmLoaded) {
+    OCCTMemoryManager.cleanup();
+  }
+  occtModule = null;
+  wasmModule = null;
+  wasmLoaded = false;
+  wasmLoadAttempted = false;
+  wasmLoadError = null;
+  console.log('[OCCT] WASM loader reset - will retry on next load');
+}
+
+// Re-export the original RealOCCT class for backward compatibility
+export { RealOCCT } from './real-occt-bindings';

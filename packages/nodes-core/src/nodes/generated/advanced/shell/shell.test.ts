@@ -7,8 +7,8 @@ describe('ShellNode', () => {
   it('should create Shell', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */,
-      facesToRemove: /* test value */
+      solid: null,
+      facesToRemove: null
     };
     const params = {
       thickness: 2,

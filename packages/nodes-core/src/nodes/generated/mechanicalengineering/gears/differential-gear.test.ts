@@ -7,7 +7,7 @@ describe('DifferentialGearNode', () => {
   it('should create DifferentialGear', async () => {
     const context = createTestContext();
     const inputs = {
-      housingCenter: /* test value */
+      housingCenter: null
     };
     const params = {
       ringGearTeeth: 41,

@@ -7,7 +7,7 @@ describe('FoamStructureNode', () => {
   it('should create FoamStructure', async () => {
     const context = createTestContext();
     const inputs = {
-      container: /* test value */
+      container: null
     };
     const params = {
       bubbleCount: 50,

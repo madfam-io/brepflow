@@ -7,7 +7,7 @@ describe('NoisePatternNode', () => {
   it('should create NoisePattern', async () => {
     const context = createTestContext();
     const inputs = {
-      domain: /* test value */
+      domain: null
     };
     const params = {
       noiseType: "perlin",

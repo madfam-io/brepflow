@@ -7,8 +7,8 @@ describe('3MFExportNode', () => {
   it('should create 3MFExport', async () => {
     const context = createTestContext();
     const inputs = {
-      models: /* test value */,
-      filePath: /* test value */
+      models: null,
+      filePath: null
     };
     const params = {
       units: "mm",

@@ -7,8 +7,8 @@ describe('DistancePointToLineNode', () => {
   it('should create DistancePointToLine', async () => {
     const context = createTestContext();
     const inputs = {
-      point: /* test value */,
-      line: /* test value */
+      point: null,
+      line: null
     };
     const params = {
       

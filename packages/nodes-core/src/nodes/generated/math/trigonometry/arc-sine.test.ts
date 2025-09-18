@@ -7,7 +7,7 @@ describe('ArcSineNode', () => {
   it('should create ArcSine', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       angleUnit: "radians"

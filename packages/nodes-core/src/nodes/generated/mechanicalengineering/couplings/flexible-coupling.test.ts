@@ -7,7 +7,7 @@ describe('FlexibleCouplingNode', () => {
   it('should create FlexibleCoupling', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       type: "jaw",

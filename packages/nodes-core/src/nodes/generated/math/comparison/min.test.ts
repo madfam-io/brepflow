@@ -7,7 +7,7 @@ describe('MinNode', () => {
   it('should create Min', async () => {
     const context = createTestContext();
     const inputs = {
-      values: /* test value */
+      values: null
     };
     const params = {
       

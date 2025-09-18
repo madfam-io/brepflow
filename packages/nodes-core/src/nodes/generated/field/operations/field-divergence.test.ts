@@ -7,7 +7,7 @@ describe('FieldDivergenceNode', () => {
   it('should create FieldDivergence', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */
+      field: null
     };
     const params = {
       

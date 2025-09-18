@@ -7,8 +7,8 @@ describe('ExcelWriterNode', () => {
   it('should create ExcelWriter', async () => {
     const context = createTestContext();
     const inputs = {
-      data: /* test value */,
-      filePath: /* test value */
+      data: null,
+      filePath: null
     };
     const params = {
       sheetName: "Sheet1",

@@ -7,7 +7,7 @@ describe('FieldLaplacianNode', () => {
   it('should create FieldLaplacian', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */
+      field: null
     };
     const params = {
       

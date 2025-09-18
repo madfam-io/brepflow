@@ -7,7 +7,7 @@ describe('ConfigurationNode', () => {
   it('should create Configuration', async () => {
     const context = createTestContext();
     const inputs = {
-      assembly: /* test value */
+      assembly: null
     };
     const params = {
       name: "Default",

@@ -7,7 +7,7 @@ describe('Voronoi3DNode', () => {
   it('should create Voronoi3D', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       clipToBox: true

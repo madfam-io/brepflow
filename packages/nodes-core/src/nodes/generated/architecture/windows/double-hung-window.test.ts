@@ -7,7 +7,7 @@ describe('DoubleHungWindowNode', () => {
   it('should create DoubleHungWindow', async () => {
     const context = createTestContext();
     const inputs = {
-      position: /* test value */
+      position: null
     };
     const params = {
       width: 900,

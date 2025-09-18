@@ -7,8 +7,8 @@ describe('ListContainsNode', () => {
   it('should create ListContains', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */,
-      item: /* test value */
+      list: null,
+      item: null
     };
     const params = {
       

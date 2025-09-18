@@ -7,8 +7,8 @@ describe('FieldScaleNode', () => {
   it('should create FieldScale', async () => {
     const context = createTestContext();
     const inputs = {
-      geometry: /* test value */,
-      field: /* test value */
+      geometry: null,
+      field: null
     };
     const params = {
       minScale: 0.5,

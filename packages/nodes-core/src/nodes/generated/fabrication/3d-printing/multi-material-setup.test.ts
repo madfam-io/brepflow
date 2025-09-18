@@ -7,7 +7,7 @@ describe('MultiMaterialSetupNode', () => {
   it('should create MultiMaterialSetup', async () => {
     const context = createTestContext();
     const inputs = {
-      regions: /* test value */
+      regions: null
     };
     const params = {
       materials: 2,

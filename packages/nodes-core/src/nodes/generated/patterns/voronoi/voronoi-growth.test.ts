@@ -7,7 +7,7 @@ describe('VoronoiGrowthNode', () => {
   it('should create VoronoiGrowth', async () => {
     const context = createTestContext();
     const inputs = {
-      seeds: /* test value */
+      seeds: null
     };
     const params = {
       generations: 5,

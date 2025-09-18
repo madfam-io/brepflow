@@ -7,7 +7,7 @@ describe('STEPImportNode', () => {
   it('should create STEPImport', async () => {
     const context = createTestContext();
     const inputs = {
-      filePath: /* test value */
+      filePath: null
     };
     const params = {
       units: "auto",

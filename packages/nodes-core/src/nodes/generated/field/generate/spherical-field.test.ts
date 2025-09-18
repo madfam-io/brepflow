@@ -7,7 +7,7 @@ describe('SphericalFieldNode', () => {
   it('should create SphericalField', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       innerRadius: 10,

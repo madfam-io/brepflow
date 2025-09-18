@@ -7,7 +7,7 @@ describe('WasherNode', () => {
   it('should create Washer', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       innerDiameter: 6.4,

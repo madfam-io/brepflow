@@ -7,8 +7,8 @@ describe('EmbossNode', () => {
   it('should create Emboss', async () => {
     const context = createTestContext();
     const inputs = {
-      targetFace: /* test value */,
-      pattern: /* test value */
+      targetFace: null,
+      pattern: null
     };
     const params = {
       height: 1,

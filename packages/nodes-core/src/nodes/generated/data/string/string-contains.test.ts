@@ -7,8 +7,8 @@ describe('StringContainsNode', () => {
   it('should create StringContains', async () => {
     const context = createTestContext();
     const inputs = {
-      string: /* test value */,
-      search: /* test value */
+      string: null,
+      search: null
     };
     const params = {
       caseSensitive: true

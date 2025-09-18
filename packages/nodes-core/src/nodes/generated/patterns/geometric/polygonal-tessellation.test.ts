@@ -7,7 +7,7 @@ describe('PolygonalTessellationNode', () => {
   it('should create PolygonalTessellation', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       polygonType: "hexagonal",

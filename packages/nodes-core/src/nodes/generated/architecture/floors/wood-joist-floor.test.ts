@@ -7,7 +7,7 @@ describe('WoodJoistFloorNode', () => {
   it('should create WoodJoistFloor', async () => {
     const context = createTestContext();
     const inputs = {
-      floorBoundary: /* test value */
+      floorBoundary: null
     };
     const params = {
       joistDepth: 250,

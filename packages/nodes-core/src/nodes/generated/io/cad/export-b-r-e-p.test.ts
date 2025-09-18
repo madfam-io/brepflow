@@ -7,7 +7,7 @@ describe('ExportBREPNode', () => {
   it('should create ExportBREP', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       binary: false

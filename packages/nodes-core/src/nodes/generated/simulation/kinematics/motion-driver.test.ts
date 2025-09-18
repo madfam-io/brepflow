@@ -7,7 +7,7 @@ describe('MotionDriverNode', () => {
   it('should create MotionDriver', async () => {
     const context = createTestContext();
     const inputs = {
-      joint: /* test value */
+      joint: null
     };
     const params = {
       motionType: "constant",

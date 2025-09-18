@@ -7,7 +7,7 @@ describe('ComponentPatternNode', () => {
   it('should create ComponentPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      component: /* test value */
+      component: null
     };
     const params = {
       patternType: "linear",

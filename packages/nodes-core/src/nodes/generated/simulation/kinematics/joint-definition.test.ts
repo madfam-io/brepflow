@@ -7,9 +7,9 @@ describe('JointDefinitionNode', () => {
   it('should create JointDefinition', async () => {
     const context = createTestContext();
     const inputs = {
-      body1: /* test value */,
-      body2: /* test value */,
-      jointLocation: /* test value */
+      body1: null,
+      body2: null,
+      jointLocation: null
     };
     const params = {
       jointType: "revolute",

@@ -7,8 +7,8 @@ describe('PowerNode', () => {
   it('should create Power', async () => {
     const context = createTestContext();
     const inputs = {
-      base: /* test value */,
-      exponent: /* test value */
+      base: null,
+      exponent: null
     };
     const params = {
       

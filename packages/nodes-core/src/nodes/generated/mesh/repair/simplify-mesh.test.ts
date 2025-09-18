@@ -7,7 +7,7 @@ describe('SimplifyMeshNode', () => {
   it('should create SimplifyMesh', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       targetRatio: 0.5,

@@ -7,8 +7,8 @@ describe('FieldGridNode', () => {
   it('should create FieldGrid', async () => {
     const context = createTestContext();
     const inputs = {
-      field: /* test value */,
-      bounds: /* test value */
+      field: null,
+      bounds: null
     };
     const params = {
       resolutionX: 10,

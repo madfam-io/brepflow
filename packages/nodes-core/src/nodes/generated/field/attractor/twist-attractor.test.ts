@@ -7,7 +7,7 @@ describe('TwistAttractorNode', () => {
   it('should create TwistAttractor', async () => {
     const context = createTestContext();
     const inputs = {
-      axis: /* test value */
+      axis: null
     };
     const params = {
       angle: 90,

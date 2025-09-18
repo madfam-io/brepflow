@@ -7,7 +7,7 @@ describe('RainScreenNode', () => {
   it('should create RainScreen', async () => {
     const context = createTestContext();
     const inputs = {
-      wall: /* test value */
+      wall: null
     };
     const params = {
       claddingType: "composite",

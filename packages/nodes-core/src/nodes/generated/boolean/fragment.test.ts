@@ -7,7 +7,7 @@ describe('FragmentNode', () => {
   it('should create Fragment', async () => {
     const context = createTestContext();
     const inputs = {
-      shapes: /* test value */
+      shapes: null
     };
     const params = {
       

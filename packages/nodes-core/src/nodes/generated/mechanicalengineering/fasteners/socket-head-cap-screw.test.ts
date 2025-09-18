@@ -7,7 +7,7 @@ describe('SocketHeadCapScrewNode', () => {
   it('should create SocketHeadCapScrew', async () => {
     const context = createTestContext();
     const inputs = {
-      position: /* test value */
+      position: null
     };
     const params = {
       diameter: "M5",

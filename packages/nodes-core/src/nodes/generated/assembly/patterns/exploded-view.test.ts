@@ -7,7 +7,7 @@ describe('ExplodedViewNode', () => {
   it('should create ExplodedView', async () => {
     const context = createTestContext();
     const inputs = {
-      assembly: /* test value */
+      assembly: null
     };
     const params = {
       distance: 100,

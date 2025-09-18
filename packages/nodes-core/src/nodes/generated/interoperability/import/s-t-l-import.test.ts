@@ -7,7 +7,7 @@ describe('STLImportNode', () => {
   it('should create STLImport', async () => {
     const context = createTestContext();
     const inputs = {
-      filePath: /* test value */
+      filePath: null
     };
     const params = {
       mergeVertices: true,

@@ -7,7 +7,7 @@ describe('RotateNode', () => {
   it('should create Rotate', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       angle: 45,

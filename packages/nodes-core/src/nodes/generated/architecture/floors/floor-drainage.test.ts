@@ -7,8 +7,8 @@ describe('FloorDrainageNode', () => {
   it('should create FloorDrainage', async () => {
     const context = createTestContext();
     const inputs = {
-      floorBoundary: /* test value */,
-      drainLocations: /* test value */
+      floorBoundary: null,
+      drainLocations: null
     };
     const params = {
       slope: 0.01,

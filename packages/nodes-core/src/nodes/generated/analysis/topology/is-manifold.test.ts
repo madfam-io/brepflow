@@ -7,7 +7,7 @@ describe('IsManifoldNode', () => {
   it('should create IsManifold', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       

@@ -7,7 +7,7 @@ describe('FuzzySkinnNode', () => {
   it('should create FuzzySkinn', async () => {
     const context = createTestContext();
     const inputs = {
-      perimeters: /* test value */
+      perimeters: null
     };
     const params = {
       thickness: 0.3,

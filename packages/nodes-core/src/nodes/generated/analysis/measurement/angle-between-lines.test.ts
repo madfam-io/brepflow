@@ -7,8 +7,8 @@ describe('AngleBetweenLinesNode', () => {
   it('should create AngleBetweenLines', async () => {
     const context = createTestContext();
     const inputs = {
-      line1: /* test value */,
-      line2: /* test value */
+      line1: null,
+      line2: null
     };
     const params = {
       unit: "degrees"

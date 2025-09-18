@@ -7,7 +7,7 @@ describe('WorkCellSetupNode', () => {
   it('should create WorkCellSetup', async () => {
     const context = createTestContext();
     const inputs = {
-      cellBoundary: /* test value */
+      cellBoundary: null
     };
     const params = {
       robotCount: 1

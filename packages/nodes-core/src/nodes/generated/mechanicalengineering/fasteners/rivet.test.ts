@@ -7,7 +7,7 @@ describe('RivetNode', () => {
   it('should create Rivet', async () => {
     const context = createTestContext();
     const inputs = {
-      position: /* test value */
+      position: null
     };
     const params = {
       diameter: 4,

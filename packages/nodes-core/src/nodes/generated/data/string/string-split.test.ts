@@ -7,7 +7,7 @@ describe('StringSplitNode', () => {
   it('should create StringSplit', async () => {
     const context = createTestContext();
     const inputs = {
-      string: /* test value */
+      string: null
     };
     const params = {
       delimiter: ","

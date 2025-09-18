@@ -7,8 +7,8 @@ describe('PulleySystemNode', () => {
   it('should create PulleySystem', async () => {
     const context = createTestContext();
     const inputs = {
-      driveCenter: /* test value */,
-      drivenCenter: /* test value */
+      driveCenter: null,
+      drivenCenter: null
     };
     const params = {
       driveDiameter: 100,

@@ -7,7 +7,7 @@ describe('FluidPropertiesNode', () => {
   it('should create FluidProperties', async () => {
     const context = createTestContext();
     const inputs = {
-      domain: /* test value */
+      domain: null
     };
     const params = {
       fluid: "air",

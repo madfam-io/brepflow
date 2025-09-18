@@ -7,7 +7,7 @@ describe('CurveParameterNode', () => {
   it('should create CurveParameter', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       samples: 50,

@@ -7,7 +7,7 @@ describe('ShuffleNode', () => {
   it('should create Shuffle', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */
+      list: null
     };
     const params = {
       seed: -1

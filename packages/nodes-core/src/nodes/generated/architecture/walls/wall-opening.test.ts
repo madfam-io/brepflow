@@ -7,8 +7,8 @@ describe('WallOpeningNode', () => {
   it('should create WallOpening', async () => {
     const context = createTestContext();
     const inputs = {
-      wall: /* test value */,
-      position: /* test value */
+      wall: null,
+      position: null
     };
     const params = {
       width: 900,

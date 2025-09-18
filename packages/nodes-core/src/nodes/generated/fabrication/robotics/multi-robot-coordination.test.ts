@@ -7,7 +7,7 @@ describe('MultiRobotCoordinationNode', () => {
   it('should create MultiRobotCoordination', async () => {
     const context = createTestContext();
     const inputs = {
-      robotPaths: /* test value */
+      robotPaths: null
     };
     const params = {
       syncMethod: "position"

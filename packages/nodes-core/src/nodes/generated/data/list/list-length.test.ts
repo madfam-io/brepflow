@@ -7,7 +7,7 @@ describe('ListLengthNode', () => {
   it('should create ListLength', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */
+      list: null
     };
     const params = {
       

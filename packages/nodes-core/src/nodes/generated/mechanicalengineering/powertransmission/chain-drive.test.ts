@@ -7,8 +7,8 @@ describe('ChainDriveNode', () => {
   it('should create ChainDrive', async () => {
     const context = createTestContext();
     const inputs = {
-      sprocket1Center: /* test value */,
-      sprocket2Center: /* test value */
+      sprocket1Center: null,
+      sprocket2Center: null
     };
     const params = {
       driveTeeth: 17,

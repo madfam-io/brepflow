@@ -7,8 +7,8 @@ describe('SimpleHoleNode', () => {
   it('should create SimpleHole', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */,
-      position: /* test value */
+      solid: null,
+      position: null
     };
     const params = {
       diameter: 10,

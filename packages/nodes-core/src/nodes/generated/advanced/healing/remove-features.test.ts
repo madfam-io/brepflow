@@ -7,7 +7,7 @@ describe('RemoveFeaturesNode', () => {
   it('should create RemoveFeatures', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       minSize: 0.5,

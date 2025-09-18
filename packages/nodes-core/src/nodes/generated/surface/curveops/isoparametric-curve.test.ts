@@ -7,7 +7,7 @@ describe('IsoparametricCurveNode', () => {
   it('should create IsoparametricCurve', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */
+      surface: null
     };
     const params = {
       direction: "U",

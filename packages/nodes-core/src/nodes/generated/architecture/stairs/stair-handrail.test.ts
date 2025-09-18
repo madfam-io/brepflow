@@ -7,7 +7,7 @@ describe('StairHandrailNode', () => {
   it('should create StairHandrail', async () => {
     const context = createTestContext();
     const inputs = {
-      stairEdge: /* test value */
+      stairEdge: null
     };
     const params = {
       height: 900,

@@ -7,7 +7,7 @@ describe('HyperbolicTangentNode', () => {
   it('should create HyperbolicTangent', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

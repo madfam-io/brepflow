@@ -7,7 +7,7 @@ describe('CurveDerivativesNode', () => {
   it('should create CurveDerivatives', async () => {
     const context = createTestContext();
     const inputs = {
-      curve: /* test value */
+      curve: null
     };
     const params = {
       parameter: 0.5,

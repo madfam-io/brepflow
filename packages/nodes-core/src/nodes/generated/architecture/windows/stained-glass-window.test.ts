@@ -7,7 +7,7 @@ describe('StainedGlassWindowNode', () => {
   it('should create StainedGlassWindow', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       pattern: "geometric",

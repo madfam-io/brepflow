@@ -7,7 +7,7 @@ describe('RaisedFloorNode', () => {
   it('should create RaisedFloor', async () => {
     const context = createTestContext();
     const inputs = {
-      roomBoundary: /* test value */
+      roomBoundary: null
     };
     const params = {
       height: 300,

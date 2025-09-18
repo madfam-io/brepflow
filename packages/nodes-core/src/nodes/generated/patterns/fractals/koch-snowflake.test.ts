@@ -7,7 +7,7 @@ describe('KochSnowflakeNode', () => {
   it('should create KochSnowflake', async () => {
     const context = createTestContext();
     const inputs = {
-      triangle: /* test value */
+      triangle: null
     };
     const params = {
       iterations: 4

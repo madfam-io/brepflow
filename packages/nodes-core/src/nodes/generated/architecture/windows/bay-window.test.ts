@@ -7,7 +7,7 @@ describe('BayWindowNode', () => {
   it('should create BayWindow', async () => {
     const context = createTestContext();
     const inputs = {
-      wallOpening: /* test value */
+      wallOpening: null
     };
     const params = {
       projection: 600,

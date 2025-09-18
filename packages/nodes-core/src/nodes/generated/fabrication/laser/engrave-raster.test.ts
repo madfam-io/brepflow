@@ -7,8 +7,8 @@ describe('EngraveRasterNode', () => {
   it('should create EngraveRaster', async () => {
     const context = createTestContext();
     const inputs = {
-      image: /* test value */,
-      boundary: /* test value */
+      image: null,
+      boundary: null
     };
     const params = {
       resolution: 300,

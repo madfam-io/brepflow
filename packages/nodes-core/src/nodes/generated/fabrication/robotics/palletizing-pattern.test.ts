@@ -7,8 +7,8 @@ describe('PalletizingPatternNode', () => {
   it('should create PalletizingPattern', async () => {
     const context = createTestContext();
     const inputs = {
-      boxSize: /* test value */,
-      palletSize: /* test value */
+      boxSize: null,
+      palletSize: null
     };
     const params = {
       pattern: "interlocked",

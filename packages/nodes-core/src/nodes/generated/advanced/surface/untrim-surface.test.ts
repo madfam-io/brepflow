@@ -7,7 +7,7 @@ describe('UntrimSurfaceNode', () => {
   it('should create UntrimSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      trimmedSurface: /* test value */
+      trimmedSurface: null
     };
     const params = {
       keepHoles: false

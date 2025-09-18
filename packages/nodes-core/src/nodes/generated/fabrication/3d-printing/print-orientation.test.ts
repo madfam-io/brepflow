@@ -7,7 +7,7 @@ describe('PrintOrientationNode', () => {
   it('should create PrintOrientation', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       optimize: "support",

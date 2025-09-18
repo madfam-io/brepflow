@@ -7,7 +7,7 @@ describe('MedialAxisNode', () => {
   it('should create MedialAxis', async () => {
     const context = createTestContext();
     const inputs = {
-      shape: /* test value */
+      shape: null
     };
     const params = {
       resolution: 0.1,

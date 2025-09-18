@@ -7,8 +7,8 @@ describe('PathNode', () => {
   it('should create Path', async () => {
     const context = createTestContext();
     const inputs = {
-      path: /* test value */,
-      follower: /* test value */
+      path: null,
+      follower: null
     };
     const params = {
       position: 0,

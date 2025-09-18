@@ -7,8 +7,8 @@ describe('ExportCFDNode', () => {
   it('should create ExportCFD', async () => {
     const context = createTestContext();
     const inputs = {
-      cfdModel: /* test value */,
-      setupData: /* test value */
+      cfdModel: null,
+      setupData: null
     };
     const params = {
       format: "openfoam",

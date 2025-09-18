@@ -7,7 +7,7 @@ describe('SecurityDoorNode', () => {
   it('should create SecurityDoor', async () => {
     const context = createTestContext();
     const inputs = {
-      opening: /* test value */
+      opening: null
     };
     const params = {
       level: "high",

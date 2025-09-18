@@ -7,8 +7,8 @@ describe('NetworkSurfaceNode', () => {
   it('should create NetworkSurface', async () => {
     const context = createTestContext();
     const inputs = {
-      uCurves: /* test value */,
-      vCurves: /* test value */
+      uCurves: null,
+      vCurves: null
     };
     const params = {
       continuity: "G1",

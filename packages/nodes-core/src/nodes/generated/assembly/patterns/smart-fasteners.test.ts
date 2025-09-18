@@ -7,7 +7,7 @@ describe('SmartFastenersNode', () => {
   it('should create SmartFasteners', async () => {
     const context = createTestContext();
     const inputs = {
-      holes: /* test value */
+      holes: null
     };
     const params = {
       type: "bolt",

@@ -7,9 +7,9 @@ describe('ScrewNode', () => {
   it('should create Screw', async () => {
     const context = createTestContext();
     const inputs = {
-      part1: /* test value */,
-      part2: /* test value */,
-      axis: /* test value */
+      part1: null,
+      part2: null,
+      axis: null
     };
     const params = {
       pitch: 1

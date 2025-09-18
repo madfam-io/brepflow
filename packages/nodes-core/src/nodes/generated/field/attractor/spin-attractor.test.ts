@@ -7,7 +7,7 @@ describe('SpinAttractorNode', () => {
   it('should create SpinAttractor', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       strength: 1,

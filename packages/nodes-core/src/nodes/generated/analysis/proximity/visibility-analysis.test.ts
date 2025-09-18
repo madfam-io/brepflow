@@ -7,8 +7,8 @@ describe('VisibilityAnalysisNode', () => {
   it('should create VisibilityAnalysis', async () => {
     const context = createTestContext();
     const inputs = {
-      viewpoint: /* test value */,
-      targets: /* test value */
+      viewpoint: null,
+      targets: null
     };
     const params = {
       viewAngle: 120,

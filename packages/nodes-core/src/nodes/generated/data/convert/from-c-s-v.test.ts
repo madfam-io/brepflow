@@ -7,7 +7,7 @@ describe('FromCSVNode', () => {
   it('should create FromCSV', async () => {
     const context = createTestContext();
     const inputs = {
-      csv: /* test value */
+      csv: null
     };
     const params = {
       delimiter: ",",

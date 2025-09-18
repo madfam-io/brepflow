@@ -7,8 +7,8 @@ describe('PointToPointNode', () => {
   it('should create PointToPoint', async () => {
     const context = createTestContext();
     const inputs = {
-      point1: /* test value */,
-      point2: /* test value */
+      point1: null,
+      point2: null
     };
     const params = {
       

@@ -7,7 +7,7 @@ describe('QuasiCrystalNode', () => {
   it('should create QuasiCrystal', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       symmetry: 5,

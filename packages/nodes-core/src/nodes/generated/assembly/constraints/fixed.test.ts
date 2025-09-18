@@ -7,7 +7,7 @@ describe('FixedNode', () => {
   it('should create Fixed', async () => {
     const context = createTestContext();
     const inputs = {
-      entity: /* test value */
+      entity: null
     };
     const params = {
       

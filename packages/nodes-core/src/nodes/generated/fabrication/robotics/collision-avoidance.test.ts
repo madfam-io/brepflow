@@ -7,8 +7,8 @@ describe('CollisionAvoidanceNode', () => {
   it('should create CollisionAvoidance', async () => {
     const context = createTestContext();
     const inputs = {
-      robotPath: /* test value */,
-      environment: /* test value */
+      robotPath: null,
+      environment: null
     };
     const params = {
       safetyMargin: 10

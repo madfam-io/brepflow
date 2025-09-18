@@ -7,7 +7,7 @@ describe('SolubleSupportInterfaceNode', () => {
   it('should create SolubleSupportInterface', async () => {
     const context = createTestContext();
     const inputs = {
-      supports: /* test value */
+      supports: null
     };
     const params = {
       interfaceLayers: 2,

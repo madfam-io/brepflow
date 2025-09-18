@@ -7,7 +7,7 @@ describe('WallThicknessNode', () => {
   it('should create WallThickness', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */
+      solid: null
     };
     const params = {
       minThickness: 1,

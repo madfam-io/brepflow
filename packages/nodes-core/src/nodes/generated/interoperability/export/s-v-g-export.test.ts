@@ -7,8 +7,8 @@ describe('SVGExportNode', () => {
   it('should create SVGExport', async () => {
     const context = createTestContext();
     const inputs = {
-      curves: /* test value */,
-      filePath: /* test value */
+      curves: null,
+      filePath: null
     };
     const params = {
       scale: 1,

@@ -7,8 +7,8 @@ describe('FieldSubtractNode', () => {
   it('should create FieldSubtract', async () => {
     const context = createTestContext();
     const inputs = {
-      fieldA: /* test value */,
-      fieldB: /* test value */
+      fieldA: null,
+      fieldB: null
     };
     const params = {
       

@@ -7,7 +7,7 @@ describe('FloorExpansionJointNode', () => {
   it('should create FloorExpansionJoint', async () => {
     const context = createTestContext();
     const inputs = {
-      jointPath: /* test value */
+      jointPath: null
     };
     const params = {
       jointWidth: 25,

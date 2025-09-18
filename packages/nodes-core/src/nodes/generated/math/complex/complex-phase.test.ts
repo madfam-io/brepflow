@@ -7,7 +7,7 @@ describe('ComplexPhaseNode', () => {
   it('should create ComplexPhase', async () => {
     const context = createTestContext();
     const inputs = {
-      complex: /* test value */
+      complex: null
     };
     const params = {
       

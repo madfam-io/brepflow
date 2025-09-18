@@ -7,7 +7,7 @@ describe('PerimeterGeneratorNode', () => {
   it('should create PerimeterGenerator', async () => {
     const context = createTestContext();
     const inputs = {
-      slice: /* test value */
+      slice: null
     };
     const params = {
       perimeters: 3,

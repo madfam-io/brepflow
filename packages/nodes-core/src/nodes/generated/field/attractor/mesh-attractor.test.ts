@@ -7,7 +7,7 @@ describe('MeshAttractorNode', () => {
   it('should create MeshAttractor', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh: /* test value */
+      mesh: null
     };
     const params = {
       strength: 1,

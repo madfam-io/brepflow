@@ -7,7 +7,7 @@ describe('RotaryAttachmentNode', () => {
   it('should create RotaryAttachment', async () => {
     const context = createTestContext();
     const inputs = {
-      cylindricalPattern: /* test value */
+      cylindricalPattern: null
     };
     const params = {
       diameter: 100,

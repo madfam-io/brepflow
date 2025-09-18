@@ -7,8 +7,8 @@ describe('HemNode', () => {
   it('should create Hem', async () => {
     const context = createTestContext();
     const inputs = {
-      sheet: /* test value */,
-      edge: /* test value */
+      sheet: null,
+      edge: null
     };
     const params = {
       hemType: "closed",

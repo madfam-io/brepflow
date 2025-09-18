@@ -7,8 +7,8 @@ describe('HelicalEntryNode', () => {
   it('should create HelicalEntry', async () => {
     const context = createTestContext();
     const inputs = {
-      entryPoint: /* test value */,
-      depth: /* test value */
+      entryPoint: null,
+      depth: null
     };
     const params = {
       helixDiameter: 10,

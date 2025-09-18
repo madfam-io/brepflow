@@ -7,7 +7,7 @@ describe('SingularityAvoidanceNode', () => {
   it('should create SingularityAvoidance', async () => {
     const context = createTestContext();
     const inputs = {
-      jointTrajectory: /* test value */
+      jointTrajectory: null
     };
     const params = {
       threshold: 0.1

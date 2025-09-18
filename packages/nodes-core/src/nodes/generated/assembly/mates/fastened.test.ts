@@ -7,8 +7,8 @@ describe('FastenedNode', () => {
   it('should create Fastened', async () => {
     const context = createTestContext();
     const inputs = {
-      component1: /* test value */,
-      component2: /* test value */
+      component1: null,
+      component2: null
     };
     const params = {
       

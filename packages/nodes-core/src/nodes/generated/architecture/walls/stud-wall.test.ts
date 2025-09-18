@@ -7,7 +7,7 @@ describe('StudWallNode', () => {
   it('should create StudWall', async () => {
     const context = createTestContext();
     const inputs = {
-      outline: /* test value */
+      outline: null
     };
     const params = {
       studSpacing: 400,

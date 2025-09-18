@@ -7,8 +7,8 @@ describe('DistanceMeasurementNode', () => {
   it('should create DistanceMeasurement', async () => {
     const context = createTestContext();
     const inputs = {
-      point1: /* test value */,
-      point2: /* test value */
+      point1: null,
+      point2: null
     };
     const params = {
       precision: 2,

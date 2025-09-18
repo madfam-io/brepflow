@@ -7,9 +7,9 @@ describe('EmailSenderNode', () => {
   it('should create EmailSender', async () => {
     const context = createTestContext();
     const inputs = {
-      to: /* test value */,
-      subject: /* test value */,
-      body: /* test value */
+      to: null,
+      subject: null,
+      body: null
     };
     const params = {
       smtpServer: "",

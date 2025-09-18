@@ -7,7 +7,7 @@ describe('PillowBlockNode', () => {
   it('should create PillowBlock', async () => {
     const context = createTestContext();
     const inputs = {
-      position: /* test value */
+      position: null
     };
     const params = {
       shaftDiameter: 20,

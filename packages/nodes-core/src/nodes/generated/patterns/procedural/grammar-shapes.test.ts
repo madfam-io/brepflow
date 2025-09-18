@@ -7,7 +7,7 @@ describe('GrammarShapesNode', () => {
   it('should create GrammarShapes', async () => {
     const context = createTestContext();
     const inputs = {
-      shapeA: /* test value */
+      shapeA: null
     };
     const params = {
       grammar: "A->AB,B->A",

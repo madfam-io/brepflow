@@ -7,7 +7,7 @@ describe('Exp10Node', () => {
   it('should create Exp10', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

@@ -7,7 +7,7 @@ describe('WorkCoordinateNode', () => {
   it('should create WorkCoordinate', async () => {
     const context = createTestContext();
     const inputs = {
-      origin: /* test value */
+      origin: null
     };
     const params = {
       wcs: "G54"

@@ -7,7 +7,7 @@ describe('FloorNode', () => {
   it('should create Floor', async () => {
     const context = createTestContext();
     const inputs = {
-      value: /* test value */
+      value: null
     };
     const params = {
       

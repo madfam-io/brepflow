@@ -7,8 +7,8 @@ describe('FieldDisplaceNode', () => {
   it('should create FieldDisplace', async () => {
     const context = createTestContext();
     const inputs = {
-      surface: /* test value */,
-      field: /* test value */
+      surface: null,
+      field: null
     };
     const params = {
       strength: 10

@@ -7,7 +7,7 @@ describe('CelticBraidNode', () => {
   it('should create CelticBraid', async () => {
     const context = createTestContext();
     const inputs = {
-      centerline: /* test value */
+      centerline: null
     };
     const params = {
       strands: 3,

@@ -7,7 +7,7 @@ describe('RobotMaintenanceNode', () => {
   it('should create RobotMaintenance', async () => {
     const context = createTestContext();
     const inputs = {
-      robotData: /* test value */
+      robotData: null
     };
     const params = {
       operatingHours: 1000

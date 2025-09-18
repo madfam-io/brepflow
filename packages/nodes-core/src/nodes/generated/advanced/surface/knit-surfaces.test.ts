@@ -7,7 +7,7 @@ describe('KnitSurfacesNode', () => {
   it('should create KnitSurfaces', async () => {
     const context = createTestContext();
     const inputs = {
-      surfaces: /* test value */
+      surfaces: null
     };
     const params = {
       tolerance: 0.01,

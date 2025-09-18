@@ -7,8 +7,8 @@ describe('DraftNode', () => {
   it('should create Draft', async () => {
     const context = createTestContext();
     const inputs = {
-      solid: /* test value */,
-      facesToDraft: /* test value */
+      solid: null,
+      facesToDraft: null
     };
     const params = {
       angle: 3,

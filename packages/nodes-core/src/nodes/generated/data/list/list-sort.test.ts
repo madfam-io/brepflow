@@ -7,7 +7,7 @@ describe('ListSortNode', () => {
   it('should create ListSort', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */
+      list: null
     };
     const params = {
       ascending: true

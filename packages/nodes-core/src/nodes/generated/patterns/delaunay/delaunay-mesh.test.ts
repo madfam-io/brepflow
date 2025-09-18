@@ -7,7 +7,7 @@ describe('DelaunayMeshNode', () => {
   it('should create DelaunayMesh', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       targetSize: 10,

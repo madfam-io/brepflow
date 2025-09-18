@@ -7,7 +7,7 @@ describe('SafetyZoneSetupNode', () => {
   it('should create SafetyZoneSetup', async () => {
     const context = createTestContext();
     const inputs = {
-      zones: /* test value */
+      zones: null
     };
     const params = {
       zoneType: "slow",

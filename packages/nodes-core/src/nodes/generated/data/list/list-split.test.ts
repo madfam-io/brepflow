@@ -7,8 +7,8 @@ describe('ListSplitNode', () => {
   it('should create ListSplit', async () => {
     const context = createTestContext();
     const inputs = {
-      list: /* test value */,
-      index: /* test value */
+      list: null,
+      index: null
     };
     const params = {
       

@@ -7,7 +7,7 @@ describe('FromBase64Node', () => {
   it('should create FromBase64', async () => {
     const context = createTestContext();
     const inputs = {
-      base64: /* test value */
+      base64: null
     };
     const params = {
       

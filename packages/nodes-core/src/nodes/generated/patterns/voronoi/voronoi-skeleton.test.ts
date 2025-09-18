@@ -7,7 +7,7 @@ describe('VoronoiSkeletonNode', () => {
   it('should create VoronoiSkeleton', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */
+      boundary: null
     };
     const params = {
       pruning: 0.1

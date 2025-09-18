@@ -7,8 +7,8 @@ describe('RampEntryNode', () => {
   it('should create RampEntry', async () => {
     const context = createTestContext();
     const inputs = {
-      entryEdge: /* test value */,
-      depth: /* test value */
+      entryEdge: null,
+      depth: null
     };
     const params = {
       rampAngle: 5,

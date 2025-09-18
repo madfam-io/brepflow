@@ -7,7 +7,7 @@ describe('EpoxyFloorNode', () => {
   it('should create EpoxyFloor', async () => {
     const context = createTestContext();
     const inputs = {
-      floorSurface: /* test value */
+      floorSurface: null
     };
     const params = {
       thickness: 3,

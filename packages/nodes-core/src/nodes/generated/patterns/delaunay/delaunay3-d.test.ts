@@ -7,7 +7,7 @@ describe('Delaunay3DNode', () => {
   it('should create Delaunay3D', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       

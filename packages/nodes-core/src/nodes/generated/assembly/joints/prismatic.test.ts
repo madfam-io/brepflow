@@ -7,9 +7,9 @@ describe('PrismaticNode', () => {
   it('should create Prismatic', async () => {
     const context = createTestContext();
     const inputs = {
-      part1: /* test value */,
-      part2: /* test value */,
-      direction: /* test value */
+      part1: null,
+      part2: null,
+      direction: null
     };
     const params = {
       minDistance: 0,

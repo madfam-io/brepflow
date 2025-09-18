@@ -7,8 +7,8 @@ describe('StringFormatNode', () => {
   it('should create StringFormat', async () => {
     const context = createTestContext();
     const inputs = {
-      template: /* test value */,
-      values: /* test value */
+      template: null,
+      values: null
     };
     const params = {
       

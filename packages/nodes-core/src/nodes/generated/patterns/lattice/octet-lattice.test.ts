@@ -7,7 +7,7 @@ describe('OctetLatticeNode', () => {
   it('should create OctetLattice', async () => {
     const context = createTestContext();
     const inputs = {
-      bounds: /* test value */
+      bounds: null
     };
     const params = {
       cellSize: 10,

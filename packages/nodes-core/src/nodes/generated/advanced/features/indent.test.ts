@@ -7,8 +7,8 @@ describe('IndentNode', () => {
   it('should create Indent', async () => {
     const context = createTestContext();
     const inputs = {
-      targetBody: /* test value */,
-      toolBody: /* test value */
+      targetBody: null,
+      toolBody: null
     };
     const params = {
       offset: 0.5,

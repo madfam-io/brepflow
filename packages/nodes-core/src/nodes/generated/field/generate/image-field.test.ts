@@ -7,7 +7,7 @@ describe('ImageFieldNode', () => {
   it('should create ImageField', async () => {
     const context = createTestContext();
     const inputs = {
-      image: /* test value */
+      image: null
     };
     const params = {
       channel: "luminance",

@@ -7,7 +7,7 @@ describe('ChargeFieldNode', () => {
   it('should create ChargeField', async () => {
     const context = createTestContext();
     const inputs = {
-      points: /* test value */
+      points: null
     };
     const params = {
       charge: 1,

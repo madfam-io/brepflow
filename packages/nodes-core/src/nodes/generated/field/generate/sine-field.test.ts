@@ -7,7 +7,7 @@ describe('SineFieldNode', () => {
   it('should create SineField', async () => {
     const context = createTestContext();
     const inputs = {
-      domain: /* test value */
+      domain: null
     };
     const params = {
       frequency: [0.1,0.1,0.1],

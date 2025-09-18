@@ -7,7 +7,7 @@ describe('FieldVolumeNode', () => {
   it('should create FieldVolume', async () => {
     const context = createTestContext();
     const inputs = {
-      bounds: /* test value */
+      bounds: null
     };
     const params = {
       voxelSize: 1,

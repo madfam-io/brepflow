@@ -7,7 +7,7 @@ describe('DirectionalAttractorNode', () => {
   it('should create DirectionalAttractor', async () => {
     const context = createTestContext();
     const inputs = {
-      origin: /* test value */
+      origin: null
     };
     const params = {
       direction: [1,0,0],

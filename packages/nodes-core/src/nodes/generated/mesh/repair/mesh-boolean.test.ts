@@ -7,8 +7,8 @@ describe('MeshBooleanNode', () => {
   it('should create MeshBoolean', async () => {
     const context = createTestContext();
     const inputs = {
-      mesh1: /* test value */,
-      mesh2: /* test value */
+      mesh1: null,
+      mesh2: null
     };
     const params = {
       operation: "union",

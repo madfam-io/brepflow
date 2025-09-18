@@ -7,7 +7,7 @@ describe('ShearWallNode', () => {
   it('should create ShearWall', async () => {
     const context = createTestContext();
     const inputs = {
-      wallOutline: /* test value */
+      wallOutline: null
     };
     const params = {
       thickness: 300,

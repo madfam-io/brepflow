@@ -7,7 +7,7 @@ describe('AdaptiveLayerHeightNode', () => {
   it('should create AdaptiveLayerHeight', async () => {
     const context = createTestContext();
     const inputs = {
-      model: /* test value */
+      model: null
     };
     const params = {
       minHeight: 0.1,

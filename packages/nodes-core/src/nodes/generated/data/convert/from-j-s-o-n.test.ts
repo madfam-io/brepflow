@@ -7,7 +7,7 @@ describe('FromJSONNode', () => {
   it('should create FromJSON', async () => {
     const context = createTestContext();
     const inputs = {
-      json: /* test value */
+      json: null
     };
     const params = {
       

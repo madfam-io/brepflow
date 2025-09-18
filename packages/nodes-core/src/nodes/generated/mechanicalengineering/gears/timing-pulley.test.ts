@@ -7,7 +7,7 @@ describe('TimingPulleyNode', () => {
   it('should create TimingPulley', async () => {
     const context = createTestContext();
     const inputs = {
-      center: /* test value */
+      center: null
     };
     const params = {
       pitch: "GT2",

@@ -7,8 +7,8 @@ describe('PackingCirclesNode', () => {
   it('should create PackingCircles', async () => {
     const context = createTestContext();
     const inputs = {
-      boundary: /* test value */,
-      radii: /* test value */
+      boundary: null,
+      radii: null
     };
     const params = {
       algorithm: "power-diagram"
