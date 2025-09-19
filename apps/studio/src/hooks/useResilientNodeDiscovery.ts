@@ -429,6 +429,7 @@ export function useResilientNodeDiscovery() {
 
   useEffect(() => {
     async function attemptNodeDiscovery() {
+      console.log('🔍 useResilientNodeDiscovery hook called - starting discovery process');
       const discoveryErrors: string[] = [];
 
       try {
@@ -439,11 +440,17 @@ export function useResilientNodeDiscovery() {
           console.log('🔍 Starting dynamic node discovery...');
 
           // Initialize the enhanced registry with demonstration nodes
-          await registerAllNodes();
+          console.log('🔍 DEBUG: About to call registerAllNodes...');
+          try {
+            const initResult = await registerAllNodes();
+            console.log('🔍 DEBUG: registerAllNodes returned:', initResult);
 
-          // Get the populated registry instance
-          const registry = getEnhancedRegistry();
-          const dynamicNodes = registry.getAllNodes();
+            // Get the populated registry instance
+            console.log('🔍 DEBUG: About to call getEnhancedRegistry...');
+            const registry = getEnhancedRegistry();
+            console.log('🔍 DEBUG: getEnhancedRegistry returned:', registry);
+            const dynamicNodes = registry.getAllNodes();
+            console.log(`🔍 DEBUG: Registry retrieved, found ${dynamicNodes?.length || 0} nodes`);
 
           if (dynamicNodes && dynamicNodes.length > 0) {
             // Success: use dynamic registry
@@ -462,6 +469,10 @@ export function useResilientNodeDiscovery() {
             return;
           } else {
             discoveryErrors.push('Registry returned empty node list after initialization');
+          }
+          } catch (registryError) {
+            console.error('🔍 DEBUG: registerAllNodes threw error:', registryError);
+            discoveryErrors.push(`Registry initialization failed: ${registryError instanceof Error ? registryError.message : String(registryError)}`);
           }
         } else {
           discoveryErrors.push('registerAllNodes or getEnhancedRegistry not available');

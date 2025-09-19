@@ -97,15 +97,65 @@ async function initializeOCCT(): Promise<OCCTModule> {
   try {
     console.log('[OCCT Production] Loading WASM module...');
 
-    // Dynamic import of the compiled WASM module
-    const createModule = await import('../wasm/occt.js');
+    // Construct proper URL for WASM module based on environment
+    let wasmModuleUrl: string;
+    
+    // Check if we're in a worker context
+    if (typeof self !== 'undefined' && typeof window === 'undefined') {
+      // In worker context - need to construct full URL
+      const origin = self.location?.origin || 'http://localhost:5173';
+      wasmModuleUrl = `${origin}/wasm/occt.js`;
+      console.log('[OCCT Production] Worker context - using URL:', wasmModuleUrl);
+    } else if (typeof window !== 'undefined') {
+      // In main thread context
+      wasmModuleUrl = '/wasm/occt.js';
+      console.log('[OCCT Production] Main thread context - using path:', wasmModuleUrl);
+    } else {
+      // Fallback for other environments
+      wasmModuleUrl = '/wasm/occt.js';
+      console.log('[OCCT Production] Unknown context - using fallback path:', wasmModuleUrl);
+    }
+
+    // Try to load the module - first attempt with fetch for worker context
+    let createModule: any;
+    
+    try {
+      if (typeof self !== 'undefined' && typeof window === 'undefined') {
+        // Worker context - use fetch to load the module
+        console.log('[OCCT Production] Fetching module from:', wasmModuleUrl);
+        const response = await fetch(wasmModuleUrl);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch WASM module: ${response.status} ${response.statusText}`);
+        }
+        const moduleText = await response.text();
+        
+        // Create a blob URL to import the module
+        const blob = new Blob([moduleText], { type: 'application/javascript' });
+        const blobUrl = URL.createObjectURL(blob);
+        createModule = await import(/* @vite-ignore */ blobUrl);
+        URL.revokeObjectURL(blobUrl);
+      } else {
+        // Main thread - use dynamic import
+        createModule = await import(/* @vite-ignore */ wasmModuleUrl);
+      }
+    } catch (error) {
+      console.error('[OCCT Production] Failed to load module:', error);
+      throw new Error(`WASM module loading failed: ${error instanceof Error ? error.message : error}`);
+    }
 
     // Configure module initialization
     const moduleConfig = {
       locateFile: (path: string) => {
         if (path.endsWith('.wasm')) {
-          // Use the production WASM file
-          return new URL('../wasm/occt.wasm', import.meta.url).href;
+          // Construct proper URL for WASM files
+          if (typeof self !== 'undefined' && typeof window === 'undefined') {
+            // Worker context - need full URL
+            const origin = self.location?.origin || 'http://localhost:5173';
+            return `${origin}/wasm/${path}`;
+          } else {
+            // Main thread - relative path works
+            return `/wasm/${path}`;
+          }
         }
         return path;
       },

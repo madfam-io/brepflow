@@ -306,9 +306,9 @@ MeshData tessellate(const std::string& shapeId, double precision = 0.1, double a
             const gp_Trsf& transform = location.Transformation();
 
             // Add vertices
-            const TColgp_Array1OfPnt& nodes = triangulation->Nodes();
-            for (int i = nodes.Lower(); i <= nodes.Upper(); i++) {
-                gp_Pnt point = nodes(i);
+            int nbNodes = triangulation->NbNodes();
+            for (int i = 1; i <= nbNodes; i++) {
+                gp_Pnt point = triangulation->Node(i);
                 point.Transform(transform);
 
                 meshData.positions.push_back(static_cast<float>(point.X()));
@@ -322,9 +322,9 @@ MeshData tessellate(const std::string& shapeId, double precision = 0.1, double a
             }
 
             // Add triangles
-            const Poly_Array1OfTriangle& triangles = triangulation->Triangles();
-            for (int i = triangles.Lower(); i <= triangles.Upper(); i++) {
-                Poly_Triangle triangle = triangles(i);
+            int nbTriangles = triangulation->NbTriangles();
+            for (int i = 1; i <= nbTriangles; i++) {
+                const Poly_Triangle& triangle = triangulation->Triangle(i);
                 int n1, n2, n3;
                 triangle.Get(n1, n2, n3);
 
@@ -333,7 +333,7 @@ MeshData tessellate(const std::string& shapeId, double precision = 0.1, double a
                 meshData.indices.push_back(vertexOffset + n3 - 1);
             }
 
-            vertexOffset += nodes.Upper() - nodes.Lower() + 1;
+            vertexOffset += nbNodes;
         }
 
         // Add edges for wireframe rendering

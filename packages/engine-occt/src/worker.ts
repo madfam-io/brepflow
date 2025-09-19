@@ -1,5 +1,8 @@
 /**
  * OCCT.wasm worker for real geometry operations
+ *
+ * CRITICAL: This worker MUST use real OCCT geometry in production and development.
+ * Mock geometry is ONLY allowed when explicitly in test mode.
  */
 
 import { loadOCCT } from './occt-bindings';
@@ -7,10 +10,14 @@ import { MockGeometry } from './mock-geometry';
 import { occtProductionAPI } from './occt-production';
 import type { WorkerRequest, WorkerResponse } from './worker-types';
 
+// Determine if we're in test mode (ONLY place where mock is acceptable)
+const isTestMode = typeof process !== 'undefined' && process.env?.NODE_ENV === 'test';
+
 let occtModule: any = null;
 let isInitialized = false;
 let useProduction = false;
-const mockGeometry = new MockGeometry(); // Fallback for operations not yet implemented
+let useMockForTesting = false;
+const mockGeometry = new MockGeometry(); // ONLY for explicit test mode
 
 // Handle messages from main thread
 self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
@@ -22,52 +29,84 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
     switch (request.type) {
       case 'INIT':
         if (!isInitialized) {
+          // 1. Try production API first (preferred for real OCCT operations)
           try {
-            // Try production API first for real OCCT operations
+            console.log('[OCCT Worker] Attempting production API initialization...');
             await occtProductionAPI.ensureInitialized();
             useProduction = true;
             isInitialized = true;
-            console.log('OCCT worker initialized with production API');
+            console.log('✅ OCCT worker initialized with production API (real geometry)');
           } catch (prodError) {
-            console.warn('Production API failed, trying fallback:', prodError);
+            console.warn('[OCCT Worker] Production API failed:', prodError);
+
+            // 2. Try fallback to standard bindings
             try {
-              // Fallback to standard bindings
+              console.log('[OCCT Worker] Attempting fallback bindings...');
               occtModule = await loadOCCT();
               isInitialized = true;
               useProduction = false;
-              console.log('OCCT worker initialized with fallback bindings');
-            } catch (error: unknown) {
-              console.warn('All OCCT initialization failed, using mock geometry:', error);
-              isInitialized = false;
-              useProduction = false;
+              console.log('✅ OCCT worker initialized with fallback bindings (real geometry)');
+            } catch (bindError: unknown) {
+              console.error('[OCCT Worker] Fallback bindings also failed:', bindError);
+
+              // 3. CRITICAL: Only use mock if explicitly in test mode
+              if (isTestMode) {
+                console.warn('[OCCT Worker] In test mode - using mock geometry');
+                await mockGeometry.init();
+                isInitialized = true;
+                useMockForTesting = true;
+              } else {
+                // FAIL COMPLETELY - no mock in production/development
+                const errorMsg = 'CRITICAL: Failed to initialize real OCCT geometry. Mock fallback is not allowed in production/development.';
+                console.error(errorMsg);
+                throw new Error(errorMsg);
+              }
             }
           }
         }
-        result = { initialized: isInitialized, production: useProduction };
+        result = {
+          initialized: isInitialized,
+          production: useProduction,
+          mockMode: useMockForTesting,
+          testMode: isTestMode
+        };
         break;
 
       case 'CREATE_LINE':
-        result = mockGeometry.createLine(
-          request.params.start,
-          request.params.end
-        );
+        // These operations are not yet implemented in production
+        if (useMockForTesting) {
+          result = mockGeometry.createLine(
+            request.params.start,
+            request.params.end
+          );
+        } else {
+          throw new Error('CREATE_LINE not yet implemented in real OCCT');
+        }
         break;
 
       case 'CREATE_CIRCLE':
-        result = mockGeometry.createCircle(
-          request.params.center,
-          request.params.radius,
-          request.params.normal
-        );
+        if (useMockForTesting) {
+          result = mockGeometry.createCircle(
+            request.params.center,
+            request.params.radius,
+            request.params.normal
+          );
+        } else {
+          throw new Error('CREATE_CIRCLE not yet implemented in real OCCT');
+        }
         break;
 
       case 'CREATE_RECTANGLE':
-        result = mockGeometry.createBox(
-          request.params.center,
-          request.params.width,
-          request.params.height,
-          1
-        );
+        if (useMockForTesting) {
+          result = mockGeometry.createBox(
+            request.params.center,
+            request.params.width,
+            request.params.height,
+            1
+          );
+        } else {
+          throw new Error('CREATE_RECTANGLE not yet implemented in real OCCT');
+        }
         break;
 
       case 'MAKE_BOX':
@@ -103,13 +142,16 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
               }
             }
           };
-        } else {
+        } else if (useMockForTesting) {
+          // ONLY use mock in explicit test mode
           result = mockGeometry.createBox(
             request.params.center,
             request.params.width,
             request.params.height,
             request.params.depth
           );
+        } else {
+          throw new Error('Real OCCT not initialized - cannot create box');
         }
         break;
 

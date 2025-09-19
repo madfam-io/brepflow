@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MockGeometry } from '@brepflow/engine-occt/src/mock-geometry';
+import { MockGeometry } from '@brepflow/engine-occt';
 import type { ShapeHandle, Vec3, MeshData } from '@brepflow/types';
 
 interface TestResult {

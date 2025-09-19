@@ -158,14 +158,18 @@ async function attemptWASMLoad(): Promise<any> {
   // For now, we use a dynamic import approach that won't break Vite
 
   try {
-    // Check if we're in a browser environment
-    if (typeof window === 'undefined') {
-      console.log('[OCCT] Non-browser environment detected, WASM loading deferred');
+    // Check if we're in a browser/worker environment
+    // In workers, 'self' is the global scope; in browser, it's 'window'
+    const globalScope: any = typeof self !== 'undefined' ? self : (typeof window !== 'undefined' ? window : null);
+
+    if (!globalScope) {
+      console.log('[OCCT] Non-browser/worker environment detected, WASM loading deferred');
       return null;
     }
 
     // Check for required browser features
-    if (!window.SharedArrayBuffer) {
+    // SharedArrayBuffer is available on the global scope (self in workers, window in browser)
+    if (!globalScope.SharedArrayBuffer) {
       console.warn('[OCCT] SharedArrayBuffer not available. Real geometry requires COOP/COEP headers.');
       console.warn('[OCCT] Add these headers to your server:');
       console.warn('[OCCT]   Cross-Origin-Opener-Policy: same-origin');
@@ -173,26 +177,29 @@ async function attemptWASMLoad(): Promise<any> {
       return null;
     }
 
-    // Attempt to load the WASM module dynamically
-    // This approach uses fetch to check if the file exists first
-    const wasmPath = new URL('../wasm/occt-core.js', import.meta.url).href;
+    // Use public directory path for WASM files (accessible by dev server)
+    const wasmPath = '/wasm/occt-core.js';
+
+    console.log('[OCCT] Attempting to load from path:', wasmPath);
 
     // First check if the file exists
     const checkResponse = await fetch(wasmPath, { method: 'HEAD' }).catch(() => null);
     if (!checkResponse || !checkResponse.ok) {
-      console.log('[OCCT] WASM files not found. Run "pnpm run build:wasm" to compile OCCT.');
+      console.log('[OCCT] WASM files not found at:', wasmPath);
+      console.log('[OCCT] Run "pnpm run build:wasm" to compile OCCT.');
       return null;
     }
 
     // If file exists, load it dynamically
-    console.log('[OCCT] Loading WASM module...');
-    const module = await import(wasmPath);
+    console.log('[OCCT] Loading WASM module from:', wasmPath);
+    const module = await import(/* @vite-ignore */ wasmPath);
     const wasmModuleFactory = module.default || module;
 
-    // Initialize the WASM module
+    // Initialize the WASM module with public directory paths
     const wasmInstance = await wasmModuleFactory({
       locateFile: (file: string) => {
-        return new URL(`../wasm/${file}`, import.meta.url).href;
+        // All WASM files are now in the public directory
+        return `/wasm/${file}`;
       },
       print: (text: string) => console.log('[OCCT WASM]', text),
       printErr: (text: string) => console.error('[OCCT WASM Error]', text),
@@ -205,7 +212,8 @@ async function attemptWASMLoad(): Promise<any> {
     if (error.message?.includes('Failed to resolve import')) {
       console.log('[OCCT] WASM not yet compiled. Run "pnpm run build:wasm" to enable real geometry.');
     } else {
-      console.log('[OCCT] WASM loading deferred:', error.message);
+      console.log('[OCCT] WASM loading error:', error.message);
+      console.log('[OCCT] Falling back to mock geometry.');
     }
     return null;
   }

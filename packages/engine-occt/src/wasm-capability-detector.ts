@@ -58,7 +58,7 @@ export class WASMCapabilityDetector {
     const caps = await this.detectCapabilities();
 
     // Full OCCT with threading (best performance)
-    if (caps.hasSharedArrayBuffer && caps.hasThreads && caps.memoryCeiling > 2048 && caps.crossOriginIsolated) {
+    if (caps.hasSharedArrayBuffer && caps.hasThreads && caps.memoryCeiling >= 1024 && caps.crossOriginIsolated) {
       return {
         mode: 'full-occt',
         wasmFile: 'occt.wasm', // 33MB version with full features
@@ -70,7 +70,7 @@ export class WASMCapabilityDetector {
     }
 
     // Optimized OCCT without threading (good performance)
-    if (caps.hasWASM && caps.memoryCeiling > 1024) {
+    if (caps.hasWASM && caps.memoryCeiling >= 512) {
       return {
         mode: 'optimized-occt',
         wasmFile: 'occt-core.wasm', // 9.6MB optimized version

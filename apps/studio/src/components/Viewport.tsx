@@ -165,8 +165,11 @@ export function Viewport() {
           const shapeHandle = (node.outputs?.shape?.value || node.outputs?.geometry?.value) as ShapeHandle;
           if (!shapeHandle || !shapeHandle.id || !dagEngine) continue;
 
-          // Tessellate the shape with better quality
-          const meshData = await dagEngine.geometryAPI.tessellate(shapeHandle.id, 0.01);
+          // Tessellate the shape with better quality using WASM invoke interface
+          const meshData = await dagEngine.geometryAPI.invoke('TESSELLATE', {
+            shape: shapeHandle,
+            deflection: 0.01
+          });
 
           // Create Three.js mesh
           const mesh = createMeshFromTessellation(meshData, node.id);

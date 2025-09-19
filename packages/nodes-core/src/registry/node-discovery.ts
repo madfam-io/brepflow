@@ -29,6 +29,7 @@ export async function discoverAllNodes(): Promise<{
   console.log(`📦 Found ${demoNodes.length} demonstration nodes`);
 
   // Register demonstration nodes
+  let registeredCount = 0;
   for (const nodeDefinition of demoNodes) {
     try {
       registry.registerNode(nodeDefinition);

@@ -76,7 +76,8 @@ emcmake cmake "$OCCT_DIR" \
     -DUSE_TBB=OFF \
     -DUSE_OPENGL=OFF \
     -DUSE_GLES2=OFF \
-    -DCMAKE_CXX_FLAGS="-O3 -fPIC" \
+    -DCMAKE_CXX_FLAGS="-O3 -fPIC -pthread -s USE_PTHREADS=1 -matomics -mbulk-memory" \
+    -DCMAKE_C_FLAGS="-O3 -fPIC -pthread -s USE_PTHREADS=1 -matomics -mbulk-memory" \
     || { echo -e "${RED}CMake configuration failed${NC}"; exit 1; }
 
 # Build OCCT libraries
@@ -92,7 +93,7 @@ mkdir -p "$OUTPUT_DIR"
 echo -e "${YELLOW}Compiling BrepFlow OCCT bindings to WASM...${NC}"
 
 OCCT_LIBS=""
-for lib in TKernel TKMath TKG2d TKG3d TKGeomBase TKBRep TKGeomAlgo TKTopAlgo TKPrim TKMesh TKBO TKFillet TKOffset TKSTEP TKIGES; do
+for lib in TKernel TKMath TKG2d TKG3d TKGeomBase TKBRep TKGeomAlgo TKTopAlgo TKPrim TKMesh TKBO TKFillet TKOffset TKShHealing TKXSBase TKDESTEP TKDEIGES; do
     if [ -f "$BUILD_DIR/lin32/clang/lib/lib${lib}.a" ]; then
         OCCT_LIBS="$OCCT_LIBS $BUILD_DIR/lin32/clang/lib/lib${lib}.a"
     elif [ -f "$BUILD_DIR/lib/lib${lib}.a" ]; then
@@ -101,25 +102,7 @@ for lib in TKernel TKMath TKG2d TKG3d TKGeomBase TKBRep TKGeomAlgo TKTopAlgo TKP
 done
 
 em++ "$BINDINGS_DIR/occt-bindings.cpp" \
-    -I"$OCCT_DIR/src/Standard" \
-    -I"$OCCT_DIR/src/BRepPrimAPI" \
-    -I"$OCCT_DIR/src/BRepAlgoAPI" \
-    -I"$OCCT_DIR/src/BRepFilletAPI" \
-    -I"$OCCT_DIR/src/BRepMesh" \
-    -I"$OCCT_DIR/src/BRep" \
-    -I"$OCCT_DIR/src/TopExp" \
-    -I"$OCCT_DIR/src/TopoDS" \
-    -I"$OCCT_DIR/src/Poly" \
-    -I"$OCCT_DIR/src/TColgp" \
-    -I"$OCCT_DIR/src/STEPControl" \
-    -I"$OCCT_DIR/src/IGESControl" \
-    -I"$OCCT_DIR/src/Bnd" \
-    -I"$OCCT_DIR/src/BRepBndLib" \
-    -I"$OCCT_DIR/src/gp" \
-    -I"$OCCT_DIR/src/TopLoc" \
-    -I"$OCCT_DIR/src/Geom" \
-    -I"$OCCT_DIR/src/GeomAbs" \
-    -I"$BUILD_DIR/inc" \
+    -I"$BUILD_DIR/include/opencascade" \
     $OCCT_LIBS \
     -o "$OUTPUT_DIR/occt.js" \
     -s WASM=1 \
@@ -135,7 +118,6 @@ em++ "$BINDINGS_DIR/occt-bindings.cpp" \
     -s ASSERTIONS=1 \
     -s SAFE_HEAP=0 \
     -s STACK_OVERFLOW_CHECK=1 \
-    -s DEMANGLE_SUPPORT=1 \
     -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
     -s NO_DISABLE_EXCEPTION_CATCHING \
     -lembind \

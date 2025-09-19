@@ -18,6 +18,10 @@ export default defineConfig({
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Embedder-Policy': 'require-corp',
     },
+    fs: {
+      // Allow serving files from the engine-occt package
+      allow: ['..', '../packages/engine-occt/wasm'],
+    },
   },
   worker: {
     format: 'es',

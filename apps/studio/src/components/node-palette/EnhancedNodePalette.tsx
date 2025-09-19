@@ -22,6 +22,7 @@ export function EnhancedNodePalette({
   compact = false,
   className
 }: EnhancedNodePaletteProps) {
+  console.log('🚀 EnhancedNodePalette component instantiated');
   const {
     registry,
     categoryTree,

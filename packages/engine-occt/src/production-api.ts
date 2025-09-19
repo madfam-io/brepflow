@@ -58,20 +58,33 @@ export class ProductionWorkerAPI implements WorkerAPI {
       // Use robust path resolution to handle bundling scenarios
       let workerUrl: string;
       try {
-        // In production, check if we're in a bundled environment
-        if (import.meta.url.includes('/assets/')) {
+        // Check if we're in development mode with Vite dev server
+        if (import.meta.url.includes('/@fs/')) {
+          // Development mode with Vite - use the correct path
+          // The worker is in the same dist directory as this file (index.mjs)
+          const baseUrl = import.meta.url.substring(0, import.meta.url.lastIndexOf('/'));
+          workerUrl = `${baseUrl}/worker.mjs`;
+          getLogger().info('Development mode: using worker from same directory');
+        } else if (import.meta.url.includes('/node_modules/')) {
+          // Running from node_modules
+          workerUrl = new URL('./worker.mjs', import.meta.url).href;
+        } else if (import.meta.url.includes('/assets/')) {
           // Production bundle - use relative path from assets
           const workerFile = './worker' + '.mjs';
           workerUrl = new URL(workerFile, import.meta.url).href;
         } else {
-          // Development - try engine-occt dist path
-          workerUrl = new URL('../engine-occt/dist/worker.mjs', import.meta.url).href;
+          // Other environments - use relative path resolution
+          workerUrl = new URL('./worker.mjs', import.meta.url).href;
         }
-      } catch {
+      } catch (error) {
+        getLogger().error('Worker URL resolution error:', error);
         // Final fallback: construct path dynamically to avoid Vite static analysis
         const workerFile = './worker' + '.mjs';
         workerUrl = new URL(workerFile, import.meta.url).href;
       }
+
+      getLogger().info(`Creating worker with URL: ${workerUrl}`);
+      getLogger().info(`Current import.meta.url: ${import.meta.url}`);
       this.worker = new Worker(workerUrl, { type: 'module' });
       
       this.setupWorkerHandlers();
