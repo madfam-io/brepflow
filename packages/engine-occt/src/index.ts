@@ -1,9 +1,11 @@
 export * from './worker-client';
 export * from './worker-types';
 export * from './geometry-api';
+export * from './occt-wrapper';
+export * from './occt-loader';
 export * from './real-occt-bindings';
 // Note: occt-worker.ts is not exported here - it's loaded as a Web Worker
-export * from './production-worker';
+// export * from './production-worker'; // Worker only - don't export in main thread
 export * from './production-api';
 export * from './production-logger';
 export * from './geometry-validator';
