@@ -21,6 +21,8 @@ export default defineConfig([
       entry: ['src/worker.ts'],
       dts: false, // Workers don't need type definitions
       shims: false, // Disable ESM shims to avoid Node.js module imports
+      skipNodeModulesBundle: false, // Bundle all dependencies for worker
+      noExternal: ['uuid'], // Ensure uuid is bundled
     }),
     clean: false, // Don't clean since we run after main build
   }

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCCT Worker Initialization Test</title>
+    <style>
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+            background: #0a0a0a;
+            color: #00ff88;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #00ff88;
+            border-bottom: 2px solid #00ff88;
+            padding-bottom: 0.5rem;
+        }
+        .test-item {
+            padding: 0.5rem 0;
+            border-left: 3px solid #333;
+            padding-left: 1rem;
+            margin: 0.5rem 0;
+        }
+        .test-item.success {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.05);
+        }
+        .test-item.error {
+            border-color: #ff3366;
+            background: rgba(255, 51, 102, 0.05);
+        }
+        .test-item.pending {
+            border-color: #ffaa00;
+            background: rgba(255, 170, 0, 0.05);
+        }
+        .status {
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        .details {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 0.25rem;
+        }
+        button {
+            background: #00ff88;
+            color: #000;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #00cc66;
+        }
+        pre {
+            background: #1a1a1a;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            color: #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 OCCT Worker Initialization Test</h1>
+
+        <div id="test-results">
+            <div class="test-item pending" id="sharedarraybuffer">
+                <span class="status">⏳</span> SharedArrayBuffer Support
+                <div class="details">Checking browser capabilities...</div>
+            </div>
+
+            <div class="test-item pending" id="worker-creation">
+                <span class="status">⏳</span> Worker Creation
+                <div class="details">Waiting to start...</div>
+            </div>
+
+            <div class="test-item pending" id="wasm-loading">
+                <span class="status">⏳</span> WASM Module Loading
+                <div class="details">Waiting to start...</div>
+            </div>
+
+            <div class="test-item pending" id="occt-init">
+                <span class="status">⏳</span> OCCT Initialization
+                <div class="details">Waiting to start...</div>
+            </div>
+
+            <div class="test-item pending" id="geometry-test">
+                <span class="status">⏳</span> Geometry Creation Test
+                <div class="details">Waiting to start...</div>
+            </div>
+        </div>
+
+        <button onclick="runTests()">Run Tests</button>
+
+        <h2>Console Output</h2>
+        <pre id="console-output"></pre>
+    </div>
+
+    <script type="module">
+        window.logToConsole = function(message, type = 'info') {
+            const output = document.getElementById('console-output');
+            const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
+            const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : '📝';
+            output.textContent += `[${timestamp}] ${prefix} ${message}\n`;
+            output.scrollTop = output.scrollHeight;
+
+            // Also log to actual console
+            console.log(message);
+        };
+
+        function updateTestStatus(testId, status, details) {
+            const element = document.getElementById(testId);
+            element.className = `test-item ${status}`;
+            const statusIcon = status === 'success' ? '✅' : status === 'error' ? '❌' : '⏳';
+            element.querySelector('.status').textContent = statusIcon;
+            element.querySelector('.details').textContent = details;
+        }
+
+        // Check SharedArrayBuffer support
+        if (typeof SharedArrayBuffer !== 'undefined') {
+            updateTestStatus('sharedarraybuffer', 'success', 'SharedArrayBuffer is available');
+            logToConsole('SharedArrayBuffer support detected', 'success');
+        } else {
+            updateTestStatus('sharedarraybuffer', 'error', 'SharedArrayBuffer not available - COOP/COEP headers may be missing');
+            logToConsole('SharedArrayBuffer not available!', 'error');
+        }
+
+        window.runTests = async function() {
+            logToConsole('Starting OCCT Worker initialization tests...', 'info');
+
+            try {
+                // Test 1: Create Worker
+                updateTestStatus('worker-creation', 'pending', 'Creating worker...');
+                const worker = new Worker('/wasm/worker.mjs', { type: 'module' });
+
+                let initResolve, initReject;
+                const initPromise = new Promise((resolve, reject) => {
+                    initResolve = resolve;
+                    initReject = reject;
+                });
+
+                worker.onmessage = function(event) {
+                    const { type, data, success, error } = event.data;
+
+                    if (type === 'INIT') {
+                        if (success) {
+                            logToConsole(`Worker initialized: production=${data.production}, mock=${data.mockMode}`, 'success');
+                            updateTestStatus('occt-init', 'success', `OCCT initialized (Production: ${data.production})`);
+                            initResolve();
+                        } else {
+                            logToConsole(`Worker init failed: ${error}`, 'error');
+                            updateTestStatus('occt-init', 'error', error || 'Unknown error');
+                            initReject(new Error(error));
+                        }
+                    } else if (type === 'MAKE_BOX') {
+                        if (success) {
+                            logToConsole(`Box created: ${JSON.stringify(data)}`, 'success');
+                            updateTestStatus('geometry-test', 'success', `Box created with ID: ${data.id}`);
+                        } else {
+                            logToConsole(`Box creation failed: ${error}`, 'error');
+                            updateTestStatus('geometry-test', 'error', error || 'Failed to create box');
+                        }
+                    }
+                };
+
+                worker.onerror = function(error) {
+                    logToConsole(`Worker error: ${error.message}`, 'error');
+                    updateTestStatus('worker-creation', 'error', error.message);
+                    initReject(error);
+                };
+
+                updateTestStatus('worker-creation', 'success', 'Worker created successfully');
+                logToConsole('Worker created', 'success');
+
+                // Test 2: Initialize WASM
+                updateTestStatus('wasm-loading', 'pending', 'Loading OCCT WASM module...');
+                worker.postMessage({ type: 'INIT', id: 1 });
+
+                // Wait for initialization
+                await initPromise;
+                updateTestStatus('wasm-loading', 'success', 'WASM module loaded');
+
+                // Test 3: Create geometry
+                updateTestStatus('geometry-test', 'pending', 'Creating test box...');
+                worker.postMessage({
+                    type: 'MAKE_BOX',
+                    id: 2,
+                    params: {
+                        width: 10,
+                        height: 10,
+                        depth: 10,
+                        center: [0, 0, 0]
+                    }
+                });
+
+                // Wait for geometry creation
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                logToConsole('All tests completed!', 'success');
+
+            } catch (error) {
+                logToConsole(`Test failed: ${error.message}`, 'error');
+                console.error(error);
+            }
+        };
+
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            setTimeout(runTests, 1000);
+        });
+    </script>
+</body>
+</html>

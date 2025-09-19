@@ -83,6 +83,12 @@ export class ProductionWorkerAPI implements WorkerAPI {
         workerUrl = new URL(workerFile, import.meta.url).href;
       }
 
+      // For development with Vite, simplify to always use worker.mjs in the same directory
+      if (import.meta.url.includes('/@fs/')) {
+        const baseUrl = import.meta.url.substring(0, import.meta.url.lastIndexOf('/'));
+        workerUrl = `${baseUrl}/worker.mjs`;
+      }
+
       getLogger().info(`Creating worker with URL: ${workerUrl}`);
       getLogger().info(`Current import.meta.url: ${import.meta.url}`);
       this.worker = new Worker(workerUrl, { type: 'module' });
