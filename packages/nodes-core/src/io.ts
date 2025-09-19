@@ -41,7 +41,7 @@ export const ImportSTEPNode: NodeDefinition<
   category: 'IO',
   label: 'Import STEP',
   description: 'Import STEP file',
-  inputs: Record<string, never> as Record<string, never>,
+  inputs: {},
   outputs: {
     shapes: { type: 'Shape', multiple: true },
   },

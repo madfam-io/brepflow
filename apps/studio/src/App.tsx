@@ -45,6 +45,7 @@ import { initializeMonitoring } from './lib/monitoring';
 import { Icon } from './components/common/Icon';
 import { NodeParameterDialog } from './components/dialogs/NodeParameterDialog';
 import './App.css';
+import { BrowserWASMTestSuite } from './test-browser-wasm';
 
 function AppContent() {
   const {
@@ -446,6 +447,12 @@ function AppContent() {
 }
 
 function App() {
+  // Check if we're in test mode
+  const isTestMode = window.location.search.includes('test=wasm');
+  
+  if (isTestMode) {
+    return <BrowserWASMTestSuite />;
+  }
   const [isMonitoringReady, setIsMonitoringReady] = useState(false);
 
   useEffect(() => {
