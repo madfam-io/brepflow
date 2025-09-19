@@ -15,6 +15,14 @@ export class MockGeometry implements WorkerAPI {
   private shapes = new Map<string, MockShape>();
 
   /**
+   * Initialize the mock geometry system
+   */
+  async init(): Promise<void> {
+    // No initialization needed for mock geometry
+    console.log('[MockGeometry] Initialized');
+  }
+
+  /**
    * Create a mock shape handle
    */
   private createHandle(type: 'solid' | 'surface' | 'curve', bbox?: BoundingBox): ShapeHandle {
@@ -181,7 +189,7 @@ export class MockGeometry implements WorkerAPI {
         z: center.z + depth / 2,
       },
     };
-    return this.createHandle('solid', bbox);
+    return this.createHandle('box' as any, bbox);
   }
 
   createCylinder(center: Vec3, axis: Vec3, radius: number, height: number): ShapeHandle {
@@ -197,7 +205,7 @@ export class MockGeometry implements WorkerAPI {
         z: center.z + height,
       },
     };
-    return this.createHandle('solid', bbox);
+    return this.createHandle('cylinder' as any, bbox);
   }
 
   createSphere(center: Vec3, radius: number): ShapeHandle {
@@ -213,7 +221,7 @@ export class MockGeometry implements WorkerAPI {
         z: center.z + radius,
       },
     };
-    return this.createHandle('solid', bbox);
+    return this.createHandle('sphere' as any, bbox);
   }
 
   // Operations
@@ -303,8 +311,11 @@ export class MockGeometry implements WorkerAPI {
         return this.booleanSubtract(params.base, params.tools) as T;
       case 'booleanIntersect':
         return this.booleanIntersect(params.shapes) as T;
-      case 'tessellate':
-        return this.tessellate(params.shape, params.deflection) as T;
+      case 'tessellate': {
+        const meshData = await this.tessellate(params.shape, params.deflection);
+        // Return mesh data directly for new API
+        return meshData as T;
+      }
       case 'MAKE_BOX':
         return this.createBox(params.center, params.width, params.height, params.depth) as T;
       case 'MAKE_SPHERE':
@@ -326,13 +337,20 @@ export class MockGeometry implements WorkerAPI {
       case 'MAKE_OFFSET':
         // Mock offset - return shape as-is with new ID
         return this.createHandle('solid', params.shape?.bbox) as T;
+      case 'BOOLEAN_UNION':
+        return this.booleanUnion(params.shapes) as T;
+      case 'BOOLEAN_SUBTRACT':
+        return this.booleanSubtract(params.base, params.tools) as T;
+      case 'BOOLEAN_INTERSECT':
+        return this.booleanIntersect(params.shapes) as T;
+      case 'TESSELLATE': {
+        // Return MeshData directly for IntegratedGeometryAPI
+        const meshData = await this.tessellate(params.shape, params.deflection || params.tolerance);
+        return meshData as T;
+      }
       default:
         throw new Error(`Unknown operation: ${operation}`);
     }
-  }
-
-  async init(): Promise<void> {
-    // Mock initialization - no-op
   }
 
   // Updated tessellate method for WorkerAPI compatibility

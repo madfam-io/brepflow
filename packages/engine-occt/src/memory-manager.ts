@@ -15,6 +15,17 @@ export enum MemoryPressure {
   CRITICAL = 'critical'
 }
 
+// Default cache configuration
+export const DEFAULT_CACHE_CONFIG: Partial<MemoryConfig> = {
+  maxShapeCacheSize: 100,
+  maxMeshCacheSize: 50,
+  maxMemoryMB: 512,
+  meshLODLevels: 3,
+  cleanupThresholdMB: 400,
+  aggressiveCleanupMB: 450,
+  gcIntervalMs: 30000
+};
+
 // Memory configuration
 export interface MemoryConfig {
   maxShapeCacheSize: number;      // Max shapes in memory

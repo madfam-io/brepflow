@@ -144,7 +144,7 @@ async function initializeOCCT(): Promise<OCCTModule> {
 
     // Create the module instance
     // @ts-ignore - WASM module types
-    occtModule = await createModule.createOCCTModule(moduleConfig);
+    occtModule = await createModule.default(moduleConfig);
 
     if (!occtModule) {
       throw new Error('Failed to create OCCT module instance');

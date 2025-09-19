@@ -33,6 +33,13 @@ export class GeometryAPI implements WorkerAPI {
   }
 
   /**
+   * Check if the GeometryAPI is initialized
+   */
+  isInitialized(): boolean {
+    return this.initialized;
+  }
+
+  /**
    * Ensure the API is initialized
    */
   private async ensureInitialized(): Promise<void> {
@@ -130,10 +137,14 @@ export class GeometryAPI implements WorkerAPI {
 
     try {
       const shape = this.occtWrapper.makeBox(width, height, depth);
-      return this.createShapeHandle(shape, 'box', { width, height, depth });
+      const handle = this.createShapeHandle(shape, 'box', { width, height, depth });
+      console.log('[GeometryAPI] Created box with type:', handle.type);
+      return handle;
     } catch (error) {
-      console.warn('[GeometryAPI] Using mock box');
-      return this.createMockShape('box', { width, height, depth });
+      console.warn('[GeometryAPI] Using mock box due to error:', error);
+      const mockHandle = this.createMockShape('box', { width, height, depth });
+      console.log('[GeometryAPI] Created mock box with type:', mockHandle.type);
+      return mockHandle;
     }
   }
 

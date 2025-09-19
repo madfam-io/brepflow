@@ -9,6 +9,15 @@ import { getWorkerPool, DEFAULT_POOL_CONFIG } from './worker-pool';
 import { getMemoryManager, DEFAULT_CACHE_CONFIG } from './memory-manager';
 import { getErrorRecoverySystem, ErrorSeverity, ErrorCategory, OCCTError } from './error-recovery';
 import { WASMCapabilityDetector, WASMPerformanceMonitor } from './wasm-capability-detector';
+import {
+  detectEnvironment,
+  validateProductionSafety,
+  createProductionSafeConfig,
+  createProductionErrorBoundary,
+  logProductionSafetyStatus,
+  ProductionSafetyError,
+  type EnvironmentConfig
+} from './production-safety';
 import type { ShapeHandle, MeshData } from '@brepflow/types';
 
 export interface GeometryAPIConfig {
@@ -44,8 +53,20 @@ export class IntegratedGeometryAPI {
   private memoryManager: any = null;
   private errorRecovery: any = null;
   private capabilities: any = null;
+  private environment: EnvironmentConfig;
+  private usingRealOCCT = false;
 
   constructor(private config: GeometryAPIConfig) {
+    // CRITICAL: Detect environment and validate production safety
+    this.environment = detectEnvironment();
+
+    // CRITICAL: Validate configuration is production-safe
+    if (this.environment.isProduction && config.fallbackToMock) {
+      throw new ProductionSafetyError(
+        'Configuration enables mock geometry fallback in production environment',
+        { config, environment: this.environment }
+      );
+    }
     // Initialize subsystems
     if (config.enableMemoryManagement) {
       this.memoryManager = getMemoryManager(config.memoryConfig);
@@ -88,29 +109,53 @@ export class IntegratedGeometryAPI {
           // Load real OCCT with enhanced loader
           this.occtModule = await loadOCCTModule({
             enablePerformanceMonitoring: this.config.enablePerformanceMonitoring,
-            fallbackToMock: this.config.fallbackToMock
+            fallbackToMock: false // CRITICAL: Never allow loader to fallback
           });
 
+          this.usingRealOCCT = true;
           console.log('[IntegratedGeometryAPI] Real OCCT module loaded successfully');
         } catch (occtError) {
-          console.warn('[IntegratedGeometryAPI] Failed to load real OCCT:', occtError);
+          console.error('[IntegratedGeometryAPI] Failed to load real OCCT:', occtError);
 
-          if (this.config.fallbackToMock) {
-            console.log('[IntegratedGeometryAPI] Falling back to mock geometry');
+          // CRITICAL: Production safety check before any fallback
+          if (this.environment.isProduction) {
+            throw createProductionErrorBoundary('OCCT_INITIALIZATION', this.environment);
+          }
+
+          if (this.config.fallbackToMock && this.environment.allowMockGeometry) {
+            console.warn('[IntegratedGeometryAPI] Falling back to mock geometry (development/test only)');
             const { MockGeometry } = await import('./mock-geometry');
             this.occtModule = new MockGeometry();
             await this.occtModule.init();
+            this.usingRealOCCT = false;
           } else {
             throw new Error(`Failed to initialize OCCT module: ${occtError.message}`);
           }
         }
       } else {
-        // Use mock geometry
-        console.log('[IntegratedGeometryAPI] Using mock geometry (WASM not available or disabled)');
+        // CRITICAL: Check if we can use mock geometry
+        if (this.environment.isProduction) {
+          throw createProductionErrorBoundary('WASM_UNAVAILABLE', this.environment);
+        }
+
+        if (!this.environment.allowMockGeometry) {
+          throw new ProductionSafetyError(
+            'Mock geometry not allowed in this environment and real OCCT is not available',
+            { environment: this.environment, capabilities: this.capabilities }
+          );
+        }
+
+        // Use mock geometry (development/test only)
+        console.warn('[IntegratedGeometryAPI] Using mock geometry (WASM not available - development/test only)');
         const { MockGeometry } = await import('./mock-geometry');
         this.occtModule = new MockGeometry();
         await this.occtModule.init();
+        this.usingRealOCCT = false;
       }
+
+      // CRITICAL: Final production safety validation
+      validateProductionSafety(!this.usingRealOCCT, this.environment);
+      logProductionSafetyStatus(this.usingRealOCCT, this.environment);
 
       this.initialized = true;
       console.log('[IntegratedGeometryAPI] Initialization complete');
@@ -150,7 +195,7 @@ export class IntegratedGeometryAPI {
         const validation = await this.errorRecovery.validateOperation(operation, params);
         if (!validation.valid) {
           // Try to fix automatically if possible
-          if (validation.fixablе && validation.suggestedFix) {
+          if (validation.fixable && validation.suggestedFix) {
             console.log('[IntegratedGeometryAPI] Auto-fixing parameters');
             params = validation.suggestedFix();
           } else {
@@ -352,7 +397,9 @@ export class IntegratedGeometryAPI {
     const stats: any = {
       initialized: this.initialized,
       capabilities: this.capabilities,
-      usingRealOCCT: this.config.enableRealOCCT && this.capabilities?.hasWASM,
+      usingRealOCCT: this.usingRealOCCT,
+      environment: this.environment,
+      productionSafe: this.environment.isProduction ? this.usingRealOCCT : true,
       subsystems: {}
     };
 
@@ -516,18 +563,15 @@ Capabilities: ${this.capabilities ? 'Detected' : 'Not Available'}
   }
 }
 
-// Default configuration for production use
-export const DEFAULT_API_CONFIG: GeometryAPIConfig = {
-  enableRealOCCT: true,
-  fallbackToMock: true,
-  enablePerformanceMonitoring: true,
-  enableMemoryManagement: true,
-  enableErrorRecovery: true,
-  workerPoolConfig: DEFAULT_POOL_CONFIG,
-  memoryConfig: DEFAULT_CACHE_CONFIG,
-  maxRetries: 3,
-  operationTimeout: 30000
-};
+// PRODUCTION-SAFE default configuration
+// CRITICAL: Uses createProductionSafeConfig to ensure production safety
+// CRITICAL: In test environments, disable real OCCT to avoid WASM loading failures
+const testEnv = detectEnvironment();
+export const DEFAULT_API_CONFIG: GeometryAPIConfig = createProductionSafeConfig({
+  enableRealOCCT: !testEnv.isTest, // Disable real OCCT in test environments
+  workerPoolConfig: testEnv.isTest ? undefined : DEFAULT_POOL_CONFIG, // No worker pool in tests
+  memoryConfig: DEFAULT_CACHE_CONFIG
+});
 
 // Global API instance
 let globalGeometryAPI: IntegratedGeometryAPI | null = null;

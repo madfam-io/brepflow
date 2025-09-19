@@ -366,16 +366,23 @@ export class ErrorRecoverySystem {
             if (!params.shape) {
               errors.push('Tessellation requires a shape parameter.');
             }
-            if (!params.tolerance || params.tolerance <= 0) {
-              errors.push('Tessellation requires a positive tolerance parameter.');
+            const tolerance = params.tolerance || params.deflection;
+            if (!tolerance || tolerance <= 0) {
+              errors.push('Tessellation requires a positive tolerance/deflection parameter.');
             }
             break;
 
           case 'BOOLEAN_UNION':
-          case 'BOOLEAN_SUBTRACT':
           case 'BOOLEAN_INTERSECT':
-            if (!params.shape1 || !params.shape2) {
-              errors.push('Boolean operations require two shape parameters.');
+            // Union and intersect expect shapes array
+            if (!params.shapes || !Array.isArray(params.shapes) || params.shapes.length < 2) {
+              errors.push('Boolean union/intersect operations require at least two shapes in shapes array.');
+            }
+            break;
+          case 'BOOLEAN_SUBTRACT':
+            // Subtract expects base and tools
+            if (!params.base || !params.tools || !Array.isArray(params.tools) || params.tools.length === 0) {
+              errors.push('Boolean subtract operation requires base shape and tools array.');
             }
             break;
         }
@@ -462,7 +469,12 @@ export class ErrorRecoverySystem {
         console.log('[ErrorRecovery] Falling back to mock geometry');
 
         // Return mock result based on operation type
-        return this.generateMockResult(context.operation, context.params);
+        const mockResult = this.generateMockResult(context.operation, context.params);
+        if (!mockResult) {
+          // If no mock can be generated, recovery fails
+          throw new Error(`Cannot generate mock for operation: ${context.operation}`);
+        }
+        return mockResult;
       }
     });
 
@@ -550,7 +562,9 @@ export class ErrorRecoverySystem {
         };
 
       default:
-        return { success: true, result: 'mock_result', operation };
+        // For unknown operations, return null to indicate failure
+        console.warn(`[ErrorRecovery] Cannot generate mock for unknown operation: ${operation}`);
+        return null;
     }
   }
 
