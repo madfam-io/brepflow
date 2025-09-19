@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PulleySystemNode } from './pulleysystem-node';
-import { createTestContext } from '../test-utils';
+import { PulleySystemNode } from './pulleysystem.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PulleySystemNode', () => {
   it('should create PulleySystem', async () => {

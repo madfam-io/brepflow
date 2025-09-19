@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GothicWindowNode } from './gothicwindow-node';
-import { createTestContext } from '../test-utils';
+import { GothicWindowNode } from './gothicwindow.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GothicWindowNode', () => {
   it('should create GothicWindow', async () => {

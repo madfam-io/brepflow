@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SquareRootNode } from './squareroot-node';
-import { createTestContext } from '../test-utils';
+import { SquareRootNode } from './squareroot.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SquareRootNode', () => {
   it('should create SquareRoot', async () => {

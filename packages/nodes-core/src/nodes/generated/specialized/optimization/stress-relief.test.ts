@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StressReliefNode } from './stressrelief-node';
-import { createTestContext } from '../test-utils';
+import { StressReliefNode } from './stressrelief.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StressReliefNode', () => {
   it('should create StressRelief', async () => {

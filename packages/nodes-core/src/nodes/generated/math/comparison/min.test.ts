@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MinNode } from './min-node';
-import { createTestContext } from '../test-utils';
+import { MinNode } from './min.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MinNode', () => {
   it('should create Min', async () => {

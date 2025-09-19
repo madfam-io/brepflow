@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WormShaftNode } from './wormshaft-node';
-import { createTestContext } from '../test-utils';
+import { WormShaftNode } from './wormshaft.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WormShaftNode', () => {
   it('should create WormShaft', async () => {

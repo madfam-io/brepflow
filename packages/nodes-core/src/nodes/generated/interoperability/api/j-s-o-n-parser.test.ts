@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { JSONParserNode } from './jsonparser-node';
-import { createTestContext } from '../test-utils';
+import { JSONParserNode } from './jsonparser.node';
+import { createTestContext } from './../../test-utils';
 
 describe('JSONParserNode', () => {
   it('should create JSONParser', async () => {

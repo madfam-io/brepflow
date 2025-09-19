@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { OrientNode } from './orient-node';
-import { createTestContext } from '../test-utils';
+import { OrientNode } from './orient.node';
+import { createTestContext } from './../test-utils';
 
 describe('OrientNode', () => {
   it('should create Orient', async () => {

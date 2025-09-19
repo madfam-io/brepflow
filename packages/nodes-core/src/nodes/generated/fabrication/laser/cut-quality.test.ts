@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CutQualityNode } from './cutquality-node';
-import { createTestContext } from '../test-utils';
+import { CutQualityNode } from './cutquality.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CutQualityNode', () => {
   it('should create CutQuality', async () => {

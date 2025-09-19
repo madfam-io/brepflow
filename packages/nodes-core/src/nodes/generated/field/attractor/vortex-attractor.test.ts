@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VortexAttractorNode } from './vortexattractor-node';
-import { createTestContext } from '../test-utils';
+import { VortexAttractorNode } from './vortexattractor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VortexAttractorNode', () => {
   it('should create VortexAttractor', async () => {

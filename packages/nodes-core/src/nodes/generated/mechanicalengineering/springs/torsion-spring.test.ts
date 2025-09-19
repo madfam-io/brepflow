@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TorsionSpringNode } from './torsionspring-node';
-import { createTestContext } from '../test-utils';
+import { TorsionSpringNode } from './torsionspring.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TorsionSpringNode', () => {
   it('should create TorsionSpring', async () => {

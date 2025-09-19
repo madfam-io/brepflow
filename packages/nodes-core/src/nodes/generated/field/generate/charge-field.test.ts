@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ChargeFieldNode } from './chargefield-node';
-import { createTestContext } from '../test-utils';
+import { ChargeFieldNode } from './chargefield.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ChargeFieldNode', () => {
   it('should create ChargeField', async () => {

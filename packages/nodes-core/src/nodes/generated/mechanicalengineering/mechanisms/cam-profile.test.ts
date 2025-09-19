@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CamProfileNode } from './camprofile-node';
-import { createTestContext } from '../test-utils';
+import { CamProfileNode } from './camprofile.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CamProfileNode', () => {
   it('should create CamProfile', async () => {

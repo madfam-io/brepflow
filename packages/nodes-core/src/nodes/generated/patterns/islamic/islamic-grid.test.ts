@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { IslamicGridNode } from './islamicgrid-node';
-import { createTestContext } from '../test-utils';
+import { IslamicGridNode } from './islamicgrid.node';
+import { createTestContext } from './../../test-utils';
 
 describe('IslamicGridNode', () => {
   it('should create IslamicGrid', async () => {

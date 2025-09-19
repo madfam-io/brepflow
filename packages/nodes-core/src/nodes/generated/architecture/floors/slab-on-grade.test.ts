@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SlabOnGradeNode } from './slabongrade-node';
-import { createTestContext } from '../test-utils';
+import { SlabOnGradeNode } from './slabongrade.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SlabOnGradeNode', () => {
   it('should create SlabOnGrade', async () => {

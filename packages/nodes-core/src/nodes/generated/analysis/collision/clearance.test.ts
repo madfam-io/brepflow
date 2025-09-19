@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ClearanceNode } from './clearance-node';
-import { createTestContext } from '../test-utils';
+import { ClearanceNode } from './clearance.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ClearanceNode', () => {
   it('should create Clearance', async () => {

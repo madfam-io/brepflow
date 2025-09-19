@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PhyllotaxisPatternNode } from './phyllotaxispattern-node';
-import { createTestContext } from '../test-utils';
+import { PhyllotaxisPatternNode } from './phyllotaxispattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PhyllotaxisPatternNode', () => {
   it('should create PhyllotaxisPattern', async () => {

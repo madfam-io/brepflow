@@ -14,7 +14,9 @@ import {
 
 describe('Analysis Nodes', () => {
   const mockContext = {
-    invoke: vi.fn()
+    worker: {
+      invoke: vi.fn()
+    }
   };
 
   beforeEach(() => {
@@ -29,7 +31,7 @@ describe('Analysis Nodes', () => {
       };
       const params = { signed: false };
 
-      mockContext.invoke.mockResolvedValue({
+      mockContext.worker.invoke.mockResolvedValue({
         distance: 5.0,
         closestPointA: { x: 0, y: 0, z: 0 },
         closestPointB: { x: 3, y: 4, z: 0 }
@@ -37,7 +39,7 @@ describe('Analysis Nodes', () => {
 
       const result = await distanceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('MEASURE_DISTANCE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('MEASURE_DISTANCE', {
         geometryA: inputs.geometryA,
         geometryB: inputs.geometryB,
         signed: false
@@ -56,7 +58,7 @@ describe('Analysis Nodes', () => {
       };
       const params = { signed: true };
 
-      mockContext.invoke.mockResolvedValue({
+      mockContext.worker.invoke.mockResolvedValue({
         distance: -5.0,
         closestPointA: { x: 0, y: 0, z: 0 },
         closestPointB: { x: 0, y: 0, z: 5 }
@@ -64,7 +66,7 @@ describe('Analysis Nodes', () => {
 
       const result = await distanceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('MEASURE_DISTANCE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('MEASURE_DISTANCE', {
         geometryA: inputs.geometryA,
         geometryB: inputs.geometryB,
         signed: true
@@ -79,7 +81,7 @@ describe('Analysis Nodes', () => {
       };
       const params = { signed: false };
 
-      mockContext.invoke.mockResolvedValue(null);
+      mockContext.worker.invoke.mockResolvedValue(null);
 
       await expect(distanceNode.execute(inputs, params, mockContext)).rejects.toThrow();
     });
@@ -100,11 +102,11 @@ describe('Analysis Nodes', () => {
         normal: { x: 0, y: 0, z: 1 }
       };
 
-      mockContext.invoke.mockResolvedValue(mockResult);
+      mockContext.worker.invoke.mockResolvedValue(mockResult);
 
       const result = await closestPointNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('CLOSEST_POINT', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('CLOSEST_POINT', {
         point: inputs.point,
         geometry: inputs.geometry
       });
@@ -130,7 +132,7 @@ describe('Analysis Nodes', () => {
         normal: { x: 0, y: 0, z: 1 }
       };
 
-      mockContext.invoke.mockResolvedValue(mockResult);
+      mockContext.worker.invoke.mockResolvedValue(mockResult);
 
       const result = await closestPointNode.execute(inputs, params, mockContext);
 
@@ -145,14 +147,14 @@ describe('Analysis Nodes', () => {
       };
       const params = { worldSpace: true };
 
-      mockContext.invoke.mockResolvedValue({
+      mockContext.worker.invoke.mockResolvedValue({
         area: 100.5,
         centroid: { x: 5, y: 5, z: 0 }
       });
 
       const result = await areaNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('CALCULATE_AREA', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('CALCULATE_AREA', {
         geometry: inputs.geometry,
         worldSpace: true
       });
@@ -168,7 +170,7 @@ describe('Analysis Nodes', () => {
       };
       const params = { worldSpace: true };
 
-      mockContext.invoke.mockResolvedValue({ area: 0, centroid: null });
+      mockContext.worker.invoke.mockResolvedValue({ area: 0, centroid: null });
 
       const result = await areaNode.execute(inputs, params, mockContext);
 
@@ -183,7 +185,7 @@ describe('Analysis Nodes', () => {
       };
       const params = {};
 
-      mockContext.invoke.mockResolvedValue({
+      mockContext.worker.invoke.mockResolvedValue({
         volume: 1000.0,
         centroid: { x: 0, y: 0, z: 0 },
         surfaceArea: 600.0
@@ -191,7 +193,7 @@ describe('Analysis Nodes', () => {
 
       const result = await volumeNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('CALCULATE_VOLUME', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('CALCULATE_VOLUME', {
         solid: inputs.solid
       });
       expect(result).toEqual({
@@ -207,7 +209,7 @@ describe('Analysis Nodes', () => {
       };
       const params = {};
 
-      mockContext.invoke.mockResolvedValue(null);
+      mockContext.worker.invoke.mockResolvedValue(null);
 
       await expect(volumeNode.execute(inputs, params, mockContext)).rejects.toThrow();
     });
@@ -232,11 +234,11 @@ describe('Analysis Nodes', () => {
         }
       };
 
-      mockContext.invoke.mockResolvedValue(mockProperties);
+      mockContext.worker.invoke.mockResolvedValue(mockProperties);
 
       const result = await massPropertiesNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('MASS_PROPERTIES', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('MASS_PROPERTIES', {
         geometry: inputs.geometry,
         density: 1.0
       });
@@ -261,7 +263,7 @@ describe('Analysis Nodes', () => {
         }
       };
 
-      mockContext.invoke.mockResolvedValue(mockProperties);
+      mockContext.worker.invoke.mockResolvedValue(mockProperties);
 
       const result = await massPropertiesNode.execute(inputs, params, mockContext);
 
@@ -286,11 +288,11 @@ describe('Analysis Nodes', () => {
         dimensions: { x: 20, y: 20, z: 20 }
       };
 
-      mockContext.invoke.mockResolvedValue(mockBox);
+      mockContext.worker.invoke.mockResolvedValue(mockBox);
 
-      await boundingBoxNode.execute(inputs, params, mockContext);
+      const result = await boundingBoxNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('BOUNDING_BOX', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('BOUNDING_BOX', {
         geometry: inputs.geometry,
         alignment: 'world',
         plane: null
@@ -317,11 +319,11 @@ describe('Analysis Nodes', () => {
         dimensions: { x: 16, y: 16, z: 24 }
       };
 
-      mockContext.invoke.mockResolvedValue(mockBox);
+      mockContext.worker.invoke.mockResolvedValue(mockBox);
 
       await boundingBoxNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('BOUNDING_BOX', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('BOUNDING_BOX', {
         geometry: inputs.geometry,
         alignment: 'oriented',
         plane: params.plane
@@ -344,11 +346,11 @@ describe('Analysis Nodes', () => {
         ]
       };
 
-      mockContext.invoke.mockResolvedValue(mockIntersections);
+      mockContext.worker.invoke.mockResolvedValue(mockIntersections);
 
       const result = await intersectionNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('INTERSECTION', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('INTERSECTION', {
         geometryA: inputs.geometryA,
         geometryB: inputs.geometryB,
         tolerance: 0.001
@@ -363,7 +365,7 @@ describe('Analysis Nodes', () => {
       };
       const params = { tolerance: 0.001 };
 
-      mockContext.invoke.mockResolvedValue({ type: 'none', points: [] });
+      mockContext.worker.invoke.mockResolvedValue({ type: 'none', points: [] });
 
       const result = await intersectionNode.execute(inputs, params, mockContext);
 
@@ -382,7 +384,7 @@ describe('Analysis Nodes', () => {
         curves: [{ type: 'line', start: { x: 0, y: 0, z: 0 }, end: { x: 10, y: 10, z: 0 } }]
       };
 
-      mockContext.invoke.mockResolvedValue(mockIntersections);
+      mockContext.worker.invoke.mockResolvedValue(mockIntersections);
 
       const result = await intersectionNode.execute(inputs, params, mockContext);
 
@@ -406,11 +408,11 @@ describe('Analysis Nodes', () => {
         curvature: 0.1
       };
 
-      mockContext.invoke.mockResolvedValue(mockResult);
+      mockContext.worker.invoke.mockResolvedValue(mockResult);
 
       const result = await evaluateCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('EVALUATE_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('EVALUATE_CURVE', {
         curve: inputs.curve,
         parameter: 0.5
       });
@@ -433,7 +435,7 @@ describe('Analysis Nodes', () => {
         curvature: 0.0
       };
 
-      mockContext.invoke.mockResolvedValue(mockResult);
+      mockContext.worker.invoke.mockResolvedValue(mockResult);
 
       const result = await evaluateCurveNode.execute(inputs, params, mockContext);
 
@@ -459,11 +461,11 @@ describe('Analysis Nodes', () => {
         meanCurvature: 0.0
       };
 
-      mockContext.invoke.mockResolvedValue(mockResult);
+      mockContext.worker.invoke.mockResolvedValue(mockResult);
 
       const result = await evaluateSurfaceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('EVALUATE_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('EVALUATE_SURFACE', {
         surface: inputs.surface,
         u: 0.5,
         v: 0.5
@@ -488,7 +490,7 @@ describe('Analysis Nodes', () => {
         meanCurvature: 0.0
       };
 
-      mockContext.invoke.mockResolvedValue(mockResult);
+      mockContext.worker.invoke.mockResolvedValue(mockResult);
 
       const result = await evaluateSurfaceNode.execute(inputs, params, mockContext);
 
@@ -516,11 +518,11 @@ describe('Analysis Nodes', () => {
         containment: 'partial'
       };
 
-      mockContext.invoke.mockResolvedValue(mockResult);
+      mockContext.worker.invoke.mockResolvedValue(mockResult);
 
       const result = await collisionDetectionNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('COLLISION_DETECTION', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('COLLISION_DETECTION', {
         geometryA: inputs.geometryA,
         geometryB: inputs.geometryB,
         tolerance: 0.001,
@@ -546,7 +548,7 @@ describe('Analysis Nodes', () => {
         containment: 'none'
       };
 
-      mockContext.invoke.mockResolvedValue(mockResult);
+      mockContext.worker.invoke.mockResolvedValue(mockResult);
 
       const result = await collisionDetectionNode.execute(inputs, params, mockContext);
 
@@ -571,7 +573,7 @@ describe('Analysis Nodes', () => {
         containment: 'AinsideB'
       };
 
-      mockContext.invoke.mockResolvedValue(mockResult);
+      mockContext.worker.invoke.mockResolvedValue(mockResult);
 
       const result = await collisionDetectionNode.execute(inputs, params, mockContext);
 
@@ -584,7 +586,7 @@ describe('Analysis Nodes', () => {
       const inputs = { geometryA: null, geometryB: null };
       const params = { signed: false };
 
-      mockContext.invoke.mockResolvedValue(null);
+      mockContext.worker.invoke.mockResolvedValue(null);
 
       await expect(distanceNode.execute(inputs, params, mockContext)).rejects.toThrow();
     });
@@ -595,7 +597,7 @@ describe('Analysis Nodes', () => {
       };
       const params = { alignment: 'world', plane: null };
 
-      mockContext.invoke.mockRejectedValue(new Error('Invalid geometry type'));
+      mockContext.worker.invoke.mockRejectedValue(new Error('Invalid geometry type'));
 
       await expect(boundingBoxNode.execute(inputs, params, mockContext)).rejects.toThrow('Invalid geometry type');
     });
@@ -607,11 +609,11 @@ describe('Analysis Nodes', () => {
       };
       const params = { tolerance: 1e-10 };
 
-      mockContext.invoke.mockResolvedValue({ type: 'none', points: [] });
+      mockContext.worker.invoke.mockResolvedValue({ type: 'none', points: [] });
 
       const result = await intersectionNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('INTERSECTION', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('INTERSECTION', {
         geometryA: inputs.geometryA,
         geometryB: inputs.geometryB,
         tolerance: 1e-10

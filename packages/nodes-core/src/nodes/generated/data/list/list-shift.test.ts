@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListShiftNode } from './listshift-node';
-import { createTestContext } from '../test-utils';
+import { ListShiftNode } from './listshift.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ListShiftNode', () => {
   it('should create ListShift', async () => {

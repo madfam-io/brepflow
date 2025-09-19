@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TreeSupportsNode } from './treesupports-node';
-import { createTestContext } from '../test-utils';
+import { TreeSupportsNode } from './treesupports.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TreeSupportsNode', () => {
   it('should create TreeSupports', async () => {

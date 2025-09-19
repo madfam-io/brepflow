@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RobotCalibrationNode } from './robotcalibration-node';
-import { createTestContext } from '../test-utils';
+import { RobotCalibrationNode } from './robotcalibration.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RobotCalibrationNode', () => {
   it('should create RobotCalibration', async () => {

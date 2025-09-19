@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ZebraAnalysisNode } from './zebraanalysis-node';
-import { createTestContext } from '../test-utils';
+import { ZebraAnalysisNode } from './zebraanalysis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ZebraAnalysisNode', () => {
   it('should create ZebraAnalysis', async () => {

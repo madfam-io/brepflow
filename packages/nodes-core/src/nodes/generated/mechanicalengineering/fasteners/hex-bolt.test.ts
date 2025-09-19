@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HexBoltNode } from './hexbolt-node';
-import { createTestContext } from '../test-utils';
+import { HexBoltNode } from './hexbolt.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HexBoltNode', () => {
   it('should create HexBolt', async () => {

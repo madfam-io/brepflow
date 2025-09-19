@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WorkCellSetupNode } from './workcellsetup-node';
-import { createTestContext } from '../test-utils';
+import { WorkCellSetupNode } from './workcellsetup.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WorkCellSetupNode', () => {
   it('should create WorkCellSetup', async () => {

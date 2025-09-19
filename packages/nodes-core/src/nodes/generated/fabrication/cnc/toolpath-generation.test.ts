@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToolpathGenerationNode } from './toolpathgeneration-node';
-import { createTestContext } from '../test-utils';
+import { ToolpathGenerationNode } from './toolpathgeneration.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ToolpathGenerationNode', () => {
   it('should create ToolpathGeneration', async () => {

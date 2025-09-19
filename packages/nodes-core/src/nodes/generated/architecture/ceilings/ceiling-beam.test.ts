@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CeilingBeamNode } from './ceilingbeam-node';
-import { createTestContext } from '../test-utils';
+import { CeilingBeamNode } from './ceilingbeam.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CeilingBeamNode', () => {
   it('should create CeilingBeam', async () => {

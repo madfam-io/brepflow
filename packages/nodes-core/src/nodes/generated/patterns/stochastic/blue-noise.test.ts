@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BlueNoiseNode } from './bluenoise-node';
-import { createTestContext } from '../test-utils';
+import { BlueNoiseNode } from './bluenoise.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BlueNoiseNode', () => {
   it('should create BlueNoise', async () => {

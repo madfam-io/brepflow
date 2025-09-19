@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MinimalSurfaceNode } from './minimalsurface-node';
-import { createTestContext } from '../test-utils';
+import { MinimalSurfaceNode } from './minimalsurface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MinimalSurfaceNode', () => {
   it('should create MinimalSurface', async () => {

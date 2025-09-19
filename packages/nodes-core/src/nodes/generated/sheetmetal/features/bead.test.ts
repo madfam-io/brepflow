@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BeadNode } from './bead-node';
-import { createTestContext } from '../test-utils';
+import { BeadNode } from './bead.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BeadNode', () => {
   it('should create Bead', async () => {

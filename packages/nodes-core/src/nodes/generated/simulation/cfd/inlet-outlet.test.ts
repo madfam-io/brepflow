@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { InletOutletNode } from './inletoutlet-node';
-import { createTestContext } from '../test-utils';
+import { InletOutletNode } from './inletoutlet.node';
+import { createTestContext } from './../../test-utils';
 
 describe('InletOutletNode', () => {
   it('should create InletOutlet', async () => {

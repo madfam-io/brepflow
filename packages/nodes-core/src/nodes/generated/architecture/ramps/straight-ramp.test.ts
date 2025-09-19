@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StraightRampNode } from './straightramp-node';
-import { createTestContext } from '../test-utils';
+import { StraightRampNode } from './straightramp.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StraightRampNode', () => {
   it('should create StraightRamp', async () => {

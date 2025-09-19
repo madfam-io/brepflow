@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportCFDNode } from './exportcfd-node';
-import { createTestContext } from '../test-utils';
+import { ExportCFDNode } from './exportcfd.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ExportCFDNode', () => {
   it('should create ExportCFD', async () => {

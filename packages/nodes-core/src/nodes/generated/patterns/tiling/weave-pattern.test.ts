@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WeavePatternNode } from './weavepattern-node';
-import { createTestContext } from '../test-utils';
+import { WeavePatternNode } from './weavepattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WeavePatternNode', () => {
   it('should create WeavePattern', async () => {

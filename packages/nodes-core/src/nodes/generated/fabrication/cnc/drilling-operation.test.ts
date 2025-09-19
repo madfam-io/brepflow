@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DrillingOperationNode } from './drillingoperation-node';
-import { createTestContext } from '../test-utils';
+import { DrillingOperationNode } from './drillingoperation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DrillingOperationNode', () => {
   it('should create DrillingOperation', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MaxNode } from './max-node';
-import { createTestContext } from '../test-utils';
+import { MaxNode } from './max.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MaxNode', () => {
   it('should create Max', async () => {

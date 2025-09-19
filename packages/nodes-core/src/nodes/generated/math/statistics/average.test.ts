@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { AverageNode } from './average-node';
-import { createTestContext } from '../test-utils';
+import { AverageNode } from './average.node';
+import { createTestContext } from './../../test-utils';
 
 describe('AverageNode', () => {
   it('should create Average', async () => {

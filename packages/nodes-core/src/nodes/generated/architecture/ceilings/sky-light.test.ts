@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SkyLightNode } from './skylight-node';
-import { createTestContext } from '../test-utils';
+import { SkyLightNode } from './skylight.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SkyLightNode', () => {
   it('should create SkyLight', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SphericalBearingNode } from './sphericalbearing-node';
-import { createTestContext } from '../test-utils';
+import { SphericalBearingNode } from './sphericalbearing.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SphericalBearingNode', () => {
   it('should create SphericalBearing', async () => {

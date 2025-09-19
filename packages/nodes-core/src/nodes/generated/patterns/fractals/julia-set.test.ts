@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { JuliaSetNode } from './juliaset-node';
-import { createTestContext } from '../test-utils';
+import { JuliaSetNode } from './juliaset.node';
+import { createTestContext } from './../../test-utils';
 
 describe('JuliaSetNode', () => {
   it('should create JuliaSet', async () => {

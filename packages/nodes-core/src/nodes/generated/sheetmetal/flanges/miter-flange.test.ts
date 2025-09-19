@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MiterFlangeNode } from './miterflange-node';
-import { createTestContext } from '../test-utils';
+import { MiterFlangeNode } from './miterflange.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MiterFlangeNode', () => {
   it('should create MiterFlange', async () => {

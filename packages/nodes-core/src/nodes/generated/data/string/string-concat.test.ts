@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringConcatNode } from './stringconcat-node';
-import { createTestContext } from '../test-utils';
+import { StringConcatNode } from './stringconcat.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StringConcatNode', () => {
   it('should create StringConcat', async () => {

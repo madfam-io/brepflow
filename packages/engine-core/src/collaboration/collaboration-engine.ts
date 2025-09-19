@@ -40,7 +40,7 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
   private sessions = new Map<SessionId, CollaborationSession>();
   private wsClient: CollaborationWebSocketClient | null = null;
   private operationalTransform = new OperationalTransformEngine();
-  private lockManager = new CollaborationLockManager();
+  private _lockManager: CollaborationLockManager;
   private eventListeners = new Map<string, CollaborationEventListener[]>();
   private pendingOperations = new Map<string, PendingOperation>();
   private operationQueue: Operation[] = [];
@@ -51,7 +51,7 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
 
   constructor(config: CollaborationConfig) {
     this.config = config;
-    this.lockManager = new CollaborationLockManager();
+    this._lockManager = new CollaborationLockManager();
   }
 
   // Session Management
@@ -134,9 +134,9 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
       session.users.delete(userId);
 
       // Release all locks held by this user
-      const userLocks = this.lockManager.getLocks().filter(lock => lock.userId === userId);
+      const userLocks = this._lockManager.getLocks().filter(lock => lock.userId === userId);
       for (const lock of userLocks) {
-        await this.lockManager.releaseLock(lock.nodeId, userId);
+        await this._lockManager.releaseLock(lock.nodeId, userId);
       }
 
       this.emit({
@@ -356,7 +356,7 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
 
   // Lock Manager
   get lockManager(): LockManager {
-    return this.lockManager;
+    return this._lockManager;
   }
 
   // Event Management
@@ -620,7 +620,7 @@ class CollaborationLockManager implements LockManager {
 
     // Set up auto-release timer
     if (lock.autoRelease) {
-      const timeoutId = window.setTimeout(() => {
+      const timeoutId = (globalThis as any).setTimeout(() => {
         this.releaseLock(request.nodeId, request.userId);
       }, duration);
 
@@ -696,7 +696,7 @@ class CollaborationLockManager implements LockManager {
     }
 
     if (lock.autoRelease) {
-      const newTimeoutId = window.setTimeout(() => {
+      const newTimeoutId = (globalThis as any).setTimeout(() => {
         this.releaseLock(lock.nodeId, lock.userId);
       }, duration);
 

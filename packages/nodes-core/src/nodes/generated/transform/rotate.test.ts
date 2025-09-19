@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RotateNode } from './rotate-node';
-import { createTestContext } from '../test-utils';
+import { RotateNode } from './rotate.node';
+import { createTestContext } from './../test-utils';
 
 describe('RotateNode', () => {
   it('should create Rotate', async () => {

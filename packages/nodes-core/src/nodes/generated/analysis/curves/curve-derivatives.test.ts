@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveDerivativesNode } from './curvederivatives-node';
-import { createTestContext } from '../test-utils';
+import { CurveDerivativesNode } from './curvederivatives.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurveDerivativesNode', () => {
   it('should create CurveDerivatives', async () => {

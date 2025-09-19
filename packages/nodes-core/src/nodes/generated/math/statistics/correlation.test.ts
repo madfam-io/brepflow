@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CorrelationNode } from './correlation-node';
-import { createTestContext } from '../test-utils';
+import { CorrelationNode } from './correlation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CorrelationNode', () => {
   it('should create Correlation', async () => {

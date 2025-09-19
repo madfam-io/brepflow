@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TCPClientNode } from './tcpclient-node';
-import { createTestContext } from '../test-utils';
+import { TCPClientNode } from './tcpclient.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TCPClientNode', () => {
   it('should create TCPClient', async () => {

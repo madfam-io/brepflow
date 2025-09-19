@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SampleFieldNode } from './samplefield-node';
-import { createTestContext } from '../test-utils';
+import { SampleFieldNode } from './samplefield.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SampleFieldNode', () => {
   it('should create SampleField', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringContainsNode } from './stringcontains-node';
-import { createTestContext } from '../test-utils';
+import { StringContainsNode } from './stringcontains.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StringContainsNode', () => {
   it('should create StringContains', async () => {

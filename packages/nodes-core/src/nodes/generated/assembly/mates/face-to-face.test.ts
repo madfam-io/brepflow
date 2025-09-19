@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FaceToFaceNode } from './facetoface-node';
-import { createTestContext } from '../test-utils';
+import { FaceToFaceNode } from './facetoface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FaceToFaceNode', () => {
   it('should create FaceToFace', async () => {

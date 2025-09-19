@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImportDXFNode } from './importdxf-node';
-import { createTestContext } from '../test-utils';
+import { ImportDXFNode } from './importdxf.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ImportDXFNode', () => {
   it('should create ImportDXF', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { Voronoi2DNode } from './voronoi2d-node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from './../../test-utils';
 
 describe('Voronoi2DNode', () => {
   it('should create Voronoi2D', async () => {

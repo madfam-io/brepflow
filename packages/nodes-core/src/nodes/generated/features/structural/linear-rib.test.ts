@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinearRibNode } from './linearrib-node';
-import { createTestContext } from '../test-utils';
+import { LinearRibNode } from './linearrib.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LinearRibNode', () => {
   it('should create LinearRib', async () => {

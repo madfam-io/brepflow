@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { EmailSenderNode } from './emailsender-node';
-import { createTestContext } from '../test-utils';
+import { EmailSenderNode } from './emailsender.node';
+import { createTestContext } from './../../test-utils';
 
 describe('EmailSenderNode', () => {
   it('should create EmailSender', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { EllipsoidNode } from './ellipsoid-node';
-import { createTestContext } from '../test-utils';
+import { EllipsoidNode } from './ellipsoid.node';
+import { createTestContext } from './../../test-utils';
 
 describe('EllipsoidNode', () => {
   it('should create Ellipsoid', async () => {

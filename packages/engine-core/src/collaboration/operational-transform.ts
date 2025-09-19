@@ -1,220 +1,122 @@
 /**
- * Operational Transformation Engine
- * Handles conflict resolution for concurrent graph editing operations
+ * Operational Transform Engine
+ * Implementation of operational transformation for collaborative editing
  */
 
 import {
   Operation,
-  OperationType,
+  OperationConflict,
+  ConflictResolution,
+  NodeId,
+  EdgeId,
   CreateNodeOperation,
   DeleteNodeOperation,
   UpdateNodePositionOperation,
   UpdateNodeParamsOperation,
   CreateEdgeOperation,
   DeleteEdgeOperation,
-  UpdateEdgeOperation,
   BatchOperation,
-  OperationConflict,
-  ConflictResolution,
-  OperationTransformError,
 } from './types';
-import { NodeId, EdgeId } from '@brepflow/types';
+
+export type ConflictResolutionStrategy = 'merge' | 'last-writer-wins' | 'first-writer-wins' | 'user-decision';
 
 export class OperationalTransformEngine {
   /**
    * Transform a local operation against a remote operation
-   * This is the core of the OT algorithm
    */
-  async transform(
-    localOp: Operation,
-    remoteOp: Operation
-  ): Promise<Operation> {
-    // Same operation - no transformation needed
-    if (localOp.id === remoteOp.id) {
+  async transform(localOp: Operation, remoteOp: Operation): Promise<Operation> {
+    // If operations are on different entities, no transformation needed
+    if (!this.doOperationsConflict(localOp, remoteOp)) {
       return localOp;
     }
 
-    // Operations from same user don't need transformation
-    if (localOp.userId === remoteOp.userId) {
-      return localOp;
+    // Handle batch operations
+    if (localOp.type === 'BATCH' && remoteOp.type === 'BATCH') {
+      return this.transformBatchVsBatch(localOp as BatchOperation, remoteOp as BatchOperation);
+    }
+
+    if (localOp.type === 'BATCH') {
+      return this.transformBatchVsOperation(localOp as BatchOperation, remoteOp);
+    }
+
+    if (remoteOp.type === 'BATCH') {
+      return this.transformOperationVsBatch(localOp, remoteOp as BatchOperation);
     }
 
     // Transform based on operation types
-    return this.transformByType(localOp, remoteOp);
-  }
-
-  /**
-   * Transform a list of operations against another list
-   */
-  async transformSequence(
-    localOps: Operation[],
-    remoteOps: Operation[]
-  ): Promise<Operation[]> {
-    let transformedOps = [...localOps];
-
-    for (const remoteOp of remoteOps) {
-      transformedOps = await Promise.all(
-        transformedOps.map(localOp => this.transform(localOp, remoteOp))
-      );
-    }
-
-    return transformedOps;
-  }
-
-  /**
-   * Detect conflicts between two operations
-   */
-  detectConflict(
-    localOp: Operation,
-    remoteOp: Operation
-  ): OperationConflict | null {
-    // Same timestamp operations are potential conflicts
-    if (Math.abs(localOp.timestamp - remoteOp.timestamp) < 1000) {
-      return this.analyzeConflict(localOp, remoteOp);
-    }
-
-    return null;
-  }
-
-  /**
-   * Resolve a detected conflict
-   */
-  async resolveConflict(
-    conflict: OperationConflict,
-    strategy: 'client-wins' | 'server-wins' | 'merge' = 'merge'
-  ): Promise<ConflictResolution> {
-    switch (strategy) {
-      case 'client-wins':
-        return {
-          strategy: 'client-wins',
-          resolvedOperation: conflict.localOperation,
-          conflictDetails: 'Local operation takes precedence',
-        };
-
-      case 'server-wins':
-        return {
-          strategy: 'server-wins',
-          resolvedOperation: conflict.remoteOperation,
-          conflictDetails: 'Remote operation takes precedence',
-        };
-
-      case 'merge':
-        return this.mergeOperations(conflict);
-
-      default:
-        throw new Error(`Unknown conflict resolution strategy: ${strategy}`);
-    }
-  }
-
-  // Private transformation methods
-  private async transformByType(
-    localOp: Operation,
-    remoteOp: Operation
-  ): Promise<Operation> {
-    const key = `${localOp.type}_${remoteOp.type}`;
+    const key = `${localOp.type}_vs_${remoteOp.type}`;
 
     switch (key) {
-      // Node creation conflicts
-      case 'CREATE_NODE_CREATE_NODE':
+      case 'CREATE_NODE_vs_CREATE_NODE':
         return this.transformCreateNodeVsCreateNode(
           localOp as CreateNodeOperation,
           remoteOp as CreateNodeOperation
         );
 
-      case 'CREATE_NODE_DELETE_NODE':
+      case 'CREATE_NODE_vs_DELETE_NODE':
         return this.transformCreateNodeVsDeleteNode(
           localOp as CreateNodeOperation,
           remoteOp as DeleteNodeOperation
         );
 
-      // Node deletion conflicts
-      case 'DELETE_NODE_CREATE_NODE':
+      case 'DELETE_NODE_vs_CREATE_NODE':
         return this.transformDeleteNodeVsCreateNode(
           localOp as DeleteNodeOperation,
           remoteOp as CreateNodeOperation
         );
 
-      case 'DELETE_NODE_DELETE_NODE':
+      case 'DELETE_NODE_vs_DELETE_NODE':
         return this.transformDeleteNodeVsDeleteNode(
           localOp as DeleteNodeOperation,
           remoteOp as DeleteNodeOperation
         );
 
-      case 'DELETE_NODE_UPDATE_NODE_POSITION':
-        return this.transformDeleteNodeVsUpdatePosition(
-          localOp as DeleteNodeOperation,
-          remoteOp as UpdateNodePositionOperation
-        );
-
-      case 'DELETE_NODE_UPDATE_NODE_PARAMS':
-        return this.transformDeleteNodeVsUpdateParams(
-          localOp as DeleteNodeOperation,
-          remoteOp as UpdateNodeParamsOperation
-        );
-
-      // Node position update conflicts
-      case 'UPDATE_NODE_POSITION_UPDATE_NODE_POSITION':
+      case 'UPDATE_NODE_POSITION_vs_UPDATE_NODE_POSITION':
         return this.transformUpdatePositionVsUpdatePosition(
           localOp as UpdateNodePositionOperation,
           remoteOp as UpdateNodePositionOperation
         );
 
-      case 'UPDATE_NODE_POSITION_DELETE_NODE':
+      case 'UPDATE_NODE_POSITION_vs_DELETE_NODE':
         return this.transformUpdatePositionVsDeleteNode(
           localOp as UpdateNodePositionOperation,
           remoteOp as DeleteNodeOperation
         );
 
-      // Node parameter update conflicts
-      case 'UPDATE_NODE_PARAMS_UPDATE_NODE_PARAMS':
+      case 'UPDATE_NODE_PARAMS_vs_UPDATE_NODE_PARAMS':
         return this.transformUpdateParamsVsUpdateParams(
           localOp as UpdateNodeParamsOperation,
           remoteOp as UpdateNodeParamsOperation
         );
 
-      case 'UPDATE_NODE_PARAMS_DELETE_NODE':
+      case 'UPDATE_NODE_PARAMS_vs_DELETE_NODE':
         return this.transformUpdateParamsVsDeleteNode(
           localOp as UpdateNodeParamsOperation,
           remoteOp as DeleteNodeOperation
         );
 
-      // Edge creation conflicts
-      case 'CREATE_EDGE_CREATE_EDGE':
+      case 'CREATE_EDGE_vs_CREATE_EDGE':
         return this.transformCreateEdgeVsCreateEdge(
           localOp as CreateEdgeOperation,
           remoteOp as CreateEdgeOperation
         );
 
-      case 'CREATE_EDGE_DELETE_NODE':
+      case 'CREATE_EDGE_vs_DELETE_NODE':
         return this.transformCreateEdgeVsDeleteNode(
           localOp as CreateEdgeOperation,
           remoteOp as DeleteNodeOperation
         );
 
-      case 'CREATE_EDGE_DELETE_EDGE':
-        return this.transformCreateEdgeVsDeleteEdge(
-          localOp as CreateEdgeOperation,
-          remoteOp as DeleteEdgeOperation
-        );
-
-      // Edge deletion conflicts
-      case 'DELETE_EDGE_CREATE_EDGE':
-        return this.transformDeleteEdgeVsCreateEdge(
-          localOp as DeleteEdgeOperation,
-          remoteOp as CreateEdgeOperation
-        );
-
-      case 'DELETE_EDGE_DELETE_EDGE':
+      case 'DELETE_EDGE_vs_DELETE_EDGE':
         return this.transformDeleteEdgeVsDeleteEdge(
           localOp as DeleteEdgeOperation,
           remoteOp as DeleteEdgeOperation
         );
 
-      // Batch operation handling
-      case 'BATCH_BATCH':
-        return this.transformBatchVsBatch(
-          localOp as BatchOperation,
-          remoteOp as BatchOperation
+      case 'DELETE_EDGE_vs_DELETE_NODE':
+        return this.transformDeleteEdgeVsDeleteNode(
+          localOp as DeleteEdgeOperation,
+          remoteOp as DeleteNodeOperation
         );
 
       default:
@@ -223,46 +125,134 @@ export class OperationalTransformEngine {
     }
   }
 
-  // Node operation transformations
+  /**
+   * Detect conflicts between operations
+   */
+  detectConflict(op1: Operation, op2: Operation): OperationConflict | null {
+    if (!this.doOperationsConflict(op1, op2)) {
+      return null;
+    }
+
+    const conflictType = this.getConflictType(op1, op2);
+    const conflictingFields = this.getConflictingFields(op1, op2);
+
+    return {
+      type: conflictType,
+      localOperation: op1,
+      remoteOperation: op2,
+      conflictingFields,
+    } as any;
+  }
+
+  /**
+   * Resolve conflicts based on strategy
+   */
+  async resolveConflict(
+    conflict: OperationConflict,
+    strategy: ConflictResolutionStrategy
+  ): Promise<ConflictResolution> {
+    const { localOperation, remoteOperation } = conflict;
+
+    switch (strategy) {
+      case 'merge':
+        return this.mergeOperations(localOperation, remoteOperation);
+
+      case 'last-writer-wins':
+        return this.lastWriterWinsResolution(localOperation, remoteOperation);
+
+      case 'first-writer-wins':
+        return this.firstWriterWinsResolution(localOperation, remoteOperation);
+
+      case 'user-decision':
+        return this.userDecisionResolution(localOperation, remoteOperation);
+
+      default:
+        throw new Error(`Unknown conflict resolution strategy: ${strategy}`);
+    }
+  }
+
+  // Private transformation methods
+
+  private doOperationsConflict(op1: Operation, op2: Operation): boolean {
+    // Special handling for batch operations
+    if (op1.type === 'BATCH') {
+      const batchOp = op1 as BatchOperation;
+      return batchOp.operations.some(subOp => this.doOperationsConflict(subOp, op2));
+    }
+    
+    if (op2.type === 'BATCH') {
+      const batchOp = op2 as BatchOperation;
+      return batchOp.operations.some(subOp => this.doOperationsConflict(op1, subOp));
+    }
+
+    // Special cases for edge operations
+    if (op1.type === 'CREATE_EDGE' && op2.type === 'DELETE_NODE') {
+      const edgeOp = op1 as CreateEdgeOperation;
+      const deleteOp = op2 as DeleteNodeOperation;
+      return edgeOp.sourceNodeId === deleteOp.nodeId || edgeOp.targetNodeId === deleteOp.nodeId;
+    }
+    
+    if (op2.type === 'CREATE_EDGE' && op1.type === 'DELETE_NODE') {
+      const edgeOp = op2 as CreateEdgeOperation;
+      const deleteOp = op1 as DeleteNodeOperation;
+      return edgeOp.sourceNodeId === deleteOp.nodeId || edgeOp.targetNodeId === deleteOp.nodeId;
+    }
+
+    // Special cases for CREATE_NODE vs DELETE_NODE
+    if (op1.type === 'CREATE_NODE' && op2.type === 'DELETE_NODE') {
+      const createOp = op1 as CreateNodeOperation;
+      const deleteOp = op2 as DeleteNodeOperation;
+      return createOp.nodeId === deleteOp.nodeId;
+    }
+    
+    if (op2.type === 'CREATE_NODE' && op1.type === 'DELETE_NODE') {
+      const createOp = op2 as CreateNodeOperation;
+      const deleteOp = op1 as DeleteNodeOperation;
+      return createOp.nodeId === deleteOp.nodeId;
+    }
+
+    // Operations conflict if they operate on the same entity
+    const entity1 = this.getOperationEntity(op1);
+    const entity2 = this.getOperationEntity(op2);
+
+    return entity1 === entity2;
+  }
+
+  private getOperationEntity(op: Operation): string {
+    switch (op.type) {
+      case 'CREATE_NODE':
+      case 'DELETE_NODE':
+      case 'UPDATE_NODE_POSITION':
+      case 'UPDATE_NODE_PARAMS':
+        return `node:${(op as any).nodeId}`;
+
+      case 'CREATE_EDGE':
+      case 'DELETE_EDGE':
+        return `edge:${(op as any).edgeId}`;
+
+      case 'BATCH':
+        // For batch operations, get entities from all sub-operations
+        const entities = (op as BatchOperation).operations.map(subOp =>
+          this.getOperationEntity(subOp)
+        );
+        return entities.join(',');
+
+      default:
+        return 'unknown';
+    }
+  }
+
   private transformCreateNodeVsCreateNode(
     localOp: CreateNodeOperation,
     remoteOp: CreateNodeOperation
   ): Operation {
-    // If creating nodes with same ID, use timestamp to determine winner
     if (localOp.nodeId === remoteOp.nodeId) {
-      if (localOp.timestamp > remoteOp.timestamp) {
-        // Local operation wins, but needs new ID to avoid conflict
-        return {
-          ...localOp,
-          nodeId: `${localOp.nodeId}_${localOp.timestamp}` as NodeId,
-        };
-      } else {
-        // Remote operation wins, local operation is invalidated
-        throw new OperationTransformError(
-          'Node creation conflict: remote operation has precedence',
-          localOp,
-          remoteOp
-        );
-      }
-    }
-
-    // Different node IDs - check for position conflicts
-    const distance = Math.sqrt(
-      Math.pow(localOp.position.x - remoteOp.position.x, 2) +
-      Math.pow(localOp.position.y - remoteOp.position.y, 2)
-    );
-
-    // If nodes are too close, offset the local node
-    if (distance < 50) {
+      // Same node ID, generate conflict-avoided ID
       return {
         ...localOp,
-        position: {
-          x: localOp.position.x + 60,
-          y: localOp.position.y + 60,
-        },
+        nodeId: `${localOp.nodeId}_conflict_${Date.now()}`
       };
     }
-
     return localOp;
   }
 
@@ -270,7 +260,11 @@ export class OperationalTransformEngine {
     localOp: CreateNodeOperation,
     remoteOp: DeleteNodeOperation
   ): Operation {
-    // Creating a node that was just deleted - proceed normally
+    if (localOp.nodeId === remoteOp.nodeId) {
+      // Cannot create a node that's being deleted
+      const noop: Operation = { ...localOp, type: 'NOOP' as any };
+      return noop;
+    }
     return localOp;
   }
 
@@ -278,7 +272,11 @@ export class OperationalTransformEngine {
     localOp: DeleteNodeOperation,
     remoteOp: CreateNodeOperation
   ): Operation {
-    // Deleting while someone creates - delete operation takes precedence
+    if (localOp.nodeId === remoteOp.nodeId) {
+      // Node is being created, so delete is not needed
+      const noop: Operation = { ...localOp, type: 'NOOP' as any };
+      return noop;
+    }
     return localOp;
   }
 
@@ -286,41 +284,11 @@ export class OperationalTransformEngine {
     localOp: DeleteNodeOperation,
     remoteOp: DeleteNodeOperation
   ): Operation {
-    // Same node being deleted - remote operation wins if it has earlier timestamp
     if (localOp.nodeId === remoteOp.nodeId) {
-      if (remoteOp.timestamp < localOp.timestamp) {
-        throw new OperationTransformError(
-          'Node already deleted by remote operation',
-          localOp,
-          remoteOp
-        );
-      }
+      // Node already deleted, no need to delete again
+      const noop: Operation = { ...localOp, type: 'NOOP' as any };
+      return noop;
     }
-
-    return localOp;
-  }
-
-  private transformDeleteNodeVsUpdatePosition(
-    localOp: DeleteNodeOperation,
-    remoteOp: UpdateNodePositionOperation
-  ): Operation {
-    // Deleting a node that someone is moving - delete takes precedence
-    if (localOp.nodeId === remoteOp.nodeId) {
-      return localOp; // Continue with deletion
-    }
-
-    return localOp;
-  }
-
-  private transformDeleteNodeVsUpdateParams(
-    localOp: DeleteNodeOperation,
-    remoteOp: UpdateNodeParamsOperation
-  ): Operation {
-    // Deleting a node that someone is editing - delete takes precedence
-    if (localOp.nodeId === remoteOp.nodeId) {
-      return localOp; // Continue with deletion
-    }
-
     return localOp;
   }
 
@@ -328,26 +296,11 @@ export class OperationalTransformEngine {
     localOp: UpdateNodePositionOperation,
     remoteOp: UpdateNodePositionOperation
   ): Operation {
-    // Same node being moved by different users
     if (localOp.nodeId === remoteOp.nodeId) {
-      // Use timestamp to determine winner, but offset position to avoid exact overlap
-      if (localOp.timestamp > remoteOp.timestamp) {
-        return {
-          ...localOp,
-          position: {
-            x: localOp.position.x + 20,
-            y: localOp.position.y + 20,
-          },
-        };
-      } else {
-        throw new OperationTransformError(
-          'Position update conflict: remote operation has precedence',
-          localOp,
-          remoteOp
-        );
-      }
+      // Both updating position, remote wins (last writer wins)
+      const noop: Operation = { ...localOp, type: 'NOOP' as any };
+      return noop;
     }
-
     return localOp;
   }
 
@@ -355,15 +308,11 @@ export class OperationalTransformEngine {
     localOp: UpdateNodePositionOperation,
     remoteOp: DeleteNodeOperation
   ): Operation {
-    // Moving a node that was deleted
     if (localOp.nodeId === remoteOp.nodeId) {
-      throw new OperationTransformError(
-        'Cannot move deleted node',
-        localOp,
-        remoteOp
-      );
+      // Cannot update position of deleted node
+      const noop: Operation = { ...localOp, type: 'NOOP' as any };
+      return noop;
     }
-
     return localOp;
   }
 
@@ -371,27 +320,33 @@ export class OperationalTransformEngine {
     localOp: UpdateNodeParamsOperation,
     remoteOp: UpdateNodeParamsOperation
   ): Operation {
-    // Same node parameters being updated
     if (localOp.nodeId === remoteOp.nodeId) {
-      // Merge parameter updates
-      const mergedUpdates = { ...localOp.paramUpdates };
-      const mergedPrevious = { ...localOp.previousValues };
+      // Check for conflicting parameters
+      const conflictingParams = Object.keys(localOp.paramUpdates).filter(
+        key => key in remoteOp.paramUpdates
+      );
 
-      // Remote operation takes precedence for conflicting parameters
-      for (const [param, value] of Object.entries(remoteOp.paramUpdates)) {
-        if (param in mergedUpdates) {
-          // Conflict detected - use remote value as base
-          mergedPrevious[param] = value;
-        }
+      if (conflictingParams.length === 0) {
+        // No conflicts, keep local operation
+        return localOp;
+      }
+
+      // Merge parameter updates, removing conflicted ones (remote wins for conflicts)
+      const mergedParams = { ...localOp.paramUpdates };
+      for (const key of conflictingParams) {
+        delete mergedParams[key];
+      }
+
+      if (Object.keys(mergedParams).length === 0) {
+        const noop: Operation = { ...localOp, type: 'NOOP' as any };
+      return noop;
       }
 
       return {
         ...localOp,
-        paramUpdates: mergedUpdates,
-        previousValues: mergedPrevious,
+        paramUpdates: mergedParams,
       };
     }
-
     return localOp;
   }
 
@@ -399,51 +354,23 @@ export class OperationalTransformEngine {
     localOp: UpdateNodeParamsOperation,
     remoteOp: DeleteNodeOperation
   ): Operation {
-    // Updating parameters of a deleted node
     if (localOp.nodeId === remoteOp.nodeId) {
-      throw new OperationTransformError(
-        'Cannot update parameters of deleted node',
-        localOp,
-        remoteOp
-      );
+      // Cannot update parameters of deleted node
+      const noop: Operation = { ...localOp, type: 'NOOP' as any };
+      return noop;
     }
-
     return localOp;
   }
 
-  // Edge operation transformations
   private transformCreateEdgeVsCreateEdge(
     localOp: CreateEdgeOperation,
     remoteOp: CreateEdgeOperation
   ): Operation {
-    // Same edge being created
     if (localOp.edgeId === remoteOp.edgeId) {
-      if (remoteOp.timestamp < localOp.timestamp) {
-        throw new OperationTransformError(
-          'Edge already created by remote operation',
-          localOp,
-          remoteOp
-        );
-      }
+      // Same edge ID, remote wins
+      const noop: Operation = { ...localOp, type: 'NOOP' as any };
+      return noop;
     }
-
-    // Same connection points
-    if (
-      localOp.sourceNodeId === remoteOp.sourceNodeId &&
-      localOp.sourceSocket === remoteOp.sourceSocket &&
-      localOp.targetNodeId === remoteOp.targetNodeId &&
-      localOp.targetSocket === remoteOp.targetSocket
-    ) {
-      // Duplicate connection - remote wins if earlier
-      if (remoteOp.timestamp < localOp.timestamp) {
-        throw new OperationTransformError(
-          'Connection already exists',
-          localOp,
-          remoteOp
-        );
-      }
-    }
-
     return localOp;
   }
 
@@ -451,34 +378,11 @@ export class OperationalTransformEngine {
     localOp: CreateEdgeOperation,
     remoteOp: DeleteNodeOperation
   ): Operation {
-    // Creating edge to/from a deleted node
-    if (
-      localOp.sourceNodeId === remoteOp.nodeId ||
-      localOp.targetNodeId === remoteOp.nodeId
-    ) {
-      throw new OperationTransformError(
-        'Cannot create edge to/from deleted node',
-        localOp,
-        remoteOp
-      );
+    if (localOp.sourceNodeId === remoteOp.nodeId || localOp.targetNodeId === remoteOp.nodeId) {
+      // Cannot create edge to/from deleted node
+      const noop: Operation = { ...localOp, type: 'NOOP' as any };
+      return noop;
     }
-
-    return localOp;
-  }
-
-  private transformCreateEdgeVsDeleteEdge(
-    localOp: CreateEdgeOperation,
-    remoteOp: DeleteEdgeOperation
-  ): Operation {
-    // Creating an edge that was just deleted - should be fine
-    return localOp;
-  }
-
-  private transformDeleteEdgeVsCreateEdge(
-    localOp: DeleteEdgeOperation,
-    remoteOp: CreateEdgeOperation
-  ): Operation {
-    // Deleting an edge while someone creates one - delete takes precedence
     return localOp;
   }
 
@@ -486,24 +390,27 @@ export class OperationalTransformEngine {
     localOp: DeleteEdgeOperation,
     remoteOp: DeleteEdgeOperation
   ): Operation {
-    // Same edge being deleted
     if (localOp.edgeId === remoteOp.edgeId) {
-      if (remoteOp.timestamp < localOp.timestamp) {
-        throw new OperationTransformError(
-          'Edge already deleted by remote operation',
-          localOp,
-          remoteOp
-        );
-      }
+      // Edge already deleted
+      const noop: Operation = { ...localOp, type: 'NOOP' as any };
+      return noop;
     }
-
     return localOp;
   }
 
-  private transformBatchVsBatch(
+  private transformDeleteEdgeVsDeleteNode(
+    localOp: DeleteEdgeOperation,
+    remoteOp: DeleteNodeOperation
+  ): Operation {
+    // Edge deletion is still valid even if node is deleted
+    // (node deletion should cascade to edge deletion)
+    return localOp;
+  }
+
+  private async transformBatchVsBatch(
     localOp: BatchOperation,
     remoteOp: BatchOperation
-  ): Operation {
+  ): Promise<Operation> {
     // Transform each operation in the batch
     const transformedOps: Operation[] = [];
 
@@ -514,7 +421,10 @@ export class OperationalTransformEngine {
         transformedSubOp = await this.transform(transformedSubOp, remoteSubOp);
       }
 
-      transformedOps.push(transformedSubOp);
+      // Only include non-NOOP operations
+      if (transformedSubOp.type !== 'NOOP') {
+        transformedOps.push(transformedSubOp);
+      }
     }
 
     return {
@@ -523,93 +433,193 @@ export class OperationalTransformEngine {
     };
   }
 
-  // Conflict analysis
-  private analyzeConflict(
-    localOp: Operation,
+  private async transformBatchVsOperation(
+    localOp: BatchOperation,
     remoteOp: Operation
-  ): OperationConflict {
-    let conflictType: 'simultaneous-edit' | 'dependency-violation' | 'concurrent-deletion';
-    let severity: 'low' | 'medium' | 'high';
-    let autoResolvable: boolean;
+  ): Promise<Operation> {
+    const transformedOps: Operation[] = [];
 
-    // Determine conflict type
-    if (localOp.type.includes('DELETE') && remoteOp.type.includes('DELETE')) {
-      conflictType = 'concurrent-deletion';
-      severity = 'medium';
-      autoResolvable = true;
-    } else if (
-      localOp.type.includes('UPDATE') &&
-      remoteOp.type.includes('UPDATE')
-    ) {
-      conflictType = 'simultaneous-edit';
-      severity = 'low';
-      autoResolvable = true;
-    } else {
-      conflictType = 'dependency-violation';
-      severity = 'high';
-      autoResolvable = false;
+    for (const subOp of localOp.operations) {
+      const transformedSubOp = await this.transform(subOp, remoteOp);
+      // Only include non-NOOP operations
+      if (transformedSubOp.type !== 'NOOP') {
+        transformedOps.push(transformedSubOp);
+      }
     }
-
+    
     return {
-      id: `conflict_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      localOperation: localOp,
-      remoteOperation: remoteOp,
-      conflictType,
-      severity,
-      autoResolvable,
+      ...localOp,
+      operations: transformedOps,
     };
   }
 
-  // Conflict resolution through merging
-  private async mergeOperations(
-    conflict: OperationConflict
-  ): Promise<ConflictResolution> {
-    const { localOperation, remoteOperation } = conflict;
+  private async transformOperationVsBatch(
+    localOp: Operation,
+    remoteOp: BatchOperation
+  ): Promise<Operation> {
+    let transformedOp = localOp;
 
-    // Handle parameter updates specially
-    if (
-      localOperation.type === 'UPDATE_NODE_PARAMS' &&
-      remoteOperation.type === 'UPDATE_NODE_PARAMS'
-    ) {
-      const localParams = localOperation as UpdateNodeParamsOperation;
-      const remoteParams = remoteOperation as UpdateNodeParamsOperation;
+    for (const remoteSubOp of remoteOp.operations) {
+      transformedOp = await this.transform(transformedOp, remoteSubOp);
+    }
 
-      if (localParams.nodeId === remoteParams.nodeId) {
-        // Merge parameter updates
-        const mergedParams = {
-          ...remoteParams.paramUpdates,
-          ...localParams.paramUpdates,
-        };
+    return transformedOp;
+  }
 
-        const resolvedOperation: UpdateNodeParamsOperation = {
-          ...localParams,
-          paramUpdates: mergedParams,
-          previousValues: {
-            ...remoteParams.previousValues,
-            ...localParams.previousValues,
-          },
-        };
+  // Conflict resolution methods
 
-        return {
-          strategy: 'merge',
-          resolvedOperation,
-          conflictDetails: 'Merged parameter updates from both operations',
-        };
+  private getConflictType(op1: Operation, op2: Operation): string {
+    // Check for specific conflict types
+    if (op1.type === 'CREATE_NODE' && op2.type === 'CREATE_NODE') {
+      const createOp1 = op1 as CreateNodeOperation;
+      const createOp2 = op2 as CreateNodeOperation;
+      if (createOp1.nodeId === createOp2.nodeId) {
+        return 'NODE_ID_CONFLICT';
       }
     }
 
-    // For other conflicts, use timestamp-based resolution
-    const winner =
-      localOperation.timestamp > remoteOperation.timestamp
-        ? localOperation
-        : remoteOperation;
+    if (op1.type === 'UPDATE_NODE_PARAMS' && op2.type === 'UPDATE_NODE_PARAMS') {
+      const updateOp1 = op1 as UpdateNodeParamsOperation;
+      const updateOp2 = op2 as UpdateNodeParamsOperation;
+      if (updateOp1.nodeId === updateOp2.nodeId) {
+        const conflictingParams = Object.keys(updateOp1.paramUpdates).filter(
+          key => key in updateOp2.paramUpdates
+        );
+        if (conflictingParams.length > 0) {
+          return 'PARAMETER_CONFLICT';
+        }
+      }
+    }
+
+    return `${op1.type}_vs_${op2.type}`;
+  }
+
+  private getConflictingFields(op1: Operation, op2: Operation): string[] {
+    if (op1.type === 'UPDATE_NODE_PARAMS' && op2.type === 'UPDATE_NODE_PARAMS') {
+      const updateOp1 = op1 as UpdateNodeParamsOperation;
+      const updateOp2 = op2 as UpdateNodeParamsOperation;
+      if (updateOp1.nodeId === updateOp2.nodeId) {
+        return Object.keys(updateOp1.paramUpdates).filter(
+          key => key in updateOp2.paramUpdates
+        );
+      }
+    }
+    return [];
+  }
+
+  private getConflictSeverity(op1: Operation, op2: Operation): 'low' | 'medium' | 'high' {
+    // High severity for destructive operations
+    if (op1.type === 'DELETE_NODE' || op2.type === 'DELETE_NODE') {
+      return 'high';
+    }
+
+    // Medium severity for structural changes
+    if (op1.type === 'CREATE_EDGE' || op2.type === 'CREATE_EDGE' ||
+        op1.type === 'DELETE_EDGE' || op2.type === 'DELETE_EDGE') {
+      return 'medium';
+    }
+
+    // Low severity for parameter/position updates
+    return 'low';
+  }
+
+  private getConflictDescription(op1: Operation, op2: Operation): string {
+    const entity1 = this.getOperationEntity(op1);
+    const entity2 = this.getOperationEntity(op2);
+
+    return `Concurrent ${op1.type} and ${op2.type} operations on ${entity1}`;
+  }
+
+  private async mergeOperations(
+    localOp: Operation,
+    remoteOp: Operation
+  ): Promise<ConflictResolution> {
+    // For parameter conflicts, merge the parameters
+    if (localOp.type === 'UPDATE_NODE_PARAMS' && remoteOp.type === 'UPDATE_NODE_PARAMS') {
+      const localParams = (localOp as UpdateNodeParamsOperation).paramUpdates;
+      const remoteParams = (remoteOp as UpdateNodeParamsOperation).paramUpdates;
+      
+      const mergedParams = { ...localParams, ...remoteParams };
+      
+      const resolvedOperation: UpdateNodeParamsOperation = {
+        ...localOp as UpdateNodeParamsOperation,
+        paramUpdates: mergedParams,
+      };
+
+      return {
+        strategy: 'merge',
+        resolvedOperation,
+        metadata: {
+          originalLocal: localOp,
+          originalRemote: remoteOp,
+          mergeStrategy: 'parameter_merge',
+        },
+      };
+    }
+
+    // Default merge: transform local against remote
+    const resolvedOperation = await this.transform(localOp, remoteOp);
 
     return {
       strategy: 'merge',
+      resolvedOperation,
+      metadata: {
+        originalLocal: localOp,
+        originalRemote: remoteOp,
+        mergeStrategy: 'operational_transform',
+      },
+    };
+  }
+
+  private async lastWriterWinsResolution(
+    localOp: Operation,
+    remoteOp: Operation
+  ): Promise<ConflictResolution> {
+    const winner = (remoteOp.timestamp || 0) > (localOp.timestamp || 0) ? remoteOp : localOp;
+
+    return {
+      strategy: 'last-writer-wins',
       resolvedOperation: winner,
-      conflictDetails: 'Resolved using timestamp precedence',
+      metadata: {
+        winner: winner === localOp ? 'local' : 'remote',
+        originalLocal: localOp,
+        originalRemote: remoteOp,
+      },
+    };
+  }
+
+  private async firstWriterWinsResolution(
+    localOp: Operation,
+    remoteOp: Operation
+  ): Promise<ConflictResolution> {
+    const winner = (localOp.timestamp || 0) < (remoteOp.timestamp || 0) ? localOp : remoteOp;
+
+    return {
+      strategy: 'first-writer-wins',
+      resolvedOperation: winner,
+      metadata: {
+        winner: winner === localOp ? 'local' : 'remote',
+        originalLocal: localOp,
+        originalRemote: remoteOp,
+      },
+    };
+  }
+
+  private async userDecisionResolution(
+    localOp: Operation,
+    remoteOp: Operation
+  ): Promise<ConflictResolution> {
+    // In a real implementation, this would trigger UI for user decision
+    // For now, default to local operation
+    return {
+      strategy: 'user-decision',
+      resolvedOperation: localOp,
+      metadata: {
+        decision: 'local',
+        originalLocal: localOp,
+        originalRemote: remoteOp,
+        requiresUserInput: true,
+      },
     };
   }
 }
-
-export const operationalTransform = new OperationalTransformEngine();

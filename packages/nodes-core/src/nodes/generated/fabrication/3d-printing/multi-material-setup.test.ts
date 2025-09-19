@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MultiMaterialSetupNode } from './multimaterialsetup-node';
-import { createTestContext } from '../test-utils';
+import { MultiMaterialSetupNode } from './multimaterialsetup.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MultiMaterialSetupNode', () => {
   it('should create MultiMaterialSetup', async () => {

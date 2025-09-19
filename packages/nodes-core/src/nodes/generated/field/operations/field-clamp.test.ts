@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldClampNode } from './fieldclamp-node';
-import { createTestContext } from '../test-utils';
+import { FieldClampNode } from './fieldclamp.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldClampNode', () => {
   it('should create FieldClamp', async () => {

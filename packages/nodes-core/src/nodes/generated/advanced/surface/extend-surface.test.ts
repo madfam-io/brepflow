@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExtendSurfaceNode } from './extendsurface-node';
-import { createTestContext } from '../test-utils';
+import { ExtendSurfaceNode } from './extendsurface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ExtendSurfaceNode', () => {
   it('should create ExtendSurface', async () => {

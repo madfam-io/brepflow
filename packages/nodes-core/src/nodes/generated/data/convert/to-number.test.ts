@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToNumberNode } from './tonumber-node';
-import { createTestContext } from '../test-utils';
+import { ToNumberNode } from './tonumber.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ToNumberNode', () => {
   it('should create ToNumber', async () => {

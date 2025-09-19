@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ConvexHull3DNode } from './convexhull3d-node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from './../../test-utils';
 
 describe('ConvexHull3DNode', () => {
   it('should create ConvexHull3D', async () => {

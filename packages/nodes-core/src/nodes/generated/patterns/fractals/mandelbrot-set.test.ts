@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MandelbrotSetNode } from './mandelbrotset-node';
-import { createTestContext } from '../test-utils';
+import { MandelbrotSetNode } from './mandelbrotset.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MandelbrotSetNode', () => {
   it('should create MandelbrotSet', async () => {

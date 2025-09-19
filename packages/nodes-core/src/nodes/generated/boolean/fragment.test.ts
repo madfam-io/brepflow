@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FragmentNode } from './fragment-node';
-import { createTestContext } from '../test-utils';
+import { FragmentNode } from './fragment.node';
+import { createTestContext } from './../test-utils';
 
 describe('FragmentNode', () => {
   it('should create Fragment', async () => {

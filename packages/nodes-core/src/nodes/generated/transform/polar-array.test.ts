@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PolarArrayNode } from './polararray-node';
-import { createTestContext } from '../test-utils';
+import { PolarArrayNode } from './polararray.node';
+import { createTestContext } from './../test-utils';
 
 describe('PolarArrayNode', () => {
   it('should create PolarArray', async () => {

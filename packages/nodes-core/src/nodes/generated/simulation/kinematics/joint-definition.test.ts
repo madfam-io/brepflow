@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { JointDefinitionNode } from './jointdefinition-node';
-import { createTestContext } from '../test-utils';
+import { JointDefinitionNode } from './jointdefinition.node';
+import { createTestContext } from './../../test-utils';
 
 describe('JointDefinitionNode', () => {
   it('should create JointDefinition', async () => {

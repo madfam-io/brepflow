@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PolylineNode } from './polyline-node';
-import { createTestContext } from '../test-utils';
+import { PolylineNode } from './polyline.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PolylineNode', () => {
   it('should create Polyline', async () => {

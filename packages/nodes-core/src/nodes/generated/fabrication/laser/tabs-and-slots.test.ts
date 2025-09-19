@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TabsAndSlotsNode } from './tabsandslots-node';
-import { createTestContext } from '../test-utils';
+import { TabsAndSlotsNode } from './tabsandslots.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TabsAndSlotsNode', () => {
   it('should create TabsAndSlots', async () => {

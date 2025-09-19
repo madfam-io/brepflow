@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ThreadInsertNode } from './threadinsert-node';
-import { createTestContext } from '../test-utils';
+import { ThreadInsertNode } from './threadinsert.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ThreadInsertNode', () => {
   it('should create ThreadInsert', async () => {

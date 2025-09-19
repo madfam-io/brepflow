@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveSurfaceIntersectionNode } from './curvesurfaceintersection-node';
-import { createTestContext } from '../test-utils';
+import { CurveSurfaceIntersectionNode } from './curvesurfaceintersection.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurveSurfaceIntersectionNode', () => {
   it('should create CurveSurfaceIntersection', async () => {

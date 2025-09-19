@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MountingBossNode } from './mountingboss-node';
-import { createTestContext } from '../test-utils';
+import { MountingBossNode } from './mountingboss.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MountingBossNode', () => {
   it('should create MountingBoss', async () => {

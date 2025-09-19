@@ -20,8 +20,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
   label,
   helpText,
   errorText,
+  successText,
+  warningText,
   size = 'md',
   variant = 'default',
+  validationState,
   leftIcon,
   rightIcon,
   unit,
@@ -34,14 +37,20 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
   ...props
 }, ref) => {
   const [isFocused, setIsFocused] = useState(false);
-  const hasError = Boolean(errorText);
+  const hasError = Boolean(errorText) || validationState === 'error';
+  const hasSuccess = Boolean(successText) || validationState === 'success';
+  const hasWarning = Boolean(warningText) || validationState === 'warning';
   const hasValue = Boolean(value && String(value).length > 0);
+
+  // Determine the actual validation state
+  const currentValidationState = validationState ||
+    (hasError ? 'error' : hasSuccess ? 'success' : hasWarning ? 'warning' : 'default');
 
   const inputClasses = [
     'form-input',
     `form-input-${size}`,
     `form-input-${variant}`,
-    hasError && 'form-input-error',
+    currentValidationState !== 'default' && `form-input-${currentValidationState}`,
     isFocused && 'form-input-focused',
     leftIcon && 'form-input-with-left-icon',
     (rightIcon || unit || clearable || loading) && 'form-input-with-right-icon',
@@ -51,7 +60,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
 
   const containerClasses = [
     'form-group',
-    hasError && 'form-group-error'
+    currentValidationState !== 'default' && `form-group-${currentValidationState}`,
+    isFocused && 'form-group-focused'
   ].filter(Boolean).join(' ');
 
   const showClearButton = clearable && hasValue && !disabled && !loading;
@@ -117,14 +127,28 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
         )}
       </div>
 
-      {helpText && !hasError && (
+      {helpText && currentValidationState === 'default' && (
         <div className="form-help-text">{helpText}</div>
       )}
 
-      {hasError && (
+      {(hasError || currentValidationState === 'error') && (
         <div className="form-error-text" role="alert">
           <Icon name="alert-circle" size={14} />
-          {errorText}
+          {errorText || 'Invalid input'}
+        </div>
+      )}
+
+      {(hasSuccess || currentValidationState === 'success') && (
+        <div className="form-success-text" role="status">
+          <Icon name="check-circle" size={14} />
+          {successText || 'Valid input'}
+        </div>
+      )}
+
+      {(hasWarning || currentValidationState === 'warning') && (
+        <div className="form-warning-text" role="alert">
+          <Icon name="alert-triangle" size={14} />
+          {warningText || 'Input warning'}
         </div>
       )}
     </div>

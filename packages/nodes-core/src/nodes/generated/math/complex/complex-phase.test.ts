@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ComplexPhaseNode } from './complexphase-node';
-import { createTestContext } from '../test-utils';
+import { ComplexPhaseNode } from './complexphase.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ComplexPhaseNode', () => {
   it('should create ComplexPhase', async () => {

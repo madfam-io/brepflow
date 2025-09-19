@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SerialNumberNode } from './serialnumber-node';
-import { createTestContext } from '../test-utils';
+import { SerialNumberNode } from './serialnumber.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SerialNumberNode', () => {
   it('should create SerialNumber', async () => {

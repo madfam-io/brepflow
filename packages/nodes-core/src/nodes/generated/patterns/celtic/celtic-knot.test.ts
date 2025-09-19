@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CelticKnotNode } from './celticknot-node';
-import { createTestContext } from '../test-utils';
+import { CelticKnotNode } from './celticknot.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CelticKnotNode', () => {
   it('should create CelticKnot', async () => {

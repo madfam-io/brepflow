@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PowerMappingNode } from './powermapping-node';
-import { createTestContext } from '../test-utils';
+import { PowerMappingNode } from './powermapping.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PowerMappingNode', () => {
   it('should create PowerMapping', async () => {

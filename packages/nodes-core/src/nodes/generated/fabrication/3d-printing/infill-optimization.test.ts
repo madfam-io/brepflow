@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { InfillOptimizationNode } from './infilloptimization-node';
-import { createTestContext } from '../test-utils';
+import { InfillOptimizationNode } from './infilloptimization.node';
+import { createTestContext } from './../../test-utils';
 
 describe('InfillOptimizationNode', () => {
   it('should create InfillOptimization', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ContactSetNode } from './contactset-node';
-import { createTestContext } from '../test-utils';
+import { ContactSetNode } from './contactset.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ContactSetNode', () => {
   it('should create ContactSet', async () => {

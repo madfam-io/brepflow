@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CenterOfMassNode } from './centerofmass-node';
-import { createTestContext } from '../test-utils';
+import { CenterOfMassNode } from './centerofmass.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CenterOfMassNode', () => {
   it('should create CenterOfMass', async () => {

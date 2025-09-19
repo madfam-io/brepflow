@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GordonSurfaceNode } from './gordonsurface-node';
-import { createTestContext } from '../test-utils';
+import { GordonSurfaceNode } from './gordonsurface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GordonSurfaceNode', () => {
   it('should create GordonSurface', async () => {

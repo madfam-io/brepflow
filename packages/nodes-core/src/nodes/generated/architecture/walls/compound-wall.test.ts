@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CompoundWallNode } from './compoundwall-node';
-import { createTestContext } from '../test-utils';
+import { CompoundWallNode } from './compoundwall.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CompoundWallNode', () => {
   it('should create CompoundWall', async () => {

@@ -1,0 +1,436 @@
+/* ViewportInstance - Professional Multi-Viewport Component */
+.viewport-instance {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--color-surface-primary);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: var(--transition-panel);
+  isolation: isolate;
+}
+
+.viewport-instance:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-viewport-instance-hover);
+}
+
+.viewport-instance.active {
+  border-color: var(--color-engineering-400);
+  box-shadow: var(--shadow-viewport-instance-active);
+  z-index: 1;
+}
+
+.viewport-instance.active::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--color-engineering-400), var(--color-engineering-500));
+  border-radius: var(--radius-md);
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.viewport-instance.locked {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.viewport-instance.locked .viewport-content {
+  pointer-events: none;
+}
+
+.viewport-instance.hidden {
+  display: none;
+}
+
+/* Viewport Header */
+.viewport-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--color-surface-secondary);
+  border-bottom: 1px solid var(--color-border);
+  min-height: 44px;
+  z-index: 10;
+  transition: var(--transition-colors);
+}
+
+.viewport-instance.active .viewport-header {
+  background: var(--color-engineering-50);
+  border-bottom-color: var(--color-engineering-200);
+}
+
+.viewport-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex: 1;
+  min-width: 0;
+}
+
+.viewport-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.viewport-instance.active .viewport-name {
+  color: var(--color-engineering-700);
+}
+
+.viewport-view-type {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  background: var(--color-surface-tertiary);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.viewport-instance.active .viewport-view-type {
+  color: var(--color-engineering-600);
+  background: var(--color-engineering-100);
+  border-color: var(--color-engineering-300);
+}
+
+/* Viewport Controls */
+.viewport-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-precise);
+}
+
+.viewport-instance:hover .viewport-controls,
+.viewport-instance.active .viewport-controls {
+  opacity: 1;
+}
+
+.viewport-control-btn {
+  transition: var(--transition-button);
+}
+
+.viewport-control-btn.locked {
+  color: var(--color-warning-600);
+  background: var(--color-warning-100);
+}
+
+/* View Type Menu */
+.viewport-view-menu {
+  position: relative;
+}
+
+.view-type-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--spacing-1);
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-dropdown);
+  z-index: 50;
+  min-width: 140px;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+
+.view-type-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-colors);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  text-transform: capitalize;
+}
+
+.view-type-option:hover {
+  background: var(--color-surface-secondary);
+}
+
+.view-type-option.active {
+  background: var(--color-engineering-100);
+  color: var(--color-engineering-700);
+}
+
+.view-type-option.active .btn {
+  background: var(--color-engineering-200);
+  color: var(--color-engineering-800);
+}
+
+/* Active Viewport Indicator */
+.viewport-active-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-engineering-400), var(--color-engineering-600));
+  z-index: 20;
+  animation: activeIndicatorPulse 2s ease-in-out infinite;
+}
+
+@keyframes activeIndicatorPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Viewport Content */
+.viewport-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-neutral-900);
+}
+
+.viewport-3d {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Scale viewport toolbar for instances */
+.viewport-instance .viewport-3d .viewport-toolbar {
+  top: var(--spacing-2);
+  left: var(--spacing-2);
+  padding: var(--spacing-2);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-lg);
+}
+
+.viewport-instance .viewport-3d .viewport-toolbar-group {
+  gap: var(--spacing-1);
+  padding: 0;
+}
+
+.viewport-instance .viewport-3d .navigation-cube {
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+  width: 80px;
+  height: 80px;
+}
+
+.viewport-instance .viewport-3d .cube-face {
+  width: 24px;
+  height: 24px;
+  font-size: 8px;
+}
+
+.viewport-instance .viewport-3d .coordinate-display {
+  bottom: var(--spacing-2);
+  right: var(--spacing-2);
+  padding: var(--spacing-2);
+  backdrop-filter: blur(8px);
+}
+
+.viewport-instance .viewport-3d .scale-indicator {
+  bottom: var(--spacing-2);
+  left: var(--spacing-2);
+  padding: var(--spacing-2);
+  backdrop-filter: blur(8px);
+}
+
+.viewport-instance .viewport-3d .performance-monitor {
+  top: 100px;
+  left: var(--spacing-2);
+  padding: var(--spacing-2);
+  font-size: 10px;
+}
+
+/* Hide measurement panel in viewport instances */
+.viewport-instance .viewport-3d .measurement-panel {
+  display: none;
+}
+
+/* Viewport Status */
+.viewport-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--color-surface-secondary);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  min-height: 32px;
+}
+
+.viewport-instance.active .viewport-status {
+  background: var(--color-engineering-50);
+  border-top-color: var(--color-engineering-200);
+  color: var(--color-engineering-600);
+}
+
+.viewport-camera-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.camera-mode {
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-medium);
+}
+
+.camera-zoom {
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-medium);
+}
+
+.viewport-quality {
+  display: flex;
+  align-items: center;
+}
+
+.quality-indicator {
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-bold);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+  font-size: 10px;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.quality-indicator.quality-low {
+  color: var(--color-warning-700);
+  background: var(--color-warning-100);
+  border-color: var(--color-warning-300);
+}
+
+.quality-indicator.quality-medium {
+  color: var(--color-info-700);
+  background: var(--color-info-100);
+  border-color: var(--color-info-300);
+}
+
+.quality-indicator.quality-high {
+  color: var(--color-success-700);
+  background: var(--color-success-100);
+  border-color: var(--color-success-300);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .viewport-header {
+    padding: var(--spacing-1) var(--spacing-2);
+    min-height: 36px;
+  }
+
+  .viewport-name {
+    font-size: var(--font-size-xs);
+  }
+
+  .viewport-view-type {
+    display: none; /* Hide on small screens to save space */
+  }
+
+  .viewport-status {
+    padding: var(--spacing-1) var(--spacing-2);
+    min-height: 28px;
+    font-size: 10px;
+  }
+
+  .viewport-camera-info {
+    gap: var(--spacing-2);
+  }
+
+  .camera-zoom {
+    display: none; /* Hide zoom info on small screens */
+  }
+
+  .view-type-dropdown {
+    min-width: 120px;
+  }
+
+  .view-type-option {
+    padding: var(--spacing-2);
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* Performance optimizations for multiple viewports */
+.viewport-instance:not(.active) .viewport-3d .performance-monitor {
+  display: none; /* Hide performance monitors in inactive viewports */
+}
+
+.viewport-instance:not(.active) .viewport-3d .coordinate-display {
+  opacity: 0.5; /* Reduce opacity of inactive viewport coordinates */
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .viewport-instance {
+    border-width: 3px;
+  }
+
+  .viewport-instance.active {
+    border-width: 3px;
+  }
+
+  .viewport-header,
+  .viewport-status {
+    border-width: 2px;
+  }
+
+  .quality-indicator {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .viewport-instance,
+  .viewport-controls,
+  .viewport-control-btn,
+  .view-type-option,
+  .viewport-active-indicator {
+    transition: none;
+  }
+
+  .viewport-active-indicator {
+    animation: none;
+  }
+
+  .viewport-instance:hover {
+    transform: none;
+  }
+}
+
+/* Focus management for accessibility */
+.viewport-instance:focus-within {
+  outline: 2px solid var(--color-engineering-500);
+  outline-offset: 2px;
+}
+
+.viewport-control-btn:focus-visible,
+.view-type-option:focus-visible {
+  outline: 2px solid var(--color-engineering-500);
+  outline-offset: 2px;
+}

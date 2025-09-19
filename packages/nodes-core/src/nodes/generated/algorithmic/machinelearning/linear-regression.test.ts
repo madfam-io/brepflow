@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinearRegressionNode } from './linearregression-node';
-import { createTestContext } from '../test-utils';
+import { LinearRegressionNode } from './linearregression.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LinearRegressionNode', () => {
   it('should create LinearRegression', async () => {

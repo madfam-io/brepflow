@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RoundToDecimalNode } from './roundtodecimal-node';
-import { createTestContext } from '../test-utils';
+import { RoundToDecimalNode } from './roundtodecimal.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RoundToDecimalNode', () => {
   it('should create RoundToDecimal', async () => {

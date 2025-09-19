@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListJoinNode } from './listjoin-node';
-import { createTestContext } from '../test-utils';
+import { ListJoinNode } from './listjoin.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ListJoinNode', () => {
   it('should create ListJoin', async () => {

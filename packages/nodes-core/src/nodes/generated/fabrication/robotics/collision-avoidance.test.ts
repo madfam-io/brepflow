@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CollisionAvoidanceNode } from './collisionavoidance-node';
-import { createTestContext } from '../test-utils';
+import { CollisionAvoidanceNode } from './collisionavoidance.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CollisionAvoidanceNode', () => {
   it('should create CollisionAvoidance', async () => {

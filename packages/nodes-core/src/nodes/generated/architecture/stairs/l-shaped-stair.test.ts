@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LShapedStairNode } from './lshapedstair-node';
-import { createTestContext } from '../test-utils';
+import { LShapedStairNode } from './lshapedstair.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LShapedStairNode', () => {
   it('should create LShapedStair', async () => {

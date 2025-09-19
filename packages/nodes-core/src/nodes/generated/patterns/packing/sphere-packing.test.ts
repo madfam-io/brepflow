@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpherePackingNode } from './spherepacking-node';
-import { createTestContext } from '../test-utils';
+import { SpherePackingNode } from './spherepacking.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SpherePackingNode', () => {
   it('should create SpherePacking', async () => {

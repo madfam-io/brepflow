@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PowerNode } from './power-node';
-import { createTestContext } from '../test-utils';
+import { PowerNode } from './power.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PowerNode', () => {
   it('should create Power', async () => {

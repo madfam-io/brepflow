@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SingularityAvoidanceNode } from './singularityavoidance-node';
-import { createTestContext } from '../test-utils';
+import { SingularityAvoidanceNode } from './singularityavoidance.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SingularityAvoidanceNode', () => {
   it('should create SingularityAvoidance', async () => {

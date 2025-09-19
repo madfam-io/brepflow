@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldDivergenceAnalysisNode } from './fielddivergenceanalysis-node';
-import { createTestContext } from '../test-utils';
+import { FieldDivergenceAnalysisNode } from './fielddivergenceanalysis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldDivergenceAnalysisNode', () => {
   it('should create FieldDivergenceAnalysis', async () => {

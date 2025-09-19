@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ToBase64Node } from './tobase64-node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from './../../test-utils';
 
 describe('ToBase64Node', () => {
   it('should create ToBase64', async () => {

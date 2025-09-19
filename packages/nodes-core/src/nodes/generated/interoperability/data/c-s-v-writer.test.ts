@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CSVWriterNode } from './csvwriter-node';
-import { createTestContext } from '../test-utils';
+import { CSVWriterNode } from './csvwriter.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CSVWriterNode', () => {
   it('should create CSVWriter', async () => {

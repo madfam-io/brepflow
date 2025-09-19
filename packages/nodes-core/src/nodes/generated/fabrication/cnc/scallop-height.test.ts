@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ScallopHeightNode } from './scallopheight-node';
-import { createTestContext } from '../test-utils';
+import { ScallopHeightNode } from './scallopheight.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ScallopHeightNode', () => {
   it('should create ScallopHeight', async () => {

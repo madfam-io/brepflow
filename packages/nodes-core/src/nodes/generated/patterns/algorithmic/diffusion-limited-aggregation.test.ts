@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DiffusionLimitedAggregationNode } from './diffusionlimitedaggregation-node';
-import { createTestContext } from '../test-utils';
+import { DiffusionLimitedAggregationNode } from './diffusionlimitedaggregation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DiffusionLimitedAggregationNode', () => {
   it('should create DiffusionLimitedAggregation', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DifferenceNode } from './difference-node';
-import { createTestContext } from '../test-utils';
+import { DifferenceNode } from './difference.node';
+import { createTestContext } from './../test-utils';
 
 describe('DifferenceNode', () => {
   it('should create Difference', async () => {

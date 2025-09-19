@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurvatureCombNode } from './curvaturecomb-node';
-import { createTestContext } from '../test-utils';
+import { CurvatureCombNode } from './curvaturecomb.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurvatureCombNode', () => {
   it('should create CurvatureComb', async () => {

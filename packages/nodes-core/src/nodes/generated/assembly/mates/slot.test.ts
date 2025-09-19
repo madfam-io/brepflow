@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SlotNode } from './slot-node';
-import { createTestContext } from '../test-utils';
+import { SlotNode } from './slot.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SlotNode', () => {
   it('should create Slot', async () => {

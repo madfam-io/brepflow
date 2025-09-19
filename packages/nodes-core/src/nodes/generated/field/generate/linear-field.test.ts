@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinearFieldNode } from './linearfield-node';
-import { createTestContext } from '../test-utils';
+import { LinearFieldNode } from './linearfield.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LinearFieldNode', () => {
   it('should create LinearField', async () => {

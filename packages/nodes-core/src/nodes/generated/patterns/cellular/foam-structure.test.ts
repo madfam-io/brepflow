@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FoamStructureNode } from './foamstructure-node';
-import { createTestContext } from '../test-utils';
+import { FoamStructureNode } from './foamstructure.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FoamStructureNode', () => {
   it('should create FoamStructure', async () => {

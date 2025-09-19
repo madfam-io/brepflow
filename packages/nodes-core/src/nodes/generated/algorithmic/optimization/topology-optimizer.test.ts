@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TopologyOptimizerNode } from './topologyoptimizer-node';
-import { createTestContext } from '../test-utils';
+import { TopologyOptimizerNode } from './topologyoptimizer.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TopologyOptimizerNode', () => {
   it('should create TopologyOptimizer', async () => {

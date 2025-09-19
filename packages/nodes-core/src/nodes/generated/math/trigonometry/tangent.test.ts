@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TangentNode } from './tangent-node';
-import { createTestContext } from '../test-utils';
+import { TangentNode } from './tangent.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TangentNode', () => {
   it('should create Tangent', async () => {

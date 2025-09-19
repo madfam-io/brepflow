@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RelativeNeighborhoodNode } from './relativeneighborhood-node';
-import { createTestContext } from '../test-utils';
+import { RelativeNeighborhoodNode } from './relativeneighborhood.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RelativeNeighborhoodNode', () => {
   it('should create RelativeNeighborhood', async () => {

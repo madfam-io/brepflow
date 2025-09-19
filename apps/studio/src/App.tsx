@@ -44,6 +44,7 @@ import { useMonitoring, useHealthMonitoring } from './hooks/useMonitoring';
 import { initializeMonitoring } from './lib/monitoring';
 import { Icon } from './components/common/Icon';
 import { NodeParameterDialog } from './components/dialogs/NodeParameterDialog';
+import { ViewportLayoutManager } from './components/viewport/ViewportLayoutManager';
 import './App.css';
 import { BrowserWASMTestSuite } from './test-browser-wasm';
 
@@ -412,7 +413,38 @@ function AppContent() {
           viewport3d: (
             <WASMErrorBoundary>
               <GeometryErrorBoundary>
-                <Viewport />
+                <ViewportLayoutManager
+                  initialLayout="single"
+                  enableKeyboardShortcuts={true}
+                  showLayoutControls={true}
+                  onLayoutChange={(layout) => {
+                    console.log('Layout changed:', layout);
+                    recordUserInteraction({
+                      type: 'viewport_layout_change',
+                      target: layout.type,
+                      data: { viewports: layout.viewports.length }
+                    });
+                  }}
+                  onViewportSelect={(viewportId) => {
+                    console.log('Viewport selected:', viewportId);
+                    recordUserInteraction({
+                      type: 'viewport_select',
+                      target: viewportId
+                    });
+                  }}
+                  onCameraChange={(viewportId, camera) => {
+                    console.log('Camera changed for viewport:', viewportId, camera);
+                  }}
+                  onRenderModeChange={(viewportId, mode) => {
+                    console.log('Render mode changed for viewport:', viewportId, mode);
+                    recordUserInteraction({
+                      type: 'viewport_render_mode_change',
+                      target: mode,
+                      data: { viewportId }
+                    });
+                  }}
+                  geometryData={graph}
+                />
               </GeometryErrorBoundary>
             </WASMErrorBoundary>
           ),

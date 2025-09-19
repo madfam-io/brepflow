@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MinimumDistanceNode } from './minimumdistance-node';
-import { createTestContext } from '../test-utils';
+import { MinimumDistanceNode } from './minimumdistance.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MinimumDistanceNode', () => {
   it('should create MinimumDistance', async () => {

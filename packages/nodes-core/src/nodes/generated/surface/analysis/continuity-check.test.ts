@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ContinuityCheckNode } from './continuitycheck-node';
-import { createTestContext } from '../test-utils';
+import { ContinuityCheckNode } from './continuitycheck.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ContinuityCheckNode', () => {
   it('should create ContinuityCheck', async () => {

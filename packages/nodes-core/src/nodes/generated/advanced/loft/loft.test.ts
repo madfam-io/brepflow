@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LoftNode } from './loft-node';
-import { createTestContext } from '../test-utils';
+import { LoftNode } from './loft.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LoftNode', () => {
   it('should create Loft', async () => {

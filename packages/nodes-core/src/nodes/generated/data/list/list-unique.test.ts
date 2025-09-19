@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListUniqueNode } from './listunique-node';
-import { createTestContext } from '../test-utils';
+import { ListUniqueNode } from './listunique.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ListUniqueNode', () => {
   it('should create ListUnique', async () => {

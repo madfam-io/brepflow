@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { IsocurveExtractNode } from './isocurveextract-node';
-import { createTestContext } from '../test-utils';
+import { IsocurveExtractNode } from './isocurveextract.node';
+import { createTestContext } from './../../test-utils';
 
 describe('IsocurveExtractNode', () => {
   it('should create IsocurveExtract', async () => {

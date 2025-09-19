@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HTTPRequestNode } from './httprequest-node';
-import { createTestContext } from '../test-utils';
+import { HTTPRequestNode } from './httprequest.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HTTPRequestNode', () => {
   it('should create HTTPRequest', async () => {

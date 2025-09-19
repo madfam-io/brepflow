@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ReactionDiffusionNode } from './reactiondiffusion-node';
-import { createTestContext } from '../test-utils';
+import { ReactionDiffusionNode } from './reactiondiffusion.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ReactionDiffusionNode', () => {
   it('should create ReactionDiffusion', async () => {

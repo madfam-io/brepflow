@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ConwayLifeNode } from './conwaylife-node';
-import { createTestContext } from '../test-utils';
+import { ConwayLifeNode } from './conwaylife.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ConwayLifeNode', () => {
   it('should create ConwayLife', async () => {

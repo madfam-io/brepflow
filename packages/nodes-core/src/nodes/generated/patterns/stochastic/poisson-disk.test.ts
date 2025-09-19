@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PoissonDiskNode } from './poissondisk-node';
-import { createTestContext } from '../test-utils';
+import { PoissonDiskNode } from './poissondisk.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PoissonDiskNode', () => {
   it('should create PoissonDisk', async () => {

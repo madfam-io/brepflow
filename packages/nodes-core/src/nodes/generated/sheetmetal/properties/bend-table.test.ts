@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BendTableNode } from './bendtable-node';
-import { createTestContext } from '../test-utils';
+import { BendTableNode } from './bendtable.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BendTableNode', () => {
   it('should create BendTable', async () => {

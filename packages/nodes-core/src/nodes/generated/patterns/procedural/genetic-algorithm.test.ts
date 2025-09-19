@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GeneticAlgorithmNode } from './geneticalgorithm-node';
-import { createTestContext } from '../test-utils';
+import { GeneticAlgorithmNode } from './geneticalgorithm.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GeneticAlgorithmNode', () => {
   it('should create GeneticAlgorithm', async () => {

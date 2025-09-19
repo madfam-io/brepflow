@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FuzzySkinnNode } from './fuzzyskinn-node';
-import { createTestContext } from '../test-utils';
+import { FuzzySkinnNode } from './fuzzyskinn.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FuzzySkinnNode', () => {
   it('should create FuzzySkinn', async () => {

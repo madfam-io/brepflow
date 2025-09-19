@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldOptimizeNode } from './fieldoptimize-node';
-import { createTestContext } from '../test-utils';
+import { FieldOptimizeNode } from './fieldoptimize.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldOptimizeNode', () => {
   it('should create FieldOptimize', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShellNode } from './shell-node';
-import { createTestContext } from '../test-utils';
+import { ShellNode } from './shell.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ShellNode', () => {
   it('should create Shell', async () => {

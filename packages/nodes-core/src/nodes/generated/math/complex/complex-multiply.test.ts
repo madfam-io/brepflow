@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ComplexMultiplyNode } from './complexmultiply-node';
-import { createTestContext } from '../test-utils';
+import { ComplexMultiplyNode } from './complexmultiply.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ComplexMultiplyNode', () => {
   it('should create ComplexMultiply', async () => {

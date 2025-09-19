@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FractalGeometryNode } from './fractalgeometry-node';
-import { createTestContext } from '../test-utils';
+import { FractalGeometryNode } from './fractalgeometry.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FractalGeometryNode', () => {
   it('should create FractalGeometry', async () => {

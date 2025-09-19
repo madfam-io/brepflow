@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { AdaptiveClearingNode } from './adaptiveclearing-node';
-import { createTestContext } from '../test-utils';
+import { AdaptiveClearingNode } from './adaptiveclearing.node';
+import { createTestContext } from './../../test-utils';
 
 describe('AdaptiveClearingNode', () => {
   it('should create AdaptiveClearing', async () => {

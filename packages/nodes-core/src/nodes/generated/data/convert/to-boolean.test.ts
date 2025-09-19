@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToBooleanNode } from './toboolean-node';
-import { createTestContext } from '../test-utils';
+import { ToBooleanNode } from './toboolean.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ToBooleanNode', () => {
   it('should create ToBoolean', async () => {

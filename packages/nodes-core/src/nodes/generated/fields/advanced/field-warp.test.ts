@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldWarpNode } from './fieldwarp-node';
-import { createTestContext } from '../test-utils';
+import { FieldWarpNode } from './fieldwarp.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldWarpNode', () => {
   it('should create FieldWarp', async () => {

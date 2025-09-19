@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldCirculationNode } from './fieldcirculation-node';
-import { createTestContext } from '../test-utils';
+import { FieldCirculationNode } from './fieldcirculation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldCirculationNode', () => {
   it('should create FieldCirculation', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListPartitionNode } from './listpartition-node';
-import { createTestContext } from '../test-utils';
+import { ListPartitionNode } from './listpartition.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ListPartitionNode', () => {
   it('should create ListPartition', async () => {

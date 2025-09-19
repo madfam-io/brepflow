@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldSmoothNode } from './fieldsmooth-node';
-import { createTestContext } from '../test-utils';
+import { FieldSmoothNode } from './fieldsmooth.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldSmoothNode', () => {
   it('should create FieldSmooth', async () => {

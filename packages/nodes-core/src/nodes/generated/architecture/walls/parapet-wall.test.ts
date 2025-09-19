@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ParapetWallNode } from './parapetwall-node';
-import { createTestContext } from '../test-utils';
+import { ParapetWallNode } from './parapetwall.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ParapetWallNode', () => {
   it('should create ParapetWall', async () => {

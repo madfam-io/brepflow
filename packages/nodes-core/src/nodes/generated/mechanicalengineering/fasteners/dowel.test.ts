@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DowelNode } from './dowel-node';
-import { createTestContext } from '../test-utils';
+import { DowelNode } from './dowel.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DowelNode', () => {
   it('should create Dowel', async () => {

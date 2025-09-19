@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurtainWallNode } from './curtainwall-node';
-import { createTestContext } from '../test-utils';
+import { CurtainWallNode } from './curtainwall.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurtainWallNode', () => {
   it('should create CurtainWall', async () => {

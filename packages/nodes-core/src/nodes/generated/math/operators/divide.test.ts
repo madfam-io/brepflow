@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DivideNode } from './divide-node';
-import { createTestContext } from '../test-utils';
+import { DivideNode } from './divide.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DivideNode', () => {
   it('should create Divide', async () => {

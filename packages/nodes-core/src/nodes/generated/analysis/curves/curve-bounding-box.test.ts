@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveBoundingBoxNode } from './curveboundingbox-node';
-import { createTestContext } from '../test-utils';
+import { CurveBoundingBoxNode } from './curvebounding-box.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurveBoundingBoxNode', () => {
   it('should create CurveBoundingBox', async () => {

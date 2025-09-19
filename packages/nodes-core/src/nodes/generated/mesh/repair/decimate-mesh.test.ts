@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DecimateMeshNode } from './decimatemesh-node';
-import { createTestContext } from '../test-utils';
+import { DecimateMeshNode } from './decimatemesh.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DecimateMeshNode', () => {
   it('should create DecimateMesh', async () => {

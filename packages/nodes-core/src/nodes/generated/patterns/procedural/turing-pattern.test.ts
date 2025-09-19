@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TuringPatternNode } from './turingpattern-node';
-import { createTestContext } from '../test-utils';
+import { TuringPatternNode } from './turingpattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TuringPatternNode', () => {
   it('should create TuringPattern', async () => {

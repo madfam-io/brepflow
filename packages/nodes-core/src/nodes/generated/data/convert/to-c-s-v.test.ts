@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToCSVNode } from './tocsv-node';
-import { createTestContext } from '../test-utils';
+import { ToCSVNode } from './tocsv.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ToCSVNode', () => {
   it('should create ToCSV', async () => {

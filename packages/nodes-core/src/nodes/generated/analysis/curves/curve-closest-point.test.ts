@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveClosestPointNode } from './curveclosestpoint-node';
-import { createTestContext } from '../test-utils';
+import { CurveClosestPointNode } from './curveclosestpoint.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurveClosestPointNode', () => {
   it('should create CurveClosestPoint', async () => {

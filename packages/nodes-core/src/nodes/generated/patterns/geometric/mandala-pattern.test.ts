@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MandalaPatternNode } from './mandalapattern-node';
-import { createTestContext } from '../test-utils';
+import { MandalaPatternNode } from './mandalapattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MandalaPatternNode', () => {
   it('should create MandalaPattern', async () => {

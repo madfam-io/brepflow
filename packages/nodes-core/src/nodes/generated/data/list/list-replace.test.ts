@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListReplaceNode } from './listreplace-node';
-import { createTestContext } from '../test-utils';
+import { ListReplaceNode } from './listreplace.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ListReplaceNode', () => {
   it('should create ListReplace', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DeleteFaceNode } from './deleteface-node';
-import { createTestContext } from '../test-utils';
+import { DeleteFaceNode } from './deleteface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DeleteFaceNode', () => {
   it('should create DeleteFace', async () => {

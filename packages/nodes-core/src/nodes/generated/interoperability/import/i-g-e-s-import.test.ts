@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { IGESImportNode } from './igesimport-node';
-import { createTestContext } from '../test-utils';
+import { IGESImportNode } from './igesimport.node';
+import { createTestContext } from './../../test-utils';
 
 describe('IGESImportNode', () => {
   it('should create IGESImport', async () => {

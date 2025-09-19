@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PLYImportNode } from './plyimport-node';
-import { createTestContext } from '../test-utils';
+import { PLYImportNode } from './plyimport.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PLYImportNode', () => {
   it('should create PLYImport', async () => {

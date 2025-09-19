@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { OldhamCouplingNode } from './oldhamcoupling-node';
-import { createTestContext } from '../test-utils';
+import { OldhamCouplingNode } from './oldhamcoupling.node';
+import { createTestContext } from './../../test-utils';
 
 describe('OldhamCouplingNode', () => {
   it('should create OldhamCoupling', async () => {

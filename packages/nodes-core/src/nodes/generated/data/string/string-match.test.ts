@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringMatchNode } from './stringmatch-node';
-import { createTestContext } from '../test-utils';
+import { StringMatchNode } from './stringmatch.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StringMatchNode', () => {
   it('should create StringMatch', async () => {

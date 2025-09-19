@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MeshQualityNode } from './meshquality-node';
-import { createTestContext } from '../test-utils';
+import { MeshQualityNode } from './meshquality.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MeshQualityNode', () => {
   it('should create MeshQuality', async () => {

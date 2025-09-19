@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LoadingDockNode } from './loadingdock-node';
-import { createTestContext } from '../test-utils';
+import { LoadingDockNode } from './loadingdock.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LoadingDockNode', () => {
   it('should create LoadingDock', async () => {

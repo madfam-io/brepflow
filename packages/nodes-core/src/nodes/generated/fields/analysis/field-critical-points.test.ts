@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldCriticalPointsNode } from './fieldcriticalpoints-node';
-import { createTestContext } from '../test-utils';
+import { FieldCriticalPointsNode } from './fieldcriticalpoints.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldCriticalPointsNode', () => {
   it('should create FieldCriticalPoints', async () => {

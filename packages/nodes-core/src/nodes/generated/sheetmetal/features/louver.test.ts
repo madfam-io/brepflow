@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LouverNode } from './louver-node';
-import { createTestContext } from '../test-utils';
+import { LouverNode } from './louver.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LouverNode', () => {
   it('should create Louver', async () => {

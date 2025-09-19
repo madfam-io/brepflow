@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HilbertCurveNode } from './hilbertcurve-node';
-import { createTestContext } from '../test-utils';
+import { HilbertCurveNode } from './hilbertcurve.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HilbertCurveNode', () => {
   it('should create HilbertCurve', async () => {

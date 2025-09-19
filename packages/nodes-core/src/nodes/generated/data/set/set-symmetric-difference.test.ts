@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SetSymmetricDifferenceNode } from './setsymmetricdifference-node';
-import { createTestContext } from '../test-utils';
+import { SetSymmetricDifferenceNode } from './setsymmetricdifference.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SetSymmetricDifferenceNode', () => {
   it('should create SetSymmetricDifference', async () => {

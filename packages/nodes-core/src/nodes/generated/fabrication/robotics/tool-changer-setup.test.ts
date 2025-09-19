@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToolChangerSetupNode } from './toolchangersetup-node';
-import { createTestContext } from '../test-utils';
+import { ToolChangerSetupNode } from './toolchangersetup.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ToolChangerSetupNode', () => {
   it('should create ToolChangerSetup', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VoxelMeshNode } from './voxelmesh-node';
-import { createTestContext } from '../test-utils';
+import { VoxelMeshNode } from './voxel-mesh.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VoxelMeshNode', () => {
   it('should create VoxelMesh', async () => {

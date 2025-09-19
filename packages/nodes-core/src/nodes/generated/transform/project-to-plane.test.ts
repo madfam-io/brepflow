@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ProjectToPlaneNode } from './projecttoplane-node';
-import { createTestContext } from '../test-utils';
+import { ProjectToPlaneNode } from './projecttoplane.node';
+import { createTestContext } from './../test-utils';
 
 describe('ProjectToPlaneNode', () => {
   it('should create ProjectToPlane', async () => {

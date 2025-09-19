@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ProximityAnalysisNode } from './proximityanalysis-node';
-import { createTestContext } from '../test-utils';
+import { ProximityAnalysisNode } from './proximityanalysis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ProximityAnalysisNode', () => {
   it('should create ProximityAnalysis', async () => {

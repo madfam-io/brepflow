@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BeltNode } from './belt-node';
-import { createTestContext } from '../test-utils';
+import { BeltNode } from './belt.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BeltNode', () => {
   it('should create Belt', async () => {

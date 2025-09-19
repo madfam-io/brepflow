@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CasementWindowNode } from './casementwindow-node';
-import { createTestContext } from '../test-utils';
+import { CasementWindowNode } from './casementwindow.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CasementWindowNode', () => {
   it('should create CasementWindow', async () => {

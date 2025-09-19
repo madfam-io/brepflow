@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ReflectionLinesNode } from './reflectionlines-node';
-import { createTestContext } from '../test-utils';
+import { ReflectionLinesNode } from './reflectionlines.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ReflectionLinesNode', () => {
   it('should create ReflectionLines', async () => {

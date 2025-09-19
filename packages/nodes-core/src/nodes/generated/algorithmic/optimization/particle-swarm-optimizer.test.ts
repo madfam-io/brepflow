@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ParticleSwarmOptimizerNode } from './particleswarmoptimizer-node';
-import { createTestContext } from '../test-utils';
+import { ParticleSwarmOptimizerNode } from './particleswarmoptimizer.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ParticleSwarmOptimizerNode', () => {
   it('should create ParticleSwarmOptimizer', async () => {

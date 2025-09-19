@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GasSpringNode } from './gasspring-node';
-import { createTestContext } from '../test-utils';
+import { GasSpringNode } from './gasspring.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GasSpringNode', () => {
   it('should create GasSpring', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WipeTowerNode } from './wipetower-node';
-import { createTestContext } from '../test-utils';
+import { WipeTowerNode } from './wipetower.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WipeTowerNode', () => {
   it('should create WipeTower', async () => {

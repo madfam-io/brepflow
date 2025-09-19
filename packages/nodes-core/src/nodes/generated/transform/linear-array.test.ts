@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinearArrayNode } from './lineararray-node';
-import { createTestContext } from '../test-utils';
+import { LinearArrayNode } from './lineararray.node';
+import { createTestContext } from './../test-utils';
 
 describe('LinearArrayNode', () => {
   it('should create LinearArray', async () => {

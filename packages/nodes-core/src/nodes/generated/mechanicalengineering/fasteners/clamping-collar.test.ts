@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ClampingCollarNode } from './clampingcollar-node';
-import { createTestContext } from '../test-utils';
+import { ClampingCollarNode } from './clampingcollar.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ClampingCollarNode', () => {
   it('should create ClampingCollar', async () => {

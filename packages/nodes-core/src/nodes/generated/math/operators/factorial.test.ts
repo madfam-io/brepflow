@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FactorialNode } from './factorial-node';
-import { createTestContext } from '../test-utils';
+import { FactorialNode } from './factorial.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FactorialNode', () => {
   it('should create Factorial', async () => {

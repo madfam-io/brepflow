@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MQTTPublisherNode } from './mqttpublisher-node';
-import { createTestContext } from '../test-utils';
+import { MQTTPublisherNode } from './mqttpublisher.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MQTTPublisherNode', () => {
   it('should create MQTTPublisher', async () => {

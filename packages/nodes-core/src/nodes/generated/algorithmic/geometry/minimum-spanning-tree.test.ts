@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MinimumSpanningTreeNode } from './minimumspanningtree-node';
-import { createTestContext } from '../test-utils';
+import { MinimumSpanningTreeNode } from './minimumspanningtree.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MinimumSpanningTreeNode', () => {
   it('should create MinimumSpanningTree', async () => {

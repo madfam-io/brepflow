@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PartingLineDraftNode } from './partinglinedraft-node';
-import { createTestContext } from '../test-utils';
+import { PartingLineDraftNode } from './partinglinedraft.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PartingLineDraftNode', () => {
   it('should create PartingLineDraft', async () => {

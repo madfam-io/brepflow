@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { AbsoluteNode } from './absolute-node';
-import { createTestContext } from '../test-utils';
+import { AbsoluteNode } from './absolute.node';
+import { createTestContext } from './../../test-utils';
 
 describe('AbsoluteNode', () => {
   it('should create Absolute', async () => {

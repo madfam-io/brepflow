@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WorkCoordinateNode } from './workcoordinate-node';
-import { createTestContext } from '../test-utils';
+import { WorkCoordinateNode } from './workcoordinate.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WorkCoordinateNode', () => {
   it('should create WorkCoordinate', async () => {

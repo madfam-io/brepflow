@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LogBaseNode } from './logbase-node';
-import { createTestContext } from '../test-utils';
+import { LogBaseNode } from './logbase.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LogBaseNode', () => {
   it('should create LogBase', async () => {

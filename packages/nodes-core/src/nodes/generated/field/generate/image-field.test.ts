@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImageFieldNode } from './imagefield-node';
-import { createTestContext } from '../test-utils';
+import { ImageFieldNode } from './imagefield.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ImageFieldNode', () => {
   it('should create ImageField', async () => {

@@ -190,6 +190,69 @@ describe('OperationalTransformEngine', () => {
       expect(result.type).toBe('NOOP'); // Edge creation becomes no-op
     });
 
+    it('should handle CREATE_NODE vs DELETE_NODE for same node', async () => {
+      const localOp: CreateNodeOperation = {
+        id: 'op1',
+        type: 'CREATE_NODE',
+        userId: 'user1',
+        timestamp: 1000,
+        version: 1,
+        nodeId: 'node1',
+        nodeType: 'Math::Add',
+        position: { x: 100, y: 100 },
+        params: {},
+      };
+
+      const remoteOp: DeleteNodeOperation = {
+        id: 'op2',
+        type: 'DELETE_NODE',
+        userId: 'user2',
+        timestamp: 1001,
+        version: 1,
+        nodeId: 'node1',
+      };
+
+      const result = await engine.transform(localOp, remoteOp);
+      expect(result.type).toBe('NOOP'); // CREATE_NODE should become NOOP when node is being deleted
+    });
+
+    it('should handle BATCH with single operation against DELETE_NODE', async () => {
+      const localOp: BatchOperation = {
+        id: 'op1',
+        type: 'BATCH',
+        userId: 'user1',
+        timestamp: 1000,
+        version: 1,
+        operations: [
+          {
+            id: 'sub1',
+            type: 'CREATE_NODE',
+            userId: 'user1',
+            timestamp: 1000,
+            version: 1,
+            nodeId: 'node1',
+            nodeType: 'Math::Add',
+            position: { x: 100, y: 100 },
+            params: {},
+          } as CreateNodeOperation,
+        ],
+      };
+
+      const remoteOp: DeleteNodeOperation = {
+        id: 'op2',
+        type: 'DELETE_NODE',
+        userId: 'user2',
+        timestamp: 1001,
+        version: 1,
+        nodeId: 'node1',
+      };
+
+      const result = await engine.transform(localOp, remoteOp);
+      expect(result.type).toBe('BATCH');
+      const batchResult = result as BatchOperation;
+      expect(batchResult.operations).toHaveLength(0); // Single conflicting operation should be filtered out
+    });
+
     it('should handle BATCH operations', async () => {
       const localOp: BatchOperation = {
         id: 'op1',
@@ -235,8 +298,14 @@ describe('OperationalTransformEngine', () => {
       const result = await engine.transform(localOp, remoteOp);
       expect(result.type).toBe('BATCH');
       const batchResult = result as BatchOperation;
-      expect(batchResult.operations).toHaveLength(1); // First sub-operation should be filtered out
-      expect((batchResult.operations[0] as CreateNodeOperation).nodeId).toBe('node2');
+      
+      // Should have 1 operation remaining after filtering out the NOOP
+      expect(batchResult.operations).toHaveLength(1);
+      
+      // The remaining operation should be the CREATE_NODE for node2
+      const remainingOp = batchResult.operations[0] as CreateNodeOperation;
+      expect(remainingOp.nodeId).toBe('node2');
+      expect(remainingOp.type).toBe('CREATE_NODE');
     });
   });
 

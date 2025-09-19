@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MetaBallsNode } from './metaballs-node';
-import { createTestContext } from '../test-utils';
+import { MetaBallsNode } from './metaballs.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MetaBallsNode', () => {
   it('should create MetaBalls', async () => {

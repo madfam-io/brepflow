@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CVTDiscNode } from './cvtdisc-node';
-import { createTestContext } from '../test-utils';
+import { CVTDiscNode } from './cvtdisc.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CVTDiscNode', () => {
   it('should create CVTDisc', async () => {

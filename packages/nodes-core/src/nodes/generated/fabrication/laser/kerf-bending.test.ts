@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { KerfBendingNode } from './kerfbending-node';
-import { createTestContext } from '../test-utils';
+import { KerfBendingNode } from './kerfbending.node';
+import { createTestContext } from './../../test-utils';
 
 describe('KerfBendingNode', () => {
   it('should create KerfBending', async () => {

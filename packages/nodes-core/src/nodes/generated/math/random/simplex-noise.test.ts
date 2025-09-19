@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SimplexNoiseNode } from './simplexnoise-node';
-import { createTestContext } from '../test-utils';
+import { SimplexNoiseNode } from './simplexnoise.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SimplexNoiseNode', () => {
   it('should create SimplexNoise', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { QuadMeshNode } from './quadmesh-node';
-import { createTestContext } from '../test-utils';
+import { QuadMeshNode } from './quad-mesh.node';
+import { createTestContext } from './../../test-utils';
 
 describe('QuadMeshNode', () => {
   it('should create QuadMesh', async () => {

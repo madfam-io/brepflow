@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { AdaptiveTessellationNode } from './adaptivetessellation-node';
-import { createTestContext } from '../test-utils';
+import { AdaptiveTessellationNode } from './adaptive-tessellation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('AdaptiveTessellationNode', () => {
   it('should create AdaptiveTessellation', async () => {

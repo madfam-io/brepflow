@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShadowAnalysisNode } from './shadowanalysis-node';
-import { createTestContext } from '../test-utils';
+import { ShadowAnalysisNode } from './shadowanalysis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ShadowAnalysisNode', () => {
   it('should create ShadowAnalysis', async () => {

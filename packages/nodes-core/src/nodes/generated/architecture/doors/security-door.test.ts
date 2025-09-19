@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SecurityDoorNode } from './securitydoor-node';
-import { createTestContext } from '../test-utils';
+import { SecurityDoorNode } from './securitydoor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SecurityDoorNode', () => {
   it('should create SecurityDoor', async () => {

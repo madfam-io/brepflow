@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FlexNode } from './flex-node';
-import { createTestContext } from '../test-utils';
+import { FlexNode } from './flex.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FlexNode', () => {
   it('should create Flex', async () => {

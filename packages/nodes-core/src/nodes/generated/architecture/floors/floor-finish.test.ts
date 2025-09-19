@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FloorFinishNode } from './floorfinish-node';
-import { createTestContext } from '../test-utils';
+import { FloorFinishNode } from './floorfinish.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FloorFinishNode', () => {
   it('should create FloorFinish', async () => {

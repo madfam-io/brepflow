@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ClosedCornerNode } from './closedcorner-node';
-import { createTestContext } from '../test-utils';
+import { ClosedCornerNode } from './closedcorner.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ClosedCornerNode', () => {
   it('should create ClosedCorner', async () => {

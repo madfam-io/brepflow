@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ReachAnalysisNode } from './reachanalysis-node';
-import { createTestContext } from '../test-utils';
+import { ReachAnalysisNode } from './reachanalysis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ReachAnalysisNode', () => {
   it('should create ReachAnalysis', async () => {

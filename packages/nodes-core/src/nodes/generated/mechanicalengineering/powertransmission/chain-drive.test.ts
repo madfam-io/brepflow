@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ChainDriveNode } from './chaindrive-node';
-import { createTestContext } from '../test-utils';
+import { ChainDriveNode } from './chaindrive.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ChainDriveNode', () => {
   it('should create ChainDrive', async () => {

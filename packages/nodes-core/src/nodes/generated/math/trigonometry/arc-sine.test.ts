@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ArcSineNode } from './arcsine-node';
-import { createTestContext } from '../test-utils';
+import { ArcSineNode } from './arcsine.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ArcSineNode', () => {
   it('should create ArcSine', async () => {

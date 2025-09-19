@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringReplaceNode } from './stringreplace-node';
-import { createTestContext } from '../test-utils';
+import { StringReplaceNode } from './stringreplace.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StringReplaceNode', () => {
   it('should create StringReplace', async () => {

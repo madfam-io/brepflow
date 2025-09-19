@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { Delaunay3DNode } from './delaunay3d-node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from './../../test-utils';
 
 describe('Delaunay3DNode', () => {
   it('should create Delaunay3D', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StairHandrailNode } from './stairhandrail-node';
-import { createTestContext } from '../test-utils';
+import { StairHandrailNode } from './stairhandrail.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StairHandrailNode', () => {
   it('should create StairHandrail', async () => {

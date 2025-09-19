@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GrammarShapesNode } from './grammarshapes-node';
-import { createTestContext } from '../test-utils';
+import { GrammarShapesNode } from './grammarshapes.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GrammarShapesNode', () => {
   it('should create GrammarShapes', async () => {

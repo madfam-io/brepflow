@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VoronoiFractureNode } from './voronoifracture-node';
-import { createTestContext } from '../test-utils';
+import { VoronoiFractureNode } from './voronoifracture.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VoronoiFractureNode', () => {
   it('should create VoronoiFracture', async () => {

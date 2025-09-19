@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldPotentialNode } from './fieldpotential-node';
-import { createTestContext } from '../test-utils';
+import { FieldPotentialNode } from './fieldpotential.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldPotentialNode', () => {
   it('should create FieldPotential', async () => {

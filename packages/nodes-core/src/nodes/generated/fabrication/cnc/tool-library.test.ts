@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToolLibraryNode } from './toollibrary-node';
-import { createTestContext } from '../test-utils';
+import { ToolLibraryNode } from './toollibrary.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ToolLibraryNode', () => {
   it('should create ToolLibrary', async () => {

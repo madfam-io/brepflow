@@ -114,30 +114,87 @@
   --color-info-800: var(--color-engineering-800);
   --color-info-900: var(--color-engineering-900);
 
-  /* === CAD-SPECIFIC STATUS COLORS === */
-  /* Geometry States */
-  --color-geometry-valid: var(--color-success-500);
-  --color-geometry-invalid: var(--color-error-500);
-  --color-geometry-pending: var(--color-warning-500);
-  --color-geometry-preview: #8b5cf6;
+  /* === COMPREHENSIVE CAD-SPECIFIC SEMANTIC COLORS === */
 
-  /* Node States */
+  /* Geometry States - Enhanced for Professional CAD */
+  --color-geometry-valid: #10b981;           /* Clear green for valid geometry */
+  --color-geometry-invalid: #ef4444;         /* Clear red for invalid geometry */
+  --color-geometry-pending: #f59e0b;         /* Amber for pending operations */
+  --color-geometry-preview: #8b5cf6;         /* Purple for preview mode */
+  --color-geometry-selected: #3b82f6;        /* Blue for selected objects */
+  --color-geometry-highlighted: #06b6d4;     /* Cyan for hover/highlight */
+  --color-geometry-wireframe: #6b7280;       /* Gray for wireframe mode */
+  --color-geometry-construction: #f97316;    /* Orange for construction lines */
+  --color-geometry-datum: #8b5cf6;           /* Purple for datum planes/axes */
+
+  /* Constraint States - Professional Engineering Colors */
+  --color-constraint-satisfied: #10b981;     /* Green for fully constrained */
+  --color-constraint-over: #ef4444;          /* Red for over-constrained */
+  --color-constraint-under: #f59e0b;         /* Amber for under-constrained */
+  --color-constraint-reference: #6b7280;     /* Gray for reference constraints */
+  --color-constraint-driving: #3b82f6;       /* Blue for driving dimensions */
+  --color-constraint-driven: #8b5cf6;        /* Purple for driven dimensions */
+
+  /* Tool States - CAD Operation Status */
+  --color-tool-active: #3b82f6;              /* Blue for active tool */
+  --color-tool-inactive: #9ca3af;            /* Gray for inactive tools */
+  --color-tool-disabled: #d1d5db;            /* Light gray for disabled */
+  --color-tool-hover: #1d4ed8;               /* Darker blue for hover */
+  --color-tool-pressed: #1e40af;             /* Even darker for pressed */
+  --color-tool-dangerous: #dc2626;           /* Red for destructive tools */
+
+  /* Node States - Enhanced Visual Feedback */
+  --color-node-default: var(--color-surface-primary);
   --color-node-selected: var(--color-engineering-500);
   --color-node-executing: var(--color-warning-500);
   --color-node-error: var(--color-error-500);
   --color-node-success: var(--color-success-500);
+  --color-node-warning: var(--color-warning-400);
+  --color-node-disabled: var(--color-neutral-300);
+  --color-node-background: rgba(255, 255, 255, 0.98);
 
-  /* Connection Types */
-  --color-connection-shape: var(--color-engineering-500);
-  --color-connection-number: var(--color-success-500);
-  --color-connection-vector: #8b5cf6;
-  --color-connection-boolean: var(--color-warning-500);
+  /* Connection Types - Data Flow Visualization */
+  --color-connection-shape: var(--color-engineering-500);     /* Blue for Shape data */
+  --color-connection-number: var(--color-success-500);        /* Green for Number data */
+  --color-connection-vector: #8b5cf6;                         /* Purple for Vector data */
+  --color-connection-boolean: var(--color-warning-500);       /* Amber for Boolean data */
+  --color-connection-string: #06b6d4;                         /* Cyan for String data */
+  --color-connection-point: #f97316;                          /* Orange for Point data */
+  --color-connection-curve: #ec4899;                          /* Pink for Curve data */
+  --color-connection-surface: #84cc16;                        /* Lime for Surface data */
+  --color-connection-solid: #6366f1;                          /* Indigo for Solid data */
+
+  /* Status Indicators - Professional Feedback System */
+  --color-status-success: var(--color-success-500);
+  --color-status-success-bg: var(--color-success-50);
+  --color-status-success-border: var(--color-success-200);
+
+  --color-status-warning: var(--color-warning-500);
+  --color-status-warning-bg: var(--color-warning-50);
+  --color-status-warning-border: var(--color-warning-200);
+
+  --color-status-error: var(--color-error-500);
+  --color-status-error-bg: var(--color-error-50);
+  --color-status-error-border: var(--color-error-200);
+
+  --color-status-info: var(--color-info-500);
+  --color-status-info-bg: var(--color-info-50);
+  --color-status-info-border: var(--color-info-200);
+
+  --color-status-processing: #8b5cf6;
+  --color-status-processing-bg: #f3f4f6;
+  --color-status-processing-border: #e5e7eb;
 
   /* === SURFACE COLORS === */
   --color-surface-primary: #ffffff;
   --color-surface-secondary: #f8fafc;
   --color-surface-tertiary: #f1f5f9;
   --color-surface-quaternary: #e2e8f0;
+
+  /* Dark Theme Surface Colors */
+  --color-surface-dark-primary: #111827;
+  --color-surface-dark-secondary: #1f2937;
+  --color-surface-dark-tertiary: #374151;
 
   /* === BACKGROUND COLORS (Light theme default) === */
   --color-bg-primary: var(--color-surface-primary);
@@ -159,6 +216,11 @@
   --color-border-strong: var(--color-neutral-300);
   --color-border-accent: var(--color-primary-600);
   --color-border-focus: var(--color-primary-500);
+
+  /* Dark Theme Border Colors */
+  --color-border-dark: var(--color-neutral-700);
+  --color-border-dark-light: var(--color-neutral-600);
+  --color-border-dark-strong: var(--color-neutral-800);
 
   /* === TYPOGRAPHY === */
   --font-family-ui: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -185,20 +247,114 @@
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.75;
 
-  /* === SPACING === */
-  /* 8px grid system */
-  --spacing-0: 0;
-  --spacing-1: 0.25rem;   /* 4px */
-  --spacing-2: 0.5rem;    /* 8px */
-  --spacing-3: 0.75rem;   /* 12px */
-  --spacing-4: 1rem;      /* 16px */
-  --spacing-5: 1.25rem;   /* 20px */
-  --spacing-6: 1.5rem;    /* 24px */
-  --spacing-8: 2rem;      /* 32px */
-  --spacing-10: 2.5rem;   /* 40px */
-  --spacing-12: 3rem;     /* 48px */
-  --spacing-16: 4rem;     /* 64px */
-  --spacing-20: 5rem;     /* 80px */
+  /* === PROFESSIONAL CAD SPACING & LAYOUT SYSTEM === */
+
+  /* Precision 4px Grid System - Dense CAD Interface Optimized */
+  --spacing-0: 0;                    /* No spacing */
+  --spacing-px: 1px;                 /* Hairline */
+  --spacing-0-5: 0.125rem;           /* 2px - Ultra-fine adjustments */
+  --spacing-1: 0.25rem;              /* 4px - Minimal spacing */
+  --spacing-1-5: 0.375rem;           /* 6px - Tight spacing */
+  --spacing-2: 0.5rem;               /* 8px - Base grid unit */
+  --spacing-2-5: 0.625rem;           /* 10px - Between small and medium */
+  --spacing-3: 0.75rem;              /* 12px - Small spacing */
+  --spacing-3-5: 0.875rem;           /* 14px - Compact elements */
+  --spacing-4: 1rem;                 /* 16px - Standard spacing */
+  --spacing-5: 1.25rem;              /* 20px - Medium spacing */
+  --spacing-6: 1.5rem;               /* 24px - Large spacing */
+  --spacing-7: 1.75rem;              /* 28px - Extra large */
+  --spacing-8: 2rem;                 /* 32px - Section spacing */
+  --spacing-9: 2.25rem;              /* 36px - Large sections */
+  --spacing-10: 2.5rem;              /* 40px - Major spacing */
+  --spacing-11: 2.75rem;             /* 44px - Extended spacing */
+  --spacing-12: 3rem;                /* 48px - Panel spacing */
+  --spacing-14: 3.5rem;              /* 56px - Large panels */
+  --spacing-16: 4rem;                /* 64px - Major sections */
+  --spacing-18: 4.5rem;              /* 72px - Hero sections */
+  --spacing-20: 5rem;                /* 80px - Very large sections */
+  --spacing-24: 6rem;                /* 96px - Massive spacing */
+  --spacing-28: 7rem;                /* 112px - Layout level */
+  --spacing-32: 8rem;                /* 128px - Page level */
+
+  /* CAD-Specific Spacing Semantic Tokens */
+  --spacing-hairline: var(--spacing-px);
+  --spacing-tight: var(--spacing-1);         /* Dense UI elements */
+  --spacing-compact: var(--spacing-2);       /* Standard component spacing */
+  --spacing-comfortable: var(--spacing-4);   /* Readable interface spacing */
+  --spacing-spacious: var(--spacing-6);      /* Generous spacing */
+  --spacing-section: var(--spacing-8);       /* Between major sections */
+  --spacing-layout: var(--spacing-12);       /* Layout-level spacing */
+
+  /* Component-Specific Spacing */
+  --spacing-button-sm: var(--spacing-2) var(--spacing-3);     /* 8px 12px */
+  --spacing-button-md: var(--spacing-2-5) var(--spacing-4);   /* 10px 16px */
+  --spacing-button-lg: var(--spacing-3) var(--spacing-6);     /* 12px 24px */
+
+  --spacing-input-sm: var(--spacing-1-5) var(--spacing-3);    /* 6px 12px */
+  --spacing-input-md: var(--spacing-2) var(--spacing-3);      /* 8px 12px */
+  --spacing-input-lg: var(--spacing-3) var(--spacing-4);      /* 12px 16px */
+
+  /* Layout Container Spacing */
+  --spacing-container-sm: var(--spacing-4);    /* 16px */
+  --spacing-container-md: var(--spacing-6);    /* 24px */
+  --spacing-container-lg: var(--spacing-8);    /* 32px */
+  --spacing-container-xl: var(--spacing-12);   /* 48px */
+
+  /* Panel and Card Spacing */
+  --spacing-card-sm: var(--spacing-3);         /* 12px */
+  --spacing-card-md: var(--spacing-4);         /* 16px */
+  --spacing-card-lg: var(--spacing-6);         /* 24px */
+  --spacing-card-xl: var(--spacing-8);         /* 32px */
+
+  /* Node and Graph Spacing */
+  --spacing-node-internal: var(--spacing-3);   /* 12px - Inside nodes */
+  --spacing-node-gap: var(--spacing-4);        /* 16px - Between nodes */
+  --spacing-connection-gap: var(--spacing-2);  /* 8px - Connection spacing */
+
+  /* Professional Grid System for CAD Layouts */
+  --grid-gap-xs: var(--spacing-1);             /* 4px */
+  --grid-gap-sm: var(--spacing-2);             /* 8px */
+  --grid-gap-md: var(--spacing-4);             /* 16px */
+  --grid-gap-lg: var(--spacing-6);             /* 24px */
+  --grid-gap-xl: var(--spacing-8);             /* 32px */
+
+  /* Layout Widths for CAD Interface */
+  --width-sidebar-sm: 240px;        /* Collapsed sidebar */
+  --width-sidebar-md: 280px;        /* Standard sidebar */
+  --width-sidebar-lg: 320px;        /* Extended sidebar */
+  --width-sidebar-xl: 360px;        /* Wide sidebar */
+
+  --width-inspector-sm: 280px;      /* Compact inspector */
+  --width-inspector-md: 320px;      /* Standard inspector */
+  --width-inspector-lg: 360px;      /* Extended inspector */
+  --width-inspector-xl: 400px;      /* Wide inspector */
+
+  --width-toolbar-compact: 40px;    /* Minimal toolbar */
+  --width-toolbar-standard: 48px;   /* Standard toolbar */
+  --width-toolbar-extended: 56px;   /* Extended toolbar */
+
+  --width-panel-sm: 240px;          /* Small panels */
+  --width-panel-md: 320px;          /* Medium panels */
+  --width-panel-lg: 400px;          /* Large panels */
+  --width-panel-xl: 480px;          /* Extra large panels */
+
+  /* Heights for CAD Interface Elements */
+  --height-header: 56px;            /* Application header */
+  --height-toolbar: 48px;           /* Tool bars */
+  --height-status-bar: 32px;        /* Status bar */
+  --height-tab-bar: 40px;           /* Tab navigation */
+
+  --height-button-xs: 24px;         /* Extra small buttons */
+  --height-button-sm: 32px;         /* Small buttons */
+  --height-button-md: 40px;         /* Standard buttons */
+  --height-button-lg: 48px;         /* Large buttons */
+  --height-button-xl: 56px;         /* Extra large buttons */
+
+  --height-input-xs: 28px;          /* Extra small inputs */
+  --height-input-sm: 32px;          /* Small inputs */
+  --height-input-md: 40px;          /* Standard inputs */
+  --height-input-lg: 48px;          /* Large inputs */
+  --height-input-xl: 56px;          /* Extra large inputs */
 
   /* === BORDER RADIUS === */
   --radius-none: 0;
@@ -250,73 +406,192 @@
 
   /* Viewport & 3D Shadows */
   --shadow-viewport: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-viewport-enhanced: inset 0 2px 6px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-viewport-tool: 0 3px 8px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow-viewport-tool-enhanced: 0 4px 12px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-performance-monitor: 0 3px 10px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.15);
+
+  /* Enhanced Component Shadows */
+  --shadow-toolbar-enhanced: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-panel-elevated: 0 6px 20px rgba(0, 0, 0, 0.1), 0 3px 8px rgba(0, 0, 0, 0.06);
+  --shadow-button-enhanced: 0 2px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-interactive-hover-dark: 0 4px 12px rgba(255, 255, 255, 0.1), 0 2px 6px rgba(255, 255, 255, 0.05);
+
+  /* === ENTERPRISE-GRADE INTERACTION STATES === */
+
+  /* Primary Interactive Colors - Enterprise Blue Palette */
+  --color-interactive-primary: var(--color-engineering-600);
+  --color-interactive-primary-hover: var(--color-engineering-700);
+  --color-interactive-primary-active: var(--color-engineering-800);
+  --color-interactive-primary-disabled: var(--color-neutral-300);
+
+  /* Secondary Interactive Colors */
+  --color-interactive-secondary: var(--color-neutral-600);
+  --color-interactive-secondary-hover: var(--color-neutral-700);
+  --color-interactive-secondary-active: var(--color-neutral-800);
+  --color-interactive-secondary-disabled: var(--color-neutral-200);
+
+  /* Danger/Destructive Interactive Colors */
+  --color-interactive-danger: var(--color-error-600);
+  --color-interactive-danger-hover: var(--color-error-700);
+  --color-interactive-danger-active: var(--color-error-800);
+  --color-interactive-danger-disabled: var(--color-error-200);
+
+  /* Success Interactive Colors */
+  --color-interactive-success: var(--color-success-600);
+  --color-interactive-success-hover: var(--color-success-700);
+  --color-interactive-success-active: var(--color-success-800);
+  --color-interactive-success-disabled: var(--color-success-200);
+
+  /* Background Interactive States */
+  --color-bg-interactive-default: transparent;
+  --color-bg-interactive-hover: rgba(0, 0, 0, 0.04);
+  --color-bg-interactive-active: rgba(0, 0, 0, 0.08);
+  --color-bg-interactive-disabled: rgba(0, 0, 0, 0.02);
+  --color-bg-interactive-selected: rgba(8, 145, 255, 0.08);
+
+  /* Border Interactive States */
+  --color-border-interactive-default: var(--color-border);
+  --color-border-interactive-hover: var(--color-border-strong);
+  --color-border-interactive-active: var(--color-engineering-600);
+  --color-border-interactive-focus: var(--color-engineering-500);
+  --color-border-interactive-disabled: var(--color-neutral-200);
+  --color-border-interactive-error: var(--color-error-500);
+
+  /* Enhanced Professional Focus States */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--color-engineering-500);
+  --focus-ring-error: var(--color-error-500);
+  --focus-ring-success: var(--color-success-500);
+
+  /* Professional Shadow States */
+  --shadow-interactive-default: var(--shadow-sm);
+  --shadow-interactive-hover: var(--shadow-md);
+  --shadow-interactive-active: var(--shadow-xs);
+  --shadow-interactive-focus: 0 0 0 3px rgba(8, 145, 255, 0.12);
+  --shadow-interactive-disabled: none;
 
   /* === PROFESSIONAL CAD ANIMATION SYSTEM === */
-  /* CAD Interface Easing Curves */
+
+  /* Precision Easing Curves for CAD Interfaces */
   --ease-linear: linear;
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-precise: cubic-bezier(0.4, 0, 0.2, 1);      /* UI interactions */
-  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Panel transitions */
-  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);    /* Snapping actions */
-  --ease-technical: cubic-bezier(0.4, 0, 0.6, 1);    /* Technical animations */
-  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  --ease-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-precise: cubic-bezier(0.4, 0, 0.2, 1);         /* Sharp UI interactions */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);  /* Smooth panel transitions */
+  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);       /* CAD snapping actions */
+  --ease-technical: cubic-bezier(0.4, 0, 0.6, 1);       /* Technical animations */
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Playful feedback */
+  --ease-back: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Button press feedback */
+  --ease-professional: cubic-bezier(0.2, 0, 0.38, 0.9); /* Professional standard */
 
-  /* Professional Duration Scale */
-  --duration-instant: 100ms;          /* Micro-interactions */
-  --duration-fast: 150ms;             /* Button states */
-  --duration-normal: 200ms;           /* Panel transitions */
-  --duration-smooth: 300ms;           /* Complex animations */
-  --duration-slow: 400ms;             /* Page transitions */
-  --duration-slower: 500ms;
+  /* Professional Duration Scale - Optimized for Performance */
+  --duration-instant: 75ms;           /* Micro-interactions, hover states */
+  --duration-fast: 125ms;             /* Button states, small transitions */
+  --duration-normal: 175ms;           /* Standard UI transitions */
+  --duration-smooth: 250ms;           /* Panel animations */
+  --duration-slow: 350ms;             /* Complex state changes */
+  --duration-page: 450ms;             /* Page/view transitions */
 
-  /* Enhanced Component-specific transitions */
+  /* Enhanced Component-Specific Transitions */
+  --transition-all: all var(--duration-fast) var(--ease-precise);
+  --transition-colors: color var(--duration-fast) var(--ease-precise),
+                      background-color var(--duration-fast) var(--ease-precise),
+                      border-color var(--duration-fast) var(--ease-precise);
   --transition-panel: all var(--duration-smooth) var(--ease-smooth);
-  --transition-button: all var(--duration-fast) var(--ease-precise);
-  --transition-hover: all var(--duration-fast) var(--ease-in-out);
-  --transition-focus: box-shadow var(--duration-fast) var(--ease-out);
-  --transition-transform: transform var(--duration-fast) var(--ease-smooth);
-  --transition-input: all var(--duration-fast) var(--ease-precise);
-  --transition-node: all var(--duration-fast) var(--ease-precise);
+  --transition-button: var(--transition-colors), box-shadow var(--duration-fast) var(--ease-precise);
+  --transition-hover: background-color var(--duration-instant) var(--ease-out);
+  --transition-focus: box-shadow var(--duration-instant) var(--ease-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-smooth);
+  --transition-input: var(--transition-colors), box-shadow var(--duration-fast) var(--ease-out);
+  --transition-node: var(--transition-all), transform var(--duration-fast) var(--ease-precise);
+  --transition-modal: opacity var(--duration-normal) var(--ease-out),
+                     transform var(--duration-normal) var(--ease-back);
+  --transition-dropdown: opacity var(--duration-fast) var(--ease-out),
+                        transform var(--duration-fast) var(--ease-back);
+
+  /* Micro-Interaction Transitions */
+  --transition-micro: all var(--duration-instant) var(--ease-precise);
+  --transition-tooltip: opacity var(--duration-fast) var(--ease-out);
+  --transition-badge: all var(--duration-instant) var(--ease-out);
 
   /* === GRADIENTS FOR VISUAL DEPTH === */
   --gradient-panel: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
   --gradient-button: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
   --gradient-primary: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-primary-600) 100%);
   --gradient-surface: linear-gradient(135deg, var(--color-surface-primary) 0%, var(--color-surface-secondary) 100%);
+  --gradient-surface-elevated: linear-gradient(135deg, var(--color-surface-secondary) 0%, var(--color-surface-tertiary) 100%);
+  --gradient-surface-dark: linear-gradient(135deg, var(--color-surface-dark-primary) 0%, var(--color-surface-dark-secondary) 100%);
   --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  --gradient-neutral: linear-gradient(135deg, var(--color-neutral-100) 0%, var(--color-neutral-200) 100%);
 
-  /* === ENHANCED TYPOGRAPHY SYSTEM === */
-  /* Display Typography - Large hero text and major headings */
-  --font-size-display-xl: 3.75rem;    /* 60px - Major headers */
-  --font-size-display-lg: 3rem;       /* 48px - Section headers */
-  --font-size-display-md: 2.25rem;    /* 36px - Panel headers */
+  /* === PROFESSIONAL CAD TYPOGRAPHY SYSTEM === */
 
-  /* Technical Typography */
-  --font-size-technical: 0.8125rem;   /* 13px - Coordinates, measurements */
-  --font-size-code: 0.75rem;          /* 12px - Code, node types */
-  --font-size-xxs: 0.6875rem;         /* 11px - Technical annotations */
+  /* Enhanced Font Families for Technical Interfaces */
+  --font-family-ui: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Fira Code', 'Roboto Mono', 'Consolas', monospace;
+  --font-family-technical: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-family-display: 'Inter', 'SF Pro Display', system-ui, sans-serif;
 
-  /* Professional Letter Spacing */
-  --letter-spacing-tight: -0.01em;    /* Display text */
-  --letter-spacing-normal: 0;         /* Body text */
-  --letter-spacing-wide: 0.025em;     /* All caps, labels */
-  --letter-spacing-wider: 0.05em;
-  --letter-spacing-technical: 0.01em; /* Technical measurements */
-  --letter-spacing-mono: 0;           /* Monospace text */
+  /* Display Typography - Professional CAD Headers */
+  --font-size-display-xl: 3.75rem;    /* 60px - Hero/landing headers */
+  --font-size-display-lg: 3rem;       /* 48px - Major section headers */
+  --font-size-display-md: 2.25rem;    /* 36px - Panel/modal headers */
+  --font-size-display-sm: 1.875rem;   /* 30px - Sub-section headers */
 
-  /* Enhanced Line Heights */
-  --line-height-tight: 1.2;          /* Headlines */
-  --line-height-snug: 1.375;         /* UI text */
-  --line-height-base: 1.5;           /* Body text */
-  --line-height-relaxed: 1.625;      /* Reading content */
+  /* UI Typography Hierarchy - Engineering Interface */
+  --font-size-heading-1: 2rem;        /* 32px - Primary headers */
+  --font-size-heading-2: 1.5rem;      /* 24px - Secondary headers */
+  --font-size-heading-3: 1.25rem;     /* 20px - Tertiary headers */
+  --font-size-heading-4: 1.125rem;    /* 18px - Sub-headers */
+  --font-size-heading-5: 1rem;        /* 16px - Minor headers */
+  --font-size-heading-6: 0.875rem;    /* 14px - Label headers */
 
-  /* Text shadows for depth */
+  /* Technical Typography - Measurements & Data */
+  --font-size-technical-lg: 0.9375rem; /* 15px - Primary measurements */
+  --font-size-technical: 0.8125rem;    /* 13px - Standard coordinates */
+  --font-size-technical-sm: 0.75rem;   /* 12px - Secondary measurements */
+  --font-size-code: 0.75rem;           /* 12px - Code, node types */
+  --font-size-micro: 0.6875rem;        /* 11px - Technical annotations */
+  --font-size-nano: 0.625rem;          /* 10px - Ultra-fine details */
+
+  /* Professional Font Weights - Engineering Hierarchy */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Technical Letter Spacing - Precision and Clarity */
+  --letter-spacing-tight: -0.025em;     /* Tight for large display text */
+  --letter-spacing-normal: 0;           /* Normal for body text */
+  --letter-spacing-wide: 0.025em;       /* Wide for all caps, UI labels */
+  --letter-spacing-wider: 0.05em;       /* Very wide for buttons, badges */
+  --letter-spacing-widest: 0.1em;       /* Widest for small caps */
+  --letter-spacing-technical: 0.01em;   /* Slight tracking for measurements */
+  --letter-spacing-mono: 0;             /* No spacing for monospace */
+
+  /* Professional Line Heights - Information Density */
+  --line-height-none: 1;               /* Tight for display text */
+  --line-height-tight: 1.2;            /* Headlines, large text */
+  --line-height-snug: 1.3;             /* Dense UI text */
+  --line-height-compact: 1.375;        /* Compact interface text */
+  --line-height-base: 1.5;             /* Standard body text */
+  --line-height-relaxed: 1.625;        /* Comfortable reading */
+  --line-height-loose: 1.75;           /* Spacious content */
+
+  /* Text Enhancement Effects */
+  --text-shadow-crisp: 0 0.5px 1px rgba(0, 0, 0, 0.1);
   --text-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
   --text-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --text-shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.12);
+
+  /* Text Contrast Enhancements */
+  --text-contrast-overlay: 0 1px 2px rgba(255, 255, 255, 0.9);
+  --text-contrast-inverse: 0 1px 2px rgba(0, 0, 0, 0.8);
 
   /* === GLASS MORPHISM EFFECTS === */
   --glass-backdrop: rgba(255, 255, 255, 0.1);
@@ -423,58 +698,275 @@ body {
   padding: 0;
 }
 
-/* === UTILITY CLASSES === */
+/* === COMPREHENSIVE ENTERPRISE UTILITY CLASSES === */
 
-/* Typography utilities */
+/* === TYPOGRAPHY UTILITIES === */
+
+/* Font Size Utilities */
+.text-nano { font-size: var(--font-size-nano); }
+.text-micro { font-size: var(--font-size-micro); }
 .text-xs { font-size: var(--font-size-xs); }
 .text-sm { font-size: var(--font-size-sm); }
 .text-base { font-size: var(--font-size-base); }
 .text-lg { font-size: var(--font-size-lg); }
 .text-xl { font-size: var(--font-size-xl); }
 .text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+.text-4xl { font-size: var(--font-size-4xl); }
 
+/* Technical Typography */
+.text-technical { font-size: var(--font-size-technical); }
+.text-technical-sm { font-size: var(--font-size-technical-sm); }
+.text-technical-lg { font-size: var(--font-size-technical-lg); }
+.text-code { font-size: var(--font-size-code); }
+
+/* Display Typography */
+.text-display-sm { font-size: var(--font-size-display-sm); }
+.text-display-md { font-size: var(--font-size-display-md); }
+.text-display-lg { font-size: var(--font-size-display-lg); }
+.text-display-xl { font-size: var(--font-size-display-xl); }
+
+/* Heading Utilities */
+.text-h1 { font-size: var(--font-size-heading-1); }
+.text-h2 { font-size: var(--font-size-heading-2); }
+.text-h3 { font-size: var(--font-size-heading-3); }
+.text-h4 { font-size: var(--font-size-heading-4); }
+.text-h5 { font-size: var(--font-size-heading-5); }
+.text-h6 { font-size: var(--font-size-heading-6); }
+
+/* Font Weight Utilities */
+.font-light { font-weight: var(--font-weight-light); }
 .font-normal { font-weight: var(--font-weight-normal); }
 .font-medium { font-weight: var(--font-weight-medium); }
 .font-semibold { font-weight: var(--font-weight-semibold); }
 .font-bold { font-weight: var(--font-weight-bold); }
+.font-extrabold { font-weight: var(--font-weight-extrabold); }
 
+/* Font Family Utilities */
+.font-ui { font-family: var(--font-family-ui); }
 .font-mono { font-family: var(--font-family-mono); }
+.font-technical { font-family: var(--font-family-technical); }
+.font-display { font-family: var(--font-family-display); }
 
-/* Color utilities */
+/* Line Height Utilities */
+.leading-none { line-height: var(--line-height-none); }
+.leading-tight { line-height: var(--line-height-tight); }
+.leading-snug { line-height: var(--line-height-snug); }
+.leading-compact { line-height: var(--line-height-compact); }
+.leading-normal { line-height: var(--line-height-base); }
+.leading-relaxed { line-height: var(--line-height-relaxed); }
+.leading-loose { line-height: var(--line-height-loose); }
+
+/* Letter Spacing Utilities */
+.tracking-tight { letter-spacing: var(--letter-spacing-tight); }
+.tracking-normal { letter-spacing: var(--letter-spacing-normal); }
+.tracking-wide { letter-spacing: var(--letter-spacing-wide); }
+.tracking-wider { letter-spacing: var(--letter-spacing-wider); }
+.tracking-widest { letter-spacing: var(--letter-spacing-widest); }
+.tracking-technical { letter-spacing: var(--letter-spacing-technical); }
+
+/* === COLOR UTILITIES === */
+
+/* Text Color Utilities */
 .text-primary { color: var(--color-text-primary); }
 .text-secondary { color: var(--color-text-secondary); }
 .text-tertiary { color: var(--color-text-tertiary); }
+.text-quaternary { color: var(--color-text-quaternary); }
 .text-accent { color: var(--color-text-accent); }
+.text-inverse { color: var(--color-text-inverse); }
 
+/* Status Text Colors */
 .text-success { color: var(--color-success); }
 .text-warning { color: var(--color-warning); }
 .text-error { color: var(--color-error); }
 .text-info { color: var(--color-info); }
 
-/* Background utilities */
+/* CAD-Specific Text Colors */
+.text-geometry-valid { color: var(--color-geometry-valid); }
+.text-geometry-invalid { color: var(--color-geometry-invalid); }
+.text-geometry-pending { color: var(--color-geometry-pending); }
+.text-tool-active { color: var(--color-tool-active); }
+.text-tool-inactive { color: var(--color-tool-inactive); }
+.text-constraint-satisfied { color: var(--color-constraint-satisfied); }
+.text-constraint-over { color: var(--color-constraint-over); }
+.text-constraint-under { color: var(--color-constraint-under); }
+
+/* Background Color Utilities */
 .bg-primary { background-color: var(--color-bg-primary); }
 .bg-secondary { background-color: var(--color-bg-secondary); }
 .bg-tertiary { background-color: var(--color-bg-tertiary); }
+.bg-elevated { background-color: var(--color-bg-elevated); }
 
-/* Spacing utilities */
+/* Surface Background Colors */
+.bg-surface-primary { background-color: var(--color-surface-primary); }
+.bg-surface-secondary { background-color: var(--color-surface-secondary); }
+.bg-surface-tertiary { background-color: var(--color-surface-tertiary); }
+.bg-surface-quaternary { background-color: var(--color-surface-quaternary); }
+
+/* Status Background Colors */
+.bg-success { background-color: var(--color-status-success-bg); }
+.bg-warning { background-color: var(--color-status-warning-bg); }
+.bg-error { background-color: var(--color-status-error-bg); }
+.bg-info { background-color: var(--color-status-info-bg); }
+
+/* Border Color Utilities */
+.border-default { border-color: var(--color-border); }
+.border-light { border-color: var(--color-border-light); }
+.border-strong { border-color: var(--color-border-strong); }
+.border-accent { border-color: var(--color-border-accent); }
+.border-focus { border-color: var(--color-border-focus); }
+
+/* Interactive Border Colors */
+.border-interactive { border-color: var(--color-border-interactive-default); }
+.border-interactive-hover { border-color: var(--color-border-interactive-hover); }
+.border-interactive-focus { border-color: var(--color-border-interactive-focus); }
+.border-interactive-error { border-color: var(--color-border-interactive-error); }
+
+/* === SPACING UTILITIES === */
+
+/* Padding Utilities */
 .p-0 { padding: var(--spacing-0); }
+.p-px { padding: var(--spacing-px); }
+.p-0-5 { padding: var(--spacing-0-5); }
 .p-1 { padding: var(--spacing-1); }
+.p-1-5 { padding: var(--spacing-1-5); }
 .p-2 { padding: var(--spacing-2); }
+.p-2-5 { padding: var(--spacing-2-5); }
 .p-3 { padding: var(--spacing-3); }
+.p-3-5 { padding: var(--spacing-3-5); }
 .p-4 { padding: var(--spacing-4); }
+.p-5 { padding: var(--spacing-5); }
 .p-6 { padding: var(--spacing-6); }
+.p-7 { padding: var(--spacing-7); }
 .p-8 { padding: var(--spacing-8); }
+.p-10 { padding: var(--spacing-10); }
+.p-12 { padding: var(--spacing-12); }
+.p-16 { padding: var(--spacing-16); }
+.p-20 { padding: var(--spacing-20); }
 
+/* Directional Padding */
+.px-0 { padding-left: var(--spacing-0); padding-right: var(--spacing-0); }
+.px-1 { padding-left: var(--spacing-1); padding-right: var(--spacing-1); }
+.px-2 { padding-left: var(--spacing-2); padding-right: var(--spacing-2); }
+.px-3 { padding-left: var(--spacing-3); padding-right: var(--spacing-3); }
+.px-4 { padding-left: var(--spacing-4); padding-right: var(--spacing-4); }
+.px-6 { padding-left: var(--spacing-6); padding-right: var(--spacing-6); }
+.px-8 { padding-left: var(--spacing-8); padding-right: var(--spacing-8); }
+
+.py-0 { padding-top: var(--spacing-0); padding-bottom: var(--spacing-0); }
+.py-1 { padding-top: var(--spacing-1); padding-bottom: var(--spacing-1); }
+.py-2 { padding-top: var(--spacing-2); padding-bottom: var(--spacing-2); }
+.py-3 { padding-top: var(--spacing-3); padding-bottom: var(--spacing-3); }
+.py-4 { padding-top: var(--spacing-4); padding-bottom: var(--spacing-4); }
+.py-6 { padding-top: var(--spacing-6); padding-bottom: var(--spacing-6); }
+.py-8 { padding-top: var(--spacing-8); padding-bottom: var(--spacing-8); }
+
+/* Margin Utilities */
 .m-0 { margin: var(--spacing-0); }
 .m-1 { margin: var(--spacing-1); }
 .m-2 { margin: var(--spacing-2); }
 .m-3 { margin: var(--spacing-3); }
 .m-4 { margin: var(--spacing-4); }
+.m-5 { margin: var(--spacing-5); }
 .m-6 { margin: var(--spacing-6); }
 .m-8 { margin: var(--spacing-8); }
+.m-10 { margin: var(--spacing-10); }
+.m-12 { margin: var(--spacing-12); }
+.m-auto { margin: auto; }
 
-/* Shadow utilities */
+/* Gap Utilities */
+.gap-0 { gap: var(--spacing-0); }
+.gap-1 { gap: var(--spacing-1); }
+.gap-2 { gap: var(--spacing-2); }
+.gap-3 { gap: var(--spacing-3); }
+.gap-4 { gap: var(--spacing-4); }
+.gap-5 { gap: var(--spacing-5); }
+.gap-6 { gap: var(--spacing-6); }
+.gap-8 { gap: var(--spacing-8); }
+
+/* === SHADOW UTILITIES === */
+.shadow-none { box-shadow: none; }
+.shadow-xs { box-shadow: var(--shadow-xs); }
 .shadow-sm { box-shadow: var(--shadow-sm); }
 .shadow-md { box-shadow: var(--shadow-md); }
 .shadow-lg { box-shadow: var(--shadow-lg); }
 .shadow-xl { box-shadow: var(--shadow-xl); }
+.shadow-2xl { box-shadow: var(--shadow-2xl); }
+.shadow-inner { box-shadow: var(--shadow-inner); }
+
+/* Interactive Shadows */
+.shadow-interactive { box-shadow: var(--shadow-interactive-default); }
+.shadow-interactive-hover { box-shadow: var(--shadow-interactive-hover); }
+.shadow-interactive-focus { box-shadow: var(--shadow-interactive-focus); }
+
+/* Component-Specific Shadows */
+.shadow-panel { box-shadow: var(--shadow-panel); }
+.shadow-toolbar { box-shadow: var(--shadow-toolbar); }
+.shadow-dropdown { box-shadow: var(--shadow-dropdown); }
+.shadow-modal { box-shadow: var(--shadow-modal); }
+.shadow-node { box-shadow: var(--shadow-node); }
+.shadow-node-selected { box-shadow: var(--shadow-node-selected); }
+
+/* === BORDER RADIUS UTILITIES === */
+.rounded-none { border-radius: var(--radius-none); }
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-2xl { border-radius: var(--radius-2xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* === TRANSITION UTILITIES === */
+.transition-none { transition: none; }
+.transition-all { transition: var(--transition-all); }
+.transition-colors { transition: var(--transition-colors); }
+.transition-button { transition: var(--transition-button); }
+.transition-hover { transition: var(--transition-hover); }
+.transition-focus { transition: var(--transition-focus); }
+.transition-transform { transition: var(--transition-transform); }
+.transition-micro { transition: var(--transition-micro); }
+
+/* === ACCESSIBILITY UTILITIES === */
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus Visible Utilities */
+.focus-visible-ring:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.focus-ring:focus {
+  box-shadow: var(--shadow-interactive-focus);
+  outline: none;
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+  .text-primary { color: #000000; }
+  .text-secondary { color: #333333; }
+  .bg-primary { background-color: #ffffff; }
+  .border-default { border-color: #000000; }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

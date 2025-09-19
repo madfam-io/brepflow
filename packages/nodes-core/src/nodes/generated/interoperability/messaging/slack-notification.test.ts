@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SlackNotificationNode } from './slacknotification-node';
-import { createTestContext } from '../test-utils';
+import { SlackNotificationNode } from './slacknotification.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SlackNotificationNode', () => {
   it('should create SlackNotification', async () => {

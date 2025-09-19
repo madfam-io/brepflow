@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MarkovChainNode } from './markovchain-node';
-import { createTestContext } from '../test-utils';
+import { MarkovChainNode } from './markovchain.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MarkovChainNode', () => {
   it('should create MarkovChain', async () => {

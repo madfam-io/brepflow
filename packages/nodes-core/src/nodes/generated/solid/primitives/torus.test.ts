@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TorusNode } from './torus-node';
-import { createTestContext } from '../test-utils';
+import { TorusNode } from './torus.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TorusNode', () => {
   it('should create Torus', async () => {

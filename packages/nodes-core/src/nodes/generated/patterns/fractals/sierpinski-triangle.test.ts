@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SierpinskiTriangleNode } from './sierpinskitriangle-node';
-import { createTestContext } from '../test-utils';
+import { SierpinskiTriangleNode } from './sierpinskitriangle.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SierpinskiTriangleNode', () => {
   it('should create SierpinskiTriangle', async () => {

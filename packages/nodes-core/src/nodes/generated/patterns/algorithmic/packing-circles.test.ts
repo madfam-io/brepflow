@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PackingCirclesNode } from './packingcircles-node';
-import { createTestContext } from '../test-utils';
+import { PackingCirclesNode } from './packingcircles.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PackingCirclesNode', () => {
   it('should create PackingCircles', async () => {

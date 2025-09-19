@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BoundingBoxAlignNode } from './boundingboxalign-node';
-import { createTestContext } from '../test-utils';
+import { BoundingBoxAlignNode } from './boundingboxalign.node';
+import { createTestContext } from './../test-utils';
 
 describe('BoundingBoxAlignNode', () => {
   it('should create BoundingBoxAlign', async () => {

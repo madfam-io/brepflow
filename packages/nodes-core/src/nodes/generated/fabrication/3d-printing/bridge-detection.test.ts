@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BridgeDetectionNode } from './bridgedetection-node';
-import { createTestContext } from '../test-utils';
+import { BridgeDetectionNode } from './bridgedetection.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BridgeDetectionNode', () => {
   it('should create BridgeDetection', async () => {

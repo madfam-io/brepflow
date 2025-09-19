@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SprayPaintingNode } from './spraypainting-node';
-import { createTestContext } from '../test-utils';
+import { SprayPaintingNode } from './spraypainting.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SprayPaintingNode', () => {
   it('should create SprayPainting', async () => {

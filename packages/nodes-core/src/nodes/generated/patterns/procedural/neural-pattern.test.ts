@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { NeuralPatternNode } from './neuralpattern-node';
-import { createTestContext } from '../test-utils';
+import { NeuralPatternNode } from './neuralpattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('NeuralPatternNode', () => {
   it('should create NeuralPattern', async () => {

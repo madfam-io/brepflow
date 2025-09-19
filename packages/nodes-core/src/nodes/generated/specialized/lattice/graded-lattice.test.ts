@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GradedLatticeNode } from './gradedlattice-node';
-import { createTestContext } from '../test-utils';
+import { GradedLatticeNode } from './gradedlattice.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GradedLatticeNode', () => {
   it('should create GradedLattice', async () => {

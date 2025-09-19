@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PrismNode } from './prism-node';
-import { createTestContext } from '../test-utils';
+import { PrismNode } from './prism.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PrismNode', () => {
   it('should create Prism', async () => {

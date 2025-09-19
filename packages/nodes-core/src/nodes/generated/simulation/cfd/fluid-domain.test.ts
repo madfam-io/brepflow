@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FluidDomainNode } from './fluiddomain-node';
-import { createTestContext } from '../test-utils';
+import { FluidDomainNode } from './fluiddomain.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FluidDomainNode', () => {
   it('should create FluidDomain', async () => {

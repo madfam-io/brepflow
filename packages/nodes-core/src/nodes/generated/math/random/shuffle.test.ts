@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShuffleNode } from './shuffle-node';
-import { createTestContext } from '../test-utils';
+import { ShuffleNode } from './shuffle.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ShuffleNode', () => {
   it('should create Shuffle', async () => {

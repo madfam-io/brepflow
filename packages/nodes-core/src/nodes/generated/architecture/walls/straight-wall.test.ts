@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StraightWallNode } from './straightwall-node';
-import { createTestContext } from '../test-utils';
+import { StraightWallNode } from './straightwall.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StraightWallNode', () => {
   it('should create StraightWall', async () => {

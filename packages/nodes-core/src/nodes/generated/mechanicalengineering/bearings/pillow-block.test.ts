@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PillowBlockNode } from './pillowblock-node';
-import { createTestContext } from '../test-utils';
+import { PillowBlockNode } from './pillowblock.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PillowBlockNode', () => {
   it('should create PillowBlock', async () => {

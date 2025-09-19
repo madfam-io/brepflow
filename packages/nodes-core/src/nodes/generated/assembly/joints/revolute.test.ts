@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RevoluteNode } from './revolute-node';
-import { createTestContext } from '../test-utils';
+import { RevoluteNode } from './revolute.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RevoluteNode', () => {
   it('should create Revolute', async () => {

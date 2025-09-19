@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MatrixTransformNode } from './matrixtransform-node';
-import { createTestContext } from '../test-utils';
+import { MatrixTransformNode } from './matrixtransform.node';
+import { createTestContext } from './../test-utils';
 
 describe('MatrixTransformNode', () => {
   it('should create MatrixTransform', async () => {

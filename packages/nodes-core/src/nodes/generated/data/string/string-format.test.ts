@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringFormatNode } from './stringformat-node';
-import { createTestContext } from '../test-utils';
+import { StringFormatNode } from './stringformat.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StringFormatNode', () => {
   it('should create StringFormat', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SineFieldNode } from './sinefield-node';
-import { createTestContext } from '../test-utils';
+import { SineFieldNode } from './sinefield.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SineFieldNode', () => {
   it('should create SineField', async () => {

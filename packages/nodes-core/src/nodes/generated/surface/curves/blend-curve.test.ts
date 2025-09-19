@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BlendCurveNode } from './blendcurve-node';
-import { createTestContext } from '../test-utils';
+import { BlendCurveNode } from './blendcurve.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BlendCurveNode', () => {
   it('should create BlendCurve', async () => {

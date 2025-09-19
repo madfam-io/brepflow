@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceFromPointsNode } from './surfacefrompoints-node';
-import { createTestContext } from '../test-utils';
+import { SurfaceFromPointsNode } from './surfacefrompoints.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SurfaceFromPointsNode', () => {
   it('should create SurfaceFromPoints', async () => {

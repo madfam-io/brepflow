@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CostEstimateNode } from './costestimate-node';
-import { createTestContext } from '../test-utils';
+import { CostEstimateNode } from './costestimate.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CostEstimateNode', () => {
   it('should create CostEstimate', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurbRampNode } from './curbramp-node';
-import { createTestContext } from '../test-utils';
+import { CurbRampNode } from './curbramp.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurbRampNode', () => {
   it('should create CurbRamp', async () => {

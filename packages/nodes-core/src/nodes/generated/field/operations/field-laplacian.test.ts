@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldLaplacianNode } from './fieldlaplacian-node';
-import { createTestContext } from '../test-utils';
+import { FieldLaplacianNode } from './fieldlaplacian.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldLaplacianNode', () => {
   it('should create FieldLaplacian', async () => {

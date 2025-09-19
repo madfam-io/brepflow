@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldSubtractNode } from './fieldsubtract-node';
-import { createTestContext } from '../test-utils';
+import { FieldSubtractNode } from './fieldsubtract.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldSubtractNode', () => {
   it('should create FieldSubtract', async () => {

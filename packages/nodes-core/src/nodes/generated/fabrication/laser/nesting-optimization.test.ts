@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { NestingOptimizationNode } from './nestingoptimization-node';
-import { createTestContext } from '../test-utils';
+import { NestingOptimizationNode } from './nestingoptimization.node';
+import { createTestContext } from './../../test-utils';
 
 describe('NestingOptimizationNode', () => {
   it('should create NestingOptimization', async () => {

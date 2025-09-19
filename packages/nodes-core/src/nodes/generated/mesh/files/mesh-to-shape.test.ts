@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MeshToShapeNode } from './meshtoshape-node';
-import { createTestContext } from '../test-utils';
+import { MeshToShapeNode } from './mesh-to-shape.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MeshToShapeNode', () => {
   it('should create MeshToShape', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShearWallNode } from './shearwall-node';
-import { createTestContext } from '../test-utils';
+import { ShearWallNode } from './shearwall.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ShearWallNode', () => {
   it('should create ShearWall', async () => {

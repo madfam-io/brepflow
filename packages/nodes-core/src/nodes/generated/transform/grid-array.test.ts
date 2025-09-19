@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GridArrayNode } from './gridarray-node';
-import { createTestContext } from '../test-utils';
+import { GridArrayNode } from './gridarray.node';
+import { createTestContext } from './../test-utils';
 
 describe('GridArrayNode', () => {
   it('should create GridArray', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BarnsleyFernNode } from './barnsleyfern-node';
-import { createTestContext } from '../test-utils';
+import { BarnsleyFernNode } from './barnsleyfern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BarnsleyFernNode', () => {
   it('should create BarnsleyFern', async () => {

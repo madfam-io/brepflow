@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SingleDoorNode } from './singledoor-node';
-import { createTestContext } from '../test-utils';
+import { SingleDoorNode } from './singledoor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SingleDoorNode', () => {
   it('should create SingleDoor', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CornerReliefNode } from './cornerrelief-node';
-import { createTestContext } from '../test-utils';
+import { CornerReliefNode } from './cornerrelief.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CornerReliefNode', () => {
   it('should create CornerRelief', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinkageMechanismNode } from './linkagemechanism-node';
-import { createTestContext } from '../test-utils';
+import { LinkageMechanismNode } from './linkagemechanism.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LinkageMechanismNode', () => {
   it('should create LinkageMechanism', async () => {

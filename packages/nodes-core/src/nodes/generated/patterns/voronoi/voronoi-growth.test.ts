@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VoronoiGrowthNode } from './voronoigrowth-node';
-import { createTestContext } from '../test-utils';
+import { VoronoiGrowthNode } from './voronoigrowth.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VoronoiGrowthNode', () => {
   it('should create VoronoiGrowth', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PierceOptimizationNode } from './pierceoptimization-node';
-import { createTestContext } from '../test-utils';
+import { PierceOptimizationNode } from './pierceoptimization.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PierceOptimizationNode', () => {
   it('should create PierceOptimization', async () => {

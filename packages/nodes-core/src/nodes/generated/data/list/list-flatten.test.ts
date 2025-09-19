@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListFlattenNode } from './listflatten-node';
-import { createTestContext } from '../test-utils';
+import { ListFlattenNode } from './listflatten.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ListFlattenNode', () => {
   it('should create ListFlatten', async () => {

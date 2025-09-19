@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { NodeIcon } from './icons/IconSystem';
+import './NodePanel.css';
 
 const nodeCategories = [
   {

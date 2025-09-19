@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GraphLayoutNode } from './graphlayout-node';
-import { createTestContext } from '../test-utils';
+import { GraphLayoutNode } from './graphlayout.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GraphLayoutNode', () => {
   it('should create GraphLayout', async () => {

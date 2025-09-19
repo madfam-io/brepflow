@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DraftAnalysisNode } from './draftanalysis-node';
-import { createTestContext } from '../test-utils';
+import { DraftAnalysisNode } from './draftanalysis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DraftAnalysisNode', () => {
   it('should create DraftAnalysis', async () => {

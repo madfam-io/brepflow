@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SimplifyMeshNode } from './simplifymesh-node';
-import { createTestContext } from '../test-utils';
+import { SimplifyMeshNode } from './simplifymesh.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SimplifyMeshNode', () => {
   it('should create SimplifyMesh', async () => {

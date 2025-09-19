@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MengerSpongeNode } from './mengersponge-node';
-import { createTestContext } from '../test-utils';
+import { MengerSpongeNode } from './mengersponge.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MengerSpongeNode', () => {
   it('should create MengerSponge', async () => {

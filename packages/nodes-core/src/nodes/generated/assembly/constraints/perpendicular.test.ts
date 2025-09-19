@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PerpendicularNode } from './perpendicular-node';
-import { createTestContext } from '../test-utils';
+import { PerpendicularNode } from './perpendicular.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PerpendicularNode', () => {
   it('should create Perpendicular', async () => {

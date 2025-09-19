@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToStringNode } from './tostring-node';
-import { createTestContext } from '../test-utils';
+import { ToStringNode } from './tostring.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ToStringNode', () => {
   it('should create ToString', async () => {

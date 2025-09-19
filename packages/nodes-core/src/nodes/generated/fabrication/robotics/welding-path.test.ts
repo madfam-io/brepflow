@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WeldingPathNode } from './weldingpath-node';
-import { createTestContext } from '../test-utils';
+import { WeldingPathNode } from './weldingpath.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WeldingPathNode', () => {
   it('should create WeldingPath', async () => {

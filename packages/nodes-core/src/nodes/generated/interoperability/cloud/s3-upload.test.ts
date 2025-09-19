@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { S3UploadNode } from './s3upload-node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from './../../test-utils';
 
 describe('S3UploadNode', () => {
   it('should create S3Upload', async () => {

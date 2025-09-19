@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BarcodeNode } from './barcode-node';
-import { createTestContext } from '../test-utils';
+import { BarcodeNode } from './barcode.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BarcodeNode', () => {
   it('should create Barcode', async () => {

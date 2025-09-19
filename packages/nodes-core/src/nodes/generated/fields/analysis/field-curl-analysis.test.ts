@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldCurlAnalysisNode } from './fieldcurlanalysis-node';
-import { createTestContext } from '../test-utils';
+import { FieldCurlAnalysisNode } from './fieldcurlanalysis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldCurlAnalysisNode', () => {
   it('should create FieldCurlAnalysis', async () => {

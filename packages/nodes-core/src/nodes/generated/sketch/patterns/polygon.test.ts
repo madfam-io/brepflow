@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PolygonNode } from './polygon-node';
-import { createTestContext } from '../test-utils';
+import { PolygonNode } from './polygon.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PolygonNode', () => {
   it('should create Polygon', async () => {

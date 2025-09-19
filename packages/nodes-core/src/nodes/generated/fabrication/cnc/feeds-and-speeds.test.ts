@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FeedsAndSpeedsNode } from './feedsandspeeds-node';
-import { createTestContext } from '../test-utils';
+import { FeedsAndSpeedsNode } from './feedsandspeeds.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FeedsAndSpeedsNode', () => {
   it('should create FeedsAndSpeeds', async () => {

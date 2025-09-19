@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RackPinionNode } from './rackpinion-node';
-import { createTestContext } from '../test-utils';
+import { RackPinionNode } from './rackpinion.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RackPinionNode', () => {
   it('should create RackPinion', async () => {

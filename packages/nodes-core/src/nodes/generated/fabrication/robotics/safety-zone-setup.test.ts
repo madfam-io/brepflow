@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SafetyZoneSetupNode } from './safetyzonesetup-node';
-import { createTestContext } from '../test-utils';
+import { SafetyZoneSetupNode } from './safetyzonesetup.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SafetyZoneSetupNode', () => {
   it('should create SafetyZoneSetup', async () => {

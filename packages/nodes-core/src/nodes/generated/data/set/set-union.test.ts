@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SetUnionNode } from './setunion-node';
-import { createTestContext } from '../test-utils';
+import { SetUnionNode } from './setunion.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SetUnionNode', () => {
   it('should create SetUnion', async () => {

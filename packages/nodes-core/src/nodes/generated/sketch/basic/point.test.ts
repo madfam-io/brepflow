@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PointNode } from './point-node';
-import { createTestContext } from '../test-utils';
+import { PointNode } from './point.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PointNode', () => {
   it('should create Point', async () => {

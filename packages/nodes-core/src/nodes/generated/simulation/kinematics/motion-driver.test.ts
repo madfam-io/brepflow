@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MotionDriverNode } from './motiondriver-node';
-import { createTestContext } from '../test-utils';
+import { MotionDriverNode } from './motiondriver.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MotionDriverNode', () => {
   it('should create MotionDriver', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveAttractorNode } from './curveattractor-node';
-import { createTestContext } from '../test-utils';
+import { CurveAttractorNode } from './curveattractor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurveAttractorNode', () => {
   it('should create CurveAttractor', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FlockingPatternNode } from './flockingpattern-node';
-import { createTestContext } from '../test-utils';
+import { FlockingPatternNode } from './flockingpattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FlockingPatternNode', () => {
   it('should create FlockingPattern', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { AlphaShapeNode } from './alphashape-node';
-import { createTestContext } from '../test-utils';
+import { AlphaShapeNode } from './alphashape.node';
+import { createTestContext } from './../../test-utils';
 
 describe('AlphaShapeNode', () => {
   it('should create AlphaShape', async () => {

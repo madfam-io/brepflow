@@ -33,21 +33,36 @@ The project uses a monorepo structure with the following layout:
 ```bash
 # Initial setup
 pnpm i                              # Install dependencies
-
-# Build WASM geometry core (one-time, downloads/compiles OCCT)
-pnpm -w run build:wasm
+pnpm run build                      # Build all packages
 
 # Development
-pnpm -w run dev                     # Start Studio + workers (http://localhost:5173)
-pnpm -w run test                    # Run unit/integration tests
-pnpm -w run build                   # Bundle all packages
-pnpm -w run lint                    # Run ESLint
+pnpm run dev                        # Start Studio + workers (http://localhost:5173)
+pnpm run test                       # Run unit/integration tests (Vitest)
+pnpm run test:e2e                   # Run E2E tests (Playwright)
+pnpm run test:e2e:headed            # E2E tests with visible browser
+pnpm run test:e2e:debug             # Debug E2E tests step-by-step
+pnpm run test:all                   # Run all tests (unit + E2E)
+pnpm run build                      # Bundle all packages
+pnpm run lint                       # Run ESLint
+pnpm run typecheck                  # TypeScript compilation check
+pnpm run format                     # Format code with Prettier
+
+# Single package development
+pnpm --filter @brepflow/studio run test      # Test specific package
+pnpm --filter @brepflow/engine-core run build
+pnpm --filter @brepflow/nodes-core run typecheck
+
+# WASM geometry core (optional - app works with mock geometry)
+pnpm run build:wasm                 # Compile OCCT.wasm (requires Emscripten)
 
 # CLI usage
-pnpm -w --filter @brepflow/cli run build
+pnpm --filter @brepflow/cli run build
 node packages/cli/dist/index.js render examples/enclosure.bflow.json \
   --set L=120 --set W=80 --set H=35 \
   --export step,stl --out out/
+
+# Cleanup
+pnpm run clean                      # Clean all build artifacts
 ```
 
 ## Key Technical Details
@@ -113,10 +128,67 @@ registerNode({
 
 **Comprehensive Documentation**: See docs/technical/ARCHITECTURE.md, docs/api/API.md, docs/development/SETUP.md, docs/development/CONTRIBUTING.md, docs/product/ROADMAP.md
 
+## Testing Strategy
+
+### Unit Tests (Vitest)
+- **Location**: `**/*.{test,spec}.{js,jsx,ts,tsx}` in each package
+- **Coverage**: 80% threshold for lines, functions, branches, statements
+- **Environment**: jsdom for DOM simulation
+- **Key areas**: Geometry adapters, hashing, expression evaluator, DAG operations
+
+### Integration Tests
+- **Location**: `tests/integration/` and `tests/*.test.ts`
+- **Focus**: Node chains with golden STEP outputs, cross-package interactions
+- **Geometry**: Real OCCT operations when WASM available, mock otherwise
+
+### E2E Tests (Playwright)
+- **Location**: `tests/e2e/`
+- **Configuration**: Optimized for WebGL/Three.js with 15% screenshot threshold
+- **Browsers**: Chrome, Firefox (WebKit disabled due to WASM limitations)
+- **Timeouts**: 60s test timeout, 15s expect timeout for geometry rendering
+- **Focus**: Create→edit→export workflows, viewport interactions, node editor
+
+### Running Tests
+```bash
+# Run specific test types
+pnpm run test                       # Unit tests only
+pnpm run test:e2e                   # E2E tests headless
+pnpm run test:e2e:headed            # E2E with visible browser
+pnpm run test:e2e:debug             # Step-by-step debugging
+pnpm run test:all                   # All tests
+
+# Package-specific testing
+pnpm --filter @brepflow/engine-core run test
+pnpm --filter @brepflow/studio run test:coverage
+```
+
+## Package Architecture
+
+### Build Dependencies (Turbo Pipeline)
+```
+types → schemas → engine-core → engine-occt → sdk → nodes-core → viewport → studio
+                              ↘ cli ↗
+```
+
+### Key Packages
+- **engine-core**: DAG evaluation, dirty propagation, content-addressed hashing
+- **engine-occt**: WASM worker bindings to OCCT geometry kernel  
+- **nodes-core**: Built-in node implementations (30+ geometry nodes)
+- **viewport**: Three.js renderer with WebGL2/WebGPU support
+- **studio**: React app with node editor (React Flow) and inspector
+- **cli**: Headless Node.js runner for batch processing
+
+### TypeScript Configuration
+- **Strict mode**: Disabled for gradual adoption
+- **Path aliases**: `@brepflow/*` packages mapped in tsconfig
+- **Target**: ES2022 with bundler module resolution
+
 ## Important Notes
 
-1. **WASM Threads**: Development server must serve with proper COOP/COEP headers for SharedArrayBuffer support
-2. **Browser Requirements**: Modern browsers with WASM support; WebGPU optional behind flag
-3. **Monorepo**: Uses pnpm workspaces with Turborepo for build orchestration
-4. **Determinism**: All geometry operations must be deterministic for content-addressed caching
-5. **Memory Management**: LRU caches for meshes, worker restarts on memory pressure
+1. **Mock vs Real Geometry**: App works fully with mock geometry provider; OCCT.wasm optional for real CAD
+2. **WASM Threads**: Development server must serve with proper COOP/COEP headers for SharedArrayBuffer support
+3. **Browser Requirements**: Modern browsers with WASM support; WebGPU optional behind flag
+4. **Monorepo**: Uses pnpm workspaces with Turborepo for build orchestration
+5. **Determinism**: All geometry operations must be deterministic for content-addressed caching
+6. **Memory Management**: LRU caches for meshes, worker restarts on memory pressure
+7. **Testing Philosophy**: Unit tests for logic, integration for workflows, E2E for user journeys

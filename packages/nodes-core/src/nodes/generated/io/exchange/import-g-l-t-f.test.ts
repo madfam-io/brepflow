@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImportGLTFNode } from './importgltf-node';
-import { createTestContext } from '../test-utils';
+import { ImportGLTFNode } from './importgltf.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ImportGLTFNode', () => {
   it('should create ImportGLTF', async () => {

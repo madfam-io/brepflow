@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MultiplePassesNode } from './multiplepasses-node';
-import { createTestContext } from '../test-utils';
+import { MultiplePassesNode } from './multiplepasses.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MultiplePassesNode', () => {
   it('should create MultiplePasses', async () => {

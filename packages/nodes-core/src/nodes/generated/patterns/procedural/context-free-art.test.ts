@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ContextFreeArtNode } from './contextfreeart-node';
-import { createTestContext } from '../test-utils';
+import { ContextFreeArtNode } from './contextfreeart.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ContextFreeArtNode', () => {
   it('should create ContextFreeArt', async () => {

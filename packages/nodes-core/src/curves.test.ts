@@ -15,7 +15,9 @@ describe('Curve Nodes', () => {
 
   beforeEach(() => {
     mockContext = {
-      invoke: vi.fn(),
+      worker: {
+        invoke: vi.fn(),
+      },
     };
   });
 
@@ -32,11 +34,11 @@ describe('Curve Nodes', () => {
       const params = { degree: 3, periodic: false };
       const expectedResult = { type: 'Curve', id: 'nurbs-1' };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await nurbsCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('CREATE_NURBS_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('CREATE_NURBS_CURVE', {
         points: inputs.points,
         weights: inputs.weights,
         degree: params.degree,
@@ -55,11 +57,11 @@ describe('Curve Nodes', () => {
       };
       const params = { degree: 2, periodic: true };
 
-      mockContext.invoke.mockResolvedValue({ type: 'Curve' });
+      mockContext.worker.invoke.mockResolvedValue({ type: 'Curve' });
 
       await nurbsCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('CREATE_NURBS_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('CREATE_NURBS_CURVE', {
         points: inputs.points,
         weights: null,
         degree: params.degree,
@@ -92,11 +94,11 @@ describe('Curve Nodes', () => {
       const params = { closed: false, smooth: 0.5 };
       const expectedResult = { type: 'Curve', interpolated: true };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await interpolateCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('INTERPOLATE_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('INTERPOLATE_CURVE', {
         points: inputs.points,
         tangents: inputs.tangents,
         closed: params.closed,
@@ -116,11 +118,11 @@ describe('Curve Nodes', () => {
       };
       const params = { closed: true, smooth: 0.8 };
 
-      mockContext.invoke.mockResolvedValue({ type: 'Curve' });
+      mockContext.worker.invoke.mockResolvedValue({ type: 'Curve' });
 
       await interpolateCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('INTERPOLATE_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('INTERPOLATE_CURVE', {
         points: inputs.points,
         tangents: undefined,
         closed: true,
@@ -138,11 +140,11 @@ describe('Curve Nodes', () => {
       const params = { distance: 10, corner: 'round' };
       const expectedResult = { type: 'Curve', offset: true };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await offsetCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('OFFSET_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('OFFSET_CURVE', {
         curve: inputs.curve,
         distance: params.distance,
         plane: inputs.plane,
@@ -161,11 +163,11 @@ describe('Curve Nodes', () => {
       const inputs = { curve: { type: 'Curve' } };
       const params = { distance: -5, corner: 'sharp' };
 
-      mockContext.invoke.mockResolvedValue({ type: 'Curve' });
+      mockContext.worker.invoke.mockResolvedValue({ type: 'Curve' });
 
       await offsetCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('OFFSET_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('OFFSET_CURVE', {
         curve: inputs.curve,
         distance: -5,
         plane: undefined,
@@ -187,11 +189,11 @@ describe('Curve Nodes', () => {
         inflections: [{ x: 5, y: 5, z: 0 }],
       };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await curvatureAnalysisNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('ANALYZE_CURVATURE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('ANALYZE_CURVATURE', {
         curve: inputs.curve,
         samples: params.samples,
       });
@@ -223,11 +225,11 @@ describe('Curve Nodes', () => {
         tangents: Array(10).fill({ x: 1, y: 0, z: 0 }),
       };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await divideCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('DIVIDE_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('DIVIDE_CURVE', {
         curve: inputs.curve,
         count: params.count,
         byLength: params.byLength,
@@ -241,7 +243,7 @@ describe('Curve Nodes', () => {
       const inputs = { curve: { type: 'Curve' } };
       const params = { count: 20, byLength: true };
 
-      mockContext.invoke.mockResolvedValue({
+      mockContext.worker.invoke.mockResolvedValue({
         points: [],
         params: [],
         tangents: [],
@@ -249,7 +251,7 @@ describe('Curve Nodes', () => {
 
       await divideCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('DIVIDE_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('DIVIDE_CURVE', {
         curve: inputs.curve,
         count: 20,
         byLength: true,
@@ -268,11 +270,11 @@ describe('Curve Nodes', () => {
       const params = { continuity: 'G1', bulge: 0.5 };
       const expectedResult = { type: 'Curve', blended: true };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await blendCurvesNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('BLEND_CURVES', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('BLEND_CURVES', {
         curve1: inputs.curve1,
         curve2: inputs.curve2,
         point1: inputs.point1,
@@ -307,11 +309,11 @@ describe('Curve Nodes', () => {
       const params = { keepOriginal: false };
       const expectedResult = [{ type: 'Curve', projected: true }];
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await projectCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('PROJECT_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('PROJECT_CURVE', {
         curve: inputs.curve,
         target: inputs.target,
         direction: inputs.direction,
@@ -327,11 +329,11 @@ describe('Curve Nodes', () => {
       };
       const params = { keepOriginal: true };
 
-      mockContext.invoke.mockResolvedValue([]);
+      mockContext.worker.invoke.mockResolvedValue([]);
 
       await projectCurveNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('PROJECT_CURVE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('PROJECT_CURVE', {
         curve: inputs.curve,
         target: inputs.target,
         direction: undefined,
@@ -353,11 +355,11 @@ describe('Curve Nodes', () => {
         paramsB: [0.5],
       };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await curveIntersectionNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('CURVE_INTERSECTION', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('CURVE_INTERSECTION', {
         curveA: inputs.curveA,
         curveB: inputs.curveB,
         tolerance: params.tolerance,
@@ -376,7 +378,7 @@ describe('Curve Nodes', () => {
       };
       const params = { tolerance: 0.01 };
 
-      mockContext.invoke.mockResolvedValue({
+      mockContext.worker.invoke.mockResolvedValue({
         points: [],
         paramsA: [],
         paramsB: [],

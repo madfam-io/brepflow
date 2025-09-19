@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RetainingRingNode } from './retainingring-node';
-import { createTestContext } from '../test-utils';
+import { RetainingRingNode } from './retainingring.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RetainingRingNode', () => {
   it('should create RetainingRing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImprintNode } from './imprint-node';
-import { createTestContext } from '../test-utils';
+import { ImprintNode } from './imprint.node';
+import { createTestContext } from './../test-utils';
 
 describe('ImprintNode', () => {
   it('should create Imprint', async () => {

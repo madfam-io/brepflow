@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { JogNode } from './jog-node';
-import { createTestContext } from '../test-utils';
+import { JogNode } from './jog.node';
+import { createTestContext } from './../../test-utils';
 
 describe('JogNode', () => {
   it('should create Jog', async () => {

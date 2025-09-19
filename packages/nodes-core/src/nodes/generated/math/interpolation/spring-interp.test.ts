@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpringInterpNode } from './springinterp-node';
-import { createTestContext } from '../test-utils';
+import { SpringInterpNode } from './springinterp.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SpringInterpNode', () => {
   it('should create SpringInterp', async () => {

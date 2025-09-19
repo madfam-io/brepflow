@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RigidCouplingNode } from './rigidcoupling-node';
-import { createTestContext } from '../test-utils';
+import { RigidCouplingNode } from './rigidcoupling.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RigidCouplingNode', () => {
   it('should create RigidCoupling', async () => {

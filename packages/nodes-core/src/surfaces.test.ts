@@ -16,7 +16,9 @@ describe('Surface Nodes', () => {
 
   beforeEach(() => {
     mockContext = {
-      invoke: vi.fn(),
+      worker: {
+        invoke: vi.fn(),
+      },
     };
   });
 
@@ -43,11 +45,11 @@ describe('Surface Nodes', () => {
       const params = { degreeU: 3, degreeV: 3 };
       const expectedResult = { type: 'Surface', id: 'nurbs-surf-1' };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await nurbsSurfaceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('CREATE_NURBS_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('CREATE_NURBS_SURFACE', {
         points: inputs.points,
         weights: inputs.weights,
         degreeU: params.degreeU,
@@ -62,11 +64,11 @@ describe('Surface Nodes', () => {
       };
       const params = { degreeU: 2, degreeV: 2 };
 
-      mockContext.invoke.mockResolvedValue({ type: 'Surface' });
+      mockContext.worker.invoke.mockResolvedValue({ type: 'Surface' });
 
       await nurbsSurfaceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('CREATE_NURBS_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('CREATE_NURBS_SURFACE', {
         points: inputs.points,
         weights: undefined,
         degreeU: 2,
@@ -99,11 +101,11 @@ describe('Surface Nodes', () => {
       const params = { closed: false, smooth: true, rebuild: false };
       const expectedResult = { type: 'Surface', lofted: true };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await loftSurfaceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('LOFT_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('LOFT_SURFACE', {
         curves: inputs.curves,
         guides: inputs.guides,
         closed: params.closed,
@@ -119,11 +121,11 @@ describe('Surface Nodes', () => {
       };
       const params = { closed: true, smooth: false, rebuild: true };
 
-      mockContext.invoke.mockResolvedValue({ type: 'Surface' });
+      mockContext.worker.invoke.mockResolvedValue({ type: 'Surface' });
 
       await loftSurfaceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('LOFT_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('LOFT_SURFACE', {
         curves: inputs.curves,
         guides: undefined,
         closed: true,
@@ -148,11 +150,11 @@ describe('Surface Nodes', () => {
       const params = { continuity: 'G1', tolerance: 0.01 };
       const expectedResult = { type: 'Surface', network: true };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await networkSurfaceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('NETWORK_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('NETWORK_SURFACE', {
         uCurves: inputs.uCurves,
         vCurves: inputs.vCurves,
         continuity: params.continuity,
@@ -189,11 +191,11 @@ describe('Surface Nodes', () => {
       const params = { spans: 10, flexibility: 1 };
       const expectedResult = { type: 'Surface', patch: true };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await patchSurfaceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('PATCH_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('PATCH_SURFACE', {
         boundaries: inputs.boundaries,
         internal: inputs.internal,
         spans: params.spans,
@@ -208,11 +210,11 @@ describe('Surface Nodes', () => {
       };
       const params = { spans: 20, flexibility: 2.5 };
 
-      mockContext.invoke.mockResolvedValue({ type: 'Surface' });
+      mockContext.worker.invoke.mockResolvedValue({ type: 'Surface' });
 
       await patchSurfaceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('PATCH_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('PATCH_SURFACE', {
         boundaries: inputs.boundaries,
         internal: undefined,
         spans: 20,
@@ -229,11 +231,11 @@ describe('Surface Nodes', () => {
       const params = { distance: 10, solid: false };
       const expectedResult = { type: 'Surface', offset: true };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
-      await offsetSurfaceNode.execute(inputs, params, mockContext);
+      const result = await offsetSurfaceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('OFFSET_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('OFFSET_SURFACE', {
         surface: inputs.surface,
         distance: params.distance,
         createSolid: params.solid,
@@ -245,11 +247,11 @@ describe('Surface Nodes', () => {
       const inputs = { surface: { type: 'Surface' } };
       const params = { distance: -5, solid: true };
 
-      mockContext.invoke.mockResolvedValue({ type: 'Solid' });
+      mockContext.worker.invoke.mockResolvedValue({ type: 'Solid' });
 
       await offsetSurfaceNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('OFFSET_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('OFFSET_SURFACE', {
         surface: inputs.surface,
         distance: -5,
         createSolid: true,
@@ -274,11 +276,11 @@ describe('Surface Nodes', () => {
         principal2: [0.2, 0.3],
       };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await surfaceCurvatureNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('SURFACE_CURVATURE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('SURFACE_CURVATURE', {
         surface: inputs.surface,
         points: inputs.points,
         samplesU: params.samplesU,
@@ -293,7 +295,7 @@ describe('Surface Nodes', () => {
       };
       const params = { samplesU: 10, samplesV: 10 };
 
-      mockContext.invoke.mockResolvedValue({
+      mockContext.worker.invoke.mockResolvedValue({
         gaussian: [],
         mean: [],
         principal1: [],
@@ -302,7 +304,7 @@ describe('Surface Nodes', () => {
 
       await surfaceCurvatureNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('SURFACE_CURVATURE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('SURFACE_CURVATURE', {
         surface: inputs.surface,
         points: undefined,
         samplesU: 10,
@@ -319,11 +321,11 @@ describe('Surface Nodes', () => {
       const params = { uMin: 0.2, uMax: 0.8, vMin: 0.3, vMax: 0.7 };
       const expectedResult = { type: 'Surface', trimmed: true };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await isotrimNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('ISOTRIM', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('ISOTRIM', {
         surface: inputs.surface,
         uMin: params.uMin,
         uMax: params.uMax,
@@ -361,11 +363,11 @@ describe('Surface Nodes', () => {
         { type: 'Surface', fragment: 2 },
       ];
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await surfaceSplitNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('SPLIT_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('SPLIT_SURFACE', {
         surface: inputs.surface,
         splitters: inputs.splitters,
         keepAll: params.keepAll,
@@ -381,11 +383,11 @@ describe('Surface Nodes', () => {
       };
       const params = { keepAll: false, tolerance: 0.001 };
 
-      mockContext.invoke.mockResolvedValue([{ type: 'Surface' }]);
+      mockContext.worker.invoke.mockResolvedValue([{ type: 'Surface' }]);
 
       await surfaceSplitNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('SPLIT_SURFACE', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('SPLIT_SURFACE', {
         surface: inputs.surface,
         splitters: inputs.splitters,
         keepAll: false,
@@ -405,11 +407,11 @@ describe('Surface Nodes', () => {
       const params = { continuity: 'G1', bulge: 0.5 };
       const expectedResult = { type: 'Surface', blended: true };
 
-      mockContext.invoke.mockResolvedValue(expectedResult);
+      mockContext.worker.invoke.mockResolvedValue(expectedResult);
 
       const result = await blendSurfacesNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('BLEND_SURFACES', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('BLEND_SURFACES', {
         surface1: inputs.surface1,
         surface2: inputs.surface2,
         edge1: inputs.edge1,
@@ -427,11 +429,11 @@ describe('Surface Nodes', () => {
       };
       const params = { continuity: 'G2', bulge: 1.0 };
 
-      mockContext.invoke.mockResolvedValue({ type: 'Surface' });
+      mockContext.worker.invoke.mockResolvedValue({ type: 'Surface' });
 
       await blendSurfacesNode.execute(inputs, params, mockContext);
 
-      expect(mockContext.invoke).toHaveBeenCalledWith('BLEND_SURFACES', {
+      expect(mockContext.worker.invoke).toHaveBeenCalledWith('BLEND_SURFACES', {
         surface1: inputs.surface1,
         surface2: inputs.surface2,
         edge1: undefined,

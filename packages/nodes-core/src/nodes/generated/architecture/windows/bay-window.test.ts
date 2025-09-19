@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BayWindowNode } from './baywindow-node';
-import { createTestContext } from '../test-utils';
+import { BayWindowNode } from './baywindow.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BayWindowNode', () => {
   it('should create BayWindow', async () => {

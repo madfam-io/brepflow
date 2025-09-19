@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FloorExpansionJointNode } from './floorexpansionjoint-node';
-import { createTestContext } from '../test-utils';
+import { FloorExpansionJointNode } from './floorexpansionjoint.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FloorExpansionJointNode', () => {
   it('should create FloorExpansionJoint', async () => {

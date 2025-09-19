@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CompoundNode } from './compound-node';
-import { createTestContext } from '../test-utils';
+import { CompoundNode } from './compound.node';
+import { createTestContext } from './../test-utils';
 
 describe('CompoundNode', () => {
   it('should create Compound', async () => {

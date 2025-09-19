@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldBlendNode } from './fieldblend-node';
-import { createTestContext } from '../test-utils';
+import { FieldBlendNode } from './fieldblend.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldBlendNode', () => {
   it('should create FieldBlend', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FluidCouplingNode } from './fluidcoupling-node';
-import { createTestContext } from '../test-utils';
+import { FluidCouplingNode } from './fluidcoupling.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FluidCouplingNode', () => {
   it('should create FluidCoupling', async () => {

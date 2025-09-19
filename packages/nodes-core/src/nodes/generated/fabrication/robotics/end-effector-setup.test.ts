@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { EndEffectorSetupNode } from './endeffectorsetup-node';
-import { createTestContext } from '../test-utils';
+import { EndEffectorSetupNode } from './endeffectorsetup.node';
+import { createTestContext } from './../../test-utils';
 
 describe('EndEffectorSetupNode', () => {
   it('should create EndEffectorSetup', async () => {

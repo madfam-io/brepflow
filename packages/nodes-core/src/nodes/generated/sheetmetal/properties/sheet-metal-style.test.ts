@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SheetMetalStyleNode } from './sheetmetalstyle-node';
-import { createTestContext } from '../test-utils';
+import { SheetMetalStyleNode } from './sheetmetalstyle.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SheetMetalStyleNode', () => {
   it('should create SheetMetalStyle', async () => {

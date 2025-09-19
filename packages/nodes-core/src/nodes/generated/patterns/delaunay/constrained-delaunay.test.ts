@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ConstrainedDelaunayNode } from './constraineddelaunay-node';
-import { createTestContext } from '../test-utils';
+import { ConstrainedDelaunayNode } from './constraineddelaunay.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ConstrainedDelaunayNode', () => {
   it('should create ConstrainedDelaunay', async () => {

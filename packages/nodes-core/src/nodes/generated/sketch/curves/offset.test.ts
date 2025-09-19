@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { OffsetNode } from './offset-node';
-import { createTestContext } from '../test-utils';
+import { OffsetNode } from './offset.node';
+import { createTestContext } from './../../test-utils';
 
 describe('OffsetNode', () => {
   it('should create Offset', async () => {

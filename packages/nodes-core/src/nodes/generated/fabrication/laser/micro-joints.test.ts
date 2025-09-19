@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MicroJointsNode } from './microjoints-node';
-import { createTestContext } from '../test-utils';
+import { MicroJointsNode } from './microjoints.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MicroJointsNode', () => {
   it('should create MicroJoints', async () => {

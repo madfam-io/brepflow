@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CutOrderOptimizationNode } from './cutorderoptimization-node';
-import { createTestContext } from '../test-utils';
+import { CutOrderOptimizationNode } from './cutorderoptimization.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CutOrderOptimizationNode', () => {
   it('should create CutOrderOptimization', async () => {

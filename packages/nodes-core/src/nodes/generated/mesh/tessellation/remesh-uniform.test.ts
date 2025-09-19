@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RemeshUniformNode } from './remeshuniform-node';
-import { createTestContext } from '../test-utils';
+import { RemeshUniformNode } from './remesh-uniform.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RemeshUniformNode', () => {
   it('should create RemeshUniform', async () => {

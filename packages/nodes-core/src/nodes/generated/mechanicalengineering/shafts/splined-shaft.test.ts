@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SplinedShaftNode } from './splinedshaft-node';
-import { createTestContext } from '../test-utils';
+import { SplinedShaftNode } from './splinedshaft.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SplinedShaftNode', () => {
   it('should create SplinedShaft', async () => {

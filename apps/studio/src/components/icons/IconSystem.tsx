@@ -24,7 +24,10 @@ import {
   // Additional icons for error fixing
   Loader, ChevronUp, ChevronDown, ChevronRight, Sun,
   MoreVertical, Mail, Activity, Zap, Menu, Folder,
-  HelpCircle, StopCircle, RotateCcw as Rotate3d, Maximize
+  HelpCircle, StopCircle, RotateCcw as Rotate3d, Maximize,
+  // Viewport layout icons
+  Columns, Rows, LayoutGrid, Link, Lock, Image, Camera,
+  Monitor
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -167,6 +170,16 @@ export const IconMap = {
   'circle': Circle,
   'download': Download,
   'play': Play,
+
+  // Viewport layout icons
+  'columns': Columns,
+  'rows': Rows,
+  'layout-grid': LayoutGrid,
+  'link': Link,
+  'lock': Lock,
+  'image': Image,
+  'camera': Camera,
+  'monitor': Monitor,
 } as const;
 
 export type IconName = keyof typeof IconMap;

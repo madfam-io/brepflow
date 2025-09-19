@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CoastingSetupNode } from './coastingsetup-node';
-import { createTestContext } from '../test-utils';
+import { CoastingSetupNode } from './coastingsetup.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CoastingSetupNode', () => {
   it('should create CoastingSetup', async () => {

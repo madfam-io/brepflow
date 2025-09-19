@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SplitNode } from './split-node';
-import { createTestContext } from '../test-utils';
+import { SplitNode } from './split.node';
+import { createTestContext } from './../test-utils';
 
 describe('SplitNode', () => {
   it('should create Split', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SweepNode } from './sweep-node';
-import { createTestContext } from '../test-utils';
+import { SweepNode } from './sweep.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SweepNode', () => {
   it('should create Sweep', async () => {

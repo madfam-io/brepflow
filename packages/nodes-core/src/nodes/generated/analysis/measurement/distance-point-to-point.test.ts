@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DistancePointToPointNode } from './distancepointtopoint-node';
-import { createTestContext } from '../test-utils';
+import { DistancePointToPointNode } from './distancepointtopoint.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DistancePointToPointNode', () => {
   it('should create DistancePointToPoint', async () => {

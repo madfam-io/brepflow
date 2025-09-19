@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpacePartitioningNode } from './spacepartitioning-node';
-import { createTestContext } from '../test-utils';
+import { SpacePartitioningNode } from './spacepartitioning.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SpacePartitioningNode', () => {
   it('should create SpacePartitioning', async () => {

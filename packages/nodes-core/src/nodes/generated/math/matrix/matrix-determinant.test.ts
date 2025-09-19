@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MatrixDeterminantNode } from './matrixdeterminant-node';
-import { createTestContext } from '../test-utils';
+import { MatrixDeterminantNode } from './matrixdeterminant.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MatrixDeterminantNode', () => {
   it('should create MatrixDeterminant', async () => {

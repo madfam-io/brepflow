@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FocusCompensationNode } from './focuscompensation-node';
-import { createTestContext } from '../test-utils';
+import { FocusCompensationNode } from './focuscompensation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FocusCompensationNode', () => {
   it('should create FocusCompensation', async () => {

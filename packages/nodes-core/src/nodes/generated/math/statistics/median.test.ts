@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MedianNode } from './median-node';
-import { createTestContext } from '../test-utils';
+import { MedianNode } from './median.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MedianNode', () => {
   it('should create Median', async () => {

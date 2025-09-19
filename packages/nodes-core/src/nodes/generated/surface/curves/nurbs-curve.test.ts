@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { NurbsCurveNode } from './nurbscurve-node';
-import { createTestContext } from '../test-utils';
+import { NurbsCurveNode } from './nurbscurve.node';
+import { createTestContext } from './../../test-utils';
 
 describe('NurbsCurveNode', () => {
   it('should create NurbsCurve', async () => {

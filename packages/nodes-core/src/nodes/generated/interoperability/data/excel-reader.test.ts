@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExcelReaderNode } from './excelreader-node';
-import { createTestContext } from '../test-utils';
+import { ExcelReaderNode } from './excelreader.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ExcelReaderNode', () => {
   it('should create ExcelReader', async () => {

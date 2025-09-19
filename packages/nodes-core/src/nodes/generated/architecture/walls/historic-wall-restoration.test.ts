@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HistoricWallRestorationNode } from './historicwallrestoration-node';
-import { createTestContext } from '../test-utils';
+import { HistoricWallRestorationNode } from './historicwallrestoration.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HistoricWallRestorationNode', () => {
   it('should create HistoricWallRestoration', async () => {

@@ -67,7 +67,9 @@ describe('DAGEngine', () => {
     it('should evaluate a simple graph', async () => {
       // Register a test node
       const testNodeDef: NodeDefinition = {
-        type: 'Test::Simple',
+        id: 'Test::Simple',
+        category: 'Test',
+        label: 'Simple Test Node',
         params: { value: { type: 'number', default: 42 } },
         inputs: {},
         outputs: { result: 'number' },
@@ -105,7 +107,9 @@ describe('DAGEngine', () => {
 
       // Register test nodes
       const nodeA: NodeDefinition = {
-        type: 'Test::NodeA',
+        id: 'Test::NodeA',
+        category: 'Test',
+        label: 'Node A',
         params: {},
         inputs: {},
         outputs: { value: 'number' },
@@ -116,7 +120,9 @@ describe('DAGEngine', () => {
       };
 
       const nodeB: NodeDefinition = {
-        type: 'Test::NodeB',
+        id: 'Test::NodeB',
+        category: 'Test',
+        label: 'Node B',
         params: {},
         inputs: { input: 'number' },
         outputs: { value: 'number' },
@@ -127,7 +133,9 @@ describe('DAGEngine', () => {
       };
 
       const nodeC: NodeDefinition = {
-        type: 'Test::NodeC',
+        id: 'Test::NodeC',
+        category: 'Test',
+        label: 'Node C',
         params: {},
         inputs: { input: 'number' },
         outputs: { value: 'number' },
@@ -205,7 +213,9 @@ describe('DAGEngine', () => {
 
     it('should handle node evaluation errors', async () => {
       const errorNode: NodeDefinition = {
-        type: 'Test::Error',
+        id: 'Test::Error',
+        category: 'Test',
+        label: 'Error Node',
         params: {},
         inputs: {},
         outputs: { result: 'any' },
@@ -247,7 +257,9 @@ describe('DAGEngine', () => {
       // This test verifies the circular dependency detection
       // Note: The current implementation checks during evaluation, not in topological sort
       const testNode: NodeDefinition = {
-        type: 'Test::Node',
+        id: 'Test::Node',
+        category: 'Test',
+        label: 'Test Node',
         params: {},
         inputs: { input: 'any' },
         outputs: { output: 'any' },
@@ -337,7 +349,9 @@ describe('DAGEngine', () => {
   describe('Dirty Propagation', () => {
     it('should only evaluate dirty nodes and their dependents', async () => {
       const nodeA: NodeDefinition = {
-        type: 'Test::A',
+        id: 'Test::A',
+        category: 'Test',
+        label: 'Node A',
         params: {},
         inputs: {},
         outputs: { value: 'number' },
@@ -345,7 +359,9 @@ describe('DAGEngine', () => {
       };
 
       const nodeB: NodeDefinition = {
-        type: 'Test::B',
+        id: 'Test::B',
+        category: 'Test',
+        label: 'Node B',
         params: {},
         inputs: { input: 'number' },
         outputs: { value: 'number' },
@@ -353,7 +369,9 @@ describe('DAGEngine', () => {
       };
 
       const nodeC: NodeDefinition = {
-        type: 'Test::C',
+        id: 'Test::C',
+        category: 'Test',
+        label: 'Node C',
         params: {},
         inputs: { input: 'number' },
         outputs: { value: 'number' },
@@ -426,7 +444,9 @@ describe('DAGEngine', () => {
 
     it('should not evaluate clean nodes with no dirty dependencies', async () => {
       const nodeA: NodeDefinition = {
-        type: 'Test::A',
+        id: 'Test::A',
+        category: 'Test',
+        label: 'Node A',
         params: {},
         inputs: {},
         outputs: { value: 'number' },
@@ -434,7 +454,9 @@ describe('DAGEngine', () => {
       };
 
       const nodeB: NodeDefinition = {
-        type: 'Test::B',
+        id: 'Test::B',
+        category: 'Test',
+        label: 'Node B',
         params: {},
         inputs: {},
         outputs: { value: 'number' },
@@ -483,7 +505,9 @@ describe('DAGEngine', () => {
   describe('Caching', () => {
     it('should cache node evaluation results', async () => {
       const testNode: NodeDefinition = {
-        type: 'Test::Cached',
+        id: 'Test::Cached',
+        category: 'Test',
+        label: 'Cached Node',
         params: { value: { type: 'number', default: 42 } },
         inputs: {},
         outputs: { result: 'number' },
@@ -524,7 +548,9 @@ describe('DAGEngine', () => {
 
     it('should invalidate cache when inputs change', async () => {
       const testNode: NodeDefinition = {
-        type: 'Test::Cached',
+        id: 'Test::Cached',
+        category: 'Test',
+        label: 'Cached Node',
         params: { value: { type: 'number', default: 42 } },
         inputs: {},
         outputs: { result: 'number' },
@@ -609,7 +635,9 @@ describe('DAGEngine', () => {
   describe('Input Collection', () => {
     it('should handle multiple input connections', async () => {
       const nodeA: NodeDefinition = {
-        type: 'Test::Multi',
+        id: 'Test::Multi',
+        category: 'Test',
+        label: 'Multi Input Node',
         params: {},
         inputs: { values: 'number[]' },
         outputs: { sum: 'number' },
@@ -620,7 +648,9 @@ describe('DAGEngine', () => {
       };
 
       const nodeB: NodeDefinition = {
-        type: 'Test::Value',
+        id: 'Test::Value',
+        category: 'Test',
+        label: 'Value Node',
         params: { value: { type: 'number', default: 0 } },
         inputs: {},
         outputs: { value: 'number' },
@@ -695,7 +725,9 @@ describe('DAGEngine', () => {
 
     it('should handle missing source nodes gracefully', async () => {
       const testNode: NodeDefinition = {
-        type: 'Test::WithInput',
+        id: 'Test::WithInput',
+        category: 'Test',
+        label: 'Node With Input',
         params: {},
         inputs: { input: 'any' },
         outputs: { output: 'any' },
@@ -736,7 +768,9 @@ describe('DAGEngine', () => {
       let capturedContext: EvalContext | undefined;
 
       const testNode: NodeDefinition = {
-        type: 'Test::Worker',
+        id: 'Test::Worker',
+        category: 'Test',
+        label: 'Worker Node',
         params: {},
         inputs: {},
         outputs: { shape: 'shape' },

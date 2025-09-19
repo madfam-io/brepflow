@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ArcNode } from './arc-node';
-import { createTestContext } from '../test-utils';
+import { ArcNode } from './arc.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ArcNode', () => {
   it('should create Arc', async () => {

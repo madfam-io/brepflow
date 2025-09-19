@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MazeGeneratorNode } from './mazegenerator-node';
-import { createTestContext } from '../test-utils';
+import { MazeGeneratorNode } from './mazegenerator.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MazeGeneratorNode', () => {
   it('should create MazeGenerator', async () => {

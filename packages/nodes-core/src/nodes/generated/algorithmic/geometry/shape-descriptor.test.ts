@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShapeDescriptorNode } from './shapedescriptor-node';
-import { createTestContext } from '../test-utils';
+import { ShapeDescriptorNode } from './shapedescriptor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ShapeDescriptorNode', () => {
   it('should create ShapeDescriptor', async () => {

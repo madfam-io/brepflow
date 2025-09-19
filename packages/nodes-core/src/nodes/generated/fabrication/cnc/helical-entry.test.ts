@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HelicalEntryNode } from './helicalentry-node';
-import { createTestContext } from '../test-utils';
+import { HelicalEntryNode } from './helicalentry.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HelicalEntryNode', () => {
   it('should create HelicalEntry', async () => {

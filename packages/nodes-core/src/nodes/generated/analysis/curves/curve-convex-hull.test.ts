@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveConvexHullNode } from './curveconvexhull-node';
-import { createTestContext } from '../test-utils';
+import { CurveConvexHullNode } from './curveconvexhull.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurveConvexHullNode', () => {
   it('should create CurveConvexHull', async () => {

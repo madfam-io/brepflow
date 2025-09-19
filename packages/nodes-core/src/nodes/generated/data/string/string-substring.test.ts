@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringSubstringNode } from './stringsubstring-node';
-import { createTestContext } from '../test-utils';
+import { StringSubstringNode } from './stringsubstring.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StringSubstringNode', () => {
   it('should create StringSubstring', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { InverseLerpNode } from './inverselerp-node';
-import { createTestContext } from '../test-utils';
+import { InverseLerpNode } from './inverselerp.node';
+import { createTestContext } from './../../test-utils';
 
 describe('InverseLerpNode', () => {
   it('should create InverseLerp', async () => {

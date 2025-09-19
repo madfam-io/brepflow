@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CompressionSpringNode } from './compressionspring-node';
-import { createTestContext } from '../test-utils';
+import { CompressionSpringNode } from './compressionspring.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CompressionSpringNode', () => {
   it('should create CompressionSpring', async () => {

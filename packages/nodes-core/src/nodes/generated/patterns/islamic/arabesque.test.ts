@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ArabesqueNode } from './arabesque-node';
-import { createTestContext } from '../test-utils';
+import { ArabesqueNode } from './arabesque.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ArabesqueNode', () => {
   it('should create Arabesque', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DragonCurveNode } from './dragoncurve-node';
-import { createTestContext } from '../test-utils';
+import { DragonCurveNode } from './dragoncurve.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DragonCurveNode', () => {
   it('should create DragonCurve', async () => {

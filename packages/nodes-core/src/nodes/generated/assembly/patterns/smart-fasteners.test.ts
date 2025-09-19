@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SmartFastenersNode } from './smartfasteners-node';
-import { createTestContext } from '../test-utils';
+import { SmartFastenersNode } from './smartfasteners.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SmartFastenersNode', () => {
   it('should create SmartFasteners', async () => {

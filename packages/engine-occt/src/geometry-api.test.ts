@@ -521,7 +521,7 @@ describe('GeometryAPI (Legacy)', () => {
       });
 
       expect(result).toHaveProperty('id');
-      expect(result.type).toBe('solid');
+      expect(result.type).toBe('box');
     });
 
     it('should create sphere', async () => {
@@ -530,7 +530,7 @@ describe('GeometryAPI (Legacy)', () => {
       });
 
       expect(result).toHaveProperty('id');
-      expect(result.type).toBe('solid');
+      expect(result.type).toBe('sphere');
     });
 
     it('should tessellate shape', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportSVGNode } from './exportsvg-node';
-import { createTestContext } from '../test-utils';
+import { ExportSVGNode } from './exportsvg.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ExportSVGNode', () => {
   it('should create ExportSVG', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VaseModeNode } from './vasemode-node';
-import { createTestContext } from '../test-utils';
+import { VaseModeNode } from './vasemode.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VaseModeNode', () => {
   it('should create VaseMode', async () => {

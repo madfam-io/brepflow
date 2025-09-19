@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MaterialDatabaseNode } from './materialdatabase-node';
-import { createTestContext } from '../test-utils';
+import { MaterialDatabaseNode } from './materialdatabase.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MaterialDatabaseNode', () => {
   it('should create MaterialDatabase', async () => {

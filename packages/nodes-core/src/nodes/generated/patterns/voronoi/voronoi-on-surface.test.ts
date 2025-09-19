@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VoronoiOnSurfaceNode } from './voronoionsurface-node';
-import { createTestContext } from '../test-utils';
+import { VoronoiOnSurfaceNode } from './voronoionsurface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VoronoiOnSurfaceNode', () => {
   it('should create VoronoiOnSurface', async () => {

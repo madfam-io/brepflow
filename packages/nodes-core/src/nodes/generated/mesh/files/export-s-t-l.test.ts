@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportSTLNode } from './exportstl-node';
-import { createTestContext } from '../test-utils';
+import { ExportSTLNode } from './export-s-t-l.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ExportSTLNode', () => {
   it('should create ExportSTL', async () => {

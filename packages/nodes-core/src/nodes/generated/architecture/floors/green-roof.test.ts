@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GreenRoofNode } from './greenroof-node';
-import { createTestContext } from '../test-utils';
+import { GreenRoofNode } from './greenroof.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GreenRoofNode', () => {
   it('should create GreenRoof', async () => {

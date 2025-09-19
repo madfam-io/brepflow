@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListFindNode } from './listfind-node';
-import { createTestContext } from '../test-utils';
+import { ListFindNode } from './listfind.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ListFindNode', () => {
   it('should create ListFind', async () => {

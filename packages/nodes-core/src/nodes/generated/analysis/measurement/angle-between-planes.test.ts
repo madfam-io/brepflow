@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { AngleBetweenPlanesNode } from './anglebetweenplanes-node';
-import { createTestContext } from '../test-utils';
+import { AngleBetweenPlanesNode } from './anglebetweenplanes.node';
+import { createTestContext } from './../../test-utils';
 
 describe('AngleBetweenPlanesNode', () => {
   it('should create AngleBetweenPlanes', async () => {

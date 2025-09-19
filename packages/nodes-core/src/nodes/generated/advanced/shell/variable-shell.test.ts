@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VariableShellNode } from './variableshell-node';
-import { createTestContext } from '../test-utils';
+import { VariableShellNode } from './variableshell.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VariableShellNode', () => {
   it('should create VariableShell', async () => {

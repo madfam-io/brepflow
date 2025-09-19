@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MoorishPatternNode } from './moorishpattern-node';
-import { createTestContext } from '../test-utils';
+import { MoorishPatternNode } from './moorishpattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MoorishPatternNode', () => {
   it('should create MoorishPattern', async () => {

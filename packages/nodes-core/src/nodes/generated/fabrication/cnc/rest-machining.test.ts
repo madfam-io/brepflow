@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RestMachiningNode } from './restmachining-node';
-import { createTestContext } from '../test-utils';
+import { RestMachiningNode } from './restmachining.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RestMachiningNode', () => {
   it('should create RestMachining', async () => {

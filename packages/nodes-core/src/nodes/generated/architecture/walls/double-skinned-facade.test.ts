@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DoubleSkinnedFacadeNode } from './doubleskinnedfacade-node';
-import { createTestContext } from '../test-utils';
+import { DoubleSkinnedFacadeNode } from './doubleskinnedfacade.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DoubleSkinnedFacadeNode', () => {
   it('should create DoubleSkinnedFacade', async () => {

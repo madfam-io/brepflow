@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WrapNode } from './wrap-node';
-import { createTestContext } from '../test-utils';
+import { WrapNode } from './wrap.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WrapNode', () => {
   it('should create Wrap', async () => {

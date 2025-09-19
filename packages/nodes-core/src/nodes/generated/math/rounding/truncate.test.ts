@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TruncateNode } from './truncate-node';
-import { createTestContext } from '../test-utils';
+import { TruncateNode } from './truncate.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TruncateNode', () => {
   it('should create Truncate', async () => {

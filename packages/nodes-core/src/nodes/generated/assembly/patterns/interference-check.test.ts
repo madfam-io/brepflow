@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { InterferenceCheckNode } from './interferencecheck-node';
-import { createTestContext } from '../test-utils';
+import { InterferenceCheckNode } from './interferencecheck.node';
+import { createTestContext } from './../../test-utils';
 
 describe('InterferenceCheckNode', () => {
   it('should create InterferenceCheck', async () => {

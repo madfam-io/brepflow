@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CosineNode } from './cosine-node';
-import { createTestContext } from '../test-utils';
+import { CosineNode } from './cosine.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CosineNode', () => {
   it('should create Cosine', async () => {

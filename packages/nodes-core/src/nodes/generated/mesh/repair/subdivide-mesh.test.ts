@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SubdivideMeshNode } from './subdividemesh-node';
-import { createTestContext } from '../test-utils';
+import { SubdivideMeshNode } from './subdividemesh.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SubdivideMeshNode', () => {
   it('should create SubdivideMesh', async () => {

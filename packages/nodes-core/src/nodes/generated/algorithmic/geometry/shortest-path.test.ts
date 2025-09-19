@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShortestPathNode } from './shortestpath-node';
-import { createTestContext } from '../test-utils';
+import { ShortestPathNode } from './shortestpath.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ShortestPathNode', () => {
   it('should create ShortestPath', async () => {

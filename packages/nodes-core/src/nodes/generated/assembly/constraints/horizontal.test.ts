@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HorizontalNode } from './horizontal-node';
-import { createTestContext } from '../test-utils';
+import { HorizontalNode } from './horizontal.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HorizontalNode', () => {
   it('should create Horizontal', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { UnfoldNode } from './unfold-node';
-import { createTestContext } from '../test-utils';
+import { UnfoldNode } from './unfold.node';
+import { createTestContext } from './../../test-utils';
 
 describe('UnfoldNode', () => {
   it('should create Unfold', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SetPermutationsNode } from './setpermutations-node';
-import { createTestContext } from '../test-utils';
+import { SetPermutationsNode } from './setpermutations.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SetPermutationsNode', () => {
   it('should create SetPermutations', async () => {

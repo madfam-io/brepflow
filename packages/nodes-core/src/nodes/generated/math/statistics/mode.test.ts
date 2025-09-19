@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ModeNode } from './mode-node';
-import { createTestContext } from '../test-utils';
+import { ModeNode } from './mode.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ModeNode', () => {
   it('should create Mode', async () => {

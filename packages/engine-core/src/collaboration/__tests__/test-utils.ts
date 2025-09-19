@@ -14,6 +14,7 @@ import type {
   SelectionState,
   CollaborationConfig,
 } from '../types';
+import { BrepFlowCollaborationEngine } from '../collaboration-engine';
 
 export class MockWebSocketClient {
   private eventListeners = new Map<string, Function[]>();
@@ -201,11 +202,35 @@ export class CollaborationTestHarness {
     user: CollaborationUser;
     client: MockWebSocketClient;
   }> = new Map();
+  private engine: any = null;
+
+  setEngine(engine: any): void {
+    this.engine = engine;
+    // Set up event listeners to simulate message broadcasting
+    this.setupEngineEventHandlers();
+  }
 
   addUser(user: CollaborationUser): MockWebSocketClient {
     const client = new MockWebSocketClient();
     this.users.set(user.id, { user, client });
     return client;
+  }
+
+  private setupEngineEventHandlers(): void {
+    if (!this.engine) return;
+
+    // Listen for operation broadcasts and simulate sending to all other clients
+    this.engine.addEventListener('operation-applied', (event: any) => {
+      this.broadcastToOthers(event.data.operation.userId, 'operation', event.data.operation);
+    });
+
+    this.engine.addEventListener('cursor-updated', (event: any) => {
+      this.broadcastToOthers(event.userId, 'cursor', event.data);
+    });
+
+    this.engine.addEventListener('selection-updated', (event: any) => {
+      this.broadcastToOthers(event.userId, 'selection', event.data);
+    });
   }
 
   removeUser(userId: UserId): void {
@@ -325,4 +350,83 @@ export function createMockGeometryContext() {
 
 export function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Mock WebSocket Client that integrates with the harness
+export class TestCollaborationWebSocketClient {
+  private harness: CollaborationTestHarness;
+  private userId: UserId;
+  private sessionId: SessionId;
+  private isConnected = false;
+
+  constructor(harness: CollaborationTestHarness, config: any) {
+    this.harness = harness;
+  }
+
+  async connect(sessionId: SessionId, userId: UserId): Promise<void> {
+    this.sessionId = sessionId;
+    this.userId = userId;
+    this.isConnected = true;
+  }
+
+  async disconnect(): Promise<void> {
+    this.isConnected = false;
+  }
+
+  async sendOperation(operation: any): Promise<void> {
+    if (!this.isConnected) return;
+    
+    // Broadcast to all other clients
+    this.harness.broadcastToOthers(this.userId, 'operation', operation);
+  }
+
+  async sendCursorUpdate(cursor: any): Promise<void> {
+    if (!this.isConnected) return;
+    
+    this.harness.broadcastToOthers(this.userId, 'cursor', cursor);
+  }
+
+  async sendSelectionUpdate(selection: any): Promise<void> {
+    if (!this.isConnected) return;
+    
+    this.harness.broadcastToOthers(this.userId, 'selection', selection);
+  }
+
+  async requestSync(lastKnownVersion: number): Promise<void> {
+    // Mock sync request
+  }
+
+  addEventListener(event: string, listener: Function): void {
+    // Mock event listener
+  }
+
+  removeEventListener(event: string, listener: Function): void {
+    // Mock event listener removal
+  }
+}
+
+// Simplified test engine creation - just use regular import
+export function createTestCollaborationEngine(harness: CollaborationTestHarness): any {
+  const config = createTestConfig();
+  
+  // Use the imported engine class
+  const engine = new BrepFlowCollaborationEngine(config);
+  
+  // Override WebSocket broadcasting to use harness
+  const originalBroadcastOperation = engine.broadcastOperation?.bind(engine);
+  if (originalBroadcastOperation) {
+    engine.broadcastOperation = async function(sessionId: any, operation: any) {
+      // Broadcast to all clients in harness
+      harness.broadcastToOthers(operation.userId, 'operation', operation);
+      // Still emit the event for local listeners
+      (this as any).emit({
+        type: 'operation-applied',
+        sessionId,
+        data: { operation },
+        timestamp: Date.now(),
+      });
+    };
+  }
+  
+  return engine;
 }

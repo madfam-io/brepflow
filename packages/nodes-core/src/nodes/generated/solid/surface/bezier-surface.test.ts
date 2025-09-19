@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BezierSurfaceNode } from './beziersurface-node';
-import { createTestContext } from '../test-utils';
+import { BezierSurfaceNode } from './beziersurface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BezierSurfaceNode', () => {
   it('should create BezierSurface', async () => {

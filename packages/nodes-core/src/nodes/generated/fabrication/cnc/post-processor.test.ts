@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PostProcessorNode } from './postprocessor-node';
-import { createTestContext } from '../test-utils';
+import { PostProcessorNode } from './postprocessor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PostProcessorNode', () => {
   it('should create PostProcessor', async () => {

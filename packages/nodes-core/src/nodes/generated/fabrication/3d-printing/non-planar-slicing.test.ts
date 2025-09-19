@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { NonPlanarSlicingNode } from './nonplanarslicing-node';
-import { createTestContext } from '../test-utils';
+import { NonPlanarSlicingNode } from './nonplanarslicing.node';
+import { createTestContext } from './../../test-utils';
 
 describe('NonPlanarSlicingNode', () => {
   it('should create NonPlanarSlicing', async () => {

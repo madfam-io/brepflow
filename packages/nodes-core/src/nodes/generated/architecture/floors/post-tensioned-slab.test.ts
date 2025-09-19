@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PostTensionedSlabNode } from './posttensionedslab-node';
-import { createTestContext } from '../test-utils';
+import { PostTensionedSlabNode } from './posttensionedslab.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PostTensionedSlabNode', () => {
   it('should create PostTensionedSlab', async () => {

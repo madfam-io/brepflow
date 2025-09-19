@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { UniversalNode } from './universal-node';
-import { createTestContext } from '../test-utils';
+import { UniversalNode } from './universal.node';
+import { createTestContext } from './../../test-utils';
 
 describe('UniversalNode', () => {
   it('should create Universal', async () => {

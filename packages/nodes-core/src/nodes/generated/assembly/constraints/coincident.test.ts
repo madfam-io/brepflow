@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CoincidentNode } from './coincident-node';
-import { createTestContext } from '../test-utils';
+import { CoincidentNode } from './coincident.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CoincidentNode', () => {
   it('should create Coincident', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WallJoinNode } from './walljoin-node';
-import { createTestContext } from '../test-utils';
+import { WallJoinNode } from './walljoin.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WallJoinNode', () => {
   it('should create WallJoin', async () => {

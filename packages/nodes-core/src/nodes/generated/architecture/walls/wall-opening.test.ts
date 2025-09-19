@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WallOpeningNode } from './wallopening-node';
-import { createTestContext } from '../test-utils';
+import { WallOpeningNode } from './wallopening.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WallOpeningNode', () => {
   it('should create WallOpening', async () => {

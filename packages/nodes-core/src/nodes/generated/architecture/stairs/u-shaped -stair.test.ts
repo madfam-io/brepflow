@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { UShaped StairNode } from './ushaped stair-node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from './../../test-utils';
 
 describe('UShaped StairNode', () => {
   it('should create UShaped Stair', async () => {

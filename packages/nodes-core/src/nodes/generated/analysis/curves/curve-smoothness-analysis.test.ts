@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveSmoothnessAnalysisNode } from './curvesmoothnessanalysis-node';
-import { createTestContext } from '../test-utils';
+import { CurveSmoothnessAnalysisNode } from './curvesmoothnessanalysis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurveSmoothnessAnalysisNode', () => {
   it('should create CurveSmoothnessAnalysis', async () => {

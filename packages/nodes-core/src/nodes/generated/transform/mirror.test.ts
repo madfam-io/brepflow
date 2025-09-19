@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MirrorNode } from './mirror-node';
-import { createTestContext } from '../test-utils';
+import { MirrorNode } from './mirror.node';
+import { createTestContext } from './../test-utils';
 
 describe('MirrorNode', () => {
   it('should create Mirror', async () => {

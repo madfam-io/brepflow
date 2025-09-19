@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TessellateNode } from './tessellate-node';
-import { createTestContext } from '../test-utils';
+import { TessellateNode } from './tessellate.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TessellateNode', () => {
   it('should create Tessellate', async () => {

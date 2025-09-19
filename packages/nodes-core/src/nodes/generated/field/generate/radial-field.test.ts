@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RadialFieldNode } from './radialfield-node';
-import { createTestContext } from '../test-utils';
+import { RadialFieldNode } from './radialfield.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RadialFieldNode', () => {
   it('should create RadialField', async () => {

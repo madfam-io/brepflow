@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CapsuleNode } from './capsule-node';
-import { createTestContext } from '../test-utils';
+import { CapsuleNode } from './capsule.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CapsuleNode', () => {
   it('should create Capsule', async () => {

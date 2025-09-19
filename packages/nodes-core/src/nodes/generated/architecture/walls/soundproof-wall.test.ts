@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SoundproofWallNode } from './soundproofwall-node';
-import { createTestContext } from '../test-utils';
+import { SoundproofWallNode } from './soundproofwall.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SoundproofWallNode', () => {
   it('should create SoundproofWall', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CylindricalFieldNode } from './cylindricalfield-node';
-import { createTestContext } from '../test-utils';
+import { CylindricalFieldNode } from './cylindricalfield.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CylindricalFieldNode', () => {
   it('should create CylindricalField', async () => {

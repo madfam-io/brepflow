@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ContouringToolpathNode } from './contouringtoolpath-node';
-import { createTestContext } from '../test-utils';
+import { ContouringToolpathNode } from './contouringtoolpath.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ContouringToolpathNode', () => {
   it('should create ContouringToolpath', async () => {

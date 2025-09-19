@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WoodJoistFloorNode } from './woodjoistfloor-node';
-import { createTestContext } from '../test-utils';
+import { WoodJoistFloorNode } from './woodjoistfloor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WoodJoistFloorNode', () => {
   it('should create WoodJoistFloor', async () => {

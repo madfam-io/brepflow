@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BridgeGenerationNode } from './bridgegeneration-node';
-import { createTestContext } from '../test-utils';
+import { BridgeGenerationNode } from './bridgegeneration.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BridgeGenerationNode', () => {
   it('should create BridgeGeneration', async () => {

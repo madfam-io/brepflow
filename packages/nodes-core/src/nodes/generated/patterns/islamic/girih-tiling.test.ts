@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GirihTilingNode } from './girihtiling-node';
-import { createTestContext } from '../test-utils';
+import { GirihTilingNode } from './girihtiling.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GirihTilingNode', () => {
   it('should create GirihTiling', async () => {

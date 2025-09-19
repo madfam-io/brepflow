@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SQLInsertNode } from './sqlinsert-node';
-import { createTestContext } from '../test-utils';
+import { SQLInsertNode } from './sqlinsert.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SQLInsertNode', () => {
   it('should create SQLInsert', async () => {

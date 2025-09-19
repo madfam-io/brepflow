@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ParabolaNode } from './parabola-node';
-import { createTestContext } from '../test-utils';
+import { ParabolaNode } from './parabola.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ParabolaNode', () => {
   it('should create Parabola', async () => {

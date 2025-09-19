@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MonumentalStairNode } from './monumentalstair-node';
-import { createTestContext } from '../test-utils';
+import { MonumentalStairNode } from './monumentalstair.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MonumentalStairNode', () => {
   it('should create MonumentalStair', async () => {

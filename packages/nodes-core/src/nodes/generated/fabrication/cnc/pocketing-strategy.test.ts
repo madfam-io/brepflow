@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PocketingStrategyNode } from './pocketingstrategy-node';
-import { createTestContext } from '../test-utils';
+import { PocketingStrategyNode } from './pocketingstrategy.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PocketingStrategyNode', () => {
   it('should create PocketingStrategy', async () => {

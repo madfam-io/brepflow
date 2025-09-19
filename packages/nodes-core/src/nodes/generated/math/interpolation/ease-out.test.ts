@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { EaseOutNode } from './easeout-node';
-import { createTestContext } from '../test-utils';
+import { EaseOutNode } from './easeout.node';
+import { createTestContext } from './../../test-utils';
 
 describe('EaseOutNode', () => {
   it('should create EaseOut', async () => {

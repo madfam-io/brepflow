@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ComplexConjugateNode } from './complexconjugate-node';
-import { createTestContext } from '../test-utils';
+import { ComplexConjugateNode } from './complexconjugate.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ComplexConjugateNode', () => {
   it('should create ComplexConjugate', async () => {

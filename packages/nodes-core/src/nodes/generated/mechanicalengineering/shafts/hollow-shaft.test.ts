@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HollowShaftNode } from './hollowshaft-node';
-import { createTestContext } from '../test-utils';
+import { HollowShaftNode } from './hollowshaft.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HollowShaftNode', () => {
   it('should create HollowShaft', async () => {

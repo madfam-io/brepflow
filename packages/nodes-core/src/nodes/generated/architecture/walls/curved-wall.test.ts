@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurvedWallNode } from './curvedwall-node';
-import { createTestContext } from '../test-utils';
+import { CurvedWallNode } from './curvedwall.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CurvedWallNode', () => {
   it('should create CurvedWall', async () => {

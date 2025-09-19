@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { EmbossNode } from './emboss-node';
-import { createTestContext } from '../test-utils';
+import { EmbossNode } from './emboss.node';
+import { createTestContext } from './../../test-utils';
 
 describe('EmbossNode', () => {
   it('should create Emboss', async () => {

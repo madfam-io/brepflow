@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FiveAxisPositioningNode } from './fiveaxispositioning-node';
-import { createTestContext } from '../test-utils';
+import { FiveAxisPositioningNode } from './fiveaxispositioning.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FiveAxisPositioningNode', () => {
   it('should create FiveAxisPositioning', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceParametrizationNode } from './surfaceparametrization-node';
-import { createTestContext } from '../test-utils';
+import { SurfaceParametrizationNode } from './surfaceparametrization.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SurfaceParametrizationNode', () => {
   it('should create SurfaceParametrization', async () => {

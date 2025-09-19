@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PeanoCurveNode } from './peanocurve-node';
-import { createTestContext } from '../test-utils';
+import { PeanoCurveNode } from './peanocurve.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PeanoCurveNode', () => {
   it('should create PeanoCurve', async () => {

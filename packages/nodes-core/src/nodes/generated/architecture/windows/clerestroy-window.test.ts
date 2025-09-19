@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ClerestroyWindowNode } from './clerestroywindow-node';
-import { createTestContext } from '../test-utils';
+import { ClerestroyWindowNode } from './clerestroywindow.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ClerestroyWindowNode', () => {
   it('should create ClerestroyWindow', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RatchetMechanismNode } from './ratchetmechanism-node';
-import { createTestContext } from '../test-utils';
+import { RatchetMechanismNode } from './ratchetmechanism.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RatchetMechanismNode', () => {
   it('should create RatchetMechanism', async () => {

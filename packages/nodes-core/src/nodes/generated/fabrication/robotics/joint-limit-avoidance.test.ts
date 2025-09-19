@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { JointLimitAvoidanceNode } from './jointlimitavoidance-node';
-import { createTestContext } from '../test-utils';
+import { JointLimitAvoidanceNode } from './jointlimitavoidance.node';
+import { createTestContext } from './../../test-utils';
 
 describe('JointLimitAvoidanceNode', () => {
   it('should create JointLimitAvoidance', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TreeShiftNode } from './treeshift-node';
-import { createTestContext } from '../test-utils';
+import { TreeShiftNode } from './treeshift.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TreeShiftNode', () => {
   it('should create TreeShift', async () => {

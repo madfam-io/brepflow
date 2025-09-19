@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GeometryValidationNode } from './geometryvalidation-node';
-import { createTestContext } from '../test-utils';
+import { GeometryValidationNode } from './geometryvalidation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GeometryValidationNode', () => {
   it('should create GeometryValidation', async () => {

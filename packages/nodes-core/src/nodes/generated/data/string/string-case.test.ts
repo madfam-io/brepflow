@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringCaseNode } from './stringcase-node';
-import { createTestContext } from '../test-utils';
+import { StringCaseNode } from './stringcase.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StringCaseNode', () => {
   it('should create StringCase', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HyperbolicCosineNode } from './hyperboliccosine-node';
-import { createTestContext } from '../test-utils';
+import { HyperbolicCosineNode } from './hyperboliccosine.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HyperbolicCosineNode', () => {
   it('should create HyperbolicCosine', async () => {

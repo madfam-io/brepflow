@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FluidPropertiesNode } from './fluidproperties-node';
-import { createTestContext } from '../test-utils';
+import { FluidPropertiesNode } from './fluidproperties.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FluidPropertiesNode', () => {
   it('should create FluidProperties', async () => {

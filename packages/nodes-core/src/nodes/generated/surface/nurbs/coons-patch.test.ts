@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CoonsPatchNode } from './coonspatch-node';
-import { createTestContext } from '../test-utils';
+import { CoonsPatchNode } from './coonspatch.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CoonsPatchNode', () => {
   it('should create CoonsPatch', async () => {

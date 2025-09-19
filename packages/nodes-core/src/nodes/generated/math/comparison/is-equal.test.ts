@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { IsEqualNode } from './isequal-node';
-import { createTestContext } from '../test-utils';
+import { IsEqualNode } from './isequal.node';
+import { createTestContext } from './../../test-utils';
 
 describe('IsEqualNode', () => {
   it('should create IsEqual', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ThickenNode } from './thicken-node';
-import { createTestContext } from '../test-utils';
+import { ThickenNode } from './thicken.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ThickenNode', () => {
   it('should create Thicken', async () => {

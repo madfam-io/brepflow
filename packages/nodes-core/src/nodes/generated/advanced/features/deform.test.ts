@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DeformNode } from './deform-node';
-import { createTestContext } from '../test-utils';
+import { DeformNode } from './deform.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DeformNode', () => {
   it('should create Deform', async () => {

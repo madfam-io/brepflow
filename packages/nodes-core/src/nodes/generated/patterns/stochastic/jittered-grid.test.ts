@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { JitteredGridNode } from './jitteredgrid-node';
-import { createTestContext } from '../test-utils';
+import { JitteredGridNode } from './jitteredgrid.node';
+import { createTestContext } from './../../test-utils';
 
 describe('JitteredGridNode', () => {
   it('should create JitteredGrid', async () => {

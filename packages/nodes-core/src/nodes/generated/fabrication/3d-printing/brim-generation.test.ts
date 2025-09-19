@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BrimGenerationNode } from './brimgeneration-node';
-import { createTestContext } from '../test-utils';
+import { BrimGenerationNode } from './brimgeneration.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BrimGenerationNode', () => {
   it('should create BrimGeneration', async () => {

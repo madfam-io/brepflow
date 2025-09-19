@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceContinuityNode } from './surfacecontinuity-node';
-import { createTestContext } from '../test-utils';
+import { SurfaceContinuityNode } from './surfacecontinuity.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SurfaceContinuityNode', () => {
   it('should create SurfaceContinuity', async () => {

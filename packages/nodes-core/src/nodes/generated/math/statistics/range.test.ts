@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RangeNode } from './range-node';
-import { createTestContext } from '../test-utils';
+import { RangeNode } from './range.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RangeNode', () => {
   it('should create Range', async () => {

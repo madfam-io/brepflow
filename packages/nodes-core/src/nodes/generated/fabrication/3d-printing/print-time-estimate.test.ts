@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PrintTimeEstimateNode } from './printtimeestimate-node';
-import { createTestContext } from '../test-utils';
+import { PrintTimeEstimateNode } from './printtimeestimate.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PrintTimeEstimateNode', () => {
   it('should create PrintTimeEstimate', async () => {

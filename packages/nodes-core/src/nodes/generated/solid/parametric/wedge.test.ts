@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WedgeNode } from './wedge-node';
-import { createTestContext } from '../test-utils';
+import { WedgeNode } from './wedge.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WedgeNode', () => {
   it('should create Wedge', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SVGImportNode } from './svgimport-node';
-import { createTestContext } from '../test-utils';
+import { SVGImportNode } from './svgimport.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SVGImportNode', () => {
   it('should create SVGImport', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BronzeBushingNode } from './bronzebushing-node';
-import { createTestContext } from '../test-utils';
+import { BronzeBushingNode } from './bronzebushing.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BronzeBushingNode', () => {
   it('should create BronzeBushing', async () => {

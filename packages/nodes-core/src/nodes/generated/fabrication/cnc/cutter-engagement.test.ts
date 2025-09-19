@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CutterEngagementNode } from './cutterengagement-node';
-import { createTestContext } from '../test-utils';
+import { CutterEngagementNode } from './cutterengagement.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CutterEngagementNode', () => {
   it('should create CutterEngagement', async () => {

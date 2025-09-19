@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WaveFunctionCollapseNode } from './wavefunctioncollapse-node';
-import { createTestContext } from '../test-utils';
+import { WaveFunctionCollapseNode } from './wavefunctioncollapse.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WaveFunctionCollapseNode', () => {
   it('should create WaveFunctionCollapse', async () => {

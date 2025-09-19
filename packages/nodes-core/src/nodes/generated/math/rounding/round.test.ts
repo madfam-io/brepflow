@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RoundNode } from './round-node';
-import { createTestContext } from '../test-utils';
+import { RoundNode } from './round.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RoundNode', () => {
   it('should create Round', async () => {

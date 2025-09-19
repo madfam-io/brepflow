@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PyramidNode } from './pyramid-node';
-import { createTestContext } from '../test-utils';
+import { PyramidNode } from './pyramid.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PyramidNode', () => {
   it('should create Pyramid', async () => {

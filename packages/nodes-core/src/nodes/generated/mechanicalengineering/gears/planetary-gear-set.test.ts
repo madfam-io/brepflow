@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PlanetaryGearSetNode } from './planetarygearset-node';
-import { createTestContext } from '../test-utils';
+import { PlanetaryGearSetNode } from './planetarygearset.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PlanetaryGearSetNode', () => {
   it('should create PlanetaryGearSet', async () => {

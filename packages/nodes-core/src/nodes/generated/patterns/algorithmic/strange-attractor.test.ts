@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StrangeAttractorNode } from './strangeattractor-node';
-import { createTestContext } from '../test-utils';
+import { StrangeAttractorNode } from './strangeattractor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StrangeAttractorNode', () => {
   it('should create StrangeAttractor', async () => {

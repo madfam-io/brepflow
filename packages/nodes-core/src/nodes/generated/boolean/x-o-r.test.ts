@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { XORNode } from './xor-node';
-import { createTestContext } from '../test-utils';
+import { XORNode } from './xor.node';
+import { createTestContext } from './../test-utils';
 
 describe('XORNode', () => {
   it('should create XOR', async () => {

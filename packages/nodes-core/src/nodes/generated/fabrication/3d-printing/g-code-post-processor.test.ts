@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GCodePostProcessorNode } from './gcodepostprocessor-node';
-import { createTestContext } from '../test-utils';
+import { GCodePostProcessorNode } from './gcodepostprocessor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GCodePostProcessorNode', () => {
   it('should create GCodePostProcessor', async () => {

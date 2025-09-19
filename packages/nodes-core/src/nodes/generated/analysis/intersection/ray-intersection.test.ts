@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RayIntersectionNode } from './rayintersection-node';
-import { createTestContext } from '../test-utils';
+import { RayIntersectionNode } from './rayintersection.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RayIntersectionNode', () => {
   it('should create RayIntersection', async () => {

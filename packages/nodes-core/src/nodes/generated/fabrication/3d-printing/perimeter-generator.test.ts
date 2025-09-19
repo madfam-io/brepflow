@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PerimeterGeneratorNode } from './perimetergenerator-node';
-import { createTestContext } from '../test-utils';
+import { PerimeterGeneratorNode } from './perimetergenerator.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PerimeterGeneratorNode', () => {
   it('should create PerimeterGenerator', async () => {

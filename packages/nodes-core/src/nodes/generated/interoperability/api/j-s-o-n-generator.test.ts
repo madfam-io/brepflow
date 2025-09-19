@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { JSONGeneratorNode } from './jsongenerator-node';
-import { createTestContext } from '../test-utils';
+import { JSONGeneratorNode } from './jsongenerator.node';
+import { createTestContext } from './../../test-utils';
 
 describe('JSONGeneratorNode', () => {
   it('should create JSONGenerator', async () => {

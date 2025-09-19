@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ComponentPatternNode } from './componentpattern-node';
-import { createTestContext } from '../test-utils';
+import { ComponentPatternNode } from './componentpattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ComponentPatternNode', () => {
   it('should create ComponentPattern', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PointCloudProcessingNode } from './pointcloudprocessing-node';
-import { createTestContext } from '../test-utils';
+import { PointCloudProcessingNode } from './pointcloudprocessing.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PointCloudProcessingNode', () => {
   it('should create PointCloudProcessing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PolyhedronNode } from './polyhedron-node';
-import { createTestContext } from '../test-utils';
+import { PolyhedronNode } from './polyhedron.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PolyhedronNode', () => {
   it('should create Polyhedron', async () => {

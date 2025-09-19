@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VisionGuidanceNode } from './visionguidance-node';
-import { createTestContext } from '../test-utils';
+import { VisionGuidanceNode } from './visionguidance.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VisionGuidanceNode', () => {
   it('should create VisionGuidance', async () => {

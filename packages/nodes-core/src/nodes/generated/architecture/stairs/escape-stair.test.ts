@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { EscapeStairNode } from './escapestair-node';
-import { createTestContext } from '../test-utils';
+import { EscapeStairNode } from './escapestair.node';
+import { createTestContext } from './../../test-utils';
 
 describe('EscapeStairNode', () => {
   it('should create EscapeStair', async () => {

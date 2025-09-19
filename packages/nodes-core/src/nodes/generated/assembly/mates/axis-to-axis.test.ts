@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { AxisToAxisNode } from './axistoaxis-node';
-import { createTestContext } from '../test-utils';
+import { AxisToAxisNode } from './axistoaxis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('AxisToAxisNode', () => {
   it('should create AxisToAxis', async () => {

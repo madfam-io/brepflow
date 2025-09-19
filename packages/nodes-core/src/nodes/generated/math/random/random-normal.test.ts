@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RandomNormalNode } from './randomnormal-node';
-import { createTestContext } from '../test-utils';
+import { RandomNormalNode } from './randomnormal.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RandomNormalNode', () => {
   it('should create RandomNormal', async () => {

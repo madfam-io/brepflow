@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SerialPortNode } from './serialport-node';
-import { createTestContext } from '../test-utils';
+import { SerialPortNode } from './serialport.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SerialPortNode', () => {
   it('should create SerialPort', async () => {

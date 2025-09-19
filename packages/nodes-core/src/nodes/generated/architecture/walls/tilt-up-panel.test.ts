@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TiltUpPanelNode } from './tiltuppanel-node';
-import { createTestContext } from '../test-utils';
+import { TiltUpPanelNode } from './tiltuppanel.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TiltUpPanelNode', () => {
   it('should create TiltUpPanel', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CubicLatticeNode } from './cubiclattice-node';
-import { createTestContext } from '../test-utils';
+import { CubicLatticeNode } from './cubiclattice.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CubicLatticeNode', () => {
   it('should create CubicLattice', async () => {

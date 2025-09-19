@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { NegateNode } from './negate-node';
-import { createTestContext } from '../test-utils';
+import { NegateNode } from './negate.node';
+import { createTestContext } from './../../test-utils';
 
 describe('NegateNode', () => {
   it('should create Negate', async () => {

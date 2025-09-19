@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { QuasiCrystalNode } from './quasicrystal-node';
-import { createTestContext } from '../test-utils';
+import { QuasiCrystalNode } from './quasicrystal.node';
+import { createTestContext } from './../../test-utils';
 
 describe('QuasiCrystalNode', () => {
   it('should create QuasiCrystal', async () => {

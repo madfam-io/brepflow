@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { KochSnowflakeNode } from './kochsnowflake-node';
-import { createTestContext } from '../test-utils';
+import { KochSnowflakeNode } from './kochsnowflake.node';
+import { createTestContext } from './../../test-utils';
 
 describe('KochSnowflakeNode', () => {
   it('should create KochSnowflake', async () => {

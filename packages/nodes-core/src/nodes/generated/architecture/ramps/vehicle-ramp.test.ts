@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VehicleRampNode } from './vehicleramp-node';
-import { createTestContext } from '../test-utils';
+import { VehicleRampNode } from './vehicleramp.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VehicleRampNode', () => {
   it('should create VehicleRamp', async () => {

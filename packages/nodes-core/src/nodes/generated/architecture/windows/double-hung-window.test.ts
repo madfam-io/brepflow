@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DoubleHungWindowNode } from './doublehungwindow-node';
-import { createTestContext } from '../test-utils';
+import { DoubleHungWindowNode } from './doublehungwindow.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DoubleHungWindowNode', () => {
   it('should create DoubleHungWindow', async () => {

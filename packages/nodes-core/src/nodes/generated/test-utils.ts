@@ -9,9 +9,10 @@ import { EvaluationContext } from '@brepflow/types';
  */
 export function createTestContext(): EvaluationContext {
   return {
+    // Add both old and new interface support for compatibility
     geom: {
       invoke: async (operation: string, params: any) => {
-        // Mock geometry operations for testing
+        // Mock geometry operations for testing (legacy interface)
         console.warn(`Mock geometry operation: ${operation}`, params);
 
         // Return mock results based on operation
@@ -30,6 +31,56 @@ export function createTestContext(): EvaluationContext {
             return { edges: [] };
           default:
             throw new Error(`Mock geometry operation not implemented: ${operation}`);
+        }
+      }
+    },
+    // Add the new geometry interface that nodes expect
+    geometry: {
+      execute: async (operation: any) => {
+        // Mock geometry operations for testing (new interface)
+        console.warn(`Mock geometry execute:`, operation);
+
+        // Return mock results based on operation type
+        switch (operation.type) {
+          case 'makeBox':
+            return {
+              type: 'Solid',
+              id: `box_${Math.random().toString(36).substr(2, 9)}`,
+              bbox: {
+                min: [0, 0, 0],
+                max: [operation.params.width || 100, operation.params.depth || 100, operation.params.height || 100]
+              }
+            };
+          case 'makeSphere':
+            return {
+              type: 'Solid',
+              id: `sphere_${Math.random().toString(36).substr(2, 9)}`,
+              radius: operation.params.radius || 50
+            };
+          case 'makeCylinder':
+            return {
+              type: 'Solid',
+              id: `cylinder_${Math.random().toString(36).substr(2, 9)}`,
+              radius: operation.params.radius || 50,
+              height: operation.params.height || 100
+            };
+          case 'tessellate':
+            return {
+              vertices: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
+              indices: new Uint32Array([0, 1, 2]),
+              normals: new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1])
+            };
+          case 'boolean':
+            return {
+              type: 'Solid',
+              id: `boolean_${Math.random().toString(36).substr(2, 9)}`
+            };
+          default:
+            console.warn(`Unhandled geometry operation: ${operation.type}`);
+            return {
+              type: 'Shape',
+              id: `result_${Math.random().toString(36).substr(2, 9)}`
+            };
         }
       }
     },

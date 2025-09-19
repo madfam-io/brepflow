@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GeodesicCurveNode } from './geodesiccurve-node';
-import { createTestContext } from '../test-utils';
+import { GeodesicCurveNode } from './geodesiccurve.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GeodesicCurveNode', () => {
   it('should create GeodesicCurve', async () => {

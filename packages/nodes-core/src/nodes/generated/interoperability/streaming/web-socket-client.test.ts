@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WebSocketClientNode } from './websocketclient-node';
-import { createTestContext } from '../test-utils';
+import { WebSocketClientNode } from './websocketclient.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WebSocketClientNode', () => {
   it('should create WebSocketClient', async () => {

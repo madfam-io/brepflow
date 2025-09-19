@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LeafSpringNode } from './leafspring-node';
-import { createTestContext } from '../test-utils';
+import { LeafSpringNode } from './leafspring.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LeafSpringNode', () => {
   it('should create LeafSpring', async () => {

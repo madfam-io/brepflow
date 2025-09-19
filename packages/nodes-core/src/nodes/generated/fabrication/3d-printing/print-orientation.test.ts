@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PrintOrientationNode } from './printorientation-node';
-import { createTestContext } from '../test-utils';
+import { PrintOrientationNode } from './printorientation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PrintOrientationNode', () => {
   it('should create PrintOrientation', async () => {

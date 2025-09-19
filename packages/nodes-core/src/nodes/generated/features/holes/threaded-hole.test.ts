@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ThreadedHoleNode } from './threadedhole-node';
-import { createTestContext } from '../test-utils';
+import { ThreadedHoleNode } from './threadedhole.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ThreadedHoleNode', () => {
   it('should create ThreadedHole', async () => {

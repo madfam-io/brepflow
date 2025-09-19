@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ForceControlNode } from './forcecontrol-node';
-import { createTestContext } from '../test-utils';
+import { ForceControlNode } from './forcecontrol.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ForceControlNode', () => {
   it('should create ForceControl', async () => {

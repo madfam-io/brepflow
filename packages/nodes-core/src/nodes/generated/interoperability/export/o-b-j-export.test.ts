@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { OBJExportNode } from './objexport-node';
-import { createTestContext } from '../test-utils';
+import { OBJExportNode } from './objexport.node';
+import { createTestContext } from './../../test-utils';
 
 describe('OBJExportNode', () => {
   it('should create OBJExport', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PedestalPaversNode } from './pedestalpavers-node';
-import { createTestContext } from '../test-utils';
+import { PedestalPaversNode } from './pedestalpavers.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PedestalPaversNode', () => {
   it('should create PedestalPavers', async () => {

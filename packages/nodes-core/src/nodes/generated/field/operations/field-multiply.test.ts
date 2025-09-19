@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldMultiplyNode } from './fieldmultiply-node';
-import { createTestContext } from '../test-utils';
+import { FieldMultiplyNode } from './fieldmultiply.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldMultiplyNode', () => {
   it('should create FieldMultiply', async () => {

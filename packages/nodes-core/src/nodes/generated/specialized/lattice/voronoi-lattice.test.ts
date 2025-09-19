@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VoronoiLatticeNode } from './voronoilattice-node';
-import { createTestContext } from '../test-utils';
+import { VoronoiLatticeNode } from './voronoilattice.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VoronoiLatticeNode', () => {
   it('should create VoronoiLattice', async () => {

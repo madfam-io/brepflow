@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RuledSurfaceNode } from './ruledsurface-node';
-import { createTestContext } from '../test-utils';
+import { RuledSurfaceNode } from './ruledsurface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RuledSurfaceNode', () => {
   it('should create RuledSurface', async () => {

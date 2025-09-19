@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VectorFieldNode } from './vectorfield-node';
-import { createTestContext } from '../test-utils';
+import { VectorFieldNode } from './vectorfield.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VectorFieldNode', () => {
   it('should create VectorField', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldVectorArrowsNode } from './fieldvectorarrows-node';
-import { createTestContext } from '../test-utils';
+import { FieldVectorArrowsNode } from './fieldvectorarrows.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldVectorArrowsNode', () => {
   it('should create FieldVectorArrows', async () => {

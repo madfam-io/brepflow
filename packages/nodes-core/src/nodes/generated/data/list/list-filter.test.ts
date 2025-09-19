@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListFilterNode } from './listfilter-node';
-import { createTestContext } from '../test-utils';
+import { ListFilterNode } from './listfilter.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ListFilterNode', () => {
   it('should create ListFilter', async () => {

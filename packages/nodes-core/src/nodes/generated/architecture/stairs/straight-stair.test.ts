@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StraightStairNode } from './straightstair-node';
-import { createTestContext } from '../test-utils';
+import { StraightStairNode } from './straightstair.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StraightStairNode', () => {
   it('should create StraightStair', async () => {

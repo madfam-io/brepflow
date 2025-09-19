@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PenroseTilingNode } from './penrosetiling-node';
-import { createTestContext } from '../test-utils';
+import { PenroseTilingNode } from './penrosetiling.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PenroseTilingNode', () => {
   it('should create PenroseTiling', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RivetNode } from './rivet-node';
-import { createTestContext } from '../test-utils';
+import { RivetNode } from './rivet.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RivetNode', () => {
   it('should create Rivet', async () => {

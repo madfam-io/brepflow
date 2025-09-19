@@ -144,20 +144,15 @@ export type Operation =
   | BatchOperation;
 
 // Conflict Resolution
+export type ConflictResolutionStrategy = 'merge' | 'last-writer-wins' | 'first-writer-wins' | 'user-decision';
+
 export interface ConflictResolution {
-  strategy: 'client-wins' | 'server-wins' | 'merge' | 'manual';
+  strategy: ConflictResolutionStrategy;
   resolvedOperation: Operation;
-  conflictDetails: string;
+  metadata?: Record<string, any>;
 }
 
-export interface OperationConflict {
-  id: string;
-  localOperation: Operation;
-  remoteOperation: Operation;
-  conflictType: 'simultaneous-edit' | 'dependency-violation' | 'concurrent-deletion';
-  severity: 'low' | 'medium' | 'high';
-  autoResolvable: boolean;
-}
+
 
 // WebSocket Message Types
 export type WebSocketMessageType =

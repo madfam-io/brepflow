@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HoneycombStructureNode } from './honeycombstructure-node';
-import { createTestContext } from '../test-utils';
+import { HoneycombStructureNode } from './honeycombstructure.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HoneycombStructureNode', () => {
   it('should create HoneycombStructure', async () => {

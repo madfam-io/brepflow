@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StretchCeilingNode } from './stretchceiling-node';
-import { createTestContext } from '../test-utils';
+import { StretchCeilingNode } from './stretchceiling.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StretchCeilingNode', () => {
   it('should create StretchCeiling', async () => {

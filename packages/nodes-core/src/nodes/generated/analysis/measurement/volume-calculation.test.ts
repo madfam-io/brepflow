@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VolumeCalculationNode } from './volumecalculation-node';
-import { createTestContext } from '../test-utils';
+import { VolumeCalculationNode } from './volumecalculation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VolumeCalculationNode', () => {
   it('should create VolumeCalculation', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SocketHeadCapScrewNode } from './socketheadcapscrew-node';
-import { createTestContext } from '../test-utils';
+import { SocketHeadCapScrewNode } from './socketheadcapscrew.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SocketHeadCapScrewNode', () => {
   it('should create SocketHeadCapScrew', async () => {

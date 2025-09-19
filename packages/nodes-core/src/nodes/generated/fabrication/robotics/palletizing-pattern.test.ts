@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PalletizingPatternNode } from './palletizingpattern-node';
-import { createTestContext } from '../test-utils';
+import { PalletizingPatternNode } from './palletizingpattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PalletizingPatternNode', () => {
   it('should create PalletizingPattern', async () => {

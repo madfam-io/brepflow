@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CompositeCurveNode } from './compositecurve-node';
-import { createTestContext } from '../test-utils';
+import { CompositeCurveNode } from './compositecurve.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CompositeCurveNode', () => {
   it('should create CompositeCurve', async () => {

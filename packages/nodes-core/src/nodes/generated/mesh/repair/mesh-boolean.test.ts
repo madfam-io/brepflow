@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MeshBooleanNode } from './meshboolean-node';
-import { createTestContext } from '../test-utils';
+import { MeshBooleanNode } from './meshboolean.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MeshBooleanNode', () => {
   it('should create MeshBoolean', async () => {

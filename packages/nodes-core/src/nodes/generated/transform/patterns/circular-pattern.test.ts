@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CircularPatternNode } from './circularpattern-node';
-import { createTestContext } from '../test-utils';
+import { CircularPatternNode } from './circularpattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CircularPatternNode', () => {
   it('should create CircularPattern', async () => {

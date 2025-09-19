@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MomentOfInertiaNode } from './momentofinertia-node';
-import { createTestContext } from '../test-utils';
+import { MomentOfInertiaNode } from './momentofinertia.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MomentOfInertiaNode', () => {
   it('should create MomentOfInertia', async () => {

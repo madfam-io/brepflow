@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExponentialNode } from './exponential-node';
-import { createTestContext } from '../test-utils';
+import { ExponentialNode } from './exponential.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ExponentialNode', () => {
   it('should create Exponential', async () => {

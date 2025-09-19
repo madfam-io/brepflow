@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ScaleNode } from './scale-node';
-import { createTestContext } from '../test-utils';
+import { ScaleNode } from './scale.node';
+import { createTestContext } from './../test-utils';
 
 describe('ScaleNode', () => {
   it('should create Scale', async () => {

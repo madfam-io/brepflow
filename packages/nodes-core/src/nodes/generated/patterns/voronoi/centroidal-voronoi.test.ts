@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CentroidalVoronoiNode } from './centroidalvoronoi-node';
-import { createTestContext } from '../test-utils';
+import { CentroidalVoronoiNode } from './centroidalvoronoi.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CentroidalVoronoiNode', () => {
   it('should create CentroidalVoronoi', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LightweightStructureNode } from './lightweightstructure-node';
-import { createTestContext } from '../test-utils';
+import { LightweightStructureNode } from './lightweightstructure.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LightweightStructureNode', () => {
   it('should create LightweightStructure', async () => {

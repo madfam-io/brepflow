@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ForwardKinematicsNode } from './forwardkinematics-node';
-import { createTestContext } from '../test-utils';
+import { ForwardKinematicsNode } from './forwardkinematics.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ForwardKinematicsNode', () => {
   it('should create ForwardKinematics', async () => {

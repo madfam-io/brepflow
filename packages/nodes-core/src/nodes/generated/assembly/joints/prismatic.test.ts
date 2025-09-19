@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PrismaticNode } from './prismatic-node';
-import { createTestContext } from '../test-utils';
+import { PrismaticNode } from './prismatic.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PrismaticNode', () => {
   it('should create Prismatic', async () => {

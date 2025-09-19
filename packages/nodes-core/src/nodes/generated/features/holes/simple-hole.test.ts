@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SimpleHoleNode } from './simplehole-node';
-import { createTestContext } from '../test-utils';
+import { SimpleHoleNode } from './simplehole.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SimpleHoleNode', () => {
   it('should create SimpleHole', async () => {

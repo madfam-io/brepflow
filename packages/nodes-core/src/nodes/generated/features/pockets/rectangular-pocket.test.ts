@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RectangularPocketNode } from './rectangularpocket-node';
-import { createTestContext } from '../test-utils';
+import { RectangularPocketNode } from './rectangularpocket.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RectangularPocketNode', () => {
   it('should create RectangularPocket', async () => {

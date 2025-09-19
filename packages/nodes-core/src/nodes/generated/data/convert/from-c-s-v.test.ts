@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FromCSVNode } from './fromcsv-node';
-import { createTestContext } from '../test-utils';
+import { FromCSVNode } from './fromcsv.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FromCSVNode', () => {
   it('should create FromCSV', async () => {

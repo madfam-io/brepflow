@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PathArrayNode } from './patharray-node';
-import { createTestContext } from '../test-utils';
+import { PathArrayNode } from './patharray.node';
+import { createTestContext } from './../test-utils';
 
 describe('PathArrayNode', () => {
   it('should create PathArray', async () => {

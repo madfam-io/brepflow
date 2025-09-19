@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PercentileNode } from './percentile-node';
-import { createTestContext } from '../test-utils';
+import { PercentileNode } from './percentile.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PercentileNode', () => {
   it('should create Percentile', async () => {

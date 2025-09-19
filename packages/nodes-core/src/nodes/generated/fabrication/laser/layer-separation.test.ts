@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LayerSeparationNode } from './layerseparation-node';
-import { createTestContext } from '../test-utils';
+import { LayerSeparationNode } from './layerseparation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LayerSeparationNode', () => {
   it('should create LayerSeparation', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { AngleMeasurementNode } from './anglemeasurement-node';
-import { createTestContext } from '../test-utils';
+import { AngleMeasurementNode } from './anglemeasurement.node';
+import { createTestContext } from './../../test-utils';
 
 describe('AngleMeasurementNode', () => {
   it('should create AngleMeasurement', async () => {

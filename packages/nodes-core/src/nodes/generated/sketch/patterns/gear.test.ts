@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GearNode } from './gear-node';
-import { createTestContext } from '../test-utils';
+import { GearNode } from './gear.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GearNode', () => {
   it('should create Gear', async () => {

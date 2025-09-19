@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GrasshopperExportNode } from './grasshopperexport-node';
-import { createTestContext } from '../test-utils';
+import { GrasshopperExportNode } from './grasshopperexport.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GrasshopperExportNode', () => {
   it('should create GrasshopperExport', async () => {

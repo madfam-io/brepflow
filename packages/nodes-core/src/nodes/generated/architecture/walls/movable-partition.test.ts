@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MovablePartitionNode } from './movablepartition-node';
-import { createTestContext } from '../test-utils';
+import { MovablePartitionNode } from './movablepartition.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MovablePartitionNode', () => {
   it('should create MovablePartition', async () => {

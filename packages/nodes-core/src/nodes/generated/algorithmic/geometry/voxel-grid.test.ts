@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VoxelGridNode } from './voxelgrid-node';
-import { createTestContext } from '../test-utils';
+import { VoxelGridNode } from './voxelgrid.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VoxelGridNode', () => {
   it('should create VoxelGrid', async () => {

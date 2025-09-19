@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { KelvinLatticeNode } from './kelvinlattice-node';
-import { createTestContext } from '../test-utils';
+import { KelvinLatticeNode } from './kelvinlattice.node';
+import { createTestContext } from './../../test-utils';
 
 describe('KelvinLatticeNode', () => {
   it('should create KelvinLattice', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RetractionOptimizationNode } from './retractionoptimization-node';
-import { createTestContext } from '../test-utils';
+import { RetractionOptimizationNode } from './retractionoptimization.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RetractionOptimizationNode', () => {
   it('should create RetractionOptimization', async () => {

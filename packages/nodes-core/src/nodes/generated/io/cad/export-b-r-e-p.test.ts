@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportBREPNode } from './exportbrep-node';
-import { createTestContext } from '../test-utils';
+import { ExportBREPNode } from './exportbrep.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ExportBREPNode', () => {
   it('should create ExportBREP', async () => {

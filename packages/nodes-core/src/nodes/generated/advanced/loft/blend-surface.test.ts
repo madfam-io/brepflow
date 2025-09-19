@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BlendSurfaceNode } from './blendsurface-node';
-import { createTestContext } from '../test-utils';
+import { BlendSurfaceNode } from './blendsurface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BlendSurfaceNode', () => {
   it('should create BlendSurface', async () => {

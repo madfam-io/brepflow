@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { CommonEdgesNode } from './commonedges-node';
-import { createTestContext } from '../test-utils';
+import { CommonEdgesNode } from './commonedges.node';
+import { createTestContext } from './../test-utils';
 
 describe('CommonEdgesNode', () => {
   it('should create CommonEdges', async () => {

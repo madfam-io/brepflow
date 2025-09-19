@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HealShapeNode } from './healshape-node';
-import { createTestContext } from '../test-utils';
+import { HealShapeNode } from './healshape.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HealShapeNode', () => {
   it('should create HealShape', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { IsManifoldNode } from './ismanifold-node';
-import { createTestContext } from '../test-utils';
+import { IsManifoldNode } from './ismanifold.node';
+import { createTestContext } from './../../test-utils';
 
 describe('IsManifoldNode', () => {
   it('should create IsManifold', async () => {

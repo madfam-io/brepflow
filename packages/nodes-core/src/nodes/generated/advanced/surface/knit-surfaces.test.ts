@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { KnitSurfacesNode } from './knitsurfaces-node';
-import { createTestContext } from '../test-utils';
+import { KnitSurfacesNode } from './knitsurfaces.node';
+import { createTestContext } from './../../test-utils';
 
 describe('KnitSurfacesNode', () => {
   it('should create KnitSurfaces', async () => {

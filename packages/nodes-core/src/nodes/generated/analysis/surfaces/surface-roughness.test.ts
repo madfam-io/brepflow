@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceRoughnessNode } from './surfaceroughness-node';
-import { createTestContext } from '../test-utils';
+import { SurfaceRoughnessNode } from './surfaceroughness.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SurfaceRoughnessNode', () => {
   it('should create SurfaceRoughness', async () => {

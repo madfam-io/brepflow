@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BSplineCurveNode } from './bsplinecurve-node';
-import { createTestContext } from '../test-utils';
+import { BSplineCurveNode } from './bsplinecurve.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BSplineCurveNode', () => {
   it('should create BSplineCurve', async () => {

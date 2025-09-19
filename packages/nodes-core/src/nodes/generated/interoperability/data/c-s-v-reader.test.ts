@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CSVReaderNode } from './csvreader-node';
-import { createTestContext } from '../test-utils';
+import { CSVReaderNode } from './csvreader.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CSVReaderNode', () => {
   it('should create CSVReader', async () => {

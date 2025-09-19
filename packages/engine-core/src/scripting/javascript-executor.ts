@@ -37,9 +37,6 @@ export class JavaScriptExecutor implements ScriptExecutor {
       // Create secure execution environment
       const sandbox = this.createSecureSandbox(context, permissions, logs, metrics);
 
-      // Wrap script in secure execution context
-      const wrappedScript = this.wrapScript(script, sandbox);
-
       // Set up abort controller for timeout
       const abortController = new AbortController();
       this.executionContexts.set(executionId, abortController);
@@ -50,9 +47,10 @@ export class JavaScriptExecutor implements ScriptExecutor {
       }, permissions.timeoutMS);
 
       try {
-        // Execute script in Web Worker for isolation
-        const result = await this.executeInWorker(
-          wrappedScript,
+        // Execute script in secure context
+        const result = await this.executeInSecureContext(
+          script,
+          sandbox,
           context,
           permissions,
           abortController.signal
@@ -280,6 +278,27 @@ async function evaluate(ctx, inputs, params) {
     logs: ScriptLogEntry[],
     metrics: ScriptMetric[]
   ) {
+    // Create a mock script utilities object for the sandbox
+    const scriptUtils = {
+      getInput: (name: string) => {
+        // In a real implementation, this would get from actual inputs
+        return context.inputs?.[name];
+      },
+      getParameter: (name: string, defaultValue?: any) => {
+        // In a real implementation, this would get from actual parameters
+        return context.params?.[name] ?? defaultValue;
+      },
+      setOutput: (name: string, value: any) => {
+        // Store output in context for retrieval
+        if (!context.outputs) context.outputs = {};
+        context.outputs[name] = value;
+      },
+      log: (message: string, level: 'info' | 'warn' | 'error' = 'info') => {
+        this.addLog(logs, level, message, context.runtime.nodeId);
+      },
+      createVector: (x: number, y: number, z: number) => ({ x, y, z }),
+    };
+
     return {
       // Restricted global objects
       console: {
@@ -292,7 +311,10 @@ async function evaluate(ctx, inputs, params) {
       Math: Math,
 
       // Context objects
-      ctx: context,
+      ctx: {
+        ...context,
+        script: scriptUtils,
+      },
 
       // Utility functions
       setTimeout: permissions.allowWorkerThreads ? setTimeout : undefined,
@@ -314,24 +336,9 @@ async function evaluate(ctx, inputs, params) {
     };
   }
 
-  private wrapScript(script: string, sandbox: any): string {
-    const sandboxKeys = Object.keys(sandbox);
-    const sandboxValues = sandboxKeys.map(key => sandbox[key]);
-
-    return `
-(function(${sandboxKeys.join(', ')}) {
-  "use strict";
-
-  // Main script execution
-  return (async function() {
-    ${script}
-  })();
-})(${sandboxValues.map(() => 'arguments[arguments.length - 1]').join(', ')})
-    `;
-  }
-
-  private async executeInWorker(
-    wrappedScript: string,
+  private async executeInSecureContext(
+    script: string,
+    sandbox: any,
     context: ScriptContext,
     permissions: ScriptPermissions,
     signal: AbortSignal
@@ -343,13 +350,37 @@ async function evaluate(ctx, inputs, params) {
       }
 
       try {
-        // For now, execute directly (in production, use Web Worker)
-        const result = eval(wrappedScript);
+        // Create a secure execution function
+        const sandboxKeys = Object.keys(sandbox);
+        const sandboxValues = sandboxKeys.map(key => sandbox[key]);
+
+        // Wrap the script in a function with sandbox variables
+        const wrappedScript = `
+(function(${sandboxKeys.join(', ')}) {
+  "use strict";
+
+  ${script}
+
+  // If script defines an evaluate function, call it
+  if (typeof evaluate === 'function') {
+    return evaluate(ctx, ctx.inputs || {}, ctx.params || {});
+  }
+
+  // Otherwise return empty result
+  return {};
+})
+        `;
+
+        // Execute the wrapped script
+        const scriptFunction = eval(wrappedScript);
+        const result = scriptFunction.apply(null, sandboxValues);
 
         if (result instanceof Promise) {
-          result.then(resolve).catch(reject);
+          result
+            .then(outputs => resolve({ outputs: outputs || {}, memoryUsage: 0 }))
+            .catch(reject);
         } else {
-          resolve({ outputs: result, memoryUsage: 0 });
+          resolve({ outputs: result || {}, memoryUsage: 0 });
         }
       } catch (error) {
         reject(error);

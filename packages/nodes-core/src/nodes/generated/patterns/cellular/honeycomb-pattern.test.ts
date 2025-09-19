@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { HoneycombPatternNode } from './honeycombpattern-node';
-import { createTestContext } from '../test-utils';
+import { HoneycombPatternNode } from './honeycombpattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('HoneycombPatternNode', () => {
   it('should create HoneycombPattern', async () => {

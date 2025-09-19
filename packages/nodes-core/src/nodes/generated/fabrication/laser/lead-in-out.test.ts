@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LeadInOutNode } from './leadinout-node';
-import { createTestContext } from '../test-utils';
+import { LeadInOutNode } from './leadinout.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LeadInOutNode', () => {
   it('should create LeadInOut', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldConvolutionNode } from './fieldconvolution-node';
-import { createTestContext } from '../test-utils';
+import { FieldConvolutionNode } from './fieldconvolution.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldConvolutionNode', () => {
   it('should create FieldConvolution', async () => {

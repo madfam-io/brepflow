@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GeodesicPatternNode } from './geodesicpattern-node';
-import { createTestContext } from '../test-utils';
+import { GeodesicPatternNode } from './geodesicpattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('GeodesicPatternNode', () => {
   it('should create GeodesicPattern', async () => {

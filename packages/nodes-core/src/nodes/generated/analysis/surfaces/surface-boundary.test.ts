@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceBoundaryNode } from './surfaceboundary-node';
-import { createTestContext } from '../test-utils';
+import { SurfaceBoundaryNode } from './surfaceboundary.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SurfaceBoundaryNode', () => {
   it('should create SurfaceBoundary', async () => {

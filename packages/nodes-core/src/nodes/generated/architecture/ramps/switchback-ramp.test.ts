@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SwitchbackRampNode } from './switchbackramp-node';
-import { createTestContext } from '../test-utils';
+import { SwitchbackRampNode } from './switchbackramp.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SwitchbackRampNode', () => {
   it('should create SwitchbackRamp', async () => {

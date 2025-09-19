@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CountersinkHoleNode } from './countersinkhole-node';
-import { createTestContext } from '../test-utils';
+import { CountersinkHoleNode } from './countersinkhole.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CountersinkHoleNode', () => {
   it('should create CountersinkHole', async () => {

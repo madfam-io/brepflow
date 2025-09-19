@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SolubleSupportInterfaceNode } from './solublesupportinterface-node';
-import { createTestContext } from '../test-utils';
+import { SolubleSupportInterfaceNode } from './solublesupportinterface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SolubleSupportInterfaceNode', () => {
   it('should create SolubleSupportInterface', async () => {

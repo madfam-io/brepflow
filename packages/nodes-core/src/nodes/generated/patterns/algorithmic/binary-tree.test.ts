@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BinaryTreeNode } from './binarytree-node';
-import { createTestContext } from '../test-utils';
+import { BinaryTreeNode } from './binarytree.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BinaryTreeNode', () => {
   it('should create BinaryTree', async () => {

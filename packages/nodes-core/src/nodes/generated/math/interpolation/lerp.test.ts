@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { LerpNode } from './lerp-node';
-import { createTestContext } from '../test-utils';
+import { LerpNode } from './lerp.node';
+import { createTestContext } from './../../test-utils';
 
 describe('LerpNode', () => {
   it('should create Lerp', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StandardDeviationNode } from './standarddeviation-node';
-import { createTestContext } from '../test-utils';
+import { StandardDeviationNode } from './standarddeviation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StandardDeviationNode', () => {
   it('should create StandardDeviation', async () => {

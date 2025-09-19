@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExplodedViewNode } from './explodedview-node';
-import { createTestContext } from '../test-utils';
+import { ExplodedViewNode } from './explodedview.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ExplodedViewNode', () => {
   it('should create ExplodedView', async () => {

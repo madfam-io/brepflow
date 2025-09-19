@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SupportVectorMachineNode } from './supportvectormachine-node';
-import { createTestContext } from '../test-utils';
+import { SupportVectorMachineNode } from './supportvectormachine.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SupportVectorMachineNode', () => {
   it('should create SupportVectorMachine', async () => {

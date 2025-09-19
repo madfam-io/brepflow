@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CantorSetNode } from './cantorset-node';
-import { createTestContext } from '../test-utils';
+import { CantorSetNode } from './cantorset.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CantorSetNode', () => {
   it('should create CantorSet', async () => {

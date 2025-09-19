@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ChipEvacuationNode } from './chipevacuation-node';
-import { createTestContext } from '../test-utils';
+import { ChipEvacuationNode } from './chipevacuation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ChipEvacuationNode', () => {
   it('should create ChipEvacuation', async () => {

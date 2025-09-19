@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ParquetPatternNode } from './parquetpattern-node';
-import { createTestContext } from '../test-utils';
+import { ParquetPatternNode } from './parquetpattern.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ParquetPatternNode', () => {
   it('should create ParquetPattern', async () => {

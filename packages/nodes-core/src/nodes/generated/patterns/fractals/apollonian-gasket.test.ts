@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ApollonianGasketNode } from './apolloniangasket-node';
-import { createTestContext } from '../test-utils';
+import { ApollonianGasketNode } from './apolloniangasket.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ApollonianGasketNode', () => {
   it('should create ApollonianGasket', async () => {

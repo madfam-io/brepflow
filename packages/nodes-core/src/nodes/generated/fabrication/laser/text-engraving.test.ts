@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TextEngravingNode } from './textengraving-node';
-import { createTestContext } from '../test-utils';
+import { TextEngravingNode } from './textengraving.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TextEngravingNode', () => {
   it('should create TextEngraving', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImportSTLNode } from './importstl-node';
-import { createTestContext } from '../test-utils';
+import { ImportSTLNode } from './import-s-t-l.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ImportSTLNode', () => {
   it('should create ImportSTL', async () => {

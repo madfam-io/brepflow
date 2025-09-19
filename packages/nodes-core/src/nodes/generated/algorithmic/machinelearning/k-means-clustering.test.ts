@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { KMeansClusteringNode } from './kmeansclustering-node';
-import { createTestContext } from '../test-utils';
+import { KMeansClusteringNode } from './kmeansclustering.node';
+import { createTestContext } from './../../test-utils';
 
 describe('KMeansClusteringNode', () => {
   it('should create KMeansClustering', async () => {

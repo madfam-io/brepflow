@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ProceduralTextureNode } from './proceduraltexture-node';
-import { createTestContext } from '../test-utils';
+import { ProceduralTextureNode } from './proceduraltexture.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ProceduralTextureNode', () => {
   it('should create ProceduralTexture', async () => {

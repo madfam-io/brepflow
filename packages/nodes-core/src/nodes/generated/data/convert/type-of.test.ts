@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TypeOfNode } from './typeof-node';
-import { createTestContext } from '../test-utils';
+import { TypeOfNode } from './typeof.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TypeOfNode', () => {
   it('should create TypeOf', async () => {

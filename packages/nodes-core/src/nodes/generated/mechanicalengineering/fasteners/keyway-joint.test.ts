@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { KeywayJointNode } from './keywayjoint-node';
-import { createTestContext } from '../test-utils';
+import { KeywayJointNode } from './keywayjoint.node';
+import { createTestContext } from './../../test-utils';
 
 describe('KeywayJointNode', () => {
   it('should create KeywayJoint', async () => {

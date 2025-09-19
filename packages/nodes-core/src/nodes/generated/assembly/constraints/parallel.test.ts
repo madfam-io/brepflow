@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ParallelNode } from './parallel-node';
-import { createTestContext } from '../test-utils';
+import { ParallelNode } from './parallel.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ParallelNode', () => {
   it('should create Parallel', async () => {

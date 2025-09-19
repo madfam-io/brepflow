@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringLengthNode } from './stringlength-node';
-import { createTestContext } from '../test-utils';
+import { StringLengthNode } from './stringlength.node';
+import { createTestContext } from './../../test-utils';
 
 describe('StringLengthNode', () => {
   it('should create StringLength', async () => {

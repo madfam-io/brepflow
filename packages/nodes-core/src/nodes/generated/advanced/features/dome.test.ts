@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { DomeNode } from './dome-node';
-import { createTestContext } from '../test-utils';
+import { DomeNode } from './dome.node';
+import { createTestContext } from './../../test-utils';
 
 describe('DomeNode', () => {
   it('should create Dome', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { AdaptiveLayerHeightNode } from './adaptivelayerheight-node';
-import { createTestContext } from '../test-utils';
+import { AdaptiveLayerHeightNode } from './adaptivelayerheight.node';
+import { createTestContext } from './../../test-utils';
 
 describe('AdaptiveLayerHeightNode', () => {
   it('should create AdaptiveLayerHeight', async () => {

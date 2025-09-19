@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { TPMSNode } from './tpms-node';
-import { createTestContext } from '../test-utils';
+import { TPMSNode } from './tpms.node';
+import { createTestContext } from './../../test-utils';
 
 describe('TPMSNode', () => {
   it('should create TPMS', async () => {

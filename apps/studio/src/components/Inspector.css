@@ -790,54 +790,17 @@
   border: 1px dashed var(--color-border);
 }
 
-/* Configuration Styles */
+/* Configuration Styles - Enhanced with Button Components */
 .configuration-actions {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
-  margin-bottom: var(--spacing-4);
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-5);
 }
 
-.config-button {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  padding: var(--spacing-2) var(--spacing-3);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-surface-primary);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
-  transition: var(--transition-hover);
-  text-align: left;
-  width: 100%;
-}
-
-.config-button:hover {
-  background: var(--color-surface-tertiary);
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-1px);
-}
-
-.config-button.export:hover {
-  background: var(--color-success-50);
-  border-color: var(--color-success-300);
-  color: var(--color-success-700);
-}
-
-.config-button.import:hover {
-  background: var(--color-primary-50);
-  border-color: var(--color-primary-300);
-  color: var(--color-primary-700);
-}
-
-.config-button.save:hover {
-  background: var(--color-warning-50);
-  border-color: var(--color-warning-300);
-  color: var(--color-warning-700);
+.configuration-actions .btn {
+  /* Enhanced buttons inherit professional styling from design system */
+  justify-content: flex-start;
 }
 
 .configuration-info {
@@ -912,19 +875,9 @@
   color: var(--color-text-primary);
 }
 
-.config-dialog-header button {
-  background: transparent;
-  border: none;
-  padding: var(--spacing-2);
-  border-radius: var(--radius-md);
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.config-dialog-header button:hover {
-  background: var(--color-surface-tertiary);
-  color: var(--color-text-primary);
+/* Dialog header buttons use enhanced Button component */
+.config-dialog-header .btn {
+  /* Professional styling inherited from Button component */
 }
 
 .config-dialog-content {
@@ -949,19 +902,83 @@
   justify-content: flex-end;
 }
 
-.config-dialog-actions button {
-  padding: var(--spacing-2) var(--spacing-4);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+/* Dialog action buttons use enhanced Button component */
+.config-dialog-actions .btn {
+  /* Professional styling inherited from Button component */
+}
+
+/* Enhanced modal animation */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Professional enhancements to existing styles */
+.inspector-section {
+  margin-bottom: var(--spacing-5);
   background: var(--color-surface-primary);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  cursor: pointer;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-panel);
+  transition: var(--transition-panel);
+  position: relative;
+  isolation: isolate;
+}
+
+.inspector-section:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-interactive-hover);
+  transform: translateY(-1px);
+}
+
+.inspector-section-header {
+  background: var(--gradient-surface);
+  border-bottom: 1px solid var(--color-border);
+  transition: var(--transition-colors);
+  position: relative;
+  z-index: 1;
+}
+
+.inspector-section-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-border-strong) 50%, transparent 100%);
+  opacity: 0;
   transition: var(--transition-hover);
 }
 
-.config-dialog-actions button:hover {
-  background: var(--color-surface-secondary);
+.inspector-section:hover .inspector-section-header::after {
+  opacity: 1;
+}
+
+/* Enhanced expand icon */
+.expand-icon {
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-xs);
+  transition: var(--transition-button);
+}
+
+.expand-icon:hover {
+  background: var(--color-surface-tertiary);
   border-color: var(--color-border-strong);
+  transform: scale(1.05);
+}
+
+.expand-icon.expanded {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-200);
+  color: var(--color-primary-600);
+  box-shadow: var(--shadow-sm);
 }

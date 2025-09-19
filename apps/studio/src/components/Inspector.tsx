@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import type { NodeInstance } from '@brepflow/types';
 import { StatusIcon } from './icons/IconSystem';
 import { Icon } from './common/Icon';
+import { Button } from './ui/Button';
 import { NodeMetricsCollector, NodePerformanceData } from '../lib/monitoring/node-metrics';
 import { ErrorDiagnosticsEngine, NodeErrorDiagnostic } from '../lib/diagnostics/error-diagnostics';
 import { NodeConfigurationManager } from '../lib/configuration/node-config';
@@ -568,8 +569,11 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
         {expandedSections.configuration && (
           <div className="inspector-section-content">
             <div className="configuration-actions">
-              <button
-                className="config-button export"
+              <Button
+                variant="secondary"
+                icon="download"
+                size="md"
+                fullWidth
                 onClick={() => {
                   const config = configManager.exportNodeConfiguration(selectedNode, {
                     author: 'Studio User',
@@ -579,20 +583,24 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
                   // Could show a toast notification here
                 }}
               >
-                <Icon name="export" size={16} />
                 Export Config
-              </button>
+              </Button>
 
-              <button
-                className="config-button import"
+              <Button
+                variant="secondary"
+                icon="upload"
+                size="md"
+                fullWidth
                 onClick={() => setShowConfigurationDialog(true)}
               >
-                <Icon name="import" size={16} />
                 Import Config
-              </button>
+              </Button>
 
-              <button
-                className="config-button save"
+              <Button
+                variant="secondary"
+                icon="save"
+                size="md"
+                fullWidth
                 onClick={() => {
                   const blob = new Blob(
                     [JSON.stringify(selectedNode, null, 2)],
@@ -608,9 +616,8 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
                   URL.revokeObjectURL(url);
                 }}
               >
-                <Icon name="save" size={16} />
                 Save to File
-              </button>
+              </Button>
             </div>
 
             <div className="configuration-info">
@@ -666,16 +673,25 @@ export function Inspector({ selectedNode, onParamChange }: InspectorProps) {
           <div className="config-dialog" onClick={(e) => e.stopPropagation()}>
             <div className="config-dialog-header">
               <h3>Import Configuration</h3>
-              <button onClick={() => setShowConfigurationDialog(false)}>
-                <Icon name="close" size={16} />
-              </button>
+              <Button
+                variant="ghost"
+                icon="x"
+                size="sm"
+                onClick={() => setShowConfigurationDialog(false)}
+                aria-label="Close dialog"
+              />
             </div>
             <div className="config-dialog-content">
               <p>Configuration import functionality will be available in the next update.</p>
               <p>You can currently export configurations for backup and sharing.</p>
             </div>
             <div className="config-dialog-actions">
-              <button onClick={() => setShowConfigurationDialog(false)}>Close</button>
+              <Button
+                variant="secondary"
+                onClick={() => setShowConfigurationDialog(false)}
+              >
+                Close
+              </Button>
             </div>
           </div>
         </div>

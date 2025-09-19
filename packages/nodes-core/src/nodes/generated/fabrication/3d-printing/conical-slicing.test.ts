@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ConicalSlicingNode } from './conicalslicing-node';
-import { createTestContext } from '../test-utils';
+import { ConicalSlicingNode } from './conicalslicing.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ConicalSlicingNode', () => {
   it('should create ConicalSlicing', async () => {

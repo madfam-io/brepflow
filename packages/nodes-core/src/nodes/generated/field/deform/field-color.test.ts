@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldColorNode } from './fieldcolor-node';
-import { createTestContext } from '../test-utils';
+import { FieldColorNode } from './fieldcolor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldColorNode', () => {
   it('should create FieldColor', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BSplineSurfaceNode } from './bsplinesurface-node';
-import { createTestContext } from '../test-utils';
+import { BSplineSurfaceNode } from './bsplinesurface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BSplineSurfaceNode', () => {
   it('should create BSplineSurface', async () => {

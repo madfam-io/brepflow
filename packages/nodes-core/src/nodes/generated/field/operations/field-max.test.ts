@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldMaxNode } from './fieldmax-node';
-import { createTestContext } from '../test-utils';
+import { FieldMaxNode } from './fieldmax.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldMaxNode', () => {
   it('should create FieldMax', async () => {

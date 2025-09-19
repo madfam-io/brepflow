@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CoolingAnalysisNode } from './coolinganalysis-node';
-import { createTestContext } from '../test-utils';
+import { CoolingAnalysisNode } from './coolinganalysis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CoolingAnalysisNode', () => {
   it('should create CoolingAnalysis', async () => {

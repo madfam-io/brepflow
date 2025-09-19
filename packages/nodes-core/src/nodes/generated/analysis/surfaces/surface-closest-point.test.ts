@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceClosestPointNode } from './surfaceclosestpoint-node';
-import { createTestContext } from '../test-utils';
+import { SurfaceClosestPointNode } from './surfaceclosestpoint.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SurfaceClosestPointNode', () => {
   it('should create SurfaceClosestPoint', async () => {

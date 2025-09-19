@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { MultiRobotCoordinationNode } from './multirobotcoordination-node';
-import { createTestContext } from '../test-utils';
+import { MultiRobotCoordinationNode } from './multirobotcoordination.node';
+import { createTestContext } from './../../test-utils';
 
 describe('MultiRobotCoordinationNode', () => {
   it('should create MultiRobotCoordination', async () => {

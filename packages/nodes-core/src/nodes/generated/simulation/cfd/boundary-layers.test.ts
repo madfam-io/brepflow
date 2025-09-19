@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { BoundaryLayersNode } from './boundarylayers-node';
-import { createTestContext } from '../test-utils';
+import { BoundaryLayersNode } from './boundarylayers.node';
+import { createTestContext } from './../../test-utils';
 
 describe('BoundaryLayersNode', () => {
   it('should create BoundaryLayers', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RaftGenerationNode } from './raftgeneration-node';
-import { createTestContext } from '../test-utils';
+import { RaftGenerationNode } from './raftgeneration.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RaftGenerationNode', () => {
   it('should create RaftGeneration', async () => {

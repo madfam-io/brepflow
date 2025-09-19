@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldInvertNode } from './fieldinvert-node';
-import { createTestContext } from '../test-utils';
+import { FieldInvertNode } from './fieldinvert.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldInvertNode', () => {
   it('should create FieldInvert', async () => {

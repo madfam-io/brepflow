@@ -1,0 +1,554 @@
+/**
+ * Camera Sync Demo CSS
+ * Professional styling for camera synchronization demonstration
+ */
+
+.camera-sync-demo {
+  --demo-primary: #0ea5e9;
+  --demo-secondary: #64748b;
+  --demo-success: #10b981;
+  --demo-warning: #f59e0b;
+  --demo-danger: #ef4444;
+  --demo-bg: #0f172a;
+  --demo-bg-light: #1e293b;
+  --demo-border: #334155;
+  --demo-text: #f8fafc;
+  --demo-text-muted: #94a3b8;
+  --demo-radius: 8px;
+  --demo-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: var(--demo-bg);
+  color: var(--demo-text);
+  overflow: hidden;
+}
+
+/* Demo Layout */
+.demo-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.demo-viewport {
+  flex: 1;
+  position: relative;
+  background: var(--demo-bg-light);
+  border-right: 1px solid var(--demo-border);
+}
+
+.demo-sidebar {
+  width: 400px;
+  background: var(--demo-bg);
+  border-left: 1px solid var(--demo-border);
+  overflow-y: auto;
+  padding: 20px;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Demo Controls Panel */
+.demo-controls-panel {
+  background: var(--demo-bg-light);
+  border: 1px solid var(--demo-border);
+  border-radius: var(--demo-radius);
+}
+
+.demo-scenarios {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.demo-scenario-card {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: var(--demo-bg);
+  border: 1px solid var(--demo-border);
+  border-radius: var(--demo-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.demo-scenario-card:hover {
+  background: rgba(14, 165, 233, 0.1);
+  border-color: var(--demo-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--demo-shadow);
+}
+
+.demo-scenario-card.active {
+  background: rgba(14, 165, 233, 0.2);
+  border-color: var(--demo-primary);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.3);
+}
+
+.demo-scenario-card.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--demo-primary);
+}
+
+.scenario-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.scenario-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--demo-bg-light);
+  border-radius: 6px;
+  border: 1px solid var(--demo-border);
+}
+
+.scenario-info {
+  flex: 1;
+}
+
+.scenario-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--demo-text);
+}
+
+.scenario-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.sync-mode {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--demo-primary);
+  background: rgba(14, 165, 233, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.layout-type {
+  font-size: 11px;
+  color: var(--demo-text-muted);
+  text-transform: capitalize;
+}
+
+.scenario-description {
+  margin: 0;
+  font-size: 13px;
+  color: var(--demo-text-muted);
+  line-height: 1.4;
+}
+
+.scenario-status {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--demo-border);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-indicator.active {
+  color: var(--demo-success);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--demo-success);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+/* Demo Actions */
+.demo-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.demo-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--demo-bg);
+  border: 1px solid var(--demo-border);
+  border-radius: var(--demo-radius);
+  color: var(--demo-text);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.demo-action-btn:hover {
+  background: var(--demo-bg-light);
+  border-color: var(--demo-primary);
+}
+
+.demo-action-btn.reset:hover {
+  border-color: var(--demo-warning);
+  color: var(--demo-warning);
+}
+
+.demo-action-btn.performance:hover {
+  border-color: var(--demo-success);
+  color: var(--demo-success);
+}
+
+/* Performance Panel */
+.performance-panel {
+  background: var(--demo-bg-light);
+  border: 1px solid var(--demo-border);
+  border-radius: var(--demo-radius);
+}
+
+.performance-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.metric-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.metric-group h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--demo-text);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--demo-border);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background: var(--demo-bg);
+  border: 1px solid var(--demo-border);
+  border-radius: var(--demo-radius);
+  text-align: center;
+}
+
+.metric-label {
+  font-size: 11px;
+  color: var(--demo-text-muted);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-value {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+}
+
+.metric-value.good {
+  color: var(--demo-success);
+}
+
+.metric-value.acceptable {
+  color: var(--demo-warning);
+}
+
+.metric-value.poor {
+  color: var(--demo-danger);
+}
+
+/* Scene Stats */
+.scene-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--demo-bg);
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.stat-label {
+  color: var(--demo-text-muted);
+}
+
+.stat-value {
+  color: var(--demo-text);
+  font-weight: 500;
+  font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+}
+
+/* Performance Targets */
+.targets-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.target-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--demo-text-muted);
+}
+
+.target-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.target-item.good .target-indicator {
+  background: var(--demo-success);
+}
+
+.target-item.acceptable .target-indicator {
+  background: var(--demo-warning);
+}
+
+.target-item.poor .target-indicator {
+  background: var(--demo-danger);
+}
+
+/* Camera Debug Panel */
+.camera-debug-panel {
+  background: var(--demo-bg-light);
+  border: 1px solid var(--demo-border);
+  border-radius: var(--demo-radius);
+}
+
+.camera-states {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.camera-state-item {
+  padding: 12px;
+  background: var(--demo-bg);
+  border: 1px solid var(--demo-border);
+  border-radius: var(--demo-radius);
+}
+
+.camera-id {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--demo-primary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.camera-data {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.camera-property {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.property-label {
+  color: var(--demo-text-muted);
+  font-weight: 500;
+}
+
+.property-value {
+  color: var(--demo-text);
+  font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+  text-align: right;
+}
+
+/* Demo Overlay */
+.demo-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.demo-info {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--demo-border);
+  border-radius: var(--demo-radius);
+  padding: 16px 20px;
+  backdrop-filter: blur(16px);
+  animation: demoInfoAppear 0.5s ease;
+}
+
+@keyframes demoInfoAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.demo-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--demo-primary);
+  margin-bottom: 4px;
+}
+
+.demo-hint {
+  font-size: 13px;
+  color: var(--demo-text-muted);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .demo-sidebar {
+    width: 320px;
+    padding: 16px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .demo-scenario-card {
+    padding: 12px;
+  }
+
+  .scenario-header {
+    gap: 8px;
+  }
+
+  .scenario-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .demo-layout {
+    flex-direction: column;
+  }
+
+  .demo-viewport {
+    flex: 1;
+    border-right: none;
+    border-bottom: 1px solid var(--demo-border);
+  }
+
+  .demo-sidebar {
+    width: 100%;
+    height: 300px;
+    border-left: none;
+    border-top: 1px solid var(--demo-border);
+    padding: 16px;
+    overflow-y: auto;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-actions {
+    flex-direction: column;
+  }
+
+  .demo-overlay {
+    left: 10px;
+    right: 10px;
+    top: 10px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .camera-sync-demo {
+    --demo-border: #ffffff;
+    --demo-text: #ffffff;
+    --demo-bg: #000000;
+    --demo-bg-light: #333333;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .demo-scenario-card,
+  .demo-action-btn,
+  .status-dot,
+  .demo-info {
+    transition: none;
+    animation: none;
+  }
+
+  .demo-scenario-card:hover {
+    transform: none;
+  }
+}
+
+/* Focus management */
+.demo-scenario-card:focus-visible,
+.demo-action-btn:focus-visible {
+  outline: 2px solid var(--demo-primary);
+  outline-offset: 2px;
+}

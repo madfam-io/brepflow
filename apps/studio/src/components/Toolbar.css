@@ -1,101 +1,138 @@
 .toolbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--spacing-4);
-  height: 44px; /* Reduced from 50px for better density */
-  padding: 0 var(--spacing-4);
-  background: var(--color-surface-primary);
+  height: 48px; /* Professional standard height */
+  padding: 0 var(--spacing-5);
+  background: var(--gradient-surface);
   border-bottom: 1px solid var(--color-border);
-  box-shadow: var(--shadow-toolbar);
-  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-toolbar-enhanced);
+  backdrop-filter: blur(12px);
   position: relative;
   z-index: var(--z-index-sticky);
+  transition: var(--transition-panel);
+  isolation: isolate;
 }
 
 .toolbar-group {
   display: flex;
-  gap: var(--spacing-2);
+  gap: var(--spacing-3);
   align-items: center;
-}
-
-.toolbar-btn {
-  padding: var(--spacing-2) var(--spacing-4);
-  background: var(--color-surface-secondary);
-  color: var(--color-text-primary);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-tight);
-  transition: var(--transition-button);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  box-shadow: var(--shadow-button);
   position: relative;
-  overflow: hidden;
 }
 
-.toolbar-btn::before {
+/* Enhanced toolbar group separator */
+.toolbar-group:not(:last-child):not(.toolbar-info)::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--gradient-button);
-  opacity: 0;
-  transition: var(--transition-hover);
+  right: calc(-1 * var(--spacing-4) / 2);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 20px;
+  background: linear-gradient(to bottom, transparent 0%, var(--color-border) 20%, var(--color-border) 80%, transparent 100%);
+  opacity: 0.6;
 }
 
-.toolbar-btn:hover {
-  background: var(--color-surface-tertiary);
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-button-hover);
-  transform: translateY(-1px);
+/* Professional action group styling */
+.toolbar-group:first-child {
+  /* Primary action group - evaluate */
 }
 
-.toolbar-btn:hover::before {
-  opacity: 1;
+.toolbar-group:nth-child(2) {
+  /* File operations group - import/export */
 }
 
-.toolbar-btn:focus {
-  outline: none;
-  box-shadow: var(--shadow-focus), var(--shadow-button);
+.toolbar-group:nth-child(3) {
+  /* Destructive actions group - clear */
 }
 
-.toolbar-btn:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-sm);
-}
-
-.toolbar-btn.primary {
-  background: var(--gradient-primary);
-  border-color: var(--color-primary-600);
-  color: var(--color-text-inverse);
-}
-
-.toolbar-btn.primary:hover {
-  background: var(--color-primary-700);
-  border-color: var(--color-primary-700);
-  transform: translateY(-1px);
-}
-
-.toolbar-btn.danger {
-  background: var(--color-error);
-  border-color: var(--color-error-dark);
-  color: var(--color-text-inverse);
-}
-
-.toolbar-btn.danger:hover {
-  background: var(--color-error-dark);
-  border-color: var(--color-error-dark);
-  transform: translateY(-1px);
+/* Enhanced toolbar hover state */
+.toolbar:hover {
+  box-shadow: var(--shadow-panel-elevated);
+  background: var(--gradient-surface-elevated);
 }
 
 .toolbar-info {
   margin-left: auto;
-  color: var(--text-tertiary);
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  transition: var(--transition-colors);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.toolbar-info:hover {
+  background: var(--color-surface-tertiary);
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-strong);
+}
+
+/* Professional spacing and alignment */
+.toolbar .btn {
+  /* Enhanced buttons inherit from design system */
+  box-shadow: var(--shadow-button-enhanced);
+}
+
+.toolbar .btn:hover {
+  box-shadow: var(--shadow-interactive-hover);
+  transform: translateY(-1px);
+}
+
+.toolbar .btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-button);
+}
+
+/* Enhanced focus states for accessibility */
+.toolbar .btn:focus-visible {
+  box-shadow: var(--shadow-focus), var(--shadow-button-enhanced);
+  z-index: 1;
+}
+
+/* Dark theme enhancements */
+@media (prefers-color-scheme: dark) {
+  .toolbar {
+    background: var(--gradient-surface-dark);
+    border-bottom-color: var(--color-border-dark);
+  }
+
+  .toolbar-info {
+    background: var(--color-surface-dark-secondary);
+    border-color: var(--color-border-dark);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .toolbar {
+    border-bottom-width: 2px;
+  }
+
+  .toolbar-group:not(:last-child):not(.toolbar-info)::after {
+    background: var(--color-border-strong);
+    opacity: 1;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .toolbar,
+  .toolbar-info,
+  .toolbar .btn {
+    transition: none;
+  }
+
+  .toolbar .btn:hover {
+    transform: none;
+  }
 }

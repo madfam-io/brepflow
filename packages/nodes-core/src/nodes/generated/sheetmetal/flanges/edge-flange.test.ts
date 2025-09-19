@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { EdgeFlangeNode } from './edgeflange-node';
-import { createTestContext } from '../test-utils';
+import { EdgeFlangeNode } from './edgeflange.node';
+import { createTestContext } from './../../test-utils';
 
 describe('EdgeFlangeNode', () => {
   it('should create EdgeFlange', async () => {

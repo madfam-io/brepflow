@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { CubicInterpNode } from './cubicinterp-node';
-import { createTestContext } from '../test-utils';
+import { CubicInterpNode } from './cubicinterp.node';
+import { createTestContext } from './../../test-utils';
 
 describe('CubicInterpNode', () => {
   it('should create CubicInterp', async () => {

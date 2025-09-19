@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToleranceAnalysisNode } from './toleranceanalysis-node';
-import { createTestContext } from '../test-utils';
+import { ToleranceAnalysisNode } from './toleranceanalysis.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ToleranceAnalysisNode', () => {
   it('should create ToleranceAnalysis', async () => {

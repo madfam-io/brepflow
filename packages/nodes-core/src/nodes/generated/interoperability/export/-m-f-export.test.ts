@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { 3MFExportNode } from './3mfexport-node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from './../../test-utils';
 
 describe('3MFExportNode', () => {
   it('should create 3MFExport', async () => {

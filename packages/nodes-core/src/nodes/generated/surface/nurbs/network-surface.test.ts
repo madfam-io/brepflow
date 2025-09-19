@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { NetworkSurfaceNode } from './networksurface-node';
-import { createTestContext } from '../test-utils';
+import { NetworkSurfaceNode } from './networksurface.node';
+import { createTestContext } from './../../test-utils';
 
 describe('NetworkSurfaceNode', () => {
   it('should create NetworkSurface', async () => {

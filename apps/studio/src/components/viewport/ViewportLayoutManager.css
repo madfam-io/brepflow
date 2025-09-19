@@ -1,0 +1,533 @@
+/* ViewportLayoutManager - Professional Multi-Viewport Layout System */
+.viewport-layout-manager {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--color-surface-primary);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Layout Controls */
+.viewport-layout-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-3) var(--spacing-4);
+  background: var(--color-surface-secondary);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(8px);
+  z-index: 20;
+  min-height: 56px;
+  transition: var(--transition-colors);
+}
+
+/* Layout Selector */
+.layout-selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.layout-toggle-btn {
+  position: relative;
+  transition: var(--transition-button);
+}
+
+.layout-toggle-btn::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 6px;
+  height: 6px;
+  background: var(--color-engineering-500);
+  border: 2px solid var(--color-surface-secondary);
+  border-radius: 50%;
+  opacity: 0;
+  transition: var(--transition-colors);
+}
+
+.layout-toggle-btn.active::after {
+  opacity: 1;
+}
+
+.layout-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: var(--spacing-2);
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-dropdown-enhanced);
+  z-index: 50;
+  min-width: 180px;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  animation: layoutMenuAppear 0.2s var(--ease-out);
+}
+
+@keyframes layoutMenuAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.layout-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-colors);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-transform: capitalize;
+  text-align: left;
+}
+
+.layout-option:hover {
+  background: var(--color-surface-secondary);
+}
+
+.layout-option.active {
+  background: var(--color-engineering-100);
+  color: var(--color-engineering-700);
+}
+
+.layout-option.active .btn {
+  background: var(--color-engineering-200);
+  color: var(--color-engineering-800);
+}
+
+/* Camera Sync Controls */
+.camera-sync-btn {
+  position: relative;
+  transition: var(--transition-button);
+}
+
+.camera-sync-btn.btn-primary {
+  background: var(--color-engineering-500);
+  color: white;
+  box-shadow: var(--shadow-button-active);
+}
+
+.camera-sync-btn.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(45deg, var(--color-engineering-400), var(--color-engineering-600));
+  border-radius: var(--radius-md);
+  z-index: -1;
+  opacity: 0.2;
+  animation: cameraSyncPulse 2s ease-in-out infinite;
+}
+
+@keyframes cameraSyncPulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.05);
+  }
+}
+
+.sync-settings-btn {
+  position: relative;
+  transition: var(--transition-button);
+}
+
+.sync-settings-btn.btn-primary {
+  background: var(--color-engineering-600);
+  color: white;
+  box-shadow: var(--shadow-button-active);
+}
+
+/* Sync Controls Panel */
+.sync-controls-panel {
+  position: absolute;
+  top: 100%;
+  right: var(--spacing-4);
+  width: 380px;
+  z-index: 100;
+  margin-top: var(--spacing-2);
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-dropdown-enhanced);
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+  animation: syncPanelAppear 0.3s var(--ease-out);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+@keyframes syncPanelAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.viewport-layout-manager.sync-controls-open .sync-controls-panel {
+  display: block;
+}
+
+/* Sync Controls Layout Adjustments */
+.viewport-layout-manager.sync-controls-open {
+  position: relative;
+}
+
+.viewport-layout-manager.sync-controls-open .viewport-layout-content {
+  margin-right: 400px;
+  transition: margin-right 0.3s var(--ease-out);
+}
+
+/* Viewport Sync Controls Instance */
+.viewport-sync-controls-instance {
+  padding: var(--spacing-4);
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+/* Active Viewport Info */
+.active-viewport-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--color-engineering-100);
+  border: 1px solid var(--color-engineering-300);
+  border-radius: var(--radius-lg);
+  margin-left: auto;
+}
+
+.active-viewport-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-engineering-700);
+}
+
+.active-viewport-view {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-engineering-600);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  background: var(--color-engineering-200);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+}
+
+/* Layout Content */
+.viewport-layout-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-neutral-100);
+  padding: var(--spacing-2);
+  gap: var(--spacing-2);
+}
+
+/* Layout-Specific Styles */
+.viewport-layout-single {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-viewport-container);
+}
+
+.viewport-layout-horizontal,
+.viewport-layout-vertical,
+.viewport-layout-quad {
+  width: 100%;
+  height: 100%;
+  gap: var(--spacing-2);
+}
+
+/* Panel Group Overrides */
+.viewport-layout-content [data-panel-group] {
+  gap: var(--spacing-2);
+}
+
+.viewport-layout-content [data-panel] {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-viewport-container);
+}
+
+/* Resize Handles */
+.viewport-resize-handle {
+  background: var(--color-border);
+  position: relative;
+  transition: var(--transition-colors);
+  z-index: 10;
+}
+
+.viewport-resize-handle:hover {
+  background: var(--color-engineering-400);
+}
+
+.viewport-resize-handle::before {
+  content: '';
+  position: absolute;
+  background: var(--color-surface-primary);
+  border-radius: var(--radius-full);
+  opacity: 0;
+  transition: var(--transition-colors);
+}
+
+.viewport-resize-handle:hover::before {
+  opacity: 1;
+  background: var(--color-engineering-100);
+}
+
+/* Vertical resize handle */
+.viewport-resize-handle:not(.horizontal) {
+  width: var(--spacing-2);
+  cursor: col-resize;
+}
+
+.viewport-resize-handle:not(.horizontal)::before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 24px;
+}
+
+/* Horizontal resize handle */
+.viewport-resize-handle.horizontal {
+  height: var(--spacing-2);
+  cursor: row-resize;
+}
+
+.viewport-resize-handle.horizontal::before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 4px;
+}
+
+/* Layout State Indicators */
+.viewport-layout-manager.cameras-synced .viewport-layout-controls {
+  background: linear-gradient(135deg, var(--color-engineering-50) 0%, var(--color-surface-secondary) 100%);
+  border-bottom-color: var(--color-engineering-200);
+}
+
+.viewport-layout-manager.cameras-synced .active-viewport-info {
+  background: var(--color-engineering-200);
+  border-color: var(--color-engineering-400);
+}
+
+/* Layout Type Specific Adjustments */
+.layout-single .viewport-layout-content {
+  padding: 0;
+}
+
+.layout-quad .viewport-layout-content [data-panel-group] {
+  gap: var(--spacing-1);
+}
+
+.layout-quad .viewport-layout-content [data-panel] {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Performance Optimizations */
+.viewport-layout-manager:not(.layout-single) .viewport-instance:not(.active) {
+  /* Reduce rendering quality for inactive viewports */
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .viewport-layout-controls {
+    padding: var(--spacing-2) var(--spacing-3);
+    min-height: 48px;
+  }
+
+  .viewport-layout-content {
+    padding: var(--spacing-1);
+    gap: var(--spacing-1);
+  }
+
+  .viewport-layout-content [data-panel-group] {
+    gap: var(--spacing-1);
+  }
+
+  .active-viewport-info {
+    display: none; /* Hide on smaller screens */
+  }
+
+  .layout-menu {
+    min-width: 160px;
+  }
+
+  .layout-option {
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 768px) {
+  .viewport-layout-controls {
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2);
+    min-height: auto;
+  }
+
+  .viewport-layout-content {
+    padding: var(--spacing-1);
+  }
+
+  /* Force single layout on mobile */
+  .viewport-layout-manager:not(.layout-single) .viewport-layout-content {
+    display: none;
+  }
+
+  .viewport-layout-manager:not(.layout-single)::after {
+    content: 'Switch to single viewport for mobile viewing';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-surface-primary);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    text-align: center;
+    z-index: 100;
+  }
+}
+
+/* Dark Theme Support */
+@media (prefers-color-scheme: dark) {
+  .viewport-layout-controls {
+    background: var(--color-surface-primary);
+    border-bottom-color: var(--color-border);
+  }
+
+  .layout-menu {
+    background: var(--color-surface-secondary);
+    border-color: var(--color-border);
+  }
+
+  .viewport-layout-content {
+    background: var(--color-neutral-800);
+  }
+
+  .viewport-resize-handle {
+    background: var(--color-border);
+  }
+
+  .viewport-resize-handle:hover {
+    background: var(--color-engineering-400);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .viewport-layout-controls {
+    border-bottom-width: 2px;
+  }
+
+  .layout-menu {
+    border-width: 2px;
+  }
+
+  .active-viewport-info {
+    border-width: 2px;
+  }
+
+  .viewport-resize-handle {
+    width: var(--spacing-3);
+  }
+
+  .viewport-resize-handle.horizontal {
+    height: var(--spacing-3);
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .layout-menu {
+    animation: none;
+  }
+
+  .camera-sync-btn::before {
+    animation: none;
+  }
+
+  .viewport-resize-handle,
+  .layout-option,
+  .layout-toggle-btn {
+    transition: none;
+  }
+}
+
+/* Focus Management */
+.viewport-layout-controls:focus-within {
+  outline: 2px solid var(--color-engineering-500);
+  outline-offset: 2px;
+}
+
+.layout-toggle-btn:focus-visible,
+.camera-sync-btn:focus-visible,
+.layout-option:focus-visible {
+  outline: 2px solid var(--color-engineering-500);
+  outline-offset: 2px;
+}
+
+/* Loading States */
+.viewport-layout-manager[data-loading="true"] .viewport-layout-content {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.viewport-layout-manager[data-loading="true"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+  animation: loadingShimmer 2s ease-in-out infinite;
+  z-index: 100;
+}
+
+@keyframes loadingShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

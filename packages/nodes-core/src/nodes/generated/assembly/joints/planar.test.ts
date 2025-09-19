@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { PlanarNode } from './planar-node';
-import { createTestContext } from '../test-utils';
+import { PlanarNode } from './planar.node';
+import { createTestContext } from './../../test-utils';
 
 describe('PlanarNode', () => {
   it('should create Planar', async () => {

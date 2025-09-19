@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { ChainSprocketNode } from './chainsprocket-node';
-import { createTestContext } from '../test-utils';
+import { ChainSprocketNode } from './chainsprocket.node';
+import { createTestContext } from './../../test-utils';
 
 describe('ChainSprocketNode', () => {
   it('should create ChainSprocket', async () => {

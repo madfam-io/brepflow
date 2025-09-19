@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FoundationWallNode } from './foundationwall-node';
-import { createTestContext } from '../test-utils';
+import { FoundationWallNode } from './foundationwall.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FoundationWallNode', () => {
   it('should create FoundationWall', async () => {

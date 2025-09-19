@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SupportGenerationNode } from './supportgeneration-node';
-import { createTestContext } from '../test-utils';
+import { SupportGenerationNode } from './supportgeneration.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SupportGenerationNode', () => {
   it('should create SupportGeneration', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldHistogramNode } from './fieldhistogram-node';
-import { createTestContext } from '../test-utils';
+import { FieldHistogramNode } from './fieldhistogram.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldHistogramNode', () => {
   it('should create FieldHistogram', async () => {

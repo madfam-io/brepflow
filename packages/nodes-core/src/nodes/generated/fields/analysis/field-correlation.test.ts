@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldCorrelationNode } from './fieldcorrelation-node';
-import { createTestContext } from '../test-utils';
+import { FieldCorrelationNode } from './fieldcorrelation.node';
+import { createTestContext } from './../../test-utils';
 
 describe('FieldCorrelationNode', () => {
   it('should create FieldCorrelation', async () => {

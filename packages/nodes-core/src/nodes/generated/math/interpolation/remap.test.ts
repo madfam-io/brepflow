@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RemapNode } from './remap-node';
-import { createTestContext } from '../test-utils';
+import { RemapNode } from './remap.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RemapNode', () => {
   it('should create Remap', async () => {

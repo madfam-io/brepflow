@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SlidingDoorNode } from './slidingdoor-node';
-import { createTestContext } from '../test-utils';
+import { SlidingDoorNode } from './slidingdoor.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SlidingDoorNode', () => {
   it('should create SlidingDoor', async () => {

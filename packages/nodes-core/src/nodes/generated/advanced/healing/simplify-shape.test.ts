@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SimplifyShapeNode } from './simplifyshape-node';
-import { createTestContext } from '../test-utils';
+import { SimplifyShapeNode } from './simplifyshape.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SimplifyShapeNode', () => {
   it('should create SimplifyShape', async () => {

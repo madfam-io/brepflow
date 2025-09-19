@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { SubtractNode } from './subtract-node';
-import { createTestContext } from '../test-utils';
+import { SubtractNode } from './subtract.node';
+import { createTestContext } from './../../test-utils';
 
 describe('SubtractNode', () => {
   it('should create Subtract', async () => {

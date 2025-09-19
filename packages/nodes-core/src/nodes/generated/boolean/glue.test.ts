@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { GlueNode } from './glue-node';
-import { createTestContext } from '../test-utils';
+import { GlueNode } from './glue.node';
+import { createTestContext } from './../test-utils';
 
 describe('GlueNode', () => {
   it('should create Glue', async () => {

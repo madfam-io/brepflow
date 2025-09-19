@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { VisibilityGraphNode } from './visibilitygraph-node';
-import { createTestContext } from '../test-utils';
+import { VisibilityGraphNode } from './visibilitygraph.node';
+import { createTestContext } from './../../test-utils';
 
 describe('VisibilityGraphNode', () => {
   it('should create VisibilityGraph', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { AirBearingNode } from './airbearing-node';
-import { createTestContext } from '../test-utils';
+import { AirBearingNode } from './airbearing.node';
+import { createTestContext } from './../../test-utils';
 
 describe('AirBearingNode', () => {
   it('should create AirBearing', async () => {

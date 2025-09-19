@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { RampEntryNode } from './rampentry-node';
-import { createTestContext } from '../test-utils';
+import { RampEntryNode } from './rampentry.node';
+import { createTestContext } from './../../test-utils';
 
 describe('RampEntryNode', () => {
   it('should create RampEntry', async () => {

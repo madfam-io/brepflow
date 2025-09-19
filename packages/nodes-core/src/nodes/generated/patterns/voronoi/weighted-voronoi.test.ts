@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { WeightedVoronoiNode } from './weightedvoronoi-node';
-import { createTestContext } from '../test-utils';
+import { WeightedVoronoiNode } from './weightedvoronoi.node';
+import { createTestContext } from './../../test-utils';
 
 describe('WeightedVoronoiNode', () => {
   it('should create WeightedVoronoi', async () => {
