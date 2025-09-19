@@ -103,7 +103,7 @@ registerNode({
 - COOP/COEP headers required for WASM threads
 - CSP strict mode, no inline eval
 
-## Current Status (September 2025)
+## Current Status
 
 **MVP (v0.1)** - ~95% Complete, Ready for Testing
 ✅ **Working**: Complete node editor, 30+ geometry nodes, real-time evaluation, CLI tools, mock geometry

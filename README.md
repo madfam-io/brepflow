@@ -18,7 +18,7 @@ by **Aureo Labs** — a **MADFAM** company
 * **Exact geometry** — OCCT‑class B‑Rep/NURBS. Real fillets, shells, drafts. Clean **STEP AP242**.
 * **Web‑native** — no installs. WASM workers, multi‑threaded where supported (COOP/COEP).
 * **Visual + Scriptable** — node graphs for designers, **CLI/SDK** for automation and CI.
-* **Interoperable** — STEP/IGES today; 3DM/USD/glTF next.
+* **Interoperable** — STEP/IGES import/export; 3DM/USD/glTF planned.
 
 > If you know OpenSCAD: BrepFlow adds exact B‑Reps, fillets, and STEP while keeping deterministic, batchable workflows. If you know Grasshopper: BrepFlow brings a similar node experience, focused on manufacturable solids in the browser.
 
@@ -239,7 +239,7 @@ Plugins run in a sandboxed worker and cannot access DOM/network without explicit
 
 ## Interoperability
 
-* **STEP AP242/IGES** today.
+* **STEP AP242/IGES** import/export.
 * **3DM (openNURBS), USD, glTF** planned.
 * Downstream tested with: Onshape, SolidWorks, FreeCAD (via CI import checks).
 
