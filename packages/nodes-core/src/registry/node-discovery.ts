@@ -5,8 +5,8 @@
 
 import { EnhancedNodeRegistry } from './enhanced-node-registry';
 import { NodeDefinition } from '@brepflow/types';
+import { createDemonstrationNodes } from './demonstration-nodes';
 
-// Temporarily disabled generated node registry due to missing implementation files
 // import { nodeRegistry } from '../nodes/generated/index.generated';
 
 /**
@@ -24,13 +24,21 @@ export async function discoverAllNodes(): Promise<{
   // Clear any existing registrations
   registry.clear();
 
-  // Temporarily using empty node array since generated nodes are disabled
-  // TODO: Re-enable when generated node files are properly created
-  const generatedNodes: NodeDefinition[] = [];
-  console.log(`📦 Found ${generatedNodes.length} generated nodes (currently disabled)`);
+  // Create enhanced demonstration nodes to show UI capabilities
+  const demoNodes = createDemonstrationNodes();
+  console.log(`📦 Found ${demoNodes.length} demonstration nodes`);
 
-  let registeredCount = 0;
-  console.log(`📝 Registered ${registeredCount} nodes (generated nodes disabled for build stability)`);
+  // Register demonstration nodes
+  for (const nodeDefinition of demoNodes) {
+    try {
+      registry.registerNode(nodeDefinition);
+      registeredCount++;
+    } catch (error) {
+      console.warn(`⚠️ Failed to register node ${nodeDefinition.name}:`, error);
+    }
+  }
+
+  console.log(`📝 Registered ${registeredCount} demonstration nodes`);
 
   // Get final statistics
   const statistics = registry.getStatistics();
@@ -104,14 +112,18 @@ export function validateNodeDiscovery(): {
     cat => !discoveredCategories.includes(cat)
   );
 
-  // Temporarily relaxed validation since generated nodes are disabled
-  const isValid = true; // Allow build to proceed without generated nodes
+  // Validate that we have a reasonable number of nodes for demonstration
+  const isValid = statistics.totalNodes >= 20; // Should have at least 20 nodes for demo
 
   if (missingCategories.length > 0) {
-    console.warn(`⚠️ Some categories missing (expected due to disabled generated nodes): ${missingCategories.join(', ')}`);
+    console.warn(`⚠️ Some categories missing from demonstration: ${missingCategories.join(', ')}`);
   }
 
-  console.log('✅ Node discovery validation passed (relaxed mode for build stability)');
+  if (isValid) {
+    console.log('✅ Node discovery validation passed');
+  } else {
+    console.error(`❌ Node discovery validation failed: only ${statistics.totalNodes} nodes found (expected at least 20)`);
+  }
 
   return {
     isValid,

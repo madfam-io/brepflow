@@ -432,23 +432,39 @@ export function useResilientNodeDiscovery() {
       const discoveryErrors: string[] = [];
 
       try {
-        // Try to dynamically import the nodes-core package
-        const { EnhancedNodeRegistry } = await import('@brepflow/nodes-core');
+        // Try to dynamically import the nodes-core package and initialize the registry
+        const { registerAllNodes, getEnhancedRegistry } = await import('@brepflow/nodes-core');
 
-        if (EnhancedNodeRegistry && typeof EnhancedNodeRegistry.getAllNodes === 'function') {
-          const dynamicNodes = EnhancedNodeRegistry.getAllNodes();
+        if (registerAllNodes && getEnhancedRegistry) {
+          console.log('🔍 Starting dynamic node discovery...');
+
+          // Initialize the enhanced registry with demonstration nodes
+          await registerAllNodes();
+
+          // Get the populated registry instance
+          const registry = getEnhancedRegistry();
+          const dynamicNodes = registry.getAllNodes();
 
           if (dynamicNodes && dynamicNodes.length > 0) {
             // Success: use dynamic registry
-            console.log(`✅ Successfully discovered ${dynamicNodes.length} nodes from registry`);
-            setDiscoveredNodes(dynamicNodes);
+            console.log(`✅ Successfully discovered ${dynamicNodes.length} nodes from enhanced registry`);
+            setDiscoveredNodes(dynamicNodes.map(node => ({
+              ...node,
+              metadata: {
+                label: node.name || node.type.split('::')[1] || 'Unknown',
+                description: node.description || 'No description available',
+                category: node.category || 'Uncategorized',
+                tags: node.metadata?.tags || [],
+                complexity: (node.metadata?.complexity as 'beginner' | 'intermediate' | 'advanced') || 'intermediate'
+              }
+            })));
             setDiscoveryStatus('complete');
             return;
           } else {
-            discoveryErrors.push('Registry returned empty node list');
+            discoveryErrors.push('Registry returned empty node list after initialization');
           }
         } else {
-          discoveryErrors.push('EnhancedNodeRegistry not available or missing getAllNodes method');
+          discoveryErrors.push('registerAllNodes or getEnhancedRegistry not available');
         }
       } catch (error) {
         discoveryErrors.push(`Failed to import nodes-core: ${error instanceof Error ? error.message : String(error)}`);
