@@ -1,6 +1,6 @@
 export * from './worker-client';
 export * from './worker-types';
-export * from './geometry-api';
+export * from './integrated-geometry-api';
 export * from './occt-wrapper';
 export * from './occt-loader';
 export * from './real-occt-bindings';
@@ -16,12 +16,9 @@ export * from './occt-operation-router'; // Operation routing for OCCT
 // Re-export WorkerAPI type from types package
 export type { WorkerAPI } from '@brepflow/types';
 
-// Default export is the real OCCT GeometryAPI
-export { GeometryAPI as default } from './geometry-api';
-
-// Import GeometryAPI class first
-import { GeometryAPI } from './geometry-api';
+// Default export is the new IntegratedGeometryAPI
+export { IntegratedGeometryAPI as default, getGeometryAPI, createGeometryAPI, DEFAULT_API_CONFIG } from './integrated-geometry-api';
 
 // Legacy exports for backward compatibility
-export const getGeometryAPI = () => new GeometryAPI();
+export { GeometryAPI } from './geometry-api';
 export { MockGeometry } from './mock-geometry';

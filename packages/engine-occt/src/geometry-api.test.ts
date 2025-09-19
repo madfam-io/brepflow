@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { GeometryAPI, getGeometryAPI, createGeometryAPI } from './geometry-api';
+import { IntegratedGeometryAPI, getGeometryAPI, createGeometryAPI, DEFAULT_API_CONFIG } from './integrated-geometry-api';
+import type { GeometryAPIConfig, OperationResult } from './integrated-geometry-api';
 
 // Mock the dependencies
 vi.mock('./worker-client', () => ({
@@ -36,8 +37,8 @@ vi.mock('./mock-geometry', () => ({
   }))
 }));
 
-describe('GeometryAPI', () => {
-  let geometryAPI: GeometryAPI;
+describe('IntegratedGeometryAPI', () => {
+  let geometryAPI: IntegratedGeometryAPI;
 
   afterEach(() => {
     vi.clearAllMocks();
@@ -45,13 +46,21 @@ describe('GeometryAPI', () => {
 
   describe('Initialization', () => {
     it('should create with mock implementation', () => {
-      geometryAPI = new GeometryAPI(true);
-      expect(geometryAPI.isUsingMock()).toBe(true);
+      geometryAPI = new IntegratedGeometryAPI({
+        ...DEFAULT_API_CONFIG,
+        enableRealOCCT: false,
+        fallbackToMock: true
+      });
+      expect(geometryAPI.getStats().usingRealOCCT).toBe(false);
     });
 
-    it('should create with worker implementation', () => {
-      geometryAPI = new GeometryAPI(false);
-      expect(geometryAPI.isUsingMock()).toBe(false);
+    it('should create with real OCCT implementation', () => {
+      geometryAPI = new IntegratedGeometryAPI({
+        ...DEFAULT_API_CONFIG,
+        enableRealOCCT: true,
+        fallbackToMock: false
+      });
+      expect(geometryAPI.getStats().usingRealOCCT).toBe(true);
     });
 
     it('should initialize worker when not using mock', async () => {

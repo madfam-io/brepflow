@@ -1,8 +1,10 @@
 /**
  * Advanced Memory Management for OCCT Large Model Operations
- * Implements LRU caching, progressive mesh refinement, and smart cleanup strategies
+ * Implements LRU caching, progressive mesh refinement, smart cleanup strategies,
+ * and integration with WASM capability detection and performance monitoring
  */
 
+import { WASMPerformanceMonitor } from './wasm-capability-detector';
 import type { ShapeHandle, MeshData } from '@brepflow/types';
 
 // Memory pressure levels
@@ -45,26 +47,38 @@ interface MeshLOD {
 export class AdvancedMemoryManager {
   private shapeCache = new Map<string, CacheEntry<ShapeHandle>>();
   private meshCache = new Map<string, CacheEntry<MeshLOD>>();
+  private resultCache = new Map<string, CacheEntry<any>>();
   private memoryStats = {
     totalMemoryMB: 0,
     shapeCacheMB: 0,
     meshCacheMB: 0,
+    resultCacheMB: 0,
     wasmHeapMB: 0,
-    lastCleanup: 0
+    lastCleanup: 0,
+    workersMemoryMB: 0,
+    cacheHitRate: 0,
+    evictionCount: 0
   };
 
   private gcTimer: NodeJS.Timeout | null = null;
   private pressureLevel: MemoryPressure = MemoryPressure.LOW;
+  private performanceMetrics = {
+    cacheHits: 0,
+    cacheMisses: 0,
+    evictions: 0,
+    cleanupDuration: 0
+  };
 
   constructor(private config: MemoryConfig) {
     this.startMemoryMonitoring();
-    console.log('[MemoryManager] Initialized with config:', config);
+    console.log('[MemoryManager] Initialized with enhanced config:', config);
   }
 
   /**
-   * Store shape handle with intelligent caching
+   * Store shape handle with intelligent caching and performance monitoring
    */
   cacheShape(id: string, shape: ShapeHandle, priority: number = 1): void {
+    const endMeasurement = WASMPerformanceMonitor?.startMeasurement('cache-shape-store');
     const size = this.estimateShapeSize(shape);
 
     // Check if we need to evict before adding
@@ -82,7 +96,55 @@ export class AdvancedMemoryManager {
     this.shapeCache.set(id, entry);
     this.memoryStats.shapeCacheMB += size / (1024 * 1024);
 
+    if (endMeasurement) endMeasurement();
     console.log(`[MemoryManager] Cached shape ${id} (${Math.round(size/1024)}KB, priority: ${priority})`);
+  }
+
+  /**
+   * Cache operation results for performance optimization
+   */
+  cacheResult(operationKey: string, result: any, priority: number = 1): void {
+    const endMeasurement = WASMPerformanceMonitor?.startMeasurement('cache-result-store');
+    const size = this.estimateResultSize(result);
+
+    this.ensureSpace('result', size);
+
+    const entry: CacheEntry<any> = {
+      data: result,
+      lastAccessed: Date.now(),
+      accessCount: 1,
+      size,
+      priority,
+      pinned: priority >= 10
+    };
+
+    this.resultCache.set(operationKey, entry);
+    this.memoryStats.resultCacheMB += size / (1024 * 1024);
+
+    if (endMeasurement) endMeasurement();
+    console.log(`[MemoryManager] Cached result ${operationKey} (${Math.round(size/1024)}KB)`);
+  }
+
+  /**
+   * Get cached operation result
+   */
+  getResult(operationKey: string): any | null {
+    const endMeasurement = WASMPerformanceMonitor?.startMeasurement('cache-result-get');
+    const entry = this.resultCache.get(operationKey);
+
+    if (!entry) {
+      this.performanceMetrics.cacheMisses++;
+      if (endMeasurement) endMeasurement();
+      return null;
+    }
+
+    // Update access statistics
+    entry.lastAccessed = Date.now();
+    entry.accessCount++;
+    this.performanceMetrics.cacheHits++;
+
+    if (endMeasurement) endMeasurement();
+    return entry.data;
   }
 
   /**
@@ -120,29 +182,44 @@ export class AdvancedMemoryManager {
   }
 
   /**
-   * Retrieve shape with access tracking
+   * Retrieve shape with access tracking and performance monitoring
    */
   getShape(id: string): ShapeHandle | null {
+    const endMeasurement = WASMPerformanceMonitor?.startMeasurement('cache-shape-get');
     const entry = this.shapeCache.get(id);
-    if (!entry) return null;
+
+    if (!entry) {
+      this.performanceMetrics.cacheMisses++;
+      if (endMeasurement) endMeasurement();
+      return null;
+    }
 
     // Update access statistics
     entry.lastAccessed = Date.now();
     entry.accessCount++;
+    this.performanceMetrics.cacheHits++;
 
+    if (endMeasurement) endMeasurement();
     return entry.data;
   }
 
   /**
-   * Get mesh at appropriate detail level based on memory pressure
+   * Get mesh at appropriate detail level based on memory pressure with performance monitoring
    */
   getMesh(id: string, requestedLOD?: 'high' | 'medium' | 'low' | 'bounds'): MeshData | null {
+    const endMeasurement = WASMPerformanceMonitor?.startMeasurement('cache-mesh-get');
     const entry = this.meshCache.get(id);
-    if (!entry) return null;
+
+    if (!entry) {
+      this.performanceMetrics.cacheMisses++;
+      if (endMeasurement) endMeasurement();
+      return null;
+    }
 
     // Update access statistics
     entry.lastAccessed = Date.now();
     entry.accessCount++;
+    this.performanceMetrics.cacheHits++;
 
     const meshLOD = entry.data;
 
@@ -165,18 +242,56 @@ export class AdvancedMemoryManager {
     }
 
     // Return the requested LOD, falling back as needed
+    let result: MeshData;
     switch (requestedLOD) {
       case 'high':
-        return meshLOD.high;
+        result = meshLOD.high;
+        break;
       case 'medium':
-        return meshLOD.medium || meshLOD.high;
+        result = meshLOD.medium || meshLOD.high;
+        break;
       case 'low':
-        return meshLOD.low || meshLOD.medium || meshLOD.high;
+        result = meshLOD.low || meshLOD.medium || meshLOD.high;
+        break;
       case 'bounds':
-        return meshLOD.bounds;
+        result = meshLOD.bounds;
+        break;
       default:
-        return meshLOD.high;
+        result = meshLOD.high;
     }
+
+    if (endMeasurement) endMeasurement();
+    return result;
+  }
+
+  /**
+   * Update worker memory usage tracking
+   */
+  updateWorkerMemoryUsage(memoryMB: number): void {
+    this.memoryStats.workersMemoryMB = memoryMB;
+    this.updateMemoryPressure();
+  }
+
+  /**
+   * Generate operation cache key with parameter hashing
+   */
+  generateOperationKey(operation: string, params: any): string {
+    // Simple hash of operation and parameters
+    const paramStr = JSON.stringify(params, Object.keys(params).sort());
+    return `${operation}_${this.simpleHash(paramStr)}`;
+  }
+
+  /**
+   * Simple string hash function
+   */
+  private simpleHash(str: string): string {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash).toString(36);
   }
 
   /**
@@ -204,12 +319,30 @@ export class AdvancedMemoryManager {
   }
 
   /**
-   * Ensure we have enough space for new data
+   * Ensure we have enough space for new data (enhanced with result cache support)
    */
-  private ensureSpace(type: 'shape' | 'mesh', requiredSize: number): void {
-    const cache = type === 'shape' ? this.shapeCache : this.meshCache;
-    const currentMemory = type === 'shape' ? this.memoryStats.shapeCacheMB : this.memoryStats.meshCacheMB;
-    const maxSize = type === 'shape' ? this.config.maxShapeCacheSize : this.config.maxMeshCacheSize;
+  private ensureSpace(type: 'shape' | 'mesh' | 'result', requiredSize: number): void {
+    let cache: Map<string, CacheEntry<any>>;
+    let currentMemory: number;
+    let maxSize: number;
+
+    switch (type) {
+      case 'shape':
+        cache = this.shapeCache;
+        currentMemory = this.memoryStats.shapeCacheMB;
+        maxSize = this.config.maxShapeCacheSize;
+        break;
+      case 'mesh':
+        cache = this.meshCache;
+        currentMemory = this.memoryStats.meshCacheMB;
+        maxSize = this.config.maxMeshCacheSize;
+        break;
+      case 'result':
+        cache = this.resultCache;
+        currentMemory = this.memoryStats.resultCacheMB;
+        maxSize = this.config.maxShapeCacheSize; // Use same limit as shapes for results
+        break;
+    }
 
     // Check if we exceed limits
     if (cache.size >= maxSize || (currentMemory + requiredSize / (1024 * 1024)) > this.config.maxMemoryMB * 0.8) {
@@ -218,10 +351,24 @@ export class AdvancedMemoryManager {
   }
 
   /**
-   * Evict least recently used entries
+   * Evict least recently used entries (enhanced with result cache support)
    */
-  private evictLRU(type: 'shape' | 'mesh', requiredSize: number): void {
-    const cache = type === 'shape' ? this.shapeCache : this.meshCache;
+  private evictLRU(type: 'shape' | 'mesh' | 'result', requiredSize: number): void {
+    const endMeasurement = WASMPerformanceMonitor?.startMeasurement('cache-eviction');
+    let cache: Map<string, CacheEntry<any>>;
+
+    switch (type) {
+      case 'shape':
+        cache = this.shapeCache;
+        break;
+      case 'mesh':
+        cache = this.meshCache;
+        break;
+      case 'result':
+        cache = this.resultCache;
+        break;
+    }
+
     const entries = Array.from(cache.entries())
       .filter(([_, entry]) => !entry.pinned)
       .map(([id, entry]) => ({ id, entry }))
@@ -242,13 +389,22 @@ export class AdvancedMemoryManager {
       cache.delete(id);
       evicted++;
 
-      if (type === 'shape') {
-        this.memoryStats.shapeCacheMB -= entry.size / (1024 * 1024);
-      } else {
-        this.memoryStats.meshCacheMB -= entry.size / (1024 * 1024);
+      // Update memory stats based on type
+      switch (type) {
+        case 'shape':
+          this.memoryStats.shapeCacheMB -= entry.size / (1024 * 1024);
+          break;
+        case 'mesh':
+          this.memoryStats.meshCacheMB -= entry.size / (1024 * 1024);
+          break;
+        case 'result':
+          this.memoryStats.resultCacheMB -= entry.size / (1024 * 1024);
+          break;
       }
     }
 
+    this.performanceMetrics.evictions += evicted;
+    if (endMeasurement) endMeasurement();
     console.log(`[MemoryManager] Evicted ${evicted} ${type} entries, freed ${Math.round(freedSize/1024)}KB`);
   }
 
@@ -309,13 +465,14 @@ export class AdvancedMemoryManager {
   }
 
   /**
-   * Perform regular maintenance cleanup
+   * Perform regular maintenance cleanup with enhanced monitoring
    */
   private performMaintenanceCleanup(): void {
-    const now = Date.now();
+    const cleanupStart = Date.now();
+    const endMeasurement = WASMPerformanceMonitor?.startMeasurement('memory-cleanup');
 
     // Skip if cleaned up recently
-    if (now - this.memoryStats.lastCleanup < 30000) return;
+    if (cleanupStart - this.memoryStats.lastCleanup < 30000) return;
 
     if (this.pressureLevel === MemoryPressure.HIGH || this.pressureLevel === MemoryPressure.CRITICAL) {
       console.log(`[MemoryManager] Performing ${this.pressureLevel} pressure cleanup`);
@@ -325,9 +482,39 @@ export class AdvancedMemoryManager {
 
       // Reduce mesh detail levels in memory
       this.degradeMeshQuality();
+
+      // Clean result cache more aggressively during high pressure
+      this.cleanResultCache(120000); // 2 minutes old for results
+    } else {
+      // Regular maintenance cleanup
+      this.evictByAge(1800000); // 30 minutes old
+      this.cleanResultCache(600000); // 10 minutes old for results
     }
 
-    this.memoryStats.lastCleanup = now;
+    this.memoryStats.lastCleanup = cleanupStart;
+    this.performanceMetrics.cleanupDuration = Date.now() - cleanupStart;
+
+    if (endMeasurement) endMeasurement();
+  }
+
+  /**
+   * Clean result cache based on age
+   */
+  private cleanResultCache(maxAgeMs: number): void {
+    const now = Date.now();
+    let cleaned = 0;
+
+    for (const [id, entry] of this.resultCache.entries()) {
+      if (!entry.pinned && (now - entry.lastAccessed) > maxAgeMs) {
+        this.memoryStats.resultCacheMB -= entry.size / (1024 * 1024);
+        this.resultCache.delete(id);
+        cleaned++;
+      }
+    }
+
+    if (cleaned > 0) {
+      console.log(`[MemoryManager] Cleaned ${cleaned} result cache entries`);
+    }
   }
 
   /**
@@ -486,6 +673,31 @@ export class AdvancedMemoryManager {
   }
 
   /**
+   * Estimate memory size of operation result
+   */
+  private estimateResultSize(result: any): number {
+    try {
+      // If result is a shape handle or mesh, estimate more accurately
+      if (result && typeof result === 'object') {
+        if (result.positions && result.indices) {
+          // It's mesh data
+          return this.estimateMeshSize(result);
+        } else if (result.id && result.type) {
+          // It's a shape handle
+          return this.estimateShapeSize(result);
+        }
+      }
+
+      // For other results, use JSON string length approximation
+      const jsonStr = JSON.stringify(result);
+      return jsonStr.length * 2; // UTF-16 approximation
+    } catch {
+      // Fallback for non-serializable objects
+      return 1024; // 1KB default
+    }
+  }
+
+  /**
    * Get current memory pressure level
    */
   getMemoryPressure(): MemoryPressure {
@@ -493,16 +705,63 @@ export class AdvancedMemoryManager {
   }
 
   /**
-   * Get detailed memory statistics
+   * Get enhanced memory and performance statistics
    */
   getStats() {
+    // Update cache hit rate
+    const totalCacheOps = this.performanceMetrics.cacheHits + this.performanceMetrics.cacheMisses;
+    this.memoryStats.cacheHitRate = totalCacheOps > 0 ? this.performanceMetrics.cacheHits / totalCacheOps : 0;
+
     return {
       ...this.memoryStats,
       shapeCount: this.shapeCache.size,
       meshCount: this.meshCache.size,
+      resultCount: this.resultCache.size,
       pressureLevel: this.pressureLevel,
-      cacheHitRate: this.calculateCacheHitRate()
+      performance: {
+        ...this.performanceMetrics,
+        cacheHitRate: this.memoryStats.cacheHitRate,
+        avgCleanupDuration: this.performanceMetrics.cleanupDuration
+      },
+      breakdown: {
+        shapes: `${this.shapeCache.size} entries, ${this.memoryStats.shapeCacheMB.toFixed(1)}MB`,
+        meshes: `${this.meshCache.size} entries, ${this.memoryStats.meshCacheMB.toFixed(1)}MB`,
+        results: `${this.resultCache.size} entries, ${this.memoryStats.resultCacheMB.toFixed(1)}MB`,
+        workers: `${this.memoryStats.workersMemoryMB.toFixed(1)}MB`
+      }
     };
+  }
+
+  /**
+   * Generate comprehensive memory report
+   */
+  generateMemoryReport(): string {
+    const stats = this.getStats();
+
+    return `
+=== Enhanced Memory Manager Report ===
+Pressure Level: ${stats.pressureLevel.toUpperCase()}
+Total Memory: ${stats.totalMemoryMB.toFixed(1)}MB
+
+=== Cache Statistics ===
+Shapes: ${stats.breakdown.shapes}
+Meshes: ${stats.breakdown.meshes}
+Results: ${stats.breakdown.results}
+Workers: ${stats.breakdown.workers}
+
+=== Performance Metrics ===
+Cache Hit Rate: ${(stats.performance.cacheHitRate * 100).toFixed(1)}%
+Cache Hits: ${stats.performance.cacheHits}
+Cache Misses: ${stats.performance.cacheMisses}
+Total Evictions: ${stats.performance.evictions}
+Avg Cleanup Duration: ${stats.performance.avgCleanupDuration}ms
+
+=== Memory Pressure Indicators ===
+${stats.pressureLevel === 'critical' ? '🔴 CRITICAL - Immediate cleanup required' : ''}
+${stats.pressureLevel === 'high' ? '🟡 HIGH - Consider reducing operations' : ''}
+${stats.pressureLevel === 'medium' ? '🟢 MEDIUM - Normal operation' : ''}
+${stats.pressureLevel === 'low' ? '✅ LOW - Optimal conditions' : ''}
+    `.trim();
   }
 
   /**

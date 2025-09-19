@@ -1,9 +1,11 @@
 /**
- * Worker Pool Management for OCCT Operations
- * Provides concurrent geometry processing with load balancing and automatic scaling
+ * Enhanced Worker Pool Management for OCCT Operations
+ * Provides concurrent geometry processing with load balancing, automatic scaling,
+ * and integration with WASM capability detection
  */
 
 import { WorkerClient } from './worker-client';
+import { WASMCapabilityDetector, WASMPerformanceMonitor, type OCCTConfig } from './wasm-capability-detector';
 import type { WorkerRequest, WorkerResponse, HealthCheckResult } from './worker-types';
 import type { ShapeHandle, MeshData } from '@brepflow/types';
 
@@ -15,6 +17,11 @@ export interface PoolWorker {
   taskCount: number;
   errorCount: number;
   memoryPressure: boolean;
+  occtMode: 'full-occt' | 'optimized-occt' | 'mock-geometry';
+  capabilities: any;
+  averageTaskDuration: number;
+  lastHealthCheck: number;
+  circuitBreakerTripped: boolean;
 }
 
 export interface PoolConfig {
@@ -25,6 +32,12 @@ export interface PoolConfig {
   healthCheckInterval: number;
   workerUrl?: string;
   memoryThreshold: number;
+  enableCapabilityDetection: boolean;
+  enablePerformanceMonitoring: boolean;
+  enableCircuitBreaker: boolean;
+  preferredOCCTMode?: 'full-occt' | 'optimized-occt' | 'mock-geometry';
+  adaptiveScaling: boolean;
+  taskTimeout: number;
 }
 
 export class WorkerPool {
@@ -34,17 +47,47 @@ export class WorkerPool {
     resolve: (value: any) => void;
     reject: (error: any) => void;
     priority: number;
+    timeout?: number;
+    operation: string;
   }> = [];
 
   private nextWorkerId = 1;
   private healthCheckTimer: NodeJS.Timeout | null = null;
   private cleanupTimer: NodeJS.Timeout | null = null;
   private isShuttingDown = false;
+  private globalCapabilities: any = null;
+  private optimalOCCTConfig: OCCTConfig | null = null;
 
   constructor(private config: PoolConfig) {
+    this.initializeCapabilities();
     this.startHealthChecks();
     this.startCleanupTimer();
     this.initializeMinWorkers();
+  }
+
+  /**
+   * Initialize capabilities and optimal configuration
+   */
+  private async initializeCapabilities(): Promise<void> {
+    if (this.config.enableCapabilityDetection) {
+      try {
+        this.globalCapabilities = await WASMCapabilityDetector.detectCapabilities();
+        this.optimalOCCTConfig = await WASMCapabilityDetector.getOptimalConfiguration();
+        console.log('[WorkerPool] Detected capabilities:', this.globalCapabilities);
+        console.log('[WorkerPool] Optimal OCCT config:', this.optimalOCCTConfig);
+      } catch (error) {
+        console.warn('[WorkerPool] Failed to detect capabilities:', error);
+        // Fallback to basic configuration
+        this.optimalOCCTConfig = {
+          mode: 'mock-geometry',
+          wasmFile: '',
+          workers: 2,
+          memory: '512MB',
+          useThreads: false,
+          enableSIMD: false
+        };
+      }
+    }
   }
 
   /**
@@ -60,13 +103,27 @@ export class WorkerPool {
   }
 
   /**
-   * Create a new worker
+   * Create a new capability-aware worker
    */
   private async createWorker(): Promise<PoolWorker> {
     const id = `worker_${this.nextWorkerId++}`;
-    const client = new WorkerClient(this.config.workerUrl);
+    const startTime = Date.now();
+
+    if (this.config.enablePerformanceMonitoring) {
+      const endMeasurement = WASMPerformanceMonitor.startMeasurement(`worker-creation-${id}`);
+    }
 
     try {
+      // Determine OCCT mode for this worker
+      const occtMode = this.determineWorkerOCCTMode();
+
+      // Create worker client with enhanced configuration
+      const client = new WorkerClient(this.config.workerUrl, {
+        occtMode,
+        capabilities: this.globalCapabilities,
+        enablePerformanceMonitoring: this.config.enablePerformanceMonitoring
+      });
+
       await client.init();
 
       const worker: PoolWorker = {
@@ -77,23 +134,84 @@ export class WorkerPool {
         taskCount: 0,
         errorCount: 0,
         memoryPressure: false,
+        occtMode,
+        capabilities: this.globalCapabilities,
+        averageTaskDuration: 0,
+        lastHealthCheck: Date.now(),
+        circuitBreakerTripped: false,
       };
 
       this.workers.set(id, worker);
-      console.log(`[WorkerPool] Created worker ${id}`);
+
+      const duration = Date.now() - startTime;
+      console.log(`[WorkerPool] Created ${occtMode} worker ${id} in ${duration}ms`);
+
       return worker;
     } catch (error) {
       console.error(`[WorkerPool] Failed to create worker ${id}:`, error);
-      await client.terminate();
       throw error;
     }
   }
 
   /**
-   * Get an available worker or create one if needed
+   * Determine the optimal OCCT mode for a new worker
    */
-  private async getAvailableWorker(): Promise<PoolWorker> {
-    // Find idle worker
+  private determineWorkerOCCTMode(): 'full-occt' | 'optimized-occt' | 'mock-geometry' {
+    // Use explicit preference if set
+    if (this.config.preferredOCCTMode) {
+      return this.config.preferredOCCTMode;
+    }
+
+    // Use detected optimal configuration
+    if (this.optimalOCCTConfig) {
+      return this.optimalOCCTConfig.mode;
+    }
+
+    // Adaptive selection based on current pool composition
+    if (this.config.adaptiveScaling) {
+      const workerModes = Array.from(this.workers.values()).map(w => w.occtMode);
+      const fullOCCTCount = workerModes.filter(m => m === 'full-occt').length;
+      const optimizedCount = workerModes.filter(m => m === 'optimized-occt').length;
+      const mockCount = workerModes.filter(m => m === 'mock-geometry').length;
+
+      // Balance the pool - prefer having at least one of each type if capabilities allow
+      if (this.globalCapabilities?.hasWASM && fullOCCTCount === 0) {
+        return 'full-occt';
+      } else if (this.globalCapabilities?.hasWASM && optimizedCount === 0) {
+        return 'optimized-occt';
+      } else if (mockCount === 0) {
+        return 'mock-geometry';
+      }
+
+      // Default to optimal configuration
+      return this.optimalOCCTConfig?.mode || 'mock-geometry';
+    }
+
+    // Fallback to mock geometry
+    return 'mock-geometry';
+  }
+
+  /**
+   * Get an available worker or create one if needed, with optional mode preference
+   */
+  private async getAvailableWorker(preferredMode?: string): Promise<PoolWorker> {
+    // Find idle worker with preferred mode
+    if (preferredMode) {
+      for (const worker of this.workers.values()) {
+        if (!worker.busy && !worker.memoryPressure && !worker.circuitBreakerTripped && worker.occtMode === preferredMode) {
+          return worker;
+        }
+      }
+    }
+
+    // Find any idle worker (circuit breaker aware)
+    for (const worker of this.workers.values()) {
+      if (!worker.busy && !worker.memoryPressure && !worker.circuitBreakerTripped) {
+        return worker;
+      }
+    }
+
+    // Find any idle worker (ignoring circuit breaker if desperate)
     for (const worker of this.workers.values()) {
       if (!worker.busy && !worker.memoryPressure) {
         return worker;
@@ -107,9 +225,29 @@ export class WorkerPool {
 
     // Wait for a worker to become available
     return new Promise((resolve, reject) => {
+      const startTime = Date.now();
+      const timeout = 30000;
+
       const checkWorkers = () => {
+        const elapsed = Date.now() - startTime;
+        if (elapsed > timeout) {
+          reject(new Error('No workers available within timeout'));
+          return;
+        }
+
+        // Check for preferred mode first
+        if (preferredMode) {
+          for (const worker of this.workers.values()) {
+            if (!worker.busy && !worker.memoryPressure && !worker.circuitBreakerTripped && worker.occtMode === preferredMode) {
+              resolve(worker);
+              return;
+            }
+          }
+        }
+
+        // Check for any available worker
         for (const worker of this.workers.values()) {
-          if (!worker.busy && !worker.memoryPressure) {
+          if (!worker.busy && !worker.memoryPressure && !worker.circuitBreakerTripped) {
             resolve(worker);
             return;
           }
@@ -120,40 +258,72 @@ export class WorkerPool {
       };
 
       checkWorkers();
-
-      // Timeout after 30 seconds
-      setTimeout(() => {
-        reject(new Error('No workers available within timeout'));
-      }, 30000);
     });
   }
 
   /**
-   * Execute an operation on the pool
+   * Execute an operation on the pool with enhanced routing and monitoring
    */
   async execute<T = any>(
     operation: string,
     params: any,
-    priority: number = 0
+    options: {
+      priority?: number;
+      timeout?: number;
+      preferredMode?: 'full-occt' | 'optimized-occt' | 'mock-geometry';
+    } = {}
   ): Promise<T> {
     if (this.isShuttingDown) {
       throw new Error('Worker pool is shutting down');
     }
 
+    const { priority = 0, timeout = this.config.taskTimeout, preferredMode } = options;
+    const taskId = `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+    let performanceEndMeasurement: (() => number) | null = null;
+    if (this.config.enablePerformanceMonitoring) {
+      performanceEndMeasurement = WASMPerformanceMonitor.startMeasurement(`operation-${operation.toLowerCase()}`);
+    }
+
     return new Promise<T>(async (resolve, reject) => {
+      // Set up timeout
+      const timeoutId = setTimeout(() => {
+        if (performanceEndMeasurement) performanceEndMeasurement();
+        reject(new Error(`Task ${taskId} timeout after ${timeout}ms`));
+      }, timeout);
+
       try {
-        const worker = await this.getAvailableWorker();
+        const worker = await this.getAvailableWorker(preferredMode);
 
         // Mark worker as busy
         worker.busy = true;
         worker.lastUsed = Date.now();
         worker.taskCount++;
 
+        const taskStartTime = Date.now();
+
         try {
           const result = await worker.client.invoke<T>(operation, params);
 
           // Task completed successfully
+          const taskDuration = Date.now() - taskStartTime;
           worker.busy = false;
+
+          // Update worker performance metrics
+          if (worker.taskCount === 1) {
+            worker.averageTaskDuration = taskDuration;
+          } else {
+            worker.averageTaskDuration = (worker.averageTaskDuration * (worker.taskCount - 1) + taskDuration) / worker.taskCount;
+          }
+
+          // Reset circuit breaker on success
+          if (worker.circuitBreakerTripped) {
+            worker.circuitBreakerTripped = false;
+            console.log(`[WorkerPool] Circuit breaker reset for worker ${worker.id}`);
+          }
+
+          clearTimeout(timeoutId);
+          if (performanceEndMeasurement) performanceEndMeasurement();
           resolve(result);
 
           // Process next queued task if any
@@ -163,22 +333,38 @@ export class WorkerPool {
           worker.busy = false;
           worker.errorCount++;
 
+          // Circuit breaker logic
+          if (this.config.enableCircuitBreaker && worker.errorCount >= 3) {
+            worker.circuitBreakerTripped = true;
+            console.warn(`[WorkerPool] Circuit breaker tripped for worker ${worker.id}`);
+          }
+
           // Check if worker should be replaced due to errors
-          if (worker.errorCount > 3) {
+          if (worker.errorCount > 5) {
             console.warn(`[WorkerPool] Replacing worker ${worker.id} due to repeated errors`);
             this.replaceWorker(worker.id);
           }
 
+          clearTimeout(timeoutId);
+          if (performanceEndMeasurement) performanceEndMeasurement();
           reject(error);
         }
 
       } catch (error) {
-        // Could not get worker
+        // Could not get worker - queue for retry if high priority
         if (priority > 0) {
-          // High priority - queue for retry
-          this.queue.push({ request: { operation, params }, resolve, reject, priority });
+          this.queue.push({
+            request: { operation, params },
+            resolve,
+            reject,
+            priority,
+            timeout,
+            operation
+          });
           this.queue.sort((a, b) => b.priority - a.priority);
         } else {
+          clearTimeout(timeoutId);
+          if (performanceEndMeasurement) performanceEndMeasurement();
           reject(error);
         }
       }
@@ -350,7 +536,7 @@ export class WorkerPool {
   }
 }
 
-// Default pool configuration
+// Enhanced default pool configuration
 export const DEFAULT_POOL_CONFIG: PoolConfig = {
   minWorkers: 2,
   maxWorkers: 6,
@@ -358,6 +544,11 @@ export const DEFAULT_POOL_CONFIG: PoolConfig = {
   maxTasksPerWorker: 100,
   healthCheckInterval: 30000, // 30 seconds
   memoryThreshold: 1024, // 1GB in MB
+  enableCapabilityDetection: true,
+  enablePerformanceMonitoring: true,
+  enableCircuitBreaker: true,
+  adaptiveScaling: true,
+  taskTimeout: 30000, // 30 seconds
 };
 
 // Global pool instance
