@@ -54,39 +54,23 @@ export class ProductionWorkerAPI implements WorkerAPI {
 
     // Create worker
     try {
-      // In production builds, the worker should be pre-built
-      // Use robust path resolution to handle bundling scenarios
+      // Use public directory path for worker - this works reliably across environments
       let workerUrl: string;
-      try {
-        // Check if we're in development mode with Vite dev server
-        if (import.meta.url.includes('/@fs/')) {
-          // Development mode with Vite - use the correct path
-          // The worker is in the same dist directory as this file (index.mjs)
-          const baseUrl = import.meta.url.substring(0, import.meta.url.lastIndexOf('/'));
-          workerUrl = `${baseUrl}/worker.mjs`;
-          getLogger().info('Development mode: using worker from same directory');
-        } else if (import.meta.url.includes('/node_modules/')) {
-          // Running from node_modules
-          workerUrl = new URL('./worker.mjs', import.meta.url).href;
-        } else if (import.meta.url.includes('/assets/')) {
-          // Production bundle - use relative path from assets
-          const workerFile = './worker' + '.mjs';
-          workerUrl = new URL(workerFile, import.meta.url).href;
-        } else {
-          // Other environments - use relative path resolution
-          workerUrl = new URL('./worker.mjs', import.meta.url).href;
-        }
-      } catch (error) {
-        getLogger().error('Worker URL resolution error:', error);
-        // Final fallback: construct path dynamically to avoid Vite static analysis
-        const workerFile = './worker' + '.mjs';
-        workerUrl = new URL(workerFile, import.meta.url).href;
-      }
-
-      // For development with Vite, simplify to always use worker.mjs in the same directory
-      if (import.meta.url.includes('/@fs/')) {
-        const baseUrl = import.meta.url.substring(0, import.meta.url.lastIndexOf('/'));
-        workerUrl = `${baseUrl}/worker.mjs`;
+      
+      // Check if we're in development or production mode
+      if (typeof window !== 'undefined') {
+        // Browser context - use public path
+        workerUrl = '/wasm/worker.mjs';
+        getLogger().info('Browser context: using public worker path');
+      } else if (typeof self !== 'undefined') {
+        // Worker context - construct full URL
+        const origin = self.location?.origin || 'http://localhost:5174';
+        workerUrl = `${origin}/wasm/worker.mjs`;
+        getLogger().info('Worker context: using public worker URL');
+      } else {
+        // Fallback - use public path
+        workerUrl = '/wasm/worker.mjs';
+        getLogger().info('Unknown context: using fallback public worker path');
       }
 
       getLogger().info(`Creating worker with URL: ${workerUrl}`);

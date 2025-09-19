@@ -102,12 +102,12 @@ async function initializeOCCT(): Promise<OCCTModule> {
     
     // Check if we're in a worker context
     if (typeof self !== 'undefined' && typeof window === 'undefined') {
-      // In worker context - need to construct full URL
+      // In worker context - use public WASM path
       const origin = self.location?.origin || 'http://localhost:5173';
       wasmModuleUrl = `${origin}/wasm/occt.js`;
       console.log('[OCCT Production] Worker context - using URL:', wasmModuleUrl);
     } else if (typeof window !== 'undefined') {
-      // In main thread context
+      // In main thread context - use public WASM path
       wasmModuleUrl = '/wasm/occt.js';
       console.log('[OCCT Production] Main thread context - using path:', wasmModuleUrl);
     } else {
@@ -147,13 +147,13 @@ async function initializeOCCT(): Promise<OCCTModule> {
     const moduleConfig = {
       locateFile: (path: string) => {
         if (path.endsWith('.wasm')) {
-          // Construct proper URL for WASM files
+          // Construct proper URL for WASM files from public directory
           if (typeof self !== 'undefined' && typeof window === 'undefined') {
             // Worker context - need full URL
             const origin = self.location?.origin || 'http://localhost:5173';
             return `${origin}/wasm/${path}`;
           } else {
-            // Main thread - relative path works
+            // Main thread - use public path
             return `/wasm/${path}`;
           }
         }
