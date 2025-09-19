@@ -77,6 +77,77 @@
   border-color: var(--color-border-strong);
 }
 
+/* New UI elements for enhanced toolbar */
+.toolbar-shortcuts {
+  cursor: pointer;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-colors);
+}
+
+.toolbar-shortcuts:hover {
+  background: var(--color-surface-secondary);
+  color: var(--color-text-primary);
+}
+
+.toolbar-dropdown {
+  position: relative;
+}
+
+.toolbar-dropdown-menu {
+  position: absolute;
+  top: calc(100% + var(--spacing-2));
+  right: 0;
+  min-width: 200px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-dropdown);
+  z-index: var(--z-index-dropdown);
+  padding: var(--spacing-2);
+}
+
+.toolbar-dropdown-menu button {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: var(--transition-colors);
+  font-size: var(--font-size-sm);
+}
+
+.toolbar-dropdown-menu button:hover {
+  background: var(--color-surface-secondary);
+}
+
+.toolbar-toast {
+  position: fixed;
+  bottom: var(--spacing-4);
+  right: var(--spacing-4);
+  padding: var(--spacing-3) var(--spacing-4);
+  background: var(--color-success);
+  color: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-elevated);
+  z-index: var(--z-index-toast);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 /* Professional spacing and alignment */
 .toolbar .btn {
   /* Enhanced buttons inherit from design system */

@@ -4,6 +4,7 @@
  */
 
 import { getConfig, shouldUseMockGeometry } from './config/environment';
+import { shouldUseRealWASM, getWASMConfig } from './config/wasm-config';
 import type { WorkerAPI } from '@brepflow/types';
 
 // Lazy logger initialization to avoid constructor issues during module loading
@@ -36,8 +37,10 @@ export class GeometryAPIFactory {
     const config = getConfig();
     
     // Determine which API to use
+    // FORCE real WASM in development unless explicitly mocked
+    const wasmConfig = getWASMConfig();
     const useMock = options.forceMode === 'mock' || 
-                   (options.forceMode !== 'real' && shouldUseMockGeometry());
+                   (options.forceMode !== 'real' && !wasmConfig.forceRealWASM && shouldUseMockGeometry());
 
     getLogger().info('Creating geometry API', {
       useMock,

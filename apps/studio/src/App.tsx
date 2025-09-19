@@ -29,6 +29,7 @@ import './components/node-palette/EnhancedNodePalette.css';
 import { Viewport } from './components/Viewport';
 import { Inspector } from './components/Inspector';
 import { Toolbar } from './components/Toolbar';
+import { CommandPalette } from './components/CommandPalette';
 import { Console } from './components/Console';
 import { OnboardingOrchestrator } from './components/onboarding/OnboardingOrchestrator';
 import { WorkbenchLayoutManager } from './components/layout/WorkbenchLayoutManager';
@@ -64,6 +65,7 @@ function AppContent() {
   const { recordUserInteraction, executeWasmOperation } = useMonitoring();
   const { alerts } = useHealthMonitoring();
   const [showMonitoringDashboard, setShowMonitoringDashboard] = useState(false);
+  const [showCommandPalette, setShowCommandPalette] = useState(false);
 
   // Parameter dialog state
   const [parameterDialog, setParameterDialog] = useState<{
@@ -79,9 +81,18 @@ function AppContent() {
   // Initialize keyboard shortcuts for layout system
   useKeyboardShortcuts();
 
-  // Add keyboard shortcut for monitoring dashboard
+  // Add keyboard shortcuts for monitoring dashboard and command palette
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      // Ctrl+K to open command palette
+      if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+        event.preventDefault();
+        setShowCommandPalette(prev => !prev);
+        recordUserInteraction({
+          type: 'keyboard_shortcut',
+          target: 'command_palette_toggle'
+        });
+      }
       // Ctrl+Shift+M to toggle monitoring dashboard
       if (event.ctrlKey && event.shiftKey && event.key === 'M') {
         event.preventDefault();
@@ -284,6 +295,10 @@ function AppContent() {
 
   return (
     <>
+      <CommandPalette
+        isOpen={showCommandPalette}
+        onClose={() => setShowCommandPalette(false)}
+      />
       <WorkbenchLayoutManager controlsPosition="floating">
         {{
           toolbar: (
