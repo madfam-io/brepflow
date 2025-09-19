@@ -3,7 +3,8 @@
  * Structured logging with proper levels and no console.log in production
  */
 
-import { getConfig } from '@brepflow/engine-core';
+// Avoid circular dependency - use dynamic import or fallback
+let getConfig: (() => any) | undefined;
 
 export type LogLevel = 'error' | 'warn' | 'info' | 'debug';
 
@@ -28,7 +29,12 @@ export class ProductionLogger {
 
   constructor(context: string) {
     this.context = context;
-    this.logLevel = getConfig().logLevel;
+    // Default to debug in development, error in production
+    // Remove getConfig dependency to avoid circular imports
+    const isDev = typeof process !== 'undefined' ? 
+      process.env?.NODE_ENV !== 'production' : 
+      true; // Assume development in browser
+    this.logLevel = isDev ? 'debug' : 'error';
   }
 
   private shouldLog(level: LogLevel): boolean {
@@ -69,7 +75,7 @@ export class ProductionLogger {
     }
 
     // In production, send to logging service
-    if (getConfig().isProduction) {
+    if (getConfig?.()?.isProduction) {
       this.sendToLoggingService(entry);
     } else {
       // In development, use console
@@ -99,7 +105,7 @@ export class ProductionLogger {
 
   private sendToLoggingService(entry: LogEntry): void {
     // Send to Sentry if configured
-    if (getConfig().enableErrorReporting && getConfig().sentryDSN) {
+    if (getConfig?.()?.enableErrorReporting && getConfig?.()?.sentryDSN) {
       if (entry.level === 'error') {
         // Would integrate with Sentry here
         // Sentry.captureException(entry.error || new Error(entry.message));
@@ -136,7 +142,7 @@ export class ProductionLogger {
       // For now, keep logs in buffer for debugging but don't attempt external sends
       // This prevents 404 errors when /api/logs endpoint is not available
 
-      if (getConfig().isDevelopment) {
+      if (getConfig?.()?.isDevelopment) {
         // In development, you could send to a local logging endpoint
         // await fetch('/api/logs', { ... });
       }
@@ -181,7 +187,7 @@ export class ProductionLogger {
       const duration = performance.now() - start;
       this.debug(`${label} took ${duration.toFixed(2)}ms`);
       
-      if (getConfig().enablePerformanceMonitoring) {
+      if (getConfig?.()?.enablePerformanceMonitoring) {
         this.emit(this.createEntry('info', 'performance', {
           label,
           duration,
