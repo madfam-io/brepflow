@@ -143,7 +143,32 @@ export class BrepFlowScriptEngine implements ScriptEngine {
 
       // Enhanced evaluate function
       evaluate: async (ctx: ScriptContext, inputs: any, params: any) => {
-        // Create execution context with inputs and params
+        // If the script defined its own evaluate function, use it
+        if (nodeDefFromScript?.evaluate && typeof nodeDefFromScript.evaluate === 'function') {
+          try {
+            // Apply timeout to the function execution
+            const timeoutPromise = new Promise((_, reject) => {
+              setTimeout(() => {
+                reject(new Error(`Script execution timeout after ${permissions.timeoutMS}ms`));
+              }, permissions.timeoutMS);
+            });
+
+            const executionPromise = Promise.resolve(nodeDefFromScript.evaluate(ctx, inputs, params));
+
+            const result = await Promise.race([executionPromise, timeoutPromise]);
+            return result;
+          } catch (error) {
+            throw new ScriptExecutionError(
+              error instanceof Error ? error.message : 'Script execution failed',
+              ctx.runtime.nodeId,
+              undefined,
+              undefined,
+              error instanceof Error ? error : new Error(String(error))
+            );
+          }
+        }
+
+        // Fallback to sandbox execution
         const executionContext: ScriptContext = {
           ...ctx,
           inputs,

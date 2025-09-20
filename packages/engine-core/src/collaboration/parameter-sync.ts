@@ -509,7 +509,7 @@ export class ParameterSyncManager {
   /**
    * Get parameter state for all subscribed parameters
    */
-  getParameterState(): Map<string, any> {
+  getAllParameterStates(): Map<string, any> {
     const state = new Map<string, any>();
     for (const [key, paramState] of this.parameterStates) {
       state.set(key, paramState.value);

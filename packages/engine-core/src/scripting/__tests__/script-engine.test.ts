@@ -262,17 +262,18 @@ describe('ScriptEngine', () => {
 
     it('should enforce execution timeout', async () => {
       const script = `
-        function evaluate(ctx, inputs, params) {
-          // Infinite loop
-          while (true) {
-            // This should be interrupted by timeout
-          }
+        async function evaluate(ctx, inputs, params) {
+          // Long-running async operation that can be interrupted
+          await new Promise(resolve => {
+            setTimeout(resolve, 5000); // 5 second delay, longer than timeout
+          });
+          return { result: "should not reach here" };
         }
 
         return {
-          type: "Custom::InfiniteLoop",
-          name: "Infinite Loop",
-          description: "Never returns",
+          type: "Custom::SlowOperation",
+          name: "Slow Operation",
+          description: "Takes too long",
           inputs: {},
           outputs: {},
           params: {},
@@ -281,8 +282,8 @@ describe('ScriptEngine', () => {
       `;
 
       const metadata: ScriptMetadata = {
-        name: 'Infinite Loop',
-        description: 'Node with infinite loop',
+        name: 'Slow Operation',
+        description: 'Node with slow operation',
         category: 'Test',
         version: '1.0.0',
         author: 'Test',
@@ -310,7 +311,7 @@ describe('ScriptEngine', () => {
 
       await expect(
         nodeDefinition.evaluate(context, {}, {})
-      ).rejects.toThrow();
+      ).rejects.toThrow('timeout');
     });
   });
 
