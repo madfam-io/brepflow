@@ -48,7 +48,7 @@ export interface OperationResult<T = any> {
 export class IntegratedGeometryAPI {
   private static instance: IntegratedGeometryAPI | null = null;
   private occtModule: any = null;
-  private initialized = false;
+  protected initialized = false;
   private initializationPromise: Promise<void> | null = null;
   private workerPool: any = null;
   private memoryManager: any = null;
@@ -71,7 +71,10 @@ export class IntegratedGeometryAPI {
       operationTimeout: 5000,
       ...config,
     };
-    return new IntegratedGeometryAPI(mockConfig);
+    const instance = new IntegratedGeometryAPI(mockConfig);
+    // For mock instances, mark as initialized since we don't need real initialization
+    instance.initialized = true;
+    return instance;
   }
 
   /**
@@ -111,6 +114,13 @@ export class IntegratedGeometryAPI {
     }
 
     console.log('[IntegratedGeometryAPI] Initialized with config:', config);
+  }
+
+  /**
+   * Check if the API is initialized
+   */
+  get isInitialized(): boolean {
+    return this.initialized;
   }
 
   /**
@@ -453,6 +463,13 @@ export class IntegratedGeometryAPI {
   }
 
   /**
+   * Convenience method alias for getStats()
+   */
+  getStatistics() {
+    return this.getStats();
+  }
+
+  /**
    * Generate comprehensive diagnostic report
    */
   async generateDiagnosticReport(): Promise<string> {
@@ -542,6 +559,13 @@ Capabilities: ${this.capabilities ? 'Detected' : 'Not Available'}
   }
 
   /**
+   * Convenience method alias for optimize()
+   */
+  async runOptimization(): Promise<void> {
+    return this.optimize();
+  }
+
+  /**
    * Test the API with a simple operation
    */
   async test(): Promise<{ success: boolean; report: string }> {
@@ -591,6 +615,39 @@ Capabilities: ${this.capabilities ? 'Detected' : 'Not Available'}
       };
     }
   }
+
+  /**
+   * Convenience method alias for test()
+   */
+  async runAPITest(): Promise<{ success: boolean; report: string }> {
+    return this.test();
+  }
+
+  /**
+   * Execute multiple operations in batch
+   */
+  async batchExecute(operations: Array<{ operation: string; params: any }>): Promise<OperationResult[]> {
+    const results: OperationResult[] = [];
+
+    for (const { operation, params } of operations) {
+      try {
+        const result = await this.invoke(operation, params);
+        results.push(result);
+      } catch (error) {
+        results.push({
+          success: false,
+          error: error instanceof Error ? error.message : String(error),
+          performance: {
+            duration: 0,
+            memoryUsed: 0,
+            cacheHit: false
+          }
+        });
+      }
+    }
+
+    return results;
+  }
 }
 
 // PRODUCTION-SAFE default configuration
@@ -609,7 +666,7 @@ let globalGeometryAPI: IntegratedGeometryAPI | null = null;
 /**
  * Get or create the global integrated geometry API
  */
-export function getGeometryAPI(config?: Partial<GeometryAPIConfig>): IntegratedGeometryAPI {
+export function getGeometryAPI(config: Partial<GeometryAPIConfig> = {}): IntegratedGeometryAPI {
   if (!globalGeometryAPI) {
     globalGeometryAPI = new IntegratedGeometryAPI({ ...DEFAULT_API_CONFIG, ...config });
   }
@@ -619,7 +676,7 @@ export function getGeometryAPI(config?: Partial<GeometryAPIConfig>): IntegratedG
 /**
  * Create a new integrated geometry API instance
  */
-export function createGeometryAPI(config?: Partial<GeometryAPIConfig>): IntegratedGeometryAPI {
+export function createGeometryAPI(config: Partial<GeometryAPIConfig> = {}): IntegratedGeometryAPI {
   return new IntegratedGeometryAPI({ ...DEFAULT_API_CONFIG, ...config });
 }
 

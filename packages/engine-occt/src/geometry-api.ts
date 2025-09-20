@@ -35,7 +35,7 @@ export class GeometryAPI implements WorkerAPI {
   /**
    * Check if the GeometryAPI is initialized
    */
-  isInitialized(): boolean {
+  get isInitialized(): boolean {
     return this.initialized;
   }
 

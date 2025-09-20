@@ -5,7 +5,93 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { GeometryAPI } from './geometry-api';
-import { IntegratedGeometryAPI } from './integrated-geometry-api';
+import { IntegratedGeometryAPI, DEFAULT_API_CONFIG } from './integrated-geometry-api';
+
+// Mock the dependencies for IntegratedGeometryAPI
+vi.mock('./occt-loader', () => ({
+  loadOCCTModule: vi.fn().mockResolvedValue({
+    invoke: vi.fn().mockResolvedValue({ id: 'shape-1', type: 'solid' }),
+    tessellate: vi.fn().mockResolvedValue({
+      vertices: new Float32Array([0, 0, 0]),
+      indices: new Uint32Array([0, 1, 2]),
+      normals: new Float32Array([0, 0, 1])
+    }),
+    terminate: vi.fn().mockResolvedValue(undefined)
+  }),
+  generateOCCTDiagnostics: vi.fn().mockResolvedValue('OCCT Diagnostics: OK')
+}));
+
+vi.mock('./worker-pool', () => ({
+  getWorkerPool: vi.fn().mockReturnValue({
+    execute: vi.fn().mockResolvedValue({
+      result: { id: 'shape-1', type: 'solid' }
+    }),
+    shutdown: vi.fn().mockResolvedValue(undefined),
+    getStats: vi.fn().mockReturnValue({ activeWorkers: 2, queueLength: 0 })
+  }),
+  DEFAULT_POOL_CONFIG: {}
+}));
+
+vi.mock('./memory-manager', () => ({
+  getMemoryManager: vi.fn().mockReturnValue({
+    getStats: vi.fn().mockReturnValue({ totalMemoryMB: 100, cacheHitRate: 0.8 }),
+    generateOperationKey: vi.fn().mockReturnValue('cache-key-123'),
+    getResult: vi.fn().mockReturnValue(null),
+    cacheResult: vi.fn(),
+    getMesh: vi.fn().mockReturnValue(null),
+    cacheMesh: vi.fn().mockResolvedValue(undefined),
+    forceCleanup: vi.fn(),
+    shutdown: vi.fn(),
+    generateMemoryReport: vi.fn().mockReturnValue('Memory Report: OK')
+  }),
+  DEFAULT_CACHE_CONFIG: {}
+}));
+
+vi.mock('./error-recovery', () => ({
+  getErrorRecoverySystem: vi.fn().mockReturnValue({
+    validateOperation: vi.fn().mockResolvedValue({ valid: true }),
+    handleError: vi.fn().mockResolvedValue({ recovered: false }),
+    reset: vi.fn(),
+    getErrorStats: vi.fn().mockReturnValue({ totalErrors: 0, recoveredErrors: 0 }),
+    generateErrorReport: vi.fn().mockReturnValue('Error Report: No errors')
+  })
+}));
+
+vi.mock('./wasm-capability-detector', () => ({
+  WASMCapabilityDetector: {
+    detectCapabilities: vi.fn().mockResolvedValue({
+      hasWASM: true,
+      hasWorkers: true,
+      hasSharedArrayBuffer: true,
+      hasAtomics: true,
+      hasThreads: true,
+      hasSimd: true
+    })
+  },
+  WASMPerformanceMonitor: {
+    startMeasurement: vi.fn().mockReturnValue(() => {}),
+    getPerformanceReport: vi.fn().mockReturnValue('Performance Report: OK'),
+    clearMeasurements: vi.fn()
+  }
+}));
+
+vi.mock('./production-safety', () => ({
+  detectEnvironment: vi.fn().mockReturnValue({
+    isProduction: false,
+    isTest: true,
+    allowMockGeometry: true
+  }),
+  validateProductionSafety: vi.fn(),
+  createProductionSafeConfig: vi.fn().mockImplementation((config) => config),
+  createProductionErrorBoundary: vi.fn(),
+  logProductionSafetyStatus: vi.fn(),
+  ProductionSafetyError: class extends Error {
+    constructor(message, context) {
+      super(message);
+      this.context = context;
+    }
+  }
+}));
 
 // Mock the mock-geometry module with comprehensive testing interface
 vi.mock('./mock-geometry', () => ({
@@ -85,7 +171,7 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should initialize successfully', async () => {
-      geometryAPI = new IntegratedGeometryAPI();
+      geometryAPI = new IntegratedGeometryAPI(DEFAULT_API_CONFIG);
 
       // In Node.js test environment, initialization will fall back to mock
       await geometryAPI.init();
@@ -94,7 +180,7 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should handle initialization failure gracefully', async () => {
-      geometryAPI = new IntegratedGeometryAPI();
+      geometryAPI = new IntegratedGeometryAPI(DEFAULT_API_CONFIG);
 
       // Even with initialization "failure", the API should fall back to mock
       await geometryAPI.init();
@@ -118,8 +204,10 @@ describe('IntegratedGeometryAPI', () => {
       });
 
       expect(result).toBeDefined();
-      expect(result.id).toBe('box-1');
-      expect(result.type).toBe('box');
+      expect(result.success).toBe(true);
+      expect(result.result).toBeDefined();
+      expect(result.result.id).toBe('box-1');
+      expect(result.result.type).toBe('box');
     });
 
     it('should execute MAKE_SPHERE operation successfully', async () => {
@@ -129,8 +217,10 @@ describe('IntegratedGeometryAPI', () => {
       });
 
       expect(result).toBeDefined();
-      expect(result.id).toBe('sphere-1');
-      expect(result.type).toBe('sphere');
+      expect(result.success).toBe(true);
+      expect(result.result).toBeDefined();
+      expect(result.result.id).toBe('sphere-1');
+      expect(result.result.type).toBe('sphere');
     });
 
     it('should execute MAKE_CYLINDER operation successfully', async () => {
@@ -142,8 +232,10 @@ describe('IntegratedGeometryAPI', () => {
       });
 
       expect(result).toBeDefined();
-      expect(result.id).toBe('cylinder-1');
-      expect(result.type).toBe('cylinder');
+      expect(result.success).toBe(true);
+      expect(result.result).toBeDefined();
+      expect(result.result.id).toBe('cylinder-1');
+      expect(result.result.type).toBe('cylinder');
     });
 
     it('should handle operation failure gracefully', async () => {
@@ -394,8 +486,10 @@ describe('IntegratedGeometryAPI', () => {
       });
 
       expect(result).toBeDefined();
-      expect(result.id).toBe('union-1');
-      expect(result.type).toBe('solid');
+      expect(result.success).toBe(true);
+      expect(result.result).toBeDefined();
+      expect(result.result.id).toBe('union-1');
+      expect(result.result.type).toBe('solid');
     });
 
     it('should perform boolean subtract with mock', async () => {
@@ -405,8 +499,10 @@ describe('IntegratedGeometryAPI', () => {
       });
 
       expect(result).toBeDefined();
-      expect(result.id).toBe('subtract-1');
-      expect(result.type).toBe('solid');
+      expect(result.success).toBe(true);
+      expect(result.result).toBeDefined();
+      expect(result.result.id).toBe('subtract-1');
+      expect(result.result.type).toBe('solid');
     });
 
     it('should perform boolean intersect with mock', async () => {
@@ -418,8 +514,10 @@ describe('IntegratedGeometryAPI', () => {
       });
 
       expect(result).toBeDefined();
-      expect(result.id).toBe('intersect-1');
-      expect(result.type).toBe('solid');
+      expect(result.success).toBe(true);
+      expect(result.result).toBeDefined();
+      expect(result.result.id).toBe('intersect-1');
+      expect(result.result.type).toBe('solid');
     });
 
     it('should tessellate shape with mock', async () => {
@@ -427,9 +525,11 @@ describe('IntegratedGeometryAPI', () => {
       const mesh = await geometryAPI.tessellate(shape, 0.1);
 
       expect(mesh).toBeDefined();
-      expect(mesh.vertices).toBeInstanceOf(Float32Array);
-      expect(mesh.indices).toBeInstanceOf(Uint32Array);
-      expect(mesh.normals).toBeInstanceOf(Float32Array);
+      expect(mesh.success).toBe(true);
+      expect(mesh.result).toBeDefined();
+      expect(mesh.result.vertices).toBeInstanceOf(Float32Array);
+      expect(mesh.result.indices).toBeInstanceOf(Uint32Array);
+      expect(mesh.result.normals).toBeInstanceOf(Float32Array);
     });
 
     it('should handle unknown mock operations', async () => {
@@ -451,8 +551,10 @@ describe('IntegratedGeometryAPI', () => {
       });
 
       expect(result).toBeDefined();
-      expect(result.id).toBe('box-1');
-      expect(result.type).toBe('box');
+      expect(result.success).toBe(true);
+      expect(result.result).toBeDefined();
+      expect(result.result.id).toBe('box-1');
+      expect(result.result.type).toBe('box');
     });
 
     it('should tessellate through worker', async () => {
@@ -460,7 +562,9 @@ describe('IntegratedGeometryAPI', () => {
       const mesh = await geometryAPI.tessellate(shape, 0.1);
 
       expect(mesh).toBeDefined();
-      expect(mesh.vertices).toBeInstanceOf(Float32Array);
+      expect(mesh.success).toBe(true);
+      expect(mesh.result).toBeDefined();
+      expect(mesh.result.vertices).toBeInstanceOf(Float32Array);
     });
 
     it('should shutdown through worker', async () => {
@@ -476,8 +580,8 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should create new instance', () => {
-      const instance1 = new IntegratedGeometryAPI();
-      const instance2 = new IntegratedGeometryAPI();
+      const instance1 = new IntegratedGeometryAPI(DEFAULT_API_CONFIG);
+      const instance2 = new IntegratedGeometryAPI(DEFAULT_API_CONFIG);
       expect(instance1).not.toBe(instance2);
     });
   });
@@ -514,7 +618,7 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should shutdown with worker implementation', async () => {
-      geometryAPI = new IntegratedGeometryAPI();
+      geometryAPI = new IntegratedGeometryAPI(DEFAULT_API_CONFIG);
       await geometryAPI.init();
       await expect(geometryAPI.shutdown()).resolves.not.toThrow();
     });
@@ -533,8 +637,10 @@ describe('IntegratedGeometryAPI', () => {
         depth: 10
       });
 
-      expect(box.id).toBe('box-1');
-      expect(box.type).toBe('box');
+      expect(box.success).toBe(true);
+      expect(box.result).toBeDefined();
+      expect(box.result.id).toBe('box-1');
+      expect(box.result.type).toBe('box');
     });
 
     it('should return correct types for different operations', async () => {
@@ -550,8 +656,12 @@ describe('IntegratedGeometryAPI', () => {
         height: 10
       });
 
-      expect(sphere.type).toBe('sphere');
-      expect(cylinder.type).toBe('cylinder');
+      expect(sphere.success).toBe(true);
+      expect(sphere.result).toBeDefined();
+      expect(sphere.result.type).toBe('sphere');
+      expect(cylinder.success).toBe(true);
+      expect(cylinder.result).toBeDefined();
+      expect(cylinder.result.type).toBe('cylinder');
     });
   });
 });

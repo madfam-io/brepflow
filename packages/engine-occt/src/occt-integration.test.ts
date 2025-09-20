@@ -402,9 +402,10 @@ describe('OCCT Integration Tests', () => {
       if (skipIfNoOCCT()) return;
 
       if (isUsingMock()) {
-        // Mock should handle invalid IDs gracefully
-        const result = occtModule.deleteShape('invalid_id');
-        expect(result).toBeDefined(); // Mock might return undefined or void
+        // Mock should handle invalid IDs gracefully - no exception thrown
+        expect(() => {
+          occtModule.deleteShape('invalid_id');
+        }).not.toThrow();
       } else {
         expect(() => {
           occtModule.deleteShape('invalid_shape_id');
