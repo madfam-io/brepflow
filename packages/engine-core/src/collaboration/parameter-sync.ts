@@ -429,7 +429,10 @@ export class ParameterSyncManager {
     // Add listener to synchronizer
     const listener = (change: ParameterChange) => {
       this.updateParameterState(key, change);
-      callback(change.value);
+      const state = this.parameterStates.get(key);
+      if (state) {
+        callback(state);
+      }
     };
 
     this.synchronizer.addParameterChangeListener(nodeId, paramName, listener);
@@ -592,6 +595,12 @@ export class ParameterSyncManager {
     };
 
     this.parameterStates.set(key, newState);
+
+    // Trigger subscription callback if one exists
+    const callback = this.subscriptions.get(key);
+    if (callback) {
+      callback(newState);
+    }
   }
 
   private getParameterLockOwner(nodeId: NodeId, paramName: string): UserId | undefined {

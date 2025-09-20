@@ -54,7 +54,7 @@ describe('ParameterSynchronizer', () => {
       // Mock getCurrentParameterValue to return previous value
       vi.spyOn(synchronizer as any, 'getCurrentParameterValue').mockResolvedValue(10);
 
-      const updatePromise = synchronizer.updateParameter(
+      await synchronizer.updateParameter(
         sessionId,
         nodeId,
         paramName,
@@ -63,9 +63,7 @@ describe('ParameterSynchronizer', () => {
       );
 
       // Fast-forward timers to trigger throttled update
-      vi.advanceTimersByTime(200);
-
-      await updatePromise;
+      await vi.runAllTimersAsync();
 
       expect(mockCollaborationEngine.applyOperation).toHaveBeenCalledWith(
         sessionId,
@@ -87,15 +85,15 @@ describe('ParameterSynchronizer', () => {
       vi.spyOn(synchronizer as any, 'getCurrentParameterValue').mockResolvedValue(0);
 
       // Rapid updates
-      synchronizer.updateParameter(sessionId, nodeId, 'value', 1, userId);
-      synchronizer.updateParameter(sessionId, nodeId, 'value', 2, userId);
-      synchronizer.updateParameter(sessionId, nodeId, 'value', 3, userId);
+      await synchronizer.updateParameter(sessionId, nodeId, 'value', 1, userId);
+      await synchronizer.updateParameter(sessionId, nodeId, 'value', 2, userId);
+      await synchronizer.updateParameter(sessionId, nodeId, 'value', 3, userId);
 
       // Should not have called applyOperation yet
       expect(mockCollaborationEngine.applyOperation).not.toHaveBeenCalled();
 
       // Fast-forward past throttle delay
-      vi.advanceTimersByTime(150);
+      await vi.runAllTimersAsync();
 
       // Should have called only once with the latest value
       expect(mockCollaborationEngine.applyOperation).toHaveBeenCalledTimes(1);
@@ -340,7 +338,7 @@ describe('ParameterSyncManager', () => {
       vi.spyOn(synchronizer, 'updateParameter').mockResolvedValue();
       vi.spyOn(synchronizer, 'releaseParameterLock').mockResolvedValue(true);
 
-      await manager.updateParameter(nodeId, paramName, value);
+      await manager.updateParameter(nodeId, paramName, value, { autoLock: true });
 
       expect(synchronizer.lockParameter).toHaveBeenCalledWith(nodeId, paramName, 'user1');
       expect(synchronizer.updateParameter).toHaveBeenCalledWith(
