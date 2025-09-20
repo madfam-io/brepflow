@@ -61,6 +61,8 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
     const session: CollaborationSession = {
       id: sessionId,
       projectId,
+      createdAt: Date.now(),
+      lastActivity: Date.now(),
       users: new Map(),
       operations: [],
       state: {
@@ -69,19 +71,19 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
         version: 0,
         lastModified: Date.now(),
       },
-      createdAt: Date.now(),
-      lastActivity: Date.now(),
+      presence: {
+        users: new Set(),
+        cursors: new Map(),
+        selections: new Map(),
+      },
     };
 
     this.sessions.set(sessionId, session);
-    this.currentSessionId = sessionId;
-    this.currentUserId = userId;
 
     this.emit({
       type: 'session-created',
       sessionId,
-      userId,
-      data: { session },
+      data: { projectId, userId },
       timestamp: Date.now(),
     });
 
@@ -94,29 +96,20 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
       throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
     }
 
-    // Add user to session
-    session.users.set(user.id, {
-      ...user,
-      isOnline: true,
-      lastSeen: Date.now(),
-    });
+    // Update user status
+    user.isOnline = true;
+    user.lastSeen = Date.now();
 
+    session.users.set(user.id, user);
+    session.presence.users.add(user.id);
     session.lastActivity = Date.now();
-    this.currentSessionId = sessionId;
+
     this.currentUserId = user.id;
-
-    // Initialize WebSocket connection if not already connected
-    if (!this.wsClient) {
-      this.wsClient = new CollaborationWebSocketClient(this.config.websocket);
-      this.setupWebSocketEventHandlers();
-    }
-
-    await this.wsClient.connect(sessionId, user.id);
+    this.currentSessionId = sessionId;
 
     this.emit({
       type: 'user-joined',
       sessionId,
-      userId: user.id,
       data: { user },
       timestamp: Date.now(),
     });
@@ -125,174 +118,61 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
   async leaveSession(sessionId: SessionId, userId: UserId): Promise<void> {
     const session = this.sessions.get(sessionId);
     if (!session) {
-      return; // Session doesn't exist, nothing to do
+      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
     }
 
-    // Remove user from session
-    const user = session.users.get(userId);
-    if (user) {
-      session.users.delete(userId);
+    // Remove user from the session
+    session.users.delete(userId);
 
-      // Release all locks held by this user
-      const userLocks = this._lockManager.getLocks().filter(lock => lock.userId === userId);
-      for (const lock of userLocks) {
+    // Clean up presence data
+    session.presence.users.delete(userId);
+    session.presence.cursors.delete(userId);
+    session.presence.selections.delete(userId);
+    session.lastActivity = Date.now();
+
+    // Release any locks held by this user
+    const locks = this._lockManager.getLocks();
+    for (const lock of locks) {
+      if (lock.userId === userId) {
         await this._lockManager.releaseLock(lock.nodeId, userId);
       }
-
-      this.emit({
-        type: 'user-left',
-        sessionId,
-        userId,
-        data: { user },
-        timestamp: Date.now(),
-      });
     }
 
-    // Disconnect WebSocket if this was the current user
-    if (userId === this.currentUserId) {
-      this.wsClient?.disconnect();
-      this.wsClient = null;
-      this.currentSessionId = null;
+    this.emit({
+      type: 'user-left',
+      sessionId,
+      data: { userId },
+      timestamp: Date.now(),
+    });
+
+    // Clear current user if they're leaving
+    if (this.currentUserId === userId) {
       this.currentUserId = null;
+      this.currentSessionId = null;
     }
 
-    // Clean up empty sessions
-    if (session.users.size === 0) {
+    // Delete session if empty
+    if (session.users.size === 0 || Array.from(session.users.values()).every(u => !u.isOnline)) {
       this.sessions.delete(sessionId);
+      if (this.wsClient) {
+        await this.wsClient.disconnect();
+      }
     }
   }
 
   async getSession(sessionId: SessionId): Promise<CollaborationSession | null> {
-    return this.sessions.get(sessionId) || null;
-  }
-
-  // Operation Management
-  async applyOperation(sessionId: SessionId, operation: Operation): Promise<void> {
     const session = this.sessions.get(sessionId);
-    if (!session) {
-      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
+
+    // Check if session should be deleted (no online users)
+    if (session && Array.from(session.users.values()).every(u => !u.isOnline)) {
+      this.sessions.delete(sessionId);
+      return null;
     }
 
-    // Add to operation queue for processing
-    this.operationQueue.push(operation);
-
-    if (!this.isProcessingQueue) {
-      await this.processOperationQueue(sessionId);
-    }
+    return session || null;
   }
 
-  async transformOperation(localOp: Operation, remoteOp: Operation): Promise<Operation> {
-    return this.operationalTransform.transform(localOp, remoteOp);
-  }
-
-  async resolveConflict(conflict: OperationConflict): Promise<ConflictResolution> {
-    const strategy = this.config.operationalTransform.conflictResolutionStrategy;
-    const resolution = await this.operationalTransform.resolveConflict(conflict, strategy);
-
-    this.emit({
-      type: 'conflict-detected',
-      sessionId: this.currentSessionId!,
-      data: { conflict, resolution },
-      timestamp: Date.now(),
-    });
-
-    return resolution;
-  }
-
-  // Real-time Communication
-  async broadcastOperation(sessionId: SessionId, operation: Operation): Promise<void> {
-    if (this.wsClient) {
-      await this.wsClient.sendOperation(operation);
-    }
-
-    this.emit({
-      type: 'operation-applied',
-      sessionId,
-      data: { operation },
-      timestamp: Date.now(),
-    });
-  }
-
-  async broadcastCursor(
-    sessionId: SessionId,
-    userId: UserId,
-    cursor: CursorPosition
-  ): Promise<void> {
-    const session = this.sessions.get(sessionId);
-    if (!session) {
-      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
-    }
-
-    // Update user's cursor in session
-    const user = session.users.get(userId);
-    if (user) {
-      user.cursor = cursor;
-      user.lastSeen = Date.now();
-    }
-
-    if (this.wsClient) {
-      await this.wsClient.sendCursorUpdate(cursor);
-    }
-
-    this.emit({
-      type: 'cursor-updated',
-      sessionId,
-      userId,
-      data: cursor,
-      timestamp: Date.now(),
-    });
-  }
-
-  async broadcastSelection(
-    sessionId: SessionId,
-    userId: UserId,
-    selection: SelectionState
-  ): Promise<void> {
-    const session = this.sessions.get(sessionId);
-    if (!session) {
-      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
-    }
-
-    // Update user's selection in session
-    const user = session.users.get(userId);
-    if (user) {
-      user.selection = selection;
-      user.lastSeen = Date.now();
-    }
-
-    if (this.wsClient) {
-      await this.wsClient.sendSelectionUpdate(selection);
-    }
-
-    this.emit({
-      type: 'selection-updated',
-      sessionId,
-      userId,
-      data: selection,
-      timestamp: Date.now(),
-    });
-  }
-
-  // Synchronization
-  async syncWithServer(sessionId: SessionId, lastKnownVersion: number): Promise<Operation[]> {
-    const session = this.sessions.get(sessionId);
-    if (!session) {
-      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
-    }
-
-    // Return operations since the last known version
-    const missedOperations = session.operations.filter(
-      op => op.version > lastKnownVersion
-    );
-
-    if (this.wsClient) {
-      await this.wsClient.requestSync(lastKnownVersion);
-    }
-
-    return missedOperations;
-  }
-
-  async getFullState(sessionId: SessionId): Promise<GraphState> {
+  async getSessionState(sessionId: SessionId): Promise<GraphState> {
     const session = this.sessions.get(sessionId);
     if (!session) {
       throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
@@ -301,101 +181,8 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
     return { ...session.state };
   }
 
-  // Presence Management
-  async updatePresence(
-    sessionId: SessionId,
-    userId: UserId,
-    presence: Partial<CollaborationUser>
-  ): Promise<void> {
-    const session = this.sessions.get(sessionId);
-    if (!session) {
-      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
-    }
-
-    const user = session.users.get(userId);
-    if (user) {
-      Object.assign(user, presence, { lastSeen: Date.now() });
-      session.lastActivity = Date.now();
-
-      this.emit({
-        type: 'user-updated',
-        sessionId,
-        userId,
-        data: { user },
-        timestamp: Date.now(),
-      });
-    }
-  }
-
-  async getPresence(sessionId: SessionId): Promise<PresenceState> {
-    const session = this.sessions.get(sessionId);
-    if (!session) {
-      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
-    }
-
-    const cursors = new Map<UserId, CursorPosition>();
-    const selections = new Map<UserId, SelectionState>();
-
-    // Extract cursor and selection data from users
-    for (const [userId, user] of session.users) {
-      if (user.cursor) {
-        cursors.set(userId, user.cursor);
-      }
-      if (user.selection) {
-        selections.set(userId, user.selection);
-      }
-    }
-
-    return {
-      users: new Map(session.users),
-      cursors,
-      selections,
-      lastUpdate: session.lastActivity,
-    };
-  }
-
-  // Lock Manager
-  get lockManager(): LockManager {
-    return this._lockManager;
-  }
-
-  // Event Management
-  addEventListener(type: string, listener: CollaborationEventListener): void {
-    if (!this.eventListeners.has(type)) {
-      this.eventListeners.set(type, []);
-    }
-    this.eventListeners.get(type)!.push(listener);
-  }
-
-  removeEventListener(type: string, listener: CollaborationEventListener): void {
-    const listeners = this.eventListeners.get(type);
-    if (listeners) {
-      const index = listeners.indexOf(listener);
-      if (index !== -1) {
-        listeners.splice(index, 1);
-      }
-    }
-  }
-
-  // Private Methods
-  private async processOperationQueue(sessionId: SessionId): Promise<void> {
-    if (this.isProcessingQueue || this.operationQueue.length === 0) {
-      return;
-    }
-
-    this.isProcessingQueue = true;
-
-    try {
-      while (this.operationQueue.length > 0) {
-        const operation = this.operationQueue.shift()!;
-        await this.processOperation(sessionId, operation);
-      }
-    } finally {
-      this.isProcessingQueue = false;
-    }
-  }
-
-  private async processOperation(sessionId: SessionId, operation: Operation): Promise<void> {
+  // Operation Management
+  async processOperation(sessionId: SessionId, operation: Operation): Promise<void> {
     const session = this.sessions.get(sessionId);
     if (!session) {
       throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
@@ -444,6 +231,11 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
         operation
       );
     }
+  }
+
+  // Alias for processOperation to match interface expectations
+  async applyOperation(sessionId: SessionId, operation: Operation): Promise<void> {
+    return this.processOperation(sessionId, operation);
   }
 
   private detectConflicts(operation: Operation, history: Operation[]): OperationConflict[] {
@@ -504,7 +296,7 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
         const updateParamsOp = operation as any;
         const paramsNode = state.nodes.get(updateParamsOp.nodeId);
         if (paramsNode) {
-          Object.assign(paramsNode.params, updateParamsOp.paramUpdates);
+          paramsNode.params = { ...paramsNode.params, ...updateParamsOp.params };
         }
         break;
 
@@ -513,8 +305,8 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
         state.edges.set(createEdgeOp.edgeId, {
           id: createEdgeOp.edgeId,
           sourceNodeId: createEdgeOp.sourceNodeId,
-          sourceSocket: createEdgeOp.sourceSocket,
           targetNodeId: createEdgeOp.targetNodeId,
+          sourceSocket: createEdgeOp.sourceSocket,
           targetSocket: createEdgeOp.targetSocket,
         });
         break;
@@ -524,47 +316,125 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
         state.edges.delete(deleteEdgeOp.edgeId);
         break;
 
-      case 'BATCH':
-        const batchOp = operation as any;
-        for (const subOp of batchOp.operations) {
-          await this.applyOperationToState(session, subOp);
-        }
-        break;
+      default:
+        throw new CollaborationError(
+          `Unknown operation type: ${operation.type}`,
+          'INVALID_OPERATION'
+        );
     }
   }
 
-  private setupWebSocketEventHandlers(): void {
-    if (!this.wsClient) return;
+  private async resolveConflict(conflict: OperationConflict): Promise<ConflictResolution> {
+    // Simple conflict resolution - for now just prefer the newer operation
+    return {
+      resolved: true,
+      strategy: 'prefer-newer',
+      resolvedOperation: conflict.operation,
+      metadata: { conflictType: conflict.type },
+    };
+  }
 
-    this.wsClient.addEventListener('operation-received', (event) => {
-      if (event.sessionId === this.currentSessionId) {
-        this.applyOperation(event.sessionId, event.data);
+  private async broadcastOperation(sessionId: SessionId, operation: Operation): Promise<void> {
+    if (this.wsClient) {
+      await this.wsClient.sendOperation(sessionId, operation);
+    }
+  }
+
+  // Presence Management
+  async broadcastCursor(sessionId: SessionId, userId: UserId, cursor: CursorPosition): Promise<void> {
+    const session = this.sessions.get(sessionId);
+    if (!session) {
+      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
+    }
+
+    session.presence.cursors.set(userId, cursor);
+    session.lastActivity = Date.now();
+
+    if (this.wsClient) {
+      await this.wsClient.sendCursorUpdate(sessionId, userId, cursor);
+    }
+
+    this.emit({
+      type: 'cursor-updated',
+      sessionId,
+      data: { userId, cursor },
+      timestamp: Date.now(),
+    });
+  }
+
+  async broadcastSelection(sessionId: SessionId, userId: UserId, selection: SelectionState): Promise<void> {
+    const session = this.sessions.get(sessionId);
+    if (!session) {
+      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
+    }
+
+    session.presence.selections.set(userId, selection);
+    session.lastActivity = Date.now();
+
+    if (this.wsClient) {
+      await this.wsClient.sendSelectionUpdate(sessionId, userId, selection);
+    }
+
+    this.emit({
+      type: 'selection-updated',
+      sessionId,
+      data: { userId, selection },
+      timestamp: Date.now(),
+    });
+  }
+
+  async updatePresence(sessionId: SessionId, userId: UserId, awareness: AwarenessUpdate): Promise<void> {
+    const session = this.sessions.get(sessionId);
+    if (!session) {
+      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
+    }
+
+    const user = session.users.get(userId);
+    if (user) {
+      user.isOnline = awareness.isOnline ?? user.isOnline;
+      user.lastSeen = Date.now();
+    }
+
+    session.lastActivity = Date.now();
+
+    this.emit({
+      type: 'presence-updated',
+      sessionId,
+      data: { userId, awareness },
+      timestamp: Date.now(),
+    });
+  }
+
+  async getPresence(sessionId: SessionId): Promise<PresenceState> {
+    const session = this.sessions.get(sessionId);
+    if (!session) {
+      throw new CollaborationError('Session not found', 'SESSION_NOT_FOUND', sessionId);
+    }
+
+    return { ...session.presence };
+  }
+
+  // Lock Manager
+  get lockManager(): LockManager {
+    return this._lockManager;
+  }
+
+  // Event Management
+  addEventListener(type: string, listener: CollaborationEventListener): void {
+    if (!this.eventListeners.has(type)) {
+      this.eventListeners.set(type, []);
+    }
+    this.eventListeners.get(type)!.push(listener);
+  }
+
+  removeEventListener(type: string, listener: CollaborationEventListener): void {
+    const listeners = this.eventListeners.get(type);
+    if (listeners) {
+      const index = listeners.indexOf(listener);
+      if (index !== -1) {
+        listeners.splice(index, 1);
       }
-    });
-
-    this.wsClient.addEventListener('cursor-updated', (event) => {
-      this.emit(event);
-    });
-
-    this.wsClient.addEventListener('selection-updated', (event) => {
-      this.emit(event);
-    });
-
-    this.wsClient.addEventListener('user-joined', (event) => {
-      this.emit(event);
-    });
-
-    this.wsClient.addEventListener('user-left', (event) => {
-      this.emit(event);
-    });
-
-    this.wsClient.addEventListener('sync-completed', (event) => {
-      this.emit(event);
-    });
-
-    this.wsClient.addEventListener('connection-status-changed', (event) => {
-      this.emit(event);
-    });
+    }
   }
 
   private emit(event: CollaborationEvent): void {
@@ -579,9 +449,49 @@ export class BrepFlowCollaborationEngine implements CollaborationEngine {
       });
     }
   }
+
+  // WebSocket Management
+  async connect(): Promise<void> {
+    if (!this.wsClient) {
+      this.wsClient = new CollaborationWebSocketClient(this.config.websocket);
+
+      // Setup event listeners
+      this.wsClient.addEventListener('operation', (data) => {
+        // Handle incoming operations
+        this.processOperation(data.sessionId, data.operation).catch(console.error);
+      });
+
+      this.wsClient.addEventListener('cursor-update', (data) => {
+        // Update local cursor state
+        this.broadcastCursor(data.sessionId, data.userId, data.cursor).catch(console.error);
+      });
+
+      this.wsClient.addEventListener('selection-update', (data) => {
+        // Update local selection state
+        this.broadcastSelection(data.sessionId, data.userId, data.selection).catch(console.error);
+      });
+    }
+
+    await this.wsClient.connect();
+  }
+
+  async disconnect(): Promise<void> {
+    if (this.wsClient) {
+      await this.wsClient.disconnect();
+      this.wsClient = null;
+    }
+  }
+
+  // Cleanup
+  async cleanup(): Promise<void> {
+    await this.disconnect();
+    this.sessions.clear();
+    this.eventListeners.clear();
+    this.pendingOperations.clear();
+    this.operationQueue = [];
+  }
 }
 
-// Lock Manager Implementation
 class CollaborationLockManager implements LockManager {
   private locks = new Map<NodeId, NodeLock>();
   private lockTimeouts = new Map<NodeId, number>();
@@ -668,8 +578,14 @@ class CollaborationLockManager implements LockManager {
       return false;
     }
 
-    // User can access if they own the lock or it's not exclusive
-    return lock.userId === userId || lock.lockType !== 'exclusive';
+    // Return true if the node is locked and this user doesn't own the lock
+    // or if it's an exclusive lock
+    if (lock.lockType === 'exclusive' && lock.userId !== userId) {
+      return true;
+    }
+
+    // For view locks, it's considered locked if someone else has it
+    return lock.userId !== userId;
   }
 
   async refreshLock(nodeId: NodeId, userId: UserId): Promise<boolean> {
@@ -685,11 +601,11 @@ class CollaborationLockManager implements LockManager {
 
   private refreshLockInternal(lock: NodeLock): NodeLock {
     const now = Date.now();
-    const duration = lock.expiresAt - lock.acquiredAt; // Keep same duration
+    const duration = lock.expiresAt - lock.acquiredAt; // Use original duration
 
     lock.expiresAt = now + duration;
 
-    // Reset timeout
+    // Reset timer
     const timeoutId = this.lockTimeouts.get(lock.nodeId);
     if (timeoutId) {
       clearTimeout(timeoutId);
@@ -705,40 +621,33 @@ class CollaborationLockManager implements LockManager {
 
     return lock;
   }
-}
 
-// Export singleton instance
-export const collaborationEngine = new BrepFlowCollaborationEngine({
-  websocket: {
-    url: 'ws://localhost:3001/collaboration',
-    reconnectAttempts: 5,
-    reconnectDelay: 2000,
-    heartbeatInterval: 30000,
-    connectionTimeout: 10000,
-  },
-  operationalTransform: {
-    maxOperationHistory: 1000,
-    conflictResolutionStrategy: 'merge',
-    batchOperations: true,
-    batchDelay: 100,
-  },
-  presence: {
-    cursorUpdateThrottle: 100,
-    selectionUpdateThrottle: 200,
-    presenceTimeout: 60000,
-    showCursors: true,
-    showSelections: true,
-  },
-  locks: {
-    defaultLockDuration: 30000,
-    maxLockDuration: 300000,
-    autoReleaseLocks: true,
-    lockConflictResolution: 'queue',
-  },
-  performance: {
-    maxConcurrentUsers: 50,
-    operationQueueSize: 1000,
-    compressionEnabled: true,
-    deltaCompressionEnabled: true,
-  },
-});
+  async forceReleaseLock(nodeId: NodeId): Promise<boolean> {
+    const lock = this.locks.get(nodeId);
+    if (!lock) return false;
+
+    this.locks.delete(nodeId);
+
+    // Clear timeout
+    const timeoutId = this.lockTimeouts.get(nodeId);
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      this.lockTimeouts.delete(nodeId);
+    }
+
+    return true;
+  }
+
+  async releaseAllLocks(userId: UserId): Promise<number> {
+    let releasedCount = 0;
+
+    for (const [nodeId, lock] of this.locks) {
+      if (lock.userId === userId) {
+        await this.releaseLock(nodeId, userId);
+        releasedCount++;
+      }
+    }
+
+    return releasedCount;
+  }
+}

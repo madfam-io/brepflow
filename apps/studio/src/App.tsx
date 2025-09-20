@@ -32,7 +32,7 @@ import { Toolbar } from './components/Toolbar';
 import { CommandPalette } from './components/CommandPalette';
 import { Console } from './components/Console';
 import { OnboardingOrchestrator } from './components/onboarding/OnboardingOrchestrator';
-import { WorkbenchLayoutManager } from './components/layout/WorkbenchLayoutManager';
+import { ResponsiveLayoutManager } from './components/responsive/ResponsiveLayoutManager';
 import { useGraphStore } from './store/graph-store';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { useErrorTracking } from './hooks/useErrorTracking';
@@ -299,182 +299,205 @@ function AppContent() {
         isOpen={showCommandPalette}
         onClose={() => setShowCommandPalette(false)}
       />
-      <WorkbenchLayoutManager controlsPosition="floating">
-        {{
-          toolbar: (
-            <ErrorBoundary>
-              <Toolbar />
-            </ErrorBoundary>
-          ),
-          nodePanel: (
-            <ErrorBoundary>
-              <EnhancedNodePalette
-                onNodeDragStart={(event, nodeType) => {
-                  event.dataTransfer.setData('application/reactflow', nodeType);
-                  event.dataTransfer.effectAllowed = 'move';
-                }}
-                enableAdvancedSearch={true}
-                enableCategoryTree={true}
-                defaultViewMode="list"
-              />
-            </ErrorBoundary>
-          ),
-          nodeEditor: (
-            <ErrorBoundary>
-              <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                nodeTypes={nodeTypes}
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                onNodeClick={onNodeClick}
-                onNodesDelete={onNodesDelete}
-                onEdgesDelete={onEdgesDelete}
-                onDrop={onDrop}
-                onDragOver={onDragOver}
-                deleteKeyCode="Delete"
-                fitView
-                snapToGrid={true}
-                snapGrid={[15, 15]}
-                multiSelectionKeyCode="Shift"
-                selectionKeyCode="Shift"
-                panOnScroll={true}
-                zoomOnScroll={true}
-                zoomOnPinch={true}
-                connectionLineStyle={{
-                  stroke: 'var(--color-primary-500)',
-                  strokeWidth: 3,
-                  strokeDasharray: '5,5',
-                  animation: 'dash 1s linear infinite',
-                }}
-                connectionLineComponent={({ fromX, fromY, toX, toY }) => (
-                  <g>
-                    <path
-                      fill="none"
-                      stroke="var(--color-primary-500)"
-                      strokeWidth={3}
-                      strokeDasharray="5,5"
-                      d={`M${fromX},${fromY} Q ${fromX + 50},${fromY} ${toX - 50},${toY} T${toX},${toY}`}
-                      style={{
-                        animation: 'dash 1s linear infinite',
-                      }}
-                    />
-                    <circle
-                      cx={toX}
-                      cy={toY}
-                      r={4}
-                      fill="var(--color-primary-500)"
-                      stroke="var(--color-surface-primary)"
-                      strokeWidth={2}
-                    />
-                  </g>
-                )}
-                defaultEdgeOptions={{
-                  type: 'smoothstep',
-                  animated: true,
-                  style: {
+      <ResponsiveLayoutManager
+        panels={{
+          nodeEditor: {
+            id: 'nodeEditor',
+            title: 'Node Editor',
+            icon: '📊',
+            content: (
+              <ErrorBoundary>
+                <ReactFlow
+                  nodes={nodes}
+                  edges={edges}
+                  nodeTypes={nodeTypes}
+                  onNodesChange={onNodesChange}
+                  onEdgesChange={onEdgesChange}
+                  onConnect={onConnect}
+                  onNodeClick={onNodeClick}
+                  onNodesDelete={onNodesDelete}
+                  onEdgesDelete={onEdgesDelete}
+                  onDrop={onDrop}
+                  onDragOver={onDragOver}
+                  deleteKeyCode="Delete"
+                  fitView
+                  snapToGrid={true}
+                  snapGrid={[15, 15]}
+                  multiSelectionKeyCode="Shift"
+                  selectionKeyCode="Shift"
+                  panOnScroll={true}
+                  zoomOnScroll={true}
+                  zoomOnPinch={true}
+                  connectionLineStyle={{
                     stroke: 'var(--color-primary-500)',
-                    strokeWidth: 2,
-                  },
-                  markerEnd: {
-                    type: MarkerType.Arrow,
-                    color: 'var(--color-primary-500)',
-                  },
-                }}
-              >
-                <Background variant={'dots' as any} gap={12} size={1} />
-                <Controls />
-                <MiniMap />
-                <Panel position="top-left">
-                  <div className="logo">BrepFlow Studio</div>
-                </Panel>
-                <Panel position="bottom-left">
-                  <div className="status">
-                    Units: {graph.units} | Tolerance: {graph.tolerance} |
-                    Nodes: {graph.nodes.length} |
-                    {crossOriginIsolated ? ' ✅ WASM Ready' : ' ⚠️ WASM Limited'}
-                    {alerts.length > 0 && (
-                      <span className="status-alerts" style={{ color: '#f59e0b', marginLeft: '0.5rem' }}>
-                        | ⚠️ {alerts.length} Alert{alerts.length > 1 ? 's' : ''}
-                      </span>
-                    )}
-                  </div>
-                </Panel>
-                <Panel position="bottom-right">
-                  <button
-                    onClick={() => setShowMonitoringDashboard(true)}
-                    className="monitoring-toggle"
-                    title="Open Monitoring Dashboard (Ctrl+Shift+M)"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.9)',
-                      border: '1px solid #d1d5db',
-                      borderRadius: 'var(--radius-md)',
-                      padding: '0.5rem',
-                      cursor: 'pointer',
-                      fontSize: '0.75rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.25rem'
+                    strokeWidth: 3,
+                    strokeDasharray: '5,5',
+                    animation: 'dash 1s linear infinite',
+                  }}
+                  connectionLineComponent={({ fromX, fromY, toX, toY }) => (
+                    <g>
+                      <path
+                        fill="none"
+                        stroke="var(--color-primary-500)"
+                        strokeWidth={3}
+                        strokeDasharray="5,5"
+                        d={`M${fromX},${fromY} Q ${fromX + 50},${fromY} ${toX - 50},${toY} T${toX},${toY}`}
+                        style={{
+                          animation: 'dash 1s linear infinite',
+                        }}
+                      />
+                      <circle
+                        cx={toX}
+                        cy={toY}
+                        r={4}
+                        fill="var(--color-primary-500)"
+                        stroke="var(--color-surface-primary)"
+                        strokeWidth={2}
+                      />
+                    </g>
+                  )}
+                  defaultEdgeOptions={{
+                    type: 'smoothstep',
+                    animated: true,
+                    style: {
+                      stroke: 'var(--color-primary-500)',
+                      strokeWidth: 2,
+                    },
+                    markerEnd: {
+                      type: MarkerType.Arrow,
+                      color: 'var(--color-primary-500)',
+                    },
+                  }}
+                >
+                  <Background variant={'dots' as any} gap={12} size={1} />
+                  <Controls />
+                  <MiniMap />
+                  <Panel position="top-left">
+                    <div className="logo">BrepFlow Studio</div>
+                  </Panel>
+                  <Panel position="bottom-left">
+                    <div className="status">
+                      Units: {graph.units} | Tolerance: {graph.tolerance} |
+                      Nodes: {graph.nodes.length} |
+                      {crossOriginIsolated ? ' ✅ WASM Ready' : ' ⚠️ WASM Limited'}
+                      {alerts.length > 0 && (
+                        <span className="status-alerts" style={{ color: '#f59e0b', marginLeft: '0.5rem' }}>
+                          | ⚠️ {alerts.length} Alert{alerts.length > 1 ? 's' : ''}
+                        </span>
+                      )}
+                    </div>
+                  </Panel>
+                  <Panel position="bottom-right">
+                    <button
+                      onClick={() => setShowMonitoringDashboard(true)}
+                      className="monitoring-toggle"
+                      title="Open Monitoring Dashboard (Ctrl+Shift+M)"
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.9)',
+                        border: '1px solid #d1d5db',
+                        borderRadius: 'var(--radius-md)',
+                        padding: '0.5rem',
+                        cursor: 'pointer',
+                        fontSize: '0.75rem',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.25rem'
+                      }}
+                    >
+                      <Icon name="monitor" size={14} />
+                      Monitor
+                    </button>
+                  </Panel>
+                </ReactFlow>
+              </ErrorBoundary>
+            )
+          },
+          viewport: {
+            id: 'viewport',
+            title: '3D Viewport',
+            icon: '🎲',
+            content: (
+              <WASMErrorBoundary>
+                <GeometryErrorBoundary>
+                  <ViewportLayoutManager
+                    initialLayout="single"
+                    enableKeyboardShortcuts={true}
+                    showLayoutControls={true}
+                    onLayoutChange={(layout) => {
+                      console.log('Layout changed:', layout);
+                      recordUserInteraction({
+                        type: 'viewport_layout_change',
+                        target: layout.type,
+                        data: { viewports: layout.viewports.length }
+                      });
                     }}
-                  >
-                    <Icon name="monitor" size={14} />
-                    Monitor
-                  </button>
-                </Panel>
-              </ReactFlow>
-            </ErrorBoundary>
-          ),
-          viewport3d: (
-            <WASMErrorBoundary>
-              <GeometryErrorBoundary>
-                <ViewportLayoutManager
-                  initialLayout="single"
-                  enableKeyboardShortcuts={true}
-                  showLayoutControls={true}
-                  onLayoutChange={(layout) => {
-                    console.log('Layout changed:', layout);
-                    recordUserInteraction({
-                      type: 'viewport_layout_change',
-                      target: layout.type,
-                      data: { viewports: layout.viewports.length }
-                    });
+                    onViewportSelect={(viewportId) => {
+                      console.log('Viewport selected:', viewportId);
+                      recordUserInteraction({
+                        type: 'viewport_select',
+                        target: viewportId
+                      });
+                    }}
+                    onCameraChange={(viewportId, camera) => {
+                      console.log('Camera changed for viewport:', viewportId, camera);
+                    }}
+                    onRenderModeChange={(viewportId, mode) => {
+                      console.log('Render mode changed for viewport:', viewportId, mode);
+                      recordUserInteraction({
+                        type: 'viewport_render_mode_change',
+                        target: mode,
+                        data: { viewportId }
+                      });
+                    }}
+                    geometryData={graph}
+                  />
+                </GeometryErrorBoundary>
+              </WASMErrorBoundary>
+            )
+          },
+          palette: {
+            id: 'palette',
+            title: 'Node Palette',
+            icon: '🎨',
+            content: (
+              <ErrorBoundary>
+                <EnhancedNodePalette
+                  onNodeDragStart={(event, nodeType) => {
+                    event.dataTransfer.setData('application/reactflow', nodeType);
+                    event.dataTransfer.effectAllowed = 'move';
                   }}
-                  onViewportSelect={(viewportId) => {
-                    console.log('Viewport selected:', viewportId);
-                    recordUserInteraction({
-                      type: 'viewport_select',
-                      target: viewportId
-                    });
-                  }}
-                  onCameraChange={(viewportId, camera) => {
-                    console.log('Camera changed for viewport:', viewportId, camera);
-                  }}
-                  onRenderModeChange={(viewportId, mode) => {
-                    console.log('Render mode changed for viewport:', viewportId, mode);
-                    recordUserInteraction({
-                      type: 'viewport_render_mode_change',
-                      target: mode,
-                      data: { viewportId }
-                    });
-                  }}
-                  geometryData={graph}
+                  enableAdvancedSearch={true}
+                  enableCategoryTree={true}
+                  defaultViewMode="list"
                 />
-              </GeometryErrorBoundary>
-            </WASMErrorBoundary>
-          ),
-          inspector: (
-            <ErrorBoundary>
-              <Inspector selectedNode={selectedNode || null} onParamChange={updateNode} />
-            </ErrorBoundary>
-          ),
-          console: (
-            <ErrorBoundary>
-              <Console />
-            </ErrorBoundary>
-          )
+              </ErrorBoundary>
+            )
+          },
+          inspector: {
+            id: 'inspector',
+            title: 'Properties',
+            icon: '⚙️',
+            content: (
+              <ErrorBoundary>
+                <Inspector selectedNode={selectedNode || null} onParamChange={updateNode} />
+              </ErrorBoundary>
+            )
+          },
+          console: {
+            id: 'console',
+            title: 'Console',
+            icon: '💬',
+            content: (
+              <ErrorBoundary>
+                <Console />
+              </ErrorBoundary>
+            )
+          }
         }}
-      </WorkbenchLayoutManager>
+        enableGestures={true}
+        enableKeyboardShortcuts={true}
+        theme="auto"
+      />
 
       {/* Monitoring Dashboard */}
       <MonitoringDashboard

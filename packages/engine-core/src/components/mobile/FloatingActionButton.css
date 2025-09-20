@@ -1,0 +1,215 @@
+/* Floating Action Button Styles */
+.floating-action-button {
+  position: fixed;
+  z-index: 900;
+  pointer-events: none;
+}
+
+.floating-action-button > * {
+  pointer-events: auto;
+}
+
+/* Position Variants */
+.floating-action-button.bottom-right {
+  bottom: 80px;
+  right: 16px;
+}
+
+.floating-action-button.bottom-left {
+  bottom: 80px;
+  left: 16px;
+}
+
+.floating-action-button.top-right {
+  top: 64px;
+  right: 16px;
+}
+
+.floating-action-button.top-left {
+  top: 64px;
+  left: 16px;
+}
+
+/* Main FAB Button */
+.fab-main {
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background: var(--accent, #0066ff);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fab-main:active {
+  transform: scale(0.95);
+}
+
+.fab-main.active {
+  background: #ff3b30;
+  transform: rotate(45deg);
+}
+
+.fab-icon {
+  font-size: 24px;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+/* FAB Actions Container */
+.fab-actions {
+  position: absolute;
+  bottom: 72px;
+  right: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.bottom-left .fab-actions {
+  right: auto;
+  left: 0;
+  align-items: flex-start;
+}
+
+.top-right .fab-actions,
+.top-left .fab-actions {
+  bottom: auto;
+  top: 72px;
+  flex-direction: column;
+}
+
+/* FAB Action Items */
+.fab-action-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+  animation: fabActionEnter 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fabActionEnter {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.fab-action-label {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  order: -1;
+}
+
+.bottom-left .fab-action-label {
+  order: 1;
+}
+
+.fab-action-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: var(--bg-secondary, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  color: var(--text-primary, #1a1a1a);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  font-size: 18px;
+}
+
+.fab-action-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.fab-action-button:active {
+  transform: scale(0.95);
+}
+
+/* Backdrop */
+.fab-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 899;
+  animation: fadeIn 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Dark Mode */
+.dark .fab-main {
+  background: #4da3ff;
+}
+
+.dark .fab-main.active {
+  background: #ff5454;
+}
+
+.dark .fab-action-button {
+  background: #2a2a2a;
+  border-color: #404040;
+  color: #ffffff;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes rotate45 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(45deg); }
+}
+
+/* Safe Area Support */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .floating-action-button.bottom-right,
+  .floating-action-button.bottom-left {
+    bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Landscape Adjustments */
+@media (orientation: landscape) and (max-height: 500px) {
+  .floating-action-button.bottom-right,
+  .floating-action-button.bottom-left {
+    bottom: 60px;
+  }
+
+  .fab-main {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .fab-main,
+  .fab-action-item,
+  .fab-backdrop {
+    animation: none;
+    transition: none;
+  }
+}

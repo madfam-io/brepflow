@@ -1,0 +1,281 @@
+/* Desktop Layout Styles */
+.desktop-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background: var(--bg-primary, #f8f9fa);
+}
+
+/* Menu Bar */
+.desktop-menubar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 16px;
+  background: var(--bg-secondary, #ffffff);
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  flex-shrink: 0;
+}
+
+.menubar-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.app-logo {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--accent, #0066ff);
+}
+
+.layout-selector {
+  padding: 4px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: white;
+  font-size: 14px;
+}
+
+.menubar-button {
+  padding: 4px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.menubar-button:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+/* Content Area */
+.desktop-content {
+  flex: 1;
+  display: grid;
+  gap: 8px;
+  padding: 8px;
+  overflow: hidden;
+}
+
+/* Layout Modes */
+.layout-single .desktop-content {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.layout-dual .desktop-content {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.layout-triple .desktop-content {
+  grid-template-columns: 280px 1fr 320px;
+  grid-template-rows: 1fr;
+}
+
+.layout-quad .desktop-content {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* Panels */
+.desktop-panel {
+  background: var(--bg-secondary, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.desktop-panel.collapsed {
+  max-height: 42px;
+}
+
+.desktop-panel.active {
+  border-color: var(--accent, #0066ff);
+  box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.1);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-tertiary, #f5f5f5);
+  border-bottom: 1px solid var(--border-color);
+  cursor: move;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.panel-icon {
+  font-size: 16px;
+}
+
+.panel-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-control {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.panel-control:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.panel-badge {
+  padding: 2px 6px;
+  background: var(--accent);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.panel-body {
+  flex: 1;
+  overflow: auto;
+  padding: 16px;
+}
+
+/* Panel Position Classes */
+.panel-full {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+}
+
+.panel-left {
+  grid-column: 1;
+  grid-row: 1 / -1;
+}
+
+.panel-right {
+  grid-column: 2;
+  grid-row: 1 / -1;
+}
+
+.panel-sidebar {
+  grid-column: 1;
+}
+
+.panel-main {
+  grid-column: 2;
+}
+
+.panel-aside {
+  grid-column: 3;
+}
+
+.panel-top-left {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.panel-top-right {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.panel-bottom-left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.panel-bottom-right {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Status Bar */
+.desktop-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 24px;
+  padding: 0 16px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.statusbar-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Dark Mode */
+.dark .desktop-layout {
+  background: #0a0a0a;
+}
+
+.dark .desktop-menubar {
+  background: #1a1a1a;
+  border-bottom-color: #333333;
+}
+
+.dark .desktop-panel {
+  background: #1a1a1a;
+  border-color: #333333;
+}
+
+.dark .panel-header {
+  background: #252525;
+  border-bottom-color: #333333;
+}
+
+.dark .desktop-statusbar {
+  background: #1a1a1a;
+  border-top-color: #333333;
+}
+
+/* Fullscreen Mode */
+.desktop-layout[data-fullscreen="true"] .desktop-menubar,
+.desktop-layout[data-fullscreen="true"] .desktop-statusbar {
+  display: none;
+}
+
+.desktop-layout[data-fullscreen="true"] .desktop-content {
+  padding: 0;
+  gap: 0;
+}
+
+.desktop-layout[data-fullscreen="true"] .desktop-panel {
+  border-radius: 0;
+}

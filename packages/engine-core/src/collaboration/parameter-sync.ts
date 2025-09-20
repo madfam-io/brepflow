@@ -134,12 +134,9 @@ export class ParameterSynchronizer {
 
     this.parameterLocks.set(lockKey, lock);
 
-    // Auto-release lock after timeout
+    // Set up auto-release timer
     setTimeout(() => {
-      const currentLock = this.parameterLocks.get(lockKey);
-      if (currentLock && currentLock.userId === userId) {
-        this.parameterLocks.delete(lockKey);
-      }
+      this.releaseParameterLock(nodeId, paramName, userId);
     }, this.config.lockTimeout);
 
     return true;
@@ -148,16 +145,16 @@ export class ParameterSynchronizer {
   /**
    * Release a parameter lock
    */
-  async releaseParameterLock(
+  releaseParameterLock(
     nodeId: NodeId,
     paramName: string,
     userId: UserId
-  ): Promise<boolean> {
+  ): boolean {
     const lockKey = this.getLockKey(nodeId, paramName);
     const lock = this.parameterLocks.get(lockKey);
 
     if (!lock || lock.userId !== userId) {
-      return false; // No lock or not owned by user
+      return false; // Lock doesn't exist or user doesn't own it
     }
 
     this.parameterLocks.delete(lockKey);
@@ -167,11 +164,11 @@ export class ParameterSynchronizer {
   /**
    * Check if a parameter is locked
    */
-  isParameterLocked(nodeId: NodeId, paramName: string, userId: UserId): boolean {
-    if (!this.config.enableParameterLocking) {
-      return false;
-    }
-
+  isParameterLocked(
+    nodeId: NodeId,
+    paramName: string,
+    userId: UserId
+  ): boolean {
     const lockKey = this.getLockKey(nodeId, paramName);
     const lock = this.parameterLocks.get(lockKey);
 
@@ -183,21 +180,23 @@ export class ParameterSynchronizer {
       return false;
     }
 
-    // Locked if owned by someone else
+    // Return true if locked by someone else
     return lock.userId !== userId;
   }
 
   /**
-   * Get all active parameter locks
+   * Get all current parameter locks
    */
-  getParameterLocks(nodeId?: NodeId): ParameterLock[] {
-    const locks = Array.from(this.parameterLocks.values());
-
-    if (nodeId) {
-      return locks.filter(lock => lock.nodeId === nodeId);
+  getParameterLocks(): ParameterLock[] {
+    // Clean up expired locks first
+    const now = Date.now();
+    for (const [key, lock] of this.parameterLocks) {
+      if (now > lock.expiresAt) {
+        this.parameterLocks.delete(key);
+      }
     }
 
-    return locks;
+    return Array.from(this.parameterLocks.values());
   }
 
   /**
@@ -281,8 +280,8 @@ export class ParameterSynchronizer {
       clearTimeout(existingTimer);
     }
 
-    // Set new timer
-    const timer = window.setTimeout(() => {
+    // Set new timer - use globalThis.setTimeout to work in both browser and Node.js
+    const timer = (globalThis.setTimeout || setTimeout)(() => {
       this.sendParameterUpdate(sessionId, change);
       this.throttleTimers.delete(changeKey);
     }, this.config.throttleDelay);
@@ -327,29 +326,22 @@ export class ParameterSynchronizer {
         return localChange.timestamp > remoteChange.timestamp ? localChange : remoteChange;
 
       case 'user-priority':
-        // Could implement user priority system here
-        return localChange.timestamp > remoteChange.timestamp ? localChange : remoteChange;
+        // For now, prefer the remote change
+        return remoteChange;
 
       case 'merge':
-        // For simple values, use last writer wins
-        // For complex objects, could implement merge logic
+        // Simple merge strategy - for objects, merge properties
         if (typeof localChange.value === 'object' && typeof remoteChange.value === 'object') {
           return {
             ...localChange,
-            value: { ...remoteChange.value, ...localChange.value },
+            value: { ...localChange.value, ...remoteChange.value },
           };
         }
-        return localChange.timestamp > remoteChange.timestamp ? localChange : remoteChange;
+        return remoteChange; // Fallback to remote for non-objects
 
       default:
-        return localChange;
+        return remoteChange;
     }
-  }
-
-  private async getCurrentParameterValue(nodeId: NodeId, paramName: string): Promise<any> {
-    // This would typically query the current graph state
-    // For now, return undefined as placeholder
-    return undefined;
   }
 
   private notifyParameterChange(change: ParameterChange): void {
@@ -366,37 +358,37 @@ export class ParameterSynchronizer {
     }
   }
 
+  private async getCurrentParameterValue(nodeId: NodeId, paramName: string): Promise<any> {
+    // This would typically get the current value from the graph state
+    // For now, return undefined as a default
+    return undefined;
+  }
+
   private getChangeKey(nodeId: NodeId, paramName: string): string {
     return `${nodeId}:${paramName}`;
   }
 
   private getLockKey(nodeId: NodeId, paramName: string): string {
-    return `lock:${nodeId}:${paramName}`;
+    return `${nodeId}:${paramName}`;
   }
 }
 
 /**
- * Parameter Synchronization Hook for React Components
+ * Parameter Sync Manager
+ * High-level manager for parameter synchronization
  */
-export interface UseParameterSyncOptions {
-  throttleDelay?: number;
-  enableLocking?: boolean;
-  onConflict?: (local: ParameterChange, remote: ParameterChange) => ParameterChange;
-}
-
 export interface ParameterSyncState {
   value: any;
-  isLocked: boolean;
-  lockedBy: UserId | null;
   lastModified: number;
-  lastModifiedBy: UserId | null;
+  lastModifiedBy: UserId;
+  isLocked: boolean;
+  lockedBy?: UserId;
 }
 
 export class ParameterSyncManager {
   private synchronizer: ParameterSynchronizer;
   private sessionId: SessionId;
   private userId: UserId;
-  private subscribers = new Map<string, Set<(state: ParameterSyncState) => void>>();
   private parameterStates = new Map<string, ParameterSyncState>();
 
   constructor(
@@ -410,37 +402,25 @@ export class ParameterSyncManager {
   }
 
   /**
-   * Subscribe to parameter changes
+   * Subscribe to parameter changes for a specific node parameter
    */
-  subscribe(
-    nodeId: NodeId,
-    paramName: string,
-    callback: (state: ParameterSyncState) => void
-  ): () => void {
-    const key = this.getStateKey(nodeId, paramName);
-
-    if (!this.subscribers.has(key)) {
-      this.subscribers.set(key, new Set());
-      this.setupParameterListener(nodeId, paramName);
-    }
-
-    this.subscribers.get(key)!.add(callback);
-
-    // Return unsubscribe function
-    return () => {
-      const subscribers = this.subscribers.get(key);
-      if (subscribers) {
-        subscribers.delete(callback);
-        if (subscribers.size === 0) {
-          this.subscribers.delete(key);
-          this.cleanupParameterListener(nodeId, paramName);
-        }
-      }
-    };
+  subscribeToParameter(nodeId: NodeId, paramName: string): void {
+    this.synchronizer.addParameterChangeListener(nodeId, paramName, (change) => {
+      this.updateParameterState(this.getStateKey(nodeId, paramName), change);
+    });
   }
 
   /**
-   * Update parameter value
+   * Unsubscribe from parameter changes
+   */
+  unsubscribeFromParameter(nodeId: NodeId, paramName: string): void {
+    // Note: This would remove all listeners for this parameter
+    // In a real implementation, you'd want to track specific listeners
+    this.cleanupParameterListener(nodeId, paramName);
+  }
+
+  /**
+   * Update a parameter value
    */
   async updateParameter(
     nodeId: NodeId,
@@ -479,36 +459,22 @@ export class ParameterSyncManager {
   }
 
   /**
-   * Lock parameter for editing
+   * Check if user can edit parameter
    */
-  async lockParameter(nodeId: NodeId, paramName: string): Promise<boolean> {
-    return this.synchronizer.lockParameter(nodeId, paramName, this.userId);
+  canEditParameter(nodeId: NodeId, paramName: string): boolean {
+    return !this.synchronizer.isParameterLocked(nodeId, paramName, this.userId);
   }
 
   /**
-   * Release parameter lock
+   * Force release all locks held by current user
    */
-  async releaseParameterLock(nodeId: NodeId, paramName: string): Promise<boolean> {
-    return this.synchronizer.releaseParameterLock(nodeId, paramName, this.userId);
-  }
-
-  // Private Methods
-  private setupParameterListener(nodeId: NodeId, paramName: string): void {
-    const key = this.getStateKey(nodeId, paramName);
-
-    // Initialize state
-    this.parameterStates.set(key, {
-      value: undefined,
-      isLocked: false,
-      lockedBy: null,
-      lastModified: 0,
-      lastModifiedBy: null,
-    });
-
-    // Add listener for changes
-    this.synchronizer.addParameterChangeListener(nodeId, paramName, (change) => {
-      this.updateParameterState(key, change);
-    });
+  releaseAllLocks(): void {
+    const locks = this.synchronizer.getParameterLocks();
+    for (const lock of locks) {
+      if (lock.userId === this.userId) {
+        this.synchronizer.releaseParameterLock(lock.nodeId, lock.paramName, this.userId);
+      }
+    }
   }
 
   private cleanupParameterListener(nodeId: NodeId, paramName: string): void {
@@ -535,24 +501,12 @@ export class ParameterSyncManager {
     };
 
     this.parameterStates.set(key, newState);
-
-    // Notify subscribers
-    const subscribers = this.subscribers.get(key);
-    if (subscribers) {
-      subscribers.forEach(callback => {
-        try {
-          callback(newState);
-        } catch (error) {
-          console.error('Error in parameter state callback:', error);
-        }
-      });
-    }
   }
 
-  private getParameterLockOwner(nodeId: NodeId, paramName: string): UserId | null {
-    const locks = this.synchronizer.getParameterLocks(nodeId);
-    const lock = locks.find(l => l.paramName === paramName);
-    return lock ? lock.userId : null;
+  private getParameterLockOwner(nodeId: NodeId, paramName: string): UserId | undefined {
+    const locks = this.synchronizer.getParameterLocks();
+    const lock = locks.find(l => l.nodeId === nodeId && l.paramName === paramName);
+    return lock?.userId;
   }
 
   private getStateKey(nodeId: NodeId, paramName: string): string {

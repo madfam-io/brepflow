@@ -43,6 +43,7 @@ describe('DAGEngine', () => {
       cache: mockCache,
       registry: mockRegistry
     });
+
   });
 
   describe('Basic Operations', () => {

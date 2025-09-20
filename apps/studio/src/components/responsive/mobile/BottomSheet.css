@@ -1,0 +1,158 @@
+/* Bottom Sheet Styles */
+.bottom-sheet-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-primary, #ffffff);
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-sheet.dragging {
+  transition: none;
+}
+
+/* Handle */
+.bottom-sheet-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  cursor: grab;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.bottom-sheet-handle:active {
+  cursor: grabbing;
+}
+
+.handle-bar {
+  width: 36px;
+  height: 4px;
+  background: var(--border-color, #d0d0d0);
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.bottom-sheet-handle:hover .handle-bar,
+.bottom-sheet-handle:active .handle-bar {
+  background: var(--text-secondary, #888888);
+}
+
+/* Content */
+.bottom-sheet-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+.bottom-sheet[data-state="entering"] {
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bottom-sheet[data-state="leaving"] {
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Snap Indicators */
+.bottom-sheet::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 4px;
+  background: var(--border-color, #d0d0d0);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.bottom-sheet.dragging::before {
+  opacity: 1;
+}
+
+/* Dark Mode */
+.dark .bottom-sheet {
+  background: #1a1a1a;
+}
+
+.dark .handle-bar {
+  background: #404040;
+}
+
+.dark .bottom-sheet-handle:hover .handle-bar,
+.dark .bottom-sheet-handle:active .handle-bar {
+  background: #606060;
+}
+
+/* Safe Area Support */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .bottom-sheet {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .bottom-sheet-backdrop,
+  .bottom-sheet {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Large Screens (Tablet/Desktop fallback) */
+@media (min-width: 768px) {
+  .bottom-sheet {
+    max-width: 600px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .bottom-sheet[data-state="entering"] {
+    transform: translateX(-50%) translateY(0);
+  }
+}

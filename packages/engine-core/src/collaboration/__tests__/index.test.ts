@@ -306,8 +306,8 @@ describe('Collaboration Features Integration', () => {
       // User 1 acquires lock
       await synchronizer.lockParameter(nodeId, paramName, user1);
 
-      // Wait for lock to expire (reduced time for test stability)
-      await delay(50);
+      // Wait for lock to expire (needs to be longer than lockTimeout)
+      await delay(150); // Wait longer than the 100ms timeout
 
       // User 2 should now be able to acquire lock
       const isLocked = synchronizer.isParameterLocked(nodeId, paramName, user2);
