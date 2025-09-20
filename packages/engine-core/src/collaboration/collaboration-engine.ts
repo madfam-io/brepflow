@@ -426,14 +426,8 @@ export class BrepFlowCollaborationEngine {
       throw new CollaborationError(`Session not found: ${sessionId}`, 'SESSION_NOT_FOUND');
     }
 
-    const presenceState = new Map<UserId, PresenceData>();
-    for (const [userId, user] of session.users) {
-      if (user.presence) {
-        presenceState.set(userId, user.presence);
-      }
-    }
-
-    return presenceState;
+    // Return the presence map directly from the session
+    return new Map(session.presence.users);
   }
 
   /**
@@ -654,7 +648,12 @@ export class BrepFlowCollaborationEngine {
     if (!session) return [];
 
     return Array.from(session.users.values())
-      .filter(user => session.presence.users.get(user.id)?.isOnline)
+      .filter(user => {
+        // Consider user online if they're in the users list (they joined)
+        // and either have no presence data yet or are marked as online
+        const presenceData = session.presence.users.get(user.id);
+        return !presenceData || presenceData.isOnline !== false;
+      })
       .map(user => {
         const presenceData = session.presence.users.get(user.id);
         return {

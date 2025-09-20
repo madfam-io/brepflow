@@ -42,8 +42,8 @@ export class ParameterSynchronizer {
   private config: ParameterSyncConfig;
   private pendingChanges = new Map<string, ParameterChange>();
   private parameterLocks = new Map<string, ParameterLock>();
-  private throttleTimers = new Map<string, number>();
-  private batchTimer: number | null = null;
+  private throttleTimers = new Map<string, any>();  // Use any to support both browser and Node.js
+  private batchTimer: any = null;  // Use any to support both browser and Node.js
   private changeListeners = new Map<string, ((change: ParameterChange) => void)[]>();
 
   constructor(

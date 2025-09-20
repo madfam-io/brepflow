@@ -463,8 +463,11 @@ export class TestCollaborationWebSocketClient {
 export function createTestCollaborationEngine(harness: CollaborationTestHarness): any {
   const config = createTestConfig();
 
-  // Use the imported engine class
-  const engine = new BrepFlowCollaborationEngine(config);
+  // Create a mock WebSocket client with all required methods
+  const mockWebSocketClient = new MockWebSocketClient();
+
+  // Use the imported engine class with the mock client
+  const engine = new BrepFlowCollaborationEngine(mockWebSocketClient);
 
   // Override WebSocket broadcasting to use harness
   const originalBroadcastOperation = engine.broadcastOperation?.bind(engine);

@@ -100,6 +100,17 @@ export class BrepFlowScriptEngine implements ScriptEngine {
     // Extract node definition from script
     const nodeDefFromScript = await this.extractNodeDefinitionFromScript(script);
 
+    // Validate extracted node definition if it exists
+    if (nodeDefFromScript && typeof nodeDefFromScript === 'object') {
+      // Check for required fields
+      if (!nodeDefFromScript.inputs && !nodeDefFromScript.outputs && !nodeDefFromScript.params && !nodeDefFromScript.evaluate) {
+        throw new ScriptValidationError(
+          'Script validation failed: Node definition must include at least one of: inputs, outputs, params, or evaluate function',
+          ['Missing required node definition fields']
+        );
+      }
+    }
+
     // Generate node definition
     const nodeDefinition: ScriptedNodeDefinition = {
       id: `Script::${metadata.name}`,

@@ -82,7 +82,14 @@ describe('BrepFlowCollaborationEngine', () => {
 
       await engine.joinSession(sessionId, user);
 
-      expect(engine.getActiveUsers(sessionId)).toContain(user);
+      const activeUsers = engine.getActiveUsers(sessionId);
+      expect(activeUsers).toHaveLength(1);
+      expect(activeUsers[0]).toMatchObject({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        color: user.color,
+      });
     });
 
     it('should allow users to leave a session', async () => {
@@ -132,8 +139,18 @@ describe('BrepFlowCollaborationEngine', () => {
 
       const activeUsers = engine.getActiveUsers(sessionId);
       expect(activeUsers).toHaveLength(2);
-      expect(activeUsers).toContain(user1);
-      expect(activeUsers).toContain(user2);
+      expect(activeUsers[0]).toMatchObject({
+        id: user1.id,
+        name: user1.name,
+        email: user1.email,
+        color: user1.color,
+      });
+      expect(activeUsers[1]).toMatchObject({
+        id: user2.id,
+        name: user2.name,
+        email: user2.email,
+        color: user2.color,
+      });
     });
   });
 
