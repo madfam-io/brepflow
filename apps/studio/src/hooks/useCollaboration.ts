@@ -4,7 +4,10 @@
  */
 
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { collaborationEngine } from '@brepflow/engine-core/src/collaboration/collaboration-engine';
+import { BrepFlowCollaborationEngine } from '@brepflow/engine-core';
+
+// Create a singleton instance of the collaboration engine
+const collaborationEngine = new BrepFlowCollaborationEngine();
 import type {
   SessionId,
   UserId,
@@ -12,7 +15,7 @@ import type {
   CursorPosition,
   SelectionState,
   Operation,
-} from '@brepflow/engine-core/src/collaboration/types';
+} from '@brepflow/engine-core';
 
 export interface CollaborationState {
   isConnected: boolean;

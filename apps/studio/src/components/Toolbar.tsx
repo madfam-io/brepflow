@@ -44,14 +44,15 @@ export function Toolbar() {
   const handleExportCAD = async (format: 'step' | 'stl' | 'iges') => {
     try {
       const graph = useGraphStore.getState().graph;
-      const evaluationResults = useGraphStore.getState().evaluationResults;
-      
-      // Find geometry outputs from evaluation results
-      const geometryOutputs = Object.values(evaluationResults || {})
-        .filter(result => result?.outputs?.shape || result?.outputs?.shapes)
-        .map(result => result.outputs.shape || result.outputs.shapes)
-        .flat()
-        .filter(Boolean);
+      const dagEngine = useGraphStore.getState().dagEngine;
+
+      // Find geometry outputs from DAG engine evaluation
+      const geometryOutputs = dagEngine ?
+        Array.from((dagEngine as any).evaluationCache?.values() || [])
+          .filter((result: any) => result?.outputs?.shape || result?.outputs?.shapes)
+          .map((result: any) => result.outputs.shape || result.outputs.shapes)
+          .flat()
+          .filter(Boolean) : [];
 
       if (geometryOutputs.length === 0) {
         alert('No geometry to export. Please evaluate the graph first.');

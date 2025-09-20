@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three-stdlib';
 import { useGraphStore } from '../store/graph-store';
-import { Icon } from './common/Icon';
+import { Icon } from './icons/IconSystem';
 // import { MeasurementTools, type Measurement } from './viewport/MeasurementTools';
 
 // Temporary type definition for measurements

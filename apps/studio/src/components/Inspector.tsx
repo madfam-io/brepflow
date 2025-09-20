@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import type { NodeInstance } from '@brepflow/types';
 import { StatusIcon } from './icons/IconSystem';
-import { Icon } from './common/Icon';
+import { Icon } from './icons/IconSystem';
 import { Button } from './ui/Button';
 import { NodeMetricsCollector, NodePerformanceData } from '../lib/monitoring/node-metrics';
 import { ErrorDiagnosticsEngine, NodeErrorDiagnostic } from '../lib/diagnostics/error-diagnostics';

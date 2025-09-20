@@ -36,7 +36,7 @@ export function CommandPalette({ isOpen, onClose, position }: CommandPaletteProp
         id: type,
         label: name || type,
         category: category || 'Other',
-        description: def.metadata?.description || `Create a ${name} node`,
+        description: (def as any).metadata?.description || `Create a ${name} node`,
         type: 'node' as const,
       };
     });

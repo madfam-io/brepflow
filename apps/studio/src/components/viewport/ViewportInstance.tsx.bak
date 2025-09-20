@@ -172,7 +172,6 @@ export const ViewportInstance: React.FC<ViewportInstanceProps> = ({
             className="viewport-control-btn"
             onClick={handleRenderModeToggle}
             title={`Render Mode: ${viewport.renderMode} (R)`}
-            aria-label={`Switch render mode from ${viewport.renderMode}`}
           />
 
           {/* View Type Menu */}
@@ -187,7 +186,6 @@ export const ViewportInstance: React.FC<ViewportInstanceProps> = ({
                 setShowControls(!showControls);
               }}
               title={`View: ${viewport.viewType}`}
-              aria-label={`Change view type from ${viewport.viewType}`}
             />
 
             {showControls && (
@@ -201,7 +199,7 @@ export const ViewportInstance: React.FC<ViewportInstanceProps> = ({
                       handleViewTypeChange(viewType as ViewportViewType);
                     }}
                   >
-                    <IconButton icon={icon} size="sm" variant="ghost" aria-label={`Switch to ${viewType} view`} />
+                    <IconButton icon={icon} size="sm" variant="ghost" />
                     <span>{viewType}</span>
                   </button>
                 ))}
@@ -216,7 +214,7 @@ export const ViewportInstance: React.FC<ViewportInstanceProps> = ({
               size="sm"
               variant="ghost"
               className="viewport-control-btn locked"
-              title="Viewport Locked" aria-label="Viewport Locked"
+              title="Viewport Locked"
             />
           )}
         </div>

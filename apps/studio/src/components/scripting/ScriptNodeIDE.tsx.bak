@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Panel } from '../ui/Panel';
 import { IconButton } from '../ui/Button';
-import { Icon } from '../icons/IconSystem';
+import { Icon } from '../common/Icon';
 import type {
   ScriptedNodeDefinition,
   ScriptTemplate,
@@ -17,11 +17,6 @@ import type {
   ScriptMetadata,
 } from '@brepflow/engine-core';
 import './ScriptNodeIDE.css';
-
-// Import the actual script engine
-import { BrepFlowScriptEngine } from '@brepflow/engine-core';
-
-const scriptEngine = new BrepFlowScriptEngine();
 
 interface ScriptNodeIDEProps {
   isOpen: boolean;
@@ -305,7 +300,6 @@ export const ScriptNodeIDE: React.FC<ScriptNodeIDEProps> = ({
               variant="ghost"
               onClick={() => setShowTemplates(true)}
               title="Load Template"
-              aria-label="Load Template"
             />
             <IconButton
               icon="settings"
@@ -320,7 +314,7 @@ export const ScriptNodeIDE: React.FC<ScriptNodeIDEProps> = ({
               size="sm"
               variant="ghost"
               onClick={onClose}
-              title="Close"
+              title="Close" aria-label="Close"
               aria-label="Close"
             />
           </div>
@@ -388,14 +382,12 @@ export const ScriptNodeIDE: React.FC<ScriptNodeIDEProps> = ({
                   onClick={validateScript}
                   disabled={isValidating}
                   title="Validate Script"
-                  aria-label="Validate Script"
                 />
                 <IconButton
                   icon="code"
                   size="sm"
                   variant="ghost"
                   onClick={formatCode}
-                  aria-label="Format Code"
                   title="Format Code"
                 />
               </div>
@@ -618,7 +610,6 @@ export const ScriptNodeIDE: React.FC<ScriptNodeIDEProps> = ({
                   icon="x"
                   size="sm"
                   variant="ghost"
-                  aria-label="Close template selection"
                   onClick={() => setShowTemplates(false)}
                 />
               </div>
@@ -654,7 +645,6 @@ export const ScriptNodeIDE: React.FC<ScriptNodeIDEProps> = ({
                   icon="x"
                   size="sm"
                   variant="ghost"
-                  aria-label="Close permissions dialog"
                   onClick={() => setShowPermissions(false)}
                 />
               </div>

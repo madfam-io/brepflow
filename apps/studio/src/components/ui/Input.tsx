@@ -6,6 +6,9 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   label?: string;
   helpText?: string;
   errorText?: string;
+  successText?: string;
+  warningText?: string;
+  validationState?: 'success' | 'warning' | 'error' | 'default';
   size?: 'sm' | 'md' | 'lg';
   variant?: 'default' | 'technical' | 'measurement';
   leftIcon?: IconName;

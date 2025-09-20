@@ -14,8 +14,8 @@ export type { PanelSectionProps } from './PanelSection';
 export { Enhanced3DViewport } from '../viewport/Enhanced3DViewport';
 export type { ViewportProps, ViewportToolConfig } from '../viewport/Enhanced3DViewport';
 
-// Re-export existing common components for consistency
-export { Icon } from '../common/Icon';
+// Re-export existing components for consistency
+export { Icon } from '../icons/IconSystem';
 
 // Design System Utilities
 export const DESIGN_TOKENS = {

@@ -211,7 +211,7 @@ export const CameraSyncDemo: React.FC = () => {
             syncMode: 'none'
           }))}
         >
-          <IconButton icon="refresh-cw" size="sm" variant="ghost" aria-label="Reset Demo" />
+          <IconButton icon="refresh-cw" size="sm" variant="ghost" />
           Reset Demo
         </button>
 
@@ -219,7 +219,7 @@ export const CameraSyncDemo: React.FC = () => {
           className="demo-action-btn performance"
           onClick={() => setShowPerformancePanel(!showPerformancePanel)}
         >
-          <IconButton icon="activity" size="sm" variant="ghost" aria-label="Performance metrics" />
+          <IconButton icon="activity" size="sm" variant="ghost" />
           Performance
         </button>
       </div>

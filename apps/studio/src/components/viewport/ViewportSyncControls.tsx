@@ -127,6 +127,7 @@ export const ViewportSyncControls: React.FC<ViewportSyncControlsProps> = ({
           variant={syncEnabled ? 'primary' : 'ghost'}
           onClick={() => onGlobalSyncToggle(!syncEnabled)}
           title={`Sync ${syncEnabled ? 'Enabled' : 'Disabled'}`}
+          aria-label={`${syncEnabled ? 'Disable' : 'Enable'} camera sync`}
         />
       </div>
 
@@ -152,7 +153,7 @@ export const ViewportSyncControls: React.FC<ViewportSyncControlsProps> = ({
             </div>
             {currentSyncMode === mode.id && (
               <div className="sync-mode-indicator">
-                <IconButton icon="check" size="sm" variant="ghost" />
+                <IconButton icon="check" size="sm" variant="ghost" aria-label="Currently selected sync mode" />
               </div>
             )}
           </button>
@@ -162,7 +163,7 @@ export const ViewportSyncControls: React.FC<ViewportSyncControlsProps> = ({
       {syncEnabled && currentSyncConfig && (
         <div className="sync-mode-description">
           <div className="description-icon">
-            <IconButton icon="info" size="sm" variant="ghost" />
+            <IconButton icon="info" size="sm" variant="ghost" aria-label="Sync mode information" />
           </div>
           <span>{currentSyncConfig.description}</span>
         </div>
@@ -180,6 +181,7 @@ export const ViewportSyncControls: React.FC<ViewportSyncControlsProps> = ({
           variant="ghost"
           onClick={() => setShowAdvancedControls(!showAdvancedControls)}
           title="Toggle advanced controls"
+          aria-label={`${showAdvancedControls ? 'Hide' : 'Show'} advanced controls`}
         />
       </div>
 
@@ -213,6 +215,7 @@ export const ViewportSyncControls: React.FC<ViewportSyncControlsProps> = ({
                   selectedViewportId === viewport.id ? null : viewport.id
                 )}
                 title="Viewport sync settings"
+                aria-label="Viewport sync settings"
               />
 
               <label className="sync-toggle">
@@ -239,7 +242,7 @@ export const ViewportSyncControls: React.FC<ViewportSyncControlsProps> = ({
                   className="direction-button"
                   title={option.label}
                 >
-                  <IconButton icon={option.icon as any} size="sm" variant="ghost" />
+                  <IconButton icon={option.icon as any} size="sm" variant="ghost" aria-label={option.label} />
                   <span>{option.label}</span>
                 </button>
               ))}

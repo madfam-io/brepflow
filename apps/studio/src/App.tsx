@@ -43,7 +43,7 @@ import { ErrorBoundary, WASMErrorBoundary, GeometryErrorBoundary } from './lib/e
 import { MonitoringDashboard } from './components/monitoring/MonitoringDashboard';
 import { useMonitoring, useHealthMonitoring } from './hooks/useMonitoring';
 import { initializeMonitoring } from './lib/monitoring';
-import { Icon } from './components/common/Icon';
+import { Icon } from './components/icons/IconSystem';
 import { NodeParameterDialog } from './components/dialogs/NodeParameterDialog';
 import { ViewportLayoutManager } from './components/viewport/ViewportLayoutManager';
 import './App.css';
@@ -504,7 +504,7 @@ function App() {
 
   useEffect(() => {
     // Initialize monitoring system
-    const environment = import.meta.env.MODE as 'development' | 'production';
+    const environment = (import.meta as any).env?.MODE as 'development' | 'production' || 'production';
 
     initializeMonitoring(environment, {
       monitoring: {

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Icon } from '../common/Icon';
+import { Icon } from '../icons/IconSystem';
 import { IconButton } from './Button';
 import './Panel.css';
 

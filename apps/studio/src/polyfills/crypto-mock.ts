@@ -17,13 +17,16 @@ export function randomBytes(size: number): Uint8Array {
 }
 
 export function createHash(algorithm: string) {
+  let inputData: string | Uint8Array = '';
+
   return {
     update(data: string | Uint8Array) {
+      inputData = data;
       return this;
     },
     digest(encoding?: string) {
       // Simple hash fallback
-      const str = typeof data === 'string' ? data : String.fromCharCode(...data);
+      const str = typeof inputData === 'string' ? inputData : String.fromCharCode(...inputData);
       let hash = 0;
       for (let i = 0; i < str.length; i++) {
         const char = str.charCodeAt(i);

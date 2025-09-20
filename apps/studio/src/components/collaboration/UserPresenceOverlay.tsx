@@ -10,9 +10,13 @@ import type {
   SelectionState,
   SessionId,
   UserId,
-} from '@brepflow/engine-core/src/collaboration/types';
-import { collaborationEngine } from '@brepflow/engine-core/src/collaboration/collaboration-engine';
+} from '@brepflow/engine-core';
 import './UserPresenceOverlay.css';
+
+// Import the actual collaboration engine
+import { BrepFlowCollaborationEngine } from '@brepflow/engine-core';
+
+const collaborationEngine = new BrepFlowCollaborationEngine();
 
 interface UserPresenceOverlayProps {
   sessionId: SessionId;

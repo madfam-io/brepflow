@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Modal } from '../common/Modal';
-import { Icon } from '../common/Icon';
+import { Icon } from '../icons/IconSystem';
 
 interface NodeParameterDialogProps {
   isOpen: boolean;

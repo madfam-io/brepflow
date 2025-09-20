@@ -310,7 +310,6 @@ export const ViewportLayoutManager: React.FC<ViewportLayoutManagerProps> = ({
             className="layout-toggle-btn"
             onClick={() => setShowLayoutMenu(!showLayoutMenu)}
             title={`Layout: ${layoutConfig.type} (Ctrl+1-4)`}
-            aria-label={`Change layout from ${layoutConfig.type}`}
           />
 
           {showLayoutMenu && (
@@ -322,7 +321,7 @@ export const ViewportLayoutManager: React.FC<ViewportLayoutManagerProps> = ({
                   onClick={() => handleLayoutChange(layoutType as ViewportLayoutType)}
                   title={`${layoutType} layout`}
                 >
-                  <IconButton icon={icon} size="sm" variant="ghost" aria-label={`${layoutType} layout`} />
+                  <IconButton icon={icon} size="sm" variant="ghost" />
                   <span>{layoutType}</span>
                 </button>
               ))}
@@ -340,7 +339,6 @@ export const ViewportLayoutManager: React.FC<ViewportLayoutManagerProps> = ({
               className="camera-sync-btn"
               onClick={handleCameraSyncToggle}
               title={`Camera Sync: ${syncedCameras ? 'ON' : 'OFF'} (${currentSyncMode})`}
-              aria-label={`Toggle camera sync (currently ${syncedCameras ? 'enabled' : 'disabled'})`}
             />
             <IconButton
               icon="settings"
@@ -348,7 +346,7 @@ export const ViewportLayoutManager: React.FC<ViewportLayoutManagerProps> = ({
               variant={showSyncControls ? 'primary' : 'ghost'}
               className="sync-settings-btn"
               onClick={() => setShowSyncControls(!showSyncControls)}
-              title="Sync Settings" aria-label="Sync Settings"
+              title="Sync Settings"
             />
           </>
         )}

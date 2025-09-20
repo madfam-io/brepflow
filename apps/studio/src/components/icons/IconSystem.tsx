@@ -27,7 +27,13 @@ import {
   HelpCircle, StopCircle, RotateCcw as Rotate3d, Maximize,
   // Viewport layout icons
   Columns, Rows, LayoutGrid, Link, Lock, Image, Camera,
-  Monitor
+  Monitor,
+  // Additional icons from common/Icon.tsx
+  RefreshCw, Info, FileText, Trash, 
+  Cylinder, TrendingUp as Sweep,
+  CornerDownRight as Fillet, FlipHorizontal as Mirror,
+  Grid as Pattern, Loader as Loading, AlertTriangle, 
+  SquareStack, RotateCcw as Undo, RotateCw as Redo, Unlink
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -180,6 +186,20 @@ export const IconMap = {
   'image': Image,
   'camera': Camera,
   'monitor': Monitor,
+
+  // Additional missing icons
+  'upload': Upload,
+  'template': SquareStack,
+  'check': CheckCircle,
+  'code': FileText,
+  'undo': Undo,
+  'redo': Redo,
+  'folder-open': FolderOpen,
+  'refresh-cw': RefreshCw,
+  'square': Square,
+  'box': Box,
+  'unlink': Unlink,
+  'sphere': Circle  // Using Circle as fallback for sphere
 } as const;
 
 export type IconName = keyof typeof IconMap;

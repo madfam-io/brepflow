@@ -231,7 +231,7 @@ export function NodeSearchBar({
           >
             Sort: {sortBy === 'name' ? 'Name' :
                    sortBy === 'category' ? 'Category' :
-                   sortBy === 'usage' ? 'Usage' :
+                   sortBy === 'popularity' ? 'Popularity' :
                    sortBy === 'recent' ? 'Recent' : 'Relevance'}
             <span className="dropdown-arrow">▾</span>
           </button>
@@ -241,7 +241,7 @@ export function NodeSearchBar({
               {[
                 { value: 'name', label: 'Name' },
                 { value: 'category', label: 'Category' },
-                { value: 'usage', label: 'Usage' },
+                { value: 'popularity', label: 'Popularity' },
                 { value: 'recent', label: 'Recent' },
                 { value: 'relevance', label: 'Relevance' }
               ].map(option => (

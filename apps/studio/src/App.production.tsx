@@ -36,7 +36,7 @@ import { ProductionErrorBoundary } from './components/error/ProductionErrorBound
 import { MonitoringDashboard } from './components/monitoring/MonitoringDashboard';
 import { useMonitoring, useHealthMonitoring } from './hooks/useMonitoring';
 import { initializeMonitoring } from './lib/monitoring';
-import { Icon } from './components/common/Icon';
+import { Icon } from './components/icons/IconSystem';
 import { NodeParameterDialog } from './components/dialogs/NodeParameterDialog';
 import './App.css';
 
