@@ -1,6 +1,6 @@
 
 import { NodeDefinition } from '@brepflow/types';
-import { NumberParam, BooleanParam, StringParam, EnumParam, Vector3Param } from '../params';
+import { NumberParam, BooleanParam, StringParam, EnumParam, Vector3Param } from '../../params.js';
 
 interface Params {
   minThickness: number;

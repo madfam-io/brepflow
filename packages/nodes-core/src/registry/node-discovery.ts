@@ -5,9 +5,9 @@
 
 import { EnhancedNodeRegistry } from './enhanced-node-registry';
 import { NodeDefinition } from '@brepflow/types';
-import { createDemonstrationNodes } from './demonstration-nodes';
+// PRODUCTION-ONLY: Demonstration nodes removed - using generated nodes only
 
-// import { nodeRegistry } from '../nodes/generated/index.generated';
+import * as generatedNodes from '../nodes/generated/index.generated.js';
 
 /**
  * Discovers and registers all available nodes
@@ -24,22 +24,27 @@ export async function discoverAllNodes(): Promise<{
   // Clear any existing registrations
   registry.clear();
 
-  // Create enhanced demonstration nodes to show UI capabilities
-  const demoNodes = createDemonstrationNodes();
-  console.log(`📦 Found ${demoNodes.length} demonstration nodes`);
-
-  // Register demonstration nodes
+  // PRODUCTION-ONLY: No demonstration nodes - all 913 generated nodes are production-ready
   let registeredCount = 0;
-  for (const nodeDefinition of demoNodes) {
+
+  // Register generated nodes
+  console.log('🔍 Discovering generated nodes...');
+  const generatedNodeDefinitions = Object.values(generatedNodes).filter(
+    (node): node is NodeDefinition => node && typeof node === 'object' && 'type' in node
+  );
+  
+  console.log(`📦 Found ${generatedNodeDefinitions.length} generated nodes`);
+  
+  for (const nodeDefinition of generatedNodeDefinitions) {
     try {
       registry.registerNode(nodeDefinition);
       registeredCount++;
     } catch (error) {
-      console.warn(`⚠️ Failed to register node ${nodeDefinition.name}:`, error);
+      console.warn(`⚠️ Failed to register generated node ${nodeDefinition.type}:`, error);
     }
   }
-
-  console.log(`📝 Registered ${registeredCount} demonstration nodes`);
+  
+  console.log(`✅ Registered ${generatedNodeDefinitions.length} generated nodes`);
 
   // Get final statistics
   const statistics = registry.getStatistics();
@@ -113,17 +118,17 @@ export function validateNodeDiscovery(): {
     cat => !discoveredCategories.includes(cat)
   );
 
-  // Validate that we have a reasonable number of nodes for demonstration
-  const isValid = statistics.totalNodes >= 20; // Should have at least 20 nodes for demo
+  // Validate that we have all production nodes available
+  const isValid = statistics.totalNodes >= 900; // Should have close to 913 production nodes
 
   if (missingCategories.length > 0) {
-    console.warn(`⚠️ Some categories missing from demonstration: ${missingCategories.join(', ')}`);
+    console.warn(`⚠️ Some categories missing from production nodes: ${missingCategories.join(', ')}`);
   }
 
   if (isValid) {
-    console.log('✅ Node discovery validation passed');
+    console.log('✅ Production node discovery validation passed');
   } else {
-    console.error(`❌ Node discovery validation failed: only ${statistics.totalNodes} nodes found (expected at least 20)`);
+    console.error(`❌ Production node discovery validation failed: only ${statistics.totalNodes} nodes found (expected at least 900)`);
   }
 
   return {
