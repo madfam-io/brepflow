@@ -109,8 +109,20 @@ export class JavaScriptExecutor implements ScriptExecutor {
           severity: 'error',
           code: 'SYNTAX_ERROR',
         });
+        // Return early if there are syntax errors
+        return {
+          valid: false,
+          errors,
+          warnings,
+          suggestedFixes: this.generateSuggestedFixes(errors, warnings),
+        };
       }
     }
+
+    // Validate node definition structure
+    const structureValidation = this.validateNodeStructure(script);
+    errors.push(...structureValidation.errors);
+    warnings.push(...structureValidation.warnings);
 
     // Static analysis for security concerns
     const securityIssues = this.analyzeSecurityConcerns(script);
@@ -126,6 +138,107 @@ export class JavaScriptExecutor implements ScriptExecutor {
       warnings,
       suggestedFixes: this.generateSuggestedFixes(errors, warnings),
     };
+  }
+
+  private validateNodeStructure(script: string): { errors: ScriptError[]; warnings: ScriptError[] } {
+    const errors: ScriptError[] = [];
+    const warnings: ScriptError[] = [];
+
+    try {
+      // Try to execute the script in a safe context to get the returned node definition
+      const nodeDefinition = this.extractNodeDefinition(script);
+
+      if (!nodeDefinition) {
+        errors.push({
+          line: 1,
+          column: 1,
+          message: 'Script must return a node definition object',
+          severity: 'error',
+          code: 'MISSING_NODE_DEFINITION',
+        });
+        return { errors, warnings };
+      }
+
+      // Check required fields
+      const requiredFields = ['type', 'name', 'inputs', 'outputs', 'params', 'evaluate'];
+      for (const field of requiredFields) {
+        if (!(field in nodeDefinition)) {
+          errors.push({
+            line: 1,
+            column: 1,
+            message: `Node definition missing required field: ${field}`,
+            severity: 'error',
+            code: 'MISSING_REQUIRED_FIELD',
+          });
+        }
+      }
+
+      // Validate evaluate function
+      if (nodeDefinition.evaluate && typeof nodeDefinition.evaluate !== 'function') {
+        errors.push({
+          line: 1,
+          column: 1,
+          message: 'Node definition "evaluate" must be a function',
+          severity: 'error',
+          code: 'INVALID_EVALUATE_FUNCTION',
+        });
+      }
+
+      // Validate type field format
+      if (nodeDefinition.type && typeof nodeDefinition.type === 'string' && !nodeDefinition.type.includes('::')) {
+        warnings.push({
+          line: 1,
+          column: 1,
+          message: 'Node type should follow "Category::Name" format',
+          severity: 'warning',
+          code: 'TYPE_FORMAT_WARNING',
+        });
+      }
+
+    } catch (error) {
+      errors.push({
+        line: 1,
+        column: 1,
+        message: 'Script validation failed: Unable to parse node definition',
+        severity: 'error',
+        code: 'STRUCTURE_VALIDATION_ERROR',
+      });
+    }
+
+    return { errors, warnings };
+  }
+
+  private extractNodeDefinition(script: string): any {
+    try {
+      // Create a safe evaluation context
+      const sandbox = {
+        console: { log: () => {}, warn: () => {}, error: () => {} },
+        Math: Math,
+        evaluate: undefined as any, // Will be set if defined in script
+      };
+
+      // Wrap script in a function to capture the return value
+      const wrappedScript = `
+(function() {
+  "use strict";
+
+  ${script}
+
+  // Capture the return statement result
+  const result = (function() {
+    ${script}
+  })();
+
+  return result;
+})
+      `;
+
+      // Evaluate safely
+      const scriptFunction = eval(wrappedScript);
+      return scriptFunction();
+    } catch (error) {
+      return null;
+    }
   }
 
   getSyntaxHighlighting(): SyntaxHighlightRules {
@@ -376,7 +489,14 @@ async function evaluate(ctx, inputs, params) {
         const result = scriptFunction.apply(null, sandboxValues);
 
         if (result instanceof Promise) {
-          result
+          // Add timeout enforcement for async execution
+          const timeoutPromise = new Promise((_, rejectTimeout) => {
+            setTimeout(() => {
+              rejectTimeout(new Error(`Script execution timed out after ${permissions.timeoutMS}ms`));
+            }, permissions.timeoutMS);
+          });
+
+          Promise.race([result, timeoutPromise])
             .then(outputs => resolve({ outputs: outputs || {}, memoryUsage: 0 }))
             .catch(reject);
         } else {

@@ -18,35 +18,35 @@ import { BrepFlowCollaborationEngine } from '../collaboration-engine';
 
 export class MockWebSocketClient {
   private eventListeners = new Map<string, Function[]>();
-  private isConnected = false;
+  private connected = false;
   private messageQueue: any[] = [];
 
   async connect(sessionId: SessionId, userId: UserId): Promise<void> {
-    this.isConnected = true;
+    this.connected = true;
     this.emit('connection-status-changed', { connected: true });
   }
 
   async disconnect(): Promise<void> {
-    this.isConnected = false;
+    this.connected = false;
     this.emit('connection-status-changed', { connected: false });
   }
 
   async sendOperation(operation: Operation): Promise<void> {
-    if (!this.isConnected) {
+    if (!this.connected) {
       throw new Error('Not connected');
     }
     this.messageQueue.push({ type: 'operation', data: operation });
   }
 
   async sendCursorUpdate(cursor: CursorPosition): Promise<void> {
-    if (!this.isConnected) {
+    if (!this.connected) {
       throw new Error('Not connected');
     }
     this.messageQueue.push({ type: 'cursor', data: cursor });
   }
 
   async sendSelectionUpdate(selection: SelectionState): Promise<void> {
-    if (!this.isConnected) {
+    if (!this.connected) {
       throw new Error('Not connected');
     }
     this.messageQueue.push({ type: 'selection', data: selection });
@@ -54,6 +54,11 @@ export class MockWebSocketClient {
 
   async requestSync(lastKnownVersion: number): Promise<void> {
     this.messageQueue.push({ type: 'sync-request', lastKnownVersion });
+  }
+
+  // Check connection status
+  isConnected(): boolean {
+    return this.connected;
   }
 
   addEventListener(event: string, listener: Function): void {
@@ -357,7 +362,7 @@ export class TestCollaborationWebSocketClient {
   private harness: CollaborationTestHarness;
   private userId: UserId;
   private sessionId: SessionId;
-  private isConnected = false;
+  private connected = false;
 
   constructor(harness: CollaborationTestHarness, config: any) {
     this.harness = harness;
@@ -366,11 +371,11 @@ export class TestCollaborationWebSocketClient {
   async connect(sessionId: SessionId, userId: UserId): Promise<void> {
     this.sessionId = sessionId;
     this.userId = userId;
-    this.isConnected = true;
+    this.connected = true;
   }
 
   async disconnect(): Promise<void> {
-    this.isConnected = false;
+    this.connected = false;
   }
 
   async sendOperation(operation: any): Promise<void> {

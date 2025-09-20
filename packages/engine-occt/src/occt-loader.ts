@@ -186,6 +186,10 @@ async function loadNodeJSOCCT(): Promise<any> {
   const mockMemorySize = 16 * 1024 * 1024; // 16MB
   const mockMemoryBuffer = new ArrayBuffer(mockMemorySize);
 
+  // Create unique ID generator for consistent test results
+  let idCounter = 0;
+  const generateId = (prefix: string) => `${prefix}_${Date.now()}_${++idCounter}`;
+
   // Create a comprehensive Node.js OCCT mock interface
   const nodeOCCTModule = {
     // Emscripten-compatible memory interface
@@ -201,49 +205,49 @@ async function loadNodeJSOCCT(): Promise<any> {
 
     // Mock missing functions for Node.js environment testing
     makeBox: function(dx: number, dy: number, dz: number) {
-      return { id: `node_box_${Date.now()}`, type: 'solid', volume: dx * dy * dz, area: 2 * (dx * dy + dy * dz + dz * dx) };
+      return { id: generateId('node_box'), type: 'solid', volume: dx * dy * dz, area: 2 * (dx * dy + dy * dz + dz * dx) };
     },
     makeBoxWithOrigin: function(x: number, y: number, z: number, dx: number, dy: number, dz: number) {
-      return { id: `node_box_origin_${Date.now()}`, type: 'solid', volume: dx * dy * dz, area: 2 * (dx * dy + dy * dz + dz * dx) };
+      return { id: generateId('node_box_origin'), type: 'solid', volume: dx * dy * dz, area: 2 * (dx * dy + dy * dz + dz * dx) };
     },
     makeSphere: function(radius: number) {
-      return { id: `node_sphere_${Date.now()}`, type: 'solid', volume: (4/3) * Math.PI * radius * radius * radius };
+      return { id: generateId('node_sphere'), type: 'solid', volume: (4/3) * Math.PI * radius * radius * radius };
     },
     makeCylinder: function(radius: number, height: number) {
-      return { id: `node_cylinder_${Date.now()}`, type: 'solid', volume: Math.PI * radius * radius * height };
+      return { id: generateId('node_cylinder'), type: 'solid', volume: Math.PI * radius * radius * height };
     },
     makeTorus: function(majorRadius: number, minorRadius: number) {
-      return { id: `node_torus_${Date.now()}`, type: 'solid', volume: 2 * Math.PI * Math.PI * majorRadius * minorRadius * minorRadius };
+      return { id: generateId('node_torus'), type: 'solid', volume: 2 * Math.PI * Math.PI * majorRadius * minorRadius * minorRadius };
     },
     booleanUnion: function(shape1Id: string, shape2Id: string) {
-      return { id: `node_union_${Date.now()}`, type: 'solid' };
+      return { id: generateId('node_union'), type: 'solid' };
     },
     booleanSubtract: function(shape1Id: string, shape2Id: string) {
-      return { id: `node_subtract_${Date.now()}`, type: 'solid' };
+      return { id: generateId('node_subtract'), type: 'solid' };
     },
     booleanIntersect: function(shape1Id: string, shape2Id: string) {
-      return { id: `node_intersect_${Date.now()}`, type: 'solid' };
+      return { id: generateId('node_intersect'), type: 'solid' };
     },
     makeFillet: function(shapeId: string, radius: number) {
-      return { id: `node_fillet_${Date.now()}`, type: 'solid' };
+      return { id: generateId('node_fillet'), type: 'solid' };
     },
     makeChamfer: function(shapeId: string, distance: number) {
-      return { id: `node_chamfer_${Date.now()}`, type: 'solid' };
+      return { id: generateId('node_chamfer'), type: 'solid' };
     },
     extrude: function(shapeId: string, dx: number, dy: number, dz: number) {
-      return { id: `node_extrude_${Date.now()}`, type: 'solid' };
+      return { id: generateId('node_extrude'), type: 'solid' };
     },
     revolve: function(shapeId: string, angle: number, axisX: number, axisY: number, axisZ: number, originX: number, originY: number, originZ: number) {
-      return { id: `node_revolve_${Date.now()}`, type: 'solid' };
+      return { id: generateId('node_revolve'), type: 'solid' };
     },
     transform: function(shapeId: string, tx: number, ty: number, tz: number, rx: number = 0, ry: number = 0, rz: number = 0, sx: number = 1, sy: number = 1, sz: number = 1) {
-      return { id: `node_transform_${Date.now()}`, type: 'solid' };
+      return { id: generateId('node_transform'), type: 'solid' };
     },
     copyShape: function(shapeId: string) {
-      return { id: `node_copy_${Date.now()}`, type: 'solid' };
+      return { id: generateId('node_copy'), type: 'solid' };
     },
     makeShell: function(shapeId: string, thickness: number) {
-      return { id: `node_shell_${Date.now()}`, type: 'solid' };
+      return { id: generateId('node_shell'), type: 'solid' };
     },
     tessellate: function(shapeId: string, precision: number = 0.1, angle: number = 0.5) {
       // Generate a simple test mesh for Node.js
@@ -288,7 +292,7 @@ async function loadNodeJSOCCT(): Promise<any> {
 
     // File I/O operations
     importSTEP: function(stepContent: string) {
-      return [{ id: `node_import_${Date.now()}`, type: 'solid' }];
+      return [{ id: generateId('node_import'), type: 'solid' }];
     },
     exportIGES: function(shapeId: string) {
       return `IGES file content for ${shapeId}`;
@@ -318,7 +322,7 @@ async function loadNodeJSOCCT(): Promise<any> {
 async function loadFullOCCTModule(config: OCCTConfig, options: LoaderOptions): Promise<any> {
   const wasmFile = config.wasmFile;
   const wasmUrl = new URL(`../wasm/${wasmFile}`, import.meta.url).href;
-    
+
   // Check if the WASM file is accessible
   const checkResponse = await fetch(wasmUrl, { method: 'HEAD' });
   if (!checkResponse.ok) {
@@ -339,7 +343,7 @@ async function loadFullOCCTModule(config: OCCTConfig, options: LoaderOptions): P
   } catch (jsError) {
     console.warn('[OCCT] No JS glue code found, using direct WASM instantiation');
   }
-    
+
   // Configure the module with capability-aware settings
   const moduleConfig = {
     locateFile: (path: string) => {
@@ -508,11 +512,91 @@ async function loadMockGeometry(): Promise<any> {
   const mockGeometry = new MockGeometry();
   await mockGeometry.init();
 
+  // Create unique ID generator for consistent test results
+  let idCounter = 0;
+  const generateId = (prefix: string) => `${prefix}_${Date.now()}_${++idCounter}`;
+
   return {
     // Wrap mock geometry in OCCT-like interface
     invoke: (operation: string, params: any) => mockGeometry.invoke(operation, params),
-    tessellate: (shape: any, tolerance: number) => mockGeometry.tessellate(shape, tolerance),
+    tessellate: (shape: any, tolerance: number) => {
+      const result = mockGeometry.tessellate(shape, tolerance);
+      // Ensure proper mesh structure for tests
+      return {
+        ...result,
+        vertices: result.vertices || new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
+        indices: result.indices || new Uint32Array([0, 1, 2]),
+        positions: result.vertices || new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
+        triangles: result.indices || new Uint32Array([0, 1, 2])
+      };
+    },
     terminate: () => Promise.resolve(),
+
+    // Mock geometry operations - add all expected methods from tests
+    makeBox: function(dx: number, dy: number, dz: number) {
+      return { id: generateId('mock_box'), type: 'solid', volume: dx * dy * dz };
+    },
+    makeBoxWithOrigin: function(x: number, y: number, z: number, dx: number, dy: number, dz: number) {
+      return { id: generateId('mock_box_origin'), type: 'solid', volume: dx * dy * dz };
+    },
+    makeSphere: function(radius: number) {
+      return { id: generateId('mock_sphere'), type: 'solid', volume: (4/3) * Math.PI * radius * radius * radius };
+    },
+    makeCylinder: function(radius: number, height: number) {
+      return { id: generateId('mock_cylinder'), type: 'solid', volume: Math.PI * radius * radius * height };
+    },
+    makeTorus: function(majorRadius: number, minorRadius: number) {
+      return { id: generateId('mock_torus'), type: 'solid' };
+    },
+    booleanUnion: function(shape1Id: string, shape2Id: string) {
+      return { id: generateId('mock_union'), type: 'solid' };
+    },
+    booleanSubtract: function(shape1Id: string, shape2Id: string) {
+      return { id: generateId('mock_subtract'), type: 'solid' };
+    },
+    booleanIntersect: function(shape1Id: string, shape2Id: string) {
+      return { id: generateId('mock_intersect'), type: 'solid' };
+    },
+    makeFillet: function(shapeId: string, radius: number) {
+      return { id: generateId('mock_fillet'), type: 'solid' };
+    },
+    makeChamfer: function(shapeId: string, distance: number) {
+      return { id: generateId('mock_chamfer'), type: 'solid' };
+    },
+    transform: function(shapeId: string, tx: number, ty: number, tz: number, rx?: number, ry?: number, rz?: number, sx?: number, sy?: number, sz?: number) {
+      return { id: generateId('mock_transform'), type: 'solid' };
+    },
+    copyShape: function(shapeId: string) {
+      return { id: generateId('mock_copy'), type: 'solid' };
+    },
+
+    // File I/O
+    exportSTEP: function(shapeId: string) {
+      return `Mock STEP data for ${shapeId}`;
+    },
+    exportSTL: function(shapeId: string, binary?: boolean) {
+      return binary ? new ArrayBuffer(512) : `Mock STL data for ${shapeId}`;
+    },
+
+    // Memory management
+    deleteShape: function(shapeId: string) {
+      return undefined; // Mock deletion returns undefined
+    },
+    getShapeCount: function() {
+      return 0;
+    },
+    clearAllShapes: function() {
+      // No-op for mock
+    },
+
+    // Status and version
+    getStatus: function() {
+      return 'Mock Geometry Engine: Ready';
+    },
+    getOCCTVersion: function() {
+      return 'Mock-7.8.0';
+    },
+
     // Mock OCCT-specific methods
     _BRepPrimAPI_MakeBox: () => 'mock_box_function',
     _BRepPrimAPI_MakeSphere: () => 'mock_sphere_function',

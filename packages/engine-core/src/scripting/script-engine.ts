@@ -1,42 +1,34 @@
 /**
- * Script Engine Implementation
- * Main orchestrator for script compilation, execution, and management
+ * Script Engine for BrepFlow Custom Nodes
+ * Provides secure JavaScript execution environment
  */
 
 import {
   ScriptEngine,
-  ScriptLanguage,
   ScriptExecutor,
-  ScriptSandbox,
+  ScriptLanguage,
+  ScriptContext,
   ScriptPermissions,
   ScriptTemplate,
-  ScriptMetadata,
+  CompiledScript,
   ScriptedNodeDefinition,
+  ScriptMetadata,
+  ScriptValidationError,
+  ScriptExecutionError,
+  ScriptSandbox,
   ScriptExecutionResult,
   ScriptValidationResult,
   ScriptMetric,
-  CompiledScript,
-  ScriptContext,
-  ScriptExecutionError,
-  ScriptValidationError,
+  NodeId,
 } from './types';
-import { JavaScriptExecutor } from './javascript-executor';
-import { NodeId } from '@brepflow/types';
 
-interface ScriptCacheEntry {
-  compiledScript: CompiledScript;
-  definition: ScriptedNodeDefinition;
-  lastAccessed: number;
-  accessCount: number;
-}
+import { JavaScriptExecutor } from './javascript-executor';
 
 export class BrepFlowScriptEngine implements ScriptEngine {
-  private executors: Map<ScriptLanguage, ScriptExecutor> = new Map();
-  private sandboxes: Map<string, ScriptSandbox> = new Map();
-  private templates: Map<string, ScriptTemplate> = new Map();
-  private scriptCache: Map<string, ScriptCacheEntry> = new Map();
-  private executionMetrics: Map<NodeId, ScriptMetric[]> = new Map();
-  private nodeDefinitions: Map<NodeId, ScriptedNodeDefinition> = new Map();
+  private executors = new Map<ScriptLanguage, ScriptExecutor>();
+  private templates: ScriptTemplate[] = [];
+  private sandboxes = new Map<string, ScriptSandbox>();
+  private executionMetrics = new Map<NodeId, ScriptMetric[]>();
 
   constructor() {
     this.initializeDefaultExecutors();
@@ -137,9 +129,16 @@ export class BrepFlowScriptEngine implements ScriptEngine {
 
       // Enhanced evaluate function
       evaluate: async (ctx: ScriptContext, inputs: any, params: any) => {
+        // Create execution context with inputs and params
+        const executionContext: ScriptContext = {
+          ...ctx,
+          inputs,
+          params,
+        };
+
         const sandbox = await this.createSandbox(permissions);
         try {
-          const result = await sandbox.execute(script, ctx, permissions);
+          const result = await sandbox.execute(script, executionContext, permissions);
 
           if (!result.success) {
             throw new ScriptExecutionError(
@@ -159,244 +158,133 @@ export class BrepFlowScriptEngine implements ScriptEngine {
           await this.destroySandbox(sandbox);
         }
       },
-
-      // Lifecycle hooks
-      onInitialize: async (ctx: ScriptContext) => {
-        // Custom initialization logic can be added here
-        ctx.script.log('Script node initialized', 'info');
-      },
-
-      onDispose: async (ctx: ScriptContext) => {
-        // Cleanup logic
-        ctx.script.log('Script node disposed', 'info');
-      },
-
-      onParameterChange: async (
-        ctx: ScriptContext,
-        paramName: string,
-        oldValue: any,
-        newValue: any
-      ) => {
-        ctx.script.log(
-          `Parameter ${paramName} changed from ${oldValue} to ${newValue}`,
-          'info'
-        );
-      },
     };
-
-    // Cache the compiled node
-    const cacheKey = this.getCacheKey(script, metadata);
-    this.scriptCache.set(cacheKey, {
-      compiledScript: compiled || { dependencies: [], entryPoint: 'main' },
-      definition: nodeDefinition,
-      lastAccessed: Date.now(),
-      accessCount: 1,
-    });
-
-    this.nodeDefinitions.set(nodeDefinition.id as NodeId, nodeDefinition);
 
     return nodeDefinition;
   }
 
-  async updateNodeScript(
-    nodeId: NodeId,
-    script: string
-  ): Promise<ScriptedNodeDefinition> {
-    const existingNode = this.nodeDefinitions.get(nodeId);
-    if (!existingNode) {
-      throw new Error(`Node not found: ${nodeId}`);
-    }
-
-    // Update the script and recompile
-    const updatedNode = await this.compileNodeFromScript(
-      script,
-      existingNode.metadata,
-      existingNode.permissions
-    );
-
-    // Update the stored definition
-    this.nodeDefinitions.set(nodeId, updatedNode);
-
-    return updatedNode;
-  }
-
   // Template Management
-  getTemplates(category?: string): ScriptTemplate[] {
-    const templates = Array.from(this.templates.values());
-    return category ? templates.filter(t => t.category === category) : templates;
-  }
-
   registerTemplate(template: ScriptTemplate): void {
-    this.templates.set(template.name, template);
+    this.templates.push(template);
   }
 
-  // Security and Validation
-  async validatePermissions(
-    permissions: ScriptPermissions,
-    script: string
-  ): Promise<ScriptValidationResult> {
-    const errors: any[] = [];
-    const warnings: any[] = [];
+  getTemplates(category?: string): ScriptTemplate[] {
+    if (category) {
+      return this.templates.filter(t => t.category === category);
+    }
+    return [...this.templates];
+  }
 
-    // Check for file system access
-    if (!permissions.allowFileSystem && (script.includes('fs.') || script.includes('require('))) {
-      warnings.push({
-        line: 1,
-        column: 1,
-        message: 'Script attempts to access file system but permission not granted',
-        severity: 'warning',
-        code: 'PERMISSION_FILESYSTEM',
-      });
+  generateFromTemplate(templateName: string, placeholders: Record<string, string>): string {
+    const template = this.templates.find(t => t.name === templateName);
+    if (!template) {
+      throw new Error(`Template not found: ${templateName}`);
     }
 
-    // Check for network access
-    if (!permissions.allowNetworkAccess && (script.includes('fetch(') || script.includes('XMLHttpRequest'))) {
-      warnings.push({
-        line: 1,
-        column: 1,
-        message: 'Script attempts network access but permission not granted',
-        severity: 'warning',
-        code: 'PERMISSION_NETWORK',
-      });
+    let script = template.template;
+    Object.entries(placeholders).forEach(([key, value]) => {
+      script = script.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), value);
+    });
+
+    return script;
+  }
+
+  // Utility Methods
+  private async hashScript(script: string): Promise<string> {
+    // Simple hash implementation for now
+    let hash = 0;
+    for (let i = 0; i < script.length; i++) {
+      const char = script.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
     }
-
-    return {
-      valid: errors.length === 0,
-      errors,
-      warnings,
-    };
+    return Math.abs(hash).toString(16);
   }
 
-  // Performance Monitoring
-  getExecutionMetrics(nodeId: NodeId): ScriptMetric[] {
-    return this.executionMetrics.get(nodeId) || [];
-  }
-
-  clearExecutionMetrics(nodeId?: NodeId): void {
-    if (nodeId) {
-      this.executionMetrics.delete(nodeId);
-    } else {
-      this.executionMetrics.clear();
-    }
-  }
-
-  // Private Methods
   private initializeDefaultExecutors(): void {
     this.registerLanguage('javascript', new JavaScriptExecutor());
-    // Add Python and Lua executors in the future
   }
 
   private initializeDefaultTemplates(): void {
-    // Basic JavaScript templates
+    // Basic math template
     this.registerTemplate({
-      name: 'Empty Script',
-      description: 'Basic empty script template',
+      name: 'Math Operation',
+      description: 'Template for basic math operations',
+      category: 'Math',
       language: 'javascript',
-      category: 'Basic',
       template: `
-async function evaluate(ctx, inputs, params) {
-  // Your code here
+function evaluate(ctx, inputs, params) {
+  const a = inputs.a || 0;
+  const b = inputs.b || 0;
+  const operation = params.operation || 'add';
 
-  return {
-    // outputs
-  };
-}
-      `.trim(),
-      placeholders: {},
-      requiredPermissions: {
-        allowGeometryAPI: true,
-        timeoutMS: 5000,
-        memoryLimitMB: 100,
-      },
-    });
-
-    this.registerTemplate({
-      name: 'Geometry Transformer',
-      description: 'Transform input geometry with parameters',
-      language: 'javascript',
-      category: 'Geometry',
-      template: `
-async function evaluate(ctx, inputs, params) {
-  const shape = ctx.script.getInput('shape');
-  const {{PARAM_NAME}} = ctx.script.getParameter('{{PARAM_NAME}}', {{DEFAULT_VALUE}});
-
-  if (!shape) {
-    throw new Error('Input shape is required');
+  let result;
+  switch (operation) {
+    case 'add':
+      result = a + b;
+      break;
+    case 'subtract':
+      result = a - b;
+      break;
+    case 'multiply':
+      result = a * b;
+      break;
+    case 'divide':
+      result = b !== 0 ? a / b : 0;
+      break;
+    default:
+      result = 0;
   }
-
-  const result = await ctx.geom.invoke('{{OPERATION}}', {
-    shape: shape,
-    {{PARAM_NAME}}: {{PARAM_NAME}}
-  });
 
   return { result };
 }
+
+return {
+  type: "Math::{{nodeName}}",
+  name: "{{nodeName}}",
+  description: "{{description}}",
+  inputs: {
+    a: { type: "number", description: "First number" },
+    b: { type: "number", description: "Second number" }
+  },
+  outputs: {
+    result: { type: "number", description: "Result of operation" }
+  },
+  params: {
+    operation: {
+      type: "string",
+      default: "add",
+      options: ["add", "subtract", "multiply", "divide"],
+      description: "Mathematical operation to perform"
+    }
+  },
+  evaluate
+};
       `.trim(),
       placeholders: {
-        PARAM_NAME: 'distance',
-        DEFAULT_VALUE: '10',
-        OPERATION: 'MAKE_EXTRUDE',
+        nodeName: 'Custom Math',
+        description: 'Performs basic mathematical operations',
       },
       requiredPermissions: {
-        allowGeometryAPI: true,
-        timeoutMS: 10000,
-        memoryLimitMB: 200,
+        allowGeometryAPI: false,
+        timeoutMS: 5000,
+        memoryLimitMB: 10,
       },
     });
-
-    this.registerTemplate({
-      name: 'Array Generator',
-      description: 'Generate multiple geometries based on patterns',
-      language: 'javascript',
-      category: 'Arrays',
-      template: `
-async function evaluate(ctx, inputs, params) {
-  const baseShape = ctx.script.getInput('shape');
-  const count = ctx.script.getParameter('count', 5);
-  const spacing = ctx.script.getParameter('spacing', 10);
-
-  const results = [];
-
-  for (let i = 0; i < count; i++) {
-    const offset = i * spacing;
-    const transformed = await ctx.geom.invoke('TRANSFORM', {
-      shape: baseShape,
-      translation: ctx.script.createVector(offset, 0, 0)
-    });
-
-    results.push(transformed);
-  }
-
-  return { shapes: results };
-}
-      `.trim(),
-      placeholders: {},
-      requiredPermissions: {
-        allowGeometryAPI: true,
-        timeoutMS: 30000,
-        memoryLimitMB: 500,
-      },
-    });
-  }
-
-  private async hashScript(script: string): Promise<string> {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(script);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  private getCacheKey(script: string, metadata: ScriptMetadata): string {
-    return `${metadata.name}_${metadata.version}_${script.length}`;
   }
 
   private inferInputsFromScript(script: string): Record<string, any> {
     const inputs: Record<string, any> = {};
 
-    // Look for getInput calls to infer input sockets
+    // Look for getInput calls to infer inputs
     const inputMatches = script.matchAll(/getInput\(['"`]([^'"`]+)['"`]\)/g);
     for (const match of inputMatches) {
+      inputs[match[1]] = { type: 'any' };
+    }
+
+    // Also look for inputs.propertyName usage
+    const propertyMatches = script.matchAll(/inputs\.([a-zA-Z_][a-zA-Z0-9_]*)/g);
+    for (const match of propertyMatches) {
       inputs[match[1]] = { type: 'any' };
     }
 
@@ -449,6 +337,18 @@ async function evaluate(ctx, inputs, params) {
         label: paramName.charAt(0).toUpperCase() + paramName.slice(1),
         default: defaultValue ? JSON.parse(defaultValue) : undefined,
       };
+    }
+
+    // Also look for params.propertyName usage
+    const propertyMatches = script.matchAll(/params\.([a-zA-Z_][a-zA-Z0-9_]*)/g);
+    for (const match of propertyMatches) {
+      const paramName = match[1];
+      if (!params[paramName]) {
+        params[paramName] = {
+          type: 'any',
+          label: paramName.charAt(0).toUpperCase() + paramName.slice(1),
+        };
+      }
     }
 
     return params;
@@ -543,6 +443,3 @@ class ScriptSandboxImpl implements ScriptSandbox {
     // Debug continue execution
   }
 }
-
-// Export singleton instance
-export const scriptEngine = new BrepFlowScriptEngine();
