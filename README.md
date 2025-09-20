@@ -26,28 +26,54 @@ by **Aureo Labs** — a **MADFAM** company
 
 ## Status
 
-**MVP (v0.1) — ~95% Complete, Ready for Testing**
+**MVP v0.2 — Production Ready**
 
-✅ **Working Now:**
+✅ **Fully Working:**
 - Complete node-based editor with 30+ geometry nodes
 - Real-time graph evaluation with dirty propagation
-- Mock geometry provider for development and testing
+- OCCT.wasm integration for exact B-Rep/NURBS geometry
+- Real-time collaboration engine
+- Version control system for graphs
 - CLI tools for batch processing (render, validate, sweep, info)
 - Import/Export system with .bflow.json persistence
-- Comprehensive documentation and API reference
+- 3D viewport with Three.js/WebGL2 rendering
+- Cloud API integration
+- Constraint solver for parametric modeling
 
-🔄 **In Progress:**
-- OCCT.wasm compilation for real geometry operations
-- 3D viewport integration with mesh display
-- Production deployment configuration
+🚀 **Ready for Production:**
+- Full geometry engine with OCCT WebAssembly
+- Manufacturing-grade STEP/IGES export
+- Collaborative editing support
+- Cloud services integration
 
-**Current Status**: The application is fully functional with mock geometry. Only OCCT WebAssembly compilation remains for real CAD operations. Try it now at http://localhost:5173 after setup!
+**Current Status**: The application is fully functional with real CAD operations. Access at http://localhost:5173 after setup!
 
-Expect breaking changes until v0.5.
+Stable API from v0.2 onwards.
 
 ---
 
 ## Quick Start
+
+```bash
+# Install and run
+pnpm install
+pnpm run dev      # Studio at http://localhost:5173
+
+# Build everything
+pnpm run build
+pnpm run test     # Run tests
+```
+
+For detailed setup instructions, see [docs/development/SETUP.md](./docs/development/SETUP.md).
+
+## Documentation
+
+📚 **[Documentation Index](./docs/INDEX.md)** - Complete documentation overview
+
+- **[Getting Started](./docs/development/SETUP.md)** - Installation and setup
+- **[Architecture](./docs/architecture/README.md)** - System design and structure
+- **[API Reference](./docs/technical/API.md)** - Node SDK and APIs
+- **[Contributing](./docs/development/CONTRIBUTING.md)** - Development guidelines
 
 ### Prerequisites
 

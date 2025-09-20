@@ -4,8 +4,8 @@ This guide will help you get BrepFlow up and running on your local machine.
 
 ## Prerequisites
 
-- **Node.js** ≥ 20.0.0
-- **pnpm** ≥ 9.0.0
+- **Node.js** ≥ 18.0.0
+- **pnpm** ≥ 8.0.0
 - Modern browser with WebAssembly support
 - (Optional) Emscripten SDK for building OCCT.wasm
 
@@ -15,7 +15,7 @@ This guide will help you get BrepFlow up and running on your local machine.
 
 ```bash
 # Install pnpm if you haven't already
-npm install -g pnpm@9
+npm install -g pnpm
 
 # Install project dependencies
 pnpm install
@@ -59,16 +59,26 @@ pnpm run build
 ```
 brepflow/
 ├── apps/
-│   └── studio/          # React-based node editor application
+│   ├── studio/          # React-based node editor application
+│   └── marketing/       # Marketing website
 ├── packages/
 │   ├── engine-core/     # DAG evaluation engine
 │   ├── engine-occt/     # OCCT.wasm bindings
 │   ├── viewport/        # Three.js 3D viewport
 │   ├── nodes-core/      # Built-in node implementations
 │   ├── types/           # Shared TypeScript types
-│   └── cli/             # Command-line interface
-├── scripts/
-│   └── build-occt.sh    # OCCT.wasm build script
+│   ├── cli/             # Command-line interface
+│   ├── sdk/             # Public SDK for custom nodes
+│   ├── schemas/         # JSON schema definitions
+│   ├── examples/        # Example graphs and fixtures
+│   ├── collaboration/   # Real-time collaboration engine
+│   ├── version-control/ # Graph version control
+│   ├── constraint-solver/# Parametric constraint solving
+│   ├── cloud-api/       # Cloud API client
+│   └── cloud-services/  # Cloud service integrations
+├── scripts/             # Build and utility scripts
+├── tests/               # Test suites (unit, integration, E2E)
+├── docs/                # Documentation
 └── third_party/         # External dependencies (OCCT, etc.)
 ```
 

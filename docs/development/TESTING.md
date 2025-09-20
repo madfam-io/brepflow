@@ -168,7 +168,7 @@ describe('CustomNode', () => {
 #### Mocking Workers
 
 ```typescript
-// test/mocks/worker.ts
+// tests/mocks/worker.ts
 export class MockWorker {
   postMessage = vi.fn();
   terminate = vi.fn();
@@ -192,7 +192,7 @@ global.Worker = MockWorker as any;
 #### Mocking WebGL
 
 ```typescript
-// test/setup.ts
+// tests/setup/setup.ts
 HTMLCanvasElement.prototype.getContext = function(contextType: string) {
   if (contextType === 'webgl' || contextType === 'webgl2') {
     return {
@@ -214,7 +214,7 @@ HTMLCanvasElement.prototype.getContext = function(contextType: string) {
 #### Mocking OCCT WASM
 
 ```typescript
-// test/mocks/occt.ts
+// tests/mocks/occt.ts
 export const mockOCCT = {
   ready: Promise.resolve(),
 
@@ -459,7 +459,7 @@ jobs:
 
 ### Mock Management
 
-1. **Centralize**: Keep mocks in `test/mocks/`
+1. **Centralize**: Keep mocks in `tests/mocks/`
 2. **Type Safety**: Type your mocks properly
 3. **Reset**: Clear mocks between tests
 4. **Minimal**: Only mock what's necessary

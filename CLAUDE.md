@@ -14,6 +14,7 @@ The project uses a monorepo structure with the following layout:
 /brepflow
   /apps
     /studio            # React app: node editor + viewport
+    /marketing         # Marketing website
   /packages
     /engine-core       # DAG evaluation, dirty-propagation, hashing, persistence
     /engine-occt       # Worker bindings to occt.wasm (C++/TS glue)
@@ -24,6 +25,11 @@ The project uses a monorepo structure with the following layout:
     /schemas           # JSON schema for .bflow.json
     /types             # Shared types
     /examples          # Example graphs + fixtures
+    /collaboration     # Real-time collaboration engine
+    /version-control   # Graph version control system
+    /constraint-solver # Parametric constraint solving
+    /cloud-api         # Cloud API client
+    /cloud-services    # Cloud service integrations
   /third_party         # occt, openNURBS (phase 2)
   /scripts             # build scripts (e.g., build-occt.sh)
 ```

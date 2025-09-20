@@ -5,7 +5,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./test/setup.ts'],
+    setupFiles: ['./tests/setup/setup.ts'],
     testTimeout: 30000, // 30 seconds for complex tests
     hookTimeout: 30000, // 30 seconds for setup/teardown hooks
     coverage: {
@@ -13,7 +13,7 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
       exclude: [
         'node_modules/',
-        'test/',
+        'tests/',
         '*.config.ts',
         '**/*.d.ts',
         '**/__mocks__/',
