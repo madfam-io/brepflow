@@ -731,6 +731,32 @@ export class BrepFlowCollaborationEngine {
   }
 
   /**
+   * Broadcast message to all users in a session
+   */
+  private async broadcastToSession(sessionId: SessionId, message: any, excludeUserId?: UserId): Promise<void> {
+    const session = this.sessions.get(sessionId);
+    if (!session) return;
+
+    // Send to all users except the excluded one
+    for (const [userId, user] of session.users) {
+      if (userId !== excludeUserId) {
+        // In a real implementation, this would send via WebSocket
+        // For now, emit an event that can be listened to
+        this.emit('broadcast', { sessionId, userId, message });
+      }
+    }
+
+    // Also send via WebSocket if connected
+    if (this.wsClient && this.wsClient.isConnected()) {
+      try {
+        await this.wsClient.send(message);
+      } catch (error) {
+        console.warn('[Collaboration] Failed to broadcast message:', error);
+      }
+    }
+  }
+
+  /**
    * Cleanup and shutdown
    */
   async shutdown(): Promise<void> {

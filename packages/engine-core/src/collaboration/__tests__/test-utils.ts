@@ -20,15 +20,46 @@ export class MockWebSocketClient {
   private eventListeners = new Map<string, Function[]>();
   private connected = false;
   private messageQueue: any[] = [];
+  private messageCallback?: (data: any) => void;
+  private reconnectCallback?: () => void;
 
-  async connect(sessionId: SessionId, userId: UserId): Promise<void> {
+  // Support both signatures for compatibility
+  async connect(urlOrSessionId: string | SessionId, userId?: UserId): Promise<void> {
     this.connected = true;
     this.emit('connection-status-changed', { connected: true });
+
+    // If reconnect callback exists, simulate reconnection
+    if (this.reconnectCallback) {
+      setTimeout(() => this.reconnectCallback!(), 100);
+    }
   }
 
   async disconnect(): Promise<void> {
     this.connected = false;
     this.emit('connection-status-changed', { connected: false });
+  }
+
+  // Add generic send method for interface compatibility
+  async send(message: any): Promise<void> {
+    if (!this.connected) {
+      throw new Error('Not connected');
+    }
+    this.messageQueue.push({ type: 'generic', data: message });
+
+    // Trigger message callback if set
+    if (this.messageCallback) {
+      this.messageCallback(message);
+    }
+  }
+
+  // Add onMessage handler
+  onMessage(callback: (data: any) => void): void {
+    this.messageCallback = callback;
+  }
+
+  // Add onReconnect handler
+  onReconnect(callback: () => void): void {
+    this.reconnectCallback = callback;
   }
 
   async sendOperation(operation: Operation): Promise<void> {

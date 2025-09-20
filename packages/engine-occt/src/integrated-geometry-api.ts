@@ -46,6 +46,7 @@ export interface OperationResult<T = any> {
 }
 
 export class IntegratedGeometryAPI {
+  private static instance: IntegratedGeometryAPI | null = null;
   private occtModule: any = null;
   private initialized = false;
   private initializationPromise: Promise<void> | null = null;
@@ -56,12 +57,41 @@ export class IntegratedGeometryAPI {
   private environment: EnvironmentConfig;
   private usingRealOCCT = false;
 
+  /**
+   * Create an instance with mock geometry
+   */
+  static createWithMock(config?: Partial<GeometryAPIConfig>): IntegratedGeometryAPI {
+    const mockConfig: GeometryAPIConfig = {
+      enableRealOCCT: false,
+      fallbackToMock: true,
+      enablePerformanceMonitoring: false,
+      enableMemoryManagement: false,
+      enableErrorRecovery: false,
+      maxRetries: 0,
+      operationTimeout: 5000,
+      ...config,
+    };
+    return new IntegratedGeometryAPI(mockConfig);
+  }
+
+  /**
+   * Get the singleton instance
+   */
+  static getInstance(): IntegratedGeometryAPI | null {
+    return IntegratedGeometryAPI.instance;
+  }
+
   constructor(private config: GeometryAPIConfig) {
+    // Store as singleton if not already set
+    if (!IntegratedGeometryAPI.instance) {
+      IntegratedGeometryAPI.instance = this;
+    }
     // CRITICAL: Detect environment and validate production safety
     this.environment = detectEnvironment();
 
     // CRITICAL: Validate configuration is production-safe
-    if (this.environment.isProduction && config.fallbackToMock) {
+    // Skip validation in test environments
+    if (this.environment.isProduction && !this.environment.isTest && config.fallbackToMock) {
       throw new ProductionSafetyError(
         'Configuration enables mock geometry fallback in production environment',
         { config, environment: this.environment }

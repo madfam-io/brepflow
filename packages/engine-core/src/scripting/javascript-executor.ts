@@ -497,10 +497,16 @@ async function evaluate(ctx, inputs, params) {
           });
 
           Promise.race([result, timeoutPromise])
-            .then(outputs => resolve({ outputs: outputs || {}, memoryUsage: 0 }))
+            .then(outputs => {
+              // Ensure outputs is properly formatted
+              const finalOutputs = outputs || {};
+              resolve({ outputs: finalOutputs, memoryUsage: 0 });
+            })
             .catch(reject);
         } else {
-          resolve({ outputs: result || {}, memoryUsage: 0 });
+          // Ensure result is properly formatted
+          const finalOutputs = result || {};
+          resolve({ outputs: finalOutputs, memoryUsage: 0 });
         }
       } catch (error) {
         reject(error);

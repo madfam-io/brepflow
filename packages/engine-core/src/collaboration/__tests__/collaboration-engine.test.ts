@@ -20,13 +20,13 @@ function createMockWebSocketClient() {
     connect: vi.fn().mockResolvedValue(undefined),
     disconnect: vi.fn().mockResolvedValue(undefined),
     send: vi.fn().mockResolvedValue(undefined),
+    isConnected: vi.fn().mockReturnValue(false),
     sendOperation: vi.fn(),
     sendCursorUpdate: vi.fn(),
     sendSelectionUpdate: vi.fn(),
     requestSync: vi.fn(),
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
-    isConnected: vi.fn().mockReturnValue(false), // Mock as function that returns false
     onMessage: vi.fn(),
     onReconnect: vi.fn(),
   };
