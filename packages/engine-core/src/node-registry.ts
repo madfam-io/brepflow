@@ -79,6 +79,13 @@ export class NodeRegistry {
   }
 
   /**
+   * Get all node definitions
+   */
+  getAllDefinitions(): Record<string, NodeDefinition> {
+    return Object.fromEntries(this.nodes);
+  }
+
+  /**
    * Clear all registrations
    */
   clear(): void {
