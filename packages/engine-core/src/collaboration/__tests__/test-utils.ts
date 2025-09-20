@@ -87,7 +87,7 @@ export class MockWebSocketClient {
     this.messageQueue.push({ type: 'sync-request', lastKnownVersion });
   }
 
-  // Check connection status
+  // Check connection status - THIS WAS MISSING
   isConnected(): boolean {
     return this.connected;
   }
@@ -409,22 +409,26 @@ export class TestCollaborationWebSocketClient {
     this.connected = false;
   }
 
+  isConnected(): boolean {
+    return this.connected;
+  }
+
   async sendOperation(operation: any): Promise<void> {
-    if (!this.isConnected) return;
-    
+    if (!this.connected) return;
+
     // Broadcast to all other clients
     this.harness.broadcastToOthers(this.userId, 'operation', operation);
   }
 
   async sendCursorUpdate(cursor: any): Promise<void> {
-    if (!this.isConnected) return;
-    
+    if (!this.connected) return;
+
     this.harness.broadcastToOthers(this.userId, 'cursor', cursor);
   }
 
   async sendSelectionUpdate(selection: any): Promise<void> {
-    if (!this.isConnected) return;
-    
+    if (!this.connected) return;
+
     this.harness.broadcastToOthers(this.userId, 'selection', selection);
   }
 
@@ -439,15 +443,29 @@ export class TestCollaborationWebSocketClient {
   removeEventListener(event: string, listener: Function): void {
     // Mock event listener removal
   }
+
+  onMessage(callback: (data: any) => void): void {
+    // Mock onMessage handler
+  }
+
+  onReconnect(callback: () => void): void {
+    // Mock onReconnect handler
+  }
+
+  async send(message: any): Promise<void> {
+    if (!this.connected) return;
+
+    // Mock generic send
+  }
 }
 
 // Simplified test engine creation - just use regular import
 export function createTestCollaborationEngine(harness: CollaborationTestHarness): any {
   const config = createTestConfig();
-  
+
   // Use the imported engine class
   const engine = new BrepFlowCollaborationEngine(config);
-  
+
   // Override WebSocket broadcasting to use harness
   const originalBroadcastOperation = engine.broadcastOperation?.bind(engine);
   if (originalBroadcastOperation) {
@@ -463,6 +481,22 @@ export function createTestCollaborationEngine(harness: CollaborationTestHarness)
       });
     };
   }
-  
+
   return engine;
+}
+
+// Create a working mock collaboration engine for parameter sync tests
+export function createMockCollaborationEngine() {
+  return {
+    addEventListener: (event: string, listener: Function) => {
+      // Store listeners if needed
+    },
+    removeEventListener: (event: string, listener: Function) => {
+      // Remove listeners if needed
+    },
+    applyOperation: async (sessionId: string, operation: any) => {
+      // Mock operation application - this is what the tests expect to be called
+      console.log(`Mock applying operation ${operation.type} to session ${sessionId}`);
+    },
+  };
 }

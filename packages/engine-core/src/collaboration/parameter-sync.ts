@@ -167,7 +167,7 @@ export class ParameterSynchronizer {
   isParameterLocked(
     nodeId: NodeId,
     paramName: string,
-    userId: UserId
+    userId?: UserId
   ): boolean {
     const lockKey = this.getLockKey(nodeId, paramName);
     const lock = this.parameterLocks.get(lockKey);
@@ -180,8 +180,12 @@ export class ParameterSynchronizer {
       return false;
     }
 
-    // Return true if locked by someone else
-    return lock.userId !== userId;
+    // Return true if locked by someone else, false if locked by this user
+    if (userId) {
+      return lock.userId !== userId;
+    }
+
+    return true;
   }
 
   /**
@@ -390,6 +394,7 @@ export class ParameterSyncManager {
   private sessionId: SessionId;
   private userId: UserId;
   private parameterStates = new Map<string, ParameterSyncState>();
+  private subscriptions = new Map<string, (value: any) => void>();
 
   constructor(
     synchronizer: ParameterSynchronizer,
@@ -403,6 +408,42 @@ export class ParameterSyncManager {
 
   /**
    * Subscribe to parameter changes for a specific node parameter
+   */
+  subscribe(nodeId: NodeId, paramName: string, callback: (value: any) => void): () => void {
+    const key = this.getStateKey(nodeId, paramName);
+
+    // Store the callback
+    this.subscriptions.set(key, callback);
+
+    // Initialize parameter state if it doesn't exist
+    if (!this.parameterStates.has(key)) {
+      this.parameterStates.set(key, {
+        value: undefined,
+        isLocked: false,
+        lockedBy: null,
+        lastModified: 0,
+        lastModifiedBy: null,
+      });
+    }
+
+    // Add listener to synchronizer
+    const listener = (change: ParameterChange) => {
+      this.updateParameterState(key, change);
+      callback(change.value);
+    };
+
+    this.synchronizer.addParameterChangeListener(nodeId, paramName, listener);
+
+    // Return unsubscribe function
+    return () => {
+      this.subscriptions.delete(key);
+      this.synchronizer.removeParameterChangeListener(nodeId, paramName, listener);
+      this.parameterStates.delete(key);
+    };
+  }
+
+  /**
+   * Subscribe to parameter changes
    */
   subscribeToParameter(nodeId: NodeId, paramName: string): void {
     this.synchronizer.addParameterChangeListener(nodeId, paramName, (change) => {
@@ -425,14 +466,16 @@ export class ParameterSyncManager {
   async updateParameter(
     nodeId: NodeId,
     paramName: string,
-    value: any
+    value: any,
+    options?: { autoLock?: boolean }
   ): Promise<void> {
-    // Try to acquire lock first
-    if (this.synchronizer.isParameterLocked(nodeId, paramName, this.userId)) {
-      throw new Error('Parameter is locked by another user');
+    // Try to acquire lock first if auto-lock is enabled
+    if (options?.autoLock || this.synchronizer.isParameterLocked(nodeId, paramName, this.userId)) {
+      if (this.synchronizer.isParameterLocked(nodeId, paramName, this.userId)) {
+        throw new Error('Parameter is locked by another user');
+      }
+      await this.synchronizer.lockParameter(nodeId, paramName, this.userId);
     }
-
-    await this.synchronizer.lockParameter(nodeId, paramName, this.userId);
 
     try {
       await this.synchronizer.updateParameter(
@@ -443,10 +486,12 @@ export class ParameterSyncManager {
         this.userId
       );
     } finally {
-      // Release lock after update
-      setTimeout(() => {
-        this.synchronizer.releaseParameterLock(nodeId, paramName, this.userId);
-      }, 1000);
+      // Release lock after update if auto-lock was used
+      if (options?.autoLock) {
+        setTimeout(() => {
+          this.synchronizer.releaseParameterLock(nodeId, paramName, this.userId);
+        }, 1000);
+      }
     }
   }
 
@@ -456,6 +501,38 @@ export class ParameterSyncManager {
   getParameterState(nodeId: NodeId, paramName: string): ParameterSyncState | null {
     const key = this.getStateKey(nodeId, paramName);
     return this.parameterStates.get(key) || null;
+  }
+
+  /**
+   * Get parameter state for all subscribed parameters
+   */
+  getParameterState(): Map<string, any> {
+    const state = new Map<string, any>();
+    for (const [key, paramState] of this.parameterStates) {
+      state.set(key, paramState.value);
+    }
+    return state;
+  }
+
+  /**
+   * Check if parameter is locked
+   */
+  isParameterLocked(nodeId: NodeId, paramName: string): boolean {
+    return this.synchronizer.isParameterLocked(nodeId, paramName, this.userId);
+  }
+
+  /**
+   * Lock parameter
+   */
+  lockParameter(nodeId: NodeId, paramName: string): void {
+    this.synchronizer.lockParameter(nodeId, paramName, this.userId);
+  }
+
+  /**
+   * Unlock parameter
+   */
+  unlockParameter(nodeId: NodeId, paramName: string): void {
+    this.synchronizer.releaseParameterLock(nodeId, paramName, this.userId);
   }
 
   /**
@@ -485,7 +562,21 @@ export class ParameterSyncManager {
 
   private updateParameterState(key: string, change: ParameterChange): void {
     const currentState = this.parameterStates.get(key);
-    if (!currentState) return;
+    if (!currentState) {
+      // Initialize new state
+      this.parameterStates.set(key, {
+        value: change.value,
+        lastModified: change.timestamp,
+        lastModifiedBy: change.userId,
+        isLocked: this.synchronizer.isParameterLocked(
+          change.nodeId,
+          change.paramName,
+          this.userId
+        ),
+        lockedBy: this.getParameterLockOwner(change.nodeId, change.paramName),
+      });
+      return;
+    }
 
     const newState: ParameterSyncState = {
       ...currentState,

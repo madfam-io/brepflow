@@ -8,6 +8,7 @@ import type { NodeId, EdgeId } from '@brepflow/types';
 export type UserId = string;
 export type SessionId = string;
 export type OperationId = string;
+export type ParameterId = string;
 
 export interface CollaborationUser {
   id: UserId;
@@ -19,7 +20,11 @@ export interface CollaborationUser {
   lastSeen: number;
   cursor?: CursorPosition;
   selection?: SelectionState;
+  presence?: PresenceData;
 }
+
+// Add alias for compatibility with tests
+export type ParticipantData = CollaborationUser;
 
 export interface CursorPosition {
   x: number;
@@ -48,11 +53,17 @@ export interface CollaborationSession {
   state: GraphState;
   createdAt: number;
   lastActivity: number;
+  presence: {
+    users: Map<UserId, PresenceData>;
+    lastUpdated: number;
+  };
+  options: Record<string, any>;
 }
 
 export interface GraphState {
   nodes: Map<NodeId, any>;
   edges: Map<EdgeId, any>;
+  parameters: Map<string, any>;
   version: number;
   lastModified: number;
 }
@@ -147,12 +158,18 @@ export type Operation =
 export type ConflictResolutionStrategy = 'merge' | 'last-writer-wins' | 'first-writer-wins' | 'user-decision';
 
 export interface ConflictResolution {
+  resolved: boolean;
   strategy: ConflictResolutionStrategy;
   resolvedOperation: Operation;
   metadata?: Record<string, any>;
 }
 
-
+export interface OperationConflict {
+  type: string;
+  operation: Operation;
+  conflictingOperation: Operation | null;
+  description: string;
+}
 
 // WebSocket Message Types
 export type WebSocketMessageType =
@@ -250,6 +267,15 @@ export interface PresenceState {
   lastUpdate: number;
 }
 
+export interface PresenceData {
+  userId: UserId;
+  isOnline: boolean;
+  cursor?: CursorPosition | null;
+  selection?: SelectionState | null;
+  lastActivity: number;
+  currentActivity?: string;
+}
+
 export interface AwarenessUpdate {
   userId: UserId;
   type: 'cursor' | 'selection' | 'status';
@@ -265,6 +291,14 @@ export interface NodeLock {
   acquiredAt: number;
   expiresAt: number;
   autoRelease: boolean;
+}
+
+export interface ParameterLock {
+  sessionId: SessionId;
+  parameterId: ParameterId;
+  userId: UserId;
+  acquiredAt: number;
+  expiresAt: number;
 }
 
 export interface LockRequest {
@@ -285,7 +319,7 @@ export interface LockManager {
 // Collaboration Engine Interface
 export interface CollaborationEngine {
   // Session Management
-  createSession: (projectId: string, userId: UserId) => Promise<SessionId>;
+  createSession: (projectId: string, userId?: UserId) => Promise<SessionId>;
   joinSession: (sessionId: SessionId, user: CollaborationUser) => Promise<void>;
   leaveSession: (sessionId: SessionId, userId: UserId) => Promise<void>;
   getSession: (sessionId: SessionId) => Promise<CollaborationSession | null>;
@@ -311,8 +345,12 @@ export interface CollaborationEngine {
   lockManager: LockManager;
 
   // Presence Management
-  updatePresence: (sessionId: SessionId, userId: UserId, presence: Partial<CollaborationUser>) => Promise<void>;
+  updatePresence: (sessionId: SessionId, userId: UserId, presence: PresenceData) => Promise<void>;
   getPresence: (sessionId: SessionId) => Promise<PresenceState>;
+
+  // Event handling
+  addEventListener: (event: string, listener: Function) => void;
+  removeEventListener: (event: string, listener: Function) => void;
 }
 
 // Configuration

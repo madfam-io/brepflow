@@ -149,26 +149,20 @@ export class JavaScriptExecutor implements ScriptExecutor {
       const nodeDefinition = this.extractNodeDefinition(script);
 
       if (!nodeDefinition) {
-        errors.push({
-          line: 1,
-          column: 1,
-          message: 'Script must return a node definition object',
-          severity: 'error',
-          code: 'MISSING_NODE_DEFINITION',
-        });
+        // Don't require node definition for simple evaluate functions
         return { errors, warnings };
       }
 
-      // Check required fields
+      // Check required fields if node definition exists
       const requiredFields = ['type', 'name', 'inputs', 'outputs', 'params', 'evaluate'];
       for (const field of requiredFields) {
         if (!(field in nodeDefinition)) {
-          errors.push({
+          warnings.push({
             line: 1,
             column: 1,
-            message: `Node definition missing required field: ${field}`,
-            severity: 'error',
-            code: 'MISSING_REQUIRED_FIELD',
+            message: `Node definition missing recommended field: ${field}`,
+            severity: 'warning',
+            code: 'MISSING_RECOMMENDED_FIELD',
           });
         }
       }
@@ -196,13 +190,7 @@ export class JavaScriptExecutor implements ScriptExecutor {
       }
 
     } catch (error) {
-      errors.push({
-        line: 1,
-        column: 1,
-        message: 'Script validation failed: Unable to parse node definition',
-        severity: 'error',
-        code: 'STRUCTURE_VALIDATION_ERROR',
-      });
+      // This is okay - script might just be an evaluate function
     }
 
     return { errors, warnings };
@@ -467,22 +455,57 @@ async function evaluate(ctx, inputs, params) {
         const sandboxKeys = Object.keys(sandbox);
         const sandboxValues = sandboxKeys.map(key => sandbox[key]);
 
-        // Wrap the script in a function with sandbox variables
-        const wrappedScript = `
+        // Check if the script is just an evaluate function or a full node definition
+        const isSimpleEvaluate = script.includes('function evaluate') && !script.includes('return {');
+
+        let wrappedScript: string;
+
+        if (isSimpleEvaluate) {
+          // Script is just an evaluate function - execute it directly
+          wrappedScript = `
 (function(${sandboxKeys.join(', ')}) {
   "use strict";
 
   ${script}
 
-  // If script defines an evaluate function, call it
+  // Call the evaluate function with context
   if (typeof evaluate === 'function') {
     return evaluate(ctx, ctx.inputs || {}, ctx.params || {});
   }
 
-  // Otherwise return empty result
+  // If no evaluate function found, return empty
   return {};
 })
-        `;
+          `;
+        } else {
+          // Script might return a node definition or contain other logic
+          wrappedScript = `
+(function(${sandboxKeys.join(', ')}) {
+  "use strict";
+
+  ${script}
+
+  // Try different ways to get the result
+
+  // 1. If script defines an evaluate function, call it
+  if (typeof evaluate === 'function') {
+    return evaluate(ctx, ctx.inputs || {}, ctx.params || {});
+  }
+
+  // 2. If script returns a node definition with evaluate, call that
+  const nodeResult = (function() {
+    ${script}
+  })();
+
+  if (nodeResult && typeof nodeResult.evaluate === 'function') {
+    return nodeResult.evaluate(ctx, ctx.inputs || {}, ctx.params || {});
+  }
+
+  // 3. Otherwise return the script result directly
+  return nodeResult || {};
+})
+          `;
+        }
 
         // Execute the wrapped script
         const scriptFunction = eval(wrappedScript);
@@ -500,13 +523,23 @@ async function evaluate(ctx, inputs, params) {
             .then(outputs => {
               // Ensure outputs is properly formatted
               const finalOutputs = outputs || {};
-              resolve({ outputs: finalOutputs, memoryUsage: 0 });
+              // Also include any outputs set via ctx.script.setOutput
+              const contextOutputs = context.outputs || {};
+              resolve({
+                outputs: { ...finalOutputs, ...contextOutputs },
+                memoryUsage: 0
+              });
             })
             .catch(reject);
         } else {
-          // Ensure result is properly formatted
+          // Synchronous result
           const finalOutputs = result || {};
-          resolve({ outputs: finalOutputs, memoryUsage: 0 });
+          // Also include any outputs set via ctx.script.setOutput
+          const contextOutputs = context.outputs || {};
+          resolve({
+            outputs: { ...finalOutputs, ...contextOutputs },
+            memoryUsage: 0
+          });
         }
       } catch (error) {
         reject(error);

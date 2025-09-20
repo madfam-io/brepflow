@@ -238,6 +238,10 @@ describe('BrepFlowCollaborationEngine', () => {
         lastSeen: Date.now(),
         isOnline: true,
       };
+
+      // Make the mock WebSocket appear connected for presence tests
+      mockWebSocketClient.isConnected.mockReturnValue(true);
+
       await engine.joinSession(sessionId, user);
     });
 

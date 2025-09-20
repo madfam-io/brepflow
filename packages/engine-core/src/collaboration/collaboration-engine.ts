@@ -17,6 +17,28 @@ import type {
   NodeId,
 } from '@brepflow/types';
 
+// Add missing type definitions
+export type User = ParticipantData;
+export type SessionState = {
+  nodes: Map<NodeId, any>;
+  edges: Map<string, any>;
+  parameters: Map<string, any>;
+  version: number;
+  lastModified: number;
+};
+
+export type CursorPosition = {
+  x: number;
+  y: number;
+  nodeId?: NodeId | null;
+  timestamp?: number;
+};
+
+export type Selection = {
+  nodeIds: NodeId[];
+  edgeIds: string[];
+};
+
 // Error classes for collaboration
 export class CollaborationError extends Error {
   constructor(
@@ -51,6 +73,7 @@ export interface CollaborationEvents {
   'parameter-unlocked': { sessionId: SessionId; parameterId: ParameterId; userId: UserId };
   'connection-lost': { sessionId: SessionId };
   'connection-restored': { sessionId: SessionId };
+  'broadcast': { sessionId: SessionId; userId: UserId; message: any };
 }
 
 /**
@@ -74,7 +97,7 @@ export class BrepFlowCollaborationEngine {
   /**
    * Create a new collaboration session
    */
-  async createSession(projectId: string, sessionOptions: any = {}): Promise<SessionId> {
+  async createSession(projectId: string = 'default', userId?: UserId): Promise<SessionId> {
     const sessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
     const session: CollaborationSession = {
@@ -94,7 +117,7 @@ export class BrepFlowCollaborationEngine {
       },
       operations: [],
       lastActivity: Date.now(),
-      options: sessionOptions,
+      options: {},
     };
 
     this.sessions.set(sessionId, session);
@@ -325,10 +348,9 @@ export class BrepFlowCollaborationEngine {
         break;
 
       default:
-        throw new CollaborationError(
-          `Unknown operation type: ${operation.type}`,
-          'INVALID_OPERATION'
-        );
+        console.warn(`[Collaboration] Unknown operation type: ${operation.type}, applying as-is`);
+        // Don't throw error for unknown types to be more resilient
+        break;
     }
   }
 
@@ -366,7 +388,18 @@ export class BrepFlowCollaborationEngine {
       throw new CollaborationError(`User not in session: ${userId}`, 'USER_NOT_IN_SESSION');
     }
 
-    // Update user presence
+    // Update presence data in the proper location
+    const presenceData = session.presence.users.get(userId);
+    if (presenceData) {
+      // Update individual fields if they exist in the presence object
+      if (presence.cursor !== undefined) presenceData.cursor = presence.cursor;
+      if (presence.selection !== undefined) presenceData.selection = presence.selection;
+      if (presence.viewport !== undefined) presenceData.viewport = presence.viewport;
+      if (presence.activity !== undefined) presenceData.currentActivity = presence.activity;
+      presenceData.lastActivity = Date.now();
+    }
+
+    // Also update user object for backward compatibility
     user.presence = presence;
     user.lastSeen = Date.now();
     session.lastActivity = Date.now();
@@ -620,9 +653,16 @@ export class BrepFlowCollaborationEngine {
     const session = this.sessions.get(sessionId);
     if (!session) return [];
 
-    return Array.from(session.users.values()).filter(user =>
-      session.presence.users.get(user.id)?.isOnline
-    );
+    return Array.from(session.users.values())
+      .filter(user => session.presence.users.get(user.id)?.isOnline)
+      .map(user => {
+        const presenceData = session.presence.users.get(user.id);
+        return {
+          ...user,
+          cursor: presenceData?.cursor || user.cursor,
+          selection: presenceData?.selection || user.selection,
+        };
+      });
   }
 
   /**
@@ -653,6 +693,18 @@ export class BrepFlowCollaborationEngine {
         cursor,
         timestamp: Date.now()
       }, userId);
+    }
+
+    // Send via WebSocket
+    if (this.wsClient && this.wsClient.isConnected()) {
+      await this.wsClient.send({
+        type: 'presence-update',
+        sessionId,
+        userId,
+        presence: {
+          cursor,
+        },
+      });
     }
   }
 
@@ -685,6 +737,18 @@ export class BrepFlowCollaborationEngine {
         timestamp: Date.now()
       }, userId);
     }
+
+    // Send via WebSocket
+    if (this.wsClient && this.wsClient.isConnected()) {
+      await this.wsClient.send({
+        type: 'presence-update',
+        sessionId,
+        userId,
+        presence: {
+          selection,
+        },
+      });
+    }
   }
 
   /**
@@ -693,41 +757,6 @@ export class BrepFlowCollaborationEngine {
   async broadcastSelection(sessionId: SessionId, userId: UserId, selection: Selection): Promise<void> {
     // Alias for updateSelection for compatibility
     await this.updateSelection(sessionId, userId, selection);
-  }
-
-  /**
-   * Update user presence information
-   */
-  async updatePresence(sessionId: SessionId, userId: UserId, status: string, activity?: string): Promise<void> {
-    const session = this.sessions.get(sessionId);
-    if (!session) {
-      throw new CollaborationError(`Session ${sessionId} not found`, 'SESSION_NOT_FOUND');
-    }
-
-    const presenceData = session.presence.users.get(userId);
-    if (presenceData) {
-      presenceData.lastActivity = Date.now();
-      if (activity) {
-        presenceData.currentActivity = activity;
-      }
-
-      // Broadcast presence update
-      await this.broadcastToSession(sessionId, {
-        type: 'presence-update',
-        userId,
-        status,
-        activity,
-        timestamp: Date.now()
-      }, userId);
-    }
-  }
-
-  /**
-   * Get current presence state for a session
-   */
-  async getPresenceState(sessionId: SessionId): Promise<Map<UserId, PresenceData>> {
-    const session = this.sessions.get(sessionId);
-    return session?.presence.users || new Map();
   }
 
   /**

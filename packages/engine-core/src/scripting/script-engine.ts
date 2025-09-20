@@ -97,6 +97,9 @@ export class BrepFlowScriptEngine implements ScriptEngine {
       compiled = await executor.compile(script);
     }
 
+    // Extract node definition from script
+    const nodeDefFromScript = await this.extractNodeDefinitionFromScript(script);
+
     // Generate node definition
     const nodeDefinition: ScriptedNodeDefinition = {
       id: `Script::${metadata.name}`,
@@ -122,10 +125,10 @@ export class BrepFlowScriptEngine implements ScriptEngine {
         memoryLimit: permissions.memoryLimitMB * 1024 * 1024,
       },
 
-      // Inputs and outputs will be inferred from script
-      inputs: this.inferInputsFromScript(script),
-      outputs: this.inferOutputsFromScript(script),
-      params: this.inferParamsFromScript(script),
+      // Use the actual node definition from script if available, otherwise infer
+      inputs: nodeDefFromScript?.inputs || this.inferInputsFromScript(script),
+      outputs: nodeDefFromScript?.outputs || this.inferOutputsFromScript(script),
+      params: nodeDefFromScript?.params || this.inferParamsFromScript(script),
 
       // Enhanced evaluate function
       evaluate: async (ctx: ScriptContext, inputs: any, params: any) => {
@@ -163,6 +166,34 @@ export class BrepFlowScriptEngine implements ScriptEngine {
     return nodeDefinition;
   }
 
+  async updateNodeScript(
+    nodeId: NodeId,
+    script: string
+  ): Promise<ScriptedNodeDefinition> {
+    // This would update an existing scripted node
+    // For now, recompile from scratch
+    const metadata: ScriptMetadata = {
+      name: 'Updated Node',
+      description: 'Updated script node',
+      category: 'Script',
+      version: '1.0.0',
+      author: 'System',
+      tags: [],
+    };
+
+    const permissions: ScriptPermissions = {
+      allowNetworkAccess: false,
+      allowFileSystem: false,
+      allowGeometryAPI: true,
+      allowWorkerThreads: false,
+      timeoutMS: 5000,
+      memoryLimitMB: 10,
+      allowedImports: [],
+    };
+
+    return this.compileNodeFromScript(script, metadata, permissions);
+  }
+
   // Template Management
   registerTemplate(template: ScriptTemplate): void {
     this.templates.push(template);
@@ -189,6 +220,37 @@ export class BrepFlowScriptEngine implements ScriptEngine {
     return script;
   }
 
+  // Security and validation
+  async validatePermissions(
+    permissions: ScriptPermissions,
+    script: string
+  ): Promise<ScriptValidationResult> {
+    // Basic permission validation
+    const executor = this.executors.get('javascript');
+    if (!executor) {
+      return {
+        valid: false,
+        errors: [{ line: 1, column: 1, message: 'No JavaScript executor available', severity: 'error' }],
+        warnings: [],
+      };
+    }
+
+    return executor.validate(script);
+  }
+
+  // Performance monitoring
+  getExecutionMetrics(nodeId: NodeId): ScriptMetric[] {
+    return this.executionMetrics.get(nodeId) || [];
+  }
+
+  clearExecutionMetrics(nodeId?: NodeId): void {
+    if (nodeId) {
+      this.executionMetrics.delete(nodeId);
+    } else {
+      this.executionMetrics.clear();
+    }
+  }
+
   // Utility Methods
   private async hashScript(script: string): Promise<string> {
     // Simple hash implementation for now
@@ -199,6 +261,45 @@ export class BrepFlowScriptEngine implements ScriptEngine {
       hash = hash & hash; // Convert to 32-bit integer
     }
     return Math.abs(hash).toString(16);
+  }
+
+  private async extractNodeDefinitionFromScript(script: string): Promise<any> {
+    try {
+      // Create a safe evaluation context
+      const sandbox = {
+        console: { log: () => {}, warn: () => {}, error: () => {} },
+        Math: Math,
+        Vector3: (x: number, y: number, z: number) => ({ x, y, z }),
+      };
+
+      // Create a function that evaluates the script and captures the return value
+      const scriptFunction = new Function('sandbox', `
+        "use strict";
+        const { console, Math, Vector3 } = sandbox;
+
+        ${script}
+
+        // If the script has a return statement at the top level, capture it
+        if (typeof module !== 'undefined' && module.exports) {
+          return module.exports;
+        }
+
+        // Try to find and execute the script if it's wrapped
+        try {
+          const result = (function() {
+            ${script}
+          })();
+          return result;
+        } catch (e) {
+          return null;
+        }
+      `);
+
+      const result = scriptFunction(sandbox);
+      return result;
+    } catch (error) {
+      return null;
+    }
   }
 
   private initializeDefaultExecutors(): void {
