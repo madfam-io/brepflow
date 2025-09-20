@@ -1,0 +1,114 @@
+/* Browser Compatibility Fallbacks */
+
+/* CSS Grid fallbacks for IE11 */
+@supports not (display: grid) {
+  .desktop-content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .layout-quad .desktop-content {
+    flex-direction: row;
+  }
+
+  .layout-triple .desktop-content {
+    flex-direction: row;
+  }
+
+  .desktop-panel {
+    flex: 1;
+    min-width: 250px;
+  }
+}
+
+/* CSS Variables fallback for IE11 */
+@supports not (color: var(--bg-primary)) {
+  .responsive-layout-manager {
+    background: #ffffff;
+    color: #1a1a1a;
+  }
+
+  .desktop-panel {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    color: #1a1a1a;
+  }
+
+  .mobile-layout {
+    background: #ffffff;
+    color: #1a1a1a;
+  }
+}
+
+/* Flexbox fallbacks */
+@supports not (display: flex) {
+  .responsive-layout-manager {
+    display: block;
+  }
+
+  .desktop-layout {
+    display: block;
+  }
+
+  .mobile-layout {
+    display: block;
+  }
+}
+
+/* Position sticky fallback */
+@supports not (position: sticky) {
+  .mobile-status-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+  }
+
+  .mobile-content {
+    margin-top: 48px;
+  }
+}
+
+/* Transform fallbacks for IE11 */
+@supports not (transform: translateX(0)) {
+  .panel-container.sliding-in {
+    left: 0;
+  }
+
+  .panel-container.sliding-out {
+    left: -100%;
+  }
+}
+
+/* Object-fit fallback */
+@supports not (object-fit: cover) {
+  .viewport canvas,
+  .viewport img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Backdrop-filter fallback */
+@supports not (backdrop-filter: blur(8px)) {
+  .viewport-toolbar,
+  .mobile-status-bar {
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .dark .viewport-toolbar,
+  .dark .mobile-status-bar {
+    background: rgba(26, 26, 26, 0.95);
+  }
+}
+
+/* Modern selector fallbacks */
+@supports not selector(:focus-visible) {
+  button:focus,
+  input:focus,
+  select:focus {
+    outline: 2px solid #0066ff;
+    outline-offset: 2px;
+  }
+}

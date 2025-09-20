@@ -1,0 +1,292 @@
+/* Mobile Split View Styles */
+.mobile-split-view {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Layout Modes */
+.mobile-split-view.single {
+  flex-direction: column;
+}
+
+.mobile-split-view.split-horizontal {
+  flex-direction: row;
+}
+
+.mobile-split-view.split-vertical {
+  flex-direction: column;
+}
+
+.mobile-split-view.overlay {
+  flex-direction: column;
+}
+
+/* Panels */
+.split-panel {
+  position: relative;
+  overflow: auto;
+  background: var(--bg-primary, #ffffff);
+  transition: flex 0.3s ease;
+}
+
+.split-panel.primary {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.split-panel.secondary {
+  background: var(--bg-secondary, #f9fafb);
+}
+
+/* Single Mode */
+.mobile-split-view.single .split-panel.secondary {
+  display: none;
+}
+
+/* Split Horizontal Mode */
+.mobile-split-view.split-horizontal .split-panel {
+  height: 100%;
+}
+
+.mobile-split-view.split-horizontal .split-panel.primary {
+  flex: 0 0 50%;
+}
+
+.mobile-split-view.split-horizontal .split-panel.secondary {
+  flex: 0 0 50%;
+}
+
+/* Split Vertical Mode */
+.mobile-split-view.split-vertical .split-panel {
+  width: 100%;
+}
+
+.mobile-split-view.split-vertical .split-panel.primary {
+  flex: 0 0 50%;
+}
+
+.mobile-split-view.split-vertical .split-panel.secondary {
+  flex: 0 0 50%;
+}
+
+/* Overlay Mode */
+.mobile-split-view.overlay .split-panel.primary {
+  flex: 1;
+}
+
+.mobile-split-view.overlay .split-panel.secondary {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 85%;
+  height: 100%;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+
+.mobile-split-view.overlay.overlay-active .split-panel.secondary {
+  transform: translateX(0);
+}
+
+/* Divider */
+.split-divider {
+  position: relative;
+  background: var(--border-color, #e5e7eb);
+  flex-shrink: 0;
+  z-index: 10;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.split-divider:active,
+.split-divider.dragging {
+  cursor: grabbing;
+  background: var(--primary-color, #3b82f6);
+}
+
+.split-divider:hover {
+  background: var(--border-hover, #d1d5db);
+}
+
+/* Horizontal Divider */
+.mobile-split-view.split-horizontal .split-divider {
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+}
+
+.mobile-split-view.split-horizontal .split-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 32px;
+  background: var(--divider-handle, #9ca3af);
+  border-radius: 1px;
+}
+
+/* Vertical Divider */
+.mobile-split-view.split-vertical .split-divider {
+  width: 100%;
+  height: 8px;
+  cursor: row-resize;
+}
+
+.mobile-split-view.split-vertical .split-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 2px;
+  background: var(--divider-handle, #9ca3af);
+  border-radius: 1px;
+}
+
+/* Touch Target Enhancement */
+@media (pointer: coarse) {
+  .mobile-split-view.split-horizontal .split-divider {
+    width: 12px;
+  }
+
+  .mobile-split-view.split-vertical .split-divider {
+    height: 12px;
+  }
+}
+
+/* Drag Ghost Prevention */
+.split-divider * {
+  pointer-events: none;
+}
+
+/* Panel Labels (Optional) */
+.split-panel-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary, #6b7280);
+  background: var(--bg-label, rgba(255, 255, 255, 0.9));
+  padding: 2px 8px;
+  border-radius: 4px;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.mobile-split-view:not(.single) .split-panel-label {
+  opacity: 1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 360px) {
+  .mobile-split-view.overlay .split-panel.secondary {
+    width: 90%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Tablet optimizations */
+  .mobile-split-view.split-horizontal .split-panel.primary,
+  .mobile-split-view.split-horizontal .split-panel.secondary {
+    flex: 0 0 50%;
+  }
+
+  .mobile-split-view.overlay .split-panel.secondary {
+    width: 60%;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .split-panel {
+    background: var(--bg-primary-dark, #1f2937);
+  }
+
+  .split-panel.secondary {
+    background: var(--bg-secondary-dark, #111827);
+  }
+
+  .split-divider {
+    background: var(--border-color-dark, #374151);
+  }
+
+  .split-divider:hover {
+    background: var(--border-hover-dark, #4b5563);
+  }
+
+  .split-panel-label {
+    background: var(--bg-label-dark, rgba(31, 41, 55, 0.9));
+    color: var(--text-secondary-dark, #9ca3af);
+  }
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.mobile-split-view.overlay .split-panel.secondary.animating-in {
+  animation: slideIn 0.3s ease forwards;
+}
+
+.mobile-split-view.overlay .split-panel.secondary.animating-out {
+  animation: slideOut 0.3s ease forwards;
+}
+
+/* Performance Optimizations */
+.split-panel {
+  will-change: flex;
+  -webkit-overflow-scrolling: touch;
+}
+
+.split-divider.dragging ~ .split-panel {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Accessibility */
+.split-divider:focus-visible {
+  outline: 2px solid var(--focus-color, #3b82f6);
+  outline-offset: -2px;
+}
+
+.split-divider[aria-label]::after {
+  content: attr(aria-label);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

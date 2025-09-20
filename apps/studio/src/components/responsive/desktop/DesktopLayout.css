@@ -1,10 +1,19 @@
-/* Desktop Layout Styles */
+/* Desktop Layout - Fixed to use full viewport */
 .desktop-layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   width: 100%;
+  min-height: 100vh;
+  /* iOS Safari viewport fix */
+  min-height: -webkit-fill-available;
   background: var(--bg-primary, #f8f9fa);
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 /* Menu Bar */
@@ -17,6 +26,7 @@
   background: var(--bg-secondary, #ffffff);
   border-bottom: 1px solid var(--border-color, #e0e0e0);
   flex-shrink: 0;
+  width: 100%;
 }
 
 .menubar-section {
@@ -54,16 +64,20 @@
   border-color: var(--border-color);
 }
 
-/* Content Area */
+/* Content Area - Flexible and fills available space */
 .desktop-content {
-  flex: 1;
+  flex: 1 1 auto;
   display: grid;
   gap: 8px;
   padding: 8px;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  position: relative;
 }
 
-/* Layout Modes */
+/* Layout Modes with proper dimensions */
 .layout-single .desktop-content {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
@@ -75,7 +89,7 @@
 }
 
 .layout-triple .desktop-content {
-  grid-template-columns: 280px 1fr 320px;
+  grid-template-columns: minmax(250px, 20%) 1fr minmax(300px, 25%);
   grid-template-rows: 1fr;
 }
 
@@ -84,7 +98,7 @@
   grid-template-rows: 1fr 1fr;
 }
 
-/* Panels */
+/* Panels - Ensure they fill their grid cells */
 .desktop-panel {
   background: var(--bg-secondary, #ffffff);
   border: 1px solid var(--border-color, #e0e0e0);
@@ -93,6 +107,11 @@
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
 }
 
 .desktop-panel.collapsed {
@@ -112,6 +131,7 @@
   background: var(--bg-tertiary, #f5f5f5);
   border-bottom: 1px solid var(--border-color);
   cursor: move;
+  flex-shrink: 0;
 }
 
 .panel-title {
@@ -165,54 +185,16 @@
   flex: 1;
   overflow: auto;
   padding: 16px;
+  width: 100%;
+  height: calc(100% - 42px); /* Minus header height */
+  min-height: 0;
+  position: relative;
 }
 
-/* Panel Position Classes */
-.panel-full {
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
-}
-
-.panel-left {
-  grid-column: 1;
-  grid-row: 1 / -1;
-}
-
-.panel-right {
-  grid-column: 2;
-  grid-row: 1 / -1;
-}
-
-.panel-sidebar {
-  grid-column: 1;
-}
-
-.panel-main {
-  grid-column: 2;
-}
-
-.panel-aside {
-  grid-column: 3;
-}
-
-.panel-top-left {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.panel-top-right {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.panel-bottom-left {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-.panel-bottom-right {
-  grid-column: 2;
-  grid-row: 2;
+/* Ensure nested content fills available space */
+.panel-body > * {
+  width: 100%;
+  height: 100%;
 }
 
 /* Status Bar */
@@ -226,6 +208,8 @@
   border-top: 1px solid var(--border-color);
   font-size: 12px;
   color: var(--text-secondary);
+  flex-shrink: 0;
+  width: 100%;
 }
 
 .statusbar-section {
@@ -274,8 +258,19 @@
 .desktop-layout[data-fullscreen="true"] .desktop-content {
   padding: 0;
   gap: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .desktop-layout[data-fullscreen="true"] .desktop-panel {
   border-radius: 0;
+}
+
+/* Ensure React Flow and Viewport fill their containers */
+.desktop-panel .react-flow,
+.desktop-panel .react-flow__renderer,
+.desktop-panel .react-flow__viewport,
+.desktop-panel .viewport {
+  width: 100% !important;
+  height: 100% !important;
 }

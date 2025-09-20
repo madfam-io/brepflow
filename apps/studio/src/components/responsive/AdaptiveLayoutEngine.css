@@ -1,0 +1,378 @@
+/* Adaptive Layout Engine Styles */
+.adaptive-layout-engine {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  /* iOS Safari viewport fix */
+  height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-primary, #ffffff);
+  transition: all 0.3s ease;
+}
+
+/* Loading State */
+.adaptive-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  /* iOS Safari viewport fix */
+  height: -webkit-fill-available;
+  font-size: 14px;
+  color: var(--text-secondary, #6b7280);
+  background: var(--bg-primary, #ffffff);
+}
+
+/* Metadata Display (Dev Mode) */
+.adaptive-metadata {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 16px;
+  padding: 4px 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #00ff00;
+  font-family: monospace;
+  font-size: 10px;
+  border-radius: 4px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
+}
+
+.adaptive-layout-engine:hover .adaptive-metadata {
+  opacity: 1;
+}
+
+/* Adaptive Toolbar */
+.adaptive-toolbar {
+  display: flex;
+  align-items: center;
+  background: var(--toolbar-bg, #f9fafb);
+  border: 1px solid var(--border-color, #e5e7eb);
+  height: var(--adaptive-toolbar-height, 56px);
+  padding: 0 var(--adaptive-spacing-panel, 16px);
+  transition: all 0.3s ease;
+}
+
+.toolbar-top {
+  order: -1;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.toolbar-bottom {
+  order: 999;
+  border-top: 1px solid var(--border-color, #e5e7eb);
+  border-bottom: none;
+}
+
+.toolbar-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--adaptive-toolbar-height, 56px);
+  flex-direction: column;
+  border-right: 1px solid var(--border-color, #e5e7eb);
+}
+
+.toolbar-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--adaptive-toolbar-height, 56px);
+  flex-direction: column;
+  border-left: 1px solid var(--border-color, #e5e7eb);
+}
+
+.toolbar-floating {
+  position: fixed;
+  top: var(--adaptive-spacing-panel, 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+/* Content Area */
+.adaptive-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: var(--adaptive-spacing-base, 8px);
+  padding: var(--adaptive-spacing-base, 8px);
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Panel Arrangements */
+.arrangement-horizontal {
+  grid-auto-flow: column;
+}
+
+.arrangement-vertical {
+  grid-auto-flow: row;
+}
+
+.arrangement-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.arrangement-floating {
+  display: block;
+  position: relative;
+}
+
+.arrangement-floating > * {
+  position: absolute;
+}
+
+/* Navigation Styles */
+.adaptive-navigation {
+  display: flex;
+  transition: all 0.3s ease;
+}
+
+.nav-tabs {
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 8px;
+  background: var(--nav-bg, #f9fafb);
+  border-top: 1px solid var(--border-color, #e5e7eb);
+  height: var(--adaptive-touch-target, 48px);
+}
+
+.nav-drawer {
+  position: fixed;
+  left: -280px;
+  top: 0;
+  bottom: 0;
+  width: 280px;
+  background: var(--nav-bg, #ffffff);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  z-index: 200;
+}
+
+.nav-drawer.open {
+  transform: translateX(280px);
+}
+
+.nav-sidebar {
+  position: absolute;
+  left: 0;
+  top: var(--adaptive-toolbar-height, 56px);
+  bottom: 0;
+  width: 240px;
+  background: var(--sidebar-bg, #f9fafb);
+  border-right: 1px solid var(--border-color, #e5e7eb);
+}
+
+.nav-ribbon {
+  display: flex;
+  height: 120px;
+  background: var(--ribbon-bg, #f9fafb);
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  padding: var(--adaptive-spacing-base, 8px);
+}
+
+/* Device-specific Styles */
+.adaptive-layout-engine.mobile {
+  --adaptive-min-touch-target: 44px;
+}
+
+.adaptive-layout-engine.tablet {
+  --adaptive-min-touch-target: 40px;
+}
+
+.adaptive-layout-engine.desktop {
+  --adaptive-min-touch-target: 32px;
+}
+
+.adaptive-layout-engine.ultra-wide {
+  max-width: 3840px;
+  margin: 0 auto;
+}
+
+/* Layout Strategies */
+.adaptive-layout-engine.single .adaptive-content {
+  grid-template-columns: 1fr;
+}
+
+.adaptive-layout-engine.dual .adaptive-content {
+  grid-template-columns: 1fr 1fr;
+}
+
+.adaptive-layout-engine.triple .adaptive-content {
+  grid-template-columns: minmax(200px, 20%) 1fr minmax(250px, 25%);
+}
+
+.adaptive-layout-engine.quad .adaptive-content {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.adaptive-layout-engine.custom .adaptive-content {
+  /* Custom layouts defined by components */
+}
+
+/* Interaction Modes */
+[data-interaction-mode="compact"] {
+  --spacing-multiplier: 0.75;
+}
+
+[data-interaction-mode="comfortable"] {
+  --spacing-multiplier: 1;
+}
+
+[data-interaction-mode="spacious"] {
+  --spacing-multiplier: 1.5;
+}
+
+/* Performance Monitor */
+.performance-monitor {
+  position: fixed;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  gap: 12px;
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #00ff00;
+  font-family: monospace;
+  font-size: 10px;
+  border-radius: 4px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Responsive Breakpoints with Container Queries */
+@container (max-width: 480px) {
+  .adaptive-content {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@container (min-width: 481px) and (max-width: 768px) {
+  .adaptive-content.arrangement-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container (min-width: 769px) and (max-width: 1024px) {
+  .adaptive-content.arrangement-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Touch Optimizations */
+@media (pointer: coarse) {
+  .adaptive-toolbar {
+    height: max(var(--adaptive-toolbar-height), 48px);
+  }
+
+  .adaptive-navigation {
+    min-height: 48px;
+  }
+
+  button, a, .clickable {
+    min-width: var(--adaptive-touch-target, 48px);
+    min-height: var(--adaptive-touch-target, 48px);
+  }
+}
+
+/* Landscape Optimizations */
+@media (orientation: landscape) and (max-height: 500px) {
+  .adaptive-toolbar {
+    height: 40px;
+  }
+
+  .adaptive-metadata {
+    display: none;
+  }
+
+  .adaptive-content {
+    padding: 4px;
+  }
+}
+
+/* High DPI Displays */
+@media (min-resolution: 2dppx) {
+  .adaptive-layout-engine {
+    font-weight: 300;
+  }
+
+  .adaptive-toolbar,
+  .adaptive-navigation {
+    border-width: 0.5px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .adaptive-toolbar,
+  .adaptive-navigation,
+  .adaptive-metadata,
+  .performance-monitor {
+    display: none !important;
+  }
+
+  .adaptive-content {
+    padding: 0;
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .adaptive-layout-engine {
+    background: var(--bg-primary-dark, #1f2937);
+    color: var(--text-primary-dark, #f9fafb);
+  }
+
+  .adaptive-toolbar {
+    background: var(--toolbar-bg-dark, #111827);
+    border-color: var(--border-color-dark, #374151);
+  }
+
+  .adaptive-navigation {
+    background: var(--nav-bg-dark, #111827);
+    border-color: var(--border-color-dark, #374151);
+  }
+
+  .adaptive-metadata,
+  .performance-monitor {
+    background: rgba(17, 24, 39, 0.9);
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.adaptive-layout-engine {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Smooth Transitions */
+.adaptive-layout-engine * {
+  transition: background-color 0.2s ease,
+              border-color 0.2s ease,
+              opacity 0.2s ease;
+}

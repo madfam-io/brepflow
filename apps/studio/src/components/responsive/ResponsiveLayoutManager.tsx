@@ -3,7 +3,9 @@ import { useResponsive } from '../../hooks/useResponsive';
 import { MobileLayout } from './mobile/MobileLayout';
 import { TabletLayout } from './tablet/TabletLayout';
 import { DesktopLayout } from './desktop/DesktopLayout';
+import { AdaptiveLayoutEngine } from './AdaptiveLayoutEngine';
 import './ResponsiveLayoutManager.css';
+import './browser-compatibility.css';
 
 export interface Panel {
   id: string;
@@ -27,6 +29,7 @@ export interface ResponsiveLayoutProps {
   enableGestures?: boolean;
   enableKeyboardShortcuts?: boolean;
   theme?: 'light' | 'dark' | 'auto';
+  useAdaptiveEngine?: boolean;
 }
 
 export const ResponsiveLayoutManager: React.FC<ResponsiveLayoutProps> = ({
@@ -35,7 +38,8 @@ export const ResponsiveLayoutManager: React.FC<ResponsiveLayoutProps> = ({
   onPanelChange,
   enableGestures = true,
   enableKeyboardShortcuts = true,
-  theme = 'auto'
+  theme = 'auto',
+  useAdaptiveEngine = true
 }) => {
   const { deviceType, isMobile, isTablet, isDesktop, capabilities, dimensions } = useResponsive();
   const [activePanel, setActivePanel] = useState(defaultPanel);
@@ -149,7 +153,7 @@ export const ResponsiveLayoutManager: React.FC<ResponsiveLayoutProps> = ({
     return <DesktopLayout {...layoutProps} />;
   };
 
-  return (
+  const layoutContent = (
     <div
       ref={containerRef}
       className={`responsive-layout-manager ${deviceType} ${theme}`}
@@ -159,11 +163,22 @@ export const ResponsiveLayoutManager: React.FC<ResponsiveLayoutProps> = ({
       {renderLayout()}
 
       {/* Development helper - Show current breakpoint */}
-      {process.env.NODE_ENV === 'development' && (
+      {process.env.NODE_ENV === 'development' && !useAdaptiveEngine && (
         <div className="breakpoint-indicator">
           {deviceType} ({dimensions.width}x{dimensions.height})
         </div>
       )}
     </div>
   );
+
+  // Wrap with AdaptiveLayoutEngine if enabled
+  if (useAdaptiveEngine) {
+    return (
+      <AdaptiveLayoutEngine>
+        {layoutContent}
+      </AdaptiveLayoutEngine>
+    );
+  }
+
+  return layoutContent;
 };

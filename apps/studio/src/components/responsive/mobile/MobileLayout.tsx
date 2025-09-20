@@ -3,6 +3,8 @@ import { Panel } from '../ResponsiveLayoutManager';
 import { BottomSheet } from './BottomSheet';
 import { MobileTabBar } from './MobileTabBar';
 import { FloatingActionButton } from './FloatingActionButton';
+import { MobileSplitView } from './MobileSplitView';
+import { PersistentToolbar } from './PersistentToolbar';
 import './MobileLayout.css';
 
 interface MobileLayoutProps {
@@ -26,6 +28,9 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({
 }) => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [fabExpanded, setFabExpanded] = useState(false);
+  const [splitMode, setSplitMode] = useState<'single' | 'split-horizontal' | 'split-vertical' | 'overlay'>('single');
+  const [primaryPanel, setPrimaryPanel] = useState('nodeEditor');
+  const [secondaryPanel, setSecondaryPanel] = useState('viewport');
   const panelContentRef = useRef<HTMLDivElement>(null);
 
   // Handle pull-to-refresh gesture
@@ -91,6 +96,17 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({
     { id: 'evaluate', icon: '▶️', label: 'Run', action: () => {} }
   ];
 
+  // Determine optimal split mode based on orientation and screen size
+  useEffect(() => {
+    if (capabilities.orientation === 'landscape' && dimensions.width > 600) {
+      setSplitMode('split-horizontal');
+    } else if (dimensions.height > 700) {
+      setSplitMode('split-vertical');
+    } else {
+      setSplitMode('single');
+    }
+  }, [capabilities.orientation, dimensions]);
+
   return (
     <div className="mobile-layout" data-orientation={capabilities.orientation}>
       {/* Status Bar */}
@@ -103,12 +119,24 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({
         </div>
       </div>
 
-      {/* Main Content Area */}
+      {/* Main Content Area with Split View */}
       <div className="mobile-content" ref={panelContentRef}>
-        {currentPanel && (
-          <div className="panel-container">
-            {currentPanel.content}
-          </div>
+        {panels[primaryPanel] && panels[secondaryPanel] ? (
+          <MobileSplitView
+            mode={splitMode}
+            onModeChange={setSplitMode}
+            primaryContent={panels[primaryPanel].content}
+            secondaryContent={panels[secondaryPanel].content}
+            primaryLabel={panels[primaryPanel].title || panels[primaryPanel].label}
+            secondaryLabel={panels[secondaryPanel].title || panels[secondaryPanel].label}
+          />
+        ) : (
+          // Fallback to single panel if split view can't work
+          currentPanel && (
+            <div className="panel-container">
+              {currentPanel.content}
+            </div>
+          )
         )}
       </div>
 
@@ -124,12 +152,49 @@ export const MobileLayout: React.FC<MobileLayoutProps> = ({
         </BottomSheet>
       )}
 
-      {/* Tab Bar Navigation */}
-      <MobileTabBar
-        panels={panels}
-        activePanel={activePanel}
-        onPanelChange={onPanelChange}
-        hidden={isFullscreen}
+      {/* Persistent Toolbar with Split Controls */}
+      <PersistentToolbar
+        primaryActions={[
+          {
+            id: 'split-mode',
+            icon: splitMode === 'single' ? '⊞' : '⊡',
+            label: 'Split View',
+            onClick: () => {
+              const modes: Array<'single' | 'split-horizontal' | 'split-vertical' | 'overlay'> =
+                ['single', 'split-horizontal', 'split-vertical', 'overlay'];
+              const currentIndex = modes.indexOf(splitMode);
+              setSplitMode(modes[(currentIndex + 1) % modes.length]);
+            }
+          },
+          {
+            id: 'nodeEditor',
+            icon: '📝',
+            label: 'Editor',
+            active: primaryPanel === 'nodeEditor',
+            onClick: () => setPrimaryPanel('nodeEditor')
+          },
+          {
+            id: 'viewport',
+            icon: '🎨',
+            label: 'Viewport',
+            active: primaryPanel === 'viewport',
+            onClick: () => setPrimaryPanel('viewport')
+          },
+          {
+            id: 'inspector',
+            icon: '🔍',
+            label: 'Inspector',
+            active: secondaryPanel === 'inspector',
+            onClick: () => setSecondaryPanel('inspector')
+          }
+        ]}
+        secondaryActions={[
+          { id: 'undo', icon: '↶', label: 'Undo', onClick: () => {} },
+          { id: 'redo', icon: '↷', label: 'Redo', onClick: () => {} },
+          { id: 'settings', icon: '⚙️', label: 'Settings', onClick: () => {} },
+          { id: 'help', icon: '❓', label: 'Help', onClick: () => {} }
+        ]}
+        compact={dimensions.width < 360}
       />
 
       {/* Floating Action Button */}
