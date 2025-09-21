@@ -9,7 +9,7 @@ interface Outputs {
   boolean: boolean;
 }
 
-export const ToBooleanNode: NodeDefinition<ToBooleanInputs, ToBooleanOutputs, ToBooleanParams> = {
+export const ToBooleanNode: NodeDefinition<ToBooleanInputs, ToBooleanOutputs, ToBoolParams> = {
   type: 'Data::ToBoolean',
   category: 'Data',
   subcategory: 'Convert',

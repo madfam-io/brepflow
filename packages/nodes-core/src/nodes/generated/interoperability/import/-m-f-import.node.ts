@@ -1,6 +1,6 @@
 
 import { NodeDefinition } from '@brepflow/types';
-import { NumberParam, BooleanParam, StringParam, EnumParam, Vector3Param } from '../../params.js';
+import { NumberParam, BoolParam, StringParam, EnumParam, Vector3Param } from '../../../../utils/param-utils.js';
 
 interface Params {
   loadTextures: boolean;
@@ -29,10 +29,10 @@ export const 3MFImportNode: NodeDefinition<3MFImportInputs, 3MFImportOutputs, 3M
   },
 
   params: {
-        loadTextures: BooleanParam({
+        loadTextures: BoolParam({
       "default": true
     }),
-    loadMaterials: BooleanParam({
+    loadMaterials: BoolParam({
       "default": true
     }),
     units: EnumParam({

@@ -1,6 +1,6 @@
 
 import { NodeDefinition } from '@brepflow/types';
-import { NumberParam, BooleanParam, StringParam, EnumParam, Vector3Param } from '../../params.js';
+import { NumberParam, BoolParam, StringParam, EnumParam, Vector3Param } from '../../../../utils/param-utils.js';
 
 interface Params {
   axis: string;
@@ -37,7 +37,7 @@ export const CurveExtremePointsNode: NodeDefinition<CurveExtremePointsInputs, Cu
         "all"
       ]
     }),
-    markPoints: BooleanParam({
+    markPoints: BoolParam({
       "default": true
     })
   },

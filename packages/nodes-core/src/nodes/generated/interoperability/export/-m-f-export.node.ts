@@ -1,6 +1,6 @@
 
 import { NodeDefinition } from '@brepflow/types';
-import { NumberParam, BooleanParam, StringParam, EnumParam, Vector3Param } from '../../params.js';
+import { NumberParam, BoolParam, StringParam, EnumParam, Vector3Param } from '../../../../utils/param-utils.js';
 
 interface Params {
   units: string;
@@ -37,10 +37,10 @@ export const 3MFExportNode: NodeDefinition<3MFExportInputs, 3MFExportOutputs, 3M
         "m"
       ]
     }),
-    includeColors: BooleanParam({
+    includeColors: BoolParam({
       "default": true
     }),
-    compression: BooleanParam({
+    compression: BoolParam({
       "default": true
     })
   },

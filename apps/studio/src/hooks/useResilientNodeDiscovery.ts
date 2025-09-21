@@ -433,11 +433,17 @@ export function useResilientNodeDiscovery() {
       const discoveryErrors: string[] = [];
 
       try {
+        console.log('🔍 DEBUG: Attempting dynamic import of @brepflow/nodes-core...');
         // Try to dynamically import the nodes-core package and initialize the registry
-        const { registerAllNodes, getEnhancedRegistry } = await import('@brepflow/nodes-core');
+        const nodesCore = await import('@brepflow/nodes-core');
+        console.log('🔍 DEBUG: Dynamic import successful:', Object.keys(nodesCore));
+
+        const { registerAllNodes, getEnhancedRegistry } = nodesCore;
 
         if (registerAllNodes && getEnhancedRegistry) {
           console.log('🔍 Starting dynamic node discovery...');
+          console.log('🔍 DEBUG: registerAllNodes type:', typeof registerAllNodes);
+          console.log('🔍 DEBUG: getEnhancedRegistry type:', typeof getEnhancedRegistry);
 
           // Initialize the enhanced registry with demonstration nodes
           console.log('🔍 DEBUG: About to call registerAllNodes...');
@@ -475,9 +481,11 @@ export function useResilientNodeDiscovery() {
             discoveryErrors.push(`Registry initialization failed: ${registryError instanceof Error ? registryError.message : String(registryError)}`);
           }
         } else {
+          console.log('🔍 DEBUG: Missing functions - registerAllNodes:', !!registerAllNodes, 'getEnhancedRegistry:', !!getEnhancedRegistry);
           discoveryErrors.push('registerAllNodes or getEnhancedRegistry not available');
         }
       } catch (error) {
+        console.error('🔍 DEBUG: Dynamic import failed:', error);
         discoveryErrors.push(`Failed to import nodes-core: ${error instanceof Error ? error.message : String(error)}`);
       }
 

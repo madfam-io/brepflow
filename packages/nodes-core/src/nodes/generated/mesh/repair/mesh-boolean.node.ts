@@ -13,7 +13,7 @@ interface Outputs {
   result: Mesh;
 }
 
-export const MeshBooleanNode: NodeDefinition<MeshBooleanInputs, MeshBooleanOutputs, MeshBooleanParams> = {
+export const MeshBooleanNode: NodeDefinition<MeshBooleanInputs, MeshBooleanOutputs, MeshBoolParams> = {
   type: 'Mesh::MeshBoolean',
   category: 'Mesh',
   subcategory: 'Repair',

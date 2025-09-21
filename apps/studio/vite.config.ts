@@ -19,8 +19,16 @@ export default defineConfig({
       'Cross-Origin-Embedder-Policy': 'require-corp',
     },
     fs: {
-      // Allow serving files from the engine-occt package
-      allow: ['..', '../packages/engine-occt/wasm'],
+      // Allow serving files from the entire monorepo
+      allow: [
+        resolve(__dirname, '../..'), // Project root
+        resolve(__dirname, '../../packages'), // Packages directory
+        resolve(__dirname, '../../packages/nodes-core'), // nodes-core package
+        resolve(__dirname, '../../packages/engine-core'), // engine-core package
+        resolve(__dirname, '../../packages/engine-occt'), // engine-occt package
+        resolve(__dirname, '../../packages/types'), // types package
+        resolve(__dirname, '../../packages/viewport'), // viewport package
+      ],
     },
   },
   worker: {
@@ -29,6 +37,13 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
+      // BrepFlow package aliases for monorepo - point to source index files
+      '@brepflow/nodes-core': resolve(__dirname, '../../packages/nodes-core/src/index.ts'),
+      '@brepflow/engine-core': resolve(__dirname, '../../packages/engine-core/src/index.ts'),
+      '@brepflow/engine-occt': resolve(__dirname, '../../packages/engine-occt/src/index.ts'),
+      '@brepflow/types': resolve(__dirname, '../../packages/types/src/index.ts'),
+      '@brepflow/viewport': resolve(__dirname, '../../packages/viewport/src/index.ts'),
+      // Polyfills
       'xxhash-wasm': resolve(__dirname, './src/polyfills/xxhash-mock.ts'),
       'uuid': resolve(__dirname, './src/polyfills/uuid-mock.ts'),
       'path': resolve(__dirname, './src/polyfills/path-mock.ts'),
