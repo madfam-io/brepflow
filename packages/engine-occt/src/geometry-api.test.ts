@@ -606,7 +606,9 @@ describe('IntegratedGeometryAPI', () => {
       const result = await geometryAPI.tessellate(shape, 0.05);
 
       expect(result).toBeDefined();
-      expect(result.vertices).toBeInstanceOf(Float32Array);
+      expect(result.success).toBe(true);
+      expect(result.result).toBeDefined();
+      expect(result.result.positions).toBeInstanceOf(Float32Array);
     });
   });
 

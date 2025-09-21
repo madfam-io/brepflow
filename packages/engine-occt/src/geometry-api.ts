@@ -370,7 +370,7 @@ export class GeometryAPI implements WorkerAPI {
   // === Helper Methods ===
 
   private createShapeHandle(shape: any, type: string, params?: any): ShapeHandle {
-    const id = `shape-${++this.idCounter}`;
+    const id = `${type}-${++this.idCounter}`;
 
     // Cache the shape
     this.shapeCache.set(id, shape);
@@ -473,12 +473,13 @@ export class GeometryAPI implements WorkerAPI {
 
   private createMockMesh(): MeshData {
     // Create a simple triangle mesh
-    return {
-      vertices: new Float32Array([
-        0, 0, 0,
-        100, 0, 0,
-        50, 100, 0
-      ]),
+    const positions = new Float32Array([
+      0, 0, 0,
+      100, 0, 0,
+      50, 100, 0
+    ]);
+    const mesh = {
+      positions,
       indices: new Uint32Array([0, 1, 2]),
       normals: new Float32Array([
         0, 0, 1,
@@ -486,6 +487,9 @@ export class GeometryAPI implements WorkerAPI {
         0, 0, 1
       ])
     };
+    // Legacy compatibility: add vertices alias for positions
+    (mesh as any).vertices = mesh.positions;
+    return mesh;
   }
 
   private createMockSTEP(): string {
@@ -504,7 +508,7 @@ END-ISO-10303-21;`;
 
   private getMockResult(operation: string, params: any): any {
     // Generate mock responses based on operation
-    const id = `shape-${++this.idCounter}`;
+    const id = `${type}-${++this.idCounter}`;
     const result: any = {
       id,
       type: this.getTypeForOperation(operation),

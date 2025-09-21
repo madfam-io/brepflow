@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
  */
 export class MockGeometry implements WorkerAPI {
   private shapes = new Map<string, MockShape>();
+  private counters = new Map<string, number>();
 
   /**
    * Initialize the mock geometry system
@@ -25,8 +26,12 @@ export class MockGeometry implements WorkerAPI {
   /**
    * Create a mock shape handle
    */
-  private createHandle(type: 'solid' | 'surface' | 'curve', bbox?: BoundingBox): ShapeHandle {
-    const id = uuidv4();
+  private createHandle(type: string, bbox?: BoundingBox): ShapeHandle {
+    // Generate predictable IDs for testing
+    const counter = (this.counters.get(type) || 0) + 1;
+    this.counters.set(type, counter);
+    const id = `${type}-${counter}`;
+
     const handle: ShapeHandle = {
       id,
       type,
@@ -58,7 +63,12 @@ export class MockGeometry implements WorkerAPI {
   private generateMockMesh(type: string): MeshData {
     switch (type) {
       case 'solid':
+      case 'box':
         return this.generateBoxMesh();
+      case 'sphere':
+        return this.generateSphereMesh();
+      case 'cylinder':
+        return this.generateCylinderMesh();
       case 'surface':
         return this.generatePlaneMesh();
       case 'curve':
@@ -96,11 +106,14 @@ export class MockGeometry implements WorkerAPI {
       4, 5, 6, 6, 7, 4, // back
     ];
 
-    return {
+    const mesh = {
       positions: new Float32Array(vertices),
       normals: new Float32Array(normals),
       indices: new Uint32Array(indices),
     };
+    // Legacy compatibility: add vertices alias for positions
+    (mesh as any).vertices = mesh.positions;
+    return mesh;
   }
 
   /**
@@ -121,11 +134,14 @@ export class MockGeometry implements WorkerAPI {
 
     const indices = [0, 1, 2, 2, 3, 0];
 
-    return {
+    const mesh = {
       positions: new Float32Array(vertices),
       normals: new Float32Array(normals),
       indices: new Uint32Array(indices),
     };
+    // Legacy compatibility: add vertices alias for positions
+    (mesh as any).vertices = mesh.positions;
+    return mesh;
   }
 
   /**
@@ -136,11 +152,107 @@ export class MockGeometry implements WorkerAPI {
     const normals = [0, 1, 0, 0, 1, 0];
     const indices = [0, 1];
 
-    return {
+    const mesh = {
       positions: new Float32Array(vertices),
       normals: new Float32Array(normals),
       indices: new Uint32Array(indices),
     };
+    // Legacy compatibility: add vertices alias for positions
+    (mesh as any).vertices = mesh.positions;
+    return mesh;
+  }
+
+  /**
+   * Generate sphere mesh
+   */
+  private generateSphereMesh(): MeshData {
+    const radius = 25;
+    const segments = 8;
+    const vertices: number[] = [];
+    const normals: number[] = [];
+    const indices: number[] = [];
+
+    // Simple sphere approximation
+    for (let i = 0; i <= segments; i++) {
+      const phi = (i / segments) * Math.PI;
+      for (let j = 0; j <= segments; j++) {
+        const theta = (j / segments) * 2 * Math.PI;
+
+        const x = radius * Math.sin(phi) * Math.cos(theta);
+        const y = radius * Math.cos(phi);
+        const z = radius * Math.sin(phi) * Math.sin(theta);
+
+        vertices.push(x, y, z);
+        normals.push(x / radius, y / radius, z / radius);
+      }
+    }
+
+    // Generate indices for triangles
+    for (let i = 0; i < segments; i++) {
+      for (let j = 0; j < segments; j++) {
+        const a = i * (segments + 1) + j;
+        const b = a + segments + 1;
+
+        indices.push(a, b, a + 1);
+        indices.push(b, b + 1, a + 1);
+      }
+    }
+
+    const mesh = {
+      positions: new Float32Array(vertices),
+      normals: new Float32Array(normals),
+      indices: new Uint32Array(indices),
+    };
+    // Legacy compatibility: add vertices alias for positions
+    (mesh as any).vertices = mesh.positions;
+    return mesh;
+  }
+
+  /**
+   * Generate cylinder mesh
+   */
+  private generateCylinderMesh(): MeshData {
+    const radius = 25;
+    const height = 50;
+    const segments = 8;
+    const vertices: number[] = [];
+    const normals: number[] = [];
+    const indices: number[] = [];
+
+    // Generate vertices for cylinder sides
+    for (let i = 0; i <= segments; i++) {
+      const theta = (i / segments) * 2 * Math.PI;
+      const x = radius * Math.cos(theta);
+      const z = radius * Math.sin(theta);
+
+      // Bottom ring
+      vertices.push(x, -height/2, z);
+      normals.push(x / radius, 0, z / radius);
+
+      // Top ring
+      vertices.push(x, height/2, z);
+      normals.push(x / radius, 0, z / radius);
+    }
+
+    // Generate indices for cylinder sides
+    for (let i = 0; i < segments; i++) {
+      const a = i * 2;
+      const b = a + 1;
+      const c = (i + 1) * 2;
+      const d = c + 1;
+
+      indices.push(a, c, b);
+      indices.push(b, c, d);
+    }
+
+    const mesh = {
+      positions: new Float32Array(vertices),
+      normals: new Float32Array(normals),
+      indices: new Uint32Array(indices),
+    };
+    // Legacy compatibility: add vertices alias for positions
+    (mesh as any).vertices = mesh.positions;
+    return mesh;
   }
 
   // Geometry creation methods
@@ -189,7 +301,7 @@ export class MockGeometry implements WorkerAPI {
         z: center.z + depth / 2,
       },
     };
-    return this.createHandle('box' as any, bbox);
+    return this.createHandle('box', bbox);
   }
 
   createCylinder(center: Vec3, axis: Vec3, radius: number, height: number): ShapeHandle {
@@ -205,7 +317,7 @@ export class MockGeometry implements WorkerAPI {
         z: center.z + height,
       },
     };
-    return this.createHandle('cylinder' as any, bbox);
+    return this.createHandle('cylinder', bbox);
   }
 
   createSphere(center: Vec3, radius: number): ShapeHandle {
@@ -221,7 +333,7 @@ export class MockGeometry implements WorkerAPI {
         z: center.z + radius,
       },
     };
-    return this.createHandle('sphere' as any, bbox);
+    return this.createHandle('sphere', bbox);
   }
 
   // Operations
@@ -258,12 +370,12 @@ export class MockGeometry implements WorkerAPI {
       min: { x: minX, y: minY, z: minZ },
       max: { x: maxX, y: maxY, z: maxZ },
     };
-    return this.createHandle('solid', bbox);
+    return this.createHandle('union', bbox);
   }
 
   booleanSubtract(base: ShapeHandle, tools: ShapeHandle[]): ShapeHandle {
     // Mock subtract - use base bbox
-    return this.createHandle('solid', base.bbox);
+    return this.createHandle('subtract', base.bbox);
   }
 
   booleanIntersect(shapes: ShapeHandle[]): ShapeHandle {
@@ -285,7 +397,7 @@ export class MockGeometry implements WorkerAPI {
         };
       }
     }
-    return this.createHandle('solid', bbox);
+    return this.createHandle('intersect', bbox);
   }
 
   // Legacy tessellation method removed - using async version below
@@ -313,11 +425,14 @@ export class MockGeometry implements WorkerAPI {
         return this.booleanIntersect(params.shapes) as T;
       case 'tessellate': {
         const meshData = await this.tessellate(params.shape, params.deflection);
-        // Return mesh data directly for new API
+        // Ensure vertices property exists for direct tessellation
+        if (!('vertices' in meshData)) {
+          (meshData as any).vertices = meshData.positions;
+        }
         return meshData as T;
       }
       case 'MAKE_BOX':
-        return this.createBox(params.center, params.width, params.height, params.depth) as T;
+        return this.createBox(params.center || {x: 0, y: 0, z: 0}, params.width, params.height, params.depth) as T;
       case 'MAKE_SPHERE':
         return this.createSphere(params.center, params.radius) as T;
       case 'MAKE_CYLINDER':
@@ -337,16 +452,22 @@ export class MockGeometry implements WorkerAPI {
       case 'MAKE_OFFSET':
         // Mock offset - return shape as-is with new ID
         return this.createHandle('solid', params.shape?.bbox) as T;
-      case 'BOOLEAN_UNION':
-        return this.booleanUnion(params.shapes) as T;
-      case 'BOOLEAN_SUBTRACT':
-        return this.booleanSubtract(params.base, params.tools) as T;
-      case 'BOOLEAN_INTERSECT':
-        return this.booleanIntersect(params.shapes) as T;
+      case 'BOOLEAN_UNION': {
+        const result = this.booleanUnion(params.shapes);
+        return (result?.id ? result : { id: 'union-1', type: 'union' }) as T;
+      }
+      case 'BOOLEAN_SUBTRACT': {
+        const result = this.booleanSubtract(params.base, params.tools);
+        return (result?.id ? result : { id: 'subtract-1', type: 'subtract' }) as T;
+      }
+      case 'BOOLEAN_INTERSECT': {
+        const result = this.booleanIntersect(params.shapes);
+        return (result?.id ? result : { id: 'intersect-1', type: 'intersect' }) as T;
+      }
       case 'TESSELLATE': {
-        // Return MeshData directly for IntegratedGeometryAPI
+        // Return mesh wrapped in object for legacy compatibility
         const meshData = await this.tessellate(params.shape, params.deflection || params.tolerance);
-        return meshData as T;
+        return { mesh: meshData } as T;
       }
       default:
         throw new Error(`Unknown operation: ${operation}`);
@@ -355,14 +476,22 @@ export class MockGeometry implements WorkerAPI {
 
   // Updated tessellate method for WorkerAPI compatibility
   async tessellate(shapeId: HandleId | ShapeHandle, deflection: number): Promise<MeshData> {
+    let mesh: MeshData;
     if (typeof shapeId === 'string') {
       const shape = this.shapes.get(shapeId);
-      return shape ? shape.mesh : this.generateBoxMesh();
+      mesh = shape ? shape.mesh : this.generateBoxMesh();
     } else {
       // Handle ShapeHandle object
       const shape = this.shapes.get(shapeId.id);
-      return shape ? shape.mesh : this.generateBoxMesh();
+      mesh = shape ? shape.mesh : this.generateMockMesh(shapeId.type || 'box');
     }
+
+    // Ensure vertices property exists for legacy compatibility
+    if (!('vertices' in mesh)) {
+      (mesh as any).vertices = mesh.positions;
+    }
+
+    return mesh;
   }
 
   // Updated dispose method for WorkerAPI compatibility

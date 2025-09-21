@@ -19,6 +19,7 @@ import {
   type EnvironmentConfig
 } from './production-safety';
 import type { ShapeHandle, MeshData } from '@brepflow/types';
+import { MockGeometry } from './mock-geometry';
 
 export interface GeometryAPIConfig {
   enableRealOCCT: boolean;
@@ -72,8 +73,11 @@ export class IntegratedGeometryAPI {
       ...config,
     };
     const instance = new IntegratedGeometryAPI(mockConfig);
-    // For mock instances, mark as initialized since we don't need real initialization
+
+    // Initialize with mock geometry immediately
+    (instance as any).occtModule = new MockGeometry();
     instance.initialized = true;
+
     return instance;
   }
 

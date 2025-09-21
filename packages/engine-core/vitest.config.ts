@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitest/config';
-import path from 'path';
 
 export default defineConfig({
   test: {
@@ -19,12 +18,6 @@ export default defineConfig({
         '**/*.spec.{js,ts,jsx,tsx}',
         'dist/**',
       ],
-    },
-  },
-  resolve: {
-    alias: {
-      '@brepflow/types': path.resolve(__dirname, '../types/src'),
-      '@brepflow/engine-core': path.resolve(__dirname, '../engine-core/src'),
     },
   },
 });
