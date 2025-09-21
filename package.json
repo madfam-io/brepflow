@@ -25,6 +25,13 @@
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:report": "playwright show-report",
     "test:all": "pnpm test && pnpm test:e2e",
+    "audit:full": "tsx scripts/run-complete-audit.ts",
+    "audit:functionality": "playwright test --config=playwright.audit.config.ts --project=functionality-audit",
+    "audit:accessibility": "playwright test --config=playwright.audit.config.ts --project=accessibility-audit",
+    "audit:performance": "playwright test --config=playwright.audit.config.ts --project=performance-audit",
+    "audit:report": "tsx scripts/run-complete-audit.ts --report-only",
+    "audit:dashboard": "tsx scripts/audit-dashboard.ts",
+    "audit:ci": "pnpm audit:full --ci",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "clean": "turbo run clean && rm -rf node_modules",
@@ -34,6 +41,7 @@
     "pre-deploy": "pnpm lockfile:check && pnpm build"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.55.0",
     "@swc/core": "^1.13.5",
     "@testing-library/jest-dom": "^6.8.0",
