@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/Users/aldoruizluna/labspace/brepflow/packages/engine-occt/build-bindings/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
