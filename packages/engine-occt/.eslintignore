@@ -1,0 +1,6 @@
+build-bindings/
+build-occt/
+dist/
+*.d.ts
+*.js
+wasm/

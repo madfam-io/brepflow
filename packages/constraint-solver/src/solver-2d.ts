@@ -110,8 +110,8 @@ export class Solver2D {
 
     return {
       success: error <= this.TOLERANCE,
-      iterations,
-      error,
+      iterations: iteration,
+      residual: error,
       variables: this.getVariableValues()
     };
   }

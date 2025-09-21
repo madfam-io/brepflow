@@ -44,7 +44,7 @@ export const AwningWindowNode: NodeDefinition<AwningWindowInputs, AwningWindowOu
     const result = await context.geometry.execute({
       type: 'awningWindow',
       params: {
-        opening: inputs.opening,
+        openingWire: inputs.opening,
         opening: params.opening
       }
     });

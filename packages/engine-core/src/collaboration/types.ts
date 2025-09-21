@@ -349,8 +349,8 @@ export interface CollaborationEngine {
   getPresence: (sessionId: SessionId) => Promise<PresenceState>;
 
   // Event handling
-  addEventListener: (event: string, listener: Function) => void;
-  removeEventListener: (event: string, listener: Function) => void;
+  addEventListener: (event: string, listener: (...args: any[]) => void) => void;
+  removeEventListener: (event: string, listener: (...args: any[]) => void) => void;
 }
 
 // Configuration

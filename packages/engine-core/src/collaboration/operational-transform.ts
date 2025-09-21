@@ -230,12 +230,13 @@ export class OperationalTransformEngine {
       case 'DELETE_EDGE':
         return `edge:${(op as any).edgeId}`;
 
-      case 'BATCH':
+      case 'BATCH': {
         // For batch operations, get entities from all sub-operations
         const entities = (op as BatchOperation).operations.map(subOp =>
           this.getOperationEntity(subOp)
         );
         return entities.join(',');
+      }
 
       default:
         return 'unknown';

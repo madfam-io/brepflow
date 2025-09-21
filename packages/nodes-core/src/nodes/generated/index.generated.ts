@@ -96,9 +96,9 @@ import { PointToPointNode } from './assembly/mates/point-to-point.node.js';
 import { AxisToAxisNode } from './assembly/mates/axis-to-axis.node.js';
 import { PlaneToPlaneNode } from './assembly/mates/plane-to-plane.node.js';
 import { FastenedNode } from './assembly/mates/fastened.node.js';
-import { GearNode } from './assembly/mates/gear.node.js';
+import { GearNode as AssemblyGearNode } from './assembly/mates/gear.node.js';
 import { CamNode } from './assembly/mates/cam.node.js';
-import { SlotNode } from './assembly/mates/slot.node.js';
+import { SlotNode as AssemblyMatesSlotNode } from './assembly/mates/slot.node.js';
 import { PathNode } from './assembly/mates/path.node.js';
 import { RevoluteNode } from './assembly/joints/revolute.node.js';
 import { PrismaticNode } from './assembly/joints/prismatic.node.js';
@@ -106,7 +106,7 @@ import { CylindricalNode } from './assembly/joints/cylindrical.node.js';
 import { SphericalNode } from './assembly/joints/spherical.node.js';
 import { PlanarNode } from './assembly/joints/planar.node.js';
 import { UniversalNode } from './assembly/joints/universal.node.js';
-import { FixedNode } from './assembly/joints/fixed.node.js';
+import { FixedNode as AssemblyJointsFixedNode } from './assembly/joints/fixed.node.js';
 import { ScrewNode } from './assembly/joints/screw.node.js';
 import { BeltNode } from './assembly/joints/belt.node.js';
 import { RackPinionNode } from './assembly/joints/rack-pinion.node.js';
@@ -130,7 +130,7 @@ import { CornerReliefNode } from './sheetmetal/corners/corner-relief.node.js';
 import { BendReliefNode } from './sheetmetal/corners/bend-relief.node.js';
 import { ClosedCornerNode } from './sheetmetal/corners/closed-corner.node.js';
 import { TabNode } from './sheetmetal/features/tab.node.js';
-import { SlotNode } from './sheetmetal/features/slot.node.js';
+import { SlotNode as SheetMetalSlotNode } from './sheetmetal/features/slot.node.js';
 import { LouverNode } from './sheetmetal/features/louver.node.js';
 import { LanceNode } from './sheetmetal/features/lance.node.js';
 import { BeadNode } from './sheetmetal/features/bead.node.js';
@@ -157,11 +157,11 @@ import { ExtendSurfaceNode } from './advanced/surface/extend-surface.node.js';
 import { UntrimSurfaceNode } from './advanced/surface/untrim-surface.node.js';
 import { KnitSurfacesNode } from './advanced/surface/knit-surfaces.node.js';
 import { PatchSurfaceNode } from './advanced/surface/patch-surface.node.js';
-import { WrapNode } from './advanced/features/wrap.node.js';
+import { WrapNode as AdvancedWrapNode } from './advanced/features/wrap.node.js';
 import { DomeNode } from './advanced/features/dome.node.js';
 import { FlexNode } from './advanced/features/flex.node.js';
 import { IndentNode } from './advanced/features/indent.node.js';
-import { DeformNode } from './advanced/features/deform.node.js';
+import { DeformNode as AdvancedDeformNode } from './advanced/features/deform.node.js';
 import { HealShapeNode } from './advanced/healing/heal-shape.node.js';
 import { RemoveFeaturesNode } from './advanced/healing/remove-features.node.js';
 import { DeleteFaceNode } from './advanced/healing/delete-face.node.js';
@@ -219,7 +219,7 @@ import { ExportBREPNode } from './io/cad/export-b-r-e-p.node.js';
 import { ImportParasolidNode } from './io/cad/import-parasolid.node.js';
 import { ImportACISNode } from './io/cad/import-a-c-i-s.node.js';
 import { ImportDXFNode } from './io/drawing/import-d-x-f.node.js';
-import { ExportDXFNode } from './io/drawing/export-d-x-f.node.js';
+import { ExportDXFNode as DrawingExportDXFNode } from './io/drawing/export-d-x-f.node.js';
 import { ExportSVGNode } from './io/drawing/export-s-v-g.node.js';
 import { ImportGLTFNode } from './io/exchange/import-g-l-t-f.node.js';
 import { ExportGLTFNode } from './io/exchange/export-g-l-t-f.node.js';
@@ -274,7 +274,7 @@ import { SquareRootNode } from './math/operators/square-root.node.js';
 import { FactorialNode } from './math/operators/factorial.node.js';
 import { SineNode } from './math/trigonometry/sine.node.js';
 import { CosineNode } from './math/trigonometry/cosine.node.js';
-import { TangentNode } from './math/trigonometry/tangent.node.js';
+import { TangentNode as MathTangentNode } from './math/trigonometry/tangent.node.js';
 import { ArcSineNode } from './math/trigonometry/arc-sine.node.js';
 import { ArcCosineNode } from './math/trigonometry/arc-cosine.node.js';
 import { ArcTangentNode } from './math/trigonometry/arc-tangent.node.js';
@@ -497,7 +497,7 @@ import { GeodesicPatternNode } from './patterns/geometric/geodesic-pattern.node.
 import { MuqarnasNode } from './patterns/islamic/muqarnas.node.js';
 import { QuasiCrystalNode } from './patterns/geometric/quasi-crystal.node.js';
 import { MinimalSurfaceNode } from './patterns/geometric/minimal-surface.node.js';
-import { ReactionDiffusionNode } from './patterns/geometric/reaction-diffusion.node.js';
+import { ReactionDiffusionNode as GeometricReactionDiffusionNode } from './patterns/geometric/reaction-diffusion.node.js';
 import { ParquetDeformationNode } from './patterns/geometric/parquet-deformation.node.js';
 import { KochSnowflakeNode } from './patterns/fractals/koch-snowflake.node.js';
 import { SierpinskiTriangleNode } from './patterns/fractals/sierpinski-triangle.node.js';
@@ -536,7 +536,7 @@ import { MinimumSpanningTreeNode } from './patterns/network/minimum-spanning-tre
 import { RelativeNeighborhoodNode } from './patterns/network/relative-neighborhood.node.js';
 import { BinaryTreeNode } from './patterns/algorithmic/binary-tree.node.js';
 import { MazeGeneratorNode } from './patterns/algorithmic/maze-generator.node.js';
-import { SubdivisionSurfaceNode } from './patterns/algorithmic/subdivision-surface.node.js';
+import { SubdivisionSurfaceNode as AlgorithmicSubdivisionSurfaceNode } from './patterns/algorithmic/subdivision-surface.node.js';
 import { FlockingPatternNode } from './patterns/algorithmic/flocking-pattern.node.js';
 import { DiffusionLimitedAggregationNode } from './patterns/algorithmic/diffusion-limited-aggregation.node.js';
 import { GrammarShapesNode } from './patterns/procedural/grammar-shapes.node.js';
@@ -549,11 +549,11 @@ import { PhyllotaxisPatternNode } from './patterns/algorithmic/phyllotaxis-patte
 import { TuringPatternNode } from './patterns/procedural/turing-pattern.node.js';
 import { NoisePatternNode } from './patterns/procedural/noise-pattern.node.js';
 import { PackingCirclesNode } from './patterns/algorithmic/packing-circles.node.js';
-import { KMeansClusteringNode } from './patterns/algorithmic/k-means-clustering.node.js';
+import { KMeansClusteringNode as AlgorithmicKMeansClusteringNode } from './patterns/algorithmic/k-means-clustering.node.js';
 import { ContextFreeArtNode } from './patterns/procedural/context-free-art.node.js';
 import { ProceduralTextureNode } from './patterns/procedural/procedural-texture.node.js';
 import { GraphLayoutNode } from './patterns/algorithmic/graph-layout.node.js';
-import { ShortestPathNode } from './patterns/algorithmic/shortest-path.node.js';
+import { ShortestPathNode as AlgorithmicShortestPathNode } from './patterns/algorithmic/shortest-path.node.js';
 import { SupportGenerationNode } from './fabrication/3d-printing/support-generation.node.js';
 import { PrintOrientationNode } from './fabrication/3d-printing/print-orientation.node.js';
 import { SliceModelNode } from './fabrication/3d-printing/slice-model.node.js';
@@ -592,7 +592,7 @@ import { HelicalEntryNode } from './fabrication/cnc/helical-entry.node.js';
 import { RampEntryNode } from './fabrication/cnc/ramp-entry.node.js';
 import { HighSpeedMachiningNode } from './fabrication/cnc/high-speed-machining.node.js';
 import { ScallopHeightNode } from './fabrication/cnc/scallop-height.node.js';
-import { CollisionDetectionNode } from './fabrication/cnc/collision-detection.node.js';
+import { CollisionDetectionNode as CNCCollisionDetectionNode } from './fabrication/cnc/collision-detection.node.js';
 import { FeedsAndSpeedsNode } from './fabrication/cnc/feeds-and-speeds.node.js';
 import { FiveAxisPositioningNode } from './fabrication/cnc/five-axis-positioning.node.js';
 import { SwarmMillingNode } from './fabrication/cnc/swarm-milling.node.js';
@@ -809,7 +809,7 @@ import { SurfaceDerivativesNode } from './analysis/surfaces/surface-derivatives.
 import { SurfaceClosestPointNode } from './analysis/surfaces/surface-closest-point.node.js';
 import { SurfaceBoundaryNode } from './analysis/surfaces/surface-boundary.node.js';
 import { SurfaceContinuityNode } from './analysis/surfaces/surface-continuity.node.js';
-import { SurfaceDeviationNode } from './analysis/surfaces/surface-deviation.node.js';
+import { SurfaceDeviationNode as AnalysisSurfaceDeviationNode } from './analysis/surfaces/surface-deviation.node.js';
 import { SurfaceFlatnessNode } from './analysis/surfaces/surface-flatness.node.js';
 import { SurfaceRoughnessNode } from './analysis/surfaces/surface-roughness.node.js';
 import { CurveCurveIntersectionNode } from './analysis/intersection/curve-curve-intersection.node.js';
@@ -820,7 +820,7 @@ import { RayIntersectionNode } from './analysis/intersection/ray-intersection.no
 import { MinimumDistanceNode } from './analysis/proximity/minimum-distance.node.js';
 import { ProximityAnalysisNode } from './analysis/proximity/proximity-analysis.node.js';
 import { ClearanceCheckNode } from './analysis/proximity/clearance-check.node.js';
-import { CollisionDetectionNode } from './analysis/proximity/collision-detection.node.js';
+import { CollisionDetectionNode as ProximityCollisionDetectionNode } from './analysis/proximity/collision-detection.node.js';
 import { VisibilityAnalysisNode } from './analysis/proximity/visibility-analysis.node.js';
 import { ShadowAnalysisNode } from './analysis/proximity/shadow-analysis.node.js';
 import { VolumeCalculationNode } from './analysis/measurement/volume-calculation.node.js';
@@ -870,17 +870,17 @@ import { SimulatedAnnealingNode } from './algorithmic/optimization/simulated-ann
 import { GradientDescentNode } from './algorithmic/optimization/gradient-descent.node.js';
 import { TopologyOptimizerNode } from './algorithmic/optimization/topology-optimizer.node.js';
 import { LinearRegressionNode } from './algorithmic/machinelearning/linear-regression.node.js';
-import { KMeansClusteringNode } from './algorithmic/machinelearning/k-means-clustering.node.js';
+import { KMeansClusteringNode as MachineLearningKMeansClusteringNode } from './algorithmic/machinelearning/k-means-clustering.node.js';
 import { DecisionTreeNode } from './algorithmic/machinelearning/decision-tree.node.js';
 import { NeuralNetworkNode } from './algorithmic/machinelearning/neural-network.node.js';
 import { SupportVectorMachineNode } from './algorithmic/machinelearning/support-vector-machine.node.js';
 import { ConvexHull3DNode } from './algorithmic/geometry/convex-hull3-d.node.js';
-import { AlphaShapeNode } from './algorithmic/geometry/alpha-shape.node.js';
-import { MinimumSpanningTreeNode } from './algorithmic/geometry/minimum-spanning-tree.node.js';
-import { ShortestPathNode } from './algorithmic/geometry/shortest-path.node.js';
+import { AlphaShapeNode as GeometryAlphaShapeNode } from './algorithmic/geometry/alpha-shape.node.js';
+import { MinimumSpanningTreeNode as GeometryMinimumSpanningTreeNode } from './algorithmic/geometry/minimum-spanning-tree.node.js';
+import { ShortestPathNode as GeometryShortestPathNode } from './algorithmic/geometry/shortest-path.node.js';
 import { VisibilityGraphNode } from './algorithmic/geometry/visibility-graph.node.js';
 import { MedialAxisNode } from './algorithmic/geometry/medial-axis.node.js';
-import { DistanceFieldNode } from './algorithmic/geometry/distance-field.node.js';
+import { DistanceFieldNode as GeometryDistanceFieldNode } from './algorithmic/geometry/distance-field.node.js';
 import { MarchingCubesNode } from './algorithmic/geometry/marching-cubes.node.js';
 import { SpacePartitioningNode } from './algorithmic/geometry/space-partitioning.node.js';
 import { VoxelGridNode } from './algorithmic/geometry/voxel-grid.node.js';
@@ -1428,11 +1428,7 @@ export {
   TuringPatternNode,
   NoisePatternNode,
   PackingCirclesNode,
-  KMeansClusteringNode,
-  ContextFreeArtNode,
-  ProceduralTextureNode,
-  GraphLayoutNode,
-  ShortestPathNode,
+
   SupportGenerationNode,
   PrintOrientationNode,
   SliceModelNode,
@@ -1760,7 +1756,18 @@ export {
   GeometrySimplificationNode,
   GeometryMatchingNode,
   ShapeDescriptorNode,
-};
+  GeometricReactionDiffusionNode,
+  AlgorithmicSubdivisionSurfaceNode,
+  CNCCollisionDetectionNode,
+  AnalysisSurfaceDeviationNode,
+  ProximityCollisionDetectionNode,
+  AlgorithmicKMeansClusteringNode,
+  AlgorithmicShortestPathNode,
+  MachineLearningKMeansClusteringNode,
+  GeometryAlphaShapeNode,
+  GeometryMinimumSpanningTreeNode,
+  GeometryShortestPathNode,
+  GeometryDistanceFieldNode};
 
 // Registry for dynamic loading
 export const nodeRegistry = {
@@ -1787,7 +1794,9 @@ export const nodeRegistry = {
   'OrientNode': OrientNode,
   'ProjectToPlaneNode': ProjectToPlaneNode,
   'WrapNode': WrapNode,
+  AdvancedWrapNode,
   'DeformNode': DeformNode,
+  AdvancedDeformNode,
   'BoundingBoxAlignNode': BoundingBoxAlignNode,
   'MatrixTransformNode': MatrixTransformNode,
   'PrismNode': PrismNode,
@@ -1816,6 +1825,7 @@ export const nodeRegistry = {
   'PolygonNode': PolygonNode,
   'StarNode': StarNode,
   'GearNode': GearNode,
+  AssemblyGearNode,
   'LineNode': LineNode,
   'ArcNode': ArcNode,
   'CircleNode': CircleNode,
@@ -1826,6 +1836,8 @@ export const nodeRegistry = {
   'BSplineCurveNode': BSplineCurveNode,
   'PointNode': PointNode,
   'SlotNode': SlotNode,
+  AssemblyMatesSlotNode,
+  SheetMetalSlotNode,
   'TextNode': TextNode,
   'OffsetNode': OffsetNode,
   'Fillet2DNode': Fillet2DNode,
@@ -1845,12 +1857,14 @@ export const nodeRegistry = {
   'ParallelNode': ParallelNode,
   'PerpendicularNode': PerpendicularNode,
   'TangentNode': TangentNode,
+  MathTangentNode,
   'ConcentricNode': ConcentricNode,
   'DistanceNode': DistanceNode,
   'AngleNode': AngleNode,
   'HorizontalNode': HorizontalNode,
   'VerticalNode': VerticalNode,
   'FixedNode': FixedNode,
+  AssemblyJointsFixedNode,
   'FaceToFaceNode': FaceToFaceNode,
   'EdgeToEdgeNode': EdgeToEdgeNode,
   'PointToPointNode': PointToPointNode,
@@ -1894,6 +1908,7 @@ export const nodeRegistry = {
   'UnfoldNode': UnfoldNode,
   'FoldNode': FoldNode,
   'ExportDXFNode': ExportDXFNode,
+  DrawingExportDXFNode,
   'SheetMetalStyleNode': SheetMetalStyleNode,
   'BendTableNode': BendTableNode,
   'CostEstimateNode': CostEstimateNode,
@@ -2300,11 +2315,11 @@ export const nodeRegistry = {
   'TuringPatternNode': TuringPatternNode,
   'NoisePatternNode': NoisePatternNode,
   'PackingCirclesNode': PackingCirclesNode,
-  'KMeansClusteringNode': KMeansClusteringNode,
+
   'ContextFreeArtNode': ContextFreeArtNode,
   'ProceduralTextureNode': ProceduralTextureNode,
   'GraphLayoutNode': GraphLayoutNode,
-  'ShortestPathNode': ShortestPathNode,
+
   'SupportGenerationNode': SupportGenerationNode,
   'PrintOrientationNode': PrintOrientationNode,
   'SliceModelNode': SliceModelNode,
@@ -2632,4 +2647,15 @@ export const nodeRegistry = {
   'GeometrySimplificationNode': GeometrySimplificationNode,
   'GeometryMatchingNode': GeometryMatchingNode,
   'ShapeDescriptorNode': ShapeDescriptorNode,
-};
+  GeometricReactionDiffusionNode,
+  AlgorithmicSubdivisionSurfaceNode,
+  CNCCollisionDetectionNode,
+  AnalysisSurfaceDeviationNode,
+  ProximityCollisionDetectionNode,
+  AlgorithmicKMeansClusteringNode,
+  AlgorithmicShortestPathNode,
+  MachineLearningKMeansClusteringNode,
+  GeometryAlphaShapeNode,
+  GeometryMinimumSpanningTreeNode,
+  GeometryShortestPathNode,
+  GeometryDistanceFieldNode};

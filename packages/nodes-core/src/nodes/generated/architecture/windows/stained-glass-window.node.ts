@@ -59,7 +59,7 @@ export const StainedGlassWindowNode: NodeDefinition<StainedGlassWindowInputs, St
       type: 'stainedGlassWindow',
       params: {
         opening: inputs.opening,
-        pattern: inputs.pattern,
+        patternWires: inputs.pattern,
         pattern: params.pattern,
         leadWidth: params.leadWidth
       }

@@ -5,7 +5,7 @@
 
 import { WASMPerformanceMonitor } from './wasm-capability-detector';
 import { getMemoryManager } from './memory-manager';
-import type { ShapeHandle, MeshData } from '@brepflow/types';
+// import type { ShapeHandle, MeshData } from '@brepflow/types';
 
 export enum ErrorSeverity {
   LOW = 'low',
@@ -362,7 +362,7 @@ export class ErrorRecoverySystem {
             }
             break;
 
-          case 'TESSELLATE':
+          case 'TESSELLATE': {
             if (!params.shape) {
               errors.push('Tessellation requires a shape parameter.');
             }
@@ -371,6 +371,7 @@ export class ErrorRecoverySystem {
               errors.push('Tessellation requires a positive tolerance/deflection parameter.');
             }
             break;
+          }
 
           case 'BOOLEAN_UNION':
           case 'BOOLEAN_INTERSECT':

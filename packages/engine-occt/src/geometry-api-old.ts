@@ -1,4 +1,4 @@
-import type { WorkerAPI, ShapeHandle, MeshData } from '@brepflow/types';
+import type { WorkerAPI, MeshData } from '@brepflow/types';
 
 /**
  * Mock implementation for testing
@@ -54,7 +54,7 @@ class MockGeometry {
     return 'solid';
   }
 
-  async tessellate(shapeId: string, deflection: number): Promise<any> {
+  async tessellate(_shapeId: string, _deflection: number): Promise<any> {
     const mesh = {
       positions: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
       normals: new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1]),
@@ -80,7 +80,7 @@ class MockGeometry {
   }
 
   // Mock-specific methods for testing
-  createLine(start: any, end: any): any {
+  createLine(_start: any, _end: any): any {
     return { id: 'line-1', type: 'edge' };
   }
 

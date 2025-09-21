@@ -2,6 +2,9 @@
   "extends": ["../../.eslintrc.json"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "warn",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "react/no-unknown-property": ["error", { 
+      "ignore": ["position", "intensity", "distance", "decay", "object", "args", "attach", "rotation", "scale", "geometry", "material"] 
+    }]
   }
 }

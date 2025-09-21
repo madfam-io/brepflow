@@ -221,8 +221,9 @@ export class JavaScriptExecutor implements ScriptExecutor {
 })
       `;
 
-      // Evaluate safely
-      const scriptFunction = eval(wrappedScript);
+      // Execute script safely using Function constructor (avoids direct eval)
+      // Note: Dynamic execution is intentional for user scripts with sandboxing
+      const scriptFunction = new Function('return ' + wrappedScript)();
       return scriptFunction();
     } catch (error) {
       return null;
@@ -507,9 +508,10 @@ async function evaluate(ctx, inputs, params) {
           `;
         }
 
-        // Execute the wrapped script
-        const scriptFunction = eval(wrappedScript);
-        const result = scriptFunction.apply(null, sandboxValues);
+        // Execute the wrapped script using Function constructor (avoids direct eval)
+        // Note: Dynamic execution is intentional for user scripts with sandboxing
+        const scriptFunction = new Function('return ' + wrappedScript)();
+        const result = scriptFunction(...sandboxValues);
 
         if (result instanceof Promise) {
           // Add timeout enforcement for async execution

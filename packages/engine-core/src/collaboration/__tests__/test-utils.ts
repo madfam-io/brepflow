@@ -17,7 +17,7 @@ import type {
 import { BrepFlowCollaborationEngine } from '../collaboration-engine';
 
 export class MockWebSocketClient {
-  private eventListeners = new Map<string, Function[]>();
+  private eventListeners = new Map<string, ((...args: any[]) => void)[]>();
   private connected = false;
   private messageQueue: any[] = [];
   private messageCallback?: (data: any) => void;
@@ -92,14 +92,14 @@ export class MockWebSocketClient {
     return this.connected;
   }
 
-  addEventListener(event: string, listener: Function): void {
+  addEventListener(event: string, listener: (...args: any[]) => void): void {
     if (!this.eventListeners.has(event)) {
       this.eventListeners.set(event, []);
     }
     this.eventListeners.get(event)!.push(listener);
   }
 
-  removeEventListener(event: string, listener: Function): void {
+  removeEventListener(event: string, listener: (...args: any[]) => void): void {
     const listeners = this.eventListeners.get(event);
     if (listeners) {
       const index = listeners.indexOf(listener);
@@ -436,11 +436,11 @@ export class TestCollaborationWebSocketClient {
     // Mock sync request
   }
 
-  addEventListener(event: string, listener: Function): void {
+  addEventListener(event: string, listener: (...args: any[]) => void): void {
     // Mock event listener
   }
 
-  removeEventListener(event: string, listener: Function): void {
+  removeEventListener(event: string, listener: (...args: any[]) => void): void {
     // Mock event listener removal
   }
 
@@ -491,10 +491,10 @@ export function createTestCollaborationEngine(harness: CollaborationTestHarness)
 // Create a working mock collaboration engine for parameter sync tests
 export function createMockCollaborationEngine() {
   return {
-    addEventListener: (event: string, listener: Function) => {
+    addEventListener: (event: string, listener: (...args: any[]) => void) => {
       // Store listeners if needed
     },
-    removeEventListener: (event: string, listener: Function) => {
+    removeEventListener: (event: string, listener: (...args: any[]) => void) => {
       // Remove listeners if needed
     },
     applyOperation: async (sessionId: string, operation: any) => {

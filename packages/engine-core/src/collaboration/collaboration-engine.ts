@@ -294,7 +294,7 @@ export class BrepFlowCollaborationEngine {
     const { state } = session;
 
     switch (operation.type) {
-      case 'CREATE_NODE':
+      case 'CREATE_NODE': {
         const createNodeOp = operation as any;
         state.nodes.set(createNodeOp.nodeId, {
           id: createNodeOp.nodeId,
@@ -303,8 +303,9 @@ export class BrepFlowCollaborationEngine {
           params: createNodeOp.params || {},
         });
         break;
+      }
 
-      case 'DELETE_NODE':
+      case 'DELETE_NODE': {
         const deleteNodeOp = operation as any;
         state.nodes.delete(deleteNodeOp.nodeId);
         // Also remove edges connected to this node
@@ -314,24 +315,27 @@ export class BrepFlowCollaborationEngine {
           }
         }
         break;
+      }
 
-      case 'UPDATE_NODE_POSITION':
+      case 'UPDATE_NODE_POSITION': {
         const updatePosOp = operation as any;
         const posNode = state.nodes.get(updatePosOp.nodeId);
         if (posNode) {
           posNode.position = updatePosOp.position;
         }
         break;
+      }
 
-      case 'UPDATE_NODE_PARAMS':
+      case 'UPDATE_NODE_PARAMS': {
         const updateParamsOp = operation as any;
         const paramsNode = state.nodes.get(updateParamsOp.nodeId);
         if (paramsNode) {
           paramsNode.params = { ...paramsNode.params, ...updateParamsOp.params };
         }
         break;
+      }
 
-      case 'CREATE_EDGE':
+      case 'CREATE_EDGE': {
         const createEdgeOp = operation as any;
         state.edges.set(createEdgeOp.edgeId, {
           id: createEdgeOp.edgeId,
@@ -341,11 +345,13 @@ export class BrepFlowCollaborationEngine {
           targetSocket: createEdgeOp.targetSocket,
         });
         break;
+      }
 
-      case 'DELETE_EDGE':
+      case 'DELETE_EDGE': {
         const deleteEdgeOp = operation as any;
         state.edges.delete(deleteEdgeOp.edgeId);
         break;
+      }
 
       default:
         console.warn(`[Collaboration] Unknown operation type: ${operation.type}, applying as-is`);

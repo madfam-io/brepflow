@@ -50,7 +50,7 @@ export interface BaseRequest {
 
 export interface InitRequest extends BaseRequest {
   type: 'INIT';
-  params: {};
+  params: Record<string, never>;
 }
 
 export interface CreateLineRequest extends BaseRequest {
@@ -279,17 +279,17 @@ export interface DisposeRequest extends BaseRequest {
 
 export interface HealthCheckRequest extends BaseRequest {
   type: 'HEALTH_CHECK';
-  params: {};
+  params: Record<string, never>;
 }
 
 export interface CleanupRequest extends BaseRequest {
   type: 'CLEANUP';
-  params: {};
+  params: Record<string, never>;
 }
 
 export interface ShutdownRequest extends BaseRequest {
   type: 'SHUTDOWN';
-  params: {};
+  params: Record<string, never>;
 }
 
 // Result types

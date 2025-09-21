@@ -81,7 +81,7 @@ export class ConstraintSolver {
       }
       
       // Current variable values
-      let variables = new Map(system.variables);
+      const variables = new Map(system.variables);
       let iteration = 0;
       let residual = Infinity;
       

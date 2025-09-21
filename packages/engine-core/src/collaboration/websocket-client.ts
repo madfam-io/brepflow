@@ -42,7 +42,7 @@ export class CollaborationWebSocketClient {
   private isConnecting = false;
   private isManualClose = false;
   private messageQueue: WebSocketMessage[] = [];
-  private pendingOperations = new Map<string, { resolve: Function; reject: Function }>();
+  private pendingOperations = new Map<string, { resolve: (value?: any) => void; reject: (reason?: any) => void }>();
   private eventListeners = new Map<string, CollaborationEventListener[]>();
   private heartbeatTimer: number | null = null;
   private sessionId: SessionId | null = null;

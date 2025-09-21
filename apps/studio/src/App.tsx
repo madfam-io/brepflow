@@ -128,12 +128,8 @@ function AppContent() {
   console.log('🔍 DEBUG - React Flow nodes:', rfNodes.length, rfNodes);
   console.log('🔍 DEBUG - Nodes state snapshot:', nodes.length, nodes);
 
-  // Force immediate sync if there's a mismatch
-  if (nodes.length !== rfNodes.length) {
-    console.log('🚨 FORCE SYNC - Mismatch detected, forcing immediate sync');
-    setNodes(rfNodes);
-    setEdges(rfEdges);
-  }
+  // Note: Removed problematic force sync to prevent duplicate node creation
+  // The useEffect below handles proper synchronization
 
   // Sync ReactFlow state with graph store
   useEffect(() => {
