@@ -1,6 +1,6 @@
 /**
  * @brepflow
- * (c) 2025 BrepFlow - MIT License
+ * (c) 2025 BrepFlow - Mozilla Public License 2.0
  */
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });

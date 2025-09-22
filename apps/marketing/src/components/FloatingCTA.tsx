@@ -135,7 +135,7 @@ export function FloatingCTA({ showDelay = 3000, hideOnScroll = false }: Floating
               <div className="mt-4 pt-4 border-t border-gray-700/50">
                 <div className="flex items-center justify-between text-xs text-gray-400">
                   <span>✓ Open Source</span>
-                  <span>✓ MIT License</span>
+                  <span>✓ MPL 2.0 License</span>
                   <span>✓ No Signup</span>
                 </div>
               </div>

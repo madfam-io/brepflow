@@ -56,6 +56,9 @@ export const createBaseConfig = (options: Partial<Options> = {}): Options => {
     // Target environment
     target: 'es2022',
 
+    // Use shared strict TypeScript configuration
+    tsconfig: resolve(__dirname, '../tsconfig.strict.json'),
+
     // Keep names for better debugging
     keepNames: true,
 
@@ -66,7 +69,7 @@ export const createBaseConfig = (options: Partial<Options> = {}): Options => {
     banner: {
       js: `/**
  * @brepflow
- * (c) ${new Date().getFullYear()} BrepFlow - MIT License
+ * (c) ${new Date().getFullYear()} BrepFlow - Mozilla Public License 2.0
  */`,
     },
 

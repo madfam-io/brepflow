@@ -107,16 +107,15 @@ vi.mock('./mock-geometry', () => ({
     makeCone: vi.fn().mockReturnValue({ id: 'cone-1', type: 'cone' }),
     makeWedge: vi.fn().mockReturnValue({ id: 'wedge-1', type: 'wedge' }),
     extrude: vi.fn().mockReturnValue({ id: 'extrude-1', type: 'solid' }),
-    booleanUnion: vi.fn().mockReturnValue({ id: 'union-1', type: 'solid' }),
-    booleanSubtract: vi.fn().mockReturnValue({ id: 'subtract-1', type: 'solid' }),
-    booleanIntersect: vi.fn().mockReturnValue({ id: 'intersect-1', type: 'solid' }),
+    booleanUnion: vi.fn().mockReturnValue({ id: 'union-1', type: 'union' }),
+    booleanSubtract: vi.fn().mockReturnValue({ id: 'subtract-1', type: 'subtract' }),
+    booleanIntersect: vi.fn().mockReturnValue({ id: 'intersect-1', type: 'intersect' }),
     tessellate: vi.fn().mockResolvedValue({
       vertices: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
       positions: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
       indices: new Uint32Array([0, 1, 2]),
       normals: new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1])
     }),
-    dispose: vi.fn(),
     invoke: vi.fn().mockImplementation((operation, params) => {
       switch (operation) {
         case 'CREATE_LINE': return { id: 'line-1', type: 'edge' };
@@ -126,9 +125,9 @@ vi.mock('./mock-geometry', () => ({
         case 'MAKE_CYLINDER': return { id: 'cylinder-1', type: 'cylinder' };
         case 'MAKE_SPHERE': return { id: 'sphere-1', type: 'sphere' };
         case 'MAKE_EXTRUDE': return { id: 'extrude-1', type: 'solid' };
-        case 'BOOLEAN_UNION': return { id: 'union-1', type: 'solid' };
-        case 'BOOLEAN_SUBTRACT': return { id: 'subtract-1', type: 'solid' };
-        case 'BOOLEAN_INTERSECT': return { id: 'intersect-1', type: 'solid' };
+        case 'BOOLEAN_UNION': return { id: 'union-1', type: 'union' };
+        case 'BOOLEAN_SUBTRACT': return { id: 'subtract-1', type: 'subtract' };
+        case 'BOOLEAN_INTERSECT': return { id: 'intersect-1', type: 'intersect' };
         case 'TESSELLATE':
           // For IntegratedGeometryAPI tests, return mesh data directly
           // For legacy GeometryAPI tests, check if we need a mesh wrapper
@@ -248,6 +247,11 @@ describe('IntegratedGeometryAPI', () => {
       expect(cylinder.type).toBe('cylinder');
     });
 
+    it('should return a failure result for unknown operations', async () => {
+      const failureResult = await geometryAPI.invoke('UNKNOWN_OPERATION', {});
+      expectOperationFailure(failureResult, 'Unknown operation');
+    });
+
     it('should handle operation failure gracefully', async () => {
       const failure = await geometryAPI.invoke('INVALID_OPERATION', {});
       expectOperationFailure(failure, 'Unknown operation');
@@ -273,6 +277,10 @@ describe('IntegratedGeometryAPI', () => {
       expect(mesh.vertices).toBeInstanceOf(Float32Array);
       expect(mesh.indices).toBeInstanceOf(Uint32Array);
       expect(mesh.normals).toBeInstanceOf(Float32Array);
+      expect(mesh.vertices.length).toBeGreaterThan(0);
+      expect(mesh.indices.length).toBeGreaterThan(0);
+      expect(mesh.normals.length).toBeGreaterThan(0);
+      expect(mesh.positions).toBeDefined();
     });
 
     it('should use cached mesh when available', async () => {
@@ -647,42 +655,6 @@ describe('IntegratedGeometryAPI', () => {
     });
   });
 
-
-    it('should handle typed invoke operations', async () => {
-      const box = await geometryAPI.invoke('MAKE_BOX', {
-        center: { x: 0, y: 0, z: 0 },
-        width: 10,
-        height: 10,
-        depth: 10
-      });
-
-      expect(box.success).toBe(true);
-      expect(box.result).toBeDefined();
-      expect(box.result.id).toBe('box-1');
-      expect(box.result.type).toBe('box');
-    });
-
-    it('should return correct types for different operations', async () => {
-      const sphere = await geometryAPI.invoke('MAKE_SPHERE', {
-        center: { x: 0, y: 0, z: 0 },
-        radius: 5
-      });
-
-      const cylinder = await geometryAPI.invoke('MAKE_CYLINDER', {
-        center: { x: 0, y: 0, z: 0 },
-        axis: { x: 0, y: 0, z: 1 },
-        radius: 3,
-        height: 10
-      });
-
-      expect(sphere.success).toBe(true);
-      expect(sphere.result).toBeDefined();
-      expect(sphere.result.type).toBe('sphere');
-      expect(cylinder.success).toBe(true);
-      expect(cylinder.result).toBeDefined();
-      expect(cylinder.result.type).toBe('cylinder');
-    });
-  });
 });
 
 describe('GeometryAPI (Legacy)', () => {
@@ -743,6 +715,10 @@ describe('GeometryAPI (Legacy)', () => {
       expect(result.type).toBe('sphere');
     });
 
+    it('should throw for unsupported operations', async () => {
+      await expect(geometryAPI.invoke('UNSUPPORTED_OPERATION', {})).rejects.toThrow('Unsupported operation');
+    });
+
     it('should tessellate shape', async () => {
       const box = await geometryAPI.invoke('MAKE_BOX', {
         width: 100,
@@ -755,6 +731,26 @@ describe('GeometryAPI (Legacy)', () => {
       expect(meshResult).toBeDefined();
       expect(meshResult.mesh).toBeDefined();
       expect(meshResult.mesh.vertices).toBeInstanceOf(Float32Array);
+      expect(meshResult.mesh.vertices.length).toBeGreaterThan(0);
+      expect(meshResult.mesh.normals.length).toBeGreaterThan(0);
+      expect(meshResult.mesh.indices.length).toBeGreaterThan(0);
+    });
+
+    it('should support tessellation with legacy shape identifiers', async () => {
+      const box = await geometryAPI.invoke('MAKE_BOX', {
+        width: 42,
+        height: 21,
+        depth: 17
+      });
+
+      const meshResult = await geometryAPI.invoke('TESSELLATE', { shape: box.id });
+
+      expect(meshResult).toBeDefined();
+      expect(meshResult.mesh).toBeDefined();
+      expect(meshResult.mesh.vertices).toBeInstanceOf(Float32Array);
+      expect(meshResult.mesh.vertices.length).toBeGreaterThan(0);
+      expect(meshResult.mesh.normals.length).toBeGreaterThan(0);
+      expect(meshResult.mesh.indices.length).toBeGreaterThan(0);
     });
   });
 });

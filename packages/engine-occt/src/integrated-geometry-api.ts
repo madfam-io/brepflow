@@ -57,6 +57,7 @@ export class IntegratedGeometryAPI {
   private capabilities: any = null;
   private environment: EnvironmentConfig;
   private usingRealOCCT = false;
+  private meshCache = new Map<string, MeshData>();
 
   /**
    * Create an instance with mock geometry
@@ -372,11 +373,26 @@ export class IntegratedGeometryAPI {
    */
   async tessellate(shape: ShapeHandle, tolerance: number = 0.1): Promise<OperationResult<MeshData>> {
     const startTime = Date.now();
+    const cacheKey = `${shape.id}:${tolerance}`;
 
     try {
       // Check mesh cache first
       if (this.memoryManager) {
         const cachedMesh = this.memoryManager.getMesh(shape.id, tolerance);
+        if (cachedMesh) {
+          console.log(`[IntegratedGeometryAPI] Mesh cache hit for shape ${shape.id}`);
+          return {
+            success: true,
+            result: cachedMesh,
+            performance: {
+              duration: Date.now() - startTime,
+              memoryUsed: 0,
+              cacheHit: true
+            }
+          };
+        }
+      } else {
+        const cachedMesh = this.meshCache.get(cacheKey);
         if (cachedMesh) {
           console.log(`[IntegratedGeometryAPI] Mesh cache hit for shape ${shape.id}`);
           return {
@@ -395,12 +411,16 @@ export class IntegratedGeometryAPI {
       const tessellationResult = await this.invoke<MeshData>('TESSELLATE', { shape, tolerance });
 
       // Cache mesh if successful
-      if (tessellationResult.success && tessellationResult.result && this.memoryManager) {
-        await this.memoryManager.cacheMesh(
-          `${shape.id}_${tolerance}`,
-          tessellationResult.result,
-          this.determinePriority('TESSELLATE')
-        );
+      if (tessellationResult.success && tessellationResult.result) {
+        if (this.memoryManager) {
+          await this.memoryManager.cacheMesh(
+            `${shape.id}_${tolerance}`,
+            tessellationResult.result,
+            this.determinePriority('TESSELLATE')
+          );
+        } else {
+          this.meshCache.set(cacheKey, tessellationResult.result);
+        }
       }
 
       return tessellationResult;
@@ -561,6 +581,7 @@ Capabilities: ${this.capabilities ? 'Detected' : 'Not Available'}
 
     this.initialized = false;
     this.initializationPromise = null;
+    this.meshCache.clear();
 
     console.log('[IntegratedGeometryAPI] Shutdown complete');
   }

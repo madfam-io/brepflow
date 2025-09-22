@@ -57,6 +57,7 @@ lerna-debug.log*
 # TypeScript
 *.tsbuildinfo
 tsconfig.tsbuildinfo
+tsup.config.bundled_*.mjs
 
 # Third party sources
 third_party/occt/

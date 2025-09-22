@@ -199,7 +199,7 @@ More Users → More Designs → More Plugins → More Value
 - Job board for winners
 
 #### 3. **Open Source Initiative**
-- Core engine open source (MIT license)
+- Core engine open source (MPL 2.0 license)
 - Bounty program for contributions
 - Community-driven roadmap
 - Plugin development grants

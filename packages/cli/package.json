@@ -2,10 +2,11 @@
   "name": "@brepflow/cli",
   "version": "0.1.0",
   "description": "BrepFlow CLI for headless rendering",
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "bin": {
-    "brepflow": "./dist/index.js"
+    "brepflow": "./dist/index.mjs"
   },
   "scripts": {
     "build": "tsup",

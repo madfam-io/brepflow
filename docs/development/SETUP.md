@@ -4,8 +4,8 @@ This guide will help you get BrepFlow up and running on your local machine.
 
 ## Prerequisites
 
-- **Node.js** ≥ 20.11.0
-- **pnpm** ≥ 8.6.7
+- **Node.js** 20.11.x
+- **pnpm** 8.6.x
 - Modern browser with WebAssembly support
 - (Optional) Emscripten SDK for building OCCT.wasm
 
@@ -36,7 +36,15 @@ cd ..
 
 # Build OCCT.wasm
 pnpm run build:wasm
+
+# Validate the OCCT toolchain with CLI golden renders
+pnpm smoke:cli
+
+# (Optional) Allow mock fallback when OCCT is not available
+BFP_SMOKE_ALLOW_MOCK=true pnpm smoke:cli
 ```
+
+See [OCCT Environment Validation](./OCCT_VALIDATION.md) for the full checklist we use during release preparation.
 
 ### 3. Start Development Server
 
@@ -170,7 +178,7 @@ VITE_API_BASE_URL=http://localhost:3001
 - The dev server should set proper COOP/COEP headers automatically
 
 ### Build fails
-- Ensure Node.js ≥ 20 and pnpm ≥ 9 are installed
+- Ensure Node.js 20.11.x and pnpm 8.6.x are installed
 - Try cleaning and reinstalling: `pnpm clean && pnpm install`
 - Check for TypeScript errors: `pnpm typecheck`
 

@@ -7,7 +7,7 @@ This guide covers the comprehensive End-to-End (E2E) testing framework for BrepF
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 20.11+
+- Node.js 20.11.x
 - pnpm 8.6+
 - BrepFlow development environment set up
 

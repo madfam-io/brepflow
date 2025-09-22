@@ -9,6 +9,8 @@ export class GeometryAPI implements WorkerAPI {
   private occtWrapper: OCCTWrapper;
   private initialized = false;
   private shapeCache = new Map<string, any>();
+  private handleCache = new Map<string, ShapeHandle>();
+  private meshCache = new Map<string, MeshData & { vertices: Float32Array }>();
   private idCounter = 0;
   private mockGeometry = new MockGeometry();
   private mockInitialized = false;
@@ -312,24 +314,51 @@ export class GeometryAPI implements WorkerAPI {
       throw new Error('Tessellate requires a shape');
     }
 
+    const shapeHandle = this.resolveHandle(shape);
+    const cacheKey = `${shapeHandle.id}:${tolerance}`;
+
+    const cachedMesh = this.meshCache.get(cacheKey);
+    if (cachedMesh) {
+      return {
+        mesh: cachedMesh,
+        bbox: {
+          min: { x: shapeHandle.bbox_min_x, y: shapeHandle.bbox_min_y, z: shapeHandle.bbox_min_z },
+          max: { x: shapeHandle.bbox_max_x, y: shapeHandle.bbox_max_y, z: shapeHandle.bbox_max_z }
+        }
+      };
+    }
+
     try {
-      const s = this.getShapeFromHandle(shape);
+      const s = this.getShapeFromHandle(shapeHandle);
       const mesh = this.occtWrapper.tessellate(s, tolerance);
+      const meshData = this.createMeshData(mesh);
+      this.meshCache.set(cacheKey, meshData);
 
       return {
-        mesh: {
-          vertices: new Float32Array(mesh.vertices?.flat() || []),
-          indices: new Uint32Array(mesh.triangles?.flat() || []),
-          normals: new Float32Array(mesh.normals?.flat() || [])
-        },
+        mesh: meshData,
         bbox: {
-          min: { x: shape.bbox_min_x, y: shape.bbox_min_y, z: shape.bbox_min_z },
-          max: { x: shape.bbox_max_x, y: shape.bbox_max_y, z: shape.bbox_max_z }
+          min: { x: shapeHandle.bbox_min_x, y: shapeHandle.bbox_min_y, z: shapeHandle.bbox_min_z },
+          max: { x: shapeHandle.bbox_max_x, y: shapeHandle.bbox_max_y, z: shapeHandle.bbox_max_z }
         }
       };
     } catch (error) {
       console.warn('[GeometryAPI] Using mock tessellation');
-      return this.callMock('TESSELLATE', params);
+      const mockResult = await this.callMock('TESSELLATE', params);
+
+      if (mockResult && typeof mockResult === 'object' && 'mesh' in mockResult) {
+        const meshData = this.createMeshData(mockResult.mesh);
+        this.meshCache.set(cacheKey, meshData);
+
+        return {
+          mesh: meshData,
+          bbox: {
+            min: { x: shapeHandle.bbox_min_x, y: shapeHandle.bbox_min_y, z: shapeHandle.bbox_min_z },
+            max: { x: shapeHandle.bbox_max_x, y: shapeHandle.bbox_max_y, z: shapeHandle.bbox_max_z }
+          }
+        };
+      }
+
+      return mockResult;
     }
   }
 
@@ -376,7 +405,7 @@ export class GeometryAPI implements WorkerAPI {
     // Calculate bounds
     const bounds = this.calculateBounds(shape, type, params);
 
-    return {
+    const handle: ShapeHandle = {
       id,
       type,
       bbox_min_x: bounds.min.x,
@@ -392,6 +421,10 @@ export class GeometryAPI implements WorkerAPI {
       centerY: (bounds.min.y + bounds.max.y) / 2,
       centerZ: (bounds.min.z + bounds.max.z) / 2
     };
+
+    this.handleCache.set(id, handle);
+
+    return handle;
   }
 
   private getShapeFromHandle(handle: ShapeHandle | string): any {
@@ -402,6 +435,18 @@ export class GeometryAPI implements WorkerAPI {
       return this.shapeCache.get(handle.id);
     }
     throw new Error('Invalid shape handle');
+  }
+
+  private resolveHandle(handle: ShapeHandle | string): ShapeHandle {
+    if (typeof handle !== 'string') {
+      return handle;
+    }
+
+    const resolved = this.handleCache.get(handle);
+    if (!resolved) {
+      throw new Error(`Unhandled shape identifier: ${handle}`);
+    }
+    return resolved;
   }
 
   private calculateBounds(shape: any, type: string, params?: any): any {
@@ -475,7 +520,24 @@ export class GeometryAPI implements WorkerAPI {
     const result = await this.mockGeometry.invoke(operation, params);
 
     if (result && typeof result === 'object' && 'id' in result) {
-      this.shapeCache.set((result as ShapeHandle).id, result);
+      const handle = result as ShapeHandle;
+      this.shapeCache.set(handle.id, result);
+      this.handleCache.set(handle.id, handle);
+    }
+
+    if (operation === 'TESSELLATE' && result) {
+      const shape = params?.shape;
+      const tolerance = params?.tolerance ?? params?.deflection ?? 0.01;
+
+      try {
+        const shapeHandle = this.resolveHandle(shape);
+        const cacheKey = `${shapeHandle.id}:${tolerance}`;
+        const meshData = this.createMeshData('mesh' in result ? (result as { mesh: MeshData }).mesh : result);
+        this.meshCache.set(cacheKey, meshData);
+        return 'mesh' in result ? { mesh: meshData } : meshData;
+      } catch {
+        // Ignore cache errors and fall back to the original result
+      }
     }
 
     return result;
@@ -485,6 +547,47 @@ export class GeometryAPI implements WorkerAPI {
 
   private createMockShape(type: string, params?: any): ShapeHandle {
     return this.createShapeHandle(null, type, params);
+  }
+
+  private createMeshData(mesh: any): MeshData & { vertices: Float32Array } {
+    const rawPositions = mesh.positions ?? mesh.vertices ?? [];
+    const flattenedPositions = Array.isArray(rawPositions) ? rawPositions.flat(Infinity) : rawPositions;
+    const positions = flattenedPositions instanceof Float32Array
+      ? flattenedPositions
+      : new Float32Array(flattenedPositions ?? []);
+
+    let normals = mesh.normals;
+    if (Array.isArray(normals)) {
+      normals = new Float32Array(normals.flat(Infinity));
+    }
+    if (!(normals instanceof Float32Array)) {
+      const generated = new Float32Array(positions.length);
+      for (let i = 2; i < generated.length; i += 3) {
+        generated[i] = 1;
+      }
+      normals = generated;
+    } else if (normals.length === 0 && positions.length > 0) {
+      const generated = new Float32Array(positions.length);
+      for (let i = 2; i < generated.length; i += 3) {
+        generated[i] = 1;
+      }
+      normals = generated;
+    }
+
+    const rawIndices = mesh.indices ?? mesh.triangles ?? [];
+    const indices = rawIndices instanceof Uint32Array
+      ? rawIndices
+      : new Uint32Array(Array.isArray(rawIndices) ? rawIndices.flat(Infinity) : rawIndices ?? []);
+
+    const meshData: MeshData & { vertices: Float32Array } = {
+      positions,
+      normals,
+      indices
+    } as MeshData & { vertices: Float32Array };
+
+    meshData.vertices = positions;
+
+    return meshData;
   }
 
   private createMockMesh(): MeshData {
@@ -530,6 +633,8 @@ END-ISO-10303-21;`;
       this.occtWrapper.dispose();
     }
     this.shapeCache.clear();
+    this.handleCache.clear();
+    this.meshCache.clear();
     this.initialized = false;
   }
 }

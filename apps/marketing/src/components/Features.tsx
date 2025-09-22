@@ -60,7 +60,7 @@ const features = [
     id: 'open-source',
     icon: Lock,
     title: 'Open Source',
-    description: 'MIT licensed. Extend and customize to your needs.',
+    description: 'MPL 2.0 licensed. Extend and customize to your needs.',
     gradient: 'from-red-500 to-pink-500',
     size: 'small',
   },

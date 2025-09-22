@@ -1,0 +1,5 @@
+{
+  "graph": "enclosure.bflow.json",
+  "exports": ["step", "stl"],
+  "allowMock": false
+}

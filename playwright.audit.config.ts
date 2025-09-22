@@ -70,8 +70,8 @@ export default defineConfig({
   ],
   // Start dev server before running tests
   webServer: {
-    command: 'pnpm --filter @brepflow/studio run dev --port 5173',
-    url: 'http://localhost:5173',
+    command: 'pnpm --filter @brepflow/studio run build && pnpm --filter @brepflow/studio run preview -- --host 127.0.0.1 --port 5173 --strictPort',
+    url: 'http://127.0.0.1:5173',
     reuseExistingServer: !process.env.CI,
     timeout: 120000
   }

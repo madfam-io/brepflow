@@ -1,14 +1,13 @@
-import { defineConfig } from 'tsup';
+import { createBaseConfig } from '../../config/tsup.base.config';
 
-export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['cjs'],
-  dts: true,
+export default createBaseConfig({
+  format: ['esm'],
+  platform: 'node',
+  target: 'node20',
+  dts: {
+    resolve: true,
+    entry: ['src/index.ts'],
+  },
   splitting: false,
   sourcemap: true,
-  clean: true,
-  shims: true,
-  banner: {
-    js: '#!/usr/bin/env node',
-  },
 });

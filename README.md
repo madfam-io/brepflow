@@ -77,7 +77,7 @@ For detailed setup instructions, see [docs/development/SETUP.md](./docs/developm
 
 ### Prerequisites
 
-* **Node.js** ≥ 20, **pnpm** ≥ 9
+* **Node.js** 20.11.x, **pnpm** 8.6.x
 * Modern browser (Chrome/Edge/Safari TP, Firefox ≥ 120). For WASM threads enable cross‑origin isolation (dev server handles this).
 * (Optional) Enable **WebGPU** in `chrome://flags` or Safari TP.
 

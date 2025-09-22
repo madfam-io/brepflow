@@ -41,8 +41,8 @@ We are committed to making participation in this project a harassment-free exper
 ### Prerequisites
 
 Before contributing, ensure you have:
-- Node.js ≥ 20.0.0
-- pnpm ≥ 9.0.0
+- Node.js 20.11.x
+- pnpm 8.6.x
 - Git configured with your GitHub account
 - Familiarity with TypeScript, React, and CAD concepts
 

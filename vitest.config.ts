@@ -11,6 +11,13 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
+      reportsDirectory: 'coverage/unit',
+      include: [
+        'packages/**/src/**/*.{ts,tsx}',
+        'apps/**/src/**/*.{ts,tsx}',
+        'scripts/**/*.{ts,tsx}',
+        'config/**/*.{ts,tsx}',
+      ],
       exclude: [
         'node_modules/',
         'tests/',
@@ -18,6 +25,7 @@ export default defineConfig({
         '**/*.d.ts',
         '**/__mocks__/',
         '**/dist/',
+        'third_party/**',
       ],
       thresholds: {
         lines: 80,

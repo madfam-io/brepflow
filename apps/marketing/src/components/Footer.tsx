@@ -146,7 +146,7 @@ export function Footer() {
               Terms of Service
             </a>
             <a href="#license" className="text-gray-500 hover:text-gray-400 text-sm">
-              MIT License
+              MPL 2.0 License
             </a>
           </div>
         </motion.div>
