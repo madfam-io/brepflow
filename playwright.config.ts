@@ -24,8 +24,8 @@ export default defineConfig({
     process.env.CI ? ['github'] : ['list']
   ],
   use: {
-    baseURL: 'http://localhost:5173',
-    trace: 'on-first-retry',
+    baseURL: 'http://127.0.0.1:5173',
+    trace: 'retain-on-failure',
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
     viewport: { width: 1920, height: 1080 }, // Consistent CAD workspace
@@ -69,8 +69,8 @@ export default defineConfig({
   ],
   // Start dev server before running tests
   webServer: {
-    command: 'pnpm --filter @brepflow/studio run dev --port 5173',
-    url: 'http://localhost:5173',
+    command: 'pnpm --filter @brepflow/studio run dev',
+    url: 'http://127.0.0.1:5173',
     reuseExistingServer: !process.env.CI,
     timeout: 120000, // Allow time for WASM compilation
   },

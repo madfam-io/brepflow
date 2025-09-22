@@ -155,168 +155,64 @@ export async function loadOCCTModule(options: LoaderOptions = {}): Promise<any> 
     throw error;
   }
 }
-
 async function loadNodeJSOCCT(): Promise<any> {
   const fs = await import('fs');
   const path = await import('path');
   const url = await import('url');
 
-  // Get the correct path for Node.js environment
   const __filename = url.fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  const wasmPath = path.join(__dirname, '../wasm/occt_geometry.wasm');
+  const wasmDir = path.resolve(__dirname, '../wasm');
+  const moduleBasename = process.env.OCCT_NODE_BASENAME || 'occt-core.node';
+  const jsPath = path.join(wasmDir, `${moduleBasename}.mjs`);
+  const wasmPath = path.join(wasmDir, `${moduleBasename}.wasm`);
+  const workerPath = path.join(wasmDir, `${moduleBasename}.worker.js`);
 
-  console.log('[OCCT Node.js] Loading WASM from:', wasmPath);
+  console.log('[OCCT Node.js] Loading WASM bundle from:', jsPath);
 
-  // Check if file exists
-  if (!fs.existsSync(wasmPath)) {
-    console.warn(`[OCCT Node.js] WASM file not found: ${wasmPath}, using mock`);
-    // In test environment, just use mock when WASM isn't built yet
-    const { MockGeometry } = await import('./mock-geometry');
-    return new MockGeometry();
+  const missingArtifacts: string[] = [];
+  if (!fs.existsSync(jsPath)) missingArtifacts.push(path.basename(jsPath));
+  if (!fs.existsSync(wasmPath)) missingArtifacts.push(path.basename(wasmPath));
+  if (!fs.existsSync(workerPath)) {
+    console.warn('[OCCT Node.js] Worker glue not found. Pthread worker paths will be resolved relative to the current working directory.');
   }
 
-  // For Node.js test environment, verify WASM exists but use comprehensive mock
-  // This ensures stable testing without complex WASM instantiation issues
-  const wasmBuffer = await fs.promises.readFile(wasmPath);
-  console.log('[OCCT Node.js] WASM file verified, size:', wasmBuffer.length, 'bytes');
-  console.log('[OCCT Node.js] Using comprehensive mock for test stability');
+  if (missingArtifacts.length > 0) {
+    throw new Error(`OCCT Node bundle missing: ${missingArtifacts.join(', ')}. Run \"pnpm run build:wasm\" to regenerate.`);
+  }
 
-  // Create mock memory interface compatible with Emscripten
-  const mockMemorySize = 16 * 1024 * 1024; // 16MB
-  const mockMemoryBuffer = new ArrayBuffer(mockMemorySize);
+  const moduleUrl = url.pathToFileURL(jsPath).href;
+  const wasmUrl = url.pathToFileURL(wasmPath).href;
+  const workerUrl = fs.existsSync(workerPath) ? url.pathToFileURL(workerPath).href : undefined;
 
-  // Create unique ID generator for consistent test results
-  let idCounter = 0;
-  const generateId = (prefix: string) => `${prefix}_${Date.now()}_${++idCounter}`;
+  const wasmModuleImport = await import(/* @vite-ignore */ moduleUrl);
+  const factory = wasmModuleImport.default || wasmModuleImport.createOCCTCoreModule || wasmModuleImport.createOCCTModule;
 
-  // Create a comprehensive Node.js OCCT mock interface
-  const nodeOCCTModule = {
-    // Emscripten-compatible memory interface
-    memory: { buffer: mockMemoryBuffer },
-    HEAP8: new Int8Array(mockMemoryBuffer),
-    HEAP16: new Int16Array(mockMemoryBuffer, 0, mockMemorySize / 2),
-    HEAP32: new Int32Array(mockMemoryBuffer, 0, mockMemorySize / 4),
-    HEAPU8: new Uint8Array(mockMemoryBuffer),
-    HEAPU16: new Uint16Array(mockMemoryBuffer, 0, mockMemorySize / 2),
-    HEAPU32: new Uint32Array(mockMemoryBuffer, 0, mockMemorySize / 4),
-    HEAPF32: new Float32Array(mockMemoryBuffer, 0, mockMemorySize / 4),
-    HEAPF64: new Float64Array(mockMemoryBuffer, 0, mockMemorySize / 8),
+  if (typeof factory !== 'function') {
+    throw new Error(`OCCT Node bundle does not export a usable factory function: ${moduleUrl}`);
+  }
 
-    // Mock missing functions for Node.js environment testing
-    makeBox: function(dx: number, dy: number, dz: number) {
-      return { id: generateId('node_box'), type: 'solid', volume: dx * dy * dz, area: 2 * (dx * dy + dy * dz + dz * dx) };
+  const moduleInstance = await factory({
+    locateFile: (filename: string) => {
+      if (filename.endsWith('.wasm')) {
+        return wasmUrl;
+      }
+      if (filename.endsWith('.worker.js') && workerUrl) {
+        return workerUrl;
+      }
+      return path.join(wasmDir, filename);
     },
-    makeBoxWithOrigin: function(x: number, y: number, z: number, dx: number, dy: number, dz: number) {
-      return { id: generateId('node_box_origin'), type: 'solid', volume: dx * dy * dz, area: 2 * (dx * dy + dy * dz + dz * dx) };
-    },
-    makeSphere: function(radius: number) {
-      return { id: generateId('node_sphere'), type: 'solid', volume: (4/3) * Math.PI * radius * radius * radius };
-    },
-    makeCylinder: function(radius: number, height: number) {
-      return { id: generateId('node_cylinder'), type: 'solid', volume: Math.PI * radius * radius * height };
-    },
-    makeTorus: function(majorRadius: number, minorRadius: number) {
-      return { id: generateId('node_torus'), type: 'solid', volume: 2 * Math.PI * Math.PI * majorRadius * minorRadius * minorRadius };
-    },
-    booleanUnion: function(shape1Id: string, shape2Id: string) {
-      return { id: generateId('node_union'), type: 'solid' };
-    },
-    booleanSubtract: function(shape1Id: string, shape2Id: string) {
-      return { id: generateId('node_subtract'), type: 'solid' };
-    },
-    booleanIntersect: function(shape1Id: string, shape2Id: string) {
-      return { id: generateId('node_intersect'), type: 'solid' };
-    },
-    makeFillet: function(shapeId: string, radius: number) {
-      return { id: generateId('node_fillet'), type: 'solid' };
-    },
-    makeChamfer: function(shapeId: string, distance: number) {
-      return { id: generateId('node_chamfer'), type: 'solid' };
-    },
-    extrude: function(shapeId: string, dx: number, dy: number, dz: number) {
-      return { id: generateId('node_extrude'), type: 'solid' };
-    },
-    revolve: function(shapeId: string, angle: number, axisX: number, axisY: number, axisZ: number, originX: number, originY: number, originZ: number) {
-      return { id: generateId('node_revolve'), type: 'solid' };
-    },
-    transform: function(shapeId: string, tx: number, ty: number, tz: number, rx: number = 0, ry: number = 0, rz: number = 0, sx: number = 1, sy: number = 1, sz: number = 1) {
-      return { id: generateId('node_transform'), type: 'solid' };
-    },
-    copyShape: function(shapeId: string) {
-      return { id: generateId('node_copy'), type: 'solid' };
-    },
-    makeShell: function(shapeId: string, thickness: number) {
-      return { id: generateId('node_shell'), type: 'solid' };
-    },
-    tessellate: function(shapeId: string, precision: number = 0.1, angle: number = 0.5) {
-      // Generate a simple test mesh for Node.js
-      const vertices = new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1]);
-      const indices = new Uint32Array([0, 1, 2, 0, 2, 3, 4, 7, 6, 4, 6, 5, 0, 4, 5, 0, 5, 1, 1, 5, 6, 1, 6, 2, 2, 6, 7, 2, 7, 3, 4, 0, 3, 4, 3, 7]);
-      const normals = new Float32Array([0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1]);
-      return {
-        vertices,
-        indices,
-        normals,
-        vertexCount: vertices.length / 3,
-        triangleCount: indices.length / 3
-      };
-    },
-    exportSTEP: function(shapeId: string) {
-      return `STEP file content for ${shapeId}`;
-    },
-    exportSTL: function(shapeId: string, binary: boolean = false) {
-      return binary ? new ArrayBuffer(1024) : `STL file content for ${shapeId}`;
-    },
-    deleteShape: function(shapeId: string) {
-      // No-op for Node.js mock
-    },
-    getShapeCount: function() {
-      return 0; // Mock implementation
-    },
-    getStatus: function() {
-      return 'Node.js OCCT Mock: Ready';
-    },
-    clearAllShapes: function() {
-      // No-op for Node.js mock
-    },
-    getVolume: function(shapeId: string): number {
-      return 125.0; // Mock volume
-    },
-    getSurfaceArea: function(shapeId: string): number {
-      return 150.0; // Mock surface area
-    },
-    getBoundingBox: function(shapeId: string) {
-      return { min: [0, 0, 0], max: [5, 5, 5] };
-    },
+    print: (text: string) => console.log('[OCCT Node WASM]', text),
+    printErr: (text: string) => console.error('[OCCT Node WASM]', text),
+  });
 
-    // File I/O operations
-    importSTEP: function(stepContent: string) {
-      return [{ id: generateId('node_import'), type: 'solid' }];
-    },
-    exportIGES: function(shapeId: string) {
-      return `IGES file content for ${shapeId}`;
-    },
+  (globalThis as any).Module = moduleInstance;
 
-    // Memory management
-    _malloc: function(size: number): number {
-      return Math.floor(Math.random() * 1000000); // Mock pointer
-    },
-    _free: function(ptr: number): void {
-      // No-op for mock
-    },
+  console.log('[OCCT Node.js] OCCT wasm module ready with exports:', Object.keys(moduleInstance).length);
 
-    // Emscripten compatibility
-    getValue: function(ptr: number, type: string): number {
-      return 0;
-    },
-    setValue: function(ptr: number, value: number, type: string): void {
-      // No-op for mock
-    }
-  };
-
-  console.log('[OCCT Node.js] Module interface created with', Object.keys(nodeOCCTModule).length, 'functions');
-  return nodeOCCTModule;
+  const adapter = new OCCTAdapter(moduleInstance);
+  await adapter.init();
+  return adapter;
 }
 
 async function loadFullOCCTModule(config: OCCTConfig, options: LoaderOptions): Promise<any> {
@@ -418,8 +314,11 @@ async function loadFullOCCTModule(config: OCCTConfig, options: LoaderOptions): P
     exportCount: occtModule ? Object.keys(occtModule).length : 0
   });
 
+  (globalThis as any).Module = occtModule;
+
   // Wrap the raw OCCT module with an invoke interface
   const occtAdapter = new OCCTAdapter(occtModule);
+  await occtAdapter.init();
   return occtAdapter;
 }
 
@@ -739,18 +638,13 @@ ${performanceReport}
  * Compatible with MockGeometry API for seamless fallback
  */
 class OCCTAdapter {
-  private occtModule: any;
+  constructor(private readonly occtModule: any) {}
 
-  constructor(occtModule: any) {
-    this.occtModule = occtModule;
-  }
-
-  /**
-   * Invoke OCCT operations using the same interface as MockGeometry
-   */
   async invoke<T>(operation: string, params: any): Promise<T> {
+    const op = operation?.toUpperCase?.() ?? operation;
+
     try {
-      switch (operation) {
+      switch (op) {
         case 'MAKE_BOX':
           return this.makeBox(params) as T;
         case 'MAKE_SPHERE':
@@ -763,6 +657,10 @@ class OCCTAdapter {
           return this.booleanSubtract(params) as T;
         case 'BOOLEAN_INTERSECT':
           return this.booleanIntersect(params) as T;
+        case 'DELETE_SHAPE':
+          return this.deleteShape(params) as T;
+        case 'GET_SHAPE_COUNT':
+          return this.occtModule.getShapeCount() as T;
         case 'TESSELLATE':
           return this.tessellate(params) as T;
         default:
@@ -774,81 +672,198 @@ class OCCTAdapter {
     }
   }
 
-  private makeBox(params: { center: any, width: number, height: number, depth: number }): any {
-    const { width, height, depth } = params;
-    return {
-      id: crypto.randomUUID(),
-      type: 'solid',
-      bbox: {
-        min: { x: 0, y: 0, z: 0 },
-        max: { x: width, y: height, z: depth }
+  private normalizeShape(handle: any) {
+    if (!handle || !handle.id) {
+      throw new Error('OCCT returned an invalid shape handle');
+    }
+
+    const bbox = {
+      min: {
+        x: handle.bbox_min_x ?? 0,
+        y: handle.bbox_min_y ?? 0,
+        z: handle.bbox_min_z ?? 0,
       },
-      hash: Date.now().toString(16)
-    };
-  }
-
-  private makeSphere(params: { center: any, radius: number }): any {
-    const { radius } = params;
-    return {
-      id: crypto.randomUUID(),
-      type: 'solid',
-      bbox: {
-        min: { x: -radius, y: -radius, z: -radius },
-        max: { x: radius, y: radius, z: radius }
+      max: {
+        x: handle.bbox_max_x ?? 0,
+        y: handle.bbox_max_y ?? 0,
+        z: handle.bbox_max_z ?? 0,
       },
-      hash: Date.now().toString(16)
     };
-  }
 
-  private makeCylinder(params: { center: any, axis: any, radius: number, height: number }): any {
-    const { radius, height } = params;
     return {
-      id: crypto.randomUUID(),
-      type: 'solid',
-      bbox: {
-        min: { x: -radius, y: -radius, z: 0 },
-        max: { x: radius, y: radius, z: height }
-      },
-      hash: Date.now().toString(16)
+      id: handle.id,
+      type: handle.type ?? 'solid',
+      bbox,
+      hash: handle.hash ?? handle.id,
+      volume: handle.volume,
+      area: handle.area,
     };
   }
 
-  private booleanUnion(params: { shapes: any[] }): any {
+  private getShapeId(input: any): string {
+    if (!input) {
+      throw new Error('Shape identifier not provided');
+    }
+    if (typeof input === 'string') {
+      return input;
+    }
+    if (input.id) {
+      return input.id;
+    }
+    throw new Error('Invalid shape reference');
+  }
+
+  private makeBox(params: { width?: number; height?: number; depth?: number; dx?: number; dy?: number; dz?: number }) {
+    const width = params.width ?? params.dx ?? params.depth ?? 1;
+    const height = params.height ?? params.dy ?? width;
+    const depth = params.depth ?? params.dz ?? height;
+    const handle = this.occtModule.makeBox(width, height, depth);
+    return this.normalizeShape(handle);
+  }
+
+  private makeSphere(params: { radius?: number }) {
+    const radius = params.radius ?? 1;
+    const handle = this.occtModule.makeSphere(radius);
+    return this.normalizeShape(handle);
+  }
+
+  private makeCylinder(params: { radius?: number; height?: number; depth?: number }) {
+    const radius = params.radius ?? 1;
+    const height = params.height ?? params.depth ?? 1;
+    const handle = this.occtModule.makeCylinder(radius, height);
+    return this.normalizeShape(handle);
+  }
+
+  private booleanUnion(params: { shapes: any[] }) {
+    const shapes = params.shapes || [];
+    if (shapes.length < 2) {
+      throw new Error('BOOLEAN_UNION requires at least two shapes');
+    }
+
+    let handle = this.occtModule.booleanUnion(
+      this.getShapeId(shapes[0]),
+      this.getShapeId(shapes[1])
+    );
+
+    for (let i = 2; i < shapes.length; i++) {
+      handle = this.occtModule.booleanUnion(handle.id, this.getShapeId(shapes[i]));
+    }
+
+    return this.normalizeShape(handle);
+  }
+
+  private booleanSubtract(params: { base: any; tools: any[] }) {
+    const baseId = this.getShapeId(params.base);
+    const tools = params.tools || [];
+    if (tools.length === 0) {
+      throw new Error('BOOLEAN_SUBTRACT requires at least one tool shape');
+    }
+
+    let handle = this.occtModule.booleanSubtract(baseId, this.getShapeId(tools[0]));
+    for (let i = 1; i < tools.length; i++) {
+      handle = this.occtModule.booleanSubtract(handle.id, this.getShapeId(tools[i]));
+    }
+
+    return this.normalizeShape(handle);
+  }
+
+  private booleanIntersect(params: { shapes: any[] }) {
+    const shapes = params.shapes || [];
+    if (shapes.length < 2) {
+      throw new Error('BOOLEAN_INTERSECT requires at least two shapes');
+    }
+    let handle = this.occtModule.booleanIntersect(
+      this.getShapeId(shapes[0]),
+      this.getShapeId(shapes[1])
+    );
+
+    for (let i = 2; i < shapes.length; i++) {
+      handle = this.occtModule.booleanIntersect(handle.id, this.getShapeId(shapes[i]));
+    }
+
+    return this.normalizeShape(handle);
+  }
+
+  private deleteShape(params: { id: string }) {
+    const shapeId = this.getShapeId(params.id ?? params);
+    this.occtModule.deleteShape(shapeId);
+    return { success: true };
+  }
+
+  private tessellate(params: { shape: any; deflection?: number; angle?: number }) {
+    const shapeId = this.getShapeId(params.shape);
+    const deflection = params.deflection ?? 0.1;
+    const angle = params.angle ?? 0.5;
+    const mesh = this.occtModule.tessellate(shapeId, deflection, angle);
+
+    return this.normalizeMesh(mesh);
+  }
+
+  private normalizeMesh(mesh: any) {
+    const toFloat32 = (value: any) => {
+      if (!value) return new Float32Array();
+      if (value instanceof Float32Array) return value;
+      if (typeof value.toTypedArray === 'function') {
+        return value.toTypedArray() as Float32Array;
+      }
+      if (Array.isArray(value) || typeof value.length === 'number') {
+        return new Float32Array(value);
+      }
+      if (typeof value.size === 'function' && typeof value.get === 'function') {
+        const size = value.size();
+        const array = new Float32Array(size);
+        for (let i = 0; i < size; i++) {
+          array[i] = value.get(i);
+        }
+        return array;
+      }
+      return new Float32Array();
+    };
+
+    const toUint32 = (value: any) => {
+      if (!value) return new Uint32Array();
+      if (value instanceof Uint32Array) return value;
+      if (typeof value.toTypedArray === 'function') {
+        return value.toTypedArray() as Uint32Array;
+      }
+      if (Array.isArray(value) || typeof value.length === 'number') {
+        return new Uint32Array(value);
+      }
+      if (typeof value.size === 'function' && typeof value.get === 'function') {
+        const size = value.size();
+        const array = new Uint32Array(size);
+        for (let i = 0; i < size; i++) {
+          array[i] = value.get(i);
+        }
+        return array;
+      }
+      return new Uint32Array();
+    };
+
+    const positions = toFloat32(mesh?.positions);
+    const normals = toFloat32(mesh?.normals);
+    const indices = toUint32(mesh?.indices);
+    const edges = toUint32(mesh?.edges);
+
     return {
-      id: crypto.randomUUID(),
-      type: 'solid',
-      bbox: { min: { x: -50, y: -50, z: -50 }, max: { x: 50, y: 50, z: 50 } },
-      hash: Date.now().toString(16)
+      positions,
+      normals,
+      indices,
+      edges,
+      vertexCount: positions.length / 3,
+      triangleCount: indices.length / 3,
     };
   }
 
-  private booleanSubtract(params: { base: any, tools: any[] }): any {
-    return {
-      id: crypto.randomUUID(),
-      type: 'solid',
-      bbox: params.base?.bbox || { min: { x: -50, y: -50, z: -50 }, max: { x: 50, y: 50, z: 50 } },
-      hash: Date.now().toString(16)
-    };
+  async init(): Promise<void> {
+    if (this.occtModule?.ready && typeof this.occtModule.ready.then === 'function') {
+      await this.occtModule.ready;
+    }
   }
 
-  private booleanIntersect(params: { shapes: any[] }): any {
-    return {
-      id: crypto.randomUUID(),
-      type: 'solid',
-      bbox: { min: { x: -25, y: -25, z: -25 }, max: { x: 25, y: 25, z: 25 } },
-      hash: Date.now().toString(16)
-    };
+  async shutdown(): Promise<void> {
+    if (typeof this.occtModule?.clearAllShapes === 'function') {
+      this.occtModule.clearAllShapes();
+    }
   }
-
-  private tessellate(params: { shape: any, deflection?: number }): any {
-    return {
-      vertices: [],
-      triangles: [],
-      normals: [],
-      deflection: params.deflection || 0.01
-    };
-  }
-
-  async init(): Promise<void> {}
-  async shutdown(): Promise<void> {}
 }

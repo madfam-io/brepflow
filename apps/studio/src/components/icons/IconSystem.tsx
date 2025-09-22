@@ -37,10 +37,9 @@ import {
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
-export interface IconProps {
+export interface IconProps extends Omit<React.SVGProps<SVGSVGElement>, 'name'> {
   name: string;
   size?: number;
-  className?: string;
   strokeWidth?: number;
 }
 
@@ -164,6 +163,7 @@ export const IconMap = {
   'rotate-3d': Rotate3d,
   'maximize': Maximize,
   'alert-circle': AlertCircle,
+  'close': X,
   'x': X,
   'copy': Copy,
   'trash-2': Trash2,
@@ -208,13 +208,21 @@ export const Icon: React.FC<IconProps> = ({
   name,
   size = 16,
   className,
-  strokeWidth = 2
+  strokeWidth = 2,
+  ...rest
 }) => {
   const IconComponent = IconMap[name as IconName];
 
   if (!IconComponent) {
     console.warn(`Icon "${name}" not found in IconMap`);
-    return <AlertCircle size={size} className={className} strokeWidth={strokeWidth} />;
+    return (
+      <AlertCircle
+        size={size}
+        className={clsx('icon', className)}
+        strokeWidth={strokeWidth}
+        {...rest}
+      />
+    );
   }
 
   return (
@@ -222,6 +230,7 @@ export const Icon: React.FC<IconProps> = ({
       size={size}
       className={clsx('icon', className)}
       strokeWidth={strokeWidth}
+      {...rest}
     />
   );
 };

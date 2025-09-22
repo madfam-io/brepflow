@@ -20,7 +20,7 @@
     "build:production": "bash scripts/build-production.sh",
     "build:wasm": "bash scripts/build-occt.sh",
     "test": "turbo run test -- --coverage",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test && tsx scripts/check-playwright-results.ts test-results/junit.xml",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:report": "playwright show-report",
@@ -36,12 +36,15 @@
     "format": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "clean": "turbo run clean && rm -rf node_modules",
     "typecheck": "turbo run typecheck",
+    "coverage:packages": "tsx scripts/generate-package-coverage.ts",
+    "coverage:packages:publish": "tsx scripts/generate-package-coverage.ts --publish",
     "lockfile:check": "pnpm install --lockfile-only --frozen-lockfile",
     "lockfile:update": "pnpm install",
     "pre-deploy": "pnpm lockfile:check && pnpm build",
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "smoke:cli": "bash scripts/run-cli-smoke.sh"
   },
+  "posttest": "pnpm coverage:packages",
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.55.0",
@@ -61,6 +64,7 @@
     "jsdom": "^27.0.0",
     "playwright": "^1.55.0",
     "prettier": "^3.2.0",
+    "tsx": "^4.7.0",
     "turbo": "^1.12.0",
     "typescript": "^5.3.0",
     "vitest": "^3.2.4"

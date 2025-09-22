@@ -12,7 +12,9 @@ export default defineConfig({
     global: 'globalThis',
   },
   server: {
+    host: '127.0.0.1',
     port: 5173,
+    strictPort: true,
     headers: {
       // Required for SharedArrayBuffer/WASM threads
       'Cross-Origin-Opener-Policy': 'same-origin',
@@ -29,6 +31,15 @@ export default defineConfig({
         resolve(__dirname, '../../packages/types'), // types package
         resolve(__dirname, '../../packages/viewport'), // viewport package
       ],
+    },
+  },
+  preview: {
+    host: '127.0.0.1',
+    port: 5173,
+    strictPort: true,
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Embedder-Policy': 'require-corp',
     },
   },
   worker: {

@@ -220,10 +220,11 @@ export class IntegratedGeometryAPI {
     const startTime = Date.now();
     let memoryBefore = 0;
     let cacheHit = false;
-    let fallbackUsed = !this.usingRealOCCT;
+    let fallbackUsed = false;
     let retryCount = 0;
 
     await this.init();
+    fallbackUsed = !this.usingRealOCCT;
 
     const endMeasurement = WASMPerformanceMonitor?.startMeasurement(`operation-${operation.toLowerCase()}`);
 

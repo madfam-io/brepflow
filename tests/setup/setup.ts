@@ -7,32 +7,34 @@ global.ResizeObserver = vi.fn().mockImplementation(() => ({
   disconnect: vi.fn(),
 }));
 
-// Mock WebGL context for viewport tests
-HTMLCanvasElement.prototype.getContext = vi.fn((contextType: string) => {
-  if (contextType === 'webgl2' || contextType === 'webgl') {
-    return {
-      getExtension: vi.fn(),
-      getParameter: vi.fn(),
-      createShader: vi.fn(),
-      shaderSource: vi.fn(),
-      compileShader: vi.fn(),
-      attachShader: vi.fn(),
-      createProgram: vi.fn(),
-      linkProgram: vi.fn(),
-      useProgram: vi.fn(),
-      getProgramParameter: vi.fn(() => true),
-      getShaderParameter: vi.fn(() => true),
-      enable: vi.fn(),
-      disable: vi.fn(),
-      clearColor: vi.fn(),
-      clear: vi.fn(),
-      viewport: vi.fn(),
-      drawArrays: vi.fn(),
-      drawElements: vi.fn(),
-    };
-  }
-  return null;
-}) as any;
+// Mock WebGL context for viewport tests when running in browser-like environments
+if (typeof HTMLCanvasElement !== 'undefined') {
+  HTMLCanvasElement.prototype.getContext = vi.fn((contextType: string) => {
+    if (contextType === 'webgl2' || contextType === 'webgl') {
+      return {
+        getExtension: vi.fn(),
+        getParameter: vi.fn(),
+        createShader: vi.fn(),
+        shaderSource: vi.fn(),
+        compileShader: vi.fn(),
+        attachShader: vi.fn(),
+        createProgram: vi.fn(),
+        linkProgram: vi.fn(),
+        useProgram: vi.fn(),
+        getProgramParameter: vi.fn(() => true),
+        getShaderParameter: vi.fn(() => true),
+        enable: vi.fn(),
+        disable: vi.fn(),
+        clearColor: vi.fn(),
+        clear: vi.fn(),
+        viewport: vi.fn(),
+        drawArrays: vi.fn(),
+        drawElements: vi.fn(),
+      };
+    }
+    return null;
+  }) as any;
+}
 
 // Mock Worker for WASM tests
 global.Worker = vi.fn().mockImplementation(() => ({

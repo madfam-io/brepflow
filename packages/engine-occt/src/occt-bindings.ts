@@ -177,20 +177,23 @@ async function attemptWASMLoad(): Promise<any> {
       return null;
     }
 
-    // Use public directory path for WASM files (accessible by dev server)
-    const wasmPath = '/wasm/occt-core.js';
+    const wasmCandidates = ['/wasm/occt.js', '/wasm/occt-core.js'];
+    let wasmPath: string | null = null;
 
-    console.log('[OCCT] Attempting to load from path:', wasmPath);
+    for (const candidate of wasmCandidates) {
+      const response = await fetch(candidate, { method: 'HEAD' }).catch(() => null);
+      if (response?.ok) {
+        wasmPath = candidate;
+        break;
+      }
+    }
 
-    // First check if the file exists
-    const checkResponse = await fetch(wasmPath, { method: 'HEAD' }).catch(() => null);
-    if (!checkResponse || !checkResponse.ok) {
-      console.log('[OCCT] WASM files not found at:', wasmPath);
+    if (!wasmPath) {
+      console.log('[OCCT] WASM files not found in /wasm directory');
       console.log('[OCCT] Run "pnpm run build:wasm" to compile OCCT.');
       return null;
     }
 
-    // If file exists, load it dynamically
     console.log('[OCCT] Loading WASM module from:', wasmPath);
     const module = await import(/* @vite-ignore */ wasmPath);
     const wasmModuleFactory = module.default || module;

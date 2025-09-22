@@ -56,6 +56,12 @@ open coverage/index.html
 # Generate coverage in different formats
 npx vitest run --coverage --reporter=json
 npx vitest run --coverage --reporter=lcov
+
+# Generate per-package coverage summary (writes to coverage/)
+pnpm coverage:packages
+
+# Publish per-package coverage report (updates docs/testing/PER_PACKAGE_COVERAGE.md)
+pnpm coverage:packages:publish
 ```
 
 ## Current Test Coverage
@@ -136,6 +142,15 @@ describe('Graph Store Integration', () => {
   });
 });
 ```
+
+#### End-to-end suites
+
+- Constraint solver + OCCT geometry: `pnpm vitest run tests/integration/constraint-solver.integration.test.ts`
+  - Exercises the 2D constraint manager and validates the solved dimensions by creating a real OCCT solid.
+- Real-time collaboration signal flow: `pnpm vitest run tests/integration/collaboration.integration.test.ts`
+  - Boots the Socket.IO collaboration server and verifies multi-client operation/ presence propagation. (Requires local socket access; the suite will no-op in sandboxed environments.)
+- Headless CLI smoke with real OCCT: `pnpm vitest run tests/integration/cli-smoke.test.ts`
+  - Builds the CLI package and renders `simple-box.bflow.json` to STEP + STL using the actual OCCT WASM bundle. Ensure `pnpm run build:wasm` has been executed first so the native artifacts exist.
 
 ### Component Tests
 

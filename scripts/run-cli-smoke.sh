@@ -10,6 +10,8 @@ GOLDEN_ROOT="$PROJECT_ROOT/goldens/cli"
 GRAPHS=(
   "$PROJECT_ROOT/packages/examples/graphs/simple-box.bflow.json"
   "$PROJECT_ROOT/packages/examples/graphs/enclosure.bflow.json"
+  "$PROJECT_ROOT/packages/examples/graphs/boolean-union.bflow.json"
+  "$PROJECT_ROOT/packages/examples/graphs/boolean-subtract.bflow.json"
 )
 
 RUN_WITH_MOCK_FALLBACK=${BFP_SMOKE_ALLOW_MOCK:-false}

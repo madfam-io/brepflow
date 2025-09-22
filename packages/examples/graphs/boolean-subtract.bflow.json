@@ -1,0 +1,84 @@
+{
+  "version": "0.1.0",
+  "units": "mm",
+  "tolerance": 0.001,
+  "metadata": {
+    "created": "2025-09-22T00:00:00Z",
+    "author": "BrepFlow Examples",
+    "description": "Boolean subtraction with cylindrical pocket"
+  },
+  "nodes": [
+    {
+      "id": "base-block",
+      "type": "Solid::Box",
+      "position": { "x": 80, "y": 120 },
+      "inputs": {},
+      "params": {
+        "width": 120,
+        "height": 60,
+        "depth": 40
+      }
+    },
+    {
+      "id": "cut-cylinder",
+      "type": "Solid::Cylinder",
+      "position": { "x": 80, "y": 280 },
+      "inputs": {},
+      "params": {
+        "radius": 18,
+        "height": 45
+      }
+    },
+    {
+      "id": "subtract-cut",
+      "type": "Boolean::Subtract",
+      "position": { "x": 320, "y": 220 },
+      "inputs": {
+        "base": { "nodeId": "base-block", "socketId": "shape" },
+        "tools": [
+          { "nodeId": "cut-cylinder", "socketId": "shape" }
+        ]
+      },
+      "params": {
+        "simplify": true
+      }
+    },
+    {
+      "id": "export-subtract",
+      "type": "IO::ExportSTEP",
+      "position": { "x": 520, "y": 220 },
+      "inputs": {
+        "shapes": [
+          { "nodeId": "subtract-cut", "socketId": "shape" }
+        ]
+      },
+      "params": {
+        "filepath": "boolean-subtract.step",
+        "asAssembly": false
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-block-subtract",
+      "source": "base-block",
+      "sourceHandle": "shape",
+      "target": "subtract-cut",
+      "targetHandle": "base"
+    },
+    {
+      "id": "edge-cylinder-subtract",
+      "source": "cut-cylinder",
+      "sourceHandle": "shape",
+      "target": "subtract-cut",
+      "targetHandle": "tools"
+    },
+    {
+      "id": "edge-subtract-export",
+      "source": "subtract-cut",
+      "sourceHandle": "shape",
+      "target": "export-subtract",
+      "targetHandle": "shapes"
+    }
+  ]
+}

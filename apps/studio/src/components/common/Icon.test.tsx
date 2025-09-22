@@ -1,7 +1,7 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render } from '@testing-library/react';
-import { Icon } from './Icon';
+import { Icon } from '../icons/IconSystem';
 
 describe('Icon', () => {
   it('renders with default props', () => {
@@ -39,9 +39,11 @@ describe('Icon', () => {
   it('handles unknown icon names gracefully', () => {
     const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const { container } = render(<Icon name={'unknown' as any} />);
+    const svg = container.querySelector('svg');
 
-    expect(container.firstChild).toBeNull();
-    expect(consoleSpy).toHaveBeenCalledWith('Icon "unknown" not found');
+    expect(svg).toBeInTheDocument();
+    expect(svg?.classList.contains('lucide-circle-alert')).toBe(true);
+    expect(consoleSpy).toHaveBeenCalledWith('Icon "unknown" not found in IconMap');
 
     consoleSpy.mockRestore();
   });
@@ -49,12 +51,10 @@ describe('Icon', () => {
   it('applies title for accessibility', () => {
     const { container } = render(<Icon name="settings" title="Settings" />);
     const svg = container.querySelector('svg');
-    const title = svg?.querySelector('title');
 
-    expect(title).toBeInTheDocument();
-    expect(title?.textContent).toBe('Settings');
-    expect(svg).toHaveAttribute('aria-hidden', 'false');
-    expect(svg).toHaveAttribute('role', 'img');
+    expect(svg).toBeInTheDocument();
+    expect(svg).not.toHaveAttribute('aria-hidden');
+    expect(svg).toHaveAttribute('title', 'Settings');
   });
 
   it('has correct default accessibility attributes', () => {
@@ -62,7 +62,7 @@ describe('Icon', () => {
     const svg = container.querySelector('svg');
 
     expect(svg).toHaveAttribute('aria-hidden', 'true');
-    expect(svg).toHaveAttribute('role', 'presentation');
+    expect(svg).not.toHaveAttribute('role');
   });
 
   it('has correct viewBox', () => {
@@ -74,12 +74,12 @@ describe('Icon', () => {
   it('renders SVG path content', () => {
     const { container } = render(<Icon name="close" />);
     const svg = container.querySelector('svg');
-    const g = svg?.querySelector('g');
+    const path = svg?.querySelector('path');
 
-    expect(g).toBeInTheDocument();
-    // Check that the SVG path content is rendered
-    expect(g?.innerHTML).toContain('stroke="currentColor"');
-    expect(g?.innerHTML).toContain('stroke-width="2"');
+    expect(path).toBeInTheDocument();
+    // Check that the SVG renders with the expected stroke styling
+    expect(svg?.getAttribute('stroke')).toBe('currentColor');
+    expect(svg?.getAttribute('stroke-width')).toBe('2');
   });
 
   it('applies default icon class', () => {

@@ -1,0 +1,84 @@
+{
+  "version": "0.1.0",
+  "units": "mm",
+  "tolerance": 0.001,
+  "metadata": {
+    "created": "2025-09-22T00:00:00Z",
+    "author": "BrepFlow Examples",
+    "description": "Boolean union of primitive solids"
+  },
+  "nodes": [
+    {
+      "id": "box-base",
+      "type": "Solid::Box",
+      "position": { "x": 80, "y": 120 },
+      "inputs": {},
+      "params": {
+        "width": 90,
+        "height": 40,
+        "depth": 30
+      }
+    },
+    {
+      "id": "cylinder-tool",
+      "type": "Solid::Cylinder",
+      "position": { "x": 80, "y": 260 },
+      "inputs": {},
+      "params": {
+        "radius": 25,
+        "height": 35
+      }
+    },
+    {
+      "id": "union-merge",
+      "type": "Boolean::Union",
+      "position": { "x": 320, "y": 200 },
+      "inputs": {
+        "shapes": [
+          { "nodeId": "box-base", "socketId": "shape" },
+          { "nodeId": "cylinder-tool", "socketId": "shape" }
+        ]
+      },
+      "params": {
+        "simplify": true
+      }
+    },
+    {
+      "id": "export-union",
+      "type": "IO::ExportSTEP",
+      "position": { "x": 520, "y": 200 },
+      "inputs": {
+        "shapes": [
+          { "nodeId": "union-merge", "socketId": "shape" }
+        ]
+      },
+      "params": {
+        "filepath": "boolean-union.step",
+        "asAssembly": false
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-box-union",
+      "source": "box-base",
+      "sourceHandle": "shape",
+      "target": "union-merge",
+      "targetHandle": "shapes"
+    },
+    {
+      "id": "edge-cylinder-union",
+      "source": "cylinder-tool",
+      "sourceHandle": "shape",
+      "target": "union-merge",
+      "targetHandle": "shapes"
+    },
+    {
+      "id": "edge-union-export",
+      "source": "union-merge",
+      "sourceHandle": "shape",
+      "target": "export-union",
+      "targetHandle": "shapes"
+    }
+  ]
+}

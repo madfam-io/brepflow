@@ -115,7 +115,7 @@ export class RealOCCT implements WorkerAPI {
     if (this.occt && this.occt.version) {
       return this.occt.version();
     }
-    return 'OCCT 7.6.0'; // Default version
+    return 'OCCT 7.8.0'; // Default version
   }
 
   /**

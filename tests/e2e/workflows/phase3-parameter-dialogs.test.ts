@@ -121,26 +121,25 @@ test.describe('Phase 3 - Parameter Dialog Workflows', () => {
     });
 
     test('Parameter dialog handles different parameter types', async ({ page }) => {
-      // Test with a node that has different parameter types (if available)
-      // This test assumes there might be nodes with boolean, dropdown, or other parameter types
+      // Features::Fillet includes numeric and boolean parameters in the dialog
+      await nodeHelper.dragNodeFromPanel('Features::Fillet', { x: 400, y: 300 });
 
-      try {
-        await nodeHelper.dragNodeFromPanel('Features::Fillet', { x: 400, y: 300 });
+      const numberInputs = page.locator('input[type="number"]');
+      const checkboxes = page.locator('input[type="checkbox"]');
+      const selects = page.locator('select');
 
-        // Look for different input types
-        const numberInputs = page.locator('input[type="number"]');
-        const checkboxes = page.locator('input[type="checkbox"]');
-        const selects = page.locator('select');
+      await expect(numberInputs.first()).toBeVisible();
 
-        // At least number inputs should be present
-        await expect(numberInputs.first()).toBeVisible();
-
-        // Cancel this dialog since we're just testing UI
-        await page.click('[data-testid="cancel-button"], button:has-text("Cancel")');
-      } catch {
-        // If Fillet node doesn't exist, skip this test gracefully
-        test.skip();
+      // Optional parameters should expose additional controls when rendered
+      if (await checkboxes.count() > 0) {
+        await expect(checkboxes.first()).toBeVisible();
       }
+
+      if (await selects.count() > 0) {
+        await expect(selects.first()).toBeVisible();
+      }
+
+      await page.click('[data-testid="cancel-button"], button:has-text("Cancel")');
     });
 
     test('Parameter dialog supports keyboard navigation', async ({ page }) => {
