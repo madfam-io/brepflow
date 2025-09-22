@@ -81,6 +81,9 @@ jobs:
         env:
           CI: true
 
+      - name: Publish per-package coverage summary
+        run: pnpm coverage:packages:publish
+
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
@@ -88,6 +91,9 @@ jobs:
           path: |
             coverage/**
             packages/**/coverage/**
+            artifacts/coverage/per-package-coverage.json
+            docs/testing/per-package-coverage.json
+            docs/testing/PER_PACKAGE_COVERAGE.md
           if-no-files-found: warn
 
   audit:
@@ -115,35 +121,10 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Start studio dev server
-        run: |
-          pnpm --filter @brepflow/studio run dev --port 5173 &
-          echo "DEV_PID=$!" >> $GITHUB_ENV
-
-      - name: Wait for studio to be ready
-        run: timeout 120 bash -c 'until curl -f http://localhost:5173; do sleep 2; done'
-
-      - name: Run accessibility audit
-        run: pnpm run audit:accessibility
+      - name: Run audit suite
+        run: pnpm audit:ci
         env:
           CI: true
-
-      - name: Run functionality audit
-        run: pnpm run audit:functionality
-        env:
-          CI: true
-
-      - name: Run performance audit
-        run: pnpm run audit:performance
-        env:
-          CI: true
-
-      - name: Stop dev server
-        if: always()
-        run: |
-          if [ -n "$DEV_PID" ]; then
-            kill $DEV_PID || true
-          fi
 
       - name: Upload audit artifacts
         if: always()

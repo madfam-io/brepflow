@@ -103,7 +103,7 @@ async function initializeOCCT(): Promise<OCCTModule> {
 
     const resolveLocalModule = () => {
       try {
-        return new URL('../wasm/occt-core.js', import.meta.url).href;
+        return new URL(/* @vite-ignore */ '../wasm/occt-core.js', import.meta.url).href;
       } catch (error) {
         console.error('[OCCT Production] Failed to resolve local module path:', error);
         return '/wasm/occt-core.js';
@@ -204,7 +204,7 @@ async function initializeOCCT(): Promise<OCCTModule> {
             }
             return `/wasm/${path}`;
           }
-          return new URL(`../wasm/${path}`, import.meta.url).href;
+          return new URL(/* @vite-ignore */ `../wasm/${path}`, import.meta.url).href;
         }
         return path;
       },

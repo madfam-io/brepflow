@@ -156,9 +156,9 @@ export async function loadOCCTModule(options: LoaderOptions = {}): Promise<any> 
   }
 }
 async function loadNodeJSOCCT(): Promise<any> {
-  const fs = await import('fs');
-  const path = await import('path');
-  const url = await import('url');
+  const fs = await import(/* @vite-ignore */ 'fs');
+  const path = await import(/* @vite-ignore */ 'path');
+  const url = await import(/* @vite-ignore */ 'url');
 
   const __filename = url.fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
@@ -217,7 +217,7 @@ async function loadNodeJSOCCT(): Promise<any> {
 
 async function loadFullOCCTModule(config: OCCTConfig, options: LoaderOptions): Promise<any> {
   const wasmFile = config.wasmFile;
-  const wasmUrl = new URL(`../wasm/${wasmFile}`, import.meta.url).href;
+  const wasmUrl = new URL(/* @vite-ignore */ `../wasm/${wasmFile}`, import.meta.url).href;
 
   // Check if the WASM file is accessible
   const checkResponse = await fetch(wasmUrl, { method: 'HEAD' });
@@ -230,7 +230,7 @@ async function loadFullOCCTModule(config: OCCTConfig, options: LoaderOptions): P
 
   try {
     // Try to load the JS glue code
-    const jsUrl = new URL('../wasm/occt.js', import.meta.url).href; // Full OCCT uses occt.js
+    const jsUrl = new URL(/* @vite-ignore */ '../wasm/occt.js', import.meta.url).href; // Full OCCT uses occt.js
     const jsModule = await import(jsUrl);
 
     if (jsModule.default || jsModule.Module) {
@@ -247,7 +247,7 @@ async function loadFullOCCTModule(config: OCCTConfig, options: LoaderOptions): P
         return wasmUrl;
       }
       if (path.endsWith('.js')) {
-        return new URL(`../wasm/${path}`, import.meta.url).href;
+        return new URL(/* @vite-ignore */ `../wasm/${path}`, import.meta.url).href;
       }
       return path;
     },
@@ -324,7 +324,7 @@ async function loadFullOCCTModule(config: OCCTConfig, options: LoaderOptions): P
 
 async function loadOptimizedOCCTModule(config: OCCTConfig, options: LoaderOptions): Promise<any> {
   const wasmFile = config.wasmFile;
-  const wasmUrl = new URL(`../wasm/${wasmFile}`, import.meta.url).href;
+  const wasmUrl = new URL(/* @vite-ignore */ `../wasm/${wasmFile}`, import.meta.url).href;
 
   // Check if the WASM file is accessible
   const checkResponse = await fetch(wasmUrl, { method: 'HEAD' });
@@ -337,7 +337,7 @@ async function loadOptimizedOCCTModule(config: OCCTConfig, options: LoaderOption
 
   try {
     // Try to load the JS glue code for optimized version
-    const jsUrl = new URL('../wasm/occt-core.js', import.meta.url).href;
+    const jsUrl = new URL(/* @vite-ignore */ '../wasm/occt-core.js', import.meta.url).href;
     const jsModule = await import(jsUrl);
 
     if (jsModule.default || jsModule.Module) {
@@ -354,7 +354,7 @@ async function loadOptimizedOCCTModule(config: OCCTConfig, options: LoaderOption
         return wasmUrl;
       }
       if (path.endsWith('.js')) {
-        return new URL(`../wasm/${path}`, import.meta.url).href;
+        return new URL(/* @vite-ignore */ `../wasm/${path}`, import.meta.url).href;
       }
       return path;
     },
@@ -595,7 +595,7 @@ export async function isOCCTAvailable(): Promise<{ available: boolean; mode: str
 
     for (const { file, mode } of wasmFiles) {
       try {
-        const response = await fetch(new URL(`../wasm/${file}`, import.meta.url).href, {
+        const response = await fetch(new URL(/* @vite-ignore */ `../wasm/${file}`, import.meta.url).href, {
           method: 'HEAD'
         });
         if (response.ok) {

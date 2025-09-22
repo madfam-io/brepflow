@@ -23,8 +23,8 @@ async function ensureOCCTModuleLoaded(): Promise<void> {
 
   moduleInitialization = (async () => {
     const candidateResolvers: Array<() => string> = [
-      () => new URL('../wasm/occt.js', import.meta.url).href,
-      () => new URL('../wasm/occt-core.js', import.meta.url).href,
+      () => new URL(/* @vite-ignore */ '../wasm/occt.js', import.meta.url).href,
+      () => new URL(/* @vite-ignore */ '../wasm/occt-core.js', import.meta.url).href,
       () => '/wasm/occt.js',
       () => '/wasm/occt-core.js'
     ];

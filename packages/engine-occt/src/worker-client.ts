@@ -41,7 +41,7 @@ export class WorkerClient implements WorkerAPI {
               );
             } else {
               // Development - try engine-occt dist path
-              const workerUrl = new URL('../engine-occt/dist/worker.mjs', import.meta.url).href;
+              const workerUrl = new URL(/* @vite-ignore */ '../engine-occt/dist/worker.mjs', import.meta.url).href;
               this.worker = new Worker(workerUrl, { type: 'module' });
             }
           } catch {

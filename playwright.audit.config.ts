@@ -1,5 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const PREVIEW_HOST = process.env.PREVIEW_HOST ?? '127.0.0.1';
+const PREVIEW_PORT = process.env.PREVIEW_PORT ?? '5173';
+const PREVIEW_URL = `http://${PREVIEW_HOST}:${PREVIEW_PORT}`;
+
 /**
  * BrepFlow Audit Playwright Configuration
  * Specifically optimized for comprehensive functionality and accessibility auditing
@@ -25,7 +29,7 @@ export default defineConfig({
     ['list']
   ],
   use: {
-    baseURL: 'http://127.0.0.1:5173',
+    baseURL: PREVIEW_URL,
     trace: 'on',
     video: 'on',
     screenshot: 'on',
@@ -70,8 +74,8 @@ export default defineConfig({
   ],
   // Start dev server before running tests
   webServer: {
-    command: 'bash scripts/start-studio-preview.sh 127.0.0.1 5173',
-    url: 'http://127.0.0.1:5173',
+    command: `bash scripts/start-studio-preview.sh ${PREVIEW_HOST} ${PREVIEW_PORT}`,
+    url: PREVIEW_URL,
     reuseExistingServer: !process.env.CI,
     timeout: 240000
   }
