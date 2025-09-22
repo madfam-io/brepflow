@@ -1,0 +1,27 @@
+FROM node:20.11.1-bullseye
+
+ENV PNPM_HOME=/root/.local/share/pnpm
+ENV PATH=$PNPM_HOME:$PATH
+
+RUN corepack enable && corepack prepare pnpm@8.6.7 --activate
+
+WORKDIR /app
+
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json ./
+COPY turbo.json tsconfig.json tsconfig.base.json ./
+COPY tsconfig.strict.json ./
+
+# Copy workspace sources
+COPY packages ./packages
+COPY apps ./apps
+COPY config ./config
+COPY build ./build
+COPY scripts ./scripts
+COPY tests ./tests
+COPY docs ./docs
+
+RUN pnpm install --frozen-lockfile
+
+RUN pnpm run build
+
+CMD ["pnpm", "run", "dev"]

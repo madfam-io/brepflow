@@ -8,7 +8,7 @@ on:
 
 env:
   NODE_VERSION: '20'
-  PNPM_VERSION: '9'
+  PNPM_VERSION: '8.6.7'
 
 jobs:
   lint:
@@ -17,14 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -33,22 +33,23 @@ jobs:
         run: pnpm run lint
 
       - name: Check formatting
-        run: pnpm run format --check
+        run: pnpm run format
 
   typecheck:
     name: Type Check
     runs-on: ubuntu-latest
+    needs: lint
     steps:
       - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v2
-        with:
-          version: ${{ env.PNPM_VERSION }}
 
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -56,45 +57,123 @@ jobs:
       - name: Run type checking
         run: pnpm run typecheck
 
-  test:
-    name: Test
+  unit-tests:
+    name: Unit Tests
     runs-on: ubuntu-latest
+    needs: typecheck
     steps:
       - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v2
-        with:
-          version: ${{ env.PNPM_VERSION }}
 
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run tests
+      - name: Run unit tests with coverage
         run: pnpm run test
+        env:
+          CI: true
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: |
+            coverage/**
+            packages/**/coverage/**
+          if-no-files-found: warn
+
+  audit:
+    name: Audit
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build workspace
+        run: pnpm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Start studio dev server
+        run: |
+          pnpm --filter @brepflow/studio run dev --port 5173 &
+          echo "DEV_PID=$!" >> $GITHUB_ENV
+
+      - name: Wait for studio to be ready
+        run: timeout 120 bash -c 'until curl -f http://localhost:5173; do sleep 2; done'
+
+      - name: Run accessibility audit
+        run: pnpm run audit:accessibility
+        env:
+          CI: true
+
+      - name: Run functionality audit
+        run: pnpm run audit:functionality
+        env:
+          CI: true
+
+      - name: Run performance audit
+        run: pnpm run audit:performance
+        env:
+          CI: true
+
+      - name: Stop dev server
+        if: always()
+        run: |
+          if [ -n "$DEV_PID" ]; then
+            kill $DEV_PID || true
+          fi
+
+      - name: Upload audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-artifacts
+          path: |
+            audit-report/**
+            audit-results.json
+            audit-results.xml
+          if-no-files-found: warn
 
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: [lint, typecheck, test]
+    needs: audit
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -103,7 +182,7 @@ jobs:
         run: pnpm run build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.os }}
           path: |

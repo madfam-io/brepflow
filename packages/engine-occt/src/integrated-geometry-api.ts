@@ -219,26 +219,22 @@ export class IntegratedGeometryAPI {
     const startTime = Date.now();
     let memoryBefore = 0;
     let cacheHit = false;
-    let fallbackUsed = false;
+    let fallbackUsed = !this.usingRealOCCT;
     let retryCount = 0;
 
-    // Ensure initialization
     await this.init();
 
     const endMeasurement = WASMPerformanceMonitor?.startMeasurement(`operation-${operation.toLowerCase()}`);
 
     try {
-      // Get initial memory state
       if (this.memoryManager) {
         const stats = this.memoryManager.getStats();
         memoryBefore = stats.totalMemoryMB;
       }
 
-      // Validate operation parameters
       if (this.errorRecovery) {
         const validation = await this.errorRecovery.validateOperation(operation, params);
         if (!validation.valid) {
-          // Try to fix automatically if possible
           if (validation.fixable && validation.suggestedFix) {
             console.log('[IntegratedGeometryAPI] Auto-fixing parameters');
             params = validation.suggestedFix();
@@ -259,7 +255,6 @@ export class IntegratedGeometryAPI {
         }
       }
 
-      // Check cache first
       if (this.memoryManager) {
         const cacheKey = this.memoryManager.generateOperationKey(operation, params);
         const cachedResult = this.memoryManager.getResult(cacheKey);
@@ -277,32 +272,24 @@ export class IntegratedGeometryAPI {
               duration,
               memoryUsed: 0,
               cacheHit: true
-            }
+            },
+            fallbackUsed,
+            retryCount
           };
         }
       }
 
-      // Execute operation with error recovery
-      let result: T;
+      let rawResult: any;
       try {
         if (this.workerPool) {
-          // Execute through worker pool
           const workerResult = await this.workerPool.execute(operation, params, {
             timeout: this.config.operationTimeout,
             priority: this.determinePriority(operation)
           });
-          result = workerResult.result || workerResult;
+          rawResult = workerResult.result ?? workerResult;
         } else {
-          // Direct execution
-          result = await this.occtModule.invoke(operation, params);
+          rawResult = await this.occtModule.invoke(operation, params);
         }
-
-        // Cache successful result
-        if (this.memoryManager && result) {
-          const cacheKey = this.memoryManager.generateOperationKey(operation, params);
-          this.memoryManager.cacheResult(cacheKey, result, this.determinePriority(operation));
-        }
-
       } catch (executionError) {
         if (this.errorRecovery) {
           console.log(`[IntegratedGeometryAPI] Error occurred, attempting recovery for ${operation}`);
@@ -318,9 +305,10 @@ export class IntegratedGeometryAPI {
           );
 
           if (recoveryResult.recovered) {
-            result = recoveryResult.result;
-            retryCount = 1; // Mark that recovery was used
-            console.log(`[IntegratedGeometryAPI] Successfully recovered from error`);
+            rawResult = recoveryResult.result;
+            retryCount = 1;
+            fallbackUsed = true;
+            console.log('[IntegratedGeometryAPI] Successfully recovered from error');
           } else {
             throw recoveryResult.finalError || executionError;
           }
@@ -329,7 +317,13 @@ export class IntegratedGeometryAPI {
         }
       }
 
-      // Calculate performance metrics
+      const result = this.normalizeOperationResult<T>(operation, rawResult);
+
+      if (this.memoryManager && result) {
+        const cacheKey = this.memoryManager.generateOperationKey(operation, params);
+        this.memoryManager.cacheResult(cacheKey, result, this.determinePriority(operation));
+      }
+
       const duration = Date.now() - startTime;
       let memoryUsed = 0;
 
@@ -356,16 +350,18 @@ export class IntegratedGeometryAPI {
       if (endMeasurement) endMeasurement();
 
       const duration = Date.now() - startTime;
-      console.error(`[IntegratedGeometryAPI] Operation ${operation} failed after ${duration}ms:`, error);
+      const normalizedError = error instanceof Error ? error : new Error(String(error));
+      console.error(`[IntegratedGeometryAPI] Operation ${operation} failed after ${duration}ms:`, normalizedError);
 
       return {
         success: false,
-        error: error instanceof Error ? error.message : String(error),
+        error: normalizedError.message,
         performance: {
           duration,
           memoryUsed: 0,
           cacheHit
         },
+        fallbackUsed,
         retryCount
       };
     }
@@ -432,6 +428,35 @@ export class IntegratedGeometryAPI {
     if (highPriorityOps.includes(operation)) return 3;
     if (mediumPriorityOps.includes(operation)) return 2;
     return 1;
+  }
+
+  private normalizeOperationResult<T>(operation: string, rawResult: any): T {
+    if (operation === 'TESSELLATE') {
+      const mesh = rawResult?.mesh ?? rawResult;
+      if (!mesh) {
+        throw new Error('TESSELLATE operation returned no mesh data');
+      }
+
+      if (mesh.positions && !('vertices' in mesh)) {
+        (mesh as any).vertices = mesh.positions;
+      }
+
+      if (!mesh.normals) {
+        (mesh as any).normals = new Float32Array();
+      }
+
+      if (!mesh.indices) {
+        (mesh as any).indices = new Uint32Array();
+      }
+
+      return mesh as T;
+    }
+
+    if (rawResult === undefined || rawResult === null) {
+      throw new Error(`Operation ${operation} returned no result`);
+    }
+
+    return rawResult as T;
   }
 
   /**

@@ -5,7 +5,7 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { GeometryAPI } from './geometry-api';
-import { IntegratedGeometryAPI, DEFAULT_API_CONFIG } from './integrated-geometry-api';
+import { IntegratedGeometryAPI, DEFAULT_API_CONFIG, type OperationResult } from './integrated-geometry-api';
 
 // Mock the dependencies for IntegratedGeometryAPI
 vi.mock('./occt-loader', () => ({
@@ -13,6 +13,7 @@ vi.mock('./occt-loader', () => ({
     invoke: vi.fn().mockResolvedValue({ id: 'shape-1', type: 'solid' }),
     tessellate: vi.fn().mockResolvedValue({
       vertices: new Float32Array([0, 0, 0]),
+      positions: new Float32Array([0, 0, 0]),
       indices: new Uint32Array([0, 1, 2]),
       normals: new Float32Array([0, 0, 1])
     }),
@@ -111,6 +112,7 @@ vi.mock('./mock-geometry', () => ({
     booleanIntersect: vi.fn().mockReturnValue({ id: 'intersect-1', type: 'solid' }),
     tessellate: vi.fn().mockResolvedValue({
       vertices: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
+      positions: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
       indices: new Uint32Array([0, 1, 2]),
       normals: new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1])
     }),
@@ -132,6 +134,7 @@ vi.mock('./mock-geometry', () => ({
           // For legacy GeometryAPI tests, check if we need a mesh wrapper
           const meshData = {
             vertices: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
+            positions: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
             indices: new Uint32Array([0, 1, 2]),
             normals: new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1])
           };
@@ -142,12 +145,25 @@ vi.mock('./mock-geometry', () => ({
           }
           return { mesh: meshData }; // Legacy style
         default:
-          console.warn(`Mock operation not implemented: ${operation}`);
-          return { id: 'unknown-1', type: 'solid', bbox: { min: { x: -50, y: -50, z: -50 }, max: { x: 50, y: 50, z: 50 } } };
+          throw new Error(`Unknown operation: ${operation}`);
       }
     })
   }))
 }));
+
+const expectOperationSuccess = <T>(result: OperationResult<T>) => {
+  expect(result.success).toBe(true);
+  expect(result.result).toBeDefined();
+  return result.result as T;
+};
+
+const expectOperationFailure = <T>(result: OperationResult<T>, message?: string) => {
+  expect(result.success).toBe(false);
+  expect(result.error).toBeDefined();
+  if (message) {
+    expect(result.error).toContain(message);
+  }
+};
 
 describe('IntegratedGeometryAPI', () => {
   let geometryAPI: IntegratedGeometryAPI;
@@ -196,51 +212,45 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should execute MAKE_BOX operation successfully', async () => {
-      const result = await geometryAPI.invoke('MAKE_BOX', {
+      const operationResult = await geometryAPI.invoke('MAKE_BOX', {
         center: { x: 0, y: 0, z: 0 },
         width: 100,
         height: 50,
         depth: 25
       });
 
-      expect(result).toBeDefined();
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
-      expect(result.result.id).toBe('box-1');
-      expect(result.result.type).toBe('box');
+      const box = expectOperationSuccess(operationResult);
+      expect(box.id).toBe('box-1');
+      expect(box.type).toBe('box');
     });
 
     it('should execute MAKE_SPHERE operation successfully', async () => {
-      const result = await geometryAPI.invoke('MAKE_SPHERE', {
+      const operationResult = await geometryAPI.invoke('MAKE_SPHERE', {
         center: { x: 0, y: 0, z: 0 },
         radius: 50
       });
 
-      expect(result).toBeDefined();
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
-      expect(result.result.id).toBe('sphere-1');
-      expect(result.result.type).toBe('sphere');
+      const sphere = expectOperationSuccess(operationResult);
+      expect(sphere.id).toBe('sphere-1');
+      expect(sphere.type).toBe('sphere');
     });
 
     it('should execute MAKE_CYLINDER operation successfully', async () => {
-      const result = await geometryAPI.invoke('MAKE_CYLINDER', {
+      const operationResult = await geometryAPI.invoke('MAKE_CYLINDER', {
         center: { x: 0, y: 0, z: 0 },
         axis: { x: 0, y: 0, z: 1 },
         radius: 25,
         height: 100
       });
 
-      expect(result).toBeDefined();
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
-      expect(result.result.id).toBe('cylinder-1');
-      expect(result.result.type).toBe('cylinder');
+      const cylinder = expectOperationSuccess(operationResult);
+      expect(cylinder.id).toBe('cylinder-1');
+      expect(cylinder.type).toBe('cylinder');
     });
 
     it('should handle operation failure gracefully', async () => {
-      // Test with an invalid operation
-      await expect(geometryAPI.invoke('INVALID_OPERATION', {})).rejects.toThrow();
+      const failure = await geometryAPI.invoke('INVALID_OPERATION', {});
+      expectOperationFailure(failure, 'Unknown operation');
     });
   });
 
@@ -250,36 +260,36 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should tessellate shape successfully', async () => {
-      const box = await geometryAPI.invoke('MAKE_BOX', {
+      const boxHandle = expectOperationSuccess(await geometryAPI.invoke('MAKE_BOX', {
         center: { x: 0, y: 0, z: 0 },
         width: 100,
         height: 50,
         depth: 25
-      });
+      }));
 
-      const mesh = await geometryAPI.tessellate(box, 0.1);
+      const meshResult = await geometryAPI.tessellate(boxHandle, 0.1);
+      const mesh = expectOperationSuccess(meshResult);
 
-      expect(mesh).toBeDefined();
       expect(mesh.vertices).toBeInstanceOf(Float32Array);
       expect(mesh.indices).toBeInstanceOf(Uint32Array);
       expect(mesh.normals).toBeInstanceOf(Float32Array);
     });
 
     it('should use cached mesh when available', async () => {
-      const box = await geometryAPI.invoke('MAKE_BOX', {
+      const boxHandle = expectOperationSuccess(await geometryAPI.invoke('MAKE_BOX', {
         center: { x: 0, y: 0, z: 0 },
         width: 100,
         height: 50,
         depth: 25
-      });
+      }));
 
-      // First call - should cache the result
-      const mesh1 = await geometryAPI.tessellate(box, 0.1);
+      const firstResult = await geometryAPI.tessellate(boxHandle, 0.1);
+      const firstMesh = expectOperationSuccess(firstResult);
 
-      // Second call - should use cached result
-      const mesh2 = await geometryAPI.tessellate(box, 0.1);
+      const secondResult = await geometryAPI.tessellate(boxHandle, 0.1);
+      const secondMesh = expectOperationSuccess(secondResult);
 
-      expect(mesh1).toBe(mesh2); // Should be the exact same object (cached)
+      expect(firstMesh).toBe(secondMesh);
     });
   });
 
@@ -292,11 +302,10 @@ describe('IntegratedGeometryAPI', () => {
       const stats = geometryAPI.getStatistics();
 
       expect(stats).toBeDefined();
-      expect(stats).toHaveProperty('operationCount');
-      expect(stats).toHaveProperty('cacheHitRate');
-      expect(stats).toHaveProperty('totalExecutionTime');
-      expect(stats).toHaveProperty('averageExecutionTime');
-      expect(stats).toHaveProperty('memoryUsage');
+      expect(stats).toHaveProperty('initialized');
+      expect(stats).toHaveProperty('usingRealOCCT');
+      expect(stats).toHaveProperty('environment');
+      expect(stats).toHaveProperty('subsystems');
     });
 
     it('should generate diagnostic report', async () => {
@@ -333,7 +342,8 @@ describe('IntegratedGeometryAPI', () => {
 
       expect(testResult).toBeDefined();
       expect(testResult.success).toBe(false);
-      expect(testResult.errors).toBeDefined();
+      expect(testResult.report).toBeDefined();
+      expect(testResult.report).toContain('Test failure');
 
       // Restore original invoke method
       geometryAPI.invoke = originalInvoke;
@@ -391,84 +401,83 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should perform boolean union with mock', async () => {
-      const box1 = await geometryAPI.invoke('MAKE_BOX', {
+      const box1 = expectOperationSuccess(await geometryAPI.invoke('MAKE_BOX', {
         center: { x: 0, y: 0, z: 0 },
         width: 10, height: 10, depth: 10
-      });
+      }));
 
-      const box2 = await geometryAPI.invoke('MAKE_BOX', {
+      const box2 = expectOperationSuccess(await geometryAPI.invoke('MAKE_BOX', {
         center: { x: 5, y: 0, z: 0 },
         width: 10, height: 10, depth: 10
-      });
+      }));
 
-      const union = await geometryAPI.invoke('BOOLEAN_UNION', {
+      const unionResult = await geometryAPI.invoke('BOOLEAN_UNION', {
         shapes: [box1, box2]
       });
 
-      expect(union).toBeDefined();
+      const union = expectOperationSuccess(unionResult);
       expect(union.id).toBe('union-1');
-      expect(union.type).toBe('solid');
+      expect(union.type).toBe('union');
     });
 
     it('should perform boolean subtract with mock', async () => {
-      const box = await geometryAPI.invoke('MAKE_BOX', {
+      const box = expectOperationSuccess(await geometryAPI.invoke('MAKE_BOX', {
         center: { x: 0, y: 0, z: 0 },
         width: 20, height: 20, depth: 20
-      });
+      }));
 
-      const sphere = await geometryAPI.invoke('MAKE_SPHERE', {
+      const sphere = expectOperationSuccess(await geometryAPI.invoke('MAKE_SPHERE', {
         center: { x: 0, y: 0, z: 0 },
         radius: 8
-      });
+      }));
 
-      const subtract = await geometryAPI.invoke('BOOLEAN_SUBTRACT', {
+      const subtractResult = await geometryAPI.invoke('BOOLEAN_SUBTRACT', {
         base: box,
         tools: [sphere]
       });
 
-      expect(subtract).toBeDefined();
+      const subtract = expectOperationSuccess(subtractResult);
       expect(subtract.id).toBe('subtract-1');
-      expect(subtract.type).toBe('solid');
+      expect(subtract.type).toBe('subtract');
     });
 
     it('should perform boolean intersect with mock', async () => {
-      const box = await geometryAPI.invoke('MAKE_BOX', {
+      const box = expectOperationSuccess(await geometryAPI.invoke('MAKE_BOX', {
         center: { x: 0, y: 0, z: 0 },
         width: 20, height: 20, depth: 20
-      });
+      }));
 
-      const sphere = await geometryAPI.invoke('MAKE_SPHERE', {
+      const sphere = expectOperationSuccess(await geometryAPI.invoke('MAKE_SPHERE', {
         center: { x: 0, y: 0, z: 0 },
         radius: 15
-      });
+      }));
 
-      const intersect = await geometryAPI.invoke('BOOLEAN_INTERSECT', {
+      const intersectResult = await geometryAPI.invoke('BOOLEAN_INTERSECT', {
         shapes: [box, sphere]
       });
 
-      expect(intersect).toBeDefined();
+      const intersect = expectOperationSuccess(intersectResult);
       expect(intersect.id).toBe('intersect-1');
-      expect(intersect.type).toBe('solid');
+      expect(intersect.type).toBe('intersect');
     });
 
     it('should tessellate shape with mock', async () => {
-      const box = await geometryAPI.invoke('MAKE_BOX', {
+      const box = expectOperationSuccess(await geometryAPI.invoke('MAKE_BOX', {
         center: { x: 0, y: 0, z: 0 },
         width: 10, height: 10, depth: 10
-      });
+      }));
 
-      const mesh = await geometryAPI.tessellate(box, 0.1);
+      const meshResult = await geometryAPI.tessellate(box, 0.1);
+      const mesh = expectOperationSuccess(meshResult);
 
-      expect(mesh).toBeDefined();
       expect(mesh.vertices).toBeInstanceOf(Float32Array);
       expect(mesh.indices).toBeInstanceOf(Uint32Array);
       expect(mesh.normals).toBeInstanceOf(Float32Array);
     });
 
     it('should handle unknown mock operations', async () => {
-      await expect(
-        geometryAPI.invoke('UNKNOWN_OPERATION', {})
-      ).rejects.toThrow();
+      const failure = await geometryAPI.invoke('UNKNOWN_OPERATION', {});
+      expectOperationFailure(failure, 'Unknown operation');
     });
   });
 
@@ -478,64 +487,51 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should perform boolean union with mock', async () => {
-      const result = await geometryAPI.invoke('BOOLEAN_UNION', {
+      const union = expectOperationSuccess(await geometryAPI.invoke('BOOLEAN_UNION', {
         shapes: [
           { id: 'box-1', type: 'box' },
           { id: 'sphere-1', type: 'sphere' }
         ]
-      });
+      }));
 
-      expect(result).toBeDefined();
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
-      expect(result.result.id).toBe('union-1');
-      expect(result.result.type).toBe('solid');
+      expect(union.id).toBe('union-1');
+      expect(union.type).toBe('union');
     });
 
     it('should perform boolean subtract with mock', async () => {
-      const result = await geometryAPI.invoke('BOOLEAN_SUBTRACT', {
+      const subtract = expectOperationSuccess(await geometryAPI.invoke('BOOLEAN_SUBTRACT', {
         base: { id: 'box-1', type: 'box' },
         tools: [{ id: 'sphere-1', type: 'sphere' }]
-      });
+      }));
 
-      expect(result).toBeDefined();
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
-      expect(result.result.id).toBe('subtract-1');
-      expect(result.result.type).toBe('solid');
+      expect(subtract.id).toBe('subtract-1');
+      expect(subtract.type).toBe('subtract');
     });
 
     it('should perform boolean intersect with mock', async () => {
-      const result = await geometryAPI.invoke('BOOLEAN_INTERSECT', {
+      const intersect = expectOperationSuccess(await geometryAPI.invoke('BOOLEAN_INTERSECT', {
         shapes: [
           { id: 'box-1', type: 'box' },
           { id: 'sphere-1', type: 'sphere' }
         ]
-      });
+      }));
 
-      expect(result).toBeDefined();
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
-      expect(result.result.id).toBe('intersect-1');
-      expect(result.result.type).toBe('solid');
+      expect(intersect.id).toBe('intersect-1');
+      expect(intersect.type).toBe('intersect');
     });
 
     it('should tessellate shape with mock', async () => {
-      const shape = { id: 'box-1', type: 'box' };
-      const mesh = await geometryAPI.tessellate(shape, 0.1);
+      const meshResult = await geometryAPI.tessellate({ id: 'box-1', type: 'box' }, 0.1);
+      const mesh = expectOperationSuccess(meshResult);
 
-      expect(mesh).toBeDefined();
-      expect(mesh.success).toBe(true);
-      expect(mesh.result).toBeDefined();
-      expect(mesh.result.vertices).toBeInstanceOf(Float32Array);
-      expect(mesh.result.indices).toBeInstanceOf(Uint32Array);
-      expect(mesh.result.normals).toBeInstanceOf(Float32Array);
+      expect(mesh.vertices).toBeInstanceOf(Float32Array);
+      expect(mesh.indices).toBeInstanceOf(Uint32Array);
+      expect(mesh.normals).toBeInstanceOf(Float32Array);
     });
 
     it('should handle unknown mock operations', async () => {
-      await expect(
-        geometryAPI.invoke('UNKNOWN_OP', {})
-      ).rejects.toThrow();
+      const failure = await geometryAPI.invoke('UNKNOWN_OP', {});
+      expectOperationFailure(failure, 'Unknown operation');
     });
   });
 
@@ -545,26 +541,20 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should invoke operation through worker', async () => {
-      const result = await geometryAPI.invoke('MAKE_BOX', {
+      const box = expectOperationSuccess(await geometryAPI.invoke('MAKE_BOX', {
         center: { x: 0, y: 0, z: 0 },
         width: 10, height: 10, depth: 10
-      });
+      }));
 
-      expect(result).toBeDefined();
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
-      expect(result.result.id).toBe('box-1');
-      expect(result.result.type).toBe('box');
+      expect(box.id).toBe('box-1');
+      expect(box.type).toBe('box');
     });
 
     it('should tessellate through worker', async () => {
-      const shape = { id: 'box-1', type: 'box' };
-      const mesh = await geometryAPI.tessellate(shape, 0.1);
+      const meshResult = await geometryAPI.tessellate({ id: 'box-1', type: 'box' }, 0.1);
+      const mesh = expectOperationSuccess(meshResult);
 
-      expect(mesh).toBeDefined();
-      expect(mesh.success).toBe(true);
-      expect(mesh.result).toBeDefined();
-      expect(mesh.result.vertices).toBeInstanceOf(Float32Array);
+      expect(mesh.vertices).toBeInstanceOf(Float32Array);
     });
 
     it('should shutdown through worker', async () => {
@@ -592,23 +582,19 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should tessellate with mock implementation', async () => {
-      const shape = { id: 'box-1', type: 'box' };
-      const result = await geometryAPI.tessellate(shape, 0.1);
+      const result = await geometryAPI.tessellate({ id: 'box-1', type: 'box' }, 0.1);
+      const mesh = expectOperationSuccess(result);
 
-      expect(result).toBeDefined();
-      expect(result.vertices).toBeInstanceOf(Float32Array);
-      expect(result.indices).toBeInstanceOf(Uint32Array);
-      expect(result.normals).toBeInstanceOf(Float32Array);
+      expect(mesh.vertices).toBeInstanceOf(Float32Array);
+      expect(mesh.indices).toBeInstanceOf(Uint32Array);
+      expect(mesh.normals).toBeInstanceOf(Float32Array);
     });
 
     it('should tessellate with worker implementation', async () => {
-      const shape = { id: 'sphere-1', type: 'sphere' };
-      const result = await geometryAPI.tessellate(shape, 0.05);
+      const result = await geometryAPI.tessellate({ id: 'sphere-1', type: 'sphere' }, 0.05);
+      const mesh = expectOperationSuccess(result);
 
-      expect(result).toBeDefined();
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
-      expect(result.result.positions).toBeInstanceOf(Float32Array);
+      expect(mesh.positions).toBeInstanceOf(Float32Array);
     });
   });
 
@@ -630,6 +616,37 @@ describe('IntegratedGeometryAPI', () => {
     beforeEach(async () => {
       geometryAPI = IntegratedGeometryAPI.createWithMock();
     });
+
+    it('should handle typed invoke operations', async () => {
+      const box = expectOperationSuccess(await geometryAPI.invoke('MAKE_BOX', {
+        center: { x: 0, y: 0, z: 0 },
+        width: 10,
+        height: 10,
+        depth: 10
+      }));
+
+      expect(box.id).toBe('box-1');
+      expect(box.type).toBe('box');
+    });
+
+    it('should return correct types for different operations', async () => {
+      const sphere = expectOperationSuccess(await geometryAPI.invoke('MAKE_SPHERE', {
+        center: { x: 0, y: 0, z: 0 },
+        radius: 5
+      }));
+
+      const cylinder = expectOperationSuccess(await geometryAPI.invoke('MAKE_CYLINDER', {
+        center: { x: 0, y: 0, z: 0 },
+        axis: { x: 0, y: 0, z: 1 },
+        radius: 3,
+        height: 10
+      }));
+
+      expect(sphere.type).toBe('sphere');
+      expect(cylinder.type).toBe('cylinder');
+    });
+  });
+
 
     it('should handle typed invoke operations', async () => {
       const box = await geometryAPI.invoke('MAKE_BOX', {

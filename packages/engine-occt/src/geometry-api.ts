@@ -1,5 +1,6 @@
 import type { WorkerAPI, ShapeHandle, MeshData } from '@brepflow/types';
 import { getOCCTWrapper, OCCTWrapper } from './occt-wrapper';
+import { MockGeometry } from './mock-geometry';
 
 /**
  * Geometry API with real OCCT integration
@@ -9,6 +10,8 @@ export class GeometryAPI implements WorkerAPI {
   private initialized = false;
   private shapeCache = new Map<string, any>();
   private idCounter = 0;
+  private mockGeometry = new MockGeometry();
+  private mockInitialized = false;
 
   constructor() {
     this.occtWrapper = getOCCTWrapper();
@@ -114,8 +117,7 @@ export class GeometryAPI implements WorkerAPI {
           break;
 
         default:
-          // Return mock for unsupported operations
-          result = this.getMockResult(operation, params);
+          throw new Error(`Unsupported operation: ${operation}`);
       }
 
       const executionTime = performance.now() - startTime;
@@ -125,8 +127,12 @@ export class GeometryAPI implements WorkerAPI {
     } catch (error: any) {
       console.error(`[GeometryAPI] ${operation} failed:`, error);
 
-      // Return a mock result to prevent complete failure
-      return this.getMockResult(operation, params) as T;
+      if (error instanceof Error && error.message.startsWith('Unsupported operation')) {
+        throw error;
+      }
+
+      const mockResult = await this.callMock(operation, params);
+      return mockResult as T;
     }
   }
 
@@ -142,9 +148,7 @@ export class GeometryAPI implements WorkerAPI {
       return handle;
     } catch (error) {
       console.warn('[GeometryAPI] Using mock box due to error:', error);
-      const mockHandle = this.createMockShape('box', { width, height, depth });
-      console.log('[GeometryAPI] Created mock box with type:', mockHandle.type);
-      return mockHandle;
+      return this.callMock('MAKE_BOX', params);
     }
   }
 
@@ -156,7 +160,7 @@ export class GeometryAPI implements WorkerAPI {
       return this.createShapeHandle(shape, 'sphere', { radius });
     } catch (error) {
       console.warn('[GeometryAPI] Using mock sphere');
-      return this.createMockShape('sphere', { radius });
+      return this.callMock('MAKE_SPHERE', params);
     }
   }
 
@@ -168,7 +172,7 @@ export class GeometryAPI implements WorkerAPI {
       return this.createShapeHandle(shape, 'cylinder', { radius, height });
     } catch (error) {
       console.warn('[GeometryAPI] Using mock cylinder');
-      return this.createMockShape('cylinder', { radius, height });
+      return this.callMock('MAKE_CYLINDER', params);
     }
   }
 
@@ -220,7 +224,7 @@ export class GeometryAPI implements WorkerAPI {
       return this.createShapeHandle(result, 'boolean_union');
     } catch (error) {
       console.warn('[GeometryAPI] Using mock boolean union');
-      return this.createMockShape('boolean_union');
+      return this.callMock('BOOLEAN_UNION', { shapes });
     }
   }
 
@@ -237,7 +241,7 @@ export class GeometryAPI implements WorkerAPI {
       return this.createShapeHandle(result, 'boolean_difference');
     } catch (error) {
       console.warn('[GeometryAPI] Using mock boolean difference');
-      return this.createMockShape('boolean_difference');
+      return this.callMock('BOOLEAN_SUBTRACT', { base: shape1, tools: [shape2] });
     }
   }
 
@@ -261,7 +265,7 @@ export class GeometryAPI implements WorkerAPI {
       return this.createShapeHandle(result, 'boolean_intersection');
     } catch (error) {
       console.warn('[GeometryAPI] Using mock boolean intersection');
-      return this.createMockShape('boolean_intersection');
+      return this.callMock('BOOLEAN_INTERSECT', { shapes });
     }
   }
 
@@ -279,7 +283,7 @@ export class GeometryAPI implements WorkerAPI {
       return this.createShapeHandle(result, 'fillet');
     } catch (error) {
       console.warn('[GeometryAPI] Using mock fillet');
-      return this.createMockShape('fillet');
+      return this.callMock('MAKE_FILLET', params);
     }
   }
 
@@ -296,7 +300,7 @@ export class GeometryAPI implements WorkerAPI {
       return this.createShapeHandle(result, 'chamfer');
     } catch (error) {
       console.warn('[GeometryAPI] Using mock chamfer');
-      return this.createMockShape('chamfer');
+      return this.callMock('MAKE_CHAMFER', params);
     }
   }
 
@@ -325,13 +329,7 @@ export class GeometryAPI implements WorkerAPI {
       };
     } catch (error) {
       console.warn('[GeometryAPI] Using mock tessellation');
-      return {
-        mesh: this.createMockMesh(),
-        bbox: {
-          min: { x: -50, y: -50, z: -50 },
-          max: { x: 50, y: 50, z: 50 }
-        }
-      };
+      return this.callMock('TESSELLATE', params);
     }
   }
 
@@ -465,6 +463,24 @@ export class GeometryAPI implements WorkerAPI {
     return 600;
   }
 
+  private async ensureMockInitialized(): Promise<void> {
+    if (!this.mockInitialized) {
+      await this.mockGeometry.init();
+      this.mockInitialized = true;
+    }
+  }
+
+  private async callMock(operation: string, params: any): Promise<any> {
+    await this.ensureMockInitialized();
+    const result = await this.mockGeometry.invoke(operation, params);
+
+    if (result && typeof result === 'object' && 'id' in result) {
+      this.shapeCache.set((result as ShapeHandle).id, result);
+    }
+
+    return result;
+  }
+
   // === Mock Fallback Methods ===
 
   private createMockShape(type: string, params?: any): ShapeHandle {
@@ -504,53 +520,6 @@ DATA;
 #1=CARTESIAN_POINT('',(0.,0.,0.));
 ENDSEC;
 END-ISO-10303-21;`;
-  }
-
-  private getMockResult(operation: string, params: any): any {
-    // Generate mock responses based on operation
-    const id = `${type}-${++this.idCounter}`;
-    const result: any = {
-      id,
-      type: this.getTypeForOperation(operation),
-      bbox_min_x: -50,
-      bbox_min_y: -50,
-      bbox_min_z: -50,
-      bbox_max_x: 50,
-      bbox_max_y: 50,
-      bbox_max_z: 50,
-      hash: `hash-${id}`,
-      volume: 1000,
-      area: 600,
-      centerX: 0,
-      centerY: 0,
-      centerZ: 0
-    };
-
-    if (operation === 'TESSELLATE') {
-      return {
-        mesh: this.createMockMesh(),
-        bbox: {
-          min: { x: -50, y: -50, z: -50 },
-          max: { x: 50, y: 50, z: 50 }
-        }
-      };
-    }
-
-    return result;
-  }
-
-  private getTypeForOperation(operation: string): string {
-    const typeMap: Record<string, string> = {
-      'MAKE_BOX': 'box',
-      'MAKE_SPHERE': 'sphere',
-      'MAKE_CYLINDER': 'cylinder',
-      'MAKE_CONE': 'cone',
-      'MAKE_TORUS': 'torus',
-      'BOOLEAN_UNION': 'union',
-      'BOOLEAN_DIFFERENCE': 'difference',
-      'BOOLEAN_INTERSECTION': 'intersection'
-    };
-    return typeMap[operation] || 'shape';
   }
 
   /**

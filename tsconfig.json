@@ -1,40 +1,46 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM", "DOM.Iterable", "WebWorker"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable",
+      "WebWorker"
+    ],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "allowJs": false,
     "checkJs": false,
     "jsx": "react-jsx",
-
-    "strict": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": false,
-
+    "noUncheckedIndexedAccess": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
     "inlineSources": false,
-
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-
     "incremental": false,
     "composite": false,
-
     "baseUrl": ".",
     "paths": {
-      "@brepflow/*": ["packages/*/src"]
-    }
+      "@brepflow/*": [
+        "packages/*/src"
+      ]
+    },
+    "useUnknownInCatchVariables": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true
   },
   "exclude": [
     "node_modules",
@@ -44,7 +50,20 @@
     "third_party",
     "coverage",
     "**/*.spec.ts",
+    "**/*.spec.tsx",
     "**/*.test.ts",
-    "apps/marketing/**/*"
+    "**/*.test.tsx",
+    "apps/marketing/**/*",
+    "packages/nodes-core/src/nodes/generated/**/*"
+  ],
+  "include": [
+    "apps",
+    "packages",
+    "scripts",
+    "tests",
+    "config",
+    "build",
+    "docs",
+    "turbo.d.ts"
   ]
 }

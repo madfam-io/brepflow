@@ -4,8 +4,8 @@ This guide will help you get BrepFlow up and running on your local machine.
 
 ## Prerequisites
 
-- **Node.js** ≥ 18.0.0
-- **pnpm** ≥ 8.0.0
+- **Node.js** ≥ 20.11.0
+- **pnpm** ≥ 8.6.7
 - Modern browser with WebAssembly support
 - (Optional) Emscripten SDK for building OCCT.wasm
 

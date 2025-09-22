@@ -1,0 +1,29 @@
+name: Container Build
+
+on:
+  schedule:
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build CI container image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.ci
+          load: true
+          tags: brepflow-ci:latest
+
+      - name: Run build verification in container
+        run: docker run --rm brepflow-ci:latest pnpm run build
+
+      - name: Run test verification in container
+        run: docker run --rm brepflow-ci:latest pnpm run test
