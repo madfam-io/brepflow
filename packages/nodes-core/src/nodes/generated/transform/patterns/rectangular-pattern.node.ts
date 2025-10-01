@@ -65,8 +65,25 @@ export const RectangularPatternNode: NodeDefinition<RectangularPatternInputs, Re
   },
 
   async evaluate(context, inputs, params) {
-    
-    // TODO: Implement RectangularPattern logic
-    throw new Error('RectangularPattern not yet implemented');
+    const response = await context.geometry.execute({
+      type: 'CREATE_RECTANGULAR_PATTERN',
+      params: {
+        shape: inputs.shape,
+        countX: params.countX,
+        countY: params.countY,
+        spacingX: params.spacingX,
+        spacingY: params.spacingY,
+        staggered: params.staggered,
+        keepOriginal: true
+      }
+    });
+
+    const shapes = Array.isArray(response) ? response : response?.shapes ?? [];
+    const compound = Array.isArray(response) ? null : response?.compound ?? null;
+
+    return {
+      shapes,
+      compound
+    };
   }
 };

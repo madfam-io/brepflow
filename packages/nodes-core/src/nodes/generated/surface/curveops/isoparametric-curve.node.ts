@@ -50,7 +50,7 @@ export const IsoparametricCurveNode: NodeDefinition<IsoparametricCurveInputs, Is
   async evaluate(context, inputs, params) {
     
     const result = await context.geometry.execute({
-      type: 'isoparametricCurve',
+      type: 'ISOPARAMETRIC_CURVE',
       params: {
         surface: inputs.surface,
         direction: params.direction,

@@ -49,18 +49,22 @@ export const ProjectCurveNode: NodeDefinition<ProjectCurveInputs, ProjectCurveOu
 
   async evaluate(context, inputs, params) {
     
+    const direction = params.projectionDirection || [0, 0, -1];
+
     const result = await context.geometry.execute({
-      type: 'projectCurve',
+      type: 'PROJECT_CURVE',
       params: {
         curve: inputs.curve,
         surface: inputs.surface,
-        projectionDirection: params.projectionDirection,
+        projectionDirection: direction,
         projectBoth: params.projectBoth
       }
     });
 
+    const projectedCurve = Array.isArray(result) ? result[0] ?? null : result;
+
     return {
-      projectedCurve: result
+      projectedCurve
     };
   }
 };

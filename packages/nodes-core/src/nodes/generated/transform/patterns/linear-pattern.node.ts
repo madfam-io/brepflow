@@ -65,8 +65,30 @@ export const LinearPatternNode: NodeDefinition<LinearPatternInputs, LinearPatter
   },
 
   async evaluate(context, inputs, params) {
-    
-    // TODO: Implement LinearPattern logic
-    throw new Error('LinearPattern not yet implemented');
+    const direction = params.direction || [1, 0, 0];
+
+    const response = await context.geometry.execute({
+      type: 'CREATE_LINEAR_PATTERN',
+      params: {
+        shape: inputs.shape,
+        count: params.count,
+        spacing: params.spacing,
+        direction: {
+          x: direction[0],
+          y: direction[1],
+          z: direction[2]
+        },
+        centered: params.centered,
+        keepOriginal: true
+      }
+    });
+
+    const shapes = Array.isArray(response) ? response : response?.shapes ?? [];
+    const compound = Array.isArray(response) ? null : response?.compound ?? null;
+
+    return {
+      shapes,
+      compound
+    };
   }
 };

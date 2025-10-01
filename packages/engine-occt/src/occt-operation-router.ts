@@ -125,6 +125,7 @@ export const NODE_TO_OCCT_OPERATION_MAP: Record<string, string> = {
 
   // Curve Operations
   'projectCurve': 'PROJECT_CURVE',
+  'isoparametricCurve': 'ISOPARAMETRIC_CURVE',
   'intersectCurves': 'INTERSECT_CURVES',
   'offsetCurve': 'OFFSET_CURVE',
   'trimCurve': 'TRIM_CURVE',

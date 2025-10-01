@@ -13,7 +13,7 @@ export function createTestContext(): EvaluationContext {
     geom: {
       invoke: async (operation: string, params: any) => {
         // Mock geometry operations for testing (legacy interface)
-        console.warn(`Mock geometry operation: ${operation}`, params);
+        console.debug?.(`Mock geometry operation: ${operation}`, params);
 
         // Return mock results based on operation
         switch (operation) {
@@ -23,6 +23,10 @@ export function createTestContext(): EvaluationContext {
             return { type: 'Shape', id: `sphere_${Math.random().toString(36).substr(2, 9)}` };
           case 'MAKE_CYLINDER':
             return { type: 'Shape', id: `cylinder_${Math.random().toString(36).substr(2, 9)}` };
+          case 'MAKE_THREAD':
+            return { type: 'Shape', id: `thread_${Math.random().toString(36).substr(2, 9)}` };
+          case 'TRANSFORM_WRAP':
+            return { type: 'Shape', id: `wrap_${Math.random().toString(36).substr(2, 9)}` };
           case 'BOOLEAN_UNION':
           case 'BOOLEAN_SUBTRACT':
           case 'BOOLEAN_INTERSECT':
@@ -30,6 +34,11 @@ export function createTestContext(): EvaluationContext {
           case 'COMMON_EDGES':
             return { edges: [] };
           default:
+            if (typeof operation === 'string' && operation.startsWith('MATH_')) {
+              const values = Object.values(params || {}).filter((value): value is number => typeof value === 'number');
+              const base = values.reduce((acc, value) => acc + value, 0);
+              return base || operation.length;
+            }
             throw new Error(`Mock geometry operation not implemented: ${operation}`);
         }
       }
@@ -38,7 +47,7 @@ export function createTestContext(): EvaluationContext {
     geometry: {
       execute: async (operation: any) => {
         // Mock geometry operations for testing (new interface)
-        console.warn(`Mock geometry execute:`, operation);
+        console.debug?.(`Mock geometry execute:`, operation);
 
         // Return mock results based on operation type
         switch (operation.type) {
@@ -64,6 +73,50 @@ export function createTestContext(): EvaluationContext {
               radius: operation.params.radius || 50,
               height: operation.params.height || 100
             };
+          case 'makeThread':
+            return {
+              type: 'Solid',
+              id: `thread_${Math.random().toString(36).substr(2, 9)}`,
+              pitch: operation.params?.pitch ?? 1,
+              turns: operation.params?.turns ?? 5
+            };
+          case 'transformWrap':
+            return {
+              type: 'Shape',
+              id: `wrap_${Math.random().toString(36).substr(2, 9)}`,
+              source: operation.params?.shape ?? null
+            };
+          case 'CREATE_LINEAR_PATTERN':
+          case 'CREATE_CIRCULAR_PATTERN':
+          case 'CREATE_RECTANGULAR_PATTERN': {
+            const countPrimary = operation.params?.count
+              ?? operation.params?.countX
+              ?? operation.params?.count1
+              ?? 1;
+            const countSecondary = operation.type === 'CREATE_RECTANGULAR_PATTERN'
+              ? (operation.params?.countY ?? operation.params?.count2 ?? 1)
+              : 1;
+            const totalInstances = Math.max(countPrimary * countSecondary, 1);
+            const shapes = Array.from({ length: totalInstances }, (_, index) => ({
+              id: `${operation.type.toLowerCase()}_${index}`
+            }));
+            return {
+              shapes,
+              compound: { id: `${operation.type.toLowerCase()}_compound` }
+            };
+          }
+          case 'PROJECT_CURVE':
+            return [
+              {
+                id: 'projected-curve',
+                type: 'Wire'
+              }
+            ];
+          case 'ISOPARAMETRIC_CURVE':
+            return {
+              id: 'iso-curve',
+              type: 'Wire'
+            };
           case 'tessellate':
             return {
               vertices: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
@@ -76,6 +129,20 @@ export function createTestContext(): EvaluationContext {
               id: `boolean_${Math.random().toString(36).substr(2, 9)}`
             };
           default:
+            if (typeof operation.type === 'string' && operation.type.startsWith('math')) {
+              const paramValues = Object.values(operation.params || {}).flatMap((value: any) => {
+                if (typeof value === 'number') return [value];
+                if (Array.isArray(value)) {
+                  return value.filter(item => typeof item === 'number');
+                }
+                if (value && typeof value === 'object') {
+                  return Object.values(value).filter((inner: any) => typeof inner === 'number');
+                }
+                return [];
+              });
+              const base = paramValues.reduce((acc, value) => acc + value, 0);
+              return base || operation.type.length;
+            }
             console.warn(`Unhandled geometry operation: ${operation.type}`);
             return {
               type: 'Shape',

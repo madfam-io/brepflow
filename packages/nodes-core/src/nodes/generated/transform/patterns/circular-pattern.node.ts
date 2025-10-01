@@ -73,8 +73,36 @@ export const CircularPatternNode: NodeDefinition<CircularPatternInputs, Circular
   },
 
   async evaluate(context, inputs, params) {
-    
-    // TODO: Implement CircularPattern logic
-    throw new Error('CircularPattern not yet implemented');
+    const center = params.center || [0, 0, 0];
+    const axis = params.axis || [0, 0, 1];
+
+    const response = await context.geometry.execute({
+      type: 'CREATE_CIRCULAR_PATTERN',
+      params: {
+        shape: inputs.shape,
+        count: params.count,
+        angle: params.angle,
+        center: {
+          x: center[0],
+          y: center[1],
+          z: center[2]
+        },
+        axis: {
+          x: axis[0],
+          y: axis[1],
+          z: axis[2]
+        },
+        rotateInstances: params.rotateInstances,
+        keepOriginal: true
+      }
+    });
+
+    const shapes = Array.isArray(response) ? response : response?.shapes ?? [];
+    const compound = Array.isArray(response) ? null : response?.compound ?? null;
+
+    return {
+      shapes,
+      compound
+    };
   }
 };

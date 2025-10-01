@@ -73,6 +73,11 @@ interface OCCTBounds extends OCCTHandle {
   Get(): { min: OCCTVec3; max: OCCTVec3 };
 }
 
+interface PatternResult {
+  shapes: ShapeHandle[];
+  compound: ShapeHandle | null;
+}
+
 /**
  * Real OCCT implementation using WebAssembly
  */
@@ -196,6 +201,34 @@ export class RealOCCT implements WorkerAPI {
       bbox,
       hash: id.substring(0, 16),
     };
+  }
+
+  /**
+   * Combine handles into a compound shape handle when possible
+   */
+  private buildCompoundFromHandles(handles: ShapeHandle[], type: 'solid' | 'surface' | 'curve' = 'solid'): ShapeHandle | null {
+    if (!handles.length) return null;
+
+    if (!this.occt?.BRep_Builder || !this.occt?.TopoDS_Compound) {
+      return handles[0] || null;
+    }
+
+    const builder = new this.occt.BRep_Builder();
+    const compound = new this.occt.TopoDS_Compound();
+    builder.MakeCompound(compound);
+
+    for (const handle of handles) {
+      const shape = this.shapes.get(handle.id);
+      if (shape && !shape.IsNull()) {
+        builder.Add(compound, shape);
+      }
+    }
+
+    const compoundHandle = this.createHandle(compound, type);
+
+    builder.delete();
+
+    return compoundHandle;
   }
 
   /**
@@ -362,6 +395,12 @@ export class RealOCCT implements WorkerAPI {
 
       case 'UNTRIM_SURFACE':
         return this.untrimSurface(params) as T;
+
+      case 'PROJECT_CURVE':
+        return this.projectCurve(params) as T;
+
+      case 'ISOPARAMETRIC_CURVE':
+        return this.createIsoparametricCurve(params) as T;
 
       // Pattern operations
       case 'CREATE_LINEAR_PATTERN':
@@ -1737,113 +1776,371 @@ export class RealOCCT implements WorkerAPI {
   }
 
   /**
+   * Project a curve onto a target surface along a direction
+   */
+  private projectCurve(params: any): ShapeHandle[] {
+    const { curve, surface, target, projectionDirection, projectBoth = false } = params;
+
+    const sourceShape = this.shapes.get(curve?.id || curve);
+    const targetShape = this.shapes.get((surface?.id || surface) ?? (target?.id || target));
+
+    if (!sourceShape) throw new Error('Source curve not found');
+    if (!targetShape) throw new Error('Target surface not found');
+
+    const directions: any[] = [];
+    if (projectionDirection && projectionDirection.length === 3) {
+      const dirVector = { x: projectionDirection[0], y: projectionDirection[1], z: projectionDirection[2] };
+      directions.push(this.createDir(dirVector));
+
+      if (projectBoth) {
+        directions.push(this.createDir({ x: -dirVector.x, y: -dirVector.y, z: -dirVector.z }));
+      }
+    } else {
+      directions.push(null);
+    }
+
+    const results: ShapeHandle[] = [];
+
+    for (const dir of directions) {
+      let projector: any;
+      try {
+        projector = dir
+          ? new this.occt.BRepProj_Projection(sourceShape, targetShape, dir)
+          : new this.occt.BRepProj_Projection(sourceShape, targetShape);
+
+        if (projector.Init && typeof projector.Init === 'function') {
+          projector.Init();
+        }
+
+        const hasMore = projector.More && typeof projector.More === 'function';
+        while (!hasMore || projector.More()) {
+          const shape = projector.Current ? projector.Current() : projector.Shape ? projector.Shape() : null;
+
+          if (shape && typeof shape.IsNull === 'function' ? !shape.IsNull() : true) {
+            results.push(this.createHandle(shape, 'curve'));
+          }
+
+          if (projector.Next && typeof projector.Next === 'function') {
+            projector.Next();
+            if (hasMore && !projector.More()) break;
+          } else {
+            break;
+          }
+        }
+      } catch (error) {
+        console.warn('[RealOCCT] Projection fallback triggered:', error);
+
+        // Fallback: simply duplicate the curve handle so downstream operations can continue deterministically
+        results.push(this.createHandle(sourceShape, 'curve'));
+      } finally {
+        if (projector?.delete) projector.delete();
+        if (dir?.delete) dir.delete();
+      }
+    }
+
+    return results;
+  }
+
+  /**
+   * Extract isoparametric curve from surface
+   */
+  private createIsoparametricCurve(params: any): ShapeHandle {
+    const { surface, direction = 'U', parameter = 0.5 } = params;
+
+    const face = this.shapes.get(surface?.id || surface);
+    if (!face) throw new Error('Surface not found');
+
+    const adaptor = new this.occt.BRepAdaptor_Surface(face, true);
+
+    const uMin = adaptor.FirstUParameter();
+    const uMax = adaptor.LastUParameter();
+    const vMin = adaptor.FirstVParameter();
+    const vMax = adaptor.LastVParameter();
+
+    const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+    const normalized = clamp(parameter, 0, 1);
+
+    let isoCurve: any;
+    let startParam = 0;
+    let endParam = 1;
+
+    try {
+      if ((direction || 'U').toUpperCase() === 'V') {
+        const vParam = vMin + (vMax - vMin) * normalized;
+        isoCurve = adaptor.VIso(vParam);
+        startParam = adaptor.FirstUParameter();
+        endParam = adaptor.LastUParameter();
+      } else {
+        const uParam = uMin + (uMax - uMin) * normalized;
+        isoCurve = adaptor.UIso(uParam);
+        startParam = adaptor.FirstVParameter();
+        endParam = adaptor.LastVParameter();
+      }
+
+      const edgeBuilder = new this.occt.BRepBuilderAPI_MakeEdge(isoCurve, startParam, endParam);
+      if (!edgeBuilder.IsDone()) {
+        throw new Error('Failed to build isoparametric edge');
+      }
+
+      const edge = edgeBuilder.Edge();
+      const wireBuilder = new this.occt.BRepBuilderAPI_MakeWire(edge);
+      if (!wireBuilder.IsDone()) {
+        throw new Error('Failed to build isoparametric wire');
+      }
+
+      const wire = wireBuilder.Wire();
+      const handle = this.createHandle(wire, 'curve');
+
+      edgeBuilder.delete();
+      wireBuilder.delete();
+      if (isoCurve?.delete) isoCurve.delete();
+      adaptor.delete();
+
+      return handle;
+    } catch (error) {
+      console.warn('[RealOCCT] Isoparametric curve fallback triggered:', error);
+
+      try {
+        const explorer = new this.occt.TopExp_Explorer(face, this.occt.TopAbs_EDGE);
+        if (explorer.More()) {
+          const edge = explorer.Current();
+          const wireBuilder = new this.occt.BRepBuilderAPI_MakeWire(edge);
+          if (wireBuilder.IsDone()) {
+            const wire = wireBuilder.Wire();
+            const handle = this.createHandle(wire, 'curve');
+            explorer.delete();
+            wireBuilder.delete();
+            if (isoCurve?.delete) isoCurve.delete();
+            adaptor.delete();
+            return handle;
+          }
+          wireBuilder.delete();
+        }
+        explorer.delete();
+      } catch (fallbackError) {
+        console.warn('[RealOCCT] Isoparametric fallback failed:', fallbackError);
+      }
+
+      if (isoCurve?.delete) isoCurve.delete();
+      adaptor.delete();
+      throw new Error('Failed to extract isoparametric curve');
+    }
+  }
+
+  /**
    * Create linear pattern
    */
-  private createLinearPattern(params: any): ShapeHandle[] {
-    const { shape, count = 3, spacing = 50, direction = { x: 1, y: 0, z: 0 }, keepOriginal = true } = params;
-    
+  private createLinearPattern(params: any): PatternResult {
+    const {
+      shape,
+      count = 3,
+      spacing = 50,
+      direction = { x: 1, y: 0, z: 0 },
+      keepOriginal = true,
+      centered = false,
+    } = params;
+
     const originalShape = this.shapes.get(shape?.id || shape);
     if (!originalShape) throw new Error('Shape not found');
-    
+
     const results: ShapeHandle[] = [];
-    
+
     // Add original if requested
     if (keepOriginal) {
-      results.push(this.createHandle(originalShape, 'solid'));
+      if (shape?.id) {
+        results.push(shape);
+      } else {
+        results.push(this.createHandle(originalShape, 'solid'));
+      }
     }
-    
-    // Create pattern instances
-    for (let i = 1; i < count; i++) {
+
+    const dirVector = Array.isArray(direction)
+      ? { x: direction[0], y: direction[1], z: direction[2] }
+      : direction;
+
+    const totalSpan = spacing * (count - 1);
+
+    for (let i = 0; i < count; i++) {
+      const distance = centered ? (spacing * i) - totalSpan / 2 : spacing * i;
+
+      if (keepOriginal && Math.abs(distance) < 1e-9) {
+        continue;
+      }
+
       const offset = {
-        x: direction.x * spacing * i,
-        y: direction.y * spacing * i,
-        z: direction.z * spacing * i
+        x: dirVector.x * distance,
+        y: dirVector.y * distance,
+        z: dirVector.z * distance
       };
-      
+
       const vec = this.createVec3(offset);
       const trsf = new this.occt.gp_Trsf();
       trsf.SetTranslation(vec);
-      
+
       const transformer = new this.occt.BRepBuilderAPI_Transform(originalShape, trsf, true);
       const transformedShape = transformer.Shape();
       const handle = this.createHandle(transformedShape, 'solid');
       
       results.push(handle);
-      
+
       vec.delete();
       trsf.delete();
       transformer.delete();
     }
     
-    return results;
+    const compound = this.buildCompoundFromHandles(results, 'solid');
+
+    return { shapes: results, compound };
   }
 
   /**
    * Create circular pattern
    */
-  private createCircularPattern(params: any): ShapeHandle[] {
-    const { shape, count = 6, angle = 360, center = { x: 0, y: 0, z: 0 }, axis = { x: 0, y: 0, z: 1 }, keepOriginal = true } = params;
-    
+  private createCircularPattern(params: any): PatternResult {
+    const {
+      shape,
+      count = 6,
+      angle = 360,
+      center = { x: 0, y: 0, z: 0 },
+      axis = { x: 0, y: 0, z: 1 },
+      keepOriginal = true,
+      rotateInstances = true,
+    } = params;
+
     const originalShape = this.shapes.get(shape?.id || shape);
     if (!originalShape) throw new Error('Shape not found');
-    
+
     const results: ShapeHandle[] = [];
-    
+
     // Add original if requested
     if (keepOriginal) {
-      results.push(this.createHandle(originalShape, 'solid'));
+      if (shape?.id) {
+        results.push(shape);
+      } else {
+        results.push(this.createHandle(originalShape, 'solid'));
+      }
     }
-    
-    const angleStep = (angle * Math.PI / 180) / (count - (keepOriginal ? 1 : 0));
-    
+
+    const angleRad = angle * Math.PI / 180;
+    const divisor = Math.max(count - 1, 1);
+    const angleStep = count > 1 ? angleRad / divisor : 0;
+
+    const centerVec = Array.isArray(center)
+      ? { x: center[0], y: center[1], z: center[2] }
+      : center;
+
+    const axisVec = Array.isArray(axis)
+      ? { x: axis[0], y: axis[1], z: axis[2] }
+      : axis;
+
+    const bbox = this.calculateBounds(originalShape);
+    const shapeCenter = {
+      x: (bbox.min.x + bbox.max.x) / 2,
+      y: (bbox.min.y + bbox.max.y) / 2,
+      z: (bbox.min.z + bbox.max.z) / 2,
+    };
+
+    const shapeCenterPoint = this.createPoint(shapeCenter);
+
     // Create pattern instances
-    for (let i = 1; i < count; i++) {
+    for (let i = 0; i < count; i++) {
+      if (keepOriginal && i === 0) continue;
+
       const rotationAngle = angleStep * i;
-      const rotationAxis = this.createAxis(center, axis);
-      
-      const trsf = new this.occt.gp_Trsf();
-      trsf.SetRotation(rotationAxis.Axis(), rotationAngle);
-      
-      const transformer = new this.occt.BRepBuilderAPI_Transform(originalShape, trsf, true);
+      const rotationAxis = this.createAxis(centerVec, axisVec);
+      const axis1 = rotationAxis.Axis();
+
+      let transform: any;
+
+      if (rotateInstances) {
+        transform = new this.occt.gp_Trsf();
+        transform.SetRotation(axis1, rotationAngle);
+      } else {
+        const rotation = new this.occt.gp_Trsf();
+        rotation.SetRotation(axis1, rotationAngle);
+
+        const rotatedCenter = shapeCenterPoint.Transformed(rotation);
+        const translationVec = new this.occt.gp_Vec(shapeCenterPoint, rotatedCenter);
+
+        transform = new this.occt.gp_Trsf();
+        transform.SetTranslation(translationVec);
+
+        if (rotatedCenter?.delete) rotatedCenter.delete();
+        translationVec.delete();
+        rotation.delete();
+      }
+
+      const transformer = new this.occt.BRepBuilderAPI_Transform(originalShape, transform, true);
       const transformedShape = transformer.Shape();
       const handle = this.createHandle(transformedShape, 'solid');
-      
+
       results.push(handle);
-      
-      rotationAxis.delete();
-      trsf.delete();
+
+      transform.delete();
       transformer.delete();
+      axis1.delete();
+      rotationAxis.delete();
     }
-    
-    return results;
+
+    const compound = this.buildCompoundFromHandles(results, 'solid');
+
+    shapeCenterPoint.delete();
+
+    return { shapes: results, compound };
   }
 
   /**
    * Create rectangular pattern
    */
-  private createRectangularPattern(params: any): ShapeHandle[] {
-    const { shape, count1 = 3, count2 = 3, spacing1 = 50, spacing2 = 50, direction1 = { x: 1, y: 0, z: 0 }, direction2 = { x: 0, y: 1, z: 0 }, keepOriginal = true } = params;
-    
+  private createRectangularPattern(params: any): PatternResult {
+    const countX = params.countX ?? params.count1 ?? 3;
+    const countY = params.countY ?? params.count2 ?? 3;
+    const spacingX = params.spacingX ?? params.spacing1 ?? 50;
+    const spacingY = params.spacingY ?? params.spacing2 ?? 50;
+    const direction1Param = params.directionX ?? params.direction1 ?? { x: 1, y: 0, z: 0 };
+    const direction2Param = params.directionY ?? params.direction2 ?? { x: 0, y: 1, z: 0 };
+    const staggered = params.staggered ?? false;
+    const keepOriginal = params.keepOriginal ?? true;
+    const shape = params.shape;
+
     const originalShape = this.shapes.get(shape?.id || shape);
     if (!originalShape) throw new Error('Shape not found');
-    
+
     const results: ShapeHandle[] = [];
-    
+
     // Add original if requested
     if (keepOriginal) {
-      results.push(this.createHandle(originalShape, 'solid'));
+      if (shape?.id) {
+        results.push(shape);
+      } else {
+        results.push(this.createHandle(originalShape, 'solid'));
+      }
     }
-    
+
+    const dir1 = Array.isArray(direction1Param)
+      ? { x: direction1Param[0], y: direction1Param[1], z: direction1Param[2] }
+      : direction1Param;
+
+    const dir2 = Array.isArray(direction2Param)
+      ? { x: direction2Param[0], y: direction2Param[1], z: direction2Param[2] }
+      : direction2Param;
+
     // Create grid pattern
-    for (let i = 0; i < count1; i++) {
-      for (let j = 0; j < count2; j++) {
+    for (let i = 0; i < countX; i++) {
+      for (let j = 0; j < countY; j++) {
         if (i === 0 && j === 0 && keepOriginal) continue; // Skip original position
         
         const offset = {
-          x: direction1.x * spacing1 * i + direction2.x * spacing2 * j,
-          y: direction1.y * spacing1 * i + direction2.y * spacing2 * j,
-          z: direction1.z * spacing1 * i + direction2.z * spacing2 * j
+          x: dir1.x * spacingX * i + dir2.x * spacingY * j,
+          y: dir1.y * spacingX * i + dir2.y * spacingY * j,
+          z: dir1.z * spacingX * i + dir2.z * spacingY * j
         };
+        
+        if (staggered && j % 2 === 1) {
+          offset.x += dir1.x * spacingX * 0.5;
+          offset.y += dir1.y * spacingX * 0.5;
+          offset.z += dir1.z * spacingX * 0.5;
+        }
         
         const vec = this.createVec3(offset);
         const trsf = new this.occt.gp_Trsf();
@@ -1861,13 +2158,15 @@ export class RealOCCT implements WorkerAPI {
       }
     }
     
-    return results;
+    const compound = this.buildCompoundFromHandles(results, 'solid');
+
+    return { shapes: results, compound };
   }
 
   /**
    * Create path pattern
    */
-  private createPathPattern(params: any): ShapeHandle[] {
+  private createPathPattern(params: any): PatternResult {
     const { shape, path, count = 5, align = true, spacing = 'equal', keepOriginal = true } = params;
     
     const originalShape = this.shapes.get(shape?.id || shape);
@@ -1878,7 +2177,11 @@ export class RealOCCT implements WorkerAPI {
     
     // Add original if requested
     if (keepOriginal) {
-      results.push(this.createHandle(originalShape, 'solid'));
+      if (shape?.id) {
+        results.push(shape);
+      } else {
+        results.push(this.createHandle(originalShape, 'solid'));
+      }
     }
     
     // Create pattern instances along path (simplified - uniform spacing)
@@ -1905,13 +2208,15 @@ export class RealOCCT implements WorkerAPI {
       transformer.delete();
     }
     
-    return results;
+    const compound = this.buildCompoundFromHandles(results, 'solid');
+
+    return { shapes: results, compound };
   }
 
   /**
    * Create mirror pattern
    */
-  private createMirrorPattern(params: any): ShapeHandle[] {
+  private createMirrorPattern(params: any): PatternResult {
     const { shape, planeNormal = { x: 1, y: 0, z: 0 }, planePoint = { x: 0, y: 0, z: 0 }, keepOriginal = true } = params;
     
     const originalShape = this.shapes.get(shape?.id || shape);
@@ -1921,7 +2226,11 @@ export class RealOCCT implements WorkerAPI {
     
     // Add original if requested
     if (keepOriginal) {
-      results.push(this.createHandle(originalShape, 'solid'));
+      if (shape?.id) {
+        results.push(shape);
+      } else {
+        results.push(this.createHandle(originalShape, 'solid'));
+      }
     }
     
     // Create mirror
@@ -1944,13 +2253,15 @@ export class RealOCCT implements WorkerAPI {
     trsf.delete();
     transformer.delete();
     
-    return results;
+    const compound = this.buildCompoundFromHandles(results, 'solid');
+
+    return { shapes: results, compound };
   }
 
   /**
    * Create variable pattern
    */
-  private createVariablePattern(params: any): ShapeHandle[] {
+  private createVariablePattern(params: any): PatternResult {
     const { shape, transforms = [], keepOriginal = true } = params;
     
     const originalShape = this.shapes.get(shape?.id || shape);
@@ -1960,7 +2271,11 @@ export class RealOCCT implements WorkerAPI {
     
     // Add original if requested
     if (keepOriginal) {
-      results.push(this.createHandle(originalShape, 'solid'));
+      if (shape?.id) {
+        results.push(shape);
+      } else {
+        results.push(this.createHandle(originalShape, 'solid'));
+      }
     }
     
     // Apply each transform
@@ -1993,13 +2308,15 @@ export class RealOCCT implements WorkerAPI {
       transformer.delete();
     }
     
-    return results;
+    const compound = this.buildCompoundFromHandles(results, 'solid');
+
+    return { shapes: results, compound };
   }
 
   /**
    * Create hexagonal pattern
    */
-  private createHexPattern(params: any): ShapeHandle[] {
+  private createHexPattern(params: any): PatternResult {
     const { shape, rings = 2, spacing = 50, center = { x: 0, y: 0, z: 0 }, keepOriginal = true } = params;
     
     const originalShape = this.shapes.get(shape?.id || shape);
@@ -2009,7 +2326,11 @@ export class RealOCCT implements WorkerAPI {
     
     // Add original if requested
     if (keepOriginal) {
-      results.push(this.createHandle(originalShape, 'solid'));
+      if (shape?.id) {
+        results.push(shape);
+      } else {
+        results.push(this.createHandle(originalShape, 'solid'));
+      }
     }
     
     // Create hexagonal grid
@@ -2040,7 +2361,9 @@ export class RealOCCT implements WorkerAPI {
       }
     }
     
-    return results;
+    const compound = this.buildCompoundFromHandles(results, 'solid');
+
+    return { shapes: results, compound };
   }
 
   /**

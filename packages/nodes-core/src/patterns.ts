@@ -1,9 +1,15 @@
 import type { NodeDefinition, ShapeHandle, Vec3 } from '@brepflow/types';
 
+const extractPatternShapes = (result: any): ShapeHandle[] => {
+  if (Array.isArray(result)) return result;
+  if (result?.shapes && Array.isArray(result.shapes)) return result.shapes;
+  return [];
+};
+
 export const LinearPatternNode: NodeDefinition<
   { shape: ShapeHandle; direction?: Vec3 },
   { shapes: ShapeHandle[] },
-  { count: number; spacing: number; direction: Vec3; keepOriginal: boolean }
+  { count: number; spacing: number; direction: Vec3; keepOriginal: boolean; centered: boolean }
 > = {
   id: 'Pattern::Linear',
   category: 'Pattern',
@@ -40,6 +46,11 @@ export const LinearPatternNode: NodeDefinition<
       label: 'Keep Original',
       default: true,
     },
+    centered: {
+      type: 'boolean',
+      label: 'Centered',
+      default: false,
+    },
   },
   async evaluate(ctx, inputs, params) {
     const direction = inputs.direction || params.direction;
@@ -49,16 +60,17 @@ export const LinearPatternNode: NodeDefinition<
       count: params.count,
       spacing: params.spacing,
       direction,
+      centered: params.centered,
       keepOriginal: params.keepOriginal,
     });
-    return { shapes: result };
+    return { shapes: extractPatternShapes(result) };
   },
 };
 
 export const CircularPatternNode: NodeDefinition<
   { shape: ShapeHandle; axis?: Vec3; center?: Vec3 },
   { shapes: ShapeHandle[] },
-  { count: number; angle: number; center: Vec3; axis: Vec3; keepOriginal: boolean }
+  { count: number; angle: number; center: Vec3; axis: Vec3; keepOriginal: boolean; rotateInstances: boolean }
 > = {
   id: 'Pattern::Circular',
   category: 'Pattern',
@@ -102,6 +114,11 @@ export const CircularPatternNode: NodeDefinition<
       label: 'Keep Original',
       default: true,
     },
+    rotateInstances: {
+      type: 'boolean',
+      label: 'Rotate Instances',
+      default: true,
+    },
   },
   async evaluate(ctx, inputs, params) {
     const center = inputs.center || params.center;
@@ -113,9 +130,10 @@ export const CircularPatternNode: NodeDefinition<
       angle: params.angle,
       center,
       axis,
+      rotateInstances: params.rotateInstances,
       keepOriginal: params.keepOriginal,
     });
-    return { shapes: result };
+    return { shapes: extractPatternShapes(result) };
   },
 };
 
@@ -193,7 +211,7 @@ export const RectangularPatternNode: NodeDefinition<
       direction2,
       keepOriginal: params.keepOriginal,
     });
-    return { shapes: result };
+    return { shapes: extractPatternShapes(result) };
   },
 };
 
@@ -247,7 +265,7 @@ export const PathPatternNode: NodeDefinition<
       spacing: params.spacing,
       keepOriginal: params.keepOriginal,
     });
-    return { shapes: result };
+    return { shapes: extractPatternShapes(result) };
   },
 };
 
@@ -292,7 +310,7 @@ export const MirrorPatternNode: NodeDefinition<
       planePoint: params.point,
       keepOriginal: params.keepOriginal,
     });
-    return { shapes: result };
+    return { shapes: extractPatternShapes(result) };
   },
 };
 
@@ -333,7 +351,7 @@ export const VariablePatternNode: NodeDefinition<
       transforms: params.transforms,
       keepOriginal: params.keepOriginal,
     });
-    return { shapes: result };
+    return { shapes: extractPatternShapes(result) };
   },
 };
 
@@ -388,7 +406,7 @@ export const HexPatternNode: NodeDefinition<
       center,
       keepOriginal: params.keepOriginal,
     });
-    return { shapes: result };
+    return { shapes: extractPatternShapes(result) };
   },
 };
 
