@@ -16,6 +16,7 @@ import {
   ConflictResolutionStrategy,
   SyncStatus,
 } from '@brepflow/cloud-api/src/types';
+import { CloudApiClient } from '../api/cloud-api-client';
 import { OperationalTransformEngine } from '@brepflow/engine-core';
 import { GraphInstance } from '@brepflow/types';
 
@@ -35,11 +36,13 @@ export interface CloudSyncConfig {
   apiEndpoint: string;
   deviceId: DeviceId;
   userId: UserId;
+  apiKey?: string;
   syncInterval: number; // ms
   maxRetries: number;
   batchSize: number;
   compressionEnabled: boolean;
   conflictResolution: ConflictResolutionStrategy;
+  requestTimeout?: number;
 }
 
 export interface SyncResult {
@@ -58,8 +61,11 @@ export class CloudSyncManager extends EventEmitter {
   private syncTimers = new Map<ProjectId, NodeJS.Timeout>();
   private isOnline = true;
   private retryAttempts = new Map<ProjectId, number>();
+  private conflictHistory = new Map<ProjectId, ConflictResolution[]>();
+  private lastGraphs = new Map<ProjectId, GraphInstance>();
+  private apiClient: CloudApiClient;
 
-  constructor(config: CloudSyncConfig) {
+  constructor(config: CloudSyncConfig, apiClient?: CloudApiClient) {
     super();
     if (!isCloudSyncEnabled()) {
       throw new Error('Cloud sync is disabled. Set BREPFLOW_ENABLE_CLOUD_SYNC=true (or window.__BREPFLOW_ENABLE_CLOUD_SYNC__ = true) to enable this experimental feature.');
@@ -67,6 +73,15 @@ export class CloudSyncManager extends EventEmitter {
     this.config = config;
     this.operationalTransform = new OperationalTransformEngine();
     this.setupNetworkMonitoring();
+    this.apiClient = apiClient ?? new CloudApiClient({
+      baseUrl: config.apiEndpoint,
+      apiKey: config.apiKey || '',
+      userId: config.userId,
+      timeout: config.requestTimeout ?? Math.max(10_000, config.syncInterval),
+      retryAttempts: config.maxRetries,
+      cacheEnabled: true,
+      cacheTTL: 60_000,
+    });
   }
 
   /**
@@ -85,8 +100,10 @@ export class CloudSyncManager extends EventEmitter {
         syncStatus: 'offline',
       };
 
-      this.syncStates.set(projectId, syncState);
-      this.operationQueues.set(projectId, []);
+    this.syncStates.set(projectId, syncState);
+    this.operationQueues.set(projectId, []);
+    this.conflictHistory.set(projectId, []);
+    this.lastGraphs.set(projectId, this.cloneGraph(graph));
 
       // Perform initial sync
       await this.performFullSync(projectId, graph);
@@ -120,7 +137,7 @@ export class CloudSyncManager extends EventEmitter {
     // Update local version
     const syncState = this.syncStates.get(projectId)!;
     syncState.localVersion = operation.versionVector;
-    syncState.pendingOperations.push(operation);
+    syncState.pendingOperations = [...syncState.pendingOperations, operation];
 
     this.emit('operation-queued', { projectId, operation });
 
@@ -171,9 +188,11 @@ export class CloudSyncManager extends EventEmitter {
       // Update sync state
       syncState.lastSync = new Date();
       syncState.syncStatus = conflicts.length > 0 ? 'conflict' : 'synced';
-      syncState.pendingOperations = syncState.pendingOperations.filter(
-        op => !toSend.some(sent => sent.id === op.id)
-      );
+      if (conflicts.length > 0) {
+        this.conflictHistory.set(projectId, conflicts);
+      } else {
+        this.conflictHistory.set(projectId, []);
+      }
 
       this.retryAttempts.delete(projectId);
 
@@ -232,6 +251,8 @@ export class CloudSyncManager extends EventEmitter {
       // Trigger sync after conflict resolution
       await this.syncProject(projectId);
 
+      this.conflictHistory.set(projectId, []);
+
       this.emit('conflicts-resolved', { projectId, resolutions });
     } catch (error) {
       this.emit('conflict-resolution-error', { projectId, error: error.message });
@@ -244,6 +265,10 @@ export class CloudSyncManager extends EventEmitter {
    */
   getSyncStatus(projectId: ProjectId): SyncState | null {
     return this.syncStates.get(projectId) || null;
+  }
+
+  getConflicts(projectId: ProjectId): ConflictResolution[] {
+    return this.conflictHistory.get(projectId) || [];
   }
 
   /**
@@ -259,6 +284,7 @@ export class CloudSyncManager extends EventEmitter {
     syncState.lastSync = new Date(0);
     syncState.pendingOperations = [];
     syncState.localVersion = this.createVersionVector(projectId);
+    this.lastGraphs.set(projectId, this.cloneGraph(graph));
 
     return this.performFullSync(projectId, graph);
   }
@@ -276,6 +302,8 @@ export class CloudSyncManager extends EventEmitter {
     this.syncStates.delete(projectId);
     this.operationQueues.delete(projectId);
     this.retryAttempts.delete(projectId);
+    this.conflictHistory.delete(projectId);
+    this.lastGraphs.delete(projectId);
 
     this.emit('project-cleanup', { projectId });
   }
@@ -288,7 +316,7 @@ export class CloudSyncManager extends EventEmitter {
       const remoteState = await this.fetchRemoteProjectState(projectId);
 
       // Calculate difference
-      const localOperations = this.generateOperationsFromGraph(graph);
+      const localOperations = this.generateOperationsFromGraph(projectId, graph);
       const remoteOperations = remoteState.operations;
 
       // Apply operational transformation
@@ -303,8 +331,15 @@ export class CloudSyncManager extends EventEmitter {
       }
 
       const syncState = this.syncStates.get(projectId)!;
+      syncState.remoteVersion = remoteState.version;
       syncState.syncStatus = conflicts.length > 0 ? 'conflict' : 'synced';
       syncState.lastSync = new Date();
+
+      if (conflicts.length > 0) {
+        this.conflictHistory.set(projectId, conflicts);
+      } else {
+        this.conflictHistory.set(projectId, []);
+      }
 
       return {
         success: true,
@@ -330,6 +365,8 @@ export class CloudSyncManager extends EventEmitter {
     const remoteDelta = await this.fetchRemoteDelta(projectId, syncState.remoteVersion);
     const toReceive = remoteDelta.operations;
 
+    syncState.remoteVersion = remoteDelta.versionVector;
+
     return { toSend, toReceive };
   }
 
@@ -345,13 +382,11 @@ export class CloudSyncManager extends EventEmitter {
     const localOperations = this.operationQueues.get(projectId) || [];
 
     for (const remoteOp of operations) {
-      // Check for conflicts with local operations
       const conflictingLocalOp = localOperations.find(localOp =>
         this.operationsConflict(localOp, remoteOp)
       );
 
       if (conflictingLocalOp) {
-        // Handle conflict
         const resolution = await this.resolveOperationConflict(
           conflictingLocalOp,
           remoteOp,
@@ -360,13 +395,18 @@ export class CloudSyncManager extends EventEmitter {
         conflicts.push(resolution);
 
         if (resolution.resolution !== 'local') {
-          appliedOperations.push(resolution.resolvedOperation || remoteOp);
+          const resolved = resolution.resolvedOperation || remoteOp;
+          await this.applyRemoteOperation(projectId, resolved);
+          appliedOperations.push(resolved);
         }
       } else {
-        // No conflict, apply remote operation
         await this.applyRemoteOperation(projectId, remoteOp);
         appliedOperations.push(remoteOp);
       }
+    }
+
+    if (conflicts.length > 0) {
+      this.conflictHistory.set(projectId, conflicts);
     }
 
     return { appliedOperations, conflicts };
@@ -455,6 +495,10 @@ export class CloudSyncManager extends EventEmitter {
     return hash.toString(36);
   }
 
+  private cloneGraph(graph: GraphInstance): GraphInstance {
+    return JSON.parse(JSON.stringify(graph));
+  }
+
   private isCriticalOperation(operation: CloudOperation): boolean {
     return ['DELETE_PROJECT', 'SHARE_PROJECT', 'DELETE_NODE'].includes(operation.type);
   }
@@ -489,50 +533,182 @@ export class CloudSyncManager extends EventEmitter {
 
   // API integration methods (to be implemented with actual backend)
   private async fetchRemoteVersion(projectId: ProjectId): Promise<VersionVector> {
-    // TODO: Implement API call
-    return {
-      deviceId: 'server',
-      timestamp: Date.now(),
-      operationId: 'initial',
-      parentVersions: [],
-      checksum: '',
-    };
+    return this.apiClient.getProjectVersion(projectId);
   }
 
   private async fetchRemoteProjectState(projectId: ProjectId): Promise<any> {
-    // TODO: Implement API call
-    return { operations: [] };
+    return this.apiClient.getProjectState(projectId);
   }
 
   private async fetchRemoteDelta(projectId: ProjectId, since: VersionVector): Promise<SyncDelta> {
-    // TODO: Implement API call
-    return {
-      operations: [],
-      versionVector: since,
-      conflicts: [],
-      size: 0,
-      compressed: false,
-    };
+    return this.apiClient.getSyncDelta(projectId, since, this.config.batchSize);
   }
 
   private async sendOperations(projectId: ProjectId, operations: CloudOperation[]): Promise<void> {
-    // TODO: Implement API call
-    console.log(`Sending ${operations.length} operations for project ${projectId}`);
+    if (operations.length === 0) return;
+
+    await this.apiClient.sendOperations(projectId, operations);
+
+    const sentIds = new Set(operations.map(op => op.id));
+    const syncState = this.syncStates.get(projectId);
+    if (syncState) {
+      syncState.pendingOperations = syncState.pendingOperations.filter(op => !sentIds.has(op.id));
+    }
+
+    const queue = this.operationQueues.get(projectId);
+    if (queue) {
+      const updatedQueue = queue.filter(op => !sentIds.has(op.id));
+      this.operationQueues.set(projectId, updatedQueue);
+      queue.length = 0;
+      queue.push(...updatedQueue);
+    }
   }
 
   private async applyRemoteOperation(projectId: ProjectId, operation: CloudOperation): Promise<void> {
-    // TODO: Implement operation application to local graph
+    const queue = this.operationQueues.get(projectId) || [];
+    const updatedQueue = queue.filter(op => op.id !== operation.id);
+    this.operationQueues.set(projectId, updatedQueue);
+    queue.length = 0;
+    queue.push(...updatedQueue);
+
+    const syncState = this.syncStates.get(projectId);
+    if (syncState) {
+      if (operation.versionVector) {
+        syncState.remoteVersion = operation.versionVector;
+      }
+      syncState.pendingOperations = syncState.pendingOperations.filter(op => op.id !== operation.id);
+    }
+
     this.emit('remote-operation-applied', { projectId, operation });
   }
 
   private async applyConflictResolution(projectId: ProjectId, resolution: ConflictResolution): Promise<void> {
-    // TODO: Implement conflict resolution application
+    const syncState = this.syncStates.get(projectId);
+    const queue = this.operationQueues.get(projectId) || [];
+
+    const removeLocal = (operationId: string) => {
+      if (syncState) {
+        syncState.pendingOperations = syncState.pendingOperations.filter(op => op.id !== operationId);
+      }
+      const updatedQueue = queue.filter(op => op.id !== operationId);
+      this.operationQueues.set(projectId, updatedQueue);
+      queue.length = 0;
+      queue.push(...updatedQueue);
+    };
+
+    switch (resolution.resolution) {
+      case 'remote':
+        if (resolution.remoteOperation) {
+          await this.applyRemoteOperation(projectId, resolution.remoteOperation);
+        }
+        if (resolution.localOperation) {
+          removeLocal(resolution.localOperation.id);
+        }
+        break;
+      case 'merge':
+        if (resolution.resolvedOperation) {
+          await this.sendOperations(projectId, [resolution.resolvedOperation]);
+          await this.applyRemoteOperation(projectId, resolution.resolvedOperation);
+        }
+        if (resolution.localOperation) {
+          removeLocal(resolution.localOperation.id);
+        }
+        break;
+      case 'local':
+        if (resolution.remoteOperation) {
+          this.emit('remote-operation-skipped', { projectId, operation: resolution.remoteOperation });
+        }
+        break;
+      default:
+        break;
+    }
+
     this.emit('conflict-applied', { projectId, resolution });
   }
 
-  private generateOperationsFromGraph(graph: GraphInstance): CloudOperation[] {
-    // TODO: Generate operations from current graph state
-    return [];
+  private generateOperationsFromGraph(projectId: ProjectId, graph: GraphInstance): CloudOperation[] {
+    const previous = this.lastGraphs.get(projectId);
+    if (!previous) {
+      this.lastGraphs.set(projectId, this.cloneGraph(graph));
+      return [];
+    }
+
+    const operations: CloudOperation[] = [];
+
+    const prevNodes = new Map(previous.nodes.map(node => [node.id, node]));
+    const currNodes = new Map(graph.nodes.map(node => [node.id, node]));
+
+    const createOperation = (type: string, data: unknown): CloudOperation => ({
+      id: `${type}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
+      type,
+      data,
+      deviceId: this.config.deviceId,
+      userId: this.config.userId,
+      timestamp: Date.now(),
+      versionVector: this.createVersionVector(projectId),
+      dependencies: [],
+    });
+
+    for (const [nodeId, node] of currNodes) {
+      const existing = prevNodes.get(nodeId);
+      if (!existing) {
+        operations.push(createOperation('ADD_NODE', { node }));
+        continue;
+      }
+
+      if (JSON.stringify(existing) !== JSON.stringify(node)) {
+        operations.push(createOperation('UPDATE_NODE', { before: existing, after: node }));
+      }
+    }
+
+    for (const [nodeId, node] of prevNodes) {
+      if (!currNodes.has(nodeId)) {
+        operations.push(createOperation('DELETE_NODE', { node }));
+      }
+    }
+
+    const prevEdges = new Map(previous.edges.map(edge => [edge.id, edge]));
+    const currEdges = new Map(graph.edges.map(edge => [edge.id, edge]));
+
+    for (const [edgeId, edge] of currEdges) {
+      const existing = prevEdges.get(edgeId);
+      if (!existing) {
+        operations.push(createOperation('ADD_EDGE', { edge }));
+        continue;
+      }
+
+      if (
+        existing.source !== edge.source ||
+        existing.target !== edge.target ||
+        existing.sourceHandle !== edge.sourceHandle ||
+        existing.targetHandle !== edge.targetHandle
+      ) {
+        operations.push(createOperation('UPDATE_EDGE', { before: existing, after: edge }));
+      }
+    }
+
+    for (const [edgeId, edge] of prevEdges) {
+      if (!currEdges.has(edgeId)) {
+        operations.push(createOperation('DELETE_EDGE', { edge }));
+      }
+    }
+
+    if (
+      previous.units !== graph.units ||
+      previous.tolerance !== graph.tolerance ||
+      JSON.stringify(previous.metadata) !== JSON.stringify(graph.metadata)
+    ) {
+      operations.push(
+        createOperation('UPDATE_GRAPH_SETTINGS', {
+          before: { units: previous.units, tolerance: previous.tolerance, metadata: previous.metadata },
+          after: { units: graph.units, tolerance: graph.tolerance, metadata: graph.metadata },
+        })
+      );
+    }
+
+    this.lastGraphs.set(projectId, this.cloneGraph(graph));
+
+    return operations;
   }
 
   private convertToCollaborationOperation(cloudOp: CloudOperation): any {

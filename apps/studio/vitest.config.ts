@@ -31,7 +31,7 @@ export default defineConfig({
         '**/mockData',
         '**/__mocks__',
       ],
-      all: false,
+      all: true,
       thresholds: {
         // TODO: Raise back toward 80%+ once instrumentation coverage improves
         lines: 60,

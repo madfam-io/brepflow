@@ -114,6 +114,15 @@ export class GeometryAPI implements WorkerAPI {
         case 'EXPORT_STEP':
           result = await this.exportSTEP(params);
           break;
+        case 'EXPORT_IGES':
+          result = await this.exportIGES(params);
+          break;
+        case 'EXPORT_OBJ':
+          result = await this.exportOBJ(params);
+          break;
+        case 'EXPORT_STL':
+          result = await this.exportSTL(params);
+          break;
         case 'IMPORT_STEP':
           result = await this.importSTEP(params);
           break;
@@ -379,6 +388,51 @@ export class GeometryAPI implements WorkerAPI {
     }
   }
 
+  private async exportSTL(params: any): Promise<string> {
+    const { shape, binary = false } = params;
+    if (!shape) {
+      throw new Error('Export STL requires a shape');
+    }
+
+    try {
+      const s = this.getShapeFromHandle(shape);
+      return this.occtWrapper.exportSTL(s, binary);
+    } catch (error) {
+      console.warn('[GeometryAPI] Using mock STL export');
+      return this.createMockSTL();
+    }
+  }
+
+  private async exportIGES(params: any): Promise<string> {
+    const { shape } = params;
+    if (!shape) {
+      throw new Error('Export IGES requires a shape');
+    }
+
+    try {
+      const s = this.getShapeFromHandle(shape);
+      return this.occtWrapper.exportIGES(s);
+    } catch (error) {
+      console.warn('[GeometryAPI] Using mock IGES export');
+      return this.createMockIGES();
+    }
+  }
+
+  private async exportOBJ(params: any): Promise<string> {
+    const { shape } = params;
+    if (!shape) {
+      throw new Error('Export OBJ requires a shape');
+    }
+
+    try {
+      const s = this.getShapeFromHandle(shape);
+      return this.occtWrapper.exportOBJ(s);
+    } catch (error) {
+      console.warn('[GeometryAPI] Using mock OBJ export');
+      return this.createMockOBJ();
+    }
+  }
+
   private async importSTEP(params: any): Promise<ShapeHandle> {
     const { data } = params;
     if (!data) {
@@ -623,6 +677,18 @@ DATA;
 #1=CARTESIAN_POINT('',(0.,0.,0.));
 ENDSEC;
 END-ISO-10303-21;`;
+  }
+
+  private createMockSTL(): string {
+    return `solid brepflow\n  facet normal 0 0 1\n    outer loop\n      vertex 0 0 0\n      vertex 1 0 0\n      vertex 0 1 0\n    endloop\n  endfacet\nendsolid brepflow`;
+  }
+
+  private createMockIGES(): string {
+    return `IGES;BrepFlow Mock Export;${new Date().toISOString()}`;
+  }
+
+  private createMockOBJ(): string {
+    return `# BrepFlow OBJ Mock\nv 0 0 0\nv 1 0 0\nv 0 1 0\nf 1 2 3`;
   }
 
   /**

@@ -469,6 +469,14 @@ export class MockGeometry implements WorkerAPI {
         const meshData = await this.tessellate(params.shape, params.deflection || params.tolerance);
         return { mesh: meshData } as T;
       }
+      case 'EXPORT_STEP':
+        return this.createMockSTEP() as T;
+      case 'EXPORT_STL':
+        return this.createMockSTL() as T;
+      case 'EXPORT_IGES':
+        return this.createMockIGES() as T;
+      case 'EXPORT_OBJ':
+        return this.createMockOBJ() as T;
       default:
         throw new Error(`Unknown operation: ${operation}`);
     }
@@ -510,6 +518,22 @@ export class MockGeometry implements WorkerAPI {
 
   disposeSync(handleId: string): void {
     this.shapes.delete(handleId);
+  }
+
+  private createMockSTEP(): string {
+    return `ISO-10303-21;# BrepFlow Mock STEP`;
+  }
+
+  private createMockSTL(): string {
+    return `solid brepflow\n  facet normal 0 0 1\n    outer loop\n      vertex 0 0 0\n      vertex 1 0 0\n      vertex 0 1 0\n    endloop\n  endfacet\nendsolid brepflow`;
+  }
+
+  private createMockIGES(): string {
+    return `IGES;BrepFlow Mock Export;${new Date().toISOString()}`;
+  }
+
+  private createMockOBJ(): string {
+    return `# BrepFlow OBJ Mock\nv 0 0 0\nv 1 0 0\nv 0 1 0\nf 1 2 3`;
   }
 }
 

@@ -17,6 +17,7 @@ import {
   ProjectPermission,
   User,
 } from '@brepflow/cloud-api/src/types';
+import { CloudApiClient } from '../api/cloud-api-client';
 
 const isSharingEnabled = (): boolean => {
   if (typeof process !== 'undefined' && process.env && 'BREPFLOW_ENABLE_PROJECT_SHARING' in process.env) {
@@ -32,10 +33,12 @@ const isSharingEnabled = (): boolean => {
 
 export interface SharingConfig {
   apiEndpoint: string;
+  apiKey?: string;
   maxSharesPerProject: number;
   defaultLinkExpiration: number; // days
   allowAnonymousAccess: boolean;
   requireEmailVerification: boolean;
+  requestTimeout?: number;
 }
 
 export interface ShareAnalytics {
@@ -58,17 +61,29 @@ export interface ShareAccess {
   };
 }
 
+type ExtendedShareRequest = ShareRequest & { requestedBy?: UserId };
+
 export class ProjectSharingManager extends EventEmitter {
   private config: SharingConfig;
   private shareCache = new Map<ShareId, ShareLink>();
   private invitationCache = new Map<string, ShareInvitation>();
+  private apiClient: CloudApiClient;
 
-  constructor(config: SharingConfig) {
+  constructor(config: SharingConfig, apiClient?: CloudApiClient) {
     super();
     if (!isSharingEnabled()) {
       throw new Error('Project sharing is disabled. Set BREPFLOW_ENABLE_PROJECT_SHARING=true (or globalThis.__BREPFLOW_ENABLE_PROJECT_SHARING__ = true) to enable this experimental feature.');
     }
     this.config = config;
+    this.apiClient = apiClient ?? new CloudApiClient({
+      baseUrl: config.apiEndpoint,
+      apiKey: config.apiKey || '',
+      userId: 'system',
+      timeout: config.requestTimeout ?? 10000,
+      retryAttempts: 2,
+      cacheEnabled: true,
+      cacheTTL: 30_000,
+    });
   }
 
   /**
@@ -90,24 +105,21 @@ export class ProjectSharingManager extends EventEmitter {
       // Validate permissions
       await this.validateUserPermission(createdBy, projectId, 'share');
 
-      const shareLink: ShareLink = {
-        id: this.generateShareId(),
-        projectId,
+      const allowAnonymous = options.allowAnonymous ?? this.config.allowAnonymousAccess;
+      if (allowAnonymous && this.config.requireEmailVerification) {
+        throw new Error('Anonymous access is disabled while email verification is required');
+      }
+
+      const shareLink = await this.apiClient.createShareLink(projectId, {
         createdBy,
-        createdAt: new Date(),
-        expiresAt: options.expiresAt || this.getDefaultExpiration(),
         accessLevel: options.accessLevel || 'viewer',
-        isPublic: options.isPublic || false,
-        allowAnonymous: options.allowAnonymous || this.config.allowAnonymousAccess,
+        expiresAt: options.expiresAt || this.getDefaultExpiration(),
+        isPublic: options.isPublic ?? false,
+        allowAnonymous,
         maxUses: options.maxUses,
-        currentUses: 0,
-        isActive: true,
-      };
+        description: options.description,
+      });
 
-      // Save to database
-      await this.saveShareLink(shareLink);
-
-      // Cache the share link
       this.shareCache.set(shareLink.id, shareLink);
 
       this.emit('share-link-created', { shareLink, options });
@@ -122,22 +134,31 @@ export class ProjectSharingManager extends EventEmitter {
   /**
    * Send invitations to specific users/emails
    */
-  async sendInvitations(request: ShareRequest): Promise<ShareInvitation[]> {
+  async sendInvitations(request: ExtendedShareRequest): Promise<ShareInvitation[]> {
     try {
       // Validate permissions
-      await this.validateUserPermission(request.targetUsers[0], request.projectId, 'share');
+      const requester = request.requestedBy || request.targetUsers[0];
+      await this.validateUserPermission(requester, request.projectId, 'share');
+
+      await this.apiClient.sendInvitation(request.projectId, {
+        userIds: request.targetUsers,
+        emails: request.targetEmails,
+        role: request.role,
+        message: request.message,
+        expiresAt: request.expiresAt,
+      });
 
       const invitations: ShareInvitation[] = [];
 
       // Process user invitations
       for (const userId of request.targetUsers) {
-        const invitation = await this.createUserInvitation(request, userId);
+        const invitation = await this.createUserInvitation(requester, request, userId);
         invitations.push(invitation);
       }
 
       // Process email invitations
       for (const email of request.targetEmails) {
-        const invitation = await this.createEmailInvitation(request, email);
+        const invitation = await this.createEmailInvitation(requester, request, email);
         invitations.push(invitation);
       }
 
@@ -400,6 +421,7 @@ export class ProjectSharingManager extends EventEmitter {
       await this.validateUserPermission(revokedBy, shareLink.projectId, 'admin');
 
       shareLink.isActive = false;
+      await this.apiClient.revokeShareLink(shareId);
       await this.updateShareLink(shareLink);
 
       this.shareCache.delete(shareId);
@@ -424,6 +446,7 @@ export class ProjectSharingManager extends EventEmitter {
   }
 
   private async createUserInvitation(
+    requestedBy: UserId,
     request: ShareRequest,
     userId: UserId
   ): Promise<ShareInvitation> {
@@ -432,7 +455,7 @@ export class ProjectSharingManager extends EventEmitter {
     const invitation: ShareInvitation = {
       id: `inv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       projectId: request.projectId,
-      fromUserId: userId, // Note: This should be the requesting user, not target
+      fromUserId: requestedBy,
       toUserId: userId,
       toEmail: user.email,
       role: request.role,
@@ -449,13 +472,14 @@ export class ProjectSharingManager extends EventEmitter {
   }
 
   private async createEmailInvitation(
+    requestedBy: UserId,
     request: ShareRequest,
     email: string
   ): Promise<ShareInvitation> {
     const invitation: ShareInvitation = {
       id: `inv_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       projectId: request.projectId,
-      fromUserId: request.targetUsers[0], // Note: This should be the requesting user
+      fromUserId: requestedBy,
       toEmail: email,
       role: request.role,
       message: request.message,
@@ -533,18 +557,39 @@ export class ProjectSharingManager extends EventEmitter {
     projectId: ProjectId,
     action: string
   ): Promise<void> {
-    // TODO: Implement permission validation
-    console.log(`Validating ${userId} can ${action} on ${projectId}`);
-  }
+    const project = await this.apiClient.getProject(projectId);
 
-  private async saveShareLink(shareLink: ShareLink): Promise<void> {
-    // TODO: Implement database save
-    console.log('Saving share link:', shareLink.id);
+    if (project.ownerId === userId) {
+      return;
+    }
+
+    const collaborator = project.collaborators?.find(c => c.userId === userId);
+    if (!collaborator) {
+      throw new Error(`User ${userId} is not a collaborator on project ${projectId}`);
+    }
+
+    const permissionMap: Record<string, ProjectPermission['action']> = {
+      read: 'read',
+      write: 'write',
+      delete: 'delete',
+      share: 'share',
+      admin: 'admin',
+      export: 'export',
+    };
+
+    const requiredAction = permissionMap[action] || 'read';
+    const hasPermission = collaborator.permissions.some(
+      permission => permission.action === requiredAction && permission.granted
+    );
+
+    if (!hasPermission) {
+      throw new Error(`User ${userId} lacks ${requiredAction} permission for project ${projectId}`);
+    }
   }
 
   private async updateShareLink(shareLink: ShareLink): Promise<void> {
-    // TODO: Implement database update
-    console.log('Updating share link:', shareLink.id);
+    const updated = await this.apiClient.updateShareLink(shareLink.id, shareLink);
+    this.shareCache.set(updated.id, updated);
   }
 
   private async getShareLink(shareId: ShareId): Promise<ShareLink | null> {
@@ -552,18 +597,19 @@ export class ProjectSharingManager extends EventEmitter {
     if (this.shareCache.has(shareId)) {
       return this.shareCache.get(shareId)!;
     }
-    // TODO: Implement database fetch
-    return null;
+    const shareLink = await this.apiClient.getShareLink(shareId);
+    if (shareLink) {
+      this.shareCache.set(shareLink.id, shareLink);
+    }
+    return shareLink || null;
   }
 
   private async saveInvitation(invitation: ShareInvitation): Promise<void> {
-    // TODO: Implement database save
-    console.log('Saving invitation:', invitation.id);
+    this.invitationCache.set(invitation.id, invitation);
   }
 
   private async updateInvitation(invitation: ShareInvitation): Promise<void> {
-    // TODO: Implement database update
-    console.log('Updating invitation:', invitation.id);
+    this.invitationCache.set(invitation.id, invitation);
   }
 
   private async getInvitation(invitationId: string): Promise<ShareInvitation | null> {
@@ -571,67 +617,58 @@ export class ProjectSharingManager extends EventEmitter {
     if (this.invitationCache.has(invitationId)) {
       return this.invitationCache.get(invitationId)!;
     }
-    // TODO: Implement database fetch
     return null;
   }
 
   private async getUser(userId: UserId): Promise<User> {
-    // TODO: Implement user fetch
-    return {
-      id: userId,
-      email: `user${userId}@example.com`,
-      name: `User ${userId}`,
-    } as User;
+    return this.apiClient.getUser(userId);
   }
 
   private async getProject(projectId: ProjectId): Promise<any> {
-    // TODO: Implement project fetch
-    return { ownerId: 'owner-user-id' };
+    return this.apiClient.getProject(projectId);
   }
 
   private async addCollaborator(projectId: ProjectId, collaborator: CollaboratorAccess): Promise<void> {
-    // TODO: Implement database save
-    console.log('Adding collaborator:', collaborator.userId, 'to', projectId);
+    await this.apiClient.addCollaborator(projectId, collaborator);
   }
 
   private async updateCollaborator(projectId: ProjectId, collaborator: CollaboratorAccess): Promise<void> {
-    // TODO: Implement database update
-    console.log('Updating collaborator:', collaborator.userId, 'in', projectId);
+    await this.apiClient.updateCollaborator(projectId, collaborator);
   }
 
   private async deleteCollaborator(projectId: ProjectId, userId: UserId): Promise<void> {
-    // TODO: Implement database delete
-    console.log('Removing collaborator:', userId, 'from', projectId);
+    await this.apiClient.removeCollaborator(projectId, userId);
   }
 
   private async getCollaborator(projectId: ProjectId, userId: UserId): Promise<CollaboratorAccess | null> {
-    // TODO: Implement database fetch
-    return null;
+    const collaborators = await this.fetchCollaborators(projectId);
+    return collaborators.find(collaborator => collaborator.userId === userId) || null;
   }
 
   private async fetchCollaborators(projectId: ProjectId): Promise<CollaboratorAccess[]> {
-    // TODO: Implement database fetch
-    return [];
+    return this.apiClient.getCollaborators(projectId);
   }
 
   private async logShareAccess(shareLink: ShareLink, accessInfo: any): Promise<void> {
-    // TODO: Implement access logging
-    console.log('Logging share access:', shareLink.id);
+    await this.apiClient.logShareAccess(shareLink.id, {
+      ...accessInfo,
+      accessedAt: new Date(),
+    });
   }
 
   private async fetchShareAnalytics(shareId: ShareId): Promise<ShareAnalytics> {
-    // TODO: Implement analytics fetch
+    const analytics = await this.apiClient.getShareAnalytics(shareId);
     return {
       shareId,
-      totalAccesses: 0,
-      uniqueUsers: 0,
-      lastAccessed: new Date(),
-      accessHistory: [],
+      totalAccesses: analytics.totalAccesses ?? 0,
+      uniqueUsers: analytics.uniqueUsers ?? 0,
+      lastAccessed: analytics.lastAccessed ? new Date(analytics.lastAccessed) : new Date(),
+      accessHistory: analytics.accessHistory ?? [],
     };
   }
 
   private async sendInvitationEmail(invitation: ShareInvitation): Promise<void> {
-    // TODO: Implement email sending
-    console.log('Sending invitation email to:', invitation.toEmail);
+    // Email delivery is handled by the backend via sendInvitation; this is a no-op
+    this.emit('invitation-email-queued', { invitationId: invitation.id });
   }
 }

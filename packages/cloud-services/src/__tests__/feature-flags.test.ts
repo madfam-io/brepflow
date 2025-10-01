@@ -39,15 +39,18 @@ describe('cloud services feature flags', () => {
     apiEndpoint: 'https://example.com',
     deviceId: 'device',
     userId: 'user',
+    apiKey: 'test-key',
     syncInterval: 60000,
     maxRetries: 1,
     batchSize: 10,
     compressionEnabled: false,
     conflictResolution: 'latest-wins',
+    requestTimeout: 2000,
   } as const;
 
   const sharingConfig: SharingConfig = {
     apiEndpoint: 'https://example.com',
+    apiKey: 'test-key',
     maxSharesPerProject: 1,
     defaultLinkExpiration: 7,
     allowAnonymousAccess: false,

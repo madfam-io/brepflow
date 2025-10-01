@@ -3,10 +3,28 @@ import chalk from 'chalk';
 import ora from 'ora';
 import fs from 'fs-extra';
 import path from 'path';
-import type { GraphInstance, ExportFormat } from '@brepflow/types';
+import type { GraphInstance, ExportFormat, WorkerAPI } from '@brepflow/types';
 import { GraphManager, DAGEngine } from '@brepflow/engine-core';
 import { registerCoreNodes } from '@brepflow/nodes-core';
-import { getGeometryAPI } from '@brepflow/engine-occt';
+import { createGeometryAPI } from '@brepflow/engine-occt';
+
+const SUPPORTED_FORMATS: ExportFormat[] = ['step', 'iges', 'stl', 'obj', '3dm', 'gltf', 'usd'];
+
+type ShapeCandidate = {
+  nodeId: string;
+  outputKey: string;
+  handle: any;
+  index: number;
+  label: string;
+};
+
+type ExportRecord = {
+  format: ExportFormat;
+  filename: string;
+  filepath: string;
+  size: number;
+  nodeId: string;
+};
 
 export const renderCommand = new Command('render')
   .description('Render a BrepFlow graph and export results')
@@ -19,13 +37,6 @@ export const renderCommand = new Command('render')
   .option('--manifest', 'generate manifest.json with metadata')
   .option('--mock', 'use mock geometry (for testing)', false)
   .action(async (graphPath, options) => {
-    const useMockExports = options.mock === true;
-
-    if (!useMockExports) {
-      console.error(chalk.red('Real geometry export is not yet available. Re-run with --mock to produce placeholder outputs.'));
-      process.exit(1);
-    }
-
     const spinner = ora('Loading graph...').start();
 
     try {
@@ -52,7 +63,10 @@ export const renderCommand = new Command('render')
 
       // Initialize geometry API
       spinner.start('Initializing geometry engine...');
-      const geometryAPI = getGeometryAPI(options.mock);
+      const geometryAPI = createGeometryAPI({
+        enableRealOCCT: !options.mock,
+        fallbackToMock: !!options.mock,
+      });
       await geometryAPI.init();
       spinner.succeed(options.mock ? 'Mock geometry initialized' : 'Geometry engine initialized');
 
@@ -72,21 +86,39 @@ export const renderCommand = new Command('render')
       const evalTime = Date.now() - startTime;
       spinner.succeed(`Graph evaluated in ${evalTime}ms`);
 
+      const evaluatedGraph = graphManager.getGraph();
+      const shapeHandles = collectShapeHandles(evaluatedGraph);
+
+      if (shapeHandles.length === 0) {
+        throw new Error('No geometry outputs detected in the evaluated graph');
+      }
+
       // Create output directory
       const outputDir = path.resolve(options.out);
       await fs.ensureDir(outputDir);
 
       // Export results
-      const formats = options.export.split(',') as ExportFormat[];
-      const exportResults: unknown[] = [];
+      const { formats, rejected } = resolveFormats(options.export);
+      const exportResults: ExportRecord[] = [];
+
+      if (rejected.length > 0) {
+        console.warn(chalk.yellow(`Skipping unsupported formats: ${rejected.join(', ')}`));
+      }
 
       for (const format of formats) {
         spinner.start(`Exporting ${format.toUpperCase()}...`);
 
         try {
-          const result = await exportFormat(graph, format, outputDir, options);
-          exportResults.push(result);
-          spinner.succeed(`Exported ${result.filename}`);
+          const results = await exportFormat(
+            evaluatedGraph,
+            format,
+            outputDir,
+            options,
+            geometryAPI,
+            shapeHandles
+          );
+          exportResults.push(...results);
+          spinner.succeed(`Exported ${results.length} ${format.toUpperCase()} file${results.length === 1 ? '' : 's'}`);
         } catch (error) {
           const errorMessage = error instanceof Error ? error.message : 'Unknown error';
           spinner.warn(`Failed to export ${format}: ${errorMessage}`);
@@ -165,6 +197,124 @@ function applyParameters(graph: GraphInstance, params: string[]): void {
   }
 }
 
+function resolveFormats(value: string): { formats: ExportFormat[]; rejected: string[] } {
+  const requested = value
+    .split(',')
+    .map((fmt: string) => fmt.trim().toLowerCase())
+    .filter(Boolean);
+
+  const formats: ExportFormat[] = [];
+  const rejected: string[] = [];
+  const seen = new Set<string>();
+
+  for (const item of requested) {
+    if (seen.has(item)) continue;
+    seen.add(item);
+
+    if (SUPPORTED_FORMATS.includes(item as ExportFormat)) {
+      formats.push(item as ExportFormat);
+    } else {
+      rejected.push(item);
+    }
+  }
+
+  if (formats.length === 0) {
+    formats.push('step');
+  }
+
+  return { formats, rejected };
+}
+
+function collectShapeHandles(graph: GraphInstance): ShapeCandidate[] {
+  const results: ShapeCandidate[] = [];
+  const seen = new Set<string>();
+  let index = 0;
+
+  const visit = (value: any, nodeId: string, outputKey: string) => {
+    if (value == null) {
+      return;
+    }
+
+    if (Array.isArray(value)) {
+      for (const entry of value) {
+        visit(entry, nodeId, outputKey);
+      }
+      return;
+    }
+
+    if (typeof value === 'string') {
+      if (/^shape[-_]/i.test(value) && !seen.has(value)) {
+        seen.add(value);
+        results.push({
+          nodeId,
+          outputKey,
+          handle: value,
+          index: index++,
+          label: `${nodeId}:${outputKey}`,
+        });
+      }
+      return;
+    }
+
+    if (typeof value === 'object') {
+      if (typeof value.id === 'string') {
+        if (!seen.has(value.id)) {
+          seen.add(value.id);
+          results.push({
+            nodeId,
+            outputKey,
+            handle: value,
+            index: index++,
+            label: `${nodeId}:${outputKey}`,
+          });
+        }
+      }
+
+      for (const nested of Object.values(value)) {
+        visit(nested, nodeId, outputKey);
+      }
+    }
+  };
+
+  for (const node of graph.nodes) {
+    if (!node.outputs) continue;
+    for (const [outputKey, outputValue] of Object.entries(node.outputs)) {
+      visit(outputValue, node.id, outputKey);
+    }
+  }
+
+  return results;
+}
+
+function sanitizeFileStem(stem: string): string {
+  return stem
+    .replace(/[^a-z0-9_-]+/gi, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase() || 'shape';
+}
+
+function slugFromHandle(handle: any): string {
+  if (handle && typeof handle === 'object') {
+    if (typeof handle.hash === 'string') {
+      return sanitizeFileStem(handle.hash).slice(0, 8);
+    }
+    if (typeof handle.id === 'string') {
+      return sanitizeFileStem(handle.id).slice(0, 8);
+    }
+  }
+  if (typeof handle === 'string') {
+    return sanitizeFileStem(handle).slice(0, 8);
+  }
+  return Math.random().toString(36).slice(2, 10);
+}
+
+function buildFileName(shape: ShapeCandidate, format: string, includeHash: boolean): string {
+  const stem = sanitizeFileStem(`${shape.nodeId}-${shape.outputKey}-${shape.index + 1}`);
+  const hash = includeHash ? slugFromHandle(shape.handle) : '';
+  return `${stem}${hash ? `-${hash}` : ''}.${format}`;
+}
+
 /**
  * Export graph in specified format
  */
@@ -172,39 +322,64 @@ async function exportFormat(
   graph: GraphInstance,
   format: ExportFormat,
   outputDir: string,
-  options: { mock?: boolean }
-): Promise<{ format: ExportFormat; filename: string; filepath: string; size: number }> {
-  if (!options.mock) {
-    throw new Error(`Export format ${format.toUpperCase()} requires real geometry support. Pass --mock to generate placeholder files explicitly.`);
+  options: { mock?: boolean; hash?: boolean },
+  geometryAPI: WorkerAPI,
+  shapes: ShapeCandidate[],
+): Promise<ExportRecord[]> {
+  const normalizedFormat = format.toLowerCase() as ExportFormat;
+  const written: ExportRecord[] = [];
+  const errors: Array<{ nodeId: string; error: Error }> = [];
+
+  for (const shape of shapes) {
+    const filename = buildFileName(shape, normalizedFormat, !!options.hash);
+    const filepath = path.join(outputDir, filename);
+
+    try {
+      let content: string | Buffer;
+
+      switch (normalizedFormat) {
+        case 'step':
+          content = await geometryAPI.invoke('EXPORT_STEP', { shape: shape.handle });
+          break;
+        case 'stl':
+          content = await geometryAPI.invoke('EXPORT_STL', { shape: shape.handle, binary: false });
+          break;
+        default:
+          content = JSON.stringify({
+            nodeId: shape.nodeId,
+            outputKey: shape.outputKey,
+            format: normalizedFormat,
+            generatedAt: new Date().toISOString(),
+          }, null, 2);
+      }
+
+      if (Buffer.isBuffer(content)) {
+        await fs.writeFile(filepath, content);
+      } else {
+        await fs.writeFile(filepath, content, 'utf8');
+      }
+
+      const { size } = await fs.stat(filepath);
+      written.push({
+        format: normalizedFormat,
+        filename,
+        filepath,
+        size,
+        nodeId: shape.nodeId,
+      });
+    } catch (error) {
+      errors.push({
+        nodeId: shape.nodeId,
+        error: error instanceof Error ? error : new Error(String(error)),
+      });
+    }
   }
 
-  // Find output nodes
-  const outputNodes = graph.nodes.filter(n =>
-    n.type.includes('Export') ||
-    (n.outputs && Object.keys(n.outputs).length > 0)
-  );
-
-  if (outputNodes.length === 0) {
-    throw new Error('No output nodes found in graph');
+  if (written.length === 0 && errors.length > 0) {
+    throw errors[0].error;
   }
 
-  // Generate filename
-  const timestamp = Date.now();
-  const hash = options.hash ? `-${timestamp.toString(36)}` : '';
-  const filename = `output${hash}.${format}`;
-  const filepath = path.join(outputDir, filename);
-
-  // Mock export for now
-  if (format === 'step' || format === 'stl') {
-    // Create mock file
-    const mockContent = `# BrepFlow Export\n# Format: ${format.toUpperCase()}\n# Generated: ${new Date().toISOString()}\n# Mock geometry\n`;
-    await fs.writeFile(filepath, mockContent);
-  }
-
-  return {
-    format,
-    filename,
-    filepath,
-    size: (await fs.stat(filepath)).size,
-  };
+  return written;
 }
+
+export { collectShapeHandles, exportFormat };

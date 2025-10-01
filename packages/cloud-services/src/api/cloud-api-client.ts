@@ -17,6 +17,8 @@ import {
   ApiResponse,
   SearchQuery,
   SearchResult,
+  CollaboratorAccess,
+  User,
 } from '@brepflow/cloud-api/src/types';
 
 export interface CloudApiConfig {
@@ -159,11 +161,13 @@ export class CloudApiClient {
   async createShareLink(
     projectId: ProjectId,
     options: {
+      createdBy: UserId;
       accessLevel?: string;
       expiresAt?: Date;
       isPublic?: boolean;
       allowAnonymous?: boolean;
       maxUses?: number;
+      description?: string;
     }
   ): Promise<ShareLink> {
     const response = await this.request<ShareLink>('POST', `/projects/${projectId}/share`, {
@@ -178,6 +182,14 @@ export class CloudApiClient {
     return response.data!;
   }
 
+  async updateShareLink(shareId: ShareId, updates: Partial<ShareLink>): Promise<ShareLink> {
+    const response = await this.request<ShareLink>('PUT', `/share/${shareId}`, {
+      data: updates,
+      cache: false,
+    });
+    return response.data!;
+  }
+
   async revokeShareLink(shareId: ShareId): Promise<void> {
     await this.request('DELETE', `/share/${shareId}`, { cache: false });
   }
@@ -186,6 +198,7 @@ export class CloudApiClient {
     projectId: ProjectId,
     invitations: {
       emails: string[];
+      userIds?: string[];
       role: string;
       message?: string;
       expiresAt?: Date;
@@ -193,6 +206,54 @@ export class CloudApiClient {
   ): Promise<void> {
     await this.request('POST', `/projects/${projectId}/invite`, {
       data: invitations,
+      cache: false,
+    });
+  }
+
+  async logShareAccess(shareId: ShareId, payload: any): Promise<void> {
+    await this.request('POST', `/share/${shareId}/access`, {
+      data: payload,
+      cache: false,
+    });
+  }
+
+  async getShareAnalytics(shareId: ShareId): Promise<any> {
+    const response = await this.request<any>('GET', `/share/${shareId}/analytics`, {
+      cache: false,
+    });
+    return response.data!;
+  }
+
+  async getUser(userId: UserId): Promise<User> {
+    const response = await this.request<User>('GET', `/users/${userId}`);
+    return response.data!;
+  }
+
+  async getCollaborators(projectId: ProjectId): Promise<CollaboratorAccess[]> {
+    const response = await this.request<CollaboratorAccess[]>(
+      'GET',
+      `/projects/${projectId}/collaborators`,
+      { cache: false }
+    );
+    return response.data || [];
+  }
+
+  async addCollaborator(projectId: ProjectId, collaborator: CollaboratorAccess): Promise<void> {
+    await this.request('POST', `/projects/${projectId}/collaborators`, {
+      data: collaborator,
+      cache: false,
+    });
+  }
+
+  async updateCollaborator(projectId: ProjectId, collaborator: CollaboratorAccess): Promise<void> {
+    await this.request('PUT', `/projects/${projectId}/collaborators/${collaborator.userId}`, {
+      data: collaborator,
+      cache: false,
+    });
+  }
+
+  async removeCollaborator(projectId: ProjectId, userId: UserId): Promise<void> {
+    await this.request('DELETE', `/projects/${projectId}/collaborators/${userId}`, {
       cache: false,
     });
   }
