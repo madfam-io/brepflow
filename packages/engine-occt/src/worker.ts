@@ -179,13 +179,15 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
               }
             }
           };
-        } else {
+        } else if (useMockForTesting) {
           result = mockGeometry.createCylinder(
             request.params.center,
             request.params.axis,
             request.params.radius,
             request.params.height
           );
+        } else {
+          throw new Error('Real OCCT not initialized - cannot create cylinder');
         }
         break;
 
@@ -210,20 +212,26 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
               }
             }
           };
-        } else {
+        } else if (useMockForTesting) {
           result = mockGeometry.createSphere(
             request.params.center,
             request.params.radius
           );
+        } else {
+          throw new Error('Real OCCT not initialized - cannot create sphere');
         }
         break;
 
       case 'MAKE_EXTRUDE':
-        result = mockGeometry.extrude(
-          request.params.profile,
-          request.params.direction,
-          request.params.distance
-        );
+        if (useMockForTesting) {
+          result = mockGeometry.extrude(
+            request.params.profile,
+            request.params.direction,
+            request.params.distance
+          );
+        } else {
+          throw new Error('MAKE_EXTRUDE not yet implemented in real OCCT');
+        }
         break;
 
       case 'BOOLEAN_UNION':
@@ -249,8 +257,10 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
             };
           }
           result = unionResult;
-        } else {
+        } else if (useMockForTesting) {
           result = mockGeometry.booleanUnion(request.params.shapes);
+        } else {
+          throw new Error('Real OCCT not initialized - cannot perform BOOLEAN_UNION');
         }
         break;
 
@@ -277,11 +287,13 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
             };
           }
           result = subtractResult;
-        } else {
+        } else if (useMockForTesting) {
           result = mockGeometry.booleanSubtract(
             request.params.base,
             request.params.tools
           );
+        } else {
+          throw new Error('Real OCCT not initialized - cannot perform BOOLEAN_SUBTRACT');
         }
         break;
 
@@ -308,8 +320,10 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
             };
           }
           result = intersectResult;
-        } else {
+        } else if (useMockForTesting) {
           result = mockGeometry.booleanIntersect(request.params.shapes);
+        } else {
+          throw new Error('Real OCCT not initialized - cannot perform BOOLEAN_INTERSECT');
         }
         break;
 
@@ -323,7 +337,7 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
             mesh,
             bbox: request.params.shape.bbox,
           };
-        } else {
+        } else if (useMockForTesting) {
           const mesh = mockGeometry.tessellate(
             request.params.shape,
             request.params.deflection
@@ -332,6 +346,8 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
             mesh,
             bbox: request.params.shape.bbox,
           };
+        } else {
+          throw new Error('Real OCCT not initialized - cannot tessellate geometry');
         }
         break;
 

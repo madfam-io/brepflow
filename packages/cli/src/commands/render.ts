@@ -19,6 +19,13 @@ export const renderCommand = new Command('render')
   .option('--manifest', 'generate manifest.json with metadata')
   .option('--mock', 'use mock geometry (for testing)', false)
   .action(async (graphPath, options) => {
+    const useMockExports = options.mock === true;
+
+    if (!useMockExports) {
+      console.error(chalk.red('Real geometry export is not yet available. Re-run with --mock to produce placeholder outputs.'));
+      process.exit(1);
+    }
+
     const spinner = ora('Loading graph...').start();
 
     try {
@@ -84,6 +91,11 @@ export const renderCommand = new Command('render')
           const errorMessage = error instanceof Error ? error.message : 'Unknown error';
           spinner.warn(`Failed to export ${format}: ${errorMessage}`);
         }
+      }
+
+      if (exportResults.length === 0) {
+        spinner.fail('No exports were generated');
+        process.exit(1);
       }
 
       // Generate manifest if requested
@@ -161,7 +173,11 @@ async function exportFormat(
   format: ExportFormat,
   outputDir: string,
   options: { mock?: boolean }
-): Promise<{ file: string; format: ExportFormat }> {
+): Promise<{ format: ExportFormat; filename: string; filepath: string; size: number }> {
+  if (!options.mock) {
+    throw new Error(`Export format ${format.toUpperCase()} requires real geometry support. Pass --mock to generate placeholder files explicitly.`);
+  }
+
   // Find output nodes
   const outputNodes = graph.nodes.filter(n =>
     n.type.includes('Export') ||

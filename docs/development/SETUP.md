@@ -112,6 +112,20 @@ pnpm test --filter @brepflow/nodes-core      # Test specific package
 pnpm clean        # Clean build artifacts
 ```
 
+## Experimental Cloud Features
+
+Real-time cloud sync and project sharing remain experimental. They are disabled by default and must be explicitly enabled in your environment before instantiating the corresponding services:
+
+```bash
+# Enable experimental cloud sync APIs
+export BREPFLOW_ENABLE_CLOUD_SYNC=true
+
+# Enable experimental project sharing APIs
+export BREPFLOW_ENABLE_PROJECT_SHARING=true
+```
+
+When running in a browser-only sandbox (for example inside Playwright or Storybook), the same flags can be toggled by assigning to `globalThis.__BREPFLOW_ENABLE_CLOUD_SYNC__` and `globalThis.__BREPFLOW_ENABLE_PROJECT_SHARING__` before your app bootstraps. If the flags are omitted, the constructors for the cloud managers throw immediately, preventing half-configured deployments from silently dropping user operations.
+
 ## Browser Requirements
 
 For full functionality (WASM threads), your browser needs:

@@ -40,16 +40,6 @@ import { Icon } from './components/icons/IconSystem';
 import { NodeParameterDialog } from './components/dialogs/NodeParameterDialog';
 import './App.css';
 
-// Production environment check
-if (process.env.NODE_ENV === 'production') {
-  // Disable all console methods in production
-  console.log = () => {};
-  console.warn = () => {};
-  console.error = () => {};
-  console.debug = () => {};
-  console.info = () => {};
-}
-
 function AppContent() {
   const {
     graph,

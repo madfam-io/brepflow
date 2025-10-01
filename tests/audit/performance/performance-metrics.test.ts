@@ -1,16 +1,16 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import {
+  bootstrapStudio,
+  clearAuditErrors,
+  ensureCanvasReady,
+  getAuditErrors,
+} from '../utils/studio-helpers';
 
 test.describe('Performance Benchmarks', () => {
   test.beforeEach(async ({ page }) => {
-    await page.addInitScript(() => {
-      (window as any).__errors = [];
-      window.addEventListener('error', (event) => {
-        (window as any).__errors.push(event.message);
-      });
-    });
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
-    await page.setViewportSize({ width: 1920, height: 1080 });
+    await bootstrapStudio(page);
+    await ensureCanvasReady(page, 10000);
+    await clearAuditErrors(page);
   });
 
   test('initial load completes within 3s', async ({ page }) => {
@@ -43,15 +43,17 @@ test.describe('Performance Benchmarks', () => {
         throw new Error('Studio createNode API not available');
       }
 
+      await studio.clearGraph?.();
+
       const start = performance.now();
-      await studio.createNode('Geometry::Box', { x: 200, y: 120 });
-      await new Promise((resolve) => setTimeout(resolve, 0));
+      await studio.createNode('Solid::Box', { x: 220, y: 160 });
       const end = performance.now();
 
       return { duration: end - start };
     });
 
     expect(duration).toBeLessThan(150);
+    expect(await getAuditErrors(page)).toEqual([]);
   });
 
   test('graph evaluation completes without errors', async ({ page }) => {
@@ -60,6 +62,9 @@ test.describe('Performance Benchmarks', () => {
       if (!studio?.evaluateGraph) {
         throw new Error('Studio evaluateGraph API not available');
       }
+
+      await studio.clearGraph?.();
+      await studio.createNode?.('Solid::Box', { x: 220, y: 160 });
 
       const start = performance.now();
       await studio.evaluateGraph();
@@ -71,5 +76,6 @@ test.describe('Performance Benchmarks', () => {
 
     expect(result.duration).toBeLessThan(500);
     expect(result.errors).toEqual([]);
+    expect(await getAuditErrors(page)).toEqual([]);
   });
 });

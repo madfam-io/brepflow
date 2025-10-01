@@ -30,4 +30,5 @@ else
 fi
 
 echo "[start-studio-preview] Starting Vite preview on $HOST:$PORT"
-exec pnpm --filter @brepflow/studio run preview -- --host "$HOST" --port "$PORT" --strictPort
+# Use pnpm exec so Vite respects the explicit host/port flags without an extra "--" arg
+exec pnpm --filter @brepflow/studio exec -- vite preview --host "$HOST" --port "$PORT" --strictPort

@@ -18,6 +18,18 @@ import {
   User,
 } from '@brepflow/cloud-api/src/types';
 
+const isSharingEnabled = (): boolean => {
+  if (typeof process !== 'undefined' && process.env && 'BREPFLOW_ENABLE_PROJECT_SHARING' in process.env) {
+    return process.env.BREPFLOW_ENABLE_PROJECT_SHARING === 'true';
+  }
+
+  if (typeof globalThis !== 'undefined' && '__BREPFLOW_ENABLE_PROJECT_SHARING__' in (globalThis as any)) {
+    return Boolean((globalThis as any).__BREPFLOW_ENABLE_PROJECT_SHARING__);
+  }
+
+  return false;
+};
+
 export interface SharingConfig {
   apiEndpoint: string;
   maxSharesPerProject: number;
@@ -53,6 +65,9 @@ export class ProjectSharingManager extends EventEmitter {
 
   constructor(config: SharingConfig) {
     super();
+    if (!isSharingEnabled()) {
+      throw new Error('Project sharing is disabled. Set BREPFLOW_ENABLE_PROJECT_SHARING=true (or globalThis.__BREPFLOW_ENABLE_PROJECT_SHARING__ = true) to enable this experimental feature.');
+    }
     this.config = config;
   }
 

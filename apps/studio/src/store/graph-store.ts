@@ -14,8 +14,6 @@ import {
   ComputeCache,
 } from '@brepflow/engine-core';
 import { getGeometryAPI } from '../services/geometry-api';
-// Temporarily commented out due to build issues
-// import { registerCoreNodes } from '@brepflow/nodes-core';
 import { ErrorManager } from '../lib/error-handling/error-manager';
 import { ErrorCode } from '../lib/error-handling/types';
 import { MetricsCollector } from '../lib/monitoring/metrics-collector';
@@ -28,9 +26,30 @@ import {
   RemoveEdgeCommand,
 } from '../lib/undo-redo';
 
-// Register core nodes on initialization
-// Temporarily commented out due to build issues
-// registerCoreNodes();
+let registerNodesPromise: Promise<void> | null = null;
+
+async function ensureCoreNodesRegistered(): Promise<void> {
+  if (registerNodesPromise) {
+    return registerNodesPromise;
+  }
+
+  registerNodesPromise = import('@brepflow/nodes-core')
+    .then(module => {
+      const registerCoreNodes = module.registerCoreNodes as (() => void) | undefined;
+
+      if (!registerCoreNodes) {
+        throw new Error('registerCoreNodes export missing from @brepflow/nodes-core');
+      }
+
+      registerCoreNodes();
+    })
+    .catch(error => {
+      registerNodesPromise = null;
+      throw error;
+    });
+
+  return registerNodesPromise;
+}
 
 interface GraphState {
   // Graph data
@@ -41,6 +60,7 @@ interface GraphState {
   // Managers
   graphManager: GraphManager;
   dagEngine: DAGEngine | null;
+  initializationError: string | null;
 
   // State
   isEvaluating: boolean;
@@ -93,6 +113,8 @@ export const useGraphStore = create<GraphState>()(
       // Initialize DAG engine with geometry API
       const initEngine = async () => {
         try {
+          await ensureCoreNodesRegistered();
+
           const geometryAPI = await getGeometryAPI();
           await geometryAPI.init();
           console.log('🚀 Geometry API initialized successfully');
@@ -105,6 +127,7 @@ export const useGraphStore = create<GraphState>()(
             // Metrics collector might not be ready yet
           }
 
+          set({ initializationError: null });
           return new DAGEngine({ worker: geometryAPI });
         } catch (error) {
           console.error('❌ Failed to initialize geometry API:', error);
@@ -124,25 +147,28 @@ export const useGraphStore = create<GraphState>()(
             );
 
             const metricsCollector = MetricsCollector.getInstance();
-            metricsCollector.incrementCounter('geometry_api_initializations', { status: 'failed_fallback' });
+            metricsCollector.incrementCounter('geometry_api_initializations', { status: 'failed' });
           } catch (e) {
             // Monitoring system might not be ready yet
           }
-
-          // Fall back to mock mode
-          const mockGeometryAPI = await getGeometryAPI(true);
-          await mockGeometryAPI.init();
-          console.warn('⚠️ Using mock geometry API');
-          return new DAGEngine({ worker: mockGeometryAPI });
+          const message = error instanceof Error ? error.message : String(error);
+          set({ initializationError: message });
+          throw error;
         }
       };
 
       // Initialize engine asynchronously
       let dagEngine: DAGEngine | null = null;
-      initEngine().then(engine => {
-        dagEngine = engine;
-        set({ dagEngine: engine });
-      });
+      initEngine()
+        .then(engine => {
+          dagEngine = engine;
+          set({ dagEngine: engine, initializationError: null });
+        })
+        .catch(error => {
+          dagEngine = null;
+          const message = error instanceof Error ? error.message : String(error);
+          set({ dagEngine: null, initializationError: message });
+        });
 
       return {
         // Initial state
@@ -151,6 +177,7 @@ export const useGraphStore = create<GraphState>()(
         hoveredNode: null,
         graphManager,
         dagEngine,
+        initializationError: null,
         isEvaluating: false,
         evaluationProgress: 0,
         errors: new Map(),

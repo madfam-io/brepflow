@@ -1,4 +1,4 @@
-import { Point2D, Constraint2D, ConstraintType, Variable, SolveResult } from '@brepflow/types';
+import type { Point2D, Constraint2D, Variable, SolveResult } from '@brepflow/types';
 import * as numeric from 'numeric';
 
 export class Solver2D {
@@ -133,7 +133,7 @@ export class Solver2D {
 
     for (const constraint of this.constraints) {
       switch (constraint.type) {
-        case ConstraintType.Distance:
+        case 'distance':
           if (constraint.entities.length >= 2) {
             const p1 = constraint.entities[0] as Point2D;
             const p2 = constraint.entities[1] as Point2D;
@@ -142,7 +142,7 @@ export class Solver2D {
           }
           break;
 
-        case ConstraintType.Horizontal:
+        case 'horizontal':
           if (constraint.entities.length >= 2) {
             const p1 = constraint.entities[0] as Point2D;
             const p2 = constraint.entities[1] as Point2D;
@@ -150,7 +150,7 @@ export class Solver2D {
           }
           break;
 
-        case ConstraintType.Vertical:
+        case 'vertical':
           if (constraint.entities.length >= 2) {
             const p1 = constraint.entities[0] as Point2D;
             const p2 = constraint.entities[1] as Point2D;
@@ -158,7 +158,7 @@ export class Solver2D {
           }
           break;
 
-        case ConstraintType.Coincident:
+        case 'coincident':
           if (constraint.entities.length >= 2) {
             const p1 = constraint.entities[0] as Point2D;
             const p2 = constraint.entities[1] as Point2D;
@@ -167,7 +167,7 @@ export class Solver2D {
           }
           break;
 
-        case ConstraintType.Fixed:
+        case 'fixed':
           if (constraint.entities.length >= 1) {
             const p = constraint.entities[0] as Point2D;
             const target = constraint.targetValue || { x: p.x, y: p.y };

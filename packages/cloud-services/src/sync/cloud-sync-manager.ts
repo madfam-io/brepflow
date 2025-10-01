@@ -16,8 +16,20 @@ import {
   ConflictResolutionStrategy,
   SyncStatus,
 } from '@brepflow/cloud-api/src/types';
-import { OperationalTransformEngine } from '@brepflow/engine-core/src/collaboration/operational-transform';
+import { OperationalTransformEngine } from '@brepflow/engine-core';
 import { GraphInstance } from '@brepflow/types';
+
+const isCloudSyncEnabled = (): boolean => {
+  if (typeof process !== 'undefined' && process.env && 'BREPFLOW_ENABLE_CLOUD_SYNC' in process.env) {
+    return process.env.BREPFLOW_ENABLE_CLOUD_SYNC === 'true';
+  }
+
+  if (typeof globalThis !== 'undefined' && '__BREPFLOW_ENABLE_CLOUD_SYNC__' in (globalThis as any)) {
+    return Boolean((globalThis as any).__BREPFLOW_ENABLE_CLOUD_SYNC__);
+  }
+
+  return false;
+};
 
 export interface CloudSyncConfig {
   apiEndpoint: string;
@@ -49,6 +61,9 @@ export class CloudSyncManager extends EventEmitter {
 
   constructor(config: CloudSyncConfig) {
     super();
+    if (!isCloudSyncEnabled()) {
+      throw new Error('Cloud sync is disabled. Set BREPFLOW_ENABLE_CLOUD_SYNC=true (or window.__BREPFLOW_ENABLE_CLOUD_SYNC__ = true) to enable this experimental feature.');
+    }
     this.config = config;
     this.operationalTransform = new OperationalTransformEngine();
     this.setupNetworkMonitoring();

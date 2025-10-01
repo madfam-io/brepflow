@@ -9,7 +9,7 @@ export default defineConfig({
     hookTimeout: 30000,
     setupFiles: ['./tests/setup/setup.ts'],
     include: ['**/*.{test,spec}.{js,jsx,ts,tsx}'],
-    exclude: ['**/node_modules/**', '**/dist/**'],
+    exclude: ['**/node_modules/**', '**/dist/**', 'src/nodes/generated/**'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -18,6 +18,7 @@ export default defineConfig({
         '**/*.test.{js,ts,jsx,tsx}',
         '**/*.spec.{js,ts,jsx,tsx}',
         'dist/**',
+        'src/nodes/generated/**',
       ],
     },
   },

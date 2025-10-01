@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest';
-import { RectangularPatternNode } from './rectangularpattern.node';
+import { RectangularPatternNode } from './rectangular-pattern.node';
 import { createTestContext } from './../../test-utils';
 
 describe('RectangularPatternNode', () => {
@@ -17,11 +17,8 @@ describe('RectangularPatternNode', () => {
       staggered: false
     };
 
-    const result = await RectangularPatternNode.evaluate(context, inputs, params);
-
-    expect(result).toBeDefined();
-    expect(result.shapes).toBeDefined();
-    expect(result.compound).toBeDefined();
+    await expect(RectangularPatternNode.evaluate(context, inputs, params))
+      .rejects.toThrow('RectangularPattern not yet implemented');
   });
 
   

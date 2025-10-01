@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest';
-import { IsoparametricCurveNode } from './isoparametriccurve.node';
+import { IsoparametricCurveNode } from './isoparametric-curve.node';
 import { createTestContext } from './../../test-utils';
 
 describe('IsoparametricCurveNode', () => {

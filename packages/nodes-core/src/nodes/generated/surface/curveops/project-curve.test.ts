@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest';
-import { ProjectCurveNode } from './projectcurve.node';
+import { ProjectCurveNode } from './project-curve.node';
 import { createTestContext } from './../../test-utils';
 
 describe('ProjectCurveNode', () => {

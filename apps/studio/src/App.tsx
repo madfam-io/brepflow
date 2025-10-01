@@ -1,4 +1,3 @@
-console.log('🔥 APP.TSX LOADING - DEBUG TEST');
 import React, { useCallback, useEffect, useState } from 'react';
 import ReactFlow, {
   Node as RFNode,
@@ -49,6 +48,13 @@ import { ViewportLayoutManager } from './components/viewport/ViewportLayoutManag
 import './App.css';
 import { BrowserWASMTestSuite } from './test-browser-wasm';
 
+const debugLog = (...args: unknown[]) => {
+  if (import.meta.env.DEV) {
+    // eslint-disable-next-line no-console
+    console.debug('[Studio]', ...args);
+  }
+};
+
 function AppContent() {
   const {
     graph,
@@ -60,6 +66,9 @@ function AppContent() {
     removeEdge,
     selectNode,
     evaluateGraph,
+    clearGraph,
+    undo,
+    redo,
   } = useGraphStore();
 
   const { recordUserInteraction, executeWasmOperation } = useMonitoring();
@@ -123,10 +132,12 @@ function AppContent() {
   const [nodes, setNodes, onNodesChange] = useNodesState(rfNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(rfEdges);
 
-  // Debug: Log the nodes data with graph object reference
-  console.log('🔍 DEBUG - Graph reference:', graph, 'nodes:', graph.nodes.length, graph.nodes);
-  console.log('🔍 DEBUG - React Flow nodes:', rfNodes.length, rfNodes);
-  console.log('🔍 DEBUG - Nodes state snapshot:', nodes.length, nodes);
+  debugLog('Graph snapshot', {
+    storeNodes: graph.nodes.length,
+    storeEdges: graph.edges.length,
+    reactFlowNodes: rfNodes.length,
+    reactFlowEdges: rfEdges.length,
+  });
 
   // Note: Removed problematic force sync to prevent duplicate node creation
   // The useEffect below handles proper synchronization
@@ -134,14 +145,66 @@ function AppContent() {
   // Sync ReactFlow state with graph store
   useEffect(() => {
     const { nodes: newNodes, edges: newEdges } = convertToReactFlow(graph, selectedNodes, errorTracker.errors);
-    console.log('🔄 DEBUG - Syncing nodes:', newNodes.length, newNodes);
+    debugLog('Syncing nodes from store', { nodeCount: newNodes.length, edgeCount: newEdges.length });
     setNodes(newNodes);
     setEdges(newEdges);
   }, [graph, graph.nodes, graph.edges, selectedNodes, errorTracker.errors]);
 
+  useEffect(() => {
+    const studioApi = {
+      async createNode(nodeType: string, position: { x: number; y: number } = { x: 180, y: 180 }) {
+        return addNode({
+          type: nodeType,
+          position,
+          inputs: {},
+          outputs: {},
+          params: getDefaultParams(nodeType),
+        });
+      },
+      async evaluateGraph() {
+        await evaluateGraph();
+        return {
+          errors: Array.from(errorTracker.errors.values()).map((error) => error.message),
+        };
+      },
+      clearGraph: () => clearGraph(),
+      undo: () => undo(),
+      redo: () => redo(),
+      getGraphSummary: () => {
+        const state = useGraphStore.getState();
+        return {
+          nodeCount: state.graph.nodes.length,
+          edgeCount: state.graph.edges.length,
+        };
+      },
+      getErrors: () => Array.from(errorTracker.errors.values()).map((error) => error.message),
+    };
+
+    if (typeof window === 'undefined') {
+      return () => undefined;
+    }
+
+    const exposeStudioApi = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
+
+    if (!exposeStudioApi) {
+      debugLog('Studio API helpers not exposed outside local development');
+      return () => undefined;
+    }
+
+    const existing = (window as any).studio ?? {};
+    const combined = { ...existing, ...studioApi };
+    (window as any).studio = combined;
+
+    return () => {
+      if ((window as any).studio === combined) {
+        delete (window as any).studio;
+      }
+    };
+  }, [addNode, evaluateGraph, clearGraph, undo, redo, errorTracker]);
+
   const onConnect = useCallback(
     (params: Connection) => {
-      console.log('🔗 Connection attempt:', params);
+      debugLog('Connection attempt', params);
       if (params.source && params.target) {
         addGraphEdge({
           source: createNodeId(params.source),
@@ -149,7 +212,7 @@ function AppContent() {
           target: createNodeId(params.target),
           targetHandle: createSocketId(params.targetHandle || 'input'),
         });
-        console.log('✅ Edge added between', params.source, 'and', params.target);
+        debugLog('Edge added', { source: params.source, target: params.target });
       }
     },
     [addGraphEdge]
@@ -226,7 +289,7 @@ function AppContent() {
         position,
       });
 
-      console.log('📦 Opening parameter dialog for:', nodeType, 'at position:', position);
+      debugLog('Opening parameter dialog', { nodeType, position });
     },
     []
   );
@@ -248,7 +311,7 @@ function AppContent() {
         params,
       });
 
-      console.log('📦 Node added with configured params:', parameterDialog.nodeType, params);
+      debugLog('Node created via dialog', { nodeType: parameterDialog.nodeType, params });
 
       recordUserInteraction({
         type: 'node_created',
@@ -420,7 +483,7 @@ function AppContent() {
                     enableKeyboardShortcuts={true}
                     showLayoutControls={true}
                     onLayoutChange={(layout) => {
-                      console.log('Layout changed:', layout);
+                      debugLog('Viewport layout changed', layout);
                       recordUserInteraction({
                         type: 'viewport_layout_change',
                         target: layout.type,
@@ -428,17 +491,17 @@ function AppContent() {
                       });
                     }}
                     onViewportSelect={(viewportId) => {
-                      console.log('Viewport selected:', viewportId);
+                      debugLog('Viewport selected', viewportId);
                       recordUserInteraction({
                         type: 'viewport_select',
                         target: viewportId
                       });
                     }}
                     onCameraChange={(viewportId, camera) => {
-                      console.log('Camera changed for viewport:', viewportId, camera);
+                      debugLog('Camera changed for viewport', { viewportId, camera });
                     }}
                     onRenderModeChange={(viewportId, mode) => {
-                      console.log('Render mode changed for viewport:', viewportId, mode);
+                      debugLog('Render mode changed', { viewportId, mode });
                       recordUserInteraction({
                         type: 'viewport_render_mode_change',
                         target: mode,
@@ -548,7 +611,7 @@ function App() {
         }
       }
     }).then(() => {
-      console.log('✅ BrepFlow Monitoring System initialized');
+      debugLog('Monitoring system initialized');
       setIsMonitoringReady(true);
     }).catch((error) => {
       console.error('❌ Failed to initialize monitoring system:', error);

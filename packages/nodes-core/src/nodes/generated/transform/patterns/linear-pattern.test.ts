@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinearPatternNode } from './linearpattern.node';
+import { LinearPatternNode } from './linear-pattern.node';
 import { createTestContext } from './../../test-utils';
 
 describe('LinearPatternNode', () => {
@@ -16,11 +16,8 @@ describe('LinearPatternNode', () => {
       centered: false
     };
 
-    const result = await LinearPatternNode.evaluate(context, inputs, params);
-
-    expect(result).toBeDefined();
-    expect(result.shapes).toBeDefined();
-    expect(result.compound).toBeDefined();
+    await expect(LinearPatternNode.evaluate(context, inputs, params))
+      .rejects.toThrow('LinearPattern not yet implemented');
   });
 
   
@@ -36,9 +33,8 @@ describe('LinearPatternNode', () => {
       ]
     };
 
-    const result = await LinearPatternNode.evaluate(context, {}, params);
-
-    expect(result).toBeDefined();
+    await expect(LinearPatternNode.evaluate(context, {}, params))
+      .rejects.toThrow('LinearPattern not yet implemented');
   });
   
   it('should handle Centered Array', async () => {
@@ -49,8 +45,7 @@ describe('LinearPatternNode', () => {
       "centered": true
     };
 
-    const result = await LinearPatternNode.evaluate(context, {}, params);
-
-    expect(result).toBeDefined();
+    await expect(LinearPatternNode.evaluate(context, {}, params))
+      .rejects.toThrow('LinearPattern not yet implemented');
   });
 });

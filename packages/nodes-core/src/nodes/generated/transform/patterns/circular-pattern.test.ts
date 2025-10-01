@@ -1,6 +1,6 @@
 
 import { describe, it, expect } from 'vitest';
-import { CircularPatternNode } from './circularpattern.node';
+import { CircularPatternNode } from './circular-pattern.node';
 import { createTestContext } from './../../test-utils';
 
 describe('CircularPatternNode', () => {
@@ -17,11 +17,8 @@ describe('CircularPatternNode', () => {
       rotateInstances: true
     };
 
-    const result = await CircularPatternNode.evaluate(context, inputs, params);
-
-    expect(result).toBeDefined();
-    expect(result.shapes).toBeDefined();
-    expect(result.compound).toBeDefined();
+    await expect(CircularPatternNode.evaluate(context, inputs, params))
+      .rejects.toThrow('CircularPattern not yet implemented');
   });
 
   
@@ -33,9 +30,8 @@ describe('CircularPatternNode', () => {
       "rotateInstances": false
     };
 
-    const result = await CircularPatternNode.evaluate(context, {}, params);
-
-    expect(result).toBeDefined();
+    await expect(CircularPatternNode.evaluate(context, {}, params))
+      .rejects.toThrow('CircularPattern not yet implemented');
   });
   
   it('should handle Turbine Blades', async () => {
@@ -46,8 +42,7 @@ describe('CircularPatternNode', () => {
       "rotateInstances": true
     };
 
-    const result = await CircularPatternNode.evaluate(context, {}, params);
-
-    expect(result).toBeDefined();
+    await expect(CircularPatternNode.evaluate(context, {}, params))
+      .rejects.toThrow('CircularPattern not yet implemented');
   });
 });

@@ -202,8 +202,11 @@ export class CollaborationServer extends EventEmitter {
         createdAt: new Date()
       };
       this.sessions.set(sessionId, session);
+      this.operationQueue.set(sessionId, []);
+    } else if (!this.operationQueue.has(sessionId)) {
+      this.operationQueue.set(sessionId, []);
     }
-    
+
     // Add user to session
     const userData: User = {
       ...user,
@@ -250,10 +253,11 @@ export class CollaborationServer extends EventEmitter {
       userId: client.userId,
       timestamp: Date.now()
     }, client.id);
-    
+
     // Clean up empty sessions
     if (session.users.size === 0) {
       this.sessions.delete(session.id);
+      this.operationQueue.delete(session.id);
     }
   }
   
@@ -284,7 +288,15 @@ export class CollaborationServer extends EventEmitter {
     
     // Apply operation
     this.applyOperation(session, operation);
-    
+
+    // Track recent operations for conflict detection
+    const recentOps = this.operationQueue.get(session.id) ?? [];
+    recentOps.push(operation);
+    if (recentOps.length > this.MAX_HISTORY_SIZE) {
+      recentOps.splice(0, recentOps.length - this.MAX_HISTORY_SIZE);
+    }
+    this.operationQueue.set(session.id, recentOps);
+
     // Add to history
     if (operation.reversible) {
       session.history.add(operation);
