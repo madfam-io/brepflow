@@ -177,8 +177,8 @@ Add to `.vscode/settings.json`:
 
 Create `.env.local` in `apps/studio/`:
 ```bash
-# Use mock geometry during development (no OCCT required)
-VITE_USE_MOCK_GEOMETRY=true
+# Real OCCT runtime is required for Studio and CLI.
+# Ensure OCCT_WASM_PATH points to the built wasm artifacts when customizing paths.
 
 # API base URL (if using backend services)
 VITE_API_BASE_URL=http://localhost:3001

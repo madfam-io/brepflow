@@ -31,7 +31,7 @@ describe('Production Safety', () => {
 
       expect(env.isProduction).toBe(false);
       expect(env.isDevelopment).toBe(true);
-      expect(env.allowMockGeometry).toBe(true);
+      expect(env.allowMockGeometry).toBe(false);
     });
 
     it('should detect test environment', () => {
@@ -47,7 +47,7 @@ describe('Production Safety', () => {
       const env = detectEnvironment();
 
       expect(env.isDevelopment).toBe(true);
-      expect(env.allowMockGeometry).toBe(true);
+      expect(env.allowMockGeometry).toBe(false);
     });
   });
 
@@ -68,20 +68,6 @@ describe('Production Safety', () => {
       expect(() => {
         validateProductionSafety(true, productionEnv);
       }).toThrow('Mock geometry detected in production environment');
-    });
-
-    it('should allow mock geometry in development', () => {
-      const devEnv: EnvironmentConfig = {
-        isProduction: false,
-        isDevelopment: true,
-        isTest: false,
-        allowMockGeometry: true,
-        nodeEnv: 'development'
-      };
-
-      expect(() => {
-        validateProductionSafety(true, devEnv);
-      }).not.toThrow();
     });
 
     it('should allow real geometry in production', () => {
@@ -117,7 +103,7 @@ describe('Production Safety', () => {
       const config = createProductionSafeConfig();
 
       expect(config.enableRealOCCT).toBe(true);
-      expect(config.fallbackToMock).toBe(true);
+      expect(config.fallbackToMock).toBe(false);
       expect(config.maxRetries).toBe(3);
       expect(config.operationTimeout).toBe(30000);
     });
@@ -130,17 +116,6 @@ describe('Production Safety', () => {
       }).toThrow(ProductionSafetyError);
     });
 
-    it('should allow overrides in development', () => {
-      process.env.NODE_ENV = 'development';
-
-      const config = createProductionSafeConfig({
-        fallbackToMock: false,
-        maxRetries: 5
-      });
-
-      expect(config.fallbackToMock).toBe(false);
-      expect(config.maxRetries).toBe(5);
-    });
   });
 
   describe('Production Error Boundaries', () => {

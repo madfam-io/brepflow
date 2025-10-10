@@ -605,7 +605,6 @@ brepflow render <file> [options]
   --output, -o     Output file path
   --format, -f     Output format (step|stl|obj)
   --params, -p     Parameter overrides (JSON)
-  --mock          Use mock geometry
 ```
 
 #### validate

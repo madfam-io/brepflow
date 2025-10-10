@@ -16,20 +16,11 @@ pnpm smoke:cli
 The smoke harness renders canonical graphs (currently `simple-box` and `enclosure`) via the CLI using the real OCCT bindings. Each run is compared against the baselines stored in `goldens/cli/`. The script will fail when:
 
 - An expected export (STEP/STL) is missing or empty.
-- The CLI falls back to the mock geometry implementation even though the golden expects real OCCT output.
 - The export set diverges from the baseline definition.
-
-### Allowing mock fallback (development only)
-
-Set `BFP_SMOKE_ALLOW_MOCK=true` to let the harness re-run a graph with `--mock` when the real OCCT module is unavailable. This is helpful on CI runners that do not have the WASM payload yet, but the flag should be **off** for release validation so we catch regressions early.
-
-```bash
-BFP_SMOKE_ALLOW_MOCK=true pnpm smoke:cli
-```
 
 ## 3. Scheduling the validation
 
-The nightly GitHub workflow (`.github/workflows/nightly-cli.yml`) invokes the same script. Before promoting a release candidate, disable `BFP_SMOKE_ALLOW_MOCK` in that workflow so the run fails fast if OCCT cannot be initialised or drift is detected.
+The nightly GitHub workflow (`.github/workflows/nightly-cli.yml`) invokes the same script. Because mock fallbacks are disabled, any missing or corrupt OCCT deployment will fail the job immediately.
 
 ## 4. Investigating failures
 

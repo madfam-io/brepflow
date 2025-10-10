@@ -3,6 +3,8 @@ import chalk from 'chalk';
 import ora from 'ora';
 import fs from 'fs-extra';
 import path from 'path';
+import type { GraphInstance } from '@brepflow/types';
+import { applyParameters, collectShapeHandles, exportFormat, resolveFormats, unwrapOperationResult } from './render';
 
 export const sweepCommand = new Command('sweep')
   .description('Sweep parameters over a graph to generate variants')
@@ -12,7 +14,6 @@ export const sweepCommand = new Command('sweep')
   .option('-o, --out <dir>', 'output directory', './sweep-output')
   .option('-e, --export <formats>', 'export formats (step,stl)', 'step')
   .option('--parallel <n>', 'number of parallel renders', '1')
-  .option('--mock', 'use mock geometry (for testing)', false)
   .action(async (graphPath, options) => {
     const spinner = ora('Loading parameter matrix...').start();
 
@@ -192,38 +193,33 @@ async function renderVariant(
   graphPath: string,
   outputDir: string,
   params: string[],
-  options: { export?: string; mock?: boolean }
+  options: { export?: string }
 ): Promise<void> {
-  // Import render logic
   const { GraphManager, DAGEngine } = await import('@brepflow/engine-core');
   const { registerCoreNodes } = await import('@brepflow/nodes-core');
-  const { getGeometryAPI } = await import('@brepflow/engine-occt');
+  const { createGeometryAPI } = await import('@brepflow/engine-occt');
 
   // Load graph
   const graphContent = await fs.readFile(graphPath, 'utf-8');
-  const graph = JSON.parse(graphContent);
+  const graph: GraphInstance = JSON.parse(graphContent);
 
-  // Register nodes
+  // Register nodes and apply overrides
   registerCoreNodes();
-
-  // Apply parameters
-  for (const param of params) {
-    const [key, value] = param.split('=');
-    if (key && value !== undefined) {
-      // Apply to all nodes with matching param names
-      for (const node of graph.nodes) {
-        if (node.params && key in node.params) {
-          const numValue = parseFloat(value);
-          node.params[key] = isNaN(numValue) ? value : numValue;
-          node.dirty = true;
-        }
-      }
-    }
-  }
+  applyParameters(graph, params);
 
   // Initialize geometry
-  const geometryAPI = getGeometryAPI(options.mock);
+  const geometryAPI = createGeometryAPI({
+    enableRealOCCT: true,
+    fallbackToMock: false,
+    maxRetries: 1,
+    operationTimeout: 30000,
+  });
+
   await geometryAPI.init();
+  const health = unwrapOperationResult<any>(await geometryAPI.invoke('HEALTH_CHECK', {}));
+  if (!health.success || !health.result?.healthy) {
+    throw new Error('OCCT health check failed');
+  }
 
   // Evaluate graph
   const graphManager = new GraphManager(graph);
@@ -231,11 +227,18 @@ async function renderVariant(
   const dirtyNodes = graphManager.getDirtyNodes();
   await dagEngine.evaluate(graph, dirtyNodes);
 
-  // Export (mock for now)
-  const formats = (options.export || 'step').split(',');
+  const evaluatedGraph = graphManager.getGraph();
+  const shapes = collectShapeHandles(evaluatedGraph);
+  if (shapes.length === 0) {
+    throw new Error('No geometry outputs detected in evaluated graph');
+  }
+
+  const { formats, rejected } = resolveFormats(options.export || 'step');
+  if (rejected.length > 0) {
+    console.warn(chalk.yellow(`Skipping unsupported formats: ${rejected.join(', ')}`));
+  }
+
   for (const format of formats) {
-    const filepath = path.join(outputDir, `output.${format}`);
-    const mockContent = `# BrepFlow Variant Export\n# Format: ${format.toUpperCase()}\n# Parameters: ${params.join(', ')}\n`;
-    await fs.writeFile(filepath, mockContent);
+    await exportFormat(evaluatedGraph, format, outputDir, { hash: false }, geometryAPI, shapes);
   }
 }

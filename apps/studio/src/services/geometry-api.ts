@@ -3,31 +3,36 @@
  * Wraps the geometry API factory for Studio-specific use
  */
 
-import { getGeometryAPI as getCoreGeometryAPI, GeometryAPIFactory } from '@brepflow/engine-core';
+import { GeometryAPIFactory } from '@brepflow/engine-core';
 import type { WorkerAPI } from '@brepflow/types';
 
 let apiInstance: WorkerAPI | null = null;
+let initializationPromise: Promise<WorkerAPI> | null = null;
 
 /**
- * Get geometry API instance for Studio
+ * Get geometry API instance for Studio (always real OCCT)
  */
-export async function getGeometryAPI(forceMock = false): Promise<WorkerAPI> {
-  if (apiInstance && !forceMock) {
-    return apiInstance;
-  }
-
-  if (forceMock) {
-    // Force mock geometry
-    return GeometryAPIFactory.getAPI({ forceMode: 'mock' });
-  }
-
+export async function getGeometryAPI(): Promise<WorkerAPI> {
   if (apiInstance) {
     return apiInstance;
   }
 
-  // Use development-friendly API with retry logic
-  apiInstance = await GeometryAPIFactory.createForUseCase('development');
-  return apiInstance;
+  if (initializationPromise) {
+    return initializationPromise;
+  }
+
+  initializationPromise = GeometryAPIFactory.getAPI({
+    forceMode: 'real',
+    enableRetry: true,
+    retryAttempts: 2,
+  }).then(api => {
+    apiInstance = api;
+    return api;
+  }).finally(() => {
+    initializationPromise = null;
+  });
+
+  return initializationPromise;
 }
 
 /**
@@ -35,6 +40,7 @@ export async function getGeometryAPI(forceMock = false): Promise<WorkerAPI> {
  */
 export function resetGeometryAPI(): void {
   apiInstance = null;
+  initializationPromise = null;
   GeometryAPIFactory.reset();
 }
 

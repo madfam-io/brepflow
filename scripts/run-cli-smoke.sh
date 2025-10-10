@@ -14,8 +14,6 @@ GRAPHS=(
   "$PROJECT_ROOT/packages/examples/graphs/boolean-subtract.bflow.json"
 )
 
-RUN_WITH_MOCK_FALLBACK=${BFP_SMOKE_ALLOW_MOCK:-false}
-
 echo "🔧 Building CLI package"
 pnpm --filter @brepflow/cli run build
 
@@ -48,14 +46,8 @@ for GRAPH in "${GRAPHS[@]}"; do
   if run_render "$GRAPH" "$DEST"; then
     echo "✅ Completed render for $NAME using OCCT"
   else
-    echo "⚠️  Real OCCT render failed for $NAME"
-    if [ "$RUN_WITH_MOCK_FALLBACK" != "true" ]; then
-      echo "💥 Set BFP_SMOKE_ALLOW_MOCK=true to permit fallback to mock geometry" >&2
-      exit 1
-    fi
-
-    echo "🔁 Falling back to mock geometry for $NAME"
-    run_render "$GRAPH" "$DEST" --mock
+    echo "💥 Failed to render $NAME with real OCCT"
+    exit 1
   fi
 done
 
@@ -66,7 +58,6 @@ const path = require('path');
 const projectRoot = path.join(__dirname, '..');
 const outputRoot = process.env.OUTPUT_ROOT || path.join(projectRoot, 'artifacts', 'nightly-cli');
 const goldenRoot = path.join(projectRoot, 'goldens', 'cli');
-const allowMockFallback = process.env.BFP_SMOKE_ALLOW_MOCK === 'true';
 
 const summary = {};
 const failures = [];
@@ -94,7 +85,7 @@ for (const dir of fs.readdirSync(outputRoot)) {
 
     summary[dir] = {
       graph: manifest.graph,
-      mockGeometry: Boolean(manifest.mockGeometry),
+      mockGeometry: false,
       exports,
       evaluationTime: manifest.evaluationTime
     };
@@ -114,13 +105,6 @@ for (const dir of fs.readdirSync(outputRoot)) {
         }
       }
 
-      if (golden.allowMock === false && manifest.mockGeometry) {
-        if (!allowMockFallback) {
-          failures.push(`Mock geometry fallback detected for ${dir} but goldens require real OCCT`);
-        } else {
-          summary[dir].mockFallback = true;
-        }
-      }
     } else {
       console.warn(`No golden baseline found for ${dir}; skipping comparison.`);
     }

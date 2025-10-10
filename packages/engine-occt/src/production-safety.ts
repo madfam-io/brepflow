@@ -30,7 +30,7 @@ export function detectEnvironment(): EnvironmentConfig {
   const isTest = nodeEnv === 'test' || (typeof global !== 'undefined' && global.__vitest__);
 
   // CRITICAL: Mock geometry is ONLY allowed in development/test
-  const allowMockGeometry = !isProduction && (isDevelopment || isTest);
+  const allowMockGeometry = isTest;
 
   return {
     isProduction,
@@ -89,7 +89,8 @@ export function createProductionSafeConfig(overrides: any = {}): any {
   // Base configuration - production safe by default
   const safeConfig = {
     enableRealOCCT: true,
-    fallbackToMock: env.allowMockGeometry, // CRITICAL: Only allow in dev/test
+    // Mock fallback is disabled by default; explicit overrides must opt-in from tests/tools
+    fallbackToMock: false,
     enablePerformanceMonitoring: true,
     enableMemoryManagement: true,
     enableErrorRecovery: true,

@@ -145,10 +145,6 @@ class HealthCheckService {
       // Check for production configuration issues
       const issues: string[] = [];
 
-      if (config.isProduction && config.enableMockGeometry) {
-        issues.push('Mock geometry enabled in production');
-      }
-
       if (config.isProduction && !config.requireRealOCCT) {
         issues.push('Real OCCT not required in production');
       }

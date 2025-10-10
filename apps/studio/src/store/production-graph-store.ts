@@ -110,21 +110,16 @@ export const useProductionGraphStore = create<GraphState>()(
 
         const config = getConfig();
         
+
         try {
           getLogger().info('Initializing production geometry engine...');
-          
-          // Check configuration
-          if (config.enableMockGeometry && config.isProduction) {
-            throw new Error('Mock geometry cannot be enabled in production mode');
-          }
 
           if (!config.requireRealOCCT && config.isProduction) {
             throw new Error('Production mode requires real OCCT');
           }
 
           // Initialize real geometry API
-          const geometryAPI = await getGeometryAPI(false); // Never use mock in production
-          await geometryAPI.init();
+          const geometryAPI = await getGeometryAPI();
 
           // Verify it's real OCCT
           const initResult = await geometryAPI.invoke('HEALTH_CHECK', {});
@@ -149,14 +144,6 @@ export const useProductionGraphStore = create<GraphState>()(
               'Critical: Unable to initialize geometry engine in production. ' +
               'Please ensure OCCT WASM is properly built and deployed.'
             );
-          }
-          
-          // In development, we can fall back to mock with warning
-          if (config.isDevelopment && config.enableMockGeometry) {
-            getLogger().warn('⚠️ Development mode: Falling back to mock geometry');
-            const mockAPI = await getGeometryAPI(true);
-            await mockAPI.init();
-            return new DAGEngine({ worker: mockAPI });
           }
           
           throw error;

@@ -131,7 +131,7 @@ describe('IntegratedGeometryAPI', () => {
         fallbackToMock: true
       });
 
-      await expect(geometryAPI.init()).resolves.not.toThrow();
+      await expect(geometryAPI.init()).rejects.toThrow();
 
       // Restore original mock for subsequent tests
       mockLoader.loadOCCTModule = originalMock;

@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { vi } from 'vitest';
 
 // Setup global test environment
@@ -57,4 +58,37 @@ global.performance = {
 // Set test timeout
 vi.setConfig({
   testTimeout: 10000, // 10 seconds
+});
+// Ensure OCCT assets resolve during tests
+process.env.OCCT_WASM_PATH = process.env.OCCT_WASM_PATH || path.resolve(process.cwd(), 'packages/engine-occt/wasm');
+
+// Stub fetch to acknowledge OCCT asset checks during unit tests
+if (typeof global.fetch === 'undefined') {
+  global.fetch = vi.fn();
+}
+
+const originalFetch = global.fetch as any;
+global.fetch = vi.fn(async (input: RequestInfo, init?: RequestInit) => {
+  const url = typeof input === 'string' ? input : (input as Request).url;
+  if (/occt.*\.(wasm|js)$/i.test(url)) {
+    return {
+      ok: true,
+      status: 200,
+      headers: typeof Headers !== 'undefined' ? new Headers() : ({} as any),
+      text: async () => '',
+      json: async () => ({}),
+      arrayBuffer: async () => new ArrayBuffer(0),
+    } as Response;
+  }
+  if (typeof originalFetch === 'function') {
+    return originalFetch(input, init);
+  }
+  return {
+    ok: true,
+    status: 200,
+    headers: typeof Headers !== 'undefined' ? new Headers() : ({} as any),
+    text: async () => '',
+    json: async () => ({}),
+    arrayBuffer: async () => new ArrayBuffer(0),
+  } as Response;
 });

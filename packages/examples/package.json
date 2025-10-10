@@ -5,6 +5,6 @@
   "private": true,
   "scripts": {
     "validate": "brepflow validate graphs/*.bflow.json",
-    "render": "brepflow render graphs/simple-box.bflow.json --mock"
+    "render": "brepflow render graphs/simple-box.bflow.json"
   }
 }

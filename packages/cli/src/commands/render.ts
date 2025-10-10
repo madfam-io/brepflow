@@ -8,9 +8,9 @@ import { GraphManager, DAGEngine } from '@brepflow/engine-core';
 import { registerCoreNodes } from '@brepflow/nodes-core';
 import { createGeometryAPI } from '@brepflow/engine-occt';
 
-const SUPPORTED_FORMATS: ExportFormat[] = ['step', 'iges', 'stl', 'obj', '3dm', 'gltf', 'usd'];
+export const SUPPORTED_FORMATS: ExportFormat[] = ['step', 'iges', 'stl', 'obj', '3dm', 'gltf', 'usd'];
 
-type ShapeCandidate = {
+export type ShapeCandidate = {
   nodeId: string;
   outputKey: string;
   handle: any;
@@ -18,7 +18,7 @@ type ShapeCandidate = {
   label: string;
 };
 
-type ExportRecord = {
+export type ExportRecord = {
   format: ExportFormat;
   filename: string;
   filepath: string;
@@ -35,7 +35,6 @@ export const renderCommand = new Command('render')
   .option('--quality <level>', 'tessellation quality (low,medium,high)', 'medium')
   .option('--hash', 'include content hash in filenames')
   .option('--manifest', 'generate manifest.json with metadata')
-  .option('--mock', 'use mock geometry (for testing)', false)
   .action(async (graphPath, options) => {
     const spinner = ora('Loading graph...').start();
 
@@ -64,11 +63,17 @@ export const renderCommand = new Command('render')
       // Initialize geometry API
       spinner.start('Initializing geometry engine...');
       const geometryAPI = createGeometryAPI({
-        enableRealOCCT: !options.mock,
-        fallbackToMock: !!options.mock,
+        enableRealOCCT: true,
+        fallbackToMock: false,
+        maxRetries: 1,
+        operationTimeout: 30000,
       });
       await geometryAPI.init();
-      spinner.succeed(options.mock ? 'Mock geometry initialized' : 'Geometry engine initialized');
+      const healthPayload = unwrapOperationResult<any>(await geometryAPI.invoke('HEALTH_CHECK', {}));
+      if (!healthPayload.success || !healthPayload.result?.healthy) {
+        throw new Error('OCCT health check failed');
+      }
+      spinner.succeed('Geometry engine initialized');
 
       // Create graph manager and DAG engine
       const graphManager = new GraphManager(graph);
@@ -141,7 +146,6 @@ export const renderCommand = new Command('render')
           parameters: options.set || [],
           exports: exportResults,
           evaluationTime: evalTime,
-          mockGeometry: options.mock,
         };
 
         await fs.writeJson(path.join(outputDir, 'manifest.json'), manifest, { spaces: 2 });
@@ -164,7 +168,7 @@ export const renderCommand = new Command('render')
 /**
  * Apply parameter overrides to graph
  */
-function applyParameters(graph: GraphInstance, params: string[]): void {
+export function applyParameters(graph: GraphInstance, params: string[]): void {
   const paramMap = new Map<string, unknown>();
 
   // Parse parameters
@@ -197,7 +201,7 @@ function applyParameters(graph: GraphInstance, params: string[]): void {
   }
 }
 
-function resolveFormats(value: string): { formats: ExportFormat[]; rejected: string[] } {
+export function resolveFormats(value: string): { formats: ExportFormat[]; rejected: string[] } {
   const requested = value
     .split(',')
     .map((fmt: string) => fmt.trim().toLowerCase())
@@ -225,7 +229,7 @@ function resolveFormats(value: string): { formats: ExportFormat[]; rejected: str
   return { formats, rejected };
 }
 
-function collectShapeHandles(graph: GraphInstance): ShapeCandidate[] {
+export function collectShapeHandles(graph: GraphInstance): ShapeCandidate[] {
   const results: ShapeCandidate[] = [];
   const seen = new Set<string>();
   let index = 0;
@@ -315,14 +319,45 @@ function buildFileName(shape: ShapeCandidate, format: string, includeHash: boole
   return `${stem}${hash ? `-${hash}` : ''}.${format}`;
 }
 
+export function unwrapOperationResult<T>(value: any): { success: boolean; result: T | undefined; error?: any } {
+  if (value && typeof value === 'object' && 'success' in value) {
+    return {
+      success: Boolean((value as any).success),
+      result: (value as any).result as T,
+      error: (value as any).error,
+    };
+  }
+
+  return {
+    success: true,
+    result: value as T,
+  };
+}
+
+async function invokeOperation<T>(geometryAPI: WorkerAPI, operation: string, params: any): Promise<T> {
+  const response = await geometryAPI.invoke(operation, params);
+  const { success, result, error } = unwrapOperationResult<T>(response);
+
+  if (!success) {
+    const reason = error instanceof Error ? error.message : typeof error === 'string' ? error : `Operation ${operation} failed`;
+    throw new Error(reason);
+  }
+
+  if (result === undefined || result === null) {
+    throw new Error(`Operation ${operation} returned no result`);
+  }
+
+  return result;
+}
+
 /**
  * Export graph in specified format
  */
-async function exportFormat(
+export async function exportFormat(
   graph: GraphInstance,
   format: ExportFormat,
   outputDir: string,
-  options: { mock?: boolean; hash?: boolean },
+  options: { hash?: boolean },
   geometryAPI: WorkerAPI,
   shapes: ShapeCandidate[],
 ): Promise<ExportRecord[]> {
@@ -339,10 +374,10 @@ async function exportFormat(
 
       switch (normalizedFormat) {
         case 'step':
-          content = await geometryAPI.invoke('EXPORT_STEP', { shape: shape.handle });
+          content = await invokeOperation<string>(geometryAPI, 'EXPORT_STEP', { shape: shape.handle });
           break;
         case 'stl':
-          content = await geometryAPI.invoke('EXPORT_STL', { shape: shape.handle, binary: false });
+          content = await invokeOperation<string>(geometryAPI, 'EXPORT_STL', { shape: shape.handle, binary: false });
           break;
         default:
           content = JSON.stringify({

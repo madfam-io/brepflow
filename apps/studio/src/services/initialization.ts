@@ -107,21 +107,8 @@ export class InitializationService {
     logger.debug('Validating environment configuration');
 
     // Check for production configuration issues
-    if (config.isProduction) {
-      if (config.enableMockGeometry) {
-        result.errors.push('Mock geometry cannot be enabled in production');
-      }
-      
-      if (!config.requireRealOCCT) {
-        result.errors.push('Real OCCT must be required in production');
-      }
-    }
-
-    // Check development configuration
-    if (config.isDevelopment) {
-      if (!config.enableMockGeometry && !await isRealGeometryAvailable()) {
-        result.warnings.push('Real geometry not available and mock disabled in development');
-      }
+    if (config.isProduction && !config.requireRealOCCT) {
+      result.errors.push('Real OCCT must be required in production');
     }
 
     // Validate memory settings
@@ -166,44 +153,26 @@ export class InitializationService {
 
       const config = getConfig();
       
-      if (config.isProduction || (config.requireRealOCCT && !options.allowMockFallback)) {
-        // Production mode - require real geometry
-        if (!result.capabilities.realGeometry) {
-          throw new Error('Real geometry API is required but not available');
+      if (!result.capabilities.realGeometry) {
+        if (options.allowMockFallback && config.mode === 'test') {
+          await GeometryAPIFactory.getAPI({ forceMode: 'mock' });
+          result.geometryAPI = 'mock';
+          result.warnings.push('Using mock geometry fallback (test mode)');
+          return;
         }
-        
-        const api = await GeometryAPIFactory.getAPI({ forceMode: 'real' });
-        result.geometryAPI = 'real';
-        logger.info('Initialized with real geometry API');
-        
-      } else if (result.capabilities.realGeometry) {
-        // Try real geometry first
-        try {
-          const api = await GeometryAPIFactory.getAPI({ 
-            forceMode: 'real',
-            enableRetry: true,
-            retryAttempts: 2,
-          });
-          result.geometryAPI = 'real';
-          logger.info('Initialized with real geometry API');
-        } catch (error) {
-          logger.warn('Real geometry initialization failed, falling back to mock', error);
-          if (config.enableMockGeometry) {
-            const api = await GeometryAPIFactory.getAPI({ forceMode: 'mock' });
-            result.geometryAPI = 'mock';
-            result.warnings.push('Using mock geometry due to real API failure');
-          } else {
-            throw error;
-          }
-        }
-      } else if (config.enableMockGeometry) {
-        // Fall back to mock geometry
-        const api = await GeometryAPIFactory.getAPI({ forceMode: 'mock' });
-        result.geometryAPI = 'mock';
-        result.warnings.push('Using mock geometry - real API not available');
-      } else {
-        throw new Error('No geometry API available and mock disabled');
+
+        throw new Error('Real geometry API is required but not available');
       }
+
+      await GeometryAPIFactory.getAPI({
+        forceMode: 'real',
+        enableRetry: true,
+        retryAttempts: 2,
+        initTimeout: options.timeoutMs,
+      });
+
+      result.geometryAPI = 'real';
+      logger.info('Initialized with real geometry API');
 
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Geometry API initialization failed';

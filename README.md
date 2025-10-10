@@ -100,7 +100,7 @@ pnpm run dev
 # Opens http://localhost:5173 with full node editor functionality
 ```
 
-**Note**: OCCT.wasm compilation is not required for development. The application uses a mock geometry provider that allows full testing of all features.
+**Note**: OCCT.wasm is now required for both development and production. The Studio and CLI use the real OCCT runtime exclusively so missing WASM artifacts will cause startup to fail fast.
 
 ### Optional: Build the geometry core (WASM) for real CAD operations
 

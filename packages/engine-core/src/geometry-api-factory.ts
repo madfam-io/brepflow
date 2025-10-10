@@ -3,7 +3,7 @@
  * Creates appropriate geometry provider based on environment and configuration
  */
 
-import { getConfig, shouldUseMockGeometry } from './config/environment';
+import { getConfig } from './config/environment';
 import { shouldUseRealWASM, getWASMConfig } from './config/wasm-config';
 import type { WorkerAPI } from '@brepflow/types';
 
@@ -29,6 +29,8 @@ export class GeometryAPIFactory {
   private static realAPI: WorkerAPI | null = null;
   private static mockAPI: WorkerAPI | null = null;
   private static initializationPromise: Promise<WorkerAPI> | null = null;
+  private static wasmAssetCheck: Promise<void> | null = null;
+  private static wasmAssetsVerified = false;
 
   /**
    * Get geometry API based on environment configuration
@@ -39,20 +41,30 @@ export class GeometryAPIFactory {
     // Determine which API to use
     // FORCE real WASM in development unless explicitly mocked
     const wasmConfig = getWASMConfig();
-    const useMock = options.forceMode === 'mock' || 
-                   (options.forceMode !== 'real' && !wasmConfig.forceRealWASM && shouldUseMockGeometry());
+    const requestMock = options.forceMode === 'mock';
+    const isTestEnvironment = config.mode === 'test';
+
+    if (requestMock && !isTestEnvironment) {
+      throw new Error('Mock geometry API is only available when NODE_ENV is set to test');
+    }
+
+    const useReal = options.forceMode === 'real' || !requestMock;
 
     getLogger().info('Creating geometry API', {
-      useMock,
+      useReal,
       environment: config.mode,
-      forceMode: options.forceMode,
+      forceMode: options.forceMode ?? 'auto',
     });
 
-    if (useMock) {
+    if (!useReal) {
       return this.getMockAPI();
-    } else {
-      return this.getRealAPI(options);
     }
+
+    if (!wasmConfig.forceRealWASM && !shouldUseRealWASM()) {
+      getLogger().warn('WASM configuration does not force real OCCT - overriding to ensure real geometry usage');
+    }
+
+    return this.getRealAPI(options);
   }
 
   /**
@@ -62,8 +74,8 @@ export class GeometryAPIFactory {
     const config = getConfig();
 
     // In production, fail fast if mock is requested
-    if (config.isProduction && shouldUseMockGeometry()) {
-      throw new Error('Mock geometry cannot be used in production mode');
+    if (config.mode !== 'test' && options.forceMode === 'mock') {
+      throw new Error('Mock geometry cannot be used outside of test mode');
     }
 
     // Return cached instance if available
@@ -98,11 +110,13 @@ export class GeometryAPIFactory {
 
     getLogger().info('Initializing real OCCT geometry API');
 
+    await this.ensureWasmAssets(config.occtWasmPath);
+
     try {
       // Dynamic import to avoid loading in environments where it's not available
-      const { ProductionWorkerAPI } = await import('@brepflow/engine-occt');
-      
-      const api = new ProductionWorkerAPI({
+      const { createProductionAPI } = await import('@brepflow/engine-occt');
+
+      const api = createProductionAPI({
         wasmPath: config.occtWasmPath,
         initTimeout: options.initTimeout || config.occtInitTimeout,
         validateOutput: options.validateOutput ?? config.validateGeometryOutput,
@@ -128,12 +142,6 @@ export class GeometryAPIFactory {
     } catch (error) {
       getLogger().error('Failed to initialize real OCCT geometry API', error);
 
-      // In development, optionally fall back to mock if allowed
-      if (config.isDevelopment && config.enableMockGeometry) {
-        getLogger().warn('Development mode: Falling back to mock geometry after real API failed');
-        return this.getMockAPI();
-      }
-      
       throw new Error(
         `Failed to initialize geometry API: ${error instanceof Error ? error.message : 'Unknown error'}`
       );
@@ -165,6 +173,11 @@ export class GeometryAPIFactory {
    * Get mock geometry API for development/testing
    */
   private static async getMockAPI(): Promise<WorkerAPI> {
+    const config = getConfig();
+    if (config.mode !== 'test') {
+      throw new Error('Mock geometry API is only available in test mode');
+    }
+
     if (this.mockAPI) {
       getLogger().debug('Returning cached mock geometry API');
       return this.mockAPI;
@@ -190,20 +203,98 @@ export class GeometryAPIFactory {
    */
   static async isRealAPIAvailable(): Promise<boolean> {
     try {
-      // Check for WebAssembly support
-      if (typeof WebAssembly === 'undefined') {
-        return false;
-      }
-
-      // Check for required files (simplified check)
       const config = getConfig();
-      const wasmPath = `${config.occtWasmPath}/occt-core.wasm`;
-      
-      const response = await fetch(wasmPath, { method: 'HEAD' });
-      return response.ok;
+      await this.ensureWasmAssets(config.occtWasmPath);
+      return true;
     } catch (error) {
       getLogger().debug('Real API availability check failed', error);
       return false;
+    }
+  }
+
+  private static async ensureWasmAssets(wasmPath: string): Promise<void> {
+    if (this.wasmAssetsVerified) {
+      return;
+    }
+
+    if (this.wasmAssetCheck) {
+      return this.wasmAssetCheck;
+    }
+
+    this.wasmAssetCheck = this.verifyWasmAssets(wasmPath)
+      .then(() => {
+        this.wasmAssetsVerified = true;
+      })
+      .finally(() => {
+        this.wasmAssetCheck = null;
+      });
+
+    return this.wasmAssetCheck;
+  }
+
+  private static async verifyWasmAssets(wasmPath: string): Promise<void> {
+    const requiredArtifacts = ['occt-core.wasm', 'occt.js', 'occt-core.js'];
+    const sanitizedBase = wasmPath.replace(/\/$/, '');
+
+    try {
+      const isBrowser = typeof window !== 'undefined';
+      const isRemote = /^https?:\/\//i.test(sanitizedBase) || sanitizedBase.startsWith('//');
+      const shouldUseFetch = isBrowser || isRemote;
+
+      if (!shouldUseFetch && typeof process !== 'undefined') {
+        const path = await import('node:path');
+        const fs = await import('node:fs/promises');
+
+        const basePath = path.isAbsolute(sanitizedBase)
+          ? sanitizedBase
+          : path.resolve(process.cwd(), sanitizedBase);
+
+        const missing: string[] = [];
+
+        for (const artifact of requiredArtifacts) {
+          const candidate = path.join(basePath, artifact);
+          try {
+            await fs.access(candidate);
+          } catch {
+            missing.push(candidate);
+          }
+        }
+
+        if (missing.length > 0) {
+          throw new Error(`Missing OCCT artifacts: ${missing.join(', ')}`);
+        }
+
+        return;
+      }
+
+      if (typeof fetch !== 'function') {
+        throw new Error('Global fetch API is not available to verify OCCT assets');
+      }
+
+      const fetchBase = sanitizedBase.startsWith('//')
+        ? `${(globalThis as any)?.location?.protocol ?? 'https:'}${sanitizedBase}`
+        : sanitizedBase;
+
+      const missing: string[] = [];
+
+      await Promise.all(requiredArtifacts.map(async artifact => {
+        const url = `${fetchBase}/${artifact}`;
+        try {
+          const response = await fetch(url, { method: 'HEAD' });
+          if (!response.ok) {
+            missing.push(url);
+          }
+        } catch {
+          missing.push(url);
+        }
+      }));
+
+      if (missing.length > 0) {
+        throw new Error(`Missing OCCT artifacts: ${missing.join(', ')}`);
+      }
+    } catch (error) {
+      const reason = error instanceof Error ? error.message : String(error);
+      throw new Error(`OCCT asset verification failed (${wasmPath}): ${reason}`);
     }
   }
 
@@ -280,9 +371,6 @@ export const getGeometryAPI = (forceMock = false) =>
 
 export const getRealGeometryAPI = () =>
   GeometryAPIFactory.getAPI({ forceMode: 'real' });
-
-export const getMockGeometryAPI = () =>
-  GeometryAPIFactory.getAPI({ forceMode: 'mock' });
 
 export const getProductionAPI = (config?: any) =>
   GeometryAPIFactory.getAPI({ forceMode: 'real', ...config });

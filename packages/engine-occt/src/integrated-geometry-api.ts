@@ -99,7 +99,7 @@ export class IntegratedGeometryAPI {
 
     // CRITICAL: Validate configuration is production-safe
     // Skip validation in test environments
-    if (this.environment.isProduction && !this.environment.isTest && config.fallbackToMock) {
+    if (config.fallbackToMock && !this.environment.allowMockGeometry) {
       throw new ProductionSafetyError(
         'Configuration enables mock geometry fallback in production environment',
         { config, environment: this.environment }
@@ -149,7 +149,11 @@ export class IntegratedGeometryAPI {
       this.capabilities = await WASMCapabilityDetector.detectCapabilities();
       console.log('[IntegratedGeometryAPI] Capabilities detected:', this.capabilities);
 
-      if (this.config.enableRealOCCT && this.capabilities.hasWASM) {
+      if (!this.config.enableRealOCCT) {
+        await this.initializeMockGeometry('configuration explicitly disabled real OCCT');
+      } else if (!this.capabilities.hasWASM) {
+        throw createProductionErrorBoundary('WASM_UNAVAILABLE', this.environment);
+      } else {
         try {
           // Load real OCCT with enhanced loader
           this.occtModule = await loadOCCTModule({
@@ -161,41 +165,10 @@ export class IntegratedGeometryAPI {
           console.log('[IntegratedGeometryAPI] Real OCCT module loaded successfully');
         } catch (occtError) {
           console.error('[IntegratedGeometryAPI] Failed to load real OCCT:', occtError);
-
-          // CRITICAL: Production safety check before any fallback
-          if (this.environment.isProduction) {
-            throw createProductionErrorBoundary('OCCT_INITIALIZATION', this.environment);
-          }
-
-          if (this.config.fallbackToMock && this.environment.allowMockGeometry) {
-            console.warn('[IntegratedGeometryAPI] Falling back to mock geometry (development/test only)');
-            const { MockGeometry } = await import('./mock-geometry');
-            this.occtModule = new MockGeometry();
-            await this.occtModule.init();
-            this.usingRealOCCT = false;
-          } else {
-            throw new Error(`Failed to initialize OCCT module: ${occtError.message}`);
-          }
+          const boundaryError = createProductionErrorBoundary('OCCT_INITIALIZATION', this.environment);
+          (boundaryError as any).cause = occtError;
+          throw boundaryError;
         }
-      } else {
-        // CRITICAL: Check if we can use mock geometry
-        if (this.environment.isProduction) {
-          throw createProductionErrorBoundary('WASM_UNAVAILABLE', this.environment);
-        }
-
-        if (!this.environment.allowMockGeometry) {
-          throw new ProductionSafetyError(
-            'Mock geometry not allowed in this environment and real OCCT is not available',
-            { environment: this.environment, capabilities: this.capabilities }
-          );
-        }
-
-        // Use mock geometry (development/test only)
-        console.warn('[IntegratedGeometryAPI] Using mock geometry (WASM not available - development/test only)');
-        const { MockGeometry } = await import('./mock-geometry');
-        this.occtModule = new MockGeometry();
-        await this.occtModule.init();
-        this.usingRealOCCT = false;
       }
 
       // CRITICAL: Final production safety validation
@@ -211,6 +184,23 @@ export class IntegratedGeometryAPI {
       console.error('[IntegratedGeometryAPI] Initialization failed:', error);
       throw error;
     }
+  }
+
+  private async initializeMockGeometry(reason: string): Promise<void> {
+    if (!this.environment.allowMockGeometry) {
+      throw new ProductionSafetyError(
+        `Mock geometry requested (${reason}) but not permitted in current environment`,
+        { environment: this.environment }
+      );
+    }
+
+    console.warn(`[IntegratedGeometryAPI] Using mock geometry: ${reason}`);
+    const { MockGeometry } = await import('./mock-geometry');
+    this.occtModule = new MockGeometry();
+    if (typeof this.occtModule.init === 'function') {
+      await this.occtModule.init();
+    }
+    this.usingRealOCCT = false;
   }
 
   /**
@@ -704,10 +694,11 @@ Capabilities: ${this.capabilities ? 'Detected' : 'Not Available'}
 // PRODUCTION-SAFE default configuration
 // CRITICAL: Uses createProductionSafeConfig to ensure production safety
 // CRITICAL: In test environments, disable real OCCT to avoid WASM loading failures
-const testEnv = detectEnvironment();
+const runtimeEnvironment = detectEnvironment();
 export const DEFAULT_API_CONFIG: GeometryAPIConfig = createProductionSafeConfig({
-  enableRealOCCT: !testEnv.isTest, // Disable real OCCT in test environments
-  workerPoolConfig: testEnv.isTest ? undefined : DEFAULT_POOL_CONFIG, // No worker pool in tests
+  enableRealOCCT: true,
+  fallbackToMock: false,
+  workerPoolConfig: runtimeEnvironment.isTest ? undefined : DEFAULT_POOL_CONFIG, // No worker pool in vitest to keep tests stable
   memoryConfig: DEFAULT_CACHE_CONFIG
 });
 
