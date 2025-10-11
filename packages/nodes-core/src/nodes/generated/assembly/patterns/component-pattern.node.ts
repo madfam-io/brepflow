@@ -1,63 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ComponentPatternParams {
   patternType: string;
   count: number;
   spacing: number;
 }
-interface Inputs {
-  component: Shape;
-  mates?: Mate[];
+
+interface ComponentPatternInputs {
+  component: unknown;
+  mates?: unknown;
 }
-interface Outputs {
-  pattern: Shape[];
+
+interface ComponentPatternOutputs {
+  pattern: unknown;
 }
 
 export const ComponentPatternNode: NodeDefinition<ComponentPatternInputs, ComponentPatternOutputs, ComponentPatternParams> = {
-  type: 'Assembly::ComponentPattern',
+  id: 'Assembly::ComponentPattern',
   category: 'Assembly',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'ComponentPattern',
-    description: 'Pattern components in assembly',
-    
-    
-  },
-
-  params: {
-        patternType: {
-      "default": "linear",
-      "options": [
-        "linear",
-        "circular",
-        "mirror"
-      ]
+  label: 'ComponentPattern',
+  description: 'Pattern components in assembly',
+  inputs: {
+    component: {
+      type: 'Shape',
+      label: 'Component',
+      required: true
     },
-    count: {
-      "default": 3,
-      "min": 2,
-      "max": 100
-    },
-    spacing: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
+    mates: {
+      type: 'Mate[]',
+      label: 'Mates',
+      optional: true
     }
   },
-
-  inputs: {
-        component: 'Shape',
-    mates: 'Mate[]'
-  },
-
   outputs: {
-        pattern: 'Shape[]'
+    pattern: {
+      type: 'Shape[]',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    patternType: {
+      type: 'enum',
+      label: 'Pattern Type',
+      default: "linear",
+      options: ["linear","circular","mirror"]
+    },
+    count: {
+      type: 'number',
+      label: 'Count',
+      default: 3,
+      min: 2,
+      max: 100
+    },
+    spacing: {
+      type: 'number',
+      label: 'Spacing',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'assemblyComponentPattern',
       params: {
@@ -68,9 +71,9 @@ export const ComponentPatternNode: NodeDefinition<ComponentPatternInputs, Compon
         spacing: params.spacing
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

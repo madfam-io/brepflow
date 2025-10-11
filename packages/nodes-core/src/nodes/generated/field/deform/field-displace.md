@@ -8,7 +8,7 @@ Displace along normals
 ## Parameters
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 10
 - **Min:** -100
@@ -19,13 +19,13 @@ Displace along normals
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### field
+### Field
 - **Type:** ScalarField
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Displace along normals
 ## Outputs
 
 
-### displaced
+### Displaced
 - **Type:** Face
 
 

@@ -8,7 +8,7 @@ Offset Voronoi cells
 ## Parameters
 
 
-### offset
+### Offset
 - **Type:** number
 - **Default:** 1
 - **Min:** -10
@@ -16,7 +16,7 @@ Offset Voronoi cells
 
 
 
-### roundCorners
+### Round Corners
 - **Type:** boolean
 - **Default:** false
 
@@ -27,7 +27,7 @@ Offset Voronoi cells
 ## Inputs
 
 
-### cells
+### Cells
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Offset Voronoi cells
 ## Outputs
 
 
-### offsetCells
+### Offset Cells
 - **Type:** Wire[]
 
 

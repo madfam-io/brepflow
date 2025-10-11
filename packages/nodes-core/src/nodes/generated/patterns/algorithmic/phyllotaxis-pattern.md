@@ -8,7 +8,7 @@ Phyllotaxis spiral pattern
 ## Parameters
 
 
-### count
+### Count
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Phyllotaxis spiral pattern
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 137.5
 - **Min:** 0
@@ -24,7 +24,7 @@ Phyllotaxis spiral pattern
 
 
 
-### c
+### C
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -35,7 +35,7 @@ Phyllotaxis spiral pattern
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Phyllotaxis spiral pattern
 ## Outputs
 
 
-### points
+### Points
 - **Type:** Point[]
 
 
 
-### spiral
+### Spiral
 - **Type:** Wire
 
 

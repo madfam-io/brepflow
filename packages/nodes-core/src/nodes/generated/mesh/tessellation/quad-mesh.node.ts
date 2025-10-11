@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface QuadMeshParams {
   targetQuadSize: number;
   quadDominance: number;
 }
-interface Inputs {
-  shape: Shape;
+
+interface QuadMeshInputs {
+  shape: unknown;
 }
-interface Outputs {
-  quadMesh: Mesh;
+
+interface QuadMeshOutputs {
+  quadMesh: unknown;
 }
 
 export const QuadMeshNode: NodeDefinition<QuadMeshInputs, QuadMeshOutputs, QuadMeshParams> = {
-  type: 'Mesh::QuadMesh',
+  id: 'Mesh::QuadMesh',
   category: 'Mesh',
-  subcategory: 'Tessellation',
-
-  metadata: {
-    label: 'QuadMesh',
-    description: 'Generate quad-dominant mesh',
-    
-    
-  },
-
-  params: {
-        targetQuadSize: {
-      "default": 5,
-      "min": 0.1,
-      "max": 100
-    },
-    quadDominance: {
-      "default": 0.8,
-      "min": 0,
-      "max": 1
+  label: 'QuadMesh',
+  description: 'Generate quad-dominant mesh',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        quadMesh: 'Mesh'
+    quadMesh: {
+      type: 'Mesh',
+      label: 'Quad Mesh'
+    }
   },
-
+  params: {
+    targetQuadSize: {
+      type: 'number',
+      label: 'Target Quad Size',
+      default: 5,
+      min: 0.1,
+      max: 100
+    },
+    quadDominance: {
+      type: 'number',
+      label: 'Quad Dominance',
+      default: 0.8,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'quadMesh',
       params: {
@@ -55,9 +56,9 @@ export const QuadMeshNode: NodeDefinition<QuadMeshInputs, QuadMeshOutputs, QuadM
         quadDominance: params.quadDominance
       }
     });
-
+    
     return {
       quadMesh: result
     };
-  }
+  },
 };

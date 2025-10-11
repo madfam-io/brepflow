@@ -8,7 +8,7 @@ Convert mesh to B-Rep
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -16,7 +16,7 @@ Convert mesh to B-Rep
 
 
 
-### sewFaces
+### Sew Faces
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Convert mesh to B-Rep
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Convert mesh to B-Rep
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

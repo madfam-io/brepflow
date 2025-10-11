@@ -8,7 +8,7 @@ Extract isocurves
 ## Parameters
 
 
-### direction
+### Direction
 - **Type:** enum
 - **Default:** "both"
 
@@ -16,7 +16,7 @@ Extract isocurves
 
 
 
-### count
+### Count
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,7 +27,7 @@ Extract isocurves
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Extract isocurves
 ## Outputs
 
 
-### isocurves
+### Isocurves
 - **Type:** Wire[]
 
 

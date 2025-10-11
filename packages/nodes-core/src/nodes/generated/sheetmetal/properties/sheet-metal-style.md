@@ -8,7 +8,7 @@ Define sheet metal parameters
 ## Parameters
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Define sheet metal parameters
 - **Description:** Material thickness
 
 
-### material
+### Material
 - **Type:** enum
 - **Default:** "steel"
 
@@ -24,7 +24,7 @@ Define sheet metal parameters
 
 
 
-### kFactor
+### K Factor
 - **Type:** number
 - **Default:** 0.44
 - **Min:** 0
@@ -32,7 +32,7 @@ Define sheet metal parameters
 
 
 
-### minBendRadius
+### Min Bend Radius
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Define sheet metal parameters
 
 
 
-### reliefType
+### Relief Type
 - **Type:** enum
 - **Default:** "rectangular"
 
@@ -55,7 +55,7 @@ This node has no inputs.
 ## Outputs
 
 
-### style
+### Style
 - **Type:** Data
 
 

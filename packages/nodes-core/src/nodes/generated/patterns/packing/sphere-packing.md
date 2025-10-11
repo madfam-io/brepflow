@@ -8,7 +8,7 @@
 ## Parameters
 
 
-### packingType
+### Packing Type
 - **Type:** enum
 - **Default:** "hexagonal"
 
@@ -19,13 +19,13 @@
 ## Inputs
 
 
-### container
+### Container
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Required:** Yes
 
@@ -34,12 +34,12 @@
 ## Outputs
 
 
-### centers
+### Centers
 - **Type:** Point[]
 
 
 
-### spheres
+### Spheres
 - **Type:** Shape[]
 
 

@@ -1,66 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LanceParams {
   lanceLength: number;
   lanceWidth: number;
   lanceHeight: number;
   lanceAngle: number;
 }
-interface Inputs {
-  sheet: Shape;
-  sketch: Wire;
+
+interface LanceInputs {
+  sheet: unknown;
+  sketch: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface LanceOutputs {
+  result: unknown;
 }
 
 export const LanceNode: NodeDefinition<LanceInputs, LanceOutputs, LanceParams> = {
-  type: 'SheetMetal::Lance',
+  id: 'SheetMetal::Lance',
   category: 'SheetMetal',
-  subcategory: 'Features',
-
-  metadata: {
-    label: 'Lance',
-    description: 'Create lanced form',
-    
-    
-  },
-
-  params: {
-        lanceLength: {
-      "default": 20,
-      "min": 1,
-      "max": 200
+  label: 'Lance',
+  description: 'Create lanced form',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    lanceWidth: {
-      "default": 5,
-      "min": 0.5,
-      "max": 50
-    },
-    lanceHeight: {
-      "default": 3,
-      "min": 0.1,
-      "max": 50
-    },
-    lanceAngle: {
-      "default": 30,
-      "min": 0,
-      "max": 90
+    sketch: {
+      type: 'Wire',
+      label: 'Sketch',
+      required: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    sketch: 'Wire'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    lanceLength: {
+      type: 'number',
+      label: 'Lance Length',
+      default: 20,
+      min: 1,
+      max: 200
+    },
+    lanceWidth: {
+      type: 'number',
+      label: 'Lance Width',
+      default: 5,
+      min: 0.5,
+      max: 50
+    },
+    lanceHeight: {
+      type: 'number',
+      label: 'Lance Height',
+      default: 3,
+      min: 0.1,
+      max: 50
+    },
+    lanceAngle: {
+      type: 'number',
+      label: 'Lance Angle',
+      default: 30,
+      min: 0,
+      max: 90
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetLance',
       params: {
@@ -72,9 +81,9 @@ export const LanceNode: NodeDefinition<LanceInputs, LanceOutputs, LanceParams> =
         lanceAngle: params.lanceAngle
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

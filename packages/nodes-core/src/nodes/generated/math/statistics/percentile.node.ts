@@ -1,46 +1,45 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PercentileParams {
   percentile: number;
 }
-interface Inputs {
-  values: number[];
+
+interface PercentileInputs {
+  values: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface PercentileOutputs {
+  result: unknown;
 }
 
 export const PercentileNode: NodeDefinition<PercentileInputs, PercentileOutputs, PercentileParams> = {
-  type: 'Math::Percentile',
+  id: 'Math::Percentile',
   category: 'Math',
-  subcategory: 'Statistics',
-
-  metadata: {
-    label: 'Percentile',
-    description: 'Calculate percentile',
-    
-    
-  },
-
-  params: {
-        percentile: {
-      "default": 50,
-      "min": 0,
-      "max": 100
+  label: 'Percentile',
+  description: 'Calculate percentile',
+  inputs: {
+    values: {
+      type: 'number[]',
+      label: 'Values',
+      required: true
     }
   },
-
-  inputs: {
-        values: 'number[]'
-  },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {
+    percentile: {
+      type: 'number',
+      label: 'Percentile',
+      default: 50,
+      min: 0,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathPercentile',
       params: {
@@ -48,9 +47,9 @@ export const PercentileNode: NodeDefinition<PercentileInputs, PercentileOutputs,
         percentile: params.percentile
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

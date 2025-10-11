@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AdditiveManufacturingParams {
   nozzleSize: number;
   layerHeight: number;
 }
-interface Inputs {
-  printPaths: Wire[];
+
+interface AdditiveManufacturingInputs {
+  printPaths: unknown;
 }
-interface Outputs {
-  roboticPrintPath: Transform[];
+
+interface AdditiveManufacturingOutputs {
+  roboticPrintPath: unknown;
 }
 
 export const AdditiveManufacturingNode: NodeDefinition<AdditiveManufacturingInputs, AdditiveManufacturingOutputs, AdditiveManufacturingParams> = {
-  type: 'Fabrication::AdditiveManufacturing',
+  id: 'Fabrication::AdditiveManufacturing',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'AdditiveManufacturing',
-    description: 'Robotic 3D printing',
-    
-    
-  },
-
-  params: {
-        nozzleSize: {
-      "default": 4,
-      "min": 0.4,
-      "max": 10
-    },
-    layerHeight: {
-      "default": 2,
-      "min": 0.1,
-      "max": 5
+  label: 'AdditiveManufacturing',
+  description: 'Robotic 3D printing',
+  inputs: {
+    printPaths: {
+      type: 'Wire[]',
+      label: 'Print Paths',
+      required: true
     }
   },
-
-  inputs: {
-        printPaths: 'Wire[]'
-  },
-
   outputs: {
-        roboticPrintPath: 'Transform[]'
+    roboticPrintPath: {
+      type: 'Transform[]',
+      label: 'Robotic Print Path'
+    }
   },
-
+  params: {
+    nozzleSize: {
+      type: 'number',
+      label: 'Nozzle Size',
+      default: 4,
+      min: 0.4,
+      max: 10
+    },
+    layerHeight: {
+      type: 'number',
+      label: 'Layer Height',
+      default: 2,
+      min: 0.1,
+      max: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'additiveManufacturing',
       params: {
@@ -55,9 +56,9 @@ export const AdditiveManufacturingNode: NodeDefinition<AdditiveManufacturingInpu
         layerHeight: params.layerHeight
       }
     });
-
+    
     return {
       roboticPrintPath: result
     };
-  }
+  },
 };

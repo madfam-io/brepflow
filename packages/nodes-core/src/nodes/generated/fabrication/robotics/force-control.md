@@ -8,7 +8,7 @@ Force/torque control
 ## Parameters
 
 
-### forceLimit
+### Force Limit
 - **Type:** number
 - **Default:** 100
 - **Min:** 1
@@ -16,7 +16,7 @@ Force/torque control
 
 
 
-### compliance
+### Compliance
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -27,7 +27,7 @@ Force/torque control
 ## Inputs
 
 
-### contactSurface
+### Contact Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Force/torque control
 ## Outputs
 
 
-### forceProfile
+### Force Profile
 - **Type:** Data
 
 

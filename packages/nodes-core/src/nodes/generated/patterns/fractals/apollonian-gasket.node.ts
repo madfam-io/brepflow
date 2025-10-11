@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ApollonianGasketParams {
   depth: number;
   minRadius: number;
 }
-interface Inputs {
-  outerCircle: Wire;
+
+interface ApollonianGasketInputs {
+  outerCircle: unknown;
 }
-interface Outputs {
-  circles: Wire[];
+
+interface ApollonianGasketOutputs {
+  circles: unknown;
 }
 
 export const ApollonianGasketNode: NodeDefinition<ApollonianGasketInputs, ApollonianGasketOutputs, ApollonianGasketParams> = {
-  type: 'Patterns::ApollonianGasket',
+  id: 'Patterns::ApollonianGasket',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'ApollonianGasket',
-    description: 'Apollonian gasket circles',
-    
-    
-  },
-
-  params: {
-        depth: {
-      "default": 5,
-      "min": 1,
-      "max": 10,
-      "step": 1
-    },
-    minRadius: {
-      "default": 0.1,
-      "min": 0.01
+  label: 'ApollonianGasket',
+  description: 'Apollonian gasket circles',
+  inputs: {
+    outerCircle: {
+      type: 'Wire',
+      label: 'Outer Circle',
+      required: true
     }
   },
-
-  inputs: {
-        outerCircle: 'Wire'
-  },
-
   outputs: {
-        circles: 'Wire[]'
+    circles: {
+      type: 'Wire[]',
+      label: 'Circles'
+    }
   },
-
+  params: {
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: 5,
+      min: 1,
+      max: 10,
+      step: 1
+    },
+    minRadius: {
+      type: 'number',
+      label: 'Min Radius',
+      default: 0.1,
+      min: 0.01
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'apollonianGasket',
       params: {
@@ -55,9 +56,9 @@ export const ApollonianGasketNode: NodeDefinition<ApollonianGasketInputs, Apollo
         minRadius: params.minRadius
       }
     });
-
+    
     return {
       circles: result
     };
-  }
+  },
 };

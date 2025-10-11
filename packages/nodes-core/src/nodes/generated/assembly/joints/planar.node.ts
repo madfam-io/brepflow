@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type PlanarParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  part1: Shape;
-  part2: Shape;
-  plane: Plane;
+interface PlanarInputs {
+  part1: unknown;
+  part2: unknown;
+  plane: unknown;
 }
-interface Outputs {
-  joint: Joint;
+
+interface PlanarOutputs {
+  joint: unknown;
 }
 
 export const PlanarNode: NodeDefinition<PlanarInputs, PlanarOutputs, PlanarParams> = {
-  type: 'Assembly::Planar',
+  id: 'Assembly::Planar',
   category: 'Assembly',
-  subcategory: 'Joints',
-
-  metadata: {
-    label: 'Planar',
-    description: 'Create planar joint',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Planar',
+  description: 'Create planar joint',
   inputs: {
-        part1: 'Shape',
-    part2: 'Shape',
-    plane: 'Plane'
+    part1: {
+      type: 'Shape',
+      label: 'Part1',
+      required: true
+    },
+    part2: {
+      type: 'Shape',
+      label: 'Part2',
+      required: true
+    },
+    plane: {
+      type: 'Plane',
+      label: 'Plane',
+      required: true
+    }
   },
-
   outputs: {
-        joint: 'Joint'
+    joint: {
+      type: 'Joint',
+      label: 'Joint'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jointPlanar',
       params: {
         part1: inputs.part1,
         part2: inputs.part2,
         plane: inputs.plane
-        
       }
     });
-
+    
     return {
       joint: result
     };
-  }
+  },
 };

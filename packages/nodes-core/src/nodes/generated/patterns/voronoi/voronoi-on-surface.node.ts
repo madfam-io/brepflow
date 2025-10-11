@@ -1,46 +1,49 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VoronoiOnSurfaceParams {
   geodesic: boolean;
 }
-interface Inputs {
-  surface: Face;
-  points: Point[];
+
+interface VoronoiOnSurfaceInputs {
+  surface: unknown;
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  cells: Wire[];
+
+interface VoronoiOnSurfaceOutputs {
+  cells: unknown;
 }
 
 export const VoronoiOnSurfaceNode: NodeDefinition<VoronoiOnSurfaceInputs, VoronoiOnSurfaceOutputs, VoronoiOnSurfaceParams> = {
-  type: 'Patterns::VoronoiOnSurface',
+  id: 'Patterns::VoronoiOnSurface',
   category: 'Patterns',
-  subcategory: 'Voronoi',
-
-  metadata: {
-    label: 'VoronoiOnSurface',
-    description: 'Voronoi on curved surface',
-    
-    
-  },
-
-  params: {
-        geodesic: {
-      "default": true
+  label: 'VoronoiOnSurface',
+  description: 'Voronoi on curved surface',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
+    },
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face',
-    points: 'Point[]'
-  },
-
   outputs: {
-        cells: 'Wire[]'
+    cells: {
+      type: 'Wire[]',
+      label: 'Cells'
+    }
   },
-
+  params: {
+    geodesic: {
+      type: 'boolean',
+      label: 'Geodesic',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'voronoiSurface',
       params: {
@@ -49,9 +52,9 @@ export const VoronoiOnSurfaceNode: NodeDefinition<VoronoiOnSurfaceInputs, Vorono
         geodesic: params.geodesic
       }
     });
-
+    
     return {
       cells: result
     };
-  }
+  },
 };

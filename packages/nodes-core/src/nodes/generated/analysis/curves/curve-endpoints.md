@@ -8,7 +8,7 @@ Extract curve endpoints and tangents
 ## Parameters
 
 
-### tangentLength
+### Tangent Length
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -16,7 +16,7 @@ Extract curve endpoints and tangents
 
 
 
-### showTangents
+### Show Tangents
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Extract curve endpoints and tangents
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,22 +36,22 @@ Extract curve endpoints and tangents
 ## Outputs
 
 
-### startPoint
+### Start Point
 - **Type:** Point
 
 
 
-### endPoint
+### End Point
 - **Type:** Point
 
 
 
-### startTangent
+### Start Tangent
 - **Type:** Vector
 
 
 
-### endTangent
+### End Tangent
 - **Type:** Vector
 
 

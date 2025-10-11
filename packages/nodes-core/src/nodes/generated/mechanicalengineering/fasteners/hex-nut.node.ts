@@ -1,72 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HexNutParams {
   size: string;
   height: number;
   style: string;
 }
-interface Inputs {
-  position: Point;
+
+interface HexNutInputs {
+  position: [number, number, number];
 }
-interface Outputs {
-  nut: Shape;
-  thread: Wire;
+
+interface HexNutOutputs {
+  nut: unknown;
+  thread: unknown;
 }
 
 export const HexNutNode: NodeDefinition<HexNutInputs, HexNutOutputs, HexNutParams> = {
-  type: 'MechanicalEngineering::HexNut',
+  id: 'MechanicalEngineering::HexNut',
   category: 'MechanicalEngineering',
-  subcategory: 'Fasteners',
-
-  metadata: {
-    label: 'HexNut',
-    description: 'Create hexagonal nut',
-    
-    
-  },
-
-  params: {
-        size: {
-      "default": "M6",
-      "options": [
-        "M3",
-        "M4",
-        "M5",
-        "M6",
-        "M8",
-        "M10",
-        "M12"
-      ]
-    },
-    height: {
-      "default": 5,
-      "min": 2,
-      "max": 20
-    },
-    style: {
-      "default": "standard",
-      "options": [
-        "standard",
-        "nylon-insert",
-        "castle",
-        "wing"
-      ]
+  label: 'HexNut',
+  description: 'Create hexagonal nut',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        position: 'Point'
-  },
-
   outputs: {
-        nut: 'Shape',
-    thread: 'Wire'
+    nut: {
+      type: 'Shape',
+      label: 'Nut'
+    },
+    thread: {
+      type: 'Wire',
+      label: 'Thread'
+    }
   },
-
+  params: {
+    size: {
+      type: 'enum',
+      label: 'Size',
+      default: "M6",
+      options: ["M3","M4","M5","M6","M8","M10","M12"]
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 5,
+      min: 2,
+      max: 20
+    },
+    style: {
+      type: 'enum',
+      label: 'Style',
+      default: "standard",
+      options: ["standard","nylon-insert","castle","wing"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'hexNut',
       params: {
         position: inputs.position,
@@ -75,10 +68,10 @@ export const HexNutNode: NodeDefinition<HexNutInputs, HexNutOutputs, HexNutParam
         style: params.style
       }
     });
-
+    
     return {
-      nut: result,
-      thread: result
+      nut: results.nut,
+      thread: results.thread
     };
-  }
+  },
 };

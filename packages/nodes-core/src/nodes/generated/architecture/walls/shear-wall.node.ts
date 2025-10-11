@@ -1,55 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ShearWallParams {
   thickness: number;
   reinforcementRatio: number;
 }
-interface Inputs {
-  wallOutline: Wire;
+
+interface ShearWallInputs {
+  wallOutline: unknown;
 }
-interface Outputs {
-  shearWall: Shape;
-  reinforcement: Wire[];
+
+interface ShearWallOutputs {
+  shearWall: unknown;
+  reinforcement: unknown;
 }
 
 export const ShearWallNode: NodeDefinition<ShearWallInputs, ShearWallOutputs, ShearWallParams> = {
-  type: 'Architecture::ShearWall',
+  id: 'Architecture::ShearWall',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'ShearWall',
-    description: 'Structural shear wall',
-    
-    
-  },
-
-  params: {
-        thickness: {
-      "default": 300,
-      "min": 200,
-      "max": 500
-    },
-    reinforcementRatio: {
-      "default": 0.025,
-      "min": 0.01,
-      "max": 0.04
+  label: 'ShearWall',
+  description: 'Structural shear wall',
+  inputs: {
+    wallOutline: {
+      type: 'Wire',
+      label: 'Wall Outline',
+      required: true
     }
   },
-
-  inputs: {
-        wallOutline: 'Wire'
-  },
-
   outputs: {
-        shearWall: 'Shape',
-    reinforcement: 'Wire[]'
+    shearWall: {
+      type: 'Shape',
+      label: 'Shear Wall'
+    },
+    reinforcement: {
+      type: 'Wire[]',
+      label: 'Reinforcement'
+    }
   },
-
+  params: {
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 300,
+      min: 200,
+      max: 500
+    },
+    reinforcementRatio: {
+      type: 'number',
+      label: 'Reinforcement Ratio',
+      default: 0.025,
+      min: 0.01,
+      max: 0.04
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'shearWall',
       params: {
         wallOutline: inputs.wallOutline,
@@ -57,10 +61,10 @@ export const ShearWallNode: NodeDefinition<ShearWallInputs, ShearWallOutputs, Sh
         reinforcementRatio: params.reinforcementRatio
       }
     });
-
+    
     return {
-      shearWall: result,
-      reinforcement: result
+      shearWall: results.shearWall,
+      reinforcement: results.reinforcement
     };
-  }
+  },
 };

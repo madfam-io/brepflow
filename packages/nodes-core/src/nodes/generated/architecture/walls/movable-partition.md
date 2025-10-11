@@ -8,7 +8,7 @@ Movable partition system
 ## Parameters
 
 
-### panelWidth
+### Panel Width
 - **Type:** number
 - **Default:** 1200
 - **Min:** 600
@@ -16,7 +16,7 @@ Movable partition system
 
 
 
-### trackType
+### Track Type
 - **Type:** enum
 - **Default:** "ceiling"
 
@@ -27,7 +27,7 @@ Movable partition system
 ## Inputs
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Movable partition system
 ## Outputs
 
 
-### partition
+### Partition
 - **Type:** Shape[]
 
 
 
-### track
+### Track
 - **Type:** Wire
 
 

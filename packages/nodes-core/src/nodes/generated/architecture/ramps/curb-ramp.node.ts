@@ -1,55 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurbRampParams {
   type: string;
   flareSlope: number;
 }
-interface Inputs {
-  curbLine: Wire;
+
+interface CurbRampInputs {
+  curbLine: unknown;
 }
-interface Outputs {
-  curbRamp: Shape;
+
+interface CurbRampOutputs {
+  curbRamp: unknown;
 }
 
 export const CurbRampNode: NodeDefinition<CurbRampInputs, CurbRampOutputs, CurbRampParams> = {
-  type: 'Architecture::CurbRamp',
+  id: 'Architecture::CurbRamp',
   category: 'Architecture',
-  subcategory: 'Ramps',
-
-  metadata: {
-    label: 'CurbRamp',
-    description: 'Curb cut ramp',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "perpendicular",
-      "options": [
-        "perpendicular",
-        "parallel",
-        "combination"
-      ]
-    },
-    flareSlope: {
-      "default": 0.1,
-      "min": 0.083,
-      "max": 0.125
+  label: 'CurbRamp',
+  description: 'Curb cut ramp',
+  inputs: {
+    curbLine: {
+      type: 'Wire',
+      label: 'Curb Line',
+      required: true
     }
   },
-
-  inputs: {
-        curbLine: 'Wire'
-  },
-
   outputs: {
-        curbRamp: 'Shape'
+    curbRamp: {
+      type: 'Shape',
+      label: 'Curb Ramp'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "perpendicular",
+      options: ["perpendicular","parallel","combination"]
+    },
+    flareSlope: {
+      type: 'number',
+      label: 'Flare Slope',
+      default: 0.1,
+      min: 0.083,
+      max: 0.125
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'curbRamp',
       params: {
@@ -58,9 +55,9 @@ export const CurbRampNode: NodeDefinition<CurbRampInputs, CurbRampOutputs, CurbR
         flareSlope: params.flareSlope
       }
     });
-
+    
     return {
       curbRamp: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Spinning attractor field
 ## Parameters
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 1
 - **Min:** -10
@@ -16,7 +16,7 @@ Spinning attractor field
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Spinning attractor field
 
 
 
-### axis
+### Axis
 - **Type:** vector3
 - **Default:** [0,0,1]
 
@@ -32,7 +32,7 @@ Spinning attractor field
 
 
 
-### decay
+### Decay
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -43,7 +43,7 @@ Spinning attractor field
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Spinning attractor field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** VectorField
 
 

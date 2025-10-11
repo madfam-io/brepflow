@@ -8,7 +8,7 @@ Fourier transform of field
 ## Parameters
 
 
-### direction
+### Direction
 - **Type:** enum
 - **Default:** "\"forward\""
 
@@ -19,7 +19,7 @@ Fourier transform of field
 ## Inputs
 
 
-### field
+### Field
 - **Type:** Field
 - **Required:** No
 
@@ -28,17 +28,17 @@ Fourier transform of field
 ## Outputs
 
 
-### transformedField
+### Transformed Field
 - **Type:** Field
 
 
 
-### phase
+### Phase
 - **Type:** Field
 
 
 
-### magnitude
+### Magnitude
 - **Type:** Field
 
 

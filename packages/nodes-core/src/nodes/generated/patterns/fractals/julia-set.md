@@ -8,7 +8,7 @@ Julia set fractal
 ## Parameters
 
 
-### cReal
+### C Real
 - **Type:** number
 - **Default:** -0.7
 - **Min:** -2
@@ -16,7 +16,7 @@ Julia set fractal
 
 
 
-### cImag
+### C Imag
 - **Type:** number
 - **Default:** 0.27
 - **Min:** -2
@@ -24,7 +24,7 @@ Julia set fractal
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -32,7 +32,7 @@ Julia set fractal
 
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 100
 - **Min:** 50
@@ -43,7 +43,7 @@ Julia set fractal
 ## Inputs
 
 
-### bounds
+### Bounds
 - **Type:** Box
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Julia set fractal
 ## Outputs
 
 
-### fractal
+### Fractal
 - **Type:** Mesh
 
 

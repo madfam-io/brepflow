@@ -8,7 +8,7 @@ Compute signed distance field
 ## Parameters
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -16,7 +16,7 @@ Compute signed distance field
 
 
 
-### bounds
+### Bounds
 - **Type:** Vector
 - **Default:** "100,100,100"
 
@@ -24,7 +24,7 @@ Compute signed distance field
 - **Description:** Bounding box size
 
 
-### signed
+### Signed
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Compute signed distance field
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Compute signed distance field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** Properties
 
 
 
-### isosurface
+### Isosurface
 - **Type:** Shape
 
 
 
-### gradient
+### Gradient
 - **Type:** Vector[]
 
 

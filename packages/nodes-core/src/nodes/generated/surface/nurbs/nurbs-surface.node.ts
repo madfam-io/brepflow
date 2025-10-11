@@ -1,68 +1,85 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface NurbsSurfaceParams {
   degreeU: number;
   degreeV: number;
   periodicU: boolean;
   periodicV: boolean;
 }
-interface Inputs {
-  controlPoints: Point[][];
-  weights?: number[][];
-  knotsU?: number[];
-  knotsV?: number[];
+
+interface NurbsSurfaceInputs {
+  controlPoints: unknown;
+  weights?: unknown;
+  knotsU?: unknown;
+  knotsV?: unknown;
 }
-interface Outputs {
-  surface: Face;
+
+interface NurbsSurfaceOutputs {
+  surface: unknown;
 }
 
 export const NurbsSurfaceNode: NodeDefinition<NurbsSurfaceInputs, NurbsSurfaceOutputs, NurbsSurfaceParams> = {
-  type: 'Surface::NurbsSurface',
+  id: 'Surface::NurbsSurface',
   category: 'Surface',
-  subcategory: 'NURBS',
-
-  metadata: {
-    label: 'NurbsSurface',
-    description: 'Create NURBS surface from control points',
-    
-    
-  },
-
-  params: {
-        degreeU: {
-      "default": 3,
-      "min": 1,
-      "max": 10,
-      "step": 1
+  label: 'NurbsSurface',
+  description: 'Create NURBS surface from control points',
+  inputs: {
+    controlPoints: {
+      type: 'Point[][]',
+      label: 'Control Points',
+      required: true
     },
-    degreeV: {
-      "default": 3,
-      "min": 1,
-      "max": 10,
-      "step": 1
+    weights: {
+      type: 'number[][]',
+      label: 'Weights',
+      optional: true
     },
-    periodicU: {
-      "default": false
+    knotsU: {
+      type: 'number[]',
+      label: 'Knots U',
+      optional: true
     },
-    periodicV: {
-      "default": false
+    knotsV: {
+      type: 'number[]',
+      label: 'Knots V',
+      optional: true
     }
   },
-
-  inputs: {
-        controlPoints: 'Point[][]',
-    weights: 'number[][]',
-    knotsU: 'number[]',
-    knotsV: 'number[]'
-  },
-
   outputs: {
-        surface: 'Face'
+    surface: {
+      type: 'Face',
+      label: 'Surface'
+    }
   },
-
+  params: {
+    degreeU: {
+      type: 'number',
+      label: 'Degree U',
+      default: 3,
+      min: 1,
+      max: 10,
+      step: 1
+    },
+    degreeV: {
+      type: 'number',
+      label: 'Degree V',
+      default: 3,
+      min: 1,
+      max: 10,
+      step: 1
+    },
+    periodicU: {
+      type: 'boolean',
+      label: 'Periodic U',
+      default: false
+    },
+    periodicV: {
+      type: 'boolean',
+      label: 'Periodic V',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'nurbsSurface',
       params: {
@@ -76,9 +93,9 @@ export const NurbsSurfaceNode: NodeDefinition<NurbsSurfaceInputs, NurbsSurfaceOu
         periodicV: params.periodicV
       }
     });
-
+    
     return {
       surface: result
     };
-  }
+  },
 };

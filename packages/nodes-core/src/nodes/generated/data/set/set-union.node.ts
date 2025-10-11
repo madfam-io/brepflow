@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SetUnionParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  setA: Data[];
-  setB: Data[];
+interface SetUnionInputs {
+  setA: unknown;
+  setB: unknown;
 }
-interface Outputs {
-  union: Data[];
+
+interface SetUnionOutputs {
+  union: unknown;
 }
 
 export const SetUnionNode: NodeDefinition<SetUnionInputs, SetUnionOutputs, SetUnionParams> = {
-  type: 'Data::SetUnion',
+  id: 'Data::SetUnion',
   category: 'Data',
-  subcategory: 'Set',
-
-  metadata: {
-    label: 'SetUnion',
-    description: 'Union of sets',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'SetUnion',
+  description: 'Union of sets',
   inputs: {
-        setA: 'Data[]',
-    setB: 'Data[]'
+    setA: {
+      type: 'Data[]',
+      label: 'Set A',
+      required: true
+    },
+    setB: {
+      type: 'Data[]',
+      label: 'Set B',
+      required: true
+    }
   },
-
   outputs: {
-        union: 'Data[]'
+    union: {
+      type: 'Data[]',
+      label: 'Union'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'setUnion',
       params: {
         setA: inputs.setA,
         setB: inputs.setB
-        
       }
     });
-
+    
     return {
       union: result
     };
-  }
+  },
 };

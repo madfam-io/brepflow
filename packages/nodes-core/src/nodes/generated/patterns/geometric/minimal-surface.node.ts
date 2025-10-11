@@ -1,55 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MinimalSurfaceParams {
   type: string;
   period: number;
 }
-interface Inputs {
-  box: Box;
+
+interface MinimalSurfaceInputs {
+  box: unknown;
 }
-interface Outputs {
-  surface: Face[];
+
+interface MinimalSurfaceOutputs {
+  surface: unknown;
 }
 
 export const MinimalSurfaceNode: NodeDefinition<MinimalSurfaceInputs, MinimalSurfaceOutputs, MinimalSurfaceParams> = {
-  type: 'Patterns::MinimalSurface',
+  id: 'Patterns::MinimalSurface',
   category: 'Patterns',
-  subcategory: 'Geometric',
-
-  metadata: {
-    label: 'MinimalSurface',
-    description: 'Minimal surface pattern',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "gyroid",
-      "options": [
-        "gyroid",
-        "schwarz",
-        "diamond",
-        "neovius"
-      ]
-    },
-    period: {
-      "default": 10,
-      "min": 1
+  label: 'MinimalSurface',
+  description: 'Minimal surface pattern',
+  inputs: {
+    box: {
+      type: 'Box',
+      label: 'Box',
+      required: true
     }
   },
-
-  inputs: {
-        box: 'Box'
-  },
-
   outputs: {
-        surface: 'Face[]'
+    surface: {
+      type: 'Face[]',
+      label: 'Surface'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "gyroid",
+      options: ["gyroid","schwarz","diamond","neovius"]
+    },
+    period: {
+      type: 'number',
+      label: 'Period',
+      default: 10,
+      min: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'minimalSurface',
       params: {
@@ -58,9 +54,9 @@ export const MinimalSurfaceNode: NodeDefinition<MinimalSurfaceInputs, MinimalSur
         period: params.period
       }
     });
-
+    
     return {
       surface: result
     };
-  }
+  },
 };

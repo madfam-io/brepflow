@@ -8,7 +8,7 @@ Cantor set fractal
 ## Parameters
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -16,7 +16,7 @@ Cantor set fractal
 
 
 
-### ratio
+### Ratio
 - **Type:** number
 - **Default:** 0.333
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Cantor set fractal
 ## Inputs
 
 
-### segment
+### Segment
 - **Type:** Edge
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Cantor set fractal
 ## Outputs
 
 
-### segments
+### Segments
 - **Type:** Edge[]
 
 

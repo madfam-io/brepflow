@@ -1,58 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VehicleRampParams {
   gradient: number;
   width: number;
   transitionLength: number;
 }
-interface Inputs {
-  rampPath: Wire;
+
+interface VehicleRampInputs {
+  rampPath: unknown;
 }
-interface Outputs {
-  vehicleRamp: Shape;
+
+interface VehicleRampOutputs {
+  vehicleRamp: unknown;
 }
 
 export const VehicleRampNode: NodeDefinition<VehicleRampInputs, VehicleRampOutputs, VehicleRampParams> = {
-  type: 'Architecture::VehicleRamp',
+  id: 'Architecture::VehicleRamp',
   category: 'Architecture',
-  subcategory: 'Ramps',
-
-  metadata: {
-    label: 'VehicleRamp',
-    description: 'Vehicular access ramp',
-    
-    
-  },
-
-  params: {
-        gradient: {
-      "default": 0.15,
-      "min": 0.1,
-      "max": 0.2
-    },
-    width: {
-      "default": 6000,
-      "min": 5000,
-      "max": 8000
-    },
-    transitionLength: {
-      "default": 3000,
-      "min": 2000,
-      "max": 4000
+  label: 'VehicleRamp',
+  description: 'Vehicular access ramp',
+  inputs: {
+    rampPath: {
+      type: 'Wire',
+      label: 'Ramp Path',
+      required: true
     }
   },
-
-  inputs: {
-        rampPath: 'Wire'
-  },
-
   outputs: {
-        vehicleRamp: 'Shape'
+    vehicleRamp: {
+      type: 'Shape',
+      label: 'Vehicle Ramp'
+    }
   },
-
+  params: {
+    gradient: {
+      type: 'number',
+      label: 'Gradient',
+      default: 0.15,
+      min: 0.1,
+      max: 0.2
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 6000,
+      min: 5000,
+      max: 8000
+    },
+    transitionLength: {
+      type: 'number',
+      label: 'Transition Length',
+      default: 3000,
+      min: 2000,
+      max: 4000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'vehicleRamp',
       params: {
@@ -62,9 +65,9 @@ export const VehicleRampNode: NodeDefinition<VehicleRampInputs, VehicleRampOutpu
         transitionLength: params.transitionLength
       }
     });
-
+    
     return {
       vehicleRamp: result
     };
-  }
+  },
 };

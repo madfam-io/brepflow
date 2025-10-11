@@ -1,69 +1,79 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BronzeBushingParams {
   innerDiameter: number;
   outerDiameter: number;
   length: number;
   oilGrooves: boolean;
   flanged: boolean;
 }
-interface Inputs {
-  center: Point;
+
+interface BronzeBushingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  bushing: Shape;
-  grooves: Wire[];
+
+interface BronzeBushingOutputs {
+  bushing: unknown;
+  grooves: unknown;
 }
 
 export const BronzeBushingNode: NodeDefinition<BronzeBushingInputs, BronzeBushingOutputs, BronzeBushingParams> = {
-  type: 'MechanicalEngineering::BronzeBushing',
+  id: 'MechanicalEngineering::BronzeBushing',
   category: 'MechanicalEngineering',
-  subcategory: 'Bearings',
-
-  metadata: {
-    label: 'BronzeBushing',
-    description: 'Create bronze bushing',
-    
-    
-  },
-
-  params: {
-        innerDiameter: {
-      "default": 10,
-      "min": 3,
-      "max": 100
-    },
-    outerDiameter: {
-      "default": 14,
-      "min": 5,
-      "max": 120
-    },
-    length: {
-      "default": 15,
-      "min": 5,
-      "max": 100
-    },
-    oilGrooves: {
-      "default": true
-    },
-    flanged: {
-      "default": false
+  label: 'BronzeBushing',
+  description: 'Create bronze bushing',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        bushing: 'Shape',
-    grooves: 'Wire[]'
+    bushing: {
+      type: 'Shape',
+      label: 'Bushing'
+    },
+    grooves: {
+      type: 'Wire[]',
+      label: 'Grooves'
+    }
   },
-
+  params: {
+    innerDiameter: {
+      type: 'number',
+      label: 'Inner Diameter',
+      default: 10,
+      min: 3,
+      max: 100
+    },
+    outerDiameter: {
+      type: 'number',
+      label: 'Outer Diameter',
+      default: 14,
+      min: 5,
+      max: 120
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 15,
+      min: 5,
+      max: 100
+    },
+    oilGrooves: {
+      type: 'boolean',
+      label: 'Oil Grooves',
+      default: true
+    },
+    flanged: {
+      type: 'boolean',
+      label: 'Flanged',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'bronzeBushing',
       params: {
         center: inputs.center,
@@ -74,10 +84,10 @@ export const BronzeBushingNode: NodeDefinition<BronzeBushingInputs, BronzeBushin
         flanged: params.flanged
       }
     });
-
+    
     return {
-      bushing: result,
-      grooves: result
+      bushing: results.bushing,
+      grooves: results.grooves
     };
-  }
+  },
 };

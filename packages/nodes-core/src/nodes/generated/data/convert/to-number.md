@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### data
+### Data
 - **Type:** Data
 - **Required:** Yes
 
@@ -21,12 +21,12 @@ This node has no parameters.
 ## Outputs
 
 
-### number
+### Number
 - **Type:** number
 
 
 
-### isValid
+### Is Valid
 - **Type:** boolean
 
 

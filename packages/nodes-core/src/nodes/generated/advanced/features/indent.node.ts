@@ -1,52 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface IndentParams {
   offset: number;
   flipDirection: boolean;
 }
-interface Inputs {
-  targetBody: Shape;
-  toolBody: Shape;
+
+interface IndentInputs {
+  targetBody: unknown;
+  toolBody: unknown;
 }
-interface Outputs {
-  indented: Shape;
+
+interface IndentOutputs {
+  indented: unknown;
 }
 
 export const IndentNode: NodeDefinition<IndentInputs, IndentOutputs, IndentParams> = {
-  type: 'Advanced::Indent',
+  id: 'Advanced::Indent',
   category: 'Advanced',
-  subcategory: 'Features',
-
-  metadata: {
-    label: 'Indent',
-    description: 'Create indent from tool body',
-    
-    
-  },
-
-  params: {
-        offset: {
-      "default": 0.5,
-      "min": 0,
-      "max": 100
+  label: 'Indent',
+  description: 'Create indent from tool body',
+  inputs: {
+    targetBody: {
+      type: 'Shape',
+      label: 'Target Body',
+      required: true
     },
-    flipDirection: {
-      "default": false
+    toolBody: {
+      type: 'Shape',
+      label: 'Tool Body',
+      required: true
     }
   },
-
-  inputs: {
-        targetBody: 'Shape',
-    toolBody: 'Shape'
-  },
-
   outputs: {
-        indented: 'Shape'
+    indented: {
+      type: 'Shape',
+      label: 'Indented'
+    }
   },
-
+  params: {
+    offset: {
+      type: 'number',
+      label: 'Offset',
+      default: 0.5,
+      min: 0,
+      max: 100
+    },
+    flipDirection: {
+      type: 'boolean',
+      label: 'Flip Direction',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'indent',
       params: {
@@ -56,9 +61,9 @@ export const IndentNode: NodeDefinition<IndentInputs, IndentOutputs, IndentParam
         flipDirection: params.flipDirection
       }
     });
-
+    
     return {
       indented: result
     };
-  }
+  },
 };

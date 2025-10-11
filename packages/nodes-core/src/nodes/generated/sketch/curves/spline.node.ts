@@ -1,59 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SplineParams {
   degree: number;
   closed: boolean;
   smooth: boolean;
 }
-interface Inputs {
-  points: Point[];
-  tangents?: Vector[];
+
+interface SplineInputs {
+  points: Array<[number, number, number]>;
+  tangents?: Array<[number, number, number]>;
 }
-interface Outputs {
-  curve: Wire;
+
+interface SplineOutputs {
+  curve: unknown;
 }
 
 export const SplineNode: NodeDefinition<SplineInputs, SplineOutputs, SplineParams> = {
-  type: 'Sketch::Spline',
+  id: 'Sketch::Spline',
   category: 'Sketch',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'Spline',
-    description: 'Create a spline curve through points',
-    
-    
-  },
-
-  params: {
-        degree: {
-      "default": 3,
-      "min": 1,
-      "max": 10,
-      "description": "Spline degree"
+  label: 'Spline',
+  description: 'Create a spline curve through points',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     },
-    closed: {
-      "default": false,
-      "description": "Close the spline"
-    },
-    smooth: {
-      "default": true,
-      "description": "Smooth tangents"
+    tangents: {
+      type: 'Vector[]',
+      label: 'Tangents',
+      optional: true
     }
   },
-
-  inputs: {
-        points: 'Point[]',
-    tangents: 'Vector[]'
-  },
-
   outputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve'
+    }
   },
-
+  params: {
+    degree: {
+      type: 'number',
+      label: 'Degree',
+      default: 3,
+      min: 1,
+      max: 10
+    },
+    closed: {
+      type: 'boolean',
+      label: 'Closed',
+      default: false
+    },
+    smooth: {
+      type: 'boolean',
+      label: 'Smooth',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeSpline',
       params: {
@@ -64,9 +68,9 @@ export const SplineNode: NodeDefinition<SplineInputs, SplineOutputs, SplineParam
         smooth: params.smooth
       }
     });
-
+    
     return {
       curve: result
     };
-  }
+  },
 };

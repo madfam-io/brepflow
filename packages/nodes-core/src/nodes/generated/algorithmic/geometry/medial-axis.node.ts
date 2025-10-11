@@ -1,61 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MedialAxisParams {
   resolution: number;
   pruning: number;
   simplify: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface MedialAxisInputs {
+  shape: unknown;
 }
-interface Outputs {
-  skeleton: Wire[];
-  branchPoints: Point[];
-  endpoints: Point[];
+
+interface MedialAxisOutputs {
+  skeleton: unknown;
+  branchPoints: Array<[number, number, number]>;
+  endpoints: Array<[number, number, number]>;
 }
 
 export const MedialAxisNode: NodeDefinition<MedialAxisInputs, MedialAxisOutputs, MedialAxisParams> = {
-  type: 'Algorithmic::MedialAxis',
+  id: 'Algorithmic::MedialAxis',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'MedialAxis',
-    description: 'Compute medial axis/skeleton',
-    
-    
-  },
-
-  params: {
-        resolution: {
-      "default": 0.1,
-      "min": 0.01,
-      "max": 1
-    },
-    pruning: {
-      "default": 0.1,
-      "min": 0,
-      "max": 1
-    },
-    simplify: {
-      "default": true
+  label: 'MedialAxis',
+  description: 'Compute medial axis/skeleton',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        skeleton: 'Wire[]',
-    branchPoints: 'Point[]',
-    endpoints: 'Point[]'
+    skeleton: {
+      type: 'Wire[]',
+      label: 'Skeleton'
+    },
+    branchPoints: {
+      type: 'Point[]',
+      label: 'Branch Points'
+    },
+    endpoints: {
+      type: 'Point[]',
+      label: 'Endpoints'
+    }
   },
-
+  params: {
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 0.1,
+      min: 0.01,
+      max: 1
+    },
+    pruning: {
+      type: 'number',
+      label: 'Pruning',
+      default: 0.1,
+      min: 0,
+      max: 1
+    },
+    simplify: {
+      type: 'boolean',
+      label: 'Simplify',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'medialAxis',
       params: {
         shape: inputs.shape,
@@ -64,11 +73,11 @@ export const MedialAxisNode: NodeDefinition<MedialAxisInputs, MedialAxisOutputs,
         simplify: params.simplify
       }
     });
-
+    
     return {
-      skeleton: result,
-      branchPoints: result,
-      endpoints: result
+      skeleton: results.skeleton,
+      branchPoints: results.branchPoints,
+      endpoints: results.endpoints
     };
-  }
+  },
 };

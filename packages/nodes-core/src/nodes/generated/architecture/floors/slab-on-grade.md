@@ -8,7 +8,7 @@ Concrete slab on grade
 ## Parameters
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 150
 - **Min:** 100
@@ -16,7 +16,7 @@ Concrete slab on grade
 
 
 
-### vaporBarrier
+### Vapor Barrier
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Concrete slab on grade
 
 
 
-### insulation
+### Insulation
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Concrete slab on grade
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Concrete slab on grade
 ## Outputs
 
 
-### slab
+### Slab
 - **Type:** Shape
 
 

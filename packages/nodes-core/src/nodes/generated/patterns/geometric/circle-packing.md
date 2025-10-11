@@ -8,7 +8,7 @@ Circle packing pattern
 ## Parameters
 
 
-### packingType
+### Packing Type
 - **Type:** enum
 - **Default:** "hexagonal"
 
@@ -16,7 +16,7 @@ Circle packing pattern
 
 
 
-### minRadius
+### Min Radius
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Circle packing pattern
 
 
 
-### maxRadius
+### Max Radius
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -35,7 +35,7 @@ Circle packing pattern
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Circle packing pattern
 ## Outputs
 
 
-### circles
+### Circles
 - **Type:** Wire[]
 
 

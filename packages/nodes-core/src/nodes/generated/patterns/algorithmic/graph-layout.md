@@ -8,7 +8,7 @@ Graph layout algorithms
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "force-directed"
 
@@ -16,7 +16,7 @@ Graph layout algorithms
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -27,13 +27,13 @@ Graph layout algorithms
 ## Inputs
 
 
-### nodes
+### Nodes
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### edges
+### Edges
 - **Type:** Data
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Graph layout algorithms
 ## Outputs
 
 
-### layout
+### Layout
 - **Type:** Point[]
 
 
 
-### graph
+### Graph
 - **Type:** Wire[]
 
 

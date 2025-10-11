@@ -1,55 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ReflectionLinesParams {
   lineCount: number;
   viewDirection: [number, number, number];
 }
-interface Inputs {
-  surface: Face;
+
+interface ReflectionLinesInputs {
+  surface: unknown;
 }
-interface Outputs {
-  reflectionLines: Wire[];
+
+interface ReflectionLinesOutputs {
+  reflectionLines: unknown;
 }
 
 export const ReflectionLinesNode: NodeDefinition<ReflectionLinesInputs, ReflectionLinesOutputs, ReflectionLinesParams> = {
-  type: 'Surface::ReflectionLines',
+  id: 'Surface::ReflectionLines',
   category: 'Surface',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'ReflectionLines',
-    description: 'Reflection line analysis',
-    
-    
-  },
-
-  params: {
-        lineCount: {
-      "default": 10,
-      "min": 3,
-      "max": 50,
-      "step": 1
-    },
-    viewDirection: {
-      "default": [
-        0,
-        0,
-        1
-      ]
+  label: 'ReflectionLines',
+  description: 'Reflection line analysis',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        reflectionLines: 'Wire[]'
+    reflectionLines: {
+      type: 'Wire[]',
+      label: 'Reflection Lines'
+    }
   },
-
+  params: {
+    lineCount: {
+      type: 'number',
+      label: 'Line Count',
+      default: 10,
+      min: 3,
+      max: 50,
+      step: 1
+    },
+    viewDirection: {
+      type: 'vec3',
+      label: 'View Direction',
+      default: [0,0,1]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'reflectionLines',
       params: {
@@ -58,9 +55,9 @@ export const ReflectionLinesNode: NodeDefinition<ReflectionLinesInputs, Reflecti
         viewDirection: params.viewDirection
       }
     });
-
+    
     return {
       reflectionLines: result
     };
-  }
+  },
 };

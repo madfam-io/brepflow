@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListJoinParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  lists: Data[][];
+interface ListJoinInputs {
+  lists: unknown;
 }
-interface Outputs {
-  joined: Data[];
+
+interface ListJoinOutputs {
+  joined: unknown;
 }
 
 export const ListJoinNode: NodeDefinition<ListJoinInputs, ListJoinOutputs, ListJoinParams> = {
-  type: 'Data::ListJoin',
+  id: 'Data::ListJoin',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListJoin',
-    description: 'Join multiple lists',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListJoin',
+  description: 'Join multiple lists',
   inputs: {
-        lists: 'Data[][]'
+    lists: {
+      type: 'Data[][]',
+      label: 'Lists',
+      required: true
+    }
   },
-
   outputs: {
-        joined: 'Data[]'
+    joined: {
+      type: 'Data[]',
+      label: 'Joined'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listJoin',
       params: {
         lists: inputs.lists
-        
       }
     });
-
+    
     return {
       joined: result
     };
-  }
+  },
 };

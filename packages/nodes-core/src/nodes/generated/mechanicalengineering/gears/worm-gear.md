@@ -8,7 +8,7 @@ Create worm gear for high reduction
 ## Parameters
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Create worm gear for high reduction
 
 
 
-### teeth
+### Teeth
 - **Type:** number
 - **Default:** 30
 - **Min:** 20
@@ -24,7 +24,7 @@ Create worm gear for high reduction
 
 
 
-### diameter
+### Diameter
 - **Type:** number
 - **Default:** 60
 - **Min:** 20
@@ -32,7 +32,7 @@ Create worm gear for high reduction
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -43,7 +43,7 @@ Create worm gear for high reduction
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create worm gear for high reduction
 ## Outputs
 
 
-### gear
+### Gear
 - **Type:** Shape
 
 
 
-### throat
+### Throat
 - **Type:** Wire
 
 

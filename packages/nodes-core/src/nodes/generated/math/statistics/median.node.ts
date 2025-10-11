@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type MedianParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  values: number[];
+interface MedianInputs {
+  values: unknown;
 }
-interface Outputs {
-  median: number;
+
+interface MedianOutputs {
+  median: unknown;
 }
 
 export const MedianNode: NodeDefinition<MedianInputs, MedianOutputs, MedianParams> = {
-  type: 'Math::Median',
+  id: 'Math::Median',
   category: 'Math',
-  subcategory: 'Statistics',
-
-  metadata: {
-    label: 'Median',
-    description: 'Calculate median',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Median',
+  description: 'Calculate median',
   inputs: {
-        values: 'number[]'
+    values: {
+      type: 'number[]',
+      label: 'Values',
+      required: true
+    }
   },
-
   outputs: {
-        median: 'number'
+    median: {
+      type: 'number',
+      label: 'Median'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathMedian',
       params: {
         values: inputs.values
-        
       }
     });
-
+    
     return {
       median: result
     };
-  }
+  },
 };

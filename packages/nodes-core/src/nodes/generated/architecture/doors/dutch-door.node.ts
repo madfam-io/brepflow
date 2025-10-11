@@ -1,57 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DutchDoorParams {
   splitHeight: number;
   topOpen: boolean;
   bottomOpen: boolean;
 }
-interface Inputs {
-  opening: Wire;
+
+interface DutchDoorInputs {
+  opening: unknown;
 }
-interface Outputs {
-  topDoor: Shape;
-  bottomDoor: Shape;
+
+interface DutchDoorOutputs {
+  topDoor: unknown;
+  bottomDoor: unknown;
 }
 
 export const DutchDoorNode: NodeDefinition<DutchDoorInputs, DutchDoorOutputs, DutchDoorParams> = {
-  type: 'Architecture::DutchDoor',
+  id: 'Architecture::DutchDoor',
   category: 'Architecture',
-  subcategory: 'Doors',
-
-  metadata: {
-    label: 'DutchDoor',
-    description: 'Dutch split door',
-    
-    
-  },
-
-  params: {
-        splitHeight: {
-      "default": 1050,
-      "min": 900,
-      "max": 1200
-    },
-    topOpen: {
-      "default": false
-    },
-    bottomOpen: {
-      "default": false
+  label: 'DutchDoor',
+  description: 'Dutch split door',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        topDoor: 'Shape',
-    bottomDoor: 'Shape'
+    topDoor: {
+      type: 'Shape',
+      label: 'Top Door'
+    },
+    bottomDoor: {
+      type: 'Shape',
+      label: 'Bottom Door'
+    }
   },
-
+  params: {
+    splitHeight: {
+      type: 'number',
+      label: 'Split Height',
+      default: 1050,
+      min: 900,
+      max: 1200
+    },
+    topOpen: {
+      type: 'boolean',
+      label: 'Top Open',
+      default: false
+    },
+    bottomOpen: {
+      type: 'boolean',
+      label: 'Bottom Open',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'dutchDoor',
       params: {
         opening: inputs.opening,
@@ -60,10 +66,10 @@ export const DutchDoorNode: NodeDefinition<DutchDoorInputs, DutchDoorOutputs, Du
         bottomOpen: params.bottomOpen
       }
     });
-
+    
     return {
-      topDoor: result,
-      bottomDoor: result
+      topDoor: results.topDoor,
+      bottomDoor: results.bottomDoor
     };
-  }
+  },
 };

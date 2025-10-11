@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
 
 
-### size
+### Size
 - **Type:** number
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### partitions
+### Partitions
 - **Type:** Data[][]
 
 

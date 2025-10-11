@@ -8,7 +8,7 @@ Create thrust bearing for axial loads
 ## Parameters
 
 
-### innerDiameter
+### Inner Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -16,7 +16,7 @@ Create thrust bearing for axial loads
 
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 40
 - **Min:** 15
@@ -24,7 +24,7 @@ Create thrust bearing for axial loads
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 10
 - **Min:** 3
@@ -32,7 +32,7 @@ Create thrust bearing for axial loads
 
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "ball"
 
@@ -43,7 +43,7 @@ Create thrust bearing for axial loads
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create thrust bearing for axial loads
 ## Outputs
 
 
-### bearing
+### Bearing
 - **Type:** Shape
 
 
 
-### raceways
+### Raceways
 - **Type:** Shape[]
 
 

@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EllipsoidParams {
   radiusX: number;
   radiusY: number;
   radiusZ: number;
@@ -9,73 +8,73 @@ interface Params {
   centerY: number;
   centerZ: number;
 }
-type Inputs = {};
-interface Outputs {
-  solid: Solid;
+
+type EllipsoidInputs = Record<string, never>;
+
+interface EllipsoidOutputs {
+  solid: unknown;
 }
 
 export const EllipsoidNode: NodeDefinition<EllipsoidInputs, EllipsoidOutputs, EllipsoidParams> = {
-  type: 'Solid::Ellipsoid',
+  id: 'Solid::Ellipsoid',
   category: 'Solid',
-  subcategory: 'Primitives',
-
-  metadata: {
-    label: 'Ellipsoid',
-    description: 'Create a parametric ellipsoid',
-    
-    
-  },
-
-  params: {
-        radiusX: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000,
-      "description": "X radius"
-    },
-    radiusY: {
-      "default": 40,
-      "min": 0.1,
-      "max": 10000,
-      "description": "Y radius"
-    },
-    radiusZ: {
-      "default": 30,
-      "min": 0.1,
-      "max": 10000,
-      "description": "Z radius"
-    },
-    centerX: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerY: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerZ: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
+  label: 'Ellipsoid',
+  description: 'Create a parametric ellipsoid',
+  inputs: {},
+  outputs: {
+    solid: {
+      type: 'Solid',
+      label: 'Solid'
     }
   },
-
-  inputs: {
-    
+  params: {
+    radiusX: {
+      type: 'number',
+      label: 'Radius X',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    radiusY: {
+      type: 'number',
+      label: 'Radius Y',
+      default: 40,
+      min: 0.1,
+      max: 10000
+    },
+    radiusZ: {
+      type: 'number',
+      label: 'Radius Z',
+      default: 30,
+      min: 0.1,
+      max: 10000
+    },
+    centerX: {
+      type: 'number',
+      label: 'Center X',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerY: {
+      type: 'number',
+      label: 'Center Y',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerZ: {
+      type: 'number',
+      label: 'Center Z',
+      default: 0,
+      min: -10000,
+      max: 10000
+    }
   },
-
-  outputs: {
-        solid: 'Solid'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeEllipsoid',
       params: {
-        
         radiusX: params.radiusX,
         radiusY: params.radiusY,
         radiusZ: params.radiusZ,
@@ -84,9 +83,9 @@ export const EllipsoidNode: NodeDefinition<EllipsoidInputs, EllipsoidOutputs, El
         centerZ: params.centerZ
       }
     });
-
+    
     return {
       solid: result
     };
-  }
+  },
 };

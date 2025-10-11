@@ -8,7 +8,7 @@ Download files from AWS S3
 ## Parameters
 
 
-### bucket
+### Bucket
 - **Type:** string
 - **Default:** ""
 
@@ -16,7 +16,7 @@ Download files from AWS S3
 
 
 
-### accessKey
+### Access Key
 - **Type:** string
 - **Default:** ""
 
@@ -24,7 +24,7 @@ Download files from AWS S3
 
 
 
-### secretKey
+### Secret Key
 - **Type:** string
 - **Default:** ""
 
@@ -32,7 +32,7 @@ Download files from AWS S3
 
 
 
-### region
+### Region
 - **Type:** string
 - **Default:** "us-east-1"
 
@@ -43,13 +43,13 @@ Download files from AWS S3
 ## Inputs
 
 
-### key
+### Key
 - **Type:** string
 - **Required:** Yes
 
 
 
-### localPath
+### Local Path
 - **Type:** string
 - **Required:** Yes
 
@@ -58,17 +58,17 @@ Download files from AWS S3
 ## Outputs
 
 
-### success
+### Success
 - **Type:** boolean
 
 
 
-### fileSize
+### File Size
 - **Type:** number
 
 
 
-### metadata
+### Metadata
 - **Type:** Properties
 
 

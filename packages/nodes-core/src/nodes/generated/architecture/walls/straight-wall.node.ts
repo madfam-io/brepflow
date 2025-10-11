@@ -1,64 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StraightWallParams {
   height: number;
   thickness: number;
   justification: string;
 }
-interface Inputs {
-  centerline: Wire;
+
+interface StraightWallInputs {
+  centerline: unknown;
 }
-interface Outputs {
-  wall: Shape;
-  centerline: Wire;
+
+interface StraightWallOutputs {
+  wall: unknown;
+  centerline: unknown;
 }
 
 export const StraightWallNode: NodeDefinition<StraightWallInputs, StraightWallOutputs, StraightWallParams> = {
-  type: 'Architecture::StraightWall',
+  id: 'Architecture::StraightWall',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'StraightWall',
-    description: 'Create straight wall segment',
-    
-    
-  },
-
-  params: {
-        height: {
-      "default": 3000,
-      "min": 100,
-      "max": 10000
-    },
-    thickness: {
-      "default": 200,
-      "min": 50,
-      "max": 500
-    },
-    justification: {
-      "default": "center",
-      "options": [
-        "center",
-        "left",
-        "right"
-      ]
+  label: 'StraightWall',
+  description: 'Create straight wall segment',
+  inputs: {
+    centerline: {
+      type: 'Wire',
+      label: 'Centerline',
+      required: true
     }
   },
-
-  inputs: {
-        centerline: 'Wire'
-  },
-
   outputs: {
-        wall: 'Shape',
-    centerline: 'Wire'
+    wall: {
+      type: 'Shape',
+      label: 'Wall'
+    },
+    centerline: {
+      type: 'Wire',
+      label: 'Centerline'
+    }
   },
-
+  params: {
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 3000,
+      min: 100,
+      max: 10000
+    },
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 200,
+      min: 50,
+      max: 500
+    },
+    justification: {
+      type: 'enum',
+      label: 'Justification',
+      default: "center",
+      options: ["center","left","right"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'straightWall',
       params: {
         centerline: inputs.centerline,
@@ -67,10 +69,10 @@ export const StraightWallNode: NodeDefinition<StraightWallInputs, StraightWallOu
         justification: params.justification
       }
     });
-
+    
     return {
-      wall: result,
-      centerline: result
+      wall: results.wall,
+      centerline: results.centerline
     };
-  }
+  },
 };

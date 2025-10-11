@@ -1,62 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GraphLayoutParams {
   algorithm: string;
   iterations: number;
 }
-interface Inputs {
-  nodes: Point[];
-  edges: Data;
+
+interface GraphLayoutInputs {
+  nodes: Array<[number, number, number]>;
+  edges: unknown;
 }
-interface Outputs {
-  layout: Point[];
-  graph: Wire[];
+
+interface GraphLayoutOutputs {
+  layout: Array<[number, number, number]>;
+  graph: unknown;
 }
 
 export const GraphLayoutNode: NodeDefinition<GraphLayoutInputs, GraphLayoutOutputs, GraphLayoutParams> = {
-  type: 'Patterns::GraphLayout',
+  id: 'Patterns::GraphLayout',
   category: 'Patterns',
-  subcategory: 'Algorithmic',
-
-  metadata: {
-    label: 'GraphLayout',
-    description: 'Graph layout algorithms',
-    
-    
-  },
-
-  params: {
-        algorithm: {
-      "default": "force-directed",
-      "options": [
-        "force-directed",
-        "circular",
-        "hierarchical",
-        "spectral"
-      ]
+  label: 'GraphLayout',
+  description: 'Graph layout algorithms',
+  inputs: {
+    nodes: {
+      type: 'Point[]',
+      label: 'Nodes',
+      required: true
     },
-    iterations: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
+    edges: {
+      type: 'Data',
+      label: 'Edges',
+      required: true
     }
   },
-
-  inputs: {
-        nodes: 'Point[]',
-    edges: 'Data'
-  },
-
   outputs: {
-        layout: 'Point[]',
-    graph: 'Wire[]'
+    layout: {
+      type: 'Point[]',
+      label: 'Layout'
+    },
+    graph: {
+      type: 'Wire[]',
+      label: 'Graph'
+    }
   },
-
+  params: {
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "force-directed",
+      options: ["force-directed","circular","hierarchical","spectral"]
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'graphLayout',
       params: {
         nodes: inputs.nodes,
@@ -65,10 +68,10 @@ export const GraphLayoutNode: NodeDefinition<GraphLayoutInputs, GraphLayoutOutpu
         iterations: params.iterations
       }
     });
-
+    
     return {
-      layout: result,
-      graph: result
+      layout: results.layout,
+      graph: results.graph
     };
-  }
+  },
 };

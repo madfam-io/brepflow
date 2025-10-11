@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldMultiplyParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  fieldA: ScalarField;
-  fieldB: ScalarField;
+interface FieldMultiplyInputs {
+  fieldA: unknown;
+  fieldB: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface FieldMultiplyOutputs {
+  field: unknown;
 }
 
 export const FieldMultiplyNode: NodeDefinition<FieldMultiplyInputs, FieldMultiplyOutputs, FieldMultiplyParams> = {
-  type: 'Field::FieldMultiply',
+  id: 'Field::FieldMultiply',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldMultiply',
-    description: 'Multiply fields',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldMultiply',
+  description: 'Multiply fields',
   inputs: {
-        fieldA: 'ScalarField',
-    fieldB: 'ScalarField'
+    fieldA: {
+      type: 'ScalarField',
+      label: 'Field A',
+      required: true
+    },
+    fieldB: {
+      type: 'ScalarField',
+      label: 'Field B',
+      required: true
+    }
   },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldMultiply',
       params: {
         fieldA: inputs.fieldA,
         fieldB: inputs.fieldB
-        
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Mezzanine floor structure
 ## Parameters
 
 
-### structureType
+### Structure Type
 - **Type:** enum
 - **Default:** "steel"
 
@@ -16,7 +16,7 @@ Mezzanine floor structure
 
 
 
-### clearHeight
+### Clear Height
 - **Type:** number
 - **Default:** 2400
 - **Min:** 2100
@@ -27,7 +27,7 @@ Mezzanine floor structure
 ## Inputs
 
 
-### mezzanineOutline
+### Mezzanine Outline
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Mezzanine floor structure
 ## Outputs
 
 
-### mezzanine
+### Mezzanine
 - **Type:** Shape
 
 
 
-### structure
+### Structure
 - **Type:** Shape[]
 
 

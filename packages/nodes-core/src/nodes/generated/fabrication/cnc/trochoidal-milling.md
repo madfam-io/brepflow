@@ -8,7 +8,7 @@ Trochoidal milling paths
 ## Parameters
 
 
-### trochoidWidth
+### Trochoid Width
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Trochoidal milling paths
 
 
 
-### stepover
+### Stepover
 - **Type:** number
 - **Default:** 0.3
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Trochoidal milling paths
 ## Inputs
 
 
-### slot
+### Slot
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Trochoidal milling paths
 ## Outputs
 
 
-### trochoidalPath
+### Trochoidal Path
 - **Type:** Wire
 
 

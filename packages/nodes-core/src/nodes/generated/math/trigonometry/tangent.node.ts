@@ -1,48 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TangentParams {
   angleUnit: string;
 }
-interface Inputs {
-  angle: number;
+
+interface TangentInputs {
+  angle: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface TangentOutputs {
+  result: unknown;
 }
 
 export const TangentNode: NodeDefinition<TangentInputs, TangentOutputs, TangentParams> = {
-  type: 'Math::Tangent',
+  id: 'Math::Tangent',
   category: 'Math',
-  subcategory: 'Trigonometry',
-
-  metadata: {
-    label: 'Tangent',
-    description: 'Tangent function',
-    
-    
-  },
-
-  params: {
-        angleUnit: {
-      "default": "radians",
-      "options": [
-        "radians",
-        "degrees"
-      ]
+  label: 'Tangent',
+  description: 'Tangent function',
+  inputs: {
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      required: true
     }
   },
-
-  inputs: {
-        angle: 'number'
-  },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {
+    angleUnit: {
+      type: 'enum',
+      label: 'Angle Unit',
+      default: "radians",
+      options: ["radians","degrees"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathTan',
       params: {
@@ -50,9 +46,9 @@ export const TangentNode: NodeDefinition<TangentInputs, TangentOutputs, TangentP
         angleUnit: params.angleUnit
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

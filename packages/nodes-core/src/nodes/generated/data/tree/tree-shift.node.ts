@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type TreeShiftParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  tree: DataTree;
-  offset: number;
+interface TreeShiftInputs {
+  tree: unknown;
+  offset: unknown;
 }
-interface Outputs {
-  shifted: DataTree;
+
+interface TreeShiftOutputs {
+  shifted: unknown;
 }
 
 export const TreeShiftNode: NodeDefinition<TreeShiftInputs, TreeShiftOutputs, TreeShiftParams> = {
-  type: 'Data::TreeShift',
+  id: 'Data::TreeShift',
   category: 'Data',
-  subcategory: 'Tree',
-
-  metadata: {
-    label: 'TreeShift',
-    description: 'Shift tree paths',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'TreeShift',
+  description: 'Shift tree paths',
   inputs: {
-        tree: 'DataTree',
-    offset: 'number'
+    tree: {
+      type: 'DataTree',
+      label: 'Tree',
+      required: true
+    },
+    offset: {
+      type: 'number',
+      label: 'Offset',
+      required: true
+    }
   },
-
   outputs: {
-        shifted: 'DataTree'
+    shifted: {
+      type: 'DataTree',
+      label: 'Shifted'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'treeShift',
       params: {
         tree: inputs.tree,
         offset: inputs.offset
-        
       }
     });
-
+    
     return {
       shifted: result
     };
-  }
+  },
 };

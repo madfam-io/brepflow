@@ -8,7 +8,7 @@ Calculate curve torsion values
 ## Parameters
 
 
-### samples
+### Samples
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Calculate curve torsion values
 
 
 
-### scale
+### Scale
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Calculate curve torsion values
 
 
 
-### showGraph
+### Show Graph
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Calculate curve torsion values
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Calculate curve torsion values
 ## Outputs
 
 
-### torsionValues
+### Torsion Values
 - **Type:** number[]
 
 
 
-### maxTorsion
+### Max Torsion
 - **Type:** number
 
 
 
-### torsionGraph
+### Torsion Graph
 - **Type:** Wire
 
 

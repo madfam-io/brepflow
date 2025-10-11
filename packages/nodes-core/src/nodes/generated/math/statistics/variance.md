@@ -8,7 +8,7 @@ Calculate variance
 ## Parameters
 
 
-### sample
+### Sample
 - **Type:** boolean
 - **Default:** false
 
@@ -19,7 +19,7 @@ Calculate variance
 ## Inputs
 
 
-### values
+### Values
 - **Type:** number[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Calculate variance
 ## Outputs
 
 
-### variance
+### Variance
 - **Type:** number
 
 

@@ -1,65 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TwistAttractorParams {
   angle: number;
   height: number;
   radius: number;
   falloff: string;
 }
-interface Inputs {
-  axis: Line;
+
+interface TwistAttractorInputs {
+  axis: unknown;
 }
-interface Outputs {
-  field: VectorField;
+
+interface TwistAttractorOutputs {
+  field: unknown;
 }
 
 export const TwistAttractorNode: NodeDefinition<TwistAttractorInputs, TwistAttractorOutputs, TwistAttractorParams> = {
-  type: 'Field::TwistAttractor',
+  id: 'Field::TwistAttractor',
   category: 'Field',
-  subcategory: 'Attractor',
-
-  metadata: {
-    label: 'TwistAttractor',
-    description: 'Twist attractor field',
-    
-    
-  },
-
-  params: {
-        angle: {
-      "default": 90,
-      "min": -360,
-      "max": 360
-    },
-    height: {
-      "default": 100,
-      "min": 0.1
-    },
-    radius: {
-      "default": 50,
-      "min": 0.1
-    },
-    falloff: {
-      "default": "smooth",
-      "options": [
-        "linear",
-        "smooth",
-        "exponential"
-      ]
+  label: 'TwistAttractor',
+  description: 'Twist attractor field',
+  inputs: {
+    axis: {
+      type: 'Line',
+      label: 'Axis',
+      required: true
     }
   },
-
-  inputs: {
-        axis: 'Line'
-  },
-
   outputs: {
-        field: 'VectorField'
+    field: {
+      type: 'VectorField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 90,
+      min: -360,
+      max: 360
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 0.1
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 50,
+      min: 0.1
+    },
+    falloff: {
+      type: 'enum',
+      label: 'Falloff',
+      default: "smooth",
+      options: ["linear","smooth","exponential"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'attractorTwist',
       params: {
@@ -70,9 +71,9 @@ export const TwistAttractorNode: NodeDefinition<TwistAttractorInputs, TwistAttra
         falloff: params.falloff
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

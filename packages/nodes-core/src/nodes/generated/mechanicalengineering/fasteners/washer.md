@@ -8,7 +8,7 @@ Create washer
 ## Parameters
 
 
-### innerDiameter
+### Inner Diameter
 - **Type:** number
 - **Default:** 6.4
 - **Min:** 2
@@ -16,7 +16,7 @@ Create washer
 
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 12
 - **Min:** 4
@@ -24,7 +24,7 @@ Create washer
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 1.6
 - **Min:** 0.5
@@ -32,7 +32,7 @@ Create washer
 
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "flat"
 
@@ -43,7 +43,7 @@ Create washer
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Create washer
 ## Outputs
 
 
-### washer
+### Washer
 - **Type:** Shape
 
 

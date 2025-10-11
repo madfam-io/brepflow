@@ -8,7 +8,7 @@ Upload files to AWS S3
 ## Parameters
 
 
-### bucket
+### Bucket
 - **Type:** string
 - **Default:** ""
 
@@ -16,7 +16,7 @@ Upload files to AWS S3
 - **Description:** S3 bucket name
 
 
-### accessKey
+### Access Key
 - **Type:** string
 - **Default:** ""
 
@@ -24,7 +24,7 @@ Upload files to AWS S3
 - **Description:** AWS access key
 
 
-### secretKey
+### Secret Key
 - **Type:** string
 - **Default:** ""
 
@@ -32,7 +32,7 @@ Upload files to AWS S3
 - **Description:** AWS secret key
 
 
-### region
+### Region
 - **Type:** string
 - **Default:** "us-east-1"
 
@@ -43,13 +43,13 @@ Upload files to AWS S3
 ## Inputs
 
 
-### filePath
+### File Path
 - **Type:** string
 - **Required:** Yes
 
 
 
-### key
+### Key
 - **Type:** string
 - **Required:** Yes
 
@@ -58,17 +58,17 @@ Upload files to AWS S3
 ## Outputs
 
 
-### success
+### Success
 - **Type:** boolean
 
 
 
-### url
+### Url
 - **Type:** string
 
 
 
-### etag
+### Etag
 - **Type:** string
 
 

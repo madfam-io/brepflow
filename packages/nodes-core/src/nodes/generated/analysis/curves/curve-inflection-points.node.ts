@@ -1,55 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveInflectionPointsParams {
   tolerance: number;
   markPoints: boolean;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveInflectionPointsInputs {
+  curve: unknown;
 }
-interface Outputs {
-  inflectionPoints: Point[];
-  parameters: number[];
-  markers: Shape[];
+
+interface CurveInflectionPointsOutputs {
+  inflectionPoints: Array<[number, number, number]>;
+  parameters: unknown;
+  markers: unknown;
 }
 
 export const CurveInflectionPointsNode: NodeDefinition<CurveInflectionPointsInputs, CurveInflectionPointsOutputs, CurveInflectionPointsParams> = {
-  type: 'Analysis::CurveInflectionPoints',
+  id: 'Analysis::CurveInflectionPoints',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveInflectionPoints',
-    description: 'Find curve inflection points',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
-    },
-    markPoints: {
-      "default": true
+  label: 'CurveInflectionPoints',
+  description: 'Find curve inflection points',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        inflectionPoints: 'Point[]',
-    parameters: 'number[]',
-    markers: 'Shape[]'
+    inflectionPoints: {
+      type: 'Point[]',
+      label: 'Inflection Points'
+    },
+    parameters: {
+      type: 'number[]',
+      label: 'Parameters'
+    },
+    markers: {
+      type: 'Shape[]',
+      label: 'Markers'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    markPoints: {
+      type: 'boolean',
+      label: 'Mark Points',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveInflection',
       params: {
         curve: inputs.curve,
@@ -57,11 +64,11 @@ export const CurveInflectionPointsNode: NodeDefinition<CurveInflectionPointsInpu
         markPoints: params.markPoints
       }
     });
-
+    
     return {
-      inflectionPoints: result,
-      parameters: result,
-      markers: result
+      inflectionPoints: results.inflectionPoints,
+      parameters: results.parameters,
+      markers: results.markers
     };
-  }
+  },
 };

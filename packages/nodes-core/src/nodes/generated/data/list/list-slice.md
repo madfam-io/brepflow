@@ -12,19 +12,19 @@ This node has no parameters.
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
 
 
-### start
+### Start
 - **Type:** number
 - **Required:** Yes
 
 
 
-### end
+### End
 - **Type:** number
 - **Required:** No
 
@@ -33,7 +33,7 @@ This node has no parameters.
 ## Outputs
 
 
-### sublist
+### Sublist
 - **Type:** Data[]
 
 

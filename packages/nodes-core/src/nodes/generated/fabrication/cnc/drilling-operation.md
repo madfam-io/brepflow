@@ -8,7 +8,7 @@ Drilling operation setup
 ## Parameters
 
 
-### drillDiameter
+### Drill Diameter
 - **Type:** number
 - **Default:** 8
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Drilling operation setup
 
 
 
-### peckDepth
+### Peck Depth
 - **Type:** number
 - **Default:** 5
 - **Min:** 0
@@ -24,7 +24,7 @@ Drilling operation setup
 
 
 
-### dwellTime
+### Dwell Time
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -35,13 +35,13 @@ Drilling operation setup
 ## Inputs
 
 
-### holes
+### Holes
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### depths
+### Depths
 - **Type:** number[]
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Drilling operation setup
 ## Outputs
 
 
-### drillCycles
+### Drill Cycles
 - **Type:** Data
 
 

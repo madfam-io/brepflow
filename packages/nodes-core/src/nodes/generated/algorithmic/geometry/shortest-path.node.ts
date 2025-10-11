@@ -1,65 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ShortestPathParams {
   algorithm: string;
   heuristic: string;
 }
-interface Inputs {
-  graph: Properties;
-  start: Point;
-  end: Point;
+
+interface ShortestPathInputs {
+  graph: unknown;
+  start: [number, number, number];
+  end: [number, number, number];
 }
-interface Outputs {
-  path: Wire;
-  distance: number;
-  nodes: Point[];
+
+interface ShortestPathOutputs {
+  path: unknown;
+  distance: unknown;
+  nodes: Array<[number, number, number]>;
 }
 
 export const ShortestPathNode: NodeDefinition<ShortestPathInputs, ShortestPathOutputs, ShortestPathParams> = {
-  type: 'Algorithmic::ShortestPath',
+  id: 'Algorithmic::ShortestPath',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'ShortestPath',
-    description: 'Find shortest path between points',
-    
-    
-  },
-
-  params: {
-        algorithm: {
-      "default": "dijkstra",
-      "options": [
-        "dijkstra",
-        "astar"
-      ]
+  label: 'ShortestPath',
+  description: 'Find shortest path between points',
+  inputs: {
+    graph: {
+      type: 'Properties',
+      label: 'Graph',
+      required: true
     },
-    heuristic: {
-      "default": "euclidean",
-      "options": [
-        "euclidean",
-        "manhattan"
-      ]
+    start: {
+      type: 'Point',
+      label: 'Start',
+      required: true
+    },
+    end: {
+      type: 'Point',
+      label: 'End',
+      required: true
     }
   },
-
-  inputs: {
-        graph: 'Properties',
-    start: 'Point',
-    end: 'Point'
-  },
-
   outputs: {
-        path: 'Wire',
-    distance: 'number',
-    nodes: 'Point[]'
+    path: {
+      type: 'Wire',
+      label: 'Path'
+    },
+    distance: {
+      type: 'number',
+      label: 'Distance'
+    },
+    nodes: {
+      type: 'Point[]',
+      label: 'Nodes'
+    }
   },
-
+  params: {
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "dijkstra",
+      options: ["dijkstra","astar"]
+    },
+    heuristic: {
+      type: 'enum',
+      label: 'Heuristic',
+      default: "euclidean",
+      options: ["euclidean","manhattan"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'shortestPath',
       params: {
         graph: inputs.graph,
@@ -69,11 +78,11 @@ export const ShortestPathNode: NodeDefinition<ShortestPathInputs, ShortestPathOu
         heuristic: params.heuristic
       }
     });
-
+    
     return {
-      path: result,
-      distance: result,
-      nodes: result
+      path: results.path,
+      distance: results.distance,
+      nodes: results.nodes
     };
-  }
+  },
 };

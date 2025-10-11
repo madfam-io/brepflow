@@ -1,63 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GradedLatticeParams {
   minDensity: number;
   maxDensity: number;
   gradientType: string;
 }
-interface Inputs {
-  boundingShape: Shape;
-  densityField?: Data;
+
+interface GradedLatticeInputs {
+  boundingShape: unknown;
+  densityField?: unknown;
 }
-interface Outputs {
-  gradedLattice: Shape;
+
+interface GradedLatticeOutputs {
+  gradedLattice: unknown;
 }
 
 export const GradedLatticeNode: NodeDefinition<GradedLatticeInputs, GradedLatticeOutputs, GradedLatticeParams> = {
-  type: 'Specialized::GradedLattice',
+  id: 'Specialized::GradedLattice',
   category: 'Specialized',
-  subcategory: 'Lattice',
-
-  metadata: {
-    label: 'GradedLattice',
-    description: 'Density-graded lattice',
-    
-    
-  },
-
-  params: {
-        minDensity: {
-      "default": 0.2,
-      "min": 0.1,
-      "max": 0.9
+  label: 'GradedLattice',
+  description: 'Density-graded lattice',
+  inputs: {
+    boundingShape: {
+      type: 'Shape',
+      label: 'Bounding Shape',
+      required: true
     },
-    maxDensity: {
-      "default": 0.8,
-      "min": 0.2,
-      "max": 0.95
-    },
-    gradientType: {
-      "default": "linear",
-      "options": [
-        "linear",
-        "radial",
-        "field"
-      ]
+    densityField: {
+      type: 'Data',
+      label: 'Density Field',
+      optional: true
     }
   },
-
-  inputs: {
-        boundingShape: 'Shape',
-    densityField: 'Data'
-  },
-
   outputs: {
-        gradedLattice: 'Shape'
+    gradedLattice: {
+      type: 'Shape',
+      label: 'Graded Lattice'
+    }
   },
-
+  params: {
+    minDensity: {
+      type: 'number',
+      label: 'Min Density',
+      default: 0.2,
+      min: 0.1,
+      max: 0.9
+    },
+    maxDensity: {
+      type: 'number',
+      label: 'Max Density',
+      default: 0.8,
+      min: 0.2,
+      max: 0.95
+    },
+    gradientType: {
+      type: 'enum',
+      label: 'Gradient Type',
+      default: "linear",
+      options: ["linear","radial","field"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'gradedLattice',
       params: {
@@ -68,9 +71,9 @@ export const GradedLatticeNode: NodeDefinition<GradedLatticeInputs, GradedLattic
         gradientType: params.gradientType
       }
     });
-
+    
     return {
       gradedLattice: result
     };
-  }
+  },
 };

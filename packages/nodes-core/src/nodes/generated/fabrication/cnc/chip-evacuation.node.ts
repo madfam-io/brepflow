@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ChipEvacuationParams {
   flutes: number;
   helixAngle: number;
 }
-interface Inputs {
-  pocket: Face;
+
+interface ChipEvacuationInputs {
+  pocket: unknown;
 }
-interface Outputs {
-  evacuationScore: Number;
+
+interface ChipEvacuationOutputs {
+  evacuationScore: number;
 }
 
 export const ChipEvacuationNode: NodeDefinition<ChipEvacuationInputs, ChipEvacuationOutputs, ChipEvacuationParams> = {
-  type: 'Fabrication::ChipEvacuation',
+  id: 'Fabrication::ChipEvacuation',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'ChipEvacuation',
-    description: 'Chip evacuation analysis',
-    
-    
-  },
-
-  params: {
-        flutes: {
-      "default": 2,
-      "min": 1,
-      "max": 8,
-      "step": 1
-    },
-    helixAngle: {
-      "default": 30,
-      "min": 0,
-      "max": 60
+  label: 'ChipEvacuation',
+  description: 'Chip evacuation analysis',
+  inputs: {
+    pocket: {
+      type: 'Face',
+      label: 'Pocket',
+      required: true
     }
   },
-
-  inputs: {
-        pocket: 'Face'
-  },
-
   outputs: {
-        evacuationScore: 'Number'
+    evacuationScore: {
+      type: 'Number',
+      label: 'Evacuation Score'
+    }
   },
-
+  params: {
+    flutes: {
+      type: 'number',
+      label: 'Flutes',
+      default: 2,
+      min: 1,
+      max: 8,
+      step: 1
+    },
+    helixAngle: {
+      type: 'number',
+      label: 'Helix Angle',
+      default: 30,
+      min: 0,
+      max: 60
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'chipEvacuation',
       params: {
@@ -56,9 +57,9 @@ export const ChipEvacuationNode: NodeDefinition<ChipEvacuationInputs, ChipEvacua
         helixAngle: params.helixAngle
       }
     });
-
+    
     return {
       evacuationScore: result
     };
-  }
+  },
 };

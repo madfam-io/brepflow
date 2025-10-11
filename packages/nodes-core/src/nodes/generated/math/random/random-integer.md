@@ -8,7 +8,7 @@ Random integer
 ## Parameters
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -19,13 +19,13 @@ Random integer
 ## Inputs
 
 
-### min
+### Min
 - **Type:** number
 - **Required:** Yes
 
 
 
-### max
+### Max
 - **Type:** number
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Random integer
 ## Outputs
 
 
-### value
+### Value
 - **Type:** number
 
 

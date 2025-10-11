@@ -8,7 +8,7 @@ Make two entities coincident
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.001
 - **Min:** 0
@@ -19,13 +19,13 @@ Make two entities coincident
 ## Inputs
 
 
-### entity1
+### Entity1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### entity2
+### Entity2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Make two entities coincident
 ## Outputs
 
 
-### constrained
+### Constrained
 - **Type:** Shape[]
 - **Description:** Constrained shapes
 
 
-### constraint
+### Constraint
 - **Type:** Constraint
 - **Description:** Constraint object
 

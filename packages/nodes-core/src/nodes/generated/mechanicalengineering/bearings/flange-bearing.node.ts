@@ -1,69 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FlangeBearingParams {
   boreDiameter: number;
   flangeDiameter: number;
   thickness: number;
   mountingHoles: number;
 }
-interface Inputs {
-  center: Point;
+
+interface FlangeBearingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  bearing: Shape;
-  flange: Face;
-  holes: Wire[];
+
+interface FlangeBearingOutputs {
+  bearing: unknown;
+  flange: unknown;
+  holes: unknown;
 }
 
 export const FlangeBearingNode: NodeDefinition<FlangeBearingInputs, FlangeBearingOutputs, FlangeBearingParams> = {
-  type: 'MechanicalEngineering::FlangeBearing',
+  id: 'MechanicalEngineering::FlangeBearing',
   category: 'MechanicalEngineering',
-  subcategory: 'Bearings',
-
-  metadata: {
-    label: 'FlangeBearing',
-    description: 'Create flanged bearing unit',
-    
-    
-  },
-
-  params: {
-        boreDiameter: {
-      "default": 12,
-      "min": 5,
-      "max": 80
-    },
-    flangeDiameter: {
-      "default": 40,
-      "min": 20,
-      "max": 150
-    },
-    thickness: {
-      "default": 8,
-      "min": 3,
-      "max": 30
-    },
-    mountingHoles: {
-      "default": 4,
-      "min": 3,
-      "max": 8
+  label: 'FlangeBearing',
+  description: 'Create flanged bearing unit',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        bearing: 'Shape',
-    flange: 'Face',
-    holes: 'Wire[]'
+    bearing: {
+      type: 'Shape',
+      label: 'Bearing'
+    },
+    flange: {
+      type: 'Face',
+      label: 'Flange'
+    },
+    holes: {
+      type: 'Wire[]',
+      label: 'Holes'
+    }
   },
-
+  params: {
+    boreDiameter: {
+      type: 'number',
+      label: 'Bore Diameter',
+      default: 12,
+      min: 5,
+      max: 80
+    },
+    flangeDiameter: {
+      type: 'number',
+      label: 'Flange Diameter',
+      default: 40,
+      min: 20,
+      max: 150
+    },
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 8,
+      min: 3,
+      max: 30
+    },
+    mountingHoles: {
+      type: 'number',
+      label: 'Mounting Holes',
+      default: 4,
+      min: 3,
+      max: 8
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'flangeBearing',
       params: {
         center: inputs.center,
@@ -73,11 +84,11 @@ export const FlangeBearingNode: NodeDefinition<FlangeBearingInputs, FlangeBearin
         mountingHoles: params.mountingHoles
       }
     });
-
+    
     return {
-      bearing: result,
-      flange: result,
-      holes: result
+      bearing: results.bearing,
+      flange: results.flange,
+      holes: results.holes
     };
-  }
+  },
 };

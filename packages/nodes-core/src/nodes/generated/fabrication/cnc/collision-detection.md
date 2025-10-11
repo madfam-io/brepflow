@@ -8,7 +8,7 @@ Tool collision checking
 ## Parameters
 
 
-### toolLength
+### Tool Length
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -16,7 +16,7 @@ Tool collision checking
 
 
 
-### holderDiameter
+### Holder Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -27,13 +27,13 @@ Tool collision checking
 ## Inputs
 
 
-### toolpath
+### Toolpath
 - **Type:** Wire[]
 - **Required:** Yes
 
 
 
-### model
+### Model
 - **Type:** Shape
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Tool collision checking
 ## Outputs
 
 
-### collisions
+### Collisions
 - **Type:** Point[]
 
 
 
-### safePath
+### Safe Path
 - **Type:** Wire[]
 
 

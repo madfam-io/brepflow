@@ -8,7 +8,7 @@ Loft between profiles
 ## Parameters
 
 
-### ruled
+### Ruled
 - **Type:** boolean
 - **Default:** false
 
@@ -16,7 +16,7 @@ Loft between profiles
 - **Description:** Straight sections between profiles
 
 
-### closed
+### Closed
 - **Type:** boolean
 - **Default:** false
 
@@ -24,7 +24,7 @@ Loft between profiles
 - **Description:** Close loft to first profile
 
 
-### solid
+### Solid
 - **Type:** boolean
 - **Default:** true
 
@@ -32,7 +32,7 @@ Loft between profiles
 
 
 
-### maxDegree
+### Max Degree
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -43,19 +43,19 @@ Loft between profiles
 ## Inputs
 
 
-### profiles
+### Profiles
 - **Type:** Wire[]
 - **Required:** Yes
 
 
 
-### guides
+### Guides
 - **Type:** Wire[]
 - **Required:** No
 
 
 
-### centerLine
+### Center Line
 - **Type:** Wire
 - **Required:** No
 
@@ -64,7 +64,7 @@ Loft between profiles
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

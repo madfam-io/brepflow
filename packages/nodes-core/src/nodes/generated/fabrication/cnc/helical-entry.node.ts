@@ -1,54 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HelicalEntryParams {
   helixDiameter: number;
   helixAngle: number;
 }
-interface Inputs {
-  entryPoint: Point;
-  depth: Number;
+
+interface HelicalEntryInputs {
+  entryPoint: [number, number, number];
+  depth: number;
 }
-interface Outputs {
-  helixPath: Wire;
+
+interface HelicalEntryOutputs {
+  helixPath: unknown;
 }
 
 export const HelicalEntryNode: NodeDefinition<HelicalEntryInputs, HelicalEntryOutputs, HelicalEntryParams> = {
-  type: 'Fabrication::HelicalEntry',
+  id: 'Fabrication::HelicalEntry',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'HelicalEntry',
-    description: 'Helical plunge entry',
-    
-    
-  },
-
-  params: {
-        helixDiameter: {
-      "default": 10,
-      "min": 1,
-      "max": 50
+  label: 'HelicalEntry',
+  description: 'Helical plunge entry',
+  inputs: {
+    entryPoint: {
+      type: 'Point',
+      label: 'Entry Point',
+      required: true
     },
-    helixAngle: {
-      "default": 3,
-      "min": 1,
-      "max": 10
+    depth: {
+      type: 'Number',
+      label: 'Depth',
+      required: true
     }
   },
-
-  inputs: {
-        entryPoint: 'Point',
-    depth: 'Number'
-  },
-
   outputs: {
-        helixPath: 'Wire'
+    helixPath: {
+      type: 'Wire',
+      label: 'Helix Path'
+    }
   },
-
+  params: {
+    helixDiameter: {
+      type: 'number',
+      label: 'Helix Diameter',
+      default: 10,
+      min: 1,
+      max: 50
+    },
+    helixAngle: {
+      type: 'number',
+      label: 'Helix Angle',
+      default: 3,
+      min: 1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'helicalEntry',
       params: {
@@ -58,9 +63,9 @@ export const HelicalEntryNode: NodeDefinition<HelicalEntryInputs, HelicalEntryOu
         helixAngle: params.helixAngle
       }
     });
-
+    
     return {
       helixPath: result
     };
-  }
+  },
 };

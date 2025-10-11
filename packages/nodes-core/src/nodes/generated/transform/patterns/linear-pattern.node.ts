@@ -1,94 +1,85 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LinearPatternParams {
   count: number;
   spacing: number;
   direction: [number, number, number];
   centered: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface LinearPatternInputs {
+  shape: unknown;
 }
-interface Outputs {
-  shapes: Shape[];
-  compound: Shape;
+
+interface LinearPatternOutputs {
+  shapes: unknown;
+  compound: unknown;
 }
 
 export const LinearPatternNode: NodeDefinition<LinearPatternInputs, LinearPatternOutputs, LinearPatternParams> = {
-  type: 'Transform::LinearPattern',
+  id: 'Transform::LinearPattern',
   category: 'Transform',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'LinearPattern',
-    description: 'Creates a linear array of features or shapes',
-    
-    tags: ["pattern","array","duplicate","linear"],
-  },
-
-  params: {
-        count: {
-      "default": 5,
-      "min": 2,
-      "max": 1000,
-      "step": 1,
-      "description": "Number of instances"
-    },
-    spacing: {
-      "default": 20,
-      "min": 0.1,
-      "max": 10000,
-      "description": "Distance between instances"
-    },
-    direction: {
-      "default": [
-        1,
-        0,
-        0
-      ],
-      "description": "Pattern direction vector"
-    },
-    centered: {
-      "default": false,
-      "description": "Center pattern around origin"
+  label: 'LinearPattern',
+  description: 'Creates a linear array of features or shapes',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        shapes: 'Shape[]',
-    compound: 'Shape'
+    shapes: {
+      type: 'Shape[]',
+      label: 'Shapes'
+    },
+    compound: {
+      type: 'Shape',
+      label: 'Compound'
+    }
   },
-
+  params: {
+    count: {
+      type: 'number',
+      label: 'Count',
+      default: 5,
+      min: 2,
+      max: 1000,
+      step: 1
+    },
+    spacing: {
+      type: 'number',
+      label: 'Spacing',
+      default: 20,
+      min: 0.1,
+      max: 10000
+    },
+    direction: {
+      type: 'vec3',
+      label: 'Direction',
+      default: [1,0,0]
+    },
+    centered: {
+      type: 'boolean',
+      label: 'Centered',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    const direction = params.direction || [1, 0, 0];
-
-    const response = await context.geometry.execute({
-      type: 'CREATE_LINEAR_PATTERN',
+    const results = await context.geometry.execute({
+      type: 'PATTERN_LINEAR',
       params: {
         shape: inputs.shape,
         count: params.count,
         spacing: params.spacing,
-        direction: {
-          x: direction[0],
-          y: direction[1],
-          z: direction[2]
-        },
-        centered: params.centered,
-        keepOriginal: true
+        direction: params.direction,
+        centered: params.centered
       }
     });
-
-    const shapes = Array.isArray(response) ? response : response?.shapes ?? [];
-    const compound = Array.isArray(response) ? null : response?.compound ?? null;
-
+    
     return {
-      shapes,
-      compound
+      shapes: results.shapes,
+      compound: results.compound
     };
-  }
+  },
 };

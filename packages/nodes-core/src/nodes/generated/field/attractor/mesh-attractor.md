@@ -8,7 +8,7 @@ Mesh vertex attractor
 ## Parameters
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 1
 - **Min:** -10
@@ -16,7 +16,7 @@ Mesh vertex attractor
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Mesh vertex attractor
 
 
 
-### weightByArea
+### Weight By Area
 - **Type:** boolean
 - **Default:** false
 
@@ -35,7 +35,7 @@ Mesh vertex attractor
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Mesh vertex attractor
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

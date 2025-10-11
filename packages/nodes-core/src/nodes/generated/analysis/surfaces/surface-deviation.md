@@ -8,7 +8,7 @@ Compare surface deviation from reference
 ## Parameters
 
 
-### samples
+### Samples
 - **Type:** number
 - **Default:** 100
 - **Min:** 20
@@ -16,7 +16,7 @@ Compare surface deviation from reference
 
 
 
-### colorMap
+### Color Map
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Compare surface deviation from reference
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.001
@@ -35,13 +35,13 @@ Compare surface deviation from reference
 ## Inputs
 
 
-### testSurface
+### Test Surface
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### referenceSurface
+### Reference Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -50,22 +50,22 @@ Compare surface deviation from reference
 ## Outputs
 
 
-### deviationMap
+### Deviation Map
 - **Type:** Shape
 
 
 
-### maxDeviation
+### Max Deviation
 - **Type:** number
 
 
 
-### averageDeviation
+### Average Deviation
 - **Type:** number
 
 
 
-### deviationPoints
+### Deviation Points
 - **Type:** Point[]
 
 

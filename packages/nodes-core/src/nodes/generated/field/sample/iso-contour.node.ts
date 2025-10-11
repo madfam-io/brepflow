@@ -1,48 +1,49 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface IsoContourParams {
   value: number;
   smooth: boolean;
 }
-interface Inputs {
-  field: ScalarField;
+
+interface IsoContourInputs {
+  field: unknown;
 }
-interface Outputs {
-  contours: Wire[];
+
+interface IsoContourOutputs {
+  contours: unknown;
 }
 
 export const IsoContourNode: NodeDefinition<IsoContourInputs, IsoContourOutputs, IsoContourParams> = {
-  type: 'Field::IsoContour',
+  id: 'Field::IsoContour',
   category: 'Field',
-  subcategory: 'Sample',
-
-  metadata: {
-    label: 'IsoContour',
-    description: 'Extract iso-contours',
-    
-    
-  },
-
-  params: {
-        value: {
-      "default": 0.5
-    },
-    smooth: {
-      "default": true
+  label: 'IsoContour',
+  description: 'Extract iso-contours',
+  inputs: {
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'ScalarField'
-  },
-
   outputs: {
-        contours: 'Wire[]'
+    contours: {
+      type: 'Wire[]',
+      label: 'Contours'
+    }
   },
-
+  params: {
+    value: {
+      type: 'number',
+      label: 'Value',
+      default: 0.5
+    },
+    smooth: {
+      type: 'boolean',
+      label: 'Smooth',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldIsoContour',
       params: {
@@ -51,9 +52,9 @@ export const IsoContourNode: NodeDefinition<IsoContourInputs, IsoContourOutputs,
         smooth: params.smooth
       }
     });
-
+    
     return {
       contours: result
     };
-  }
+  },
 };

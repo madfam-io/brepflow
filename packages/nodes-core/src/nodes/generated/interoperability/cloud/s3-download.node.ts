@@ -1,63 +1,78 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface S3DownloadParams {
   bucket: string;
   accessKey: string;
   secretKey: string;
   region: string;
 }
-interface Inputs {
-  key: string;
-  localPath: string;
+
+interface S3DownloadInputs {
+  key: unknown;
+  localPath: unknown;
 }
-interface Outputs {
-  success: boolean;
-  fileSize: number;
-  metadata: Properties;
+
+interface S3DownloadOutputs {
+  success: unknown;
+  fileSize: unknown;
+  metadata: unknown;
 }
 
 export const S3DownloadNode: NodeDefinition<S3DownloadInputs, S3DownloadOutputs, S3DownloadParams> = {
-  type: 'Interoperability::S3Download',
+  id: 'Interoperability::S3Download',
   category: 'Interoperability',
-  subcategory: 'Cloud',
-
-  metadata: {
-    label: 'S3Download',
-    description: 'Download files from AWS S3',
-    
-    
-  },
-
-  params: {
-        bucket: {
-      "default": ""
+  label: 'S3Download',
+  description: 'Download files from AWS S3',
+  inputs: {
+    key: {
+      type: 'string',
+      label: 'Key',
+      required: true
     },
-    accessKey: {
-      "default": ""
-    },
-    secretKey: {
-      "default": ""
-    },
-    region: {
-      "default": "us-east-1"
+    localPath: {
+      type: 'string',
+      label: 'Local Path',
+      required: true
     }
   },
-
-  inputs: {
-        key: 'string',
-    localPath: 'string'
-  },
-
   outputs: {
-        success: 'boolean',
-    fileSize: 'number',
-    metadata: 'Properties'
+    success: {
+      type: 'boolean',
+      label: 'Success'
+    },
+    fileSize: {
+      type: 'number',
+      label: 'File Size'
+    },
+    metadata: {
+      type: 'Properties',
+      label: 'Metadata'
+    }
   },
-
+  params: {
+    bucket: {
+      type: 'string',
+      label: 'Bucket',
+      default: ""
+    },
+    accessKey: {
+      type: 'string',
+      label: 'Access Key',
+      default: ""
+    },
+    secretKey: {
+      type: 'string',
+      label: 'Secret Key',
+      default: ""
+    },
+    region: {
+      type: 'string',
+      label: 'Region',
+      default: "us-east-1"
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 's3Download',
       params: {
         key: inputs.key,
@@ -68,11 +83,11 @@ export const S3DownloadNode: NodeDefinition<S3DownloadInputs, S3DownloadOutputs,
         region: params.region
       }
     });
-
+    
     return {
-      success: result,
-      fileSize: result,
-      metadata: result
+      success: results.success,
+      fileSize: results.fileSize,
+      metadata: results.metadata
     };
-  }
+  },
 };

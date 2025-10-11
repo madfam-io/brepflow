@@ -1,56 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type RangeParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  values: number[];
+interface RangeInputs {
+  values: unknown;
 }
-interface Outputs {
-  min: number;
-  max: number;
-  range: number;
+
+interface RangeOutputs {
+  min: unknown;
+  max: unknown;
+  range: unknown;
 }
 
 export const RangeNode: NodeDefinition<RangeInputs, RangeOutputs, RangeParams> = {
-  type: 'Math::Range',
+  id: 'Math::Range',
   category: 'Math',
-  subcategory: 'Statistics',
-
-  metadata: {
-    label: 'Range',
-    description: 'Range of values',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Range',
+  description: 'Range of values',
   inputs: {
-        values: 'number[]'
+    values: {
+      type: 'number[]',
+      label: 'Values',
+      required: true
+    }
   },
-
   outputs: {
-        min: 'number',
-    max: 'number',
-    range: 'number'
+    min: {
+      type: 'number',
+      label: 'Min'
+    },
+    max: {
+      type: 'number',
+      label: 'Max'
+    },
+    range: {
+      type: 'number',
+      label: 'Range'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'mathRange',
       params: {
         values: inputs.values
-        
       }
     });
-
+    
     return {
-      min: result,
-      max: result,
-      range: result
+      min: results.min,
+      max: results.max,
+      range: results.range
     };
-  }
+  },
 };

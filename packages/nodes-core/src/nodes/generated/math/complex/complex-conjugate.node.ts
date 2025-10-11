@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ComplexConjugateParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  complex: Complex;
+interface ComplexConjugateInputs {
+  complex: unknown;
 }
-interface Outputs {
-  conjugate: Complex;
+
+interface ComplexConjugateOutputs {
+  conjugate: unknown;
 }
 
 export const ComplexConjugateNode: NodeDefinition<ComplexConjugateInputs, ComplexConjugateOutputs, ComplexConjugateParams> = {
-  type: 'Math::ComplexConjugate',
+  id: 'Math::ComplexConjugate',
   category: 'Math',
-  subcategory: 'Complex',
-
-  metadata: {
-    label: 'ComplexConjugate',
-    description: 'Complex conjugate',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ComplexConjugate',
+  description: 'Complex conjugate',
   inputs: {
-        complex: 'Complex'
+    complex: {
+      type: 'Complex',
+      label: 'Complex',
+      required: true
+    }
   },
-
   outputs: {
-        conjugate: 'Complex'
+    conjugate: {
+      type: 'Complex',
+      label: 'Conjugate'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathComplexConjugate',
       params: {
         complex: inputs.complex
-        
       }
     });
-
+    
     return {
       conjugate: result
     };
-  }
+  },
 };

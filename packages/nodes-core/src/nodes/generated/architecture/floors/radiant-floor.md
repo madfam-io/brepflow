@@ -8,7 +8,7 @@ In-floor radiant heating
 ## Parameters
 
 
-### pipeSpacing
+### Pipe Spacing
 - **Type:** number
 - **Default:** 200
 - **Min:** 150
@@ -16,7 +16,7 @@ In-floor radiant heating
 
 
 
-### pipeDialeter
+### Pipe Dialeter
 - **Type:** number
 - **Default:** 16
 - **Min:** 12
@@ -24,7 +24,7 @@ In-floor radiant heating
 
 
 
-### zoneCount
+### Zone Count
 - **Type:** number
 - **Default:** 1
 - **Min:** 1
@@ -35,7 +35,7 @@ In-floor radiant heating
 ## Inputs
 
 
-### floorArea
+### Floor Area
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ In-floor radiant heating
 ## Outputs
 
 
-### radiantLayout
+### Radiant Layout
 - **Type:** Wire[]
 
 
 
-### manifold
+### Manifold
 - **Type:** Point
 
 

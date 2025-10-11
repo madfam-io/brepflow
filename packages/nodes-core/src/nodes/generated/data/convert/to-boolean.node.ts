@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ToBooleanParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  data: Data;
-}
-interface Outputs {
-  boolean: boolean;
+interface ToBooleanInputs {
+  data: unknown;
 }
 
-export const ToBooleanNode: NodeDefinition<ToBooleanInputs, ToBooleanOutputs, ToBoolParams> = {
-  type: 'Data::ToBoolean',
+interface ToBooleanOutputs {
+  boolean: unknown;
+}
+
+export const ToBooleanNode: NodeDefinition<ToBooleanInputs, ToBooleanOutputs, ToBooleanParams> = {
+  id: 'Data::ToBoolean',
   category: 'Data',
-  subcategory: 'Convert',
-
-  metadata: {
-    label: 'ToBoolean',
-    description: 'Convert to boolean',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ToBoolean',
+  description: 'Convert to boolean',
   inputs: {
-        data: 'Data'
+    data: {
+      type: 'Data',
+      label: 'Data',
+      required: true
+    }
   },
-
   outputs: {
-        boolean: 'boolean'
+    boolean: {
+      type: 'boolean',
+      label: 'Boolean'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'convertToBoolean',
       params: {
         data: inputs.data
-        
       }
     });
-
+    
     return {
       boolean: result
     };
-  }
+  },
 };

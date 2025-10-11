@@ -8,7 +8,7 @@ Koch snowflake fractal
 ## Parameters
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 4
 - **Min:** 0
@@ -19,7 +19,7 @@ Koch snowflake fractal
 ## Inputs
 
 
-### triangle
+### Triangle
 - **Type:** Wire
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Koch snowflake fractal
 ## Outputs
 
 
-### fractal
+### Fractal
 - **Type:** Wire
 
 

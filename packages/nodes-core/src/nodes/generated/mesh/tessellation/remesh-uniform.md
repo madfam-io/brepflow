@@ -8,7 +8,7 @@ Uniform remeshing
 ## Parameters
 
 
-### targetEdgeLength
+### Target Edge Length
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Uniform remeshing
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -24,7 +24,7 @@ Uniform remeshing
 
 
 
-### preserveFeatures
+### Preserve Features
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Uniform remeshing
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Uniform remeshing
 ## Outputs
 
 
-### remeshed
+### Remeshed
 - **Type:** Mesh
 
 

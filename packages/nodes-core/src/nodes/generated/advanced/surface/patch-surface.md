@@ -8,7 +8,7 @@ Create patch surface
 ## Parameters
 
 
-### continuity
+### Continuity
 - **Type:** enum
 - **Default:** "G1"
 
@@ -16,7 +16,7 @@ Create patch surface
 
 
 
-### constraintType
+### Constraint Type
 - **Type:** enum
 - **Default:** "tangent"
 
@@ -27,13 +27,13 @@ Create patch surface
 ## Inputs
 
 
-### boundaryEdges
+### Boundary Edges
 - **Type:** Edge[]
 - **Required:** Yes
 
 
 
-### guideWires
+### Guide Wires
 - **Type:** Wire[]
 - **Required:** No
 
@@ -42,7 +42,7 @@ Create patch surface
 ## Outputs
 
 
-### patch
+### Patch
 - **Type:** Face
 
 

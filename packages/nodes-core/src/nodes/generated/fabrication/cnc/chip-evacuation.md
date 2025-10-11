@@ -8,7 +8,7 @@ Chip evacuation analysis
 ## Parameters
 
 
-### flutes
+### Flutes
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -16,7 +16,7 @@ Chip evacuation analysis
 
 
 
-### helixAngle
+### Helix Angle
 - **Type:** number
 - **Default:** 30
 - **Min:** 0
@@ -27,7 +27,7 @@ Chip evacuation analysis
 ## Inputs
 
 
-### pocket
+### Pocket
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Chip evacuation analysis
 ## Outputs
 
 
-### evacuationScore
+### Evacuation Score
 - **Type:** Number
 
 

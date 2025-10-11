@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldSmoothParams {
   iterations: number;
   factor: number;
 }
-interface Inputs {
-  field: ScalarField;
+
+interface FieldSmoothInputs {
+  field: unknown;
 }
-interface Outputs {
-  smoothed: ScalarField;
+
+interface FieldSmoothOutputs {
+  smoothed: unknown;
 }
 
 export const FieldSmoothNode: NodeDefinition<FieldSmoothInputs, FieldSmoothOutputs, FieldSmoothParams> = {
-  type: 'Field::FieldSmooth',
+  id: 'Field::FieldSmooth',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldSmooth',
-    description: 'Smooth field',
-    
-    
-  },
-
-  params: {
-        iterations: {
-      "default": 3,
-      "min": 1,
-      "max": 10,
-      "step": 1
-    },
-    factor: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+  label: 'FieldSmooth',
+  description: 'Smooth field',
+  inputs: {
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'ScalarField'
-  },
-
   outputs: {
-        smoothed: 'ScalarField'
+    smoothed: {
+      type: 'ScalarField',
+      label: 'Smoothed'
+    }
   },
-
+  params: {
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 3,
+      min: 1,
+      max: 10,
+      step: 1
+    },
+    factor: {
+      type: 'number',
+      label: 'Factor',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldSmooth',
       params: {
@@ -56,9 +57,9 @@ export const FieldSmoothNode: NodeDefinition<FieldSmoothInputs, FieldSmoothOutpu
         factor: params.factor
       }
     });
-
+    
     return {
       smoothed: result
     };
-  }
+  },
 };

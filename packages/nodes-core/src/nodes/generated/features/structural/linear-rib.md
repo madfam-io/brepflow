@@ -8,7 +8,7 @@ Creates a reinforcing rib along a path
 ## Parameters
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Creates a reinforcing rib along a path
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Creates a reinforcing rib along a path
 
 
 
-### draftAngle
+### Draft Angle
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -32,7 +32,7 @@ Creates a reinforcing rib along a path
 - **Description:** Draft angle for molding
 
 
-### topRadius
+### Top Radius
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -43,13 +43,13 @@ Creates a reinforcing rib along a path
 ## Inputs
 
 
-### face
+### Face
 - **Type:** Face
 - **Required:** Yes
 - **Description:** Base face for rib
 
 
-### path
+### Path
 - **Type:** Curve
 - **Required:** Yes
 - **Description:** Path for rib
@@ -58,7 +58,7 @@ Creates a reinforcing rib along a path
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

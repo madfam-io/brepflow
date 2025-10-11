@@ -1,63 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SkyLightParams {
   type: string;
   glazingType: string;
 }
-interface Inputs {
-  opening: Wire;
+
+interface SkyLightInputs {
+  opening: unknown;
 }
-interface Outputs {
-  skylight: Shape;
-  frame: Shape;
+
+interface SkyLightOutputs {
+  skylight: unknown;
+  frame: unknown;
 }
 
 export const SkyLightNode: NodeDefinition<SkyLightInputs, SkyLightOutputs, SkyLightParams> = {
-  type: 'Architecture::SkyLight',
+  id: 'Architecture::SkyLight',
   category: 'Architecture',
-  subcategory: 'Ceilings',
-
-  metadata: {
-    label: 'SkyLight',
-    description: 'Skylight opening',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "pyramid",
-      "options": [
-        "flat",
-        "pyramid",
-        "barrel",
-        "dome"
-      ]
-    },
-    glazingType: {
-      "default": "double",
-      "options": [
-        "single",
-        "double",
-        "triple",
-        "aerogel"
-      ]
+  label: 'SkyLight',
+  description: 'Skylight opening',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        skylight: 'Shape',
-    frame: 'Shape'
+    skylight: {
+      type: 'Shape',
+      label: 'Skylight'
+    },
+    frame: {
+      type: 'Shape',
+      label: 'Frame'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "pyramid",
+      options: ["flat","pyramid","barrel","dome"]
+    },
+    glazingType: {
+      type: 'enum',
+      label: 'Glazing Type',
+      default: "double",
+      options: ["single","double","triple","aerogel"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'skyLight',
       params: {
         opening: inputs.opening,
@@ -65,10 +59,10 @@ export const SkyLightNode: NodeDefinition<SkyLightInputs, SkyLightOutputs, SkyLi
         glazingType: params.glazingType
       }
     });
-
+    
     return {
-      skylight: result,
-      frame: result
+      skylight: results.skylight,
+      frame: results.frame
     };
-  }
+  },
 };

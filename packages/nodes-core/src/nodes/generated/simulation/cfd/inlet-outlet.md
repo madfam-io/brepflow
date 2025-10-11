@@ -8,7 +8,7 @@ Define inlet/outlet conditions
 ## Parameters
 
 
-### boundaryType
+### Boundary Type
 - **Type:** enum
 - **Default:** "velocity-inlet"
 
@@ -16,7 +16,7 @@ Define inlet/outlet conditions
 
 
 
-### velocity
+### Velocity
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -24,7 +24,7 @@ Define inlet/outlet conditions
 - **Description:** m/s
 
 
-### pressure
+### Pressure
 - **Type:** number
 - **Default:** 101325
 - **Min:** 0
@@ -32,7 +32,7 @@ Define inlet/outlet conditions
 - **Description:** Pa
 
 
-### temperature
+### Temperature
 - **Type:** number
 - **Default:** 293
 - **Min:** 0
@@ -43,13 +43,13 @@ Define inlet/outlet conditions
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
 
 
-### boundaryFaces
+### Boundary Faces
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -58,12 +58,12 @@ Define inlet/outlet conditions
 ## Outputs
 
 
-### boundaryMesh
+### Boundary Mesh
 - **Type:** Mesh
 
 
 
-### boundaryData
+### Boundary Data
 - **Type:** Data
 
 

@@ -8,7 +8,7 @@ Muqarnas honeycomb pattern
 ## Parameters
 
 
-### levels
+### Levels
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Muqarnas honeycomb pattern
 
 
 
-### cellType
+### Cell Type
 - **Type:** enum
 - **Default:** "mixed"
 
@@ -27,7 +27,7 @@ Muqarnas honeycomb pattern
 ## Inputs
 
 
-### base
+### Base
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Muqarnas honeycomb pattern
 ## Outputs
 
 
-### muqarnas
+### Muqarnas
 - **Type:** Shape[]
 
 

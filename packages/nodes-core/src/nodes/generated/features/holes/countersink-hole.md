@@ -8,7 +8,7 @@ Creates a countersink hole for flat head screws
 ## Parameters
 
 
-### holeDiameter
+### Hole Diameter
 - **Type:** number
 - **Default:** 6.5
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Creates a countersink hole for flat head screws
 
 
 
-### countersinkDiameter
+### Countersink Diameter
 - **Type:** number
 - **Default:** 12
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Creates a countersink hole for flat head screws
 
 
 
-### angle
+### Angle
 - **Type:** enum
 - **Default:** "90"
 
@@ -32,7 +32,7 @@ Creates a countersink hole for flat head screws
 - **Description:** Countersink angle in degrees
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -43,13 +43,13 @@ Creates a countersink hole for flat head screws
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -58,7 +58,7 @@ Creates a countersink hole for flat head screws
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

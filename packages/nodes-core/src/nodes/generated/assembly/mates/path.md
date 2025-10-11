@@ -8,7 +8,7 @@ Constrain to path
 ## Parameters
 
 
-### position
+### Position
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -16,7 +16,7 @@ Constrain to path
 
 
 
-### tangent
+### Tangent
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Constrain to path
 ## Inputs
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### follower
+### Follower
 - **Type:** Shape
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Constrain to path
 ## Outputs
 
 
-### pathed
+### Pathed
 - **Type:** Shape[]
 
 
 
-### mate
+### Mate
 - **Type:** Mate
 
 

@@ -1,64 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DoubleDoorParams {
   totalWidth: number;
   height: number;
   activeLeaf: string;
 }
-interface Inputs {
-  position: Point;
+
+interface DoubleDoorInputs {
+  position: [number, number, number];
 }
-interface Outputs {
-  doors: Shape[];
-  frame: Shape;
+
+interface DoubleDoorOutputs {
+  doors: unknown;
+  frame: unknown;
 }
 
 export const DoubleDoorNode: NodeDefinition<DoubleDoorInputs, DoubleDoorOutputs, DoubleDoorParams> = {
-  type: 'Architecture::DoubleDoor',
+  id: 'Architecture::DoubleDoor',
   category: 'Architecture',
-  subcategory: 'Doors',
-
-  metadata: {
-    label: 'DoubleDoor',
-    description: 'Double swing door',
-    
-    
-  },
-
-  params: {
-        totalWidth: {
-      "default": 1800,
-      "min": 1200,
-      "max": 2400
-    },
-    height: {
-      "default": 2100,
-      "min": 1800,
-      "max": 2400
-    },
-    activeLeaf: {
-      "default": "both",
-      "options": [
-        "left",
-        "right",
-        "both"
-      ]
+  label: 'DoubleDoor',
+  description: 'Double swing door',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        position: 'Point'
-  },
-
   outputs: {
-        doors: 'Shape[]',
-    frame: 'Shape'
+    doors: {
+      type: 'Shape[]',
+      label: 'Doors'
+    },
+    frame: {
+      type: 'Shape',
+      label: 'Frame'
+    }
   },
-
+  params: {
+    totalWidth: {
+      type: 'number',
+      label: 'Total Width',
+      default: 1800,
+      min: 1200,
+      max: 2400
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 2100,
+      min: 1800,
+      max: 2400
+    },
+    activeLeaf: {
+      type: 'enum',
+      label: 'Active Leaf',
+      default: "both",
+      options: ["left","right","both"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'doubleDoor',
       params: {
         position: inputs.position,
@@ -67,10 +69,10 @@ export const DoubleDoorNode: NodeDefinition<DoubleDoorInputs, DoubleDoorOutputs,
         activeLeaf: params.activeLeaf
       }
     });
-
+    
     return {
-      doors: result,
-      frame: result
+      doors: results.doors,
+      frame: results.frame
     };
-  }
+  },
 };

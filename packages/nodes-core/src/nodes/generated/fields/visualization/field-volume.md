@@ -8,7 +8,7 @@ Generate volumetric field visualization
 ## Parameters
 
 
-### voxelSize
+### Voxel Size
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Generate volumetric field visualization
 - **Description:** Size of voxels
 
 
-### threshold
+### Threshold
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -24,7 +24,7 @@ Generate volumetric field visualization
 - **Description:** Display threshold
 
 
-### opacity
+### Opacity
 - **Type:** number
 - **Default:** 0.8
 - **Min:** 0
@@ -35,13 +35,13 @@ Generate volumetric field visualization
 ## Inputs
 
 
-### field
+### Field
 - **Type:** Field
 - **Required:** No
 
 
 
-### bounds
+### Bounds
 - **Type:** Box
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Generate volumetric field visualization
 ## Outputs
 
 
-### volume
+### Volume
 - **Type:** Mesh
 
 

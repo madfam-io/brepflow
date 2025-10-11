@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ScaleParams {
   scaleX: number;
   scaleY: number;
   scaleZ: number;
@@ -11,78 +10,88 @@ interface Params {
   centerZ: number;
   copy: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface ScaleInputs {
+  shape: unknown;
 }
-interface Outputs {
-  scaled: Shape;
+
+interface ScaleOutputs {
+  scaled: unknown;
 }
 
 export const ScaleNode: NodeDefinition<ScaleInputs, ScaleOutputs, ScaleParams> = {
-  type: 'Transform::Scale',
+  id: 'Transform::Scale',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'Scale',
-    description: 'Scale shape uniformly or non-uniformly',
-    
-    
-  },
-
-  params: {
-        scaleX: {
-      "default": 1,
-      "min": 0.001,
-      "max": 1000,
-      "description": "X scale factor"
-    },
-    scaleY: {
-      "default": 1,
-      "min": 0.001,
-      "max": 1000,
-      "description": "Y scale factor"
-    },
-    scaleZ: {
-      "default": 1,
-      "min": 0.001,
-      "max": 1000,
-      "description": "Z scale factor"
-    },
-    uniform: {
-      "default": true,
-      "description": "Use uniform scaling"
-    },
-    centerX: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerY: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerZ: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    copy: {
-      "default": true
+  label: 'Scale',
+  description: 'Scale shape uniformly or non-uniformly',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        scaled: 'Shape'
+    scaled: {
+      type: 'Shape',
+      label: 'Scaled'
+    }
   },
-
+  params: {
+    scaleX: {
+      type: 'number',
+      label: 'Scale X',
+      default: 1,
+      min: 0.001,
+      max: 1000
+    },
+    scaleY: {
+      type: 'number',
+      label: 'Scale Y',
+      default: 1,
+      min: 0.001,
+      max: 1000
+    },
+    scaleZ: {
+      type: 'number',
+      label: 'Scale Z',
+      default: 1,
+      min: 0.001,
+      max: 1000
+    },
+    uniform: {
+      type: 'boolean',
+      label: 'Uniform',
+      default: true
+    },
+    centerX: {
+      type: 'number',
+      label: 'Center X',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerY: {
+      type: 'number',
+      label: 'Center Y',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerZ: {
+      type: 'number',
+      label: 'Center Z',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    copy: {
+      type: 'boolean',
+      label: 'Copy',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'transformScale',
       params: {
@@ -97,9 +106,9 @@ export const ScaleNode: NodeDefinition<ScaleInputs, ScaleOutputs, ScaleParams> =
         copy: params.copy
       }
     });
-
+    
     return {
       scaled: result
     };
-  }
+  },
 };

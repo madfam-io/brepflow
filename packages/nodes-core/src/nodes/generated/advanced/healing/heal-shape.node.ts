@@ -1,65 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HealShapeParams {
   tolerance: number;
   fixSmallEdges: boolean;
   fixSmallFaces: boolean;
   sewFaces: boolean;
   makeManifold: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface HealShapeInputs {
+  shape: unknown;
 }
-interface Outputs {
-  healed: Shape;
-  report: Data;
+
+interface HealShapeOutputs {
+  healed: unknown;
+  report: unknown;
 }
 
 export const HealShapeNode: NodeDefinition<HealShapeInputs, HealShapeOutputs, HealShapeParams> = {
-  type: 'Advanced::HealShape',
+  id: 'Advanced::HealShape',
   category: 'Advanced',
-  subcategory: 'Healing',
-
-  metadata: {
-    label: 'HealShape',
-    description: 'Repair geometric errors',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
-    },
-    fixSmallEdges: {
-      "default": true
-    },
-    fixSmallFaces: {
-      "default": true
-    },
-    sewFaces: {
-      "default": true
-    },
-    makeManifold: {
-      "default": false
+  label: 'HealShape',
+  description: 'Repair geometric errors',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        healed: 'Shape',
-    report: 'Data'
+    healed: {
+      type: 'Shape',
+      label: 'Healed'
+    },
+    report: {
+      type: 'Data',
+      label: 'Report'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    },
+    fixSmallEdges: {
+      type: 'boolean',
+      label: 'Fix Small Edges',
+      default: true
+    },
+    fixSmallFaces: {
+      type: 'boolean',
+      label: 'Fix Small Faces',
+      default: true
+    },
+    sewFaces: {
+      type: 'boolean',
+      label: 'Sew Faces',
+      default: true
+    },
+    makeManifold: {
+      type: 'boolean',
+      label: 'Make Manifold',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'healShape',
       params: {
         shape: inputs.shape,
@@ -70,10 +80,10 @@ export const HealShapeNode: NodeDefinition<HealShapeInputs, HealShapeOutputs, He
         makeManifold: params.makeManifold
       }
     });
-
+    
     return {
-      healed: result,
-      report: result
+      healed: results.healed,
+      report: results.report
     };
-  }
+  },
 };

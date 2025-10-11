@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### tree
+### Tree
 - **Type:** DataTree
 - **Required:** Yes
 
@@ -21,17 +21,17 @@ This node has no parameters.
 ## Outputs
 
 
-### branchCount
+### Branch Count
 - **Type:** number
 
 
 
-### itemCount
+### Item Count
 - **Type:** number
 
 
 
-### depth
+### Depth
 - **Type:** number
 
 

@@ -8,7 +8,7 @@ Robot calibration routine
 ## Parameters
 
 
-### method
+### Method
 - **Type:** enum
 - **Default:** "dh-parameters"
 
@@ -19,7 +19,7 @@ Robot calibration routine
 ## Inputs
 
 
-### measurementPoints
+### Measurement Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -28,12 +28,12 @@ Robot calibration routine
 ## Outputs
 
 
-### calibrationMatrix
+### Calibration Matrix
 - **Type:** Transform
 
 
 
-### accuracy
+### Accuracy
 - **Type:** Number
 
 

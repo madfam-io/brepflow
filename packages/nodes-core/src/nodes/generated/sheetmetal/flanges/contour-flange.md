@@ -8,7 +8,7 @@ Create flange from sketch contour
 ## Parameters
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** 0
@@ -16,7 +16,7 @@ Create flange from sketch contour
 
 
 
-### bendRadius
+### Bend Radius
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create flange from sketch contour
 
 
 
-### flangePosition
+### Flange Position
 - **Type:** enum
 - **Default:** "material-inside"
 
@@ -35,19 +35,19 @@ Create flange from sketch contour
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### contour
+### Contour
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### profile
+### Profile
 - **Type:** Wire
 - **Required:** No
 - **Description:** Custom profile for flange
@@ -56,7 +56,7 @@ Create flange from sketch contour
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

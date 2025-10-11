@@ -1,59 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ThickenParams {
   thickness: number;
   direction: string;
   autoClose: boolean;
 }
-interface Inputs {
-  surface: Face;
+
+interface ThickenInputs {
+  surface: unknown;
 }
-interface Outputs {
-  solid: Shape;
+
+interface ThickenOutputs {
+  solid: unknown;
 }
 
 export const ThickenNode: NodeDefinition<ThickenInputs, ThickenOutputs, ThickenParams> = {
-  type: 'Advanced::Thicken',
+  id: 'Advanced::Thicken',
   category: 'Advanced',
-  subcategory: 'Thickness',
-
-  metadata: {
-    label: 'Thicken',
-    description: 'Thicken surface to solid',
-    
-    
-  },
-
-  params: {
-        thickness: {
-      "default": 5,
-      "min": 0.01,
-      "max": 1000
-    },
-    direction: {
-      "default": "normal",
-      "options": [
-        "normal",
-        "reverse",
-        "both"
-      ]
-    },
-    autoClose: {
-      "default": true
+  label: 'Thicken',
+  description: 'Thicken surface to solid',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        solid: 'Shape'
+    solid: {
+      type: 'Shape',
+      label: 'Solid'
+    }
   },
-
+  params: {
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 5,
+      min: 0.01,
+      max: 1000
+    },
+    direction: {
+      type: 'enum',
+      label: 'Direction',
+      default: "normal",
+      options: ["normal","reverse","both"]
+    },
+    autoClose: {
+      type: 'boolean',
+      label: 'Auto Close',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'thicken',
       params: {
@@ -63,9 +62,9 @@ export const ThickenNode: NodeDefinition<ThickenInputs, ThickenOutputs, ThickenP
         autoClose: params.autoClose
       }
     });
-
+    
     return {
       solid: result
     };
-  }
+  },
 };

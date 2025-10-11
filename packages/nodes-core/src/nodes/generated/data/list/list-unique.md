@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### unique
+### Unique
 - **Type:** Data[]
 
 

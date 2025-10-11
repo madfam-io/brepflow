@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### vectorField
+### Vector Field
 - **Type:** VectorField
 - **Required:** No
 
 
 
-### surface
+### Surface
 - **Type:** Surface
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### flux
+### Flux
 - **Type:** Number
 
 

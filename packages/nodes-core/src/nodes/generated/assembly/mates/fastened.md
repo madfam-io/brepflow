@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### component1
+### Component1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### component2
+### Component2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -27,12 +27,12 @@ This node has no parameters.
 ## Outputs
 
 
-### fastened
+### Fastened
 - **Type:** Shape[]
 
 
 
-### mate
+### Mate
 - **Type:** Mate
 
 

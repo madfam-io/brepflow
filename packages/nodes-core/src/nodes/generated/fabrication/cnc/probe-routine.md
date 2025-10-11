@@ -8,7 +8,7 @@ Probing cycle generation
 ## Parameters
 
 
-### probeType
+### Probe Type
 - **Type:** enum
 - **Default:** "corner"
 
@@ -19,7 +19,7 @@ Probing cycle generation
 ## Inputs
 
 
-### feature
+### Feature
 - **Type:** Shape
 - **Required:** Yes
 
@@ -28,12 +28,12 @@ Probing cycle generation
 ## Outputs
 
 
-### probePoints
+### Probe Points
 - **Type:** Point[]
 
 
 
-### probeCycle
+### Probe Cycle
 - **Type:** Data
 
 

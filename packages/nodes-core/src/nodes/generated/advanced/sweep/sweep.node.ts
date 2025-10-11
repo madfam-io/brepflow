@@ -1,67 +1,77 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SweepParams {
   twistAngle: number;
   scaleFactor: number;
   keepOrientation: boolean;
   solid: boolean;
 }
-interface Inputs {
-  profile: Wire;
-  path: Wire;
-  auxiliarySpine?: Wire;
+
+interface SweepInputs {
+  profile: unknown;
+  path: unknown;
+  auxiliarySpine?: unknown;
 }
-interface Outputs {
-  shape: Shape;
+
+interface SweepOutputs {
+  shape: unknown;
 }
 
 export const SweepNode: NodeDefinition<SweepInputs, SweepOutputs, SweepParams> = {
-  type: 'Advanced::Sweep',
+  id: 'Advanced::Sweep',
   category: 'Advanced',
-  subcategory: 'Sweep',
-
-  metadata: {
-    label: 'Sweep',
-    description: 'Sweep profile along path',
-    
-    
-  },
-
-  params: {
-        twistAngle: {
-      "default": 0,
-      "min": -360,
-      "max": 360,
-      "description": "Twist along path"
+  label: 'Sweep',
+  description: 'Sweep profile along path',
+  inputs: {
+    profile: {
+      type: 'Wire',
+      label: 'Profile',
+      required: true
     },
-    scaleFactor: {
-      "default": 1,
-      "min": 0.01,
-      "max": 100,
-      "description": "Scale at end"
+    path: {
+      type: 'Wire',
+      label: 'Path',
+      required: true
     },
-    keepOrientation: {
-      "default": false
-    },
-    solid: {
-      "default": true,
-      "description": "Create solid or surface"
+    auxiliarySpine: {
+      type: 'Wire',
+      label: 'Auxiliary Spine',
+      optional: true
     }
   },
-
-  inputs: {
-        profile: 'Wire',
-    path: 'Wire',
-    auxiliarySpine: 'Wire'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    twistAngle: {
+      type: 'number',
+      label: 'Twist Angle',
+      default: 0,
+      min: -360,
+      max: 360
+    },
+    scaleFactor: {
+      type: 'number',
+      label: 'Scale Factor',
+      default: 1,
+      min: 0.01,
+      max: 100
+    },
+    keepOrientation: {
+      type: 'boolean',
+      label: 'Keep Orientation',
+      default: false
+    },
+    solid: {
+      type: 'boolean',
+      label: 'Solid',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sweep',
       params: {
@@ -74,9 +84,9 @@ export const SweepNode: NodeDefinition<SweepInputs, SweepOutputs, SweepParams> =
         solid: params.solid
       }
     });
-
+    
     return {
       shape: result
     };
-  }
+  },
 };

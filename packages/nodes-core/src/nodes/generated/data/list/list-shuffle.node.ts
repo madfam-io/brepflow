@@ -1,44 +1,43 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ListShuffleParams {
   seed: number;
 }
-interface Inputs {
-  list: Data[];
+
+interface ListShuffleInputs {
+  list: unknown;
 }
-interface Outputs {
-  shuffled: Data[];
+
+interface ListShuffleOutputs {
+  shuffled: unknown;
 }
 
 export const ListShuffleNode: NodeDefinition<ListShuffleInputs, ListShuffleOutputs, ListShuffleParams> = {
-  type: 'Data::ListShuffle',
+  id: 'Data::ListShuffle',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListShuffle',
-    description: 'Randomize list order',
-    
-    
-  },
-
-  params: {
-        seed: {
-      "default": -1
+  label: 'ListShuffle',
+  description: 'Randomize list order',
+  inputs: {
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
     }
   },
-
-  inputs: {
-        list: 'Data[]'
-  },
-
   outputs: {
-        shuffled: 'Data[]'
+    shuffled: {
+      type: 'Data[]',
+      label: 'Shuffled'
+    }
   },
-
+  params: {
+    seed: {
+      type: 'number',
+      label: 'Seed',
+      default: -1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listShuffle',
       params: {
@@ -46,9 +45,9 @@ export const ListShuffleNode: NodeDefinition<ListShuffleInputs, ListShuffleOutpu
         seed: params.seed
       }
     });
-
+    
     return {
       shuffled: result
     };
-  }
+  },
 };

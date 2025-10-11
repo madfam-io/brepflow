@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FragmentParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  shapes: Shape[];
+interface FragmentInputs {
+  shapes: unknown;
 }
-interface Outputs {
-  fragments: Shape[];
+
+interface FragmentOutputs {
+  fragments: unknown;
 }
 
 export const FragmentNode: NodeDefinition<FragmentInputs, FragmentOutputs, FragmentParams> = {
-  type: 'Boolean::Fragment',
+  id: 'Boolean::Fragment',
   category: 'Boolean',
-  
-
-  metadata: {
-    label: 'Fragment',
-    description: 'Fragment all shapes by each other',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Fragment',
+  description: 'Fragment all shapes by each other',
   inputs: {
-        shapes: 'Shape[]'
+    shapes: {
+      type: 'Shape[]',
+      label: 'Shapes',
+      required: true
+    }
   },
-
   outputs: {
-        fragments: 'Shape[]'
+    fragments: {
+      type: 'Shape[]',
+      label: 'Fragments'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'booleanFragment',
       params: {
         shapes: inputs.shapes
-        
       }
     });
-
+    
     return {
       fragments: result
     };
-  }
+  },
 };

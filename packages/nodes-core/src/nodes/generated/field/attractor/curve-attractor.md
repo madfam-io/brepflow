@@ -8,7 +8,7 @@ Curve attractor field
 ## Parameters
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 1
 - **Min:** -10
@@ -16,7 +16,7 @@ Curve attractor field
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Curve attractor field
 
 
 
-### falloff
+### Falloff
 - **Type:** enum
 - **Default:** "smooth"
 
@@ -35,7 +35,7 @@ Curve attractor field
 ## Inputs
 
 
-### curves
+### Curves
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Curve attractor field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

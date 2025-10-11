@@ -1,48 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WeightedVoronoiParams {
   powerExponent: number;
 }
-interface Inputs {
-  points: Point[];
-  weights: number[];
+
+interface WeightedVoronoiInputs {
+  points: Array<[number, number, number]>;
+  weights: unknown;
 }
-interface Outputs {
-  cells: Wire[];
+
+interface WeightedVoronoiOutputs {
+  cells: unknown;
 }
 
 export const WeightedVoronoiNode: NodeDefinition<WeightedVoronoiInputs, WeightedVoronoiOutputs, WeightedVoronoiParams> = {
-  type: 'Patterns::WeightedVoronoi',
+  id: 'Patterns::WeightedVoronoi',
   category: 'Patterns',
-  subcategory: 'Voronoi',
-
-  metadata: {
-    label: 'WeightedVoronoi',
-    description: 'Weighted Voronoi diagram',
-    
-    
-  },
-
-  params: {
-        powerExponent: {
-      "default": 2,
-      "min": 1,
-      "max": 5
+  label: 'WeightedVoronoi',
+  description: 'Weighted Voronoi diagram',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
+    },
+    weights: {
+      type: 'number[]',
+      label: 'Weights',
+      required: true
     }
   },
-
-  inputs: {
-        points: 'Point[]',
-    weights: 'number[]'
-  },
-
   outputs: {
-        cells: 'Wire[]'
+    cells: {
+      type: 'Wire[]',
+      label: 'Cells'
+    }
   },
-
+  params: {
+    powerExponent: {
+      type: 'number',
+      label: 'Power Exponent',
+      default: 2,
+      min: 1,
+      max: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'voronoiWeighted',
       params: {
@@ -51,9 +54,9 @@ export const WeightedVoronoiNode: NodeDefinition<WeightedVoronoiInputs, Weighted
         powerExponent: params.powerExponent
       }
     });
-
+    
     return {
       cells: result
     };
-  }
+  },
 };

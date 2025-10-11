@@ -8,7 +8,7 @@ Stretch fabric ceiling
 ## Parameters
 
 
-### fabricType
+### Fabric Type
 - **Type:** enum
 - **Default:** "matte"
 
@@ -16,7 +16,7 @@ Stretch fabric ceiling
 
 
 
-### backlighting
+### Backlighting
 - **Type:** boolean
 - **Default:** false
 
@@ -27,7 +27,7 @@ Stretch fabric ceiling
 ## Inputs
 
 
-### ceilingBoundary
+### Ceiling Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Stretch fabric ceiling
 ## Outputs
 
 
-### stretchCeiling
+### Stretch Ceiling
 - **Type:** Face
 
 
 
-### track
+### Track
 - **Type:** Wire
 
 

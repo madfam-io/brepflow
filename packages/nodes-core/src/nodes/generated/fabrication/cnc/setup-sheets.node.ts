@@ -1,48 +1,49 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SetupSheetsParams {
   includeToolList: boolean;
   includeFixtures: boolean;
 }
-interface Inputs {
-  operations: Data;
+
+interface SetupSheetsInputs {
+  operations: unknown;
 }
-interface Outputs {
-  setupDocument: Data;
+
+interface SetupSheetsOutputs {
+  setupDocument: unknown;
 }
 
 export const SetupSheetsNode: NodeDefinition<SetupSheetsInputs, SetupSheetsOutputs, SetupSheetsParams> = {
-  type: 'Fabrication::SetupSheets',
+  id: 'Fabrication::SetupSheets',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'SetupSheets',
-    description: 'Generate setup documentation',
-    
-    
-  },
-
-  params: {
-        includeToolList: {
-      "default": true
-    },
-    includeFixtures: {
-      "default": true
+  label: 'SetupSheets',
+  description: 'Generate setup documentation',
+  inputs: {
+    operations: {
+      type: 'Data',
+      label: 'Operations',
+      required: true
     }
   },
-
-  inputs: {
-        operations: 'Data'
-  },
-
   outputs: {
-        setupDocument: 'Data'
+    setupDocument: {
+      type: 'Data',
+      label: 'Setup Document'
+    }
   },
-
+  params: {
+    includeToolList: {
+      type: 'boolean',
+      label: 'Include Tool List',
+      default: true
+    },
+    includeFixtures: {
+      type: 'boolean',
+      label: 'Include Fixtures',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'setupSheets',
       params: {
@@ -51,9 +52,9 @@ export const SetupSheetsNode: NodeDefinition<SetupSheetsInputs, SetupSheetsOutpu
         includeFixtures: params.includeFixtures
       }
     });
-
+    
     return {
       setupDocument: result
     };
-  }
+  },
 };

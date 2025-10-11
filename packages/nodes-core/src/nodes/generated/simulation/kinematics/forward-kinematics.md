@@ -8,7 +8,7 @@ Calculate forward kinematics
 ## Parameters
 
 
-### timeStep
+### Time Step
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -16,7 +16,7 @@ Calculate forward kinematics
 
 
 
-### duration
+### Duration
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -27,13 +27,13 @@ Calculate forward kinematics
 ## Inputs
 
 
-### mechanism
+### Mechanism
 - **Type:** Data
 - **Required:** Yes
 
 
 
-### jointValues
+### Joint Values
 - **Type:** number[]
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Calculate forward kinematics
 ## Outputs
 
 
-### endEffectorPose
+### End Effector Pose
 - **Type:** Data
 
 
 
-### trajectory
+### Trajectory
 - **Type:** Wire
 
 

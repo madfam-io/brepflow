@@ -1,63 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RobotCalibrationParams {
   method: string;
 }
-interface Inputs {
-  measurementPoints: Point[];
+
+interface RobotCalibrationInputs {
+  measurementPoints: Array<[number, number, number]>;
 }
-interface Outputs {
-  calibrationMatrix: Transform;
-  accuracy: Number;
+
+interface RobotCalibrationOutputs {
+  calibrationMatrix: unknown;
+  accuracy: number;
 }
 
 export const RobotCalibrationNode: NodeDefinition<RobotCalibrationInputs, RobotCalibrationOutputs, RobotCalibrationParams> = {
-  type: 'Fabrication::RobotCalibration',
+  id: 'Fabrication::RobotCalibration',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'RobotCalibration',
-    description: 'Robot calibration routine',
-    
-    
-  },
-
-  params: {
-        method: {
-      "default": "dh-parameters",
-      "options": [
-        "dh-parameters",
-        "circle-point",
-        "plane",
-        "hand-eye"
-      ]
+  label: 'RobotCalibration',
+  description: 'Robot calibration routine',
+  inputs: {
+    measurementPoints: {
+      type: 'Point[]',
+      label: 'Measurement Points',
+      required: true
     }
   },
-
-  inputs: {
-        measurementPoints: 'Point[]'
-  },
-
   outputs: {
-        calibrationMatrix: 'Transform',
-    accuracy: 'Number'
+    calibrationMatrix: {
+      type: 'Transform',
+      label: 'Calibration Matrix'
+    },
+    accuracy: {
+      type: 'Number',
+      label: 'Accuracy'
+    }
   },
-
+  params: {
+    method: {
+      type: 'enum',
+      label: 'Method',
+      default: "dh-parameters",
+      options: ["dh-parameters","circle-point","plane","hand-eye"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'robotCalibration',
       params: {
         measurementPoints: inputs.measurementPoints,
         method: params.method
       }
     });
-
+    
     return {
-      calibrationMatrix: result,
-      accuracy: result
+      calibrationMatrix: results.calibrationMatrix,
+      accuracy: results.accuracy
     };
-  }
+  },
 };

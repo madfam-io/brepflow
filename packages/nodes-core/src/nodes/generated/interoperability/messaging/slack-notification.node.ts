@@ -1,58 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SlackNotificationParams {
   webhookUrl: string;
   channel: string;
   username: string;
 }
-interface Inputs {
-  message: string;
-  attachments?: Properties[];
+
+interface SlackNotificationInputs {
+  message: unknown;
+  attachments?: unknown;
 }
-interface Outputs {
-  sent: boolean;
-  timestamp: string;
+
+interface SlackNotificationOutputs {
+  sent: unknown;
+  timestamp: unknown;
 }
 
 export const SlackNotificationNode: NodeDefinition<SlackNotificationInputs, SlackNotificationOutputs, SlackNotificationParams> = {
-  type: 'Interoperability::SlackNotification',
+  id: 'Interoperability::SlackNotification',
   category: 'Interoperability',
-  subcategory: 'Messaging',
-
-  metadata: {
-    label: 'SlackNotification',
-    description: 'Send Slack notifications',
-    
-    
-  },
-
-  params: {
-        webhookUrl: {
-      "default": "",
-      "description": "Slack webhook URL"
+  label: 'SlackNotification',
+  description: 'Send Slack notifications',
+  inputs: {
+    message: {
+      type: 'string',
+      label: 'Message',
+      required: true
     },
-    channel: {
-      "default": "#general"
-    },
-    username: {
-      "default": "BrepFlow"
+    attachments: {
+      type: 'Properties[]',
+      label: 'Attachments',
+      optional: true
     }
   },
-
-  inputs: {
-        message: 'string',
-    attachments: 'Properties[]'
-  },
-
   outputs: {
-        sent: 'boolean',
-    timestamp: 'string'
+    sent: {
+      type: 'boolean',
+      label: 'Sent'
+    },
+    timestamp: {
+      type: 'string',
+      label: 'Timestamp'
+    }
   },
-
+  params: {
+    webhookUrl: {
+      type: 'string',
+      label: 'Webhook Url',
+      default: ""
+    },
+    channel: {
+      type: 'string',
+      label: 'Channel',
+      default: "#general"
+    },
+    username: {
+      type: 'string',
+      label: 'Username',
+      default: "BrepFlow"
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'slackNotification',
       params: {
         message: inputs.message,
@@ -62,10 +71,10 @@ export const SlackNotificationNode: NodeDefinition<SlackNotificationInputs, Slac
         username: params.username
       }
     });
-
+    
     return {
-      sent: result,
-      timestamp: result
+      sent: results.sent,
+      timestamp: results.timestamp
     };
-  }
+  },
 };

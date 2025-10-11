@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VectorEngraveParams {
   depth: number;
   passes: number;
 }
-interface Inputs {
-  vectors: Wire[];
+
+interface VectorEngraveInputs {
+  vectors: unknown;
 }
-interface Outputs {
-  engravePaths: Wire[];
+
+interface VectorEngraveOutputs {
+  engravePaths: unknown;
 }
 
 export const VectorEngraveNode: NodeDefinition<VectorEngraveInputs, VectorEngraveOutputs, VectorEngraveParams> = {
-  type: 'Fabrication::VectorEngrave',
+  id: 'Fabrication::VectorEngrave',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'VectorEngrave',
-    description: 'Vector engraving paths',
-    
-    
-  },
-
-  params: {
-        depth: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 5
-    },
-    passes: {
-      "default": 1,
-      "min": 1,
-      "max": 10,
-      "step": 1
+  label: 'VectorEngrave',
+  description: 'Vector engraving paths',
+  inputs: {
+    vectors: {
+      type: 'Wire[]',
+      label: 'Vectors',
+      required: true
     }
   },
-
-  inputs: {
-        vectors: 'Wire[]'
-  },
-
   outputs: {
-        engravePaths: 'Wire[]'
+    engravePaths: {
+      type: 'Wire[]',
+      label: 'Engrave Paths'
+    }
   },
-
+  params: {
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: 0.5,
+      min: 0.1,
+      max: 5
+    },
+    passes: {
+      type: 'number',
+      label: 'Passes',
+      default: 1,
+      min: 1,
+      max: 10,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'vectorEngrave',
       params: {
@@ -56,9 +57,9 @@ export const VectorEngraveNode: NodeDefinition<VectorEngraveInputs, VectorEngrav
         passes: params.passes
       }
     });
-
+    
     return {
       engravePaths: result
     };
-  }
+  },
 };

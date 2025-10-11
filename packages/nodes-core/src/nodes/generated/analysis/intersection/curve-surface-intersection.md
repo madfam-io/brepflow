@@ -8,7 +8,7 @@ Find curve-surface intersections
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Find curve-surface intersections
 
 
 
-### extendCurve
+### Extend Curve
 - **Type:** boolean
 - **Default:** false
 
@@ -27,13 +27,13 @@ Find curve-surface intersections
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -42,17 +42,17 @@ Find curve-surface intersections
 ## Outputs
 
 
-### intersectionPoints
+### Intersection Points
 - **Type:** Point[]
 
 
 
-### curveParameters
+### Curve Parameters
 - **Type:** number[]
 
 
 
-### surfaceParameters
+### Surface Parameters
 - **Type:** Point[]
 
 

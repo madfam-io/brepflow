@@ -1,49 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StringContainsParams {
   caseSensitive: boolean;
 }
-interface Inputs {
-  string: string;
-  search: string;
+
+interface StringContainsInputs {
+  string: unknown;
+  search: unknown;
 }
-interface Outputs {
-  contains: boolean;
-  index: number;
+
+interface StringContainsOutputs {
+  contains: unknown;
+  index: unknown;
 }
 
 export const StringContainsNode: NodeDefinition<StringContainsInputs, StringContainsOutputs, StringContainsParams> = {
-  type: 'Data::StringContains',
+  id: 'Data::StringContains',
   category: 'Data',
-  subcategory: 'String',
-
-  metadata: {
-    label: 'StringContains',
-    description: 'Check if contains',
-    
-    
-  },
-
-  params: {
-        caseSensitive: {
-      "default": true
+  label: 'StringContains',
+  description: 'Check if contains',
+  inputs: {
+    string: {
+      type: 'string',
+      label: 'String',
+      required: true
+    },
+    search: {
+      type: 'string',
+      label: 'Search',
+      required: true
     }
   },
-
-  inputs: {
-        string: 'string',
-    search: 'string'
-  },
-
   outputs: {
-        contains: 'boolean',
-    index: 'number'
+    contains: {
+      type: 'boolean',
+      label: 'Contains'
+    },
+    index: {
+      type: 'number',
+      label: 'Index'
+    }
   },
-
+  params: {
+    caseSensitive: {
+      type: 'boolean',
+      label: 'Case Sensitive',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'stringContains',
       params: {
         string: inputs.string,
@@ -51,10 +57,10 @@ export const StringContainsNode: NodeDefinition<StringContainsInputs, StringCont
         caseSensitive: params.caseSensitive
       }
     });
-
+    
     return {
-      contains: result,
-      index: result
+      contains: results.contains,
+      index: results.index
     };
-  }
+  },
 };

@@ -1,70 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ThreadParams {
   majorRadius: number;
   pitch: number;
   height: number;
   threadAngle: number;
   internal: boolean;
 }
-type Inputs = {};
-interface Outputs {
-  thread: Solid;
+
+type ThreadInputs = Record<string, never>;
+
+interface ThreadOutputs {
+  thread: unknown;
 }
 
 export const ThreadNode: NodeDefinition<ThreadInputs, ThreadOutputs, ThreadParams> = {
-  type: 'Solid::Thread',
+  id: 'Solid::Thread',
   category: 'Solid',
-  subcategory: 'Helical',
-
-  metadata: {
-    label: 'Thread',
-    description: 'Create threaded geometry',
-    
-    
-  },
-
-  params: {
-        majorRadius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    pitch: {
-      "default": 5,
-      "min": 0.1,
-      "max": 100
-    },
-    height: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    threadAngle: {
-      "default": 60,
-      "min": 30,
-      "max": 90
-    },
-    internal: {
-      "default": false
+  label: 'Thread',
+  description: 'Create threaded geometry',
+  inputs: {},
+  outputs: {
+    thread: {
+      type: 'Solid',
+      label: 'Thread'
     }
   },
-
-  inputs: {
-    
+  params: {
+    majorRadius: {
+      type: 'number',
+      label: 'Major Radius',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    pitch: {
+      type: 'number',
+      label: 'Pitch',
+      default: 5,
+      min: 0.1,
+      max: 100
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    threadAngle: {
+      type: 'number',
+      label: 'Thread Angle',
+      default: 60,
+      min: 30,
+      max: 90
+    },
+    internal: {
+      type: 'boolean',
+      label: 'Internal',
+      default: false
+    }
   },
-
-  outputs: {
-        thread: 'Solid'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeThread',
       params: {
-        
         majorRadius: params.majorRadius,
         pitch: params.pitch,
         height: params.height,
@@ -72,9 +72,9 @@ export const ThreadNode: NodeDefinition<ThreadInputs, ThreadOutputs, ThreadParam
         internal: params.internal
       }
     });
-
+    
     return {
       thread: result
     };
-  }
+  },
 };

@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListReplaceParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
-  item: Data;
-  index: number;
+interface ListReplaceInputs {
+  list: unknown;
+  item: unknown;
+  index: unknown;
 }
-interface Outputs {
-  result: Data[];
+
+interface ListReplaceOutputs {
+  result: unknown;
 }
 
 export const ListReplaceNode: NodeDefinition<ListReplaceInputs, ListReplaceOutputs, ListReplaceParams> = {
-  type: 'Data::ListReplace',
+  id: 'Data::ListReplace',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListReplace',
-    description: 'Replace item in list',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListReplace',
+  description: 'Replace item in list',
   inputs: {
-        list: 'Data[]',
-    item: 'Data',
-    index: 'number'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    item: {
+      type: 'Data',
+      label: 'Item',
+      required: true
+    },
+    index: {
+      type: 'number',
+      label: 'Index',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'Data[]'
+    result: {
+      type: 'Data[]',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listReplace',
       params: {
         list: inputs.list,
         item: inputs.item,
         index: inputs.index
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

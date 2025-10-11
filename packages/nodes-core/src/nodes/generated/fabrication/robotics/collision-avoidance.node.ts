@@ -1,51 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CollisionAvoidanceParams {
   safetyMargin: number;
 }
-interface Inputs {
-  robotPath: Transform[];
-  environment: Shape[];
+
+interface CollisionAvoidanceInputs {
+  robotPath: unknown;
+  environment: unknown;
 }
-interface Outputs {
-  safePath: Transform[];
-  collisionPoints: Point[];
+
+interface CollisionAvoidanceOutputs {
+  safePath: unknown;
+  collisionPoints: Array<[number, number, number]>;
 }
 
 export const CollisionAvoidanceNode: NodeDefinition<CollisionAvoidanceInputs, CollisionAvoidanceOutputs, CollisionAvoidanceParams> = {
-  type: 'Fabrication::CollisionAvoidance',
+  id: 'Fabrication::CollisionAvoidance',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'CollisionAvoidance',
-    description: 'Collision detection and avoidance',
-    
-    
-  },
-
-  params: {
-        safetyMargin: {
-      "default": 10,
-      "min": 0,
-      "max": 50
+  label: 'CollisionAvoidance',
+  description: 'Collision detection and avoidance',
+  inputs: {
+    robotPath: {
+      type: 'Transform[]',
+      label: 'Robot Path',
+      required: true
+    },
+    environment: {
+      type: 'Shape[]',
+      label: 'Environment',
+      required: true
     }
   },
-
-  inputs: {
-        robotPath: 'Transform[]',
-    environment: 'Shape[]'
-  },
-
   outputs: {
-        safePath: 'Transform[]',
-    collisionPoints: 'Point[]'
+    safePath: {
+      type: 'Transform[]',
+      label: 'Safe Path'
+    },
+    collisionPoints: {
+      type: 'Point[]',
+      label: 'Collision Points'
+    }
   },
-
+  params: {
+    safetyMargin: {
+      type: 'number',
+      label: 'Safety Margin',
+      default: 10,
+      min: 0,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'collisionAvoidance',
       params: {
         robotPath: inputs.robotPath,
@@ -53,10 +59,10 @@ export const CollisionAvoidanceNode: NodeDefinition<CollisionAvoidanceInputs, Co
         safetyMargin: params.safetyMargin
       }
     });
-
+    
     return {
-      safePath: result,
-      collisionPoints: result
+      safePath: results.safePath,
+      collisionPoints: results.collisionPoints
     };
-  }
+  },
 };

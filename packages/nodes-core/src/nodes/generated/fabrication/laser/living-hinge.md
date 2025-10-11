@@ -8,7 +8,7 @@ Generate living hinge pattern
 ## Parameters
 
 
-### pattern
+### Pattern
 - **Type:** enum
 - **Default:** "straight"
 
@@ -16,7 +16,7 @@ Generate living hinge pattern
 
 
 
-### spacing
+### Spacing
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -24,7 +24,7 @@ Generate living hinge pattern
 
 
 
-### cutLength
+### Cut Length
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -35,7 +35,7 @@ Generate living hinge pattern
 ## Inputs
 
 
-### hingeArea
+### Hinge Area
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Generate living hinge pattern
 ## Outputs
 
 
-### hingePattern
+### Hinge Pattern
 - **Type:** Wire[]
 
 

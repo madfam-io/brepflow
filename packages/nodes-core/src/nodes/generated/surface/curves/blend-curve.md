@@ -8,7 +8,7 @@ Blend between two curves
 ## Parameters
 
 
-### continuityStart
+### Continuity Start
 - **Type:** enum
 - **Default:** "G1"
 
@@ -16,7 +16,7 @@ Blend between two curves
 
 
 
-### continuityEnd
+### Continuity End
 - **Type:** enum
 - **Default:** "G1"
 
@@ -24,7 +24,7 @@ Blend between two curves
 
 
 
-### bulge
+### Bulge
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -35,25 +35,25 @@ Blend between two curves
 ## Inputs
 
 
-### curve1
+### Curve1
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### curve2
+### Curve2
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### point1
+### Point1
 - **Type:** Point
 - **Required:** No
 
 
 
-### point2
+### Point2
 - **Type:** Point
 - **Required:** No
 
@@ -62,7 +62,7 @@ Blend between two curves
 ## Outputs
 
 
-### blendCurve
+### Blend Curve
 - **Type:** Wire
 
 

@@ -8,7 +8,7 @@ Interpolate curve through points
 ## Parameters
 
 
-### degree
+### Degree
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Interpolate curve through points
 
 
 
-### periodic
+### Periodic
 - **Type:** boolean
 - **Default:** false
 
@@ -24,7 +24,7 @@ Interpolate curve through points
 
 
 
-### tangentStart
+### Tangent Start
 - **Type:** vector3
 - **Default:** null
 
@@ -32,7 +32,7 @@ Interpolate curve through points
 
 
 
-### tangentEnd
+### Tangent End
 - **Type:** vector3
 - **Default:** null
 
@@ -43,7 +43,7 @@ Interpolate curve through points
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Interpolate curve through points
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 
 

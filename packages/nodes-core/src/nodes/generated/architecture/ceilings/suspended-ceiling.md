@@ -8,7 +8,7 @@ Suspended ceiling grid
 ## Parameters
 
 
-### tileSize
+### Tile Size
 - **Type:** enum
 - **Default:** "600x600"
 
@@ -16,7 +16,7 @@ Suspended ceiling grid
 
 
 
-### suspensionHeight
+### Suspension Height
 - **Type:** number
 - **Default:** 300
 - **Min:** 150
@@ -27,7 +27,7 @@ Suspended ceiling grid
 ## Inputs
 
 
-### roomBoundary
+### Room Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Suspended ceiling grid
 ## Outputs
 
 
-### ceiling
+### Ceiling
 - **Type:** Shape
 
 
 
-### grid
+### Grid
 - **Type:** Wire[]
 
 
 
-### tiles
+### Tiles
 - **Type:** Face[]
 
 

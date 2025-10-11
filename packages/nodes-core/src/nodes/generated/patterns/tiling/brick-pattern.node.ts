@@ -1,66 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BrickPatternParams {
   bond: string;
   brickLength: number;
   brickWidth: number;
   mortarGap: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface BrickPatternInputs {
+  surface: unknown;
 }
-interface Outputs {
-  bricks: Face[];
+
+interface BrickPatternOutputs {
+  bricks: unknown;
 }
 
 export const BrickPatternNode: NodeDefinition<BrickPatternInputs, BrickPatternOutputs, BrickPatternParams> = {
-  type: 'Patterns::BrickPattern',
+  id: 'Patterns::BrickPattern',
   category: 'Patterns',
-  subcategory: 'Tiling',
-
-  metadata: {
-    label: 'BrickPattern',
-    description: 'Brick laying pattern',
-    
-    
-  },
-
-  params: {
-        bond: {
-      "default": "running",
-      "options": [
-        "running",
-        "stack",
-        "english",
-        "flemish",
-        "herringbone"
-      ]
-    },
-    brickLength: {
-      "default": 20,
-      "min": 1
-    },
-    brickWidth: {
-      "default": 10,
-      "min": 1
-    },
-    mortarGap: {
-      "default": 1,
-      "min": 0
+  label: 'BrickPattern',
+  description: 'Brick laying pattern',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        bricks: 'Face[]'
+    bricks: {
+      type: 'Face[]',
+      label: 'Bricks'
+    }
   },
-
+  params: {
+    bond: {
+      type: 'enum',
+      label: 'Bond',
+      default: "running",
+      options: ["running","stack","english","flemish","herringbone"]
+    },
+    brickLength: {
+      type: 'number',
+      label: 'Brick Length',
+      default: 20,
+      min: 1
+    },
+    brickWidth: {
+      type: 'number',
+      label: 'Brick Width',
+      default: 10,
+      min: 1
+    },
+    mortarGap: {
+      type: 'number',
+      label: 'Mortar Gap',
+      default: 1,
+      min: 0
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'brickPattern',
       params: {
@@ -71,9 +70,9 @@ export const BrickPatternNode: NodeDefinition<BrickPatternInputs, BrickPatternOu
         mortarGap: params.mortarGap
       }
     });
-
+    
     return {
       bricks: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Create hemmed edge
 ## Parameters
 
 
-### hemType
+### Hem Type
 - **Type:** enum
 - **Default:** "closed"
 
@@ -16,7 +16,7 @@ Create hemmed edge
 
 
 
-### hemLength
+### Hem Length
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create hemmed edge
 
 
 
-### hemGap
+### Hem Gap
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -32,7 +32,7 @@ Create hemmed edge
 
 
 
-### hemRadius
+### Hem Radius
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -43,13 +43,13 @@ Create hemmed edge
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### edge
+### Edge
 - **Type:** Edge
 - **Required:** Yes
 
@@ -58,7 +58,7 @@ Create hemmed edge
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

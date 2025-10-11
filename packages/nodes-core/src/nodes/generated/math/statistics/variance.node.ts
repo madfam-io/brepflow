@@ -1,44 +1,43 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VarianceParams {
   sample: boolean;
 }
-interface Inputs {
-  values: number[];
+
+interface VarianceInputs {
+  values: unknown;
 }
-interface Outputs {
-  variance: number;
+
+interface VarianceOutputs {
+  variance: unknown;
 }
 
 export const VarianceNode: NodeDefinition<VarianceInputs, VarianceOutputs, VarianceParams> = {
-  type: 'Math::Variance',
+  id: 'Math::Variance',
   category: 'Math',
-  subcategory: 'Statistics',
-
-  metadata: {
-    label: 'Variance',
-    description: 'Calculate variance',
-    
-    
-  },
-
-  params: {
-        sample: {
-      "default": false
+  label: 'Variance',
+  description: 'Calculate variance',
+  inputs: {
+    values: {
+      type: 'number[]',
+      label: 'Values',
+      required: true
     }
   },
-
-  inputs: {
-        values: 'number[]'
-  },
-
   outputs: {
-        variance: 'number'
+    variance: {
+      type: 'number',
+      label: 'Variance'
+    }
   },
-
+  params: {
+    sample: {
+      type: 'boolean',
+      label: 'Sample',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathVariance',
       params: {
@@ -46,9 +45,9 @@ export const VarianceNode: NodeDefinition<VarianceInputs, VarianceOutputs, Varia
         sample: params.sample
       }
     });
-
+    
     return {
       variance: result
     };
-  }
+  },
 };

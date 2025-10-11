@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListPartitionParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
-  size: number;
+interface ListPartitionInputs {
+  list: unknown;
+  size: unknown;
 }
-interface Outputs {
-  partitions: Data[][];
+
+interface ListPartitionOutputs {
+  partitions: unknown;
 }
 
 export const ListPartitionNode: NodeDefinition<ListPartitionInputs, ListPartitionOutputs, ListPartitionParams> = {
-  type: 'Data::ListPartition',
+  id: 'Data::ListPartition',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListPartition',
-    description: 'Partition list into chunks',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListPartition',
+  description: 'Partition list into chunks',
   inputs: {
-        list: 'Data[]',
-    size: 'number'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    size: {
+      type: 'number',
+      label: 'Size',
+      required: true
+    }
   },
-
   outputs: {
-        partitions: 'Data[][]'
+    partitions: {
+      type: 'Data[][]',
+      label: 'Partitions'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listPartition',
       params: {
         list: inputs.list,
         size: inputs.size
-        
       }
     });
-
+    
     return {
       partitions: result
     };
-  }
+  },
 };

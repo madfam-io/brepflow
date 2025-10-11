@@ -8,7 +8,7 @@ Create a pipe (hollow cylinder)
 ## Parameters
 
 
-### outerRadius
+### Outer Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a pipe (hollow cylinder)
 
 
 
-### innerRadius
+### Inner Radius
 - **Type:** number
 - **Default:** 40
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a pipe (hollow cylinder)
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -39,7 +39,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Pipe solid
 

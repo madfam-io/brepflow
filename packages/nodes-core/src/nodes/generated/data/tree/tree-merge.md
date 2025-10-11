@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### treeA
+### Tree A
 - **Type:** DataTree
 - **Required:** Yes
 
 
 
-### treeB
+### Tree B
 - **Type:** DataTree
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### merged
+### Merged
 - **Type:** DataTree
 
 

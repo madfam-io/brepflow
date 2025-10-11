@@ -1,60 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CirclePackingParams {
   packingType: string;
   minRadius: number;
   maxRadius: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface CirclePackingInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  circles: Wire[];
+
+interface CirclePackingOutputs {
+  circles: unknown;
 }
 
 export const CirclePackingNode: NodeDefinition<CirclePackingInputs, CirclePackingOutputs, CirclePackingParams> = {
-  type: 'Patterns::CirclePacking',
+  id: 'Patterns::CirclePacking',
   category: 'Patterns',
-  subcategory: 'Geometric',
-
-  metadata: {
-    label: 'CirclePacking',
-    description: 'Circle packing pattern',
-    
-    
-  },
-
-  params: {
-        packingType: {
-      "default": "hexagonal",
-      "options": [
-        "hexagonal",
-        "square",
-        "random",
-        "apollonian"
-      ]
-    },
-    minRadius: {
-      "default": 1,
-      "min": 0.1
-    },
-    maxRadius: {
-      "default": 5,
-      "min": 0.1
+  label: 'CirclePacking',
+  description: 'Circle packing pattern',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        circles: 'Wire[]'
+    circles: {
+      type: 'Wire[]',
+      label: 'Circles'
+    }
   },
-
+  params: {
+    packingType: {
+      type: 'enum',
+      label: 'Packing Type',
+      default: "hexagonal",
+      options: ["hexagonal","square","random","apollonian"]
+    },
+    minRadius: {
+      type: 'number',
+      label: 'Min Radius',
+      default: 1,
+      min: 0.1
+    },
+    maxRadius: {
+      type: 'number',
+      label: 'Max Radius',
+      default: 5,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'circlePacking',
       params: {
@@ -64,9 +62,9 @@ export const CirclePackingNode: NodeDefinition<CirclePackingInputs, CirclePackin
         maxRadius: params.maxRadius
       }
     });
-
+    
     return {
       circles: result
     };
-  }
+  },
 };

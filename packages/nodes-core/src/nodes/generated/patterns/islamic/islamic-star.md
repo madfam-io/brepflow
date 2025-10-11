@@ -8,7 +8,7 @@ Islamic star pattern
 ## Parameters
 
 
-### points
+### Points
 - **Type:** number
 - **Default:** 8
 - **Min:** 3
@@ -16,7 +16,7 @@ Islamic star pattern
 
 
 
-### innerRadius
+### Inner Radius
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Islamic star pattern
 
 
 
-### rotation
+### Rotation
 - **Type:** number
 - **Default:** 0
 - **Min:** -180
@@ -35,7 +35,7 @@ Islamic star pattern
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Islamic star pattern
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Wire
 
 

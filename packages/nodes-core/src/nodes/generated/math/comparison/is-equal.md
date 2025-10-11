@@ -8,7 +8,7 @@ Check equality with tolerance
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.0001
 - **Min:** 0
@@ -19,13 +19,13 @@ Check equality with tolerance
 ## Inputs
 
 
-### a
+### A
 - **Type:** number
 - **Required:** Yes
 
 
 
-### b
+### B
 - **Type:** number
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Check equality with tolerance
 ## Outputs
 
 
-### equal
+### Equal
 - **Type:** boolean
 
 

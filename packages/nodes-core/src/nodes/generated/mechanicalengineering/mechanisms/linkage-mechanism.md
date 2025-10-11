@@ -8,7 +8,7 @@ Create linkage mechanism
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "four-bar"
 
@@ -16,7 +16,7 @@ Create linkage mechanism
 
 
 
-### linkLength1
+### Link Length1
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -24,7 +24,7 @@ Create linkage mechanism
 
 
 
-### linkLength2
+### Link Length2
 - **Type:** number
 - **Default:** 80
 - **Min:** 10
@@ -32,7 +32,7 @@ Create linkage mechanism
 
 
 
-### linkLength3
+### Link Length3
 - **Type:** number
 - **Default:** 60
 - **Min:** 10
@@ -40,7 +40,7 @@ Create linkage mechanism
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -51,7 +51,7 @@ Create linkage mechanism
 ## Inputs
 
 
-### basePoints
+### Base Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -60,17 +60,17 @@ Create linkage mechanism
 ## Outputs
 
 
-### mechanism
+### Mechanism
 - **Type:** Shape
 
 
 
-### links
+### Links
 - **Type:** Shape[]
 
 
 
-### joints
+### Joints
 - **Type:** Point[]
 
 

@@ -1,48 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface IsEqualParams {
   tolerance: number;
 }
-interface Inputs {
-  a: number;
-  b: number;
+
+interface IsEqualInputs {
+  a: unknown;
+  b: unknown;
 }
-interface Outputs {
-  equal: boolean;
+
+interface IsEqualOutputs {
+  equal: unknown;
 }
 
 export const IsEqualNode: NodeDefinition<IsEqualInputs, IsEqualOutputs, IsEqualParams> = {
-  type: 'Math::IsEqual',
+  id: 'Math::IsEqual',
   category: 'Math',
-  subcategory: 'Comparison',
-
-  metadata: {
-    label: 'IsEqual',
-    description: 'Check equality with tolerance',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.0001,
-      "min": 0,
-      "max": 1
+  label: 'IsEqual',
+  description: 'Check equality with tolerance',
+  inputs: {
+    a: {
+      type: 'number',
+      label: 'A',
+      required: true
+    },
+    b: {
+      type: 'number',
+      label: 'B',
+      required: true
     }
   },
-
-  inputs: {
-        a: 'number',
-    b: 'number'
-  },
-
   outputs: {
-        equal: 'boolean'
+    equal: {
+      type: 'boolean',
+      label: 'Equal'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.0001,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathIsEqual',
       params: {
@@ -51,9 +54,9 @@ export const IsEqualNode: NodeDefinition<IsEqualInputs, IsEqualOutputs, IsEqualP
         tolerance: params.tolerance
       }
     });
-
+    
     return {
       equal: result
     };
-  }
+  },
 };

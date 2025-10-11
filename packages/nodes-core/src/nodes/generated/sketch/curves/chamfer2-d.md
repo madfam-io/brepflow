@@ -8,7 +8,7 @@ Chamfer corners of a 2D shape
 ## Parameters
 
 
-### distance
+### Distance
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -19,13 +19,13 @@ Chamfer corners of a 2D shape
 ## Inputs
 
 
-### wire
+### Wire
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### vertices
+### Vertices
 - **Type:** Vertex[]
 - **Required:** No
 
@@ -34,7 +34,7 @@ Chamfer corners of a 2D shape
 ## Outputs
 
 
-### chamfered
+### Chamfered
 - **Type:** Wire
 - **Description:** Chamfered wire
 

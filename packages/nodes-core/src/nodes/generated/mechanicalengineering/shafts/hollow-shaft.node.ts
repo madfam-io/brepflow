@@ -1,72 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HollowShaftParams {
   outerDiameter: number;
   innerDiameter: number;
   length: number;
   endMachining: string;
 }
-interface Inputs {
-  center: Point;
-  axis?: Vector;
+
+interface HollowShaftInputs {
+  center: [number, number, number];
+  axis?: [number, number, number];
 }
-interface Outputs {
-  shaft: Shape;
-  bore: Wire;
+
+interface HollowShaftOutputs {
+  shaft: unknown;
+  bore: unknown;
 }
 
 export const HollowShaftNode: NodeDefinition<HollowShaftInputs, HollowShaftOutputs, HollowShaftParams> = {
-  type: 'MechanicalEngineering::HollowShaft',
+  id: 'MechanicalEngineering::HollowShaft',
   category: 'MechanicalEngineering',
-  subcategory: 'Shafts',
-
-  metadata: {
-    label: 'HollowShaft',
-    description: 'Create hollow shaft',
-    
-    
-  },
-
-  params: {
-        outerDiameter: {
-      "default": 40,
-      "min": 10,
-      "max": 200
+  label: 'HollowShaft',
+  description: 'Create hollow shaft',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     },
-    innerDiameter: {
-      "default": 30,
-      "min": 5,
-      "max": 190
-    },
-    length: {
-      "default": 100,
-      "min": 20,
-      "max": 500
-    },
-    endMachining: {
-      "default": "none",
-      "options": [
-        "none",
-        "threads",
-        "splines"
-      ]
+    axis: {
+      type: 'Vector',
+      label: 'Axis',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point',
-    axis: 'Vector'
-  },
-
   outputs: {
-        shaft: 'Shape',
-    bore: 'Wire'
+    shaft: {
+      type: 'Shape',
+      label: 'Shaft'
+    },
+    bore: {
+      type: 'Wire',
+      label: 'Bore'
+    }
   },
-
+  params: {
+    outerDiameter: {
+      type: 'number',
+      label: 'Outer Diameter',
+      default: 40,
+      min: 10,
+      max: 200
+    },
+    innerDiameter: {
+      type: 'number',
+      label: 'Inner Diameter',
+      default: 30,
+      min: 5,
+      max: 190
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 100,
+      min: 20,
+      max: 500
+    },
+    endMachining: {
+      type: 'enum',
+      label: 'End Machining',
+      default: "none",
+      options: ["none","threads","splines"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'hollowShaft',
       params: {
         center: inputs.center,
@@ -77,10 +85,10 @@ export const HollowShaftNode: NodeDefinition<HollowShaftInputs, HollowShaftOutpu
         endMachining: params.endMachining
       }
     });
-
+    
     return {
-      shaft: result,
-      bore: result
+      shaft: results.shaft,
+      bore: results.bore
     };
-  }
+  },
 };

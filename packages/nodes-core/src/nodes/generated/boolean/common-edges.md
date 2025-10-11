@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### shape1
+### Shape1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### shape2
+### Shape2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### edges
+### Edges
 - **Type:** Edge[]
 - **Description:** Common edges
 

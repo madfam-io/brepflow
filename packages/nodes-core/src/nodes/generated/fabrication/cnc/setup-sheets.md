@@ -8,7 +8,7 @@ Generate setup documentation
 ## Parameters
 
 
-### includeToolList
+### Include Tool List
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Generate setup documentation
 
 
 
-### includeFixtures
+### Include Fixtures
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Generate setup documentation
 ## Inputs
 
 
-### operations
+### Operations
 - **Type:** Data
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Generate setup documentation
 ## Outputs
 
 
-### setupDocument
+### Setup Document
 - **Type:** Data
 
 

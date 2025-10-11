@@ -8,7 +8,7 @@ Wrap shape around cylinder or sphere
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "cylinder"
 
@@ -16,7 +16,7 @@ Wrap shape around cylinder or sphere
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Wrap shape around cylinder or sphere
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 360
 - **Min:** 0
@@ -35,7 +35,7 @@ Wrap shape around cylinder or sphere
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Wrap shape around cylinder or sphere
 ## Outputs
 
 
-### wrapped
+### Wrapped
 - **Type:** Shape
 
 

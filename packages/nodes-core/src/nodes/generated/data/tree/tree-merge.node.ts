@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type TreeMergeParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  treeA: DataTree;
-  treeB: DataTree;
+interface TreeMergeInputs {
+  treeA: unknown;
+  treeB: unknown;
 }
-interface Outputs {
-  merged: DataTree;
+
+interface TreeMergeOutputs {
+  merged: unknown;
 }
 
 export const TreeMergeNode: NodeDefinition<TreeMergeInputs, TreeMergeOutputs, TreeMergeParams> = {
-  type: 'Data::TreeMerge',
+  id: 'Data::TreeMerge',
   category: 'Data',
-  subcategory: 'Tree',
-
-  metadata: {
-    label: 'TreeMerge',
-    description: 'Merge trees',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'TreeMerge',
+  description: 'Merge trees',
   inputs: {
-        treeA: 'DataTree',
-    treeB: 'DataTree'
+    treeA: {
+      type: 'DataTree',
+      label: 'Tree A',
+      required: true
+    },
+    treeB: {
+      type: 'DataTree',
+      label: 'Tree B',
+      required: true
+    }
   },
-
   outputs: {
-        merged: 'DataTree'
+    merged: {
+      type: 'DataTree',
+      label: 'Merged'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'treeMerge',
       params: {
         treeA: inputs.treeA,
         treeB: inputs.treeB
-        
       }
     });
-
+    
     return {
       merged: result
     };
-  }
+  },
 };

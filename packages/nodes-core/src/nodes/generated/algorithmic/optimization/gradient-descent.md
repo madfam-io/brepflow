@@ -8,7 +8,7 @@ Gradient descent optimization
 ## Parameters
 
 
-### learningRate
+### Learning Rate
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Gradient descent optimization
 
 
 
-### maxIterations
+### Max Iterations
 - **Type:** number
 - **Default:** 1000
 - **Min:** 10
@@ -24,7 +24,7 @@ Gradient descent optimization
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.001
 - **Min:** 0.000001
@@ -32,7 +32,7 @@ Gradient descent optimization
 
 
 
-### momentum
+### Momentum
 - **Type:** number
 - **Default:** 0.9
 - **Min:** 0
@@ -43,13 +43,13 @@ Gradient descent optimization
 ## Inputs
 
 
-### objective
+### Objective
 - **Type:** Properties
 - **Required:** Yes
 
 
 
-### initialPoint
+### Initial Point
 - **Type:** Point
 - **Required:** Yes
 
@@ -58,22 +58,22 @@ Gradient descent optimization
 ## Outputs
 
 
-### optimumPoint
+### Optimum Point
 - **Type:** Point
 
 
 
-### optimumValue
+### Optimum Value
 - **Type:** number
 
 
 
-### trajectory
+### Trajectory
 - **Type:** Point[]
 
 
 
-### convergence
+### Convergence
 - **Type:** number[]
 
 

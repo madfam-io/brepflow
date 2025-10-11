@@ -1,71 +1,78 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GearParams {
   teeth: number;
   module: number;
   pressureAngle: number;
   addendum: number;
   dedendum: number;
 }
-interface Inputs {
-  center?: Point;
+
+interface GearInputs {
+  center?: [number, number, number];
 }
-interface Outputs {
-  gear: Wire;
+
+interface GearOutputs {
+  gear: unknown;
 }
 
 export const GearNode: NodeDefinition<GearInputs, GearOutputs, GearParams> = {
-  type: 'Sketch::Gear',
+  id: 'Sketch::Gear',
   category: 'Sketch',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'Gear',
-    description: 'Create a gear profile',
-    
-    
-  },
-
-  params: {
-        teeth: {
-      "default": 20,
-      "min": 3,
-      "max": 200,
-      "step": 1
-    },
-    module: {
-      "default": 2,
-      "min": 0.1,
-      "max": 100
-    },
-    pressureAngle: {
-      "default": 20,
-      "min": 14.5,
-      "max": 30
-    },
-    addendum: {
-      "default": 1,
-      "min": 0.5,
-      "max": 1.5
-    },
-    dedendum: {
-      "default": 1.25,
-      "min": 1,
-      "max": 2
+  label: 'Gear',
+  description: 'Create a gear profile',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        gear: 'Wire'
+    gear: {
+      type: 'Wire',
+      label: 'Gear'
+    }
   },
-
+  params: {
+    teeth: {
+      type: 'number',
+      label: 'Teeth',
+      default: 20,
+      min: 3,
+      max: 200,
+      step: 1
+    },
+    module: {
+      type: 'number',
+      label: 'Module',
+      default: 2,
+      min: 0.1,
+      max: 100
+    },
+    pressureAngle: {
+      type: 'number',
+      label: 'Pressure Angle',
+      default: 20,
+      min: 14.5,
+      max: 30
+    },
+    addendum: {
+      type: 'number',
+      label: 'Addendum',
+      default: 1,
+      min: 0.5,
+      max: 1.5
+    },
+    dedendum: {
+      type: 'number',
+      label: 'Dedendum',
+      default: 1.25,
+      min: 1,
+      max: 2
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeGear',
       params: {
@@ -77,9 +84,9 @@ export const GearNode: NodeDefinition<GearInputs, GearOutputs, GearParams> = {
         dedendum: params.dedendum
       }
     });
-
+    
     return {
       gear: result
     };
-  }
+  },
 };

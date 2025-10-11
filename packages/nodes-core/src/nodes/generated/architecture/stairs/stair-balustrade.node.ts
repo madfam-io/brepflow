@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StairBalustradeParams {
   style: string;
   spacing: number;
 }
-interface Inputs {
-  stairSide: Wire;
+
+interface StairBalustradeInputs {
+  stairSide: unknown;
 }
-interface Outputs {
-  balustrade: Shape;
+
+interface StairBalustradeOutputs {
+  balustrade: unknown;
 }
 
 export const StairBalustradeNode: NodeDefinition<StairBalustradeInputs, StairBalustradeOutputs, StairBalustradeParams> = {
-  type: 'Architecture::StairBalustrade',
+  id: 'Architecture::StairBalustrade',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'StairBalustrade',
-    description: 'Stair balustrade system',
-    
-    
-  },
-
-  params: {
-        style: {
-      "default": "vertical",
-      "options": [
-        "vertical",
-        "horizontal",
-        "glass",
-        "cable"
-      ]
-    },
-    spacing: {
-      "default": 100,
-      "min": 75,
-      "max": 125
+  label: 'StairBalustrade',
+  description: 'Stair balustrade system',
+  inputs: {
+    stairSide: {
+      type: 'Wire',
+      label: 'Stair Side',
+      required: true
     }
   },
-
-  inputs: {
-        stairSide: 'Wire'
-  },
-
   outputs: {
-        balustrade: 'Shape'
+    balustrade: {
+      type: 'Shape',
+      label: 'Balustrade'
+    }
   },
-
+  params: {
+    style: {
+      type: 'enum',
+      label: 'Style',
+      default: "vertical",
+      options: ["vertical","horizontal","glass","cable"]
+    },
+    spacing: {
+      type: 'number',
+      label: 'Spacing',
+      default: 100,
+      min: 75,
+      max: 125
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stairBalustrade',
       params: {
@@ -59,9 +55,9 @@ export const StairBalustradeNode: NodeDefinition<StairBalustradeInputs, StairBal
         spacing: params.spacing
       }
     });
-
+    
     return {
       balustrade: result
     };
-  }
+  },
 };

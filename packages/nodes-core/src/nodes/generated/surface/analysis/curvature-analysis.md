@@ -8,7 +8,7 @@ Analyze surface curvature
 ## Parameters
 
 
-### analysisType
+### Analysis Type
 - **Type:** enum
 - **Default:** "gaussian"
 
@@ -16,7 +16,7 @@ Analyze surface curvature
 
 
 
-### sampleDensity
+### Sample Density
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -27,7 +27,7 @@ Analyze surface curvature
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Analyze surface curvature
 ## Outputs
 
 
-### analysis
+### Analysis
 - **Type:** Data
 
 
 
-### visualization
+### Visualization
 - **Type:** Shape
 
 

@@ -1,63 +1,72 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RaisedFloorParams {
   height: number;
   panelSize: number;
   loadRating: number;
 }
-interface Inputs {
-  roomBoundary: Wire;
+
+interface RaisedFloorInputs {
+  roomBoundary: unknown;
 }
-interface Outputs {
-  raisedFloor: Shape;
-  pedestals: Shape[];
-  panels: Face[];
+
+interface RaisedFloorOutputs {
+  raisedFloor: unknown;
+  pedestals: unknown;
+  panels: unknown;
 }
 
 export const RaisedFloorNode: NodeDefinition<RaisedFloorInputs, RaisedFloorOutputs, RaisedFloorParams> = {
-  type: 'Architecture::RaisedFloor',
+  id: 'Architecture::RaisedFloor',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'RaisedFloor',
-    description: 'Raised access floor system',
-    
-    
-  },
-
-  params: {
-        height: {
-      "default": 300,
-      "min": 150,
-      "max": 600
-    },
-    panelSize: {
-      "default": 600,
-      "min": 500,
-      "max": 1200
-    },
-    loadRating: {
-      "default": 1250,
-      "min": 500,
-      "max": 2000
+  label: 'RaisedFloor',
+  description: 'Raised access floor system',
+  inputs: {
+    roomBoundary: {
+      type: 'Wire',
+      label: 'Room Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        roomBoundary: 'Wire'
-  },
-
   outputs: {
-        raisedFloor: 'Shape',
-    pedestals: 'Shape[]',
-    panels: 'Face[]'
+    raisedFloor: {
+      type: 'Shape',
+      label: 'Raised Floor'
+    },
+    pedestals: {
+      type: 'Shape[]',
+      label: 'Pedestals'
+    },
+    panels: {
+      type: 'Face[]',
+      label: 'Panels'
+    }
   },
-
+  params: {
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 300,
+      min: 150,
+      max: 600
+    },
+    panelSize: {
+      type: 'number',
+      label: 'Panel Size',
+      default: 600,
+      min: 500,
+      max: 1200
+    },
+    loadRating: {
+      type: 'number',
+      label: 'Load Rating',
+      default: 1250,
+      min: 500,
+      max: 2000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'raisedFloor',
       params: {
         roomBoundary: inputs.roomBoundary,
@@ -66,11 +75,11 @@ export const RaisedFloorNode: NodeDefinition<RaisedFloorInputs, RaisedFloorOutpu
         loadRating: params.loadRating
       }
     });
-
+    
     return {
-      raisedFloor: result,
-      pedestals: result,
-      panels: result
+      raisedFloor: results.raisedFloor,
+      pedestals: results.pedestals,
+      panels: results.panels
     };
-  }
+  },
 };

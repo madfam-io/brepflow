@@ -1,54 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AlternatingTreadStairParams {
   angle: number;
   treadWidth: number;
 }
-interface Inputs {
-  startPoint: Point;
-  totalRise: Number;
+
+interface AlternatingTreadStairInputs {
+  startPoint: [number, number, number];
+  totalRise: number;
 }
-interface Outputs {
-  alternatingStair: Shape;
+
+interface AlternatingTreadStairOutputs {
+  alternatingStair: unknown;
 }
 
 export const AlternatingTreadStairNode: NodeDefinition<AlternatingTreadStairInputs, AlternatingTreadStairOutputs, AlternatingTreadStairParams> = {
-  type: 'Architecture::AlternatingTreadStair',
+  id: 'Architecture::AlternatingTreadStair',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'AlternatingTreadStair',
-    description: 'Alternating tread device',
-    
-    
-  },
-
-  params: {
-        angle: {
-      "default": 56,
-      "min": 50,
-      "max": 70
+  label: 'AlternatingTreadStair',
+  description: 'Alternating tread device',
+  inputs: {
+    startPoint: {
+      type: 'Point',
+      label: 'Start Point',
+      required: true
     },
-    treadWidth: {
-      "default": 600,
-      "min": 500,
-      "max": 700
+    totalRise: {
+      type: 'Number',
+      label: 'Total Rise',
+      required: true
     }
   },
-
-  inputs: {
-        startPoint: 'Point',
-    totalRise: 'Number'
-  },
-
   outputs: {
-        alternatingStair: 'Shape'
+    alternatingStair: {
+      type: 'Shape',
+      label: 'Alternating Stair'
+    }
   },
-
+  params: {
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 56,
+      min: 50,
+      max: 70
+    },
+    treadWidth: {
+      type: 'number',
+      label: 'Tread Width',
+      default: 600,
+      min: 500,
+      max: 700
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'alternatingTreadStair',
       params: {
@@ -58,9 +63,9 @@ export const AlternatingTreadStairNode: NodeDefinition<AlternatingTreadStairInpu
         treadWidth: params.treadWidth
       }
     });
-
+    
     return {
       alternatingStair: result
     };
-  }
+  },
 };

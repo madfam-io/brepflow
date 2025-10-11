@@ -8,7 +8,7 @@ Setup robotic work cell
 ## Parameters
 
 
-### robotCount
+### Robot Count
 - **Type:** number
 - **Default:** 1
 - **Min:** 1
@@ -19,13 +19,13 @@ Setup robotic work cell
 ## Inputs
 
 
-### cellBoundary
+### Cell Boundary
 - **Type:** Box
 - **Required:** Yes
 
 
 
-### fixtures
+### Fixtures
 - **Type:** Shape[]
 - **Required:** No
 
@@ -34,7 +34,7 @@ Setup robotic work cell
 ## Outputs
 
 
-### workCell
+### Work Cell
 - **Type:** Data
 
 

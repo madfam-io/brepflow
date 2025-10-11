@@ -8,7 +8,7 @@ Sweep profile along path
 ## Parameters
 
 
-### twistAngle
+### Twist Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** -360
@@ -16,7 +16,7 @@ Sweep profile along path
 - **Description:** Twist along path
 
 
-### scaleFactor
+### Scale Factor
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -24,7 +24,7 @@ Sweep profile along path
 - **Description:** Scale at end
 
 
-### keepOrientation
+### Keep Orientation
 - **Type:** boolean
 - **Default:** false
 
@@ -32,7 +32,7 @@ Sweep profile along path
 
 
 
-### solid
+### Solid
 - **Type:** boolean
 - **Default:** true
 
@@ -43,19 +43,19 @@ Sweep profile along path
 ## Inputs
 
 
-### profile
+### Profile
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### auxiliarySpine
+### Auxiliary Spine
 - **Type:** Wire
 - **Required:** No
 
@@ -64,7 +64,7 @@ Sweep profile along path
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

@@ -8,7 +8,7 @@ Create fluid domain
 ## Parameters
 
 
-### domainType
+### Domain Type
 - **Type:** enum
 - **Default:** "external"
 
@@ -16,7 +16,7 @@ Create fluid domain
 
 
 
-### boundingBoxScale
+### Bounding Box Scale
 - **Type:** vector3
 - **Default:** [3,3,3]
 
@@ -24,7 +24,7 @@ Create fluid domain
 - **Description:** Domain size multiplier
 
 
-### refinementDistance
+### Refinement Distance
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -35,7 +35,7 @@ Create fluid domain
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Create fluid domain
 ## Outputs
 
 
-### fluidDomain
+### Fluid Domain
 - **Type:** Shape
 
 
 
-### walls
+### Walls
 - **Type:** Face[]
 
 

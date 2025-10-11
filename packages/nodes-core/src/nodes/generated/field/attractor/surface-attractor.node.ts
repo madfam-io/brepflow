@@ -1,60 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceAttractorParams {
   strength: number;
   radius: number;
   falloff: string;
 }
-interface Inputs {
-  surfaces: Face[];
+
+interface SurfaceAttractorInputs {
+  surfaces: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface SurfaceAttractorOutputs {
+  field: unknown;
 }
 
 export const SurfaceAttractorNode: NodeDefinition<SurfaceAttractorInputs, SurfaceAttractorOutputs, SurfaceAttractorParams> = {
-  type: 'Field::SurfaceAttractor',
+  id: 'Field::SurfaceAttractor',
   category: 'Field',
-  subcategory: 'Attractor',
-
-  metadata: {
-    label: 'SurfaceAttractor',
-    description: 'Surface attractor field',
-    
-    
-  },
-
-  params: {
-        strength: {
-      "default": 1,
-      "min": -10,
-      "max": 10
-    },
-    radius: {
-      "default": 30,
-      "min": 0.1
-    },
-    falloff: {
-      "default": "smooth",
-      "options": [
-        "linear",
-        "smooth",
-        "exponential"
-      ]
+  label: 'SurfaceAttractor',
+  description: 'Surface attractor field',
+  inputs: {
+    surfaces: {
+      type: 'Face[]',
+      label: 'Surfaces',
+      required: true
     }
   },
-
-  inputs: {
-        surfaces: 'Face[]'
-  },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    strength: {
+      type: 'number',
+      label: 'Strength',
+      default: 1,
+      min: -10,
+      max: 10
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 30,
+      min: 0.1
+    },
+    falloff: {
+      type: 'enum',
+      label: 'Falloff',
+      default: "smooth",
+      options: ["linear","smooth","exponential"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'attractorSurface',
       params: {
@@ -64,9 +63,9 @@ export const SurfaceAttractorNode: NodeDefinition<SurfaceAttractorInputs, Surfac
         falloff: params.falloff
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

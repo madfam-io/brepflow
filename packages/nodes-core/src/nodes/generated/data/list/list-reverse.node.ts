@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListReverseParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
+interface ListReverseInputs {
+  list: unknown;
 }
-interface Outputs {
-  reversed: Data[];
+
+interface ListReverseOutputs {
+  reversed: unknown;
 }
 
 export const ListReverseNode: NodeDefinition<ListReverseInputs, ListReverseOutputs, ListReverseParams> = {
-  type: 'Data::ListReverse',
+  id: 'Data::ListReverse',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListReverse',
-    description: 'Reverse list order',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListReverse',
+  description: 'Reverse list order',
   inputs: {
-        list: 'Data[]'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    }
   },
-
   outputs: {
-        reversed: 'Data[]'
+    reversed: {
+      type: 'Data[]',
+      label: 'Reversed'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listReverse',
       params: {
         list: inputs.list
-        
       }
     });
-
+    
     return {
       reversed: result
     };
-  }
+  },
 };

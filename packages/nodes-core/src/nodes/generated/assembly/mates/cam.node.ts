@@ -1,56 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type CamParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  cam: Shape;
-  follower: Shape;
+interface CamInputs {
+  cam: unknown;
+  follower: unknown;
 }
-interface Outputs {
-  cammed: Shape[];
-  mate: Mate;
+
+interface CamOutputs {
+  cammed: unknown;
+  mate: unknown;
 }
 
 export const CamNode: NodeDefinition<CamInputs, CamOutputs, CamParams> = {
-  type: 'Assembly::Cam',
+  id: 'Assembly::Cam',
   category: 'Assembly',
-  subcategory: 'Mates',
-
-  metadata: {
-    label: 'Cam',
-    description: 'Create cam-follower relationship',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Cam',
+  description: 'Create cam-follower relationship',
   inputs: {
-        cam: 'Shape',
-    follower: 'Shape'
+    cam: {
+      type: 'Shape',
+      label: 'Cam',
+      required: true
+    },
+    follower: {
+      type: 'Shape',
+      label: 'Follower',
+      required: true
+    }
   },
-
   outputs: {
-        cammed: 'Shape[]',
-    mate: 'Mate'
+    cammed: {
+      type: 'Shape[]',
+      label: 'Cammed'
+    },
+    mate: {
+      type: 'Mate',
+      label: 'Mate'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'mateCam',
       params: {
         cam: inputs.cam,
         follower: inputs.follower
-        
       }
     });
-
+    
     return {
-      cammed: result,
-      mate: result
+      cammed: results.cammed,
+      mate: results.mate
     };
-  }
+  },
 };

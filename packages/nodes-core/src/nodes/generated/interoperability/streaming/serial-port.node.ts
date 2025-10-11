@@ -1,78 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SerialPortParams {
   port: string;
   baudRate: string;
   dataBits: string;
   parity: string;
 }
-interface Inputs {
-  data?: string;
+
+interface SerialPortInputs {
+  data?: unknown;
 }
-interface Outputs {
-  connected: boolean;
-  received: string;
-  buffer: string[];
+
+interface SerialPortOutputs {
+  connected: unknown;
+  received: unknown;
+  buffer: unknown;
 }
 
 export const SerialPortNode: NodeDefinition<SerialPortInputs, SerialPortOutputs, SerialPortParams> = {
-  type: 'Interoperability::SerialPort',
+  id: 'Interoperability::SerialPort',
   category: 'Interoperability',
-  subcategory: 'Streaming',
-
-  metadata: {
-    label: 'SerialPort',
-    description: 'Communicate with serial devices',
-    
-    
-  },
-
-  params: {
-        port: {
-      "default": "COM1",
-      "description": "Serial port name"
-    },
-    baudRate: {
-      "default": "9600",
-      "options": [
-        "9600",
-        "19200",
-        "38400",
-        "57600",
-        "115200"
-      ]
-    },
-    dataBits: {
-      "default": "8",
-      "options": [
-        "7",
-        "8"
-      ]
-    },
-    parity: {
-      "default": "none",
-      "options": [
-        "none",
-        "even",
-        "odd"
-      ]
+  label: 'SerialPort',
+  description: 'Communicate with serial devices',
+  inputs: {
+    data: {
+      type: 'string',
+      label: 'Data',
+      optional: true
     }
   },
-
-  inputs: {
-        data: 'string'
-  },
-
   outputs: {
-        connected: 'boolean',
-    received: 'string',
-    buffer: 'string[]'
+    connected: {
+      type: 'boolean',
+      label: 'Connected'
+    },
+    received: {
+      type: 'string',
+      label: 'Received'
+    },
+    buffer: {
+      type: 'string[]',
+      label: 'Buffer'
+    }
   },
-
+  params: {
+    port: {
+      type: 'string',
+      label: 'Port',
+      default: "COM1"
+    },
+    baudRate: {
+      type: 'enum',
+      label: 'Baud Rate',
+      default: "9600",
+      options: ["9600","19200","38400","57600","115200"]
+    },
+    dataBits: {
+      type: 'enum',
+      label: 'Data Bits',
+      default: "8",
+      options: ["7","8"]
+    },
+    parity: {
+      type: 'enum',
+      label: 'Parity',
+      default: "none",
+      options: ["none","even","odd"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'serialPort',
       params: {
         data: inputs.data,
@@ -82,11 +79,11 @@ export const SerialPortNode: NodeDefinition<SerialPortInputs, SerialPortOutputs,
         parity: params.parity
       }
     });
-
+    
     return {
-      connected: result,
-      received: result,
-      buffer: result
+      connected: results.connected,
+      received: results.received,
+      buffer: results.buffer
     };
-  }
+  },
 };

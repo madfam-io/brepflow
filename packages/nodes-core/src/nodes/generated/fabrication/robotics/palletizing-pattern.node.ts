@@ -1,59 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PalletizingPatternParams {
   pattern: string;
   layersCount: number;
 }
-interface Inputs {
-  boxSize: Vector;
-  palletSize: Vector;
+
+interface PalletizingPatternInputs {
+  boxSize: [number, number, number];
+  palletSize: [number, number, number];
 }
-interface Outputs {
-  placementPoints: Transform[];
+
+interface PalletizingPatternOutputs {
+  placementPoints: unknown;
 }
 
 export const PalletizingPatternNode: NodeDefinition<PalletizingPatternInputs, PalletizingPatternOutputs, PalletizingPatternParams> = {
-  type: 'Fabrication::PalletizingPattern',
+  id: 'Fabrication::PalletizingPattern',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'PalletizingPattern',
-    description: 'Palletizing patterns',
-    
-    
-  },
-
-  params: {
-        pattern: {
-      "default": "interlocked",
-      "options": [
-        "column",
-        "interlocked",
-        "pinwheel",
-        "split-row"
-      ]
+  label: 'PalletizingPattern',
+  description: 'Palletizing patterns',
+  inputs: {
+    boxSize: {
+      type: 'Vector',
+      label: 'Box Size',
+      required: true
     },
-    layersCount: {
-      "default": 10,
-      "min": 1,
-      "max": 50,
-      "step": 1
+    palletSize: {
+      type: 'Vector',
+      label: 'Pallet Size',
+      required: true
     }
   },
-
-  inputs: {
-        boxSize: 'Vector',
-    palletSize: 'Vector'
-  },
-
   outputs: {
-        placementPoints: 'Transform[]'
+    placementPoints: {
+      type: 'Transform[]',
+      label: 'Placement Points'
+    }
   },
-
+  params: {
+    pattern: {
+      type: 'enum',
+      label: 'Pattern',
+      default: "interlocked",
+      options: ["column","interlocked","pinwheel","split-row"]
+    },
+    layersCount: {
+      type: 'number',
+      label: 'Layers Count',
+      default: 10,
+      min: 1,
+      max: 50,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'palletizingPattern',
       params: {
@@ -63,9 +63,9 @@ export const PalletizingPatternNode: NodeDefinition<PalletizingPatternInputs, Pa
         layersCount: params.layersCount
       }
     });
-
+    
     return {
       placementPoints: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Neural network pattern
 ## Parameters
 
 
-### neurons
+### Neurons
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Neural network pattern
 
 
 
-### connections
+### Connections
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -27,7 +27,7 @@ Neural network pattern
 ## Inputs
 
 
-### inputPoints
+### Input Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Neural network pattern
 ## Outputs
 
 
-### network
+### Network
 - **Type:** Wire[]
 
 

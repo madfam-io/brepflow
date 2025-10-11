@@ -1,56 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MuqarnasParams {
   levels: number;
   cellType: string;
 }
-interface Inputs {
-  base: Face;
+
+interface MuqarnasInputs {
+  base: unknown;
 }
-interface Outputs {
-  muqarnas: Shape[];
+
+interface MuqarnasOutputs {
+  muqarnas: unknown;
 }
 
 export const MuqarnasNode: NodeDefinition<MuqarnasInputs, MuqarnasOutputs, MuqarnasParams> = {
-  type: 'Patterns::Muqarnas',
+  id: 'Patterns::Muqarnas',
   category: 'Patterns',
-  subcategory: 'Islamic',
-
-  metadata: {
-    label: 'Muqarnas',
-    description: 'Muqarnas honeycomb pattern',
-    
-    
-  },
-
-  params: {
-        levels: {
-      "default": 3,
-      "min": 1,
-      "max": 8,
-      "step": 1
-    },
-    cellType: {
-      "default": "mixed",
-      "options": [
-        "square",
-        "octagonal",
-        "mixed"
-      ]
+  label: 'Muqarnas',
+  description: 'Muqarnas honeycomb pattern',
+  inputs: {
+    base: {
+      type: 'Face',
+      label: 'Base',
+      required: true
     }
   },
-
-  inputs: {
-        base: 'Face'
-  },
-
   outputs: {
-        muqarnas: 'Shape[]'
+    muqarnas: {
+      type: 'Shape[]',
+      label: 'Muqarnas'
+    }
   },
-
+  params: {
+    levels: {
+      type: 'number',
+      label: 'Levels',
+      default: 3,
+      min: 1,
+      max: 8,
+      step: 1
+    },
+    cellType: {
+      type: 'enum',
+      label: 'Cell Type',
+      default: "mixed",
+      options: ["square","octagonal","mixed"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'muqarnas',
       params: {
@@ -59,9 +56,9 @@ export const MuqarnasNode: NodeDefinition<MuqarnasInputs, MuqarnasOutputs, Muqar
         cellType: params.cellType
       }
     });
-
+    
     return {
       muqarnas: result
     };
-  }
+  },
 };

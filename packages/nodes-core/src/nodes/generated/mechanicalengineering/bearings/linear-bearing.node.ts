@@ -1,72 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LinearBearingParams {
   shaftDiameter: number;
   outerDiameter: number;
   length: number;
   type: string;
 }
-interface Inputs {
-  center: Point;
-  axis?: Vector;
+
+interface LinearBearingInputs {
+  center: [number, number, number];
+  axis?: [number, number, number];
 }
-interface Outputs {
-  bearing: Shape;
-  bore: Wire;
+
+interface LinearBearingOutputs {
+  bearing: unknown;
+  bore: unknown;
 }
 
 export const LinearBearingNode: NodeDefinition<LinearBearingInputs, LinearBearingOutputs, LinearBearingParams> = {
-  type: 'MechanicalEngineering::LinearBearing',
+  id: 'MechanicalEngineering::LinearBearing',
   category: 'MechanicalEngineering',
-  subcategory: 'Bearings',
-
-  metadata: {
-    label: 'LinearBearing',
-    description: 'Create linear motion bearing',
-    
-    
-  },
-
-  params: {
-        shaftDiameter: {
-      "default": 8,
-      "min": 3,
-      "max": 50
+  label: 'LinearBearing',
+  description: 'Create linear motion bearing',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     },
-    outerDiameter: {
-      "default": 15,
-      "min": 8,
-      "max": 80
-    },
-    length: {
-      "default": 24,
-      "min": 10,
-      "max": 100
-    },
-    type: {
-      "default": "ball",
-      "options": [
-        "ball",
-        "plain",
-        "roller"
-      ]
+    axis: {
+      type: 'Vector',
+      label: 'Axis',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point',
-    axis: 'Vector'
-  },
-
   outputs: {
-        bearing: 'Shape',
-    bore: 'Wire'
+    bearing: {
+      type: 'Shape',
+      label: 'Bearing'
+    },
+    bore: {
+      type: 'Wire',
+      label: 'Bore'
+    }
   },
-
+  params: {
+    shaftDiameter: {
+      type: 'number',
+      label: 'Shaft Diameter',
+      default: 8,
+      min: 3,
+      max: 50
+    },
+    outerDiameter: {
+      type: 'number',
+      label: 'Outer Diameter',
+      default: 15,
+      min: 8,
+      max: 80
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 24,
+      min: 10,
+      max: 100
+    },
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "ball",
+      options: ["ball","plain","roller"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'linearBearing',
       params: {
         center: inputs.center,
@@ -77,10 +85,10 @@ export const LinearBearingNode: NodeDefinition<LinearBearingInputs, LinearBearin
         type: params.type
       }
     });
-
+    
     return {
-      bearing: result,
-      bore: result
+      bearing: results.bearing,
+      bore: results.bore
     };
-  }
+  },
 };

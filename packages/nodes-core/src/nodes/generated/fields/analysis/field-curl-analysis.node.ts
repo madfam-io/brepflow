@@ -1,41 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldCurlAnalysisParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  vectorField?: VectorField;
+interface FieldCurlAnalysisInputs {
+  vectorField?: unknown;
 }
-interface Outputs {
-  curlField: VectorField;
+
+interface FieldCurlAnalysisOutputs {
+  curlField: unknown;
 }
 
 export const FieldCurlAnalysisNode: NodeDefinition<FieldCurlAnalysisInputs, FieldCurlAnalysisOutputs, FieldCurlAnalysisParams> = {
-  type: 'Fields::FieldCurlAnalysis',
+  id: 'Fields::FieldCurlAnalysis',
   category: 'Fields',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'FieldCurlAnalysis',
-    description: 'Calculate curl of vector field',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldCurlAnalysis',
+  description: 'Calculate curl of vector field',
   inputs: {
-        vectorField: 'VectorField'
+    vectorField: {
+      type: 'VectorField',
+      label: 'Vector Field',
+      optional: true
+    }
   },
-
   outputs: {
-        curlField: 'VectorField'
+    curlField: {
+      type: 'VectorField',
+      label: 'Curl Field'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'calculateCurlAnalysis',
+      params: {
+        vectorField: inputs.vectorField
+      }
+    });
     
-    // TODO: Implement FieldCurlAnalysis logic
-    throw new Error('FieldCurlAnalysis not yet implemented');
-  }
+    return {
+      curlField: result
+    };
+  },
 };

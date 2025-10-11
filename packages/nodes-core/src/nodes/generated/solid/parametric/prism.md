@@ -8,7 +8,7 @@ Create a prism from a profile and height
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a prism from a profile and height
 - **Description:** Prism height
 
 
-### twist
+### Twist
 - **Type:** number
 - **Default:** 0
 - **Min:** -360
@@ -24,7 +24,7 @@ Create a prism from a profile and height
 - **Description:** Twist angle in degrees
 
 
-### taper
+### Taper
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -35,7 +35,7 @@ Create a prism from a profile and height
 ## Inputs
 
 
-### profile
+### Profile
 - **Type:** Wire
 - **Required:** Yes
 - **Description:** Base profile
@@ -44,7 +44,7 @@ Create a prism from a profile and height
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Generated prism
 

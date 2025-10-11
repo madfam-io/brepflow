@@ -1,67 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SplinedShaftParams {
   majorDiameter: number;
   minorDiameter: number;
   splineCount: number;
   length: number;
 }
-interface Inputs {
-  center: Point;
+
+interface SplinedShaftInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  shaft: Shape;
-  splines: Wire[];
+
+interface SplinedShaftOutputs {
+  shaft: unknown;
+  splines: unknown;
 }
 
 export const SplinedShaftNode: NodeDefinition<SplinedShaftInputs, SplinedShaftOutputs, SplinedShaftParams> = {
-  type: 'MechanicalEngineering::SplinedShaft',
+  id: 'MechanicalEngineering::SplinedShaft',
   category: 'MechanicalEngineering',
-  subcategory: 'Shafts',
-
-  metadata: {
-    label: 'SplinedShaft',
-    description: 'Create splined shaft',
-    
-    
-  },
-
-  params: {
-        majorDiameter: {
-      "default": 25,
-      "min": 10,
-      "max": 100
-    },
-    minorDiameter: {
-      "default": 22,
-      "min": 8,
-      "max": 95
-    },
-    splineCount: {
-      "default": 6,
-      "min": 4,
-      "max": 20
-    },
-    length: {
-      "default": 50,
-      "min": 10,
-      "max": 200
+  label: 'SplinedShaft',
+  description: 'Create splined shaft',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        shaft: 'Shape',
-    splines: 'Wire[]'
+    shaft: {
+      type: 'Shape',
+      label: 'Shaft'
+    },
+    splines: {
+      type: 'Wire[]',
+      label: 'Splines'
+    }
   },
-
+  params: {
+    majorDiameter: {
+      type: 'number',
+      label: 'Major Diameter',
+      default: 25,
+      min: 10,
+      max: 100
+    },
+    minorDiameter: {
+      type: 'number',
+      label: 'Minor Diameter',
+      default: 22,
+      min: 8,
+      max: 95
+    },
+    splineCount: {
+      type: 'number',
+      label: 'Spline Count',
+      default: 6,
+      min: 4,
+      max: 20
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 50,
+      min: 10,
+      max: 200
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'splinedShaft',
       params: {
         center: inputs.center,
@@ -71,10 +79,10 @@ export const SplinedShaftNode: NodeDefinition<SplinedShaftInputs, SplinedShaftOu
         length: params.length
       }
     });
-
+    
     return {
-      shaft: result,
-      splines: result
+      shaft: results.shaft,
+      splines: results.splines
     };
-  }
+  },
 };

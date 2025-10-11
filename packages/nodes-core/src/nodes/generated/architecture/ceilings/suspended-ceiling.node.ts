@@ -1,60 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SuspendedCeilingParams {
   tileSize: string;
   suspensionHeight: number;
 }
-interface Inputs {
-  roomBoundary: Wire;
+
+interface SuspendedCeilingInputs {
+  roomBoundary: unknown;
 }
-interface Outputs {
-  ceiling: Shape;
-  grid: Wire[];
-  tiles: Face[];
+
+interface SuspendedCeilingOutputs {
+  ceiling: unknown;
+  grid: unknown;
+  tiles: unknown;
 }
 
 export const SuspendedCeilingNode: NodeDefinition<SuspendedCeilingInputs, SuspendedCeilingOutputs, SuspendedCeilingParams> = {
-  type: 'Architecture::SuspendedCeiling',
+  id: 'Architecture::SuspendedCeiling',
   category: 'Architecture',
-  subcategory: 'Ceilings',
-
-  metadata: {
-    label: 'SuspendedCeiling',
-    description: 'Suspended ceiling grid',
-    
-    
-  },
-
-  params: {
-        tileSize: {
-      "default": "600x600",
-      "options": [
-        "600x600",
-        "600x1200",
-        "1200x1200"
-      ]
-    },
-    suspensionHeight: {
-      "default": 300,
-      "min": 150,
-      "max": 1000
+  label: 'SuspendedCeiling',
+  description: 'Suspended ceiling grid',
+  inputs: {
+    roomBoundary: {
+      type: 'Wire',
+      label: 'Room Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        roomBoundary: 'Wire'
-  },
-
   outputs: {
-        ceiling: 'Shape',
-    grid: 'Wire[]',
-    tiles: 'Face[]'
+    ceiling: {
+      type: 'Shape',
+      label: 'Ceiling'
+    },
+    grid: {
+      type: 'Wire[]',
+      label: 'Grid'
+    },
+    tiles: {
+      type: 'Face[]',
+      label: 'Tiles'
+    }
   },
-
+  params: {
+    tileSize: {
+      type: 'enum',
+      label: 'Tile Size',
+      default: "600x600",
+      options: ["600x600","600x1200","1200x1200"]
+    },
+    suspensionHeight: {
+      type: 'number',
+      label: 'Suspension Height',
+      default: 300,
+      min: 150,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'suspendedCeiling',
       params: {
         roomBoundary: inputs.roomBoundary,
@@ -62,11 +65,11 @@ export const SuspendedCeilingNode: NodeDefinition<SuspendedCeilingInputs, Suspen
         suspensionHeight: params.suspensionHeight
       }
     });
-
+    
     return {
-      ceiling: result,
-      grid: result,
-      tiles: result
+      ceiling: results.ceiling,
+      grid: results.grid,
+      tiles: results.tiles
     };
-  }
+  },
 };

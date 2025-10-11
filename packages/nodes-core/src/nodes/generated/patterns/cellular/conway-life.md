@@ -8,7 +8,7 @@ Conway Game of Life
 ## Parameters
 
 
-### generations
+### Generations
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -16,7 +16,7 @@ Conway Game of Life
 
 
 
-### cellSize
+### Cell Size
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Conway Game of Life
 ## Inputs
 
 
-### initialCells
+### Initial Cells
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Conway Game of Life
 ## Outputs
 
 
-### liveCells
+### Live Cells
 - **Type:** Face[]
 
 

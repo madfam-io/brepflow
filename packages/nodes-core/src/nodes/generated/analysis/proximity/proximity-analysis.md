@@ -8,7 +8,7 @@ Analyze proximity between multiple objects
 ## Parameters
 
 
-### threshold
+### Threshold
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Analyze proximity between multiple objects
 
 
 
-### showConnections
+### Show Connections
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Analyze proximity between multiple objects
 ## Inputs
 
 
-### objects
+### Objects
 - **Type:** Shape[]
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Analyze proximity between multiple objects
 ## Outputs
 
 
-### proximityPairs
+### Proximity Pairs
 - **Type:** Shape[][]
 
 
 
-### distances
+### Distances
 - **Type:** number[]
 
 
 
-### connections
+### Connections
 - **Type:** Wire[]
 
 

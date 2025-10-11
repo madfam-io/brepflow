@@ -1,79 +1,87 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LinkageMechanismParams {
   type: string;
   linkLength1: number;
   linkLength2: number;
   linkLength3: number;
   angle: number;
 }
-interface Inputs {
-  basePoints: Point[];
+
+interface LinkageMechanismInputs {
+  basePoints: Array<[number, number, number]>;
 }
-interface Outputs {
-  mechanism: Shape;
-  links: Shape[];
-  joints: Point[];
+
+interface LinkageMechanismOutputs {
+  mechanism: unknown;
+  links: unknown;
+  joints: Array<[number, number, number]>;
 }
 
 export const LinkageMechanismNode: NodeDefinition<LinkageMechanismInputs, LinkageMechanismOutputs, LinkageMechanismParams> = {
-  type: 'MechanicalEngineering::LinkageMechanism',
+  id: 'MechanicalEngineering::LinkageMechanism',
   category: 'MechanicalEngineering',
-  subcategory: 'Mechanisms',
-
-  metadata: {
-    label: 'LinkageMechanism',
-    description: 'Create linkage mechanism',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "four-bar",
-      "options": [
-        "four-bar",
-        "slider-crank",
-        "scotch-yoke",
-        "geneva"
-      ]
-    },
-    linkLength1: {
-      "default": 50,
-      "min": 10,
-      "max": 200
-    },
-    linkLength2: {
-      "default": 80,
-      "min": 10,
-      "max": 200
-    },
-    linkLength3: {
-      "default": 60,
-      "min": 10,
-      "max": 200
-    },
-    angle: {
-      "default": 0,
-      "min": 0,
-      "max": 360
+  label: 'LinkageMechanism',
+  description: 'Create linkage mechanism',
+  inputs: {
+    basePoints: {
+      type: 'Point[]',
+      label: 'Base Points',
+      required: true
     }
   },
-
-  inputs: {
-        basePoints: 'Point[]'
-  },
-
   outputs: {
-        mechanism: 'Shape',
-    links: 'Shape[]',
-    joints: 'Point[]'
+    mechanism: {
+      type: 'Shape',
+      label: 'Mechanism'
+    },
+    links: {
+      type: 'Shape[]',
+      label: 'Links'
+    },
+    joints: {
+      type: 'Point[]',
+      label: 'Joints'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "four-bar",
+      options: ["four-bar","slider-crank","scotch-yoke","geneva"]
+    },
+    linkLength1: {
+      type: 'number',
+      label: 'Link Length1',
+      default: 50,
+      min: 10,
+      max: 200
+    },
+    linkLength2: {
+      type: 'number',
+      label: 'Link Length2',
+      default: 80,
+      min: 10,
+      max: 200
+    },
+    linkLength3: {
+      type: 'number',
+      label: 'Link Length3',
+      default: 60,
+      min: 10,
+      max: 200
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 0,
+      min: 0,
+      max: 360
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'linkageMechanism',
       params: {
         basePoints: inputs.basePoints,
@@ -84,11 +92,11 @@ export const LinkageMechanismNode: NodeDefinition<LinkageMechanismInputs, Linkag
         angle: params.angle
       }
     });
-
+    
     return {
-      mechanism: result,
-      links: result,
-      joints: result
+      mechanism: results.mechanism,
+      links: results.links,
+      joints: results.joints
     };
-  }
+  },
 };

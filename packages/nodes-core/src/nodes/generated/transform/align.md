@@ -8,7 +8,7 @@ Align shapes to each other
 ## Parameters
 
 
-### alignX
+### Align X
 - **Type:** enum
 - **Default:** "center"
 
@@ -16,7 +16,7 @@ Align shapes to each other
 
 
 
-### alignY
+### Align Y
 - **Type:** enum
 - **Default:** "center"
 
@@ -24,7 +24,7 @@ Align shapes to each other
 
 
 
-### alignZ
+### Align Z
 - **Type:** enum
 - **Default:** "none"
 
@@ -35,13 +35,13 @@ Align shapes to each other
 ## Inputs
 
 
-### shapes
+### Shapes
 - **Type:** Shape[]
 - **Required:** Yes
 - **Description:** Shapes to align
 
 
-### reference
+### Reference
 - **Type:** Shape
 - **Required:** No
 - **Description:** Reference shape
@@ -50,7 +50,7 @@ Align shapes to each other
 ## Outputs
 
 
-### aligned
+### Aligned
 - **Type:** Shape[]
 - **Description:** Aligned shapes
 

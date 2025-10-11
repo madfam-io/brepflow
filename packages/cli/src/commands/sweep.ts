@@ -4,6 +4,7 @@ import ora from 'ora';
 import fs from 'fs-extra';
 import path from 'path';
 import type { GraphInstance } from '@brepflow/types';
+import { GeometryEvaluationError } from '@brepflow/engine-core';
 import { applyParameters, collectShapeHandles, exportFormat, resolveFormats, unwrapOperationResult } from './render';
 
 export const sweepCommand = new Command('sweep')
@@ -103,6 +104,15 @@ export const sweepCommand = new Command('sweep')
           } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error';
             console.log(chalk.red(`[${variantIndex + 1}/${parameterSets.length}] ✗ Variant failed: ${errorMessage}`));
+
+            if (error instanceof GeometryEvaluationError) {
+              console.log(chalk.redBright('  Geometry failure details:'), {
+                nodeId: error.nodeId,
+                nodeType: error.nodeType,
+                code: error.code,
+              });
+            }
+
             results.push({
               index: variantIndex,
               parameters: params,
@@ -140,6 +150,13 @@ export const sweepCommand = new Command('sweep')
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       spinner.fail(`Error: ${errorMessage}`);
+      if (error instanceof GeometryEvaluationError) {
+        console.error(chalk.red('Geometry evaluation failed:'), {
+          nodeId: error.nodeId,
+          nodeType: error.nodeType,
+          code: error.code,
+        });
+      }
       process.exit(1);
     }
   });
@@ -195,9 +212,8 @@ async function renderVariant(
   params: string[],
   options: { export?: string }
 ): Promise<void> {
-  const { GraphManager, DAGEngine } = await import('@brepflow/engine-core');
+  const { GraphManager, DAGEngine, GeometryAPIFactory } = await import('@brepflow/engine-core');
   const { registerCoreNodes } = await import('@brepflow/nodes-core');
-  const { createGeometryAPI } = await import('@brepflow/engine-occt');
 
   // Load graph
   const graphContent = await fs.readFile(graphPath, 'utf-8');
@@ -208,14 +224,12 @@ async function renderVariant(
   applyParameters(graph, params);
 
   // Initialize geometry
-  const geometryAPI = createGeometryAPI({
-    enableRealOCCT: true,
-    fallbackToMock: false,
-    maxRetries: 1,
-    operationTimeout: 30000,
+  const geometryAPI = await GeometryAPIFactory.getAPI({
+    forceMode: 'real',
+    enableRetry: true,
+    retryAttempts: 2,
+    validateOutput: true,
   });
-
-  await geometryAPI.init();
   const health = unwrapOperationResult<any>(await geometryAPI.invoke('HEALTH_CHECK', {}));
   if (!health.success || !health.result?.healthy) {
     throw new Error('OCCT health check failed');
@@ -226,6 +240,15 @@ async function renderVariant(
   const dagEngine = new DAGEngine({ worker: geometryAPI });
   const dirtyNodes = graphManager.getDirtyNodes();
   await dagEngine.evaluate(graph, dirtyNodes);
+
+  const summary = dagEngine.getEvaluationSummary();
+  if (summary && summary.sampleCount > 0) {
+    console.info(
+      chalk.gray(
+        `Variant ${params.join(', ')} — p95: ${summary.p95Ms.toFixed(0)}ms (failures: ${summary.failureCount})`
+      )
+    );
+  }
 
   const evaluatedGraph = graphManager.getGraph();
   const shapes = collectShapeHandles(evaluatedGraph);

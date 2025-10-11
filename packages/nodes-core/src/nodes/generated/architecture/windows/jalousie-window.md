@@ -8,7 +8,7 @@ Jalousie louvre window
 ## Parameters
 
 
-### slats
+### Slats
 - **Type:** number
 - **Default:** 10
 - **Min:** 5
@@ -16,7 +16,7 @@ Jalousie louvre window
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -27,7 +27,7 @@ Jalousie louvre window
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Jalousie louvre window
 ## Outputs
 
 
-### jalousie
+### Jalousie
 - **Type:** Shape
 
 
 
-### slats
+### Slats
 - **Type:** Shape[]
 
 

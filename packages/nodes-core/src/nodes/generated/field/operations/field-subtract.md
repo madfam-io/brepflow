@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### fieldA
+### Field A
 - **Type:** ScalarField
 - **Required:** Yes
 
 
 
-### fieldB
+### Field B
 - **Type:** ScalarField
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

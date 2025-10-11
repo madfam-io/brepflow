@@ -8,7 +8,7 @@ Moorish geometric pattern
 ## Parameters
 
 
-### style
+### Style
 - **Type:** enum
 - **Default:** "alhambra"
 
@@ -16,7 +16,7 @@ Moorish geometric pattern
 
 
 
-### scale
+### Scale
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,7 +27,7 @@ Moorish geometric pattern
 ## Inputs
 
 
-### region
+### Region
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Moorish geometric pattern
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Wire[]
 
 

@@ -8,7 +8,7 @@ Rest material machining
 ## Parameters
 
 
-### previousTool
+### Previous Tool
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -16,7 +16,7 @@ Rest material machining
 
 
 
-### currentTool
+### Current Tool
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -27,13 +27,13 @@ Rest material machining
 ## Inputs
 
 
-### model
+### Model
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### previousPaths
+### Previous Paths
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Rest material machining
 ## Outputs
 
 
-### restAreas
+### Rest Areas
 - **Type:** Face[]
 
 
 
-### restPaths
+### Rest Paths
 - **Type:** Wire[]
 
 

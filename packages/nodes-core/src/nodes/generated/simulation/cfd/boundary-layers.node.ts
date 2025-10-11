@@ -1,67 +1,76 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BoundaryLayersParams {
   firstLayerHeight: number;
   growthRate: number;
   numberOfLayers: number;
   transitionRatio: number;
 }
-interface Inputs {
-  mesh: Mesh;
-  wallFaces: Face[];
+
+interface BoundaryLayersInputs {
+  mesh: unknown;
+  wallFaces: unknown;
 }
-interface Outputs {
-  layeredMesh: Mesh;
+
+interface BoundaryLayersOutputs {
+  layeredMesh: unknown;
 }
 
 export const BoundaryLayersNode: NodeDefinition<BoundaryLayersInputs, BoundaryLayersOutputs, BoundaryLayersParams> = {
-  type: 'Simulation::BoundaryLayers',
+  id: 'Simulation::BoundaryLayers',
   category: 'Simulation',
-  subcategory: 'CFD',
-
-  metadata: {
-    label: 'BoundaryLayers',
-    description: 'Add boundary layer mesh',
-    
-    
-  },
-
-  params: {
-        firstLayerHeight: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
+  label: 'BoundaryLayers',
+  description: 'Add boundary layer mesh',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     },
-    growthRate: {
-      "default": 1.2,
-      "min": 1,
-      "max": 2
-    },
-    numberOfLayers: {
-      "default": 5,
-      "min": 1,
-      "max": 20,
-      "step": 1
-    },
-    transitionRatio: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 1
+    wallFaces: {
+      type: 'Face[]',
+      label: 'Wall Faces',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh',
-    wallFaces: 'Face[]'
-  },
-
   outputs: {
-        layeredMesh: 'Mesh'
+    layeredMesh: {
+      type: 'Mesh',
+      label: 'Layered Mesh'
+    }
   },
-
+  params: {
+    firstLayerHeight: {
+      type: 'number',
+      label: 'First Layer Height',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    },
+    growthRate: {
+      type: 'number',
+      label: 'Growth Rate',
+      default: 1.2,
+      min: 1,
+      max: 2
+    },
+    numberOfLayers: {
+      type: 'number',
+      label: 'Number Of Layers',
+      default: 5,
+      min: 1,
+      max: 20,
+      step: 1
+    },
+    transitionRatio: {
+      type: 'number',
+      label: 'Transition Ratio',
+      default: 0.5,
+      min: 0.1,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'boundaryLayers',
       params: {
@@ -73,9 +82,9 @@ export const BoundaryLayersNode: NodeDefinition<BoundaryLayersInputs, BoundaryLa
         transitionRatio: params.transitionRatio
       }
     });
-
+    
     return {
       layeredMesh: result
     };
-  }
+  },
 };

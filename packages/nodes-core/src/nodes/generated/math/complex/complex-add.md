@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### a
+### A
 - **Type:** Complex
 - **Required:** Yes
 
 
 
-### b
+### B
 - **Type:** Complex
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Complex
 
 

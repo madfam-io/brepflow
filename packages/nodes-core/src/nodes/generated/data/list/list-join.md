@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### lists
+### Lists
 - **Type:** Data[][]
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### joined
+### Joined
 - **Type:** Data[]
 
 

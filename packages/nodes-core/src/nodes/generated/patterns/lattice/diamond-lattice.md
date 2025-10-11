@@ -8,7 +8,7 @@ Diamond lattice structure
 ## Parameters
 
 
-### cellSize
+### Cell Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -16,7 +16,7 @@ Diamond lattice structure
 
 
 
-### strutDiameter
+### Strut Diameter
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Diamond lattice structure
 ## Inputs
 
 
-### bounds
+### Bounds
 - **Type:** Box
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Diamond lattice structure
 ## Outputs
 
 
-### lattice
+### Lattice
 - **Type:** Wire[]
 
 

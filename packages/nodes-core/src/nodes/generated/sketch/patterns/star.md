@@ -8,7 +8,7 @@ Create a star shape
 ## Parameters
 
 
-### points
+### Points
 - **Type:** number
 - **Default:** 5
 - **Min:** 3
@@ -16,7 +16,7 @@ Create a star shape
 
 
 
-### outerRadius
+### Outer Radius
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a star shape
 
 
 
-### innerRadius
+### Inner Radius
 - **Type:** number
 - **Default:** 40
 - **Min:** 0.1
@@ -35,7 +35,7 @@ Create a star shape
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** No
 
@@ -44,7 +44,7 @@ Create a star shape
 ## Outputs
 
 
-### star
+### Star
 - **Type:** Wire
 - **Description:** Star shape
 

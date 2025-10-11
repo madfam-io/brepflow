@@ -8,7 +8,7 @@ Mate two faces together
 ## Parameters
 
 
-### offset
+### Offset
 - **Type:** number
 - **Default:** 0
 - **Min:** -1000
@@ -16,7 +16,7 @@ Mate two faces together
 
 
 
-### flip
+### Flip
 - **Type:** boolean
 - **Default:** false
 
@@ -27,13 +27,13 @@ Mate two faces together
 ## Inputs
 
 
-### face1
+### Face1
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### face2
+### Face2
 - **Type:** Face
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Mate two faces together
 ## Outputs
 
 
-### mated
+### Mated
 - **Type:** Shape[]
 
 
 
-### mate
+### Mate
 - **Type:** Mate
 
 

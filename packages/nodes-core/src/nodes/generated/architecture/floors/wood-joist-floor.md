@@ -8,7 +8,7 @@ Wood joist floor system
 ## Parameters
 
 
-### joistDepth
+### Joist Depth
 - **Type:** number
 - **Default:** 250
 - **Min:** 150
@@ -16,7 +16,7 @@ Wood joist floor system
 
 
 
-### joistSpacing
+### Joist Spacing
 - **Type:** number
 - **Default:** 400
 - **Min:** 300
@@ -24,7 +24,7 @@ Wood joist floor system
 
 
 
-### subfloorThickness
+### Subfloor Thickness
 - **Type:** number
 - **Default:** 18
 - **Min:** 15
@@ -35,7 +35,7 @@ Wood joist floor system
 ## Inputs
 
 
-### floorBoundary
+### Floor Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Wood joist floor system
 ## Outputs
 
 
-### floorSystem
+### Floor System
 - **Type:** Shape
 
 
 
-### joists
+### Joists
 - **Type:** Shape[]
 
 

@@ -8,7 +8,7 @@ Create cam profile
 ## Parameters
 
 
-### baseRadius
+### Base Radius
 - **Type:** number
 - **Default:** 30
 - **Min:** 10
@@ -16,7 +16,7 @@ Create cam profile
 
 
 
-### lift
+### Lift
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -24,7 +24,7 @@ Create cam profile
 
 
 
-### profileType
+### Profile Type
 - **Type:** enum
 - **Default:** "harmonic"
 
@@ -32,7 +32,7 @@ Create cam profile
 
 
 
-### dwellAngle
+### Dwell Angle
 - **Type:** number
 - **Default:** 60
 - **Min:** 0
@@ -43,13 +43,13 @@ Create cam profile
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### customProfile
+### Custom Profile
 - **Type:** Wire
 - **Required:** No
 
@@ -58,12 +58,12 @@ Create cam profile
 ## Outputs
 
 
-### cam
+### Cam
 - **Type:** Shape
 
 
 
-### profile
+### Profile
 - **Type:** Wire
 
 

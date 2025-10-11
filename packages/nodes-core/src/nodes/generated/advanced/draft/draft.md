@@ -8,7 +8,7 @@ Add draft angle to faces
 ## Parameters
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 3
 - **Min:** -30
@@ -16,7 +16,7 @@ Add draft angle to faces
 - **Description:** Draft angle in degrees
 
 
-### pullDirection
+### Pull Direction
 - **Type:** vector3
 - **Default:** [0,0,1]
 
@@ -24,7 +24,7 @@ Add draft angle to faces
 
 
 
-### neutralPlane
+### Neutral Plane
 - **Type:** vector3
 - **Default:** [0,0,0]
 
@@ -35,13 +35,13 @@ Add draft angle to faces
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### facesToDraft
+### Faces To Draft
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Add draft angle to faces
 ## Outputs
 
 
-### drafted
+### Drafted
 - **Type:** Shape
 
 

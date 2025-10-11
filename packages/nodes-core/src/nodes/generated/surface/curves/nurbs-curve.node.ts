@@ -1,55 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface NurbsCurveParams {
   degree: number;
   periodic: boolean;
 }
-interface Inputs {
-  controlPoints: Point[];
-  weights?: number[];
-  knots?: number[];
+
+interface NurbsCurveInputs {
+  controlPoints: Array<[number, number, number]>;
+  weights?: unknown;
+  knots?: unknown;
 }
-interface Outputs {
-  curve: Wire;
+
+interface NurbsCurveOutputs {
+  curve: unknown;
 }
 
 export const NurbsCurveNode: NodeDefinition<NurbsCurveInputs, NurbsCurveOutputs, NurbsCurveParams> = {
-  type: 'Surface::NurbsCurve',
+  id: 'Surface::NurbsCurve',
   category: 'Surface',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'NurbsCurve',
-    description: 'Create NURBS curve',
-    
-    
-  },
-
-  params: {
-        degree: {
-      "default": 3,
-      "min": 1,
-      "max": 10,
-      "step": 1
+  label: 'NurbsCurve',
+  description: 'Create NURBS curve',
+  inputs: {
+    controlPoints: {
+      type: 'Point[]',
+      label: 'Control Points',
+      required: true
     },
-    periodic: {
-      "default": false
+    weights: {
+      type: 'number[]',
+      label: 'Weights',
+      optional: true
+    },
+    knots: {
+      type: 'number[]',
+      label: 'Knots',
+      optional: true
     }
   },
-
-  inputs: {
-        controlPoints: 'Point[]',
-    weights: 'number[]',
-    knots: 'number[]'
-  },
-
   outputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve'
+    }
   },
-
+  params: {
+    degree: {
+      type: 'number',
+      label: 'Degree',
+      default: 3,
+      min: 1,
+      max: 10,
+      step: 1
+    },
+    periodic: {
+      type: 'boolean',
+      label: 'Periodic',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'nurbsCurve',
       params: {
@@ -60,9 +69,9 @@ export const NurbsCurveNode: NodeDefinition<NurbsCurveInputs, NurbsCurveOutputs,
         periodic: params.periodic
       }
     });
-
+    
     return {
       curve: result
     };
-  }
+  },
 };

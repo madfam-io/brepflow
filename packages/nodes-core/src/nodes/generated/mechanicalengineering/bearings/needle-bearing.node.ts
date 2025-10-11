@@ -1,67 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface NeedleBearingParams {
   innerDiameter: number;
   outerDiameter: number;
   width: number;
   needleCount: number;
 }
-interface Inputs {
-  center: Point;
+
+interface NeedleBearingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  bearing: Shape;
-  needles: Shape[];
+
+interface NeedleBearingOutputs {
+  bearing: unknown;
+  needles: unknown;
 }
 
 export const NeedleBearingNode: NodeDefinition<NeedleBearingInputs, NeedleBearingOutputs, NeedleBearingParams> = {
-  type: 'MechanicalEngineering::NeedleBearing',
+  id: 'MechanicalEngineering::NeedleBearing',
   category: 'MechanicalEngineering',
-  subcategory: 'Bearings',
-
-  metadata: {
-    label: 'NeedleBearing',
-    description: 'Create needle bearing',
-    
-    
-  },
-
-  params: {
-        innerDiameter: {
-      "default": 15,
-      "min": 5,
-      "max": 100
-    },
-    outerDiameter: {
-      "default": 21,
-      "min": 10,
-      "max": 150
-    },
-    width: {
-      "default": 12,
-      "min": 5,
-      "max": 50
-    },
-    needleCount: {
-      "default": 20,
-      "min": 10,
-      "max": 50
+  label: 'NeedleBearing',
+  description: 'Create needle bearing',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        bearing: 'Shape',
-    needles: 'Shape[]'
+    bearing: {
+      type: 'Shape',
+      label: 'Bearing'
+    },
+    needles: {
+      type: 'Shape[]',
+      label: 'Needles'
+    }
   },
-
+  params: {
+    innerDiameter: {
+      type: 'number',
+      label: 'Inner Diameter',
+      default: 15,
+      min: 5,
+      max: 100
+    },
+    outerDiameter: {
+      type: 'number',
+      label: 'Outer Diameter',
+      default: 21,
+      min: 10,
+      max: 150
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 12,
+      min: 5,
+      max: 50
+    },
+    needleCount: {
+      type: 'number',
+      label: 'Needle Count',
+      default: 20,
+      min: 10,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'needleBearing',
       params: {
         center: inputs.center,
@@ -71,10 +79,10 @@ export const NeedleBearingNode: NodeDefinition<NeedleBearingInputs, NeedleBearin
         needleCount: params.needleCount
       }
     });
-
+    
     return {
-      bearing: result,
-      needles: result
+      bearing: results.bearing,
+      needles: results.needles
     };
-  }
+  },
 };

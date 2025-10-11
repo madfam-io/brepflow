@@ -8,7 +8,7 @@ Validate geometry
 ## Parameters
 
 
-### checkLevel
+### Check Level
 - **Type:** enum
 - **Default:** "standard"
 
@@ -19,7 +19,7 @@ Validate geometry
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -28,12 +28,12 @@ Validate geometry
 ## Outputs
 
 
-### isValid
+### Is Valid
 - **Type:** boolean
 
 
 
-### errors
+### Errors
 - **Type:** Data
 
 

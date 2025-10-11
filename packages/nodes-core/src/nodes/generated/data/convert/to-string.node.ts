@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ToStringParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  data: Data;
+interface ToStringInputs {
+  data: unknown;
 }
-interface Outputs {
-  string: string;
+
+interface ToStringOutputs {
+  string: unknown;
 }
 
 export const ToStringNode: NodeDefinition<ToStringInputs, ToStringOutputs, ToStringParams> = {
-  type: 'Data::ToString',
+  id: 'Data::ToString',
   category: 'Data',
-  subcategory: 'Convert',
-
-  metadata: {
-    label: 'ToString',
-    description: 'Convert to string',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ToString',
+  description: 'Convert to string',
   inputs: {
-        data: 'Data'
+    data: {
+      type: 'Data',
+      label: 'Data',
+      required: true
+    }
   },
-
   outputs: {
-        string: 'string'
+    string: {
+      type: 'string',
+      label: 'String'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'convertToString',
       params: {
         data: inputs.data
-        
       }
     });
-
+    
     return {
       string: result
     };
-  }
+  },
 };

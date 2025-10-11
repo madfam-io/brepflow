@@ -1,68 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PipeParams {
   outerRadius: number;
   innerRadius: number;
   height: number;
 }
-type Inputs = {};
-interface Outputs {
-  solid: Solid;
+
+type PipeInputs = Record<string, never>;
+
+interface PipeOutputs {
+  solid: unknown;
 }
 
 export const PipeNode: NodeDefinition<PipeInputs, PipeOutputs, PipeParams> = {
-  type: 'Solid::Pipe',
+  id: 'Solid::Pipe',
   category: 'Solid',
-  subcategory: 'Primitives',
-
-  metadata: {
-    label: 'Pipe',
-    description: 'Create a pipe (hollow cylinder)',
-    
-    
-  },
-
-  params: {
-        outerRadius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    innerRadius: {
-      "default": 40,
-      "min": 0.1,
-      "max": 10000
-    },
-    height: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
+  label: 'Pipe',
+  description: 'Create a pipe (hollow cylinder)',
+  inputs: {},
+  outputs: {
+    solid: {
+      type: 'Solid',
+      label: 'Solid'
     }
   },
-
-  inputs: {
-    
+  params: {
+    outerRadius: {
+      type: 'number',
+      label: 'Outer Radius',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    innerRadius: {
+      type: 'number',
+      label: 'Inner Radius',
+      default: 40,
+      min: 0.1,
+      max: 10000
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    }
   },
-
-  outputs: {
-        solid: 'Solid'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makePipe',
       params: {
-        
         outerRadius: params.outerRadius,
         innerRadius: params.innerRadius,
         height: params.height
       }
     });
-
+    
     return {
       solid: result
     };
-  }
+  },
 };

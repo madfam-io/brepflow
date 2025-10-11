@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type AbsoluteParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface AbsoluteInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface AbsoluteOutputs {
+  result: unknown;
 }
 
 export const AbsoluteNode: NodeDefinition<AbsoluteInputs, AbsoluteOutputs, AbsoluteParams> = {
-  type: 'Math::Absolute',
+  id: 'Math::Absolute',
   category: 'Math',
-  subcategory: 'Operators',
-
-  metadata: {
-    label: 'Absolute',
-    description: 'Absolute value',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Absolute',
+  description: 'Absolute value',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathAbs',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

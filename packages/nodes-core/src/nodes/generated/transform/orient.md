@@ -12,19 +12,19 @@ This node has no parameters.
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### fromDirection
+### From Direction
 - **Type:** Vector
 - **Required:** Yes
 
 
 
-### toDirection
+### To Direction
 - **Type:** Vector
 - **Required:** Yes
 
@@ -33,7 +33,7 @@ This node has no parameters.
 ## Outputs
 
 
-### oriented
+### Oriented
 - **Type:** Shape
 
 

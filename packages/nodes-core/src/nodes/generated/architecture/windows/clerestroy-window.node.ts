@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ClerestroyWindowParams {
   height: number;
   continuous: boolean;
 }
-interface Inputs {
-  wallTop: Wire;
+
+interface ClerestroyWindowInputs {
+  wallTop: unknown;
 }
-interface Outputs {
-  clerestory: Shape;
+
+interface ClerestroyWindowOutputs {
+  clerestory: unknown;
 }
 
 export const ClerestroyWindowNode: NodeDefinition<ClerestroyWindowInputs, ClerestroyWindowOutputs, ClerestroyWindowParams> = {
-  type: 'Architecture::ClerestroyWindow',
+  id: 'Architecture::ClerestroyWindow',
   category: 'Architecture',
-  subcategory: 'Windows',
-
-  metadata: {
-    label: 'ClerestroyWindow',
-    description: 'Clerestory window band',
-    
-    
-  },
-
-  params: {
-        height: {
-      "default": 600,
-      "min": 400,
-      "max": 1200
-    },
-    continuous: {
-      "default": true
+  label: 'ClerestroyWindow',
+  description: 'Clerestory window band',
+  inputs: {
+    wallTop: {
+      type: 'Wire',
+      label: 'Wall Top',
+      required: true
     }
   },
-
-  inputs: {
-        wallTop: 'Wire'
-  },
-
   outputs: {
-        clerestory: 'Shape'
+    clerestory: {
+      type: 'Shape',
+      label: 'Clerestory'
+    }
   },
-
+  params: {
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 600,
+      min: 400,
+      max: 1200
+    },
+    continuous: {
+      type: 'boolean',
+      label: 'Continuous',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'clerestoryWindow',
       params: {
@@ -53,9 +54,9 @@ export const ClerestroyWindowNode: NodeDefinition<ClerestroyWindowInputs, Cleres
         continuous: params.continuous
       }
     });
-
+    
     return {
       clerestory: result
     };
-  }
+  },
 };

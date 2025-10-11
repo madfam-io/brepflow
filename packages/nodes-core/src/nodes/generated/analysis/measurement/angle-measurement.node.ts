@@ -1,61 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AngleMeasurementParams {
   units: string;
   showAnnotation: boolean;
 }
-interface Inputs {
-  vector1: Vector;
-  vector2: Vector;
-  vertex?: Point;
+
+interface AngleMeasurementInputs {
+  vector1: [number, number, number];
+  vector2: [number, number, number];
+  vertex?: [number, number, number];
 }
-interface Outputs {
-  angle: number;
-  complementAngle: number;
-  angleBisector: Vector;
+
+interface AngleMeasurementOutputs {
+  angle: unknown;
+  complementAngle: unknown;
+  angleBisector: [number, number, number];
 }
 
 export const AngleMeasurementNode: NodeDefinition<AngleMeasurementInputs, AngleMeasurementOutputs, AngleMeasurementParams> = {
-  type: 'Analysis::AngleMeasurement',
+  id: 'Analysis::AngleMeasurement',
   category: 'Analysis',
-  subcategory: 'Measurement',
-
-  metadata: {
-    label: 'AngleMeasurement',
-    description: 'Measure angles between vectors/faces',
-    
-    
-  },
-
-  params: {
-        units: {
-      "default": "degrees",
-      "options": [
-        "degrees",
-        "radians"
-      ]
+  label: 'AngleMeasurement',
+  description: 'Measure angles between vectors/faces',
+  inputs: {
+    vector1: {
+      type: 'Vector',
+      label: 'Vector1',
+      required: true
     },
-    showAnnotation: {
-      "default": true
+    vector2: {
+      type: 'Vector',
+      label: 'Vector2',
+      required: true
+    },
+    vertex: {
+      type: 'Point',
+      label: 'Vertex',
+      optional: true
     }
   },
-
-  inputs: {
-        vector1: 'Vector',
-    vector2: 'Vector',
-    vertex: 'Point'
-  },
-
   outputs: {
-        angle: 'number',
-    complementAngle: 'number',
-    angleBisector: 'Vector'
+    angle: {
+      type: 'number',
+      label: 'Angle'
+    },
+    complementAngle: {
+      type: 'number',
+      label: 'Complement Angle'
+    },
+    angleBisector: {
+      type: 'Vector',
+      label: 'Angle Bisector'
+    }
   },
-
+  params: {
+    units: {
+      type: 'enum',
+      label: 'Units',
+      default: "degrees",
+      options: ["degrees","radians"]
+    },
+    showAnnotation: {
+      type: 'boolean',
+      label: 'Show Annotation',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'angleMeasurement',
       params: {
         vector1: inputs.vector1,
@@ -65,11 +77,11 @@ export const AngleMeasurementNode: NodeDefinition<AngleMeasurementInputs, AngleM
         showAnnotation: params.showAnnotation
       }
     });
-
+    
     return {
-      angle: result,
-      complementAngle: result,
-      angleBisector: result
+      angle: results.angle,
+      complementAngle: results.complementAngle,
+      angleBisector: results.angleBisector
     };
-  }
+  },
 };

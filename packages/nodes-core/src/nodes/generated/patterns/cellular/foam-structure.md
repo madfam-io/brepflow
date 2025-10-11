@@ -8,7 +8,7 @@ Foam bubble structure
 ## Parameters
 
 
-### bubbleCount
+### Bubble Count
 - **Type:** number
 - **Default:** 50
 - **Min:** 5
@@ -16,7 +16,7 @@ Foam bubble structure
 
 
 
-### sizeVariation
+### Size Variation
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -27,7 +27,7 @@ Foam bubble structure
 ## Inputs
 
 
-### container
+### Container
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Foam bubble structure
 ## Outputs
 
 
-### foam
+### Foam
 - **Type:** Face[]
 
 

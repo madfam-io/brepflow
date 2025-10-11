@@ -8,7 +8,7 @@ Create a regular polyhedron
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "octahedron"
 
@@ -16,7 +16,7 @@ Create a regular polyhedron
 
 
 
-### size
+### Size
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -31,7 +31,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Polyhedron solid
 

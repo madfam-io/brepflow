@@ -1,55 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DistanceParams {
   distance: number;
   minimum: boolean;
 }
-interface Inputs {
-  entity1: Shape;
-  entity2: Shape;
+
+interface DistanceInputs {
+  entity1: unknown;
+  entity2: unknown;
 }
-interface Outputs {
-  constrained: Shape[];
-  constraint: Constraint;
+
+interface DistanceOutputs {
+  constrained: unknown;
+  constraint: unknown;
 }
 
 export const DistanceNode: NodeDefinition<DistanceInputs, DistanceOutputs, DistanceParams> = {
-  type: 'Assembly::Distance',
+  id: 'Assembly::Distance',
   category: 'Assembly',
-  subcategory: 'Constraints',
-
-  metadata: {
-    label: 'Distance',
-    description: 'Set distance between entities',
-    
-    
-  },
-
-  params: {
-        distance: {
-      "default": 10,
-      "min": 0,
-      "max": 10000
+  label: 'Distance',
+  description: 'Set distance between entities',
+  inputs: {
+    entity1: {
+      type: 'Shape',
+      label: 'Entity1',
+      required: true
     },
-    minimum: {
-      "default": false
+    entity2: {
+      type: 'Shape',
+      label: 'Entity2',
+      required: true
     }
   },
-
-  inputs: {
-        entity1: 'Shape',
-    entity2: 'Shape'
-  },
-
   outputs: {
-        constrained: 'Shape[]',
-    constraint: 'Constraint'
+    constrained: {
+      type: 'Shape[]',
+      label: 'Constrained'
+    },
+    constraint: {
+      type: 'Constraint',
+      label: 'Constraint'
+    }
   },
-
+  params: {
+    distance: {
+      type: 'number',
+      label: 'Distance',
+      default: 10,
+      min: 0,
+      max: 10000
+    },
+    minimum: {
+      type: 'boolean',
+      label: 'Minimum',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'constraintDistance',
       params: {
         entity1: inputs.entity1,
@@ -58,10 +66,10 @@ export const DistanceNode: NodeDefinition<DistanceInputs, DistanceOutputs, Dista
         minimum: params.minimum
       }
     });
-
+    
     return {
-      constrained: result,
-      constraint: result
+      constrained: results.constrained,
+      constraint: results.constraint
     };
-  }
+  },
 };

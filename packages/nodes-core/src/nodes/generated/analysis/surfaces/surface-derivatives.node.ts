@@ -1,71 +1,85 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceDerivativesParams {
   u: number;
   v: number;
   order: number;
   vectorScale: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface SurfaceDerivativesInputs {
+  surface: unknown;
 }
-interface Outputs {
-  point: Point;
-  duVector: Vector;
-  dvVector: Vector;
-  normal: Vector;
+
+interface SurfaceDerivativesOutputs {
+  point: [number, number, number];
+  duVector: [number, number, number];
+  dvVector: [number, number, number];
+  normal: [number, number, number];
 }
 
 export const SurfaceDerivativesNode: NodeDefinition<SurfaceDerivativesInputs, SurfaceDerivativesOutputs, SurfaceDerivativesParams> = {
-  type: 'Analysis::SurfaceDerivatives',
+  id: 'Analysis::SurfaceDerivatives',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceDerivatives',
-    description: 'Calculate surface derivatives',
-    
-    
-  },
-
-  params: {
-        u: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
-    },
-    v: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
-    },
-    order: {
-      "default": 2,
-      "min": 1,
-      "max": 3
-    },
-    vectorScale: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
+  label: 'SurfaceDerivatives',
+  description: 'Calculate surface derivatives',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        point: 'Point',
-    duVector: 'Vector',
-    dvVector: 'Vector',
-    normal: 'Vector'
+    point: {
+      type: 'Point',
+      label: 'Point'
+    },
+    duVector: {
+      type: 'Vector',
+      label: 'Du Vector'
+    },
+    dvVector: {
+      type: 'Vector',
+      label: 'Dv Vector'
+    },
+    normal: {
+      type: 'Vector',
+      label: 'Normal'
+    }
   },
-
+  params: {
+    u: {
+      type: 'number',
+      label: 'U',
+      default: 0.5,
+      min: 0,
+      max: 1
+    },
+    v: {
+      type: 'number',
+      label: 'V',
+      default: 0.5,
+      min: 0,
+      max: 1
+    },
+    order: {
+      type: 'number',
+      label: 'Order',
+      default: 2,
+      min: 1,
+      max: 3
+    },
+    vectorScale: {
+      type: 'number',
+      label: 'Vector Scale',
+      default: 1,
+      min: 0.1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceDerivatives',
       params: {
         surface: inputs.surface,
@@ -75,12 +89,12 @@ export const SurfaceDerivativesNode: NodeDefinition<SurfaceDerivativesInputs, Su
         vectorScale: params.vectorScale
       }
     });
-
+    
     return {
-      point: result,
-      duVector: result,
-      dvVector: result,
-      normal: result
+      point: results.point,
+      duVector: results.duVector,
+      dvVector: results.dvVector,
+      normal: results.normal
     };
-  }
+  },
 };

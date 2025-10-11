@@ -8,7 +8,7 @@ Stair handrail system
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 900
 - **Min:** 850
@@ -16,7 +16,7 @@ Stair handrail system
 
 
 
-### diameter
+### Diameter
 - **Type:** number
 - **Default:** 50
 - **Min:** 40
@@ -24,7 +24,7 @@ Stair handrail system
 
 
 
-### mountType
+### Mount Type
 - **Type:** enum
 - **Default:** "post"
 
@@ -35,7 +35,7 @@ Stair handrail system
 ## Inputs
 
 
-### stairEdge
+### Stair Edge
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Stair handrail system
 ## Outputs
 
 
-### handrail
+### Handrail
 - **Type:** Shape
 
 
 
-### posts
+### Posts
 - **Type:** Shape[]
 
 

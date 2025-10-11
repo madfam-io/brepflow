@@ -1,63 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TuringPatternParams {
   model: string;
   iterations: number;
   resolution: number;
 }
-interface Inputs {
-  domain: Face;
+
+interface TuringPatternInputs {
+  domain: unknown;
 }
-interface Outputs {
-  pattern: Mesh;
+
+interface TuringPatternOutputs {
+  pattern: unknown;
 }
 
 export const TuringPatternNode: NodeDefinition<TuringPatternInputs, TuringPatternOutputs, TuringPatternParams> = {
-  type: 'Patterns::TuringPattern',
+  id: 'Patterns::TuringPattern',
   category: 'Patterns',
-  subcategory: 'Procedural',
-
-  metadata: {
-    label: 'TuringPattern',
-    description: 'Turing reaction-diffusion',
-    
-    
-  },
-
-  params: {
-        model: {
-      "default": "gray-scott",
-      "options": [
-        "gray-scott",
-        "gierer-meinhardt",
-        "brusselator"
-      ]
-    },
-    iterations: {
-      "default": 1000,
-      "min": 100,
-      "max": 10000,
-      "step": 100
-    },
-    resolution: {
-      "default": 100,
-      "min": 50,
-      "max": 500,
-      "step": 10
+  label: 'TuringPattern',
+  description: 'Turing reaction-diffusion',
+  inputs: {
+    domain: {
+      type: 'Face',
+      label: 'Domain',
+      required: true
     }
   },
-
-  inputs: {
-        domain: 'Face'
-  },
-
   outputs: {
-        pattern: 'Mesh'
+    pattern: {
+      type: 'Mesh',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    model: {
+      type: 'enum',
+      label: 'Model',
+      default: "gray-scott",
+      options: ["gray-scott","gierer-meinhardt","brusselator"]
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 1000,
+      min: 100,
+      max: 10000,
+      step: 100
+    },
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 100,
+      min: 50,
+      max: 500,
+      step: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'turingPattern',
       params: {
@@ -67,9 +66,9 @@ export const TuringPatternNode: NodeDefinition<TuringPatternInputs, TuringPatter
         resolution: params.resolution
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

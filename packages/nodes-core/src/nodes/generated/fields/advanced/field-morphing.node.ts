@@ -1,60 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldMorphingParams {
   factor: number;
   interpolation: string;
 }
-interface Inputs {
-  field1?: Field;
-  field2?: Field;
+
+interface FieldMorphingInputs {
+  field1?: unknown;
+  field2?: unknown;
 }
-interface Outputs {
-  morphedField: Field;
+
+interface FieldMorphingOutputs {
+  morphedField: unknown;
 }
 
 export const FieldMorphingNode: NodeDefinition<FieldMorphingInputs, FieldMorphingOutputs, FieldMorphingParams> = {
-  type: 'Fields::FieldMorphing',
+  id: 'Fields::FieldMorphing',
   category: 'Fields',
-  subcategory: 'Advanced',
-
-  metadata: {
-    label: 'FieldMorphing',
-    description: 'Morph between two fields',
-    
-    
-  },
-
-  params: {
-        factor: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1,
-      "description": "Morphing factor (0=field1, 1=field2)"
+  label: 'FieldMorphing',
+  description: 'Morph between two fields',
+  inputs: {
+    field1: {
+      type: 'Field',
+      label: 'Field1',
+      optional: true
     },
-    interpolation: {
-      "default": "\"linear\"",
-      "options": [
-        "linear",
-        "smooth",
-        "exponential"
-      ],
-      "description": "Interpolation method"
+    field2: {
+      type: 'Field',
+      label: 'Field2',
+      optional: true
     }
   },
-
-  inputs: {
-        field1: 'Field',
-    field2: 'Field'
-  },
-
   outputs: {
-        morphedField: 'Field'
+    morphedField: {
+      type: 'Field',
+      label: 'Morphed Field'
+    }
   },
-
+  params: {
+    factor: {
+      type: 'number',
+      label: 'Factor',
+      default: 0.5,
+      min: 0,
+      max: 1
+    },
+    interpolation: {
+      type: 'enum',
+      label: 'Interpolation',
+      default: "\"linear\"",
+      options: ["linear","smooth","exponential"]
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'morphFields',
+      params: {
+        field1: inputs.field1,
+        field2: inputs.field2,
+        factor: params.factor,
+        interpolation: params.interpolation
+      }
+    });
     
-    // TODO: Implement FieldMorphing logic
-    throw new Error('FieldMorphing not yet implemented');
-  }
+    return {
+      morphedField: result
+    };
+  },
 };

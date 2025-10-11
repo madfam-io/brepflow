@@ -8,7 +8,7 @@ Create belt/chain constraint
 ## Parameters
 
 
-### ratio
+### Ratio
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -19,13 +19,13 @@ Create belt/chain constraint
 ## Inputs
 
 
-### pulley1
+### Pulley1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### pulley2
+### Pulley2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Create belt/chain constraint
 ## Outputs
 
 
-### joint
+### Joint
 - **Type:** Joint
 
 

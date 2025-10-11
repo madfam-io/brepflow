@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListFilterParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
-  mask: boolean[];
+interface ListFilterInputs {
+  list: unknown;
+  mask: unknown;
 }
-interface Outputs {
-  filtered: Data[];
+
+interface ListFilterOutputs {
+  filtered: unknown;
 }
 
 export const ListFilterNode: NodeDefinition<ListFilterInputs, ListFilterOutputs, ListFilterParams> = {
-  type: 'Data::ListFilter',
+  id: 'Data::ListFilter',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListFilter',
-    description: 'Filter list by condition',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListFilter',
+  description: 'Filter list by condition',
   inputs: {
-        list: 'Data[]',
-    mask: 'boolean[]'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    mask: {
+      type: 'boolean[]',
+      label: 'Mask',
+      required: true
+    }
   },
-
   outputs: {
-        filtered: 'Data[]'
+    filtered: {
+      type: 'Data[]',
+      label: 'Filtered'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listFilter',
       params: {
         list: inputs.list,
         mask: inputs.mask
-        
       }
     });
-
+    
     return {
       filtered: result
     };
-  }
+  },
 };

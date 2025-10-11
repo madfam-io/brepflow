@@ -1,49 +1,69 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldMinMaxParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  field?: Field;
-  domain?: Geometry;
+interface FieldMinMaxInputs {
+  field?: unknown;
+  domain?: unknown;
 }
-interface Outputs {
-  min: Number;
-  max: Number;
-  minPoint: Point;
-  maxPoint: Point;
+
+interface FieldMinMaxOutputs {
+  min: number;
+  max: number;
+  minPoint: [number, number, number];
+  maxPoint: [number, number, number];
 }
 
 export const FieldMinMaxNode: NodeDefinition<FieldMinMaxInputs, FieldMinMaxOutputs, FieldMinMaxParams> = {
-  type: 'Fields::FieldMinMax',
+  id: 'Fields::FieldMinMax',
   category: 'Fields',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'FieldMinMax',
-    description: 'Find minimum and maximum field values',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldMinMax',
+  description: 'Find minimum and maximum field values',
   inputs: {
-        field: 'Field',
-    domain: 'Geometry'
+    field: {
+      type: 'Field',
+      label: 'Field',
+      optional: true
+    },
+    domain: {
+      type: 'Geometry',
+      label: 'Domain',
+      optional: true
+    }
   },
-
   outputs: {
-        min: 'Number',
-    max: 'Number',
-    minPoint: 'Point',
-    maxPoint: 'Point'
+    min: {
+      type: 'Number',
+      label: 'Min'
+    },
+    max: {
+      type: 'Number',
+      label: 'Max'
+    },
+    minPoint: {
+      type: 'Point',
+      label: 'Min Point'
+    },
+    maxPoint: {
+      type: 'Point',
+      label: 'Max Point'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
+    const results = await context.geometry.execute({
+      type: 'analyzeFieldMinMax',
+      params: {
+        field: inputs.field,
+        domain: inputs.domain
+      }
+    });
     
-    // TODO: Implement FieldMinMax logic
-    throw new Error('FieldMinMax not yet implemented');
-  }
+    return {
+      min: results.min,
+      max: results.max,
+      minPoint: results.minPoint,
+      maxPoint: results.maxPoint
+    };
+  },
 };

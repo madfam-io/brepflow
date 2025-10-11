@@ -1,58 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PolygonParams {
   sides: number;
   radius: number;
   inscribed: boolean;
 }
-interface Inputs {
-  center?: Point;
+
+interface PolygonInputs {
+  center?: [number, number, number];
 }
-interface Outputs {
-  polygon: Wire;
+
+interface PolygonOutputs {
+  polygon: unknown;
 }
 
 export const PolygonNode: NodeDefinition<PolygonInputs, PolygonOutputs, PolygonParams> = {
-  type: 'Sketch::Polygon',
+  id: 'Sketch::Polygon',
   category: 'Sketch',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'Polygon',
-    description: 'Create a regular polygon',
-    
-    
-  },
-
-  params: {
-        sides: {
-      "default": 6,
-      "min": 3,
-      "max": 100,
-      "step": 1
-    },
-    radius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    inscribed: {
-      "default": true,
-      "description": "Inscribed vs circumscribed"
+  label: 'Polygon',
+  description: 'Create a regular polygon',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        polygon: 'Wire'
+    polygon: {
+      type: 'Wire',
+      label: 'Polygon'
+    }
   },
-
+  params: {
+    sides: {
+      type: 'number',
+      label: 'Sides',
+      default: 6,
+      min: 3,
+      max: 100,
+      step: 1
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    inscribed: {
+      type: 'boolean',
+      label: 'Inscribed',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makePolygon',
       params: {
@@ -62,9 +64,9 @@ export const PolygonNode: NodeDefinition<PolygonInputs, PolygonOutputs, PolygonP
         inscribed: params.inscribed
       }
     });
-
+    
     return {
       polygon: result
     };
-  }
+  },
 };

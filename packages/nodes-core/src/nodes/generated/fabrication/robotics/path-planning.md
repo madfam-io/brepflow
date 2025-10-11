@@ -8,7 +8,7 @@ Robot path planning
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "rrt"
 
@@ -16,7 +16,7 @@ Robot path planning
 
 
 
-### smoothing
+### Smoothing
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Robot path planning
 ## Inputs
 
 
-### waypoints
+### Waypoints
 - **Type:** Transform[]
 - **Required:** Yes
 
 
 
-### obstacles
+### Obstacles
 - **Type:** Shape[]
 - **Required:** No
 
@@ -42,12 +42,12 @@ Robot path planning
 ## Outputs
 
 
-### trajectory
+### Trajectory
 - **Type:** Transform[]
 
 
 
-### jointTrajectory
+### Joint Trajectory
 - **Type:** Data
 
 

@@ -8,7 +8,7 @@ Calculate percentile
 ## Parameters
 
 
-### percentile
+### Percentile
 - **Type:** number
 - **Default:** 50
 - **Min:** 0
@@ -19,7 +19,7 @@ Calculate percentile
 ## Inputs
 
 
-### values
+### Values
 - **Type:** number[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Calculate percentile
 ## Outputs
 
 
-### result
+### Result
 - **Type:** number
 
 

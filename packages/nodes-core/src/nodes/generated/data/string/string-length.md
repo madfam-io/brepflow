@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### string
+### String
 - **Type:** string
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### length
+### Length
 - **Type:** number
 
 

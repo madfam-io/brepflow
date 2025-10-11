@@ -8,7 +8,7 @@ Rainscreen cladding system
 ## Parameters
 
 
-### claddingType
+### Cladding Type
 - **Type:** enum
 - **Default:** "composite"
 
@@ -16,7 +16,7 @@ Rainscreen cladding system
 
 
 
-### ventGap
+### Vent Gap
 - **Type:** number
 - **Default:** 25
 - **Min:** 20
@@ -27,7 +27,7 @@ Rainscreen cladding system
 ## Inputs
 
 
-### wall
+### Wall
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Rainscreen cladding system
 ## Outputs
 
 
-### rainScreen
+### Rain Screen
 - **Type:** Shape
 
 

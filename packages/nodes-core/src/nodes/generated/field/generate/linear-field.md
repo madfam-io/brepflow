@@ -8,7 +8,7 @@ Linear gradient field
 ## Parameters
 
 
-### direction
+### Direction
 - **Type:** vector3
 - **Default:** [1,0,0]
 
@@ -16,7 +16,7 @@ Linear gradient field
 
 
 
-### min
+### Min
 - **Type:** number
 - **Default:** 0
 
@@ -24,7 +24,7 @@ Linear gradient field
 
 
 
-### max
+### Max
 - **Type:** number
 - **Default:** 1
 
@@ -35,7 +35,7 @@ Linear gradient field
 ## Inputs
 
 
-### bounds
+### Bounds
 - **Type:** Box
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Linear gradient field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

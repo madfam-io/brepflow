@@ -1,69 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface UniversalJointParams {
   yokeDiameter: number;
   crossPinDiameter: number;
   length: number;
   angle: number;
 }
-interface Inputs {
-  center: Point;
+
+interface UniversalJointInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  joint: Shape;
-  yokes: Shape[];
-  cross: Shape;
+
+interface UniversalJointOutputs {
+  joint: unknown;
+  yokes: unknown;
+  cross: unknown;
 }
 
 export const UniversalJointNode: NodeDefinition<UniversalJointInputs, UniversalJointOutputs, UniversalJointParams> = {
-  type: 'MechanicalEngineering::UniversalJoint',
+  id: 'MechanicalEngineering::UniversalJoint',
   category: 'MechanicalEngineering',
-  subcategory: 'Mechanisms',
-
-  metadata: {
-    label: 'UniversalJoint',
-    description: 'Create universal joint',
-    
-    
-  },
-
-  params: {
-        yokeDiameter: {
-      "default": 30,
-      "min": 10,
-      "max": 80
-    },
-    crossPinDiameter: {
-      "default": 8,
-      "min": 3,
-      "max": 20
-    },
-    length: {
-      "default": 60,
-      "min": 20,
-      "max": 150
-    },
-    angle: {
-      "default": 0,
-      "min": 0,
-      "max": 45
+  label: 'UniversalJoint',
+  description: 'Create universal joint',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        joint: 'Shape',
-    yokes: 'Shape[]',
-    cross: 'Shape'
+    joint: {
+      type: 'Shape',
+      label: 'Joint'
+    },
+    yokes: {
+      type: 'Shape[]',
+      label: 'Yokes'
+    },
+    cross: {
+      type: 'Shape',
+      label: 'Cross'
+    }
   },
-
+  params: {
+    yokeDiameter: {
+      type: 'number',
+      label: 'Yoke Diameter',
+      default: 30,
+      min: 10,
+      max: 80
+    },
+    crossPinDiameter: {
+      type: 'number',
+      label: 'Cross Pin Diameter',
+      default: 8,
+      min: 3,
+      max: 20
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 60,
+      min: 20,
+      max: 150
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 0,
+      min: 0,
+      max: 45
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'universalJoint',
       params: {
         center: inputs.center,
@@ -73,11 +84,11 @@ export const UniversalJointNode: NodeDefinition<UniversalJointInputs, UniversalJ
         angle: params.angle
       }
     });
-
+    
     return {
-      joint: result,
-      yokes: result,
-      cross: result
+      joint: results.joint,
+      yokes: results.yokes,
+      cross: results.cross
     };
-  }
+  },
 };

@@ -1,56 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface IsocurveExtractParams {
   direction: string;
   count: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface IsocurveExtractInputs {
+  surface: unknown;
 }
-interface Outputs {
-  isocurves: Wire[];
+
+interface IsocurveExtractOutputs {
+  isocurves: unknown;
 }
 
 export const IsocurveExtractNode: NodeDefinition<IsocurveExtractInputs, IsocurveExtractOutputs, IsocurveExtractParams> = {
-  type: 'Surface::IsocurveExtract',
+  id: 'Surface::IsocurveExtract',
   category: 'Surface',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'IsocurveExtract',
-    description: 'Extract isocurves',
-    
-    
-  },
-
-  params: {
-        direction: {
-      "default": "both",
-      "options": [
-        "U",
-        "V",
-        "both"
-      ]
-    },
-    count: {
-      "default": 10,
-      "min": 1,
-      "max": 100,
-      "step": 1
+  label: 'IsocurveExtract',
+  description: 'Extract isocurves',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        isocurves: 'Wire[]'
+    isocurves: {
+      type: 'Wire[]',
+      label: 'Isocurves'
+    }
   },
-
+  params: {
+    direction: {
+      type: 'enum',
+      label: 'Direction',
+      default: "both",
+      options: ["U","V","both"]
+    },
+    count: {
+      type: 'number',
+      label: 'Count',
+      default: 10,
+      min: 1,
+      max: 100,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'isocurveExtract',
       params: {
@@ -59,9 +56,9 @@ export const IsocurveExtractNode: NodeDefinition<IsocurveExtractInputs, Isocurve
         count: params.count
       }
     });
-
+    
     return {
       isocurves: result
     };
-  }
+  },
 };

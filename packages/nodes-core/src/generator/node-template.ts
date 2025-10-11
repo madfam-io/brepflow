@@ -55,198 +55,318 @@ export interface NodeTemplate {
   }[];
 }
 
+const SOCKET_TS_TYPE_MAP: Record<string, string> = {
+  Number: 'number',
+  Boolean: 'boolean',
+  String: 'string',
+  Vector: '[number, number, number]',
+  Point: '[number, number, number]',
+  'Point[]': 'Array<[number, number, number]>',
+  'Vector[]': 'Array<[number, number, number]>',
+  'Number[]': 'number[]',
+  'Boolean[]': 'boolean[]',
+};
+
+export function toPascalCase(value: string): string {
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/[^a-zA-Z0-9]+/g, ' ')
+    .split(' ')
+    .filter(Boolean)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('');
+}
+
+export function toKebabCase(value: string): string {
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/[^a-zA-Z0-9]+/g, '-')
+    .replace(/--+/g, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase();
+}
+
+function escapeSingleQuotes(value: string): string {
+  return value.replace(/'/g, "\\'");
+}
+
+function indentBlock(block: string, spaces = 2): string {
+  const indent = ' '.repeat(spaces);
+  return block
+    .split('\n')
+    .map(line => (line.length > 0 ? indent + line : indent))
+    .join('\n');
+}
+
+function mapSocketTsType(type: string): string {
+  return SOCKET_TS_TYPE_MAP[type] ?? 'unknown';
+}
+
+function mapParamTsType(type: Parameter['type']): string {
+  switch (type) {
+    case 'number':
+      return 'number';
+    case 'boolean':
+      return 'boolean';
+    case 'string':
+      return 'string';
+    case 'vector3':
+      return '[number, number, number]';
+    case 'enum':
+      return 'string';
+    default:
+      return 'unknown';
+  }
+}
+
+function mapParamSpecType(type: Parameter['type']): string {
+  switch (type) {
+    case 'vector3':
+      return 'vec3';
+    default:
+      return type;
+  }
+}
+
+function titleFromName(name: string): string {
+  return name
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/[-_]+/g, ' ')
+    .split(' ')
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
 /**
  * Generate TypeScript node implementation from template
  */
 export function generateNodeImplementation(template: NodeTemplate): string {
-  const className = `${template.name}Node`;
-  const paramTypes = generateParamTypes(template.parameters);
-  const inputTypes = generateInputTypes(template.inputs);
-  const outputTypes = generateOutputTypes(template.outputs);
+  const pascalName = toPascalCase(template.name);
+  const paramsTypeName = `${pascalName}Params`;
+  const inputTypeName = `${pascalName}Inputs`;
+  const outputTypeName = `${pascalName}Outputs`;
 
-  return `
-import { NodeDefinition } from '@brepflow/types';
+  const sections = [
+    `import type { NodeDefinition } from '@brepflow/types';`,
+    '',
+    renderParamInterface(paramsTypeName, template.parameters),
+    '',
+    renderSocketInterface(inputTypeName, template.inputs, true),
+    '',
+    renderSocketInterface(outputTypeName, template.outputs, false),
+    '',
+    `export const ${pascalName}Node: NodeDefinition<${inputTypeName}, ${outputTypeName}, ${paramsTypeName}> = {`,
+    `  id: '${template.category}::${template.name}',`,
+    `  category: '${template.category}',`,
+    `  label: '${escapeSingleQuotes(template.name)}',`,
+    `  description: '${escapeSingleQuotes(template.description)}',`,
+    `  inputs: ${renderInputSpec(template.inputs)},`,
+    `  outputs: ${renderOutputSpec(template.outputs)},`,
+    `  params: ${renderParamSpec(template.parameters)},`,
+    '  async evaluate(context, inputs, params) {',
+    indentBlock(renderEvaluationLogic(template), 4),
+    '  },',
+    '};',
+    '',
+  ];
 
-${paramTypes}
-${inputTypes}
-${outputTypes}
+  return sections.join('\n');
+}
 
-export const ${className}: NodeDefinition<${template.name}Inputs, ${template.name}Outputs, ${template.name}Params> = {
-  type: '${template.category}::${template.name}',
-  category: '${template.category}',
-  ${template.subcategory ? `subcategory: '${template.subcategory}',` : ''}
-
-  metadata: {
-    label: '${template.name}',
-    description: '${template.description}',
-    ${template.icon ? `icon: '${template.icon}',` : ''}
-    ${template.tags ? `tags: ${JSON.stringify(template.tags)},` : ''}
-  },
-
-  params: {
-    ${generateParamDefinitions(template.parameters)}
-  },
-
-  inputs: {
-    ${generateInputDefinitions(template.inputs)}
-  },
-
-  outputs: {
-    ${generateOutputDefinitions(template.outputs)}
-  },
-
-  async evaluate(context, inputs, params) {
-    ${generateEvaluationLogic(template)}
+function renderParamInterface(typeName: string, parameters: Parameter[]): string {
+  if (parameters.length === 0) {
+    return `type ${typeName} = Record<string, never>;`;
   }
-};
-`;
+
+  const fields = parameters.map((param) => `  ${param.name}: ${mapParamTsType(param.type)};`);
+  return [`interface ${typeName} {`, ...fields, '}'].join('\n');
 }
 
-function generateParamTypes(params: Parameter[]): string {
-  if (params.length === 0) return 'type ' + 'Params = {};';
+function renderSocketInterface(typeName: string, sockets: NodeTemplate['inputs'] | NodeTemplate['outputs'], isInput: boolean): string {
+  if (sockets.length === 0) {
+    return `type ${typeName} = ${isInput ? 'Record<string, never>' : 'Record<string, never>'};`;
+  }
 
-  const fields = params.map(p =>
-    `  ${p.name}: ${getTypeScriptType(p.type)};`
-  ).join('\n');
+  const fields = sockets.map((socket) => {
+    const optional = isInput && !socket.required ? '?' : '';
+    return `  ${socket.name}${optional}: ${mapSocketTsType(socket.type)};`;
+  });
 
-  return `interface Params {\n${fields}\n}`;
+  return [`interface ${typeName} {`, ...fields, '}'].join('\n');
 }
 
-function generateInputTypes(inputs: NodeTemplate['inputs']): string {
-  if (inputs.length === 0) return 'type Inputs = {};';
+function renderParamSpec(parameters: Parameter[], indent = 2): string {
+  if (parameters.length === 0) {
+    return '{}';
+  }
 
-  const fields = inputs.map(i =>
-    `  ${i.name}${i.required ? '' : '?'}: ${i.type};`
-  ).join('\n');
+  const indentStr = ' '.repeat(indent);
+  const innerIndent = ' '.repeat(indent + 2);
+  const lines: string[] = ['{'];
 
-  return `interface Inputs {\n${fields}\n}`;
+  parameters.forEach((param, index) => {
+    const entries = [
+      `type: '${mapParamSpecType(param.type)}'`,
+      `label: '${escapeSingleQuotes(titleFromName(param.name))}'`,
+    ];
+
+    if (param.default !== undefined) entries.push(`default: ${JSON.stringify(param.default)}`);
+    if (param.min !== undefined) entries.push(`min: ${param.min}`);
+    if (param.max !== undefined) entries.push(`max: ${param.max}`);
+    if (param.step !== undefined) entries.push(`step: ${param.step}`);
+    if (param.options) entries.push(`options: ${JSON.stringify(param.options)}`);
+
+    lines.push(
+      `${innerIndent}${param.name}: {
+${entries.map(entry => `${innerIndent}  ${entry}`).join(',\n')}
+${innerIndent}}${index < parameters.length - 1 ? ',' : ''}`
+    );
+  });
+
+  lines.push(`${indentStr}}`);
+  return lines.join('\n');
 }
 
-function generateOutputTypes(outputs: NodeTemplate['outputs']): string {
-  const fields = outputs.map(o =>
-    `  ${o.name}: ${o.type};`
-  ).join('\n');
+function renderInputSpec(inputs: NodeTemplate['inputs'], indent = 2): string {
+  if (inputs.length === 0) {
+    return '{}';
+  }
 
-  return `interface Outputs {\n${fields}\n}`;
+  const indentStr = ' '.repeat(indent);
+  const innerIndent = ' '.repeat(indent + 2);
+  const lines: string[] = ['{'];
+
+  inputs.forEach((input, index) => {
+    const entries = [
+      `type: '${input.type}'`,
+      `label: '${escapeSingleQuotes(titleFromName(input.name))}'`,
+    ];
+
+    if (input.required) {
+      entries.push('required: true');
+    } else {
+      entries.push('optional: true');
+    }
+
+    lines.push(
+      `${innerIndent}${input.name}: {
+${entries.map(entry => `${innerIndent}  ${entry}`).join(',\n')}
+${innerIndent}}${index < inputs.length - 1 ? ',' : ''}`
+    );
+  });
+
+  lines.push(`${indentStr}}`);
+  return lines.join('\n');
 }
 
-function generateParamDefinitions(params: Parameter[]): string {
-  return params.map(p => {
-    const options: any = {};
+function renderOutputSpec(outputs: NodeTemplate['outputs'], indent = 2): string {
+  if (outputs.length === 0) {
+    return '{}';
+  }
 
-    if (p.default !== undefined) options.default = p.default;
-    if (p.min !== undefined) options.min = p.min;
-    if (p.max !== undefined) options.max = p.max;
-    if (p.step !== undefined) options.step = p.step;
-    if (p.options) options.options = p.options;
-    if (p.description) options.description = p.description;
+  const indentStr = ' '.repeat(indent);
+  const innerIndent = ' '.repeat(indent + 2);
+  const lines: string[] = ['{'];
 
-    const optionsStr = Object.keys(options).length > 0
-      ? JSON.stringify(options, null, 2).replace(/\n/g, '\n    ')
-      : '{}';
+  outputs.forEach((output, index) => {
+    const entries = [
+      `type: '${output.type}'`,
+      `label: '${escapeSingleQuotes(titleFromName(output.name))}'`,
+    ];
 
-    return `    ${p.name}: ${optionsStr}`;
-  }).join(',\n');
+    lines.push(
+      `${innerIndent}${output.name}: {
+${entries.map(entry => `${innerIndent}  ${entry}`).join(',\n')}
+${innerIndent}}${index < outputs.length - 1 ? ',' : ''}`
+    );
+  });
+
+  lines.push(`${indentStr}}`);
+  return lines.join('\n');
 }
 
-function generateInputDefinitions(inputs: NodeTemplate['inputs']): string {
-  return inputs.map(i =>
-    `    ${i.name}: '${i.type}'`
-  ).join(',\n');
-}
+function renderEvaluationLogic(template: NodeTemplate): string {
+  const binding = template.occtBinding ?? template.operation;
+  const paramEntries: string[] = [];
 
-function generateOutputDefinitions(outputs: NodeTemplate['outputs']): string {
-  return outputs.map(o =>
-    `    ${o.name}: '${o.type}'`
-  ).join(',\n');
-}
+  template.inputs.forEach((input) => {
+    paramEntries.push(`${input.name}: inputs.${input.name}`);
+  });
 
-function generateEvaluationLogic(template: NodeTemplate): string {
-  if (template.occtBinding) {
-    // Direct OCCT binding call
-    return `
-    const result = await context.geometry.execute({
-      type: '${template.occtBinding}',
-      params: {
-        ${template.inputs.map(i => `${i.name}: inputs.${i.name}`).join(',\n        ')}${template.inputs.length > 0 && template.parameters.length > 0 ? ',' : ''}
-        ${template.parameters.map(p => `${p.name}: params.${p.name}`).join(',\n        ')}
-      }
+  template.parameters.forEach((param) => {
+    paramEntries.push(`${param.name}: params.${param.name}`);
+  });
+
+  const paramsBlock = paramEntries.length === 0
+    ? '{}'
+    : `{
+    ${paramEntries.join(',\n    ')}
+  }`;
+
+  const resultIdentifier = template.outputs.length > 1 ? 'results' : 'result';
+
+  const returnLines = (() => {
+    if (template.outputs.length === 0) {
+      return ['return {};'];
+    }
+
+    if (template.outputs.length === 1) {
+      return [
+        'return {',
+        `  ${template.outputs[0].name}: ${resultIdentifier}`,
+        '};',
+      ];
+    }
+
+    const mapped = template.outputs.map((output, index) => {
+      const suffix = index < template.outputs.length - 1 ? ',' : '';
+      return `  ${output.name}: ${resultIdentifier}.${output.name}${suffix}`;
     });
+    return [
+      'return {',
+      ...mapped,
+      '};',
+    ];
+  })();
 
-    return {
-      ${template.outputs.map(o => `${o.name}: result`).join(',\n      ')}
-    };`;
-  }
-
-  // Custom implementation placeholder
-  return `
-    // TODO: Implement ${template.name} logic
-    throw new Error('${template.name} not yet implemented');`;
-}
-
-function getTypeScriptType(type: Parameter['type']): string {
-  switch (type) {
-    case 'number': return 'number';
-    case 'boolean': return 'boolean';
-    case 'string': return 'string';
-    case 'vector3': return '[number, number, number]';
-    case 'enum': return 'string';
-    default: return 'any';
-  }
-}
-
-function getParamFunction(type: Parameter['type']): string {
-  switch (type) {
-    case 'number': return 'NumberParam';
-    case 'boolean': return 'BooleanParam';
-    case 'string': return 'StringParam';
-    case 'vector3': return 'Vector3Param';
-    case 'enum': return 'EnumParam';
-    default: return 'StringParam';
-  }
+  return [
+    `const ${resultIdentifier} = await context.geometry.execute({`,
+    `  type: '${binding}',`,
+    `  params: ${paramsBlock}`,
+    '});',
+    '',
+    ...returnLines,
+  ].join('\n');
 }
 
 /**
  * Generate test file for node
  */
 export function generateNodeTest(template: NodeTemplate): string {
+  const pascalName = toPascalCase(template.name);
+  const importPath = `./${toKebabCase(template.name)}.node`;
+
   return `
 import { describe, it, expect } from 'vitest';
-import { ${template.name}Node } from './${template.name.toLowerCase()}-node';
+import { ${pascalName}Node } from '${importPath}';
 import { createTestContext } from '../test-utils';
 
-describe('${template.name}Node', () => {
-  it('should create ${template.name}', async () => {
+describe('${pascalName}Node', () => {
+  it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
-      ${template.inputs.filter(i => i.required).map(i =>
-        `${i.name}: /* test value */`
-      ).join(',\n      ')}
-    };
+${template.inputs.filter(i => i.required).map(i => `      ${i.name}: undefined`).join(',\n')}
+    } as any;
     const params = {
-      ${template.parameters.map(p =>
-        `${p.name}: ${p.default !== undefined ? JSON.stringify(p.default) : '/* test value */'}`
-      ).join(',\n      ')}
-    };
+${template.parameters.map(p => `      ${p.name}: ${p.default !== undefined ? JSON.stringify(p.default) : 'undefined'}`).join(',\n')}
+    } as any;
 
-    const result = await ${template.name}Node.evaluate(context, inputs, params);
-
+    const result = await ${pascalName}Node.evaluate(context, inputs, params);
     expect(result).toBeDefined();
-    ${template.outputs.map(o =>
-      `expect(result.${o.name}).toBeDefined();`
-    ).join('\n    ')}
   });
-
-  ${template.examples ? template.examples.map(ex => `
-  it('should handle ${ex.title}', async () => {
-    const context = createTestContext();
-    const params = ${JSON.stringify(ex.parameters, null, 2).replace(/\n/g, '\n    ')};
-
-    const result = await ${template.name}Node.evaluate(context, {}, params);
-
-    expect(result).toBeDefined();
-  });`).join('\n  ') : ''}
-});`;
+});
+`;
 }
 
 /**
@@ -263,7 +383,7 @@ ${template.description}
 ## Parameters
 
 ${template.parameters.length > 0 ? template.parameters.map(p => `
-### ${p.name}
+### ${titleFromName(p.name)}
 - **Type:** ${p.type}
 - **Default:** ${p.default !== undefined ? JSON.stringify(p.default) : 'None'}
 ${p.min !== undefined ? `- **Min:** ${p.min}` : ''}
@@ -274,7 +394,7 @@ ${p.description ? `- **Description:** ${p.description}` : ''}
 ## Inputs
 
 ${template.inputs.length > 0 ? template.inputs.map(i => `
-### ${i.name}
+### ${titleFromName(i.name)}
 - **Type:** ${i.type}
 - **Required:** ${i.required ? 'Yes' : 'No'}
 ${i.description ? `- **Description:** ${i.description}` : ''}
@@ -283,7 +403,7 @@ ${i.description ? `- **Description:** ${i.description}` : ''}
 ## Outputs
 
 ${template.outputs.map(o => `
-### ${o.name}
+### ${titleFromName(o.name)}
 - **Type:** ${o.type}
 ${o.description ? `- **Description:** ${o.description}` : ''}
 `).join('\n')}

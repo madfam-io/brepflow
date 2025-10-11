@@ -8,7 +8,7 @@ Create needle bearing
 ## Parameters
 
 
-### innerDiameter
+### Inner Diameter
 - **Type:** number
 - **Default:** 15
 - **Min:** 5
@@ -16,7 +16,7 @@ Create needle bearing
 
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 21
 - **Min:** 10
@@ -24,7 +24,7 @@ Create needle bearing
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 12
 - **Min:** 5
@@ -32,7 +32,7 @@ Create needle bearing
 
 
 
-### needleCount
+### Needle Count
 - **Type:** number
 - **Default:** 20
 - **Min:** 10
@@ -43,7 +43,7 @@ Create needle bearing
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create needle bearing
 ## Outputs
 
 
-### bearing
+### Bearing
 - **Type:** Shape
 
 
 
-### needles
+### Needles
 - **Type:** Shape[]
 
 

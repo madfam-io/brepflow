@@ -8,7 +8,7 @@ Creates a circular pocket
 ## Parameters
 
 
-### diameter
+### Diameter
 - **Type:** number
 - **Default:** 40
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Creates a circular pocket
 
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Creates a circular pocket
 
 
 
-### draftAngle
+### Draft Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -35,13 +35,13 @@ Creates a circular pocket
 ## Inputs
 
 
-### face
+### Face
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Creates a circular pocket
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

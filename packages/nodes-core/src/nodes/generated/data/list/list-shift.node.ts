@@ -1,46 +1,49 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ListShiftParams {
   wrap: boolean;
 }
-interface Inputs {
-  list: Data[];
-  offset: number;
+
+interface ListShiftInputs {
+  list: unknown;
+  offset: unknown;
 }
-interface Outputs {
-  shifted: Data[];
+
+interface ListShiftOutputs {
+  shifted: unknown;
 }
 
 export const ListShiftNode: NodeDefinition<ListShiftInputs, ListShiftOutputs, ListShiftParams> = {
-  type: 'Data::ListShift',
+  id: 'Data::ListShift',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListShift',
-    description: 'Shift list items',
-    
-    
-  },
-
-  params: {
-        wrap: {
-      "default": true
+  label: 'ListShift',
+  description: 'Shift list items',
+  inputs: {
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    offset: {
+      type: 'number',
+      label: 'Offset',
+      required: true
     }
   },
-
-  inputs: {
-        list: 'Data[]',
-    offset: 'number'
-  },
-
   outputs: {
-        shifted: 'Data[]'
+    shifted: {
+      type: 'Data[]',
+      label: 'Shifted'
+    }
   },
-
+  params: {
+    wrap: {
+      type: 'boolean',
+      label: 'Wrap',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listShift',
       params: {
@@ -49,9 +52,9 @@ export const ListShiftNode: NodeDefinition<ListShiftInputs, ListShiftOutputs, Li
         wrap: params.wrap
       }
     });
-
+    
     return {
       shifted: result
     };
-  }
+  },
 };

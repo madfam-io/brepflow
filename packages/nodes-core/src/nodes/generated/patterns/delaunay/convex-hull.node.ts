@@ -1,53 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ConvexHullParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  points: Point[];
+interface ConvexHullInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  hull: Wire;
-  vertices: Point[];
+
+interface ConvexHullOutputs {
+  hull: unknown;
+  vertices: Array<[number, number, number]>;
 }
 
 export const ConvexHullNode: NodeDefinition<ConvexHullInputs, ConvexHullOutputs, ConvexHullParams> = {
-  type: 'Patterns::ConvexHull',
+  id: 'Patterns::ConvexHull',
   category: 'Patterns',
-  subcategory: 'Delaunay',
-
-  metadata: {
-    label: 'ConvexHull',
-    description: 'Convex hull of points',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ConvexHull',
+  description: 'Convex hull of points',
   inputs: {
-        points: 'Point[]'
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
+    }
   },
-
   outputs: {
-        hull: 'Wire',
-    vertices: 'Point[]'
+    hull: {
+      type: 'Wire',
+      label: 'Hull'
+    },
+    vertices: {
+      type: 'Point[]',
+      label: 'Vertices'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'convexHull',
       params: {
         points: inputs.points
-        
       }
     });
-
+    
     return {
-      hull: result,
-      vertices: result
+      hull: results.hull,
+      vertices: results.vertices
     };
-  }
+  },
 };

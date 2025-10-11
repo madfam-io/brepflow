@@ -1,59 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ExcelReaderParams {
   sheetName: string;
   hasHeader: boolean;
   range: string;
 }
-interface Inputs {
-  filePath: string;
+
+interface ExcelReaderInputs {
+  filePath: unknown;
 }
-interface Outputs {
-  data: Properties[];
-  sheetNames: string[];
-  dimensions: number[];
+
+interface ExcelReaderOutputs {
+  data: unknown;
+  sheetNames: unknown;
+  dimensions: unknown;
 }
 
 export const ExcelReaderNode: NodeDefinition<ExcelReaderInputs, ExcelReaderOutputs, ExcelReaderParams> = {
-  type: 'Interoperability::ExcelReader',
+  id: 'Interoperability::ExcelReader',
   category: 'Interoperability',
-  subcategory: 'Data',
-
-  metadata: {
-    label: 'ExcelReader',
-    description: 'Read Excel spreadsheet files',
-    
-    
-  },
-
-  params: {
-        sheetName: {
-      "default": "",
-      "description": "Sheet name (empty for first)"
-    },
-    hasHeader: {
-      "default": true
-    },
-    range: {
-      "default": "",
-      "description": "Cell range (e.g., A1:C10)"
+  label: 'ExcelReader',
+  description: 'Read Excel spreadsheet files',
+  inputs: {
+    filePath: {
+      type: 'string',
+      label: 'File Path',
+      required: true
     }
   },
-
-  inputs: {
-        filePath: 'string'
-  },
-
   outputs: {
-        data: 'Properties[]',
-    sheetNames: 'string[]',
-    dimensions: 'number[]'
+    data: {
+      type: 'Properties[]',
+      label: 'Data'
+    },
+    sheetNames: {
+      type: 'string[]',
+      label: 'Sheet Names'
+    },
+    dimensions: {
+      type: 'number[]',
+      label: 'Dimensions'
+    }
   },
-
+  params: {
+    sheetName: {
+      type: 'string',
+      label: 'Sheet Name',
+      default: ""
+    },
+    hasHeader: {
+      type: 'boolean',
+      label: 'Has Header',
+      default: true
+    },
+    range: {
+      type: 'string',
+      label: 'Range',
+      default: ""
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'excelReader',
       params: {
         filePath: inputs.filePath,
@@ -62,11 +69,11 @@ export const ExcelReaderNode: NodeDefinition<ExcelReaderInputs, ExcelReaderOutpu
         range: params.range
       }
     });
-
+    
     return {
-      data: result,
-      sheetNames: result,
-      dimensions: result
+      data: results.data,
+      sheetNames: results.sheetNames,
+      dimensions: results.dimensions
     };
-  }
+  },
 };

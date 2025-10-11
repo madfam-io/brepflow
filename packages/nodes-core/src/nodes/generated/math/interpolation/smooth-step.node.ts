@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SmoothStepParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  edge0: number;
-  edge1: number;
-  x: number;
+interface SmoothStepInputs {
+  edge0: unknown;
+  edge1: unknown;
+  x: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface SmoothStepOutputs {
+  result: unknown;
 }
 
 export const SmoothStepNode: NodeDefinition<SmoothStepInputs, SmoothStepOutputs, SmoothStepParams> = {
-  type: 'Math::SmoothStep',
+  id: 'Math::SmoothStep',
   category: 'Math',
-  subcategory: 'Interpolation',
-
-  metadata: {
-    label: 'SmoothStep',
-    description: 'Smooth step interpolation',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'SmoothStep',
+  description: 'Smooth step interpolation',
   inputs: {
-        edge0: 'number',
-    edge1: 'number',
-    x: 'number'
+    edge0: {
+      type: 'number',
+      label: 'Edge0',
+      required: true
+    },
+    edge1: {
+      type: 'number',
+      label: 'Edge1',
+      required: true
+    },
+    x: {
+      type: 'number',
+      label: 'X',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathSmoothStep',
       params: {
         edge0: inputs.edge0,
         edge1: inputs.edge1,
         x: inputs.x
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

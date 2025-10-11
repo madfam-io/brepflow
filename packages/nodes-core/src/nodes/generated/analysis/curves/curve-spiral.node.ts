@@ -1,57 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveSpiralParams {
   tolerance: number;
   showCenter: boolean;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveSpiralInputs {
+  curve: unknown;
 }
-interface Outputs {
-  isSpiral: boolean;
-  center: Point;
-  pitch: number;
-  turns: number;
+
+interface CurveSpiralOutputs {
+  isSpiral: unknown;
+  center: [number, number, number];
+  pitch: unknown;
+  turns: unknown;
 }
 
 export const CurveSpiralNode: NodeDefinition<CurveSpiralInputs, CurveSpiralOutputs, CurveSpiralParams> = {
-  type: 'Analysis::CurveSpiral',
+  id: 'Analysis::CurveSpiral',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveSpiral',
-    description: 'Analyze spiral properties',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
-    },
-    showCenter: {
-      "default": true
+  label: 'CurveSpiral',
+  description: 'Analyze spiral properties',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        isSpiral: 'boolean',
-    center: 'Point',
-    pitch: 'number',
-    turns: 'number'
+    isSpiral: {
+      type: 'boolean',
+      label: 'Is Spiral'
+    },
+    center: {
+      type: 'Point',
+      label: 'Center'
+    },
+    pitch: {
+      type: 'number',
+      label: 'Pitch'
+    },
+    turns: {
+      type: 'number',
+      label: 'Turns'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    showCenter: {
+      type: 'boolean',
+      label: 'Show Center',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveSpiral',
       params: {
         curve: inputs.curve,
@@ -59,12 +69,12 @@ export const CurveSpiralNode: NodeDefinition<CurveSpiralInputs, CurveSpiralOutpu
         showCenter: params.showCenter
       }
     });
-
+    
     return {
-      isSpiral: result,
-      center: result,
-      pitch: result,
-      turns: result
+      isSpiral: results.isSpiral,
+      center: results.center,
+      pitch: results.pitch,
+      turns: results.turns
     };
-  }
+  },
 };

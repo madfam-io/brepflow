@@ -1,53 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface JobTimeEstimateParams {
   rapidSpeed: number;
 }
-interface Inputs {
-  cuttingPaths: Wire[];
-  engravingPaths?: Wire[];
+
+interface JobTimeEstimateInputs {
+  cuttingPaths: unknown;
+  engravingPaths?: unknown;
 }
-interface Outputs {
-  totalTime: Number;
-  cuttingTime: Number;
-  engravingTime: Number;
+
+interface JobTimeEstimateOutputs {
+  totalTime: number;
+  cuttingTime: number;
+  engravingTime: number;
 }
 
 export const JobTimeEstimateNode: NodeDefinition<JobTimeEstimateInputs, JobTimeEstimateOutputs, JobTimeEstimateParams> = {
-  type: 'Fabrication::JobTimeEstimate',
+  id: 'Fabrication::JobTimeEstimate',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'JobTimeEstimate',
-    description: 'Estimate job time',
-    
-    
-  },
-
-  params: {
-        rapidSpeed: {
-      "default": 500,
-      "min": 100,
-      "max": 1000
+  label: 'JobTimeEstimate',
+  description: 'Estimate job time',
+  inputs: {
+    cuttingPaths: {
+      type: 'Wire[]',
+      label: 'Cutting Paths',
+      required: true
+    },
+    engravingPaths: {
+      type: 'Wire[]',
+      label: 'Engraving Paths',
+      optional: true
     }
   },
-
-  inputs: {
-        cuttingPaths: 'Wire[]',
-    engravingPaths: 'Wire[]'
-  },
-
   outputs: {
-        totalTime: 'Number',
-    cuttingTime: 'Number',
-    engravingTime: 'Number'
+    totalTime: {
+      type: 'Number',
+      label: 'Total Time'
+    },
+    cuttingTime: {
+      type: 'Number',
+      label: 'Cutting Time'
+    },
+    engravingTime: {
+      type: 'Number',
+      label: 'Engraving Time'
+    }
   },
-
+  params: {
+    rapidSpeed: {
+      type: 'number',
+      label: 'Rapid Speed',
+      default: 500,
+      min: 100,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'jobTimeEstimate',
       params: {
         cuttingPaths: inputs.cuttingPaths,
@@ -55,11 +64,11 @@ export const JobTimeEstimateNode: NodeDefinition<JobTimeEstimateInputs, JobTimeE
         rapidSpeed: params.rapidSpeed
       }
     });
-
+    
     return {
-      totalTime: result,
-      cuttingTime: result,
-      engravingTime: result
+      totalTime: results.totalTime,
+      cuttingTime: results.cuttingTime,
+      engravingTime: results.engravingTime
     };
-  }
+  },
 };

@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HelicalSweepParams {
   pitch: number;
   height: number;
   turns: number;
@@ -9,68 +8,82 @@ interface Params {
   leftHanded: boolean;
   taper: number;
 }
-interface Inputs {
-  profile: Wire;
-  axis?: Axis;
+
+interface HelicalSweepInputs {
+  profile: unknown;
+  axis?: unknown;
 }
-interface Outputs {
-  shape: Shape;
+
+interface HelicalSweepOutputs {
+  shape: unknown;
 }
 
 export const HelicalSweepNode: NodeDefinition<HelicalSweepInputs, HelicalSweepOutputs, HelicalSweepParams> = {
-  type: 'Advanced::HelicalSweep',
+  id: 'Advanced::HelicalSweep',
   category: 'Advanced',
-  subcategory: 'Sweep',
-
-  metadata: {
-    label: 'HelicalSweep',
-    description: 'Sweep profile along helix',
-    
-    
-  },
-
-  params: {
-        pitch: {
-      "default": 10,
-      "min": 0.1,
-      "max": 1000
+  label: 'HelicalSweep',
+  description: 'Sweep profile along helix',
+  inputs: {
+    profile: {
+      type: 'Wire',
+      label: 'Profile',
+      required: true
     },
-    height: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    turns: {
-      "default": 5,
-      "min": 0.1,
-      "max": 1000
-    },
-    radius: {
-      "default": 20,
-      "min": 0.1,
-      "max": 10000
-    },
-    leftHanded: {
-      "default": false
-    },
-    taper: {
-      "default": 0,
-      "min": -45,
-      "max": 45
+    axis: {
+      type: 'Axis',
+      label: 'Axis',
+      optional: true
     }
   },
-
-  inputs: {
-        profile: 'Wire',
-    axis: 'Axis'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    pitch: {
+      type: 'number',
+      label: 'Pitch',
+      default: 10,
+      min: 0.1,
+      max: 1000
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    turns: {
+      type: 'number',
+      label: 'Turns',
+      default: 5,
+      min: 0.1,
+      max: 1000
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 20,
+      min: 0.1,
+      max: 10000
+    },
+    leftHanded: {
+      type: 'boolean',
+      label: 'Left Handed',
+      default: false
+    },
+    taper: {
+      type: 'number',
+      label: 'Taper',
+      default: 0,
+      min: -45,
+      max: 45
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'helicalSweep',
       params: {
@@ -84,9 +97,9 @@ export const HelicalSweepNode: NodeDefinition<HelicalSweepInputs, HelicalSweepOu
         taper: params.taper
       }
     });
-
+    
     return {
       shape: result
     };
-  }
+  },
 };

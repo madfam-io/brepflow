@@ -1,69 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceContinuityParams {
   continuityType: string;
   tolerance: number;
   showAnalysis: boolean;
 }
-interface Inputs {
-  surface1: Face;
-  surface2: Face;
+
+interface SurfaceContinuityInputs {
+  surface1: unknown;
+  surface2: unknown;
 }
-interface Outputs {
-  isContinuous: boolean;
-  discontinuityPoints: Point[];
-  analysisLines: Wire[];
+
+interface SurfaceContinuityOutputs {
+  isContinuous: unknown;
+  discontinuityPoints: Array<[number, number, number]>;
+  analysisLines: unknown;
 }
 
 export const SurfaceContinuityNode: NodeDefinition<SurfaceContinuityInputs, SurfaceContinuityOutputs, SurfaceContinuityParams> = {
-  type: 'Analysis::SurfaceContinuity',
+  id: 'Analysis::SurfaceContinuity',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceContinuity',
-    description: 'Analyze surface continuity across edges',
-    
-    
-  },
-
-  params: {
-        continuityType: {
-      "default": "G1",
-      "options": [
-        "G0",
-        "G1",
-        "G2",
-        "C0",
-        "C1",
-        "C2"
-      ]
+  label: 'SurfaceContinuity',
+  description: 'Analyze surface continuity across edges',
+  inputs: {
+    surface1: {
+      type: 'Face',
+      label: 'Surface1',
+      required: true
     },
-    tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
-    },
-    showAnalysis: {
-      "default": true
+    surface2: {
+      type: 'Face',
+      label: 'Surface2',
+      required: true
     }
   },
-
-  inputs: {
-        surface1: 'Face',
-    surface2: 'Face'
-  },
-
   outputs: {
-        isContinuous: 'boolean',
-    discontinuityPoints: 'Point[]',
-    analysisLines: 'Wire[]'
+    isContinuous: {
+      type: 'boolean',
+      label: 'Is Continuous'
+    },
+    discontinuityPoints: {
+      type: 'Point[]',
+      label: 'Discontinuity Points'
+    },
+    analysisLines: {
+      type: 'Wire[]',
+      label: 'Analysis Lines'
+    }
   },
-
+  params: {
+    continuityType: {
+      type: 'enum',
+      label: 'Continuity Type',
+      default: "G1",
+      options: ["G0","G1","G2","C0","C1","C2"]
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    showAnalysis: {
+      type: 'boolean',
+      label: 'Show Analysis',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceContinuity',
       params: {
         surface1: inputs.surface1,
@@ -73,11 +79,11 @@ export const SurfaceContinuityNode: NodeDefinition<SurfaceContinuityInputs, Surf
         showAnalysis: params.showAnalysis
       }
     });
-
+    
     return {
-      isContinuous: result,
-      discontinuityPoints: result,
-      analysisLines: result
+      isContinuous: results.isContinuous,
+      discontinuityPoints: results.discontinuityPoints,
+      analysisLines: results.analysisLines
     };
-  }
+  },
 };

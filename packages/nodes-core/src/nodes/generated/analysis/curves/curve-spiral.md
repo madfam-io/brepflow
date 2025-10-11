@@ -8,7 +8,7 @@ Analyze spiral properties
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Analyze spiral properties
 
 
 
-### showCenter
+### Show Center
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Analyze spiral properties
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,22 +36,22 @@ Analyze spiral properties
 ## Outputs
 
 
-### isSpiral
+### Is Spiral
 - **Type:** boolean
 
 
 
-### center
+### Center
 - **Type:** Point
 
 
 
-### pitch
+### Pitch
 - **Type:** number
 
 
 
-### turns
+### Turns
 - **Type:** number
 
 

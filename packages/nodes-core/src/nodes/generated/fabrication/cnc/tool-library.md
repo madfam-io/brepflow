@@ -8,7 +8,7 @@ Tool library management
 ## Parameters
 
 
-### toolNumber
+### Tool Number
 - **Type:** number
 - **Default:** 1
 - **Min:** 1
@@ -16,7 +16,7 @@ Tool library management
 
 
 
-### toolType
+### Tool Type
 - **Type:** enum
 - **Default:** "endmill"
 
@@ -31,7 +31,7 @@ This node has no inputs.
 ## Outputs
 
 
-### toolData
+### Tool Data
 - **Type:** Data
 
 

@@ -1,73 +1,72 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SlotParams {
   centerX: number;
   centerY: number;
   length: number;
   width: number;
   angle: number;
 }
-type Inputs = {};
-interface Outputs {
-  face: Face;
+
+type SlotInputs = Record<string, never>;
+
+interface SlotOutputs {
+  face: unknown;
 }
 
 export const SlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
-  type: 'Sketch::Slot',
+  id: 'Sketch::Slot',
   category: 'Sketch',
-  subcategory: 'Basic',
-
-  metadata: {
-    label: 'Slot',
-    description: 'Create a slot (rounded rectangle)',
-    
-    
-  },
-
-  params: {
-        centerX: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerY: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    length: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    width: {
-      "default": 20,
-      "min": 0.1,
-      "max": 10000
-    },
-    angle: {
-      "default": 0,
-      "min": -180,
-      "max": 180,
-      "description": "Rotation angle"
+  label: 'Slot',
+  description: 'Create a slot (rounded rectangle)',
+  inputs: {},
+  outputs: {
+    face: {
+      type: 'Face',
+      label: 'Face'
     }
   },
-
-  inputs: {
-    
+  params: {
+    centerX: {
+      type: 'number',
+      label: 'Center X',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerY: {
+      type: 'number',
+      label: 'Center Y',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 20,
+      min: 0.1,
+      max: 10000
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 0,
+      min: -180,
+      max: 180
+    }
   },
-
-  outputs: {
-        face: 'Face'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeSlot',
       params: {
-        
         centerX: params.centerX,
         centerY: params.centerY,
         length: params.length,
@@ -75,9 +74,9 @@ export const SlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
         angle: params.angle
       }
     });
-
+    
     return {
       face: result
     };
-  }
+  },
 };

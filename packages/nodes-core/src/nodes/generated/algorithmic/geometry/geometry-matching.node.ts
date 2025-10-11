@@ -1,70 +1,82 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GeometryMatchingParams {
   algorithm: string;
   tolerance: number;
   iterations: number;
 }
-interface Inputs {
-  source: Shape;
-  target: Shape;
+
+interface GeometryMatchingInputs {
+  source: unknown;
+  target: unknown;
 }
-interface Outputs {
-  transform: Properties;
-  aligned: Shape;
-  error: number;
-  correspondences: Properties[];
+
+interface GeometryMatchingOutputs {
+  transform: unknown;
+  aligned: unknown;
+  error: unknown;
+  correspondences: unknown;
 }
 
 export const GeometryMatchingNode: NodeDefinition<GeometryMatchingInputs, GeometryMatchingOutputs, GeometryMatchingParams> = {
-  type: 'Algorithmic::GeometryMatching',
+  id: 'Algorithmic::GeometryMatching',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'GeometryMatching',
-    description: 'Match and align geometries',
-    
-    
-  },
-
-  params: {
-        algorithm: {
-      "default": "icp",
-      "options": [
-        "icp",
-        "feature",
-        "global"
-      ]
+  label: 'GeometryMatching',
+  description: 'Match and align geometries',
+  inputs: {
+    source: {
+      type: 'Shape',
+      label: 'Source',
+      required: true
     },
-    tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
-    },
-    iterations: {
-      "default": 50,
-      "min": 10,
-      "max": 500
+    target: {
+      type: 'Shape',
+      label: 'Target',
+      required: true
     }
   },
-
-  inputs: {
-        source: 'Shape',
-    target: 'Shape'
-  },
-
   outputs: {
-        transform: 'Properties',
-    aligned: 'Shape',
-    error: 'number',
-    correspondences: 'Properties[]'
+    transform: {
+      type: 'Properties',
+      label: 'Transform'
+    },
+    aligned: {
+      type: 'Shape',
+      label: 'Aligned'
+    },
+    error: {
+      type: 'number',
+      label: 'Error'
+    },
+    correspondences: {
+      type: 'Properties[]',
+      label: 'Correspondences'
+    }
   },
-
+  params: {
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "icp",
+      options: ["icp","feature","global"]
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 50,
+      min: 10,
+      max: 500
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'geometryMatching',
       params: {
         source: inputs.source,
@@ -74,12 +86,12 @@ export const GeometryMatchingNode: NodeDefinition<GeometryMatchingInputs, Geomet
         iterations: params.iterations
       }
     });
-
+    
     return {
-      transform: result,
-      aligned: result,
-      error: result,
-      correspondences: result
+      transform: results.transform,
+      aligned: results.aligned,
+      error: results.error,
+      correspondences: results.correspondences
     };
-  }
+  },
 };

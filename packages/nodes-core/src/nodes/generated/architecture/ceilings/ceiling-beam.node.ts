@@ -1,58 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CeilingBeamParams {
   beamDepth: number;
   beamWidth: number;
   spacing: number;
 }
-interface Inputs {
-  ceilingArea: Face;
+
+interface CeilingBeamInputs {
+  ceilingArea: unknown;
 }
-interface Outputs {
-  beams: Shape[];
+
+interface CeilingBeamOutputs {
+  beams: unknown;
 }
 
 export const CeilingBeamNode: NodeDefinition<CeilingBeamInputs, CeilingBeamOutputs, CeilingBeamParams> = {
-  type: 'Architecture::CeilingBeam',
+  id: 'Architecture::CeilingBeam',
   category: 'Architecture',
-  subcategory: 'Ceilings',
-
-  metadata: {
-    label: 'CeilingBeam',
-    description: 'Exposed ceiling beams',
-    
-    
-  },
-
-  params: {
-        beamDepth: {
-      "default": 300,
-      "min": 200,
-      "max": 600
-    },
-    beamWidth: {
-      "default": 150,
-      "min": 100,
-      "max": 300
-    },
-    spacing: {
-      "default": 1200,
-      "min": 600,
-      "max": 2400
+  label: 'CeilingBeam',
+  description: 'Exposed ceiling beams',
+  inputs: {
+    ceilingArea: {
+      type: 'Face',
+      label: 'Ceiling Area',
+      required: true
     }
   },
-
-  inputs: {
-        ceilingArea: 'Face'
-  },
-
   outputs: {
-        beams: 'Shape[]'
+    beams: {
+      type: 'Shape[]',
+      label: 'Beams'
+    }
   },
-
+  params: {
+    beamDepth: {
+      type: 'number',
+      label: 'Beam Depth',
+      default: 300,
+      min: 200,
+      max: 600
+    },
+    beamWidth: {
+      type: 'number',
+      label: 'Beam Width',
+      default: 150,
+      min: 100,
+      max: 300
+    },
+    spacing: {
+      type: 'number',
+      label: 'Spacing',
+      default: 1200,
+      min: 600,
+      max: 2400
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'ceilingBeam',
       params: {
@@ -62,9 +65,9 @@ export const CeilingBeamNode: NodeDefinition<CeilingBeamInputs, CeilingBeamOutpu
         spacing: params.spacing
       }
     });
-
+    
     return {
       beams: result
     };
-  }
+  },
 };

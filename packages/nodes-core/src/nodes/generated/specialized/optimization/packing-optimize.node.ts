@@ -1,64 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PackingOptimizeParams {
   containerSize: [number, number, number];
   rotationAllowed: boolean;
   algorithm: string;
 }
-interface Inputs {
-  parts: Shape[];
+
+interface PackingOptimizeInputs {
+  parts: unknown;
 }
-interface Outputs {
-  packing: Data;
-  efficiency: number;
+
+interface PackingOptimizeOutputs {
+  packing: unknown;
+  efficiency: unknown;
 }
 
 export const PackingOptimizeNode: NodeDefinition<PackingOptimizeInputs, PackingOptimizeOutputs, PackingOptimizeParams> = {
-  type: 'Specialized::PackingOptimize',
+  id: 'Specialized::PackingOptimize',
   category: 'Specialized',
-  subcategory: 'Optimization',
-
-  metadata: {
-    label: 'PackingOptimize',
-    description: 'Optimize part packing',
-    
-    
-  },
-
-  params: {
-        containerSize: {
-      "default": [
-        100,
-        100,
-        100
-      ]
-    },
-    rotationAllowed: {
-      "default": true
-    },
-    algorithm: {
-      "default": "genetic",
-      "options": [
-        "greedy",
-        "genetic",
-        "simulated-annealing"
-      ]
+  label: 'PackingOptimize',
+  description: 'Optimize part packing',
+  inputs: {
+    parts: {
+      type: 'Shape[]',
+      label: 'Parts',
+      required: true
     }
   },
-
-  inputs: {
-        parts: 'Shape[]'
-  },
-
   outputs: {
-        packing: 'Data',
-    efficiency: 'number'
+    packing: {
+      type: 'Data',
+      label: 'Packing'
+    },
+    efficiency: {
+      type: 'number',
+      label: 'Efficiency'
+    }
   },
-
+  params: {
+    containerSize: {
+      type: 'vec3',
+      label: 'Container Size',
+      default: [100,100,100]
+    },
+    rotationAllowed: {
+      type: 'boolean',
+      label: 'Rotation Allowed',
+      default: true
+    },
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "genetic",
+      options: ["greedy","genetic","simulated-annealing"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'packingOptimize',
       params: {
         parts: inputs.parts,
@@ -67,10 +65,10 @@ export const PackingOptimizeNode: NodeDefinition<PackingOptimizeInputs, PackingO
         algorithm: params.algorithm
       }
     });
-
+    
     return {
-      packing: result,
-      efficiency: result
+      packing: results.packing,
+      efficiency: results.efficiency
     };
-  }
+  },
 };

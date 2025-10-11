@@ -1,49 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EnvelopeParams {
   type: string;
 }
-interface Inputs {
-  assembly: Assembly;
+
+interface EnvelopeInputs {
+  assembly: unknown;
 }
-interface Outputs {
-  envelope: Shape;
+
+interface EnvelopeOutputs {
+  envelope: unknown;
 }
 
 export const EnvelopeNode: NodeDefinition<EnvelopeInputs, EnvelopeOutputs, EnvelopeParams> = {
-  type: 'Assembly::Envelope',
+  id: 'Assembly::Envelope',
   category: 'Assembly',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'Envelope',
-    description: 'Create assembly envelope',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "bounding",
-      "options": [
-        "bounding",
-        "swept",
-        "motion"
-      ]
+  label: 'Envelope',
+  description: 'Create assembly envelope',
+  inputs: {
+    assembly: {
+      type: 'Assembly',
+      label: 'Assembly',
+      required: true
     }
   },
-
-  inputs: {
-        assembly: 'Assembly'
-  },
-
   outputs: {
-        envelope: 'Shape'
+    envelope: {
+      type: 'Shape',
+      label: 'Envelope'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "bounding",
+      options: ["bounding","swept","motion"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'assemblyEnvelope',
       params: {
@@ -51,9 +46,9 @@ export const EnvelopeNode: NodeDefinition<EnvelopeInputs, EnvelopeOutputs, Envel
         type: params.type
       }
     });
-
+    
     return {
       envelope: result
     };
-  }
+  },
 };

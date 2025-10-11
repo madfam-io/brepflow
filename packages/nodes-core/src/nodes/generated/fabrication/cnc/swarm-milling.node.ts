@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SwarmMillingParams {
   passCount: number;
   overlap: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface SwarmMillingInputs {
+  surface: unknown;
 }
-interface Outputs {
-  swarmPaths: Wire[];
+
+interface SwarmMillingOutputs {
+  swarmPaths: unknown;
 }
 
 export const SwarmMillingNode: NodeDefinition<SwarmMillingInputs, SwarmMillingOutputs, SwarmMillingParams> = {
-  type: 'Fabrication::SwarmMilling',
+  id: 'Fabrication::SwarmMilling',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'SwarmMilling',
-    description: 'Swarm/parallel finishing',
-    
-    
-  },
-
-  params: {
-        passCount: {
-      "default": 5,
-      "min": 1,
-      "max": 20,
-      "step": 1
-    },
-    overlap: {
-      "default": 0.1,
-      "min": 0,
-      "max": 0.5
+  label: 'SwarmMilling',
+  description: 'Swarm/parallel finishing',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        swarmPaths: 'Wire[]'
+    swarmPaths: {
+      type: 'Wire[]',
+      label: 'Swarm Paths'
+    }
   },
-
+  params: {
+    passCount: {
+      type: 'number',
+      label: 'Pass Count',
+      default: 5,
+      min: 1,
+      max: 20,
+      step: 1
+    },
+    overlap: {
+      type: 'number',
+      label: 'Overlap',
+      default: 0.1,
+      min: 0,
+      max: 0.5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'swarmMilling',
       params: {
@@ -56,9 +57,9 @@ export const SwarmMillingNode: NodeDefinition<SwarmMillingInputs, SwarmMillingOu
         overlap: params.overlap
       }
     });
-
+    
     return {
       swarmPaths: result
     };
-  }
+  },
 };

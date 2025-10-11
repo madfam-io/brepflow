@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldMaxParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  fields: ScalarField[];
+interface FieldMaxInputs {
+  fields: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface FieldMaxOutputs {
+  field: unknown;
 }
 
 export const FieldMaxNode: NodeDefinition<FieldMaxInputs, FieldMaxOutputs, FieldMaxParams> = {
-  type: 'Field::FieldMax',
+  id: 'Field::FieldMax',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldMax',
-    description: 'Maximum of fields',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldMax',
+  description: 'Maximum of fields',
   inputs: {
-        fields: 'ScalarField[]'
+    fields: {
+      type: 'ScalarField[]',
+      label: 'Fields',
+      required: true
+    }
   },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldMax',
       params: {
         fields: inputs.fields
-        
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

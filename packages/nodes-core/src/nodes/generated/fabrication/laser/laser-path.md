@@ -8,7 +8,7 @@ Generate laser cutting path
 ## Parameters
 
 
-### kerf
+### Kerf
 - **Type:** number
 - **Default:** 0.15
 - **Min:** 0
@@ -16,7 +16,7 @@ Generate laser cutting path
 
 
 
-### cornerRadius
+### Corner Radius
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -27,7 +27,7 @@ Generate laser cutting path
 ## Inputs
 
 
-### profiles
+### Profiles
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Generate laser cutting path
 ## Outputs
 
 
-### cuttingPath
+### Cutting Path
 - **Type:** Wire[]
 
 

@@ -1,62 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CheckGeometryParams {
   checkLevel: string;
 }
-interface Inputs {
-  shape: Shape;
+
+interface CheckGeometryInputs {
+  shape: unknown;
 }
-interface Outputs {
-  isValid: boolean;
-  errors: Data;
+
+interface CheckGeometryOutputs {
+  isValid: unknown;
+  errors: unknown;
 }
 
 export const CheckGeometryNode: NodeDefinition<CheckGeometryInputs, CheckGeometryOutputs, CheckGeometryParams> = {
-  type: 'Advanced::CheckGeometry',
+  id: 'Advanced::CheckGeometry',
   category: 'Advanced',
-  subcategory: 'Healing',
-
-  metadata: {
-    label: 'CheckGeometry',
-    description: 'Validate geometry',
-    
-    
-  },
-
-  params: {
-        checkLevel: {
-      "default": "standard",
-      "options": [
-        "basic",
-        "standard",
-        "advanced"
-      ]
+  label: 'CheckGeometry',
+  description: 'Validate geometry',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        isValid: 'boolean',
-    errors: 'Data'
+    isValid: {
+      type: 'boolean',
+      label: 'Is Valid'
+    },
+    errors: {
+      type: 'Data',
+      label: 'Errors'
+    }
   },
-
+  params: {
+    checkLevel: {
+      type: 'enum',
+      label: 'Check Level',
+      default: "standard",
+      options: ["basic","standard","advanced"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'checkGeometry',
       params: {
         shape: inputs.shape,
         checkLevel: params.checkLevel
       }
     });
-
+    
     return {
-      isValid: result,
-      errors: result
+      isValid: results.isValid,
+      errors: results.errors
     };
-  }
+  },
 };

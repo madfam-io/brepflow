@@ -1,66 +1,78 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface S3UploadParams {
   bucket: string;
   accessKey: string;
   secretKey: string;
   region: string;
 }
-interface Inputs {
-  filePath: string;
-  key: string;
+
+interface S3UploadInputs {
+  filePath: unknown;
+  key: unknown;
 }
-interface Outputs {
-  success: boolean;
-  url: string;
-  etag: string;
+
+interface S3UploadOutputs {
+  success: unknown;
+  url: unknown;
+  etag: unknown;
 }
 
 export const S3UploadNode: NodeDefinition<S3UploadInputs, S3UploadOutputs, S3UploadParams> = {
-  type: 'Interoperability::S3Upload',
+  id: 'Interoperability::S3Upload',
   category: 'Interoperability',
-  subcategory: 'Cloud',
-
-  metadata: {
-    label: 'S3Upload',
-    description: 'Upload files to AWS S3',
-    
-    
-  },
-
-  params: {
-        bucket: {
-      "default": "",
-      "description": "S3 bucket name"
+  label: 'S3Upload',
+  description: 'Upload files to AWS S3',
+  inputs: {
+    filePath: {
+      type: 'string',
+      label: 'File Path',
+      required: true
     },
-    accessKey: {
-      "default": "",
-      "description": "AWS access key"
-    },
-    secretKey: {
-      "default": "",
-      "description": "AWS secret key"
-    },
-    region: {
-      "default": "us-east-1"
+    key: {
+      type: 'string',
+      label: 'Key',
+      required: true
     }
   },
-
-  inputs: {
-        filePath: 'string',
-    key: 'string'
-  },
-
   outputs: {
-        success: 'boolean',
-    url: 'string',
-    etag: 'string'
+    success: {
+      type: 'boolean',
+      label: 'Success'
+    },
+    url: {
+      type: 'string',
+      label: 'Url'
+    },
+    etag: {
+      type: 'string',
+      label: 'Etag'
+    }
   },
-
+  params: {
+    bucket: {
+      type: 'string',
+      label: 'Bucket',
+      default: ""
+    },
+    accessKey: {
+      type: 'string',
+      label: 'Access Key',
+      default: ""
+    },
+    secretKey: {
+      type: 'string',
+      label: 'Secret Key',
+      default: ""
+    },
+    region: {
+      type: 'string',
+      label: 'Region',
+      default: "us-east-1"
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 's3Upload',
       params: {
         filePath: inputs.filePath,
@@ -71,11 +83,11 @@ export const S3UploadNode: NodeDefinition<S3UploadInputs, S3UploadOutputs, S3Upl
         region: params.region
       }
     });
-
+    
     return {
-      success: result,
-      url: result,
-      etag: result
+      success: results.success,
+      url: results.url,
+      etag: results.etag
     };
-  }
+  },
 };

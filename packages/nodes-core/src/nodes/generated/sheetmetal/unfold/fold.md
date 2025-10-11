@@ -8,7 +8,7 @@ Fold flat pattern to 3D
 ## Parameters
 
 
-### foldSequence
+### Fold Sequence
 - **Type:** string
 - **Default:** "auto"
 
@@ -16,7 +16,7 @@ Fold flat pattern to 3D
 - **Description:** Bend sequence order
 
 
-### partialFold
+### Partial Fold
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -27,19 +27,19 @@ Fold flat pattern to 3D
 ## Inputs
 
 
-### flatPattern
+### Flat Pattern
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### bendLines
+### Bend Lines
 - **Type:** Edge[]
 - **Required:** Yes
 
 
 
-### bendAngles
+### Bend Angles
 - **Type:** number[]
 - **Required:** Yes
 
@@ -48,7 +48,7 @@ Fold flat pattern to 3D
 ## Outputs
 
 
-### foldedShape
+### Folded Shape
 - **Type:** Shape
 
 

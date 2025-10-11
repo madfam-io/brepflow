@@ -1,59 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ToolWearParams {
   material: string;
   cuttingTime: number;
 }
-interface Inputs {
-  toolpath: Wire[];
+
+interface ToolWearInputs {
+  toolpath: unknown;
 }
-interface Outputs {
-  wearRate: Number;
-  toolLife: Number;
+
+interface ToolWearOutputs {
+  wearRate: number;
+  toolLife: number;
 }
 
 export const ToolWearNode: NodeDefinition<ToolWearInputs, ToolWearOutputs, ToolWearParams> = {
-  type: 'Fabrication::ToolWear',
+  id: 'Fabrication::ToolWear',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'ToolWear',
-    description: 'Predict tool wear',
-    
-    
-  },
-
-  params: {
-        material: {
-      "default": "steel",
-      "options": [
-        "aluminum",
-        "steel",
-        "titanium",
-        "inconel"
-      ]
-    },
-    cuttingTime: {
-      "default": 60,
-      "min": 1,
-      "max": 1000
+  label: 'ToolWear',
+  description: 'Predict tool wear',
+  inputs: {
+    toolpath: {
+      type: 'Wire[]',
+      label: 'Toolpath',
+      required: true
     }
   },
-
-  inputs: {
-        toolpath: 'Wire[]'
-  },
-
   outputs: {
-        wearRate: 'Number',
-    toolLife: 'Number'
+    wearRate: {
+      type: 'Number',
+      label: 'Wear Rate'
+    },
+    toolLife: {
+      type: 'Number',
+      label: 'Tool Life'
+    }
   },
-
+  params: {
+    material: {
+      type: 'enum',
+      label: 'Material',
+      default: "steel",
+      options: ["aluminum","steel","titanium","inconel"]
+    },
+    cuttingTime: {
+      type: 'number',
+      label: 'Cutting Time',
+      default: 60,
+      min: 1,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'toolWear',
       params: {
         toolpath: inputs.toolpath,
@@ -61,10 +60,10 @@ export const ToolWearNode: NodeDefinition<ToolWearInputs, ToolWearOutputs, ToolW
         cuttingTime: params.cuttingTime
       }
     });
-
+    
     return {
-      wearRate: result,
-      toolLife: result
+      wearRate: results.wearRate,
+      toolLife: results.toolLife
     };
-  }
+  },
 };

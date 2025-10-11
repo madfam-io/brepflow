@@ -1,69 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RatchetMechanismParams {
   wheelDiameter: number;
   teeth: number;
   pawlLength: number;
   springTension: number;
 }
-interface Inputs {
-  center: Point;
+
+interface RatchetMechanismInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  assembly: Shape;
-  wheel: Shape;
-  pawl: Shape;
+
+interface RatchetMechanismOutputs {
+  assembly: unknown;
+  wheel: unknown;
+  pawl: unknown;
 }
 
 export const RatchetMechanismNode: NodeDefinition<RatchetMechanismInputs, RatchetMechanismOutputs, RatchetMechanismParams> = {
-  type: 'MechanicalEngineering::RatchetMechanism',
+  id: 'MechanicalEngineering::RatchetMechanism',
   category: 'MechanicalEngineering',
-  subcategory: 'Mechanisms',
-
-  metadata: {
-    label: 'RatchetMechanism',
-    description: 'Create ratchet and pawl',
-    
-    
-  },
-
-  params: {
-        wheelDiameter: {
-      "default": 50,
-      "min": 20,
-      "max": 150
-    },
-    teeth: {
-      "default": 24,
-      "min": 12,
-      "max": 60
-    },
-    pawlLength: {
-      "default": 20,
-      "min": 10,
-      "max": 50
-    },
-    springTension: {
-      "default": 5,
-      "min": 1,
-      "max": 20
+  label: 'RatchetMechanism',
+  description: 'Create ratchet and pawl',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        assembly: 'Shape',
-    wheel: 'Shape',
-    pawl: 'Shape'
+    assembly: {
+      type: 'Shape',
+      label: 'Assembly'
+    },
+    wheel: {
+      type: 'Shape',
+      label: 'Wheel'
+    },
+    pawl: {
+      type: 'Shape',
+      label: 'Pawl'
+    }
   },
-
+  params: {
+    wheelDiameter: {
+      type: 'number',
+      label: 'Wheel Diameter',
+      default: 50,
+      min: 20,
+      max: 150
+    },
+    teeth: {
+      type: 'number',
+      label: 'Teeth',
+      default: 24,
+      min: 12,
+      max: 60
+    },
+    pawlLength: {
+      type: 'number',
+      label: 'Pawl Length',
+      default: 20,
+      min: 10,
+      max: 50
+    },
+    springTension: {
+      type: 'number',
+      label: 'Spring Tension',
+      default: 5,
+      min: 1,
+      max: 20
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'ratchetMechanism',
       params: {
         center: inputs.center,
@@ -73,11 +84,11 @@ export const RatchetMechanismNode: NodeDefinition<RatchetMechanismInputs, Ratche
         springTension: params.springTension
       }
     });
-
+    
     return {
-      assembly: result,
-      wheel: result,
-      pawl: result
+      assembly: results.assembly,
+      wheel: results.wheel,
+      pawl: results.pawl
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Create a pyramid or truncated pyramid
 ## Parameters
 
 
-### baseWidth
+### Base Width
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a pyramid or truncated pyramid
 
 
 
-### baseDepth
+### Base Depth
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a pyramid or truncated pyramid
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create a pyramid or truncated pyramid
 
 
 
-### topWidth
+### Top Width
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -40,7 +40,7 @@ Create a pyramid or truncated pyramid
 - **Description:** 0 for pointed pyramid
 
 
-### topDepth
+### Top Depth
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -55,7 +55,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Generated pyramid
 

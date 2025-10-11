@@ -1,60 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CylindricalParams {
   minDistance: number;
   maxDistance: number;
   minAngle: number;
   maxAngle: number;
 }
-interface Inputs {
-  part1: Shape;
-  part2: Shape;
-  axis: Axis;
+
+interface CylindricalInputs {
+  part1: unknown;
+  part2: unknown;
+  axis: unknown;
 }
-interface Outputs {
-  joint: Joint;
+
+interface CylindricalOutputs {
+  joint: unknown;
 }
 
 export const CylindricalNode: NodeDefinition<CylindricalInputs, CylindricalOutputs, CylindricalParams> = {
-  type: 'Assembly::Cylindrical',
+  id: 'Assembly::Cylindrical',
   category: 'Assembly',
-  subcategory: 'Joints',
-
-  metadata: {
-    label: 'Cylindrical',
-    description: 'Create cylindrical joint',
-    
-    
-  },
-
-  params: {
-        minDistance: {
-      "default": 0
+  label: 'Cylindrical',
+  description: 'Create cylindrical joint',
+  inputs: {
+    part1: {
+      type: 'Shape',
+      label: 'Part1',
+      required: true
     },
-    maxDistance: {
-      "default": 100
+    part2: {
+      type: 'Shape',
+      label: 'Part2',
+      required: true
     },
-    minAngle: {
-      "default": -180
-    },
-    maxAngle: {
-      "default": 180
+    axis: {
+      type: 'Axis',
+      label: 'Axis',
+      required: true
     }
   },
-
-  inputs: {
-        part1: 'Shape',
-    part2: 'Shape',
-    axis: 'Axis'
-  },
-
   outputs: {
-        joint: 'Joint'
+    joint: {
+      type: 'Joint',
+      label: 'Joint'
+    }
   },
-
+  params: {
+    minDistance: {
+      type: 'number',
+      label: 'Min Distance',
+      default: 0
+    },
+    maxDistance: {
+      type: 'number',
+      label: 'Max Distance',
+      default: 100
+    },
+    minAngle: {
+      type: 'number',
+      label: 'Min Angle',
+      default: -180
+    },
+    maxAngle: {
+      type: 'number',
+      label: 'Max Angle',
+      default: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jointCylindrical',
       params: {
@@ -67,9 +80,9 @@ export const CylindricalNode: NodeDefinition<CylindricalInputs, CylindricalOutpu
         maxAngle: params.maxAngle
       }
     });
-
+    
     return {
       joint: result
     };
-  }
+  },
 };

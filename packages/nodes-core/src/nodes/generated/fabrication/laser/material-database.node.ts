@@ -1,73 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MaterialDatabaseParams {
   material: string;
   thickness: number;
 }
-type Inputs = {};
-interface Outputs {
-  cuttingSpeed: Number;
-  power: Number;
-  frequency: Number;
+
+type MaterialDatabaseInputs = Record<string, never>;
+
+interface MaterialDatabaseOutputs {
+  cuttingSpeed: number;
+  power: number;
+  frequency: number;
 }
 
 export const MaterialDatabaseNode: NodeDefinition<MaterialDatabaseInputs, MaterialDatabaseOutputs, MaterialDatabaseParams> = {
-  type: 'Fabrication::MaterialDatabase',
+  id: 'Fabrication::MaterialDatabase',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'MaterialDatabase',
-    description: 'Material cutting database',
-    
-    
-  },
-
-  params: {
-        material: {
-      "default": "acrylic",
-      "options": [
-        "acrylic",
-        "plywood",
-        "mdf",
-        "leather",
-        "paper",
-        "fabric"
-      ]
+  label: 'MaterialDatabase',
+  description: 'Material cutting database',
+  inputs: {},
+  outputs: {
+    cuttingSpeed: {
+      type: 'Number',
+      label: 'Cutting Speed'
     },
-    thickness: {
-      "default": 3,
-      "min": 0.1,
-      "max": 50
+    power: {
+      type: 'Number',
+      label: 'Power'
+    },
+    frequency: {
+      type: 'Number',
+      label: 'Frequency'
     }
   },
-
-  inputs: {
-    
+  params: {
+    material: {
+      type: 'enum',
+      label: 'Material',
+      default: "acrylic",
+      options: ["acrylic","plywood","mdf","leather","paper","fabric"]
+    },
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 3,
+      min: 0.1,
+      max: 50
+    }
   },
-
-  outputs: {
-        cuttingSpeed: 'Number',
-    power: 'Number',
-    frequency: 'Number'
-  },
-
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'materialDatabase',
       params: {
-        
         material: params.material,
         thickness: params.thickness
       }
     });
-
+    
     return {
-      cuttingSpeed: result,
-      power: result,
-      frequency: result
+      cuttingSpeed: results.cuttingSpeed,
+      power: results.power,
+      frequency: results.frequency
     };
-  }
+  },
 };

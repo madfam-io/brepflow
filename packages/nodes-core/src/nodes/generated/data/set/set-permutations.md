@@ -8,7 +8,7 @@ Permutations of set
 ## Parameters
 
 
-### k
+### K
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -19,7 +19,7 @@ Permutations of set
 ## Inputs
 
 
-### set
+### Set
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Permutations of set
 ## Outputs
 
 
-### permutations
+### Permutations
 - **Type:** Data[][]
 
 

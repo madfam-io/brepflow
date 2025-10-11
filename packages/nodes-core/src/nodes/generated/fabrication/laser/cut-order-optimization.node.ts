@@ -1,51 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CutOrderOptimizationParams {
   innerFirst: boolean;
   minimizeTravel: boolean;
 }
-interface Inputs {
-  paths: Wire[];
+
+interface CutOrderOptimizationInputs {
+  paths: unknown;
 }
-interface Outputs {
-  orderedPaths: Wire[];
-  travelPath: Wire;
+
+interface CutOrderOptimizationOutputs {
+  orderedPaths: unknown;
+  travelPath: unknown;
 }
 
 export const CutOrderOptimizationNode: NodeDefinition<CutOrderOptimizationInputs, CutOrderOptimizationOutputs, CutOrderOptimizationParams> = {
-  type: 'Fabrication::CutOrderOptimization',
+  id: 'Fabrication::CutOrderOptimization',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'CutOrderOptimization',
-    description: 'Optimize cutting order',
-    
-    
-  },
-
-  params: {
-        innerFirst: {
-      "default": true
-    },
-    minimizeTravel: {
-      "default": true
+  label: 'CutOrderOptimization',
+  description: 'Optimize cutting order',
+  inputs: {
+    paths: {
+      type: 'Wire[]',
+      label: 'Paths',
+      required: true
     }
   },
-
-  inputs: {
-        paths: 'Wire[]'
-  },
-
   outputs: {
-        orderedPaths: 'Wire[]',
-    travelPath: 'Wire'
+    orderedPaths: {
+      type: 'Wire[]',
+      label: 'Ordered Paths'
+    },
+    travelPath: {
+      type: 'Wire',
+      label: 'Travel Path'
+    }
   },
-
+  params: {
+    innerFirst: {
+      type: 'boolean',
+      label: 'Inner First',
+      default: true
+    },
+    minimizeTravel: {
+      type: 'boolean',
+      label: 'Minimize Travel',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'cutOrderOptimization',
       params: {
         paths: inputs.paths,
@@ -53,10 +57,10 @@ export const CutOrderOptimizationNode: NodeDefinition<CutOrderOptimizationInputs
         minimizeTravel: params.minimizeTravel
       }
     });
-
+    
     return {
-      orderedPaths: result,
-      travelPath: result
+      orderedPaths: results.orderedPaths,
+      travelPath: results.travelPath
     };
-  }
+  },
 };

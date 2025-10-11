@@ -1,66 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
-  objectives: any;
+interface GenerativeDesignParams {
+  objectives: unknown;
   generations: number;
   populationSize: number;
 }
-interface Inputs {
-  designSpace: Shape;
-  requirements: Data;
+
+interface GenerativeDesignInputs {
+  designSpace: unknown;
+  requirements: unknown;
 }
-interface Outputs {
-  designs: Shape[];
-  paretoFront: Data;
+
+interface GenerativeDesignOutputs {
+  designs: unknown;
+  paretoFront: unknown;
 }
 
 export const GenerativeDesignNode: NodeDefinition<GenerativeDesignInputs, GenerativeDesignOutputs, GenerativeDesignParams> = {
-  type: 'Specialized::GenerativeDesign',
+  id: 'Specialized::GenerativeDesign',
   category: 'Specialized',
-  subcategory: 'Optimization',
-
-  metadata: {
-    label: 'GenerativeDesign',
-    description: 'AI-driven generative design',
-    
-    
-  },
-
-  params: {
-        objectives: {
-      "default": [
-        "weight",
-        "strength"
-      ]
+  label: 'GenerativeDesign',
+  description: 'AI-driven generative design',
+  inputs: {
+    designSpace: {
+      type: 'Shape',
+      label: 'Design Space',
+      required: true
     },
-    generations: {
-      "default": 20,
-      "min": 5,
-      "max": 100,
-      "step": 5
-    },
-    populationSize: {
-      "default": 50,
-      "min": 10,
-      "max": 500,
-      "step": 10
+    requirements: {
+      type: 'Data',
+      label: 'Requirements',
+      required: true
     }
   },
-
-  inputs: {
-        designSpace: 'Shape',
-    requirements: 'Data'
-  },
-
   outputs: {
-        designs: 'Shape[]',
-    paretoFront: 'Data'
+    designs: {
+      type: 'Shape[]',
+      label: 'Designs'
+    },
+    paretoFront: {
+      type: 'Data',
+      label: 'Pareto Front'
+    }
   },
-
+  params: {
+    objectives: {
+      type: 'string[]',
+      label: 'Objectives',
+      default: ["weight","strength"]
+    },
+    generations: {
+      type: 'number',
+      label: 'Generations',
+      default: 20,
+      min: 5,
+      max: 100,
+      step: 5
+    },
+    populationSize: {
+      type: 'number',
+      label: 'Population Size',
+      default: 50,
+      min: 10,
+      max: 500,
+      step: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'generativeDesign',
       params: {
         designSpace: inputs.designSpace,
@@ -70,10 +77,10 @@ export const GenerativeDesignNode: NodeDefinition<GenerativeDesignInputs, Genera
         populationSize: params.populationSize
       }
     });
-
+    
     return {
-      designs: result,
-      paretoFront: result
+      designs: results.designs,
+      paretoFront: results.paretoFront
     };
-  }
+  },
 };

@@ -1,59 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SimplifyShapeParams {
   simplifyMethod: string;
   tolerance: number;
   preserveTopology: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface SimplifyShapeInputs {
+  shape: unknown;
 }
-interface Outputs {
-  simplified: Shape;
+
+interface SimplifyShapeOutputs {
+  simplified: unknown;
 }
 
 export const SimplifyShapeNode: NodeDefinition<SimplifyShapeInputs, SimplifyShapeOutputs, SimplifyShapeParams> = {
-  type: 'Advanced::SimplifyShape',
+  id: 'Advanced::SimplifyShape',
   category: 'Advanced',
-  subcategory: 'Healing',
-
-  metadata: {
-    label: 'SimplifyShape',
-    description: 'Simplify complex geometry',
-    
-    
-  },
-
-  params: {
-        simplifyMethod: {
-      "default": "merge-faces",
-      "options": [
-        "merge-faces",
-        "remove-details",
-        "defeaturing"
-      ]
-    },
-    tolerance: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
-    },
-    preserveTopology: {
-      "default": true
+  label: 'SimplifyShape',
+  description: 'Simplify complex geometry',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        simplified: 'Shape'
+    simplified: {
+      type: 'Shape',
+      label: 'Simplified'
+    }
   },
-
+  params: {
+    simplifyMethod: {
+      type: 'enum',
+      label: 'Simplify Method',
+      default: "merge-faces",
+      options: ["merge-faces","remove-details","defeaturing"]
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    },
+    preserveTopology: {
+      type: 'boolean',
+      label: 'Preserve Topology',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'simplifyShape',
       params: {
@@ -63,9 +62,9 @@ export const SimplifyShapeNode: NodeDefinition<SimplifyShapeInputs, SimplifyShap
         preserveTopology: params.preserveTopology
       }
     });
-
+    
     return {
       simplified: result
     };
-  }
+  },
 };

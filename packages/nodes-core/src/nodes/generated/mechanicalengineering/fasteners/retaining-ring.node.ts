@@ -1,69 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RetainingRingParams {
   shaftDiameter: number;
   type: string;
   thickness: number;
   grooveWidth: number;
 }
-interface Inputs {
-  center: Point;
+
+interface RetainingRingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  ring: Shape;
-  groove: Wire;
+
+interface RetainingRingOutputs {
+  ring: unknown;
+  groove: unknown;
 }
 
 export const RetainingRingNode: NodeDefinition<RetainingRingInputs, RetainingRingOutputs, RetainingRingParams> = {
-  type: 'MechanicalEngineering::RetainingRing',
+  id: 'MechanicalEngineering::RetainingRing',
   category: 'MechanicalEngineering',
-  subcategory: 'Fasteners',
-
-  metadata: {
-    label: 'RetainingRing',
-    description: 'Create retaining ring/circlip',
-    
-    
-  },
-
-  params: {
-        shaftDiameter: {
-      "default": 10,
-      "min": 3,
-      "max": 100
-    },
-    type: {
-      "default": "external",
-      "options": [
-        "external",
-        "internal"
-      ]
-    },
-    thickness: {
-      "default": 1,
-      "min": 0.5,
-      "max": 3
-    },
-    grooveWidth: {
-      "default": 1.2,
-      "min": 0.6,
-      "max": 4
+  label: 'RetainingRing',
+  description: 'Create retaining ring/circlip',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        ring: 'Shape',
-    groove: 'Wire'
+    ring: {
+      type: 'Shape',
+      label: 'Ring'
+    },
+    groove: {
+      type: 'Wire',
+      label: 'Groove'
+    }
   },
-
+  params: {
+    shaftDiameter: {
+      type: 'number',
+      label: 'Shaft Diameter',
+      default: 10,
+      min: 3,
+      max: 100
+    },
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "external",
+      options: ["external","internal"]
+    },
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 1,
+      min: 0.5,
+      max: 3
+    },
+    grooveWidth: {
+      type: 'number',
+      label: 'Groove Width',
+      default: 1.2,
+      min: 0.6,
+      max: 4
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'retainingRing',
       params: {
         center: inputs.center,
@@ -73,10 +78,10 @@ export const RetainingRingNode: NodeDefinition<RetainingRingInputs, RetainingRin
         grooveWidth: params.grooveWidth
       }
     });
-
+    
     return {
-      ring: result,
-      groove: result
+      ring: results.ring,
+      groove: results.groove
     };
-  }
+  },
 };

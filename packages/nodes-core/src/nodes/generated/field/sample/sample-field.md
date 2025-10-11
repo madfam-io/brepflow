@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 - **Required:** Yes
 
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### values
+### Values
 - **Type:** number[]
 
 

@@ -8,7 +8,7 @@ Swarm/parallel finishing
 ## Parameters
 
 
-### passCount
+### Pass Count
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -16,7 +16,7 @@ Swarm/parallel finishing
 
 
 
-### overlap
+### Overlap
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0
@@ -27,7 +27,7 @@ Swarm/parallel finishing
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Swarm/parallel finishing
 ## Outputs
 
 
-### swarmPaths
+### Swarm Paths
 - **Type:** Wire[]
 
 

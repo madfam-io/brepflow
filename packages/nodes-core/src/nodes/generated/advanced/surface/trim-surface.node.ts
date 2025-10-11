@@ -1,54 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TrimSurfaceParams {
   keepRegion: string;
   projectCurves: boolean;
 }
-interface Inputs {
-  surface: Face;
-  trimmingCurves: Wire[];
+
+interface TrimSurfaceInputs {
+  surface: unknown;
+  trimmingCurves: unknown;
 }
-interface Outputs {
-  trimmedSurface: Face;
+
+interface TrimSurfaceOutputs {
+  trimmedSurface: unknown;
 }
 
 export const TrimSurfaceNode: NodeDefinition<TrimSurfaceInputs, TrimSurfaceOutputs, TrimSurfaceParams> = {
-  type: 'Advanced::TrimSurface',
+  id: 'Advanced::TrimSurface',
   category: 'Advanced',
-  subcategory: 'Surface',
-
-  metadata: {
-    label: 'TrimSurface',
-    description: 'Trim surface with curves',
-    
-    
-  },
-
-  params: {
-        keepRegion: {
-      "default": "inside",
-      "options": [
-        "inside",
-        "outside"
-      ]
+  label: 'TrimSurface',
+  description: 'Trim surface with curves',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     },
-    projectCurves: {
-      "default": true
+    trimmingCurves: {
+      type: 'Wire[]',
+      label: 'Trimming Curves',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face',
-    trimmingCurves: 'Wire[]'
-  },
-
   outputs: {
-        trimmedSurface: 'Face'
+    trimmedSurface: {
+      type: 'Face',
+      label: 'Trimmed Surface'
+    }
   },
-
+  params: {
+    keepRegion: {
+      type: 'enum',
+      label: 'Keep Region',
+      default: "inside",
+      options: ["inside","outside"]
+    },
+    projectCurves: {
+      type: 'boolean',
+      label: 'Project Curves',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'trimSurface',
       params: {
@@ -58,9 +60,9 @@ export const TrimSurfaceNode: NodeDefinition<TrimSurfaceInputs, TrimSurfaceOutpu
         projectCurves: params.projectCurves
       }
     });
-
+    
     return {
       trimmedSurface: result
     };
-  }
+  },
 };

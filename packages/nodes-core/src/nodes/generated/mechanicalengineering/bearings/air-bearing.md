@@ -8,7 +8,7 @@ Create air bearing design
 ## Parameters
 
 
-### diameter
+### Diameter
 - **Type:** number
 - **Default:** 50
 - **Min:** 20
@@ -16,7 +16,7 @@ Create air bearing design
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 10
 - **Min:** 5
@@ -24,7 +24,7 @@ Create air bearing design
 
 
 
-### pocketCount
+### Pocket Count
 - **Type:** number
 - **Default:** 6
 - **Min:** 3
@@ -32,7 +32,7 @@ Create air bearing design
 
 
 
-### restrictorType
+### Restrictor Type
 - **Type:** enum
 - **Default:** "orifice"
 
@@ -43,7 +43,7 @@ Create air bearing design
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create air bearing design
 ## Outputs
 
 
-### bearing
+### Bearing
 - **Type:** Shape
 
 
 
-### pockets
+### Pockets
 - **Type:** Face[]
 
 
 
-### restrictors
+### Restrictors
 - **Type:** Wire[]
 
 

@@ -1,60 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DrillingOperationParams {
   drillDiameter: number;
   peckDepth: number;
   dwellTime: number;
 }
-interface Inputs {
-  holes: Point[];
-  depths: number[];
+
+interface DrillingOperationInputs {
+  holes: Array<[number, number, number]>;
+  depths: unknown;
 }
-interface Outputs {
-  drillCycles: Data;
+
+interface DrillingOperationOutputs {
+  drillCycles: unknown;
 }
 
 export const DrillingOperationNode: NodeDefinition<DrillingOperationInputs, DrillingOperationOutputs, DrillingOperationParams> = {
-  type: 'Fabrication::DrillingOperation',
+  id: 'Fabrication::DrillingOperation',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'DrillingOperation',
-    description: 'Drilling operation setup',
-    
-    
-  },
-
-  params: {
-        drillDiameter: {
-      "default": 8,
-      "min": 0.1,
-      "max": 50
+  label: 'DrillingOperation',
+  description: 'Drilling operation setup',
+  inputs: {
+    holes: {
+      type: 'Point[]',
+      label: 'Holes',
+      required: true
     },
-    peckDepth: {
-      "default": 5,
-      "min": 0,
-      "max": 20
-    },
-    dwellTime: {
-      "default": 0,
-      "min": 0,
-      "max": 10
+    depths: {
+      type: 'number[]',
+      label: 'Depths',
+      required: true
     }
   },
-
-  inputs: {
-        holes: 'Point[]',
-    depths: 'number[]'
-  },
-
   outputs: {
-        drillCycles: 'Data'
+    drillCycles: {
+      type: 'Data',
+      label: 'Drill Cycles'
+    }
   },
-
+  params: {
+    drillDiameter: {
+      type: 'number',
+      label: 'Drill Diameter',
+      default: 8,
+      min: 0.1,
+      max: 50
+    },
+    peckDepth: {
+      type: 'number',
+      label: 'Peck Depth',
+      default: 5,
+      min: 0,
+      max: 20
+    },
+    dwellTime: {
+      type: 'number',
+      label: 'Dwell Time',
+      default: 0,
+      min: 0,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'drillingOperation',
       params: {
@@ -65,9 +72,9 @@ export const DrillingOperationNode: NodeDefinition<DrillingOperationInputs, Dril
         dwellTime: params.dwellTime
       }
     });
-
+    
     return {
       drillCycles: result
     };
-  }
+  },
 };

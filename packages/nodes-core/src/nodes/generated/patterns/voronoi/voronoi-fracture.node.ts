@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VoronoiFractureParams {
   irregularity: number;
   density: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface VoronoiFractureInputs {
+  surface: unknown;
 }
-interface Outputs {
-  fragments: Face[];
+
+interface VoronoiFractureOutputs {
+  fragments: unknown;
 }
 
 export const VoronoiFractureNode: NodeDefinition<VoronoiFractureInputs, VoronoiFractureOutputs, VoronoiFractureParams> = {
-  type: 'Patterns::VoronoiFracture',
+  id: 'Patterns::VoronoiFracture',
   category: 'Patterns',
-  subcategory: 'Voronoi',
-
-  metadata: {
-    label: 'VoronoiFracture',
-    description: 'Fracture pattern generation',
-    
-    
-  },
-
-  params: {
-        irregularity: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
-    },
-    density: {
-      "default": 10,
-      "min": 1,
-      "max": 100
+  label: 'VoronoiFracture',
+  description: 'Fracture pattern generation',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        fragments: 'Face[]'
+    fragments: {
+      type: 'Face[]',
+      label: 'Fragments'
+    }
   },
-
+  params: {
+    irregularity: {
+      type: 'number',
+      label: 'Irregularity',
+      default: 0.5,
+      min: 0,
+      max: 1
+    },
+    density: {
+      type: 'number',
+      label: 'Density',
+      default: 10,
+      min: 1,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'voronoiFracture',
       params: {
@@ -55,9 +56,9 @@ export const VoronoiFractureNode: NodeDefinition<VoronoiFractureInputs, VoronoiF
         density: params.density
       }
     });
-
+    
     return {
       fragments: result
     };
-  }
+  },
 };

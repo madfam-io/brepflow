@@ -1,48 +1,49 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BillOfMaterialsParams {
   includeSubAssemblies: boolean;
   groupIdentical: boolean;
 }
-interface Inputs {
-  assembly: Assembly;
+
+interface BillOfMaterialsInputs {
+  assembly: unknown;
 }
-interface Outputs {
-  bom: BOM;
+
+interface BillOfMaterialsOutputs {
+  bom: unknown;
 }
 
 export const BillOfMaterialsNode: NodeDefinition<BillOfMaterialsInputs, BillOfMaterialsOutputs, BillOfMaterialsParams> = {
-  type: 'Assembly::BillOfMaterials',
+  id: 'Assembly::BillOfMaterials',
   category: 'Assembly',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'BillOfMaterials',
-    description: 'Generate bill of materials',
-    
-    
-  },
-
-  params: {
-        includeSubAssemblies: {
-      "default": true
-    },
-    groupIdentical: {
-      "default": true
+  label: 'BillOfMaterials',
+  description: 'Generate bill of materials',
+  inputs: {
+    assembly: {
+      type: 'Assembly',
+      label: 'Assembly',
+      required: true
     }
   },
-
-  inputs: {
-        assembly: 'Assembly'
-  },
-
   outputs: {
-        bom: 'BOM'
+    bom: {
+      type: 'BOM',
+      label: 'Bom'
+    }
   },
-
+  params: {
+    includeSubAssemblies: {
+      type: 'boolean',
+      label: 'Include Sub Assemblies',
+      default: true
+    },
+    groupIdentical: {
+      type: 'boolean',
+      label: 'Group Identical',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'assemblyBOM',
       params: {
@@ -51,9 +52,9 @@ export const BillOfMaterialsNode: NodeDefinition<BillOfMaterialsInputs, BillOfMa
         groupIdentical: params.groupIdentical
       }
     });
-
+    
     return {
       bom: result
     };
-  }
+  },
 };

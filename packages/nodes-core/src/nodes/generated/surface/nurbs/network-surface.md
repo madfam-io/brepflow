@@ -8,7 +8,7 @@ Create surface from curve network
 ## Parameters
 
 
-### continuity
+### Continuity
 - **Type:** enum
 - **Default:** "G1"
 
@@ -16,7 +16,7 @@ Create surface from curve network
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -27,13 +27,13 @@ Create surface from curve network
 ## Inputs
 
 
-### uCurves
+### U Curves
 - **Type:** Wire[]
 - **Required:** Yes
 
 
 
-### vCurves
+### V Curves
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Create surface from curve network
 ## Outputs
 
 
-### surface
+### Surface
 - **Type:** Face
 
 

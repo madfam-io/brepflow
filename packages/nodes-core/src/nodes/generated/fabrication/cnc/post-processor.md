@@ -8,7 +8,7 @@ CNC post-processor
 ## Parameters
 
 
-### machine
+### Machine
 - **Type:** enum
 - **Default:** "haas"
 
@@ -16,7 +16,7 @@ CNC post-processor
 
 
 
-### axes
+### Axes
 - **Type:** enum
 - **Default:** "3-axis"
 
@@ -27,7 +27,7 @@ CNC post-processor
 ## Inputs
 
 
-### toolpaths
+### Toolpaths
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ CNC post-processor
 ## Outputs
 
 
-### ncCode
+### Nc Code
 - **Type:** Data
 
 

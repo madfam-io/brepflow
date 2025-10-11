@@ -8,7 +8,7 @@ Straight access ramp
 ## Parameters
 
 
-### slope
+### Slope
 - **Type:** number
 - **Default:** 0.083
 - **Min:** 0.05
@@ -16,7 +16,7 @@ Straight access ramp
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 1200
 - **Min:** 900
@@ -24,7 +24,7 @@ Straight access ramp
 
 
 
-### handrails
+### Handrails
 - **Type:** boolean
 - **Default:** true
 
@@ -35,13 +35,13 @@ Straight access ramp
 ## Inputs
 
 
-### startPoint
+### Start Point
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### endPoint
+### End Point
 - **Type:** Point
 - **Required:** Yes
 
@@ -50,12 +50,12 @@ Straight access ramp
 ## Outputs
 
 
-### ramp
+### Ramp
 - **Type:** Shape
 
 
 
-### handrails
+### Handrails
 - **Type:** Shape[]
 
 

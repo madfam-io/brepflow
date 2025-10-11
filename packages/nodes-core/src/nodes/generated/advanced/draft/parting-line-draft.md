@@ -8,7 +8,7 @@ Draft from parting line
 ## Parameters
 
 
-### upperAngle
+### Upper Angle
 - **Type:** number
 - **Default:** 3
 - **Min:** 0
@@ -16,7 +16,7 @@ Draft from parting line
 
 
 
-### lowerAngle
+### Lower Angle
 - **Type:** number
 - **Default:** 3
 - **Min:** 0
@@ -24,7 +24,7 @@ Draft from parting line
 
 
 
-### pullDirection
+### Pull Direction
 - **Type:** vector3
 - **Default:** [0,0,1]
 
@@ -35,13 +35,13 @@ Draft from parting line
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### partingEdges
+### Parting Edges
 - **Type:** Edge[]
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Draft from parting line
 ## Outputs
 
 
-### drafted
+### Drafted
 - **Type:** Shape
 
 

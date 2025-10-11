@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VaultedCeilingParams {
   vaultType: string;
   rise: number;
 }
-interface Inputs {
-  ceilingOutline: Wire;
+
+interface VaultedCeilingInputs {
+  ceilingOutline: unknown;
 }
-interface Outputs {
-  vaultedCeiling: Shape;
+
+interface VaultedCeilingOutputs {
+  vaultedCeiling: unknown;
 }
 
 export const VaultedCeilingNode: NodeDefinition<VaultedCeilingInputs, VaultedCeilingOutputs, VaultedCeilingParams> = {
-  type: 'Architecture::VaultedCeiling',
+  id: 'Architecture::VaultedCeiling',
   category: 'Architecture',
-  subcategory: 'Ceilings',
-
-  metadata: {
-    label: 'VaultedCeiling',
-    description: 'Vaulted ceiling geometry',
-    
-    
-  },
-
-  params: {
-        vaultType: {
-      "default": "barrel",
-      "options": [
-        "barrel",
-        "groin",
-        "cloister",
-        "dome"
-      ]
-    },
-    rise: {
-      "default": 1000,
-      "min": 500,
-      "max": 3000
+  label: 'VaultedCeiling',
+  description: 'Vaulted ceiling geometry',
+  inputs: {
+    ceilingOutline: {
+      type: 'Wire',
+      label: 'Ceiling Outline',
+      required: true
     }
   },
-
-  inputs: {
-        ceilingOutline: 'Wire'
-  },
-
   outputs: {
-        vaultedCeiling: 'Shape'
+    vaultedCeiling: {
+      type: 'Shape',
+      label: 'Vaulted Ceiling'
+    }
   },
-
+  params: {
+    vaultType: {
+      type: 'enum',
+      label: 'Vault Type',
+      default: "barrel",
+      options: ["barrel","groin","cloister","dome"]
+    },
+    rise: {
+      type: 'number',
+      label: 'Rise',
+      default: 1000,
+      min: 500,
+      max: 3000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'vaultedCeiling',
       params: {
@@ -59,9 +55,9 @@ export const VaultedCeilingNode: NodeDefinition<VaultedCeilingInputs, VaultedCei
         rise: params.rise
       }
     });
-
+    
     return {
       vaultedCeiling: result
     };
-  }
+  },
 };

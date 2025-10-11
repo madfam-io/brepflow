@@ -8,7 +8,7 @@ Find closest point on surface
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Find closest point on surface
 
 
 
-### showConnection
+### Show Connection
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Find closest point on surface
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### point
+### Point
 - **Type:** Point
 - **Required:** Yes
 
@@ -42,22 +42,22 @@ Find closest point on surface
 ## Outputs
 
 
-### closestPoint
+### Closest Point
 - **Type:** Point
 
 
 
-### distance
+### Distance
 - **Type:** number
 
 
 
-### uParameter
+### U Parameter
 - **Type:** number
 
 
 
-### vParameter
+### V Parameter
 - **Type:** number
 
 

@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type TypeOfParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  data: Data;
+interface TypeOfInputs {
+  data: unknown;
 }
-interface Outputs {
-  type: string;
+
+interface TypeOfOutputs {
+  type: unknown;
 }
 
 export const TypeOfNode: NodeDefinition<TypeOfInputs, TypeOfOutputs, TypeOfParams> = {
-  type: 'Data::TypeOf',
+  id: 'Data::TypeOf',
   category: 'Data',
-  subcategory: 'Convert',
-
-  metadata: {
-    label: 'TypeOf',
-    description: 'Get data type',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'TypeOf',
+  description: 'Get data type',
   inputs: {
-        data: 'Data'
+    data: {
+      type: 'Data',
+      label: 'Data',
+      required: true
+    }
   },
-
   outputs: {
-        type: 'string'
+    type: {
+      type: 'string',
+      label: 'Type'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'typeOf',
       params: {
         data: inputs.data
-        
       }
     });
-
+    
     return {
       type: result
     };
-  }
+  },
 };

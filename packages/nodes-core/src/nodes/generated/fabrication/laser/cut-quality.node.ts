@@ -1,55 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CutQualityParams {
   speed: number;
   power: number;
 }
-interface Inputs {
-  material: Data;
+
+interface CutQualityInputs {
+  material: unknown;
 }
-interface Outputs {
-  edgeQuality: Data;
-  heatAffectedZone: Number;
+
+interface CutQualityOutputs {
+  edgeQuality: unknown;
+  heatAffectedZone: number;
 }
 
 export const CutQualityNode: NodeDefinition<CutQualityInputs, CutQualityOutputs, CutQualityParams> = {
-  type: 'Fabrication::CutQuality',
+  id: 'Fabrication::CutQuality',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'CutQuality',
-    description: 'Predict cut quality',
-    
-    
-  },
-
-  params: {
-        speed: {
-      "default": 20,
-      "min": 1,
-      "max": 100
-    },
-    power: {
-      "default": 80,
-      "min": 10,
-      "max": 100
+  label: 'CutQuality',
+  description: 'Predict cut quality',
+  inputs: {
+    material: {
+      type: 'Data',
+      label: 'Material',
+      required: true
     }
   },
-
-  inputs: {
-        material: 'Data'
-  },
-
   outputs: {
-        edgeQuality: 'Data',
-    heatAffectedZone: 'Number'
+    edgeQuality: {
+      type: 'Data',
+      label: 'Edge Quality'
+    },
+    heatAffectedZone: {
+      type: 'Number',
+      label: 'Heat Affected Zone'
+    }
   },
-
+  params: {
+    speed: {
+      type: 'number',
+      label: 'Speed',
+      default: 20,
+      min: 1,
+      max: 100
+    },
+    power: {
+      type: 'number',
+      label: 'Power',
+      default: 80,
+      min: 10,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'cutQuality',
       params: {
         material: inputs.material,
@@ -57,10 +61,10 @@ export const CutQualityNode: NodeDefinition<CutQualityInputs, CutQualityOutputs,
         power: params.power
       }
     });
-
+    
     return {
-      edgeQuality: result,
-      heatAffectedZone: result
+      edgeQuality: results.edgeQuality,
+      heatAffectedZone: results.heatAffectedZone
     };
-  }
+  },
 };

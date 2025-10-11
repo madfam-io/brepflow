@@ -8,7 +8,7 @@ Sample field on grid
 ## Parameters
 
 
-### resolutionX
+### Resolution X
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -16,7 +16,7 @@ Sample field on grid
 
 
 
-### resolutionY
+### Resolution Y
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -24,7 +24,7 @@ Sample field on grid
 
 
 
-### resolutionZ
+### Resolution Z
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -35,13 +35,13 @@ Sample field on grid
 ## Inputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 - **Required:** Yes
 
 
 
-### bounds
+### Bounds
 - **Type:** Box
 - **Required:** Yes
 
@@ -50,17 +50,17 @@ Sample field on grid
 ## Outputs
 
 
-### grid
+### Grid
 - **Type:** Data
 
 
 
-### points
+### Points
 - **Type:** Point[]
 
 
 
-### values
+### Values
 - **Type:** number[]
 
 

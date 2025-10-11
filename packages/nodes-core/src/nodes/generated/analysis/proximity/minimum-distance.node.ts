@@ -1,59 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MinimumDistanceParams {
   tolerance: number;
   showConnection: boolean;
 }
-interface Inputs {
-  geometry1: Shape;
-  geometry2: Shape;
+
+interface MinimumDistanceInputs {
+  geometry1: unknown;
+  geometry2: unknown;
 }
-interface Outputs {
-  distance: number;
-  point1: Point;
-  point2: Point;
-  connectionLine: Wire;
+
+interface MinimumDistanceOutputs {
+  distance: unknown;
+  point1: [number, number, number];
+  point2: [number, number, number];
+  connectionLine: unknown;
 }
 
 export const MinimumDistanceNode: NodeDefinition<MinimumDistanceInputs, MinimumDistanceOutputs, MinimumDistanceParams> = {
-  type: 'Analysis::MinimumDistance',
+  id: 'Analysis::MinimumDistance',
   category: 'Analysis',
-  subcategory: 'Proximity',
-
-  metadata: {
-    label: 'MinimumDistance',
-    description: 'Find minimum distance between geometries',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
+  label: 'MinimumDistance',
+  description: 'Find minimum distance between geometries',
+  inputs: {
+    geometry1: {
+      type: 'Shape',
+      label: 'Geometry1',
+      required: true
     },
-    showConnection: {
-      "default": true
+    geometry2: {
+      type: 'Shape',
+      label: 'Geometry2',
+      required: true
     }
   },
-
-  inputs: {
-        geometry1: 'Shape',
-    geometry2: 'Shape'
-  },
-
   outputs: {
-        distance: 'number',
-    point1: 'Point',
-    point2: 'Point',
-    connectionLine: 'Wire'
+    distance: {
+      type: 'number',
+      label: 'Distance'
+    },
+    point1: {
+      type: 'Point',
+      label: 'Point1'
+    },
+    point2: {
+      type: 'Point',
+      label: 'Point2'
+    },
+    connectionLine: {
+      type: 'Wire',
+      label: 'Connection Line'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    showConnection: {
+      type: 'boolean',
+      label: 'Show Connection',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'minimumDistance',
       params: {
         geometry1: inputs.geometry1,
@@ -62,12 +76,12 @@ export const MinimumDistanceNode: NodeDefinition<MinimumDistanceInputs, MinimumD
         showConnection: params.showConnection
       }
     });
-
+    
     return {
-      distance: result,
-      point1: result,
-      point2: result,
-      connectionLine: result
+      distance: results.distance,
+      point1: results.point1,
+      point2: results.point2,
+      connectionLine: results.connectionLine
     };
-  }
+  },
 };

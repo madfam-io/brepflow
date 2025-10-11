@@ -8,7 +8,7 @@ Flatten tree
 ## Parameters
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -19,7 +19,7 @@ Flatten tree
 ## Inputs
 
 
-### tree
+### Tree
 - **Type:** DataTree
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Flatten tree
 ## Outputs
 
 
-### flattened
+### Flattened
 - **Type:** DataTree
 
 

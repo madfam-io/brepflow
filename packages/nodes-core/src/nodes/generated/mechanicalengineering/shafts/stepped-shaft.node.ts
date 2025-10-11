@@ -1,58 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SteppedShaftParams {
   sections: string;
   chamfers: boolean;
   filletRadius: number;
 }
-interface Inputs {
-  centerline: Wire;
+
+interface SteppedShaftInputs {
+  centerline: unknown;
 }
-interface Outputs {
-  shaft: Shape;
-  sections: Shape[];
+
+interface SteppedShaftOutputs {
+  shaft: unknown;
+  sections: unknown;
 }
 
 export const SteppedShaftNode: NodeDefinition<SteppedShaftInputs, SteppedShaftOutputs, SteppedShaftParams> = {
-  type: 'MechanicalEngineering::SteppedShaft',
+  id: 'MechanicalEngineering::SteppedShaft',
   category: 'MechanicalEngineering',
-  subcategory: 'Shafts',
-
-  metadata: {
-    label: 'SteppedShaft',
-    description: 'Create stepped shaft',
-    
-    
-  },
-
-  params: {
-        sections: {
-      "default": "20x50,25x80,20x30",
-      "description": "Diameter x Length pairs"
-    },
-    chamfers: {
-      "default": true
-    },
-    filletRadius: {
-      "default": 1,
-      "min": 0.5,
-      "max": 5
+  label: 'SteppedShaft',
+  description: 'Create stepped shaft',
+  inputs: {
+    centerline: {
+      type: 'Wire',
+      label: 'Centerline',
+      required: true
     }
   },
-
-  inputs: {
-        centerline: 'Wire'
-  },
-
   outputs: {
-        shaft: 'Shape',
-    sections: 'Shape[]'
+    shaft: {
+      type: 'Shape',
+      label: 'Shaft'
+    },
+    sections: {
+      type: 'Shape[]',
+      label: 'Sections'
+    }
   },
-
+  params: {
+    sections: {
+      type: 'string',
+      label: 'Sections',
+      default: "20x50,25x80,20x30"
+    },
+    chamfers: {
+      type: 'boolean',
+      label: 'Chamfers',
+      default: true
+    },
+    filletRadius: {
+      type: 'number',
+      label: 'Fillet Radius',
+      default: 1,
+      min: 0.5,
+      max: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'steppedShaft',
       params: {
         centerline: inputs.centerline,
@@ -61,10 +66,10 @@ export const SteppedShaftNode: NodeDefinition<SteppedShaftInputs, SteppedShaftOu
         filletRadius: params.filletRadius
       }
     });
-
+    
     return {
-      shaft: result,
-      sections: result
+      shaft: results.shaft,
+      sections: results.sections
     };
-  }
+  },
 };

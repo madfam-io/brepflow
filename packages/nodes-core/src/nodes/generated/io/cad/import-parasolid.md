@@ -8,7 +8,7 @@ Import Parasolid file
 ## Parameters
 
 
-### healGeometry
+### Heal Geometry
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Import Parasolid file
 
 
 
-### simplifyGeometry
+### Simplify Geometry
 - **Type:** boolean
 - **Default:** false
 
@@ -27,7 +27,7 @@ Import Parasolid file
 ## Inputs
 
 
-### fileData
+### File Data
 - **Type:** Data
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Import Parasolid file
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

@@ -1,73 +1,91 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GradientDescentParams {
   learningRate: number;
   maxIterations: number;
   tolerance: number;
   momentum: number;
 }
-interface Inputs {
-  objective: Properties;
-  initialPoint: Point;
+
+interface GradientDescentInputs {
+  objective: unknown;
+  initialPoint: [number, number, number];
 }
-interface Outputs {
-  optimumPoint: Point;
-  optimumValue: number;
-  trajectory: Point[];
-  convergence: number[];
+
+interface GradientDescentOutputs {
+  optimumPoint: [number, number, number];
+  optimumValue: unknown;
+  trajectory: Array<[number, number, number]>;
+  convergence: unknown;
 }
 
 export const GradientDescentNode: NodeDefinition<GradientDescentInputs, GradientDescentOutputs, GradientDescentParams> = {
-  type: 'Algorithmic::GradientDescent',
+  id: 'Algorithmic::GradientDescent',
   category: 'Algorithmic',
-  subcategory: 'Optimization',
-
-  metadata: {
-    label: 'GradientDescent',
-    description: 'Gradient descent optimization',
-    
-    
-  },
-
-  params: {
-        learningRate: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
+  label: 'GradientDescent',
+  description: 'Gradient descent optimization',
+  inputs: {
+    objective: {
+      type: 'Properties',
+      label: 'Objective',
+      required: true
     },
-    maxIterations: {
-      "default": 1000,
-      "min": 10,
-      "max": 10000
-    },
-    tolerance: {
-      "default": 0.001,
-      "min": 0.000001,
-      "max": 0.1
-    },
-    momentum: {
-      "default": 0.9,
-      "min": 0,
-      "max": 1
+    initialPoint: {
+      type: 'Point',
+      label: 'Initial Point',
+      required: true
     }
   },
-
-  inputs: {
-        objective: 'Properties',
-    initialPoint: 'Point'
-  },
-
   outputs: {
-        optimumPoint: 'Point',
-    optimumValue: 'number',
-    trajectory: 'Point[]',
-    convergence: 'number[]'
+    optimumPoint: {
+      type: 'Point',
+      label: 'Optimum Point'
+    },
+    optimumValue: {
+      type: 'number',
+      label: 'Optimum Value'
+    },
+    trajectory: {
+      type: 'Point[]',
+      label: 'Trajectory'
+    },
+    convergence: {
+      type: 'number[]',
+      label: 'Convergence'
+    }
   },
-
+  params: {
+    learningRate: {
+      type: 'number',
+      label: 'Learning Rate',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    maxIterations: {
+      type: 'number',
+      label: 'Max Iterations',
+      default: 1000,
+      min: 10,
+      max: 10000
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.001,
+      min: 0.000001,
+      max: 0.1
+    },
+    momentum: {
+      type: 'number',
+      label: 'Momentum',
+      default: 0.9,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'gradientDescent',
       params: {
         objective: inputs.objective,
@@ -78,12 +96,12 @@ export const GradientDescentNode: NodeDefinition<GradientDescentInputs, Gradient
         momentum: params.momentum
       }
     });
-
+    
     return {
-      optimumPoint: result,
-      optimumValue: result,
-      trajectory: result,
-      convergence: result
+      optimumPoint: results.optimumPoint,
+      optimumValue: results.optimumValue,
+      trajectory: results.trajectory,
+      convergence: results.convergence
     };
-  }
+  },
 };

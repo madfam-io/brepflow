@@ -8,7 +8,7 @@ Coordinate multiple robots
 ## Parameters
 
 
-### syncMethod
+### Sync Method
 - **Type:** enum
 - **Default:** "position"
 
@@ -19,7 +19,7 @@ Coordinate multiple robots
 ## Inputs
 
 
-### robotPaths
+### Robot Paths
 - **Type:** Transform[][]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Coordinate multiple robots
 ## Outputs
 
 
-### synchronizedPaths
+### Synchronized Paths
 - **Type:** Transform[][]
 
 

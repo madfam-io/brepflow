@@ -8,7 +8,7 @@ Process and filter point clouds
 ## Parameters
 
 
-### operation
+### Operation
 - **Type:** enum
 - **Default:** "filter"
 
@@ -16,7 +16,7 @@ Process and filter point clouds
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Process and filter point clouds
 
 
 
-### neighbors
+### Neighbors
 - **Type:** number
 - **Default:** 6
 - **Min:** 3
@@ -35,7 +35,7 @@ Process and filter point clouds
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Process and filter point clouds
 ## Outputs
 
 
-### processed
+### Processed
 - **Type:** Point[]
 
 
 
-### normals
+### Normals
 - **Type:** Vector[]
 
 
 
-### indices
+### Indices
 - **Type:** number[]
 
 

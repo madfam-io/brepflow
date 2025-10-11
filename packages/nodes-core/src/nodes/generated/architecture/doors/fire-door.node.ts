@@ -1,58 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FireDoorParams {
   rating: string;
   closer: boolean;
   panic: boolean;
 }
-interface Inputs {
-  opening: Wire;
+
+interface FireDoorInputs {
+  opening: unknown;
 }
-interface Outputs {
-  fireDoor: Shape;
+
+interface FireDoorOutputs {
+  fireDoor: unknown;
 }
 
 export const FireDoorNode: NodeDefinition<FireDoorInputs, FireDoorOutputs, FireDoorParams> = {
-  type: 'Architecture::FireDoor',
+  id: 'Architecture::FireDoor',
   category: 'Architecture',
-  subcategory: 'Doors',
-
-  metadata: {
-    label: 'FireDoor',
-    description: 'Fire-rated door',
-    
-    
-  },
-
-  params: {
-        rating: {
-      "default": "60-min",
-      "options": [
-        "20-min",
-        "45-min",
-        "60-min",
-        "90-min"
-      ]
-    },
-    closer: {
-      "default": true
-    },
-    panic: {
-      "default": true
+  label: 'FireDoor',
+  description: 'Fire-rated door',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        fireDoor: 'Shape'
+    fireDoor: {
+      type: 'Shape',
+      label: 'Fire Door'
+    }
   },
-
+  params: {
+    rating: {
+      type: 'enum',
+      label: 'Rating',
+      default: "60-min",
+      options: ["20-min","45-min","60-min","90-min"]
+    },
+    closer: {
+      type: 'boolean',
+      label: 'Closer',
+      default: true
+    },
+    panic: {
+      type: 'boolean',
+      label: 'Panic',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fireDoor',
       params: {
@@ -62,9 +60,9 @@ export const FireDoorNode: NodeDefinition<FireDoorInputs, FireDoorOutputs, FireD
         panic: params.panic
       }
     });
-
+    
     return {
       fireDoor: result
     };
-  }
+  },
 };

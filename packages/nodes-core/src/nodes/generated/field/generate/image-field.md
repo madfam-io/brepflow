@@ -8,7 +8,7 @@ Field from image
 ## Parameters
 
 
-### channel
+### Channel
 - **Type:** enum
 - **Default:** "luminance"
 
@@ -16,7 +16,7 @@ Field from image
 
 
 
-### scale
+### Scale
 - **Type:** vector2
 - **Default:** [100,100]
 
@@ -24,7 +24,7 @@ Field from image
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 10
 - **Min:** 0
@@ -35,7 +35,7 @@ Field from image
 ## Inputs
 
 
-### image
+### Image
 - **Type:** Data
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Field from image
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

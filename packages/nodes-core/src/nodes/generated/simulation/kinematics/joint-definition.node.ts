@@ -1,79 +1,84 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface JointDefinitionParams {
   jointType: string;
   axis: [number, number, number];
   minLimit: number;
   maxLimit: number;
 }
-interface Inputs {
-  body1: Shape;
-  body2: Shape;
-  jointLocation: Point;
+
+interface JointDefinitionInputs {
+  body1: unknown;
+  body2: unknown;
+  jointLocation: [number, number, number];
 }
-interface Outputs {
-  joint: Data;
-  assembly: Shape;
+
+interface JointDefinitionOutputs {
+  joint: unknown;
+  assembly: unknown;
 }
 
 export const JointDefinitionNode: NodeDefinition<JointDefinitionInputs, JointDefinitionOutputs, JointDefinitionParams> = {
-  type: 'Simulation::JointDefinition',
+  id: 'Simulation::JointDefinition',
   category: 'Simulation',
-  subcategory: 'Kinematics',
-
-  metadata: {
-    label: 'JointDefinition',
-    description: 'Define kinematic joint',
-    
-    
-  },
-
-  params: {
-        jointType: {
-      "default": "revolute",
-      "options": [
-        "revolute",
-        "prismatic",
-        "cylindrical",
-        "spherical",
-        "planar",
-        "fixed"
-      ]
+  label: 'JointDefinition',
+  description: 'Define kinematic joint',
+  inputs: {
+    body1: {
+      type: 'Shape',
+      label: 'Body1',
+      required: true
     },
-    axis: {
-      "default": [
-        0,
-        0,
-        1
-      ]
+    body2: {
+      type: 'Shape',
+      label: 'Body2',
+      required: true
     },
-    minLimit: {
-      "default": -180,
-      "min": -360,
-      "max": 360
-    },
-    maxLimit: {
-      "default": 180,
-      "min": -360,
-      "max": 360
+    jointLocation: {
+      type: 'Point',
+      label: 'Joint Location',
+      required: true
     }
   },
-
-  inputs: {
-        body1: 'Shape',
-    body2: 'Shape',
-    jointLocation: 'Point'
-  },
-
   outputs: {
-        joint: 'Data',
-    assembly: 'Shape'
+    joint: {
+      type: 'Data',
+      label: 'Joint'
+    },
+    assembly: {
+      type: 'Shape',
+      label: 'Assembly'
+    }
   },
-
+  params: {
+    jointType: {
+      type: 'enum',
+      label: 'Joint Type',
+      default: "revolute",
+      options: ["revolute","prismatic","cylindrical","spherical","planar","fixed"]
+    },
+    axis: {
+      type: 'vec3',
+      label: 'Axis',
+      default: [0,0,1]
+    },
+    minLimit: {
+      type: 'number',
+      label: 'Min Limit',
+      default: -180,
+      min: -360,
+      max: 360
+    },
+    maxLimit: {
+      type: 'number',
+      label: 'Max Limit',
+      default: 180,
+      min: -360,
+      max: 360
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'jointDefinition',
       params: {
         body1: inputs.body1,
@@ -85,10 +90,10 @@ export const JointDefinitionNode: NodeDefinition<JointDefinitionInputs, JointDef
         maxLimit: params.maxLimit
       }
     });
-
+    
     return {
-      joint: result,
-      assembly: result
+      joint: results.joint,
+      assembly: results.assembly
     };
-  }
+  },
 };

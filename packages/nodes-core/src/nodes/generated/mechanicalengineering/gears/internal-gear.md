@@ -8,7 +8,7 @@ Create internal/ring gear
 ## Parameters
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Create internal/ring gear
 
 
 
-### teeth
+### Teeth
 - **Type:** number
 - **Default:** 60
 - **Min:** 30
@@ -24,7 +24,7 @@ Create internal/ring gear
 
 
 
-### rimThickness
+### Rim Thickness
 - **Type:** number
 - **Default:** 10
 - **Min:** 5
@@ -32,7 +32,7 @@ Create internal/ring gear
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -43,7 +43,7 @@ Create internal/ring gear
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create internal/ring gear
 ## Outputs
 
 
-### gear
+### Gear
 - **Type:** Shape
 
 
 
-### innerProfile
+### Inner Profile
 - **Type:** Wire
 
 

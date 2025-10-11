@@ -8,7 +8,7 @@ Calculate surface roughness metrics
 ## Parameters
 
 
-### sampleDensity
+### Sample Density
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -16,7 +16,7 @@ Calculate surface roughness metrics
 
 
 
-### analysisType
+### Analysis Type
 - **Type:** enum
 - **Default:** "all"
 
@@ -27,7 +27,7 @@ Calculate surface roughness metrics
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,22 +36,22 @@ Calculate surface roughness metrics
 ## Outputs
 
 
-### roughnessRa
+### Roughness Ra
 - **Type:** number
 
 
 
-### roughnessRz
+### Roughness Rz
 - **Type:** number
 
 
 
-### roughnessRq
+### Roughness Rq
 - **Type:** number
 
 
 
-### roughnessMap
+### Roughness Map
 - **Type:** Shape
 
 

@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldInvertParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  field: ScalarField;
+interface FieldInvertInputs {
+  field: unknown;
 }
-interface Outputs {
-  inverted: ScalarField;
+
+interface FieldInvertOutputs {
+  inverted: unknown;
 }
 
 export const FieldInvertNode: NodeDefinition<FieldInvertInputs, FieldInvertOutputs, FieldInvertParams> = {
-  type: 'Field::FieldInvert',
+  id: 'Field::FieldInvert',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldInvert',
-    description: 'Invert field values',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldInvert',
+  description: 'Invert field values',
   inputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
+    }
   },
-
   outputs: {
-        inverted: 'ScalarField'
+    inverted: {
+      type: 'ScalarField',
+      label: 'Inverted'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldInvert',
       params: {
         field: inputs.field
-        
       }
     });
-
+    
     return {
       inverted: result
     };
-  }
+  },
 };

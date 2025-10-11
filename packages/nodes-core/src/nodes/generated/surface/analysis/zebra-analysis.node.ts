@@ -1,61 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ZebraAnalysisParams {
   stripeCount: number;
   stripeDirection: [number, number, number];
   stripeWidth: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface ZebraAnalysisInputs {
+  surface: unknown;
 }
-interface Outputs {
-  stripes: Wire[];
+
+interface ZebraAnalysisOutputs {
+  stripes: unknown;
 }
 
 export const ZebraAnalysisNode: NodeDefinition<ZebraAnalysisInputs, ZebraAnalysisOutputs, ZebraAnalysisParams> = {
-  type: 'Surface::ZebraAnalysis',
+  id: 'Surface::ZebraAnalysis',
   category: 'Surface',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'ZebraAnalysis',
-    description: 'Zebra stripe analysis',
-    
-    
-  },
-
-  params: {
-        stripeCount: {
-      "default": 20,
-      "min": 5,
-      "max": 100,
-      "step": 1
-    },
-    stripeDirection: {
-      "default": [
-        0,
-        0,
-        1
-      ]
-    },
-    stripeWidth: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
+  label: 'ZebraAnalysis',
+  description: 'Zebra stripe analysis',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        stripes: 'Wire[]'
+    stripes: {
+      type: 'Wire[]',
+      label: 'Stripes'
+    }
   },
-
+  params: {
+    stripeCount: {
+      type: 'number',
+      label: 'Stripe Count',
+      default: 20,
+      min: 5,
+      max: 100,
+      step: 1
+    },
+    stripeDirection: {
+      type: 'vec3',
+      label: 'Stripe Direction',
+      default: [0,0,1]
+    },
+    stripeWidth: {
+      type: 'number',
+      label: 'Stripe Width',
+      default: 1,
+      min: 0.1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'zebraAnalysis',
       params: {
@@ -65,9 +64,9 @@ export const ZebraAnalysisNode: NodeDefinition<ZebraAnalysisInputs, ZebraAnalysi
         stripeWidth: params.stripeWidth
       }
     });
-
+    
     return {
       stripes: result
     };
-  }
+  },
 };

@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FocusCompensationParams {
   focalLength: number;
   beamDivergence: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface FocusCompensationInputs {
+  surface: unknown;
 }
-interface Outputs {
-  focusMap: Data;
+
+interface FocusCompensationOutputs {
+  focusMap: unknown;
 }
 
 export const FocusCompensationNode: NodeDefinition<FocusCompensationInputs, FocusCompensationOutputs, FocusCompensationParams> = {
-  type: 'Fabrication::FocusCompensation',
+  id: 'Fabrication::FocusCompensation',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'FocusCompensation',
-    description: 'Focus height compensation',
-    
-    
-  },
-
-  params: {
-        focalLength: {
-      "default": 50,
-      "min": 20,
-      "max": 200
-    },
-    beamDivergence: {
-      "default": 2,
-      "min": 0.5,
-      "max": 5
+  label: 'FocusCompensation',
+  description: 'Focus height compensation',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        focusMap: 'Data'
+    focusMap: {
+      type: 'Data',
+      label: 'Focus Map'
+    }
   },
-
+  params: {
+    focalLength: {
+      type: 'number',
+      label: 'Focal Length',
+      default: 50,
+      min: 20,
+      max: 200
+    },
+    beamDivergence: {
+      type: 'number',
+      label: 'Beam Divergence',
+      default: 2,
+      min: 0.5,
+      max: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'focusCompensation',
       params: {
@@ -55,9 +56,9 @@ export const FocusCompensationNode: NodeDefinition<FocusCompensationInputs, Focu
         beamDivergence: params.beamDivergence
       }
     });
-
+    
     return {
       focusMap: result
     };
-  }
+  },
 };

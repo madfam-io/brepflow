@@ -8,7 +8,7 @@ Compute visibility graph for path planning
 ## Parameters
 
 
-### epsilon
+### Epsilon
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Compute visibility graph for path planning
 
 
 
-### includeInterior
+### Include Interior
 - **Type:** boolean
 - **Default:** false
 
@@ -27,19 +27,19 @@ Compute visibility graph for path planning
 ## Inputs
 
 
-### obstacles
+### Obstacles
 - **Type:** Shape[]
 - **Required:** Yes
 
 
 
-### start
+### Start
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### goal
+### Goal
 - **Type:** Point
 - **Required:** Yes
 
@@ -48,17 +48,17 @@ Compute visibility graph for path planning
 ## Outputs
 
 
-### graph
+### Graph
 - **Type:** Wire[]
 
 
 
-### vertices
+### Vertices
 - **Type:** Point[]
 
 
 
-### edges
+### Edges
 - **Type:** Properties[]
 
 

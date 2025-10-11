@@ -8,7 +8,7 @@ Extract isosurface using marching cubes
 ## Parameters
 
 
-### isovalue
+### Isovalue
 - **Type:** number
 - **Default:** 0
 - **Min:** -100
@@ -16,7 +16,7 @@ Extract isosurface using marching cubes
 
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 32
 - **Min:** 8
@@ -24,7 +24,7 @@ Extract isosurface using marching cubes
 
 
 
-### smooth
+### Smooth
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Extract isosurface using marching cubes
 ## Inputs
 
 
-### scalarField
+### Scalar Field
 - **Type:** Properties
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Extract isosurface using marching cubes
 ## Outputs
 
 
-### mesh
+### Mesh
 - **Type:** Shape
 
 
 
-### vertices
+### Vertices
 - **Type:** Point[]
 
 
 
-### normals
+### Normals
 - **Type:** Vector[]
 
 

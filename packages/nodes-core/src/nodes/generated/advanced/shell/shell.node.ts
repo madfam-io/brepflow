@@ -1,64 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ShellParams {
   thickness: number;
   direction: string;
   tolerance: number;
 }
-interface Inputs {
-  solid: Shape;
-  facesToRemove: Face[];
+
+interface ShellInputs {
+  solid: unknown;
+  facesToRemove: unknown;
 }
-interface Outputs {
-  shell: Shape;
+
+interface ShellOutputs {
+  shell: unknown;
 }
 
 export const ShellNode: NodeDefinition<ShellInputs, ShellOutputs, ShellParams> = {
-  type: 'Advanced::Shell',
+  id: 'Advanced::Shell',
   category: 'Advanced',
-  subcategory: 'Shell',
-
-  metadata: {
-    label: 'Shell',
-    description: 'Hollow out solid',
-    
-    
-  },
-
-  params: {
-        thickness: {
-      "default": 2,
-      "min": 0.01,
-      "max": 1000,
-      "description": "Wall thickness"
+  label: 'Shell',
+  description: 'Hollow out solid',
+  inputs: {
+    solid: {
+      type: 'Shape',
+      label: 'Solid',
+      required: true
     },
-    direction: {
-      "default": "inward",
-      "options": [
-        "inward",
-        "outward",
-        "both"
-      ]
-    },
-    tolerance: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
+    facesToRemove: {
+      type: 'Face[]',
+      label: 'Faces To Remove',
+      required: true
     }
   },
-
-  inputs: {
-        solid: 'Shape',
-    facesToRemove: 'Face[]'
-  },
-
   outputs: {
-        shell: 'Shape'
+    shell: {
+      type: 'Shape',
+      label: 'Shell'
+    }
   },
-
+  params: {
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 2,
+      min: 0.01,
+      max: 1000
+    },
+    direction: {
+      type: 'enum',
+      label: 'Direction',
+      default: "inward",
+      options: ["inward","outward","both"]
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'shell',
       params: {
@@ -69,9 +71,9 @@ export const ShellNode: NodeDefinition<ShellInputs, ShellOutputs, ShellParams> =
         tolerance: params.tolerance
       }
     });
-
+    
     return {
       shell: result
     };
-  }
+  },
 };

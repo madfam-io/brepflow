@@ -1,60 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SmartFastenersParams {
   type: string;
   size: number;
   autoSize: boolean;
 }
-interface Inputs {
-  holes: Face[];
+
+interface SmartFastenersInputs {
+  holes: unknown;
 }
-interface Outputs {
-  fasteners: Shape[];
+
+interface SmartFastenersOutputs {
+  fasteners: unknown;
 }
 
 export const SmartFastenersNode: NodeDefinition<SmartFastenersInputs, SmartFastenersOutputs, SmartFastenersParams> = {
-  type: 'Assembly::SmartFasteners',
+  id: 'Assembly::SmartFasteners',
   category: 'Assembly',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'SmartFasteners',
-    description: 'Add smart fasteners',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "bolt",
-      "options": [
-        "bolt",
-        "screw",
-        "rivet",
-        "weld"
-      ]
-    },
-    size: {
-      "default": 10,
-      "min": 1,
-      "max": 100
-    },
-    autoSize: {
-      "default": true
+  label: 'SmartFasteners',
+  description: 'Add smart fasteners',
+  inputs: {
+    holes: {
+      type: 'Face[]',
+      label: 'Holes',
+      required: true
     }
   },
-
-  inputs: {
-        holes: 'Face[]'
-  },
-
   outputs: {
-        fasteners: 'Shape[]'
+    fasteners: {
+      type: 'Shape[]',
+      label: 'Fasteners'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "bolt",
+      options: ["bolt","screw","rivet","weld"]
+    },
+    size: {
+      type: 'number',
+      label: 'Size',
+      default: 10,
+      min: 1,
+      max: 100
+    },
+    autoSize: {
+      type: 'boolean',
+      label: 'Auto Size',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'assemblySmartFasteners',
       params: {
@@ -64,9 +62,9 @@ export const SmartFastenersNode: NodeDefinition<SmartFastenersInputs, SmartFaste
         autoSize: params.autoSize
       }
     });
-
+    
     return {
       fasteners: result
     };
-  }
+  },
 };

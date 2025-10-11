@@ -1,59 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SingularityAvoidanceParams {
   threshold: number;
 }
-interface Inputs {
-  jointTrajectory: Data;
+
+interface SingularityAvoidanceInputs {
+  jointTrajectory: unknown;
 }
-interface Outputs {
-  safeTrajectory: Data;
-  singularityPoints: Number[];
+
+interface SingularityAvoidanceOutputs {
+  safeTrajectory: unknown;
+  singularityPoints: number[];
 }
 
 export const SingularityAvoidanceNode: NodeDefinition<SingularityAvoidanceInputs, SingularityAvoidanceOutputs, SingularityAvoidanceParams> = {
-  type: 'Fabrication::SingularityAvoidance',
+  id: 'Fabrication::SingularityAvoidance',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'SingularityAvoidance',
-    description: 'Avoid robot singularities',
-    
-    
-  },
-
-  params: {
-        threshold: {
-      "default": 0.1,
-      "min": 0.01,
-      "max": 1
+  label: 'SingularityAvoidance',
+  description: 'Avoid robot singularities',
+  inputs: {
+    jointTrajectory: {
+      type: 'Data',
+      label: 'Joint Trajectory',
+      required: true
     }
   },
-
-  inputs: {
-        jointTrajectory: 'Data'
-  },
-
   outputs: {
-        safeTrajectory: 'Data',
-    singularityPoints: 'Number[]'
+    safeTrajectory: {
+      type: 'Data',
+      label: 'Safe Trajectory'
+    },
+    singularityPoints: {
+      type: 'Number[]',
+      label: 'Singularity Points'
+    }
   },
-
+  params: {
+    threshold: {
+      type: 'number',
+      label: 'Threshold',
+      default: 0.1,
+      min: 0.01,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'singularityAvoidance',
       params: {
         jointTrajectory: inputs.jointTrajectory,
         threshold: params.threshold
       }
     });
-
+    
     return {
-      safeTrajectory: result,
-      singularityPoints: result
+      safeTrajectory: results.safeTrajectory,
+      singularityPoints: results.singularityPoints
     };
-  }
+  },
 };

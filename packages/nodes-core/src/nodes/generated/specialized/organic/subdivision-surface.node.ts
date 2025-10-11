@@ -1,56 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SubdivisionSurfaceParams {
   scheme: string;
   levels: number;
 }
-interface Inputs {
-  controlMesh: Shape;
+
+interface SubdivisionSurfaceInputs {
+  controlMesh: unknown;
 }
-interface Outputs {
-  subdivided: Shape;
+
+interface SubdivisionSurfaceOutputs {
+  subdivided: unknown;
 }
 
 export const SubdivisionSurfaceNode: NodeDefinition<SubdivisionSurfaceInputs, SubdivisionSurfaceOutputs, SubdivisionSurfaceParams> = {
-  type: 'Specialized::SubdivisionSurface',
+  id: 'Specialized::SubdivisionSurface',
   category: 'Specialized',
-  subcategory: 'Organic',
-
-  metadata: {
-    label: 'SubdivisionSurface',
-    description: 'Subdivision surface modeling',
-    
-    
-  },
-
-  params: {
-        scheme: {
-      "default": "catmull-clark",
-      "options": [
-        "catmull-clark",
-        "loop",
-        "doo-sabin"
-      ]
-    },
-    levels: {
-      "default": 2,
-      "min": 1,
-      "max": 5,
-      "step": 1
+  label: 'SubdivisionSurface',
+  description: 'Subdivision surface modeling',
+  inputs: {
+    controlMesh: {
+      type: 'Shape',
+      label: 'Control Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        controlMesh: 'Shape'
-  },
-
   outputs: {
-        subdivided: 'Shape'
+    subdivided: {
+      type: 'Shape',
+      label: 'Subdivided'
+    }
   },
-
+  params: {
+    scheme: {
+      type: 'enum',
+      label: 'Scheme',
+      default: "catmull-clark",
+      options: ["catmull-clark","loop","doo-sabin"]
+    },
+    levels: {
+      type: 'number',
+      label: 'Levels',
+      default: 2,
+      min: 1,
+      max: 5,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'subdivisionSurface',
       params: {
@@ -59,9 +56,9 @@ export const SubdivisionSurfaceNode: NodeDefinition<SubdivisionSurfaceInputs, Su
         levels: params.levels
       }
     });
-
+    
     return {
       subdivided: result
     };
-  }
+  },
 };

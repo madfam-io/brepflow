@@ -8,7 +8,7 @@ Dutch split door
 ## Parameters
 
 
-### splitHeight
+### Split Height
 - **Type:** number
 - **Default:** 1050
 - **Min:** 900
@@ -16,7 +16,7 @@ Dutch split door
 
 
 
-### topOpen
+### Top Open
 - **Type:** boolean
 - **Default:** false
 
@@ -24,7 +24,7 @@ Dutch split door
 
 
 
-### bottomOpen
+### Bottom Open
 - **Type:** boolean
 - **Default:** false
 
@@ -35,7 +35,7 @@ Dutch split door
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Dutch split door
 ## Outputs
 
 
-### topDoor
+### Top Door
 - **Type:** Shape
 
 
 
-### bottomDoor
+### Bottom Door
 - **Type:** Shape
 
 

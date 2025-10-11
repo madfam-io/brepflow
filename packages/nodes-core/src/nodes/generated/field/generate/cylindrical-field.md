@@ -8,7 +8,7 @@ Cylindrical field
 ## Parameters
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Cylindrical field
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Cylindrical field
 
 
 
-### falloff
+### Falloff
 - **Type:** enum
 - **Default:** "smooth"
 
@@ -35,7 +35,7 @@ Cylindrical field
 ## Inputs
 
 
-### axis
+### Axis
 - **Type:** Line
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Cylindrical field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type StringLengthParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  string: string;
+interface StringLengthInputs {
+  string: unknown;
 }
-interface Outputs {
-  length: number;
+
+interface StringLengthOutputs {
+  length: unknown;
 }
 
 export const StringLengthNode: NodeDefinition<StringLengthInputs, StringLengthOutputs, StringLengthParams> = {
-  type: 'Data::StringLength',
+  id: 'Data::StringLength',
   category: 'Data',
-  subcategory: 'String',
-
-  metadata: {
-    label: 'StringLength',
-    description: 'String length',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'StringLength',
+  description: 'String length',
   inputs: {
-        string: 'string'
+    string: {
+      type: 'string',
+      label: 'String',
+      required: true
+    }
   },
-
   outputs: {
-        length: 'number'
+    length: {
+      type: 'number',
+      label: 'Length'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stringLength',
       params: {
         string: inputs.string
-        
       }
     });
-
+    
     return {
       length: result
     };
-  }
+  },
 };

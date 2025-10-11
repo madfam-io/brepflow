@@ -1,65 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TrajectoryOptimizationParams {
   objective: string;
   maxVelocity: number;
   maxAcceleration: number;
 }
-interface Inputs {
-  trajectory: Transform[];
+
+interface TrajectoryOptimizationInputs {
+  trajectory: unknown;
 }
-interface Outputs {
-  optimizedTrajectory: Transform[];
-  velocityProfile: Data;
+
+interface TrajectoryOptimizationOutputs {
+  optimizedTrajectory: unknown;
+  velocityProfile: unknown;
 }
 
 export const TrajectoryOptimizationNode: NodeDefinition<TrajectoryOptimizationInputs, TrajectoryOptimizationOutputs, TrajectoryOptimizationParams> = {
-  type: 'Fabrication::TrajectoryOptimization',
+  id: 'Fabrication::TrajectoryOptimization',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'TrajectoryOptimization',
-    description: 'Optimize robot trajectory',
-    
-    
-  },
-
-  params: {
-        objective: {
-      "default": "time",
-      "options": [
-        "time",
-        "energy",
-        "smooth",
-        "accuracy"
-      ]
-    },
-    maxVelocity: {
-      "default": 1000,
-      "min": 10,
-      "max": 5000
-    },
-    maxAcceleration: {
-      "default": 5000,
-      "min": 100,
-      "max": 20000
+  label: 'TrajectoryOptimization',
+  description: 'Optimize robot trajectory',
+  inputs: {
+    trajectory: {
+      type: 'Transform[]',
+      label: 'Trajectory',
+      required: true
     }
   },
-
-  inputs: {
-        trajectory: 'Transform[]'
-  },
-
   outputs: {
-        optimizedTrajectory: 'Transform[]',
-    velocityProfile: 'Data'
+    optimizedTrajectory: {
+      type: 'Transform[]',
+      label: 'Optimized Trajectory'
+    },
+    velocityProfile: {
+      type: 'Data',
+      label: 'Velocity Profile'
+    }
   },
-
+  params: {
+    objective: {
+      type: 'enum',
+      label: 'Objective',
+      default: "time",
+      options: ["time","energy","smooth","accuracy"]
+    },
+    maxVelocity: {
+      type: 'number',
+      label: 'Max Velocity',
+      default: 1000,
+      min: 10,
+      max: 5000
+    },
+    maxAcceleration: {
+      type: 'number',
+      label: 'Max Acceleration',
+      default: 5000,
+      min: 100,
+      max: 20000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'trajectoryOptimization',
       params: {
         trajectory: inputs.trajectory,
@@ -68,10 +69,10 @@ export const TrajectoryOptimizationNode: NodeDefinition<TrajectoryOptimizationIn
         maxAcceleration: params.maxAcceleration
       }
     });
-
+    
     return {
-      optimizedTrajectory: result,
-      velocityProfile: result
+      optimizedTrajectory: results.optimizedTrajectory,
+      velocityProfile: results.velocityProfile
     };
-  }
+  },
 };

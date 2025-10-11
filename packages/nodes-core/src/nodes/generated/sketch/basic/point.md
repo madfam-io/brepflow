@@ -8,7 +8,7 @@ Create a point
 ## Parameters
 
 
-### x
+### X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -16,7 +16,7 @@ Create a point
 
 
 
-### y
+### Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -24,7 +24,7 @@ Create a point
 
 
 
-### z
+### Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -39,7 +39,7 @@ This node has no inputs.
 ## Outputs
 
 
-### point
+### Point
 - **Type:** Point
 - **Description:** Point vertex
 

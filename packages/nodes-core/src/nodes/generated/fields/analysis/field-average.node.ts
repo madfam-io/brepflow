@@ -1,52 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldAverageParams {
   sampleCount: number;
 }
-interface Inputs {
-  field?: Field;
-  domain?: Geometry;
+
+interface FieldAverageInputs {
+  field?: unknown;
+  domain?: unknown;
 }
-interface Outputs {
-  average: Number;
-  standardDeviation: Number;
+
+interface FieldAverageOutputs {
+  average: number;
+  standardDeviation: number;
 }
 
 export const FieldAverageNode: NodeDefinition<FieldAverageInputs, FieldAverageOutputs, FieldAverageParams> = {
-  type: 'Fields::FieldAverage',
+  id: 'Fields::FieldAverage',
   category: 'Fields',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'FieldAverage',
-    description: 'Calculate average field value',
-    
-    
-  },
-
-  params: {
-        sampleCount: {
-      "default": 1000,
-      "min": 100,
-      "max": 10000,
-      "description": "Number of samples"
+  label: 'FieldAverage',
+  description: 'Calculate average field value',
+  inputs: {
+    field: {
+      type: 'Field',
+      label: 'Field',
+      optional: true
+    },
+    domain: {
+      type: 'Geometry',
+      label: 'Domain',
+      optional: true
     }
   },
-
-  inputs: {
-        field: 'Field',
-    domain: 'Geometry'
-  },
-
   outputs: {
-        average: 'Number',
-    standardDeviation: 'Number'
+    average: {
+      type: 'Number',
+      label: 'Average'
+    },
+    standardDeviation: {
+      type: 'Number',
+      label: 'Standard Deviation'
+    }
   },
-
+  params: {
+    sampleCount: {
+      type: 'number',
+      label: 'Sample Count',
+      default: 1000,
+      min: 100,
+      max: 10000
+    }
+  },
   async evaluate(context, inputs, params) {
+    const results = await context.geometry.execute({
+      type: 'calculateFieldAverage',
+      params: {
+        field: inputs.field,
+        domain: inputs.domain,
+        sampleCount: params.sampleCount
+      }
+    });
     
-    // TODO: Implement FieldAverage logic
-    throw new Error('FieldAverage not yet implemented');
-  }
+    return {
+      average: results.average,
+      standardDeviation: results.standardDeviation
+    };
+  },
 };

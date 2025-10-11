@@ -8,7 +8,7 @@ Sierpinski triangle
 ## Parameters
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 5
 - **Min:** 0
@@ -16,7 +16,7 @@ Sierpinski triangle
 
 
 
-### filled
+### Filled
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Sierpinski triangle
 ## Inputs
 
 
-### triangle
+### Triangle
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Sierpinski triangle
 ## Outputs
 
 
-### fractal
+### Fractal
 - **Type:** Face[]
 
 

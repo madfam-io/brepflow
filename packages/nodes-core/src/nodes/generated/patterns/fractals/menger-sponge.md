@@ -8,7 +8,7 @@ Menger sponge 3D fractal
 ## Parameters
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 3
 - **Min:** 0
@@ -19,7 +19,7 @@ Menger sponge 3D fractal
 ## Inputs
 
 
-### cube
+### Cube
 - **Type:** Shape
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Menger sponge 3D fractal
 ## Outputs
 
 
-### fractal
+### Fractal
 - **Type:** Shape
 
 

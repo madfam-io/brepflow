@@ -8,7 +8,7 @@ Calculate curve derivatives
 ## Parameters
 
 
-### parameter
+### Parameter
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -16,7 +16,7 @@ Calculate curve derivatives
 
 
 
-### order
+### Order
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -24,7 +24,7 @@ Calculate curve derivatives
 
 
 
-### vectorScale
+### Vector Scale
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -35,7 +35,7 @@ Calculate curve derivatives
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,22 +44,22 @@ Calculate curve derivatives
 ## Outputs
 
 
-### point
+### Point
 - **Type:** Point
 
 
 
-### firstDerivative
+### First Derivative
 - **Type:** Vector
 
 
 
-### secondDerivative
+### Second Derivative
 - **Type:** Vector
 
 
 
-### thirdDerivative
+### Third Derivative
 - **Type:** Vector
 
 

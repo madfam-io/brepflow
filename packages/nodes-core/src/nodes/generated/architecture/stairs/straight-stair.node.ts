@@ -1,69 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StraightStairParams {
   totalRise: number;
   treadDepth: number;
   riserHeight: number;
   width: number;
 }
-interface Inputs {
-  startPoint: Point;
+
+interface StraightStairInputs {
+  startPoint: [number, number, number];
 }
-interface Outputs {
-  staircase: Shape;
-  treads: Shape[];
-  risers: Shape[];
+
+interface StraightStairOutputs {
+  staircase: unknown;
+  treads: unknown;
+  risers: unknown;
 }
 
 export const StraightStairNode: NodeDefinition<StraightStairInputs, StraightStairOutputs, StraightStairParams> = {
-  type: 'Architecture::StraightStair',
+  id: 'Architecture::StraightStair',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'StraightStair',
-    description: 'Straight run staircase',
-    
-    
-  },
-
-  params: {
-        totalRise: {
-      "default": 3000,
-      "min": 1000,
-      "max": 6000
-    },
-    treadDepth: {
-      "default": 280,
-      "min": 250,
-      "max": 350
-    },
-    riserHeight: {
-      "default": 175,
-      "min": 150,
-      "max": 200
-    },
-    width: {
-      "default": 1200,
-      "min": 900,
-      "max": 2000
+  label: 'StraightStair',
+  description: 'Straight run staircase',
+  inputs: {
+    startPoint: {
+      type: 'Point',
+      label: 'Start Point',
+      required: true
     }
   },
-
-  inputs: {
-        startPoint: 'Point'
-  },
-
   outputs: {
-        staircase: 'Shape',
-    treads: 'Shape[]',
-    risers: 'Shape[]'
+    staircase: {
+      type: 'Shape',
+      label: 'Staircase'
+    },
+    treads: {
+      type: 'Shape[]',
+      label: 'Treads'
+    },
+    risers: {
+      type: 'Shape[]',
+      label: 'Risers'
+    }
   },
-
+  params: {
+    totalRise: {
+      type: 'number',
+      label: 'Total Rise',
+      default: 3000,
+      min: 1000,
+      max: 6000
+    },
+    treadDepth: {
+      type: 'number',
+      label: 'Tread Depth',
+      default: 280,
+      min: 250,
+      max: 350
+    },
+    riserHeight: {
+      type: 'number',
+      label: 'Riser Height',
+      default: 175,
+      min: 150,
+      max: 200
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 1200,
+      min: 900,
+      max: 2000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'straightStair',
       params: {
         startPoint: inputs.startPoint,
@@ -73,11 +84,11 @@ export const StraightStairNode: NodeDefinition<StraightStairInputs, StraightStai
         width: params.width
       }
     });
-
+    
     return {
-      staircase: result,
-      treads: result,
-      risers: result
+      staircase: results.staircase,
+      treads: results.treads,
+      risers: results.risers
     };
-  }
+  },
 };

@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EpoxyFloorParams {
   thickness: number;
   texture: string;
 }
-interface Inputs {
-  floorSurface: Face;
+
+interface EpoxyFloorInputs {
+  floorSurface: unknown;
 }
-interface Outputs {
-  epoxyFloor: Face;
+
+interface EpoxyFloorOutputs {
+  epoxyFloor: unknown;
 }
 
 export const EpoxyFloorNode: NodeDefinition<EpoxyFloorInputs, EpoxyFloorOutputs, EpoxyFloorParams> = {
-  type: 'Architecture::EpoxyFloor',
+  id: 'Architecture::EpoxyFloor',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'EpoxyFloor',
-    description: 'Epoxy floor coating system',
-    
-    
-  },
-
-  params: {
-        thickness: {
-      "default": 3,
-      "min": 2,
-      "max": 10
-    },
-    texture: {
-      "default": "smooth",
-      "options": [
-        "smooth",
-        "orange-peel",
-        "quartz",
-        "flake"
-      ]
+  label: 'EpoxyFloor',
+  description: 'Epoxy floor coating system',
+  inputs: {
+    floorSurface: {
+      type: 'Face',
+      label: 'Floor Surface',
+      required: true
     }
   },
-
-  inputs: {
-        floorSurface: 'Face'
-  },
-
   outputs: {
-        epoxyFloor: 'Face'
+    epoxyFloor: {
+      type: 'Face',
+      label: 'Epoxy Floor'
+    }
   },
-
+  params: {
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 3,
+      min: 2,
+      max: 10
+    },
+    texture: {
+      type: 'enum',
+      label: 'Texture',
+      default: "smooth",
+      options: ["smooth","orange-peel","quartz","flake"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'epoxyFloor',
       params: {
@@ -59,9 +55,9 @@ export const EpoxyFloorNode: NodeDefinition<EpoxyFloorInputs, EpoxyFloorOutputs,
         texture: params.texture
       }
     });
-
+    
     return {
       epoxyFloor: result
     };
-  }
+  },
 };

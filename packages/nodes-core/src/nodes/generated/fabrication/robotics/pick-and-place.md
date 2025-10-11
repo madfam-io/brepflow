@@ -8,7 +8,7 @@ Pick and place optimization
 ## Parameters
 
 
-### gripperType
+### Gripper Type
 - **Type:** enum
 - **Default:** "parallel"
 
@@ -16,7 +16,7 @@ Pick and place optimization
 
 
 
-### approachAngle
+### Approach Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** -90
@@ -27,13 +27,13 @@ Pick and place optimization
 ## Inputs
 
 
-### pickPoints
+### Pick Points
 - **Type:** Transform[]
 - **Required:** Yes
 
 
 
-### placePoints
+### Place Points
 - **Type:** Transform[]
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Pick and place optimization
 ## Outputs
 
 
-### pickPlaceSequence
+### Pick Place Sequence
 - **Type:** Transform[]
 
 

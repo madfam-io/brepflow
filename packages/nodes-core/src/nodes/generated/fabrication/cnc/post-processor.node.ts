@@ -1,60 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PostProcessorParams {
   machine: string;
   axes: string;
 }
-interface Inputs {
-  toolpaths: Wire[];
+
+interface PostProcessorInputs {
+  toolpaths: unknown;
 }
-interface Outputs {
-  ncCode: Data;
+
+interface PostProcessorOutputs {
+  ncCode: unknown;
 }
 
 export const PostProcessorNode: NodeDefinition<PostProcessorInputs, PostProcessorOutputs, PostProcessorParams> = {
-  type: 'Fabrication::PostProcessor',
+  id: 'Fabrication::PostProcessor',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'PostProcessor',
-    description: 'CNC post-processor',
-    
-    
-  },
-
-  params: {
-        machine: {
-      "default": "haas",
-      "options": [
-        "haas",
-        "fanuc",
-        "siemens",
-        "heidenhain",
-        "mazak"
-      ]
-    },
-    axes: {
-      "default": "3-axis",
-      "options": [
-        "3-axis",
-        "4-axis",
-        "5-axis"
-      ]
+  label: 'PostProcessor',
+  description: 'CNC post-processor',
+  inputs: {
+    toolpaths: {
+      type: 'Wire[]',
+      label: 'Toolpaths',
+      required: true
     }
   },
-
-  inputs: {
-        toolpaths: 'Wire[]'
-  },
-
   outputs: {
-        ncCode: 'Data'
+    ncCode: {
+      type: 'Data',
+      label: 'Nc Code'
+    }
   },
-
+  params: {
+    machine: {
+      type: 'enum',
+      label: 'Machine',
+      default: "haas",
+      options: ["haas","fanuc","siemens","heidenhain","mazak"]
+    },
+    axes: {
+      type: 'enum',
+      label: 'Axes',
+      default: "3-axis",
+      options: ["3-axis","4-axis","5-axis"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'postProcessor',
       params: {
@@ -63,9 +54,9 @@ export const PostProcessorNode: NodeDefinition<PostProcessorInputs, PostProcesso
         axes: params.axes
       }
     });
-
+    
     return {
       ncCode: result
     };
-  }
+  },
 };

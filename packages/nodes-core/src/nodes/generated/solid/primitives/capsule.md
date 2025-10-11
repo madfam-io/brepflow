@@ -8,7 +8,7 @@ Create a capsule (cylinder with hemisphere caps)
 ## Parameters
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 25
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a capsule (cylinder with hemisphere caps)
 - **Description:** Capsule radius
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -31,7 +31,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Generated capsule
 

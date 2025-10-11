@@ -8,7 +8,7 @@ Create a spring solid
 ## Parameters
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a spring solid
 
 
 
-### pitch
+### Pitch
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a spring solid
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create a spring solid
 
 
 
-### wireRadius
+### Wire Radius
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Create a spring solid
 
 
 
-### leftHanded
+### Left Handed
 - **Type:** boolean
 - **Default:** false
 
@@ -55,7 +55,7 @@ This node has no inputs.
 ## Outputs
 
 
-### spring
+### Spring
 - **Type:** Solid
 - **Description:** Spring solid
 

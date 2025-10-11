@@ -8,7 +8,7 @@ Scale by field
 ## Parameters
 
 
-### minScale
+### Min Scale
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -16,7 +16,7 @@ Scale by field
 
 
 
-### maxScale
+### Max Scale
 - **Type:** number
 - **Default:** 2
 - **Min:** 0
@@ -27,13 +27,13 @@ Scale by field
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Shape[]
 - **Required:** Yes
 
 
 
-### field
+### Field
 - **Type:** ScalarField
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Scale by field
 ## Outputs
 
 
-### scaled
+### Scaled
 - **Type:** Shape[]
 
 

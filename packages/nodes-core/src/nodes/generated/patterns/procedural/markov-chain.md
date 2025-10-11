@@ -8,7 +8,7 @@ Markov chain pattern
 ## Parameters
 
 
-### states
+### States
 - **Type:** number
 - **Default:** 5
 - **Min:** 2
@@ -16,7 +16,7 @@ Markov chain pattern
 
 
 
-### steps
+### Steps
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -24,7 +24,7 @@ Markov chain pattern
 
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -35,7 +35,7 @@ Markov chain pattern
 ## Inputs
 
 
-### transitionMatrix
+### Transition Matrix
 - **Type:** Data
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Markov chain pattern
 ## Outputs
 
 
-### sequence
+### Sequence
 - **Type:** Number[]
 
 
 
-### pattern
+### Pattern
 - **Type:** Wire
 
 

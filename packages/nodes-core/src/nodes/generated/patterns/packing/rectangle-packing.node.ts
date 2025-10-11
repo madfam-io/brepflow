@@ -1,55 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RectanglePackingParams {
   algorithm: string;
 }
-interface Inputs {
-  container: Face;
-  rectangles: Face[];
+
+interface RectanglePackingInputs {
+  container: unknown;
+  rectangles: unknown;
 }
-interface Outputs {
-  packed: Face[];
-  transforms: Transform[];
+
+interface RectanglePackingOutputs {
+  packed: unknown;
+  transforms: unknown;
 }
 
 export const RectanglePackingNode: NodeDefinition<RectanglePackingInputs, RectanglePackingOutputs, RectanglePackingParams> = {
-  type: 'Patterns::RectanglePacking',
+  id: 'Patterns::RectanglePacking',
   category: 'Patterns',
-  subcategory: 'Packing',
-
-  metadata: {
-    label: 'RectanglePacking',
-    description: 'Rectangle packing algorithm',
-    
-    
-  },
-
-  params: {
-        algorithm: {
-      "default": "maxrects",
-      "options": [
-        "guillotine",
-        "maxrects",
-        "skyline",
-        "shelf"
-      ]
+  label: 'RectanglePacking',
+  description: 'Rectangle packing algorithm',
+  inputs: {
+    container: {
+      type: 'Face',
+      label: 'Container',
+      required: true
+    },
+    rectangles: {
+      type: 'Face[]',
+      label: 'Rectangles',
+      required: true
     }
   },
-
-  inputs: {
-        container: 'Face',
-    rectangles: 'Face[]'
-  },
-
   outputs: {
-        packed: 'Face[]',
-    transforms: 'Transform[]'
+    packed: {
+      type: 'Face[]',
+      label: 'Packed'
+    },
+    transforms: {
+      type: 'Transform[]',
+      label: 'Transforms'
+    }
   },
-
+  params: {
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "maxrects",
+      options: ["guillotine","maxrects","skyline","shelf"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'rectanglePacking',
       params: {
         container: inputs.container,
@@ -57,10 +58,10 @@ export const RectanglePackingNode: NodeDefinition<RectanglePackingInputs, Rectan
         algorithm: params.algorithm
       }
     });
-
+    
     return {
-      packed: result,
-      transforms: result
+      packed: results.packed,
+      transforms: results.transforms
     };
-  }
+  },
 };

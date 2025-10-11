@@ -1,58 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LoadingDockParams {
   dockHeight: number;
   levellerType: string;
 }
-interface Inputs {
-  dockPosition: Point;
+
+interface LoadingDockInputs {
+  dockPosition: [number, number, number];
 }
-interface Outputs {
-  dockRamp: Shape;
-  leveller: Shape;
+
+interface LoadingDockOutputs {
+  dockRamp: unknown;
+  leveller: unknown;
 }
 
 export const LoadingDockNode: NodeDefinition<LoadingDockInputs, LoadingDockOutputs, LoadingDockParams> = {
-  type: 'Architecture::LoadingDock',
+  id: 'Architecture::LoadingDock',
   category: 'Architecture',
-  subcategory: 'Ramps',
-
-  metadata: {
-    label: 'LoadingDock',
-    description: 'Loading dock ramp',
-    
-    
-  },
-
-  params: {
-        dockHeight: {
-      "default": 1200,
-      "min": 900,
-      "max": 1500
-    },
-    levellerType: {
-      "default": "hydraulic",
-      "options": [
-        "hydraulic",
-        "mechanical",
-        "air-powered"
-      ]
+  label: 'LoadingDock',
+  description: 'Loading dock ramp',
+  inputs: {
+    dockPosition: {
+      type: 'Point',
+      label: 'Dock Position',
+      required: true
     }
   },
-
-  inputs: {
-        dockPosition: 'Point'
-  },
-
   outputs: {
-        dockRamp: 'Shape',
-    leveller: 'Shape'
+    dockRamp: {
+      type: 'Shape',
+      label: 'Dock Ramp'
+    },
+    leveller: {
+      type: 'Shape',
+      label: 'Leveller'
+    }
   },
-
+  params: {
+    dockHeight: {
+      type: 'number',
+      label: 'Dock Height',
+      default: 1200,
+      min: 900,
+      max: 1500
+    },
+    levellerType: {
+      type: 'enum',
+      label: 'Leveller Type',
+      default: "hydraulic",
+      options: ["hydraulic","mechanical","air-powered"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'loadingDock',
       params: {
         dockPosition: inputs.dockPosition,
@@ -60,10 +60,10 @@ export const LoadingDockNode: NodeDefinition<LoadingDockInputs, LoadingDockOutpu
         levellerType: params.levellerType
       }
     });
-
+    
     return {
-      dockRamp: result,
-      leveller: result
+      dockRamp: results.dockRamp,
+      leveller: results.leveller
     };
-  }
+  },
 };

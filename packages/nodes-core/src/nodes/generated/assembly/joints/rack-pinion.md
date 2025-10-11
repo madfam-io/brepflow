@@ -8,7 +8,7 @@ Create rack and pinion joint
 ## Parameters
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -19,13 +19,13 @@ Create rack and pinion joint
 ## Inputs
 
 
-### rack
+### Rack
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### pinion
+### Pinion
 - **Type:** Shape
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Create rack and pinion joint
 ## Outputs
 
 
-### joint
+### Joint
 - **Type:** Joint
 
 

@@ -8,7 +8,7 @@ Connect to WebSocket data streams
 ## Parameters
 
 
-### url
+### Url
 - **Type:** string
 - **Default:** ""
 
@@ -16,7 +16,7 @@ Connect to WebSocket data streams
 - **Description:** WebSocket server URL
 
 
-### reconnect
+### Reconnect
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Connect to WebSocket data streams
 
 
 
-### heartbeat
+### Heartbeat
 - **Type:** number
 - **Default:** 30
 - **Min:** 0
@@ -35,7 +35,7 @@ Connect to WebSocket data streams
 ## Inputs
 
 
-### message
+### Message
 - **Type:** string
 - **Required:** No
 
@@ -44,17 +44,17 @@ Connect to WebSocket data streams
 ## Outputs
 
 
-### connected
+### Connected
 - **Type:** boolean
 
 
 
-### messages
+### Messages
 - **Type:** string[]
 
 
 
-### lastMessage
+### Last Message
 - **Type:** string
 
 

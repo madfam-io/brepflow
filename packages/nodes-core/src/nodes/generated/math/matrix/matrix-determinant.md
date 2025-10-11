@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### matrix
+### Matrix
 - **Type:** Matrix
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### determinant
+### Determinant
 - **Type:** number
 
 

@@ -1,70 +1,81 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CostEstimateParams {
   materialCostPerKg: number;
   setupCost: number;
   bendCost: number;
   cutCostPerMeter: number;
 }
-interface Inputs {
-  sheet: Shape;
-  quantity?: number;
+
+interface CostEstimateInputs {
+  sheet: unknown;
+  quantity?: unknown;
 }
-interface Outputs {
-  cost: number;
-  breakdown: Data;
+
+interface CostEstimateOutputs {
+  cost: unknown;
+  breakdown: unknown;
 }
 
 export const CostEstimateNode: NodeDefinition<CostEstimateInputs, CostEstimateOutputs, CostEstimateParams> = {
-  type: 'SheetMetal::CostEstimate',
+  id: 'SheetMetal::CostEstimate',
   category: 'SheetMetal',
-  subcategory: 'Properties',
-
-  metadata: {
-    label: 'CostEstimate',
-    description: 'Estimate manufacturing cost',
-    
-    
-  },
-
-  params: {
-        materialCostPerKg: {
-      "default": 2,
-      "min": 0.1,
-      "max": 1000
+  label: 'CostEstimate',
+  description: 'Estimate manufacturing cost',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    setupCost: {
-      "default": 50,
-      "min": 0,
-      "max": 10000
-    },
-    bendCost: {
-      "default": 0.5,
-      "min": 0,
-      "max": 100,
-      "description": "Cost per bend"
-    },
-    cutCostPerMeter: {
-      "default": 1,
-      "min": 0,
-      "max": 100
+    quantity: {
+      type: 'number',
+      label: 'Quantity',
+      optional: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    quantity: 'number'
-  },
-
   outputs: {
-        cost: 'number',
-    breakdown: 'Data'
+    cost: {
+      type: 'number',
+      label: 'Cost'
+    },
+    breakdown: {
+      type: 'Data',
+      label: 'Breakdown'
+    }
   },
-
+  params: {
+    materialCostPerKg: {
+      type: 'number',
+      label: 'Material Cost Per Kg',
+      default: 2,
+      min: 0.1,
+      max: 1000
+    },
+    setupCost: {
+      type: 'number',
+      label: 'Setup Cost',
+      default: 50,
+      min: 0,
+      max: 10000
+    },
+    bendCost: {
+      type: 'number',
+      label: 'Bend Cost',
+      default: 0.5,
+      min: 0,
+      max: 100
+    },
+    cutCostPerMeter: {
+      type: 'number',
+      label: 'Cut Cost Per Meter',
+      default: 1,
+      min: 0,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'sheetCostEstimate',
       params: {
         sheet: inputs.sheet,
@@ -75,10 +86,10 @@ export const CostEstimateNode: NodeDefinition<CostEstimateInputs, CostEstimateOu
         cutCostPerMeter: params.cutCostPerMeter
       }
     });
-
+    
     return {
-      cost: result,
-      breakdown: result
+      cost: results.cost,
+      breakdown: results.breakdown
     };
-  }
+  },
 };

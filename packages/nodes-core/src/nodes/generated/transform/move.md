@@ -8,7 +8,7 @@ Translate shape in 3D space
 ## Parameters
 
 
-### x
+### X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -16,7 +16,7 @@ Translate shape in 3D space
 - **Description:** X translation
 
 
-### y
+### Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -24,7 +24,7 @@ Translate shape in 3D space
 - **Description:** Y translation
 
 
-### z
+### Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -32,7 +32,7 @@ Translate shape in 3D space
 - **Description:** Z translation
 
 
-### copy
+### Copy
 - **Type:** boolean
 - **Default:** true
 
@@ -43,7 +43,7 @@ Translate shape in 3D space
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 - **Description:** Shape to move
@@ -52,7 +52,7 @@ Translate shape in 3D space
 ## Outputs
 
 
-### moved
+### Moved
 - **Type:** Shape
 - **Description:** Moved shape
 

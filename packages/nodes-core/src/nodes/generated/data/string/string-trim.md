@@ -8,7 +8,7 @@ Trim whitespace
 ## Parameters
 
 
-### mode
+### Mode
 - **Type:** enum
 - **Default:** "both"
 
@@ -19,7 +19,7 @@ Trim whitespace
 ## Inputs
 
 
-### string
+### String
 - **Type:** string
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Trim whitespace
 ## Outputs
 
 
-### trimmed
+### Trimmed
 - **Type:** string
 
 

@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MeshOffsetParams {
   offsetDistance: number;
   solidify: boolean;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface MeshOffsetInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  offset: Mesh;
+
+interface MeshOffsetOutputs {
+  offset: unknown;
 }
 
 export const MeshOffsetNode: NodeDefinition<MeshOffsetInputs, MeshOffsetOutputs, MeshOffsetParams> = {
-  type: 'Mesh::MeshOffset',
+  id: 'Mesh::MeshOffset',
   category: 'Mesh',
-  subcategory: 'Repair',
-
-  metadata: {
-    label: 'MeshOffset',
-    description: 'Offset mesh surface',
-    
-    
-  },
-
-  params: {
-        offsetDistance: {
-      "default": 1,
-      "min": -100,
-      "max": 100
-    },
-    solidify: {
-      "default": false
+  label: 'MeshOffset',
+  description: 'Offset mesh surface',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        offset: 'Mesh'
+    offset: {
+      type: 'Mesh',
+      label: 'Offset'
+    }
   },
-
+  params: {
+    offsetDistance: {
+      type: 'number',
+      label: 'Offset Distance',
+      default: 1,
+      min: -100,
+      max: 100
+    },
+    solidify: {
+      type: 'boolean',
+      label: 'Solidify',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'meshOffset',
       params: {
@@ -53,9 +54,9 @@ export const MeshOffsetNode: NodeDefinition<MeshOffsetInputs, MeshOffsetOutputs,
         solidify: params.solidify
       }
     });
-
+    
     return {
       offset: result
     };
-  }
+  },
 };

@@ -1,68 +1,76 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TessellateParams {
   linearDeflection: number;
   angularDeflection: number;
   relative: boolean;
   qualityNormals: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface TessellateInputs {
+  shape: unknown;
 }
-interface Outputs {
-  mesh: Mesh;
-  triangleCount: number;
-  vertexCount: number;
+
+interface TessellateOutputs {
+  mesh: unknown;
+  triangleCount: unknown;
+  vertexCount: unknown;
 }
 
 export const TessellateNode: NodeDefinition<TessellateInputs, TessellateOutputs, TessellateParams> = {
-  type: 'Mesh::Tessellate',
+  id: 'Mesh::Tessellate',
   category: 'Mesh',
-  subcategory: 'Tessellation',
-
-  metadata: {
-    label: 'Tessellate',
-    description: 'Convert shape to mesh',
-    
-    
-  },
-
-  params: {
-        linearDeflection: {
-      "default": 0.1,
-      "min": 0.001,
-      "max": 10,
-      "description": "Maximum deviation from true surface"
-    },
-    angularDeflection: {
-      "default": 0.5,
-      "min": 0.01,
-      "max": 1,
-      "description": "Angular deflection in radians"
-    },
-    relative: {
-      "default": false,
-      "description": "Use relative deflection"
-    },
-    qualityNormals: {
-      "default": true
+  label: 'Tessellate',
+  description: 'Convert shape to mesh',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        mesh: 'Mesh',
-    triangleCount: 'number',
-    vertexCount: 'number'
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh'
+    },
+    triangleCount: {
+      type: 'number',
+      label: 'Triangle Count'
+    },
+    vertexCount: {
+      type: 'number',
+      label: 'Vertex Count'
+    }
   },
-
+  params: {
+    linearDeflection: {
+      type: 'number',
+      label: 'Linear Deflection',
+      default: 0.1,
+      min: 0.001,
+      max: 10
+    },
+    angularDeflection: {
+      type: 'number',
+      label: 'Angular Deflection',
+      default: 0.5,
+      min: 0.01,
+      max: 1
+    },
+    relative: {
+      type: 'boolean',
+      label: 'Relative',
+      default: false
+    },
+    qualityNormals: {
+      type: 'boolean',
+      label: 'Quality Normals',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'tessellate',
       params: {
         shape: inputs.shape,
@@ -72,11 +80,11 @@ export const TessellateNode: NodeDefinition<TessellateInputs, TessellateOutputs,
         qualityNormals: params.qualityNormals
       }
     });
-
+    
     return {
-      mesh: result,
-      triangleCount: result,
-      vertexCount: result
+      mesh: results.mesh,
+      triangleCount: results.triangleCount,
+      vertexCount: results.vertexCount
     };
-  }
+  },
 };

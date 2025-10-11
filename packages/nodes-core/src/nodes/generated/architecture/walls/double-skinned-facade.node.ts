@@ -1,60 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DoubleSkinnedFacadeParams {
   cavityWidth: number;
   ventilationType: string;
 }
-interface Inputs {
-  buildingFace: Face;
+
+interface DoubleSkinnedFacadeInputs {
+  buildingFace: unknown;
 }
-interface Outputs {
-  innerSkin: Shape;
-  outerSkin: Shape;
-  cavity: Shape;
+
+interface DoubleSkinnedFacadeOutputs {
+  innerSkin: unknown;
+  outerSkin: unknown;
+  cavity: unknown;
 }
 
 export const DoubleSkinnedFacadeNode: NodeDefinition<DoubleSkinnedFacadeInputs, DoubleSkinnedFacadeOutputs, DoubleSkinnedFacadeParams> = {
-  type: 'Architecture::DoubleSkinnedFacade',
+  id: 'Architecture::DoubleSkinnedFacade',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'DoubleSkinnedFacade',
-    description: 'Double-skin facade system',
-    
-    
-  },
-
-  params: {
-        cavityWidth: {
-      "default": 600,
-      "min": 300,
-      "max": 1500
-    },
-    ventilationType: {
-      "default": "natural",
-      "options": [
-        "natural",
-        "mechanical",
-        "hybrid"
-      ]
+  label: 'DoubleSkinnedFacade',
+  description: 'Double-skin facade system',
+  inputs: {
+    buildingFace: {
+      type: 'Face',
+      label: 'Building Face',
+      required: true
     }
   },
-
-  inputs: {
-        buildingFace: 'Face'
-  },
-
   outputs: {
-        innerSkin: 'Shape',
-    outerSkin: 'Shape',
-    cavity: 'Shape'
+    innerSkin: {
+      type: 'Shape',
+      label: 'Inner Skin'
+    },
+    outerSkin: {
+      type: 'Shape',
+      label: 'Outer Skin'
+    },
+    cavity: {
+      type: 'Shape',
+      label: 'Cavity'
+    }
   },
-
+  params: {
+    cavityWidth: {
+      type: 'number',
+      label: 'Cavity Width',
+      default: 600,
+      min: 300,
+      max: 1500
+    },
+    ventilationType: {
+      type: 'enum',
+      label: 'Ventilation Type',
+      default: "natural",
+      options: ["natural","mechanical","hybrid"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'doubleSkinned Facade',
       params: {
         buildingFace: inputs.buildingFace,
@@ -62,11 +65,11 @@ export const DoubleSkinnedFacadeNode: NodeDefinition<DoubleSkinnedFacadeInputs, 
         ventilationType: params.ventilationType
       }
     });
-
+    
     return {
-      innerSkin: result,
-      outerSkin: result,
-      cavity: result
+      innerSkin: results.innerSkin,
+      outerSkin: results.outerSkin,
+      cavity: results.cavity
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Visualize field values as colors
 ## Parameters
 
 
-### colorScheme
+### Color Scheme
 - **Type:** enum
 - **Default:** "\"viridis\""
 
@@ -16,7 +16,7 @@ Visualize field values as colors
 - **Description:** Color scheme for visualization
 
 
-### minValue
+### Min Value
 - **Type:** number
 - **Default:** 0
 
@@ -24,7 +24,7 @@ Visualize field values as colors
 - **Description:** Minimum field value
 
 
-### maxValue
+### Max Value
 - **Type:** number
 - **Default:** 1
 
@@ -35,13 +35,13 @@ Visualize field values as colors
 ## Inputs
 
 
-### field
+### Field
 - **Type:** Field
 - **Required:** No
 
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Visualize field values as colors
 ## Outputs
 
 
-### coloredMesh
+### Colored Mesh
 - **Type:** Mesh
 
 

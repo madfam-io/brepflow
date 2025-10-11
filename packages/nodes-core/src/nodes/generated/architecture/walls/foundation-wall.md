@@ -8,7 +8,7 @@ Foundation wall system
 ## Parameters
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 1500
 - **Min:** 1000
@@ -16,7 +16,7 @@ Foundation wall system
 
 
 
-### footingWidth
+### Footing Width
 - **Type:** number
 - **Default:** 600
 - **Min:** 400
@@ -27,7 +27,7 @@ Foundation wall system
 ## Inputs
 
 
-### foundationLine
+### Foundation Line
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Foundation wall system
 ## Outputs
 
 
-### foundationWall
+### Foundation Wall
 - **Type:** Shape
 
 
 
-### footing
+### Footing
 - **Type:** Shape
 
 

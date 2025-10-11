@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### controlPoints
+### Control Points
 - **Type:** Point[]
 - **Required:** Yes
 - **Description:** Bezier control points
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Description:** Bezier curve
 

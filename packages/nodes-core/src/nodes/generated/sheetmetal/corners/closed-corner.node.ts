@@ -1,63 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ClosedCornerParams {
   cornerType: string;
   gapDistance: number;
   overlapRatio: number;
 }
-interface Inputs {
-  sheet: Shape;
-  faces: Face[];
+
+interface ClosedCornerInputs {
+  sheet: unknown;
+  faces: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface ClosedCornerOutputs {
+  result: unknown;
 }
 
 export const ClosedCornerNode: NodeDefinition<ClosedCornerInputs, ClosedCornerOutputs, ClosedCornerParams> = {
-  type: 'SheetMetal::ClosedCorner',
+  id: 'SheetMetal::ClosedCorner',
   category: 'SheetMetal',
-  subcategory: 'Corners',
-
-  metadata: {
-    label: 'ClosedCorner',
-    description: 'Create closed corner',
-    
-    
-  },
-
-  params: {
-        cornerType: {
-      "default": "overlap",
-      "options": [
-        "overlap",
-        "underlap",
-        "butt"
-      ]
+  label: 'ClosedCorner',
+  description: 'Create closed corner',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    gapDistance: {
-      "default": 0,
-      "min": 0,
-      "max": 10
-    },
-    overlapRatio: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+    faces: {
+      type: 'Face[]',
+      label: 'Faces',
+      required: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    faces: 'Face[]'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    cornerType: {
+      type: 'enum',
+      label: 'Corner Type',
+      default: "overlap",
+      options: ["overlap","underlap","butt"]
+    },
+    gapDistance: {
+      type: 'number',
+      label: 'Gap Distance',
+      default: 0,
+      min: 0,
+      max: 10
+    },
+    overlapRatio: {
+      type: 'number',
+      label: 'Overlap Ratio',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetClosedCorner',
       params: {
@@ -68,9 +71,9 @@ export const ClosedCornerNode: NodeDefinition<ClosedCornerInputs, ClosedCornerOu
         overlapRatio: params.overlapRatio
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

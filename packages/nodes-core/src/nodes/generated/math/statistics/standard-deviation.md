@@ -8,7 +8,7 @@ Calculate standard deviation
 ## Parameters
 
 
-### sample
+### Sample
 - **Type:** boolean
 - **Default:** false
 
@@ -19,7 +19,7 @@ Calculate standard deviation
 ## Inputs
 
 
-### values
+### Values
 - **Type:** number[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Calculate standard deviation
 ## Outputs
 
 
-### stddev
+### Stddev
 - **Type:** number
 
 

@@ -1,60 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MandelbrotSetParams {
   iterations: number;
   resolution: number;
   zoom: number;
 }
-interface Inputs {
-  center: Point;
+
+interface MandelbrotSetInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  fractal: Mesh;
+
+interface MandelbrotSetOutputs {
+  fractal: unknown;
 }
 
 export const MandelbrotSetNode: NodeDefinition<MandelbrotSetInputs, MandelbrotSetOutputs, MandelbrotSetParams> = {
-  type: 'Patterns::MandelbrotSet',
+  id: 'Patterns::MandelbrotSet',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'MandelbrotSet',
-    description: 'Mandelbrot set',
-    
-    
-  },
-
-  params: {
-        iterations: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
-    },
-    resolution: {
-      "default": 200,
-      "min": 50,
-      "max": 1000,
-      "step": 10
-    },
-    zoom: {
-      "default": 1,
-      "min": 0.1,
-      "max": 1000
+  label: 'MandelbrotSet',
+  description: 'Mandelbrot set',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        fractal: 'Mesh'
+    fractal: {
+      type: 'Mesh',
+      label: 'Fractal'
+    }
   },
-
+  params: {
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    },
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 200,
+      min: 50,
+      max: 1000,
+      step: 10
+    },
+    zoom: {
+      type: 'number',
+      label: 'Zoom',
+      default: 1,
+      min: 0.1,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mandelbrotSet',
       params: {
@@ -64,9 +67,9 @@ export const MandelbrotSetNode: NodeDefinition<MandelbrotSetInputs, MandelbrotSe
         zoom: params.zoom
       }
     });
-
+    
     return {
       fractal: result
     };
-  }
+  },
 };

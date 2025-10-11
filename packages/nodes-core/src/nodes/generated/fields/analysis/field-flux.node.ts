@@ -1,43 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldFluxParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  vectorField?: VectorField;
-  surface: Surface;
+interface FieldFluxInputs {
+  vectorField?: unknown;
+  surface: unknown;
 }
-interface Outputs {
-  flux: Number;
+
+interface FieldFluxOutputs {
+  flux: number;
 }
 
 export const FieldFluxNode: NodeDefinition<FieldFluxInputs, FieldFluxOutputs, FieldFluxParams> = {
-  type: 'Fields::FieldFlux',
+  id: 'Fields::FieldFlux',
   category: 'Fields',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'FieldFlux',
-    description: 'Calculate flux through surface',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldFlux',
+  description: 'Calculate flux through surface',
   inputs: {
-        vectorField: 'VectorField',
-    surface: 'Surface'
+    vectorField: {
+      type: 'VectorField',
+      label: 'Vector Field',
+      optional: true
+    },
+    surface: {
+      type: 'Surface',
+      label: 'Surface',
+      required: true
+    }
   },
-
   outputs: {
-        flux: 'Number'
+    flux: {
+      type: 'Number',
+      label: 'Flux'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'calculateFlux',
+      params: {
+        vectorField: inputs.vectorField,
+        surface: inputs.surface
+      }
+    });
     
-    // TODO: Implement FieldFlux logic
-    throw new Error('FieldFlux not yet implemented');
-  }
+    return {
+      flux: result
+    };
+  },
 };

@@ -1,53 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ToNumberParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  data: Data;
+interface ToNumberInputs {
+  data: unknown;
 }
-interface Outputs {
-  number: number;
-  isValid: boolean;
+
+interface ToNumberOutputs {
+  number: unknown;
+  isValid: unknown;
 }
 
 export const ToNumberNode: NodeDefinition<ToNumberInputs, ToNumberOutputs, ToNumberParams> = {
-  type: 'Data::ToNumber',
+  id: 'Data::ToNumber',
   category: 'Data',
-  subcategory: 'Convert',
-
-  metadata: {
-    label: 'ToNumber',
-    description: 'Convert to number',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ToNumber',
+  description: 'Convert to number',
   inputs: {
-        data: 'Data'
+    data: {
+      type: 'Data',
+      label: 'Data',
+      required: true
+    }
   },
-
   outputs: {
-        number: 'number',
-    isValid: 'boolean'
+    number: {
+      type: 'number',
+      label: 'Number'
+    },
+    isValid: {
+      type: 'boolean',
+      label: 'Is Valid'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'convertToNumber',
       params: {
         data: inputs.data
-        
       }
     });
-
+    
     return {
-      number: result,
-      isValid: result
+      number: results.number,
+      isValid: results.isValid
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Fire escape staircase
 ## Parameters
 
 
-### enclosure
+### Enclosure
 - **Type:** enum
 - **Default:** "enclosed"
 
@@ -16,7 +16,7 @@ Fire escape staircase
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 1200
 - **Min:** 1100
@@ -27,13 +27,13 @@ Fire escape staircase
 ## Inputs
 
 
-### stairwell
+### Stairwell
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### floors
+### Floors
 - **Type:** Number
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Fire escape staircase
 ## Outputs
 
 
-### escapeStair
+### Escape Stair
 - **Type:** Shape
 
 

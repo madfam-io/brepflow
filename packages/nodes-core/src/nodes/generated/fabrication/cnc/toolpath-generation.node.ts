@@ -1,67 +1,72 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ToolpathGenerationParams {
   strategy: string;
   toolDiameter: number;
   stepover: number;
 }
-interface Inputs {
-  model: Shape;
-  stock?: Shape;
+
+interface ToolpathGenerationInputs {
+  model: unknown;
+  stock?: unknown;
 }
-interface Outputs {
-  toolpath: Wire[];
-  rapids: Wire[];
+
+interface ToolpathGenerationOutputs {
+  toolpath: unknown;
+  rapids: unknown;
 }
 
 export const ToolpathGenerationNode: NodeDefinition<ToolpathGenerationInputs, ToolpathGenerationOutputs, ToolpathGenerationParams> = {
-  type: 'Fabrication::ToolpathGeneration',
+  id: 'Fabrication::ToolpathGeneration',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'ToolpathGeneration',
-    description: 'Generate CNC toolpaths',
-    
-    
-  },
-
-  params: {
-        strategy: {
-      "default": "parallel",
-      "options": [
-        "parallel",
-        "contour",
-        "pocket",
-        "adaptive"
-      ]
+  label: 'ToolpathGeneration',
+  description: 'Generate CNC toolpaths',
+  inputs: {
+    model: {
+      type: 'Shape',
+      label: 'Model',
+      required: true
     },
-    toolDiameter: {
-      "default": 6,
-      "min": 0.1,
-      "max": 50
-    },
-    stepover: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 1
+    stock: {
+      type: 'Shape',
+      label: 'Stock',
+      optional: true
     }
   },
-
-  inputs: {
-        model: 'Shape',
-    stock: 'Shape'
-  },
-
   outputs: {
-        toolpath: 'Wire[]',
-    rapids: 'Wire[]'
+    toolpath: {
+      type: 'Wire[]',
+      label: 'Toolpath'
+    },
+    rapids: {
+      type: 'Wire[]',
+      label: 'Rapids'
+    }
   },
-
+  params: {
+    strategy: {
+      type: 'enum',
+      label: 'Strategy',
+      default: "parallel",
+      options: ["parallel","contour","pocket","adaptive"]
+    },
+    toolDiameter: {
+      type: 'number',
+      label: 'Tool Diameter',
+      default: 6,
+      min: 0.1,
+      max: 50
+    },
+    stepover: {
+      type: 'number',
+      label: 'Stepover',
+      default: 0.5,
+      min: 0.1,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'toolpathGeneration',
       params: {
         model: inputs.model,
@@ -71,10 +76,10 @@ export const ToolpathGenerationNode: NodeDefinition<ToolpathGenerationInputs, To
         stepover: params.stepover
       }
     });
-
+    
     return {
-      toolpath: result,
-      rapids: result
+      toolpath: results.toolpath,
+      rapids: results.rapids
     };
-  }
+  },
 };

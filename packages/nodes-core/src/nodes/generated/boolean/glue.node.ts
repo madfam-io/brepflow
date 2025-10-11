@@ -1,46 +1,45 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GlueParams {
   tolerance: number;
 }
-interface Inputs {
-  shapes: Shape[];
+
+interface GlueInputs {
+  shapes: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface GlueOutputs {
+  result: unknown;
 }
 
 export const GlueNode: NodeDefinition<GlueInputs, GlueOutputs, GlueParams> = {
-  type: 'Boolean::Glue',
+  id: 'Boolean::Glue',
   category: 'Boolean',
-  
-
-  metadata: {
-    label: 'Glue',
-    description: 'Glue shapes together at common faces',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 1e-7,
-      "min": 0,
-      "max": 1
+  label: 'Glue',
+  description: 'Glue shapes together at common faces',
+  inputs: {
+    shapes: {
+      type: 'Shape[]',
+      label: 'Shapes',
+      required: true
     }
   },
-
-  inputs: {
-        shapes: 'Shape[]'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 1e-7,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'booleanGlue',
       params: {
@@ -48,9 +47,9 @@ export const GlueNode: NodeDefinition<GlueInputs, GlueOutputs, GlueParams> = {
         tolerance: params.tolerance
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

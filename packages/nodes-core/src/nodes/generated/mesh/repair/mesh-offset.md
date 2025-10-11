@@ -8,7 +8,7 @@ Offset mesh surface
 ## Parameters
 
 
-### offsetDistance
+### Offset Distance
 - **Type:** number
 - **Default:** 1
 - **Min:** -100
@@ -16,7 +16,7 @@ Offset mesh surface
 
 
 
-### solidify
+### Solidify
 - **Type:** boolean
 - **Default:** false
 
@@ -27,7 +27,7 @@ Offset mesh surface
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Offset mesh surface
 ## Outputs
 
 
-### offset
+### Offset
 - **Type:** Mesh
 
 

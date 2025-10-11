@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TruchetTilesParams {
   tileType: string;
   randomSeed: number;
 }
-interface Inputs {
-  grid: Face[];
+
+interface TruchetTilesInputs {
+  grid: unknown;
 }
-interface Outputs {
-  pattern: Wire[];
+
+interface TruchetTilesOutputs {
+  pattern: unknown;
 }
 
 export const TruchetTilesNode: NodeDefinition<TruchetTilesInputs, TruchetTilesOutputs, TruchetTilesParams> = {
-  type: 'Patterns::TruchetTiles',
+  id: 'Patterns::TruchetTiles',
   category: 'Patterns',
-  subcategory: 'Geometric',
-
-  metadata: {
-    label: 'TruchetTiles',
-    description: 'Truchet tile pattern',
-    
-    
-  },
-
-  params: {
-        tileType: {
-      "default": "arc",
-      "options": [
-        "arc",
-        "diagonal",
-        "smith",
-        "multi"
-      ]
-    },
-    randomSeed: {
-      "default": 0,
-      "min": 0,
-      "max": 999999
+  label: 'TruchetTiles',
+  description: 'Truchet tile pattern',
+  inputs: {
+    grid: {
+      type: 'Face[]',
+      label: 'Grid',
+      required: true
     }
   },
-
-  inputs: {
-        grid: 'Face[]'
-  },
-
   outputs: {
-        pattern: 'Wire[]'
+    pattern: {
+      type: 'Wire[]',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    tileType: {
+      type: 'enum',
+      label: 'Tile Type',
+      default: "arc",
+      options: ["arc","diagonal","smith","multi"]
+    },
+    randomSeed: {
+      type: 'number',
+      label: 'Random Seed',
+      default: 0,
+      min: 0,
+      max: 999999
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'truchetTiles',
       params: {
@@ -59,9 +55,9 @@ export const TruchetTilesNode: NodeDefinition<TruchetTilesInputs, TruchetTilesOu
         randomSeed: params.randomSeed
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

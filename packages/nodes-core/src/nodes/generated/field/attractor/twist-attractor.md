@@ -8,7 +8,7 @@ Twist attractor field
 ## Parameters
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** -360
@@ -16,7 +16,7 @@ Twist attractor field
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Twist attractor field
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Twist attractor field
 
 
 
-### falloff
+### Falloff
 - **Type:** enum
 - **Default:** "smooth"
 
@@ -43,7 +43,7 @@ Twist attractor field
 ## Inputs
 
 
-### axis
+### Axis
 - **Type:** Line
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Twist attractor field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** VectorField
 
 

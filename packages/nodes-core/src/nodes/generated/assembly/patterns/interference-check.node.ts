@@ -1,59 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface InterferenceCheckParams {
   clearance: number;
 }
-interface Inputs {
-  assembly: Assembly;
+
+interface InterferenceCheckInputs {
+  assembly: unknown;
 }
-interface Outputs {
-  interferences: Interference[];
-  hasInterference: boolean;
+
+interface InterferenceCheckOutputs {
+  interferences: unknown;
+  hasInterference: unknown;
 }
 
 export const InterferenceCheckNode: NodeDefinition<InterferenceCheckInputs, InterferenceCheckOutputs, InterferenceCheckParams> = {
-  type: 'Assembly::InterferenceCheck',
+  id: 'Assembly::InterferenceCheck',
   category: 'Assembly',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'InterferenceCheck',
-    description: 'Check for interferences',
-    
-    
-  },
-
-  params: {
-        clearance: {
-      "default": 0,
-      "min": 0,
-      "max": 100
+  label: 'InterferenceCheck',
+  description: 'Check for interferences',
+  inputs: {
+    assembly: {
+      type: 'Assembly',
+      label: 'Assembly',
+      required: true
     }
   },
-
-  inputs: {
-        assembly: 'Assembly'
-  },
-
   outputs: {
-        interferences: 'Interference[]',
-    hasInterference: 'boolean'
+    interferences: {
+      type: 'Interference[]',
+      label: 'Interferences'
+    },
+    hasInterference: {
+      type: 'boolean',
+      label: 'Has Interference'
+    }
   },
-
+  params: {
+    clearance: {
+      type: 'number',
+      label: 'Clearance',
+      default: 0,
+      min: 0,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'assemblyInterference',
       params: {
         assembly: inputs.assembly,
         clearance: params.clearance
       }
     });
-
+    
     return {
-      interferences: result,
-      hasInterference: result
+      interferences: results.interferences,
+      hasInterference: results.hasInterference
     };
-  }
+  },
 };

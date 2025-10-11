@@ -1,58 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GreenWallParams {
   moduleSize: number;
   irrigationType: string;
 }
-interface Inputs {
-  wallSurface: Face;
+
+interface GreenWallInputs {
+  wallSurface: unknown;
 }
-interface Outputs {
-  greenWall: Shape;
-  modules: Shape[];
+
+interface GreenWallOutputs {
+  greenWall: unknown;
+  modules: unknown;
 }
 
 export const GreenWallNode: NodeDefinition<GreenWallInputs, GreenWallOutputs, GreenWallParams> = {
-  type: 'Architecture::GreenWall',
+  id: 'Architecture::GreenWall',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'GreenWall',
-    description: 'Living green wall system',
-    
-    
-  },
-
-  params: {
-        moduleSize: {
-      "default": 600,
-      "min": 300,
-      "max": 1200
-    },
-    irrigationType: {
-      "default": "drip",
-      "options": [
-        "drip",
-        "hydroponic",
-        "aeroponic"
-      ]
+  label: 'GreenWall',
+  description: 'Living green wall system',
+  inputs: {
+    wallSurface: {
+      type: 'Face',
+      label: 'Wall Surface',
+      required: true
     }
   },
-
-  inputs: {
-        wallSurface: 'Face'
-  },
-
   outputs: {
-        greenWall: 'Shape',
-    modules: 'Shape[]'
+    greenWall: {
+      type: 'Shape',
+      label: 'Green Wall'
+    },
+    modules: {
+      type: 'Shape[]',
+      label: 'Modules'
+    }
   },
-
+  params: {
+    moduleSize: {
+      type: 'number',
+      label: 'Module Size',
+      default: 600,
+      min: 300,
+      max: 1200
+    },
+    irrigationType: {
+      type: 'enum',
+      label: 'Irrigation Type',
+      default: "drip",
+      options: ["drip","hydroponic","aeroponic"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'greenWall',
       params: {
         wallSurface: inputs.wallSurface,
@@ -60,10 +60,10 @@ export const GreenWallNode: NodeDefinition<GreenWallInputs, GreenWallOutputs, Gr
         irrigationType: params.irrigationType
       }
     });
-
+    
     return {
-      greenWall: result,
-      modules: result
+      greenWall: results.greenWall,
+      modules: results.modules
     };
-  }
+  },
 };

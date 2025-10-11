@@ -8,7 +8,7 @@ Set fluid properties
 ## Parameters
 
 
-### fluid
+### Fluid
 - **Type:** enum
 - **Default:** "air"
 
@@ -16,7 +16,7 @@ Set fluid properties
 
 
 
-### density
+### Density
 - **Type:** number
 - **Default:** 1.225
 - **Min:** 0.001
@@ -24,7 +24,7 @@ Set fluid properties
 - **Description:** kg/m³
 
 
-### viscosity
+### Viscosity
 - **Type:** number
 - **Default:** 0.0000181
 - **Min:** 1e-10
@@ -32,7 +32,7 @@ Set fluid properties
 - **Description:** Pa·s
 
 
-### compressible
+### Compressible
 - **Type:** boolean
 - **Default:** false
 
@@ -43,7 +43,7 @@ Set fluid properties
 ## Inputs
 
 
-### domain
+### Domain
 - **Type:** Shape
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Set fluid properties
 ## Outputs
 
 
-### fluidDomain
+### Fluid Domain
 - **Type:** Shape
 
 
 
-### fluidData
+### Fluid Data
 - **Type:** Data
 
 

@@ -8,7 +8,7 @@ Create metaball surfaces
 ## Parameters
 
 
-### threshold
+### Threshold
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create metaball surfaces
 
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -27,13 +27,13 @@ Create metaball surfaces
 ## Inputs
 
 
-### centers
+### Centers
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### radii
+### Radii
 - **Type:** number[]
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Create metaball surfaces
 ## Outputs
 
 
-### metaball
+### Metaball
 - **Type:** Shape
 
 

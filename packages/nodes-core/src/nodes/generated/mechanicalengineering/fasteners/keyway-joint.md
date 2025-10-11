@@ -8,7 +8,7 @@ Create keyway and key
 ## Parameters
 
 
-### shaftDiameter
+### Shaft Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 6
@@ -16,7 +16,7 @@ Create keyway and key
 
 
 
-### keyWidth
+### Key Width
 - **Type:** number
 - **Default:** 6
 - **Min:** 2
@@ -24,7 +24,7 @@ Create keyway and key
 
 
 
-### keyHeight
+### Key Height
 - **Type:** number
 - **Default:** 6
 - **Min:** 2
@@ -32,7 +32,7 @@ Create keyway and key
 
 
 
-### keyLength
+### Key Length
 - **Type:** number
 - **Default:** 25
 - **Min:** 10
@@ -43,7 +43,7 @@ Create keyway and key
 ## Inputs
 
 
-### shaftCenter
+### Shaft Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create keyway and key
 ## Outputs
 
 
-### shaft
+### Shaft
 - **Type:** Shape
 
 
 
-### key
+### Key
 - **Type:** Shape
 
 
 
-### keyway
+### Keyway
 - **Type:** Wire
 
 

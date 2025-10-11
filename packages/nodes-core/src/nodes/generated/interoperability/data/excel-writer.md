@@ -8,7 +8,7 @@ Write data to Excel files
 ## Parameters
 
 
-### sheetName
+### Sheet Name
 - **Type:** string
 - **Default:** "Sheet1"
 
@@ -16,7 +16,7 @@ Write data to Excel files
 
 
 
-### includeHeader
+### Include Header
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Write data to Excel files
 
 
 
-### startCell
+### Start Cell
 - **Type:** string
 - **Default:** "A1"
 
@@ -35,13 +35,13 @@ Write data to Excel files
 ## Inputs
 
 
-### data
+### Data
 - **Type:** Properties[]
 - **Required:** Yes
 
 
 
-### filePath
+### File Path
 - **Type:** string
 - **Required:** Yes
 
@@ -50,12 +50,12 @@ Write data to Excel files
 ## Outputs
 
 
-### success
+### Success
 - **Type:** boolean
 
 
 
-### cellsWritten
+### Cells Written
 - **Type:** number
 
 

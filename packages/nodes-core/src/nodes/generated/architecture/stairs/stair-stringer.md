@@ -8,7 +8,7 @@ Stair stringer structure
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "closed"
 
@@ -16,7 +16,7 @@ Stair stringer structure
 
 
 
-### material
+### Material
 - **Type:** enum
 - **Default:** "steel"
 
@@ -24,7 +24,7 @@ Stair stringer structure
 
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 300
 - **Min:** 200
@@ -35,7 +35,7 @@ Stair stringer structure
 ## Inputs
 
 
-### stairProfile
+### Stair Profile
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Stair stringer structure
 ## Outputs
 
 
-### stringers
+### Stringers
 - **Type:** Shape[]
 
 

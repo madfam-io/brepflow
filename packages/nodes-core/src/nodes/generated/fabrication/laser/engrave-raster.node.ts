@@ -1,58 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EngraveRasterParams {
   resolution: number;
   dithering: string;
 }
-interface Inputs {
-  image: Data;
-  boundary: Wire;
+
+interface EngraveRasterInputs {
+  image: unknown;
+  boundary: unknown;
 }
-interface Outputs {
-  rasterData: Data;
+
+interface EngraveRasterOutputs {
+  rasterData: unknown;
 }
 
 export const EngraveRasterNode: NodeDefinition<EngraveRasterInputs, EngraveRasterOutputs, EngraveRasterParams> = {
-  type: 'Fabrication::EngraveRaster',
+  id: 'Fabrication::EngraveRaster',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'EngraveRaster',
-    description: 'Generate raster engraving',
-    
-    
-  },
-
-  params: {
-        resolution: {
-      "default": 300,
-      "min": 100,
-      "max": 1200
+  label: 'EngraveRaster',
+  description: 'Generate raster engraving',
+  inputs: {
+    image: {
+      type: 'Data',
+      label: 'Image',
+      required: true
     },
-    dithering: {
-      "default": "floyd-steinberg",
-      "options": [
-        "none",
-        "floyd-steinberg",
-        "ordered",
-        "random"
-      ]
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        image: 'Data',
-    boundary: 'Wire'
-  },
-
   outputs: {
-        rasterData: 'Data'
+    rasterData: {
+      type: 'Data',
+      label: 'Raster Data'
+    }
   },
-
+  params: {
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 300,
+      min: 100,
+      max: 1200
+    },
+    dithering: {
+      type: 'enum',
+      label: 'Dithering',
+      default: "floyd-steinberg",
+      options: ["none","floyd-steinberg","ordered","random"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'engraveRaster',
       params: {
@@ -62,9 +62,9 @@ export const EngraveRasterNode: NodeDefinition<EngraveRasterInputs, EngraveRaste
         dithering: params.dithering
       }
     });
-
+    
     return {
       rasterData: result
     };
-  }
+  },
 };

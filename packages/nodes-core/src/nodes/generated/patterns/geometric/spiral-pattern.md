@@ -8,7 +8,7 @@ Spiral-based pattern
 ## Parameters
 
 
-### spiralType
+### Spiral Type
 - **Type:** enum
 - **Default:** "logarithmic"
 
@@ -16,7 +16,7 @@ Spiral-based pattern
 
 
 
-### turns
+### Turns
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.5
@@ -24,7 +24,7 @@ Spiral-based pattern
 
 
 
-### growth
+### Growth
 - **Type:** number
 - **Default:** 1.2
 - **Min:** 1
@@ -35,7 +35,7 @@ Spiral-based pattern
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Spiral-based pattern
 ## Outputs
 
 
-### spiral
+### Spiral
 - **Type:** Wire
 
 

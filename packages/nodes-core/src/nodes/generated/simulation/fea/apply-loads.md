@@ -8,7 +8,7 @@ Define load conditions
 ## Parameters
 
 
-### loadType
+### Load Type
 - **Type:** enum
 - **Default:** "force"
 
@@ -16,7 +16,7 @@ Define load conditions
 
 
 
-### magnitude
+### Magnitude
 - **Type:** number
 - **Default:** 1000
 - **Min:** 0
@@ -24,7 +24,7 @@ Define load conditions
 
 
 
-### direction
+### Direction
 - **Type:** vector3
 - **Default:** [0,0,-1]
 
@@ -32,7 +32,7 @@ Define load conditions
 
 
 
-### units
+### Units
 - **Type:** enum
 - **Default:** "N"
 
@@ -43,13 +43,13 @@ Define load conditions
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
 
 
-### applicationFaces
+### Application Faces
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -58,12 +58,12 @@ Define load conditions
 ## Outputs
 
 
-### loadedMesh
+### Loaded Mesh
 - **Type:** Mesh
 
 
 
-### loadData
+### Load Data
 - **Type:** Data
 
 

@@ -1,64 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldStreamLinesParams {
   seedCount: number;
   stepSize: number;
   maxSteps: number;
 }
-interface Inputs {
-  field?: VectorField;
-  seedPoints?: PointSet;
+
+interface FieldStreamLinesInputs {
+  field?: unknown;
+  seedPoints?: unknown;
 }
-interface Outputs {
-  streamlines: CurveSet;
+
+interface FieldStreamLinesOutputs {
+  streamlines: unknown;
 }
 
 export const FieldStreamLinesNode: NodeDefinition<FieldStreamLinesInputs, FieldStreamLinesOutputs, FieldStreamLinesParams> = {
-  type: 'Fields::FieldStreamLines',
+  id: 'Fields::FieldStreamLines',
   category: 'Fields',
-  subcategory: 'Visualization',
-
-  metadata: {
-    label: 'FieldStreamLines',
-    description: 'Generate streamlines through vector field',
-    
-    
-  },
-
-  params: {
-        seedCount: {
-      "default": 20,
-      "min": 1,
-      "max": 1000,
-      "description": "Number of streamlines"
+  label: 'FieldStreamLines',
+  description: 'Generate streamlines through vector field',
+  inputs: {
+    field: {
+      type: 'VectorField',
+      label: 'Field',
+      optional: true
     },
-    stepSize: {
-      "default": 0.1,
-      "min": 0.01,
-      "max": 1,
-      "description": "Integration step size"
-    },
-    maxSteps: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "description": "Maximum steps per line"
+    seedPoints: {
+      type: 'PointSet',
+      label: 'Seed Points',
+      optional: true
     }
   },
-
-  inputs: {
-        field: 'VectorField',
-    seedPoints: 'PointSet'
-  },
-
   outputs: {
-        streamlines: 'CurveSet'
+    streamlines: {
+      type: 'CurveSet',
+      label: 'Streamlines'
+    }
   },
-
+  params: {
+    seedCount: {
+      type: 'number',
+      label: 'Seed Count',
+      default: 20,
+      min: 1,
+      max: 1000
+    },
+    stepSize: {
+      type: 'number',
+      label: 'Step Size',
+      default: 0.1,
+      min: 0.01,
+      max: 1
+    },
+    maxSteps: {
+      type: 'number',
+      label: 'Max Steps',
+      default: 100,
+      min: 10,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'generateStreamlines',
+      params: {
+        field: inputs.field,
+        seedPoints: inputs.seedPoints,
+        seedCount: params.seedCount,
+        stepSize: params.stepSize,
+        maxSteps: params.maxSteps
+      }
+    });
     
-    // TODO: Implement FieldStreamLines logic
-    throw new Error('FieldStreamLines not yet implemented');
-  }
+    return {
+      streamlines: result
+    };
+  },
 };

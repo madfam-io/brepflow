@@ -1,55 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LeadInOutParams {
   leadLength: number;
   leadType: string;
 }
-interface Inputs {
-  paths: Wire[];
+
+interface LeadInOutInputs {
+  paths: unknown;
 }
-interface Outputs {
-  pathsWithLeads: Wire[];
+
+interface LeadInOutOutputs {
+  pathsWithLeads: unknown;
 }
 
 export const LeadInOutNode: NodeDefinition<LeadInOutInputs, LeadInOutOutputs, LeadInOutParams> = {
-  type: 'Fabrication::LeadInOut',
+  id: 'Fabrication::LeadInOut',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'LeadInOut',
-    description: 'Add lead-in/out to paths',
-    
-    
-  },
-
-  params: {
-        leadLength: {
-      "default": 2,
-      "min": 0.5,
-      "max": 10
-    },
-    leadType: {
-      "default": "line",
-      "options": [
-        "line",
-        "arc",
-        "none"
-      ]
+  label: 'LeadInOut',
+  description: 'Add lead-in/out to paths',
+  inputs: {
+    paths: {
+      type: 'Wire[]',
+      label: 'Paths',
+      required: true
     }
   },
-
-  inputs: {
-        paths: 'Wire[]'
-  },
-
   outputs: {
-        pathsWithLeads: 'Wire[]'
+    pathsWithLeads: {
+      type: 'Wire[]',
+      label: 'Paths With Leads'
+    }
   },
-
+  params: {
+    leadLength: {
+      type: 'number',
+      label: 'Lead Length',
+      default: 2,
+      min: 0.5,
+      max: 10
+    },
+    leadType: {
+      type: 'enum',
+      label: 'Lead Type',
+      default: "line",
+      options: ["line","arc","none"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'leadInOut',
       params: {
@@ -58,9 +55,9 @@ export const LeadInOutNode: NodeDefinition<LeadInOutInputs, LeadInOutOutputs, Le
         leadType: params.leadType
       }
     });
-
+    
     return {
       pathsWithLeads: result
     };
-  }
+  },
 };

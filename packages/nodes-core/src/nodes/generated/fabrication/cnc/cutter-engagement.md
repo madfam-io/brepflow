@@ -8,7 +8,7 @@ Analyze cutter engagement
 ## Parameters
 
 
-### toolDiameter
+### Tool Diameter
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -19,13 +19,13 @@ Analyze cutter engagement
 ## Inputs
 
 
-### toolpath
+### Toolpath
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### stock
+### Stock
 - **Type:** Shape
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Analyze cutter engagement
 ## Outputs
 
 
-### engagementAngle
+### Engagement Angle
 - **Type:** Number[]
 
 

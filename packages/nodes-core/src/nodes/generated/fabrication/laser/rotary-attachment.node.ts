@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RotaryAttachmentParams {
   diameter: number;
   stepsPerRotation: number;
 }
-interface Inputs {
-  cylindricalPattern: Wire[];
+
+interface RotaryAttachmentInputs {
+  cylindricalPattern: unknown;
 }
-interface Outputs {
-  unwrappedPattern: Wire[];
+
+interface RotaryAttachmentOutputs {
+  unwrappedPattern: unknown;
 }
 
 export const RotaryAttachmentNode: NodeDefinition<RotaryAttachmentInputs, RotaryAttachmentOutputs, RotaryAttachmentParams> = {
-  type: 'Fabrication::RotaryAttachment',
+  id: 'Fabrication::RotaryAttachment',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'RotaryAttachment',
-    description: 'Setup rotary cutting',
-    
-    
-  },
-
-  params: {
-        diameter: {
-      "default": 100,
-      "min": 10,
-      "max": 500
-    },
-    stepsPerRotation: {
-      "default": 10000,
-      "min": 100,
-      "max": 100000
+  label: 'RotaryAttachment',
+  description: 'Setup rotary cutting',
+  inputs: {
+    cylindricalPattern: {
+      type: 'Wire[]',
+      label: 'Cylindrical Pattern',
+      required: true
     }
   },
-
-  inputs: {
-        cylindricalPattern: 'Wire[]'
-  },
-
   outputs: {
-        unwrappedPattern: 'Wire[]'
+    unwrappedPattern: {
+      type: 'Wire[]',
+      label: 'Unwrapped Pattern'
+    }
   },
-
+  params: {
+    diameter: {
+      type: 'number',
+      label: 'Diameter',
+      default: 100,
+      min: 10,
+      max: 500
+    },
+    stepsPerRotation: {
+      type: 'number',
+      label: 'Steps Per Rotation',
+      default: 10000,
+      min: 100,
+      max: 100000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'rotaryAttachment',
       params: {
@@ -55,9 +56,9 @@ export const RotaryAttachmentNode: NodeDefinition<RotaryAttachmentInputs, Rotary
         stepsPerRotation: params.stepsPerRotation
       }
     });
-
+    
     return {
       unwrappedPattern: result
     };
-  }
+  },
 };

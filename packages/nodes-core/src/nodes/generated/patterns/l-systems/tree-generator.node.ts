@@ -1,72 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TreeGeneratorParams {
   treeType: string;
   height: number;
   branches: number;
   seed: number;
 }
-interface Inputs {
-  base: Point;
+
+interface TreeGeneratorInputs {
+  base: [number, number, number];
 }
-interface Outputs {
-  trunk: Wire[];
-  leaves: Point[];
+
+interface TreeGeneratorOutputs {
+  trunk: unknown;
+  leaves: Array<[number, number, number]>;
 }
 
 export const TreeGeneratorNode: NodeDefinition<TreeGeneratorInputs, TreeGeneratorOutputs, TreeGeneratorParams> = {
-  type: 'Patterns::TreeGenerator',
+  id: 'Patterns::TreeGenerator',
   category: 'Patterns',
-  subcategory: 'L-Systems',
-
-  metadata: {
-    label: 'TreeGenerator',
-    description: 'Parametric tree generator',
-    
-    
-  },
-
-  params: {
-        treeType: {
-      "default": "oak",
-      "options": [
-        "oak",
-        "pine",
-        "willow",
-        "palm",
-        "fractal"
-      ]
-    },
-    height: {
-      "default": 100,
-      "min": 10
-    },
-    branches: {
-      "default": 5,
-      "min": 2,
-      "max": 10,
-      "step": 1
-    },
-    seed: {
-      "default": 0,
-      "min": 0,
-      "max": 999999
+  label: 'TreeGenerator',
+  description: 'Parametric tree generator',
+  inputs: {
+    base: {
+      type: 'Point',
+      label: 'Base',
+      required: true
     }
   },
-
-  inputs: {
-        base: 'Point'
-  },
-
   outputs: {
-        trunk: 'Wire[]',
-    leaves: 'Point[]'
+    trunk: {
+      type: 'Wire[]',
+      label: 'Trunk'
+    },
+    leaves: {
+      type: 'Point[]',
+      label: 'Leaves'
+    }
   },
-
+  params: {
+    treeType: {
+      type: 'enum',
+      label: 'Tree Type',
+      default: "oak",
+      options: ["oak","pine","willow","palm","fractal"]
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 10
+    },
+    branches: {
+      type: 'number',
+      label: 'Branches',
+      default: 5,
+      min: 2,
+      max: 10,
+      step: 1
+    },
+    seed: {
+      type: 'number',
+      label: 'Seed',
+      default: 0,
+      min: 0,
+      max: 999999
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'treeGenerator',
       params: {
         base: inputs.base,
@@ -76,10 +78,10 @@ export const TreeGeneratorNode: NodeDefinition<TreeGeneratorInputs, TreeGenerato
         seed: params.seed
       }
     });
-
+    
     return {
-      trunk: result,
-      leaves: result
+      trunk: results.trunk,
+      leaves: results.leaves
     };
-  }
+  },
 };

@@ -1,64 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StairHandrailParams {
   height: number;
   diameter: number;
   mountType: string;
 }
-interface Inputs {
-  stairEdge: Wire;
+
+interface StairHandrailInputs {
+  stairEdge: unknown;
 }
-interface Outputs {
-  handrail: Shape;
-  posts: Shape[];
+
+interface StairHandrailOutputs {
+  handrail: unknown;
+  posts: unknown;
 }
 
 export const StairHandrailNode: NodeDefinition<StairHandrailInputs, StairHandrailOutputs, StairHandrailParams> = {
-  type: 'Architecture::StairHandrail',
+  id: 'Architecture::StairHandrail',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'StairHandrail',
-    description: 'Stair handrail system',
-    
-    
-  },
-
-  params: {
-        height: {
-      "default": 900,
-      "min": 850,
-      "max": 1000
-    },
-    diameter: {
-      "default": 50,
-      "min": 40,
-      "max": 60
-    },
-    mountType: {
-      "default": "post",
-      "options": [
-        "wall",
-        "post",
-        "glass"
-      ]
+  label: 'StairHandrail',
+  description: 'Stair handrail system',
+  inputs: {
+    stairEdge: {
+      type: 'Wire',
+      label: 'Stair Edge',
+      required: true
     }
   },
-
-  inputs: {
-        stairEdge: 'Wire'
-  },
-
   outputs: {
-        handrail: 'Shape',
-    posts: 'Shape[]'
+    handrail: {
+      type: 'Shape',
+      label: 'Handrail'
+    },
+    posts: {
+      type: 'Shape[]',
+      label: 'Posts'
+    }
   },
-
+  params: {
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 900,
+      min: 850,
+      max: 1000
+    },
+    diameter: {
+      type: 'number',
+      label: 'Diameter',
+      default: 50,
+      min: 40,
+      max: 60
+    },
+    mountType: {
+      type: 'enum',
+      label: 'Mount Type',
+      default: "post",
+      options: ["wall","post","glass"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'stairHandrail',
       params: {
         stairEdge: inputs.stairEdge,
@@ -67,10 +69,10 @@ export const StairHandrailNode: NodeDefinition<StairHandrailInputs, StairHandrai
         mountType: params.mountType
       }
     });
-
+    
     return {
-      handrail: result,
-      posts: result
+      handrail: results.handrail,
+      posts: results.posts
     };
-  }
+  },
 };

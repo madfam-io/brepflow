@@ -1,53 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ExplodedViewParams {
   distance: number;
   autoSpace: boolean;
 }
-interface Inputs {
-  assembly: Assembly;
+
+interface ExplodedViewInputs {
+  assembly: unknown;
 }
-interface Outputs {
-  exploded: Shape[];
-  paths: Wire[];
+
+interface ExplodedViewOutputs {
+  exploded: unknown;
+  paths: unknown;
 }
 
 export const ExplodedViewNode: NodeDefinition<ExplodedViewInputs, ExplodedViewOutputs, ExplodedViewParams> = {
-  type: 'Assembly::ExplodedView',
+  id: 'Assembly::ExplodedView',
   category: 'Assembly',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'ExplodedView',
-    description: 'Create exploded view',
-    
-    
-  },
-
-  params: {
-        distance: {
-      "default": 100,
-      "min": 0,
-      "max": 10000
-    },
-    autoSpace: {
-      "default": true
+  label: 'ExplodedView',
+  description: 'Create exploded view',
+  inputs: {
+    assembly: {
+      type: 'Assembly',
+      label: 'Assembly',
+      required: true
     }
   },
-
-  inputs: {
-        assembly: 'Assembly'
-  },
-
   outputs: {
-        exploded: 'Shape[]',
-    paths: 'Wire[]'
+    exploded: {
+      type: 'Shape[]',
+      label: 'Exploded'
+    },
+    paths: {
+      type: 'Wire[]',
+      label: 'Paths'
+    }
   },
-
+  params: {
+    distance: {
+      type: 'number',
+      label: 'Distance',
+      default: 100,
+      min: 0,
+      max: 10000
+    },
+    autoSpace: {
+      type: 'boolean',
+      label: 'Auto Space',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'assemblyExplodedView',
       params: {
         assembly: inputs.assembly,
@@ -55,10 +59,10 @@ export const ExplodedViewNode: NodeDefinition<ExplodedViewInputs, ExplodedViewOu
         autoSpace: params.autoSpace
       }
     });
-
+    
     return {
-      exploded: result,
-      paths: result
+      exploded: results.exploded,
+      paths: results.paths
     };
-  }
+  },
 };

@@ -1,55 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MeshAttractorParams {
   strength: number;
   radius: number;
   weightByArea: boolean;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface MeshAttractorInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface MeshAttractorOutputs {
+  field: unknown;
 }
 
 export const MeshAttractorNode: NodeDefinition<MeshAttractorInputs, MeshAttractorOutputs, MeshAttractorParams> = {
-  type: 'Field::MeshAttractor',
+  id: 'Field::MeshAttractor',
   category: 'Field',
-  subcategory: 'Attractor',
-
-  metadata: {
-    label: 'MeshAttractor',
-    description: 'Mesh vertex attractor',
-    
-    
-  },
-
-  params: {
-        strength: {
-      "default": 1,
-      "min": -10,
-      "max": 10
-    },
-    radius: {
-      "default": 20,
-      "min": 0.1
-    },
-    weightByArea: {
-      "default": false
+  label: 'MeshAttractor',
+  description: 'Mesh vertex attractor',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    strength: {
+      type: 'number',
+      label: 'Strength',
+      default: 1,
+      min: -10,
+      max: 10
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 20,
+      min: 0.1
+    },
+    weightByArea: {
+      type: 'boolean',
+      label: 'Weight By Area',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'attractorMesh',
       params: {
@@ -59,9 +62,9 @@ export const MeshAttractorNode: NodeDefinition<MeshAttractorInputs, MeshAttracto
         weightByArea: params.weightByArea
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

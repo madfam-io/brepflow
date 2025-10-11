@@ -8,7 +8,7 @@ Create tab feature
 ## Parameters
 
 
-### tabWidth
+### Tab Width
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create tab feature
 
 
 
-### tabDepth
+### Tab Depth
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create tab feature
 
 
 
-### tabType
+### Tab Type
 - **Type:** enum
 - **Default:** "rectangular"
 
@@ -32,7 +32,7 @@ Create tab feature
 
 
 
-### cornerRadius
+### Corner Radius
 - **Type:** number
 - **Default:** 2
 - **Min:** 0
@@ -43,19 +43,19 @@ Create tab feature
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### edge
+### Edge
 - **Type:** Edge
 - **Required:** Yes
 
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -64,7 +64,7 @@ Create tab feature
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

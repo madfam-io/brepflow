@@ -1,57 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CollisionDetectionParams {
   toolLength: number;
   holderDiameter: number;
 }
-interface Inputs {
-  toolpath: Wire[];
-  model: Shape;
+
+interface CollisionDetectionInputs {
+  toolpath: unknown;
+  model: unknown;
 }
-interface Outputs {
-  collisions: Point[];
-  safePath: Wire[];
+
+interface CollisionDetectionOutputs {
+  collisions: Array<[number, number, number]>;
+  safePath: unknown;
 }
 
 export const CollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, CollisionDetectionOutputs, CollisionDetectionParams> = {
-  type: 'Fabrication::CollisionDetection',
+  id: 'Fabrication::CollisionDetection',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'CollisionDetection',
-    description: 'Tool collision checking',
-    
-    
-  },
-
-  params: {
-        toolLength: {
-      "default": 50,
-      "min": 10,
-      "max": 200
+  label: 'CollisionDetection',
+  description: 'Tool collision checking',
+  inputs: {
+    toolpath: {
+      type: 'Wire[]',
+      label: 'Toolpath',
+      required: true
     },
-    holderDiameter: {
-      "default": 20,
-      "min": 5,
-      "max": 100
+    model: {
+      type: 'Shape',
+      label: 'Model',
+      required: true
     }
   },
-
-  inputs: {
-        toolpath: 'Wire[]',
-    model: 'Shape'
-  },
-
   outputs: {
-        collisions: 'Point[]',
-    safePath: 'Wire[]'
+    collisions: {
+      type: 'Point[]',
+      label: 'Collisions'
+    },
+    safePath: {
+      type: 'Wire[]',
+      label: 'Safe Path'
+    }
   },
-
+  params: {
+    toolLength: {
+      type: 'number',
+      label: 'Tool Length',
+      default: 50,
+      min: 10,
+      max: 200
+    },
+    holderDiameter: {
+      type: 'number',
+      label: 'Holder Diameter',
+      default: 20,
+      min: 5,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'collisionDetection',
       params: {
         toolpath: inputs.toolpath,
@@ -60,10 +68,10 @@ export const CollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, Co
         holderDiameter: params.holderDiameter
       }
     });
-
+    
     return {
-      collisions: result,
-      safePath: result
+      collisions: results.collisions,
+      safePath: results.safePath
     };
-  }
+  },
 };

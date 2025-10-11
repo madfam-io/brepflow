@@ -1,46 +1,45 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RobotMaintenanceParams {
   operatingHours: number;
 }
-interface Inputs {
-  robotData: Data;
+
+interface RobotMaintenanceInputs {
+  robotData: unknown;
 }
-interface Outputs {
-  maintenanceSchedule: Data;
+
+interface RobotMaintenanceOutputs {
+  maintenanceSchedule: unknown;
 }
 
 export const RobotMaintenanceNode: NodeDefinition<RobotMaintenanceInputs, RobotMaintenanceOutputs, RobotMaintenanceParams> = {
-  type: 'Fabrication::RobotMaintenance',
+  id: 'Fabrication::RobotMaintenance',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'RobotMaintenance',
-    description: 'Maintenance scheduling',
-    
-    
-  },
-
-  params: {
-        operatingHours: {
-      "default": 1000,
-      "min": 0,
-      "max": 50000
+  label: 'RobotMaintenance',
+  description: 'Maintenance scheduling',
+  inputs: {
+    robotData: {
+      type: 'Data',
+      label: 'Robot Data',
+      required: true
     }
   },
-
-  inputs: {
-        robotData: 'Data'
-  },
-
   outputs: {
-        maintenanceSchedule: 'Data'
+    maintenanceSchedule: {
+      type: 'Data',
+      label: 'Maintenance Schedule'
+    }
   },
-
+  params: {
+    operatingHours: {
+      type: 'number',
+      label: 'Operating Hours',
+      default: 1000,
+      min: 0,
+      max: 50000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'robotMaintenance',
       params: {
@@ -48,9 +47,9 @@ export const RobotMaintenanceNode: NodeDefinition<RobotMaintenanceInputs, RobotM
         operatingHours: params.operatingHours
       }
     });
-
+    
     return {
       maintenanceSchedule: result
     };
-  }
+  },
 };

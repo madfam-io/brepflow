@@ -8,7 +8,7 @@ Calculate inverse kinematics
 ## Parameters
 
 
-### solver
+### Solver
 - **Type:** enum
 - **Default:** "jacobian"
 
@@ -16,7 +16,7 @@ Calculate inverse kinematics
 
 
 
-### maxIterations
+### Max Iterations
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -24,7 +24,7 @@ Calculate inverse kinematics
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.001
 - **Min:** 0.0001
@@ -35,13 +35,13 @@ Calculate inverse kinematics
 ## Inputs
 
 
-### mechanism
+### Mechanism
 - **Type:** Data
 - **Required:** Yes
 
 
 
-### targetPose
+### Target Pose
 - **Type:** Data
 - **Required:** Yes
 
@@ -50,12 +50,12 @@ Calculate inverse kinematics
 ## Outputs
 
 
-### jointValues
+### Joint Values
 - **Type:** number[]
 
 
 
-### reachable
+### Reachable
 - **Type:** boolean
 
 

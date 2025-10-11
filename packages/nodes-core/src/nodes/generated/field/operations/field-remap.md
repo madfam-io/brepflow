@@ -8,7 +8,7 @@ Remap field values
 ## Parameters
 
 
-### fromMin
+### From Min
 - **Type:** number
 - **Default:** 0
 
@@ -16,7 +16,7 @@ Remap field values
 
 
 
-### fromMax
+### From Max
 - **Type:** number
 - **Default:** 1
 
@@ -24,7 +24,7 @@ Remap field values
 
 
 
-### toMin
+### To Min
 - **Type:** number
 - **Default:** 0
 
@@ -32,7 +32,7 @@ Remap field values
 
 
 
-### toMax
+### To Max
 - **Type:** number
 - **Default:** 100
 
@@ -43,7 +43,7 @@ Remap field values
 ## Inputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Remap field values
 ## Outputs
 
 
-### remapped
+### Remapped
 - **Type:** ScalarField
 
 

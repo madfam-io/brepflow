@@ -1,57 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceFlatnessParams {
   tolerance: number;
   showBestFitPlane: boolean;
 }
-interface Inputs {
-  surface: Face;
+
+interface SurfaceFlatnessInputs {
+  surface: unknown;
 }
-interface Outputs {
-  isFlat: boolean;
-  flatness: number;
-  bestFitPlane: Face;
-  maxDeviation: number;
+
+interface SurfaceFlatnessOutputs {
+  isFlat: unknown;
+  flatness: unknown;
+  bestFitPlane: unknown;
+  maxDeviation: unknown;
 }
 
 export const SurfaceFlatnessNode: NodeDefinition<SurfaceFlatnessInputs, SurfaceFlatnessOutputs, SurfaceFlatnessParams> = {
-  type: 'Analysis::SurfaceFlatness',
+  id: 'Analysis::SurfaceFlatness',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceFlatness',
-    description: 'Analyze surface flatness',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.1,
-      "min": 0.001,
-      "max": 10
-    },
-    showBestFitPlane: {
-      "default": true
+  label: 'SurfaceFlatness',
+  description: 'Analyze surface flatness',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        isFlat: 'boolean',
-    flatness: 'number',
-    bestFitPlane: 'Face',
-    maxDeviation: 'number'
+    isFlat: {
+      type: 'boolean',
+      label: 'Is Flat'
+    },
+    flatness: {
+      type: 'number',
+      label: 'Flatness'
+    },
+    bestFitPlane: {
+      type: 'Face',
+      label: 'Best Fit Plane'
+    },
+    maxDeviation: {
+      type: 'number',
+      label: 'Max Deviation'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.1,
+      min: 0.001,
+      max: 10
+    },
+    showBestFitPlane: {
+      type: 'boolean',
+      label: 'Show Best Fit Plane',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceFlatness',
       params: {
         surface: inputs.surface,
@@ -59,12 +69,12 @@ export const SurfaceFlatnessNode: NodeDefinition<SurfaceFlatnessInputs, SurfaceF
         showBestFitPlane: params.showBestFitPlane
       }
     });
-
+    
     return {
-      isFlat: result,
-      flatness: result,
-      bestFitPlane: result,
-      maxDeviation: result
+      isFlat: results.isFlat,
+      flatness: results.flatness,
+      bestFitPlane: results.bestFitPlane,
+      maxDeviation: results.maxDeviation
     };
-  }
+  },
 };

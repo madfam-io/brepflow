@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LineParams {
   startX: number;
   startY: number;
   startZ: number;
@@ -9,70 +8,73 @@ interface Params {
   endY: number;
   endZ: number;
 }
-type Inputs = {};
-interface Outputs {
-  edge: Edge;
+
+type LineInputs = Record<string, never>;
+
+interface LineOutputs {
+  edge: unknown;
 }
 
 export const LineNode: NodeDefinition<LineInputs, LineOutputs, LineParams> = {
-  type: 'Sketch::Line',
+  id: 'Sketch::Line',
   category: 'Sketch',
-  subcategory: 'Basic',
-
-  metadata: {
-    label: 'Line',
-    description: 'Create a line segment',
-    
-    
-  },
-
-  params: {
-        startX: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    startY: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    startZ: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    endX: {
-      "default": 100,
-      "min": -10000,
-      "max": 10000
-    },
-    endY: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    endZ: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
+  label: 'Line',
+  description: 'Create a line segment',
+  inputs: {},
+  outputs: {
+    edge: {
+      type: 'Edge',
+      label: 'Edge'
     }
   },
-
-  inputs: {
-    
+  params: {
+    startX: {
+      type: 'number',
+      label: 'Start X',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    startY: {
+      type: 'number',
+      label: 'Start Y',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    startZ: {
+      type: 'number',
+      label: 'Start Z',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    endX: {
+      type: 'number',
+      label: 'End X',
+      default: 100,
+      min: -10000,
+      max: 10000
+    },
+    endY: {
+      type: 'number',
+      label: 'End Y',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    endZ: {
+      type: 'number',
+      label: 'End Z',
+      default: 0,
+      min: -10000,
+      max: 10000
+    }
   },
-
-  outputs: {
-        edge: 'Edge'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeLine',
       params: {
-        
         startX: params.startX,
         startY: params.startY,
         startZ: params.startZ,
@@ -81,9 +83,9 @@ export const LineNode: NodeDefinition<LineInputs, LineOutputs, LineParams> = {
         endZ: params.endZ
       }
     });
-
+    
     return {
       edge: result
     };
-  }
+  },
 };

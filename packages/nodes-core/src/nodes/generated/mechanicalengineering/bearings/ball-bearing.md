@@ -8,7 +8,7 @@ Create ball bearing assembly
 ## Parameters
 
 
-### innerDiameter
+### Inner Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 3
@@ -16,7 +16,7 @@ Create ball bearing assembly
 - **Description:** Bore diameter in mm
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 47
 - **Min:** 10
@@ -24,7 +24,7 @@ Create ball bearing assembly
 - **Description:** Outer diameter in mm
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 14
 - **Min:** 3
@@ -32,7 +32,7 @@ Create ball bearing assembly
 - **Description:** Width in mm
 
 
-### ballCount
+### Ball Count
 - **Type:** number
 - **Default:** 8
 - **Min:** 5
@@ -40,7 +40,7 @@ Create ball bearing assembly
 
 
 
-### showCage
+### Show Cage
 - **Type:** boolean
 - **Default:** true
 
@@ -51,13 +51,13 @@ Create ball bearing assembly
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### axis
+### Axis
 - **Type:** Vector
 - **Required:** No
 
@@ -66,17 +66,17 @@ Create ball bearing assembly
 ## Outputs
 
 
-### bearing
+### Bearing
 - **Type:** Shape
 
 
 
-### innerRace
+### Inner Race
 - **Type:** Shape
 
 
 
-### outerRace
+### Outer Race
 - **Type:** Shape
 
 

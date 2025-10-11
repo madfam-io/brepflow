@@ -8,7 +8,7 @@ Hilbert space-filling curve
 ## Parameters
 
 
-### order
+### Order
 - **Type:** number
 - **Default:** 4
 - **Min:** 1
@@ -16,7 +16,7 @@ Hilbert space-filling curve
 
 
 
-### dimension
+### Dimension
 - **Type:** enum
 - **Default:** "2D"
 
@@ -27,7 +27,7 @@ Hilbert space-filling curve
 ## Inputs
 
 
-### bounds
+### Bounds
 - **Type:** Box
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Hilbert space-filling curve
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 
 

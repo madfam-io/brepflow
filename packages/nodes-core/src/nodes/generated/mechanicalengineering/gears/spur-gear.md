@@ -8,7 +8,7 @@ Create standard spur gear
 ## Parameters
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Create standard spur gear
 - **Description:** Gear module in mm
 
 
-### teeth
+### Teeth
 - **Type:** number
 - **Default:** 20
 - **Min:** 6
@@ -24,7 +24,7 @@ Create standard spur gear
 - **Description:** Number of teeth
 
 
-### pressureAngle
+### Pressure Angle
 - **Type:** number
 - **Default:** 20
 - **Min:** 14.5
@@ -32,7 +32,7 @@ Create standard spur gear
 - **Description:** Pressure angle in degrees
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 20
 - **Min:** 1
@@ -40,7 +40,7 @@ Create standard spur gear
 - **Description:** Face width in mm
 
 
-### hubDiameter
+### Hub Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -51,13 +51,13 @@ Create standard spur gear
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** No
 
 
 
-### axis
+### Axis
 - **Type:** Vector
 - **Required:** No
 
@@ -66,17 +66,17 @@ Create standard spur gear
 ## Outputs
 
 
-### gear
+### Gear
 - **Type:** Shape
 
 
 
-### pitchCircle
+### Pitch Circle
 - **Type:** Wire
 
 
 
-### properties
+### Properties
 - **Type:** Properties
 
 

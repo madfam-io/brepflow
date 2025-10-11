@@ -1,65 +1,82 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldCriticalPointsParams {
   tolerance: number;
   type: string;
 }
-interface Inputs {
-  field?: Field;
-  domain?: Geometry;
+
+interface FieldCriticalPointsInputs {
+  field?: unknown;
+  domain?: unknown;
 }
-interface Outputs {
-  points: PointSet;
-  types: StringList;
-  values: NumberList;
+
+interface FieldCriticalPointsOutputs {
+  points: unknown;
+  types: unknown;
+  values: unknown;
 }
 
 export const FieldCriticalPointsNode: NodeDefinition<FieldCriticalPointsInputs, FieldCriticalPointsOutputs, FieldCriticalPointsParams> = {
-  type: 'Fields::FieldCriticalPoints',
+  id: 'Fields::FieldCriticalPoints',
   category: 'Fields',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'FieldCriticalPoints',
-    description: 'Find critical points in field',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.001,
-      "min": 0,
-      "max": 1,
-      "description": "Search tolerance"
+  label: 'FieldCriticalPoints',
+  description: 'Find critical points in field',
+  inputs: {
+    field: {
+      type: 'Field',
+      label: 'Field',
+      optional: true
     },
-    type: {
-      "default": "\"all\"",
-      "options": [
-        "all",
-        "minima",
-        "maxima",
-        "saddles"
-      ],
-      "description": "Type of critical points"
+    domain: {
+      type: 'Geometry',
+      label: 'Domain',
+      optional: true
     }
   },
-
-  inputs: {
-        field: 'Field',
-    domain: 'Geometry'
-  },
-
   outputs: {
-        points: 'PointSet',
-    types: 'StringList',
-    values: 'NumberList'
+    points: {
+      type: 'PointSet',
+      label: 'Points'
+    },
+    types: {
+      type: 'StringList',
+      label: 'Types'
+    },
+    values: {
+      type: 'NumberList',
+      label: 'Values'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.001,
+      min: 0,
+      max: 1
+    },
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "\"all\"",
+      options: ["all","minima","maxima","saddles"]
+    }
+  },
   async evaluate(context, inputs, params) {
+    const results = await context.geometry.execute({
+      type: 'findCriticalPoints',
+      params: {
+        field: inputs.field,
+        domain: inputs.domain,
+        tolerance: params.tolerance,
+        type: params.type
+      }
+    });
     
-    // TODO: Implement FieldCriticalPoints logic
-    throw new Error('FieldCriticalPoints not yet implemented');
-  }
+    return {
+      points: results.points,
+      types: results.types,
+      values: results.values
+    };
+  },
 };

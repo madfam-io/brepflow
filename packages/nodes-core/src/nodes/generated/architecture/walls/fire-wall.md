@@ -8,7 +8,7 @@ Fire-rated wall assembly
 ## Parameters
 
 
-### fireRating
+### Fire Rating
 - **Type:** enum
 - **Default:** "2-hour"
 
@@ -16,7 +16,7 @@ Fire-rated wall assembly
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 250
 - **Min:** 200
@@ -27,7 +27,7 @@ Fire-rated wall assembly
 ## Inputs
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Fire-rated wall assembly
 ## Outputs
 
 
-### fireWall
+### Fire Wall
 - **Type:** Shape
 
 

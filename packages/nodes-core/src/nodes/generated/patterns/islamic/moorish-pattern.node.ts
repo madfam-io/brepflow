@@ -1,55 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MoorishPatternParams {
   style: string;
   scale: number;
 }
-interface Inputs {
-  region: Face;
+
+interface MoorishPatternInputs {
+  region: unknown;
 }
-interface Outputs {
-  pattern: Wire[];
+
+interface MoorishPatternOutputs {
+  pattern: unknown;
 }
 
 export const MoorishPatternNode: NodeDefinition<MoorishPatternInputs, MoorishPatternOutputs, MoorishPatternParams> = {
-  type: 'Patterns::MoorishPattern',
+  id: 'Patterns::MoorishPattern',
   category: 'Patterns',
-  subcategory: 'Islamic',
-
-  metadata: {
-    label: 'MoorishPattern',
-    description: 'Moorish geometric pattern',
-    
-    
-  },
-
-  params: {
-        style: {
-      "default": "alhambra",
-      "options": [
-        "alhambra",
-        "cordoba",
-        "seville",
-        "granada"
-      ]
-    },
-    scale: {
-      "default": 10,
-      "min": 1
+  label: 'MoorishPattern',
+  description: 'Moorish geometric pattern',
+  inputs: {
+    region: {
+      type: 'Face',
+      label: 'Region',
+      required: true
     }
   },
-
-  inputs: {
-        region: 'Face'
-  },
-
   outputs: {
-        pattern: 'Wire[]'
+    pattern: {
+      type: 'Wire[]',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    style: {
+      type: 'enum',
+      label: 'Style',
+      default: "alhambra",
+      options: ["alhambra","cordoba","seville","granada"]
+    },
+    scale: {
+      type: 'number',
+      label: 'Scale',
+      default: 10,
+      min: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'moorishPattern',
       params: {
@@ -58,9 +54,9 @@ export const MoorishPatternNode: NodeDefinition<MoorishPatternInputs, MoorishPat
         scale: params.scale
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

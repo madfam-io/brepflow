@@ -8,7 +8,7 @@ Align shape to its bounding box
 ## Parameters
 
 
-### alignToOrigin
+### Align To Origin
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Align shape to its bounding box
 
 
 
-### alignCorner
+### Align Corner
 - **Type:** enum
 - **Default:** "min"
 
@@ -27,7 +27,7 @@ Align shape to its bounding box
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Align shape to its bounding box
 ## Outputs
 
 
-### aligned
+### Aligned
 - **Type:** Shape
 
 
 
-### boundingBox
+### Bounding Box
 - **Type:** Shape
 - **Description:** Bounding box as geometry
 

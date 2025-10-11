@@ -8,7 +8,7 @@ Project shape onto a plane
 ## Parameters
 
 
-### planeOriginX
+### Plane Origin X
 - **Type:** number
 - **Default:** 0
 
@@ -16,7 +16,7 @@ Project shape onto a plane
 
 
 
-### planeOriginY
+### Plane Origin Y
 - **Type:** number
 - **Default:** 0
 
@@ -24,7 +24,7 @@ Project shape onto a plane
 
 
 
-### planeOriginZ
+### Plane Origin Z
 - **Type:** number
 - **Default:** 0
 
@@ -32,7 +32,7 @@ Project shape onto a plane
 
 
 
-### planeNormalX
+### Plane Normal X
 - **Type:** number
 - **Default:** 0
 
@@ -40,7 +40,7 @@ Project shape onto a plane
 
 
 
-### planeNormalY
+### Plane Normal Y
 - **Type:** number
 - **Default:** 0
 
@@ -48,7 +48,7 @@ Project shape onto a plane
 
 
 
-### planeNormalZ
+### Plane Normal Z
 - **Type:** number
 - **Default:** 1
 
@@ -59,7 +59,7 @@ Project shape onto a plane
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -68,7 +68,7 @@ Project shape onto a plane
 ## Outputs
 
 
-### projected
+### Projected
 - **Type:** Shape
 
 

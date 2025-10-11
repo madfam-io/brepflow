@@ -1,53 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RobotSimulationParams {
   timeStep: number;
   dynamics: boolean;
 }
-interface Inputs {
-  program: Data;
+
+interface RobotSimulationInputs {
+  program: unknown;
 }
-interface Outputs {
-  simulation: Data;
-  cycleTime: Number;
+
+interface RobotSimulationOutputs {
+  simulation: unknown;
+  cycleTime: number;
 }
 
 export const RobotSimulationNode: NodeDefinition<RobotSimulationInputs, RobotSimulationOutputs, RobotSimulationParams> = {
-  type: 'Fabrication::RobotSimulation',
+  id: 'Fabrication::RobotSimulation',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'RobotSimulation',
-    description: 'Simulate robot motion',
-    
-    
-  },
-
-  params: {
-        timeStep: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 0.1
-    },
-    dynamics: {
-      "default": false
+  label: 'RobotSimulation',
+  description: 'Simulate robot motion',
+  inputs: {
+    program: {
+      type: 'Data',
+      label: 'Program',
+      required: true
     }
   },
-
-  inputs: {
-        program: 'Data'
-  },
-
   outputs: {
-        simulation: 'Data',
-    cycleTime: 'Number'
+    simulation: {
+      type: 'Data',
+      label: 'Simulation'
+    },
+    cycleTime: {
+      type: 'Number',
+      label: 'Cycle Time'
+    }
   },
-
+  params: {
+    timeStep: {
+      type: 'number',
+      label: 'Time Step',
+      default: 0.01,
+      min: 0.001,
+      max: 0.1
+    },
+    dynamics: {
+      type: 'boolean',
+      label: 'Dynamics',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'robotSimulation',
       params: {
         program: inputs.program,
@@ -55,10 +59,10 @@ export const RobotSimulationNode: NodeDefinition<RobotSimulationInputs, RobotSim
         dynamics: params.dynamics
       }
     });
-
+    
     return {
-      simulation: result,
-      cycleTime: result
+      simulation: results.simulation,
+      cycleTime: results.cycleTime
     };
-  }
+  },
 };

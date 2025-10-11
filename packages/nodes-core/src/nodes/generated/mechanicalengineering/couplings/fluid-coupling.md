@@ -8,7 +8,7 @@ Create fluid coupling design
 ## Parameters
 
 
-### impellerDiameter
+### Impeller Diameter
 - **Type:** number
 - **Default:** 150
 - **Min:** 50
@@ -16,7 +16,7 @@ Create fluid coupling design
 
 
 
-### housingDiameter
+### Housing Diameter
 - **Type:** number
 - **Default:** 180
 - **Min:** 60
@@ -24,7 +24,7 @@ Create fluid coupling design
 
 
 
-### vaneCount
+### Vane Count
 - **Type:** number
 - **Default:** 32
 - **Min:** 16
@@ -32,7 +32,7 @@ Create fluid coupling design
 
 
 
-### fluidCapacity
+### Fluid Capacity
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -43,7 +43,7 @@ Create fluid coupling design
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create fluid coupling design
 ## Outputs
 
 
-### coupling
+### Coupling
 - **Type:** Shape
 
 
 
-### impeller
+### Impeller
 - **Type:** Shape
 
 
 
-### turbine
+### Turbine
 - **Type:** Shape
 
 

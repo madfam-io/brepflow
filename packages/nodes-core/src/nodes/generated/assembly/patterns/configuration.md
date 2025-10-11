@@ -8,7 +8,7 @@ Create assembly configuration
 ## Parameters
 
 
-### name
+### Name
 - **Type:** string
 - **Default:** "Default"
 
@@ -16,7 +16,7 @@ Create assembly configuration
 
 
 
-### suppressedComponents
+### Suppressed Components
 - **Type:** string
 - **Default:** ""
 
@@ -27,7 +27,7 @@ Create assembly configuration
 ## Inputs
 
 
-### assembly
+### Assembly
 - **Type:** Assembly
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Create assembly configuration
 ## Outputs
 
 
-### configuration
+### Configuration
 - **Type:** Configuration
 
 

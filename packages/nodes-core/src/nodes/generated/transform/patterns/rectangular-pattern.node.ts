@@ -1,89 +1,95 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RectangularPatternParams {
   countX: number;
   countY: number;
   spacingX: number;
   spacingY: number;
   staggered: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface RectangularPatternInputs {
+  shape: unknown;
 }
-interface Outputs {
-  shapes: Shape[];
-  compound: Shape;
+
+interface RectangularPatternOutputs {
+  shapes: unknown;
+  compound: unknown;
 }
 
 export const RectangularPatternNode: NodeDefinition<RectangularPatternInputs, RectangularPatternOutputs, RectangularPatternParams> = {
-  type: 'Transform::RectangularPattern',
+  id: 'Transform::RectangularPattern',
   category: 'Transform',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'RectangularPattern',
-    description: 'Creates a 2D rectangular grid pattern',
-    
-    tags: ["pattern","array","grid","rectangular"],
-  },
-
-  params: {
-        countX: {
-      "default": 4,
-      "min": 1,
-      "max": 100
-    },
-    countY: {
-      "default": 3,
-      "min": 1,
-      "max": 100
-    },
-    spacingX: {
-      "default": 20,
-      "min": 0.1,
-      "max": 10000
-    },
-    spacingY: {
-      "default": 20,
-      "min": 0.1,
-      "max": 10000
-    },
-    staggered: {
-      "default": false,
-      "description": "Stagger alternate rows"
+  label: 'RectangularPattern',
+  description: 'Creates a 2D rectangular grid pattern',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        shapes: 'Shape[]',
-    compound: 'Shape'
+    shapes: {
+      type: 'Shape[]',
+      label: 'Shapes'
+    },
+    compound: {
+      type: 'Shape',
+      label: 'Compound'
+    }
   },
-
+  params: {
+    countX: {
+      type: 'number',
+      label: 'Count X',
+      default: 4,
+      min: 1,
+      max: 100
+    },
+    countY: {
+      type: 'number',
+      label: 'Count Y',
+      default: 3,
+      min: 1,
+      max: 100
+    },
+    spacingX: {
+      type: 'number',
+      label: 'Spacing X',
+      default: 20,
+      min: 0.1,
+      max: 10000
+    },
+    spacingY: {
+      type: 'number',
+      label: 'Spacing Y',
+      default: 20,
+      min: 0.1,
+      max: 10000
+    },
+    staggered: {
+      type: 'boolean',
+      label: 'Staggered',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    const response = await context.geometry.execute({
-      type: 'CREATE_RECTANGULAR_PATTERN',
+    const results = await context.geometry.execute({
+      type: 'PATTERN_RECTANGULAR',
       params: {
         shape: inputs.shape,
         countX: params.countX,
         countY: params.countY,
         spacingX: params.spacingX,
         spacingY: params.spacingY,
-        staggered: params.staggered,
-        keepOriginal: true
+        staggered: params.staggered
       }
     });
-
-    const shapes = Array.isArray(response) ? response : response?.shapes ?? [];
-    const compound = Array.isArray(response) ? null : response?.compound ?? null;
-
+    
     return {
-      shapes,
-      compound
+      shapes: results.shapes,
+      compound: results.compound
     };
-  }
+  },
 };

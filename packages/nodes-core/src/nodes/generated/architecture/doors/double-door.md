@@ -8,7 +8,7 @@ Double swing door
 ## Parameters
 
 
-### totalWidth
+### Total Width
 - **Type:** number
 - **Default:** 1800
 - **Min:** 1200
@@ -16,7 +16,7 @@ Double swing door
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 2100
 - **Min:** 1800
@@ -24,7 +24,7 @@ Double swing door
 
 
 
-### activeLeaf
+### Active Leaf
 - **Type:** enum
 - **Default:** "both"
 
@@ -35,7 +35,7 @@ Double swing door
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Double swing door
 ## Outputs
 
 
-### doors
+### Doors
 - **Type:** Shape[]
 
 
 
-### frame
+### Frame
 - **Type:** Shape
 
 

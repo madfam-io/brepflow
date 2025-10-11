@@ -1,61 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PrismParams {
   height: number;
   twist: number;
   taper: number;
 }
-interface Inputs {
-  profile: Wire;
+
+interface PrismInputs {
+  profile: unknown;
 }
-interface Outputs {
-  solid: Solid;
+
+interface PrismOutputs {
+  solid: unknown;
 }
 
 export const PrismNode: NodeDefinition<PrismInputs, PrismOutputs, PrismParams> = {
-  type: 'Solid::Prism',
+  id: 'Solid::Prism',
   category: 'Solid',
-  subcategory: 'Parametric',
-
-  metadata: {
-    label: 'Prism',
-    description: 'Create a prism from a profile and height',
-    
-    
-  },
-
-  params: {
-        height: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000,
-      "description": "Prism height"
-    },
-    twist: {
-      "default": 0,
-      "min": -360,
-      "max": 360,
-      "description": "Twist angle in degrees"
-    },
-    taper: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10,
-      "description": "Taper ratio"
+  label: 'Prism',
+  description: 'Create a prism from a profile and height',
+  inputs: {
+    profile: {
+      type: 'Wire',
+      label: 'Profile',
+      required: true
     }
   },
-
-  inputs: {
-        profile: 'Wire'
-  },
-
   outputs: {
-        solid: 'Solid'
+    solid: {
+      type: 'Solid',
+      label: 'Solid'
+    }
   },
-
+  params: {
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    twist: {
+      type: 'number',
+      label: 'Twist',
+      default: 0,
+      min: -360,
+      max: 360
+    },
+    taper: {
+      type: 'number',
+      label: 'Taper',
+      default: 1,
+      min: 0.1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makePrism',
       params: {
@@ -65,9 +65,9 @@ export const PrismNode: NodeDefinition<PrismInputs, PrismOutputs, PrismParams> =
         taper: params.taper
       }
     });
-
+    
     return {
       solid: result
     };
-  }
+  },
 };

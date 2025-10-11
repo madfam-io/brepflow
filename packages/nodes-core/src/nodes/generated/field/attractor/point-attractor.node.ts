@@ -1,61 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PointAttractorParams {
   strength: number;
   radius: number;
   falloff: string;
 }
-interface Inputs {
-  points: Point[];
+
+interface PointAttractorInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface PointAttractorOutputs {
+  field: unknown;
 }
 
 export const PointAttractorNode: NodeDefinition<PointAttractorInputs, PointAttractorOutputs, PointAttractorParams> = {
-  type: 'Field::PointAttractor',
+  id: 'Field::PointAttractor',
   category: 'Field',
-  subcategory: 'Attractor',
-
-  metadata: {
-    label: 'PointAttractor',
-    description: 'Point attractor field',
-    
-    
-  },
-
-  params: {
-        strength: {
-      "default": 1,
-      "min": -10,
-      "max": 10
-    },
-    radius: {
-      "default": 100,
-      "min": 0.1
-    },
-    falloff: {
-      "default": "quadratic",
-      "options": [
-        "linear",
-        "quadratic",
-        "exponential",
-        "gaussian"
-      ]
+  label: 'PointAttractor',
+  description: 'Point attractor field',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     }
   },
-
-  inputs: {
-        points: 'Point[]'
-  },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    strength: {
+      type: 'number',
+      label: 'Strength',
+      default: 1,
+      min: -10,
+      max: 10
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 100,
+      min: 0.1
+    },
+    falloff: {
+      type: 'enum',
+      label: 'Falloff',
+      default: "quadratic",
+      options: ["linear","quadratic","exponential","gaussian"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'attractorPoint',
       params: {
@@ -65,9 +63,9 @@ export const PointAttractorNode: NodeDefinition<PointAttractorInputs, PointAttra
         falloff: params.falloff
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

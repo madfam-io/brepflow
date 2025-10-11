@@ -1,65 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SpiralStairParams {
   diameter: number;
   totalRise: number;
   rotation: number;
   centerPole: boolean;
 }
-interface Inputs {
-  centerPoint: Point;
+
+interface SpiralStairInputs {
+  centerPoint: [number, number, number];
 }
-interface Outputs {
-  spiralStair: Shape;
-  centerPole: Shape;
+
+interface SpiralStairOutputs {
+  spiralStair: unknown;
+  centerPole: unknown;
 }
 
 export const SpiralStairNode: NodeDefinition<SpiralStairInputs, SpiralStairOutputs, SpiralStairParams> = {
-  type: 'Architecture::SpiralStair',
+  id: 'Architecture::SpiralStair',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'SpiralStair',
-    description: 'Spiral staircase',
-    
-    
-  },
-
-  params: {
-        diameter: {
-      "default": 2000,
-      "min": 1200,
-      "max": 3000
-    },
-    totalRise: {
-      "default": 3000,
-      "min": 1000,
-      "max": 6000
-    },
-    rotation: {
-      "default": 360,
-      "min": 270,
-      "max": 720
-    },
-    centerPole: {
-      "default": true
+  label: 'SpiralStair',
+  description: 'Spiral staircase',
+  inputs: {
+    centerPoint: {
+      type: 'Point',
+      label: 'Center Point',
+      required: true
     }
   },
-
-  inputs: {
-        centerPoint: 'Point'
-  },
-
   outputs: {
-        spiralStair: 'Shape',
-    centerPole: 'Shape'
+    spiralStair: {
+      type: 'Shape',
+      label: 'Spiral Stair'
+    },
+    centerPole: {
+      type: 'Shape',
+      label: 'Center Pole'
+    }
   },
-
+  params: {
+    diameter: {
+      type: 'number',
+      label: 'Diameter',
+      default: 2000,
+      min: 1200,
+      max: 3000
+    },
+    totalRise: {
+      type: 'number',
+      label: 'Total Rise',
+      default: 3000,
+      min: 1000,
+      max: 6000
+    },
+    rotation: {
+      type: 'number',
+      label: 'Rotation',
+      default: 360,
+      min: 270,
+      max: 720
+    },
+    centerPole: {
+      type: 'boolean',
+      label: 'Center Pole',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'spiralStair',
       params: {
         centerPoint: inputs.centerPoint,
@@ -69,10 +77,10 @@ export const SpiralStairNode: NodeDefinition<SpiralStairInputs, SpiralStairOutpu
         centerPole: params.centerPole
       }
     });
-
+    
     return {
-      spiralStair: result,
-      centerPole: result
+      spiralStair: results.spiralStair,
+      centerPole: results.centerPole
     };
-  }
+  },
 };

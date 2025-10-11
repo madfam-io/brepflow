@@ -1,61 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MarchingCubesParams {
   isovalue: number;
   resolution: number;
   smooth: boolean;
 }
-interface Inputs {
-  scalarField: Properties;
+
+interface MarchingCubesInputs {
+  scalarField: unknown;
 }
-interface Outputs {
-  mesh: Shape;
-  vertices: Point[];
-  normals: Vector[];
+
+interface MarchingCubesOutputs {
+  mesh: unknown;
+  vertices: Array<[number, number, number]>;
+  normals: Array<[number, number, number]>;
 }
 
 export const MarchingCubesNode: NodeDefinition<MarchingCubesInputs, MarchingCubesOutputs, MarchingCubesParams> = {
-  type: 'Algorithmic::MarchingCubes',
+  id: 'Algorithmic::MarchingCubes',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'MarchingCubes',
-    description: 'Extract isosurface using marching cubes',
-    
-    
-  },
-
-  params: {
-        isovalue: {
-      "default": 0,
-      "min": -100,
-      "max": 100
-    },
-    resolution: {
-      "default": 32,
-      "min": 8,
-      "max": 128
-    },
-    smooth: {
-      "default": true
+  label: 'MarchingCubes',
+  description: 'Extract isosurface using marching cubes',
+  inputs: {
+    scalarField: {
+      type: 'Properties',
+      label: 'Scalar Field',
+      required: true
     }
   },
-
-  inputs: {
-        scalarField: 'Properties'
-  },
-
   outputs: {
-        mesh: 'Shape',
-    vertices: 'Point[]',
-    normals: 'Vector[]'
+    mesh: {
+      type: 'Shape',
+      label: 'Mesh'
+    },
+    vertices: {
+      type: 'Point[]',
+      label: 'Vertices'
+    },
+    normals: {
+      type: 'Vector[]',
+      label: 'Normals'
+    }
   },
-
+  params: {
+    isovalue: {
+      type: 'number',
+      label: 'Isovalue',
+      default: 0,
+      min: -100,
+      max: 100
+    },
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 32,
+      min: 8,
+      max: 128
+    },
+    smooth: {
+      type: 'boolean',
+      label: 'Smooth',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'marchingCubes',
       params: {
         scalarField: inputs.scalarField,
@@ -64,11 +73,11 @@ export const MarchingCubesNode: NodeDefinition<MarchingCubesInputs, MarchingCube
         smooth: params.smooth
       }
     });
-
+    
     return {
-      mesh: result,
-      vertices: result,
-      normals: result
+      mesh: results.mesh,
+      vertices: results.vertices,
+      normals: results.normals
     };
-  }
+  },
 };

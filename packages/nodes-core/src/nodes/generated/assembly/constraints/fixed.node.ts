@@ -1,53 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FixedParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  entity: Shape;
+interface FixedInputs {
+  entity: unknown;
 }
-interface Outputs {
-  constrained: Shape;
-  constraint: Constraint;
+
+interface FixedOutputs {
+  constrained: unknown;
+  constraint: unknown;
 }
 
 export const FixedNode: NodeDefinition<FixedInputs, FixedOutputs, FixedParams> = {
-  type: 'Assembly::Fixed',
+  id: 'Assembly::Fixed',
   category: 'Assembly',
-  subcategory: 'Constraints',
-
-  metadata: {
-    label: 'Fixed',
-    description: 'Fix entity in space',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Fixed',
+  description: 'Fix entity in space',
   inputs: {
-        entity: 'Shape'
+    entity: {
+      type: 'Shape',
+      label: 'Entity',
+      required: true
+    }
   },
-
   outputs: {
-        constrained: 'Shape',
-    constraint: 'Constraint'
+    constrained: {
+      type: 'Shape',
+      label: 'Constrained'
+    },
+    constraint: {
+      type: 'Constraint',
+      label: 'Constraint'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'constraintFixed',
       params: {
         entity: inputs.entity
-        
       }
     });
-
+    
     return {
-      constrained: result,
-      constraint: result
+      constrained: results.constrained,
+      constraint: results.constraint
     };
-  }
+  },
 };

@@ -1,81 +1,105 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GeneticOptimizerParams {
   populationSize: number;
   generations: number;
   mutationRate: number;
   crossoverRate: number;
   elitism: number;
 }
-interface Inputs {
-  objectives: Properties;
-  constraints?: Properties;
-  bounds: Properties;
+
+interface GeneticOptimizerInputs {
+  objectives: unknown;
+  constraints?: unknown;
+  bounds: unknown;
 }
-interface Outputs {
-  bestSolution: Properties;
-  fitness: number;
-  generations: Properties[];
-  convergence: number[];
+
+interface GeneticOptimizerOutputs {
+  bestSolution: unknown;
+  fitness: unknown;
+  generations: unknown;
+  convergence: unknown;
 }
 
 export const GeneticOptimizerNode: NodeDefinition<GeneticOptimizerInputs, GeneticOptimizerOutputs, GeneticOptimizerParams> = {
-  type: 'Algorithmic::GeneticOptimizer',
+  id: 'Algorithmic::GeneticOptimizer',
   category: 'Algorithmic',
-  subcategory: 'Optimization',
-
-  metadata: {
-    label: 'GeneticOptimizer',
-    description: 'Genetic algorithm optimization',
-    
-    
-  },
-
-  params: {
-        populationSize: {
-      "default": 100,
-      "min": 10,
-      "max": 1000
+  label: 'GeneticOptimizer',
+  description: 'Genetic algorithm optimization',
+  inputs: {
+    objectives: {
+      type: 'Properties',
+      label: 'Objectives',
+      required: true
     },
-    generations: {
-      "default": 50,
-      "min": 5,
-      "max": 500
+    constraints: {
+      type: 'Properties',
+      label: 'Constraints',
+      optional: true
     },
-    mutationRate: {
-      "default": 0.1,
-      "min": 0.01,
-      "max": 0.5
-    },
-    crossoverRate: {
-      "default": 0.8,
-      "min": 0.1,
-      "max": 1
-    },
-    elitism: {
-      "default": 0.1,
-      "min": 0,
-      "max": 0.5
+    bounds: {
+      type: 'Properties',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        objectives: 'Properties',
-    constraints: 'Properties',
-    bounds: 'Properties'
-  },
-
   outputs: {
-        bestSolution: 'Properties',
-    fitness: 'number',
-    generations: 'Properties[]',
-    convergence: 'number[]'
+    bestSolution: {
+      type: 'Properties',
+      label: 'Best Solution'
+    },
+    fitness: {
+      type: 'number',
+      label: 'Fitness'
+    },
+    generations: {
+      type: 'Properties[]',
+      label: 'Generations'
+    },
+    convergence: {
+      type: 'number[]',
+      label: 'Convergence'
+    }
   },
-
+  params: {
+    populationSize: {
+      type: 'number',
+      label: 'Population Size',
+      default: 100,
+      min: 10,
+      max: 1000
+    },
+    generations: {
+      type: 'number',
+      label: 'Generations',
+      default: 50,
+      min: 5,
+      max: 500
+    },
+    mutationRate: {
+      type: 'number',
+      label: 'Mutation Rate',
+      default: 0.1,
+      min: 0.01,
+      max: 0.5
+    },
+    crossoverRate: {
+      type: 'number',
+      label: 'Crossover Rate',
+      default: 0.8,
+      min: 0.1,
+      max: 1
+    },
+    elitism: {
+      type: 'number',
+      label: 'Elitism',
+      default: 0.1,
+      min: 0,
+      max: 0.5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'geneticOptimizer',
       params: {
         objectives: inputs.objectives,
@@ -88,12 +112,12 @@ export const GeneticOptimizerNode: NodeDefinition<GeneticOptimizerInputs, Geneti
         elitism: params.elitism
       }
     });
-
+    
     return {
-      bestSolution: result,
-      fitness: result,
-      generations: result,
-      convergence: result
+      bestSolution: results.bestSolution,
+      fitness: results.fitness,
+      generations: results.generations,
+      convergence: results.convergence
     };
-  }
+  },
 };

@@ -1,83 +1,95 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SpurGearParams {
   module: number;
   teeth: number;
   pressureAngle: number;
   width: number;
   hubDiameter: number;
 }
-interface Inputs {
-  center?: Point;
-  axis?: Vector;
+
+interface SpurGearInputs {
+  center?: [number, number, number];
+  axis?: [number, number, number];
 }
-interface Outputs {
-  gear: Shape;
-  pitchCircle: Wire;
-  properties: Properties;
+
+interface SpurGearOutputs {
+  gear: unknown;
+  pitchCircle: unknown;
+  properties: unknown;
 }
 
 export const SpurGearNode: NodeDefinition<SpurGearInputs, SpurGearOutputs, SpurGearParams> = {
-  type: 'MechanicalEngineering::SpurGear',
+  id: 'MechanicalEngineering::SpurGear',
   category: 'MechanicalEngineering',
-  subcategory: 'Gears',
-
-  metadata: {
-    label: 'SpurGear',
-    description: 'Create standard spur gear',
-    
-    
-  },
-
-  params: {
-        module: {
-      "default": 2,
-      "min": 0.5,
-      "max": 20,
-      "step": 0.1,
-      "description": "Gear module in mm"
+  label: 'SpurGear',
+  description: 'Create standard spur gear',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      optional: true
     },
-    teeth: {
-      "default": 20,
-      "min": 6,
-      "max": 200,
-      "description": "Number of teeth"
-    },
-    pressureAngle: {
-      "default": 20,
-      "min": 14.5,
-      "max": 25,
-      "description": "Pressure angle in degrees"
-    },
-    width: {
-      "default": 20,
-      "min": 1,
-      "max": 200,
-      "description": "Face width in mm"
-    },
-    hubDiameter: {
-      "default": 20,
-      "min": 5,
-      "max": 100,
-      "description": "Hub bore diameter"
+    axis: {
+      type: 'Vector',
+      label: 'Axis',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point',
-    axis: 'Vector'
-  },
-
   outputs: {
-        gear: 'Shape',
-    pitchCircle: 'Wire',
-    properties: 'Properties'
+    gear: {
+      type: 'Shape',
+      label: 'Gear'
+    },
+    pitchCircle: {
+      type: 'Wire',
+      label: 'Pitch Circle'
+    },
+    properties: {
+      type: 'Properties',
+      label: 'Properties'
+    }
   },
-
+  params: {
+    module: {
+      type: 'number',
+      label: 'Module',
+      default: 2,
+      min: 0.5,
+      max: 20,
+      step: 0.1
+    },
+    teeth: {
+      type: 'number',
+      label: 'Teeth',
+      default: 20,
+      min: 6,
+      max: 200
+    },
+    pressureAngle: {
+      type: 'number',
+      label: 'Pressure Angle',
+      default: 20,
+      min: 14.5,
+      max: 25
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 20,
+      min: 1,
+      max: 200
+    },
+    hubDiameter: {
+      type: 'number',
+      label: 'Hub Diameter',
+      default: 20,
+      min: 5,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'spurGear',
       params: {
         center: inputs.center,
@@ -89,11 +101,11 @@ export const SpurGearNode: NodeDefinition<SpurGearInputs, SpurGearOutputs, SpurG
         hubDiameter: params.hubDiameter
       }
     });
-
+    
     return {
-      gear: result,
-      pitchCircle: result,
-      properties: result
+      gear: results.gear,
+      pitchCircle: results.pitchCircle,
+      properties: results.properties
     };
-  }
+  },
 };

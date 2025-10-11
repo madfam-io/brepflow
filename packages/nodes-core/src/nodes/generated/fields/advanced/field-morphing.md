@@ -8,7 +8,7 @@ Morph between two fields
 ## Parameters
 
 
-### factor
+### Factor
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -16,7 +16,7 @@ Morph between two fields
 - **Description:** Morphing factor (0=field1, 1=field2)
 
 
-### interpolation
+### Interpolation
 - **Type:** enum
 - **Default:** "\"linear\""
 
@@ -27,13 +27,13 @@ Morph between two fields
 ## Inputs
 
 
-### field1
+### Field1
 - **Type:** Field
 - **Required:** No
 
 
 
-### field2
+### Field2
 - **Type:** Field
 - **Required:** No
 
@@ -42,7 +42,7 @@ Morph between two fields
 ## Outputs
 
 
-### morphedField
+### Morphed Field
 - **Type:** Field
 
 

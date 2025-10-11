@@ -8,7 +8,7 @@ Setup collision detection
 ## Parameters
 
 
-### detectionType
+### Detection Type
 - **Type:** enum
 - **Default:** "discrete"
 
@@ -16,7 +16,7 @@ Setup collision detection
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.001
@@ -24,7 +24,7 @@ Setup collision detection
 
 
 
-### includeSelfCollision
+### Include Self Collision
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Setup collision detection
 ## Inputs
 
 
-### bodies
+### Bodies
 - **Type:** Shape[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Setup collision detection
 ## Outputs
 
 
-### collisionPairs
+### Collision Pairs
 - **Type:** Data
 
 

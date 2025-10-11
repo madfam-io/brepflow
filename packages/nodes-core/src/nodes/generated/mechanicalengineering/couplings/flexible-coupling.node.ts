@@ -1,71 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FlexibleCouplingParams {
   type: string;
   boreDiameter1: number;
   boreDiameter2: number;
   outerDiameter: number;
 }
-interface Inputs {
-  center: Point;
+
+interface FlexibleCouplingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  coupling: Shape;
-  element: Shape;
+
+interface FlexibleCouplingOutputs {
+  coupling: unknown;
+  element: unknown;
 }
 
 export const FlexibleCouplingNode: NodeDefinition<FlexibleCouplingInputs, FlexibleCouplingOutputs, FlexibleCouplingParams> = {
-  type: 'MechanicalEngineering::FlexibleCoupling',
+  id: 'MechanicalEngineering::FlexibleCoupling',
   category: 'MechanicalEngineering',
-  subcategory: 'Couplings',
-
-  metadata: {
-    label: 'FlexibleCoupling',
-    description: 'Create flexible coupling',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "jaw",
-      "options": [
-        "jaw",
-        "disc",
-        "beam",
-        "oldham"
-      ]
-    },
-    boreDiameter1: {
-      "default": 10,
-      "min": 3,
-      "max": 50
-    },
-    boreDiameter2: {
-      "default": 10,
-      "min": 3,
-      "max": 50
-    },
-    outerDiameter: {
-      "default": 30,
-      "min": 10,
-      "max": 100
+  label: 'FlexibleCoupling',
+  description: 'Create flexible coupling',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        coupling: 'Shape',
-    element: 'Shape'
+    coupling: {
+      type: 'Shape',
+      label: 'Coupling'
+    },
+    element: {
+      type: 'Shape',
+      label: 'Element'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "jaw",
+      options: ["jaw","disc","beam","oldham"]
+    },
+    boreDiameter1: {
+      type: 'number',
+      label: 'Bore Diameter1',
+      default: 10,
+      min: 3,
+      max: 50
+    },
+    boreDiameter2: {
+      type: 'number',
+      label: 'Bore Diameter2',
+      default: 10,
+      min: 3,
+      max: 50
+    },
+    outerDiameter: {
+      type: 'number',
+      label: 'Outer Diameter',
+      default: 30,
+      min: 10,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'flexibleCoupling',
       params: {
         center: inputs.center,
@@ -75,10 +78,10 @@ export const FlexibleCouplingNode: NodeDefinition<FlexibleCouplingInputs, Flexib
         outerDiameter: params.outerDiameter
       }
     });
-
+    
     return {
-      coupling: result,
-      element: result
+      coupling: results.coupling,
+      element: results.element
     };
-  }
+  },
 };

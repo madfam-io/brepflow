@@ -1,67 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WormGearParams {
   module: number;
   teeth: number;
   diameter: number;
   width: number;
 }
-interface Inputs {
-  center: Point;
+
+interface WormGearInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  gear: Shape;
-  throat: Wire;
+
+interface WormGearOutputs {
+  gear: unknown;
+  throat: unknown;
 }
 
 export const WormGearNode: NodeDefinition<WormGearInputs, WormGearOutputs, WormGearParams> = {
-  type: 'MechanicalEngineering::WormGear',
+  id: 'MechanicalEngineering::WormGear',
   category: 'MechanicalEngineering',
-  subcategory: 'Gears',
-
-  metadata: {
-    label: 'WormGear',
-    description: 'Create worm gear for high reduction',
-    
-    
-  },
-
-  params: {
-        module: {
-      "default": 2,
-      "min": 0.5,
-      "max": 10
-    },
-    teeth: {
-      "default": 30,
-      "min": 20,
-      "max": 100
-    },
-    diameter: {
-      "default": 60,
-      "min": 20,
-      "max": 200
-    },
-    width: {
-      "default": 20,
-      "min": 5,
-      "max": 50
+  label: 'WormGear',
+  description: 'Create worm gear for high reduction',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        gear: 'Shape',
-    throat: 'Wire'
+    gear: {
+      type: 'Shape',
+      label: 'Gear'
+    },
+    throat: {
+      type: 'Wire',
+      label: 'Throat'
+    }
   },
-
+  params: {
+    module: {
+      type: 'number',
+      label: 'Module',
+      default: 2,
+      min: 0.5,
+      max: 10
+    },
+    teeth: {
+      type: 'number',
+      label: 'Teeth',
+      default: 30,
+      min: 20,
+      max: 100
+    },
+    diameter: {
+      type: 'number',
+      label: 'Diameter',
+      default: 60,
+      min: 20,
+      max: 200
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 20,
+      min: 5,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'wormGear',
       params: {
         center: inputs.center,
@@ -71,10 +79,10 @@ export const WormGearNode: NodeDefinition<WormGearInputs, WormGearOutputs, WormG
         width: params.width
       }
     });
-
+    
     return {
-      gear: result,
-      throat: result
+      gear: results.gear,
+      throat: results.throat
     };
-  }
+  },
 };

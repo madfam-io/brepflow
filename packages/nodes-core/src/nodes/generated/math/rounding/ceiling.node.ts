@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type CeilingParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface CeilingInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface CeilingOutputs {
+  result: unknown;
 }
 
 export const CeilingNode: NodeDefinition<CeilingInputs, CeilingOutputs, CeilingParams> = {
-  type: 'Math::Ceiling',
+  id: 'Math::Ceiling',
   category: 'Math',
-  subcategory: 'Rounding',
-
-  metadata: {
-    label: 'Ceiling',
-    description: 'Round up',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Ceiling',
+  description: 'Round up',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathCeil',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

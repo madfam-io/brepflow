@@ -1,66 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StrangeAttractorParams {
   type: string;
   iterations: number;
   dt: number;
 }
-interface Inputs {
-  initial: Point;
+
+interface StrangeAttractorInputs {
+  initial: [number, number, number];
 }
-interface Outputs {
-  attractor: Point[];
-  trajectory: Wire;
+
+interface StrangeAttractorOutputs {
+  attractor: Array<[number, number, number]>;
+  trajectory: unknown;
 }
 
 export const StrangeAttractorNode: NodeDefinition<StrangeAttractorInputs, StrangeAttractorOutputs, StrangeAttractorParams> = {
-  type: 'Patterns::StrangeAttractor',
+  id: 'Patterns::StrangeAttractor',
   category: 'Patterns',
-  subcategory: 'Algorithmic',
-
-  metadata: {
-    label: 'StrangeAttractor',
-    description: 'Strange attractor patterns',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "lorenz",
-      "options": [
-        "lorenz",
-        "rossler",
-        "henon",
-        "duffing"
-      ]
-    },
-    iterations: {
-      "default": 10000,
-      "min": 100,
-      "max": 100000,
-      "step": 100
-    },
-    dt: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 0.1
+  label: 'StrangeAttractor',
+  description: 'Strange attractor patterns',
+  inputs: {
+    initial: {
+      type: 'Point',
+      label: 'Initial',
+      required: true
     }
   },
-
-  inputs: {
-        initial: 'Point'
-  },
-
   outputs: {
-        attractor: 'Point[]',
-    trajectory: 'Wire'
+    attractor: {
+      type: 'Point[]',
+      label: 'Attractor'
+    },
+    trajectory: {
+      type: 'Wire',
+      label: 'Trajectory'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "lorenz",
+      options: ["lorenz","rossler","henon","duffing"]
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 10000,
+      min: 100,
+      max: 100000,
+      step: 100
+    },
+    dt: {
+      type: 'number',
+      label: 'Dt',
+      default: 0.01,
+      min: 0.001,
+      max: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'strangeAttractor',
       params: {
         initial: inputs.initial,
@@ -69,10 +70,10 @@ export const StrangeAttractorNode: NodeDefinition<StrangeAttractorInputs, Strang
         dt: params.dt
       }
     });
-
+    
     return {
-      attractor: result,
-      trajectory: result
+      attractor: results.attractor,
+      trajectory: results.trajectory
     };
-  }
+  },
 };

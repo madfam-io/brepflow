@@ -8,7 +8,7 @@ Create NURBS surface from control points
 ## Parameters
 
 
-### degreeU
+### Degree U
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Create NURBS surface from control points
 
 
 
-### degreeV
+### Degree V
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -24,7 +24,7 @@ Create NURBS surface from control points
 
 
 
-### periodicU
+### Periodic U
 - **Type:** boolean
 - **Default:** false
 
@@ -32,7 +32,7 @@ Create NURBS surface from control points
 
 
 
-### periodicV
+### Periodic V
 - **Type:** boolean
 - **Default:** false
 
@@ -43,25 +43,25 @@ Create NURBS surface from control points
 ## Inputs
 
 
-### controlPoints
+### Control Points
 - **Type:** Point[][]
 - **Required:** Yes
 
 
 
-### weights
+### Weights
 - **Type:** number[][]
 - **Required:** No
 
 
 
-### knotsU
+### Knots U
 - **Type:** number[]
 - **Required:** No
 
 
 
-### knotsV
+### Knots V
 - **Type:** number[]
 - **Required:** No
 
@@ -70,7 +70,7 @@ Create NURBS surface from control points
 ## Outputs
 
 
-### surface
+### Surface
 - **Type:** Face
 
 

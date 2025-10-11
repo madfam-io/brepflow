@@ -8,7 +8,7 @@ Fracture pattern generation
 ## Parameters
 
 
-### irregularity
+### Irregularity
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -16,7 +16,7 @@ Fracture pattern generation
 
 
 
-### density
+### Density
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,7 +27,7 @@ Fracture pattern generation
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Fracture pattern generation
 ## Outputs
 
 
-### fragments
+### Fragments
 - **Type:** Face[]
 
 

@@ -8,7 +8,7 @@ Sine function
 ## Parameters
 
 
-### angleUnit
+### Angle Unit
 - **Type:** enum
 - **Default:** "radians"
 
@@ -19,7 +19,7 @@ Sine function
 ## Inputs
 
 
-### angle
+### Angle
 - **Type:** number
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Sine function
 ## Outputs
 
 
-### result
+### Result
 - **Type:** number
 
 

@@ -8,7 +8,7 @@ Check clearance requirements
 ## Parameters
 
 
-### requiredClearance
+### Required Clearance
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Check clearance requirements
 
 
 
-### highlightViolations
+### Highlight Violations
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Check clearance requirements
 ## Inputs
 
 
-### movingObject
+### Moving Object
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### obstacles
+### Obstacles
 - **Type:** Shape[]
 - **Required:** Yes
 
@@ -42,17 +42,17 @@ Check clearance requirements
 ## Outputs
 
 
-### hasViolations
+### Has Violations
 - **Type:** boolean
 
 
 
-### violationPoints
+### Violation Points
 - **Type:** Point[]
 
 
 
-### clearanceValues
+### Clearance Values
 - **Type:** number[]
 
 

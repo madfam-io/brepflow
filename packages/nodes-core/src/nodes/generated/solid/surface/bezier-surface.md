@@ -8,7 +8,7 @@ Create a Bezier surface from control points
 ## Parameters
 
 
-### uDegree
+### U Degree
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Create a Bezier surface from control points
 
 
 
-### vDegree
+### V Degree
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -27,7 +27,7 @@ Create a Bezier surface from control points
 ## Inputs
 
 
-### controlPoints
+### Control Points
 - **Type:** Point[][]
 - **Required:** Yes
 - **Description:** Grid of control points
@@ -36,7 +36,7 @@ Create a Bezier surface from control points
 ## Outputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Description:** Bezier surface
 

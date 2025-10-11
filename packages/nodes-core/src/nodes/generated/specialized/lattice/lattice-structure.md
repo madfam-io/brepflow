@@ -8,7 +8,7 @@ Create lattice structure
 ## Parameters
 
 
-### cellType
+### Cell Type
 - **Type:** enum
 - **Default:** "cubic"
 
@@ -16,7 +16,7 @@ Create lattice structure
 
 
 
-### cellSize
+### Cell Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create lattice structure
 
 
 
-### strutDiameter
+### Strut Diameter
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create lattice structure
 
 
 
-### porosity
+### Porosity
 - **Type:** number
 - **Default:** 0.7
 - **Min:** 0.1
@@ -43,7 +43,7 @@ Create lattice structure
 ## Inputs
 
 
-### boundingShape
+### Bounding Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Create lattice structure
 ## Outputs
 
 
-### lattice
+### Lattice
 - **Type:** Shape
 
 

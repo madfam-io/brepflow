@@ -8,7 +8,7 @@ Create roller bearing
 ## Parameters
 
 
-### innerDiameter
+### Inner Diameter
 - **Type:** number
 - **Default:** 25
 - **Min:** 5
@@ -16,7 +16,7 @@ Create roller bearing
 
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 52
 - **Min:** 15
@@ -24,7 +24,7 @@ Create roller bearing
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 15
 - **Min:** 5
@@ -32,7 +32,7 @@ Create roller bearing
 
 
 
-### rollerType
+### Roller Type
 - **Type:** enum
 - **Default:** "cylindrical"
 
@@ -43,7 +43,7 @@ Create roller bearing
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create roller bearing
 ## Outputs
 
 
-### bearing
+### Bearing
 - **Type:** Shape
 
 
 
-### rollers
+### Rollers
 - **Type:** Shape[]
 
 

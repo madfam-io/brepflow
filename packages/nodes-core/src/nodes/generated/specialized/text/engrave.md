@@ -8,7 +8,7 @@ Engrave text or pattern
 ## Parameters
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Engrave text or pattern
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 45
 - **Min:** 0
@@ -24,7 +24,7 @@ Engrave text or pattern
 - **Description:** Draft angle
 
 
-### roundCorners
+### Round Corners
 - **Type:** boolean
 - **Default:** true
 
@@ -35,13 +35,13 @@ Engrave text or pattern
 ## Inputs
 
 
-### targetFace
+### Target Face
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### pattern
+### Pattern
 - **Type:** Wire
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Engrave text or pattern
 ## Outputs
 
 
-### engraved
+### Engraved
 - **Type:** Shape
 
 

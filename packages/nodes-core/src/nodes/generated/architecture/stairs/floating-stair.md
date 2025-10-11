@@ -8,7 +8,7 @@ Floating cantilevered stairs
 ## Parameters
 
 
-### cantileverDepth
+### Cantilever Depth
 - **Type:** number
 - **Default:** 100
 - **Min:** 50
@@ -16,7 +16,7 @@ Floating cantilevered stairs
 
 
 
-### treadThickness
+### Tread Thickness
 - **Type:** number
 - **Default:** 60
 - **Min:** 40
@@ -27,13 +27,13 @@ Floating cantilevered stairs
 ## Inputs
 
 
-### wallLine
+### Wall Line
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### riseRun
+### Rise Run
 - **Type:** Vector
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Floating cantilevered stairs
 ## Outputs
 
 
-### floatingStair
+### Floating Stair
 - **Type:** Shape
 
 
 
-### anchors
+### Anchors
 - **Type:** Point[]
 
 

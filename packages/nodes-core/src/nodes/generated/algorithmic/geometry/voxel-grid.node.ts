@@ -1,59 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VoxelGridParams {
   voxelSize: number;
   fillInterior: boolean;
   optimize: boolean;
 }
-interface Inputs {
-  geometry: Shape;
+
+interface VoxelGridInputs {
+  geometry: unknown;
 }
-interface Outputs {
-  voxels: Shape[];
-  grid: Properties;
-  bounds: Properties;
+
+interface VoxelGridOutputs {
+  voxels: unknown;
+  grid: unknown;
+  bounds: unknown;
 }
 
 export const VoxelGridNode: NodeDefinition<VoxelGridInputs, VoxelGridOutputs, VoxelGridParams> = {
-  type: 'Algorithmic::VoxelGrid',
+  id: 'Algorithmic::VoxelGrid',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'VoxelGrid',
-    description: 'Convert geometry to voxel representation',
-    
-    
-  },
-
-  params: {
-        voxelSize: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
-    },
-    fillInterior: {
-      "default": true
-    },
-    optimize: {
-      "default": true
+  label: 'VoxelGrid',
+  description: 'Convert geometry to voxel representation',
+  inputs: {
+    geometry: {
+      type: 'Shape',
+      label: 'Geometry',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Shape'
-  },
-
   outputs: {
-        voxels: 'Shape[]',
-    grid: 'Properties',
-    bounds: 'Properties'
+    voxels: {
+      type: 'Shape[]',
+      label: 'Voxels'
+    },
+    grid: {
+      type: 'Properties',
+      label: 'Grid'
+    },
+    bounds: {
+      type: 'Properties',
+      label: 'Bounds'
+    }
   },
-
+  params: {
+    voxelSize: {
+      type: 'number',
+      label: 'Voxel Size',
+      default: 1,
+      min: 0.1,
+      max: 10
+    },
+    fillInterior: {
+      type: 'boolean',
+      label: 'Fill Interior',
+      default: true
+    },
+    optimize: {
+      type: 'boolean',
+      label: 'Optimize',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'voxelGrid',
       params: {
         geometry: inputs.geometry,
@@ -62,11 +71,11 @@ export const VoxelGridNode: NodeDefinition<VoxelGridInputs, VoxelGridOutputs, Vo
         optimize: params.optimize
       }
     });
-
+    
     return {
-      voxels: result,
-      grid: result,
-      bounds: result
+      voxels: results.voxels,
+      grid: results.grid,
+      bounds: results.bounds
     };
-  }
+  },
 };

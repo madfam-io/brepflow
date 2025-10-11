@@ -12,19 +12,19 @@ This node has no parameters.
 ## Inputs
 
 
-### uCurves
+### U Curves
 - **Type:** Wire[]
 - **Required:** Yes
 
 
 
-### vCurves
+### V Curves
 - **Type:** Wire[]
 - **Required:** Yes
 
 
 
-### points
+### Points
 - **Type:** Point[][]
 - **Required:** No
 
@@ -33,7 +33,7 @@ This node has no parameters.
 ## Outputs
 
 
-### surface
+### Surface
 - **Type:** Face
 
 

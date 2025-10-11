@@ -8,7 +8,7 @@ Create opening in wall
 ## Parameters
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 900
 - **Min:** 100
@@ -16,7 +16,7 @@ Create opening in wall
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 2100
 - **Min:** 100
@@ -24,7 +24,7 @@ Create opening in wall
 
 
 
-### sillHeight
+### Sill Height
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -35,13 +35,13 @@ Create opening in wall
 ## Inputs
 
 
-### wall
+### Wall
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -50,12 +50,12 @@ Create opening in wall
 ## Outputs
 
 
-### wallWithOpening
+### Wall With Opening
 - **Type:** Shape
 
 
 
-### opening
+### Opening
 - **Type:** Face
 
 

@@ -1,58 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SimpleHoleParams {
   diameter: number;
   depth: number;
 }
-interface Inputs {
-  solid: Shape;
-  position: Point;
-  direction?: Vector;
+
+interface SimpleHoleInputs {
+  solid: unknown;
+  position: [number, number, number];
+  direction?: [number, number, number];
 }
-interface Outputs {
-  shape: Shape;
+
+interface SimpleHoleOutputs {
+  shape: unknown;
 }
 
 export const SimpleHoleNode: NodeDefinition<SimpleHoleInputs, SimpleHoleOutputs, SimpleHoleParams> = {
-  type: 'Features::SimpleHole',
+  id: 'Features::SimpleHole',
   category: 'Features',
-  subcategory: 'Holes',
-
-  metadata: {
-    label: 'SimpleHole',
-    description: 'Creates a simple through hole',
-    
-    tags: ["hole","drill","fastener"],
-  },
-
-  params: {
-        diameter: {
-      "default": 10,
-      "min": 0.1,
-      "max": 1000,
-      "step": 0.1,
-      "description": "Hole diameter in mm"
+  label: 'SimpleHole',
+  description: 'Creates a simple through hole',
+  inputs: {
+    solid: {
+      type: 'Shape',
+      label: 'Solid',
+      required: true
     },
-    depth: {
-      "default": -1,
-      "min": -1,
-      "description": "Hole depth (-1 for through hole)"
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
+    },
+    direction: {
+      type: 'Vector',
+      label: 'Direction',
+      optional: true
     }
   },
-
-  inputs: {
-        solid: 'Shape',
-    position: 'Point',
-    direction: 'Vector'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    diameter: {
+      type: 'number',
+      label: 'Diameter',
+      default: 10,
+      min: 0.1,
+      max: 1000,
+      step: 0.1
+    },
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: -1,
+      min: -1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeHole',
       params: {
@@ -63,9 +70,9 @@ export const SimpleHoleNode: NodeDefinition<SimpleHoleInputs, SimpleHoleOutputs,
         depth: params.depth
       }
     });
-
+    
     return {
       shape: result
     };
-  }
+  },
 };

@@ -1,61 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ParquetPatternParams {
   pattern: string;
   plankLength: number;
   plankWidth: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface ParquetPatternInputs {
+  surface: unknown;
 }
-interface Outputs {
-  planks: Face[];
+
+interface ParquetPatternOutputs {
+  planks: unknown;
 }
 
 export const ParquetPatternNode: NodeDefinition<ParquetPatternInputs, ParquetPatternOutputs, ParquetPatternParams> = {
-  type: 'Patterns::ParquetPattern',
+  id: 'Patterns::ParquetPattern',
   category: 'Patterns',
-  subcategory: 'Tiling',
-
-  metadata: {
-    label: 'ParquetPattern',
-    description: 'Wood parquet patterns',
-    
-    
-  },
-
-  params: {
-        pattern: {
-      "default": "herringbone",
-      "options": [
-        "herringbone",
-        "chevron",
-        "basket",
-        "versailles",
-        "chantilly"
-      ]
-    },
-    plankLength: {
-      "default": 30,
-      "min": 1
-    },
-    plankWidth: {
-      "default": 5,
-      "min": 1
+  label: 'ParquetPattern',
+  description: 'Wood parquet patterns',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        planks: 'Face[]'
+    planks: {
+      type: 'Face[]',
+      label: 'Planks'
+    }
   },
-
+  params: {
+    pattern: {
+      type: 'enum',
+      label: 'Pattern',
+      default: "herringbone",
+      options: ["herringbone","chevron","basket","versailles","chantilly"]
+    },
+    plankLength: {
+      type: 'number',
+      label: 'Plank Length',
+      default: 30,
+      min: 1
+    },
+    plankWidth: {
+      type: 'number',
+      label: 'Plank Width',
+      default: 5,
+      min: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'parquetPattern',
       params: {
@@ -65,9 +62,9 @@ export const ParquetPatternNode: NodeDefinition<ParquetPatternInputs, ParquetPat
         plankWidth: params.plankWidth
       }
     });
-
+    
     return {
       planks: result
     };
-  }
+  },
 };

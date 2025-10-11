@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type CommonEdgesParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  shape1: Shape;
-  shape2: Shape;
+interface CommonEdgesInputs {
+  shape1: unknown;
+  shape2: unknown;
 }
-interface Outputs {
-  edges: Edge[];
+
+interface CommonEdgesOutputs {
+  edges: unknown;
 }
 
 export const CommonEdgesNode: NodeDefinition<CommonEdgesInputs, CommonEdgesOutputs, CommonEdgesParams> = {
-  type: 'Boolean::CommonEdges',
+  id: 'Boolean::CommonEdges',
   category: 'Boolean',
-  
-
-  metadata: {
-    label: 'CommonEdges',
-    description: 'Extract common edges between shapes',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'CommonEdges',
+  description: 'Extract common edges between shapes',
   inputs: {
-        shape1: 'Shape',
-    shape2: 'Shape'
+    shape1: {
+      type: 'Shape',
+      label: 'Shape1',
+      required: true
+    },
+    shape2: {
+      type: 'Shape',
+      label: 'Shape2',
+      required: true
+    }
   },
-
   outputs: {
-        edges: 'Edge[]'
+    edges: {
+      type: 'Edge[]',
+      label: 'Edges'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'booleanCommonEdges',
       params: {
         shape1: inputs.shape1,
         shape2: inputs.shape2
-        
       }
     });
-
+    
     return {
       edges: result
     };
-  }
+  },
 };

@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### matrix
+### Matrix
 - **Type:** Matrix4x4
 - **Required:** Yes
 - **Description:** 4x4 transformation matrix
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### transformed
+### Transformed
 - **Type:** Shape
 
 

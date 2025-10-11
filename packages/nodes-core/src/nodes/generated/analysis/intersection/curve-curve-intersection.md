@@ -8,7 +8,7 @@ Find curve-curve intersections
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Find curve-curve intersections
 
 
 
-### extendCurves
+### Extend Curves
 - **Type:** boolean
 - **Default:** false
 
@@ -27,13 +27,13 @@ Find curve-curve intersections
 ## Inputs
 
 
-### curve1
+### Curve1
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### curve2
+### Curve2
 - **Type:** Wire
 - **Required:** Yes
 
@@ -42,17 +42,17 @@ Find curve-curve intersections
 ## Outputs
 
 
-### intersectionPoints
+### Intersection Points
 - **Type:** Point[]
 
 
 
-### parameters1
+### Parameters1
 - **Type:** number[]
 
 
 
-### parameters2
+### Parameters2
 - **Type:** number[]
 
 

@@ -1,64 +1,69 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GeometrySimplificationParams {
   algorithm: string;
   reduction: number;
   preserveBoundary: boolean;
 }
-interface Inputs {
-  geometry: Shape;
+
+interface GeometrySimplificationInputs {
+  geometry: unknown;
 }
-interface Outputs {
-  simplified: Shape;
-  reductionRatio: number;
-  error: number;
+
+interface GeometrySimplificationOutputs {
+  simplified: unknown;
+  reductionRatio: unknown;
+  error: unknown;
 }
 
 export const GeometrySimplificationNode: NodeDefinition<GeometrySimplificationInputs, GeometrySimplificationOutputs, GeometrySimplificationParams> = {
-  type: 'Algorithmic::GeometrySimplification',
+  id: 'Algorithmic::GeometrySimplification',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'GeometrySimplification',
-    description: 'Simplify complex geometry',
-    
-    
-  },
-
-  params: {
-        algorithm: {
-      "default": "quadric",
-      "options": [
-        "decimate",
-        "quadric",
-        "vertex"
-      ]
-    },
-    reduction: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 0.9
-    },
-    preserveBoundary: {
-      "default": true
+  label: 'GeometrySimplification',
+  description: 'Simplify complex geometry',
+  inputs: {
+    geometry: {
+      type: 'Shape',
+      label: 'Geometry',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Shape'
-  },
-
   outputs: {
-        simplified: 'Shape',
-    reductionRatio: 'number',
-    error: 'number'
+    simplified: {
+      type: 'Shape',
+      label: 'Simplified'
+    },
+    reductionRatio: {
+      type: 'number',
+      label: 'Reduction Ratio'
+    },
+    error: {
+      type: 'number',
+      label: 'Error'
+    }
   },
-
+  params: {
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "quadric",
+      options: ["decimate","quadric","vertex"]
+    },
+    reduction: {
+      type: 'number',
+      label: 'Reduction',
+      default: 0.5,
+      min: 0.1,
+      max: 0.9
+    },
+    preserveBoundary: {
+      type: 'boolean',
+      label: 'Preserve Boundary',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'geometrySimplification',
       params: {
         geometry: inputs.geometry,
@@ -67,11 +72,11 @@ export const GeometrySimplificationNode: NodeDefinition<GeometrySimplificationIn
         preserveBoundary: params.preserveBoundary
       }
     });
-
+    
     return {
-      simplified: result,
-      reductionRatio: result,
-      error: result
+      simplified: results.simplified,
+      reductionRatio: results.reductionRatio,
+      error: results.error
     };
-  }
+  },
 };

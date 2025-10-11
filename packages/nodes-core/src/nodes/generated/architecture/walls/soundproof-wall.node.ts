@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SoundproofWallParams {
   stcRating: number;
   massLayers: number;
 }
-interface Inputs {
-  wallPath: Wire;
+
+interface SoundproofWallInputs {
+  wallPath: unknown;
 }
-interface Outputs {
-  acousticWall: Shape;
+
+interface SoundproofWallOutputs {
+  acousticWall: unknown;
 }
 
 export const SoundproofWallNode: NodeDefinition<SoundproofWallInputs, SoundproofWallOutputs, SoundproofWallParams> = {
-  type: 'Architecture::SoundproofWall',
+  id: 'Architecture::SoundproofWall',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'SoundproofWall',
-    description: 'Acoustic wall assembly',
-    
-    
-  },
-
-  params: {
-        stcRating: {
-      "default": 50,
-      "min": 30,
-      "max": 80
-    },
-    massLayers: {
-      "default": 2,
-      "min": 1,
-      "max": 4,
-      "step": 1
+  label: 'SoundproofWall',
+  description: 'Acoustic wall assembly',
+  inputs: {
+    wallPath: {
+      type: 'Wire',
+      label: 'Wall Path',
+      required: true
     }
   },
-
-  inputs: {
-        wallPath: 'Wire'
-  },
-
   outputs: {
-        acousticWall: 'Shape'
+    acousticWall: {
+      type: 'Shape',
+      label: 'Acoustic Wall'
+    }
   },
-
+  params: {
+    stcRating: {
+      type: 'number',
+      label: 'Stc Rating',
+      default: 50,
+      min: 30,
+      max: 80
+    },
+    massLayers: {
+      type: 'number',
+      label: 'Mass Layers',
+      default: 2,
+      min: 1,
+      max: 4,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'soundproofWall',
       params: {
@@ -56,9 +57,9 @@ export const SoundproofWallNode: NodeDefinition<SoundproofWallInputs, Soundproof
         massLayers: params.massLayers
       }
     });
-
+    
     return {
       acousticWall: result
     };
-  }
+  },
 };

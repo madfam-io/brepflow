@@ -1,53 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type VerticalParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  entity: Shape;
+interface VerticalInputs {
+  entity: unknown;
 }
-interface Outputs {
-  constrained: Shape;
-  constraint: Constraint;
+
+interface VerticalOutputs {
+  constrained: unknown;
+  constraint: unknown;
 }
 
 export const VerticalNode: NodeDefinition<VerticalInputs, VerticalOutputs, VerticalParams> = {
-  type: 'Assembly::Vertical',
+  id: 'Assembly::Vertical',
   category: 'Assembly',
-  subcategory: 'Constraints',
-
-  metadata: {
-    label: 'Vertical',
-    description: 'Make entity vertical',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Vertical',
+  description: 'Make entity vertical',
   inputs: {
-        entity: 'Shape'
+    entity: {
+      type: 'Shape',
+      label: 'Entity',
+      required: true
+    }
   },
-
   outputs: {
-        constrained: 'Shape',
-    constraint: 'Constraint'
+    constrained: {
+      type: 'Shape',
+      label: 'Constrained'
+    },
+    constraint: {
+      type: 'Constraint',
+      label: 'Constraint'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'constraintVertical',
       params: {
         entity: inputs.entity
-        
       }
     });
-
+    
     return {
-      constrained: result,
-      constraint: result
+      constrained: results.constrained,
+      constraint: results.constraint
     };
-  }
+  },
 };

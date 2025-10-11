@@ -1,56 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListContainsParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
-  item: Data;
+interface ListContainsInputs {
+  list: unknown;
+  item: unknown;
 }
-interface Outputs {
-  contains: boolean;
-  index: number;
+
+interface ListContainsOutputs {
+  contains: unknown;
+  index: unknown;
 }
 
 export const ListContainsNode: NodeDefinition<ListContainsInputs, ListContainsOutputs, ListContainsParams> = {
-  type: 'Data::ListContains',
+  id: 'Data::ListContains',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListContains',
-    description: 'Check if list contains item',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListContains',
+  description: 'Check if list contains item',
   inputs: {
-        list: 'Data[]',
-    item: 'Data'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    item: {
+      type: 'Data',
+      label: 'Item',
+      required: true
+    }
   },
-
   outputs: {
-        contains: 'boolean',
-    index: 'number'
+    contains: {
+      type: 'boolean',
+      label: 'Contains'
+    },
+    index: {
+      type: 'number',
+      label: 'Index'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'listContains',
       params: {
         list: inputs.list,
         item: inputs.item
-        
       }
     });
-
+    
     return {
-      contains: result,
-      index: result
+      contains: results.contains,
+      index: results.index
     };
-  }
+  },
 };

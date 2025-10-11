@@ -8,7 +8,7 @@ Flow field attractor
 ## Parameters
 
 
-### velocity
+### Velocity
 - **Type:** number
 - **Default:** 10
 - **Min:** 0
@@ -16,7 +16,7 @@ Flow field attractor
 
 
 
-### turbulence
+### Turbulence
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0
@@ -24,7 +24,7 @@ Flow field attractor
 
 
 
-### viscosity
+### Viscosity
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0
@@ -35,13 +35,13 @@ Flow field attractor
 ## Inputs
 
 
-### obstacles
+### Obstacles
 - **Type:** Shape[]
 - **Required:** No
 
 
 
-### sources
+### Sources
 - **Type:** Point[]
 - **Required:** No
 
@@ -50,7 +50,7 @@ Flow field attractor
 ## Outputs
 
 
-### field
+### Field
 - **Type:** VectorField
 
 

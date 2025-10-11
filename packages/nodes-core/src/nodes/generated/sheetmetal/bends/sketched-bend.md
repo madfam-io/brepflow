@@ -8,7 +8,7 @@ Create bend from sketch line
 ## Parameters
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** -180
@@ -16,7 +16,7 @@ Create bend from sketch line
 
 
 
-### bendRadius
+### Bend Radius
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create bend from sketch line
 
 
 
-### bendDirection
+### Bend Direction
 - **Type:** enum
 - **Default:** "up"
 
@@ -32,7 +32,7 @@ Create bend from sketch line
 
 
 
-### bendAllowance
+### Bend Allowance
 - **Type:** number
 - **Default:** 0
 - **Min:** -10
@@ -43,13 +43,13 @@ Create bend from sketch line
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### bendLine
+### Bend Line
 - **Type:** Edge
 - **Required:** Yes
 
@@ -58,7 +58,7 @@ Create bend from sketch line
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

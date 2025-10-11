@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HighSpeedMachiningParams {
   cornerRadius: number;
   entrySpeed: number;
 }
-interface Inputs {
-  toolpath: Wire[];
+
+interface HighSpeedMachiningInputs {
+  toolpath: unknown;
 }
-interface Outputs {
-  hsmPath: Wire[];
+
+interface HighSpeedMachiningOutputs {
+  hsmPath: unknown;
 }
 
 export const HighSpeedMachiningNode: NodeDefinition<HighSpeedMachiningInputs, HighSpeedMachiningOutputs, HighSpeedMachiningParams> = {
-  type: 'Fabrication::HighSpeedMachining',
+  id: 'Fabrication::HighSpeedMachining',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'HighSpeedMachining',
-    description: 'HSM toolpath optimization',
-    
-    
-  },
-
-  params: {
-        cornerRadius: {
-      "default": 2,
-      "min": 0.1,
-      "max": 10
-    },
-    entrySpeed: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 1
+  label: 'HighSpeedMachining',
+  description: 'HSM toolpath optimization',
+  inputs: {
+    toolpath: {
+      type: 'Wire[]',
+      label: 'Toolpath',
+      required: true
     }
   },
-
-  inputs: {
-        toolpath: 'Wire[]'
-  },
-
   outputs: {
-        hsmPath: 'Wire[]'
+    hsmPath: {
+      type: 'Wire[]',
+      label: 'Hsm Path'
+    }
   },
-
+  params: {
+    cornerRadius: {
+      type: 'number',
+      label: 'Corner Radius',
+      default: 2,
+      min: 0.1,
+      max: 10
+    },
+    entrySpeed: {
+      type: 'number',
+      label: 'Entry Speed',
+      default: 0.5,
+      min: 0.1,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'highSpeedMachining',
       params: {
@@ -55,9 +56,9 @@ export const HighSpeedMachiningNode: NodeDefinition<HighSpeedMachiningInputs, Hi
         entrySpeed: params.entrySpeed
       }
     });
-
+    
     return {
       hsmPath: result
     };
-  }
+  },
 };

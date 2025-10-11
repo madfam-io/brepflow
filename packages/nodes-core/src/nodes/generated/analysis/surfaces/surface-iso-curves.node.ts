@@ -1,66 +1,71 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceIsoCurvesParams {
   uCount: number;
   vCount: number;
   direction: string;
 }
-interface Inputs {
-  surface: Face;
+
+interface SurfaceIsoCurvesInputs {
+  surface: unknown;
 }
-interface Outputs {
-  uCurves: Wire[];
-  vCurves: Wire[];
-  allCurves: Wire[];
+
+interface SurfaceIsoCurvesOutputs {
+  uCurves: unknown;
+  vCurves: unknown;
+  allCurves: unknown;
 }
 
 export const SurfaceIsoCurvesNode: NodeDefinition<SurfaceIsoCurvesInputs, SurfaceIsoCurvesOutputs, SurfaceIsoCurvesParams> = {
-  type: 'Analysis::SurfaceIsoCurves',
+  id: 'Analysis::SurfaceIsoCurves',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceIsoCurves',
-    description: 'Extract surface isocurves',
-    
-    
-  },
-
-  params: {
-        uCount: {
-      "default": 10,
-      "min": 2,
-      "max": 50
-    },
-    vCount: {
-      "default": 10,
-      "min": 2,
-      "max": 50
-    },
-    direction: {
-      "default": "both",
-      "options": [
-        "both",
-        "u-only",
-        "v-only"
-      ]
+  label: 'SurfaceIsoCurves',
+  description: 'Extract surface isocurves',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        uCurves: 'Wire[]',
-    vCurves: 'Wire[]',
-    allCurves: 'Wire[]'
+    uCurves: {
+      type: 'Wire[]',
+      label: 'U Curves'
+    },
+    vCurves: {
+      type: 'Wire[]',
+      label: 'V Curves'
+    },
+    allCurves: {
+      type: 'Wire[]',
+      label: 'All Curves'
+    }
   },
-
+  params: {
+    uCount: {
+      type: 'number',
+      label: 'U Count',
+      default: 10,
+      min: 2,
+      max: 50
+    },
+    vCount: {
+      type: 'number',
+      label: 'V Count',
+      default: 10,
+      min: 2,
+      max: 50
+    },
+    direction: {
+      type: 'enum',
+      label: 'Direction',
+      default: "both",
+      options: ["both","u-only","v-only"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceIsocurves',
       params: {
         surface: inputs.surface,
@@ -69,11 +74,11 @@ export const SurfaceIsoCurvesNode: NodeDefinition<SurfaceIsoCurvesInputs, Surfac
         direction: params.direction
       }
     });
-
+    
     return {
-      uCurves: result,
-      vCurves: result,
-      allCurves: result
+      uCurves: results.uCurves,
+      vCurves: results.vCurves,
+      allCurves: results.allCurves
     };
-  }
+  },
 };

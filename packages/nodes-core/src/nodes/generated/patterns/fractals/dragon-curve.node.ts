@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DragonCurveParams {
   iterations: number;
   angle: number;
 }
-interface Inputs {
-  startSegment: Edge;
+
+interface DragonCurveInputs {
+  startSegment: unknown;
 }
-interface Outputs {
-  curve: Wire;
+
+interface DragonCurveOutputs {
+  curve: unknown;
 }
 
 export const DragonCurveNode: NodeDefinition<DragonCurveInputs, DragonCurveOutputs, DragonCurveParams> = {
-  type: 'Patterns::DragonCurve',
+  id: 'Patterns::DragonCurve',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'DragonCurve',
-    description: 'Dragon curve fractal',
-    
-    
-  },
-
-  params: {
-        iterations: {
-      "default": 10,
-      "min": 0,
-      "max": 15,
-      "step": 1
-    },
-    angle: {
-      "default": 90,
-      "min": 0,
-      "max": 180
+  label: 'DragonCurve',
+  description: 'Dragon curve fractal',
+  inputs: {
+    startSegment: {
+      type: 'Edge',
+      label: 'Start Segment',
+      required: true
     }
   },
-
-  inputs: {
-        startSegment: 'Edge'
-  },
-
   outputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve'
+    }
   },
-
+  params: {
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 10,
+      min: 0,
+      max: 15,
+      step: 1
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 90,
+      min: 0,
+      max: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'dragonCurve',
       params: {
@@ -56,9 +57,9 @@ export const DragonCurveNode: NodeDefinition<DragonCurveInputs, DragonCurveOutpu
         angle: params.angle
       }
     });
-
+    
     return {
       curve: result
     };
-  }
+  },
 };

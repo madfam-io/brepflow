@@ -8,7 +8,7 @@ Smooth mesh surface
 ## Parameters
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -16,7 +16,7 @@ Smooth mesh surface
 
 
 
-### smoothingFactor
+### Smoothing Factor
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -24,7 +24,7 @@ Smooth mesh surface
 
 
 
-### preserveVolume
+### Preserve Volume
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Smooth mesh surface
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Smooth mesh surface
 ## Outputs
 
 
-### smoothed
+### Smoothed
 - **Type:** Mesh
 
 

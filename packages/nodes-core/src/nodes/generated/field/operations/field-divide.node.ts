@@ -1,47 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldDivideParams {
   epsilon: number;
 }
-interface Inputs {
-  fieldA: ScalarField;
-  fieldB: ScalarField;
+
+interface FieldDivideInputs {
+  fieldA: unknown;
+  fieldB: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface FieldDivideOutputs {
+  field: unknown;
 }
 
 export const FieldDivideNode: NodeDefinition<FieldDivideInputs, FieldDivideOutputs, FieldDivideParams> = {
-  type: 'Field::FieldDivide',
+  id: 'Field::FieldDivide',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldDivide',
-    description: 'Divide fields',
-    
-    
-  },
-
-  params: {
-        epsilon: {
-      "default": 0.001,
-      "min": 0
+  label: 'FieldDivide',
+  description: 'Divide fields',
+  inputs: {
+    fieldA: {
+      type: 'ScalarField',
+      label: 'Field A',
+      required: true
+    },
+    fieldB: {
+      type: 'ScalarField',
+      label: 'Field B',
+      required: true
     }
   },
-
-  inputs: {
-        fieldA: 'ScalarField',
-    fieldB: 'ScalarField'
-  },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    epsilon: {
+      type: 'number',
+      label: 'Epsilon',
+      default: 0.001,
+      min: 0
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldDivide',
       params: {
@@ -50,9 +53,9 @@ export const FieldDivideNode: NodeDefinition<FieldDivideInputs, FieldDivideOutpu
         epsilon: params.epsilon
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

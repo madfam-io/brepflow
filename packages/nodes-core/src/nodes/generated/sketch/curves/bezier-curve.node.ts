@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type BezierCurveParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  controlPoints: Point[];
+interface BezierCurveInputs {
+  controlPoints: Array<[number, number, number]>;
 }
-interface Outputs {
-  curve: Wire;
+
+interface BezierCurveOutputs {
+  curve: unknown;
 }
 
 export const BezierCurveNode: NodeDefinition<BezierCurveInputs, BezierCurveOutputs, BezierCurveParams> = {
-  type: 'Sketch::BezierCurve',
+  id: 'Sketch::BezierCurve',
   category: 'Sketch',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'BezierCurve',
-    description: 'Create a Bezier curve',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'BezierCurve',
+  description: 'Create a Bezier curve',
   inputs: {
-        controlPoints: 'Point[]'
+    controlPoints: {
+      type: 'Point[]',
+      label: 'Control Points',
+      required: true
+    }
   },
-
   outputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeBezier',
       params: {
         controlPoints: inputs.controlPoints
-        
       }
     });
-
+    
     return {
       curve: result
     };
-  }
+  },
 };

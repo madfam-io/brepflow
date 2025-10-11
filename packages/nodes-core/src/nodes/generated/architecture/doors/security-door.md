@@ -8,7 +8,7 @@ Security door system
 ## Parameters
 
 
-### level
+### Level
 - **Type:** enum
 - **Default:** "high"
 
@@ -16,7 +16,7 @@ Security door system
 
 
 
-### accessControl
+### Access Control
 - **Type:** enum
 - **Default:** "card"
 
@@ -27,7 +27,7 @@ Security door system
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Security door system
 ## Outputs
 
 
-### securityDoor
+### Security Door
 - **Type:** Shape
 
 

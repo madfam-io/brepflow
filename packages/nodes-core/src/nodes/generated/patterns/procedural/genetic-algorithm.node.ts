@@ -1,65 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GeneticAlgorithmParams {
   population: number;
   generations: number;
   mutationRate: number;
 }
-interface Inputs {
-  fitness: Data;
-  constraints?: Data;
+
+interface GeneticAlgorithmInputs {
+  fitness: unknown;
+  constraints?: unknown;
 }
-interface Outputs {
-  best: Shape;
-  population: Shape[];
+
+interface GeneticAlgorithmOutputs {
+  best: unknown;
+  population: unknown;
 }
 
 export const GeneticAlgorithmNode: NodeDefinition<GeneticAlgorithmInputs, GeneticAlgorithmOutputs, GeneticAlgorithmParams> = {
-  type: 'Patterns::GeneticAlgorithm',
+  id: 'Patterns::GeneticAlgorithm',
   category: 'Patterns',
-  subcategory: 'Procedural',
-
-  metadata: {
-    label: 'GeneticAlgorithm',
-    description: 'GA-based pattern optimization',
-    
-    
-  },
-
-  params: {
-        population: {
-      "default": 50,
-      "min": 10,
-      "max": 200,
-      "step": 5
+  label: 'GeneticAlgorithm',
+  description: 'GA-based pattern optimization',
+  inputs: {
+    fitness: {
+      type: 'Data',
+      label: 'Fitness',
+      required: true
     },
-    generations: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
-    },
-    mutationRate: {
-      "default": 0.1,
-      "min": 0,
-      "max": 1
+    constraints: {
+      type: 'Data',
+      label: 'Constraints',
+      optional: true
     }
   },
-
-  inputs: {
-        fitness: 'Data',
-    constraints: 'Data'
-  },
-
   outputs: {
-        best: 'Shape',
-    population: 'Shape[]'
+    best: {
+      type: 'Shape',
+      label: 'Best'
+    },
+    population: {
+      type: 'Shape[]',
+      label: 'Population'
+    }
   },
-
+  params: {
+    population: {
+      type: 'number',
+      label: 'Population',
+      default: 50,
+      min: 10,
+      max: 200,
+      step: 5
+    },
+    generations: {
+      type: 'number',
+      label: 'Generations',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    },
+    mutationRate: {
+      type: 'number',
+      label: 'Mutation Rate',
+      default: 0.1,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'geneticAlgorithm',
       params: {
         fitness: inputs.fitness,
@@ -69,10 +79,10 @@ export const GeneticAlgorithmNode: NodeDefinition<GeneticAlgorithmInputs, Geneti
         mutationRate: params.mutationRate
       }
     });
-
+    
     return {
-      best: result,
-      population: result
+      best: results.best,
+      population: results.population
     };
-  }
+  },
 };

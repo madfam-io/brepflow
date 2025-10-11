@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StairNosingParams {
   projection: number;
   material: string;
 }
-interface Inputs {
-  treadEdges: Edge[];
+
+interface StairNosingInputs {
+  treadEdges: unknown;
 }
-interface Outputs {
-  nosing: Shape[];
+
+interface StairNosingOutputs {
+  nosing: unknown;
 }
 
 export const StairNosingNode: NodeDefinition<StairNosingInputs, StairNosingOutputs, StairNosingParams> = {
-  type: 'Architecture::StairNosing',
+  id: 'Architecture::StairNosing',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'StairNosing',
-    description: 'Stair nosing profile',
-    
-    
-  },
-
-  params: {
-        projection: {
-      "default": 25,
-      "min": 20,
-      "max": 40
-    },
-    material: {
-      "default": "aluminum",
-      "options": [
-        "aluminum",
-        "rubber",
-        "wood",
-        "stone"
-      ]
+  label: 'StairNosing',
+  description: 'Stair nosing profile',
+  inputs: {
+    treadEdges: {
+      type: 'Edge[]',
+      label: 'Tread Edges',
+      required: true
     }
   },
-
-  inputs: {
-        treadEdges: 'Edge[]'
-  },
-
   outputs: {
-        nosing: 'Shape[]'
+    nosing: {
+      type: 'Shape[]',
+      label: 'Nosing'
+    }
   },
-
+  params: {
+    projection: {
+      type: 'number',
+      label: 'Projection',
+      default: 25,
+      min: 20,
+      max: 40
+    },
+    material: {
+      type: 'enum',
+      label: 'Material',
+      default: "aluminum",
+      options: ["aluminum","rubber","wood","stone"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stairNosing',
       params: {
@@ -59,9 +55,9 @@ export const StairNosingNode: NodeDefinition<StairNosingInputs, StairNosingOutpu
         material: params.material
       }
     });
-
+    
     return {
       nosing: result
     };
-  }
+  },
 };

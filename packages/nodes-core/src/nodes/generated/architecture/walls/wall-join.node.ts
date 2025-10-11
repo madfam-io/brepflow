@@ -1,51 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WallJoinParams {
   joinType: string;
 }
-interface Inputs {
-  wall1: Shape;
-  wall2: Shape;
+
+interface WallJoinInputs {
+  wall1: unknown;
+  wall2: unknown;
 }
-interface Outputs {
-  joinedWalls: Shape;
+
+interface WallJoinOutputs {
+  joinedWalls: unknown;
 }
 
 export const WallJoinNode: NodeDefinition<WallJoinInputs, WallJoinOutputs, WallJoinParams> = {
-  type: 'Architecture::WallJoin',
+  id: 'Architecture::WallJoin',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'WallJoin',
-    description: 'Join wall segments',
-    
-    
-  },
-
-  params: {
-        joinType: {
-      "default": "miter",
-      "options": [
-        "miter",
-        "butt",
-        "overlap"
-      ]
+  label: 'WallJoin',
+  description: 'Join wall segments',
+  inputs: {
+    wall1: {
+      type: 'Shape',
+      label: 'Wall1',
+      required: true
+    },
+    wall2: {
+      type: 'Shape',
+      label: 'Wall2',
+      required: true
     }
   },
-
-  inputs: {
-        wall1: 'Shape',
-    wall2: 'Shape'
-  },
-
   outputs: {
-        joinedWalls: 'Shape'
+    joinedWalls: {
+      type: 'Shape',
+      label: 'Joined Walls'
+    }
   },
-
+  params: {
+    joinType: {
+      type: 'enum',
+      label: 'Join Type',
+      default: "miter",
+      options: ["miter","butt","overlap"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'wallJoin',
       params: {
@@ -54,9 +53,9 @@ export const WallJoinNode: NodeDefinition<WallJoinInputs, WallJoinOutputs, WallJ
         joinType: params.joinType
       }
     });
-
+    
     return {
       joinedWalls: result
     };
-  }
+  },
 };

@@ -1,53 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ConstrainedDelaunayParams {
   refinement: boolean;
   maxArea: number;
 }
-interface Inputs {
-  points: Point[];
-  boundary: Wire;
-  holes?: Wire[];
+
+interface ConstrainedDelaunayInputs {
+  points: Array<[number, number, number]>;
+  boundary: unknown;
+  holes?: unknown;
 }
-interface Outputs {
-  triangulation: Mesh;
+
+interface ConstrainedDelaunayOutputs {
+  triangulation: unknown;
 }
 
 export const ConstrainedDelaunayNode: NodeDefinition<ConstrainedDelaunayInputs, ConstrainedDelaunayOutputs, ConstrainedDelaunayParams> = {
-  type: 'Patterns::ConstrainedDelaunay',
+  id: 'Patterns::ConstrainedDelaunay',
   category: 'Patterns',
-  subcategory: 'Delaunay',
-
-  metadata: {
-    label: 'ConstrainedDelaunay',
-    description: 'Constrained Delaunay triangulation',
-    
-    
-  },
-
-  params: {
-        refinement: {
-      "default": true
+  label: 'ConstrainedDelaunay',
+  description: 'Constrained Delaunay triangulation',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     },
-    maxArea: {
-      "default": 100,
-      "min": 0.1
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
+    },
+    holes: {
+      type: 'Wire[]',
+      label: 'Holes',
+      optional: true
     }
   },
-
-  inputs: {
-        points: 'Point[]',
-    boundary: 'Wire',
-    holes: 'Wire[]'
-  },
-
   outputs: {
-        triangulation: 'Mesh'
+    triangulation: {
+      type: 'Mesh',
+      label: 'Triangulation'
+    }
   },
-
+  params: {
+    refinement: {
+      type: 'boolean',
+      label: 'Refinement',
+      default: true
+    },
+    maxArea: {
+      type: 'number',
+      label: 'Max Area',
+      default: 100,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'delaunayConstrained',
       params: {
@@ -58,9 +67,9 @@ export const ConstrainedDelaunayNode: NodeDefinition<ConstrainedDelaunayInputs, 
         maxArea: params.maxArea
       }
     });
-
+    
     return {
       triangulation: result
     };
-  }
+  },
 };

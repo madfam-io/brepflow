@@ -1,73 +1,72 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TimingPulleyParams {
   pitch: string;
   teeth: number;
   width: number;
   flanges: boolean;
 }
-interface Inputs {
-  center: Point;
+
+interface TimingPulleyInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  pulley: Shape;
-  pitchCircle: Wire;
+
+interface TimingPulleyOutputs {
+  pulley: unknown;
+  pitchCircle: unknown;
 }
 
 export const TimingPulleyNode: NodeDefinition<TimingPulleyInputs, TimingPulleyOutputs, TimingPulleyParams> = {
-  type: 'MechanicalEngineering::TimingPulley',
+  id: 'MechanicalEngineering::TimingPulley',
   category: 'MechanicalEngineering',
-  subcategory: 'Gears',
-
-  metadata: {
-    label: 'TimingPulley',
-    description: 'Create timing belt pulley',
-    
-    
-  },
-
-  params: {
-        pitch: {
-      "default": "GT2",
-      "options": [
-        "MXL",
-        "XL",
-        "L",
-        "H",
-        "T2.5",
-        "T5",
-        "T10",
-        "GT2"
-      ]
-    },
-    teeth: {
-      "default": 20,
-      "min": 10,
-      "max": 100
-    },
-    width: {
-      "default": 10,
-      "min": 6,
-      "max": 50
-    },
-    flanges: {
-      "default": true
+  label: 'TimingPulley',
+  description: 'Create timing belt pulley',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        pulley: 'Shape',
-    pitchCircle: 'Wire'
+    pulley: {
+      type: 'Shape',
+      label: 'Pulley'
+    },
+    pitchCircle: {
+      type: 'Wire',
+      label: 'Pitch Circle'
+    }
   },
-
+  params: {
+    pitch: {
+      type: 'enum',
+      label: 'Pitch',
+      default: "GT2",
+      options: ["MXL","XL","L","H","T2.5","T5","T10","GT2"]
+    },
+    teeth: {
+      type: 'number',
+      label: 'Teeth',
+      default: 20,
+      min: 10,
+      max: 100
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 10,
+      min: 6,
+      max: 50
+    },
+    flanges: {
+      type: 'boolean',
+      label: 'Flanges',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'timingPulley',
       params: {
         center: inputs.center,
@@ -77,10 +76,10 @@ export const TimingPulleyNode: NodeDefinition<TimingPulleyInputs, TimingPulleyOu
         flanges: params.flanges
       }
     });
-
+    
     return {
-      pulley: result,
-      pitchCircle: result
+      pulley: results.pulley,
+      pitchCircle: results.pitchCircle
     };
-  }
+  },
 };

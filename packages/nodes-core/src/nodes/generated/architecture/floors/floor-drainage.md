@@ -8,7 +8,7 @@ Floor drainage system
 ## Parameters
 
 
-### slope
+### Slope
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.005
@@ -16,7 +16,7 @@ Floor drainage system
 
 
 
-### drainType
+### Drain Type
 - **Type:** enum
 - **Default:** "point"
 
@@ -27,13 +27,13 @@ Floor drainage system
 ## Inputs
 
 
-### floorBoundary
+### Floor Boundary
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### drainLocations
+### Drain Locations
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Floor drainage system
 ## Outputs
 
 
-### slopedFloor
+### Sloped Floor
 - **Type:** Shape
 
 
 
-### drains
+### Drains
 - **Type:** Shape[]
 
 

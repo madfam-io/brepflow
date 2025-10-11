@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type GordonSurfaceParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  uCurves: Wire[];
-  vCurves: Wire[];
-  points?: Point[][];
+interface GordonSurfaceInputs {
+  uCurves: unknown;
+  vCurves: unknown;
+  points?: unknown;
 }
-interface Outputs {
-  surface: Face;
+
+interface GordonSurfaceOutputs {
+  surface: unknown;
 }
 
 export const GordonSurfaceNode: NodeDefinition<GordonSurfaceInputs, GordonSurfaceOutputs, GordonSurfaceParams> = {
-  type: 'Surface::GordonSurface',
+  id: 'Surface::GordonSurface',
   category: 'Surface',
-  subcategory: 'NURBS',
-
-  metadata: {
-    label: 'GordonSurface',
-    description: 'Create Gordon surface',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'GordonSurface',
+  description: 'Create Gordon surface',
   inputs: {
-        uCurves: 'Wire[]',
-    vCurves: 'Wire[]',
-    points: 'Point[][]'
+    uCurves: {
+      type: 'Wire[]',
+      label: 'U Curves',
+      required: true
+    },
+    vCurves: {
+      type: 'Wire[]',
+      label: 'V Curves',
+      required: true
+    },
+    points: {
+      type: 'Point[][]',
+      label: 'Points',
+      optional: true
+    }
   },
-
   outputs: {
-        surface: 'Face'
+    surface: {
+      type: 'Face',
+      label: 'Surface'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'gordonSurface',
       params: {
         uCurves: inputs.uCurves,
         vCurves: inputs.vCurves,
         points: inputs.points
-        
       }
     });
-
+    
     return {
       surface: result
     };
-  }
+  },
 };

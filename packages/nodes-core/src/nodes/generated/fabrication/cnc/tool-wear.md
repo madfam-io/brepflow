@@ -8,7 +8,7 @@ Predict tool wear
 ## Parameters
 
 
-### material
+### Material
 - **Type:** enum
 - **Default:** "steel"
 
@@ -16,7 +16,7 @@ Predict tool wear
 
 
 
-### cuttingTime
+### Cutting Time
 - **Type:** number
 - **Default:** 60
 - **Min:** 1
@@ -27,7 +27,7 @@ Predict tool wear
 ## Inputs
 
 
-### toolpath
+### Toolpath
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Predict tool wear
 ## Outputs
 
 
-### wearRate
+### Wear Rate
 - **Type:** Number
 
 
 
-### toolLife
+### Tool Life
 - **Type:** Number
 
 

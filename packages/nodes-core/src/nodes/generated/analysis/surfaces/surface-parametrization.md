@@ -8,7 +8,7 @@ Analyze surface parametrization
 ## Parameters
 
 
-### showGrid
+### Show Grid
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Analyze surface parametrization
 
 
 
-### gridDensity
+### Grid Density
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -27,7 +27,7 @@ Analyze surface parametrization
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Analyze surface parametrization
 ## Outputs
 
 
-### uRange
+### U Range
 - **Type:** number[]
 
 
 
-### vRange
+### V Range
 - **Type:** number[]
 
 
 
-### parameterGrid
+### Parameter Grid
 - **Type:** Wire[]
 
 

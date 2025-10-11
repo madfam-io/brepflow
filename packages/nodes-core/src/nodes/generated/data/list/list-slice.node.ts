@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListSliceParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
-  start: number;
-  end?: number;
+interface ListSliceInputs {
+  list: unknown;
+  start: unknown;
+  end?: unknown;
 }
-interface Outputs {
-  sublist: Data[];
+
+interface ListSliceOutputs {
+  sublist: unknown;
 }
 
 export const ListSliceNode: NodeDefinition<ListSliceInputs, ListSliceOutputs, ListSliceParams> = {
-  type: 'Data::ListSlice',
+  id: 'Data::ListSlice',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListSlice',
-    description: 'Extract sublist',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListSlice',
+  description: 'Extract sublist',
   inputs: {
-        list: 'Data[]',
-    start: 'number',
-    end: 'number'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    start: {
+      type: 'number',
+      label: 'Start',
+      required: true
+    },
+    end: {
+      type: 'number',
+      label: 'End',
+      optional: true
+    }
   },
-
   outputs: {
-        sublist: 'Data[]'
+    sublist: {
+      type: 'Data[]',
+      label: 'Sublist'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listSlice',
       params: {
         list: inputs.list,
         start: inputs.start,
         end: inputs.end
-        
       }
     });
-
+    
     return {
       sublist: result
     };
-  }
+  },
 };

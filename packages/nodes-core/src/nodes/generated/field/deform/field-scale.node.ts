@@ -1,52 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldScaleParams {
   minScale: number;
   maxScale: number;
 }
-interface Inputs {
-  geometry: Shape[];
-  field: ScalarField;
+
+interface FieldScaleInputs {
+  geometry: unknown;
+  field: unknown;
 }
-interface Outputs {
-  scaled: Shape[];
+
+interface FieldScaleOutputs {
+  scaled: unknown;
 }
 
 export const FieldScaleNode: NodeDefinition<FieldScaleInputs, FieldScaleOutputs, FieldScaleParams> = {
-  type: 'Field::FieldScale',
+  id: 'Field::FieldScale',
   category: 'Field',
-  subcategory: 'Deform',
-
-  metadata: {
-    label: 'FieldScale',
-    description: 'Scale by field',
-    
-    
-  },
-
-  params: {
-        minScale: {
-      "default": 0.5,
-      "min": 0
+  label: 'FieldScale',
+  description: 'Scale by field',
+  inputs: {
+    geometry: {
+      type: 'Shape[]',
+      label: 'Geometry',
+      required: true
     },
-    maxScale: {
-      "default": 2,
-      "min": 0
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Shape[]',
-    field: 'ScalarField'
-  },
-
   outputs: {
-        scaled: 'Shape[]'
+    scaled: {
+      type: 'Shape[]',
+      label: 'Scaled'
+    }
   },
-
+  params: {
+    minScale: {
+      type: 'number',
+      label: 'Min Scale',
+      default: 0.5,
+      min: 0
+    },
+    maxScale: {
+      type: 'number',
+      label: 'Max Scale',
+      default: 2,
+      min: 0
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldScale',
       params: {
@@ -56,9 +61,9 @@ export const FieldScaleNode: NodeDefinition<FieldScaleInputs, FieldScaleOutputs,
         maxScale: params.maxScale
       }
     });
-
+    
     return {
       scaled: result
     };
-  }
+  },
 };

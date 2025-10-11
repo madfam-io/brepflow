@@ -8,7 +8,7 @@ Procedural texture generation
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "wood"
 
@@ -16,7 +16,7 @@ Procedural texture generation
 
 
 
-### scale
+### Scale
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -24,7 +24,7 @@ Procedural texture generation
 
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -35,7 +35,7 @@ Procedural texture generation
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Procedural texture generation
 ## Outputs
 
 
-### texture
+### Texture
 - **Type:** Data
 
 

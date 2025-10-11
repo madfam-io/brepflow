@@ -8,7 +8,7 @@ Generate serial numbers
 ## Parameters
 
 
-### prefix
+### Prefix
 - **Type:** string
 - **Default:** "SN"
 
@@ -16,7 +16,7 @@ Generate serial numbers
 
 
 
-### startNumber
+### Start Number
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -24,7 +24,7 @@ Generate serial numbers
 
 
 
-### digits
+### Digits
 - **Type:** number
 - **Default:** 6
 - **Min:** 1
@@ -32,7 +32,7 @@ Generate serial numbers
 
 
 
-### increment
+### Increment
 - **Type:** number
 - **Default:** 1
 - **Min:** 1
@@ -43,7 +43,7 @@ Generate serial numbers
 ## Inputs
 
 
-### count
+### Count
 - **Type:** number
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Generate serial numbers
 ## Outputs
 
 
-### serials
+### Serials
 - **Type:** string[]
 
 

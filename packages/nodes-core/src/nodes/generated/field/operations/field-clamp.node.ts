@@ -1,48 +1,49 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldClampParams {
   min: number;
   max: number;
 }
-interface Inputs {
-  field: ScalarField;
+
+interface FieldClampInputs {
+  field: unknown;
 }
-interface Outputs {
-  clamped: ScalarField;
+
+interface FieldClampOutputs {
+  clamped: unknown;
 }
 
 export const FieldClampNode: NodeDefinition<FieldClampInputs, FieldClampOutputs, FieldClampParams> = {
-  type: 'Field::FieldClamp',
+  id: 'Field::FieldClamp',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldClamp',
-    description: 'Clamp field values',
-    
-    
-  },
-
-  params: {
-        min: {
-      "default": 0
-    },
-    max: {
-      "default": 1
+  label: 'FieldClamp',
+  description: 'Clamp field values',
+  inputs: {
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'ScalarField'
-  },
-
   outputs: {
-        clamped: 'ScalarField'
+    clamped: {
+      type: 'ScalarField',
+      label: 'Clamped'
+    }
   },
-
+  params: {
+    min: {
+      type: 'number',
+      label: 'Min',
+      default: 0
+    },
+    max: {
+      type: 'number',
+      label: 'Max',
+      default: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldClamp',
       params: {
@@ -51,9 +52,9 @@ export const FieldClampNode: NodeDefinition<FieldClampInputs, FieldClampOutputs,
         max: params.max
       }
     });
-
+    
     return {
       clamped: result
     };
-  }
+  },
 };

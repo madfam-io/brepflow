@@ -8,7 +8,7 @@ Create a parametric ellipsoid
 ## Parameters
 
 
-### radiusX
+### Radius X
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a parametric ellipsoid
 - **Description:** X radius
 
 
-### radiusY
+### Radius Y
 - **Type:** number
 - **Default:** 40
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a parametric ellipsoid
 - **Description:** Y radius
 
 
-### radiusZ
+### Radius Z
 - **Type:** number
 - **Default:** 30
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create a parametric ellipsoid
 - **Description:** Z radius
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -40,7 +40,7 @@ Create a parametric ellipsoid
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -48,7 +48,7 @@ Create a parametric ellipsoid
 
 
 
-### centerZ
+### Center Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -63,7 +63,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Generated ellipsoid
 

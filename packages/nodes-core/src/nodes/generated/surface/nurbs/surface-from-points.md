@@ -8,7 +8,7 @@ Fit surface through points
 ## Parameters
 
 
-### degreeU
+### Degree U
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Fit surface through points
 
 
 
-### degreeV
+### Degree V
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -24,7 +24,7 @@ Fit surface through points
 
 
 
-### smoothness
+### Smoothness
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -35,19 +35,19 @@ Fit surface through points
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### uCount
+### U Count
 - **Type:** number
 - **Required:** Yes
 
 
 
-### vCount
+### V Count
 - **Type:** number
 - **Required:** Yes
 
@@ -56,7 +56,7 @@ Fit surface through points
 ## Outputs
 
 
-### surface
+### Surface
 - **Type:** Face
 
 

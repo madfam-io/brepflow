@@ -8,7 +8,7 @@ Simulate robot motion
 ## Parameters
 
 
-### timeStep
+### Time Step
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Simulate robot motion
 
 
 
-### dynamics
+### Dynamics
 - **Type:** boolean
 - **Default:** false
 
@@ -27,7 +27,7 @@ Simulate robot motion
 ## Inputs
 
 
-### program
+### Program
 - **Type:** Data
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Simulate robot motion
 ## Outputs
 
 
-### simulation
+### Simulation
 - **Type:** Data
 
 
 
-### cycleTime
+### Cycle Time
 - **Type:** Number
 
 

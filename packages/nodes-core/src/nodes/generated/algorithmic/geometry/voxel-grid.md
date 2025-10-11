@@ -8,7 +8,7 @@ Convert geometry to voxel representation
 ## Parameters
 
 
-### voxelSize
+### Voxel Size
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Convert geometry to voxel representation
 
 
 
-### fillInterior
+### Fill Interior
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Convert geometry to voxel representation
 
 
 
-### optimize
+### Optimize
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Convert geometry to voxel representation
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Convert geometry to voxel representation
 ## Outputs
 
 
-### voxels
+### Voxels
 - **Type:** Shape[]
 
 
 
-### grid
+### Grid
 - **Type:** Properties
 
 
 
-### bounds
+### Bounds
 - **Type:** Properties
 
 

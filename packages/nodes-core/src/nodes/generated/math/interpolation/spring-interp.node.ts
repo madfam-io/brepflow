@@ -1,61 +1,77 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SpringInterpParams {
   stiffness: number;
   damping: number;
 }
-interface Inputs {
-  current: number;
-  target: number;
-  velocity: number;
-  deltaTime: number;
+
+interface SpringInterpInputs {
+  current: unknown;
+  target: unknown;
+  velocity: unknown;
+  deltaTime: unknown;
 }
-interface Outputs {
-  position: number;
-  velocity: number;
+
+interface SpringInterpOutputs {
+  position: unknown;
+  velocity: unknown;
 }
 
 export const SpringInterpNode: NodeDefinition<SpringInterpInputs, SpringInterpOutputs, SpringInterpParams> = {
-  type: 'Math::SpringInterp',
+  id: 'Math::SpringInterp',
   category: 'Math',
-  subcategory: 'Interpolation',
-
-  metadata: {
-    label: 'SpringInterp',
-    description: 'Spring interpolation',
-    
-    
-  },
-
-  params: {
-        stiffness: {
-      "default": 100,
-      "min": 1,
-      "max": 1000
+  label: 'SpringInterp',
+  description: 'Spring interpolation',
+  inputs: {
+    current: {
+      type: 'number',
+      label: 'Current',
+      required: true
     },
-    damping: {
-      "default": 10,
-      "min": 0,
-      "max": 100
+    target: {
+      type: 'number',
+      label: 'Target',
+      required: true
+    },
+    velocity: {
+      type: 'number',
+      label: 'Velocity',
+      required: true
+    },
+    deltaTime: {
+      type: 'number',
+      label: 'Delta Time',
+      required: true
     }
   },
-
-  inputs: {
-        current: 'number',
-    target: 'number',
-    velocity: 'number',
-    deltaTime: 'number'
-  },
-
   outputs: {
-        position: 'number',
-    velocity: 'number'
+    position: {
+      type: 'number',
+      label: 'Position'
+    },
+    velocity: {
+      type: 'number',
+      label: 'Velocity'
+    }
   },
-
+  params: {
+    stiffness: {
+      type: 'number',
+      label: 'Stiffness',
+      default: 100,
+      min: 1,
+      max: 1000
+    },
+    damping: {
+      type: 'number',
+      label: 'Damping',
+      default: 10,
+      min: 0,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'mathSpringInterp',
       params: {
         current: inputs.current,
@@ -66,10 +82,10 @@ export const SpringInterpNode: NodeDefinition<SpringInterpInputs, SpringInterpOu
         damping: params.damping
       }
     });
-
+    
     return {
-      position: result,
-      velocity: result
+      position: results.position,
+      velocity: results.velocity
     };
-  }
+  },
 };

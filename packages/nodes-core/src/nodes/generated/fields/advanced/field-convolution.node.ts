@@ -1,51 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldConvolutionParams {
   kernelSize: number;
 }
-interface Inputs {
-  field?: Field;
-  kernel: Field;
+
+interface FieldConvolutionInputs {
+  field?: unknown;
+  kernel: unknown;
 }
-interface Outputs {
-  convolvedField: Field;
+
+interface FieldConvolutionOutputs {
+  convolvedField: unknown;
 }
 
 export const FieldConvolutionNode: NodeDefinition<FieldConvolutionInputs, FieldConvolutionOutputs, FieldConvolutionParams> = {
-  type: 'Fields::FieldConvolution',
+  id: 'Fields::FieldConvolution',
   category: 'Fields',
-  subcategory: 'Advanced',
-
-  metadata: {
-    label: 'FieldConvolution',
-    description: 'Convolve field with kernel',
-    
-    
-  },
-
-  params: {
-        kernelSize: {
-      "default": 3,
-      "min": 3,
-      "max": 11,
-      "step": 2,
-      "description": "Kernel size (odd number)"
+  label: 'FieldConvolution',
+  description: 'Convolve field with kernel',
+  inputs: {
+    field: {
+      type: 'Field',
+      label: 'Field',
+      optional: true
+    },
+    kernel: {
+      type: 'Field',
+      label: 'Kernel',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'Field',
-    kernel: 'Field'
-  },
-
   outputs: {
-        convolvedField: 'Field'
+    convolvedField: {
+      type: 'Field',
+      label: 'Convolved Field'
+    }
   },
-
+  params: {
+    kernelSize: {
+      type: 'number',
+      label: 'Kernel Size',
+      default: 3,
+      min: 3,
+      max: 11,
+      step: 2
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'convolveField',
+      params: {
+        field: inputs.field,
+        kernel: inputs.kernel,
+        kernelSize: params.kernelSize
+      }
+    });
     
-    // TODO: Implement FieldConvolution logic
-    throw new Error('FieldConvolution not yet implemented');
-  }
+    return {
+      convolvedField: result
+    };
+  },
 };

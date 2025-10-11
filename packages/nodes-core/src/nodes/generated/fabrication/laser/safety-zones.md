@@ -8,7 +8,7 @@ Define safety zones
 ## Parameters
 
 
-### margin
+### Margin
 - **Type:** number
 - **Default:** 5
 - **Min:** 0
@@ -19,7 +19,7 @@ Define safety zones
 ## Inputs
 
 
-### workArea
+### Work Area
 - **Type:** Face
 - **Required:** Yes
 
@@ -28,12 +28,12 @@ Define safety zones
 ## Outputs
 
 
-### safeArea
+### Safe Area
 - **Type:** Face
 
 
 
-### noGoZones
+### No Go Zones
 - **Type:** Face[]
 
 

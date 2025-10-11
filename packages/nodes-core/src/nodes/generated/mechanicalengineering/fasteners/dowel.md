@@ -8,7 +8,7 @@ Create dowel pin
 ## Parameters
 
 
-### diameter
+### Diameter
 - **Type:** number
 - **Default:** 6
 - **Min:** 2
@@ -16,7 +16,7 @@ Create dowel pin
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -24,7 +24,7 @@ Create dowel pin
 
 
 
-### tolerance
+### Tolerance
 - **Type:** enum
 - **Default:** "h7"
 
@@ -32,7 +32,7 @@ Create dowel pin
 
 
 
-### chamfered
+### Chamfered
 - **Type:** boolean
 - **Default:** true
 
@@ -43,13 +43,13 @@ Create dowel pin
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### direction
+### Direction
 - **Type:** Vector
 - **Required:** No
 
@@ -58,7 +58,7 @@ Create dowel pin
 ## Outputs
 
 
-### dowel
+### Dowel
 - **Type:** Shape
 
 

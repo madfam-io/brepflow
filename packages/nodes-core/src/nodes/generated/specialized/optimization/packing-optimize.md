@@ -8,7 +8,7 @@ Optimize part packing
 ## Parameters
 
 
-### containerSize
+### Container Size
 - **Type:** vector3
 - **Default:** [100,100,100]
 
@@ -16,7 +16,7 @@ Optimize part packing
 
 
 
-### rotationAllowed
+### Rotation Allowed
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Optimize part packing
 
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "genetic"
 
@@ -35,7 +35,7 @@ Optimize part packing
 ## Inputs
 
 
-### parts
+### Parts
 - **Type:** Shape[]
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Optimize part packing
 ## Outputs
 
 
-### packing
+### Packing
 - **Type:** Data
 
 
 
-### efficiency
+### Efficiency
 - **Type:** number
 
 

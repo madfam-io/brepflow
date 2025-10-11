@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type RoundParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface RoundInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface RoundOutputs {
+  result: unknown;
 }
 
 export const RoundNode: NodeDefinition<RoundInputs, RoundOutputs, RoundParams> = {
-  type: 'Math::Round',
+  id: 'Math::Round',
   category: 'Math',
-  subcategory: 'Rounding',
-
-  metadata: {
-    label: 'Round',
-    description: 'Round to nearest integer',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Round',
+  description: 'Round to nearest integer',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathRound',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

@@ -1,57 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MotionStudyParams {
   steps: number;
   duration: number;
 }
-interface Inputs {
-  assembly: Assembly;
-  drivers: Driver[];
+
+interface MotionStudyInputs {
+  assembly: unknown;
+  drivers: unknown;
 }
-interface Outputs {
-  frames: Frame[];
-  collisions: Collision[];
+
+interface MotionStudyOutputs {
+  frames: unknown;
+  collisions: unknown;
 }
 
 export const MotionStudyNode: NodeDefinition<MotionStudyInputs, MotionStudyOutputs, MotionStudyParams> = {
-  type: 'Assembly::MotionStudy',
+  id: 'Assembly::MotionStudy',
   category: 'Assembly',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'MotionStudy',
-    description: 'Analyze assembly motion',
-    
-    
-  },
-
-  params: {
-        steps: {
-      "default": 10,
-      "min": 2,
-      "max": 100
+  label: 'MotionStudy',
+  description: 'Analyze assembly motion',
+  inputs: {
+    assembly: {
+      type: 'Assembly',
+      label: 'Assembly',
+      required: true
     },
-    duration: {
-      "default": 1,
-      "min": 0.1,
-      "max": 100
+    drivers: {
+      type: 'Driver[]',
+      label: 'Drivers',
+      required: true
     }
   },
-
-  inputs: {
-        assembly: 'Assembly',
-    drivers: 'Driver[]'
-  },
-
   outputs: {
-        frames: 'Frame[]',
-    collisions: 'Collision[]'
+    frames: {
+      type: 'Frame[]',
+      label: 'Frames'
+    },
+    collisions: {
+      type: 'Collision[]',
+      label: 'Collisions'
+    }
   },
-
+  params: {
+    steps: {
+      type: 'number',
+      label: 'Steps',
+      default: 10,
+      min: 2,
+      max: 100
+    },
+    duration: {
+      type: 'number',
+      label: 'Duration',
+      default: 1,
+      min: 0.1,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'assemblyMotion',
       params: {
         assembly: inputs.assembly,
@@ -60,10 +68,10 @@ export const MotionStudyNode: NodeDefinition<MotionStudyInputs, MotionStudyOutpu
         duration: params.duration
       }
     });
-
+    
     return {
-      frames: result,
-      collisions: result
+      frames: results.frames,
+      collisions: results.collisions
     };
-  }
+  },
 };

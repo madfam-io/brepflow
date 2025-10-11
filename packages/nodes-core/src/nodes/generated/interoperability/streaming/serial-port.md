@@ -8,7 +8,7 @@ Communicate with serial devices
 ## Parameters
 
 
-### port
+### Port
 - **Type:** string
 - **Default:** "COM1"
 
@@ -16,7 +16,7 @@ Communicate with serial devices
 - **Description:** Serial port name
 
 
-### baudRate
+### Baud Rate
 - **Type:** enum
 - **Default:** "9600"
 
@@ -24,7 +24,7 @@ Communicate with serial devices
 
 
 
-### dataBits
+### Data Bits
 - **Type:** enum
 - **Default:** "8"
 
@@ -32,7 +32,7 @@ Communicate with serial devices
 
 
 
-### parity
+### Parity
 - **Type:** enum
 - **Default:** "none"
 
@@ -43,7 +43,7 @@ Communicate with serial devices
 ## Inputs
 
 
-### data
+### Data
 - **Type:** string
 - **Required:** No
 
@@ -52,17 +52,17 @@ Communicate with serial devices
 ## Outputs
 
 
-### connected
+### Connected
 - **Type:** boolean
 
 
 
-### received
+### Received
 - **Type:** string
 
 
 
-### buffer
+### Buffer
 - **Type:** string[]
 
 

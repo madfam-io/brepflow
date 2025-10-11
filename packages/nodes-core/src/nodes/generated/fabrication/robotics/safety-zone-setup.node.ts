@@ -1,55 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SafetyZoneSetupParams {
   zoneType: string;
   responseTime: number;
 }
-interface Inputs {
-  zones: Box[];
+
+interface SafetyZoneSetupInputs {
+  zones: unknown;
 }
-interface Outputs {
-  safetyConfiguration: Data;
+
+interface SafetyZoneSetupOutputs {
+  safetyConfiguration: unknown;
 }
 
 export const SafetyZoneSetupNode: NodeDefinition<SafetyZoneSetupInputs, SafetyZoneSetupOutputs, SafetyZoneSetupParams> = {
-  type: 'Fabrication::SafetyZoneSetup',
+  id: 'Fabrication::SafetyZoneSetup',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'SafetyZoneSetup',
-    description: 'Define robot safety zones',
-    
-    
-  },
-
-  params: {
-        zoneType: {
-      "default": "slow",
-      "options": [
-        "stop",
-        "slow",
-        "warning"
-      ]
-    },
-    responseTime: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 2
+  label: 'SafetyZoneSetup',
+  description: 'Define robot safety zones',
+  inputs: {
+    zones: {
+      type: 'Box[]',
+      label: 'Zones',
+      required: true
     }
   },
-
-  inputs: {
-        zones: 'Box[]'
-  },
-
   outputs: {
-        safetyConfiguration: 'Data'
+    safetyConfiguration: {
+      type: 'Data',
+      label: 'Safety Configuration'
+    }
   },
-
+  params: {
+    zoneType: {
+      type: 'enum',
+      label: 'Zone Type',
+      default: "slow",
+      options: ["stop","slow","warning"]
+    },
+    responseTime: {
+      type: 'number',
+      label: 'Response Time',
+      default: 0.5,
+      min: 0.1,
+      max: 2
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'safetyZoneSetup',
       params: {
@@ -58,9 +55,9 @@ export const SafetyZoneSetupNode: NodeDefinition<SafetyZoneSetupInputs, SafetyZo
         responseTime: params.responseTime
       }
     });
-
+    
     return {
       safetyConfiguration: result
     };
-  }
+  },
 };

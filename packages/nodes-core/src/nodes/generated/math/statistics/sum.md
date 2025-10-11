@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### values
+### Values
 - **Type:** number[]
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### sum
+### Sum
 - **Type:** number
 
 

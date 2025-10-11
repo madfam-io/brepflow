@@ -1,69 +1,89 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LinearRibParams {
   thickness: number;
   height: number;
   draftAngle: number;
   topRadius: number;
 }
-interface Inputs {
-  face: Face;
-  path: Curve;
+
+interface LinearRibInputs {
+  face: unknown;
+  path: unknown;
 }
-interface Outputs {
-  shape: Shape;
+
+interface LinearRibOutputs {
+  shape: unknown;
 }
 
 export const LinearRibNode: NodeDefinition<LinearRibInputs, LinearRibOutputs, LinearRibParams> = {
-  type: 'Features::LinearRib',
+  id: 'Features::LinearRib',
   category: 'Features',
-  subcategory: 'Structural',
-
-  metadata: {
-    label: 'LinearRib',
-    description: 'Creates a reinforcing rib along a path',
-    
-    tags: ["rib","reinforcement","structural"],
-  },
-
-  params: {
-        thickness: {
-      "default": 3,
-      "min": 0.1,
-      "max": 100
+  label: 'LinearRib',
+  description: 'Creates a reinforcing rib along a path',
+  inputs: {
+    face: {
+      type: 'Face',
+      label: 'Face',
+      required: true
     },
-    height: {
-      "default": 20,
-      "min": 0.1,
-      "max": 1000
-    },
-    draftAngle: {
-      "default": 1,
-      "min": 0,
-      "max": 10,
-      "description": "Draft angle for molding"
-    },
-    topRadius: {
-      "default": 1,
-      "min": 0,
-      "max": 50,
-      "description": "Top edge fillet radius"
+    path: {
+      type: 'Curve',
+      label: 'Path',
+      required: true
     }
   },
-
-  inputs: {
-        face: 'Face',
-    path: 'Curve'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 3,
+      min: 0.1,
+      max: 100
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 20,
+      min: 0.1,
+      max: 1000
+    },
+    draftAngle: {
+      type: 'number',
+      label: 'Draft Angle',
+      default: 1,
+      min: 0,
+      max: 10
+    },
+    topRadius: {
+      type: 'number',
+      label: 'Top Radius',
+      default: 1,
+      min: 0,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'MAKE_RIB',
+      params: {
+        face: inputs.face,
+        path: inputs.path,
+        thickness: params.thickness,
+        height: params.height,
+        draftAngle: params.draftAngle,
+        topRadius: params.topRadius
+      }
+    });
     
-    // TODO: Implement LinearRib logic
-    throw new Error('LinearRib not yet implemented');
-  }
+    return {
+      shape: result
+    };
+  },
 };

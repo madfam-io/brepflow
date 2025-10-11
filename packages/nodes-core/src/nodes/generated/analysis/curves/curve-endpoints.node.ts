@@ -1,57 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveEndpointsParams {
   tangentLength: number;
   showTangents: boolean;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveEndpointsInputs {
+  curve: unknown;
 }
-interface Outputs {
-  startPoint: Point;
-  endPoint: Point;
-  startTangent: Vector;
-  endTangent: Vector;
+
+interface CurveEndpointsOutputs {
+  startPoint: [number, number, number];
+  endPoint: [number, number, number];
+  startTangent: [number, number, number];
+  endTangent: [number, number, number];
 }
 
 export const CurveEndpointsNode: NodeDefinition<CurveEndpointsInputs, CurveEndpointsOutputs, CurveEndpointsParams> = {
-  type: 'Analysis::CurveEndpoints',
+  id: 'Analysis::CurveEndpoints',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveEndpoints',
-    description: 'Extract curve endpoints and tangents',
-    
-    
-  },
-
-  params: {
-        tangentLength: {
-      "default": 10,
-      "min": 1,
-      "max": 100
-    },
-    showTangents: {
-      "default": true
+  label: 'CurveEndpoints',
+  description: 'Extract curve endpoints and tangents',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        startPoint: 'Point',
-    endPoint: 'Point',
-    startTangent: 'Vector',
-    endTangent: 'Vector'
+    startPoint: {
+      type: 'Point',
+      label: 'Start Point'
+    },
+    endPoint: {
+      type: 'Point',
+      label: 'End Point'
+    },
+    startTangent: {
+      type: 'Vector',
+      label: 'Start Tangent'
+    },
+    endTangent: {
+      type: 'Vector',
+      label: 'End Tangent'
+    }
   },
-
+  params: {
+    tangentLength: {
+      type: 'number',
+      label: 'Tangent Length',
+      default: 10,
+      min: 1,
+      max: 100
+    },
+    showTangents: {
+      type: 'boolean',
+      label: 'Show Tangents',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveEndpoints',
       params: {
         curve: inputs.curve,
@@ -59,12 +69,12 @@ export const CurveEndpointsNode: NodeDefinition<CurveEndpointsInputs, CurveEndpo
         showTangents: params.showTangents
       }
     });
-
+    
     return {
-      startPoint: result,
-      endPoint: result,
-      startTangent: result,
-      endTangent: result
+      startPoint: results.startPoint,
+      endPoint: results.endPoint,
+      startTangent: results.startTangent,
+      endTangent: results.endTangent
     };
-  }
+  },
 };

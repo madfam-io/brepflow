@@ -1,61 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GeometryValidationParams {
   tolerance: number;
   checkClosed: boolean;
   checkValid: boolean;
 }
-interface Inputs {
-  geometry: Shape;
+
+interface GeometryValidationInputs {
+  geometry: unknown;
 }
-interface Outputs {
-  isValid: boolean;
-  isClosed: boolean;
-  errors: string[];
-  problemAreas: Shape[];
+
+interface GeometryValidationOutputs {
+  isValid: unknown;
+  isClosed: unknown;
+  errors: unknown;
+  problemAreas: unknown;
 }
 
 export const GeometryValidationNode: NodeDefinition<GeometryValidationInputs, GeometryValidationOutputs, GeometryValidationParams> = {
-  type: 'Analysis::GeometryValidation',
+  id: 'Analysis::GeometryValidation',
   category: 'Analysis',
-  subcategory: 'Quality',
-
-  metadata: {
-    label: 'GeometryValidation',
-    description: 'Validate geometry integrity',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
-    },
-    checkClosed: {
-      "default": true
-    },
-    checkValid: {
-      "default": true
+  label: 'GeometryValidation',
+  description: 'Validate geometry integrity',
+  inputs: {
+    geometry: {
+      type: 'Shape',
+      label: 'Geometry',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Shape'
-  },
-
   outputs: {
-        isValid: 'boolean',
-    isClosed: 'boolean',
-    errors: 'string[]',
-    problemAreas: 'Shape[]'
+    isValid: {
+      type: 'boolean',
+      label: 'Is Valid'
+    },
+    isClosed: {
+      type: 'boolean',
+      label: 'Is Closed'
+    },
+    errors: {
+      type: 'string[]',
+      label: 'Errors'
+    },
+    problemAreas: {
+      type: 'Shape[]',
+      label: 'Problem Areas'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    checkClosed: {
+      type: 'boolean',
+      label: 'Check Closed',
+      default: true
+    },
+    checkValid: {
+      type: 'boolean',
+      label: 'Check Valid',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'geometryValidation',
       params: {
         geometry: inputs.geometry,
@@ -64,12 +76,12 @@ export const GeometryValidationNode: NodeDefinition<GeometryValidationInputs, Ge
         checkValid: params.checkValid
       }
     });
-
+    
     return {
-      isValid: result,
-      isClosed: result,
-      errors: result,
-      problemAreas: result
+      isValid: results.isValid,
+      isClosed: results.isClosed,
+      errors: results.errors,
+      problemAreas: results.problemAreas
     };
-  }
+  },
 };

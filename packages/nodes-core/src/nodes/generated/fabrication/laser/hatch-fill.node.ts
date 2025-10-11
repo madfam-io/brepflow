@@ -1,56 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HatchFillParams {
   angle: number;
   spacing: number;
   crosshatch: boolean;
 }
-interface Inputs {
-  region: Face;
+
+interface HatchFillInputs {
+  region: unknown;
 }
-interface Outputs {
-  hatchLines: Wire[];
+
+interface HatchFillOutputs {
+  hatchLines: unknown;
 }
 
 export const HatchFillNode: NodeDefinition<HatchFillInputs, HatchFillOutputs, HatchFillParams> = {
-  type: 'Fabrication::HatchFill',
+  id: 'Fabrication::HatchFill',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'HatchFill',
-    description: 'Generate hatch fill pattern',
-    
-    
-  },
-
-  params: {
-        angle: {
-      "default": 45,
-      "min": 0,
-      "max": 180
-    },
-    spacing: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
-    },
-    crosshatch: {
-      "default": false
+  label: 'HatchFill',
+  description: 'Generate hatch fill pattern',
+  inputs: {
+    region: {
+      type: 'Face',
+      label: 'Region',
+      required: true
     }
   },
-
-  inputs: {
-        region: 'Face'
-  },
-
   outputs: {
-        hatchLines: 'Wire[]'
+    hatchLines: {
+      type: 'Wire[]',
+      label: 'Hatch Lines'
+    }
   },
-
+  params: {
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 45,
+      min: 0,
+      max: 180
+    },
+    spacing: {
+      type: 'number',
+      label: 'Spacing',
+      default: 1,
+      min: 0.1,
+      max: 10
+    },
+    crosshatch: {
+      type: 'boolean',
+      label: 'Crosshatch',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'hatchFill',
       params: {
@@ -60,9 +63,9 @@ export const HatchFillNode: NodeDefinition<HatchFillInputs, HatchFillOutputs, Ha
         crosshatch: params.crosshatch
       }
     });
-
+    
     return {
       hatchLines: result
     };
-  }
+  },
 };

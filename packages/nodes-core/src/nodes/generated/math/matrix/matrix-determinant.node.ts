@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type MatrixDeterminantParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  matrix: Matrix;
+interface MatrixDeterminantInputs {
+  matrix: unknown;
 }
-interface Outputs {
-  determinant: number;
+
+interface MatrixDeterminantOutputs {
+  determinant: unknown;
 }
 
 export const MatrixDeterminantNode: NodeDefinition<MatrixDeterminantInputs, MatrixDeterminantOutputs, MatrixDeterminantParams> = {
-  type: 'Math::MatrixDeterminant',
+  id: 'Math::MatrixDeterminant',
   category: 'Math',
-  subcategory: 'Matrix',
-
-  metadata: {
-    label: 'MatrixDeterminant',
-    description: 'Matrix determinant',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'MatrixDeterminant',
+  description: 'Matrix determinant',
   inputs: {
-        matrix: 'Matrix'
+    matrix: {
+      type: 'Matrix',
+      label: 'Matrix',
+      required: true
+    }
   },
-
   outputs: {
-        determinant: 'number'
+    determinant: {
+      type: 'number',
+      label: 'Determinant'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathMatrixDeterminant',
       params: {
         matrix: inputs.matrix
-        
       }
     });
-
+    
     return {
       determinant: result
     };
-  }
+  },
 };

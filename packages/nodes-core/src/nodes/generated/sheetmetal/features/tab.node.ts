@@ -1,71 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TabParams {
   tabWidth: number;
   tabDepth: number;
   tabType: string;
   cornerRadius: number;
 }
-interface Inputs {
-  sheet: Shape;
-  edge: Edge;
-  position: Point;
+
+interface TabInputs {
+  sheet: unknown;
+  edge: unknown;
+  position: [number, number, number];
 }
-interface Outputs {
-  result: Shape;
+
+interface TabOutputs {
+  result: unknown;
 }
 
 export const TabNode: NodeDefinition<TabInputs, TabOutputs, TabParams> = {
-  type: 'SheetMetal::Tab',
+  id: 'SheetMetal::Tab',
   category: 'SheetMetal',
-  subcategory: 'Features',
-
-  metadata: {
-    label: 'Tab',
-    description: 'Create tab feature',
-    
-    
-  },
-
-  params: {
-        tabWidth: {
-      "default": 20,
-      "min": 0.1,
-      "max": 500
+  label: 'Tab',
+  description: 'Create tab feature',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    tabDepth: {
-      "default": 10,
-      "min": 0.1,
-      "max": 100
+    edge: {
+      type: 'Edge',
+      label: 'Edge',
+      required: true
     },
-    tabType: {
-      "default": "rectangular",
-      "options": [
-        "rectangular",
-        "rounded",
-        "trapezoidal"
-      ]
-    },
-    cornerRadius: {
-      "default": 2,
-      "min": 0,
-      "max": 50
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    edge: 'Edge',
-    position: 'Point'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    tabWidth: {
+      type: 'number',
+      label: 'Tab Width',
+      default: 20,
+      min: 0.1,
+      max: 500
+    },
+    tabDepth: {
+      type: 'number',
+      label: 'Tab Depth',
+      default: 10,
+      min: 0.1,
+      max: 100
+    },
+    tabType: {
+      type: 'enum',
+      label: 'Tab Type',
+      default: "rectangular",
+      options: ["rectangular","rounded","trapezoidal"]
+    },
+    cornerRadius: {
+      type: 'number',
+      label: 'Corner Radius',
+      default: 2,
+      min: 0,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetTab',
       params: {
@@ -78,9 +87,9 @@ export const TabNode: NodeDefinition<TabInputs, TabOutputs, TabParams> = {
         cornerRadius: params.cornerRadius
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

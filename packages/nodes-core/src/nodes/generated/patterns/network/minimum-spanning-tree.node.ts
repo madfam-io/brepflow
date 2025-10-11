@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type MinimumSpanningTreeParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  points: Point[];
+interface MinimumSpanningTreeInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  tree: Wire[];
+
+interface MinimumSpanningTreeOutputs {
+  tree: unknown;
 }
 
 export const MinimumSpanningTreeNode: NodeDefinition<MinimumSpanningTreeInputs, MinimumSpanningTreeOutputs, MinimumSpanningTreeParams> = {
-  type: 'Patterns::MinimumSpanningTree',
+  id: 'Patterns::MinimumSpanningTree',
   category: 'Patterns',
-  subcategory: 'Network',
-
-  metadata: {
-    label: 'MinimumSpanningTree',
-    description: 'MST network pattern',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'MinimumSpanningTree',
+  description: 'MST network pattern',
   inputs: {
-        points: 'Point[]'
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
+    }
   },
-
   outputs: {
-        tree: 'Wire[]'
+    tree: {
+      type: 'Wire[]',
+      label: 'Tree'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'minimumSpanningTree',
       params: {
         points: inputs.points
-        
       }
     });
-
+    
     return {
       tree: result
     };
-  }
+  },
 };

@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ModuloParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  a: number;
-  b: number;
+interface ModuloInputs {
+  a: unknown;
+  b: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface ModuloOutputs {
+  result: unknown;
 }
 
 export const ModuloNode: NodeDefinition<ModuloInputs, ModuloOutputs, ModuloParams> = {
-  type: 'Math::Modulo',
+  id: 'Math::Modulo',
   category: 'Math',
-  subcategory: 'Operators',
-
-  metadata: {
-    label: 'Modulo',
-    description: 'Modulo operation',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Modulo',
+  description: 'Modulo operation',
   inputs: {
-        a: 'number',
-    b: 'number'
+    a: {
+      type: 'number',
+      label: 'A',
+      required: true
+    },
+    b: {
+      type: 'number',
+      label: 'B',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathModulo',
       params: {
         a: inputs.a,
         b: inputs.b
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

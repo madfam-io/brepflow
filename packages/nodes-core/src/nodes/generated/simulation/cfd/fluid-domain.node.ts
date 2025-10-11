@@ -1,67 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FluidDomainParams {
   domainType: string;
   boundingBoxScale: [number, number, number];
   refinementDistance: number;
 }
-interface Inputs {
-  geometry: Shape;
+
+interface FluidDomainInputs {
+  geometry: unknown;
 }
-interface Outputs {
-  fluidDomain: Shape;
-  walls: Face[];
+
+interface FluidDomainOutputs {
+  fluidDomain: unknown;
+  walls: unknown;
 }
 
 export const FluidDomainNode: NodeDefinition<FluidDomainInputs, FluidDomainOutputs, FluidDomainParams> = {
-  type: 'Simulation::FluidDomain',
+  id: 'Simulation::FluidDomain',
   category: 'Simulation',
-  subcategory: 'CFD',
-
-  metadata: {
-    label: 'FluidDomain',
-    description: 'Create fluid domain',
-    
-    
-  },
-
-  params: {
-        domainType: {
-      "default": "external",
-      "options": [
-        "internal",
-        "external",
-        "both"
-      ]
-    },
-    boundingBoxScale: {
-      "default": [
-        3,
-        3,
-        3
-      ],
-      "description": "Domain size multiplier"
-    },
-    refinementDistance: {
-      "default": 10,
-      "min": 1,
-      "max": 1000
+  label: 'FluidDomain',
+  description: 'Create fluid domain',
+  inputs: {
+    geometry: {
+      type: 'Shape',
+      label: 'Geometry',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Shape'
-  },
-
   outputs: {
-        fluidDomain: 'Shape',
-    walls: 'Face[]'
+    fluidDomain: {
+      type: 'Shape',
+      label: 'Fluid Domain'
+    },
+    walls: {
+      type: 'Face[]',
+      label: 'Walls'
+    }
   },
-
+  params: {
+    domainType: {
+      type: 'enum',
+      label: 'Domain Type',
+      default: "external",
+      options: ["internal","external","both"]
+    },
+    boundingBoxScale: {
+      type: 'vec3',
+      label: 'Bounding Box Scale',
+      default: [3,3,3]
+    },
+    refinementDistance: {
+      type: 'number',
+      label: 'Refinement Distance',
+      default: 10,
+      min: 1,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'fluidDomain',
       params: {
         geometry: inputs.geometry,
@@ -70,10 +67,10 @@ export const FluidDomainNode: NodeDefinition<FluidDomainInputs, FluidDomainOutpu
         refinementDistance: params.refinementDistance
       }
     });
-
+    
     return {
-      fluidDomain: result,
-      walls: result
+      fluidDomain: results.fluidDomain,
+      walls: results.walls
     };
-  }
+  },
 };

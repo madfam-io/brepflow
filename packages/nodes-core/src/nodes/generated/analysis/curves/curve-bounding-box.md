@@ -8,7 +8,7 @@ Calculate oriented bounding box
 ## Parameters
 
 
-### orientation
+### Orientation
 - **Type:** enum
 - **Default:** "axis-aligned"
 
@@ -16,7 +16,7 @@ Calculate oriented bounding box
 
 
 
-### showBox
+### Show Box
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Calculate oriented bounding box
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,22 +36,22 @@ Calculate oriented bounding box
 ## Outputs
 
 
-### boundingBox
+### Bounding Box
 - **Type:** Shape
 
 
 
-### minPoint
+### Min Point
 - **Type:** Point
 
 
 
-### maxPoint
+### Max Point
 - **Type:** Point
 
 
 
-### dimensions
+### Dimensions
 - **Type:** Vector
 
 

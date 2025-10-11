@@ -8,7 +8,7 @@ Array shapes along a path
 ## Parameters
 
 
-### count
+### Count
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -16,7 +16,7 @@ Array shapes along a path
 
 
 
-### alignToPath
+### Align To Path
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Array shapes along a path
 
 
 
-### spacing
+### Spacing
 - **Type:** enum
 - **Default:** "equal"
 
@@ -32,7 +32,7 @@ Array shapes along a path
 
 
 
-### distance
+### Distance
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Array shapes along a path
 
 
 
-### merge
+### Merge
 - **Type:** boolean
 - **Default:** false
 
@@ -51,13 +51,13 @@ Array shapes along a path
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 - **Description:** Path curve
@@ -66,12 +66,12 @@ Array shapes along a path
 ## Outputs
 
 
-### array
+### Array
 - **Type:** Shape[]
 
 
 
-### merged
+### Merged
 - **Type:** Shape
 
 

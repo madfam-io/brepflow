@@ -1,56 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FastenedParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  component1: Shape;
-  component2: Shape;
+interface FastenedInputs {
+  component1: unknown;
+  component2: unknown;
 }
-interface Outputs {
-  fastened: Shape[];
-  mate: Mate;
+
+interface FastenedOutputs {
+  fastened: unknown;
+  mate: unknown;
 }
 
 export const FastenedNode: NodeDefinition<FastenedInputs, FastenedOutputs, FastenedParams> = {
-  type: 'Assembly::Fastened',
+  id: 'Assembly::Fastened',
   category: 'Assembly',
-  subcategory: 'Mates',
-
-  metadata: {
-    label: 'Fastened',
-    description: 'Fasten components together rigidly',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Fastened',
+  description: 'Fasten components together rigidly',
   inputs: {
-        component1: 'Shape',
-    component2: 'Shape'
+    component1: {
+      type: 'Shape',
+      label: 'Component1',
+      required: true
+    },
+    component2: {
+      type: 'Shape',
+      label: 'Component2',
+      required: true
+    }
   },
-
   outputs: {
-        fastened: 'Shape[]',
-    mate: 'Mate'
+    fastened: {
+      type: 'Shape[]',
+      label: 'Fastened'
+    },
+    mate: {
+      type: 'Mate',
+      label: 'Mate'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'mateFastened',
       params: {
         component1: inputs.component1,
         component2: inputs.component2
-        
       }
     });
-
+    
     return {
-      fastened: result,
-      mate: result
+      fastened: results.fastened,
+      mate: results.mate
     };
-  }
+  },
 };

@@ -1,64 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldVolumeParams {
   voxelSize: number;
   threshold: number;
   opacity: number;
 }
-interface Inputs {
-  field?: Field;
-  bounds: Box;
+
+interface FieldVolumeInputs {
+  field?: unknown;
+  bounds: unknown;
 }
-interface Outputs {
-  volume: Mesh;
+
+interface FieldVolumeOutputs {
+  volume: unknown;
 }
 
 export const FieldVolumeNode: NodeDefinition<FieldVolumeInputs, FieldVolumeOutputs, FieldVolumeParams> = {
-  type: 'Fields::FieldVolume',
+  id: 'Fields::FieldVolume',
   category: 'Fields',
-  subcategory: 'Visualization',
-
-  metadata: {
-    label: 'FieldVolume',
-    description: 'Generate volumetric field visualization',
-    
-    
-  },
-
-  params: {
-        voxelSize: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10,
-      "description": "Size of voxels"
+  label: 'FieldVolume',
+  description: 'Generate volumetric field visualization',
+  inputs: {
+    field: {
+      type: 'Field',
+      label: 'Field',
+      optional: true
     },
-    threshold: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1,
-      "description": "Display threshold"
-    },
-    opacity: {
-      "default": 0.8,
-      "min": 0,
-      "max": 1,
-      "description": "Volume opacity"
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'Field',
-    bounds: 'Box'
-  },
-
   outputs: {
-        volume: 'Mesh'
+    volume: {
+      type: 'Mesh',
+      label: 'Volume'
+    }
   },
-
+  params: {
+    voxelSize: {
+      type: 'number',
+      label: 'Voxel Size',
+      default: 1,
+      min: 0.1,
+      max: 10
+    },
+    threshold: {
+      type: 'number',
+      label: 'Threshold',
+      default: 0.5,
+      min: 0,
+      max: 1
+    },
+    opacity: {
+      type: 'number',
+      label: 'Opacity',
+      default: 0.8,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'visualizeFieldVolume',
+      params: {
+        field: inputs.field,
+        bounds: inputs.bounds,
+        voxelSize: params.voxelSize,
+        threshold: params.threshold,
+        opacity: params.opacity
+      }
+    });
     
-    // TODO: Implement FieldVolume logic
-    throw new Error('FieldVolume not yet implemented');
-  }
+    return {
+      volume: result
+    };
+  },
 };

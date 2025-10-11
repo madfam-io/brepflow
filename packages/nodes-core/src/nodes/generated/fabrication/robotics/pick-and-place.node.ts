@@ -1,58 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PickAndPlaceParams {
   gripperType: string;
   approachAngle: number;
 }
-interface Inputs {
-  pickPoints: Transform[];
-  placePoints: Transform[];
+
+interface PickAndPlaceInputs {
+  pickPoints: unknown;
+  placePoints: unknown;
 }
-interface Outputs {
-  pickPlaceSequence: Transform[];
+
+interface PickAndPlaceOutputs {
+  pickPlaceSequence: unknown;
 }
 
 export const PickAndPlaceNode: NodeDefinition<PickAndPlaceInputs, PickAndPlaceOutputs, PickAndPlaceParams> = {
-  type: 'Fabrication::PickAndPlace',
+  id: 'Fabrication::PickAndPlace',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'PickAndPlace',
-    description: 'Pick and place optimization',
-    
-    
-  },
-
-  params: {
-        gripperType: {
-      "default": "parallel",
-      "options": [
-        "vacuum",
-        "parallel",
-        "angular",
-        "magnetic"
-      ]
+  label: 'PickAndPlace',
+  description: 'Pick and place optimization',
+  inputs: {
+    pickPoints: {
+      type: 'Transform[]',
+      label: 'Pick Points',
+      required: true
     },
-    approachAngle: {
-      "default": 0,
-      "min": -90,
-      "max": 90
+    placePoints: {
+      type: 'Transform[]',
+      label: 'Place Points',
+      required: true
     }
   },
-
-  inputs: {
-        pickPoints: 'Transform[]',
-    placePoints: 'Transform[]'
-  },
-
   outputs: {
-        pickPlaceSequence: 'Transform[]'
+    pickPlaceSequence: {
+      type: 'Transform[]',
+      label: 'Pick Place Sequence'
+    }
   },
-
+  params: {
+    gripperType: {
+      type: 'enum',
+      label: 'Gripper Type',
+      default: "parallel",
+      options: ["vacuum","parallel","angular","magnetic"]
+    },
+    approachAngle: {
+      type: 'number',
+      label: 'Approach Angle',
+      default: 0,
+      min: -90,
+      max: 90
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'pickAndPlace',
       params: {
@@ -62,9 +62,9 @@ export const PickAndPlaceNode: NodeDefinition<PickAndPlaceInputs, PickAndPlaceOu
         approachAngle: params.approachAngle
       }
     });
-
+    
     return {
       pickPlaceSequence: result
     };
-  }
+  },
 };

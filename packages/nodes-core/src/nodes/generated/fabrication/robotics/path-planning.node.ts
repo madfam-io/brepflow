@@ -1,59 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PathPlanningParams {
   algorithm: string;
   smoothing: boolean;
 }
-interface Inputs {
-  waypoints: Transform[];
-  obstacles?: Shape[];
+
+interface PathPlanningInputs {
+  waypoints: unknown;
+  obstacles?: unknown;
 }
-interface Outputs {
-  trajectory: Transform[];
-  jointTrajectory: Data;
+
+interface PathPlanningOutputs {
+  trajectory: unknown;
+  jointTrajectory: unknown;
 }
 
 export const PathPlanningNode: NodeDefinition<PathPlanningInputs, PathPlanningOutputs, PathPlanningParams> = {
-  type: 'Fabrication::PathPlanning',
+  id: 'Fabrication::PathPlanning',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'PathPlanning',
-    description: 'Robot path planning',
-    
-    
-  },
-
-  params: {
-        algorithm: {
-      "default": "rrt",
-      "options": [
-        "rrt",
-        "prm",
-        "a-star",
-        "potential-field"
-      ]
+  label: 'PathPlanning',
+  description: 'Robot path planning',
+  inputs: {
+    waypoints: {
+      type: 'Transform[]',
+      label: 'Waypoints',
+      required: true
     },
-    smoothing: {
-      "default": true
+    obstacles: {
+      type: 'Shape[]',
+      label: 'Obstacles',
+      optional: true
     }
   },
-
-  inputs: {
-        waypoints: 'Transform[]',
-    obstacles: 'Shape[]'
-  },
-
   outputs: {
-        trajectory: 'Transform[]',
-    jointTrajectory: 'Data'
+    trajectory: {
+      type: 'Transform[]',
+      label: 'Trajectory'
+    },
+    jointTrajectory: {
+      type: 'Data',
+      label: 'Joint Trajectory'
+    }
   },
-
+  params: {
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "rrt",
+      options: ["rrt","prm","a-star","potential-field"]
+    },
+    smoothing: {
+      type: 'boolean',
+      label: 'Smoothing',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'pathPlanning',
       params: {
         waypoints: inputs.waypoints,
@@ -62,10 +65,10 @@ export const PathPlanningNode: NodeDefinition<PathPlanningInputs, PathPlanningOu
         smoothing: params.smoothing
       }
     });
-
+    
     return {
-      trajectory: result,
-      jointTrajectory: result
+      trajectory: results.trajectory,
+      jointTrajectory: results.jointTrajectory
     };
-  }
+  },
 };

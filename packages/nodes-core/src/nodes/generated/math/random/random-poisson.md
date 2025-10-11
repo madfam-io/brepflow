@@ -8,7 +8,7 @@ Poisson distribution
 ## Parameters
 
 
-### lambda
+### Lambda
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Poisson distribution
 
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -31,7 +31,7 @@ This node has no inputs.
 ## Outputs
 
 
-### value
+### Value
 - **Type:** number
 
 

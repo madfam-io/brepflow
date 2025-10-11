@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldCurlParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  field: VectorField;
+interface FieldCurlInputs {
+  field: unknown;
 }
-interface Outputs {
-  curl: VectorField;
+
+interface FieldCurlOutputs {
+  curl: unknown;
 }
 
 export const FieldCurlNode: NodeDefinition<FieldCurlInputs, FieldCurlOutputs, FieldCurlParams> = {
-  type: 'Field::FieldCurl',
+  id: 'Field::FieldCurl',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldCurl',
-    description: 'Compute curl',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldCurl',
+  description: 'Compute curl',
   inputs: {
-        field: 'VectorField'
+    field: {
+      type: 'VectorField',
+      label: 'Field',
+      required: true
+    }
   },
-
   outputs: {
-        curl: 'VectorField'
+    curl: {
+      type: 'VectorField',
+      label: 'Curl'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldCurl',
       params: {
         field: inputs.field
-        
       }
     });
-
+    
     return {
       curl: result
     };
-  }
+  },
 };

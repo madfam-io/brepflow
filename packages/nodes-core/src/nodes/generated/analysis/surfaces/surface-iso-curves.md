@@ -8,7 +8,7 @@ Extract surface isocurves
 ## Parameters
 
 
-### uCount
+### U Count
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -16,7 +16,7 @@ Extract surface isocurves
 
 
 
-### vCount
+### V Count
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -24,7 +24,7 @@ Extract surface isocurves
 
 
 
-### direction
+### Direction
 - **Type:** enum
 - **Default:** "both"
 
@@ -35,7 +35,7 @@ Extract surface isocurves
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Extract surface isocurves
 ## Outputs
 
 
-### uCurves
+### U Curves
 - **Type:** Wire[]
 
 
 
-### vCurves
+### V Curves
 - **Type:** Wire[]
 
 
 
-### allCurves
+### All Curves
 - **Type:** Wire[]
 
 

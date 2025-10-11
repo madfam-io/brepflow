@@ -8,7 +8,7 @@ Shuffle list randomly
 ## Parameters
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -19,7 +19,7 @@ Shuffle list randomly
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Shuffle list randomly
 ## Outputs
 
 
-### shuffled
+### Shuffled
 - **Type:** Data[]
 
 

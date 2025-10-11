@@ -8,7 +8,7 @@ Extend surface edges
 ## Parameters
 
 
-### extensionLength
+### Extension Length
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Extend surface edges
 
 
 
-### extensionType
+### Extension Type
 - **Type:** enum
 - **Default:** "natural"
 
@@ -27,13 +27,13 @@ Extend surface edges
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### edges
+### Edges
 - **Type:** Edge[]
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Extend surface edges
 ## Outputs
 
 
-### extendedSurface
+### Extended Surface
 - **Type:** Face
 
 

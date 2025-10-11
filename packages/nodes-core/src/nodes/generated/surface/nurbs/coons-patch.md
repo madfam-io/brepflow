@@ -12,25 +12,25 @@ This node has no parameters.
 ## Inputs
 
 
-### edge1
+### Edge1
 - **Type:** Edge
 - **Required:** Yes
 
 
 
-### edge2
+### Edge2
 - **Type:** Edge
 - **Required:** Yes
 
 
 
-### edge3
+### Edge3
 - **Type:** Edge
 - **Required:** Yes
 
 
 
-### edge4
+### Edge4
 - **Type:** Edge
 - **Required:** Yes
 
@@ -39,7 +39,7 @@ This node has no parameters.
 ## Outputs
 
 
-### surface
+### Surface
 - **Type:** Face
 
 

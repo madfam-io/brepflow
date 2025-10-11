@@ -1,66 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MoveParams {
   x: number;
   y: number;
   z: number;
   copy: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface MoveInputs {
+  shape: unknown;
 }
-interface Outputs {
-  moved: Shape;
+
+interface MoveOutputs {
+  moved: unknown;
 }
 
 export const MoveNode: NodeDefinition<MoveInputs, MoveOutputs, MoveParams> = {
-  type: 'Transform::Move',
+  id: 'Transform::Move',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'Move',
-    description: 'Translate shape in 3D space',
-    
-    
-  },
-
-  params: {
-        x: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000,
-      "description": "X translation"
-    },
-    y: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000,
-      "description": "Y translation"
-    },
-    z: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000,
-      "description": "Z translation"
-    },
-    copy: {
-      "default": true,
-      "description": "Create copy or move original"
+  label: 'Move',
+  description: 'Translate shape in 3D space',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        moved: 'Shape'
+    moved: {
+      type: 'Shape',
+      label: 'Moved'
+    }
   },
-
+  params: {
+    x: {
+      type: 'number',
+      label: 'X',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    y: {
+      type: 'number',
+      label: 'Y',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    z: {
+      type: 'number',
+      label: 'Z',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    copy: {
+      type: 'boolean',
+      label: 'Copy',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'transformMove',
       params: {
@@ -71,9 +72,9 @@ export const MoveNode: NodeDefinition<MoveInputs, MoveOutputs, MoveParams> = {
         copy: params.copy
       }
     });
-
+    
     return {
       moved: result
     };
-  }
+  },
 };

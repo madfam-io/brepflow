@@ -8,7 +8,7 @@ Create a parametric sphere
 ## Parameters
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a parametric sphere
 - **Description:** Sphere radius
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -24,7 +24,7 @@ Create a parametric sphere
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -32,7 +32,7 @@ Create a parametric sphere
 
 
 
-### centerZ
+### Center Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -40,7 +40,7 @@ Create a parametric sphere
 
 
 
-### angle1
+### Angle1
 - **Type:** number
 - **Default:** 0
 - **Min:** -180
@@ -48,7 +48,7 @@ Create a parametric sphere
 - **Description:** Start angle (longitude)
 
 
-### angle2
+### Angle2
 - **Type:** number
 - **Default:** 360
 - **Min:** 0
@@ -56,7 +56,7 @@ Create a parametric sphere
 - **Description:** End angle (longitude)
 
 
-### angle3
+### Angle3
 - **Type:** number
 - **Default:** 180
 - **Min:** 0
@@ -71,7 +71,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Generated sphere
 

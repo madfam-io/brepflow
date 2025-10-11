@@ -8,7 +8,7 @@ Avoid joint limits
 ## Parameters
 
 
-### margin
+### Margin
 - **Type:** number
 - **Default:** 5
 - **Min:** 0
@@ -19,7 +19,7 @@ Avoid joint limits
 ## Inputs
 
 
-### jointTrajectory
+### Joint Trajectory
 - **Type:** Data
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Avoid joint limits
 ## Outputs
 
 
-### safeTrajectory
+### Safe Trajectory
 - **Type:** Data
 
 

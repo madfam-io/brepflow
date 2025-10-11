@@ -8,7 +8,7 @@ Create closed corner
 ## Parameters
 
 
-### cornerType
+### Corner Type
 - **Type:** enum
 - **Default:** "overlap"
 
@@ -16,7 +16,7 @@ Create closed corner
 
 
 
-### gapDistance
+### Gap Distance
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -24,7 +24,7 @@ Create closed corner
 
 
 
-### overlapRatio
+### Overlap Ratio
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -35,13 +35,13 @@ Create closed corner
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### faces
+### Faces
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Create closed corner
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

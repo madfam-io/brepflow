@@ -1,58 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AlphaShapeParams {
   alpha: number;
 }
-interface Inputs {
-  points: Point[];
+
+interface AlphaShapeInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  shape: Wire;
-  mesh: Mesh;
+
+interface AlphaShapeOutputs {
+  shape: unknown;
+  mesh: unknown;
 }
 
 export const AlphaShapeNode: NodeDefinition<AlphaShapeInputs, AlphaShapeOutputs, AlphaShapeParams> = {
-  type: 'Patterns::AlphaShape',
+  id: 'Patterns::AlphaShape',
   category: 'Patterns',
-  subcategory: 'Delaunay',
-
-  metadata: {
-    label: 'AlphaShape',
-    description: 'Alpha shape from points',
-    
-    
-  },
-
-  params: {
-        alpha: {
-      "default": 1,
-      "min": 0
+  label: 'AlphaShape',
+  description: 'Alpha shape from points',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     }
   },
-
-  inputs: {
-        points: 'Point[]'
-  },
-
   outputs: {
-        shape: 'Wire',
-    mesh: 'Mesh'
+    shape: {
+      type: 'Wire',
+      label: 'Shape'
+    },
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh'
+    }
   },
-
+  params: {
+    alpha: {
+      type: 'number',
+      label: 'Alpha',
+      default: 1,
+      min: 0
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'alphaShape',
       params: {
         points: inputs.points,
         alpha: params.alpha
       }
     });
-
+    
     return {
-      shape: result,
-      mesh: result
+      shape: results.shape,
+      mesh: results.mesh
     };
-  }
+  },
 };

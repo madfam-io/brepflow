@@ -8,7 +8,7 @@ Switchback accessibility ramp
 ## Parameters
 
 
-### runLength
+### Run Length
 - **Type:** number
 - **Default:** 9000
 - **Min:** 6000
@@ -16,7 +16,7 @@ Switchback accessibility ramp
 
 
 
-### landingSize
+### Landing Size
 - **Type:** number
 - **Default:** 1500
 - **Min:** 1500
@@ -27,13 +27,13 @@ Switchback accessibility ramp
 ## Inputs
 
 
-### startPoint
+### Start Point
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### totalRise
+### Total Rise
 - **Type:** Number
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Switchback accessibility ramp
 ## Outputs
 
 
-### ramp
+### Ramp
 - **Type:** Shape
 
 
 
-### landings
+### Landings
 - **Type:** Shape[]
 
 

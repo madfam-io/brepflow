@@ -8,7 +8,7 @@ Optimize robot trajectory
 ## Parameters
 
 
-### objective
+### Objective
 - **Type:** enum
 - **Default:** "time"
 
@@ -16,7 +16,7 @@ Optimize robot trajectory
 
 
 
-### maxVelocity
+### Max Velocity
 - **Type:** number
 - **Default:** 1000
 - **Min:** 10
@@ -24,7 +24,7 @@ Optimize robot trajectory
 
 
 
-### maxAcceleration
+### Max Acceleration
 - **Type:** number
 - **Default:** 5000
 - **Min:** 100
@@ -35,7 +35,7 @@ Optimize robot trajectory
 ## Inputs
 
 
-### trajectory
+### Trajectory
 - **Type:** Transform[]
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Optimize robot trajectory
 ## Outputs
 
 
-### optimizedTrajectory
+### Optimized Trajectory
 - **Type:** Transform[]
 
 
 
-### velocityProfile
+### Velocity Profile
 - **Type:** Data
 
 

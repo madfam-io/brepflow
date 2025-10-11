@@ -8,7 +8,7 @@ Validate geometry integrity
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Validate geometry integrity
 
 
 
-### checkClosed
+### Check Closed
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Validate geometry integrity
 
 
 
-### checkValid
+### Check Valid
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Validate geometry integrity
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,22 +44,22 @@ Validate geometry integrity
 ## Outputs
 
 
-### isValid
+### Is Valid
 - **Type:** boolean
 
 
 
-### isClosed
+### Is Closed
 - **Type:** boolean
 
 
 
-### errors
+### Errors
 - **Type:** string[]
 
 
 
-### problemAreas
+### Problem Areas
 - **Type:** Shape[]
 
 

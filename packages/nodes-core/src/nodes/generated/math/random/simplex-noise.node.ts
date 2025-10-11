@@ -1,55 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SimplexNoiseParams {
   scale: number;
   seed: number;
 }
-interface Inputs {
-  x: number;
-  y?: number;
-  z?: number;
+
+interface SimplexNoiseInputs {
+  x: unknown;
+  y?: unknown;
+  z?: unknown;
 }
-interface Outputs {
-  noise: number;
+
+interface SimplexNoiseOutputs {
+  noise: unknown;
 }
 
 export const SimplexNoiseNode: NodeDefinition<SimplexNoiseInputs, SimplexNoiseOutputs, SimplexNoiseParams> = {
-  type: 'Math::SimplexNoise',
+  id: 'Math::SimplexNoise',
   category: 'Math',
-  subcategory: 'Random',
-
-  metadata: {
-    label: 'SimplexNoise',
-    description: 'Simplex noise',
-    
-    
-  },
-
-  params: {
-        scale: {
-      "default": 1,
-      "min": 0.01
+  label: 'SimplexNoise',
+  description: 'Simplex noise',
+  inputs: {
+    x: {
+      type: 'number',
+      label: 'X',
+      required: true
     },
-    seed: {
-      "default": -1,
-      "min": -1,
-      "max": 999999
+    y: {
+      type: 'number',
+      label: 'Y',
+      optional: true
+    },
+    z: {
+      type: 'number',
+      label: 'Z',
+      optional: true
     }
   },
-
-  inputs: {
-        x: 'number',
-    y: 'number',
-    z: 'number'
-  },
-
   outputs: {
-        noise: 'number'
+    noise: {
+      type: 'number',
+      label: 'Noise'
+    }
   },
-
+  params: {
+    scale: {
+      type: 'number',
+      label: 'Scale',
+      default: 1,
+      min: 0.01
+    },
+    seed: {
+      type: 'number',
+      label: 'Seed',
+      default: -1,
+      min: -1,
+      max: 999999
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathSimplexNoise',
       params: {
@@ -60,9 +69,9 @@ export const SimplexNoiseNode: NodeDefinition<SimplexNoiseInputs, SimplexNoiseOu
         seed: params.seed
       }
     });
-
+    
     return {
       noise: result
     };
-  }
+  },
 };

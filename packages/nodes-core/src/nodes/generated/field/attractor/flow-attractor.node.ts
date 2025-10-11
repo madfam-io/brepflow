@@ -1,59 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FlowAttractorParams {
   velocity: number;
   turbulence: number;
   viscosity: number;
 }
-interface Inputs {
-  obstacles?: Shape[];
-  sources?: Point[];
+
+interface FlowAttractorInputs {
+  obstacles?: unknown;
+  sources?: Array<[number, number, number]>;
 }
-interface Outputs {
-  field: VectorField;
+
+interface FlowAttractorOutputs {
+  field: unknown;
 }
 
 export const FlowAttractorNode: NodeDefinition<FlowAttractorInputs, FlowAttractorOutputs, FlowAttractorParams> = {
-  type: 'Field::FlowAttractor',
+  id: 'Field::FlowAttractor',
   category: 'Field',
-  subcategory: 'Attractor',
-
-  metadata: {
-    label: 'FlowAttractor',
-    description: 'Flow field attractor',
-    
-    
-  },
-
-  params: {
-        velocity: {
-      "default": 10,
-      "min": 0
+  label: 'FlowAttractor',
+  description: 'Flow field attractor',
+  inputs: {
+    obstacles: {
+      type: 'Shape[]',
+      label: 'Obstacles',
+      optional: true
     },
-    turbulence: {
-      "default": 0.1,
-      "min": 0,
-      "max": 1
-    },
-    viscosity: {
-      "default": 0.1,
-      "min": 0,
-      "max": 1
+    sources: {
+      type: 'Point[]',
+      label: 'Sources',
+      optional: true
     }
   },
-
-  inputs: {
-        obstacles: 'Shape[]',
-    sources: 'Point[]'
-  },
-
   outputs: {
-        field: 'VectorField'
+    field: {
+      type: 'VectorField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    velocity: {
+      type: 'number',
+      label: 'Velocity',
+      default: 10,
+      min: 0
+    },
+    turbulence: {
+      type: 'number',
+      label: 'Turbulence',
+      default: 0.1,
+      min: 0,
+      max: 1
+    },
+    viscosity: {
+      type: 'number',
+      label: 'Viscosity',
+      default: 0.1,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'attractorFlow',
       params: {
@@ -64,9 +71,9 @@ export const FlowAttractorNode: NodeDefinition<FlowAttractorInputs, FlowAttracto
         viscosity: params.viscosity
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

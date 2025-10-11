@@ -8,7 +8,7 @@ Emboss text or pattern
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Emboss text or pattern
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 45
 - **Min:** 0
@@ -24,7 +24,7 @@ Emboss text or pattern
 
 
 
-### roundEdges
+### Round Edges
 - **Type:** boolean
 - **Default:** true
 
@@ -35,13 +35,13 @@ Emboss text or pattern
 ## Inputs
 
 
-### targetFace
+### Target Face
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### pattern
+### Pattern
 - **Type:** Wire
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Emboss text or pattern
 ## Outputs
 
 
-### embossed
+### Embossed
 - **Type:** Shape
 
 

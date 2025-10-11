@@ -8,7 +8,7 @@ Mate two planes
 ## Parameters
 
 
-### distance
+### Distance
 - **Type:** number
 - **Default:** 0
 
@@ -16,7 +16,7 @@ Mate two planes
 
 
 
-### parallel
+### Parallel
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Mate two planes
 ## Inputs
 
 
-### plane1
+### Plane1
 - **Type:** Plane
 - **Required:** Yes
 
 
 
-### plane2
+### Plane2
 - **Type:** Plane
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Mate two planes
 ## Outputs
 
 
-### mated
+### Mated
 - **Type:** Shape[]
 
 
 
-### mate
+### Mate
 - **Type:** Mate
 
 

@@ -8,7 +8,7 @@ Create shaft collar/clamp
 ## Parameters
 
 
-### shaftDiameter
+### Shaft Diameter
 - **Type:** number
 - **Default:** 10
 - **Min:** 3
@@ -16,7 +16,7 @@ Create shaft collar/clamp
 
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 8
@@ -24,7 +24,7 @@ Create shaft collar/clamp
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 8
 - **Min:** 3
@@ -32,7 +32,7 @@ Create shaft collar/clamp
 
 
 
-### clampType
+### Clamp Type
 - **Type:** enum
 - **Default:** "set-screw"
 
@@ -43,7 +43,7 @@ Create shaft collar/clamp
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create shaft collar/clamp
 ## Outputs
 
 
-### collar
+### Collar
 - **Type:** Shape
 
 
 
-### bore
+### Bore
 - **Type:** Wire
 
 

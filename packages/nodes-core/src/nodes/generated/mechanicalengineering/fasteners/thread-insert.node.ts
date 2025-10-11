@@ -1,70 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ThreadInsertParams {
   threadSize: string;
   length: number;
   type: string;
 }
-interface Inputs {
-  position: Point;
+
+interface ThreadInsertInputs {
+  position: [number, number, number];
 }
-interface Outputs {
-  insert: Shape;
-  installation_hole: Wire;
+
+interface ThreadInsertOutputs {
+  insert: unknown;
+  installation_hole: unknown;
 }
 
 export const ThreadInsertNode: NodeDefinition<ThreadInsertInputs, ThreadInsertOutputs, ThreadInsertParams> = {
-  type: 'MechanicalEngineering::ThreadInsert',
+  id: 'MechanicalEngineering::ThreadInsert',
   category: 'MechanicalEngineering',
-  subcategory: 'Fasteners',
-
-  metadata: {
-    label: 'ThreadInsert',
-    description: 'Create threaded insert',
-    
-    
-  },
-
-  params: {
-        threadSize: {
-      "default": "M5",
-      "options": [
-        "M3",
-        "M4",
-        "M5",
-        "M6",
-        "M8"
-      ]
-    },
-    length: {
-      "default": 10,
-      "min": 5,
-      "max": 30
-    },
-    type: {
-      "default": "heat-set",
-      "options": [
-        "helicoil",
-        "heat-set",
-        "press-fit",
-        "ultrasonic"
-      ]
+  label: 'ThreadInsert',
+  description: 'Create threaded insert',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        position: 'Point'
-  },
-
   outputs: {
-        insert: 'Shape',
-    installation_hole: 'Wire'
+    insert: {
+      type: 'Shape',
+      label: 'Insert'
+    },
+    installation_hole: {
+      type: 'Wire',
+      label: 'Installation Hole'
+    }
   },
-
+  params: {
+    threadSize: {
+      type: 'enum',
+      label: 'Thread Size',
+      default: "M5",
+      options: ["M3","M4","M5","M6","M8"]
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 10,
+      min: 5,
+      max: 30
+    },
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "heat-set",
+      options: ["helicoil","heat-set","press-fit","ultrasonic"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'threadInsert',
       params: {
         position: inputs.position,
@@ -73,10 +68,10 @@ export const ThreadInsertNode: NodeDefinition<ThreadInsertInputs, ThreadInsertOu
         type: params.type
       }
     });
-
+    
     return {
-      insert: result,
-      installation_hole: result
+      insert: results.insert,
+      installation_hole: results.installation_hole
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Keep only overlapping regions
 ## Parameters
 
 
-### keepOriginals
+### Keep Originals
 - **Type:** boolean
 - **Default:** false
 
@@ -16,7 +16,7 @@ Keep only overlapping regions
 
 
 
-### fuzzyValue
+### Fuzzy Value
 - **Type:** number
 - **Default:** 1e-7
 - **Min:** 0
@@ -27,7 +27,7 @@ Keep only overlapping regions
 ## Inputs
 
 
-### shapes
+### Shapes
 - **Type:** Shape[]
 - **Required:** Yes
 - **Description:** Shapes to intersect
@@ -36,7 +36,7 @@ Keep only overlapping regions
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 - **Description:** Intersection result
 

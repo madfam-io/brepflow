@@ -8,7 +8,7 @@ M.C. Escher deformation
 ## Parameters
 
 
-### deformationType
+### Deformation Type
 - **Type:** enum
 - **Default:** "radial"
 
@@ -16,7 +16,7 @@ M.C. Escher deformation
 
 
 
-### steps
+### Steps
 - **Type:** number
 - **Default:** 10
 - **Min:** 3
@@ -27,7 +27,7 @@ M.C. Escher deformation
 ## Inputs
 
 
-### baseTile
+### Base Tile
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ M.C. Escher deformation
 ## Outputs
 
 
-### deformation
+### Deformation
 - **Type:** Face[]
 
 

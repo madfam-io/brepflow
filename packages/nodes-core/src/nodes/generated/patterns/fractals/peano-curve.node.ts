@@ -1,47 +1,46 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PeanoCurveParams {
   order: number;
 }
-interface Inputs {
-  bounds: Box;
+
+interface PeanoCurveInputs {
+  bounds: unknown;
 }
-interface Outputs {
-  curve: Wire;
+
+interface PeanoCurveOutputs {
+  curve: unknown;
 }
 
 export const PeanoCurveNode: NodeDefinition<PeanoCurveInputs, PeanoCurveOutputs, PeanoCurveParams> = {
-  type: 'Patterns::PeanoCurve',
+  id: 'Patterns::PeanoCurve',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'PeanoCurve',
-    description: 'Peano space-filling curve',
-    
-    
-  },
-
-  params: {
-        order: {
-      "default": 3,
-      "min": 1,
-      "max": 6,
-      "step": 1
+  label: 'PeanoCurve',
+  description: 'Peano space-filling curve',
+  inputs: {
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        bounds: 'Box'
-  },
-
   outputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve'
+    }
   },
-
+  params: {
+    order: {
+      type: 'number',
+      label: 'Order',
+      default: 3,
+      min: 1,
+      max: 6,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'peanoCurve',
       params: {
@@ -49,9 +48,9 @@ export const PeanoCurveNode: NodeDefinition<PeanoCurveInputs, PeanoCurveOutputs,
         order: params.order
       }
     });
-
+    
     return {
       curve: result
     };
-  }
+  },
 };

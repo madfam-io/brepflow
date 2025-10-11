@@ -8,7 +8,7 @@ Mandala circular pattern
 ## Parameters
 
 
-### rings
+### Rings
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -16,7 +16,7 @@ Mandala circular pattern
 
 
 
-### symmetry
+### Symmetry
 - **Type:** number
 - **Default:** 8
 - **Min:** 3
@@ -24,7 +24,7 @@ Mandala circular pattern
 
 
 
-### complexity
+### Complexity
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -35,7 +35,7 @@ Mandala circular pattern
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Mandala circular pattern
 ## Outputs
 
 
-### mandala
+### Mandala
 - **Type:** Wire[]
 
 

@@ -1,48 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CosineParams {
   angleUnit: string;
 }
-interface Inputs {
-  angle: number;
+
+interface CosineInputs {
+  angle: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface CosineOutputs {
+  result: unknown;
 }
 
 export const CosineNode: NodeDefinition<CosineInputs, CosineOutputs, CosineParams> = {
-  type: 'Math::Cosine',
+  id: 'Math::Cosine',
   category: 'Math',
-  subcategory: 'Trigonometry',
-
-  metadata: {
-    label: 'Cosine',
-    description: 'Cosine function',
-    
-    
-  },
-
-  params: {
-        angleUnit: {
-      "default": "radians",
-      "options": [
-        "radians",
-        "degrees"
-      ]
+  label: 'Cosine',
+  description: 'Cosine function',
+  inputs: {
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      required: true
     }
   },
-
-  inputs: {
-        angle: 'number'
-  },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {
+    angleUnit: {
+      type: 'enum',
+      label: 'Angle Unit',
+      default: "radians",
+      options: ["radians","degrees"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathCos',
       params: {
@@ -50,9 +46,9 @@ export const CosineNode: NodeDefinition<CosineInputs, CosineOutputs, CosineParam
         angleUnit: params.angleUnit
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

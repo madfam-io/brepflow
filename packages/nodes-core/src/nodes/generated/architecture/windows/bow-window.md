@@ -8,7 +8,7 @@ Bow window projection
 ## Parameters
 
 
-### projection
+### Projection
 - **Type:** number
 - **Default:** 600
 - **Min:** 400
@@ -16,7 +16,7 @@ Bow window projection
 
 
 
-### segments
+### Segments
 - **Type:** number
 - **Default:** 5
 - **Min:** 3
@@ -27,7 +27,7 @@ Bow window projection
 ## Inputs
 
 
-### wallOpening
+### Wall Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Bow window projection
 ## Outputs
 
 
-### bowWindow
+### Bow Window
 - **Type:** Shape
 
 

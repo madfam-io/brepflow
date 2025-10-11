@@ -1,55 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MetaBallsParams {
   threshold: number;
   resolution: number;
 }
-interface Inputs {
-  centers: Point[];
-  radii: number[];
+
+interface MetaBallsInputs {
+  centers: Array<[number, number, number]>;
+  radii: unknown;
 }
-interface Outputs {
-  metaball: Shape;
+
+interface MetaBallsOutputs {
+  metaball: unknown;
 }
 
 export const MetaBallsNode: NodeDefinition<MetaBallsInputs, MetaBallsOutputs, MetaBallsParams> = {
-  type: 'Specialized::MetaBalls',
+  id: 'Specialized::MetaBalls',
   category: 'Specialized',
-  subcategory: 'Organic',
-
-  metadata: {
-    label: 'MetaBalls',
-    description: 'Create metaball surfaces',
-    
-    
-  },
-
-  params: {
-        threshold: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
+  label: 'MetaBalls',
+  description: 'Create metaball surfaces',
+  inputs: {
+    centers: {
+      type: 'Point[]',
+      label: 'Centers',
+      required: true
     },
-    resolution: {
-      "default": 50,
-      "min": 10,
-      "max": 200,
-      "step": 5
+    radii: {
+      type: 'number[]',
+      label: 'Radii',
+      required: true
     }
   },
-
-  inputs: {
-        centers: 'Point[]',
-    radii: 'number[]'
-  },
-
   outputs: {
-        metaball: 'Shape'
+    metaball: {
+      type: 'Shape',
+      label: 'Metaball'
+    }
   },
-
+  params: {
+    threshold: {
+      type: 'number',
+      label: 'Threshold',
+      default: 1,
+      min: 0.1,
+      max: 10
+    },
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 50,
+      min: 10,
+      max: 200,
+      step: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'metaballs',
       params: {
@@ -59,9 +64,9 @@ export const MetaBallsNode: NodeDefinition<MetaBallsInputs, MetaBallsOutputs, Me
         resolution: params.resolution
       }
     });
-
+    
     return {
       metaball: result
     };
-  }
+  },
 };

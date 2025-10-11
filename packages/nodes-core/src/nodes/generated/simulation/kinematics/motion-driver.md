@@ -8,7 +8,7 @@ Define motion driver
 ## Parameters
 
 
-### motionType
+### Motion Type
 - **Type:** enum
 - **Default:** "constant"
 
@@ -16,7 +16,7 @@ Define motion driver
 
 
 
-### velocity
+### Velocity
 - **Type:** number
 - **Default:** 1
 - **Min:** -1000
@@ -24,7 +24,7 @@ Define motion driver
 
 
 
-### acceleration
+### Acceleration
 - **Type:** number
 - **Default:** 0
 - **Min:** -1000
@@ -32,7 +32,7 @@ Define motion driver
 
 
 
-### period
+### Period
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.001
@@ -43,13 +43,13 @@ Define motion driver
 ## Inputs
 
 
-### joint
+### Joint
 - **Type:** Data
 - **Required:** Yes
 
 
 
-### motionProfile
+### Motion Profile
 - **Type:** Data
 - **Required:** No
 
@@ -58,7 +58,7 @@ Define motion driver
 ## Outputs
 
 
-### drivenJoint
+### Driven Joint
 - **Type:** Data
 
 

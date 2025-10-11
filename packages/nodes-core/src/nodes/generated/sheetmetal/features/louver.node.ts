@@ -1,68 +1,81 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LouverParams {
   louverLength: number;
   louverWidth: number;
   louverHeight: number;
   louverAngle: number;
 }
-interface Inputs {
-  sheet: Shape;
-  position: Point;
-  direction: Vector;
+
+interface LouverInputs {
+  sheet: unknown;
+  position: [number, number, number];
+  direction: [number, number, number];
 }
-interface Outputs {
-  result: Shape;
+
+interface LouverOutputs {
+  result: unknown;
 }
 
 export const LouverNode: NodeDefinition<LouverInputs, LouverOutputs, LouverParams> = {
-  type: 'SheetMetal::Louver',
+  id: 'SheetMetal::Louver',
   category: 'SheetMetal',
-  subcategory: 'Features',
-
-  metadata: {
-    label: 'Louver',
-    description: 'Create louver ventilation',
-    
-    
-  },
-
-  params: {
-        louverLength: {
-      "default": 30,
-      "min": 1,
-      "max": 500
+  label: 'Louver',
+  description: 'Create louver ventilation',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    louverWidth: {
-      "default": 5,
-      "min": 0.5,
-      "max": 100
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     },
-    louverHeight: {
-      "default": 5,
-      "min": 0.5,
-      "max": 50
-    },
-    louverAngle: {
-      "default": 45,
-      "min": 0,
-      "max": 90
+    direction: {
+      type: 'Vector',
+      label: 'Direction',
+      required: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    position: 'Point',
-    direction: 'Vector'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    louverLength: {
+      type: 'number',
+      label: 'Louver Length',
+      default: 30,
+      min: 1,
+      max: 500
+    },
+    louverWidth: {
+      type: 'number',
+      label: 'Louver Width',
+      default: 5,
+      min: 0.5,
+      max: 100
+    },
+    louverHeight: {
+      type: 'number',
+      label: 'Louver Height',
+      default: 5,
+      min: 0.5,
+      max: 50
+    },
+    louverAngle: {
+      type: 'number',
+      label: 'Louver Angle',
+      default: 45,
+      min: 0,
+      max: 90
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetLouver',
       params: {
@@ -75,9 +88,9 @@ export const LouverNode: NodeDefinition<LouverInputs, LouverOutputs, LouverParam
         louverAngle: params.louverAngle
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

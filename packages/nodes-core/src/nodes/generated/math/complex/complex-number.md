@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### real
+### Real
 - **Type:** number
 - **Required:** Yes
 
 
 
-### imaginary
+### Imaginary
 - **Type:** number
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### complex
+### Complex
 - **Type:** Complex
 
 

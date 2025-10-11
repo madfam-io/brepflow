@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type LerpParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  a: number;
-  b: number;
-  t: number;
+interface LerpInputs {
+  a: unknown;
+  b: unknown;
+  t: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface LerpOutputs {
+  result: unknown;
 }
 
 export const LerpNode: NodeDefinition<LerpInputs, LerpOutputs, LerpParams> = {
-  type: 'Math::Lerp',
+  id: 'Math::Lerp',
   category: 'Math',
-  subcategory: 'Interpolation',
-
-  metadata: {
-    label: 'Lerp',
-    description: 'Linear interpolation',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Lerp',
+  description: 'Linear interpolation',
   inputs: {
-        a: 'number',
-    b: 'number',
-    t: 'number'
+    a: {
+      type: 'number',
+      label: 'A',
+      required: true
+    },
+    b: {
+      type: 'number',
+      label: 'B',
+      required: true
+    },
+    t: {
+      type: 'number',
+      label: 'T',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathLerp',
       params: {
         a: inputs.a,
         b: inputs.b,
         t: inputs.t
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

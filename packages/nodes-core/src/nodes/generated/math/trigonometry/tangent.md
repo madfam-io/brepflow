@@ -8,7 +8,7 @@ Tangent function
 ## Parameters
 
 
-### angleUnit
+### Angle Unit
 - **Type:** enum
 - **Default:** "radians"
 
@@ -19,7 +19,7 @@ Tangent function
 ## Inputs
 
 
-### angle
+### Angle
 - **Type:** number
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Tangent function
 ## Outputs
 
 
-### result
+### Result
 - **Type:** number
 
 

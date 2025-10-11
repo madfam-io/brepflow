@@ -8,7 +8,7 @@ Create a parametric torus
 ## Parameters
 
 
-### majorRadius
+### Major Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a parametric torus
 - **Description:** Major radius
 
 
-### minorRadius
+### Minor Radius
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a parametric torus
 - **Description:** Minor radius
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -32,7 +32,7 @@ Create a parametric torus
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -40,7 +40,7 @@ Create a parametric torus
 
 
 
-### centerZ
+### Center Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -48,7 +48,7 @@ Create a parametric torus
 
 
 
-### angle1
+### Angle1
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -56,7 +56,7 @@ Create a parametric torus
 - **Description:** Start angle
 
 
-### angle2
+### Angle2
 - **Type:** number
 - **Default:** 360
 - **Min:** 0
@@ -64,7 +64,7 @@ Create a parametric torus
 - **Description:** End angle
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 360
 - **Min:** 0
@@ -79,7 +79,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Generated torus
 

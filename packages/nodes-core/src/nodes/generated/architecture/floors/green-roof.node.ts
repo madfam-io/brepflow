@@ -1,58 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GreenRoofParams {
   type: string;
   soilDepth: number;
 }
-interface Inputs {
-  roofSurface: Face;
+
+interface GreenRoofInputs {
+  roofSurface: unknown;
 }
-interface Outputs {
-  greenRoof: Shape;
-  layers: Shape[];
+
+interface GreenRoofOutputs {
+  greenRoof: unknown;
+  layers: unknown;
 }
 
 export const GreenRoofNode: NodeDefinition<GreenRoofInputs, GreenRoofOutputs, GreenRoofParams> = {
-  type: 'Architecture::GreenRoof',
+  id: 'Architecture::GreenRoof',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'GreenRoof',
-    description: 'Green roof system',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "extensive",
-      "options": [
-        "extensive",
-        "intensive",
-        "semi-intensive"
-      ]
-    },
-    soilDepth: {
-      "default": 100,
-      "min": 50,
-      "max": 500
+  label: 'GreenRoof',
+  description: 'Green roof system',
+  inputs: {
+    roofSurface: {
+      type: 'Face',
+      label: 'Roof Surface',
+      required: true
     }
   },
-
-  inputs: {
-        roofSurface: 'Face'
-  },
-
   outputs: {
-        greenRoof: 'Shape',
-    layers: 'Shape[]'
+    greenRoof: {
+      type: 'Shape',
+      label: 'Green Roof'
+    },
+    layers: {
+      type: 'Shape[]',
+      label: 'Layers'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "extensive",
+      options: ["extensive","intensive","semi-intensive"]
+    },
+    soilDepth: {
+      type: 'number',
+      label: 'Soil Depth',
+      default: 100,
+      min: 50,
+      max: 500
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'greenRoof',
       params: {
         roofSurface: inputs.roofSurface,
@@ -60,10 +60,10 @@ export const GreenRoofNode: NodeDefinition<GreenRoofInputs, GreenRoofOutputs, Gr
         soilDepth: params.soilDepth
       }
     });
-
+    
     return {
-      greenRoof: result,
-      layers: result
+      greenRoof: results.greenRoof,
+      layers: results.layers
     };
-  }
+  },
 };

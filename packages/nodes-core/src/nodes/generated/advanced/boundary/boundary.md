@@ -8,7 +8,7 @@ Create surface from boundary curves
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "surface"
 
@@ -16,7 +16,7 @@ Create surface from boundary curves
 
 
 
-### tangencyType
+### Tangency Type
 - **Type:** enum
 - **Default:** "none"
 
@@ -27,13 +27,13 @@ Create surface from boundary curves
 ## Inputs
 
 
-### curves
+### Curves
 - **Type:** Wire[]
 - **Required:** Yes
 
 
 
-### tangentFaces
+### Tangent Faces
 - **Type:** Face[]
 - **Required:** No
 
@@ -42,7 +42,7 @@ Create surface from boundary curves
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

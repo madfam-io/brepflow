@@ -1,69 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DifferentialGearParams {
   ringGearTeeth: number;
   pinionTeeth: number;
   spiderGearTeeth: number;
   module: number;
 }
-interface Inputs {
-  housingCenter: Point;
+
+interface DifferentialGearInputs {
+  housingCenter: [number, number, number];
 }
-interface Outputs {
-  assembly: Shape;
-  housing: Shape;
-  gears: Shape[];
+
+interface DifferentialGearOutputs {
+  assembly: unknown;
+  housing: unknown;
+  gears: unknown;
 }
 
 export const DifferentialGearNode: NodeDefinition<DifferentialGearInputs, DifferentialGearOutputs, DifferentialGearParams> = {
-  type: 'MechanicalEngineering::DifferentialGear',
+  id: 'MechanicalEngineering::DifferentialGear',
   category: 'MechanicalEngineering',
-  subcategory: 'Gears',
-
-  metadata: {
-    label: 'DifferentialGear',
-    description: 'Create differential gear assembly',
-    
-    
-  },
-
-  params: {
-        ringGearTeeth: {
-      "default": 41,
-      "min": 30,
-      "max": 60
-    },
-    pinionTeeth: {
-      "default": 13,
-      "min": 9,
-      "max": 17
-    },
-    spiderGearTeeth: {
-      "default": 10,
-      "min": 8,
-      "max": 14
-    },
-    module: {
-      "default": 3,
-      "min": 2,
-      "max": 5
+  label: 'DifferentialGear',
+  description: 'Create differential gear assembly',
+  inputs: {
+    housingCenter: {
+      type: 'Point',
+      label: 'Housing Center',
+      required: true
     }
   },
-
-  inputs: {
-        housingCenter: 'Point'
-  },
-
   outputs: {
-        assembly: 'Shape',
-    housing: 'Shape',
-    gears: 'Shape[]'
+    assembly: {
+      type: 'Shape',
+      label: 'Assembly'
+    },
+    housing: {
+      type: 'Shape',
+      label: 'Housing'
+    },
+    gears: {
+      type: 'Shape[]',
+      label: 'Gears'
+    }
   },
-
+  params: {
+    ringGearTeeth: {
+      type: 'number',
+      label: 'Ring Gear Teeth',
+      default: 41,
+      min: 30,
+      max: 60
+    },
+    pinionTeeth: {
+      type: 'number',
+      label: 'Pinion Teeth',
+      default: 13,
+      min: 9,
+      max: 17
+    },
+    spiderGearTeeth: {
+      type: 'number',
+      label: 'Spider Gear Teeth',
+      default: 10,
+      min: 8,
+      max: 14
+    },
+    module: {
+      type: 'number',
+      label: 'Module',
+      default: 3,
+      min: 2,
+      max: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'differentialGear',
       params: {
         housingCenter: inputs.housingCenter,
@@ -73,11 +84,11 @@ export const DifferentialGearNode: NodeDefinition<DifferentialGearInputs, Differ
         module: params.module
       }
     });
-
+    
     return {
-      assembly: result,
-      housing: result,
-      gears: result
+      assembly: results.assembly,
+      housing: results.housing,
+      gears: results.gears
     };
-  }
+  },
 };

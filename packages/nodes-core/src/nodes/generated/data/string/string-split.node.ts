@@ -1,44 +1,43 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StringSplitParams {
   delimiter: string;
 }
-interface Inputs {
-  string: string;
+
+interface StringSplitInputs {
+  string: unknown;
 }
-interface Outputs {
-  parts: string[];
+
+interface StringSplitOutputs {
+  parts: unknown;
 }
 
 export const StringSplitNode: NodeDefinition<StringSplitInputs, StringSplitOutputs, StringSplitParams> = {
-  type: 'Data::StringSplit',
+  id: 'Data::StringSplit',
   category: 'Data',
-  subcategory: 'String',
-
-  metadata: {
-    label: 'StringSplit',
-    description: 'Split string',
-    
-    
-  },
-
-  params: {
-        delimiter: {
-      "default": ","
+  label: 'StringSplit',
+  description: 'Split string',
+  inputs: {
+    string: {
+      type: 'string',
+      label: 'String',
+      required: true
     }
   },
-
-  inputs: {
-        string: 'string'
-  },
-
   outputs: {
-        parts: 'string[]'
+    parts: {
+      type: 'string[]',
+      label: 'Parts'
+    }
   },
-
+  params: {
+    delimiter: {
+      type: 'string',
+      label: 'Delimiter',
+      default: ","
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stringSplit',
       params: {
@@ -46,9 +45,9 @@ export const StringSplitNode: NodeDefinition<StringSplitInputs, StringSplitOutpu
         delimiter: params.delimiter
       }
     });
-
+    
     return {
       parts: result
     };
-  }
+  },
 };

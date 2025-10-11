@@ -1,59 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface OverheadDoorParams {
   sections: number;
   trackType: string;
 }
-interface Inputs {
-  opening: Wire;
+
+interface OverheadDoorInputs {
+  opening: unknown;
 }
-interface Outputs {
-  overheadDoor: Shape;
-  tracks: Wire[];
+
+interface OverheadDoorOutputs {
+  overheadDoor: unknown;
+  tracks: unknown;
 }
 
 export const OverheadDoorNode: NodeDefinition<OverheadDoorInputs, OverheadDoorOutputs, OverheadDoorParams> = {
-  type: 'Architecture::OverheadDoor',
+  id: 'Architecture::OverheadDoor',
   category: 'Architecture',
-  subcategory: 'Doors',
-
-  metadata: {
-    label: 'OverheadDoor',
-    description: 'Overhead sectional door',
-    
-    
-  },
-
-  params: {
-        sections: {
-      "default": 4,
-      "min": 3,
-      "max": 6,
-      "step": 1
-    },
-    trackType: {
-      "default": "standard",
-      "options": [
-        "standard",
-        "low-headroom",
-        "high-lift"
-      ]
+  label: 'OverheadDoor',
+  description: 'Overhead sectional door',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        overheadDoor: 'Shape',
-    tracks: 'Wire[]'
+    overheadDoor: {
+      type: 'Shape',
+      label: 'Overhead Door'
+    },
+    tracks: {
+      type: 'Wire[]',
+      label: 'Tracks'
+    }
   },
-
+  params: {
+    sections: {
+      type: 'number',
+      label: 'Sections',
+      default: 4,
+      min: 3,
+      max: 6,
+      step: 1
+    },
+    trackType: {
+      type: 'enum',
+      label: 'Track Type',
+      default: "standard",
+      options: ["standard","low-headroom","high-lift"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'overheadDoor',
       params: {
         opening: inputs.opening,
@@ -61,10 +61,10 @@ export const OverheadDoorNode: NodeDefinition<OverheadDoorInputs, OverheadDoorOu
         trackType: params.trackType
       }
     });
-
+    
     return {
-      overheadDoor: result,
-      tracks: result
+      overheadDoor: results.overheadDoor,
+      tracks: results.tracks
     };
-  }
+  },
 };

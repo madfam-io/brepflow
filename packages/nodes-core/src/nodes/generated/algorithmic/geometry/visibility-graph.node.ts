@@ -1,59 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VisibilityGraphParams {
   epsilon: number;
   includeInterior: boolean;
 }
-interface Inputs {
-  obstacles: Shape[];
-  start: Point;
-  goal: Point;
+
+interface VisibilityGraphInputs {
+  obstacles: unknown;
+  start: [number, number, number];
+  goal: [number, number, number];
 }
-interface Outputs {
-  graph: Wire[];
-  vertices: Point[];
-  edges: Properties[];
+
+interface VisibilityGraphOutputs {
+  graph: unknown;
+  vertices: Array<[number, number, number]>;
+  edges: unknown;
 }
 
 export const VisibilityGraphNode: NodeDefinition<VisibilityGraphInputs, VisibilityGraphOutputs, VisibilityGraphParams> = {
-  type: 'Algorithmic::VisibilityGraph',
+  id: 'Algorithmic::VisibilityGraph',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'VisibilityGraph',
-    description: 'Compute visibility graph for path planning',
-    
-    
-  },
-
-  params: {
-        epsilon: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
+  label: 'VisibilityGraph',
+  description: 'Compute visibility graph for path planning',
+  inputs: {
+    obstacles: {
+      type: 'Shape[]',
+      label: 'Obstacles',
+      required: true
     },
-    includeInterior: {
-      "default": false
+    start: {
+      type: 'Point',
+      label: 'Start',
+      required: true
+    },
+    goal: {
+      type: 'Point',
+      label: 'Goal',
+      required: true
     }
   },
-
-  inputs: {
-        obstacles: 'Shape[]',
-    start: 'Point',
-    goal: 'Point'
-  },
-
   outputs: {
-        graph: 'Wire[]',
-    vertices: 'Point[]',
-    edges: 'Properties[]'
+    graph: {
+      type: 'Wire[]',
+      label: 'Graph'
+    },
+    vertices: {
+      type: 'Point[]',
+      label: 'Vertices'
+    },
+    edges: {
+      type: 'Properties[]',
+      label: 'Edges'
+    }
   },
-
+  params: {
+    epsilon: {
+      type: 'number',
+      label: 'Epsilon',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    includeInterior: {
+      type: 'boolean',
+      label: 'Include Interior',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'visibilityGraph',
       params: {
         obstacles: inputs.obstacles,
@@ -63,11 +78,11 @@ export const VisibilityGraphNode: NodeDefinition<VisibilityGraphInputs, Visibili
         includeInterior: params.includeInterior
       }
     });
-
+    
     return {
-      graph: result,
-      vertices: result,
-      edges: result
+      graph: results.graph,
+      vertices: results.vertices,
+      edges: results.edges
     };
-  }
+  },
 };

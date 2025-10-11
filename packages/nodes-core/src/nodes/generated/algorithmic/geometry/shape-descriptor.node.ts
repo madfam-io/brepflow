@@ -1,64 +1,69 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ShapeDescriptorParams {
   descriptor: string;
   resolution: number;
   normalize: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface ShapeDescriptorInputs {
+  shape: unknown;
 }
-interface Outputs {
-  descriptor: number[];
-  features: Properties;
-  similarity: number;
+
+interface ShapeDescriptorOutputs {
+  descriptor: unknown;
+  features: unknown;
+  similarity: unknown;
 }
 
 export const ShapeDescriptorNode: NodeDefinition<ShapeDescriptorInputs, ShapeDescriptorOutputs, ShapeDescriptorParams> = {
-  type: 'Algorithmic::ShapeDescriptor',
+  id: 'Algorithmic::ShapeDescriptor',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'ShapeDescriptor',
-    description: 'Compute geometric shape descriptors',
-    
-    
-  },
-
-  params: {
-        descriptor: {
-      "default": "moments",
-      "options": [
-        "moments",
-        "fourier",
-        "histogram"
-      ]
-    },
-    resolution: {
-      "default": 32,
-      "min": 8,
-      "max": 128
-    },
-    normalize: {
-      "default": true
+  label: 'ShapeDescriptor',
+  description: 'Compute geometric shape descriptors',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        descriptor: 'number[]',
-    features: 'Properties',
-    similarity: 'number'
+    descriptor: {
+      type: 'number[]',
+      label: 'Descriptor'
+    },
+    features: {
+      type: 'Properties',
+      label: 'Features'
+    },
+    similarity: {
+      type: 'number',
+      label: 'Similarity'
+    }
   },
-
+  params: {
+    descriptor: {
+      type: 'enum',
+      label: 'Descriptor',
+      default: "moments",
+      options: ["moments","fourier","histogram"]
+    },
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 32,
+      min: 8,
+      max: 128
+    },
+    normalize: {
+      type: 'boolean',
+      label: 'Normalize',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'shapeDescriptor',
       params: {
         shape: inputs.shape,
@@ -67,11 +72,11 @@ export const ShapeDescriptorNode: NodeDefinition<ShapeDescriptorInputs, ShapeDes
         normalize: params.normalize
       }
     });
-
+    
     return {
-      descriptor: result,
-      features: result,
-      similarity: result
+      descriptor: results.descriptor,
+      features: results.features,
+      similarity: results.similarity
     };
-  }
+  },
 };

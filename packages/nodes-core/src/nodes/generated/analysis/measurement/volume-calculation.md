@@ -8,7 +8,7 @@ Calculate volume and mass properties
 ## Parameters
 
 
-### precision
+### Precision
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Calculate volume and mass properties
 
 
 
-### density
+### Density
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.001
@@ -27,7 +27,7 @@ Calculate volume and mass properties
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,22 +36,22 @@ Calculate volume and mass properties
 ## Outputs
 
 
-### volume
+### Volume
 - **Type:** number
 
 
 
-### mass
+### Mass
 - **Type:** number
 
 
 
-### centerOfMass
+### Center Of Mass
 - **Type:** Point
 
 
 
-### inertiaMatrix
+### Inertia Matrix
 - **Type:** number[]
 
 

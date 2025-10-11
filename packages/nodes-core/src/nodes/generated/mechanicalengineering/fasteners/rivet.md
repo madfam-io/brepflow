@@ -8,7 +8,7 @@ Create rivet fastener
 ## Parameters
 
 
-### diameter
+### Diameter
 - **Type:** number
 - **Default:** 4
 - **Min:** 2
@@ -16,7 +16,7 @@ Create rivet fastener
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 10
 - **Min:** 5
@@ -24,7 +24,7 @@ Create rivet fastener
 
 
 
-### headType
+### Head Type
 - **Type:** enum
 - **Default:** "round"
 
@@ -32,7 +32,7 @@ Create rivet fastener
 
 
 
-### material
+### Material
 - **Type:** enum
 - **Default:** "aluminum"
 
@@ -43,7 +43,7 @@ Create rivet fastener
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Create rivet fastener
 ## Outputs
 
 
-### rivet
+### Rivet
 - **Type:** Shape
 
 

@@ -1,51 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PostProcessorRobotParams {
   robotBrand: string;
 }
-interface Inputs {
-  trajectory: Transform[];
+
+interface PostProcessorRobotInputs {
+  trajectory: unknown;
 }
-interface Outputs {
-  robotCode: Data;
+
+interface PostProcessorRobotOutputs {
+  robotCode: unknown;
 }
 
 export const PostProcessorRobotNode: NodeDefinition<PostProcessorRobotInputs, PostProcessorRobotOutputs, PostProcessorRobotParams> = {
-  type: 'Fabrication::PostProcessorRobot',
+  id: 'Fabrication::PostProcessorRobot',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'PostProcessorRobot',
-    description: 'Robot code generation',
-    
-    
-  },
-
-  params: {
-        robotBrand: {
-      "default": "abb",
-      "options": [
-        "abb",
-        "kuka",
-        "fanuc",
-        "yaskawa",
-        "ur"
-      ]
+  label: 'PostProcessorRobot',
+  description: 'Robot code generation',
+  inputs: {
+    trajectory: {
+      type: 'Transform[]',
+      label: 'Trajectory',
+      required: true
     }
   },
-
-  inputs: {
-        trajectory: 'Transform[]'
-  },
-
   outputs: {
-        robotCode: 'Data'
+    robotCode: {
+      type: 'Data',
+      label: 'Robot Code'
+    }
   },
-
+  params: {
+    robotBrand: {
+      type: 'enum',
+      label: 'Robot Brand',
+      default: "abb",
+      options: ["abb","kuka","fanuc","yaskawa","ur"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'postProcessorRobot',
       params: {
@@ -53,9 +46,9 @@ export const PostProcessorRobotNode: NodeDefinition<PostProcessorRobotInputs, Po
         robotBrand: params.robotBrand
       }
     });
-
+    
     return {
       robotCode: result
     };
-  }
+  },
 };

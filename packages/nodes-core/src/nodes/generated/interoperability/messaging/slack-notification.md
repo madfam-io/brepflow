@@ -8,7 +8,7 @@ Send Slack notifications
 ## Parameters
 
 
-### webhookUrl
+### Webhook Url
 - **Type:** string
 - **Default:** ""
 
@@ -16,7 +16,7 @@ Send Slack notifications
 - **Description:** Slack webhook URL
 
 
-### channel
+### Channel
 - **Type:** string
 - **Default:** "#general"
 
@@ -24,7 +24,7 @@ Send Slack notifications
 
 
 
-### username
+### Username
 - **Type:** string
 - **Default:** "BrepFlow"
 
@@ -35,13 +35,13 @@ Send Slack notifications
 ## Inputs
 
 
-### message
+### Message
 - **Type:** string
 - **Required:** Yes
 
 
 
-### attachments
+### Attachments
 - **Type:** Properties[]
 - **Required:** No
 
@@ -50,12 +50,12 @@ Send Slack notifications
 ## Outputs
 
 
-### sent
+### Sent
 - **Type:** boolean
 
 
 
-### timestamp
+### Timestamp
 - **Type:** string
 
 

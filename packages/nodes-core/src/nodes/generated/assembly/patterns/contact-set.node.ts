@@ -1,57 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ContactSetParams {
   type: string;
   friction: number;
 }
-interface Inputs {
-  faces1: Face[];
-  faces2: Face[];
+
+interface ContactSetInputs {
+  faces1: unknown;
+  faces2: unknown;
 }
-interface Outputs {
-  contactSet: ContactSet;
+
+interface ContactSetOutputs {
+  contactSet: unknown;
 }
 
 export const ContactSetNode: NodeDefinition<ContactSetInputs, ContactSetOutputs, ContactSetParams> = {
-  type: 'Assembly::ContactSet',
+  id: 'Assembly::ContactSet',
   category: 'Assembly',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'ContactSet',
-    description: 'Define contact sets',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "no_penetration",
-      "options": [
-        "bonded",
-        "no_penetration",
-        "frictionless"
-      ]
+  label: 'ContactSet',
+  description: 'Define contact sets',
+  inputs: {
+    faces1: {
+      type: 'Face[]',
+      label: 'Faces1',
+      required: true
     },
-    friction: {
-      "default": 0.3,
-      "min": 0,
-      "max": 1
+    faces2: {
+      type: 'Face[]',
+      label: 'Faces2',
+      required: true
     }
   },
-
-  inputs: {
-        faces1: 'Face[]',
-    faces2: 'Face[]'
-  },
-
   outputs: {
-        contactSet: 'ContactSet'
+    contactSet: {
+      type: 'ContactSet',
+      label: 'Contact Set'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "no_penetration",
+      options: ["bonded","no_penetration","frictionless"]
+    },
+    friction: {
+      type: 'number',
+      label: 'Friction',
+      default: 0.3,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'assemblyContactSet',
       params: {
@@ -61,9 +62,9 @@ export const ContactSetNode: NodeDefinition<ContactSetInputs, ContactSetOutputs,
         friction: params.friction
       }
     });
-
+    
     return {
       contactSet: result
     };
-  }
+  },
 };

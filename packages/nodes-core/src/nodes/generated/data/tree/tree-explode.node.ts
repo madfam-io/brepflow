@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type TreeExplodeParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  tree: DataTree;
+interface TreeExplodeInputs {
+  tree: unknown;
 }
-interface Outputs {
-  branches: Data[][];
+
+interface TreeExplodeOutputs {
+  branches: unknown;
 }
 
 export const TreeExplodeNode: NodeDefinition<TreeExplodeInputs, TreeExplodeOutputs, TreeExplodeParams> = {
-  type: 'Data::TreeExplode',
+  id: 'Data::TreeExplode',
   category: 'Data',
-  subcategory: 'Tree',
-
-  metadata: {
-    label: 'TreeExplode',
-    description: 'Explode tree to branches',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'TreeExplode',
+  description: 'Explode tree to branches',
   inputs: {
-        tree: 'DataTree'
+    tree: {
+      type: 'DataTree',
+      label: 'Tree',
+      required: true
+    }
   },
-
   outputs: {
-        branches: 'Data[][]'
+    branches: {
+      type: 'Data[][]',
+      label: 'Branches'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'treeExplode',
       params: {
         tree: inputs.tree
-        
       }
     });
-
+    
     return {
       branches: result
     };
-  }
+  },
 };

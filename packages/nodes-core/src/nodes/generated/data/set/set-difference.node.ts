@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SetDifferenceParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  setA: Data[];
-  setB: Data[];
+interface SetDifferenceInputs {
+  setA: unknown;
+  setB: unknown;
 }
-interface Outputs {
-  difference: Data[];
+
+interface SetDifferenceOutputs {
+  difference: unknown;
 }
 
 export const SetDifferenceNode: NodeDefinition<SetDifferenceInputs, SetDifferenceOutputs, SetDifferenceParams> = {
-  type: 'Data::SetDifference',
+  id: 'Data::SetDifference',
   category: 'Data',
-  subcategory: 'Set',
-
-  metadata: {
-    label: 'SetDifference',
-    description: 'Difference of sets',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'SetDifference',
+  description: 'Difference of sets',
   inputs: {
-        setA: 'Data[]',
-    setB: 'Data[]'
+    setA: {
+      type: 'Data[]',
+      label: 'Set A',
+      required: true
+    },
+    setB: {
+      type: 'Data[]',
+      label: 'Set B',
+      required: true
+    }
   },
-
   outputs: {
-        difference: 'Data[]'
+    difference: {
+      type: 'Data[]',
+      label: 'Difference'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'setDifference',
       params: {
         setA: inputs.setA,
         setB: inputs.setB
-        
       }
     });
-
+    
     return {
       difference: result
     };
-  }
+  },
 };

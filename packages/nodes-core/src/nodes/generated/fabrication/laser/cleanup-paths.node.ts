@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CleanupPathsParams {
   tolerance: number;
   removeDoubles: boolean;
 }
-interface Inputs {
-  paths: Wire[];
+
+interface CleanupPathsInputs {
+  paths: unknown;
 }
-interface Outputs {
-  cleanPaths: Wire[];
+
+interface CleanupPathsOutputs {
+  cleanPaths: unknown;
 }
 
 export const CleanupPathsNode: NodeDefinition<CleanupPathsInputs, CleanupPathsOutputs, CleanupPathsParams> = {
-  type: 'Fabrication::CleanupPaths',
+  id: 'Fabrication::CleanupPaths',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'CleanupPaths',
-    description: 'Clean and optimize paths',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 0.1
-    },
-    removeDoubles: {
-      "default": true
+  label: 'CleanupPaths',
+  description: 'Clean and optimize paths',
+  inputs: {
+    paths: {
+      type: 'Wire[]',
+      label: 'Paths',
+      required: true
     }
   },
-
-  inputs: {
-        paths: 'Wire[]'
-  },
-
   outputs: {
-        cleanPaths: 'Wire[]'
+    cleanPaths: {
+      type: 'Wire[]',
+      label: 'Clean Paths'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 0.1
+    },
+    removeDoubles: {
+      type: 'boolean',
+      label: 'Remove Doubles',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'cleanupPaths',
       params: {
@@ -53,9 +54,9 @@ export const CleanupPathsNode: NodeDefinition<CleanupPathsInputs, CleanupPathsOu
         removeDoubles: params.removeDoubles
       }
     });
-
+    
     return {
       cleanPaths: result
     };
-  }
+  },
 };

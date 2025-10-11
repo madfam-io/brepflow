@@ -1,62 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SlidingDoorParams {
   panelCount: number;
   panelWidth: number;
   openingPercent: number;
 }
-interface Inputs {
-  opening: Wire;
+
+interface SlidingDoorInputs {
+  opening: unknown;
 }
-interface Outputs {
-  panels: Shape[];
-  track: Shape;
+
+interface SlidingDoorOutputs {
+  panels: unknown;
+  track: unknown;
 }
 
 export const SlidingDoorNode: NodeDefinition<SlidingDoorInputs, SlidingDoorOutputs, SlidingDoorParams> = {
-  type: 'Architecture::SlidingDoor',
+  id: 'Architecture::SlidingDoor',
   category: 'Architecture',
-  subcategory: 'Doors',
-
-  metadata: {
-    label: 'SlidingDoor',
-    description: 'Sliding door system',
-    
-    
-  },
-
-  params: {
-        panelCount: {
-      "default": 2,
-      "min": 1,
-      "max": 4,
-      "step": 1
-    },
-    panelWidth: {
-      "default": 900,
-      "min": 600,
-      "max": 1500
-    },
-    openingPercent: {
-      "default": 0,
-      "min": 0,
-      "max": 100
+  label: 'SlidingDoor',
+  description: 'Sliding door system',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        panels: 'Shape[]',
-    track: 'Shape'
+    panels: {
+      type: 'Shape[]',
+      label: 'Panels'
+    },
+    track: {
+      type: 'Shape',
+      label: 'Track'
+    }
   },
-
+  params: {
+    panelCount: {
+      type: 'number',
+      label: 'Panel Count',
+      default: 2,
+      min: 1,
+      max: 4,
+      step: 1
+    },
+    panelWidth: {
+      type: 'number',
+      label: 'Panel Width',
+      default: 900,
+      min: 600,
+      max: 1500
+    },
+    openingPercent: {
+      type: 'number',
+      label: 'Opening Percent',
+      default: 0,
+      min: 0,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'slidingDoor',
       params: {
         opening: inputs.opening,
@@ -65,10 +71,10 @@ export const SlidingDoorNode: NodeDefinition<SlidingDoorInputs, SlidingDoorOutpu
         openingPercent: params.openingPercent
       }
     });
-
+    
     return {
-      panels: result,
-      track: result
+      panels: results.panels,
+      track: results.track
     };
-  }
+  },
 };

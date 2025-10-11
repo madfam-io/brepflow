@@ -1,63 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FractalGeometryParams {
   type: string;
   iterations: number;
   scale: number;
 }
-interface Inputs {
-  seed?: Shape;
+
+interface FractalGeometryInputs {
+  seed?: unknown;
 }
-interface Outputs {
-  fractal: Shape;
+
+interface FractalGeometryOutputs {
+  fractal: unknown;
 }
 
 export const FractalGeometryNode: NodeDefinition<FractalGeometryInputs, FractalGeometryOutputs, FractalGeometryParams> = {
-  type: 'Specialized::FractalGeometry',
+  id: 'Specialized::FractalGeometry',
   category: 'Specialized',
-  subcategory: 'Organic',
-
-  metadata: {
-    label: 'FractalGeometry',
-    description: 'Generate fractal geometry',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "koch",
-      "options": [
-        "koch",
-        "sierpinski",
-        "menger",
-        "julia"
-      ]
-    },
-    iterations: {
-      "default": 3,
-      "min": 1,
-      "max": 7,
-      "step": 1
-    },
-    scale: {
-      "default": 100,
-      "min": 1,
-      "max": 1000
+  label: 'FractalGeometry',
+  description: 'Generate fractal geometry',
+  inputs: {
+    seed: {
+      type: 'Shape',
+      label: 'Seed',
+      optional: true
     }
   },
-
-  inputs: {
-        seed: 'Shape'
-  },
-
   outputs: {
-        fractal: 'Shape'
+    fractal: {
+      type: 'Shape',
+      label: 'Fractal'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "koch",
+      options: ["koch","sierpinski","menger","julia"]
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 3,
+      min: 1,
+      max: 7,
+      step: 1
+    },
+    scale: {
+      type: 'number',
+      label: 'Scale',
+      default: 100,
+      min: 1,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fractalGeometry',
       params: {
@@ -67,9 +65,9 @@ export const FractalGeometryNode: NodeDefinition<FractalGeometryInputs, FractalG
         scale: params.scale
       }
     });
-
+    
     return {
       fractal: result
     };
-  }
+  },
 };

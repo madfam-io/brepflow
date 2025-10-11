@@ -8,7 +8,7 @@ Generate histogram of field values
 ## Parameters
 
 
-### bins
+### Bins
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -19,13 +19,13 @@ Generate histogram of field values
 ## Inputs
 
 
-### field
+### Field
 - **Type:** Field
 - **Required:** No
 
 
 
-### domain
+### Domain
 - **Type:** Geometry
 - **Required:** No
 
@@ -34,17 +34,17 @@ Generate histogram of field values
 ## Outputs
 
 
-### binCenters
+### Bin Centers
 - **Type:** NumberList
 
 
 
-### binCounts
+### Bin Counts
 - **Type:** NumberList
 
 
 
-### binEdges
+### Bin Edges
 - **Type:** NumberList
 
 

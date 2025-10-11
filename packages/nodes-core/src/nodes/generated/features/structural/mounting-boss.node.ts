@@ -1,68 +1,89 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MountingBossParams {
   outerDiameter: number;
   innerDiameter: number;
   height: number;
   draftAngle: number;
 }
-interface Inputs {
-  face: Face;
-  position: Point;
+
+interface MountingBossInputs {
+  face: unknown;
+  position: [number, number, number];
 }
-interface Outputs {
-  shape: Shape;
+
+interface MountingBossOutputs {
+  shape: unknown;
 }
 
 export const MountingBossNode: NodeDefinition<MountingBossInputs, MountingBossOutputs, MountingBossParams> = {
-  type: 'Features::MountingBoss',
+  id: 'Features::MountingBoss',
   category: 'Features',
-  subcategory: 'Structural',
-
-  metadata: {
-    label: 'MountingBoss',
-    description: 'Creates a mounting boss for screws',
-    
-    tags: ["boss","mounting","fastener"],
-  },
-
-  params: {
-        outerDiameter: {
-      "default": 12,
-      "min": 1,
-      "max": 200
+  label: 'MountingBoss',
+  description: 'Creates a mounting boss for screws',
+  inputs: {
+    face: {
+      type: 'Face',
+      label: 'Face',
+      required: true
     },
-    innerDiameter: {
-      "default": 5,
-      "min": 0.1,
-      "max": 190,
-      "description": "Pilot hole diameter"
-    },
-    height: {
-      "default": 10,
-      "min": 0.1,
-      "max": 1000
-    },
-    draftAngle: {
-      "default": 1,
-      "min": 0,
-      "max": 10
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        face: 'Face',
-    position: 'Point'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    outerDiameter: {
+      type: 'number',
+      label: 'Outer Diameter',
+      default: 12,
+      min: 1,
+      max: 200
+    },
+    innerDiameter: {
+      type: 'number',
+      label: 'Inner Diameter',
+      default: 5,
+      min: 0.1,
+      max: 190
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 10,
+      min: 0.1,
+      max: 1000
+    },
+    draftAngle: {
+      type: 'number',
+      label: 'Draft Angle',
+      default: 1,
+      min: 0,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'MAKE_BOSS',
+      params: {
+        face: inputs.face,
+        position: inputs.position,
+        outerDiameter: params.outerDiameter,
+        innerDiameter: params.innerDiameter,
+        height: params.height,
+        draftAngle: params.draftAngle
+      }
+    });
     
-    // TODO: Implement MountingBoss logic
-    throw new Error('MountingBoss not yet implemented');
-  }
+    return {
+      shape: result
+    };
+  },
 };

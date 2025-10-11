@@ -8,7 +8,7 @@ Rectangle packing algorithm
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "maxrects"
 
@@ -19,13 +19,13 @@ Rectangle packing algorithm
 ## Inputs
 
 
-### container
+### Container
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### rectangles
+### Rectangles
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Rectangle packing algorithm
 ## Outputs
 
 
-### packed
+### Packed
 - **Type:** Face[]
 
 
 
-### transforms
+### Transforms
 - **Type:** Transform[]
 
 

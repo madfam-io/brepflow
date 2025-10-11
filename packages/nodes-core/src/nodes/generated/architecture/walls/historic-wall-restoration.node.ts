@@ -1,59 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HistoricWallRestorationParams {
   period: string;
   preservationLevel: string;
 }
-interface Inputs {
-  existingWall: Shape;
+
+interface HistoricWallRestorationInputs {
+  existingWall: unknown;
 }
-interface Outputs {
-  restoredWall: Shape;
+
+interface HistoricWallRestorationOutputs {
+  restoredWall: unknown;
 }
 
 export const HistoricWallRestorationNode: NodeDefinition<HistoricWallRestorationInputs, HistoricWallRestorationOutputs, HistoricWallRestorationParams> = {
-  type: 'Architecture::HistoricWallRestoration',
+  id: 'Architecture::HistoricWallRestoration',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'HistoricWallRestoration',
-    description: 'Historic wall analysis',
-    
-    
-  },
-
-  params: {
-        period: {
-      "default": "victorian",
-      "options": [
-        "victorian",
-        "georgian",
-        "art-deco",
-        "modernist"
-      ]
-    },
-    preservationLevel: {
-      "default": "preserve",
-      "options": [
-        "restore",
-        "rehabilitate",
-        "preserve"
-      ]
+  label: 'HistoricWallRestoration',
+  description: 'Historic wall analysis',
+  inputs: {
+    existingWall: {
+      type: 'Shape',
+      label: 'Existing Wall',
+      required: true
     }
   },
-
-  inputs: {
-        existingWall: 'Shape'
-  },
-
   outputs: {
-        restoredWall: 'Shape'
+    restoredWall: {
+      type: 'Shape',
+      label: 'Restored Wall'
+    }
   },
-
+  params: {
+    period: {
+      type: 'enum',
+      label: 'Period',
+      default: "victorian",
+      options: ["victorian","georgian","art-deco","modernist"]
+    },
+    preservationLevel: {
+      type: 'enum',
+      label: 'Preservation Level',
+      default: "preserve",
+      options: ["restore","rehabilitate","preserve"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'historicWallRestoration',
       params: {
@@ -62,9 +54,9 @@ export const HistoricWallRestorationNode: NodeDefinition<HistoricWallRestoration
         preservationLevel: params.preservationLevel
       }
     });
-
+    
     return {
       restoredWall: result
     };
-  }
+  },
 };

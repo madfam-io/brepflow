@@ -8,7 +8,7 @@ Grand monumental staircase
 ## Parameters
 
 
-### style
+### Style
 - **Type:** enum
 - **Default:** "imperial"
 
@@ -16,7 +16,7 @@ Grand monumental staircase
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 3000
 - **Min:** 2000
@@ -27,7 +27,7 @@ Grand monumental staircase
 ## Inputs
 
 
-### footprint
+### Footprint
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Grand monumental staircase
 ## Outputs
 
 
-### monumentalStair
+### Monumental Stair
 - **Type:** Shape
 
 

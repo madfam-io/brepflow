@@ -1,57 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GrasshopperExportParams {
   version: string;
   embedGeometry: boolean;
 }
-interface Inputs {
-  definition: Properties;
-  filePath: string;
+
+interface GrasshopperExportInputs {
+  definition: unknown;
+  filePath: unknown;
 }
-interface Outputs {
-  success: boolean;
-  componentCount: number;
+
+interface GrasshopperExportOutputs {
+  success: unknown;
+  componentCount: unknown;
 }
 
 export const GrasshopperExportNode: NodeDefinition<GrasshopperExportInputs, GrasshopperExportOutputs, GrasshopperExportParams> = {
-  type: 'Interoperability::GrasshopperExport',
+  id: 'Interoperability::GrasshopperExport',
   category: 'Interoperability',
-  subcategory: 'Integration',
-
-  metadata: {
-    label: 'GrasshopperExport',
-    description: 'Export definitions compatible with Grasshopper',
-    
-    
-  },
-
-  params: {
-        version: {
-      "default": "GH1",
-      "options": [
-        "GH1",
-        "GH2"
-      ]
+  label: 'GrasshopperExport',
+  description: 'Export definitions compatible with Grasshopper',
+  inputs: {
+    definition: {
+      type: 'Properties',
+      label: 'Definition',
+      required: true
     },
-    embedGeometry: {
-      "default": true
+    filePath: {
+      type: 'string',
+      label: 'File Path',
+      required: true
     }
   },
-
-  inputs: {
-        definition: 'Properties',
-    filePath: 'string'
-  },
-
   outputs: {
-        success: 'boolean',
-    componentCount: 'number'
+    success: {
+      type: 'boolean',
+      label: 'Success'
+    },
+    componentCount: {
+      type: 'number',
+      label: 'Component Count'
+    }
   },
-
+  params: {
+    version: {
+      type: 'enum',
+      label: 'Version',
+      default: "GH1",
+      options: ["GH1","GH2"]
+    },
+    embedGeometry: {
+      type: 'boolean',
+      label: 'Embed Geometry',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'grasshopperExport',
       params: {
         definition: inputs.definition,
@@ -60,10 +65,10 @@ export const GrasshopperExportNode: NodeDefinition<GrasshopperExportInputs, Gras
         embedGeometry: params.embedGeometry
       }
     });
-
+    
     return {
-      success: result,
-      componentCount: result
+      success: results.success,
+      componentCount: results.componentCount
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Fill mesh holes
 ## Parameters
 
 
-### maxHoleSize
+### Max Hole Size
 - **Type:** number
 - **Default:** 100
 - **Min:** 1
@@ -16,7 +16,7 @@ Fill mesh holes
 - **Description:** Max edges in hole boundary
 
 
-### fillMethod
+### Fill Method
 - **Type:** enum
 - **Default:** "smooth"
 
@@ -27,7 +27,7 @@ Fill mesh holes
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Fill mesh holes
 ## Outputs
 
 
-### filled
+### Filled
 - **Type:** Mesh
 
 
 
-### holesCount
+### Holes Count
 - **Type:** number
 
 

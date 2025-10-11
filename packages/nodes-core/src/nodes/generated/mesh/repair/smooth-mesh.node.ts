@@ -1,57 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SmoothMeshParams {
   iterations: number;
   smoothingFactor: number;
   preserveVolume: boolean;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface SmoothMeshInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  smoothed: Mesh;
+
+interface SmoothMeshOutputs {
+  smoothed: unknown;
 }
 
 export const SmoothMeshNode: NodeDefinition<SmoothMeshInputs, SmoothMeshOutputs, SmoothMeshParams> = {
-  type: 'Mesh::SmoothMesh',
+  id: 'Mesh::SmoothMesh',
   category: 'Mesh',
-  subcategory: 'Repair',
-
-  metadata: {
-    label: 'SmoothMesh',
-    description: 'Smooth mesh surface',
-    
-    
-  },
-
-  params: {
-        iterations: {
-      "default": 5,
-      "min": 1,
-      "max": 100,
-      "step": 1
-    },
-    smoothingFactor: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
-    },
-    preserveVolume: {
-      "default": true
+  label: 'SmoothMesh',
+  description: 'Smooth mesh surface',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        smoothed: 'Mesh'
+    smoothed: {
+      type: 'Mesh',
+      label: 'Smoothed'
+    }
   },
-
+  params: {
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 5,
+      min: 1,
+      max: 100,
+      step: 1
+    },
+    smoothingFactor: {
+      type: 'number',
+      label: 'Smoothing Factor',
+      default: 0.5,
+      min: 0,
+      max: 1
+    },
+    preserveVolume: {
+      type: 'boolean',
+      label: 'Preserve Volume',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'smoothMesh',
       params: {
@@ -61,9 +64,9 @@ export const SmoothMeshNode: NodeDefinition<SmoothMeshInputs, SmoothMeshOutputs,
         preserveVolume: params.preserveVolume
       }
     });
-
+    
     return {
       smoothed: result
     };
-  }
+  },
 };

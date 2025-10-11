@@ -8,7 +8,7 @@ Create stiffening bead
 ## Parameters
 
 
-### beadWidth
+### Bead Width
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Create stiffening bead
 
 
 
-### beadHeight
+### Bead Height
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create stiffening bead
 
 
 
-### beadProfile
+### Bead Profile
 - **Type:** enum
 - **Default:** "U"
 
@@ -35,13 +35,13 @@ Create stiffening bead
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Create stiffening bead
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

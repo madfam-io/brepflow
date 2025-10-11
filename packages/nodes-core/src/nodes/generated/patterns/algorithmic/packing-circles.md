@@ -8,7 +8,7 @@ Circle packing algorithms
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "power-diagram"
 
@@ -19,13 +19,13 @@ Circle packing algorithms
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### radii
+### Radii
 - **Type:** number[]
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Circle packing algorithms
 ## Outputs
 
 
-### circles
+### Circles
 - **Type:** Wire[]
 
 
 
-### centers
+### Centers
 - **Type:** Point[]
 
 

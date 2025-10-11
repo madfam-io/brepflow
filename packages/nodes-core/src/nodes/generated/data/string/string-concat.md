@@ -8,7 +8,7 @@ Concatenate strings
 ## Parameters
 
 
-### separator
+### Separator
 - **Type:** string
 - **Default:** ""
 
@@ -19,7 +19,7 @@ Concatenate strings
 ## Inputs
 
 
-### strings
+### Strings
 - **Type:** string[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Concatenate strings
 ## Outputs
 
 
-### result
+### Result
 - **Type:** string
 
 

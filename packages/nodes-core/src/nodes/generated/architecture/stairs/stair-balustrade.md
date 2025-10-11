@@ -8,7 +8,7 @@ Stair balustrade system
 ## Parameters
 
 
-### style
+### Style
 - **Type:** enum
 - **Default:** "vertical"
 
@@ -16,7 +16,7 @@ Stair balustrade system
 
 
 
-### spacing
+### Spacing
 - **Type:** number
 - **Default:** 100
 - **Min:** 75
@@ -27,7 +27,7 @@ Stair balustrade system
 ## Inputs
 
 
-### stairSide
+### Stair Side
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Stair balustrade system
 ## Outputs
 
 
-### balustrade
+### Balustrade
 - **Type:** Shape
 
 

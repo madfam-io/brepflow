@@ -8,7 +8,7 @@ Automatic tool changer
 ## Parameters
 
 
-### toolCount
+### Tool Count
 - **Type:** number
 - **Default:** 6
 - **Min:** 1
@@ -19,7 +19,7 @@ Automatic tool changer
 ## Inputs
 
 
-### toolRack
+### Tool Rack
 - **Type:** Transform
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Automatic tool changer
 ## Outputs
 
 
-### toolChangeSequence
+### Tool Change Sequence
 - **Type:** Transform[]
 
 

@@ -8,7 +8,7 @@ Spherical field
 ## Parameters
 
 
-### innerRadius
+### Inner Radius
 - **Type:** number
 - **Default:** 10
 - **Min:** 0
@@ -16,7 +16,7 @@ Spherical field
 
 
 
-### outerRadius
+### Outer Radius
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Spherical field
 
 
 
-### falloff
+### Falloff
 - **Type:** enum
 - **Default:** "smooth"
 
@@ -35,7 +35,7 @@ Spherical field
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Spherical field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

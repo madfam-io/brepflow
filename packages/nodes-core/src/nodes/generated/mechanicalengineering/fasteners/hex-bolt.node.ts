@@ -1,80 +1,81 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HexBoltParams {
   diameter: string;
   length: number;
   threadPitch: number;
   headHeight: number;
 }
-interface Inputs {
-  position: Point;
-  direction?: Vector;
+
+interface HexBoltInputs {
+  position: [number, number, number];
+  direction?: [number, number, number];
 }
-interface Outputs {
-  bolt: Shape;
-  thread: Wire;
+
+interface HexBoltOutputs {
+  bolt: unknown;
+  thread: unknown;
 }
 
 export const HexBoltNode: NodeDefinition<HexBoltInputs, HexBoltOutputs, HexBoltParams> = {
-  type: 'MechanicalEngineering::HexBolt',
+  id: 'MechanicalEngineering::HexBolt',
   category: 'MechanicalEngineering',
-  subcategory: 'Fasteners',
-
-  metadata: {
-    label: 'HexBolt',
-    description: 'Create hex head bolt',
-    
-    
-  },
-
-  params: {
-        diameter: {
-      "default": "M6",
-      "options": [
-        "M3",
-        "M4",
-        "M5",
-        "M6",
-        "M8",
-        "M10",
-        "M12",
-        "M16",
-        "M20"
-      ]
+  label: 'HexBolt',
+  description: 'Create hex head bolt',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     },
-    length: {
-      "default": 20,
-      "min": 5,
-      "max": 200,
-      "description": "Length in mm"
-    },
-    threadPitch: {
-      "default": 1,
-      "min": 0.5,
-      "max": 3,
-      "step": 0.25
-    },
-    headHeight: {
-      "default": 4,
-      "min": 2,
-      "max": 20
+    direction: {
+      type: 'Vector',
+      label: 'Direction',
+      optional: true
     }
   },
-
-  inputs: {
-        position: 'Point',
-    direction: 'Vector'
-  },
-
   outputs: {
-        bolt: 'Shape',
-    thread: 'Wire'
+    bolt: {
+      type: 'Shape',
+      label: 'Bolt'
+    },
+    thread: {
+      type: 'Wire',
+      label: 'Thread'
+    }
   },
-
+  params: {
+    diameter: {
+      type: 'enum',
+      label: 'Diameter',
+      default: "M6",
+      options: ["M3","M4","M5","M6","M8","M10","M12","M16","M20"]
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 20,
+      min: 5,
+      max: 200
+    },
+    threadPitch: {
+      type: 'number',
+      label: 'Thread Pitch',
+      default: 1,
+      min: 0.5,
+      max: 3,
+      step: 0.25
+    },
+    headHeight: {
+      type: 'number',
+      label: 'Head Height',
+      default: 4,
+      min: 2,
+      max: 20
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'hexBolt',
       params: {
         position: inputs.position,
@@ -85,10 +86,10 @@ export const HexBoltNode: NodeDefinition<HexBoltInputs, HexBoltOutputs, HexBoltP
         headHeight: params.headHeight
       }
     });
-
+    
     return {
-      bolt: result,
-      thread: result
+      bolt: results.bolt,
+      thread: results.thread
     };
-  }
+  },
 };

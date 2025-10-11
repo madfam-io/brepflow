@@ -8,7 +8,7 @@ Create threaded insert
 ## Parameters
 
 
-### threadSize
+### Thread Size
 - **Type:** enum
 - **Default:** "M5"
 
@@ -16,7 +16,7 @@ Create threaded insert
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 10
 - **Min:** 5
@@ -24,7 +24,7 @@ Create threaded insert
 
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "heat-set"
 
@@ -35,7 +35,7 @@ Create threaded insert
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Create threaded insert
 ## Outputs
 
 
-### insert
+### Insert
 - **Type:** Shape
 
 
 
-### installation_hole
+### Installation Hole
 - **Type:** Wire
 
 

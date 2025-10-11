@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SetSubsetParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  setA: Data[];
-  setB: Data[];
+interface SetSubsetInputs {
+  setA: unknown;
+  setB: unknown;
 }
-interface Outputs {
-  isSubset: boolean;
+
+interface SetSubsetOutputs {
+  isSubset: unknown;
 }
 
 export const SetSubsetNode: NodeDefinition<SetSubsetInputs, SetSubsetOutputs, SetSubsetParams> = {
-  type: 'Data::SetSubset',
+  id: 'Data::SetSubset',
   category: 'Data',
-  subcategory: 'Set',
-
-  metadata: {
-    label: 'SetSubset',
-    description: 'Check if subset',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'SetSubset',
+  description: 'Check if subset',
   inputs: {
-        setA: 'Data[]',
-    setB: 'Data[]'
+    setA: {
+      type: 'Data[]',
+      label: 'Set A',
+      required: true
+    },
+    setB: {
+      type: 'Data[]',
+      label: 'Set B',
+      required: true
+    }
   },
-
   outputs: {
-        isSubset: 'boolean'
+    isSubset: {
+      type: 'boolean',
+      label: 'Is Subset'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'setSubset',
       params: {
         setA: inputs.setA,
         setB: inputs.setB
-        
       }
     });
-
+    
     return {
       isSubset: result
     };
-  }
+  },
 };

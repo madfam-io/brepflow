@@ -8,7 +8,7 @@ Define contact sets
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "no_penetration"
 
@@ -16,7 +16,7 @@ Define contact sets
 
 
 
-### friction
+### Friction
 - **Type:** number
 - **Default:** 0.3
 - **Min:** 0
@@ -27,13 +27,13 @@ Define contact sets
 ## Inputs
 
 
-### faces1
+### Faces1
 - **Type:** Face[]
 - **Required:** Yes
 
 
 
-### faces2
+### Faces2
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Define contact sets
 ## Outputs
 
 
-### contactSet
+### Contact Set
 - **Type:** ContactSet
 
 

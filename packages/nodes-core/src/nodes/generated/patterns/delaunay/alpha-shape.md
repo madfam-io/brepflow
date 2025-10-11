@@ -8,7 +8,7 @@ Alpha shape from points
 ## Parameters
 
 
-### alpha
+### Alpha
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -19,7 +19,7 @@ Alpha shape from points
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -28,12 +28,12 @@ Alpha shape from points
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Wire
 
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 
 

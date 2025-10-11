@@ -8,7 +8,7 @@ Framed stud wall
 ## Parameters
 
 
-### studSpacing
+### Stud Spacing
 - **Type:** number
 - **Default:** 400
 - **Min:** 300
@@ -16,7 +16,7 @@ Framed stud wall
 
 
 
-### studWidth
+### Stud Width
 - **Type:** number
 - **Default:** 90
 - **Min:** 50
@@ -24,7 +24,7 @@ Framed stud wall
 
 
 
-### studDepth
+### Stud Depth
 - **Type:** number
 - **Default:** 45
 - **Min:** 35
@@ -35,7 +35,7 @@ Framed stud wall
 ## Inputs
 
 
-### outline
+### Outline
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Framed stud wall
 ## Outputs
 
 
-### studFrame
+### Stud Frame
 - **Type:** Shape[]
 
 

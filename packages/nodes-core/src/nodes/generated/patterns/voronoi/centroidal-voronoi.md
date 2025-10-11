@@ -8,7 +8,7 @@ Lloyd relaxation Voronoi
 ## Parameters
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -16,7 +16,7 @@ Lloyd relaxation Voronoi
 
 
 
-### convergence
+### Convergence
 - **Type:** number
 - **Default:** 0.001
 - **Min:** 0
@@ -27,13 +27,13 @@ Lloyd relaxation Voronoi
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** No
 
@@ -42,12 +42,12 @@ Lloyd relaxation Voronoi
 ## Outputs
 
 
-### cells
+### Cells
 - **Type:** Wire[]
 
 
 
-### centroids
+### Centroids
 - **Type:** Point[]
 
 

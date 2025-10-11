@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CelticKnotParams {
   type: string;
   width: number;
 }
-interface Inputs {
-  path: Wire;
+
+interface CelticKnotInputs {
+  path: unknown;
 }
-interface Outputs {
-  knot: Wire[];
+
+interface CelticKnotOutputs {
+  knot: unknown;
 }
 
 export const CelticKnotNode: NodeDefinition<CelticKnotInputs, CelticKnotOutputs, CelticKnotParams> = {
-  type: 'Patterns::CelticKnot',
+  id: 'Patterns::CelticKnot',
   category: 'Patterns',
-  subcategory: 'Celtic',
-
-  metadata: {
-    label: 'CelticKnot',
-    description: 'Celtic knot pattern',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "trinity",
-      "options": [
-        "trinity",
-        "spiral",
-        "maze",
-        "cross"
-      ]
-    },
-    width: {
-      "default": 2,
-      "min": 0.5,
-      "max": 5
+  label: 'CelticKnot',
+  description: 'Celtic knot pattern',
+  inputs: {
+    path: {
+      type: 'Wire',
+      label: 'Path',
+      required: true
     }
   },
-
-  inputs: {
-        path: 'Wire'
-  },
-
   outputs: {
-        knot: 'Wire[]'
+    knot: {
+      type: 'Wire[]',
+      label: 'Knot'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "trinity",
+      options: ["trinity","spiral","maze","cross"]
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 2,
+      min: 0.5,
+      max: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'celticKnot',
       params: {
@@ -59,9 +55,9 @@ export const CelticKnotNode: NodeDefinition<CelticKnotInputs, CelticKnotOutputs,
         width: params.width
       }
     });
-
+    
     return {
       knot: result
     };
-  }
+  },
 };

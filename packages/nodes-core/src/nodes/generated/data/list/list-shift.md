@@ -8,7 +8,7 @@ Shift list items
 ## Parameters
 
 
-### wrap
+### Wrap
 - **Type:** boolean
 - **Default:** true
 
@@ -19,13 +19,13 @@ Shift list items
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
 
 
-### offset
+### Offset
 - **Type:** number
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Shift list items
 ## Outputs
 
 
-### shifted
+### Shifted
 - **Type:** Data[]
 
 

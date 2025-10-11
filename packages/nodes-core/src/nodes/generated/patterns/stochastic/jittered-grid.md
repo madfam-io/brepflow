@@ -8,7 +8,7 @@ Jittered grid sampling
 ## Parameters
 
 
-### gridSize
+### Grid Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -16,7 +16,7 @@ Jittered grid sampling
 
 
 
-### jitter
+### Jitter
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -27,7 +27,7 @@ Jittered grid sampling
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Jittered grid sampling
 ## Outputs
 
 
-### points
+### Points
 - **Type:** Point[]
 
 

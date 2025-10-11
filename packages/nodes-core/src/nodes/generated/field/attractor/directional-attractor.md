@@ -8,7 +8,7 @@ Directional attractor
 ## Parameters
 
 
-### direction
+### Direction
 - **Type:** vector3
 - **Default:** [1,0,0]
 
@@ -16,7 +16,7 @@ Directional attractor
 
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 1
 - **Min:** -10
@@ -24,7 +24,7 @@ Directional attractor
 
 
 
-### spread
+### Spread
 - **Type:** number
 - **Default:** 45
 - **Min:** 0
@@ -35,7 +35,7 @@ Directional attractor
 ## Inputs
 
 
-### origin
+### Origin
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Directional attractor
 ## Outputs
 
 
-### field
+### Field
 - **Type:** VectorField
 
 

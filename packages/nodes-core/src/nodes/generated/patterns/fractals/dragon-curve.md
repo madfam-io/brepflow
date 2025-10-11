@@ -8,7 +8,7 @@ Dragon curve fractal
 ## Parameters
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 10
 - **Min:** 0
@@ -16,7 +16,7 @@ Dragon curve fractal
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** 0
@@ -27,7 +27,7 @@ Dragon curve fractal
 ## Inputs
 
 
-### startSegment
+### Start Segment
 - **Type:** Edge
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Dragon curve fractal
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 
 

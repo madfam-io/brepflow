@@ -8,7 +8,7 @@ Hyperbolic tessellation
 ## Parameters
 
 
-### p
+### P
 - **Type:** number
 - **Default:** 7
 - **Min:** 3
@@ -16,7 +16,7 @@ Hyperbolic tessellation
 
 
 
-### q
+### Q
 - **Type:** number
 - **Default:** 3
 - **Min:** 3
@@ -24,7 +24,7 @@ Hyperbolic tessellation
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -35,7 +35,7 @@ Hyperbolic tessellation
 ## Inputs
 
 
-### disk
+### Disk
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Hyperbolic tessellation
 ## Outputs
 
 
-### tiling
+### Tiling
 - **Type:** Wire[]
 
 

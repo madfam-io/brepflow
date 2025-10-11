@@ -8,7 +8,7 @@ Material cutting database
 ## Parameters
 
 
-### material
+### Material
 - **Type:** enum
 - **Default:** "acrylic"
 
@@ -16,7 +16,7 @@ Material cutting database
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -31,17 +31,17 @@ This node has no inputs.
 ## Outputs
 
 
-### cuttingSpeed
+### Cutting Speed
 - **Type:** Number
 
 
 
-### power
+### Power
 - **Type:** Number
 
 
 
-### frequency
+### Frequency
 - **Type:** Number
 
 

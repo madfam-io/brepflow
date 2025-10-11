@@ -1,57 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SubdivisionSurfaceParams {
   algorithm: string;
   iterations: number;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface SubdivisionSurfaceInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  subdivided: Mesh;
+
+interface SubdivisionSurfaceOutputs {
+  subdivided: unknown;
 }
 
 export const SubdivisionSurfaceNode: NodeDefinition<SubdivisionSurfaceInputs, SubdivisionSurfaceOutputs, SubdivisionSurfaceParams> = {
-  type: 'Patterns::SubdivisionSurface',
+  id: 'Patterns::SubdivisionSurface',
   category: 'Patterns',
-  subcategory: 'Algorithmic',
-
-  metadata: {
-    label: 'SubdivisionSurface',
-    description: 'Subdivision surface algorithms',
-    
-    
-  },
-
-  params: {
-        algorithm: {
-      "default": "catmull-clark",
-      "options": [
-        "catmull-clark",
-        "loop",
-        "doo-sabin",
-        "butterfly"
-      ]
-    },
-    iterations: {
-      "default": 2,
-      "min": 1,
-      "max": 5,
-      "step": 1
+  label: 'SubdivisionSurface',
+  description: 'Subdivision surface algorithms',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        subdivided: 'Mesh'
+    subdivided: {
+      type: 'Mesh',
+      label: 'Subdivided'
+    }
   },
-
+  params: {
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "catmull-clark",
+      options: ["catmull-clark","loop","doo-sabin","butterfly"]
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 2,
+      min: 1,
+      max: 5,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'subdivisionSurface',
       params: {
@@ -60,9 +56,9 @@ export const SubdivisionSurfaceNode: NodeDefinition<SubdivisionSurfaceInputs, Su
         iterations: params.iterations
       }
     });
-
+    
     return {
       subdivided: result
     };
-  }
+  },
 };

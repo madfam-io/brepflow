@@ -1,58 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DistanceMeasurementParams {
   precision: number;
   showDimension: boolean;
 }
-interface Inputs {
-  point1: Point;
-  point2: Point;
+
+interface DistanceMeasurementInputs {
+  point1: [number, number, number];
+  point2: [number, number, number];
 }
-interface Outputs {
-  distance: number;
-  dimensionLine: Wire;
-  midpoint: Point;
+
+interface DistanceMeasurementOutputs {
+  distance: unknown;
+  dimensionLine: unknown;
+  midpoint: [number, number, number];
 }
 
 export const DistanceMeasurementNode: NodeDefinition<DistanceMeasurementInputs, DistanceMeasurementOutputs, DistanceMeasurementParams> = {
-  type: 'Analysis::DistanceMeasurement',
+  id: 'Analysis::DistanceMeasurement',
   category: 'Analysis',
-  subcategory: 'Measurement',
-
-  metadata: {
-    label: 'DistanceMeasurement',
-    description: 'Measure distances with annotations',
-    
-    
-  },
-
-  params: {
-        precision: {
-      "default": 2,
-      "min": 0,
-      "max": 6,
-      "description": "Decimal places"
+  label: 'DistanceMeasurement',
+  description: 'Measure distances with annotations',
+  inputs: {
+    point1: {
+      type: 'Point',
+      label: 'Point1',
+      required: true
     },
-    showDimension: {
-      "default": true
+    point2: {
+      type: 'Point',
+      label: 'Point2',
+      required: true
     }
   },
-
-  inputs: {
-        point1: 'Point',
-    point2: 'Point'
-  },
-
   outputs: {
-        distance: 'number',
-    dimensionLine: 'Wire',
-    midpoint: 'Point'
+    distance: {
+      type: 'number',
+      label: 'Distance'
+    },
+    dimensionLine: {
+      type: 'Wire',
+      label: 'Dimension Line'
+    },
+    midpoint: {
+      type: 'Point',
+      label: 'Midpoint'
+    }
   },
-
+  params: {
+    precision: {
+      type: 'number',
+      label: 'Precision',
+      default: 2,
+      min: 0,
+      max: 6
+    },
+    showDimension: {
+      type: 'boolean',
+      label: 'Show Dimension',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'distanceMeasurement',
       params: {
         point1: inputs.point1,
@@ -61,11 +71,11 @@ export const DistanceMeasurementNode: NodeDefinition<DistanceMeasurementInputs, 
         showDimension: params.showDimension
       }
     });
-
+    
     return {
-      distance: result,
-      dimensionLine: result,
-      midpoint: result
+      distance: results.distance,
+      dimensionLine: results.dimensionLine,
+      midpoint: results.midpoint
     };
-  }
+  },
 };

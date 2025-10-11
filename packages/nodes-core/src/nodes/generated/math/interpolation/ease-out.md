@@ -8,7 +8,7 @@ Ease out curve
 ## Parameters
 
 
-### power
+### Power
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -19,7 +19,7 @@ Ease out curve
 ## Inputs
 
 
-### t
+### T
 - **Type:** number
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Ease out curve
 ## Outputs
 
 
-### result
+### Result
 - **Type:** number
 
 

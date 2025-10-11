@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### entity
+### Entity
 - **Type:** Shape
 - **Required:** Yes
 
@@ -21,12 +21,12 @@ This node has no parameters.
 ## Outputs
 
 
-### constrained
+### Constrained
 - **Type:** Shape
 
 
 
-### constraint
+### Constraint
 - **Type:** Constraint
 
 

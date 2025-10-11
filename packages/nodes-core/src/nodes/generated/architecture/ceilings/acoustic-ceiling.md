@@ -8,7 +8,7 @@ Acoustic ceiling treatment
 ## Parameters
 
 
-### nrc
+### Nrc
 - **Type:** number
 - **Default:** 0.85
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Acoustic ceiling treatment
 
 
 
-### panelType
+### Panel Type
 - **Type:** enum
 - **Default:** "tiles"
 
@@ -27,7 +27,7 @@ Acoustic ceiling treatment
 ## Inputs
 
 
-### ceilingArea
+### Ceiling Area
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Acoustic ceiling treatment
 ## Outputs
 
 
-### acousticCeiling
+### Acoustic Ceiling
 - **Type:** Shape
 
 

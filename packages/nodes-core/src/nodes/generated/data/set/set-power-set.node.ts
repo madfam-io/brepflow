@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SetPowerSetParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  set: Data[];
+interface SetPowerSetInputs {
+  set: unknown;
 }
-interface Outputs {
-  powerSet: Data[][];
+
+interface SetPowerSetOutputs {
+  powerSet: unknown;
 }
 
 export const SetPowerSetNode: NodeDefinition<SetPowerSetInputs, SetPowerSetOutputs, SetPowerSetParams> = {
-  type: 'Data::SetPowerSet',
+  id: 'Data::SetPowerSet',
   category: 'Data',
-  subcategory: 'Set',
-
-  metadata: {
-    label: 'SetPowerSet',
-    description: 'Power set',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'SetPowerSet',
+  description: 'Power set',
   inputs: {
-        set: 'Data[]'
+    set: {
+      type: 'Data[]',
+      label: 'Set',
+      required: true
+    }
   },
-
   outputs: {
-        powerSet: 'Data[][]'
+    powerSet: {
+      type: 'Data[][]',
+      label: 'Power Set'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'setPowerSet',
       params: {
         set: inputs.set
-        
       }
     });
-
+    
     return {
       powerSet: result
     };
-  }
+  },
 };

@@ -1,51 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DeleteFaceParams {
   healingType: string;
 }
-interface Inputs {
-  shape: Shape;
-  facesToDelete: Face[];
+
+interface DeleteFaceInputs {
+  shape: unknown;
+  facesToDelete: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface DeleteFaceOutputs {
+  result: unknown;
 }
 
 export const DeleteFaceNode: NodeDefinition<DeleteFaceInputs, DeleteFaceOutputs, DeleteFaceParams> = {
-  type: 'Advanced::DeleteFace',
+  id: 'Advanced::DeleteFace',
   category: 'Advanced',
-  subcategory: 'Healing',
-
-  metadata: {
-    label: 'DeleteFace',
-    description: 'Delete and heal faces',
-    
-    
-  },
-
-  params: {
-        healingType: {
-      "default": "extend",
-      "options": [
-        "cap",
-        "extend",
-        "none"
-      ]
+  label: 'DeleteFace',
+  description: 'Delete and heal faces',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
+    },
+    facesToDelete: {
+      type: 'Face[]',
+      label: 'Faces To Delete',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape',
-    facesToDelete: 'Face[]'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    healingType: {
+      type: 'enum',
+      label: 'Healing Type',
+      default: "extend",
+      options: ["cap","extend","none"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'deleteFace',
       params: {
@@ -54,9 +53,9 @@ export const DeleteFaceNode: NodeDefinition<DeleteFaceInputs, DeleteFaceOutputs,
         healingType: params.healingType
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

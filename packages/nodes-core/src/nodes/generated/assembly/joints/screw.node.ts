@@ -1,50 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ScrewParams {
   pitch: number;
 }
-interface Inputs {
-  part1: Shape;
-  part2: Shape;
-  axis: Axis;
+
+interface ScrewInputs {
+  part1: unknown;
+  part2: unknown;
+  axis: unknown;
 }
-interface Outputs {
-  joint: Joint;
+
+interface ScrewOutputs {
+  joint: unknown;
 }
 
 export const ScrewNode: NodeDefinition<ScrewInputs, ScrewOutputs, ScrewParams> = {
-  type: 'Assembly::Screw',
+  id: 'Assembly::Screw',
   category: 'Assembly',
-  subcategory: 'Joints',
-
-  metadata: {
-    label: 'Screw',
-    description: 'Create screw joint',
-    
-    
-  },
-
-  params: {
-        pitch: {
-      "default": 1,
-      "min": 0.01,
-      "max": 100
+  label: 'Screw',
+  description: 'Create screw joint',
+  inputs: {
+    part1: {
+      type: 'Shape',
+      label: 'Part1',
+      required: true
+    },
+    part2: {
+      type: 'Shape',
+      label: 'Part2',
+      required: true
+    },
+    axis: {
+      type: 'Axis',
+      label: 'Axis',
+      required: true
     }
   },
-
-  inputs: {
-        part1: 'Shape',
-    part2: 'Shape',
-    axis: 'Axis'
-  },
-
   outputs: {
-        joint: 'Joint'
+    joint: {
+      type: 'Joint',
+      label: 'Joint'
+    }
   },
-
+  params: {
+    pitch: {
+      type: 'number',
+      label: 'Pitch',
+      default: 1,
+      min: 0.01,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jointScrew',
       params: {
@@ -54,9 +61,9 @@ export const ScrewNode: NodeDefinition<ScrewInputs, ScrewOutputs, ScrewParams> =
         pitch: params.pitch
       }
     });
-
+    
     return {
       joint: result
     };
-  }
+  },
 };

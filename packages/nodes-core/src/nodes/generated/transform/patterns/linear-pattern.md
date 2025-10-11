@@ -8,7 +8,7 @@ Creates a linear array of features or shapes
 ## Parameters
 
 
-### count
+### Count
 - **Type:** number
 - **Default:** 5
 - **Min:** 2
@@ -16,7 +16,7 @@ Creates a linear array of features or shapes
 - **Description:** Number of instances
 
 
-### spacing
+### Spacing
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Creates a linear array of features or shapes
 - **Description:** Distance between instances
 
 
-### direction
+### Direction
 - **Type:** vector3
 - **Default:** [1,0,0]
 
@@ -32,7 +32,7 @@ Creates a linear array of features or shapes
 - **Description:** Pattern direction vector
 
 
-### centered
+### Centered
 - **Type:** boolean
 - **Default:** false
 
@@ -43,7 +43,7 @@ Creates a linear array of features or shapes
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 - **Description:** Shape or feature to pattern
@@ -52,12 +52,12 @@ Creates a linear array of features or shapes
 ## Outputs
 
 
-### shapes
+### Shapes
 - **Type:** Shape[]
 - **Description:** Array of patterned shapes
 
 
-### compound
+### Compound
 - **Type:** Shape
 - **Description:** Compound shape of all instances
 

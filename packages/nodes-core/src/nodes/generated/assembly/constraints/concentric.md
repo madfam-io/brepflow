@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### entity1
+### Entity1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### entity2
+### Entity2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -27,12 +27,12 @@ This node has no parameters.
 ## Outputs
 
 
-### constrained
+### Constrained
 - **Type:** Shape[]
 
 
 
-### constraint
+### Constraint
 - **Type:** Constraint
 
 

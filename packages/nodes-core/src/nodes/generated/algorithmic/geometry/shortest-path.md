@@ -8,7 +8,7 @@ Find shortest path between points
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "dijkstra"
 
@@ -16,7 +16,7 @@ Find shortest path between points
 
 
 
-### heuristic
+### Heuristic
 - **Type:** enum
 - **Default:** "euclidean"
 
@@ -27,19 +27,19 @@ Find shortest path between points
 ## Inputs
 
 
-### graph
+### Graph
 - **Type:** Properties
 - **Required:** Yes
 
 
 
-### start
+### Start
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### end
+### End
 - **Type:** Point
 - **Required:** Yes
 
@@ -48,17 +48,17 @@ Find shortest path between points
 ## Outputs
 
 
-### path
+### Path
 - **Type:** Wire
 
 
 
-### distance
+### Distance
 - **Type:** number
 
 
 
-### nodes
+### Nodes
 - **Type:** Point[]
 
 

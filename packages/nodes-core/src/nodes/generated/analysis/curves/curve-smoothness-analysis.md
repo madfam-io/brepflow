@@ -8,7 +8,7 @@ Analyze curve continuity and smoothness
 ## Parameters
 
 
-### continuityLevel
+### Continuity Level
 - **Type:** enum
 - **Default:** "G2"
 
@@ -16,7 +16,7 @@ Analyze curve continuity and smoothness
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -24,7 +24,7 @@ Analyze curve continuity and smoothness
 
 
 
-### showBreaks
+### Show Breaks
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Analyze curve continuity and smoothness
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Analyze curve continuity and smoothness
 ## Outputs
 
 
-### isSmooth
+### Is Smooth
 - **Type:** boolean
 
 
 
-### breakPoints
+### Break Points
 - **Type:** Point[]
 
 
 
-### continuityReport
+### Continuity Report
 - **Type:** Properties
 
 

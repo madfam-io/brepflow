@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ToolCompensationParams {
   toolRadius: number;
   wearOffset: number;
 }
-interface Inputs {
-  path: Wire;
+
+interface ToolCompensationInputs {
+  path: unknown;
 }
-interface Outputs {
-  compensatedPath: Wire;
+
+interface ToolCompensationOutputs {
+  compensatedPath: unknown;
 }
 
 export const ToolCompensationNode: NodeDefinition<ToolCompensationInputs, ToolCompensationOutputs, ToolCompensationParams> = {
-  type: 'Fabrication::ToolCompensation',
+  id: 'Fabrication::ToolCompensation',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'ToolCompensation',
-    description: 'Tool radius compensation',
-    
-    
-  },
-
-  params: {
-        toolRadius: {
-      "default": 3,
-      "min": 0.1,
-      "max": 25
-    },
-    wearOffset: {
-      "default": 0,
-      "min": -1,
-      "max": 1
+  label: 'ToolCompensation',
+  description: 'Tool radius compensation',
+  inputs: {
+    path: {
+      type: 'Wire',
+      label: 'Path',
+      required: true
     }
   },
-
-  inputs: {
-        path: 'Wire'
-  },
-
   outputs: {
-        compensatedPath: 'Wire'
+    compensatedPath: {
+      type: 'Wire',
+      label: 'Compensated Path'
+    }
   },
-
+  params: {
+    toolRadius: {
+      type: 'number',
+      label: 'Tool Radius',
+      default: 3,
+      min: 0.1,
+      max: 25
+    },
+    wearOffset: {
+      type: 'number',
+      label: 'Wear Offset',
+      default: 0,
+      min: -1,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'toolCompensation',
       params: {
@@ -55,9 +56,9 @@ export const ToolCompensationNode: NodeDefinition<ToolCompensationInputs, ToolCo
         wearOffset: params.wearOffset
       }
     });
-
+    
     return {
       compensatedPath: result
     };
-  }
+  },
 };

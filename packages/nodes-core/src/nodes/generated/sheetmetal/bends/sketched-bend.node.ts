@@ -1,68 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SketchedBendParams {
   angle: number;
   bendRadius: number;
   bendDirection: string;
   bendAllowance: number;
 }
-interface Inputs {
-  sheet: Shape;
-  bendLine: Edge;
+
+interface SketchedBendInputs {
+  sheet: unknown;
+  bendLine: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface SketchedBendOutputs {
+  result: unknown;
 }
 
 export const SketchedBendNode: NodeDefinition<SketchedBendInputs, SketchedBendOutputs, SketchedBendParams> = {
-  type: 'SheetMetal::SketchedBend',
+  id: 'SheetMetal::SketchedBend',
   category: 'SheetMetal',
-  subcategory: 'Bends',
-
-  metadata: {
-    label: 'SketchedBend',
-    description: 'Create bend from sketch line',
-    
-    
-  },
-
-  params: {
-        angle: {
-      "default": 90,
-      "min": -180,
-      "max": 180
+  label: 'SketchedBend',
+  description: 'Create bend from sketch line',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    bendRadius: {
-      "default": 3,
-      "min": 0.1,
-      "max": 100
-    },
-    bendDirection: {
-      "default": "up",
-      "options": [
-        "up",
-        "down"
-      ]
-    },
-    bendAllowance: {
-      "default": 0,
-      "min": -10,
-      "max": 10
+    bendLine: {
+      type: 'Edge',
+      label: 'Bend Line',
+      required: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    bendLine: 'Edge'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 90,
+      min: -180,
+      max: 180
+    },
+    bendRadius: {
+      type: 'number',
+      label: 'Bend Radius',
+      default: 3,
+      min: 0.1,
+      max: 100
+    },
+    bendDirection: {
+      type: 'enum',
+      label: 'Bend Direction',
+      default: "up",
+      options: ["up","down"]
+    },
+    bendAllowance: {
+      type: 'number',
+      label: 'Bend Allowance',
+      default: 0,
+      min: -10,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetSketchedBend',
       params: {
@@ -74,9 +80,9 @@ export const SketchedBendNode: NodeDefinition<SketchedBendInputs, SketchedBendOu
         bendAllowance: params.bendAllowance
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

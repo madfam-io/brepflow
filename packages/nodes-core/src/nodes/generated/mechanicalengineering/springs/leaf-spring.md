@@ -8,7 +8,7 @@ Create leaf spring assembly
 ## Parameters
 
 
-### leafCount
+### Leaf Count
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -16,7 +16,7 @@ Create leaf spring assembly
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 500
 - **Min:** 100
@@ -24,7 +24,7 @@ Create leaf spring assembly
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 50
 - **Min:** 20
@@ -32,7 +32,7 @@ Create leaf spring assembly
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 6
 - **Min:** 3
@@ -40,7 +40,7 @@ Create leaf spring assembly
 
 
 
-### camber
+### Camber
 - **Type:** number
 - **Default:** 50
 - **Min:** 0
@@ -51,7 +51,7 @@ Create leaf spring assembly
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -60,12 +60,12 @@ Create leaf spring assembly
 ## Outputs
 
 
-### assembly
+### Assembly
 - **Type:** Shape
 
 
 
-### leaves
+### Leaves
 - **Type:** Shape[]
 
 

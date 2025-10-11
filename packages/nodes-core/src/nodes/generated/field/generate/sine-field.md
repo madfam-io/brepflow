@@ -8,7 +8,7 @@ Sinusoidal wave field
 ## Parameters
 
 
-### frequency
+### Frequency
 - **Type:** vector3
 - **Default:** [0.1,0.1,0.1]
 
@@ -16,7 +16,7 @@ Sinusoidal wave field
 
 
 
-### amplitude
+### Amplitude
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -24,7 +24,7 @@ Sinusoidal wave field
 
 
 
-### phase
+### Phase
 - **Type:** vector3
 - **Default:** [0,0,0]
 
@@ -35,7 +35,7 @@ Sinusoidal wave field
 ## Inputs
 
 
-### domain
+### Domain
 - **Type:** Box
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Sinusoidal wave field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

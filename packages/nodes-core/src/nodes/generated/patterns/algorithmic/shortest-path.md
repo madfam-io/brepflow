@@ -8,7 +8,7 @@ Shortest path algorithms
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "dijkstra"
 
@@ -19,19 +19,19 @@ Shortest path algorithms
 ## Inputs
 
 
-### graph
+### Graph
 - **Type:** Wire[]
 - **Required:** Yes
 
 
 
-### start
+### Start
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### end
+### End
 - **Type:** Point
 - **Required:** Yes
 
@@ -40,12 +40,12 @@ Shortest path algorithms
 ## Outputs
 
 
-### path
+### Path
 - **Type:** Wire
 
 
 
-### distance
+### Distance
 - **Type:** Number
 
 

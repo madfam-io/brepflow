@@ -1,46 +1,45 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EaseInParams {
   power: number;
 }
-interface Inputs {
-  t: number;
+
+interface EaseInInputs {
+  t: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface EaseInOutputs {
+  result: unknown;
 }
 
 export const EaseInNode: NodeDefinition<EaseInInputs, EaseInOutputs, EaseInParams> = {
-  type: 'Math::EaseIn',
+  id: 'Math::EaseIn',
   category: 'Math',
-  subcategory: 'Interpolation',
-
-  metadata: {
-    label: 'EaseIn',
-    description: 'Ease in curve',
-    
-    
-  },
-
-  params: {
-        power: {
-      "default": 2,
-      "min": 1,
-      "max": 10
+  label: 'EaseIn',
+  description: 'Ease in curve',
+  inputs: {
+    t: {
+      type: 'number',
+      label: 'T',
+      required: true
     }
   },
-
-  inputs: {
-        t: 'number'
-  },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {
+    power: {
+      type: 'number',
+      label: 'Power',
+      default: 2,
+      min: 1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathEaseIn',
       params: {
@@ -48,9 +47,9 @@ export const EaseInNode: NodeDefinition<EaseInInputs, EaseInOutputs, EaseInParam
         power: params.power
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

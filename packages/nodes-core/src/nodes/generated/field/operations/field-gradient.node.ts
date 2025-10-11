@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldGradientParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  field: ScalarField;
+interface FieldGradientInputs {
+  field: unknown;
 }
-interface Outputs {
-  gradient: VectorField;
+
+interface FieldGradientOutputs {
+  gradient: unknown;
 }
 
 export const FieldGradientNode: NodeDefinition<FieldGradientInputs, FieldGradientOutputs, FieldGradientParams> = {
-  type: 'Field::FieldGradient',
+  id: 'Field::FieldGradient',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldGradient',
-    description: 'Compute field gradient',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldGradient',
+  description: 'Compute field gradient',
   inputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
+    }
   },
-
   outputs: {
-        gradient: 'VectorField'
+    gradient: {
+      type: 'VectorField',
+      label: 'Gradient'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldGradient',
       params: {
         field: inputs.field
-        
       }
     });
-
+    
     return {
       gradient: result
     };
-  }
+  },
 };

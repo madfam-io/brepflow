@@ -8,7 +8,7 @@ Robotic welding path
 ## Parameters
 
 
-### weldType
+### Weld Type
 - **Type:** enum
 - **Default:** "mig"
 
@@ -16,7 +16,7 @@ Robotic welding path
 
 
 
-### weavePattern
+### Weave Pattern
 - **Type:** enum
 - **Default:** "none"
 
@@ -24,7 +24,7 @@ Robotic welding path
 
 
 
-### travelSpeed
+### Travel Speed
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -35,7 +35,7 @@ Robotic welding path
 ## Inputs
 
 
-### seamPath
+### Seam Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Robotic welding path
 ## Outputs
 
 
-### weldPath
+### Weld Path
 - **Type:** Transform[]
 
 
 
-### weldParameters
+### Weld Parameters
 - **Type:** Data
 
 

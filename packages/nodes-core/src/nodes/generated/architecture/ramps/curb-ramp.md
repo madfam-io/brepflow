@@ -8,7 +8,7 @@ Curb cut ramp
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "perpendicular"
 
@@ -16,7 +16,7 @@ Curb cut ramp
 
 
 
-### flareSlope
+### Flare Slope
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.083
@@ -27,7 +27,7 @@ Curb cut ramp
 ## Inputs
 
 
-### curbLine
+### Curb Line
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Curb cut ramp
 ## Outputs
 
 
-### curbRamp
+### Curb Ramp
 - **Type:** Shape
 
 

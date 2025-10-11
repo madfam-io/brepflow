@@ -8,7 +8,7 @@ Deform by field
 ## Parameters
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 10
 - **Min:** -100
@@ -19,13 +19,13 @@ Deform by field
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### field
+### Field
 - **Type:** VectorField
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Deform by field
 ## Outputs
 
 
-### deformed
+### Deformed
 - **Type:** Shape
 
 

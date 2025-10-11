@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type TreeGraftParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  tree: DataTree;
+interface TreeGraftInputs {
+  tree: unknown;
 }
-interface Outputs {
-  grafted: DataTree;
+
+interface TreeGraftOutputs {
+  grafted: unknown;
 }
 
 export const TreeGraftNode: NodeDefinition<TreeGraftInputs, TreeGraftOutputs, TreeGraftParams> = {
-  type: 'Data::TreeGraft',
+  id: 'Data::TreeGraft',
   category: 'Data',
-  subcategory: 'Tree',
-
-  metadata: {
-    label: 'TreeGraft',
-    description: 'Graft tree',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'TreeGraft',
+  description: 'Graft tree',
   inputs: {
-        tree: 'DataTree'
+    tree: {
+      type: 'DataTree',
+      label: 'Tree',
+      required: true
+    }
   },
-
   outputs: {
-        grafted: 'DataTree'
+    grafted: {
+      type: 'DataTree',
+      label: 'Grafted'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'treeGraft',
       params: {
         tree: inputs.tree
-        
       }
     });
-
+    
     return {
       grafted: result
     };
-  }
+  },
 };

@@ -1,48 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SineParams {
   angleUnit: string;
 }
-interface Inputs {
-  angle: number;
+
+interface SineInputs {
+  angle: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface SineOutputs {
+  result: unknown;
 }
 
 export const SineNode: NodeDefinition<SineInputs, SineOutputs, SineParams> = {
-  type: 'Math::Sine',
+  id: 'Math::Sine',
   category: 'Math',
-  subcategory: 'Trigonometry',
-
-  metadata: {
-    label: 'Sine',
-    description: 'Sine function',
-    
-    
-  },
-
-  params: {
-        angleUnit: {
-      "default": "radians",
-      "options": [
-        "radians",
-        "degrees"
-      ]
+  label: 'Sine',
+  description: 'Sine function',
+  inputs: {
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      required: true
     }
   },
-
-  inputs: {
-        angle: 'number'
-  },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {
+    angleUnit: {
+      type: 'enum',
+      label: 'Angle Unit',
+      default: "radians",
+      options: ["radians","degrees"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathSin',
       params: {
@@ -50,9 +46,9 @@ export const SineNode: NodeDefinition<SineInputs, SineOutputs, SineParams> = {
         angleUnit: params.angleUnit
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Blue noise distribution
 ## Parameters
 
 
-### count
+### Count
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Blue noise distribution
 
 
 
-### minDistance
+### Min Distance
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Blue noise distribution
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Blue noise distribution
 ## Outputs
 
 
-### points
+### Points
 - **Type:** Point[]
 
 

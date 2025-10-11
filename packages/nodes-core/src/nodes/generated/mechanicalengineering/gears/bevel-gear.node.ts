@@ -1,68 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BevelGearParams {
   module: number;
   teeth: number;
   coneAngle: number;
   faceWidth: number;
 }
-interface Inputs {
-  apex: Point;
+
+interface BevelGearInputs {
+  apex: [number, number, number];
 }
-interface Outputs {
-  gear: Shape;
-  pitchCone: Surface;
+
+interface BevelGearOutputs {
+  gear: unknown;
+  pitchCone: unknown;
 }
 
 export const BevelGearNode: NodeDefinition<BevelGearInputs, BevelGearOutputs, BevelGearParams> = {
-  type: 'MechanicalEngineering::BevelGear',
+  id: 'MechanicalEngineering::BevelGear',
   category: 'MechanicalEngineering',
-  subcategory: 'Gears',
-
-  metadata: {
-    label: 'BevelGear',
-    description: 'Create bevel gear for angle transmission',
-    
-    
-  },
-
-  params: {
-        module: {
-      "default": 3,
-      "min": 1,
-      "max": 20
-    },
-    teeth: {
-      "default": 25,
-      "min": 10,
-      "max": 100
-    },
-    coneAngle: {
-      "default": 45,
-      "min": 10,
-      "max": 80,
-      "description": "Pitch cone angle"
-    },
-    faceWidth: {
-      "default": 15,
-      "min": 5,
-      "max": 50
+  label: 'BevelGear',
+  description: 'Create bevel gear for angle transmission',
+  inputs: {
+    apex: {
+      type: 'Point',
+      label: 'Apex',
+      required: true
     }
   },
-
-  inputs: {
-        apex: 'Point'
-  },
-
   outputs: {
-        gear: 'Shape',
-    pitchCone: 'Surface'
+    gear: {
+      type: 'Shape',
+      label: 'Gear'
+    },
+    pitchCone: {
+      type: 'Surface',
+      label: 'Pitch Cone'
+    }
   },
-
+  params: {
+    module: {
+      type: 'number',
+      label: 'Module',
+      default: 3,
+      min: 1,
+      max: 20
+    },
+    teeth: {
+      type: 'number',
+      label: 'Teeth',
+      default: 25,
+      min: 10,
+      max: 100
+    },
+    coneAngle: {
+      type: 'number',
+      label: 'Cone Angle',
+      default: 45,
+      min: 10,
+      max: 80
+    },
+    faceWidth: {
+      type: 'number',
+      label: 'Face Width',
+      default: 15,
+      min: 5,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'bevelGear',
       params: {
         apex: inputs.apex,
@@ -72,10 +79,10 @@ export const BevelGearNode: NodeDefinition<BevelGearInputs, BevelGearOutputs, Be
         faceWidth: params.faceWidth
       }
     });
-
+    
     return {
-      gear: result,
-      pitchCone: result
+      gear: results.gear,
+      pitchCone: results.pitchCone
     };
-  }
+  },
 };

@@ -1,70 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CountersinkHoleParams {
   holeDiameter: number;
   countersinkDiameter: number;
   angle: string;
   depth: number;
 }
-interface Inputs {
-  solid: Shape;
-  position: Point;
+
+interface CountersinkHoleInputs {
+  solid: unknown;
+  position: [number, number, number];
 }
-interface Outputs {
-  shape: Shape;
+
+interface CountersinkHoleOutputs {
+  shape: unknown;
 }
 
 export const CountersinkHoleNode: NodeDefinition<CountersinkHoleInputs, CountersinkHoleOutputs, CountersinkHoleParams> = {
-  type: 'Features::CountersinkHole',
+  id: 'Features::CountersinkHole',
   category: 'Features',
-  subcategory: 'Holes',
-
-  metadata: {
-    label: 'CountersinkHole',
-    description: 'Creates a countersink hole for flat head screws',
-    
-    tags: ["hole","countersink","fastener","FHS"],
-  },
-
-  params: {
-        holeDiameter: {
-      "default": 6.5,
-      "min": 0.1,
-      "max": 100
+  label: 'CountersinkHole',
+  description: 'Creates a countersink hole for flat head screws',
+  inputs: {
+    solid: {
+      type: 'Shape',
+      label: 'Solid',
+      required: true
     },
-    countersinkDiameter: {
-      "default": 12,
-      "min": 0.1,
-      "max": 200
-    },
-    angle: {
-      "default": "90",
-      "options": [
-        "82",
-        "90",
-        "100",
-        "120"
-      ],
-      "description": "Countersink angle in degrees"
-    },
-    depth: {
-      "default": -1,
-      "min": -1
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        solid: 'Shape',
-    position: 'Point'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    holeDiameter: {
+      type: 'number',
+      label: 'Hole Diameter',
+      default: 6.5,
+      min: 0.1,
+      max: 100
+    },
+    countersinkDiameter: {
+      type: 'number',
+      label: 'Countersink Diameter',
+      default: 12,
+      min: 0.1,
+      max: 200
+    },
+    angle: {
+      type: 'enum',
+      label: 'Angle',
+      default: "90",
+      options: ["82","90","100","120"]
+    },
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: -1,
+      min: -1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeCountersink',
       params: {
@@ -76,9 +79,9 @@ export const CountersinkHoleNode: NodeDefinition<CountersinkHoleInputs, Counters
         depth: params.depth
       }
     });
-
+    
     return {
       shape: result
     };
-  }
+  },
 };

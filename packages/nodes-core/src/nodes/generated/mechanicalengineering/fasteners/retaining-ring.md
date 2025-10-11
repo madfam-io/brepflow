@@ -8,7 +8,7 @@ Create retaining ring/circlip
 ## Parameters
 
 
-### shaftDiameter
+### Shaft Diameter
 - **Type:** number
 - **Default:** 10
 - **Min:** 3
@@ -16,7 +16,7 @@ Create retaining ring/circlip
 
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "external"
 
@@ -24,7 +24,7 @@ Create retaining ring/circlip
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.5
@@ -32,7 +32,7 @@ Create retaining ring/circlip
 
 
 
-### grooveWidth
+### Groove Width
 - **Type:** number
 - **Default:** 1.2
 - **Min:** 0.6
@@ -43,7 +43,7 @@ Create retaining ring/circlip
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create retaining ring/circlip
 ## Outputs
 
 
-### ring
+### Ring
 - **Type:** Shape
 
 
 
-### groove
+### Groove
 - **Type:** Wire
 
 

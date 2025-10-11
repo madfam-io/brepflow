@@ -8,7 +8,7 @@ Creates a counterbore hole for socket head cap screws
 ## Parameters
 
 
-### holeDiameter
+### Hole Diameter
 - **Type:** number
 - **Default:** 6.5
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Creates a counterbore hole for socket head cap screws
 - **Description:** Through hole diameter
 
 
-### counterbore
+### Counterbore
 - **Type:** number
 - **Default:** 11
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Creates a counterbore hole for socket head cap screws
 - **Description:** Counterbore diameter
 
 
-### cbDepth
+### Cb Depth
 - **Type:** number
 - **Default:** 6
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Creates a counterbore hole for socket head cap screws
 - **Description:** Counterbore depth
 
 
-### holeDepth
+### Hole Depth
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -43,13 +43,13 @@ Creates a counterbore hole for socket head cap screws
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -58,7 +58,7 @@ Creates a counterbore hole for socket head cap screws
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

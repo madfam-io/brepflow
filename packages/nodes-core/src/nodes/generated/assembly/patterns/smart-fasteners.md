@@ -8,7 +8,7 @@ Add smart fasteners
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "bolt"
 
@@ -16,7 +16,7 @@ Add smart fasteners
 
 
 
-### size
+### Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -24,7 +24,7 @@ Add smart fasteners
 
 
 
-### autoSize
+### Auto Size
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Add smart fasteners
 ## Inputs
 
 
-### holes
+### Holes
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Add smart fasteners
 ## Outputs
 
 
-### fasteners
+### Fasteners
 - **Type:** Shape[]
 
 

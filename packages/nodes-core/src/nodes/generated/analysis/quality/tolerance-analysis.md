@@ -8,7 +8,7 @@ Analyze geometric tolerances
 ## Parameters
 
 
-### nominalTolerance
+### Nominal Tolerance
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Analyze geometric tolerances
 
 
 
-### showDeviations
+### Show Deviations
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Analyze geometric tolerances
 ## Inputs
 
 
-### measured
+### Measured
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### nominal
+### Nominal
 - **Type:** Shape
 - **Required:** Yes
 
@@ -42,17 +42,17 @@ Analyze geometric tolerances
 ## Outputs
 
 
-### withinTolerance
+### Within Tolerance
 - **Type:** boolean
 
 
 
-### maxDeviation
+### Max Deviation
 - **Type:** number
 
 
 
-### deviationMap
+### Deviation Map
 - **Type:** Shape
 
 

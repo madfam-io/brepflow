@@ -8,7 +8,7 @@
 ## Parameters
 
 
-### leadAngle
+### Lead Angle
 - **Type:** number
 - **Default:** 10
 - **Min:** 0
@@ -16,7 +16,7 @@
 
 
 
-### tiltAngle
+### Tilt Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** -90
@@ -27,13 +27,13 @@
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### toolAxis
+### Tool Axis
 - **Type:** Vector
 - **Required:** No
 
@@ -42,7 +42,7 @@
 ## Outputs
 
 
-### toolOrientations
+### Tool Orientations
 - **Type:** Transform[]
 
 

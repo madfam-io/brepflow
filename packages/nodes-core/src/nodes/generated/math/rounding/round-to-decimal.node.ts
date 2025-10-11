@@ -1,47 +1,46 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RoundToDecimalParams {
   decimals: number;
 }
-interface Inputs {
-  value: number;
+
+interface RoundToDecimalInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface RoundToDecimalOutputs {
+  result: unknown;
 }
 
 export const RoundToDecimalNode: NodeDefinition<RoundToDecimalInputs, RoundToDecimalOutputs, RoundToDecimalParams> = {
-  type: 'Math::RoundToDecimal',
+  id: 'Math::RoundToDecimal',
   category: 'Math',
-  subcategory: 'Rounding',
-
-  metadata: {
-    label: 'RoundToDecimal',
-    description: 'Round to decimal places',
-    
-    
-  },
-
-  params: {
-        decimals: {
-      "default": 2,
-      "min": 0,
-      "max": 10,
-      "step": 1
+  label: 'RoundToDecimal',
+  description: 'Round to decimal places',
+  inputs: {
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
     }
   },
-
-  inputs: {
-        value: 'number'
-  },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {
+    decimals: {
+      type: 'number',
+      label: 'Decimals',
+      default: 2,
+      min: 0,
+      max: 10,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathRoundDecimal',
       params: {
@@ -49,9 +48,9 @@ export const RoundToDecimalNode: NodeDefinition<RoundToDecimalInputs, RoundToDec
         decimals: params.decimals
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

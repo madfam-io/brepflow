@@ -8,7 +8,7 @@ Create straight wall segment
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 3000
 - **Min:** 100
@@ -16,7 +16,7 @@ Create straight wall segment
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 200
 - **Min:** 50
@@ -24,7 +24,7 @@ Create straight wall segment
 
 
 
-### justification
+### Justification
 - **Type:** enum
 - **Default:** "center"
 
@@ -35,7 +35,7 @@ Create straight wall segment
 ## Inputs
 
 
-### centerline
+### Centerline
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Create straight wall segment
 ## Outputs
 
 
-### wall
+### Wall
 - **Type:** Shape
 
 
 
-### centerline
+### Centerline
 - **Type:** Wire
 
 

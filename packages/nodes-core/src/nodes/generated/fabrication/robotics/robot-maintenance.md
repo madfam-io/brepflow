@@ -8,7 +8,7 @@ Maintenance scheduling
 ## Parameters
 
 
-### operatingHours
+### Operating Hours
 - **Type:** number
 - **Default:** 1000
 - **Min:** 0
@@ -19,7 +19,7 @@ Maintenance scheduling
 ## Inputs
 
 
-### robotData
+### Robot Data
 - **Type:** Data
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Maintenance scheduling
 ## Outputs
 
 
-### maintenanceSchedule
+### Maintenance Schedule
 - **Type:** Data
 
 

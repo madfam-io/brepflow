@@ -8,7 +8,7 @@ Collision detection and avoidance
 ## Parameters
 
 
-### safetyMargin
+### Safety Margin
 - **Type:** number
 - **Default:** 10
 - **Min:** 0
@@ -19,13 +19,13 @@ Collision detection and avoidance
 ## Inputs
 
 
-### robotPath
+### Robot Path
 - **Type:** Transform[]
 - **Required:** Yes
 
 
 
-### environment
+### Environment
 - **Type:** Shape[]
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Collision detection and avoidance
 ## Outputs
 
 
-### safePath
+### Safe Path
 - **Type:** Transform[]
 
 
 
-### collisionPoints
+### Collision Points
 - **Type:** Point[]
 
 

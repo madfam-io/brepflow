@@ -1,65 +1,77 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveDerivativesParams {
   parameter: number;
   order: number;
   vectorScale: number;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveDerivativesInputs {
+  curve: unknown;
 }
-interface Outputs {
-  point: Point;
-  firstDerivative: Vector;
-  secondDerivative: Vector;
-  thirdDerivative: Vector;
+
+interface CurveDerivativesOutputs {
+  point: [number, number, number];
+  firstDerivative: [number, number, number];
+  secondDerivative: [number, number, number];
+  thirdDerivative: [number, number, number];
 }
 
 export const CurveDerivativesNode: NodeDefinition<CurveDerivativesInputs, CurveDerivativesOutputs, CurveDerivativesParams> = {
-  type: 'Analysis::CurveDerivatives',
+  id: 'Analysis::CurveDerivatives',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveDerivatives',
-    description: 'Calculate curve derivatives',
-    
-    
-  },
-
-  params: {
-        parameter: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
-    },
-    order: {
-      "default": 2,
-      "min": 1,
-      "max": 3
-    },
-    vectorScale: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
+  label: 'CurveDerivatives',
+  description: 'Calculate curve derivatives',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        point: 'Point',
-    firstDerivative: 'Vector',
-    secondDerivative: 'Vector',
-    thirdDerivative: 'Vector'
+    point: {
+      type: 'Point',
+      label: 'Point'
+    },
+    firstDerivative: {
+      type: 'Vector',
+      label: 'First Derivative'
+    },
+    secondDerivative: {
+      type: 'Vector',
+      label: 'Second Derivative'
+    },
+    thirdDerivative: {
+      type: 'Vector',
+      label: 'Third Derivative'
+    }
   },
-
+  params: {
+    parameter: {
+      type: 'number',
+      label: 'Parameter',
+      default: 0.5,
+      min: 0,
+      max: 1
+    },
+    order: {
+      type: 'number',
+      label: 'Order',
+      default: 2,
+      min: 1,
+      max: 3
+    },
+    vectorScale: {
+      type: 'number',
+      label: 'Vector Scale',
+      default: 1,
+      min: 0.1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveDerivatives',
       params: {
         curve: inputs.curve,
@@ -68,12 +80,12 @@ export const CurveDerivativesNode: NodeDefinition<CurveDerivativesInputs, CurveD
         vectorScale: params.vectorScale
       }
     });
-
+    
     return {
-      point: result,
-      firstDerivative: result,
-      secondDerivative: result,
-      thirdDerivative: result
+      point: results.point,
+      firstDerivative: results.firstDerivative,
+      secondDerivative: results.secondDerivative,
+      thirdDerivative: results.thirdDerivative
     };
-  }
+  },
 };

@@ -1,84 +1,88 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MaterialAssignParams {
   material: string;
   youngsModulus: number;
   poissonsRatio: number;
   density: number;
   yieldStrength: number;
 }
-interface Inputs {
-  mesh: Mesh;
-  bodies?: Shape[];
+
+interface MaterialAssignInputs {
+  mesh: unknown;
+  bodies?: unknown;
 }
-interface Outputs {
-  materializedMesh: Mesh;
-  materialData: Data;
+
+interface MaterialAssignOutputs {
+  materializedMesh: unknown;
+  materialData: unknown;
 }
 
 export const MaterialAssignNode: NodeDefinition<MaterialAssignInputs, MaterialAssignOutputs, MaterialAssignParams> = {
-  type: 'Simulation::MaterialAssign',
+  id: 'Simulation::MaterialAssign',
   category: 'Simulation',
-  subcategory: 'FEA',
-
-  metadata: {
-    label: 'MaterialAssign',
-    description: 'Assign material properties',
-    
-    
-  },
-
-  params: {
-        material: {
-      "default": "steel",
-      "options": [
-        "steel",
-        "aluminum",
-        "titanium",
-        "plastic",
-        "composite",
-        "custom"
-      ]
+  label: 'MaterialAssign',
+  description: 'Assign material properties',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     },
-    youngsModulus: {
-      "default": 200000,
-      "min": 1,
-      "max": 1000000,
-      "description": "MPa"
-    },
-    poissonsRatio: {
-      "default": 0.3,
-      "min": 0,
-      "max": 0.5
-    },
-    density: {
-      "default": 7850,
-      "min": 1,
-      "max": 20000,
-      "description": "kg/m³"
-    },
-    yieldStrength: {
-      "default": 250,
-      "min": 1,
-      "max": 5000,
-      "description": "MPa"
+    bodies: {
+      type: 'Shape[]',
+      label: 'Bodies',
+      optional: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh',
-    bodies: 'Shape[]'
-  },
-
   outputs: {
-        materializedMesh: 'Mesh',
-    materialData: 'Data'
+    materializedMesh: {
+      type: 'Mesh',
+      label: 'Materialized Mesh'
+    },
+    materialData: {
+      type: 'Data',
+      label: 'Material Data'
+    }
   },
-
+  params: {
+    material: {
+      type: 'enum',
+      label: 'Material',
+      default: "steel",
+      options: ["steel","aluminum","titanium","plastic","composite","custom"]
+    },
+    youngsModulus: {
+      type: 'number',
+      label: 'Youngs Modulus',
+      default: 200000,
+      min: 1,
+      max: 1000000
+    },
+    poissonsRatio: {
+      type: 'number',
+      label: 'Poissons Ratio',
+      default: 0.3,
+      min: 0,
+      max: 0.5
+    },
+    density: {
+      type: 'number',
+      label: 'Density',
+      default: 7850,
+      min: 1,
+      max: 20000
+    },
+    yieldStrength: {
+      type: 'number',
+      label: 'Yield Strength',
+      default: 250,
+      min: 1,
+      max: 5000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'materialAssign',
       params: {
         mesh: inputs.mesh,
@@ -90,10 +94,10 @@ export const MaterialAssignNode: NodeDefinition<MaterialAssignInputs, MaterialAs
         yieldStrength: params.yieldStrength
       }
     });
-
+    
     return {
-      materializedMesh: result,
-      materialData: result
+      materializedMesh: results.materializedMesh,
+      materialData: results.materialData
     };
-  }
+  },
 };

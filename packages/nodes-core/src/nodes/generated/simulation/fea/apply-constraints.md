@@ -8,7 +8,7 @@ Define boundary conditions
 ## Parameters
 
 
-### constraintType
+### Constraint Type
 - **Type:** enum
 - **Default:** "fixed"
 
@@ -16,7 +16,7 @@ Define boundary conditions
 
 
 
-### dof
+### Dof
 - **Type:** boolean[]
 - **Default:** [true,true,true,true,true,true]
 
@@ -27,13 +27,13 @@ Define boundary conditions
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
 
 
-### constraintFaces
+### Constraint Faces
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Define boundary conditions
 ## Outputs
 
 
-### constrainedMesh
+### Constrained Mesh
 - **Type:** Mesh
 
 
 
-### constraintData
+### Constraint Data
 - **Type:** Data
 
 

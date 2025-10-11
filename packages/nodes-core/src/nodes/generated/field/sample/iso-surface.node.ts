@@ -1,51 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface IsoSurfaceParams {
   value: number;
   resolution: number;
 }
-interface Inputs {
-  field: ScalarField;
+
+interface IsoSurfaceInputs {
+  field: unknown;
 }
-interface Outputs {
-  surface: Mesh;
+
+interface IsoSurfaceOutputs {
+  surface: unknown;
 }
 
 export const IsoSurfaceNode: NodeDefinition<IsoSurfaceInputs, IsoSurfaceOutputs, IsoSurfaceParams> = {
-  type: 'Field::IsoSurface',
+  id: 'Field::IsoSurface',
   category: 'Field',
-  subcategory: 'Sample',
-
-  metadata: {
-    label: 'IsoSurface',
-    description: 'Extract iso-surface',
-    
-    
-  },
-
-  params: {
-        value: {
-      "default": 0.5
-    },
-    resolution: {
-      "default": 50,
-      "min": 10,
-      "max": 200,
-      "step": 5
+  label: 'IsoSurface',
+  description: 'Extract iso-surface',
+  inputs: {
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'ScalarField'
-  },
-
   outputs: {
-        surface: 'Mesh'
+    surface: {
+      type: 'Mesh',
+      label: 'Surface'
+    }
   },
-
+  params: {
+    value: {
+      type: 'number',
+      label: 'Value',
+      default: 0.5
+    },
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 50,
+      min: 10,
+      max: 200,
+      step: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldIsoSurface',
       params: {
@@ -54,9 +55,9 @@ export const IsoSurfaceNode: NodeDefinition<IsoSurfaceInputs, IsoSurfaceOutputs,
         resolution: params.resolution
       }
     });
-
+    
     return {
       surface: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Pattern components in assembly
 ## Parameters
 
 
-### patternType
+### Pattern Type
 - **Type:** enum
 - **Default:** "linear"
 
@@ -16,7 +16,7 @@ Pattern components in assembly
 
 
 
-### count
+### Count
 - **Type:** number
 - **Default:** 3
 - **Min:** 2
@@ -24,7 +24,7 @@ Pattern components in assembly
 
 
 
-### spacing
+### Spacing
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -35,13 +35,13 @@ Pattern components in assembly
 ## Inputs
 
 
-### component
+### Component
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### mates
+### Mates
 - **Type:** Mate[]
 - **Required:** No
 
@@ -50,7 +50,7 @@ Pattern components in assembly
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Shape[]
 
 

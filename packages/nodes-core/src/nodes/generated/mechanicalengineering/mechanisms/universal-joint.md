@@ -8,7 +8,7 @@ Create universal joint
 ## Parameters
 
 
-### yokeDiameter
+### Yoke Diameter
 - **Type:** number
 - **Default:** 30
 - **Min:** 10
@@ -16,7 +16,7 @@ Create universal joint
 
 
 
-### crossPinDiameter
+### Cross Pin Diameter
 - **Type:** number
 - **Default:** 8
 - **Min:** 3
@@ -24,7 +24,7 @@ Create universal joint
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 60
 - **Min:** 20
@@ -32,7 +32,7 @@ Create universal joint
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -43,7 +43,7 @@ Create universal joint
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create universal joint
 ## Outputs
 
 
-### joint
+### Joint
 - **Type:** Shape
 
 
 
-### yokes
+### Yokes
 - **Type:** Shape[]
 
 
 
-### cross
+### Cross
 - **Type:** Shape
 
 

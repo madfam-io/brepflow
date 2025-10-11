@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ComplexMultiplyParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  a: Complex;
-  b: Complex;
+interface ComplexMultiplyInputs {
+  a: unknown;
+  b: unknown;
 }
-interface Outputs {
-  result: Complex;
+
+interface ComplexMultiplyOutputs {
+  result: unknown;
 }
 
 export const ComplexMultiplyNode: NodeDefinition<ComplexMultiplyInputs, ComplexMultiplyOutputs, ComplexMultiplyParams> = {
-  type: 'Math::ComplexMultiply',
+  id: 'Math::ComplexMultiply',
   category: 'Math',
-  subcategory: 'Complex',
-
-  metadata: {
-    label: 'ComplexMultiply',
-    description: 'Multiply complex numbers',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ComplexMultiply',
+  description: 'Multiply complex numbers',
   inputs: {
-        a: 'Complex',
-    b: 'Complex'
+    a: {
+      type: 'Complex',
+      label: 'A',
+      required: true
+    },
+    b: {
+      type: 'Complex',
+      label: 'B',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'Complex'
+    result: {
+      type: 'Complex',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathComplexMultiply',
       params: {
         a: inputs.a,
         b: inputs.b
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

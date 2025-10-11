@@ -8,7 +8,7 @@ Analyze robot reach
 ## Parameters
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -19,13 +19,13 @@ Analyze robot reach
 ## Inputs
 
 
-### robotModel
+### Robot Model
 - **Type:** Data
 - **Required:** Yes
 
 
 
-### workspace
+### Workspace
 - **Type:** Box
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Analyze robot reach
 ## Outputs
 
 
-### reachableVolume
+### Reachable Volume
 - **Type:** Shape
 
 
 
-### coverage
+### Coverage
 - **Type:** Number
 
 

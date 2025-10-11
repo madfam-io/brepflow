@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AirAssistParams {
   pressure: number;
   nozzleType: string;
 }
-interface Inputs {
-  material: Data;
+
+interface AirAssistInputs {
+  material: unknown;
 }
-interface Outputs {
-  airSettings: Data;
+
+interface AirAssistOutputs {
+  airSettings: unknown;
 }
 
 export const AirAssistNode: NodeDefinition<AirAssistInputs, AirAssistOutputs, AirAssistParams> = {
-  type: 'Fabrication::AirAssist',
+  id: 'Fabrication::AirAssist',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'AirAssist',
-    description: 'Air assist optimization',
-    
-    
-  },
-
-  params: {
-        pressure: {
-      "default": 20,
-      "min": 0,
-      "max": 100
-    },
-    nozzleType: {
-      "default": "standard",
-      "options": [
-        "standard",
-        "high-pressure",
-        "wide",
-        "focused"
-      ]
+  label: 'AirAssist',
+  description: 'Air assist optimization',
+  inputs: {
+    material: {
+      type: 'Data',
+      label: 'Material',
+      required: true
     }
   },
-
-  inputs: {
-        material: 'Data'
-  },
-
   outputs: {
-        airSettings: 'Data'
+    airSettings: {
+      type: 'Data',
+      label: 'Air Settings'
+    }
   },
-
+  params: {
+    pressure: {
+      type: 'number',
+      label: 'Pressure',
+      default: 20,
+      min: 0,
+      max: 100
+    },
+    nozzleType: {
+      type: 'enum',
+      label: 'Nozzle Type',
+      default: "standard",
+      options: ["standard","high-pressure","wide","focused"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'airAssist',
       params: {
@@ -59,9 +55,9 @@ export const AirAssistNode: NodeDefinition<AirAssistInputs, AirAssistOutputs, Ai
         nozzleType: params.nozzleType
       }
     });
-
+    
     return {
       airSettings: result
     };
-  }
+  },
 };

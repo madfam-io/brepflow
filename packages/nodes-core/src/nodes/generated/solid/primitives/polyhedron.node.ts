@@ -1,65 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PolyhedronParams {
   type: string;
   size: number;
 }
-type Inputs = {};
-interface Outputs {
-  solid: Solid;
+
+type PolyhedronInputs = Record<string, never>;
+
+interface PolyhedronOutputs {
+  solid: unknown;
 }
 
 export const PolyhedronNode: NodeDefinition<PolyhedronInputs, PolyhedronOutputs, PolyhedronParams> = {
-  type: 'Solid::Polyhedron',
+  id: 'Solid::Polyhedron',
   category: 'Solid',
-  subcategory: 'Primitives',
-
-  metadata: {
-    label: 'Polyhedron',
-    description: 'Create a regular polyhedron',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "octahedron",
-      "options": [
-        "tetrahedron",
-        "octahedron",
-        "dodecahedron",
-        "icosahedron"
-      ]
-    },
-    size: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
+  label: 'Polyhedron',
+  description: 'Create a regular polyhedron',
+  inputs: {},
+  outputs: {
+    solid: {
+      type: 'Solid',
+      label: 'Solid'
     }
   },
-
-  inputs: {
-    
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "octahedron",
+      options: ["tetrahedron","octahedron","dodecahedron","icosahedron"]
+    },
+    size: {
+      type: 'number',
+      label: 'Size',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    }
   },
-
-  outputs: {
-        solid: 'Solid'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makePolyhedron',
       params: {
-        
         type: params.type,
         size: params.size
       }
     });
-
+    
     return {
       solid: result
     };
-  }
+  },
 };

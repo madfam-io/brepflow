@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### set
+### Set
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### powerSet
+### Power Set
 - **Type:** Data[][]
 
 

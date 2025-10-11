@@ -8,7 +8,7 @@ Create differential gear assembly
 ## Parameters
 
 
-### ringGearTeeth
+### Ring Gear Teeth
 - **Type:** number
 - **Default:** 41
 - **Min:** 30
@@ -16,7 +16,7 @@ Create differential gear assembly
 
 
 
-### pinionTeeth
+### Pinion Teeth
 - **Type:** number
 - **Default:** 13
 - **Min:** 9
@@ -24,7 +24,7 @@ Create differential gear assembly
 
 
 
-### spiderGearTeeth
+### Spider Gear Teeth
 - **Type:** number
 - **Default:** 10
 - **Min:** 8
@@ -32,7 +32,7 @@ Create differential gear assembly
 
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 3
 - **Min:** 2
@@ -43,7 +43,7 @@ Create differential gear assembly
 ## Inputs
 
 
-### housingCenter
+### Housing Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create differential gear assembly
 ## Outputs
 
 
-### assembly
+### Assembly
 - **Type:** Shape
 
 
 
-### housing
+### Housing
 - **Type:** Shape
 
 
 
-### gears
+### Gears
 - **Type:** Shape[]
 
 

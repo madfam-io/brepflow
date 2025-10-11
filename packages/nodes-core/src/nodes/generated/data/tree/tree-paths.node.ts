@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type TreePathsParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  tree: DataTree;
+interface TreePathsInputs {
+  tree: unknown;
 }
-interface Outputs {
-  paths: string[];
+
+interface TreePathsOutputs {
+  paths: unknown;
 }
 
 export const TreePathsNode: NodeDefinition<TreePathsInputs, TreePathsOutputs, TreePathsParams> = {
-  type: 'Data::TreePaths',
+  id: 'Data::TreePaths',
   category: 'Data',
-  subcategory: 'Tree',
-
-  metadata: {
-    label: 'TreePaths',
-    description: 'Get all tree paths',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'TreePaths',
+  description: 'Get all tree paths',
   inputs: {
-        tree: 'DataTree'
+    tree: {
+      type: 'DataTree',
+      label: 'Tree',
+      required: true
+    }
   },
-
   outputs: {
-        paths: 'string[]'
+    paths: {
+      type: 'string[]',
+      label: 'Paths'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'treePaths',
       params: {
         tree: inputs.tree
-        
       }
     });
-
+    
     return {
       paths: result
     };
-  }
+  },
 };

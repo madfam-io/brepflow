@@ -8,7 +8,7 @@ Add tabs for assembly
 ## Parameters
 
 
-### tabWidth
+### Tab Width
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -16,7 +16,7 @@ Add tabs for assembly
 
 
 
-### tabDepth
+### Tab Depth
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -24,7 +24,7 @@ Add tabs for assembly
 
 
 
-### clearance
+### Clearance
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0
@@ -35,7 +35,7 @@ Add tabs for assembly
 ## Inputs
 
 
-### edges
+### Edges
 - **Type:** Edge[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Add tabs for assembly
 ## Outputs
 
 
-### tabbedEdges
+### Tabbed Edges
 - **Type:** Wire[]
 
 

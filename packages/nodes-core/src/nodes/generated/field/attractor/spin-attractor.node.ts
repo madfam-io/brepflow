@@ -1,65 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SpinAttractorParams {
   strength: number;
   radius: number;
   axis: [number, number, number];
   decay: number;
 }
-interface Inputs {
-  center: Point;
+
+interface SpinAttractorInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  field: VectorField;
+
+interface SpinAttractorOutputs {
+  field: unknown;
 }
 
 export const SpinAttractorNode: NodeDefinition<SpinAttractorInputs, SpinAttractorOutputs, SpinAttractorParams> = {
-  type: 'Field::SpinAttractor',
+  id: 'Field::SpinAttractor',
   category: 'Field',
-  subcategory: 'Attractor',
-
-  metadata: {
-    label: 'SpinAttractor',
-    description: 'Spinning attractor field',
-    
-    
-  },
-
-  params: {
-        strength: {
-      "default": 1,
-      "min": -10,
-      "max": 10
-    },
-    radius: {
-      "default": 100,
-      "min": 0.1
-    },
-    axis: {
-      "default": [
-        0,
-        0,
-        1
-      ]
-    },
-    decay: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+  label: 'SpinAttractor',
+  description: 'Spinning attractor field',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        field: 'VectorField'
+    field: {
+      type: 'VectorField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    strength: {
+      type: 'number',
+      label: 'Strength',
+      default: 1,
+      min: -10,
+      max: 10
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 100,
+      min: 0.1
+    },
+    axis: {
+      type: 'vec3',
+      label: 'Axis',
+      default: [0,0,1]
+    },
+    decay: {
+      type: 'number',
+      label: 'Decay',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'attractorSpin',
       params: {
@@ -70,9 +71,9 @@ export const SpinAttractorNode: NodeDefinition<SpinAttractorInputs, SpinAttracto
         decay: params.decay
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

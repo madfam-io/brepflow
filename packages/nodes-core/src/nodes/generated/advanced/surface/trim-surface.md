@@ -8,7 +8,7 @@ Trim surface with curves
 ## Parameters
 
 
-### keepRegion
+### Keep Region
 - **Type:** enum
 - **Default:** "inside"
 
@@ -16,7 +16,7 @@ Trim surface with curves
 
 
 
-### projectCurves
+### Project Curves
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Trim surface with curves
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### trimmingCurves
+### Trimming Curves
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Trim surface with curves
 ## Outputs
 
 
-### trimmedSurface
+### Trimmed Surface
 - **Type:** Face
 
 

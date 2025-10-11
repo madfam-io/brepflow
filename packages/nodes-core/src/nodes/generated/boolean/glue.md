@@ -8,7 +8,7 @@ Glue shapes together at common faces
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 1e-7
 - **Min:** 0
@@ -19,7 +19,7 @@ Glue shapes together at common faces
 ## Inputs
 
 
-### shapes
+### Shapes
 - **Type:** Shape[]
 - **Required:** Yes
 - **Description:** Shapes to glue
@@ -28,7 +28,7 @@ Glue shapes together at common faces
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 - **Description:** Glued shape
 

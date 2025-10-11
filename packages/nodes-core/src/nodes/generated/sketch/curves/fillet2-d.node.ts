@@ -1,52 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface Fillet2DParams {
   radius: number;
   allCorners: boolean;
 }
-interface Inputs {
-  wire: Wire;
-  vertices?: Vertex[];
+
+interface Fillet2DInputs {
+  wire: unknown;
+  vertices?: unknown;
 }
-interface Outputs {
-  filleted: Wire;
+
+interface Fillet2DOutputs {
+  filleted: unknown;
 }
 
 export const Fillet2DNode: NodeDefinition<Fillet2DInputs, Fillet2DOutputs, Fillet2DParams> = {
-  type: 'Sketch::Fillet2D',
+  id: 'Sketch::Fillet2D',
   category: 'Sketch',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'Fillet2D',
-    description: 'Fillet corners of a 2D shape',
-    
-    
-  },
-
-  params: {
-        radius: {
-      "default": 5,
-      "min": 0.1,
-      "max": 1000
+  label: 'Fillet2D',
+  description: 'Fillet corners of a 2D shape',
+  inputs: {
+    wire: {
+      type: 'Wire',
+      label: 'Wire',
+      required: true
     },
-    allCorners: {
-      "default": true
+    vertices: {
+      type: 'Vertex[]',
+      label: 'Vertices',
+      optional: true
     }
   },
-
-  inputs: {
-        wire: 'Wire',
-    vertices: 'Vertex[]'
-  },
-
   outputs: {
-        filleted: 'Wire'
+    filleted: {
+      type: 'Wire',
+      label: 'Filleted'
+    }
   },
-
+  params: {
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 5,
+      min: 0.1,
+      max: 1000
+    },
+    allCorners: {
+      type: 'boolean',
+      label: 'All Corners',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fillet2D',
       params: {
@@ -56,9 +61,9 @@ export const Fillet2DNode: NodeDefinition<Fillet2DInputs, Fillet2DOutputs, Fille
         allCorners: params.allCorners
       }
     });
-
+    
     return {
       filleted: result
     };
-  }
+  },
 };

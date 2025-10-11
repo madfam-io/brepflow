@@ -8,7 +8,7 @@ Set partitions
 ## Parameters
 
 
-### k
+### K
 - **Type:** number
 - **Default:** 2
 - **Min:** 2
@@ -19,7 +19,7 @@ Set partitions
 ## Inputs
 
 
-### set
+### Set
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Set partitions
 ## Outputs
 
 
-### partitions
+### Partitions
 - **Type:** Data[][][]
 
 

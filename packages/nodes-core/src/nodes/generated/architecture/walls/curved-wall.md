@@ -8,7 +8,7 @@ Create curved wall segment
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 3000
 - **Min:** 100
@@ -16,7 +16,7 @@ Create curved wall segment
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 200
 - **Min:** 50
@@ -24,7 +24,7 @@ Create curved wall segment
 
 
 
-### segments
+### Segments
 - **Type:** number
 - **Default:** 10
 - **Min:** 3
@@ -35,7 +35,7 @@ Create curved wall segment
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Create curved wall segment
 ## Outputs
 
 
-### wall
+### Wall
 - **Type:** Shape
 
 

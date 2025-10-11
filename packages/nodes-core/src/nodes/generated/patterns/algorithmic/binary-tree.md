@@ -8,7 +8,7 @@ Binary tree structure
 ## Parameters
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -16,7 +16,7 @@ Binary tree structure
 
 
 
-### branchAngle
+### Branch Angle
 - **Type:** number
 - **Default:** 30
 - **Min:** 0
@@ -24,7 +24,7 @@ Binary tree structure
 
 
 
-### lengthRatio
+### Length Ratio
 - **Type:** number
 - **Default:** 0.7
 - **Min:** 0.3
@@ -35,7 +35,7 @@ Binary tree structure
 ## Inputs
 
 
-### root
+### Root
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Binary tree structure
 ## Outputs
 
 
-### tree
+### Tree
 - **Type:** Wire[]
 
 

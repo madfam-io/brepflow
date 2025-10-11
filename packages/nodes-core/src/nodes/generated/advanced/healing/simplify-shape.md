@@ -8,7 +8,7 @@ Simplify complex geometry
 ## Parameters
 
 
-### simplifyMethod
+### Simplify Method
 - **Type:** enum
 - **Default:** "merge-faces"
 
@@ -16,7 +16,7 @@ Simplify complex geometry
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -24,7 +24,7 @@ Simplify complex geometry
 
 
 
-### preserveTopology
+### Preserve Topology
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Simplify complex geometry
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Simplify complex geometry
 ## Outputs
 
 
-### simplified
+### Simplified
 - **Type:** Shape
 
 

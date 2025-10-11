@@ -8,7 +8,7 @@ Join wall segments
 ## Parameters
 
 
-### joinType
+### Join Type
 - **Type:** enum
 - **Default:** "miter"
 
@@ -19,13 +19,13 @@ Join wall segments
 ## Inputs
 
 
-### wall1
+### Wall1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### wall2
+### Wall2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Join wall segments
 ## Outputs
 
 
-### joinedWalls
+### Joined Walls
 - **Type:** Shape
 
 

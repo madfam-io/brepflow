@@ -8,7 +8,7 @@ Extract iso-surface
 ## Parameters
 
 
-### value
+### Value
 - **Type:** number
 - **Default:** 0.5
 
@@ -16,7 +16,7 @@ Extract iso-surface
 
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -27,7 +27,7 @@ Extract iso-surface
 ## Inputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Extract iso-surface
 ## Outputs
 
 
-### surface
+### Surface
 - **Type:** Mesh
 
 

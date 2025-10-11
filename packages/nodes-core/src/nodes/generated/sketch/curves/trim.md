@@ -8,7 +8,7 @@ Trim a curve
 ## Parameters
 
 
-### startParameter
+### Start Parameter
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -16,7 +16,7 @@ Trim a curve
 
 
 
-### endParameter
+### End Parameter
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -27,7 +27,7 @@ Trim a curve
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Trim a curve
 ## Outputs
 
 
-### trimmed
+### Trimmed
 - **Type:** Wire
 - **Description:** Trimmed curve
 

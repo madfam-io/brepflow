@@ -1,63 +1,69 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MarkovChainParams {
   states: number;
   steps: number;
   seed: number;
 }
-interface Inputs {
-  transitionMatrix: Data;
+
+interface MarkovChainInputs {
+  transitionMatrix: unknown;
 }
-interface Outputs {
-  sequence: Number[];
-  pattern: Wire;
+
+interface MarkovChainOutputs {
+  sequence: number[];
+  pattern: unknown;
 }
 
 export const MarkovChainNode: NodeDefinition<MarkovChainInputs, MarkovChainOutputs, MarkovChainParams> = {
-  type: 'Patterns::MarkovChain',
+  id: 'Patterns::MarkovChain',
   category: 'Patterns',
-  subcategory: 'Procedural',
-
-  metadata: {
-    label: 'MarkovChain',
-    description: 'Markov chain pattern',
-    
-    
-  },
-
-  params: {
-        states: {
-      "default": 5,
-      "min": 2,
-      "max": 10,
-      "step": 1
-    },
-    steps: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
-    },
-    seed: {
-      "default": 0,
-      "min": 0,
-      "max": 999999
+  label: 'MarkovChain',
+  description: 'Markov chain pattern',
+  inputs: {
+    transitionMatrix: {
+      type: 'Data',
+      label: 'Transition Matrix',
+      required: true
     }
   },
-
-  inputs: {
-        transitionMatrix: 'Data'
-  },
-
   outputs: {
-        sequence: 'Number[]',
-    pattern: 'Wire'
+    sequence: {
+      type: 'Number[]',
+      label: 'Sequence'
+    },
+    pattern: {
+      type: 'Wire',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    states: {
+      type: 'number',
+      label: 'States',
+      default: 5,
+      min: 2,
+      max: 10,
+      step: 1
+    },
+    steps: {
+      type: 'number',
+      label: 'Steps',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    },
+    seed: {
+      type: 'number',
+      label: 'Seed',
+      default: 0,
+      min: 0,
+      max: 999999
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'markovChain',
       params: {
         transitionMatrix: inputs.transitionMatrix,
@@ -66,10 +72,10 @@ export const MarkovChainNode: NodeDefinition<MarkovChainInputs, MarkovChainOutpu
         seed: params.seed
       }
     });
-
+    
     return {
-      sequence: result,
-      pattern: result
+      sequence: results.sequence,
+      pattern: results.pattern
     };
-  }
+  },
 };

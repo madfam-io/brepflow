@@ -1,58 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MovablePartitionParams {
   panelWidth: number;
   trackType: string;
 }
-interface Inputs {
-  path: Wire;
+
+interface MovablePartitionInputs {
+  path: unknown;
 }
-interface Outputs {
-  partition: Shape[];
-  track: Wire;
+
+interface MovablePartitionOutputs {
+  partition: unknown;
+  track: unknown;
 }
 
 export const MovablePartitionNode: NodeDefinition<MovablePartitionInputs, MovablePartitionOutputs, MovablePartitionParams> = {
-  type: 'Architecture::MovablePartition',
+  id: 'Architecture::MovablePartition',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'MovablePartition',
-    description: 'Movable partition system',
-    
-    
-  },
-
-  params: {
-        panelWidth: {
-      "default": 1200,
-      "min": 600,
-      "max": 2000
-    },
-    trackType: {
-      "default": "ceiling",
-      "options": [
-        "ceiling",
-        "floor",
-        "both"
-      ]
+  label: 'MovablePartition',
+  description: 'Movable partition system',
+  inputs: {
+    path: {
+      type: 'Wire',
+      label: 'Path',
+      required: true
     }
   },
-
-  inputs: {
-        path: 'Wire'
-  },
-
   outputs: {
-        partition: 'Shape[]',
-    track: 'Wire'
+    partition: {
+      type: 'Shape[]',
+      label: 'Partition'
+    },
+    track: {
+      type: 'Wire',
+      label: 'Track'
+    }
   },
-
+  params: {
+    panelWidth: {
+      type: 'number',
+      label: 'Panel Width',
+      default: 1200,
+      min: 600,
+      max: 2000
+    },
+    trackType: {
+      type: 'enum',
+      label: 'Track Type',
+      default: "ceiling",
+      options: ["ceiling","floor","both"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'movablePartition',
       params: {
         path: inputs.path,
@@ -60,10 +60,10 @@ export const MovablePartitionNode: NodeDefinition<MovablePartitionInputs, Movabl
         trackType: params.trackType
       }
     });
-
+    
     return {
-      partition: result,
-      track: result
+      partition: results.partition,
+      track: results.track
     };
-  }
+  },
 };

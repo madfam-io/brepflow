@@ -8,7 +8,7 @@ Reaction-diffusion patterns
 ## Parameters
 
 
-### pattern
+### Pattern
 - **Type:** enum
 - **Default:** "spots"
 
@@ -16,7 +16,7 @@ Reaction-diffusion patterns
 
 
 
-### scale
+### Scale
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -24,7 +24,7 @@ Reaction-diffusion patterns
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -35,7 +35,7 @@ Reaction-diffusion patterns
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Reaction-diffusion patterns
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Shape
 
 

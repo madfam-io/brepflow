@@ -8,7 +8,7 @@ Create gas spring/damper
 ## Parameters
 
 
-### cylinderDiameter
+### Cylinder Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 10
@@ -16,7 +16,7 @@ Create gas spring/damper
 
 
 
-### strokeLength
+### Stroke Length
 - **Type:** number
 - **Default:** 100
 - **Min:** 30
@@ -24,7 +24,7 @@ Create gas spring/damper
 
 
 
-### extendedLength
+### Extended Length
 - **Type:** number
 - **Default:** 250
 - **Min:** 100
@@ -32,7 +32,7 @@ Create gas spring/damper
 
 
 
-### rodDiameter
+### Rod Diameter
 - **Type:** number
 - **Default:** 8
 - **Min:** 4
@@ -43,7 +43,7 @@ Create gas spring/damper
 ## Inputs
 
 
-### mountPoint
+### Mount Point
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create gas spring/damper
 ## Outputs
 
 
-### gasSpring
+### Gas Spring
 - **Type:** Shape
 
 
 
-### cylinder
+### Cylinder
 - **Type:** Shape
 
 
 
-### rod
+### Rod
 - **Type:** Shape
 
 

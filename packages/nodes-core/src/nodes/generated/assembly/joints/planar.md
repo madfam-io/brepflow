@@ -12,19 +12,19 @@ This node has no parameters.
 ## Inputs
 
 
-### part1
+### Part1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### part2
+### Part2
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### plane
+### Plane
 - **Type:** Plane
 - **Required:** Yes
 
@@ -33,7 +33,7 @@ This node has no parameters.
 ## Outputs
 
 
-### joint
+### Joint
 - **Type:** Joint
 
 

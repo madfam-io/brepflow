@@ -1,84 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FeedsAndSpeedsParams {
   material: string;
   toolMaterial: string;
   toolDiameter: number;
 }
-type Inputs = {};
-interface Outputs {
-  spindleSpeed: Number;
-  feedRate: Number;
-  chipLoad: Number;
+
+type FeedsAndSpeedsInputs = Record<string, never>;
+
+interface FeedsAndSpeedsOutputs {
+  spindleSpeed: number;
+  feedRate: number;
+  chipLoad: number;
 }
 
 export const FeedsAndSpeedsNode: NodeDefinition<FeedsAndSpeedsInputs, FeedsAndSpeedsOutputs, FeedsAndSpeedsParams> = {
-  type: 'Fabrication::FeedsAndSpeeds',
+  id: 'Fabrication::FeedsAndSpeeds',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'FeedsAndSpeeds',
-    description: 'Calculate feeds and speeds',
-    
-    
-  },
-
-  params: {
-        material: {
-      "default": "aluminum",
-      "options": [
-        "aluminum",
-        "steel",
-        "stainless",
-        "titanium",
-        "plastic",
-        "wood"
-      ]
+  label: 'FeedsAndSpeeds',
+  description: 'Calculate feeds and speeds',
+  inputs: {},
+  outputs: {
+    spindleSpeed: {
+      type: 'Number',
+      label: 'Spindle Speed'
     },
-    toolMaterial: {
-      "default": "carbide",
-      "options": [
-        "hss",
-        "carbide",
-        "ceramic",
-        "diamond"
-      ]
+    feedRate: {
+      type: 'Number',
+      label: 'Feed Rate'
     },
-    toolDiameter: {
-      "default": 6,
-      "min": 0.1,
-      "max": 50
+    chipLoad: {
+      type: 'Number',
+      label: 'Chip Load'
     }
   },
-
-  inputs: {
-    
+  params: {
+    material: {
+      type: 'enum',
+      label: 'Material',
+      default: "aluminum",
+      options: ["aluminum","steel","stainless","titanium","plastic","wood"]
+    },
+    toolMaterial: {
+      type: 'enum',
+      label: 'Tool Material',
+      default: "carbide",
+      options: ["hss","carbide","ceramic","diamond"]
+    },
+    toolDiameter: {
+      type: 'number',
+      label: 'Tool Diameter',
+      default: 6,
+      min: 0.1,
+      max: 50
+    }
   },
-
-  outputs: {
-        spindleSpeed: 'Number',
-    feedRate: 'Number',
-    chipLoad: 'Number'
-  },
-
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'feedsAndSpeeds',
       params: {
-        
         material: params.material,
         toolMaterial: params.toolMaterial,
         toolDiameter: params.toolDiameter
       }
     });
-
+    
     return {
-      spindleSpeed: result,
-      feedRate: result,
-      chipLoad: result
+      spindleSpeed: results.spindleSpeed,
+      feedRate: results.feedRate,
+      chipLoad: results.chipLoad
     };
-  }
+  },
 };

@@ -1,62 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ReactionDiffusionParams {
   pattern: string;
   scale: number;
   iterations: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface ReactionDiffusionInputs {
+  surface: unknown;
 }
-interface Outputs {
-  pattern: Wire[];
+
+interface ReactionDiffusionOutputs {
+  pattern: unknown;
 }
 
 export const ReactionDiffusionNode: NodeDefinition<ReactionDiffusionInputs, ReactionDiffusionOutputs, ReactionDiffusionParams> = {
-  type: 'Patterns::ReactionDiffusion',
+  id: 'Patterns::ReactionDiffusion',
   category: 'Patterns',
-  subcategory: 'Geometric',
-
-  metadata: {
-    label: 'ReactionDiffusion',
-    description: 'Reaction-diffusion pattern',
-    
-    
-  },
-
-  params: {
-        pattern: {
-      "default": "spots",
-      "options": [
-        "spots",
-        "stripes",
-        "labyrinth",
-        "honeycomb"
-      ]
-    },
-    scale: {
-      "default": 10,
-      "min": 1
-    },
-    iterations: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
+  label: 'ReactionDiffusion',
+  description: 'Reaction-diffusion pattern',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        pattern: 'Wire[]'
+    pattern: {
+      type: 'Wire[]',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    pattern: {
+      type: 'enum',
+      label: 'Pattern',
+      default: "spots",
+      options: ["spots","stripes","labyrinth","honeycomb"]
+    },
+    scale: {
+      type: 'number',
+      label: 'Scale',
+      default: 10,
+      min: 1
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'reactionDiffusion',
       params: {
@@ -66,9 +64,9 @@ export const ReactionDiffusionNode: NodeDefinition<ReactionDiffusionInputs, Reac
         iterations: params.iterations
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

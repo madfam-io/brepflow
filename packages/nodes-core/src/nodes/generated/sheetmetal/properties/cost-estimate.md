@@ -8,7 +8,7 @@ Estimate manufacturing cost
 ## Parameters
 
 
-### materialCostPerKg
+### Material Cost Per Kg
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Estimate manufacturing cost
 
 
 
-### setupCost
+### Setup Cost
 - **Type:** number
 - **Default:** 50
 - **Min:** 0
@@ -24,7 +24,7 @@ Estimate manufacturing cost
 
 
 
-### bendCost
+### Bend Cost
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -32,7 +32,7 @@ Estimate manufacturing cost
 - **Description:** Cost per bend
 
 
-### cutCostPerMeter
+### Cut Cost Per Meter
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -43,13 +43,13 @@ Estimate manufacturing cost
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### quantity
+### Quantity
 - **Type:** number
 - **Required:** No
 
@@ -58,12 +58,12 @@ Estimate manufacturing cost
 ## Outputs
 
 
-### cost
+### Cost
 - **Type:** number
 
 
 
-### breakdown
+### Breakdown
 - **Type:** Data
 
 

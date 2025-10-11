@@ -1,55 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ScallopHeightParams {
   ballRadius: number;
   stepover: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface ScallopHeightInputs {
+  surface: unknown;
 }
-interface Outputs {
-  scallopMap: Data;
-  maxScallop: Number;
+
+interface ScallopHeightOutputs {
+  scallopMap: unknown;
+  maxScallop: number;
 }
 
 export const ScallopHeightNode: NodeDefinition<ScallopHeightInputs, ScallopHeightOutputs, ScallopHeightParams> = {
-  type: 'Fabrication::ScallopHeight',
+  id: 'Fabrication::ScallopHeight',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'ScallopHeight',
-    description: 'Calculate scallop height',
-    
-    
-  },
-
-  params: {
-        ballRadius: {
-      "default": 3,
-      "min": 0.5,
-      "max": 25
-    },
-    stepover: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
+  label: 'ScallopHeight',
+  description: 'Calculate scallop height',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        scallopMap: 'Data',
-    maxScallop: 'Number'
+    scallopMap: {
+      type: 'Data',
+      label: 'Scallop Map'
+    },
+    maxScallop: {
+      type: 'Number',
+      label: 'Max Scallop'
+    }
   },
-
+  params: {
+    ballRadius: {
+      type: 'number',
+      label: 'Ball Radius',
+      default: 3,
+      min: 0.5,
+      max: 25
+    },
+    stepover: {
+      type: 'number',
+      label: 'Stepover',
+      default: 1,
+      min: 0.1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'scallopHeight',
       params: {
         surface: inputs.surface,
@@ -57,10 +61,10 @@ export const ScallopHeightNode: NodeDefinition<ScallopHeightInputs, ScallopHeigh
         stepover: params.stepover
       }
     });
-
+    
     return {
-      scallopMap: result,
-      maxScallop: result
+      scallopMap: results.scallopMap,
+      maxScallop: results.maxScallop
     };
-  }
+  },
 };

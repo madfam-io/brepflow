@@ -1,61 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HyperbolicTilingParams {
   p: number;
   q: number;
   iterations: number;
 }
-interface Inputs {
-  disk: Face;
+
+interface HyperbolicTilingInputs {
+  disk: unknown;
 }
-interface Outputs {
-  tiling: Wire[];
+
+interface HyperbolicTilingOutputs {
+  tiling: unknown;
 }
 
 export const HyperbolicTilingNode: NodeDefinition<HyperbolicTilingInputs, HyperbolicTilingOutputs, HyperbolicTilingParams> = {
-  type: 'Patterns::HyperbolicTiling',
+  id: 'Patterns::HyperbolicTiling',
   category: 'Patterns',
-  subcategory: 'Geometric',
-
-  metadata: {
-    label: 'HyperbolicTiling',
-    description: 'Hyperbolic tessellation',
-    
-    
-  },
-
-  params: {
-        p: {
-      "default": 7,
-      "min": 3,
-      "max": 12,
-      "step": 1
-    },
-    q: {
-      "default": 3,
-      "min": 3,
-      "max": 12,
-      "step": 1
-    },
-    iterations: {
-      "default": 3,
-      "min": 1,
-      "max": 5,
-      "step": 1
+  label: 'HyperbolicTiling',
+  description: 'Hyperbolic tessellation',
+  inputs: {
+    disk: {
+      type: 'Face',
+      label: 'Disk',
+      required: true
     }
   },
-
-  inputs: {
-        disk: 'Face'
-  },
-
   outputs: {
-        tiling: 'Wire[]'
+    tiling: {
+      type: 'Wire[]',
+      label: 'Tiling'
+    }
   },
-
+  params: {
+    p: {
+      type: 'number',
+      label: 'P',
+      default: 7,
+      min: 3,
+      max: 12,
+      step: 1
+    },
+    q: {
+      type: 'number',
+      label: 'Q',
+      default: 3,
+      min: 3,
+      max: 12,
+      step: 1
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 3,
+      min: 1,
+      max: 5,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'hyperbolicTiling',
       params: {
@@ -65,9 +68,9 @@ export const HyperbolicTilingNode: NodeDefinition<HyperbolicTilingInputs, Hyperb
         iterations: params.iterations
       }
     });
-
+    
     return {
       tiling: result
     };
-  }
+  },
 };

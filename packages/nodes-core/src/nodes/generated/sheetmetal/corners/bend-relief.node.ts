@@ -1,63 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BendReliefParams {
   reliefType: string;
   reliefDepth: number;
   reliefWidth: number;
 }
-interface Inputs {
-  sheet: Shape;
-  bends: Edge[];
+
+interface BendReliefInputs {
+  sheet: unknown;
+  bends: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface BendReliefOutputs {
+  result: unknown;
 }
 
 export const BendReliefNode: NodeDefinition<BendReliefInputs, BendReliefOutputs, BendReliefParams> = {
-  type: 'SheetMetal::BendRelief',
+  id: 'SheetMetal::BendRelief',
   category: 'SheetMetal',
-  subcategory: 'Corners',
-
-  metadata: {
-    label: 'BendRelief',
-    description: 'Add bend relief cuts',
-    
-    
-  },
-
-  params: {
-        reliefType: {
-      "default": "rectangular",
-      "options": [
-        "rectangular",
-        "obround",
-        "tear"
-      ]
+  label: 'BendRelief',
+  description: 'Add bend relief cuts',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    reliefDepth: {
-      "default": 5,
-      "min": 0.1,
-      "max": 100
-    },
-    reliefWidth: {
-      "default": 2,
-      "min": 0.1,
-      "max": 50
+    bends: {
+      type: 'Edge[]',
+      label: 'Bends',
+      required: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    bends: 'Edge[]'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    reliefType: {
+      type: 'enum',
+      label: 'Relief Type',
+      default: "rectangular",
+      options: ["rectangular","obround","tear"]
+    },
+    reliefDepth: {
+      type: 'number',
+      label: 'Relief Depth',
+      default: 5,
+      min: 0.1,
+      max: 100
+    },
+    reliefWidth: {
+      type: 'number',
+      label: 'Relief Width',
+      default: 2,
+      min: 0.1,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetBendRelief',
       params: {
@@ -68,9 +71,9 @@ export const BendReliefNode: NodeDefinition<BendReliefInputs, BendReliefOutputs,
         reliefWidth: params.reliefWidth
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

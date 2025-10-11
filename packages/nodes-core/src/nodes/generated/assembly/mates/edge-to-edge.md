@@ -8,7 +8,7 @@ Mate two edges together
 ## Parameters
 
 
-### alignment
+### Alignment
 - **Type:** enum
 - **Default:** "aligned"
 
@@ -19,13 +19,13 @@ Mate two edges together
 ## Inputs
 
 
-### edge1
+### Edge1
 - **Type:** Edge
 - **Required:** Yes
 
 
 
-### edge2
+### Edge2
 - **Type:** Edge
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Mate two edges together
 ## Outputs
 
 
-### mated
+### Mated
 - **Type:** Shape[]
 
 
 
-### mate
+### Mate
 - **Type:** Mate
 
 

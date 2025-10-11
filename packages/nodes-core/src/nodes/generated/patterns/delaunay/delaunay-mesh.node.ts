@@ -1,51 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DelaunayMeshParams {
   targetSize: number;
   minAngle: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface DelaunayMeshInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  mesh: Mesh;
+
+interface DelaunayMeshOutputs {
+  mesh: unknown;
 }
 
 export const DelaunayMeshNode: NodeDefinition<DelaunayMeshInputs, DelaunayMeshOutputs, DelaunayMeshParams> = {
-  type: 'Patterns::DelaunayMesh',
+  id: 'Patterns::DelaunayMesh',
   category: 'Patterns',
-  subcategory: 'Delaunay',
-
-  metadata: {
-    label: 'DelaunayMesh',
-    description: 'Quality mesh generation',
-    
-    
-  },
-
-  params: {
-        targetSize: {
-      "default": 10,
-      "min": 0.1
-    },
-    minAngle: {
-      "default": 20,
-      "min": 0,
-      "max": 60
+  label: 'DelaunayMesh',
+  description: 'Quality mesh generation',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        mesh: 'Mesh'
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh'
+    }
   },
-
+  params: {
+    targetSize: {
+      type: 'number',
+      label: 'Target Size',
+      default: 10,
+      min: 0.1
+    },
+    minAngle: {
+      type: 'number',
+      label: 'Min Angle',
+      default: 20,
+      min: 0,
+      max: 60
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'delaunayMesh',
       params: {
@@ -54,9 +55,9 @@ export const DelaunayMeshNode: NodeDefinition<DelaunayMeshInputs, DelaunayMeshOu
         minAngle: params.minAngle
       }
     });
-
+    
     return {
       mesh: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Create a parabolic curve
 ## Parameters
 
 
-### focalLength
+### Focal Length
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a parabolic curve
 
 
 
-### startParam
+### Start Param
 - **Type:** number
 - **Default:** -100
 - **Min:** -10000
@@ -24,7 +24,7 @@ Create a parabolic curve
 
 
 
-### endParam
+### End Param
 - **Type:** number
 - **Default:** 100
 - **Min:** -10000
@@ -35,7 +35,7 @@ Create a parabolic curve
 ## Inputs
 
 
-### vertex
+### Vertex
 - **Type:** Point
 - **Required:** No
 
@@ -44,7 +44,7 @@ Create a parabolic curve
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Description:** Parabolic curve
 

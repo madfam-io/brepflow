@@ -1,62 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RadiantFloorParams {
   pipeSpacing: number;
   pipeDialeter: number;
   zoneCount: number;
 }
-interface Inputs {
-  floorArea: Face;
+
+interface RadiantFloorInputs {
+  floorArea: unknown;
 }
-interface Outputs {
-  radiantLayout: Wire[];
-  manifold: Point;
+
+interface RadiantFloorOutputs {
+  radiantLayout: unknown;
+  manifold: [number, number, number];
 }
 
 export const RadiantFloorNode: NodeDefinition<RadiantFloorInputs, RadiantFloorOutputs, RadiantFloorParams> = {
-  type: 'Architecture::RadiantFloor',
+  id: 'Architecture::RadiantFloor',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'RadiantFloor',
-    description: 'In-floor radiant heating',
-    
-    
-  },
-
-  params: {
-        pipeSpacing: {
-      "default": 200,
-      "min": 150,
-      "max": 300
-    },
-    pipeDialeter: {
-      "default": 16,
-      "min": 12,
-      "max": 25
-    },
-    zoneCount: {
-      "default": 1,
-      "min": 1,
-      "max": 10,
-      "step": 1
+  label: 'RadiantFloor',
+  description: 'In-floor radiant heating',
+  inputs: {
+    floorArea: {
+      type: 'Face',
+      label: 'Floor Area',
+      required: true
     }
   },
-
-  inputs: {
-        floorArea: 'Face'
-  },
-
   outputs: {
-        radiantLayout: 'Wire[]',
-    manifold: 'Point'
+    radiantLayout: {
+      type: 'Wire[]',
+      label: 'Radiant Layout'
+    },
+    manifold: {
+      type: 'Point',
+      label: 'Manifold'
+    }
   },
-
+  params: {
+    pipeSpacing: {
+      type: 'number',
+      label: 'Pipe Spacing',
+      default: 200,
+      min: 150,
+      max: 300
+    },
+    pipeDialeter: {
+      type: 'number',
+      label: 'Pipe Dialeter',
+      default: 16,
+      min: 12,
+      max: 25
+    },
+    zoneCount: {
+      type: 'number',
+      label: 'Zone Count',
+      default: 1,
+      min: 1,
+      max: 10,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'radiantFloor',
       params: {
         floorArea: inputs.floorArea,
@@ -65,10 +71,10 @@ export const RadiantFloorNode: NodeDefinition<RadiantFloorInputs, RadiantFloorOu
         zoneCount: params.zoneCount
       }
     });
-
+    
     return {
-      radiantLayout: result,
-      manifold: result
+      radiantLayout: results.radiantLayout,
+      manifold: results.manifold
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Noise-based field
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "perlin"
 
@@ -16,7 +16,7 @@ Noise-based field
 
 
 
-### scale
+### Scale
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Noise-based field
 
 
 
-### octaves
+### Octaves
 - **Type:** number
 - **Default:** 4
 - **Min:** 1
@@ -32,7 +32,7 @@ Noise-based field
 
 
 
-### persistence
+### Persistence
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -40,7 +40,7 @@ Noise-based field
 
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -51,7 +51,7 @@ Noise-based field
 ## Inputs
 
 
-### domain
+### Domain
 - **Type:** Box
 - **Required:** Yes
 
@@ -60,7 +60,7 @@ Noise-based field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

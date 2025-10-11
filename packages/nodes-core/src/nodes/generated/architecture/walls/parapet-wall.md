@@ -8,7 +8,7 @@ Roof parapet wall
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 1000
 - **Min:** 300
@@ -16,7 +16,7 @@ Roof parapet wall
 
 
 
-### coping
+### Coping
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Roof parapet wall
 
 
 
-### copingOverhang
+### Coping Overhang
 - **Type:** number
 - **Default:** 50
 - **Min:** 0
@@ -35,7 +35,7 @@ Roof parapet wall
 ## Inputs
 
 
-### roofEdge
+### Roof Edge
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Roof parapet wall
 ## Outputs
 
 
-### parapet
+### Parapet
 - **Type:** Shape
 
 

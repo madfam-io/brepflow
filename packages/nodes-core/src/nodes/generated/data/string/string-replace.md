@@ -8,7 +8,7 @@ Replace in string
 ## Parameters
 
 
-### global
+### Global
 - **Type:** boolean
 - **Default:** true
 
@@ -19,19 +19,19 @@ Replace in string
 ## Inputs
 
 
-### string
+### String
 - **Type:** string
 - **Required:** Yes
 
 
 
-### search
+### Search
 - **Type:** string
 - **Required:** Yes
 
 
 
-### replace
+### Replace
 - **Type:** string
 - **Required:** Yes
 
@@ -40,7 +40,7 @@ Replace in string
 ## Outputs
 
 
-### result
+### Result
 - **Type:** string
 
 

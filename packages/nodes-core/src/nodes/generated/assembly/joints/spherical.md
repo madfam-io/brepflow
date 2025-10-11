@@ -8,7 +8,7 @@ Create spherical (ball) joint
 ## Parameters
 
 
-### coneAngle
+### Cone Angle
 - **Type:** number
 - **Default:** 45
 - **Min:** 0
@@ -19,19 +19,19 @@ Create spherical (ball) joint
 ## Inputs
 
 
-### part1
+### Part1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### part2
+### Part2
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -40,7 +40,7 @@ Create spherical (ball) joint
 ## Outputs
 
 
-### joint
+### Joint
 - **Type:** Joint
 
 

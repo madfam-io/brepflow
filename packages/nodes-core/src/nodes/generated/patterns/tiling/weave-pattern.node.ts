@@ -1,64 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WeavePatternParams {
   weaveType: string;
   warpCount: number;
   weftCount: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface WeavePatternInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  weave: Wire[];
+
+interface WeavePatternOutputs {
+  weave: unknown;
 }
 
 export const WeavePatternNode: NodeDefinition<WeavePatternInputs, WeavePatternOutputs, WeavePatternParams> = {
-  type: 'Patterns::WeavePattern',
+  id: 'Patterns::WeavePattern',
   category: 'Patterns',
-  subcategory: 'Tiling',
-
-  metadata: {
-    label: 'WeavePattern',
-    description: 'Weaving patterns',
-    
-    
-  },
-
-  params: {
-        weaveType: {
-      "default": "plain",
-      "options": [
-        "plain",
-        "twill",
-        "satin",
-        "basket"
-      ]
-    },
-    warpCount: {
-      "default": 10,
-      "min": 2,
-      "max": 50,
-      "step": 1
-    },
-    weftCount: {
-      "default": 10,
-      "min": 2,
-      "max": 50,
-      "step": 1
+  label: 'WeavePattern',
+  description: 'Weaving patterns',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        weave: 'Wire[]'
+    weave: {
+      type: 'Wire[]',
+      label: 'Weave'
+    }
   },
-
+  params: {
+    weaveType: {
+      type: 'enum',
+      label: 'Weave Type',
+      default: "plain",
+      options: ["plain","twill","satin","basket"]
+    },
+    warpCount: {
+      type: 'number',
+      label: 'Warp Count',
+      default: 10,
+      min: 2,
+      max: 50,
+      step: 1
+    },
+    weftCount: {
+      type: 'number',
+      label: 'Weft Count',
+      default: 10,
+      min: 2,
+      max: 50,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'weavePattern',
       params: {
@@ -68,9 +66,9 @@ export const WeavePatternNode: NodeDefinition<WeavePatternInputs, WeavePatternOu
         weftCount: params.weftCount
       }
     });
-
+    
     return {
       weave: result
     };
-  }
+  },
 };

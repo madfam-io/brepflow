@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### base64
+### Base64
 - **Type:** string
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### data
+### Data
 - **Type:** Data
 
 

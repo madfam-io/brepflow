@@ -1,63 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WallOpeningParams {
   width: number;
   height: number;
   sillHeight: number;
 }
-interface Inputs {
-  wall: Shape;
-  position: Point;
+
+interface WallOpeningInputs {
+  wall: unknown;
+  position: [number, number, number];
 }
-interface Outputs {
-  wallWithOpening: Shape;
-  opening: Face;
+
+interface WallOpeningOutputs {
+  wallWithOpening: unknown;
+  opening: unknown;
 }
 
 export const WallOpeningNode: NodeDefinition<WallOpeningInputs, WallOpeningOutputs, WallOpeningParams> = {
-  type: 'Architecture::WallOpening',
+  id: 'Architecture::WallOpening',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'WallOpening',
-    description: 'Create opening in wall',
-    
-    
-  },
-
-  params: {
-        width: {
-      "default": 900,
-      "min": 100,
-      "max": 5000
+  label: 'WallOpening',
+  description: 'Create opening in wall',
+  inputs: {
+    wall: {
+      type: 'Shape',
+      label: 'Wall',
+      required: true
     },
-    height: {
-      "default": 2100,
-      "min": 100,
-      "max": 5000
-    },
-    sillHeight: {
-      "default": 0,
-      "min": 0,
-      "max": 2000
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        wall: 'Shape',
-    position: 'Point'
-  },
-
   outputs: {
-        wallWithOpening: 'Shape',
-    opening: 'Face'
+    wallWithOpening: {
+      type: 'Shape',
+      label: 'Wall With Opening'
+    },
+    opening: {
+      type: 'Face',
+      label: 'Opening'
+    }
   },
-
+  params: {
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 900,
+      min: 100,
+      max: 5000
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 2100,
+      min: 100,
+      max: 5000
+    },
+    sillHeight: {
+      type: 'number',
+      label: 'Sill Height',
+      default: 0,
+      min: 0,
+      max: 2000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'wallOpening',
       params: {
         wall: inputs.wall,
@@ -67,10 +77,10 @@ export const WallOpeningNode: NodeDefinition<WallOpeningInputs, WallOpeningOutpu
         sillHeight: params.sillHeight
       }
     });
-
+    
     return {
-      wallWithOpening: result,
-      opening: result
+      wallWithOpening: results.wallWithOpening,
+      opening: results.opening
     };
-  }
+  },
 };

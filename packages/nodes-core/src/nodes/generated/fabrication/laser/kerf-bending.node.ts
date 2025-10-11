@@ -1,58 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface KerfBendingParams {
   bendRadius: number;
   materialThickness: number;
   kerfWidth: number;
 }
-interface Inputs {
-  bendZone: Face;
+
+interface KerfBendingInputs {
+  bendZone: unknown;
 }
-interface Outputs {
-  kerfPattern: Wire[];
+
+interface KerfBendingOutputs {
+  kerfPattern: unknown;
 }
 
 export const KerfBendingNode: NodeDefinition<KerfBendingInputs, KerfBendingOutputs, KerfBendingParams> = {
-  type: 'Fabrication::KerfBending',
+  id: 'Fabrication::KerfBending',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'KerfBending',
-    description: 'Kerf bending patterns',
-    
-    
-  },
-
-  params: {
-        bendRadius: {
-      "default": 50,
-      "min": 10,
-      "max": 500
-    },
-    materialThickness: {
-      "default": 3,
-      "min": 0.5,
-      "max": 20
-    },
-    kerfWidth: {
-      "default": 0.15,
-      "min": 0.05,
-      "max": 1
+  label: 'KerfBending',
+  description: 'Kerf bending patterns',
+  inputs: {
+    bendZone: {
+      type: 'Face',
+      label: 'Bend Zone',
+      required: true
     }
   },
-
-  inputs: {
-        bendZone: 'Face'
-  },
-
   outputs: {
-        kerfPattern: 'Wire[]'
+    kerfPattern: {
+      type: 'Wire[]',
+      label: 'Kerf Pattern'
+    }
   },
-
+  params: {
+    bendRadius: {
+      type: 'number',
+      label: 'Bend Radius',
+      default: 50,
+      min: 10,
+      max: 500
+    },
+    materialThickness: {
+      type: 'number',
+      label: 'Material Thickness',
+      default: 3,
+      min: 0.5,
+      max: 20
+    },
+    kerfWidth: {
+      type: 'number',
+      label: 'Kerf Width',
+      default: 0.15,
+      min: 0.05,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'kerfBending',
       params: {
@@ -62,9 +65,9 @@ export const KerfBendingNode: NodeDefinition<KerfBendingInputs, KerfBendingOutpu
         kerfWidth: params.kerfWidth
       }
     });
-
+    
     return {
       kerfPattern: result
     };
-  }
+  },
 };

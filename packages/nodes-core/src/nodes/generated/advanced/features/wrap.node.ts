@@ -1,59 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WrapParams {
   wrapType: string;
   depth: number;
 }
-interface Inputs {
-  targetSurface: Face;
-  sketch: Wire;
-  projectionDirection?: Vector;
+
+interface WrapInputs {
+  targetSurface: unknown;
+  sketch: unknown;
+  projectionDirection?: [number, number, number];
 }
-interface Outputs {
-  wrappedShape: Shape;
+
+interface WrapOutputs {
+  wrappedShape: unknown;
 }
 
 export const WrapNode: NodeDefinition<WrapInputs, WrapOutputs, WrapParams> = {
-  type: 'Advanced::Wrap',
+  id: 'Advanced::Wrap',
   category: 'Advanced',
-  subcategory: 'Features',
-
-  metadata: {
-    label: 'Wrap',
-    description: 'Wrap geometry onto surface',
-    
-    
-  },
-
-  params: {
-        wrapType: {
-      "default": "emboss",
-      "options": [
-        "scribe",
-        "emboss",
-        "deboss"
-      ]
+  label: 'Wrap',
+  description: 'Wrap geometry onto surface',
+  inputs: {
+    targetSurface: {
+      type: 'Face',
+      label: 'Target Surface',
+      required: true
     },
-    depth: {
-      "default": 1,
-      "min": 0.01,
-      "max": 100
+    sketch: {
+      type: 'Wire',
+      label: 'Sketch',
+      required: true
+    },
+    projectionDirection: {
+      type: 'Vector',
+      label: 'Projection Direction',
+      optional: true
     }
   },
-
-  inputs: {
-        targetSurface: 'Face',
-    sketch: 'Wire',
-    projectionDirection: 'Vector'
-  },
-
   outputs: {
-        wrappedShape: 'Shape'
+    wrappedShape: {
+      type: 'Shape',
+      label: 'Wrapped Shape'
+    }
   },
-
+  params: {
+    wrapType: {
+      type: 'enum',
+      label: 'Wrap Type',
+      default: "emboss",
+      options: ["scribe","emboss","deboss"]
+    },
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: 1,
+      min: 0.01,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'wrap',
       params: {
@@ -64,9 +69,9 @@ export const WrapNode: NodeDefinition<WrapInputs, WrapOutputs, WrapParams> = {
         depth: params.depth
       }
     });
-
+    
     return {
       wrappedShape: result
     };
-  }
+  },
 };

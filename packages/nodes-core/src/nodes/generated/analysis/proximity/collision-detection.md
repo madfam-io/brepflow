@@ -8,7 +8,7 @@ Detect collisions between objects
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Detect collisions between objects
 
 
 
-### showCollisions
+### Show Collisions
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Detect collisions between objects
 ## Inputs
 
 
-### objects
+### Objects
 - **Type:** Shape[]
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Detect collisions between objects
 ## Outputs
 
 
-### hasCollisions
+### Has Collisions
 - **Type:** boolean
 
 
 
-### collidingPairs
+### Colliding Pairs
 - **Type:** Shape[][]
 
 
 
-### collisionRegions
+### Collision Regions
 - **Type:** Shape[]
 
 

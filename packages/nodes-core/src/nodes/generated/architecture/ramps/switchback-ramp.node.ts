@@ -1,57 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SwitchbackRampParams {
   runLength: number;
   landingSize: number;
 }
-interface Inputs {
-  startPoint: Point;
-  totalRise: Number;
+
+interface SwitchbackRampInputs {
+  startPoint: [number, number, number];
+  totalRise: number;
 }
-interface Outputs {
-  ramp: Shape;
-  landings: Shape[];
+
+interface SwitchbackRampOutputs {
+  ramp: unknown;
+  landings: unknown;
 }
 
 export const SwitchbackRampNode: NodeDefinition<SwitchbackRampInputs, SwitchbackRampOutputs, SwitchbackRampParams> = {
-  type: 'Architecture::SwitchbackRamp',
+  id: 'Architecture::SwitchbackRamp',
   category: 'Architecture',
-  subcategory: 'Ramps',
-
-  metadata: {
-    label: 'SwitchbackRamp',
-    description: 'Switchback accessibility ramp',
-    
-    
-  },
-
-  params: {
-        runLength: {
-      "default": 9000,
-      "min": 6000,
-      "max": 12000
+  label: 'SwitchbackRamp',
+  description: 'Switchback accessibility ramp',
+  inputs: {
+    startPoint: {
+      type: 'Point',
+      label: 'Start Point',
+      required: true
     },
-    landingSize: {
-      "default": 1500,
-      "min": 1500,
-      "max": 2000
+    totalRise: {
+      type: 'Number',
+      label: 'Total Rise',
+      required: true
     }
   },
-
-  inputs: {
-        startPoint: 'Point',
-    totalRise: 'Number'
-  },
-
   outputs: {
-        ramp: 'Shape',
-    landings: 'Shape[]'
+    ramp: {
+      type: 'Shape',
+      label: 'Ramp'
+    },
+    landings: {
+      type: 'Shape[]',
+      label: 'Landings'
+    }
   },
-
+  params: {
+    runLength: {
+      type: 'number',
+      label: 'Run Length',
+      default: 9000,
+      min: 6000,
+      max: 12000
+    },
+    landingSize: {
+      type: 'number',
+      label: 'Landing Size',
+      default: 1500,
+      min: 1500,
+      max: 2000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'switchbackRamp',
       params: {
         startPoint: inputs.startPoint,
@@ -60,10 +68,10 @@ export const SwitchbackRampNode: NodeDefinition<SwitchbackRampInputs, Switchback
         landingSize: params.landingSize
       }
     });
-
+    
     return {
-      ramp: result,
-      landings: result
+      ramp: results.ramp,
+      landings: results.landings
     };
-  }
+  },
 };

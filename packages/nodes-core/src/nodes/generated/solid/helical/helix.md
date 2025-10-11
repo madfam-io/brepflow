@@ -8,7 +8,7 @@ Create a helical curve
 ## Parameters
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a helical curve
 
 
 
-### pitch
+### Pitch
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a helical curve
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create a helical curve
 
 
 
-### leftHanded
+### Left Handed
 - **Type:** boolean
 - **Default:** false
 
@@ -47,7 +47,7 @@ This node has no inputs.
 ## Outputs
 
 
-### helix
+### Helix
 - **Type:** Wire
 - **Description:** Helical curve
 

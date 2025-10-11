@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SignParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface SignInputs {
+  value: unknown;
 }
-interface Outputs {
-  sign: number;
+
+interface SignOutputs {
+  sign: unknown;
 }
 
 export const SignNode: NodeDefinition<SignInputs, SignOutputs, SignParams> = {
-  type: 'Math::Sign',
+  id: 'Math::Sign',
   category: 'Math',
-  subcategory: 'Comparison',
-
-  metadata: {
-    label: 'Sign',
-    description: 'Sign of number',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Sign',
+  description: 'Sign of number',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        sign: 'number'
+    sign: {
+      type: 'number',
+      label: 'Sign'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathSign',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       sign: result
     };
-  }
+  },
 };

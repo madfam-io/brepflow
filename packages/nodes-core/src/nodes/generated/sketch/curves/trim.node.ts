@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TrimParams {
   startParameter: number;
   endParameter: number;
 }
-interface Inputs {
-  curve: Wire;
+
+interface TrimInputs {
+  curve: unknown;
 }
-interface Outputs {
-  trimmed: Wire;
+
+interface TrimOutputs {
+  trimmed: unknown;
 }
 
 export const TrimNode: NodeDefinition<TrimInputs, TrimOutputs, TrimParams> = {
-  type: 'Sketch::Trim',
+  id: 'Sketch::Trim',
   category: 'Sketch',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'Trim',
-    description: 'Trim a curve',
-    
-    
-  },
-
-  params: {
-        startParameter: {
-      "default": 0,
-      "min": 0,
-      "max": 1
-    },
-    endParameter: {
-      "default": 1,
-      "min": 0,
-      "max": 1
+  label: 'Trim',
+  description: 'Trim a curve',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        trimmed: 'Wire'
+    trimmed: {
+      type: 'Wire',
+      label: 'Trimmed'
+    }
   },
-
+  params: {
+    startParameter: {
+      type: 'number',
+      label: 'Start Parameter',
+      default: 0,
+      min: 0,
+      max: 1
+    },
+    endParameter: {
+      type: 'number',
+      label: 'End Parameter',
+      default: 1,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'trimCurve',
       params: {
@@ -55,9 +56,9 @@ export const TrimNode: NodeDefinition<TrimInputs, TrimOutputs, TrimParams> = {
         endParameter: params.endParameter
       }
     });
-
+    
     return {
       trimmed: result
     };
-  }
+  },
 };

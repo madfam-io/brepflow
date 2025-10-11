@@ -1,72 +1,82 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceCurvatureParams {
   uSamples: number;
   vSamples: number;
   curvatureType: string;
   colorMap: boolean;
 }
-interface Inputs {
-  surface: Face;
+
+interface SurfaceCurvatureInputs {
+  surface: unknown;
 }
-interface Outputs {
-  curvatureMap: Shape;
-  maxCurvature: number;
-  minCurvature: number;
-  averageCurvature: number;
+
+interface SurfaceCurvatureOutputs {
+  curvatureMap: unknown;
+  maxCurvature: unknown;
+  minCurvature: unknown;
+  averageCurvature: unknown;
 }
 
 export const SurfaceCurvatureNode: NodeDefinition<SurfaceCurvatureInputs, SurfaceCurvatureOutputs, SurfaceCurvatureParams> = {
-  type: 'Analysis::SurfaceCurvature',
+  id: 'Analysis::SurfaceCurvature',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceCurvature',
-    description: 'Analyze surface curvature (Gaussian and Mean)',
-    
-    
-  },
-
-  params: {
-        uSamples: {
-      "default": 50,
-      "min": 10,
-      "max": 200
-    },
-    vSamples: {
-      "default": 50,
-      "min": 10,
-      "max": 200
-    },
-    curvatureType: {
-      "default": "gaussian",
-      "options": [
-        "gaussian",
-        "mean",
-        "principal"
-      ]
-    },
-    colorMap: {
-      "default": true
+  label: 'SurfaceCurvature',
+  description: 'Analyze surface curvature (Gaussian and Mean)',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        curvatureMap: 'Shape',
-    maxCurvature: 'number',
-    minCurvature: 'number',
-    averageCurvature: 'number'
+    curvatureMap: {
+      type: 'Shape',
+      label: 'Curvature Map'
+    },
+    maxCurvature: {
+      type: 'number',
+      label: 'Max Curvature'
+    },
+    minCurvature: {
+      type: 'number',
+      label: 'Min Curvature'
+    },
+    averageCurvature: {
+      type: 'number',
+      label: 'Average Curvature'
+    }
   },
-
+  params: {
+    uSamples: {
+      type: 'number',
+      label: 'U Samples',
+      default: 50,
+      min: 10,
+      max: 200
+    },
+    vSamples: {
+      type: 'number',
+      label: 'V Samples',
+      default: 50,
+      min: 10,
+      max: 200
+    },
+    curvatureType: {
+      type: 'enum',
+      label: 'Curvature Type',
+      default: "gaussian",
+      options: ["gaussian","mean","principal"]
+    },
+    colorMap: {
+      type: 'boolean',
+      label: 'Color Map',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceCurvature',
       params: {
         surface: inputs.surface,
@@ -76,12 +86,12 @@ export const SurfaceCurvatureNode: NodeDefinition<SurfaceCurvatureInputs, Surfac
         colorMap: params.colorMap
       }
     });
-
+    
     return {
-      curvatureMap: result,
-      maxCurvature: result,
-      minCurvature: result,
-      averageCurvature: result
+      curvatureMap: results.curvatureMap,
+      maxCurvature: results.maxCurvature,
+      minCurvature: results.minCurvature,
+      averageCurvature: results.averageCurvature
     };
-  }
+  },
 };

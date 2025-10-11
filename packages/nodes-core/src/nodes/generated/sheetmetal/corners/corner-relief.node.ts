@@ -1,64 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CornerReliefParams {
   reliefType: string;
   reliefSize: number;
   reliefRatio: number;
 }
-interface Inputs {
-  sheet: Shape;
-  corners: Vertex[];
+
+interface CornerReliefInputs {
+  sheet: unknown;
+  corners: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface CornerReliefOutputs {
+  result: unknown;
 }
 
 export const CornerReliefNode: NodeDefinition<CornerReliefInputs, CornerReliefOutputs, CornerReliefParams> = {
-  type: 'SheetMetal::CornerRelief',
+  id: 'SheetMetal::CornerRelief',
   category: 'SheetMetal',
-  subcategory: 'Corners',
-
-  metadata: {
-    label: 'CornerRelief',
-    description: 'Add corner relief cuts',
-    
-    
-  },
-
-  params: {
-        reliefType: {
-      "default": "circular",
-      "options": [
-        "circular",
-        "square",
-        "obround",
-        "tear"
-      ]
+  label: 'CornerRelief',
+  description: 'Add corner relief cuts',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    reliefSize: {
-      "default": 5,
-      "min": 0.1,
-      "max": 100
-    },
-    reliefRatio: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 1
+    corners: {
+      type: 'Vertex[]',
+      label: 'Corners',
+      required: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    corners: 'Vertex[]'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    reliefType: {
+      type: 'enum',
+      label: 'Relief Type',
+      default: "circular",
+      options: ["circular","square","obround","tear"]
+    },
+    reliefSize: {
+      type: 'number',
+      label: 'Relief Size',
+      default: 5,
+      min: 0.1,
+      max: 100
+    },
+    reliefRatio: {
+      type: 'number',
+      label: 'Relief Ratio',
+      default: 0.5,
+      min: 0.1,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetCornerRelief',
       params: {
@@ -69,9 +71,9 @@ export const CornerReliefNode: NodeDefinition<CornerReliefInputs, CornerReliefOu
         reliefRatio: params.reliefRatio
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

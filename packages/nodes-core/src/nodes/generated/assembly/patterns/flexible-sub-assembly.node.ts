@@ -1,50 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FlexibleSubAssemblyParams {
   flexibility: string;
 }
-interface Inputs {
-  components: Shape[];
-  joints?: Joint[];
+
+interface FlexibleSubAssemblyInputs {
+  components: unknown;
+  joints?: unknown;
 }
-interface Outputs {
-  subAssembly: Assembly;
+
+interface FlexibleSubAssemblyOutputs {
+  subAssembly: unknown;
 }
 
 export const FlexibleSubAssemblyNode: NodeDefinition<FlexibleSubAssemblyInputs, FlexibleSubAssemblyOutputs, FlexibleSubAssemblyParams> = {
-  type: 'Assembly::FlexibleSubAssembly',
+  id: 'Assembly::FlexibleSubAssembly',
   category: 'Assembly',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'FlexibleSubAssembly',
-    description: 'Create flexible sub-assembly',
-    
-    
-  },
-
-  params: {
-        flexibility: {
-      "default": "flexible",
-      "options": [
-        "rigid",
-        "flexible"
-      ]
+  label: 'FlexibleSubAssembly',
+  description: 'Create flexible sub-assembly',
+  inputs: {
+    components: {
+      type: 'Shape[]',
+      label: 'Components',
+      required: true
+    },
+    joints: {
+      type: 'Joint[]',
+      label: 'Joints',
+      optional: true
     }
   },
-
-  inputs: {
-        components: 'Shape[]',
-    joints: 'Joint[]'
-  },
-
   outputs: {
-        subAssembly: 'Assembly'
+    subAssembly: {
+      type: 'Assembly',
+      label: 'Sub Assembly'
+    }
   },
-
+  params: {
+    flexibility: {
+      type: 'enum',
+      label: 'Flexibility',
+      default: "flexible",
+      options: ["rigid","flexible"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'assemblyFlexible',
       params: {
@@ -53,9 +53,9 @@ export const FlexibleSubAssemblyNode: NodeDefinition<FlexibleSubAssemblyInputs, 
         flexibility: params.flexibility
       }
     });
-
+    
     return {
       subAssembly: result
     };
-  }
+  },
 };

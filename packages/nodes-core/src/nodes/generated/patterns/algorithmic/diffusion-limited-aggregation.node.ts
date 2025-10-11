@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DiffusionLimitedAggregationParams {
   particles: number;
   stickiness: number;
 }
-interface Inputs {
-  seed: Point;
+
+interface DiffusionLimitedAggregationInputs {
+  seed: [number, number, number];
 }
-interface Outputs {
-  aggregate: Point[];
+
+interface DiffusionLimitedAggregationOutputs {
+  aggregate: Array<[number, number, number]>;
 }
 
 export const DiffusionLimitedAggregationNode: NodeDefinition<DiffusionLimitedAggregationInputs, DiffusionLimitedAggregationOutputs, DiffusionLimitedAggregationParams> = {
-  type: 'Patterns::DiffusionLimitedAggregation',
+  id: 'Patterns::DiffusionLimitedAggregation',
   category: 'Patterns',
-  subcategory: 'Algorithmic',
-
-  metadata: {
-    label: 'DiffusionLimitedAggregation',
-    description: 'DLA growth pattern',
-    
-    
-  },
-
-  params: {
-        particles: {
-      "default": 1000,
-      "min": 100,
-      "max": 10000,
-      "step": 100
-    },
-    stickiness: {
-      "default": 1,
-      "min": 0.1,
-      "max": 1
+  label: 'DiffusionLimitedAggregation',
+  description: 'DLA growth pattern',
+  inputs: {
+    seed: {
+      type: 'Point',
+      label: 'Seed',
+      required: true
     }
   },
-
-  inputs: {
-        seed: 'Point'
-  },
-
   outputs: {
-        aggregate: 'Point[]'
+    aggregate: {
+      type: 'Point[]',
+      label: 'Aggregate'
+    }
   },
-
+  params: {
+    particles: {
+      type: 'number',
+      label: 'Particles',
+      default: 1000,
+      min: 100,
+      max: 10000,
+      step: 100
+    },
+    stickiness: {
+      type: 'number',
+      label: 'Stickiness',
+      default: 1,
+      min: 0.1,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'dlaPattern',
       params: {
@@ -56,9 +57,9 @@ export const DiffusionLimitedAggregationNode: NodeDefinition<DiffusionLimitedAgg
         stickiness: params.stickiness
       }
     });
-
+    
     return {
       aggregate: result
     };
-  }
+  },
 };

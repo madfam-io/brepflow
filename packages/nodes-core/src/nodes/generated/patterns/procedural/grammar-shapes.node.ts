@@ -1,57 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GrammarShapesParams {
   grammar: string;
   iterations: number;
   seed: string;
 }
-interface Inputs {
-  shapeA: Shape;
-  shapeB?: Shape;
+
+interface GrammarShapesInputs {
+  shapeA: unknown;
+  shapeB?: unknown;
 }
-interface Outputs {
-  result: Shape[];
+
+interface GrammarShapesOutputs {
+  result: unknown;
 }
 
 export const GrammarShapesNode: NodeDefinition<GrammarShapesInputs, GrammarShapesOutputs, GrammarShapesParams> = {
-  type: 'Patterns::GrammarShapes',
+  id: 'Patterns::GrammarShapes',
   category: 'Patterns',
-  subcategory: 'Procedural',
-
-  metadata: {
-    label: 'GrammarShapes',
-    description: 'Shape grammar generation',
-    
-    
-  },
-
-  params: {
-        grammar: {
-      "default": "A->AB,B->A"
+  label: 'GrammarShapes',
+  description: 'Shape grammar generation',
+  inputs: {
+    shapeA: {
+      type: 'Shape',
+      label: 'Shape A',
+      required: true
     },
-    iterations: {
-      "default": 5,
-      "min": 1,
-      "max": 10,
-      "step": 1
-    },
-    seed: {
-      "default": "A"
+    shapeB: {
+      type: 'Shape',
+      label: 'Shape B',
+      optional: true
     }
   },
-
-  inputs: {
-        shapeA: 'Shape',
-    shapeB: 'Shape'
-  },
-
   outputs: {
-        result: 'Shape[]'
+    result: {
+      type: 'Shape[]',
+      label: 'Result'
+    }
   },
-
+  params: {
+    grammar: {
+      type: 'string',
+      label: 'Grammar',
+      default: "A->AB,B->A"
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 5,
+      min: 1,
+      max: 10,
+      step: 1
+    },
+    seed: {
+      type: 'string',
+      label: 'Seed',
+      default: "A"
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'grammarShapes',
       params: {
@@ -62,9 +69,9 @@ export const GrammarShapesNode: NodeDefinition<GrammarShapesInputs, GrammarShape
         seed: params.seed
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

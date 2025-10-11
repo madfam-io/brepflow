@@ -1,70 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MotionDriverParams {
   motionType: string;
   velocity: number;
   acceleration: number;
   period: number;
 }
-interface Inputs {
-  joint: Data;
-  motionProfile?: Data;
+
+interface MotionDriverInputs {
+  joint: unknown;
+  motionProfile?: unknown;
 }
-interface Outputs {
-  drivenJoint: Data;
+
+interface MotionDriverOutputs {
+  drivenJoint: unknown;
 }
 
 export const MotionDriverNode: NodeDefinition<MotionDriverInputs, MotionDriverOutputs, MotionDriverParams> = {
-  type: 'Simulation::MotionDriver',
+  id: 'Simulation::MotionDriver',
   category: 'Simulation',
-  subcategory: 'Kinematics',
-
-  metadata: {
-    label: 'MotionDriver',
-    description: 'Define motion driver',
-    
-    
-  },
-
-  params: {
-        motionType: {
-      "default": "constant",
-      "options": [
-        "constant",
-        "harmonic",
-        "profile",
-        "expression"
-      ]
+  label: 'MotionDriver',
+  description: 'Define motion driver',
+  inputs: {
+    joint: {
+      type: 'Data',
+      label: 'Joint',
+      required: true
     },
-    velocity: {
-      "default": 1,
-      "min": -1000,
-      "max": 1000
-    },
-    acceleration: {
-      "default": 0,
-      "min": -1000,
-      "max": 1000
-    },
-    period: {
-      "default": 1,
-      "min": 0.001,
-      "max": 100
+    motionProfile: {
+      type: 'Data',
+      label: 'Motion Profile',
+      optional: true
     }
   },
-
-  inputs: {
-        joint: 'Data',
-    motionProfile: 'Data'
-  },
-
   outputs: {
-        drivenJoint: 'Data'
+    drivenJoint: {
+      type: 'Data',
+      label: 'Driven Joint'
+    }
   },
-
+  params: {
+    motionType: {
+      type: 'enum',
+      label: 'Motion Type',
+      default: "constant",
+      options: ["constant","harmonic","profile","expression"]
+    },
+    velocity: {
+      type: 'number',
+      label: 'Velocity',
+      default: 1,
+      min: -1000,
+      max: 1000
+    },
+    acceleration: {
+      type: 'number',
+      label: 'Acceleration',
+      default: 0,
+      min: -1000,
+      max: 1000
+    },
+    period: {
+      type: 'number',
+      label: 'Period',
+      default: 1,
+      min: 0.001,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'motionDriver',
       params: {
@@ -76,9 +80,9 @@ export const MotionDriverNode: NodeDefinition<MotionDriverInputs, MotionDriverOu
         period: params.period
       }
     });
-
+    
     return {
       drivenJoint: result
     };
-  }
+  },
 };

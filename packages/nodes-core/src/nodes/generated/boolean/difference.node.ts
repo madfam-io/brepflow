@@ -1,52 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DifferenceParams {
   keepOriginals: boolean;
   fuzzyValue: number;
 }
-interface Inputs {
-  base: Shape;
-  tools: Shape[];
+
+interface DifferenceInputs {
+  base: unknown;
+  tools: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface DifferenceOutputs {
+  result: unknown;
 }
 
 export const DifferenceNode: NodeDefinition<DifferenceInputs, DifferenceOutputs, DifferenceParams> = {
-  type: 'Boolean::Difference',
+  id: 'Boolean::Difference',
   category: 'Boolean',
-  
-
-  metadata: {
-    label: 'Difference',
-    description: 'Subtract tool shapes from base shape',
-    
-    
-  },
-
-  params: {
-        keepOriginals: {
-      "default": false
+  label: 'Difference',
+  description: 'Subtract tool shapes from base shape',
+  inputs: {
+    base: {
+      type: 'Shape',
+      label: 'Base',
+      required: true
     },
-    fuzzyValue: {
-      "default": 1e-7,
-      "min": 0,
-      "max": 1
+    tools: {
+      type: 'Shape[]',
+      label: 'Tools',
+      required: true
     }
   },
-
-  inputs: {
-        base: 'Shape',
-    tools: 'Shape[]'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    keepOriginals: {
+      type: 'boolean',
+      label: 'Keep Originals',
+      default: false
+    },
+    fuzzyValue: {
+      type: 'number',
+      label: 'Fuzzy Value',
+      default: 1e-7,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'booleanDifference',
       params: {
@@ -56,9 +61,9 @@ export const DifferenceNode: NodeDefinition<DifferenceInputs, DifferenceOutputs,
         fuzzyValue: params.fuzzyValue
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Robotic 3D printing
 ## Parameters
 
 
-### nozzleSize
+### Nozzle Size
 - **Type:** number
 - **Default:** 4
 - **Min:** 0.4
@@ -16,7 +16,7 @@ Robotic 3D printing
 
 
 
-### layerHeight
+### Layer Height
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Robotic 3D printing
 ## Inputs
 
 
-### printPaths
+### Print Paths
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Robotic 3D printing
 ## Outputs
 
 
-### roboticPrintPath
+### Robotic Print Path
 - **Type:** Transform[]
 
 

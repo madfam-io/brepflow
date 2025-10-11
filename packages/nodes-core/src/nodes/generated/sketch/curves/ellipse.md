@@ -8,7 +8,7 @@ Create an ellipse
 ## Parameters
 
 
-### majorRadius
+### Major Radius
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create an ellipse
 
 
 
-### minorRadius
+### Minor Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create an ellipse
 
 
 
-### startAngle
+### Start Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -32,7 +32,7 @@ Create an ellipse
 
 
 
-### endAngle
+### End Angle
 - **Type:** number
 - **Default:** 360
 - **Min:** 0
@@ -43,7 +43,7 @@ Create an ellipse
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** No
 
@@ -52,7 +52,7 @@ Create an ellipse
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Description:** Ellipse curve
 

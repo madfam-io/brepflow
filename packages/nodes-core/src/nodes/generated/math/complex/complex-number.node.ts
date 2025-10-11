@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ComplexNumberParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  real: number;
-  imaginary: number;
+interface ComplexNumberInputs {
+  real: unknown;
+  imaginary: unknown;
 }
-interface Outputs {
-  complex: Complex;
+
+interface ComplexNumberOutputs {
+  complex: unknown;
 }
 
 export const ComplexNumberNode: NodeDefinition<ComplexNumberInputs, ComplexNumberOutputs, ComplexNumberParams> = {
-  type: 'Math::ComplexNumber',
+  id: 'Math::ComplexNumber',
   category: 'Math',
-  subcategory: 'Complex',
-
-  metadata: {
-    label: 'ComplexNumber',
-    description: 'Create complex number',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ComplexNumber',
+  description: 'Create complex number',
   inputs: {
-        real: 'number',
-    imaginary: 'number'
+    real: {
+      type: 'number',
+      label: 'Real',
+      required: true
+    },
+    imaginary: {
+      type: 'number',
+      label: 'Imaginary',
+      required: true
+    }
   },
-
   outputs: {
-        complex: 'Complex'
+    complex: {
+      type: 'Complex',
+      label: 'Complex'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathComplex',
       params: {
         real: inputs.real,
         imaginary: inputs.imaginary
-        
       }
     });
-
+    
     return {
       complex: result
     };
-  }
+  },
 };

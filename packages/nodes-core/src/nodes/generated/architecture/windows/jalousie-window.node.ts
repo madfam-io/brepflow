@@ -1,56 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface JalousieWindowParams {
   slats: number;
   angle: number;
 }
-interface Inputs {
-  opening: Wire;
+
+interface JalousieWindowInputs {
+  opening: unknown;
 }
-interface Outputs {
-  jalousie: Shape;
-  slats: Shape[];
+
+interface JalousieWindowOutputs {
+  jalousie: unknown;
+  slats: unknown;
 }
 
 export const JalousieWindowNode: NodeDefinition<JalousieWindowInputs, JalousieWindowOutputs, JalousieWindowParams> = {
-  type: 'Architecture::JalousieWindow',
+  id: 'Architecture::JalousieWindow',
   category: 'Architecture',
-  subcategory: 'Windows',
-
-  metadata: {
-    label: 'JalousieWindow',
-    description: 'Jalousie louvre window',
-    
-    
-  },
-
-  params: {
-        slats: {
-      "default": 10,
-      "min": 5,
-      "max": 20,
-      "step": 1
-    },
-    angle: {
-      "default": 0,
-      "min": 0,
-      "max": 90
+  label: 'JalousieWindow',
+  description: 'Jalousie louvre window',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        jalousie: 'Shape',
-    slats: 'Shape[]'
+    jalousie: {
+      type: 'Shape',
+      label: 'Jalousie'
+    },
+    slats: {
+      type: 'Shape[]',
+      label: 'Slats'
+    }
   },
-
+  params: {
+    slats: {
+      type: 'number',
+      label: 'Slats',
+      default: 10,
+      min: 5,
+      max: 20,
+      step: 1
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 0,
+      min: 0,
+      max: 90
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'jalousieWindow',
       params: {
         opening: inputs.opening,
@@ -58,10 +62,10 @@ export const JalousieWindowNode: NodeDefinition<JalousieWindowInputs, JalousieWi
         angle: params.angle
       }
     });
-
+    
     return {
-      jalousie: result,
-      slats: result
+      jalousie: results.jalousie,
+      slats: results.slats
     };
-  }
+  },
 };

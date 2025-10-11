@@ -8,7 +8,7 @@ Create helical gear with angle
 ## Parameters
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Create helical gear with angle
 
 
 
-### teeth
+### Teeth
 - **Type:** number
 - **Default:** 20
 - **Min:** 6
@@ -24,7 +24,7 @@ Create helical gear with angle
 
 
 
-### helixAngle
+### Helix Angle
 - **Type:** number
 - **Default:** 15
 - **Min:** 0
@@ -32,7 +32,7 @@ Create helical gear with angle
 - **Description:** Helix angle in degrees
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 20
 - **Min:** 1
@@ -40,7 +40,7 @@ Create helical gear with angle
 
 
 
-### handedness
+### Handedness
 - **Type:** enum
 - **Default:** "right"
 
@@ -51,7 +51,7 @@ Create helical gear with angle
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** No
 
@@ -60,12 +60,12 @@ Create helical gear with angle
 ## Outputs
 
 
-### gear
+### Gear
 - **Type:** Shape
 
 
 
-### profile
+### Profile
 - **Type:** Wire
 
 

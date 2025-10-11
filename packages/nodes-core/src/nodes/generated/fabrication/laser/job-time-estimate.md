@@ -8,7 +8,7 @@ Estimate job time
 ## Parameters
 
 
-### rapidSpeed
+### Rapid Speed
 - **Type:** number
 - **Default:** 500
 - **Min:** 100
@@ -19,13 +19,13 @@ Estimate job time
 ## Inputs
 
 
-### cuttingPaths
+### Cutting Paths
 - **Type:** Wire[]
 - **Required:** Yes
 
 
 
-### engravingPaths
+### Engraving Paths
 - **Type:** Wire[]
 - **Required:** No
 
@@ -34,17 +34,17 @@ Estimate job time
 ## Outputs
 
 
-### totalTime
+### Total Time
 - **Type:** Number
 
 
 
-### cuttingTime
+### Cutting Time
 - **Type:** Number
 
 
 
-### engravingTime
+### Engraving Time
 - **Type:** Number
 
 

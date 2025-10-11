@@ -1,57 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TextEngravingParams {
   font: string;
   height: number;
 }
-interface Inputs {
-  text: Data;
-  position: Point;
+
+interface TextEngravingInputs {
+  text: unknown;
+  position: [number, number, number];
 }
-interface Outputs {
-  textPaths: Wire[];
+
+interface TextEngravingOutputs {
+  textPaths: unknown;
 }
 
 export const TextEngravingNode: NodeDefinition<TextEngravingInputs, TextEngravingOutputs, TextEngravingParams> = {
-  type: 'Fabrication::TextEngraving',
+  id: 'Fabrication::TextEngraving',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'TextEngraving',
-    description: 'Optimize text for engraving',
-    
-    
-  },
-
-  params: {
-        font: {
-      "default": "single-line",
-      "options": [
-        "single-line",
-        "outline",
-        "filled"
-      ]
+  label: 'TextEngraving',
+  description: 'Optimize text for engraving',
+  inputs: {
+    text: {
+      type: 'Data',
+      label: 'Text',
+      required: true
     },
-    height: {
-      "default": 10,
-      "min": 1,
-      "max": 100
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        text: 'Data',
-    position: 'Point'
-  },
-
   outputs: {
-        textPaths: 'Wire[]'
+    textPaths: {
+      type: 'Wire[]',
+      label: 'Text Paths'
+    }
   },
-
+  params: {
+    font: {
+      type: 'enum',
+      label: 'Font',
+      default: "single-line",
+      options: ["single-line","outline","filled"]
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 10,
+      min: 1,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'textEngraving',
       params: {
@@ -61,9 +62,9 @@ export const TextEngravingNode: NodeDefinition<TextEngravingInputs, TextEngravin
         height: params.height
       }
     });
-
+    
     return {
       textPaths: result
     };
-  }
+  },
 };

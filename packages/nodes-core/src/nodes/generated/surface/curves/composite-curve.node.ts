@@ -1,55 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CompositeCurveParams {
   continuity: string;
   mergeTolerance: number;
 }
-interface Inputs {
-  curves: Wire[];
+
+interface CompositeCurveInputs {
+  curves: unknown;
 }
-interface Outputs {
-  composite: Wire;
+
+interface CompositeCurveOutputs {
+  composite: unknown;
 }
 
 export const CompositeCurveNode: NodeDefinition<CompositeCurveInputs, CompositeCurveOutputs, CompositeCurveParams> = {
-  type: 'Surface::CompositeCurve',
+  id: 'Surface::CompositeCurve',
   category: 'Surface',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CompositeCurve',
-    description: 'Create composite curve',
-    
-    
-  },
-
-  params: {
-        continuity: {
-      "default": "G1",
-      "options": [
-        "G0",
-        "G1",
-        "G2"
-      ]
-    },
-    mergeTolerance: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
+  label: 'CompositeCurve',
+  description: 'Create composite curve',
+  inputs: {
+    curves: {
+      type: 'Wire[]',
+      label: 'Curves',
+      required: true
     }
   },
-
-  inputs: {
-        curves: 'Wire[]'
-  },
-
   outputs: {
-        composite: 'Wire'
+    composite: {
+      type: 'Wire',
+      label: 'Composite'
+    }
   },
-
+  params: {
+    continuity: {
+      type: 'enum',
+      label: 'Continuity',
+      default: "G1",
+      options: ["G0","G1","G2"]
+    },
+    mergeTolerance: {
+      type: 'number',
+      label: 'Merge Tolerance',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'compositeCurve',
       params: {
@@ -58,9 +55,9 @@ export const CompositeCurveNode: NodeDefinition<CompositeCurveInputs, CompositeC
         mergeTolerance: params.mergeTolerance
       }
     });
-
+    
     return {
       composite: result
     };
-  }
+  },
 };

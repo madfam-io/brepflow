@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface KnitSurfacesParams {
   tolerance: number;
   createSolid: boolean;
 }
-interface Inputs {
-  surfaces: Face[];
+
+interface KnitSurfacesInputs {
+  surfaces: unknown;
 }
-interface Outputs {
-  knittedShape: Shape;
+
+interface KnitSurfacesOutputs {
+  knittedShape: unknown;
 }
 
 export const KnitSurfacesNode: NodeDefinition<KnitSurfacesInputs, KnitSurfacesOutputs, KnitSurfacesParams> = {
-  type: 'Advanced::KnitSurfaces',
+  id: 'Advanced::KnitSurfaces',
   category: 'Advanced',
-  subcategory: 'Surface',
-
-  metadata: {
-    label: 'KnitSurfaces',
-    description: 'Knit surfaces together',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
-    },
-    createSolid: {
-      "default": false
+  label: 'KnitSurfaces',
+  description: 'Knit surfaces together',
+  inputs: {
+    surfaces: {
+      type: 'Face[]',
+      label: 'Surfaces',
+      required: true
     }
   },
-
-  inputs: {
-        surfaces: 'Face[]'
-  },
-
   outputs: {
-        knittedShape: 'Shape'
+    knittedShape: {
+      type: 'Shape',
+      label: 'Knitted Shape'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    },
+    createSolid: {
+      type: 'boolean',
+      label: 'Create Solid',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'knitSurfaces',
       params: {
@@ -53,9 +54,9 @@ export const KnitSurfacesNode: NodeDefinition<KnitSurfacesInputs, KnitSurfacesOu
         createSolid: params.createSolid
       }
     });
-
+    
     return {
       knittedShape: result
     };
-  }
+  },
 };

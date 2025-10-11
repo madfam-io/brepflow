@@ -1,69 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CounterboreHoleParams {
   holeDiameter: number;
   counterbore: number;
   cbDepth: number;
   holeDepth: number;
 }
-interface Inputs {
-  solid: Shape;
-  position: Point;
+
+interface CounterboreHoleInputs {
+  solid: unknown;
+  position: [number, number, number];
 }
-interface Outputs {
-  shape: Shape;
+
+interface CounterboreHoleOutputs {
+  shape: unknown;
 }
 
 export const CounterboreHoleNode: NodeDefinition<CounterboreHoleInputs, CounterboreHoleOutputs, CounterboreHoleParams> = {
-  type: 'Features::CounterboreHole',
+  id: 'Features::CounterboreHole',
   category: 'Features',
-  subcategory: 'Holes',
-
-  metadata: {
-    label: 'CounterboreHole',
-    description: 'Creates a counterbore hole for socket head cap screws',
-    
-    tags: ["hole","counterbore","fastener","SHCS"],
-  },
-
-  params: {
-        holeDiameter: {
-      "default": 6.5,
-      "min": 0.1,
-      "max": 100,
-      "description": "Through hole diameter"
+  label: 'CounterboreHole',
+  description: 'Creates a counterbore hole for socket head cap screws',
+  inputs: {
+    solid: {
+      type: 'Shape',
+      label: 'Solid',
+      required: true
     },
-    counterbore: {
-      "default": 11,
-      "min": 0.1,
-      "max": 200,
-      "description": "Counterbore diameter"
-    },
-    cbDepth: {
-      "default": 6,
-      "min": 0.1,
-      "max": 100,
-      "description": "Counterbore depth"
-    },
-    holeDepth: {
-      "default": -1,
-      "min": -1,
-      "description": "Total hole depth (-1 for through)"
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        solid: 'Shape',
-    position: 'Point'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    holeDiameter: {
+      type: 'number',
+      label: 'Hole Diameter',
+      default: 6.5,
+      min: 0.1,
+      max: 100
+    },
+    counterbore: {
+      type: 'number',
+      label: 'Counterbore',
+      default: 11,
+      min: 0.1,
+      max: 200
+    },
+    cbDepth: {
+      type: 'number',
+      label: 'Cb Depth',
+      default: 6,
+      min: 0.1,
+      max: 100
+    },
+    holeDepth: {
+      type: 'number',
+      label: 'Hole Depth',
+      default: -1,
+      min: -1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeCounterbore',
       params: {
@@ -75,9 +80,9 @@ export const CounterboreHoleNode: NodeDefinition<CounterboreHoleInputs, Counterb
         holeDepth: params.holeDepth
       }
     });
-
+    
     return {
       shape: result
     };
-  }
+  },
 };

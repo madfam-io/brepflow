@@ -1,46 +1,45 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SetPermutationsParams {
   k: number;
 }
-interface Inputs {
-  set: Data[];
+
+interface SetPermutationsInputs {
+  set: unknown;
 }
-interface Outputs {
-  permutations: Data[][];
+
+interface SetPermutationsOutputs {
+  permutations: unknown;
 }
 
 export const SetPermutationsNode: NodeDefinition<SetPermutationsInputs, SetPermutationsOutputs, SetPermutationsParams> = {
-  type: 'Data::SetPermutations',
+  id: 'Data::SetPermutations',
   category: 'Data',
-  subcategory: 'Set',
-
-  metadata: {
-    label: 'SetPermutations',
-    description: 'Permutations of set',
-    
-    
-  },
-
-  params: {
-        k: {
-      "default": -1,
-      "min": -1,
-      "max": 10
+  label: 'SetPermutations',
+  description: 'Permutations of set',
+  inputs: {
+    set: {
+      type: 'Data[]',
+      label: 'Set',
+      required: true
     }
   },
-
-  inputs: {
-        set: 'Data[]'
-  },
-
   outputs: {
-        permutations: 'Data[][]'
+    permutations: {
+      type: 'Data[][]',
+      label: 'Permutations'
+    }
   },
-
+  params: {
+    k: {
+      type: 'number',
+      label: 'K',
+      default: -1,
+      min: -1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'setPermutations',
       params: {
@@ -48,9 +47,9 @@ export const SetPermutationsNode: NodeDefinition<SetPermutationsInputs, SetPermu
         k: params.k
       }
     });
-
+    
     return {
       permutations: result
     };
-  }
+  },
 };

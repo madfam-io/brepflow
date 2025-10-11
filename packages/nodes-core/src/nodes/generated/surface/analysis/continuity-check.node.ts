@@ -1,63 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ContinuityCheckParams {
   checkType: string;
   tolerance: number;
 }
-interface Inputs {
-  surface1: Face;
-  surface2: Face;
-  edge?: Edge;
+
+interface ContinuityCheckInputs {
+  surface1: unknown;
+  surface2: unknown;
+  edge?: unknown;
 }
-interface Outputs {
-  isContinuous: boolean;
-  deviations: Data;
+
+interface ContinuityCheckOutputs {
+  isContinuous: unknown;
+  deviations: unknown;
 }
 
 export const ContinuityCheckNode: NodeDefinition<ContinuityCheckInputs, ContinuityCheckOutputs, ContinuityCheckParams> = {
-  type: 'Surface::ContinuityCheck',
+  id: 'Surface::ContinuityCheck',
   category: 'Surface',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'ContinuityCheck',
-    description: 'Check surface continuity',
-    
-    
-  },
-
-  params: {
-        checkType: {
-      "default": "G1",
-      "options": [
-        "G0",
-        "G1",
-        "G2",
-        "G3"
-      ]
+  label: 'ContinuityCheck',
+  description: 'Check surface continuity',
+  inputs: {
+    surface1: {
+      type: 'Face',
+      label: 'Surface1',
+      required: true
     },
-    tolerance: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
+    surface2: {
+      type: 'Face',
+      label: 'Surface2',
+      required: true
+    },
+    edge: {
+      type: 'Edge',
+      label: 'Edge',
+      optional: true
     }
   },
-
-  inputs: {
-        surface1: 'Face',
-    surface2: 'Face',
-    edge: 'Edge'
-  },
-
   outputs: {
-        isContinuous: 'boolean',
-    deviations: 'Data'
+    isContinuous: {
+      type: 'boolean',
+      label: 'Is Continuous'
+    },
+    deviations: {
+      type: 'Data',
+      label: 'Deviations'
+    }
   },
-
+  params: {
+    checkType: {
+      type: 'enum',
+      label: 'Check Type',
+      default: "G1",
+      options: ["G0","G1","G2","G3"]
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'continuityCheck',
       params: {
         surface1: inputs.surface1,
@@ -67,10 +74,10 @@ export const ContinuityCheckNode: NodeDefinition<ContinuityCheckInputs, Continui
         tolerance: params.tolerance
       }
     });
-
+    
     return {
-      isContinuous: result,
-      deviations: result
+      isContinuous: results.isContinuous,
+      deviations: results.deviations
     };
-  }
+  },
 };

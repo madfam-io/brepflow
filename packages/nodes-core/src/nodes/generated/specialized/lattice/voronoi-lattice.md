@@ -8,7 +8,7 @@ Voronoi-based lattice
 ## Parameters
 
 
-### seedCount
+### Seed Count
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Voronoi-based lattice
 
 
 
-### strutDiameter
+### Strut Diameter
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Voronoi-based lattice
 
 
 
-### randomSeed
+### Random Seed
 - **Type:** number
 - **Default:** 42
 - **Min:** 0
@@ -35,13 +35,13 @@ Voronoi-based lattice
 ## Inputs
 
 
-### boundingShape
+### Bounding Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### seedPoints
+### Seed Points
 - **Type:** Point[]
 - **Required:** No
 
@@ -50,7 +50,7 @@ Voronoi-based lattice
 ## Outputs
 
 
-### voronoi
+### Voronoi
 - **Type:** Shape
 
 

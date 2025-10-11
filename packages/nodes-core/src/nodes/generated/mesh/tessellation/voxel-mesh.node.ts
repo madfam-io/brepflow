@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VoxelMeshParams {
   voxelSize: number;
   fillInterior: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface VoxelMeshInputs {
+  shape: unknown;
 }
-interface Outputs {
-  voxels: Mesh;
+
+interface VoxelMeshOutputs {
+  voxels: unknown;
 }
 
 export const VoxelMeshNode: NodeDefinition<VoxelMeshInputs, VoxelMeshOutputs, VoxelMeshParams> = {
-  type: 'Mesh::VoxelMesh',
+  id: 'Mesh::VoxelMesh',
   category: 'Mesh',
-  subcategory: 'Tessellation',
-
-  metadata: {
-    label: 'VoxelMesh',
-    description: 'Create voxel mesh',
-    
-    
-  },
-
-  params: {
-        voxelSize: {
-      "default": 1,
-      "min": 0.01,
-      "max": 100
-    },
-    fillInterior: {
-      "default": false
+  label: 'VoxelMesh',
+  description: 'Create voxel mesh',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        voxels: 'Mesh'
+    voxels: {
+      type: 'Mesh',
+      label: 'Voxels'
+    }
   },
-
+  params: {
+    voxelSize: {
+      type: 'number',
+      label: 'Voxel Size',
+      default: 1,
+      min: 0.01,
+      max: 100
+    },
+    fillInterior: {
+      type: 'boolean',
+      label: 'Fill Interior',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'voxelMesh',
       params: {
@@ -53,9 +54,9 @@ export const VoxelMeshNode: NodeDefinition<VoxelMeshInputs, VoxelMeshOutputs, Vo
         fillInterior: params.fillInterior
       }
     });
-
+    
     return {
       voxels: result
     };
-  }
+  },
 };

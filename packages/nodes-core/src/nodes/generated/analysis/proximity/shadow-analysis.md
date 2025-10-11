@@ -8,7 +8,7 @@ Calculate shadow patterns
 ## Parameters
 
 
-### lightType
+### Light Type
 - **Type:** enum
 - **Default:** "directional"
 
@@ -16,7 +16,7 @@ Calculate shadow patterns
 
 
 
-### intensity
+### Intensity
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -27,25 +27,25 @@ Calculate shadow patterns
 ## Inputs
 
 
-### lightSource
+### Light Source
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### lightDirection
+### Light Direction
 - **Type:** Vector
 - **Required:** No
 
 
 
-### objects
+### Objects
 - **Type:** Shape[]
 - **Required:** Yes
 
 
 
-### groundPlane
+### Ground Plane
 - **Type:** Face
 - **Required:** Yes
 
@@ -54,17 +54,17 @@ Calculate shadow patterns
 ## Outputs
 
 
-### shadowRegions
+### Shadow Regions
 - **Type:** Face[]
 
 
 
-### lightRays
+### Light Rays
 - **Type:** Wire[]
 
 
 
-### illuminatedAreas
+### Illuminated Areas
 - **Type:** Face[]
 
 

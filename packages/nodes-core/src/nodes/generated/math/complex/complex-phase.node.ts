@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ComplexPhaseParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  complex: Complex;
+interface ComplexPhaseInputs {
+  complex: unknown;
 }
-interface Outputs {
-  phase: number;
+
+interface ComplexPhaseOutputs {
+  phase: unknown;
 }
 
 export const ComplexPhaseNode: NodeDefinition<ComplexPhaseInputs, ComplexPhaseOutputs, ComplexPhaseParams> = {
-  type: 'Math::ComplexPhase',
+  id: 'Math::ComplexPhase',
   category: 'Math',
-  subcategory: 'Complex',
-
-  metadata: {
-    label: 'ComplexPhase',
-    description: 'Complex phase angle',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ComplexPhase',
+  description: 'Complex phase angle',
   inputs: {
-        complex: 'Complex'
+    complex: {
+      type: 'Complex',
+      label: 'Complex',
+      required: true
+    }
   },
-
   outputs: {
-        phase: 'number'
+    phase: {
+      type: 'number',
+      label: 'Phase'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathComplexPhase',
       params: {
         complex: inputs.complex
-        
       }
     });
-
+    
     return {
       phase: result
     };
-  }
+  },
 };

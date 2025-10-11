@@ -1,60 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DirectionalAttractorParams {
   direction: [number, number, number];
   strength: number;
   spread: number;
 }
-interface Inputs {
-  origin: Point;
+
+interface DirectionalAttractorInputs {
+  origin: [number, number, number];
 }
-interface Outputs {
-  field: VectorField;
+
+interface DirectionalAttractorOutputs {
+  field: unknown;
 }
 
 export const DirectionalAttractorNode: NodeDefinition<DirectionalAttractorInputs, DirectionalAttractorOutputs, DirectionalAttractorParams> = {
-  type: 'Field::DirectionalAttractor',
+  id: 'Field::DirectionalAttractor',
   category: 'Field',
-  subcategory: 'Attractor',
-
-  metadata: {
-    label: 'DirectionalAttractor',
-    description: 'Directional attractor',
-    
-    
-  },
-
-  params: {
-        direction: {
-      "default": [
-        1,
-        0,
-        0
-      ]
-    },
-    strength: {
-      "default": 1,
-      "min": -10,
-      "max": 10
-    },
-    spread: {
-      "default": 45,
-      "min": 0,
-      "max": 180
+  label: 'DirectionalAttractor',
+  description: 'Directional attractor',
+  inputs: {
+    origin: {
+      type: 'Point',
+      label: 'Origin',
+      required: true
     }
   },
-
-  inputs: {
-        origin: 'Point'
-  },
-
   outputs: {
-        field: 'VectorField'
+    field: {
+      type: 'VectorField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    direction: {
+      type: 'vec3',
+      label: 'Direction',
+      default: [1,0,0]
+    },
+    strength: {
+      type: 'number',
+      label: 'Strength',
+      default: 1,
+      min: -10,
+      max: 10
+    },
+    spread: {
+      type: 'number',
+      label: 'Spread',
+      default: 45,
+      min: 0,
+      max: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'attractorDirectional',
       params: {
@@ -64,9 +63,9 @@ export const DirectionalAttractorNode: NodeDefinition<DirectionalAttractorInputs
         spread: params.spread
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

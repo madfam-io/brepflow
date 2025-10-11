@@ -8,7 +8,7 @@ Context-free art generation
 ## Parameters
 
 
-### rules
+### Rules
 - **Type:** string
 - **Default:** "CIRCLE{},SQUARE{r 45}"
 
@@ -16,7 +16,7 @@ Context-free art generation
 
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,7 +27,7 @@ Context-free art generation
 ## Inputs
 
 
-### canvas
+### Canvas
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Context-free art generation
 ## Outputs
 
 
-### art
+### Art
 - **Type:** Shape[]
 
 

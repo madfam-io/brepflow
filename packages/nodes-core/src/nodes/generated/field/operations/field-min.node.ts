@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldMinParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  fields: ScalarField[];
+interface FieldMinInputs {
+  fields: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface FieldMinOutputs {
+  field: unknown;
 }
 
 export const FieldMinNode: NodeDefinition<FieldMinInputs, FieldMinOutputs, FieldMinParams> = {
-  type: 'Field::FieldMin',
+  id: 'Field::FieldMin',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldMin',
-    description: 'Minimum of fields',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldMin',
+  description: 'Minimum of fields',
   inputs: {
-        fields: 'ScalarField[]'
+    fields: {
+      type: 'ScalarField[]',
+      label: 'Fields',
+      required: true
+    }
   },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldMin',
       params: {
         fields: inputs.fields
-        
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

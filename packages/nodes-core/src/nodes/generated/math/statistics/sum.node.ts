@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SumParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  values: number[];
+interface SumInputs {
+  values: unknown;
 }
-interface Outputs {
-  sum: number;
+
+interface SumOutputs {
+  sum: unknown;
 }
 
 export const SumNode: NodeDefinition<SumInputs, SumOutputs, SumParams> = {
-  type: 'Math::Sum',
+  id: 'Math::Sum',
   category: 'Math',
-  subcategory: 'Statistics',
-
-  metadata: {
-    label: 'Sum',
-    description: 'Sum of values',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Sum',
+  description: 'Sum of values',
   inputs: {
-        values: 'number[]'
+    values: {
+      type: 'number[]',
+      label: 'Values',
+      required: true
+    }
   },
-
   outputs: {
-        sum: 'number'
+    sum: {
+      type: 'number',
+      label: 'Sum'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathSum',
       params: {
         values: inputs.values
-        
       }
     });
-
+    
     return {
       sum: result
     };
-  }
+  },
 };

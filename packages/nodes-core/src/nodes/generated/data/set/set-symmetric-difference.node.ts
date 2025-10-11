@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SetSymmetricDifferenceParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  setA: Data[];
-  setB: Data[];
+interface SetSymmetricDifferenceInputs {
+  setA: unknown;
+  setB: unknown;
 }
-interface Outputs {
-  difference: Data[];
+
+interface SetSymmetricDifferenceOutputs {
+  difference: unknown;
 }
 
 export const SetSymmetricDifferenceNode: NodeDefinition<SetSymmetricDifferenceInputs, SetSymmetricDifferenceOutputs, SetSymmetricDifferenceParams> = {
-  type: 'Data::SetSymmetricDifference',
+  id: 'Data::SetSymmetricDifference',
   category: 'Data',
-  subcategory: 'Set',
-
-  metadata: {
-    label: 'SetSymmetricDifference',
-    description: 'Symmetric difference',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'SetSymmetricDifference',
+  description: 'Symmetric difference',
   inputs: {
-        setA: 'Data[]',
-    setB: 'Data[]'
+    setA: {
+      type: 'Data[]',
+      label: 'Set A',
+      required: true
+    },
+    setB: {
+      type: 'Data[]',
+      label: 'Set B',
+      required: true
+    }
   },
-
   outputs: {
-        difference: 'Data[]'
+    difference: {
+      type: 'Data[]',
+      label: 'Difference'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'setSymmetricDifference',
       params: {
         setA: inputs.setA,
         setB: inputs.setB
-        
       }
     });
-
+    
     return {
       difference: result
     };
-  }
+  },
 };

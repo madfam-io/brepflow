@@ -8,7 +8,7 @@ Mandelbrot set
 ## Parameters
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Mandelbrot set
 
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 200
 - **Min:** 50
@@ -24,7 +24,7 @@ Mandelbrot set
 
 
 
-### zoom
+### Zoom
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -35,7 +35,7 @@ Mandelbrot set
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Mandelbrot set
 ## Outputs
 
 
-### fractal
+### Fractal
 - **Type:** Mesh
 
 

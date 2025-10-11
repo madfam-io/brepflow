@@ -8,7 +8,7 @@ Random choice from list
 ## Parameters
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -19,7 +19,7 @@ Random choice from list
 ## Inputs
 
 
-### choices
+### Choices
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Random choice from list
 ## Outputs
 
 
-### choice
+### Choice
 - **Type:** Data
 
 

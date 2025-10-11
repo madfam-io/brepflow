@@ -8,7 +8,7 @@ Shape optimization
 ## Parameters
 
 
-### objective
+### Objective
 - **Type:** enum
 - **Default:** "min-weight"
 
@@ -16,7 +16,7 @@ Shape optimization
 
 
 
-### morphRadius
+### Morph Radius
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.5
@@ -24,7 +24,7 @@ Shape optimization
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 50
 - **Min:** 5
@@ -35,13 +35,13 @@ Shape optimization
 ## Inputs
 
 
-### initialShape
+### Initial Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### boundaryConditions
+### Boundary Conditions
 - **Type:** Data
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Shape optimization
 ## Outputs
 
 
-### optimized
+### Optimized
 - **Type:** Shape
 
 

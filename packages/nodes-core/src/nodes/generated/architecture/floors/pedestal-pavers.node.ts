@@ -1,55 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PedestalPaversParams {
   paverSize: number;
   pedestalHeight: number;
 }
-interface Inputs {
-  area: Face;
+
+interface PedestalPaversInputs {
+  area: unknown;
 }
-interface Outputs {
-  pavers: Face[];
-  pedestals: Shape[];
+
+interface PedestalPaversOutputs {
+  pavers: unknown;
+  pedestals: unknown;
 }
 
 export const PedestalPaversNode: NodeDefinition<PedestalPaversInputs, PedestalPaversOutputs, PedestalPaversParams> = {
-  type: 'Architecture::PedestalPavers',
+  id: 'Architecture::PedestalPavers',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'PedestalPavers',
-    description: 'Pedestal paver system',
-    
-    
-  },
-
-  params: {
-        paverSize: {
-      "default": 600,
-      "min": 300,
-      "max": 900
-    },
-    pedestalHeight: {
-      "default": 100,
-      "min": 25,
-      "max": 500
+  label: 'PedestalPavers',
+  description: 'Pedestal paver system',
+  inputs: {
+    area: {
+      type: 'Face',
+      label: 'Area',
+      required: true
     }
   },
-
-  inputs: {
-        area: 'Face'
-  },
-
   outputs: {
-        pavers: 'Face[]',
-    pedestals: 'Shape[]'
+    pavers: {
+      type: 'Face[]',
+      label: 'Pavers'
+    },
+    pedestals: {
+      type: 'Shape[]',
+      label: 'Pedestals'
+    }
   },
-
+  params: {
+    paverSize: {
+      type: 'number',
+      label: 'Paver Size',
+      default: 600,
+      min: 300,
+      max: 900
+    },
+    pedestalHeight: {
+      type: 'number',
+      label: 'Pedestal Height',
+      default: 100,
+      min: 25,
+      max: 500
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'pedestalPavers',
       params: {
         area: inputs.area,
@@ -57,10 +61,10 @@ export const PedestalPaversNode: NodeDefinition<PedestalPaversInputs, PedestalPa
         pedestalHeight: params.pedestalHeight
       }
     });
-
+    
     return {
-      pavers: result,
-      pedestals: result
+      pavers: results.pavers,
+      pedestals: results.pedestals
     };
-  }
+  },
 };

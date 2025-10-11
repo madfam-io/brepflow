@@ -8,7 +8,7 @@ Compute geometric shape descriptors
 ## Parameters
 
 
-### descriptor
+### Descriptor
 - **Type:** enum
 - **Default:** "moments"
 
@@ -16,7 +16,7 @@ Compute geometric shape descriptors
 
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 32
 - **Min:** 8
@@ -24,7 +24,7 @@ Compute geometric shape descriptors
 
 
 
-### normalize
+### Normalize
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Compute geometric shape descriptors
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Compute geometric shape descriptors
 ## Outputs
 
 
-### descriptor
+### Descriptor
 - **Type:** number[]
 
 
 
-### features
+### Features
 - **Type:** Properties
 
 
 
-### similarity
+### Similarity
 - **Type:** number
 
 

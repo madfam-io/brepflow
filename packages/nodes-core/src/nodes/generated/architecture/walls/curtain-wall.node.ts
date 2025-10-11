@@ -1,69 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurtainWallParams {
   gridU: number;
   gridV: number;
   mullionWidth: number;
   mullionDepth: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface CurtainWallInputs {
+  surface: unknown;
 }
-interface Outputs {
-  curtainWall: Shape;
-  mullions: Shape[];
-  panels: Face[];
+
+interface CurtainWallOutputs {
+  curtainWall: unknown;
+  mullions: unknown;
+  panels: unknown;
 }
 
 export const CurtainWallNode: NodeDefinition<CurtainWallInputs, CurtainWallOutputs, CurtainWallParams> = {
-  type: 'Architecture::CurtainWall',
+  id: 'Architecture::CurtainWall',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'CurtainWall',
-    description: 'Glass curtain wall system',
-    
-    
-  },
-
-  params: {
-        gridU: {
-      "default": 1500,
-      "min": 500,
-      "max": 3000
-    },
-    gridV: {
-      "default": 1500,
-      "min": 500,
-      "max": 3000
-    },
-    mullionWidth: {
-      "default": 50,
-      "min": 20,
-      "max": 200
-    },
-    mullionDepth: {
-      "default": 100,
-      "min": 50,
-      "max": 300
+  label: 'CurtainWall',
+  description: 'Glass curtain wall system',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        curtainWall: 'Shape',
-    mullions: 'Shape[]',
-    panels: 'Face[]'
+    curtainWall: {
+      type: 'Shape',
+      label: 'Curtain Wall'
+    },
+    mullions: {
+      type: 'Shape[]',
+      label: 'Mullions'
+    },
+    panels: {
+      type: 'Face[]',
+      label: 'Panels'
+    }
   },
-
+  params: {
+    gridU: {
+      type: 'number',
+      label: 'Grid U',
+      default: 1500,
+      min: 500,
+      max: 3000
+    },
+    gridV: {
+      type: 'number',
+      label: 'Grid V',
+      default: 1500,
+      min: 500,
+      max: 3000
+    },
+    mullionWidth: {
+      type: 'number',
+      label: 'Mullion Width',
+      default: 50,
+      min: 20,
+      max: 200
+    },
+    mullionDepth: {
+      type: 'number',
+      label: 'Mullion Depth',
+      default: 100,
+      min: 50,
+      max: 300
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curtainWall',
       params: {
         surface: inputs.surface,
@@ -73,11 +84,11 @@ export const CurtainWallNode: NodeDefinition<CurtainWallInputs, CurtainWallOutpu
         mullionDepth: params.mullionDepth
       }
     });
-
+    
     return {
-      curtainWall: result,
-      mullions: result,
-      panels: result
+      curtainWall: results.curtainWall,
+      mullions: results.mullions,
+      panels: results.panels
     };
-  }
+  },
 };

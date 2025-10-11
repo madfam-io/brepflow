@@ -1,55 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PolygonalTessellationParams {
   polygonType: string;
   size: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface PolygonalTessellationInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  tiles: Face[];
+
+interface PolygonalTessellationOutputs {
+  tiles: unknown;
 }
 
 export const PolygonalTessellationNode: NodeDefinition<PolygonalTessellationInputs, PolygonalTessellationOutputs, PolygonalTessellationParams> = {
-  type: 'Patterns::PolygonalTessellation',
+  id: 'Patterns::PolygonalTessellation',
   category: 'Patterns',
-  subcategory: 'Geometric',
-
-  metadata: {
-    label: 'PolygonalTessellation',
-    description: 'Regular polygon tessellation',
-    
-    
-  },
-
-  params: {
-        polygonType: {
-      "default": "hexagonal",
-      "options": [
-        "triangular",
-        "square",
-        "hexagonal",
-        "octagonal"
-      ]
-    },
-    size: {
-      "default": 10,
-      "min": 1
+  label: 'PolygonalTessellation',
+  description: 'Regular polygon tessellation',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        tiles: 'Face[]'
+    tiles: {
+      type: 'Face[]',
+      label: 'Tiles'
+    }
   },
-
+  params: {
+    polygonType: {
+      type: 'enum',
+      label: 'Polygon Type',
+      default: "hexagonal",
+      options: ["triangular","square","hexagonal","octagonal"]
+    },
+    size: {
+      type: 'number',
+      label: 'Size',
+      default: 10,
+      min: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'polygonTessellation',
       params: {
@@ -58,9 +54,9 @@ export const PolygonalTessellationNode: NodeDefinition<PolygonalTessellationInpu
         size: params.size
       }
     });
-
+    
     return {
       tiles: result
     };
-  }
+  },
 };

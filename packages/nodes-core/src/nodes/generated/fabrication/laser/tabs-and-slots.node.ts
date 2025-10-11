@@ -1,58 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TabsAndSlotsParams {
   tabWidth: number;
   tabDepth: number;
   clearance: number;
 }
-interface Inputs {
-  edges: Edge[];
+
+interface TabsAndSlotsInputs {
+  edges: unknown;
 }
-interface Outputs {
-  tabbedEdges: Wire[];
+
+interface TabsAndSlotsOutputs {
+  tabbedEdges: unknown;
 }
 
 export const TabsAndSlotsNode: NodeDefinition<TabsAndSlotsInputs, TabsAndSlotsOutputs, TabsAndSlotsParams> = {
-  type: 'Fabrication::TabsAndSlots',
+  id: 'Fabrication::TabsAndSlots',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'TabsAndSlots',
-    description: 'Add tabs for assembly',
-    
-    
-  },
-
-  params: {
-        tabWidth: {
-      "default": 10,
-      "min": 1,
-      "max": 50
-    },
-    tabDepth: {
-      "default": 5,
-      "min": 1,
-      "max": 20
-    },
-    clearance: {
-      "default": 0.1,
-      "min": 0,
-      "max": 1
+  label: 'TabsAndSlots',
+  description: 'Add tabs for assembly',
+  inputs: {
+    edges: {
+      type: 'Edge[]',
+      label: 'Edges',
+      required: true
     }
   },
-
-  inputs: {
-        edges: 'Edge[]'
-  },
-
   outputs: {
-        tabbedEdges: 'Wire[]'
+    tabbedEdges: {
+      type: 'Wire[]',
+      label: 'Tabbed Edges'
+    }
   },
-
+  params: {
+    tabWidth: {
+      type: 'number',
+      label: 'Tab Width',
+      default: 10,
+      min: 1,
+      max: 50
+    },
+    tabDepth: {
+      type: 'number',
+      label: 'Tab Depth',
+      default: 5,
+      min: 1,
+      max: 20
+    },
+    clearance: {
+      type: 'number',
+      label: 'Clearance',
+      default: 0.1,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'tabsAndSlots',
       params: {
@@ -62,9 +65,9 @@ export const TabsAndSlotsNode: NodeDefinition<TabsAndSlotsInputs, TabsAndSlotsOu
         clearance: params.clearance
       }
     });
-
+    
     return {
       tabbedEdges: result
     };
-  }
+  },
 };

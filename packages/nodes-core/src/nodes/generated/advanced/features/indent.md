@@ -8,7 +8,7 @@ Create indent from tool body
 ## Parameters
 
 
-### offset
+### Offset
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -16,7 +16,7 @@ Create indent from tool body
 
 
 
-### flipDirection
+### Flip Direction
 - **Type:** boolean
 - **Default:** false
 
@@ -27,13 +27,13 @@ Create indent from tool body
 ## Inputs
 
 
-### targetBody
+### Target Body
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### toolBody
+### Tool Body
 - **Type:** Shape
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Create indent from tool body
 ## Outputs
 
 
-### indented
+### Indented
 - **Type:** Shape
 
 

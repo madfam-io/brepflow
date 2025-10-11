@@ -1,48 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface Chamfer2DParams {
   distance: number;
 }
-interface Inputs {
-  wire: Wire;
-  vertices?: Vertex[];
+
+interface Chamfer2DInputs {
+  wire: unknown;
+  vertices?: unknown;
 }
-interface Outputs {
-  chamfered: Wire;
+
+interface Chamfer2DOutputs {
+  chamfered: unknown;
 }
 
 export const Chamfer2DNode: NodeDefinition<Chamfer2DInputs, Chamfer2DOutputs, Chamfer2DParams> = {
-  type: 'Sketch::Chamfer2D',
+  id: 'Sketch::Chamfer2D',
   category: 'Sketch',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'Chamfer2D',
-    description: 'Chamfer corners of a 2D shape',
-    
-    
-  },
-
-  params: {
-        distance: {
-      "default": 5,
-      "min": 0.1,
-      "max": 1000
+  label: 'Chamfer2D',
+  description: 'Chamfer corners of a 2D shape',
+  inputs: {
+    wire: {
+      type: 'Wire',
+      label: 'Wire',
+      required: true
+    },
+    vertices: {
+      type: 'Vertex[]',
+      label: 'Vertices',
+      optional: true
     }
   },
-
-  inputs: {
-        wire: 'Wire',
-    vertices: 'Vertex[]'
-  },
-
   outputs: {
-        chamfered: 'Wire'
+    chamfered: {
+      type: 'Wire',
+      label: 'Chamfered'
+    }
   },
-
+  params: {
+    distance: {
+      type: 'number',
+      label: 'Distance',
+      default: 5,
+      min: 0.1,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'chamfer2D',
       params: {
@@ -51,9 +54,9 @@ export const Chamfer2DNode: NodeDefinition<Chamfer2DInputs, Chamfer2DOutputs, Ch
         distance: params.distance
       }
     });
-
+    
     return {
       chamfered: result
     };
-  }
+  },
 };

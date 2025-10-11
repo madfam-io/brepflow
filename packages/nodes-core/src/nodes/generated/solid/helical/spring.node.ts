@@ -1,70 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SpringParams {
   radius: number;
   pitch: number;
   height: number;
   wireRadius: number;
   leftHanded: boolean;
 }
-type Inputs = {};
-interface Outputs {
-  spring: Solid;
+
+type SpringInputs = Record<string, never>;
+
+interface SpringOutputs {
+  spring: unknown;
 }
 
 export const SpringNode: NodeDefinition<SpringInputs, SpringOutputs, SpringParams> = {
-  type: 'Solid::Spring',
+  id: 'Solid::Spring',
   category: 'Solid',
-  subcategory: 'Helical',
-
-  metadata: {
-    label: 'Spring',
-    description: 'Create a spring solid',
-    
-    
-  },
-
-  params: {
-        radius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    pitch: {
-      "default": 20,
-      "min": 0.1,
-      "max": 10000
-    },
-    height: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    wireRadius: {
-      "default": 5,
-      "min": 0.1,
-      "max": 100
-    },
-    leftHanded: {
-      "default": false
+  label: 'Spring',
+  description: 'Create a spring solid',
+  inputs: {},
+  outputs: {
+    spring: {
+      type: 'Solid',
+      label: 'Spring'
     }
   },
-
-  inputs: {
-    
+  params: {
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    pitch: {
+      type: 'number',
+      label: 'Pitch',
+      default: 20,
+      min: 0.1,
+      max: 10000
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    wireRadius: {
+      type: 'number',
+      label: 'Wire Radius',
+      default: 5,
+      min: 0.1,
+      max: 100
+    },
+    leftHanded: {
+      type: 'boolean',
+      label: 'Left Handed',
+      default: false
+    }
   },
-
-  outputs: {
-        spring: 'Solid'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeSpring',
       params: {
-        
         radius: params.radius,
         pitch: params.pitch,
         height: params.height,
@@ -72,9 +72,9 @@ export const SpringNode: NodeDefinition<SpringInputs, SpringOutputs, SpringParam
         leftHanded: params.leftHanded
       }
     });
-
+    
     return {
       spring: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Robotic spray painting
 ## Parameters
 
 
-### sprayWidth
+### Spray Width
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Robotic spray painting
 
 
 
-### overlap
+### Overlap
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -24,7 +24,7 @@ Robotic spray painting
 
 
 
-### standoffDistance
+### Standoff Distance
 - **Type:** number
 - **Default:** 200
 - **Min:** 50
@@ -35,7 +35,7 @@ Robotic spray painting
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Robotic spray painting
 ## Outputs
 
 
-### sprayPath
+### Spray Path
 - **Type:** Transform[]
 
 

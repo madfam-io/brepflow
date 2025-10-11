@@ -8,7 +8,7 @@ Roll-up garage door
 ## Parameters
 
 
-### slatHeight
+### Slat Height
 - **Type:** number
 - **Default:** 75
 - **Min:** 50
@@ -16,7 +16,7 @@ Roll-up garage door
 
 
 
-### openHeight
+### Open Height
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -27,7 +27,7 @@ Roll-up garage door
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Roll-up garage door
 ## Outputs
 
 
-### rollupDoor
+### Rollup Door
 - **Type:** Shape
 
 
 
-### guides
+### Guides
 - **Type:** Shape[]
 
 

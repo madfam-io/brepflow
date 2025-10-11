@@ -1,57 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RemeshUniformParams {
   targetEdgeLength: number;
   iterations: number;
   preserveFeatures: boolean;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface RemeshUniformInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  remeshed: Mesh;
+
+interface RemeshUniformOutputs {
+  remeshed: unknown;
 }
 
 export const RemeshUniformNode: NodeDefinition<RemeshUniformInputs, RemeshUniformOutputs, RemeshUniformParams> = {
-  type: 'Mesh::RemeshUniform',
+  id: 'Mesh::RemeshUniform',
   category: 'Mesh',
-  subcategory: 'Tessellation',
-
-  metadata: {
-    label: 'RemeshUniform',
-    description: 'Uniform remeshing',
-    
-    
-  },
-
-  params: {
-        targetEdgeLength: {
-      "default": 1,
-      "min": 0.01,
-      "max": 100
-    },
-    iterations: {
-      "default": 3,
-      "min": 1,
-      "max": 10,
-      "step": 1
-    },
-    preserveFeatures: {
-      "default": true
+  label: 'RemeshUniform',
+  description: 'Uniform remeshing',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        remeshed: 'Mesh'
+    remeshed: {
+      type: 'Mesh',
+      label: 'Remeshed'
+    }
   },
-
+  params: {
+    targetEdgeLength: {
+      type: 'number',
+      label: 'Target Edge Length',
+      default: 1,
+      min: 0.01,
+      max: 100
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 3,
+      min: 1,
+      max: 10,
+      step: 1
+    },
+    preserveFeatures: {
+      type: 'boolean',
+      label: 'Preserve Features',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'remeshUniform',
       params: {
@@ -61,9 +64,9 @@ export const RemeshUniformNode: NodeDefinition<RemeshUniformInputs, RemeshUnifor
         preserveFeatures: params.preserveFeatures
       }
     });
-
+    
     return {
       remeshed: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Create mitered flange
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 25
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create mitered flange
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** 0
@@ -24,7 +24,7 @@ Create mitered flange
 
 
 
-### miterAngle
+### Miter Angle
 - **Type:** number
 - **Default:** 45
 - **Min:** 0
@@ -32,7 +32,7 @@ Create mitered flange
 
 
 
-### bendRadius
+### Bend Radius
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -43,13 +43,13 @@ Create mitered flange
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### edges
+### Edges
 - **Type:** Edge[]
 - **Required:** Yes
 
@@ -58,7 +58,7 @@ Create mitered flange
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

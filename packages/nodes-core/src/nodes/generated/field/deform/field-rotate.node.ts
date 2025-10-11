@@ -1,48 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldRotateParams {
   maxAngle: number;
 }
-interface Inputs {
-  geometry: Shape[];
-  field: VectorField;
+
+interface FieldRotateInputs {
+  geometry: unknown;
+  field: unknown;
 }
-interface Outputs {
-  rotated: Shape[];
+
+interface FieldRotateOutputs {
+  rotated: unknown;
 }
 
 export const FieldRotateNode: NodeDefinition<FieldRotateInputs, FieldRotateOutputs, FieldRotateParams> = {
-  type: 'Field::FieldRotate',
+  id: 'Field::FieldRotate',
   category: 'Field',
-  subcategory: 'Deform',
-
-  metadata: {
-    label: 'FieldRotate',
-    description: 'Rotate by field',
-    
-    
-  },
-
-  params: {
-        maxAngle: {
-      "default": 180,
-      "min": -360,
-      "max": 360
+  label: 'FieldRotate',
+  description: 'Rotate by field',
+  inputs: {
+    geometry: {
+      type: 'Shape[]',
+      label: 'Geometry',
+      required: true
+    },
+    field: {
+      type: 'VectorField',
+      label: 'Field',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Shape[]',
-    field: 'VectorField'
-  },
-
   outputs: {
-        rotated: 'Shape[]'
+    rotated: {
+      type: 'Shape[]',
+      label: 'Rotated'
+    }
   },
-
+  params: {
+    maxAngle: {
+      type: 'number',
+      label: 'Max Angle',
+      default: 180,
+      min: -360,
+      max: 360
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldRotate',
       params: {
@@ -51,9 +54,9 @@ export const FieldRotateNode: NodeDefinition<FieldRotateInputs, FieldRotateOutpu
         maxAngle: params.maxAngle
       }
     });
-
+    
     return {
       rotated: result
     };
-  }
+  },
 };

@@ -12,31 +12,31 @@ This node has no parameters.
 ## Inputs
 
 
-### p0
+### P0
 - **Type:** number
 - **Required:** Yes
 
 
 
-### p1
+### P1
 - **Type:** number
 - **Required:** Yes
 
 
 
-### m0
+### M0
 - **Type:** number
 - **Required:** Yes
 
 
 
-### m1
+### M1
 - **Type:** number
 - **Required:** Yes
 
 
 
-### t
+### T
 - **Type:** number
 - **Required:** Yes
 
@@ -45,7 +45,7 @@ This node has no parameters.
 ## Outputs
 
 
-### result
+### Result
 - **Type:** number
 
 

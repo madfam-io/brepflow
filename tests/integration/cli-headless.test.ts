@@ -20,18 +20,6 @@ const geometryInvoke = vi.fn(async (operation: string) => {
   return { success: true, result: { id: 'mock-shape' } };
 });
 
-vi.mock('@brepflow/engine-occt', () => {
-  const api = {
-    init: vi.fn().mockResolvedValue(undefined),
-    invoke: geometryInvoke,
-  };
-
-  return {
-    createGeometryAPI: vi.fn(() => api),
-    getGeometryAPI: vi.fn(() => api),
-  };
-});
-
 vi.mock('@brepflow/engine-core', () => ({
   GraphManager: class {
     private graph: any;
@@ -49,6 +37,7 @@ vi.mock('@brepflow/engine-core', () => ({
     }
   },
   DAGEngine: class {
+    private summary: any = null;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     constructor(_: any) {}
 
@@ -59,7 +48,48 @@ vi.mock('@brepflow/engine-core', () => ({
           { id: `shape-${index}`, type: 'solid' },
         ];
       });
+
+       const count = (graph.nodes ?? []).length;
+       this.summary = {
+         sampleCount: count,
+         successCount: count,
+         failureCount: 0,
+         averageMs: 12,
+         p50Ms: 10,
+         p95Ms: 15,
+         maxMs: 20,
+         slowNodes: [],
+         categoryBreakdown: {},
+       };
     }
+
+    getEvaluationSummary() {
+      return this.summary ?? {
+        sampleCount: 0,
+        successCount: 0,
+        failureCount: 0,
+        averageMs: 0,
+        p50Ms: 0,
+        p95Ms: 0,
+        maxMs: 0,
+        slowNodes: [],
+        categoryBreakdown: {},
+      };
+    }
+  },
+  GeometryAPIFactory: {
+    getAPI: vi.fn(async () => ({
+      invoke: geometryInvoke,
+    })),
+  },
+  GeometryEvaluationError: class GeometryEvaluationError extends Error {
+    constructor(message: string) {
+      super(message);
+      this.nodeId = 'demo';
+      this.nodeType = 'Solid::Box';
+    }
+    nodeId: string;
+    nodeType: string;
   },
 }));
 

@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FixedParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  part1: Shape;
-  part2: Shape;
+interface FixedInputs {
+  part1: unknown;
+  part2: unknown;
 }
-interface Outputs {
-  joint: Joint;
+
+interface FixedOutputs {
+  joint: unknown;
 }
 
 export const FixedNode: NodeDefinition<FixedInputs, FixedOutputs, FixedParams> = {
-  type: 'Assembly::Fixed',
+  id: 'Assembly::Fixed',
   category: 'Assembly',
-  subcategory: 'Joints',
-
-  metadata: {
-    label: 'Fixed',
-    description: 'Create fixed joint',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Fixed',
+  description: 'Create fixed joint',
   inputs: {
-        part1: 'Shape',
-    part2: 'Shape'
+    part1: {
+      type: 'Shape',
+      label: 'Part1',
+      required: true
+    },
+    part2: {
+      type: 'Shape',
+      label: 'Part2',
+      required: true
+    }
   },
-
   outputs: {
-        joint: 'Joint'
+    joint: {
+      type: 'Joint',
+      label: 'Joint'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jointFixed',
       params: {
         part1: inputs.part1,
         part2: inputs.part2
-        
       }
     });
-
+    
     return {
       joint: result
     };
-  }
+  },
 };

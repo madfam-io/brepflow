@@ -8,7 +8,7 @@ Setup multiple passes
 ## Parameters
 
 
-### passes
+### Passes
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -16,7 +16,7 @@ Setup multiple passes
 
 
 
-### powerRamp
+### Power Ramp
 - **Type:** boolean
 - **Default:** false
 
@@ -24,7 +24,7 @@ Setup multiple passes
 
 
 
-### zStep
+### Z Step
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -35,7 +35,7 @@ Setup multiple passes
 ## Inputs
 
 
-### paths
+### Paths
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Setup multiple passes
 ## Outputs
 
 
-### multipassPaths
+### Multipass Paths
 - **Type:** Wire[][]
 
 

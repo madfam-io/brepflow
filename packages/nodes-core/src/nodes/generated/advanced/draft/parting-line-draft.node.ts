@@ -1,62 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PartingLineDraftParams {
   upperAngle: number;
   lowerAngle: number;
   pullDirection: [number, number, number];
 }
-interface Inputs {
-  solid: Shape;
-  partingEdges: Edge[];
+
+interface PartingLineDraftInputs {
+  solid: unknown;
+  partingEdges: unknown;
 }
-interface Outputs {
-  drafted: Shape;
+
+interface PartingLineDraftOutputs {
+  drafted: unknown;
 }
 
 export const PartingLineDraftNode: NodeDefinition<PartingLineDraftInputs, PartingLineDraftOutputs, PartingLineDraftParams> = {
-  type: 'Advanced::PartingLineDraft',
+  id: 'Advanced::PartingLineDraft',
   category: 'Advanced',
-  subcategory: 'Draft',
-
-  metadata: {
-    label: 'PartingLineDraft',
-    description: 'Draft from parting line',
-    
-    
-  },
-
-  params: {
-        upperAngle: {
-      "default": 3,
-      "min": 0,
-      "max": 30
+  label: 'PartingLineDraft',
+  description: 'Draft from parting line',
+  inputs: {
+    solid: {
+      type: 'Shape',
+      label: 'Solid',
+      required: true
     },
-    lowerAngle: {
-      "default": 3,
-      "min": 0,
-      "max": 30
-    },
-    pullDirection: {
-      "default": [
-        0,
-        0,
-        1
-      ]
+    partingEdges: {
+      type: 'Edge[]',
+      label: 'Parting Edges',
+      required: true
     }
   },
-
-  inputs: {
-        solid: 'Shape',
-    partingEdges: 'Edge[]'
-  },
-
   outputs: {
-        drafted: 'Shape'
+    drafted: {
+      type: 'Shape',
+      label: 'Drafted'
+    }
   },
-
+  params: {
+    upperAngle: {
+      type: 'number',
+      label: 'Upper Angle',
+      default: 3,
+      min: 0,
+      max: 30
+    },
+    lowerAngle: {
+      type: 'number',
+      label: 'Lower Angle',
+      default: 3,
+      min: 0,
+      max: 30
+    },
+    pullDirection: {
+      type: 'vec3',
+      label: 'Pull Direction',
+      default: [0,0,1]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'partingLineDraft',
       params: {
@@ -67,9 +70,9 @@ export const PartingLineDraftNode: NodeDefinition<PartingLineDraftInputs, Partin
         pullDirection: params.pullDirection
       }
     });
-
+    
     return {
       drafted: result
     };
-  }
+  },
 };

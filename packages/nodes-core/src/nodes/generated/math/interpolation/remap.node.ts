@@ -1,48 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type RemapParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
-  fromMin: number;
-  fromMax: number;
-  toMin: number;
-  toMax: number;
+interface RemapInputs {
+  value: unknown;
+  fromMin: unknown;
+  fromMax: unknown;
+  toMin: unknown;
+  toMax: unknown;
 }
-interface Outputs {
-  remapped: number;
+
+interface RemapOutputs {
+  remapped: unknown;
 }
 
 export const RemapNode: NodeDefinition<RemapInputs, RemapOutputs, RemapParams> = {
-  type: 'Math::Remap',
+  id: 'Math::Remap',
   category: 'Math',
-  subcategory: 'Interpolation',
-
-  metadata: {
-    label: 'Remap',
-    description: 'Remap value to new range',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Remap',
+  description: 'Remap value to new range',
   inputs: {
-        value: 'number',
-    fromMin: 'number',
-    fromMax: 'number',
-    toMin: 'number',
-    toMax: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    },
+    fromMin: {
+      type: 'number',
+      label: 'From Min',
+      required: true
+    },
+    fromMax: {
+      type: 'number',
+      label: 'From Max',
+      required: true
+    },
+    toMin: {
+      type: 'number',
+      label: 'To Min',
+      required: true
+    },
+    toMax: {
+      type: 'number',
+      label: 'To Max',
+      required: true
+    }
   },
-
   outputs: {
-        remapped: 'number'
+    remapped: {
+      type: 'number',
+      label: 'Remapped'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathRemap',
       params: {
@@ -51,12 +62,11 @@ export const RemapNode: NodeDefinition<RemapInputs, RemapOutputs, RemapParams> =
         fromMax: inputs.fromMax,
         toMin: inputs.toMin,
         toMax: inputs.toMax
-        
       }
     });
-
+    
     return {
       remapped: result
     };
-  }
+  },
 };

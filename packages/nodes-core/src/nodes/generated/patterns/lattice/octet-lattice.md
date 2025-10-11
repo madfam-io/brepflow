@@ -8,7 +8,7 @@ Octet truss lattice
 ## Parameters
 
 
-### cellSize
+### Cell Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -16,7 +16,7 @@ Octet truss lattice
 
 
 
-### strutDiameter
+### Strut Diameter
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Octet truss lattice
 ## Inputs
 
 
-### bounds
+### Bounds
 - **Type:** Box
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Octet truss lattice
 ## Outputs
 
 
-### lattice
+### Lattice
 - **Type:** Wire[]
 
 

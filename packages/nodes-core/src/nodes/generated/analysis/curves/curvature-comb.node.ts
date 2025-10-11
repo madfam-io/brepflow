@@ -1,70 +1,81 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurvatureCombParams {
   scale: number;
   density: number;
   showNormals: boolean;
   colorCode: boolean;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurvatureCombInputs {
+  curve: unknown;
 }
-interface Outputs {
-  comb: Shape;
-  maxCurvature: number;
-  minCurvature: number;
-  curvatureValues: number[];
+
+interface CurvatureCombOutputs {
+  comb: unknown;
+  maxCurvature: unknown;
+  minCurvature: unknown;
+  curvatureValues: unknown;
 }
 
 export const CurvatureCombNode: NodeDefinition<CurvatureCombInputs, CurvatureCombOutputs, CurvatureCombParams> = {
-  type: 'Analysis::CurvatureComb',
+  id: 'Analysis::CurvatureComb',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurvatureComb',
-    description: 'Analyze curve curvature with visual comb',
-    
-    
-  },
-
-  params: {
-        scale: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10,
-      "description": "Comb scale factor"
-    },
-    density: {
-      "default": 50,
-      "min": 10,
-      "max": 200,
-      "description": "Number of samples"
-    },
-    showNormals: {
-      "default": true
-    },
-    colorCode: {
-      "default": false,
-      "description": "Color by curvature value"
+  label: 'CurvatureComb',
+  description: 'Analyze curve curvature with visual comb',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        comb: 'Shape',
-    maxCurvature: 'number',
-    minCurvature: 'number',
-    curvatureValues: 'number[]'
+    comb: {
+      type: 'Shape',
+      label: 'Comb'
+    },
+    maxCurvature: {
+      type: 'number',
+      label: 'Max Curvature'
+    },
+    minCurvature: {
+      type: 'number',
+      label: 'Min Curvature'
+    },
+    curvatureValues: {
+      type: 'number[]',
+      label: 'Curvature Values'
+    }
   },
-
+  params: {
+    scale: {
+      type: 'number',
+      label: 'Scale',
+      default: 1,
+      min: 0.1,
+      max: 10
+    },
+    density: {
+      type: 'number',
+      label: 'Density',
+      default: 50,
+      min: 10,
+      max: 200
+    },
+    showNormals: {
+      type: 'boolean',
+      label: 'Show Normals',
+      default: true
+    },
+    colorCode: {
+      type: 'boolean',
+      label: 'Color Code',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curvatureComb',
       params: {
         curve: inputs.curve,
@@ -74,12 +85,12 @@ export const CurvatureCombNode: NodeDefinition<CurvatureCombInputs, CurvatureCom
         colorCode: params.colorCode
       }
     });
-
+    
     return {
-      comb: result,
-      maxCurvature: result,
-      minCurvature: result,
-      curvatureValues: result
+      comb: results.comb,
+      maxCurvature: results.maxCurvature,
+      minCurvature: results.minCurvature,
+      curvatureValues: results.curvatureValues
     };
-  }
+  },
 };

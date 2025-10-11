@@ -8,7 +8,7 @@ Thread milling operation
 ## Parameters
 
 
-### threadPitch
+### Thread Pitch
 - **Type:** number
 - **Default:** 1.5
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Thread milling operation
 
 
 
-### threadDepth
+### Thread Depth
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Thread milling operation
 
 
 
-### passes
+### Passes
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -35,7 +35,7 @@ Thread milling operation
 ## Inputs
 
 
-### holes
+### Holes
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Thread milling operation
 ## Outputs
 
 
-### threadPaths
+### Thread Paths
 - **Type:** Wire[]
 
 

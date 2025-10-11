@@ -1,59 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EngraveParams {
   depth: number;
   angle: number;
   roundCorners: boolean;
 }
-interface Inputs {
-  targetFace: Face;
-  pattern: Wire;
+
+interface EngraveInputs {
+  targetFace: unknown;
+  pattern: unknown;
 }
-interface Outputs {
-  engraved: Shape;
+
+interface EngraveOutputs {
+  engraved: unknown;
 }
 
 export const EngraveNode: NodeDefinition<EngraveInputs, EngraveOutputs, EngraveParams> = {
-  type: 'Specialized::Engrave',
+  id: 'Specialized::Engrave',
   category: 'Specialized',
-  subcategory: 'Text',
-
-  metadata: {
-    label: 'Engrave',
-    description: 'Engrave text or pattern',
-    
-    
-  },
-
-  params: {
-        depth: {
-      "default": 1,
-      "min": 0.01,
-      "max": 100
+  label: 'Engrave',
+  description: 'Engrave text or pattern',
+  inputs: {
+    targetFace: {
+      type: 'Face',
+      label: 'Target Face',
+      required: true
     },
-    angle: {
-      "default": 45,
-      "min": 0,
-      "max": 90,
-      "description": "Draft angle"
-    },
-    roundCorners: {
-      "default": true
+    pattern: {
+      type: 'Wire',
+      label: 'Pattern',
+      required: true
     }
   },
-
-  inputs: {
-        targetFace: 'Face',
-    pattern: 'Wire'
-  },
-
   outputs: {
-        engraved: 'Shape'
+    engraved: {
+      type: 'Shape',
+      label: 'Engraved'
+    }
   },
-
+  params: {
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: 1,
+      min: 0.01,
+      max: 100
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 45,
+      min: 0,
+      max: 90
+    },
+    roundCorners: {
+      type: 'boolean',
+      label: 'Round Corners',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'engrave',
       params: {
@@ -64,9 +70,9 @@ export const EngraveNode: NodeDefinition<EngraveInputs, EngraveOutputs, EngraveP
         roundCorners: params.roundCorners
       }
     });
-
+    
     return {
       engraved: result
     };
-  }
+  },
 };

@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BiomimeticStructureParams {
   inspiration: string;
   density: number;
 }
-interface Inputs {
-  shape: Shape;
+
+interface BiomimeticStructureInputs {
+  shape: unknown;
 }
-interface Outputs {
-  biomimetic: Shape;
+
+interface BiomimeticStructureOutputs {
+  biomimetic: unknown;
 }
 
 export const BiomimeticStructureNode: NodeDefinition<BiomimeticStructureInputs, BiomimeticStructureOutputs, BiomimeticStructureParams> = {
-  type: 'Specialized::BiomimeticStructure',
+  id: 'Specialized::BiomimeticStructure',
   category: 'Specialized',
-  subcategory: 'Organic',
-
-  metadata: {
-    label: 'BiomimeticStructure',
-    description: 'Nature-inspired structures',
-    
-    
-  },
-
-  params: {
-        inspiration: {
-      "default": "bone",
-      "options": [
-        "bone",
-        "wood",
-        "coral",
-        "leaf-veins"
-      ]
-    },
-    density: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 0.9
+  label: 'BiomimeticStructure',
+  description: 'Nature-inspired structures',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        biomimetic: 'Shape'
+    biomimetic: {
+      type: 'Shape',
+      label: 'Biomimetic'
+    }
   },
-
+  params: {
+    inspiration: {
+      type: 'enum',
+      label: 'Inspiration',
+      default: "bone",
+      options: ["bone","wood","coral","leaf-veins"]
+    },
+    density: {
+      type: 'number',
+      label: 'Density',
+      default: 0.5,
+      min: 0.1,
+      max: 0.9
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'biomimeticStructure',
       params: {
@@ -59,9 +55,9 @@ export const BiomimeticStructureNode: NodeDefinition<BiomimeticStructureInputs, 
         density: params.density
       }
     });
-
+    
     return {
       biomimetic: result
     };
-  }
+  },
 };

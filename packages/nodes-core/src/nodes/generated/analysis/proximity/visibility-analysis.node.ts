@@ -1,61 +1,76 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VisibilityAnalysisParams {
   viewAngle: number;
   maxDistance: number;
 }
-interface Inputs {
-  viewpoint: Point;
-  targets: Point[];
-  obstacles?: Shape[];
+
+interface VisibilityAnalysisInputs {
+  viewpoint: [number, number, number];
+  targets: Array<[number, number, number]>;
+  obstacles?: unknown;
 }
-interface Outputs {
-  visibleTargets: Point[];
-  occludedTargets: Point[];
-  sightLines: Wire[];
+
+interface VisibilityAnalysisOutputs {
+  visibleTargets: Array<[number, number, number]>;
+  occludedTargets: Array<[number, number, number]>;
+  sightLines: unknown;
 }
 
 export const VisibilityAnalysisNode: NodeDefinition<VisibilityAnalysisInputs, VisibilityAnalysisOutputs, VisibilityAnalysisParams> = {
-  type: 'Analysis::VisibilityAnalysis',
+  id: 'Analysis::VisibilityAnalysis',
   category: 'Analysis',
-  subcategory: 'Proximity',
-
-  metadata: {
-    label: 'VisibilityAnalysis',
-    description: 'Analyze line-of-sight visibility',
-    
-    
-  },
-
-  params: {
-        viewAngle: {
-      "default": 120,
-      "min": 10,
-      "max": 360
+  label: 'VisibilityAnalysis',
+  description: 'Analyze line-of-sight visibility',
+  inputs: {
+    viewpoint: {
+      type: 'Point',
+      label: 'Viewpoint',
+      required: true
     },
-    maxDistance: {
-      "default": 100,
-      "min": 1,
-      "max": 1000
+    targets: {
+      type: 'Point[]',
+      label: 'Targets',
+      required: true
+    },
+    obstacles: {
+      type: 'Shape[]',
+      label: 'Obstacles',
+      optional: true
     }
   },
-
-  inputs: {
-        viewpoint: 'Point',
-    targets: 'Point[]',
-    obstacles: 'Shape[]'
-  },
-
   outputs: {
-        visibleTargets: 'Point[]',
-    occludedTargets: 'Point[]',
-    sightLines: 'Wire[]'
+    visibleTargets: {
+      type: 'Point[]',
+      label: 'Visible Targets'
+    },
+    occludedTargets: {
+      type: 'Point[]',
+      label: 'Occluded Targets'
+    },
+    sightLines: {
+      type: 'Wire[]',
+      label: 'Sight Lines'
+    }
   },
-
+  params: {
+    viewAngle: {
+      type: 'number',
+      label: 'View Angle',
+      default: 120,
+      min: 10,
+      max: 360
+    },
+    maxDistance: {
+      type: 'number',
+      label: 'Max Distance',
+      default: 100,
+      min: 1,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'visibilityAnalysis',
       params: {
         viewpoint: inputs.viewpoint,
@@ -65,11 +80,11 @@ export const VisibilityAnalysisNode: NodeDefinition<VisibilityAnalysisInputs, Vi
         maxDistance: params.maxDistance
       }
     });
-
+    
     return {
-      visibleTargets: result,
-      occludedTargets: result,
-      sightLines: result
+      visibleTargets: results.visibleTargets,
+      occludedTargets: results.occludedTargets,
+      sightLines: results.sightLines
     };
-  }
+  },
 };

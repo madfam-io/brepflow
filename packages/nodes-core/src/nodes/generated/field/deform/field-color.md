@@ -8,7 +8,7 @@ Color by field value
 ## Parameters
 
 
-### gradient
+### Gradient
 - **Type:** enum
 - **Default:** "rainbow"
 
@@ -19,13 +19,13 @@ Color by field value
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
 
 
-### field
+### Field
 - **Type:** ScalarField
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Color by field value
 ## Outputs
 
 
-### coloredMesh
+### Colored Mesh
 - **Type:** Mesh
 
 

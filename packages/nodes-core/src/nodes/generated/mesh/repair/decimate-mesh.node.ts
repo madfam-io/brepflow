@@ -1,57 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DecimateMeshParams {
   targetTriangles: number;
   preserveFeatures: boolean;
   featureAngle: number;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface DecimateMeshInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  decimated: Mesh;
+
+interface DecimateMeshOutputs {
+  decimated: unknown;
 }
 
 export const DecimateMeshNode: NodeDefinition<DecimateMeshInputs, DecimateMeshOutputs, DecimateMeshParams> = {
-  type: 'Mesh::DecimateMesh',
+  id: 'Mesh::DecimateMesh',
   category: 'Mesh',
-  subcategory: 'Repair',
-
-  metadata: {
-    label: 'DecimateMesh',
-    description: 'Decimate mesh intelligently',
-    
-    
-  },
-
-  params: {
-        targetTriangles: {
-      "default": 1000,
-      "min": 10,
-      "max": 1000000,
-      "step": 100
-    },
-    preserveFeatures: {
-      "default": true
-    },
-    featureAngle: {
-      "default": 30,
-      "min": 0,
-      "max": 180
+  label: 'DecimateMesh',
+  description: 'Decimate mesh intelligently',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        decimated: 'Mesh'
+    decimated: {
+      type: 'Mesh',
+      label: 'Decimated'
+    }
   },
-
+  params: {
+    targetTriangles: {
+      type: 'number',
+      label: 'Target Triangles',
+      default: 1000,
+      min: 10,
+      max: 1000000,
+      step: 100
+    },
+    preserveFeatures: {
+      type: 'boolean',
+      label: 'Preserve Features',
+      default: true
+    },
+    featureAngle: {
+      type: 'number',
+      label: 'Feature Angle',
+      default: 30,
+      min: 0,
+      max: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'decimateMesh',
       params: {
@@ -61,9 +64,9 @@ export const DecimateMeshNode: NodeDefinition<DecimateMeshInputs, DecimateMeshOu
         featureAngle: params.featureAngle
       }
     });
-
+    
     return {
       decimated: result
     };
-  }
+  },
 };

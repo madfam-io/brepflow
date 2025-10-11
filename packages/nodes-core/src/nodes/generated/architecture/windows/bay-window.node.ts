@@ -1,62 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BayWindowParams {
   projection: number;
   angleCount: number;
   centerAngle: number;
 }
-interface Inputs {
-  wallOpening: Wire;
+
+interface BayWindowInputs {
+  wallOpening: unknown;
 }
-interface Outputs {
-  bayWindow: Shape;
-  windows: Shape[];
+
+interface BayWindowOutputs {
+  bayWindow: unknown;
+  windows: unknown;
 }
 
 export const BayWindowNode: NodeDefinition<BayWindowInputs, BayWindowOutputs, BayWindowParams> = {
-  type: 'Architecture::BayWindow',
+  id: 'Architecture::BayWindow',
   category: 'Architecture',
-  subcategory: 'Windows',
-
-  metadata: {
-    label: 'BayWindow',
-    description: 'Bay window projection',
-    
-    
-  },
-
-  params: {
-        projection: {
-      "default": 600,
-      "min": 400,
-      "max": 1200
-    },
-    angleCount: {
-      "default": 3,
-      "min": 3,
-      "max": 5,
-      "step": 1
-    },
-    centerAngle: {
-      "default": 135,
-      "min": 90,
-      "max": 180
+  label: 'BayWindow',
+  description: 'Bay window projection',
+  inputs: {
+    wallOpening: {
+      type: 'Wire',
+      label: 'Wall Opening',
+      required: true
     }
   },
-
-  inputs: {
-        wallOpening: 'Wire'
-  },
-
   outputs: {
-        bayWindow: 'Shape',
-    windows: 'Shape[]'
+    bayWindow: {
+      type: 'Shape',
+      label: 'Bay Window'
+    },
+    windows: {
+      type: 'Shape[]',
+      label: 'Windows'
+    }
   },
-
+  params: {
+    projection: {
+      type: 'number',
+      label: 'Projection',
+      default: 600,
+      min: 400,
+      max: 1200
+    },
+    angleCount: {
+      type: 'number',
+      label: 'Angle Count',
+      default: 3,
+      min: 3,
+      max: 5,
+      step: 1
+    },
+    centerAngle: {
+      type: 'number',
+      label: 'Center Angle',
+      default: 135,
+      min: 90,
+      max: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'bayWindow',
       params: {
         wallOpening: inputs.wallOpening,
@@ -65,10 +71,10 @@ export const BayWindowNode: NodeDefinition<BayWindowInputs, BayWindowOutputs, Ba
         centerAngle: params.centerAngle
       }
     });
-
+    
     return {
-      bayWindow: result,
-      windows: result
+      bayWindow: results.bayWindow,
+      windows: results.windows
     };
-  }
+  },
 };

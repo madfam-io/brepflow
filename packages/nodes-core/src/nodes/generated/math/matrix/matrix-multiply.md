@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### a
+### A
 - **Type:** Matrix
 - **Required:** Yes
 
 
 
-### b
+### B
 - **Type:** Matrix
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Matrix
 
 

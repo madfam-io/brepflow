@@ -8,7 +8,7 @@ Helical staircase
 ## Parameters
 
 
-### innerRadius
+### Inner Radius
 - **Type:** number
 - **Default:** 500
 - **Min:** 0
@@ -16,7 +16,7 @@ Helical staircase
 
 
 
-### outerRadius
+### Outer Radius
 - **Type:** number
 - **Default:** 1500
 - **Min:** 1000
@@ -24,7 +24,7 @@ Helical staircase
 
 
 
-### totalRise
+### Total Rise
 - **Type:** number
 - **Default:** 3000
 - **Min:** 1000
@@ -35,7 +35,7 @@ Helical staircase
 ## Inputs
 
 
-### centerPoint
+### Center Point
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Helical staircase
 ## Outputs
 
 
-### helicalStair
+### Helical Stair
 - **Type:** Shape
 
 

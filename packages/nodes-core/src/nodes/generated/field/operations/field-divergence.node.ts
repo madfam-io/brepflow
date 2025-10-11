@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldDivergenceParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  field: VectorField;
+interface FieldDivergenceInputs {
+  field: unknown;
 }
-interface Outputs {
-  divergence: ScalarField;
+
+interface FieldDivergenceOutputs {
+  divergence: unknown;
 }
 
 export const FieldDivergenceNode: NodeDefinition<FieldDivergenceInputs, FieldDivergenceOutputs, FieldDivergenceParams> = {
-  type: 'Field::FieldDivergence',
+  id: 'Field::FieldDivergence',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldDivergence',
-    description: 'Compute divergence',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldDivergence',
+  description: 'Compute divergence',
   inputs: {
-        field: 'VectorField'
+    field: {
+      type: 'VectorField',
+      label: 'Field',
+      required: true
+    }
   },
-
   outputs: {
-        divergence: 'ScalarField'
+    divergence: {
+      type: 'ScalarField',
+      label: 'Divergence'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldDivergence',
       params: {
         field: inputs.field
-        
       }
     });
-
+    
     return {
       divergence: result
     };
-  }
+  },
 };

@@ -1,41 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldDivergenceAnalysisParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  vectorField?: VectorField;
+interface FieldDivergenceAnalysisInputs {
+  vectorField?: unknown;
 }
-interface Outputs {
-  divergenceField: Field;
+
+interface FieldDivergenceAnalysisOutputs {
+  divergenceField: unknown;
 }
 
 export const FieldDivergenceAnalysisNode: NodeDefinition<FieldDivergenceAnalysisInputs, FieldDivergenceAnalysisOutputs, FieldDivergenceAnalysisParams> = {
-  type: 'Fields::FieldDivergenceAnalysis',
+  id: 'Fields::FieldDivergenceAnalysis',
   category: 'Fields',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'FieldDivergenceAnalysis',
-    description: 'Calculate divergence of vector field',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldDivergenceAnalysis',
+  description: 'Calculate divergence of vector field',
   inputs: {
-        vectorField: 'VectorField'
+    vectorField: {
+      type: 'VectorField',
+      label: 'Vector Field',
+      optional: true
+    }
   },
-
   outputs: {
-        divergenceField: 'Field'
+    divergenceField: {
+      type: 'Field',
+      label: 'Divergence Field'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'calculateDivergenceAnalysis',
+      params: {
+        vectorField: inputs.vectorField
+      }
+    });
     
-    // TODO: Implement FieldDivergenceAnalysis logic
-    throw new Error('FieldDivergenceAnalysis not yet implemented');
-  }
+    return {
+      divergenceField: result
+    };
+  },
 };

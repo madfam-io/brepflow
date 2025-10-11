@@ -8,7 +8,7 @@ Barnsley fern fractal
 ## Parameters
 
 
-### points
+### Points
 - **Type:** number
 - **Default:** 10000
 - **Min:** 100
@@ -16,7 +16,7 @@ Barnsley fern fractal
 
 
 
-### variation
+### Variation
 - **Type:** enum
 - **Default:** "classic"
 
@@ -27,7 +27,7 @@ Barnsley fern fractal
 ## Inputs
 
 
-### plane
+### Plane
 - **Type:** Plane
 - **Required:** No
 
@@ -36,7 +36,7 @@ Barnsley fern fractal
 ## Outputs
 
 
-### fern
+### Fern
 - **Type:** Point[]
 
 

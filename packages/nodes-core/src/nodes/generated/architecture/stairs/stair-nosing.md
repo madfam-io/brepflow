@@ -8,7 +8,7 @@ Stair nosing profile
 ## Parameters
 
 
-### projection
+### Projection
 - **Type:** number
 - **Default:** 25
 - **Min:** 20
@@ -16,7 +16,7 @@ Stair nosing profile
 
 
 
-### material
+### Material
 - **Type:** enum
 - **Default:** "aluminum"
 
@@ -27,7 +27,7 @@ Stair nosing profile
 ## Inputs
 
 
-### treadEdges
+### Tread Edges
 - **Type:** Edge[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Stair nosing profile
 ## Outputs
 
 
-### nosing
+### Nosing
 - **Type:** Shape[]
 
 

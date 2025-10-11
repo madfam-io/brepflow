@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FactorialParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  n: number;
+interface FactorialInputs {
+  n: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface FactorialOutputs {
+  result: unknown;
 }
 
 export const FactorialNode: NodeDefinition<FactorialInputs, FactorialOutputs, FactorialParams> = {
-  type: 'Math::Factorial',
+  id: 'Math::Factorial',
   category: 'Math',
-  subcategory: 'Operators',
-
-  metadata: {
-    label: 'Factorial',
-    description: 'Factorial',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Factorial',
+  description: 'Factorial',
   inputs: {
-        n: 'number'
+    n: {
+      type: 'number',
+      label: 'N',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathFactorial',
       params: {
         n: inputs.n
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

@@ -1,51 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StringCaseParams {
   case: string;
 }
-interface Inputs {
-  string: string;
+
+interface StringCaseInputs {
+  string: unknown;
 }
-interface Outputs {
-  result: string;
+
+interface StringCaseOutputs {
+  result: unknown;
 }
 
 export const StringCaseNode: NodeDefinition<StringCaseInputs, StringCaseOutputs, StringCaseParams> = {
-  type: 'Data::StringCase',
+  id: 'Data::StringCase',
   category: 'Data',
-  subcategory: 'String',
-
-  metadata: {
-    label: 'StringCase',
-    description: 'Change string case',
-    
-    
-  },
-
-  params: {
-        case: {
-      "default": "lower",
-      "options": [
-        "upper",
-        "lower",
-        "title",
-        "camel",
-        "snake"
-      ]
+  label: 'StringCase',
+  description: 'Change string case',
+  inputs: {
+    string: {
+      type: 'string',
+      label: 'String',
+      required: true
     }
   },
-
-  inputs: {
-        string: 'string'
-  },
-
   outputs: {
-        result: 'string'
+    result: {
+      type: 'string',
+      label: 'Result'
+    }
   },
-
+  params: {
+    case: {
+      type: 'enum',
+      label: 'Case',
+      default: "lower",
+      options: ["upper","lower","title","camel","snake"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stringCase',
       params: {
@@ -53,9 +46,9 @@ export const StringCaseNode: NodeDefinition<StringCaseInputs, StringCaseOutputs,
         case: params.case
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

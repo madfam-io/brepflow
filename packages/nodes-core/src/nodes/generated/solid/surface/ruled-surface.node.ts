@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type RuledSurfaceParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  curve1: Wire;
-  curve2: Wire;
+interface RuledSurfaceInputs {
+  curve1: unknown;
+  curve2: unknown;
 }
-interface Outputs {
-  surface: Face;
+
+interface RuledSurfaceOutputs {
+  surface: unknown;
 }
 
 export const RuledSurfaceNode: NodeDefinition<RuledSurfaceInputs, RuledSurfaceOutputs, RuledSurfaceParams> = {
-  type: 'Solid::RuledSurface',
+  id: 'Solid::RuledSurface',
   category: 'Solid',
-  subcategory: 'Surface',
-
-  metadata: {
-    label: 'RuledSurface',
-    description: 'Create a ruled surface between two curves',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'RuledSurface',
+  description: 'Create a ruled surface between two curves',
   inputs: {
-        curve1: 'Wire',
-    curve2: 'Wire'
+    curve1: {
+      type: 'Wire',
+      label: 'Curve1',
+      required: true
+    },
+    curve2: {
+      type: 'Wire',
+      label: 'Curve2',
+      required: true
+    }
   },
-
   outputs: {
-        surface: 'Face'
+    surface: {
+      type: 'Face',
+      label: 'Surface'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeRuledSurface',
       params: {
         curve1: inputs.curve1,
         curve2: inputs.curve2
-        
       }
     });
-
+    
     return {
       surface: result
     };
-  }
+  },
 };

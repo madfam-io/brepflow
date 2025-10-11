@@ -8,7 +8,7 @@ Generate fractal geometry
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "koch"
 
@@ -16,7 +16,7 @@ Generate fractal geometry
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -24,7 +24,7 @@ Generate fractal geometry
 
 
 
-### scale
+### Scale
 - **Type:** number
 - **Default:** 100
 - **Min:** 1
@@ -35,7 +35,7 @@ Generate fractal geometry
 ## Inputs
 
 
-### seed
+### Seed
 - **Type:** Shape
 - **Required:** No
 
@@ -44,7 +44,7 @@ Generate fractal geometry
 ## Outputs
 
 
-### fractal
+### Fractal
 - **Type:** Shape
 
 

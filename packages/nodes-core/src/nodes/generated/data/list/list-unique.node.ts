@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListUniqueParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
+interface ListUniqueInputs {
+  list: unknown;
 }
-interface Outputs {
-  unique: Data[];
+
+interface ListUniqueOutputs {
+  unique: unknown;
 }
 
 export const ListUniqueNode: NodeDefinition<ListUniqueInputs, ListUniqueOutputs, ListUniqueParams> = {
-  type: 'Data::ListUnique',
+  id: 'Data::ListUnique',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListUnique',
-    description: 'Remove duplicates',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListUnique',
+  description: 'Remove duplicates',
   inputs: {
-        list: 'Data[]'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    }
   },
-
   outputs: {
-        unique: 'Data[]'
+    unique: {
+      type: 'Data[]',
+      label: 'Unique'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listUnique',
       params: {
         list: inputs.list
-        
       }
     });
-
+    
     return {
       unique: result
     };
-  }
+  },
 };

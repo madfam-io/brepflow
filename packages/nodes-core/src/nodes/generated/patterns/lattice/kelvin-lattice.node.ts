@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface KelvinLatticeParams {
   cellSize: number;
   wallThickness: number;
 }
-interface Inputs {
-  bounds: Box;
+
+interface KelvinLatticeInputs {
+  bounds: unknown;
 }
-interface Outputs {
-  foam: Face[];
+
+interface KelvinLatticeOutputs {
+  foam: unknown;
 }
 
 export const KelvinLatticeNode: NodeDefinition<KelvinLatticeInputs, KelvinLatticeOutputs, KelvinLatticeParams> = {
-  type: 'Patterns::KelvinLattice',
+  id: 'Patterns::KelvinLattice',
   category: 'Patterns',
-  subcategory: 'Lattice',
-
-  metadata: {
-    label: 'KelvinLattice',
-    description: 'Kelvin foam structure',
-    
-    
-  },
-
-  params: {
-        cellSize: {
-      "default": 10,
-      "min": 1
-    },
-    wallThickness: {
-      "default": 0.5,
-      "min": 0.1
+  label: 'KelvinLattice',
+  description: 'Kelvin foam structure',
+  inputs: {
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        bounds: 'Box'
-  },
-
   outputs: {
-        foam: 'Face[]'
+    foam: {
+      type: 'Face[]',
+      label: 'Foam'
+    }
   },
-
+  params: {
+    cellSize: {
+      type: 'number',
+      label: 'Cell Size',
+      default: 10,
+      min: 1
+    },
+    wallThickness: {
+      type: 'number',
+      label: 'Wall Thickness',
+      default: 0.5,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'kelvinLattice',
       params: {
@@ -53,9 +54,9 @@ export const KelvinLatticeNode: NodeDefinition<KelvinLatticeInputs, KelvinLattic
         wallThickness: params.wallThickness
       }
     });
-
+    
     return {
       foam: result
     };
-  }
+  },
 };

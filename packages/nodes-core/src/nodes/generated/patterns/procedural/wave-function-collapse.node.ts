@@ -1,61 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WaveFunctionCollapseParams {
   tilesetSize: number;
   gridWidth: number;
   gridHeight: number;
 }
-interface Inputs {
-  tileset: Face[];
+
+interface WaveFunctionCollapseInputs {
+  tileset: unknown;
 }
-interface Outputs {
-  pattern: Face[];
+
+interface WaveFunctionCollapseOutputs {
+  pattern: unknown;
 }
 
 export const WaveFunctionCollapseNode: NodeDefinition<WaveFunctionCollapseInputs, WaveFunctionCollapseOutputs, WaveFunctionCollapseParams> = {
-  type: 'Patterns::WaveFunctionCollapse',
+  id: 'Patterns::WaveFunctionCollapse',
   category: 'Patterns',
-  subcategory: 'Procedural',
-
-  metadata: {
-    label: 'WaveFunctionCollapse',
-    description: 'WFC pattern generation',
-    
-    
-  },
-
-  params: {
-        tilesetSize: {
-      "default": 5,
-      "min": 2,
-      "max": 20,
-      "step": 1
-    },
-    gridWidth: {
-      "default": 20,
-      "min": 5,
-      "max": 100,
-      "step": 1
-    },
-    gridHeight: {
-      "default": 20,
-      "min": 5,
-      "max": 100,
-      "step": 1
+  label: 'WaveFunctionCollapse',
+  description: 'WFC pattern generation',
+  inputs: {
+    tileset: {
+      type: 'Face[]',
+      label: 'Tileset',
+      required: true
     }
   },
-
-  inputs: {
-        tileset: 'Face[]'
-  },
-
   outputs: {
-        pattern: 'Face[]'
+    pattern: {
+      type: 'Face[]',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    tilesetSize: {
+      type: 'number',
+      label: 'Tileset Size',
+      default: 5,
+      min: 2,
+      max: 20,
+      step: 1
+    },
+    gridWidth: {
+      type: 'number',
+      label: 'Grid Width',
+      default: 20,
+      min: 5,
+      max: 100,
+      step: 1
+    },
+    gridHeight: {
+      type: 'number',
+      label: 'Grid Height',
+      default: 20,
+      min: 5,
+      max: 100,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'waveFunctionCollapse',
       params: {
@@ -65,9 +68,9 @@ export const WaveFunctionCollapseNode: NodeDefinition<WaveFunctionCollapseInputs
         gridHeight: params.gridHeight
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

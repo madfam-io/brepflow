@@ -1,65 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PocketingStrategyParams {
   pattern: string;
   stepdown: number;
   finishPass: boolean;
 }
-interface Inputs {
-  pocket: Wire;
-  depth: Number;
+
+interface PocketingStrategyInputs {
+  pocket: unknown;
+  depth: number;
 }
-interface Outputs {
-  roughing: Wire[];
-  finishing: Wire[];
+
+interface PocketingStrategyOutputs {
+  roughing: unknown;
+  finishing: unknown;
 }
 
 export const PocketingStrategyNode: NodeDefinition<PocketingStrategyInputs, PocketingStrategyOutputs, PocketingStrategyParams> = {
-  type: 'Fabrication::PocketingStrategy',
+  id: 'Fabrication::PocketingStrategy',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'PocketingStrategy',
-    description: 'Pocket machining strategy',
-    
-    
-  },
-
-  params: {
-        pattern: {
-      "default": "spiral",
-      "options": [
-        "spiral",
-        "zigzag",
-        "contour",
-        "trochoidal"
-      ]
+  label: 'PocketingStrategy',
+  description: 'Pocket machining strategy',
+  inputs: {
+    pocket: {
+      type: 'Wire',
+      label: 'Pocket',
+      required: true
     },
-    stepdown: {
-      "default": 2,
-      "min": 0.1,
-      "max": 10
-    },
-    finishPass: {
-      "default": true
+    depth: {
+      type: 'Number',
+      label: 'Depth',
+      required: true
     }
   },
-
-  inputs: {
-        pocket: 'Wire',
-    depth: 'Number'
-  },
-
   outputs: {
-        roughing: 'Wire[]',
-    finishing: 'Wire[]'
+    roughing: {
+      type: 'Wire[]',
+      label: 'Roughing'
+    },
+    finishing: {
+      type: 'Wire[]',
+      label: 'Finishing'
+    }
   },
-
+  params: {
+    pattern: {
+      type: 'enum',
+      label: 'Pattern',
+      default: "spiral",
+      options: ["spiral","zigzag","contour","trochoidal"]
+    },
+    stepdown: {
+      type: 'number',
+      label: 'Stepdown',
+      default: 2,
+      min: 0.1,
+      max: 10
+    },
+    finishPass: {
+      type: 'boolean',
+      label: 'Finish Pass',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'pocketingStrategy',
       params: {
         pocket: inputs.pocket,
@@ -69,10 +74,10 @@ export const PocketingStrategyNode: NodeDefinition<PocketingStrategyInputs, Pock
         finishPass: params.finishPass
       }
     });
-
+    
     return {
-      roughing: result,
-      finishing: result
+      roughing: results.roughing,
+      finishing: results.finishing
     };
-  }
+  },
 };

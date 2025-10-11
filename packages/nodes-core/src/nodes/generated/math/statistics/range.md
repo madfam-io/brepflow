@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### values
+### Values
 - **Type:** number[]
 - **Required:** Yes
 
@@ -21,17 +21,17 @@ This node has no parameters.
 ## Outputs
 
 
-### min
+### Min
 - **Type:** number
 
 
 
-### max
+### Max
 - **Type:** number
 
 
 
-### range
+### Range
 - **Type:** number
 
 

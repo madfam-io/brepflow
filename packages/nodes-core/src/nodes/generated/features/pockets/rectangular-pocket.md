@@ -8,7 +8,7 @@ Creates a rectangular pocket with optional corner radius
 ## Parameters
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Creates a rectangular pocket with optional corner radius
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 30
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Creates a rectangular pocket with optional corner radius
 
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Creates a rectangular pocket with optional corner radius
 
 
 
-### cornerRadius
+### Corner Radius
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -40,7 +40,7 @@ Creates a rectangular pocket with optional corner radius
 - **Description:** Corner radius (0 for sharp corners)
 
 
-### draftAngle
+### Draft Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -51,13 +51,13 @@ Creates a rectangular pocket with optional corner radius
 ## Inputs
 
 
-### face
+### Face
 - **Type:** Face
 - **Required:** Yes
 - **Description:** Face to create pocket on
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 - **Description:** Pocket center position
@@ -66,7 +66,7 @@ Creates a rectangular pocket with optional corner radius
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

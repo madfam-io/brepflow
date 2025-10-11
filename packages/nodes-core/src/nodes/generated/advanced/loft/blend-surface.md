@@ -8,7 +8,7 @@ Blend between surfaces
 ## Parameters
 
 
-### continuity
+### Continuity
 - **Type:** enum
 - **Default:** "G1"
 
@@ -16,7 +16,7 @@ Blend between surfaces
 
 
 
-### blendFactor
+### Blend Factor
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -27,25 +27,25 @@ Blend between surfaces
 ## Inputs
 
 
-### surface1
+### Surface1
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### surface2
+### Surface2
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### edge1
+### Edge1
 - **Type:** Edge
 - **Required:** No
 
 
 
-### edge2
+### Edge2
 - **Type:** Edge
 - **Required:** No
 
@@ -54,7 +54,7 @@ Blend between surfaces
 ## Outputs
 
 
-### blendSurface
+### Blend Surface
 - **Type:** Shape
 
 

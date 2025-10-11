@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### tree
+### Tree
 - **Type:** Wire[]
 
 

@@ -8,7 +8,7 @@ Analyze curve parameterization
 ## Parameters
 
 
-### samples
+### Samples
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -16,7 +16,7 @@ Analyze curve parameterization
 
 
 
-### showParameter
+### Show Parameter
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Analyze curve parameterization
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Analyze curve parameterization
 ## Outputs
 
 
-### parameterRange
+### Parameter Range
 - **Type:** number[]
 
 
 
-### samplePoints
+### Sample Points
 - **Type:** Point[]
 
 
 
-### parameterValues
+### Parameter Values
 - **Type:** number[]
 
 

@@ -1,47 +1,46 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface KochSnowflakeParams {
   iterations: number;
 }
-interface Inputs {
-  triangle: Wire;
+
+interface KochSnowflakeInputs {
+  triangle: unknown;
 }
-interface Outputs {
-  fractal: Wire;
+
+interface KochSnowflakeOutputs {
+  fractal: unknown;
 }
 
 export const KochSnowflakeNode: NodeDefinition<KochSnowflakeInputs, KochSnowflakeOutputs, KochSnowflakeParams> = {
-  type: 'Patterns::KochSnowflake',
+  id: 'Patterns::KochSnowflake',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'KochSnowflake',
-    description: 'Koch snowflake fractal',
-    
-    
-  },
-
-  params: {
-        iterations: {
-      "default": 4,
-      "min": 0,
-      "max": 8,
-      "step": 1
+  label: 'KochSnowflake',
+  description: 'Koch snowflake fractal',
+  inputs: {
+    triangle: {
+      type: 'Wire',
+      label: 'Triangle',
+      required: true
     }
   },
-
-  inputs: {
-        triangle: 'Wire'
-  },
-
   outputs: {
-        fractal: 'Wire'
+    fractal: {
+      type: 'Wire',
+      label: 'Fractal'
+    }
   },
-
+  params: {
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 4,
+      min: 0,
+      max: 8,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'kochSnowflake',
       params: {
@@ -49,9 +48,9 @@ export const KochSnowflakeNode: NodeDefinition<KochSnowflakeInputs, KochSnowflak
         iterations: params.iterations
       }
     });
-
+    
     return {
       fractal: result
     };
-  }
+  },
 };

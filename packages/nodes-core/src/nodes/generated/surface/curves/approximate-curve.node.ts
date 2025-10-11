@@ -1,58 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ApproximateCurveParams {
   degree: number;
   tolerance: number;
   smoothness: number;
 }
-interface Inputs {
-  points: Point[];
+
+interface ApproximateCurveInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  curve: Wire;
+
+interface ApproximateCurveOutputs {
+  curve: unknown;
 }
 
 export const ApproximateCurveNode: NodeDefinition<ApproximateCurveInputs, ApproximateCurveOutputs, ApproximateCurveParams> = {
-  type: 'Surface::ApproximateCurve',
+  id: 'Surface::ApproximateCurve',
   category: 'Surface',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'ApproximateCurve',
-    description: 'Approximate points with curve',
-    
-    
-  },
-
-  params: {
-        degree: {
-      "default": 3,
-      "min": 1,
-      "max": 10
-    },
-    tolerance: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
-    },
-    smoothness: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+  label: 'ApproximateCurve',
+  description: 'Approximate points with curve',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     }
   },
-
-  inputs: {
-        points: 'Point[]'
-  },
-
   outputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve'
+    }
   },
-
+  params: {
+    degree: {
+      type: 'number',
+      label: 'Degree',
+      default: 3,
+      min: 1,
+      max: 10
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    },
+    smoothness: {
+      type: 'number',
+      label: 'Smoothness',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'approximateCurve',
       params: {
@@ -62,9 +65,9 @@ export const ApproximateCurveNode: NodeDefinition<ApproximateCurveInputs, Approx
         smoothness: params.smoothness
       }
     });
-
+    
     return {
       curve: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Radial gradient field
 ## Parameters
 
 
-### falloff
+### Falloff
 - **Type:** enum
 - **Default:** "linear"
 
@@ -16,7 +16,7 @@ Radial gradient field
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Radial gradient field
 
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -35,7 +35,7 @@ Radial gradient field
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Radial gradient field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

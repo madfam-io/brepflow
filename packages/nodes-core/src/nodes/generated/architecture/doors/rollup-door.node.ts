@@ -1,55 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RollupDoorParams {
   slatHeight: number;
   openHeight: number;
 }
-interface Inputs {
-  opening: Wire;
+
+interface RollupDoorInputs {
+  opening: unknown;
 }
-interface Outputs {
-  rollupDoor: Shape;
-  guides: Shape[];
+
+interface RollupDoorOutputs {
+  rollupDoor: unknown;
+  guides: unknown;
 }
 
 export const RollupDoorNode: NodeDefinition<RollupDoorInputs, RollupDoorOutputs, RollupDoorParams> = {
-  type: 'Architecture::RollupDoor',
+  id: 'Architecture::RollupDoor',
   category: 'Architecture',
-  subcategory: 'Doors',
-
-  metadata: {
-    label: 'RollupDoor',
-    description: 'Roll-up garage door',
-    
-    
-  },
-
-  params: {
-        slatHeight: {
-      "default": 75,
-      "min": 50,
-      "max": 100
-    },
-    openHeight: {
-      "default": 0,
-      "min": 0,
-      "max": 3000
+  label: 'RollupDoor',
+  description: 'Roll-up garage door',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        rollupDoor: 'Shape',
-    guides: 'Shape[]'
+    rollupDoor: {
+      type: 'Shape',
+      label: 'Rollup Door'
+    },
+    guides: {
+      type: 'Shape[]',
+      label: 'Guides'
+    }
   },
-
+  params: {
+    slatHeight: {
+      type: 'number',
+      label: 'Slat Height',
+      default: 75,
+      min: 50,
+      max: 100
+    },
+    openHeight: {
+      type: 'number',
+      label: 'Open Height',
+      default: 0,
+      min: 0,
+      max: 3000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'rollupDoor',
       params: {
         opening: inputs.opening,
@@ -57,10 +61,10 @@ export const RollupDoorNode: NodeDefinition<RollupDoorInputs, RollupDoorOutputs,
         openHeight: params.openHeight
       }
     });
-
+    
     return {
-      rollupDoor: result,
-      guides: result
+      rollupDoor: results.rollupDoor,
+      guides: results.guides
     };
-  }
+  },
 };

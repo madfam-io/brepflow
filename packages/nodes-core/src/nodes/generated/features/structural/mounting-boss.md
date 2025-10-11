@@ -8,7 +8,7 @@ Creates a mounting boss for screws
 ## Parameters
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 12
 - **Min:** 1
@@ -16,7 +16,7 @@ Creates a mounting boss for screws
 
 
 
-### innerDiameter
+### Inner Diameter
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Creates a mounting boss for screws
 - **Description:** Pilot hole diameter
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Creates a mounting boss for screws
 
 
 
-### draftAngle
+### Draft Angle
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -43,13 +43,13 @@ Creates a mounting boss for screws
 ## Inputs
 
 
-### face
+### Face
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -58,7 +58,7 @@ Creates a mounting boss for screws
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

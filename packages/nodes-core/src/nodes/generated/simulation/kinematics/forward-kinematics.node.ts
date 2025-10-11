@@ -1,57 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ForwardKinematicsParams {
   timeStep: number;
   duration: number;
 }
-interface Inputs {
-  mechanism: Data;
-  jointValues: number[];
+
+interface ForwardKinematicsInputs {
+  mechanism: unknown;
+  jointValues: unknown;
 }
-interface Outputs {
-  endEffectorPose: Data;
-  trajectory: Wire;
+
+interface ForwardKinematicsOutputs {
+  endEffectorPose: unknown;
+  trajectory: unknown;
 }
 
 export const ForwardKinematicsNode: NodeDefinition<ForwardKinematicsInputs, ForwardKinematicsOutputs, ForwardKinematicsParams> = {
-  type: 'Simulation::ForwardKinematics',
+  id: 'Simulation::ForwardKinematics',
   category: 'Simulation',
-  subcategory: 'Kinematics',
-
-  metadata: {
-    label: 'ForwardKinematics',
-    description: 'Calculate forward kinematics',
-    
-    
-  },
-
-  params: {
-        timeStep: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
+  label: 'ForwardKinematics',
+  description: 'Calculate forward kinematics',
+  inputs: {
+    mechanism: {
+      type: 'Data',
+      label: 'Mechanism',
+      required: true
     },
-    duration: {
-      "default": 1,
-      "min": 0.01,
-      "max": 100
+    jointValues: {
+      type: 'number[]',
+      label: 'Joint Values',
+      required: true
     }
   },
-
-  inputs: {
-        mechanism: 'Data',
-    jointValues: 'number[]'
-  },
-
   outputs: {
-        endEffectorPose: 'Data',
-    trajectory: 'Wire'
+    endEffectorPose: {
+      type: 'Data',
+      label: 'End Effector Pose'
+    },
+    trajectory: {
+      type: 'Wire',
+      label: 'Trajectory'
+    }
   },
-
+  params: {
+    timeStep: {
+      type: 'number',
+      label: 'Time Step',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    },
+    duration: {
+      type: 'number',
+      label: 'Duration',
+      default: 1,
+      min: 0.01,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'forwardKinematics',
       params: {
         mechanism: inputs.mechanism,
@@ -60,10 +68,10 @@ export const ForwardKinematicsNode: NodeDefinition<ForwardKinematicsInputs, Forw
         duration: params.duration
       }
     });
-
+    
     return {
-      endEffectorPose: result,
-      trajectory: result
+      endEffectorPose: results.endEffectorPose,
+      trajectory: results.trajectory
     };
-  }
+  },
 };

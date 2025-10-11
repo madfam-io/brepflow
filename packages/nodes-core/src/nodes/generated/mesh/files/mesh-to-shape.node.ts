@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MeshToShapeParams {
   tolerance: number;
   sewFaces: boolean;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface MeshToShapeInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  shape: Shape;
+
+interface MeshToShapeOutputs {
+  shape: unknown;
 }
 
 export const MeshToShapeNode: NodeDefinition<MeshToShapeInputs, MeshToShapeOutputs, MeshToShapeParams> = {
-  type: 'Mesh::MeshToShape',
+  id: 'Mesh::MeshToShape',
   category: 'Mesh',
-  subcategory: 'Files',
-
-  metadata: {
-    label: 'MeshToShape',
-    description: 'Convert mesh to B-Rep',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
-    },
-    sewFaces: {
-      "default": true
+  label: 'MeshToShape',
+  description: 'Convert mesh to B-Rep',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    },
+    sewFaces: {
+      type: 'boolean',
+      label: 'Sew Faces',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'meshToShape',
       params: {
@@ -53,9 +54,9 @@ export const MeshToShapeNode: NodeDefinition<MeshToShapeInputs, MeshToShapeOutpu
         sewFaces: params.sewFaces
       }
     });
-
+    
     return {
       shape: result
     };
-  }
+  },
 };

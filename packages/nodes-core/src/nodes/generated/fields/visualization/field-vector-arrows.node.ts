@@ -1,57 +1,71 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldVectorArrowsParams {
   arrowScale: number;
   density: number;
 }
-interface Inputs {
-  field?: VectorField;
-  domain: Geometry;
+
+interface FieldVectorArrowsInputs {
+  field?: unknown;
+  domain: unknown;
 }
-interface Outputs {
-  arrows: GeometrySet;
+
+interface FieldVectorArrowsOutputs {
+  arrows: unknown;
 }
 
 export const FieldVectorArrowsNode: NodeDefinition<FieldVectorArrowsInputs, FieldVectorArrowsOutputs, FieldVectorArrowsParams> = {
-  type: 'Fields::FieldVectorArrows',
+  id: 'Fields::FieldVectorArrows',
   category: 'Fields',
-  subcategory: 'Visualization',
-
-  metadata: {
-    label: 'FieldVectorArrows',
-    description: 'Display vector field as arrows',
-    
-    
-  },
-
-  params: {
-        arrowScale: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10,
-      "description": "Scale factor for arrows"
+  label: 'FieldVectorArrows',
+  description: 'Display vector field as arrows',
+  inputs: {
+    field: {
+      type: 'VectorField',
+      label: 'Field',
+      optional: true
     },
-    density: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1,
-      "description": "Display density (0-1)"
+    domain: {
+      type: 'Geometry',
+      label: 'Domain',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'VectorField',
-    domain: 'Geometry'
-  },
-
   outputs: {
-        arrows: 'GeometrySet'
+    arrows: {
+      type: 'GeometrySet',
+      label: 'Arrows'
+    }
   },
-
+  params: {
+    arrowScale: {
+      type: 'number',
+      label: 'Arrow Scale',
+      default: 1,
+      min: 0.1,
+      max: 10
+    },
+    density: {
+      type: 'number',
+      label: 'Density',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'visualizeFieldVectors',
+      params: {
+        field: inputs.field,
+        domain: inputs.domain,
+        arrowScale: params.arrowScale,
+        density: params.density
+      }
+    });
     
-    // TODO: Implement FieldVectorArrows logic
-    throw new Error('FieldVectorArrows not yet implemented');
-  }
+    return {
+      arrows: result
+    };
+  },
 };

@@ -1,49 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BendTableParams {
   tableType: string;
 }
-interface Inputs {
-  tableData: Data;
+
+interface BendTableInputs {
+  tableData: unknown;
 }
-interface Outputs {
-  bendTable: Data;
+
+interface BendTableOutputs {
+  bendTable: unknown;
 }
 
 export const BendTableNode: NodeDefinition<BendTableInputs, BendTableOutputs, BendTableParams> = {
-  type: 'SheetMetal::BendTable',
+  id: 'SheetMetal::BendTable',
   category: 'SheetMetal',
-  subcategory: 'Properties',
-
-  metadata: {
-    label: 'BendTable',
-    description: 'Define bend deduction table',
-    
-    
-  },
-
-  params: {
-        tableType: {
-      "default": "k-factor",
-      "options": [
-        "bend-deduction",
-        "bend-allowance",
-        "k-factor"
-      ]
+  label: 'BendTable',
+  description: 'Define bend deduction table',
+  inputs: {
+    tableData: {
+      type: 'Data',
+      label: 'Table Data',
+      required: true
     }
   },
-
-  inputs: {
-        tableData: 'Data'
-  },
-
   outputs: {
-        bendTable: 'Data'
+    bendTable: {
+      type: 'Data',
+      label: 'Bend Table'
+    }
   },
-
+  params: {
+    tableType: {
+      type: 'enum',
+      label: 'Table Type',
+      default: "k-factor",
+      options: ["bend-deduction","bend-allowance","k-factor"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetBendTable',
       params: {
@@ -51,9 +46,9 @@ export const BendTableNode: NodeDefinition<BendTableInputs, BendTableOutputs, Be
         tableType: params.tableType
       }
     });
-
+    
     return {
       bendTable: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Add lead-in/out to paths
 ## Parameters
 
 
-### leadLength
+### Lead Length
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Add lead-in/out to paths
 
 
 
-### leadType
+### Lead Type
 - **Type:** enum
 - **Default:** "line"
 
@@ -27,7 +27,7 @@ Add lead-in/out to paths
 ## Inputs
 
 
-### paths
+### Paths
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Add lead-in/out to paths
 ## Outputs
 
 
-### pathsWithLeads
+### Paths With Leads
 - **Type:** Wire[]
 
 

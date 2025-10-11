@@ -1,69 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WeldingPathParams {
   weldType: string;
   weavePattern: string;
   travelSpeed: number;
 }
-interface Inputs {
-  seamPath: Wire;
+
+interface WeldingPathInputs {
+  seamPath: unknown;
 }
-interface Outputs {
-  weldPath: Transform[];
-  weldParameters: Data;
+
+interface WeldingPathOutputs {
+  weldPath: unknown;
+  weldParameters: unknown;
 }
 
 export const WeldingPathNode: NodeDefinition<WeldingPathInputs, WeldingPathOutputs, WeldingPathParams> = {
-  type: 'Fabrication::WeldingPath',
+  id: 'Fabrication::WeldingPath',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'WeldingPath',
-    description: 'Robotic welding path',
-    
-    
-  },
-
-  params: {
-        weldType: {
-      "default": "mig",
-      "options": [
-        "mig",
-        "tig",
-        "spot",
-        "laser"
-      ]
-    },
-    weavePattern: {
-      "default": "none",
-      "options": [
-        "none",
-        "zigzag",
-        "circular",
-        "triangular"
-      ]
-    },
-    travelSpeed: {
-      "default": 10,
-      "min": 1,
-      "max": 50
+  label: 'WeldingPath',
+  description: 'Robotic welding path',
+  inputs: {
+    seamPath: {
+      type: 'Wire',
+      label: 'Seam Path',
+      required: true
     }
   },
-
-  inputs: {
-        seamPath: 'Wire'
-  },
-
   outputs: {
-        weldPath: 'Transform[]',
-    weldParameters: 'Data'
+    weldPath: {
+      type: 'Transform[]',
+      label: 'Weld Path'
+    },
+    weldParameters: {
+      type: 'Data',
+      label: 'Weld Parameters'
+    }
   },
-
+  params: {
+    weldType: {
+      type: 'enum',
+      label: 'Weld Type',
+      default: "mig",
+      options: ["mig","tig","spot","laser"]
+    },
+    weavePattern: {
+      type: 'enum',
+      label: 'Weave Pattern',
+      default: "none",
+      options: ["none","zigzag","circular","triangular"]
+    },
+    travelSpeed: {
+      type: 'number',
+      label: 'Travel Speed',
+      default: 10,
+      min: 1,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'weldingPath',
       params: {
         seamPath: inputs.seamPath,
@@ -72,10 +68,10 @@ export const WeldingPathNode: NodeDefinition<WeldingPathInputs, WeldingPathOutpu
         travelSpeed: params.travelSpeed
       }
     });
-
+    
     return {
-      weldPath: result,
-      weldParameters: result
+      weldPath: results.weldPath,
+      weldParameters: results.weldParameters
     };
-  }
+  },
 };

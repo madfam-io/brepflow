@@ -1,61 +1,71 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StraightRampParams {
   slope: number;
   width: number;
   handrails: boolean;
 }
-interface Inputs {
-  startPoint: Point;
-  endPoint: Point;
+
+interface StraightRampInputs {
+  startPoint: [number, number, number];
+  endPoint: [number, number, number];
 }
-interface Outputs {
-  ramp: Shape;
-  handrails: Shape[];
+
+interface StraightRampOutputs {
+  ramp: unknown;
+  handrails: unknown;
 }
 
 export const StraightRampNode: NodeDefinition<StraightRampInputs, StraightRampOutputs, StraightRampParams> = {
-  type: 'Architecture::StraightRamp',
+  id: 'Architecture::StraightRamp',
   category: 'Architecture',
-  subcategory: 'Ramps',
-
-  metadata: {
-    label: 'StraightRamp',
-    description: 'Straight access ramp',
-    
-    
-  },
-
-  params: {
-        slope: {
-      "default": 0.083,
-      "min": 0.05,
-      "max": 0.125
+  label: 'StraightRamp',
+  description: 'Straight access ramp',
+  inputs: {
+    startPoint: {
+      type: 'Point',
+      label: 'Start Point',
+      required: true
     },
-    width: {
-      "default": 1200,
-      "min": 900,
-      "max": 2000
-    },
-    handrails: {
-      "default": true
+    endPoint: {
+      type: 'Point',
+      label: 'End Point',
+      required: true
     }
   },
-
-  inputs: {
-        startPoint: 'Point',
-    endPoint: 'Point'
-  },
-
   outputs: {
-        ramp: 'Shape',
-    handrails: 'Shape[]'
+    ramp: {
+      type: 'Shape',
+      label: 'Ramp'
+    },
+    handrails: {
+      type: 'Shape[]',
+      label: 'Handrails'
+    }
   },
-
+  params: {
+    slope: {
+      type: 'number',
+      label: 'Slope',
+      default: 0.083,
+      min: 0.05,
+      max: 0.125
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 1200,
+      min: 900,
+      max: 2000
+    },
+    handrails: {
+      type: 'boolean',
+      label: 'Handrails',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'straightRamp',
       params: {
         startPoint: inputs.startPoint,
@@ -65,10 +75,10 @@ export const StraightRampNode: NodeDefinition<StraightRampInputs, StraightRampOu
         handrails: params.handrails
       }
     });
-
+    
     return {
-      ramp: result,
-      handrails: result
+      ramp: results.ramp,
+      handrails: results.handrails
     };
-  }
+  },
 };

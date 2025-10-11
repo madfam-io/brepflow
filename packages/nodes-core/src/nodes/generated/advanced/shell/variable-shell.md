@@ -12,19 +12,19 @@ This node has no parameters.
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### facesToRemove
+### Faces To Remove
 - **Type:** Face[]
 - **Required:** Yes
 
 
 
-### thicknessMap
+### Thickness Map
 - **Type:** Data
 - **Required:** Yes
 - **Description:** Face to thickness mapping
@@ -33,7 +33,7 @@ This node has no parameters.
 ## Outputs
 
 
-### shell
+### Shell
 - **Type:** Shape
 
 

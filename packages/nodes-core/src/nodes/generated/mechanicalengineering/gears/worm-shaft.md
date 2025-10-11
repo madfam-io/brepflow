@@ -8,7 +8,7 @@ Create worm shaft for worm gear
 ## Parameters
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Create worm shaft for worm gear
 
 
 
-### starts
+### Starts
 - **Type:** number
 - **Default:** 1
 - **Min:** 1
@@ -24,7 +24,7 @@ Create worm shaft for worm gear
 - **Description:** Number of starts
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 50
 - **Min:** 20
@@ -32,7 +32,7 @@ Create worm shaft for worm gear
 
 
 
-### leadAngle
+### Lead Angle
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -43,7 +43,7 @@ Create worm shaft for worm gear
 ## Inputs
 
 
-### axis
+### Axis
 - **Type:** Wire
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create worm shaft for worm gear
 ## Outputs
 
 
-### worm
+### Worm
 - **Type:** Shape
 
 
 
-### helix
+### Helix
 - **Type:** Wire
 
 

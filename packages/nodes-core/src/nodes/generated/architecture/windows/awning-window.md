@@ -8,7 +8,7 @@ Awning window
 ## Parameters
 
 
-### opening
+### Opening
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -19,7 +19,7 @@ Awning window
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Awning window
 ## Outputs
 
 
-### window
+### Window
 - **Type:** Shape
 
 

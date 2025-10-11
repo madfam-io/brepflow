@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### vectorField
+### Vector Field
 - **Type:** VectorField
 - **Required:** No
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### curlField
+### Curl Field
 - **Type:** VectorField
 
 

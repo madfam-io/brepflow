@@ -1,53 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceBoundaryParams {
   includeHoles: boolean;
   simplify: boolean;
 }
-interface Inputs {
-  surface: Face;
+
+interface SurfaceBoundaryInputs {
+  surface: unknown;
 }
-interface Outputs {
-  outerBoundary: Wire;
-  innerBoundaries: Wire[];
-  allBoundaries: Wire[];
+
+interface SurfaceBoundaryOutputs {
+  outerBoundary: unknown;
+  innerBoundaries: unknown;
+  allBoundaries: unknown;
 }
 
 export const SurfaceBoundaryNode: NodeDefinition<SurfaceBoundaryInputs, SurfaceBoundaryOutputs, SurfaceBoundaryParams> = {
-  type: 'Analysis::SurfaceBoundary',
+  id: 'Analysis::SurfaceBoundary',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceBoundary',
-    description: 'Extract surface boundary curves',
-    
-    
-  },
-
-  params: {
-        includeHoles: {
-      "default": true
-    },
-    simplify: {
-      "default": false
+  label: 'SurfaceBoundary',
+  description: 'Extract surface boundary curves',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        outerBoundary: 'Wire',
-    innerBoundaries: 'Wire[]',
-    allBoundaries: 'Wire[]'
+    outerBoundary: {
+      type: 'Wire',
+      label: 'Outer Boundary'
+    },
+    innerBoundaries: {
+      type: 'Wire[]',
+      label: 'Inner Boundaries'
+    },
+    allBoundaries: {
+      type: 'Wire[]',
+      label: 'All Boundaries'
+    }
   },
-
+  params: {
+    includeHoles: {
+      type: 'boolean',
+      label: 'Include Holes',
+      default: true
+    },
+    simplify: {
+      type: 'boolean',
+      label: 'Simplify',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceBoundary',
       params: {
         surface: inputs.surface,
@@ -55,11 +62,11 @@ export const SurfaceBoundaryNode: NodeDefinition<SurfaceBoundaryInputs, SurfaceB
         simplify: params.simplify
       }
     });
-
+    
     return {
-      outerBoundary: result,
-      innerBoundaries: result,
-      allBoundaries: result
+      outerBoundary: results.outerBoundary,
+      innerBoundaries: results.innerBoundaries,
+      allBoundaries: results.allBoundaries
     };
-  }
+  },
 };

@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AcousticCeilingParams {
   nrc: number;
   panelType: string;
 }
-interface Inputs {
-  ceilingArea: Face;
+
+interface AcousticCeilingInputs {
+  ceilingArea: unknown;
 }
-interface Outputs {
-  acousticCeiling: Shape;
+
+interface AcousticCeilingOutputs {
+  acousticCeiling: unknown;
 }
 
 export const AcousticCeilingNode: NodeDefinition<AcousticCeilingInputs, AcousticCeilingOutputs, AcousticCeilingParams> = {
-  type: 'Architecture::AcousticCeiling',
+  id: 'Architecture::AcousticCeiling',
   category: 'Architecture',
-  subcategory: 'Ceilings',
-
-  metadata: {
-    label: 'AcousticCeiling',
-    description: 'Acoustic ceiling treatment',
-    
-    
-  },
-
-  params: {
-        nrc: {
-      "default": 0.85,
-      "min": 0.5,
-      "max": 1
-    },
-    panelType: {
-      "default": "tiles",
-      "options": [
-        "perforated",
-        "baffles",
-        "clouds",
-        "tiles"
-      ]
+  label: 'AcousticCeiling',
+  description: 'Acoustic ceiling treatment',
+  inputs: {
+    ceilingArea: {
+      type: 'Face',
+      label: 'Ceiling Area',
+      required: true
     }
   },
-
-  inputs: {
-        ceilingArea: 'Face'
-  },
-
   outputs: {
-        acousticCeiling: 'Shape'
+    acousticCeiling: {
+      type: 'Shape',
+      label: 'Acoustic Ceiling'
+    }
   },
-
+  params: {
+    nrc: {
+      type: 'number',
+      label: 'Nrc',
+      default: 0.85,
+      min: 0.5,
+      max: 1
+    },
+    panelType: {
+      type: 'enum',
+      label: 'Panel Type',
+      default: "tiles",
+      options: ["perforated","baffles","clouds","tiles"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'acousticCeiling',
       params: {
@@ -59,9 +55,9 @@ export const AcousticCeilingNode: NodeDefinition<AcousticCeilingInputs, Acoustic
         panelType: params.panelType
       }
     });
-
+    
     return {
       acousticCeiling: result
     };
-  }
+  },
 };

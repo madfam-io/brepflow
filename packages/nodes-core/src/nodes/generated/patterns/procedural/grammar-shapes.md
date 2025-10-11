@@ -8,7 +8,7 @@ Shape grammar generation
 ## Parameters
 
 
-### grammar
+### Grammar
 - **Type:** string
 - **Default:** "A->AB,B->A"
 
@@ -16,7 +16,7 @@ Shape grammar generation
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -24,7 +24,7 @@ Shape grammar generation
 
 
 
-### seed
+### Seed
 - **Type:** string
 - **Default:** "A"
 
@@ -35,13 +35,13 @@ Shape grammar generation
 ## Inputs
 
 
-### shapeA
+### Shape A
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### shapeB
+### Shape B
 - **Type:** Shape
 - **Required:** No
 
@@ -50,7 +50,7 @@ Shape grammar generation
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape[]
 
 

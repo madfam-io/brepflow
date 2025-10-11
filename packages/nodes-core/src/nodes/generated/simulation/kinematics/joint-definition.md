@@ -8,7 +8,7 @@ Define kinematic joint
 ## Parameters
 
 
-### jointType
+### Joint Type
 - **Type:** enum
 - **Default:** "revolute"
 
@@ -16,7 +16,7 @@ Define kinematic joint
 
 
 
-### axis
+### Axis
 - **Type:** vector3
 - **Default:** [0,0,1]
 
@@ -24,7 +24,7 @@ Define kinematic joint
 
 
 
-### minLimit
+### Min Limit
 - **Type:** number
 - **Default:** -180
 - **Min:** -360
@@ -32,7 +32,7 @@ Define kinematic joint
 
 
 
-### maxLimit
+### Max Limit
 - **Type:** number
 - **Default:** 180
 - **Min:** -360
@@ -43,19 +43,19 @@ Define kinematic joint
 ## Inputs
 
 
-### body1
+### Body1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### body2
+### Body2
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### jointLocation
+### Joint Location
 - **Type:** Point
 - **Required:** Yes
 
@@ -64,12 +64,12 @@ Define kinematic joint
 ## Outputs
 
 
-### joint
+### Joint
 - **Type:** Data
 
 
 
-### assembly
+### Assembly
 - **Type:** Shape
 
 

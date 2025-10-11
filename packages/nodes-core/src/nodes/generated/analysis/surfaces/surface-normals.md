@@ -8,7 +8,7 @@ Calculate surface normal vectors
 ## Parameters
 
 
-### density
+### Density
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -16,7 +16,7 @@ Calculate surface normal vectors
 
 
 
-### vectorLength
+### Vector Length
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -24,7 +24,7 @@ Calculate surface normal vectors
 
 
 
-### showVectors
+### Show Vectors
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Calculate surface normal vectors
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Calculate surface normal vectors
 ## Outputs
 
 
-### normalVectors
+### Normal Vectors
 - **Type:** Vector[]
 
 
 
-### normalLines
+### Normal Lines
 - **Type:** Wire[]
 
 
 
-### samplePoints
+### Sample Points
 - **Type:** Point[]
 
 

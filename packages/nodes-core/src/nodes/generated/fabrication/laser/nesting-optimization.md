@@ -8,7 +8,7 @@ Optimize material nesting
 ## Parameters
 
 
-### spacing
+### Spacing
 - **Type:** number
 - **Default:** 2
 - **Min:** 0
@@ -16,7 +16,7 @@ Optimize material nesting
 
 
 
-### rotations
+### Rotations
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Optimize material nesting
 
 
 
-### grainDirection
+### Grain Direction
 - **Type:** boolean
 - **Default:** false
 
@@ -35,13 +35,13 @@ Optimize material nesting
 ## Inputs
 
 
-### parts
+### Parts
 - **Type:** Face[]
 - **Required:** Yes
 
 
 
-### sheet
+### Sheet
 - **Type:** Face
 - **Required:** Yes
 
@@ -50,12 +50,12 @@ Optimize material nesting
 ## Outputs
 
 
-### nestedParts
+### Nested Parts
 - **Type:** Face[]
 
 
 
-### utilization
+### Utilization
 - **Type:** Number
 
 

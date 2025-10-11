@@ -8,7 +8,7 @@ Moving conveyor tracking
 ## Parameters
 
 
-### conveyorSpeed
+### Conveyor Speed
 - **Type:** number
 - **Default:** 100
 - **Min:** 1
@@ -16,7 +16,7 @@ Moving conveyor tracking
 
 
 
-### trackingWindow
+### Tracking Window
 - **Type:** number
 - **Default:** 500
 - **Min:** 100
@@ -27,7 +27,7 @@ Moving conveyor tracking
 ## Inputs
 
 
-### objectPositions
+### Object Positions
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Moving conveyor tracking
 ## Outputs
 
 
-### trackingTrajectory
+### Tracking Trajectory
 - **Type:** Transform[]
 
 

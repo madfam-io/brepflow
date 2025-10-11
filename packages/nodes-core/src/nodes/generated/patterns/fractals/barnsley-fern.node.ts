@@ -1,56 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BarnsleyFernParams {
   points: number;
   variation: string;
 }
-interface Inputs {
-  plane?: Plane;
+
+interface BarnsleyFernInputs {
+  plane?: unknown;
 }
-interface Outputs {
-  fern: Point[];
+
+interface BarnsleyFernOutputs {
+  fern: Array<[number, number, number]>;
 }
 
 export const BarnsleyFernNode: NodeDefinition<BarnsleyFernInputs, BarnsleyFernOutputs, BarnsleyFernParams> = {
-  type: 'Patterns::BarnsleyFern',
+  id: 'Patterns::BarnsleyFern',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'BarnsleyFern',
-    description: 'Barnsley fern fractal',
-    
-    
-  },
-
-  params: {
-        points: {
-      "default": 10000,
-      "min": 100,
-      "max": 100000,
-      "step": 100
-    },
-    variation: {
-      "default": "classic",
-      "options": [
-        "classic",
-        "thelypteridaceae",
-        "leptosporangiate"
-      ]
+  label: 'BarnsleyFern',
+  description: 'Barnsley fern fractal',
+  inputs: {
+    plane: {
+      type: 'Plane',
+      label: 'Plane',
+      optional: true
     }
   },
-
-  inputs: {
-        plane: 'Plane'
-  },
-
   outputs: {
-        fern: 'Point[]'
+    fern: {
+      type: 'Point[]',
+      label: 'Fern'
+    }
   },
-
+  params: {
+    points: {
+      type: 'number',
+      label: 'Points',
+      default: 10000,
+      min: 100,
+      max: 100000,
+      step: 100
+    },
+    variation: {
+      type: 'enum',
+      label: 'Variation',
+      default: "classic",
+      options: ["classic","thelypteridaceae","leptosporangiate"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'barnsleyFern',
       params: {
@@ -59,9 +56,9 @@ export const BarnsleyFernNode: NodeDefinition<BarnsleyFernInputs, BarnsleyFernOu
         variation: params.variation
       }
     });
-
+    
     return {
       fern: result
     };
-  }
+  },
 };

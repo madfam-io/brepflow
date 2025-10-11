@@ -8,7 +8,7 @@ Retaining wall with batter
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 2000
 - **Min:** 500
@@ -16,7 +16,7 @@ Retaining wall with batter
 
 
 
-### baseThickness
+### Base Thickness
 - **Type:** number
 - **Default:** 400
 - **Min:** 200
@@ -24,7 +24,7 @@ Retaining wall with batter
 
 
 
-### batter
+### Batter
 - **Type:** number
 - **Default:** 10
 - **Min:** 0
@@ -35,7 +35,7 @@ Retaining wall with batter
 ## Inputs
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Retaining wall with batter
 ## Outputs
 
 
-### retainingWall
+### Retaining Wall
 - **Type:** Shape
 
 

@@ -8,7 +8,7 @@ Create hex head bolt
 ## Parameters
 
 
-### diameter
+### Diameter
 - **Type:** enum
 - **Default:** "M6"
 
@@ -16,7 +16,7 @@ Create hex head bolt
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -24,7 +24,7 @@ Create hex head bolt
 - **Description:** Length in mm
 
 
-### threadPitch
+### Thread Pitch
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.5
@@ -32,7 +32,7 @@ Create hex head bolt
 
 
 
-### headHeight
+### Head Height
 - **Type:** number
 - **Default:** 4
 - **Min:** 2
@@ -43,13 +43,13 @@ Create hex head bolt
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### direction
+### Direction
 - **Type:** Vector
 - **Required:** No
 
@@ -58,12 +58,12 @@ Create hex head bolt
 ## Outputs
 
 
-### bolt
+### Bolt
 - **Type:** Shape
 
 
 
-### thread
+### Thread
 - **Type:** Wire
 
 

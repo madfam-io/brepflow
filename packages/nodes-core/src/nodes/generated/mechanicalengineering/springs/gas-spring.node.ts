@@ -1,69 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GasSpringParams {
   cylinderDiameter: number;
   strokeLength: number;
   extendedLength: number;
   rodDiameter: number;
 }
-interface Inputs {
-  mountPoint: Point;
+
+interface GasSpringInputs {
+  mountPoint: [number, number, number];
 }
-interface Outputs {
-  gasSpring: Shape;
-  cylinder: Shape;
-  rod: Shape;
+
+interface GasSpringOutputs {
+  gasSpring: unknown;
+  cylinder: unknown;
+  rod: unknown;
 }
 
 export const GasSpringNode: NodeDefinition<GasSpringInputs, GasSpringOutputs, GasSpringParams> = {
-  type: 'MechanicalEngineering::GasSpring',
+  id: 'MechanicalEngineering::GasSpring',
   category: 'MechanicalEngineering',
-  subcategory: 'Springs',
-
-  metadata: {
-    label: 'GasSpring',
-    description: 'Create gas spring/damper',
-    
-    
-  },
-
-  params: {
-        cylinderDiameter: {
-      "default": 20,
-      "min": 10,
-      "max": 50
-    },
-    strokeLength: {
-      "default": 100,
-      "min": 30,
-      "max": 300
-    },
-    extendedLength: {
-      "default": 250,
-      "min": 100,
-      "max": 600
-    },
-    rodDiameter: {
-      "default": 8,
-      "min": 4,
-      "max": 20
+  label: 'GasSpring',
+  description: 'Create gas spring/damper',
+  inputs: {
+    mountPoint: {
+      type: 'Point',
+      label: 'Mount Point',
+      required: true
     }
   },
-
-  inputs: {
-        mountPoint: 'Point'
-  },
-
   outputs: {
-        gasSpring: 'Shape',
-    cylinder: 'Shape',
-    rod: 'Shape'
+    gasSpring: {
+      type: 'Shape',
+      label: 'Gas Spring'
+    },
+    cylinder: {
+      type: 'Shape',
+      label: 'Cylinder'
+    },
+    rod: {
+      type: 'Shape',
+      label: 'Rod'
+    }
   },
-
+  params: {
+    cylinderDiameter: {
+      type: 'number',
+      label: 'Cylinder Diameter',
+      default: 20,
+      min: 10,
+      max: 50
+    },
+    strokeLength: {
+      type: 'number',
+      label: 'Stroke Length',
+      default: 100,
+      min: 30,
+      max: 300
+    },
+    extendedLength: {
+      type: 'number',
+      label: 'Extended Length',
+      default: 250,
+      min: 100,
+      max: 600
+    },
+    rodDiameter: {
+      type: 'number',
+      label: 'Rod Diameter',
+      default: 8,
+      min: 4,
+      max: 20
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'gasSpring',
       params: {
         mountPoint: inputs.mountPoint,
@@ -73,11 +84,11 @@ export const GasSpringNode: NodeDefinition<GasSpringInputs, GasSpringOutputs, Ga
         rodDiameter: params.rodDiameter
       }
     });
-
+    
     return {
-      gasSpring: result,
-      cylinder: result,
-      rod: result
+      gasSpring: results.gasSpring,
+      cylinder: results.cylinder,
+      rod: results.rod
     };
-  }
+  },
 };

@@ -1,71 +1,90 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TopologyOptimizerParams {
   densityElements: number;
   volumeFraction: number;
   penalization: number;
   filter: boolean;
 }
-interface Inputs {
-  designDomain: Shape;
-  loads: Properties[];
-  supports: Properties[];
+
+interface TopologyOptimizerInputs {
+  designDomain: unknown;
+  loads: unknown;
+  supports: unknown;
 }
-interface Outputs {
-  optimizedShape: Shape;
-  densityField: Properties;
-  compliance: number;
+
+interface TopologyOptimizerOutputs {
+  optimizedShape: unknown;
+  densityField: unknown;
+  compliance: unknown;
 }
 
 export const TopologyOptimizerNode: NodeDefinition<TopologyOptimizerInputs, TopologyOptimizerOutputs, TopologyOptimizerParams> = {
-  type: 'Algorithmic::TopologyOptimizer',
+  id: 'Algorithmic::TopologyOptimizer',
   category: 'Algorithmic',
-  subcategory: 'Optimization',
-
-  metadata: {
-    label: 'TopologyOptimizer',
-    description: 'Topology optimization for structures',
-    
-    
-  },
-
-  params: {
-        densityElements: {
-      "default": 100,
-      "min": 10,
-      "max": 1000
+  label: 'TopologyOptimizer',
+  description: 'Topology optimization for structures',
+  inputs: {
+    designDomain: {
+      type: 'Shape',
+      label: 'Design Domain',
+      required: true
     },
-    volumeFraction: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 0.9
+    loads: {
+      type: 'Properties[]',
+      label: 'Loads',
+      required: true
     },
-    penalization: {
-      "default": 3,
-      "min": 1,
-      "max": 5
-    },
-    filter: {
-      "default": true
+    supports: {
+      type: 'Properties[]',
+      label: 'Supports',
+      required: true
     }
   },
-
-  inputs: {
-        designDomain: 'Shape',
-    loads: 'Properties[]',
-    supports: 'Properties[]'
-  },
-
   outputs: {
-        optimizedShape: 'Shape',
-    densityField: 'Properties',
-    compliance: 'number'
+    optimizedShape: {
+      type: 'Shape',
+      label: 'Optimized Shape'
+    },
+    densityField: {
+      type: 'Properties',
+      label: 'Density Field'
+    },
+    compliance: {
+      type: 'number',
+      label: 'Compliance'
+    }
   },
-
+  params: {
+    densityElements: {
+      type: 'number',
+      label: 'Density Elements',
+      default: 100,
+      min: 10,
+      max: 1000
+    },
+    volumeFraction: {
+      type: 'number',
+      label: 'Volume Fraction',
+      default: 0.5,
+      min: 0.1,
+      max: 0.9
+    },
+    penalization: {
+      type: 'number',
+      label: 'Penalization',
+      default: 3,
+      min: 1,
+      max: 5
+    },
+    filter: {
+      type: 'boolean',
+      label: 'Filter',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'topologyOptimizer',
       params: {
         designDomain: inputs.designDomain,
@@ -77,11 +96,11 @@ export const TopologyOptimizerNode: NodeDefinition<TopologyOptimizerInputs, Topo
         filter: params.filter
       }
     });
-
+    
     return {
-      optimizedShape: result,
-      densityField: result,
-      compliance: result
+      optimizedShape: results.optimizedShape,
+      densityField: results.densityField,
+      compliance: results.compliance
     };
-  }
+  },
 };

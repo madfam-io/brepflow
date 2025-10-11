@@ -8,7 +8,7 @@ WFC pattern generation
 ## Parameters
 
 
-### tilesetSize
+### Tileset Size
 - **Type:** number
 - **Default:** 5
 - **Min:** 2
@@ -16,7 +16,7 @@ WFC pattern generation
 
 
 
-### gridWidth
+### Grid Width
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -24,7 +24,7 @@ WFC pattern generation
 
 
 
-### gridHeight
+### Grid Height
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -35,7 +35,7 @@ WFC pattern generation
 ## Inputs
 
 
-### tileset
+### Tileset
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ WFC pattern generation
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Face[]
 
 

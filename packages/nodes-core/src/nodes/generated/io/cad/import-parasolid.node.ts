@@ -1,48 +1,49 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ImportParasolidParams {
   healGeometry: boolean;
   simplifyGeometry: boolean;
 }
-interface Inputs {
-  fileData: Data;
+
+interface ImportParasolidInputs {
+  fileData: unknown;
 }
-interface Outputs {
-  shape: Shape;
+
+interface ImportParasolidOutputs {
+  shape: unknown;
 }
 
 export const ImportParasolidNode: NodeDefinition<ImportParasolidInputs, ImportParasolidOutputs, ImportParasolidParams> = {
-  type: 'IO::ImportParasolid',
+  id: 'IO::ImportParasolid',
   category: 'IO',
-  subcategory: 'CAD',
-
-  metadata: {
-    label: 'ImportParasolid',
-    description: 'Import Parasolid file',
-    
-    
-  },
-
-  params: {
-        healGeometry: {
-      "default": true
-    },
-    simplifyGeometry: {
-      "default": false
+  label: 'ImportParasolid',
+  description: 'Import Parasolid file',
+  inputs: {
+    fileData: {
+      type: 'Data',
+      label: 'File Data',
+      required: true
     }
   },
-
-  inputs: {
-        fileData: 'Data'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    healGeometry: {
+      type: 'boolean',
+      label: 'Heal Geometry',
+      default: true
+    },
+    simplifyGeometry: {
+      type: 'boolean',
+      label: 'Simplify Geometry',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'importParasolid',
       params: {
@@ -51,9 +52,9 @@ export const ImportParasolidNode: NodeDefinition<ImportParasolidInputs, ImportPa
         simplifyGeometry: params.simplifyGeometry
       }
     });
-
+    
     return {
       shape: result
     };
-  }
+  },
 };

@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SetCartesianProductParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  setA: Data[];
-  setB: Data[];
+interface SetCartesianProductInputs {
+  setA: unknown;
+  setB: unknown;
 }
-interface Outputs {
-  product: Data[][];
+
+interface SetCartesianProductOutputs {
+  product: unknown;
 }
 
 export const SetCartesianProductNode: NodeDefinition<SetCartesianProductInputs, SetCartesianProductOutputs, SetCartesianProductParams> = {
-  type: 'Data::SetCartesianProduct',
+  id: 'Data::SetCartesianProduct',
   category: 'Data',
-  subcategory: 'Set',
-
-  metadata: {
-    label: 'SetCartesianProduct',
-    description: 'Cartesian product',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'SetCartesianProduct',
+  description: 'Cartesian product',
   inputs: {
-        setA: 'Data[]',
-    setB: 'Data[]'
+    setA: {
+      type: 'Data[]',
+      label: 'Set A',
+      required: true
+    },
+    setB: {
+      type: 'Data[]',
+      label: 'Set B',
+      required: true
+    }
   },
-
   outputs: {
-        product: 'Data[][]'
+    product: {
+      type: 'Data[][]',
+      label: 'Product'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'setCartesian',
       params: {
         setA: inputs.setA,
         setB: inputs.setB
-        
       }
     });
-
+    
     return {
       product: result
     };
-  }
+  },
 };

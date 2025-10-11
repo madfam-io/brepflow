@@ -8,7 +8,7 @@ Subdivide mesh faces
 ## Parameters
 
 
-### subdivisionType
+### Subdivision Type
 - **Type:** enum
 - **Default:** "loop"
 
@@ -16,7 +16,7 @@ Subdivide mesh faces
 
 
 
-### levels
+### Levels
 - **Type:** number
 - **Default:** 1
 - **Min:** 1
@@ -27,7 +27,7 @@ Subdivide mesh faces
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Subdivide mesh faces
 ## Outputs
 
 
-### subdivided
+### Subdivided
 - **Type:** Mesh
 
 

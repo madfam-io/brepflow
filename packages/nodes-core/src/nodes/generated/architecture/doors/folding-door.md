@@ -8,7 +8,7 @@ Bi-fold door system
 ## Parameters
 
 
-### panels
+### Panels
 - **Type:** number
 - **Default:** 4
 - **Min:** 2
@@ -16,7 +16,7 @@ Bi-fold door system
 
 
 
-### foldDirection
+### Fold Direction
 - **Type:** enum
 - **Default:** "left"
 
@@ -27,7 +27,7 @@ Bi-fold door system
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Bi-fold door system
 ## Outputs
 
 
-### foldingDoor
+### Folding Door
 - **Type:** Shape[]
 
 

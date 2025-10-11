@@ -8,7 +8,7 @@ Create a gear profile
 ## Parameters
 
 
-### teeth
+### Teeth
 - **Type:** number
 - **Default:** 20
 - **Min:** 3
@@ -16,7 +16,7 @@ Create a gear profile
 
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a gear profile
 
 
 
-### pressureAngle
+### Pressure Angle
 - **Type:** number
 - **Default:** 20
 - **Min:** 14.5
@@ -32,7 +32,7 @@ Create a gear profile
 
 
 
-### addendum
+### Addendum
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.5
@@ -40,7 +40,7 @@ Create a gear profile
 
 
 
-### dedendum
+### Dedendum
 - **Type:** number
 - **Default:** 1.25
 - **Min:** 1
@@ -51,7 +51,7 @@ Create a gear profile
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** No
 
@@ -60,7 +60,7 @@ Create a gear profile
 ## Outputs
 
 
-### gear
+### Gear
 - **Type:** Wire
 - **Description:** Gear profile
 

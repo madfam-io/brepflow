@@ -8,7 +8,7 @@ Set angle between entities
 ## Parameters
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** 0
@@ -19,13 +19,13 @@ Set angle between entities
 ## Inputs
 
 
-### entity1
+### Entity1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### entity2
+### Entity2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Set angle between entities
 ## Outputs
 
 
-### constrained
+### Constrained
 - **Type:** Shape[]
 
 
 
-### constraint
+### Constraint
 - **Type:** Constraint
 
 

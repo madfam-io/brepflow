@@ -8,7 +8,7 @@ Subdivision surface algorithms
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "catmull-clark"
 
@@ -16,7 +16,7 @@ Subdivision surface algorithms
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -27,7 +27,7 @@ Subdivision surface algorithms
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Subdivision surface algorithms
 ## Outputs
 
 
-### subdivided
+### Subdivided
 - **Type:** Mesh
 
 

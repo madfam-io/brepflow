@@ -1,49 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ImprintParams {
   depth: number;
 }
-interface Inputs {
-  base: Shape;
-  imprint: Shape;
+
+interface ImprintInputs {
+  base: unknown;
+  imprint: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface ImprintOutputs {
+  result: unknown;
 }
 
 export const ImprintNode: NodeDefinition<ImprintInputs, ImprintOutputs, ImprintParams> = {
-  type: 'Boolean::Imprint',
+  id: 'Boolean::Imprint',
   category: 'Boolean',
-  
-
-  metadata: {
-    label: 'Imprint',
-    description: 'Imprint one shape onto another',
-    
-    
-  },
-
-  params: {
-        depth: {
-      "default": 1,
-      "min": 0.01,
-      "max": 1000,
-      "description": "Imprint depth"
+  label: 'Imprint',
+  description: 'Imprint one shape onto another',
+  inputs: {
+    base: {
+      type: 'Shape',
+      label: 'Base',
+      required: true
+    },
+    imprint: {
+      type: 'Shape',
+      label: 'Imprint',
+      required: true
     }
   },
-
-  inputs: {
-        base: 'Shape',
-    imprint: 'Shape'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: 1,
+      min: 0.01,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'booleanImprint',
       params: {
@@ -52,9 +54,9 @@ export const ImprintNode: NodeDefinition<ImprintInputs, ImprintOutputs, ImprintP
         depth: params.depth
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

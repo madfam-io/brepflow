@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type RelativeNeighborhoodParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  points: Point[];
+interface RelativeNeighborhoodInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  network: Wire[];
+
+interface RelativeNeighborhoodOutputs {
+  network: unknown;
 }
 
 export const RelativeNeighborhoodNode: NodeDefinition<RelativeNeighborhoodInputs, RelativeNeighborhoodOutputs, RelativeNeighborhoodParams> = {
-  type: 'Patterns::RelativeNeighborhood',
+  id: 'Patterns::RelativeNeighborhood',
   category: 'Patterns',
-  subcategory: 'Network',
-
-  metadata: {
-    label: 'RelativeNeighborhood',
-    description: 'RNG network pattern',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'RelativeNeighborhood',
+  description: 'RNG network pattern',
   inputs: {
-        points: 'Point[]'
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
+    }
   },
-
   outputs: {
-        network: 'Wire[]'
+    network: {
+      type: 'Wire[]',
+      label: 'Network'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'relativeNeighborhood',
       params: {
         points: inputs.points
-        
       }
     });
-
+    
     return {
       network: result
     };
-  }
+  },
 };

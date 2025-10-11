@@ -8,7 +8,7 @@ Helical plunge entry
 ## Parameters
 
 
-### helixDiameter
+### Helix Diameter
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -16,7 +16,7 @@ Helical plunge entry
 
 
 
-### helixAngle
+### Helix Angle
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -27,13 +27,13 @@ Helical plunge entry
 ## Inputs
 
 
-### entryPoint
+### Entry Point
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### depth
+### Depth
 - **Type:** Number
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Helical plunge entry
 ## Outputs
 
 
-### helixPath
+### Helix Path
 - **Type:** Wire
 
 

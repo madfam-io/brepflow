@@ -8,7 +8,7 @@ Create a slot (rounded rectangle)
 ## Parameters
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -16,7 +16,7 @@ Create a slot (rounded rectangle)
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -24,7 +24,7 @@ Create a slot (rounded rectangle)
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create a slot (rounded rectangle)
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Create a slot (rounded rectangle)
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** -180
@@ -55,7 +55,7 @@ This node has no inputs.
 ## Outputs
 
 
-### face
+### Face
 - **Type:** Face
 - **Description:** Slot face
 

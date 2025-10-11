@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CantorSetParams {
   iterations: number;
   ratio: number;
 }
-interface Inputs {
-  segment: Edge;
+
+interface CantorSetInputs {
+  segment: unknown;
 }
-interface Outputs {
-  segments: Edge[];
+
+interface CantorSetOutputs {
+  segments: unknown;
 }
 
 export const CantorSetNode: NodeDefinition<CantorSetInputs, CantorSetOutputs, CantorSetParams> = {
-  type: 'Patterns::CantorSet',
+  id: 'Patterns::CantorSet',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'CantorSet',
-    description: 'Cantor set fractal',
-    
-    
-  },
-
-  params: {
-        iterations: {
-      "default": 5,
-      "min": 1,
-      "max": 10,
-      "step": 1
-    },
-    ratio: {
-      "default": 0.333,
-      "min": 0.1,
-      "max": 0.5
+  label: 'CantorSet',
+  description: 'Cantor set fractal',
+  inputs: {
+    segment: {
+      type: 'Edge',
+      label: 'Segment',
+      required: true
     }
   },
-
-  inputs: {
-        segment: 'Edge'
-  },
-
   outputs: {
-        segments: 'Edge[]'
+    segments: {
+      type: 'Edge[]',
+      label: 'Segments'
+    }
   },
-
+  params: {
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 5,
+      min: 1,
+      max: 10,
+      step: 1
+    },
+    ratio: {
+      type: 'number',
+      label: 'Ratio',
+      default: 0.333,
+      min: 0.1,
+      max: 0.5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'cantorSet',
       params: {
@@ -56,9 +57,9 @@ export const CantorSetNode: NodeDefinition<CantorSetInputs, CantorSetOutputs, Ca
         ratio: params.ratio
       }
     });
-
+    
     return {
       segments: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Islamic grid system
 ## Parameters
 
 
-### gridType
+### Grid Type
 - **Type:** enum
 - **Default:** "octagonal"
 
@@ -16,7 +16,7 @@ Islamic grid system
 
 
 
-### spacing
+### Spacing
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,7 +27,7 @@ Islamic grid system
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Islamic grid system
 ## Outputs
 
 
-### grid
+### Grid
 - **Type:** Wire[]
 
 

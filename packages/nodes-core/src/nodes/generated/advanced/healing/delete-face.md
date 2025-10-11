@@ -8,7 +8,7 @@ Delete and heal faces
 ## Parameters
 
 
-### healingType
+### Healing Type
 - **Type:** enum
 - **Default:** "extend"
 
@@ -19,13 +19,13 @@ Delete and heal faces
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### facesToDelete
+### Faces To Delete
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Delete and heal faces
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

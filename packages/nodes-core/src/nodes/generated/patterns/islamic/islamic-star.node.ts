@@ -1,59 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface IslamicStarParams {
   points: number;
   innerRadius: number;
   rotation: number;
 }
-interface Inputs {
-  center: Point;
+
+interface IslamicStarInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  pattern: Wire;
+
+interface IslamicStarOutputs {
+  pattern: unknown;
 }
 
 export const IslamicStarNode: NodeDefinition<IslamicStarInputs, IslamicStarOutputs, IslamicStarParams> = {
-  type: 'Patterns::IslamicStar',
+  id: 'Patterns::IslamicStar',
   category: 'Patterns',
-  subcategory: 'Islamic',
-
-  metadata: {
-    label: 'IslamicStar',
-    description: 'Islamic star pattern',
-    
-    
-  },
-
-  params: {
-        points: {
-      "default": 8,
-      "min": 3,
-      "max": 24,
-      "step": 1
-    },
-    innerRadius: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 0.9
-    },
-    rotation: {
-      "default": 0,
-      "min": -180,
-      "max": 180
+  label: 'IslamicStar',
+  description: 'Islamic star pattern',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        pattern: 'Wire'
+    pattern: {
+      type: 'Wire',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    points: {
+      type: 'number',
+      label: 'Points',
+      default: 8,
+      min: 3,
+      max: 24,
+      step: 1
+    },
+    innerRadius: {
+      type: 'number',
+      label: 'Inner Radius',
+      default: 0.5,
+      min: 0.1,
+      max: 0.9
+    },
+    rotation: {
+      type: 'number',
+      label: 'Rotation',
+      default: 0,
+      min: -180,
+      max: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'islamicStar',
       params: {
@@ -63,9 +66,9 @@ export const IslamicStarNode: NodeDefinition<IslamicStarInputs, IslamicStarOutpu
         rotation: params.rotation
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

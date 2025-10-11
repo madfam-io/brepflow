@@ -1,50 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldWarpParams {
   strength: number;
 }
-interface Inputs {
-  field?: Field;
-  deformation: VectorField;
+
+interface FieldWarpInputs {
+  field?: unknown;
+  deformation: unknown;
 }
-interface Outputs {
-  warpedField: Field;
+
+interface FieldWarpOutputs {
+  warpedField: unknown;
 }
 
 export const FieldWarpNode: NodeDefinition<FieldWarpInputs, FieldWarpOutputs, FieldWarpParams> = {
-  type: 'Fields::FieldWarp',
+  id: 'Fields::FieldWarp',
   category: 'Fields',
-  subcategory: 'Advanced',
-
-  metadata: {
-    label: 'FieldWarp',
-    description: 'Warp field with deformation',
-    
-    
-  },
-
-  params: {
-        strength: {
-      "default": 1,
-      "min": 0,
-      "max": 10,
-      "description": "Warping strength"
+  label: 'FieldWarp',
+  description: 'Warp field with deformation',
+  inputs: {
+    field: {
+      type: 'Field',
+      label: 'Field',
+      optional: true
+    },
+    deformation: {
+      type: 'VectorField',
+      label: 'Deformation',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'Field',
-    deformation: 'VectorField'
-  },
-
   outputs: {
-        warpedField: 'Field'
+    warpedField: {
+      type: 'Field',
+      label: 'Warped Field'
+    }
   },
-
+  params: {
+    strength: {
+      type: 'number',
+      label: 'Strength',
+      default: 1,
+      min: 0,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'warpField',
+      params: {
+        field: inputs.field,
+        deformation: inputs.deformation,
+        strength: params.strength
+      }
+    });
     
-    // TODO: Implement FieldWarp logic
-    throw new Error('FieldWarp not yet implemented');
-  }
+    return {
+      warpedField: result
+    };
+  },
 };

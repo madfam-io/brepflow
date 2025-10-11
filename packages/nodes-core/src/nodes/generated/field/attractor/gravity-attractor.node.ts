@@ -1,53 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GravityAttractorParams {
   mass: number;
   G: number;
 }
-interface Inputs {
-  bodies: Point[];
-  masses?: number[];
+
+interface GravityAttractorInputs {
+  bodies: Array<[number, number, number]>;
+  masses?: unknown;
 }
-interface Outputs {
-  field: VectorField;
+
+interface GravityAttractorOutputs {
+  field: unknown;
 }
 
 export const GravityAttractorNode: NodeDefinition<GravityAttractorInputs, GravityAttractorOutputs, GravityAttractorParams> = {
-  type: 'Field::GravityAttractor',
+  id: 'Field::GravityAttractor',
   category: 'Field',
-  subcategory: 'Attractor',
-
-  metadata: {
-    label: 'GravityAttractor',
-    description: 'Gravity well attractor',
-    
-    
-  },
-
-  params: {
-        mass: {
-      "default": 100,
-      "min": 0.1
+  label: 'GravityAttractor',
+  description: 'Gravity well attractor',
+  inputs: {
+    bodies: {
+      type: 'Point[]',
+      label: 'Bodies',
+      required: true
     },
-    G: {
-      "default": 1,
-      "min": 0.001,
-      "description": "Gravitational constant"
+    masses: {
+      type: 'number[]',
+      label: 'Masses',
+      optional: true
     }
   },
-
-  inputs: {
-        bodies: 'Point[]',
-    masses: 'number[]'
-  },
-
   outputs: {
-        field: 'VectorField'
+    field: {
+      type: 'VectorField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    mass: {
+      type: 'number',
+      label: 'Mass',
+      default: 100,
+      min: 0.1
+    },
+    G: {
+      type: 'number',
+      label: 'G',
+      default: 1,
+      min: 0.001
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'attractorGravity',
       params: {
@@ -57,9 +61,9 @@ export const GravityAttractorNode: NodeDefinition<GravityAttractorInputs, Gravit
         G: params.G
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

@@ -1,55 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SpherePackingParams {
   packingType: string;
 }
-interface Inputs {
-  container: Shape;
-  radius: number;
+
+interface SpherePackingInputs {
+  container: unknown;
+  radius: unknown;
 }
-interface Outputs {
-  centers: Point[];
-  spheres: Shape[];
+
+interface SpherePackingOutputs {
+  centers: Array<[number, number, number]>;
+  spheres: unknown;
 }
 
 export const SpherePackingNode: NodeDefinition<SpherePackingInputs, SpherePackingOutputs, SpherePackingParams> = {
-  type: 'Patterns::SpherePacking',
+  id: 'Patterns::SpherePacking',
   category: 'Patterns',
-  subcategory: 'Packing',
-
-  metadata: {
-    label: 'SpherePacking',
-    description: '3D sphere packing',
-    
-    
-  },
-
-  params: {
-        packingType: {
-      "default": "hexagonal",
-      "options": [
-        "cubic",
-        "hexagonal",
-        "random",
-        "optimal"
-      ]
+  label: 'SpherePacking',
+  description: '3D sphere packing',
+  inputs: {
+    container: {
+      type: 'Shape',
+      label: 'Container',
+      required: true
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      required: true
     }
   },
-
-  inputs: {
-        container: 'Shape',
-    radius: 'number'
-  },
-
   outputs: {
-        centers: 'Point[]',
-    spheres: 'Shape[]'
+    centers: {
+      type: 'Point[]',
+      label: 'Centers'
+    },
+    spheres: {
+      type: 'Shape[]',
+      label: 'Spheres'
+    }
   },
-
+  params: {
+    packingType: {
+      type: 'enum',
+      label: 'Packing Type',
+      default: "hexagonal",
+      options: ["cubic","hexagonal","random","optimal"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'spherePacking',
       params: {
         container: inputs.container,
@@ -57,10 +58,10 @@ export const SpherePackingNode: NodeDefinition<SpherePackingInputs, SpherePackin
         packingType: params.packingType
       }
     });
-
+    
     return {
-      centers: result,
-      spheres: result
+      centers: results.centers,
+      spheres: results.spheres
     };
-  }
+  },
 };

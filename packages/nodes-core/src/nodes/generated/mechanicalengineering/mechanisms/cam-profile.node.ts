@@ -1,73 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CamProfileParams {
   baseRadius: number;
   lift: number;
   profileType: string;
   dwellAngle: number;
 }
-interface Inputs {
-  center: Point;
-  customProfile?: Wire;
+
+interface CamProfileInputs {
+  center: [number, number, number];
+  customProfile?: unknown;
 }
-interface Outputs {
-  cam: Shape;
-  profile: Wire;
+
+interface CamProfileOutputs {
+  cam: unknown;
+  profile: unknown;
 }
 
 export const CamProfileNode: NodeDefinition<CamProfileInputs, CamProfileOutputs, CamProfileParams> = {
-  type: 'MechanicalEngineering::CamProfile',
+  id: 'MechanicalEngineering::CamProfile',
   category: 'MechanicalEngineering',
-  subcategory: 'Mechanisms',
-
-  metadata: {
-    label: 'CamProfile',
-    description: 'Create cam profile',
-    
-    
-  },
-
-  params: {
-        baseRadius: {
-      "default": 30,
-      "min": 10,
-      "max": 100
+  label: 'CamProfile',
+  description: 'Create cam profile',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     },
-    lift: {
-      "default": 10,
-      "min": 2,
-      "max": 50
-    },
-    profileType: {
-      "default": "harmonic",
-      "options": [
-        "harmonic",
-        "cycloidal",
-        "parabolic",
-        "custom"
-      ]
-    },
-    dwellAngle: {
-      "default": 60,
-      "min": 0,
-      "max": 180
+    customProfile: {
+      type: 'Wire',
+      label: 'Custom Profile',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point',
-    customProfile: 'Wire'
-  },
-
   outputs: {
-        cam: 'Shape',
-    profile: 'Wire'
+    cam: {
+      type: 'Shape',
+      label: 'Cam'
+    },
+    profile: {
+      type: 'Wire',
+      label: 'Profile'
+    }
   },
-
+  params: {
+    baseRadius: {
+      type: 'number',
+      label: 'Base Radius',
+      default: 30,
+      min: 10,
+      max: 100
+    },
+    lift: {
+      type: 'number',
+      label: 'Lift',
+      default: 10,
+      min: 2,
+      max: 50
+    },
+    profileType: {
+      type: 'enum',
+      label: 'Profile Type',
+      default: "harmonic",
+      options: ["harmonic","cycloidal","parabolic","custom"]
+    },
+    dwellAngle: {
+      type: 'number',
+      label: 'Dwell Angle',
+      default: 60,
+      min: 0,
+      max: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'camProfile',
       params: {
         center: inputs.center,
@@ -78,10 +85,10 @@ export const CamProfileNode: NodeDefinition<CamProfileInputs, CamProfileOutputs,
         dwellAngle: params.dwellAngle
       }
     });
-
+    
     return {
-      cam: result,
-      profile: result
+      cam: results.cam,
+      profile: results.profile
     };
-  }
+  },
 };

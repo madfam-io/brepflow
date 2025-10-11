@@ -1,53 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldColorParams {
   gradient: string;
 }
-interface Inputs {
-  mesh: Mesh;
-  field: ScalarField;
+
+interface FieldColorInputs {
+  mesh: unknown;
+  field: unknown;
 }
-interface Outputs {
-  coloredMesh: Mesh;
+
+interface FieldColorOutputs {
+  coloredMesh: unknown;
 }
 
 export const FieldColorNode: NodeDefinition<FieldColorInputs, FieldColorOutputs, FieldColorParams> = {
-  type: 'Field::FieldColor',
+  id: 'Field::FieldColor',
   category: 'Field',
-  subcategory: 'Deform',
-
-  metadata: {
-    label: 'FieldColor',
-    description: 'Color by field value',
-    
-    
-  },
-
-  params: {
-        gradient: {
-      "default": "rainbow",
-      "options": [
-        "grayscale",
-        "rainbow",
-        "heat",
-        "cool",
-        "custom"
-      ]
+  label: 'FieldColor',
+  description: 'Color by field value',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
+    },
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh',
-    field: 'ScalarField'
-  },
-
   outputs: {
-        coloredMesh: 'Mesh'
+    coloredMesh: {
+      type: 'Mesh',
+      label: 'Colored Mesh'
+    }
   },
-
+  params: {
+    gradient: {
+      type: 'enum',
+      label: 'Gradient',
+      default: "rainbow",
+      options: ["grayscale","rainbow","heat","cool","custom"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldColor',
       params: {
@@ -56,9 +53,9 @@ export const FieldColorNode: NodeDefinition<FieldColorInputs, FieldColorOutputs,
         gradient: params.gradient
       }
     });
-
+    
     return {
       coloredMesh: result
     };
-  }
+  },
 };

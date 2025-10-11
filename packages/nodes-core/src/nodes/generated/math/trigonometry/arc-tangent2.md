@@ -8,7 +8,7 @@ Two-argument arc tangent
 ## Parameters
 
 
-### angleUnit
+### Angle Unit
 - **Type:** enum
 - **Default:** "radians"
 
@@ -19,13 +19,13 @@ Two-argument arc tangent
 ## Inputs
 
 
-### y
+### Y
 - **Type:** number
 - **Required:** Yes
 
 
 
-### x
+### X
 - **Type:** number
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Two-argument arc tangent
 ## Outputs
 
 
-### angle
+### Angle
 - **Type:** number
 
 

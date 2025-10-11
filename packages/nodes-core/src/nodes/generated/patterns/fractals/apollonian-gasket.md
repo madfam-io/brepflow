@@ -8,7 +8,7 @@ Apollonian gasket circles
 ## Parameters
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -16,7 +16,7 @@ Apollonian gasket circles
 
 
 
-### minRadius
+### Min Radius
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.01
@@ -27,7 +27,7 @@ Apollonian gasket circles
 ## Inputs
 
 
-### outerCircle
+### Outer Circle
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Apollonian gasket circles
 ## Outputs
 
 
-### circles
+### Circles
 - **Type:** Wire[]
 
 

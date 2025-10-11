@@ -1,55 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface OffsetParams {
   distance: number;
   side: string;
 }
-interface Inputs {
-  curve: Wire;
+
+interface OffsetInputs {
+  curve: unknown;
 }
-interface Outputs {
-  offset: Wire;
+
+interface OffsetOutputs {
+  offset: unknown;
 }
 
 export const OffsetNode: NodeDefinition<OffsetInputs, OffsetOutputs, OffsetParams> = {
-  type: 'Sketch::Offset',
+  id: 'Sketch::Offset',
   category: 'Sketch',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'Offset',
-    description: 'Offset a curve',
-    
-    
-  },
-
-  params: {
-        distance: {
-      "default": 10,
-      "min": -10000,
-      "max": 10000
-    },
-    side: {
-      "default": "right",
-      "options": [
-        "left",
-        "right",
-        "both"
-      ]
+  label: 'Offset',
+  description: 'Offset a curve',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        offset: 'Wire'
+    offset: {
+      type: 'Wire',
+      label: 'Offset'
+    }
   },
-
+  params: {
+    distance: {
+      type: 'number',
+      label: 'Distance',
+      default: 10,
+      min: -10000,
+      max: 10000
+    },
+    side: {
+      type: 'enum',
+      label: 'Side',
+      default: "right",
+      options: ["left","right","both"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'offsetCurve',
       params: {
@@ -58,9 +55,9 @@ export const OffsetNode: NodeDefinition<OffsetInputs, OffsetOutputs, OffsetParam
         side: params.side
       }
     });
-
+    
     return {
       offset: result
     };
-  }
+  },
 };

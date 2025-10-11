@@ -8,7 +8,7 @@ Find curve inflection points
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Find curve inflection points
 
 
 
-### markPoints
+### Mark Points
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Find curve inflection points
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Find curve inflection points
 ## Outputs
 
 
-### inflectionPoints
+### Inflection Points
 - **Type:** Point[]
 
 
 
-### parameters
+### Parameters
 - **Type:** number[]
 
 
 
-### markers
+### Markers
 - **Type:** Shape[]
 
 

@@ -1,60 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ContouringToolpathParams {
   levels: number;
   climb: boolean;
   compensation: string;
 }
-interface Inputs {
-  surface: Face;
+
+interface ContouringToolpathInputs {
+  surface: unknown;
 }
-interface Outputs {
-  contours: Wire[];
+
+interface ContouringToolpathOutputs {
+  contours: unknown;
 }
 
 export const ContouringToolpathNode: NodeDefinition<ContouringToolpathInputs, ContouringToolpathOutputs, ContouringToolpathParams> = {
-  type: 'Fabrication::ContouringToolpath',
+  id: 'Fabrication::ContouringToolpath',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'ContouringToolpath',
-    description: 'Contour machining paths',
-    
-    
-  },
-
-  params: {
-        levels: {
-      "default": 10,
-      "min": 1,
-      "max": 100,
-      "step": 1
-    },
-    climb: {
-      "default": true
-    },
-    compensation: {
-      "default": "right",
-      "options": [
-        "left",
-        "right",
-        "center"
-      ]
+  label: 'ContouringToolpath',
+  description: 'Contour machining paths',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        contours: 'Wire[]'
+    contours: {
+      type: 'Wire[]',
+      label: 'Contours'
+    }
   },
-
+  params: {
+    levels: {
+      type: 'number',
+      label: 'Levels',
+      default: 10,
+      min: 1,
+      max: 100,
+      step: 1
+    },
+    climb: {
+      type: 'boolean',
+      label: 'Climb',
+      default: true
+    },
+    compensation: {
+      type: 'enum',
+      label: 'Compensation',
+      default: "right",
+      options: ["left","right","center"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'contouringToolpath',
       params: {
@@ -64,9 +63,9 @@ export const ContouringToolpathNode: NodeDefinition<ContouringToolpathInputs, Co
         compensation: params.compensation
       }
     });
-
+    
     return {
       contours: result
     };
-  }
+  },
 };

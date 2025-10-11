@@ -1,58 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HoneycombStructureParams {
   cellSize: number;
   wallThickness: number;
   fillDensity: number;
 }
-interface Inputs {
-  shape: Shape;
+
+interface HoneycombStructureInputs {
+  shape: unknown;
 }
-interface Outputs {
-  honeycomb: Shape;
+
+interface HoneycombStructureOutputs {
+  honeycomb: unknown;
 }
 
 export const HoneycombStructureNode: NodeDefinition<HoneycombStructureInputs, HoneycombStructureOutputs, HoneycombStructureParams> = {
-  type: 'Specialized::HoneycombStructure',
+  id: 'Specialized::HoneycombStructure',
   category: 'Specialized',
-  subcategory: 'Lattice',
-
-  metadata: {
-    label: 'HoneycombStructure',
-    description: 'Honeycomb infill structure',
-    
-    
-  },
-
-  params: {
-        cellSize: {
-      "default": 5,
-      "min": 0.5,
-      "max": 50
-    },
-    wallThickness: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 5
-    },
-    fillDensity: {
-      "default": 0.3,
-      "min": 0.1,
-      "max": 0.9
+  label: 'HoneycombStructure',
+  description: 'Honeycomb infill structure',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        honeycomb: 'Shape'
+    honeycomb: {
+      type: 'Shape',
+      label: 'Honeycomb'
+    }
   },
-
+  params: {
+    cellSize: {
+      type: 'number',
+      label: 'Cell Size',
+      default: 5,
+      min: 0.5,
+      max: 50
+    },
+    wallThickness: {
+      type: 'number',
+      label: 'Wall Thickness',
+      default: 0.5,
+      min: 0.1,
+      max: 5
+    },
+    fillDensity: {
+      type: 'number',
+      label: 'Fill Density',
+      default: 0.3,
+      min: 0.1,
+      max: 0.9
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'honeycombStructure',
       params: {
@@ -62,9 +65,9 @@ export const HoneycombStructureNode: NodeDefinition<HoneycombStructureInputs, Ho
         fillDensity: params.fillDensity
       }
     });
-
+    
     return {
       honeycomb: result
     };
-  }
+  },
 };

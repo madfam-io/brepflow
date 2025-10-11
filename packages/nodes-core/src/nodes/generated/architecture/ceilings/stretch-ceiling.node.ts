@@ -1,57 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StretchCeilingParams {
   fabricType: string;
   backlighting: boolean;
 }
-interface Inputs {
-  ceilingBoundary: Wire;
+
+interface StretchCeilingInputs {
+  ceilingBoundary: unknown;
 }
-interface Outputs {
-  stretchCeiling: Face;
-  track: Wire;
+
+interface StretchCeilingOutputs {
+  stretchCeiling: unknown;
+  track: unknown;
 }
 
 export const StretchCeilingNode: NodeDefinition<StretchCeilingInputs, StretchCeilingOutputs, StretchCeilingParams> = {
-  type: 'Architecture::StretchCeiling',
+  id: 'Architecture::StretchCeiling',
   category: 'Architecture',
-  subcategory: 'Ceilings',
-
-  metadata: {
-    label: 'StretchCeiling',
-    description: 'Stretch fabric ceiling',
-    
-    
-  },
-
-  params: {
-        fabricType: {
-      "default": "matte",
-      "options": [
-        "matte",
-        "satin",
-        "gloss",
-        "translucent"
-      ]
-    },
-    backlighting: {
-      "default": false
+  label: 'StretchCeiling',
+  description: 'Stretch fabric ceiling',
+  inputs: {
+    ceilingBoundary: {
+      type: 'Wire',
+      label: 'Ceiling Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        ceilingBoundary: 'Wire'
-  },
-
   outputs: {
-        stretchCeiling: 'Face',
-    track: 'Wire'
+    stretchCeiling: {
+      type: 'Face',
+      label: 'Stretch Ceiling'
+    },
+    track: {
+      type: 'Wire',
+      label: 'Track'
+    }
   },
-
+  params: {
+    fabricType: {
+      type: 'enum',
+      label: 'Fabric Type',
+      default: "matte",
+      options: ["matte","satin","gloss","translucent"]
+    },
+    backlighting: {
+      type: 'boolean',
+      label: 'Backlighting',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'stretchCeiling',
       params: {
         ceilingBoundary: inputs.ceilingBoundary,
@@ -59,10 +58,10 @@ export const StretchCeilingNode: NodeDefinition<StretchCeilingInputs, StretchCei
         backlighting: params.backlighting
       }
     });
-
+    
     return {
-      stretchCeiling: result,
-      track: result
+      stretchCeiling: results.stretchCeiling,
+      track: results.track
     };
-  }
+  },
 };

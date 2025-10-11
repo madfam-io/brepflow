@@ -8,7 +8,7 @@ Coffered ceiling pattern
 ## Parameters
 
 
-### cofferSize
+### Coffer Size
 - **Type:** number
 - **Default:** 1200
 - **Min:** 600
@@ -16,7 +16,7 @@ Coffered ceiling pattern
 
 
 
-### cofferDepth
+### Coffer Depth
 - **Type:** number
 - **Default:** 150
 - **Min:** 50
@@ -24,7 +24,7 @@ Coffered ceiling pattern
 
 
 
-### beamWidth
+### Beam Width
 - **Type:** number
 - **Default:** 200
 - **Min:** 100
@@ -35,7 +35,7 @@ Coffered ceiling pattern
 ## Inputs
 
 
-### ceilingBoundary
+### Ceiling Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Coffered ceiling pattern
 ## Outputs
 
 
-### cofferedCeiling
+### Coffered Ceiling
 - **Type:** Shape
 
 

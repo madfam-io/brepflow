@@ -8,7 +8,7 @@ Change string case
 ## Parameters
 
 
-### case
+### Case
 - **Type:** enum
 - **Default:** "lower"
 
@@ -19,7 +19,7 @@ Change string case
 ## Inputs
 
 
-### string
+### String
 - **Type:** string
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Change string case
 ## Outputs
 
 
-### result
+### Result
 - **Type:** string
 
 

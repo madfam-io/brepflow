@@ -1,61 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RadialFieldParams {
   falloff: string;
   radius: number;
   strength: number;
 }
-interface Inputs {
-  center: Point;
+
+interface RadialFieldInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  field: ScalarField;
+
+interface RadialFieldOutputs {
+  field: unknown;
 }
 
 export const RadialFieldNode: NodeDefinition<RadialFieldInputs, RadialFieldOutputs, RadialFieldParams> = {
-  type: 'Field::RadialField',
+  id: 'Field::RadialField',
   category: 'Field',
-  subcategory: 'Generate',
-
-  metadata: {
-    label: 'RadialField',
-    description: 'Radial gradient field',
-    
-    
-  },
-
-  params: {
-        falloff: {
-      "default": "linear",
-      "options": [
-        "linear",
-        "quadratic",
-        "exponential",
-        "gaussian"
-      ]
-    },
-    radius: {
-      "default": 100,
-      "min": 0.1
-    },
-    strength: {
-      "default": 1,
-      "min": 0,
-      "max": 10
+  label: 'RadialField',
+  description: 'Radial gradient field',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    falloff: {
+      type: 'enum',
+      label: 'Falloff',
+      default: "linear",
+      options: ["linear","quadratic","exponential","gaussian"]
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 100,
+      min: 0.1
+    },
+    strength: {
+      type: 'number',
+      label: 'Strength',
+      default: 1,
+      min: 0,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldRadial',
       params: {
@@ -65,9 +63,9 @@ export const RadialFieldNode: NodeDefinition<RadialFieldInputs, RadialFieldOutpu
         strength: params.strength
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

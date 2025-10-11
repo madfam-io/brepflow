@@ -1,64 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ShapeOptimizeParams {
   objective: string;
   morphRadius: number;
   iterations: number;
 }
-interface Inputs {
-  initialShape: Shape;
-  boundaryConditions: Data;
+
+interface ShapeOptimizeInputs {
+  initialShape: unknown;
+  boundaryConditions: unknown;
 }
-interface Outputs {
-  optimized: Shape;
+
+interface ShapeOptimizeOutputs {
+  optimized: unknown;
 }
 
 export const ShapeOptimizeNode: NodeDefinition<ShapeOptimizeInputs, ShapeOptimizeOutputs, ShapeOptimizeParams> = {
-  type: 'Specialized::ShapeOptimize',
+  id: 'Specialized::ShapeOptimize',
   category: 'Specialized',
-  subcategory: 'Optimization',
-
-  metadata: {
-    label: 'ShapeOptimize',
-    description: 'Shape optimization',
-    
-    
-  },
-
-  params: {
-        objective: {
-      "default": "min-weight",
-      "options": [
-        "min-weight",
-        "max-stiffness",
-        "min-stress"
-      ]
+  label: 'ShapeOptimize',
+  description: 'Shape optimization',
+  inputs: {
+    initialShape: {
+      type: 'Shape',
+      label: 'Initial Shape',
+      required: true
     },
-    morphRadius: {
-      "default": 5,
-      "min": 0.5,
-      "max": 50
-    },
-    iterations: {
-      "default": 50,
-      "min": 5,
-      "max": 200,
-      "step": 5
+    boundaryConditions: {
+      type: 'Data',
+      label: 'Boundary Conditions',
+      required: true
     }
   },
-
-  inputs: {
-        initialShape: 'Shape',
-    boundaryConditions: 'Data'
-  },
-
   outputs: {
-        optimized: 'Shape'
+    optimized: {
+      type: 'Shape',
+      label: 'Optimized'
+    }
   },
-
+  params: {
+    objective: {
+      type: 'enum',
+      label: 'Objective',
+      default: "min-weight",
+      options: ["min-weight","max-stiffness","min-stress"]
+    },
+    morphRadius: {
+      type: 'number',
+      label: 'Morph Radius',
+      default: 5,
+      min: 0.5,
+      max: 50
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 50,
+      min: 5,
+      max: 200,
+      step: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'shapeOptimize',
       params: {
@@ -69,9 +72,9 @@ export const ShapeOptimizeNode: NodeDefinition<ShapeOptimizeInputs, ShapeOptimiz
         iterations: params.iterations
       }
     });
-
+    
     return {
       optimized: result
     };
-  }
+  },
 };

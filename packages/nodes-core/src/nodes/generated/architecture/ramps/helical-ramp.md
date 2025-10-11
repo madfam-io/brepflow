@@ -8,7 +8,7 @@ Helical parking ramp
 ## Parameters
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 15000
 - **Min:** 10000
@@ -16,7 +16,7 @@ Helical parking ramp
 
 
 
-### pitch
+### Pitch
 - **Type:** number
 - **Default:** 3000
 - **Min:** 2500
@@ -24,7 +24,7 @@ Helical parking ramp
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 7000
 - **Min:** 5500
@@ -35,13 +35,13 @@ Helical parking ramp
 ## Inputs
 
 
-### centerPoint
+### Center Point
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### levels
+### Levels
 - **Type:** Number
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Helical parking ramp
 ## Outputs
 
 
-### helicalRamp
+### Helical Ramp
 - **Type:** Shape
 
 

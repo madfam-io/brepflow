@@ -8,7 +8,7 @@ Regular polygon tessellation
 ## Parameters
 
 
-### polygonType
+### Polygon Type
 - **Type:** enum
 - **Default:** "hexagonal"
 
@@ -16,7 +16,7 @@ Regular polygon tessellation
 
 
 
-### size
+### Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,7 +27,7 @@ Regular polygon tessellation
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Regular polygon tessellation
 ## Outputs
 
 
-### tiles
+### Tiles
 - **Type:** Face[]
 
 

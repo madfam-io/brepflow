@@ -8,7 +8,7 @@ Create slot for tab
 ## Parameters
 
 
-### slotWidth
+### Slot Width
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create slot for tab
 
 
 
-### slotDepth
+### Slot Depth
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create slot for tab
 
 
 
-### clearance
+### Clearance
 - **Type:** number
 - **Default:** 0.2
 - **Min:** 0
@@ -35,19 +35,19 @@ Create slot for tab
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### edge
+### Edge
 - **Type:** Edge
 - **Required:** Yes
 
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -56,7 +56,7 @@ Create slot for tab
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

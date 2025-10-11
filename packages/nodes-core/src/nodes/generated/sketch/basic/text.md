@@ -8,7 +8,7 @@ Create text as geometry
 ## Parameters
 
 
-### text
+### Text
 - **Type:** string
 - **Default:** "Text"
 
@@ -16,7 +16,7 @@ Create text as geometry
 - **Description:** Text content
 
 
-### font
+### Font
 - **Type:** string
 - **Default:** "Arial"
 
@@ -24,7 +24,7 @@ Create text as geometry
 - **Description:** Font family
 
 
-### size
+### Size
 - **Type:** number
 - **Default:** 20
 - **Min:** 1
@@ -32,7 +32,7 @@ Create text as geometry
 - **Description:** Font size
 
 
-### bold
+### Bold
 - **Type:** boolean
 - **Default:** false
 
@@ -40,7 +40,7 @@ Create text as geometry
 
 
 
-### italic
+### Italic
 - **Type:** boolean
 - **Default:** false
 
@@ -48,7 +48,7 @@ Create text as geometry
 
 
 
-### x
+### X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -56,7 +56,7 @@ Create text as geometry
 
 
 
-### y
+### Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -71,7 +71,7 @@ This node has no inputs.
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Description:** Text as geometry
 

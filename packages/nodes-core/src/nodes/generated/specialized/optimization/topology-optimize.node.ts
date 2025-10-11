@@ -1,72 +1,88 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TopologyOptimizeParams {
   volumeFraction: number;
   penaltyFactor: number;
   filterRadius: number;
   iterations: number;
 }
-interface Inputs {
-  designSpace: Shape;
-  loads: Data;
-  constraints: Data;
+
+interface TopologyOptimizeInputs {
+  designSpace: unknown;
+  loads: unknown;
+  constraints: unknown;
 }
-interface Outputs {
-  optimized: Shape;
-  convergence: Data;
+
+interface TopologyOptimizeOutputs {
+  optimized: unknown;
+  convergence: unknown;
 }
 
 export const TopologyOptimizeNode: NodeDefinition<TopologyOptimizeInputs, TopologyOptimizeOutputs, TopologyOptimizeParams> = {
-  type: 'Specialized::TopologyOptimize',
+  id: 'Specialized::TopologyOptimize',
   category: 'Specialized',
-  subcategory: 'Optimization',
-
-  metadata: {
-    label: 'TopologyOptimize',
-    description: 'Topology optimization',
-    
-    
-  },
-
-  params: {
-        volumeFraction: {
-      "default": 0.3,
-      "min": 0.1,
-      "max": 0.9
+  label: 'TopologyOptimize',
+  description: 'Topology optimization',
+  inputs: {
+    designSpace: {
+      type: 'Shape',
+      label: 'Design Space',
+      required: true
     },
-    penaltyFactor: {
-      "default": 3,
-      "min": 1,
-      "max": 5
+    loads: {
+      type: 'Data',
+      label: 'Loads',
+      required: true
     },
-    filterRadius: {
-      "default": 2,
-      "min": 0.5,
-      "max": 10
-    },
-    iterations: {
-      "default": 100,
-      "min": 10,
-      "max": 500,
-      "step": 10
+    constraints: {
+      type: 'Data',
+      label: 'Constraints',
+      required: true
     }
   },
-
-  inputs: {
-        designSpace: 'Shape',
-    loads: 'Data',
-    constraints: 'Data'
-  },
-
   outputs: {
-        optimized: 'Shape',
-    convergence: 'Data'
+    optimized: {
+      type: 'Shape',
+      label: 'Optimized'
+    },
+    convergence: {
+      type: 'Data',
+      label: 'Convergence'
+    }
   },
-
+  params: {
+    volumeFraction: {
+      type: 'number',
+      label: 'Volume Fraction',
+      default: 0.3,
+      min: 0.1,
+      max: 0.9
+    },
+    penaltyFactor: {
+      type: 'number',
+      label: 'Penalty Factor',
+      default: 3,
+      min: 1,
+      max: 5
+    },
+    filterRadius: {
+      type: 'number',
+      label: 'Filter Radius',
+      default: 2,
+      min: 0.5,
+      max: 10
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 100,
+      min: 10,
+      max: 500,
+      step: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'topologyOptimize',
       params: {
         designSpace: inputs.designSpace,
@@ -78,10 +94,10 @@ export const TopologyOptimizeNode: NodeDefinition<TopologyOptimizeInputs, Topolo
         iterations: params.iterations
       }
     });
-
+    
     return {
-      optimized: result,
-      convergence: result
+      optimized: results.optimized,
+      convergence: results.convergence
     };
-  }
+  },
 };

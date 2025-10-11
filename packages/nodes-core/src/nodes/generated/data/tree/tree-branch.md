@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### tree
+### Tree
 - **Type:** DataTree
 - **Required:** Yes
 
 
 
-### path
+### Path
 - **Type:** string
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### branch
+### Branch
 - **Type:** Data[]
 
 

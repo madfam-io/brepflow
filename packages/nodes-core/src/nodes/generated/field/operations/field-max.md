@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### fields
+### Fields
 - **Type:** ScalarField[]
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

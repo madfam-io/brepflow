@@ -8,7 +8,7 @@ Alternating tread device
 ## Parameters
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 56
 - **Min:** 50
@@ -16,7 +16,7 @@ Alternating tread device
 
 
 
-### treadWidth
+### Tread Width
 - **Type:** number
 - **Default:** 600
 - **Min:** 500
@@ -27,13 +27,13 @@ Alternating tread device
 ## Inputs
 
 
-### startPoint
+### Start Point
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### totalRise
+### Total Rise
 - **Type:** Number
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Alternating tread device
 ## Outputs
 
 
-### alternatingStair
+### Alternating Stair
 - **Type:** Shape
 
 

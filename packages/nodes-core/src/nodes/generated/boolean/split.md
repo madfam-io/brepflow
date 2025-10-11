@@ -8,7 +8,7 @@ Split shapes by each other
 ## Parameters
 
 
-### keepAll
+### Keep All
 - **Type:** boolean
 - **Default:** true
 
@@ -19,13 +19,13 @@ Split shapes by each other
 ## Inputs
 
 
-### shapes
+### Shapes
 - **Type:** Shape[]
 - **Required:** Yes
 - **Description:** Shapes to split
 
 
-### tools
+### Tools
 - **Type:** Shape[]
 - **Required:** Yes
 - **Description:** Splitting tools
@@ -34,7 +34,7 @@ Split shapes by each other
 ## Outputs
 
 
-### fragments
+### Fragments
 - **Type:** Shape[]
 - **Description:** Split fragments
 

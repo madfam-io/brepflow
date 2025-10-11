@@ -1,64 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ProbeRoutineParams {
   probeType: string;
 }
-interface Inputs {
-  feature: Shape;
+
+interface ProbeRoutineInputs {
+  feature: unknown;
 }
-interface Outputs {
-  probePoints: Point[];
-  probeCycle: Data;
+
+interface ProbeRoutineOutputs {
+  probePoints: Array<[number, number, number]>;
+  probeCycle: unknown;
 }
 
 export const ProbeRoutineNode: NodeDefinition<ProbeRoutineInputs, ProbeRoutineOutputs, ProbeRoutineParams> = {
-  type: 'Fabrication::ProbeRoutine',
+  id: 'Fabrication::ProbeRoutine',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'ProbeRoutine',
-    description: 'Probing cycle generation',
-    
-    
-  },
-
-  params: {
-        probeType: {
-      "default": "corner",
-      "options": [
-        "corner",
-        "bore",
-        "boss",
-        "plane",
-        "edge"
-      ]
+  label: 'ProbeRoutine',
+  description: 'Probing cycle generation',
+  inputs: {
+    feature: {
+      type: 'Shape',
+      label: 'Feature',
+      required: true
     }
   },
-
-  inputs: {
-        feature: 'Shape'
-  },
-
   outputs: {
-        probePoints: 'Point[]',
-    probeCycle: 'Data'
+    probePoints: {
+      type: 'Point[]',
+      label: 'Probe Points'
+    },
+    probeCycle: {
+      type: 'Data',
+      label: 'Probe Cycle'
+    }
   },
-
+  params: {
+    probeType: {
+      type: 'enum',
+      label: 'Probe Type',
+      default: "corner",
+      options: ["corner","bore","boss","plane","edge"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'probeRoutine',
       params: {
         feature: inputs.feature,
         probeType: params.probeType
       }
     });
-
+    
     return {
-      probePoints: result,
-      probeCycle: result
+      probePoints: results.probePoints,
+      probeCycle: results.probeCycle
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Double-skin facade system
 ## Parameters
 
 
-### cavityWidth
+### Cavity Width
 - **Type:** number
 - **Default:** 600
 - **Min:** 300
@@ -16,7 +16,7 @@ Double-skin facade system
 
 
 
-### ventilationType
+### Ventilation Type
 - **Type:** enum
 - **Default:** "natural"
 
@@ -27,7 +27,7 @@ Double-skin facade system
 ## Inputs
 
 
-### buildingFace
+### Building Face
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Double-skin facade system
 ## Outputs
 
 
-### innerSkin
+### Inner Skin
 - **Type:** Shape
 
 
 
-### outerSkin
+### Outer Skin
 - **Type:** Shape
 
 
 
-### cavity
+### Cavity
 - **Type:** Shape
 
 

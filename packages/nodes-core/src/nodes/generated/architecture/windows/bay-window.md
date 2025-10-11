@@ -8,7 +8,7 @@ Bay window projection
 ## Parameters
 
 
-### projection
+### Projection
 - **Type:** number
 - **Default:** 600
 - **Min:** 400
@@ -16,7 +16,7 @@ Bay window projection
 
 
 
-### angleCount
+### Angle Count
 - **Type:** number
 - **Default:** 3
 - **Min:** 3
@@ -24,7 +24,7 @@ Bay window projection
 
 
 
-### centerAngle
+### Center Angle
 - **Type:** number
 - **Default:** 135
 - **Min:** 90
@@ -35,7 +35,7 @@ Bay window projection
 ## Inputs
 
 
-### wallOpening
+### Wall Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Bay window projection
 ## Outputs
 
 
-### bayWindow
+### Bay Window
 - **Type:** Shape
 
 
 
-### windows
+### Windows
 - **Type:** Shape[]
 
 

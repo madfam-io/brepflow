@@ -8,7 +8,7 @@ Create flange from edge
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 25
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create flange from edge
 - **Description:** Flange height
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** 0
@@ -24,7 +24,7 @@ Create flange from edge
 - **Description:** Bend angle in degrees
 
 
-### bendRadius
+### Bend Radius
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create flange from edge
 - **Description:** Bend radius
 
 
-### bendRelief
+### Bend Relief
 - **Type:** enum
 - **Default:** "rectangular"
 
@@ -40,7 +40,7 @@ Create flange from edge
 
 
 
-### reliefRatio
+### Relief Ratio
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -51,13 +51,13 @@ Create flange from edge
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### edge
+### Edge
 - **Type:** Edge
 - **Required:** Yes
 
@@ -66,7 +66,7 @@ Create flange from edge
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

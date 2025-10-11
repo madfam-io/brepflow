@@ -8,7 +8,7 @@ Create splined shaft
 ## Parameters
 
 
-### majorDiameter
+### Major Diameter
 - **Type:** number
 - **Default:** 25
 - **Min:** 10
@@ -16,7 +16,7 @@ Create splined shaft
 
 
 
-### minorDiameter
+### Minor Diameter
 - **Type:** number
 - **Default:** 22
 - **Min:** 8
@@ -24,7 +24,7 @@ Create splined shaft
 
 
 
-### splineCount
+### Spline Count
 - **Type:** number
 - **Default:** 6
 - **Min:** 4
@@ -32,7 +32,7 @@ Create splined shaft
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -43,7 +43,7 @@ Create splined shaft
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create splined shaft
 ## Outputs
 
 
-### shaft
+### Shaft
 - **Type:** Shape
 
 
 
-### splines
+### Splines
 - **Type:** Wire[]
 
 

@@ -6,6 +6,8 @@ export * from './hash';
 export * from './config/environment';
 export * from './geometry-api-factory';
 export * from './constraints';
+export * from './errors';
+export * from './diagnostics/evaluation-profiler';
 
 // Collaboration types and interfaces
 export * from './collaboration/types';

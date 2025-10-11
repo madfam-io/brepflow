@@ -8,7 +8,7 @@ Cellular automaton pattern
 ## Parameters
 
 
-### rule
+### Rule
 - **Type:** number
 - **Default:** 30
 - **Min:** 0
@@ -16,7 +16,7 @@ Cellular automaton pattern
 
 
 
-### generations
+### Generations
 - **Type:** number
 - **Default:** 50
 - **Min:** 1
@@ -24,7 +24,7 @@ Cellular automaton pattern
 
 
 
-### cellSize
+### Cell Size
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -35,7 +35,7 @@ Cellular automaton pattern
 ## Inputs
 
 
-### initialState
+### Initial State
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Cellular automaton pattern
 ## Outputs
 
 
-### cells
+### Cells
 - **Type:** Face[]
 
 

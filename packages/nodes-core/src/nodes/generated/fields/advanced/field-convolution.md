@@ -8,7 +8,7 @@ Convolve field with kernel
 ## Parameters
 
 
-### kernelSize
+### Kernel Size
 - **Type:** number
 - **Default:** 3
 - **Min:** 3
@@ -19,13 +19,13 @@ Convolve field with kernel
 ## Inputs
 
 
-### field
+### Field
 - **Type:** Field
 - **Required:** No
 
 
 
-### kernel
+### Kernel
 - **Type:** Field
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Convolve field with kernel
 ## Outputs
 
 
-### convolvedField
+### Convolved Field
 - **Type:** Field
 
 

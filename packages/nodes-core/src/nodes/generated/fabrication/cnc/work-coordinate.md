@@ -8,7 +8,7 @@ Work coordinate system
 ## Parameters
 
 
-### wcs
+### Wcs
 - **Type:** enum
 - **Default:** "G54"
 
@@ -19,13 +19,13 @@ Work coordinate system
 ## Inputs
 
 
-### origin
+### Origin
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### orientation
+### Orientation
 - **Type:** Transform
 - **Required:** No
 
@@ -34,7 +34,7 @@ Work coordinate system
 ## Outputs
 
 
-### coordinate
+### Coordinate
 - **Type:** Transform
 
 

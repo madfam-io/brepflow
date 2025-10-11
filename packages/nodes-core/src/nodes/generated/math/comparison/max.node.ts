@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type MaxParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  values: number[];
+interface MaxInputs {
+  values: unknown;
 }
-interface Outputs {
-  max: number;
+
+interface MaxOutputs {
+  max: unknown;
 }
 
 export const MaxNode: NodeDefinition<MaxInputs, MaxOutputs, MaxParams> = {
-  type: 'Math::Max',
+  id: 'Math::Max',
   category: 'Math',
-  subcategory: 'Comparison',
-
-  metadata: {
-    label: 'Max',
-    description: 'Maximum value',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Max',
+  description: 'Maximum value',
   inputs: {
-        values: 'number[]'
+    values: {
+      type: 'number[]',
+      label: 'Values',
+      required: true
+    }
   },
-
   outputs: {
-        max: 'number'
+    max: {
+      type: 'number',
+      label: 'Max'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathMax',
       params: {
         values: inputs.values
-        
       }
     });
-
+    
     return {
       max: result
     };
-  }
+  },
 };

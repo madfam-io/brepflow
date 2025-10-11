@@ -8,7 +8,7 @@ Divide fields
 ## Parameters
 
 
-### epsilon
+### Epsilon
 - **Type:** number
 - **Default:** 0.001
 - **Min:** 0
@@ -19,13 +19,13 @@ Divide fields
 ## Inputs
 
 
-### fieldA
+### Field A
 - **Type:** ScalarField
 - **Required:** Yes
 
 
 
-### fieldB
+### Field B
 - **Type:** ScalarField
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Divide fields
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BlueNoiseParams {
   count: number;
   minDistance: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface BlueNoiseInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  points: Point[];
+
+interface BlueNoiseOutputs {
+  points: Array<[number, number, number]>;
 }
 
 export const BlueNoiseNode: NodeDefinition<BlueNoiseInputs, BlueNoiseOutputs, BlueNoiseParams> = {
-  type: 'Patterns::BlueNoise',
+  id: 'Patterns::BlueNoise',
   category: 'Patterns',
-  subcategory: 'Stochastic',
-
-  metadata: {
-    label: 'BlueNoise',
-    description: 'Blue noise distribution',
-    
-    
-  },
-
-  params: {
-        count: {
-      "default": 100,
-      "min": 10,
-      "max": 10000,
-      "step": 10
-    },
-    minDistance: {
-      "default": 1,
-      "min": 0.1
+  label: 'BlueNoise',
+  description: 'Blue noise distribution',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        points: 'Point[]'
+    points: {
+      type: 'Point[]',
+      label: 'Points'
+    }
   },
-
+  params: {
+    count: {
+      type: 'number',
+      label: 'Count',
+      default: 100,
+      min: 10,
+      max: 10000,
+      step: 10
+    },
+    minDistance: {
+      type: 'number',
+      label: 'Min Distance',
+      default: 1,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'blueNoise',
       params: {
@@ -55,9 +56,9 @@ export const BlueNoiseNode: NodeDefinition<BlueNoiseInputs, BlueNoiseOutputs, Bl
         minDistance: params.minDistance
       }
     });
-
+    
     return {
       points: result
     };
-  }
+  },
 };

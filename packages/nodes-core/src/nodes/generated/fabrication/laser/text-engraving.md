@@ -8,7 +8,7 @@ Optimize text for engraving
 ## Parameters
 
 
-### font
+### Font
 - **Type:** enum
 - **Default:** "single-line"
 
@@ -16,7 +16,7 @@ Optimize text for engraving
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,13 +27,13 @@ Optimize text for engraving
 ## Inputs
 
 
-### text
+### Text
 - **Type:** Data
 - **Required:** Yes
 
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Optimize text for engraving
 ## Outputs
 
 
-### textPaths
+### Text Paths
 - **Type:** Wire[]
 
 

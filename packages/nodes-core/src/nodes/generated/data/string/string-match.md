@@ -8,7 +8,7 @@ Match with regex
 ## Parameters
 
 
-### global
+### Global
 - **Type:** boolean
 - **Default:** false
 
@@ -19,13 +19,13 @@ Match with regex
 ## Inputs
 
 
-### string
+### String
 - **Type:** string
 - **Required:** Yes
 
 
 
-### pattern
+### Pattern
 - **Type:** string
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Match with regex
 ## Outputs
 
 
-### matches
+### Matches
 - **Type:** string[]
 
 

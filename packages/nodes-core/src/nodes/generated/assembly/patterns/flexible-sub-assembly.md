@@ -8,7 +8,7 @@ Create flexible sub-assembly
 ## Parameters
 
 
-### flexibility
+### Flexibility
 - **Type:** enum
 - **Default:** "flexible"
 
@@ -19,13 +19,13 @@ Create flexible sub-assembly
 ## Inputs
 
 
-### components
+### Components
 - **Type:** Shape[]
 - **Required:** Yes
 
 
 
-### joints
+### Joints
 - **Type:** Joint[]
 - **Required:** No
 
@@ -34,7 +34,7 @@ Create flexible sub-assembly
 ## Outputs
 
 
-### subAssembly
+### Sub Assembly
 - **Type:** Assembly
 
 

@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type NaturalLogParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface NaturalLogInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface NaturalLogOutputs {
+  result: unknown;
 }
 
 export const NaturalLogNode: NodeDefinition<NaturalLogInputs, NaturalLogOutputs, NaturalLogParams> = {
-  type: 'Math::NaturalLog',
+  id: 'Math::NaturalLog',
   category: 'Math',
-  subcategory: 'Logarithmic',
-
-  metadata: {
-    label: 'NaturalLog',
-    description: 'Natural logarithm',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'NaturalLog',
+  description: 'Natural logarithm',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathLn',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

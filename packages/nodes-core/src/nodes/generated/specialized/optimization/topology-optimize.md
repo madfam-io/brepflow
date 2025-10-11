@@ -8,7 +8,7 @@ Topology optimization
 ## Parameters
 
 
-### volumeFraction
+### Volume Fraction
 - **Type:** number
 - **Default:** 0.3
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Topology optimization
 
 
 
-### penaltyFactor
+### Penalty Factor
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -24,7 +24,7 @@ Topology optimization
 
 
 
-### filterRadius
+### Filter Radius
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -32,7 +32,7 @@ Topology optimization
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -43,19 +43,19 @@ Topology optimization
 ## Inputs
 
 
-### designSpace
+### Design Space
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### loads
+### Loads
 - **Type:** Data
 - **Required:** Yes
 
 
 
-### constraints
+### Constraints
 - **Type:** Data
 - **Required:** Yes
 
@@ -64,12 +64,12 @@ Topology optimization
 ## Outputs
 
 
-### optimized
+### Optimized
 - **Type:** Shape
 
 
 
-### convergence
+### Convergence
 - **Type:** Data
 
 

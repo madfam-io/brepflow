@@ -8,7 +8,7 @@ Generate hatch fill pattern
 ## Parameters
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 45
 - **Min:** 0
@@ -16,7 +16,7 @@ Generate hatch fill pattern
 
 
 
-### spacing
+### Spacing
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Generate hatch fill pattern
 
 
 
-### crosshatch
+### Crosshatch
 - **Type:** boolean
 - **Default:** false
 
@@ -35,7 +35,7 @@ Generate hatch fill pattern
 ## Inputs
 
 
-### region
+### Region
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Generate hatch fill pattern
 ## Outputs
 
 
-### hatchLines
+### Hatch Lines
 - **Type:** Wire[]
 
 

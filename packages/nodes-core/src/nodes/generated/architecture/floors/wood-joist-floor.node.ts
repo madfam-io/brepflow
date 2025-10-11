@@ -1,61 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WoodJoistFloorParams {
   joistDepth: number;
   joistSpacing: number;
   subfloorThickness: number;
 }
-interface Inputs {
-  floorBoundary: Wire;
+
+interface WoodJoistFloorInputs {
+  floorBoundary: unknown;
 }
-interface Outputs {
-  floorSystem: Shape;
-  joists: Shape[];
+
+interface WoodJoistFloorOutputs {
+  floorSystem: unknown;
+  joists: unknown;
 }
 
 export const WoodJoistFloorNode: NodeDefinition<WoodJoistFloorInputs, WoodJoistFloorOutputs, WoodJoistFloorParams> = {
-  type: 'Architecture::WoodJoistFloor',
+  id: 'Architecture::WoodJoistFloor',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'WoodJoistFloor',
-    description: 'Wood joist floor system',
-    
-    
-  },
-
-  params: {
-        joistDepth: {
-      "default": 250,
-      "min": 150,
-      "max": 400
-    },
-    joistSpacing: {
-      "default": 400,
-      "min": 300,
-      "max": 600
-    },
-    subfloorThickness: {
-      "default": 18,
-      "min": 15,
-      "max": 25
+  label: 'WoodJoistFloor',
+  description: 'Wood joist floor system',
+  inputs: {
+    floorBoundary: {
+      type: 'Wire',
+      label: 'Floor Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        floorBoundary: 'Wire'
-  },
-
   outputs: {
-        floorSystem: 'Shape',
-    joists: 'Shape[]'
+    floorSystem: {
+      type: 'Shape',
+      label: 'Floor System'
+    },
+    joists: {
+      type: 'Shape[]',
+      label: 'Joists'
+    }
   },
-
+  params: {
+    joistDepth: {
+      type: 'number',
+      label: 'Joist Depth',
+      default: 250,
+      min: 150,
+      max: 400
+    },
+    joistSpacing: {
+      type: 'number',
+      label: 'Joist Spacing',
+      default: 400,
+      min: 300,
+      max: 600
+    },
+    subfloorThickness: {
+      type: 'number',
+      label: 'Subfloor Thickness',
+      default: 18,
+      min: 15,
+      max: 25
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'woodJoistFloor',
       params: {
         floorBoundary: inputs.floorBoundary,
@@ -64,10 +70,10 @@ export const WoodJoistFloorNode: NodeDefinition<WoodJoistFloorInputs, WoodJoistF
         subfloorThickness: params.subfloorThickness
       }
     });
-
+    
     return {
-      floorSystem: result,
-      joists: result
+      floorSystem: results.floorSystem,
+      joists: results.joists
     };
-  }
+  },
 };

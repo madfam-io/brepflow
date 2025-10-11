@@ -1,61 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VortexAttractorParams {
   strength: number;
   radius: number;
   coreRadius: number;
   height: number;
 }
-interface Inputs {
-  axis: Line;
+
+interface VortexAttractorInputs {
+  axis: unknown;
 }
-interface Outputs {
-  field: VectorField;
+
+interface VortexAttractorOutputs {
+  field: unknown;
 }
 
 export const VortexAttractorNode: NodeDefinition<VortexAttractorInputs, VortexAttractorOutputs, VortexAttractorParams> = {
-  type: 'Field::VortexAttractor',
+  id: 'Field::VortexAttractor',
   category: 'Field',
-  subcategory: 'Attractor',
-
-  metadata: {
-    label: 'VortexAttractor',
-    description: 'Vortex attractor field',
-    
-    
-  },
-
-  params: {
-        strength: {
-      "default": 1,
-      "min": -10,
-      "max": 10
-    },
-    radius: {
-      "default": 100,
-      "min": 0.1
-    },
-    coreRadius: {
-      "default": 10,
-      "min": 0.1
-    },
-    height: {
-      "default": 200,
-      "min": 0.1
+  label: 'VortexAttractor',
+  description: 'Vortex attractor field',
+  inputs: {
+    axis: {
+      type: 'Line',
+      label: 'Axis',
+      required: true
     }
   },
-
-  inputs: {
-        axis: 'Line'
-  },
-
   outputs: {
-        field: 'VectorField'
+    field: {
+      type: 'VectorField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    strength: {
+      type: 'number',
+      label: 'Strength',
+      default: 1,
+      min: -10,
+      max: 10
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 100,
+      min: 0.1
+    },
+    coreRadius: {
+      type: 'number',
+      label: 'Core Radius',
+      default: 10,
+      min: 0.1
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 200,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'attractorVortex',
       params: {
@@ -66,9 +71,9 @@ export const VortexAttractorNode: NodeDefinition<VortexAttractorInputs, VortexAt
         height: params.height
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

@@ -1,55 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PathParams {
   position: number;
   tangent: boolean;
 }
-interface Inputs {
-  path: Wire;
-  follower: Shape;
+
+interface PathInputs {
+  path: unknown;
+  follower: unknown;
 }
-interface Outputs {
-  pathed: Shape[];
-  mate: Mate;
+
+interface PathOutputs {
+  pathed: unknown;
+  mate: unknown;
 }
 
 export const PathNode: NodeDefinition<PathInputs, PathOutputs, PathParams> = {
-  type: 'Assembly::Path',
+  id: 'Assembly::Path',
   category: 'Assembly',
-  subcategory: 'Mates',
-
-  metadata: {
-    label: 'Path',
-    description: 'Constrain to path',
-    
-    
-  },
-
-  params: {
-        position: {
-      "default": 0,
-      "min": 0,
-      "max": 1
+  label: 'Path',
+  description: 'Constrain to path',
+  inputs: {
+    path: {
+      type: 'Wire',
+      label: 'Path',
+      required: true
     },
-    tangent: {
-      "default": true
+    follower: {
+      type: 'Shape',
+      label: 'Follower',
+      required: true
     }
   },
-
-  inputs: {
-        path: 'Wire',
-    follower: 'Shape'
-  },
-
   outputs: {
-        pathed: 'Shape[]',
-    mate: 'Mate'
+    pathed: {
+      type: 'Shape[]',
+      label: 'Pathed'
+    },
+    mate: {
+      type: 'Mate',
+      label: 'Mate'
+    }
   },
-
+  params: {
+    position: {
+      type: 'number',
+      label: 'Position',
+      default: 0,
+      min: 0,
+      max: 1
+    },
+    tangent: {
+      type: 'boolean',
+      label: 'Tangent',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'matePath',
       params: {
         path: inputs.path,
@@ -58,10 +66,10 @@ export const PathNode: NodeDefinition<PathInputs, PathOutputs, PathParams> = {
         tangent: params.tangent
       }
     });
-
+    
     return {
-      pathed: result,
-      mate: result
+      pathed: results.pathed,
+      mate: results.mate
     };
-  }
+  },
 };

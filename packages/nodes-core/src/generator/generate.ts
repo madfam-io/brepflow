@@ -7,7 +7,7 @@
 
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { generateNodeImplementation, generateNodeTest, generateNodeDocumentation, NodeTemplate } from './node-template';
+import { generateNodeImplementation, generateNodeTest, generateNodeDocumentation, NodeTemplate, toKebabCase, toPascalCase } from './node-template';
 
 // Phase 1 - Manufacturing & Analysis
 import {
@@ -165,21 +165,22 @@ async function ensureDirectory(dir: string): Promise<void> {
 async function generateNode(template: NodeTemplate, outputDir: string): Promise<void> {
   const nodeDir = path.join(outputDir, template.category.toLowerCase());
   if (template.subcategory) {
-    const subcatDir = path.join(nodeDir, template.subcategory.toLowerCase().replace(/\s+/g, '-'));
+    const subcatDir = path.join(nodeDir, toKebabCase(template.subcategory));
     await ensureDirectory(subcatDir);
   } else {
     await ensureDirectory(nodeDir);
   }
 
   // Generate file names
-  const baseName = template.name.replace(/([A-Z])/g, '-$1').toLowerCase().slice(1);
+  const fileBaseName = toKebabCase(template.name);
+  const pascalName = toPascalCase(template.name);
   const targetDir = template.subcategory
-    ? path.join(nodeDir, template.subcategory.toLowerCase().replace(/\s+/g, '-'))
+    ? path.join(nodeDir, toKebabCase(template.subcategory))
     : nodeDir;
 
-  const implementationPath = path.join(targetDir, `${baseName}.node.ts`);
-  const testPath = path.join(targetDir, `${baseName}.test.ts`);
-  const docPath = path.join(targetDir, `${baseName}.md`);
+  const implementationPath = path.join(targetDir, `${fileBaseName}.node.ts`);
+  const testPath = path.join(targetDir, `${fileBaseName}.test.ts`);
+  const docPath = path.join(targetDir, `${fileBaseName}.md`);
 
   // Generate content
   const implementation = generateNodeImplementation(template);
@@ -200,6 +201,7 @@ async function generateNode(template: NodeTemplate, outputDir: string): Promise<
 async function generateIndex(templates: NodeTemplate[], outputDir: string): Promise<void> {
   const imports: string[] = [];
   const exports: string[] = [];
+  const registryEntries: string[] = [];
 
   // Group by category
   const byCategory = templates.reduce((acc, template) => {
@@ -212,13 +214,15 @@ async function generateIndex(templates: NodeTemplate[], outputDir: string): Prom
 
   Object.entries(byCategory).forEach(([category, categoryTemplates]) => {
     categoryTemplates.forEach(template => {
-      const baseName = template.name.replace(/([A-Z])/g, '-$1').toLowerCase().slice(1);
+      const pascalName = toPascalCase(template.name);
+      const kebabName = toKebabCase(template.name);
       const importPath = template.subcategory
-        ? `./${category.toLowerCase()}/${template.subcategory.toLowerCase().replace(/\s+/g, '-')}/${baseName}.node`
-        : `./${category.toLowerCase()}/${baseName}.node`;
+        ? `./${category.toLowerCase()}/${toKebabCase(template.subcategory)}/${kebabName}.node`
+        : `./${category.toLowerCase()}/${kebabName}.node`;
 
-      imports.push(`import { ${template.name}Node } from '${importPath}';`);
-      exports.push(`  ${template.name}Node,`);
+      imports.push(`import { ${pascalName}Node } from '${importPath}';`);
+      exports.push(`  ${pascalName}Node,`);
+      registryEntries.push(`  '${template.category}::${template.name}': ${pascalName}Node,`);
     });
   });
 
@@ -236,7 +240,7 @@ ${exports.join('\n')}
 
 // Registry for dynamic loading
 export const nodeRegistry = {
-${exports.map(exp => exp.trim().slice(0, -1)).map(name => `  '${name}': ${name},`).join('\n')}
+${registryEntries.join('\n')}
 };
 `;
 

@@ -1,65 +1,72 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DeformParams {
   deformType: string;
   radius: number;
   stiffness: number;
 }
-interface Inputs {
-  shape: Shape;
-  controlPoints: Point[];
-  targetPoints: Point[];
+
+interface DeformInputs {
+  shape: unknown;
+  controlPoints: Array<[number, number, number]>;
+  targetPoints: Array<[number, number, number]>;
 }
-interface Outputs {
-  deformed: Shape;
+
+interface DeformOutputs {
+  deformed: unknown;
 }
 
 export const DeformNode: NodeDefinition<DeformInputs, DeformOutputs, DeformParams> = {
-  type: 'Advanced::Deform',
+  id: 'Advanced::Deform',
   category: 'Advanced',
-  subcategory: 'Features',
-
-  metadata: {
-    label: 'Deform',
-    description: 'Point deformation',
-    
-    
-  },
-
-  params: {
-        deformType: {
-      "default": "point",
-      "options": [
-        "point",
-        "curve",
-        "surface"
-      ]
+  label: 'Deform',
+  description: 'Point deformation',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     },
-    radius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 1000
+    controlPoints: {
+      type: 'Point[]',
+      label: 'Control Points',
+      required: true
     },
-    stiffness: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+    targetPoints: {
+      type: 'Point[]',
+      label: 'Target Points',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape',
-    controlPoints: 'Point[]',
-    targetPoints: 'Point[]'
-  },
-
   outputs: {
-        deformed: 'Shape'
+    deformed: {
+      type: 'Shape',
+      label: 'Deformed'
+    }
   },
-
+  params: {
+    deformType: {
+      type: 'enum',
+      label: 'Deform Type',
+      default: "point",
+      options: ["point","curve","surface"]
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 50,
+      min: 0.1,
+      max: 1000
+    },
+    stiffness: {
+      type: 'number',
+      label: 'Stiffness',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'deform',
       params: {
@@ -71,9 +78,9 @@ export const DeformNode: NodeDefinition<DeformInputs, DeformOutputs, DeformParam
         stiffness: params.stiffness
       }
     });
-
+    
     return {
       deformed: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Optimize cutting order
 ## Parameters
 
 
-### innerFirst
+### Inner First
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Optimize cutting order
 
 
 
-### minimizeTravel
+### Minimize Travel
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Optimize cutting order
 ## Inputs
 
 
-### paths
+### Paths
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Optimize cutting order
 ## Outputs
 
 
-### orderedPaths
+### Ordered Paths
 - **Type:** Wire[]
 
 
 
-### travelPath
+### Travel Path
 - **Type:** Wire
 
 

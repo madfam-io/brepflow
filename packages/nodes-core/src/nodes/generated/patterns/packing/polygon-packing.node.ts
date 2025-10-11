@@ -1,55 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PolygonPackingParams {
   rotations: boolean;
   angleStep: number;
 }
-interface Inputs {
-  container: Face;
-  polygons: Face[];
+
+interface PolygonPackingInputs {
+  container: unknown;
+  polygons: unknown;
 }
-interface Outputs {
-  packed: Face[];
-  utilization: Number;
+
+interface PolygonPackingOutputs {
+  packed: unknown;
+  utilization: number;
 }
 
 export const PolygonPackingNode: NodeDefinition<PolygonPackingInputs, PolygonPackingOutputs, PolygonPackingParams> = {
-  type: 'Patterns::PolygonPacking',
+  id: 'Patterns::PolygonPacking',
   category: 'Patterns',
-  subcategory: 'Packing',
-
-  metadata: {
-    label: 'PolygonPacking',
-    description: 'Irregular polygon packing',
-    
-    
-  },
-
-  params: {
-        rotations: {
-      "default": true
+  label: 'PolygonPacking',
+  description: 'Irregular polygon packing',
+  inputs: {
+    container: {
+      type: 'Face',
+      label: 'Container',
+      required: true
     },
-    angleStep: {
-      "default": 90,
-      "min": 1,
-      "max": 180
+    polygons: {
+      type: 'Face[]',
+      label: 'Polygons',
+      required: true
     }
   },
-
-  inputs: {
-        container: 'Face',
-    polygons: 'Face[]'
-  },
-
   outputs: {
-        packed: 'Face[]',
-    utilization: 'Number'
+    packed: {
+      type: 'Face[]',
+      label: 'Packed'
+    },
+    utilization: {
+      type: 'Number',
+      label: 'Utilization'
+    }
   },
-
+  params: {
+    rotations: {
+      type: 'boolean',
+      label: 'Rotations',
+      default: true
+    },
+    angleStep: {
+      type: 'number',
+      label: 'Angle Step',
+      default: 90,
+      min: 1,
+      max: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'polygonPacking',
       params: {
         container: inputs.container,
@@ -58,10 +66,10 @@ export const PolygonPackingNode: NodeDefinition<PolygonPackingInputs, PolygonPac
         angleStep: params.angleStep
       }
     });
-
+    
     return {
-      packed: result,
-      utilization: result
+      packed: results.packed,
+      utilization: results.utilization
     };
-  }
+  },
 };

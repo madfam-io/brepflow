@@ -1,78 +1,92 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BallBearingParams {
   innerDiameter: number;
   outerDiameter: number;
   width: number;
   ballCount: number;
   showCage: boolean;
 }
-interface Inputs {
-  center: Point;
-  axis?: Vector;
+
+interface BallBearingInputs {
+  center: [number, number, number];
+  axis?: [number, number, number];
 }
-interface Outputs {
-  bearing: Shape;
-  innerRace: Shape;
-  outerRace: Shape;
+
+interface BallBearingOutputs {
+  bearing: unknown;
+  innerRace: unknown;
+  outerRace: unknown;
 }
 
 export const BallBearingNode: NodeDefinition<BallBearingInputs, BallBearingOutputs, BallBearingParams> = {
-  type: 'MechanicalEngineering::BallBearing',
+  id: 'MechanicalEngineering::BallBearing',
   category: 'MechanicalEngineering',
-  subcategory: 'Bearings',
-
-  metadata: {
-    label: 'BallBearing',
-    description: 'Create ball bearing assembly',
-    
-    
-  },
-
-  params: {
-        innerDiameter: {
-      "default": 20,
-      "min": 3,
-      "max": 200,
-      "description": "Bore diameter in mm"
+  label: 'BallBearing',
+  description: 'Create ball bearing assembly',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     },
-    outerDiameter: {
-      "default": 47,
-      "min": 10,
-      "max": 400,
-      "description": "Outer diameter in mm"
-    },
-    width: {
-      "default": 14,
-      "min": 3,
-      "max": 100,
-      "description": "Width in mm"
-    },
-    ballCount: {
-      "default": 8,
-      "min": 5,
-      "max": 20
-    },
-    showCage: {
-      "default": true
+    axis: {
+      type: 'Vector',
+      label: 'Axis',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point',
-    axis: 'Vector'
-  },
-
   outputs: {
-        bearing: 'Shape',
-    innerRace: 'Shape',
-    outerRace: 'Shape'
+    bearing: {
+      type: 'Shape',
+      label: 'Bearing'
+    },
+    innerRace: {
+      type: 'Shape',
+      label: 'Inner Race'
+    },
+    outerRace: {
+      type: 'Shape',
+      label: 'Outer Race'
+    }
   },
-
+  params: {
+    innerDiameter: {
+      type: 'number',
+      label: 'Inner Diameter',
+      default: 20,
+      min: 3,
+      max: 200
+    },
+    outerDiameter: {
+      type: 'number',
+      label: 'Outer Diameter',
+      default: 47,
+      min: 10,
+      max: 400
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 14,
+      min: 3,
+      max: 100
+    },
+    ballCount: {
+      type: 'number',
+      label: 'Ball Count',
+      default: 8,
+      min: 5,
+      max: 20
+    },
+    showCage: {
+      type: 'boolean',
+      label: 'Show Cage',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'ballBearing',
       params: {
         center: inputs.center,
@@ -84,11 +98,11 @@ export const BallBearingNode: NodeDefinition<BallBearingInputs, BallBearingOutpu
         showCage: params.showCage
       }
     });
-
+    
     return {
-      bearing: result,
-      innerRace: result,
-      outerRace: result
+      bearing: results.bearing,
+      innerRace: results.innerRace,
+      outerRace: results.outerRace
     };
-  }
+  },
 };

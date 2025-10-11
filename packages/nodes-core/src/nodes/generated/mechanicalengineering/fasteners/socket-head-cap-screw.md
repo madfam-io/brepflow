@@ -8,7 +8,7 @@ Create socket head cap screw
 ## Parameters
 
 
-### diameter
+### Diameter
 - **Type:** enum
 - **Default:** "M5"
 
@@ -16,7 +16,7 @@ Create socket head cap screw
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 16
 - **Min:** 6
@@ -24,7 +24,7 @@ Create socket head cap screw
 
 
 
-### socketSize
+### Socket Size
 - **Type:** number
 - **Default:** 4
 - **Min:** 2
@@ -32,7 +32,7 @@ Create socket head cap screw
 
 
 
-### headDiameter
+### Head Diameter
 - **Type:** number
 - **Default:** 8.5
 - **Min:** 5
@@ -43,7 +43,7 @@ Create socket head cap screw
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create socket head cap screw
 ## Outputs
 
 
-### screw
+### Screw
 - **Type:** Shape
 
 
 
-### socket
+### Socket
 - **Type:** Wire
 
 

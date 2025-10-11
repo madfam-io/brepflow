@@ -8,7 +8,7 @@ Reduce mesh complexity
 ## Parameters
 
 
-### targetRatio
+### Target Ratio
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Reduce mesh complexity
 - **Description:** Target triangle ratio
 
 
-### preserveBoundaries
+### Preserve Boundaries
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Reduce mesh complexity
 
 
 
-### preserveTopology
+### Preserve Topology
 - **Type:** boolean
 - **Default:** false
 
@@ -32,7 +32,7 @@ Reduce mesh complexity
 
 
 
-### maxError
+### Max Error
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.001
@@ -43,7 +43,7 @@ Reduce mesh complexity
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Reduce mesh complexity
 ## Outputs
 
 
-### simplified
+### Simplified
 - **Type:** Mesh
 
 
 
-### triangleCount
+### Triangle Count
 - **Type:** number
 
 

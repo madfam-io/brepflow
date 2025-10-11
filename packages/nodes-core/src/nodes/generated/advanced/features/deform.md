@@ -8,7 +8,7 @@ Point deformation
 ## Parameters
 
 
-### deformType
+### Deform Type
 - **Type:** enum
 - **Default:** "point"
 
@@ -16,7 +16,7 @@ Point deformation
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Point deformation
 
 
 
-### stiffness
+### Stiffness
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -35,19 +35,19 @@ Point deformation
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### controlPoints
+### Control Points
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### targetPoints
+### Target Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -56,7 +56,7 @@ Point deformation
 ## Outputs
 
 
-### deformed
+### Deformed
 - **Type:** Shape
 
 

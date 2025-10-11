@@ -8,7 +8,7 @@ Calculate average field value
 ## Parameters
 
 
-### sampleCount
+### Sample Count
 - **Type:** number
 - **Default:** 1000
 - **Min:** 100
@@ -19,13 +19,13 @@ Calculate average field value
 ## Inputs
 
 
-### field
+### Field
 - **Type:** Field
 - **Required:** No
 
 
 
-### domain
+### Domain
 - **Type:** Geometry
 - **Required:** No
 
@@ -34,12 +34,12 @@ Calculate average field value
 ## Outputs
 
 
-### average
+### Average
 - **Type:** Number
 
 
 
-### standardDeviation
+### Standard Deviation
 - **Type:** Number
 
 

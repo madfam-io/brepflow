@@ -8,7 +8,7 @@ Create flexible coupling
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "jaw"
 
@@ -16,7 +16,7 @@ Create flexible coupling
 
 
 
-### boreDiameter1
+### Bore Diameter1
 - **Type:** number
 - **Default:** 10
 - **Min:** 3
@@ -24,7 +24,7 @@ Create flexible coupling
 
 
 
-### boreDiameter2
+### Bore Diameter2
 - **Type:** number
 - **Default:** 10
 - **Min:** 3
@@ -32,7 +32,7 @@ Create flexible coupling
 
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 30
 - **Min:** 10
@@ -43,7 +43,7 @@ Create flexible coupling
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create flexible coupling
 ## Outputs
 
 
-### coupling
+### Coupling
 - **Type:** Shape
 
 
 
-### element
+### Element
 - **Type:** Shape
 
 

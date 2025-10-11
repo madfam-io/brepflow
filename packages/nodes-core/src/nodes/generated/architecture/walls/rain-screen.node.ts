@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RainScreenParams {
   claddingType: string;
   ventGap: number;
 }
-interface Inputs {
-  wall: Shape;
+
+interface RainScreenInputs {
+  wall: unknown;
 }
-interface Outputs {
-  rainScreen: Shape;
+
+interface RainScreenOutputs {
+  rainScreen: unknown;
 }
 
 export const RainScreenNode: NodeDefinition<RainScreenInputs, RainScreenOutputs, RainScreenParams> = {
-  type: 'Architecture::RainScreen',
+  id: 'Architecture::RainScreen',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'RainScreen',
-    description: 'Rainscreen cladding system',
-    
-    
-  },
-
-  params: {
-        claddingType: {
-      "default": "composite",
-      "options": [
-        "metal",
-        "composite",
-        "terracotta",
-        "wood"
-      ]
-    },
-    ventGap: {
-      "default": 25,
-      "min": 20,
-      "max": 50
+  label: 'RainScreen',
+  description: 'Rainscreen cladding system',
+  inputs: {
+    wall: {
+      type: 'Shape',
+      label: 'Wall',
+      required: true
     }
   },
-
-  inputs: {
-        wall: 'Shape'
-  },
-
   outputs: {
-        rainScreen: 'Shape'
+    rainScreen: {
+      type: 'Shape',
+      label: 'Rain Screen'
+    }
   },
-
+  params: {
+    claddingType: {
+      type: 'enum',
+      label: 'Cladding Type',
+      default: "composite",
+      options: ["metal","composite","terracotta","wood"]
+    },
+    ventGap: {
+      type: 'number',
+      label: 'Vent Gap',
+      default: 25,
+      min: 20,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'rainScreen',
       params: {
@@ -59,9 +55,9 @@ export const RainScreenNode: NodeDefinition<RainScreenInputs, RainScreenOutputs,
         ventGap: params.ventGap
       }
     });
-
+    
     return {
       rainScreen: result
     };
-  }
+  },
 };

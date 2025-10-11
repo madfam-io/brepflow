@@ -1,59 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FillHolesParams {
   maxHoleSize: number;
   fillMethod: string;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface FillHolesInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  filled: Mesh;
-  holesCount: number;
+
+interface FillHolesOutputs {
+  filled: unknown;
+  holesCount: unknown;
 }
 
 export const FillHolesNode: NodeDefinition<FillHolesInputs, FillHolesOutputs, FillHolesParams> = {
-  type: 'Mesh::FillHoles',
+  id: 'Mesh::FillHoles',
   category: 'Mesh',
-  subcategory: 'Repair',
-
-  metadata: {
-    label: 'FillHoles',
-    description: 'Fill mesh holes',
-    
-    
-  },
-
-  params: {
-        maxHoleSize: {
-      "default": 100,
-      "min": 1,
-      "max": 10000,
-      "description": "Max edges in hole boundary"
-    },
-    fillMethod: {
-      "default": "smooth",
-      "options": [
-        "flat",
-        "smooth",
-        "curvature"
-      ]
+  label: 'FillHoles',
+  description: 'Fill mesh holes',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        filled: 'Mesh',
-    holesCount: 'number'
+    filled: {
+      type: 'Mesh',
+      label: 'Filled'
+    },
+    holesCount: {
+      type: 'number',
+      label: 'Holes Count'
+    }
   },
-
+  params: {
+    maxHoleSize: {
+      type: 'number',
+      label: 'Max Hole Size',
+      default: 100,
+      min: 1,
+      max: 10000
+    },
+    fillMethod: {
+      type: 'enum',
+      label: 'Fill Method',
+      default: "smooth",
+      options: ["flat","smooth","curvature"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'fillHoles',
       params: {
         mesh: inputs.mesh,
@@ -61,10 +60,10 @@ export const FillHolesNode: NodeDefinition<FillHolesInputs, FillHolesOutputs, Fi
         fillMethod: params.fillMethod
       }
     });
-
+    
     return {
-      filled: result,
-      holesCount: result
+      filled: results.filled,
+      holesCount: results.holesCount
     };
-  }
+  },
 };

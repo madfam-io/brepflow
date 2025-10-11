@@ -1,57 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StressReliefParams {
   analysisType: string;
   reliefRadius: number;
 }
-interface Inputs {
-  shape: Shape;
-  stressData?: Data;
+
+interface StressReliefInputs {
+  shape: unknown;
+  stressData?: unknown;
 }
-interface Outputs {
-  relieved: Shape;
+
+interface StressReliefOutputs {
+  relieved: unknown;
 }
 
 export const StressReliefNode: NodeDefinition<StressReliefInputs, StressReliefOutputs, StressReliefParams> = {
-  type: 'Specialized::StressRelief',
+  id: 'Specialized::StressRelief',
   category: 'Specialized',
-  subcategory: 'Optimization',
-
-  metadata: {
-    label: 'StressRelief',
-    description: 'Add stress relief features',
-    
-    
-  },
-
-  params: {
-        analysisType: {
-      "default": "geometric",
-      "options": [
-        "fea-based",
-        "geometric",
-        "hybrid"
-      ]
+  label: 'StressRelief',
+  description: 'Add stress relief features',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     },
-    reliefRadius: {
-      "default": 2,
-      "min": 0.1,
-      "max": 20
+    stressData: {
+      type: 'Data',
+      label: 'Stress Data',
+      optional: true
     }
   },
-
-  inputs: {
-        shape: 'Shape',
-    stressData: 'Data'
-  },
-
   outputs: {
-        relieved: 'Shape'
+    relieved: {
+      type: 'Shape',
+      label: 'Relieved'
+    }
   },
-
+  params: {
+    analysisType: {
+      type: 'enum',
+      label: 'Analysis Type',
+      default: "geometric",
+      options: ["fea-based","geometric","hybrid"]
+    },
+    reliefRadius: {
+      type: 'number',
+      label: 'Relief Radius',
+      default: 2,
+      min: 0.1,
+      max: 20
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stressRelief',
       params: {
@@ -61,9 +62,9 @@ export const StressReliefNode: NodeDefinition<StressReliefInputs, StressReliefOu
         reliefRadius: params.reliefRadius
       }
     });
-
+    
     return {
       relieved: result
     };
-  }
+  },
 };

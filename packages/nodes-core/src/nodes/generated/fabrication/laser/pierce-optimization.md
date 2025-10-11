@@ -8,7 +8,7 @@ Optimize pierce points
 ## Parameters
 
 
-### preferCorners
+### Prefer Corners
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Optimize pierce points
 
 
 
-### minEdgeDistance
+### Min Edge Distance
 - **Type:** number
 - **Default:** 2
 - **Min:** 0
@@ -27,7 +27,7 @@ Optimize pierce points
 ## Inputs
 
 
-### closedPaths
+### Closed Paths
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Optimize pierce points
 ## Outputs
 
 
-### piercePoints
+### Pierce Points
 - **Type:** Point[]
 
 

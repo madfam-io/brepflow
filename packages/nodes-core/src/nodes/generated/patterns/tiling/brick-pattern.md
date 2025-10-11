@@ -8,7 +8,7 @@ Brick laying pattern
 ## Parameters
 
 
-### bond
+### Bond
 - **Type:** enum
 - **Default:** "running"
 
@@ -16,7 +16,7 @@ Brick laying pattern
 
 
 
-### brickLength
+### Brick Length
 - **Type:** number
 - **Default:** 20
 - **Min:** 1
@@ -24,7 +24,7 @@ Brick laying pattern
 
 
 
-### brickWidth
+### Brick Width
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -32,7 +32,7 @@ Brick laying pattern
 
 
 
-### mortarGap
+### Mortar Gap
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -43,7 +43,7 @@ Brick laying pattern
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Brick laying pattern
 ## Outputs
 
 
-### bricks
+### Bricks
 - **Type:** Face[]
 
 

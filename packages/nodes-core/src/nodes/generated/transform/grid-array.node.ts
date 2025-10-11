@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GridArrayParams {
   countX: number;
   countY: number;
   countZ: number;
@@ -10,77 +9,92 @@ interface Params {
   spacingZ: number;
   merge: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface GridArrayInputs {
+  shape: unknown;
 }
-interface Outputs {
-  array: Shape[];
-  merged: Shape;
+
+interface GridArrayOutputs {
+  array: unknown;
+  merged: unknown;
 }
 
 export const GridArrayNode: NodeDefinition<GridArrayInputs, GridArrayOutputs, GridArrayParams> = {
-  type: 'Transform::GridArray',
+  id: 'Transform::GridArray',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'GridArray',
-    description: 'Create 2D or 3D grid array',
-    
-    
-  },
-
-  params: {
-        countX: {
-      "default": 3,
-      "min": 1,
-      "max": 100,
-      "step": 1
-    },
-    countY: {
-      "default": 3,
-      "min": 1,
-      "max": 100,
-      "step": 1
-    },
-    countZ: {
-      "default": 1,
-      "min": 1,
-      "max": 100,
-      "step": 1
-    },
-    spacingX: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    spacingY: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    spacingZ: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    merge: {
-      "default": false
+  label: 'GridArray',
+  description: 'Create 2D or 3D grid array',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        array: 'Shape[]',
-    merged: 'Shape'
+    array: {
+      type: 'Shape[]',
+      label: 'Array'
+    },
+    merged: {
+      type: 'Shape',
+      label: 'Merged'
+    }
   },
-
+  params: {
+    countX: {
+      type: 'number',
+      label: 'Count X',
+      default: 3,
+      min: 1,
+      max: 100,
+      step: 1
+    },
+    countY: {
+      type: 'number',
+      label: 'Count Y',
+      default: 3,
+      min: 1,
+      max: 100,
+      step: 1
+    },
+    countZ: {
+      type: 'number',
+      label: 'Count Z',
+      default: 1,
+      min: 1,
+      max: 100,
+      step: 1
+    },
+    spacingX: {
+      type: 'number',
+      label: 'Spacing X',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    spacingY: {
+      type: 'number',
+      label: 'Spacing Y',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    spacingZ: {
+      type: 'number',
+      label: 'Spacing Z',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    merge: {
+      type: 'boolean',
+      label: 'Merge',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'transformGridArray',
       params: {
         shape: inputs.shape,
@@ -93,10 +107,10 @@ export const GridArrayNode: NodeDefinition<GridArrayInputs, GridArrayOutputs, Gr
         merge: params.merge
       }
     });
-
+    
     return {
-      array: result,
-      merged: result
+      array: results.array,
+      merged: results.merged
     };
-  }
+  },
 };

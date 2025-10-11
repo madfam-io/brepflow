@@ -8,7 +8,7 @@ Historic wall analysis
 ## Parameters
 
 
-### period
+### Period
 - **Type:** enum
 - **Default:** "victorian"
 
@@ -16,7 +16,7 @@ Historic wall analysis
 
 
 
-### preservationLevel
+### Preservation Level
 - **Type:** enum
 - **Default:** "preserve"
 
@@ -27,7 +27,7 @@ Historic wall analysis
 ## Inputs
 
 
-### existingWall
+### Existing Wall
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Historic wall analysis
 ## Outputs
 
 
-### restoredWall
+### Restored Wall
 - **Type:** Shape
 
 

@@ -8,7 +8,7 @@ Calculate surface derivatives
 ## Parameters
 
 
-### u
+### U
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -16,7 +16,7 @@ Calculate surface derivatives
 
 
 
-### v
+### V
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -24,7 +24,7 @@ Calculate surface derivatives
 
 
 
-### order
+### Order
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -32,7 +32,7 @@ Calculate surface derivatives
 
 
 
-### vectorScale
+### Vector Scale
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -43,7 +43,7 @@ Calculate surface derivatives
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -52,22 +52,22 @@ Calculate surface derivatives
 ## Outputs
 
 
-### point
+### Point
 - **Type:** Point
 
 
 
-### duVector
+### Du Vector
 - **Type:** Vector
 
 
 
-### dvVector
+### Dv Vector
 - **Type:** Vector
 
 
 
-### normal
+### Normal
 - **Type:** Vector
 
 

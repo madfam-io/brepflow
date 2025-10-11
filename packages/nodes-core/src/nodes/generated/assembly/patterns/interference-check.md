@@ -8,7 +8,7 @@ Check for interferences
 ## Parameters
 
 
-### clearance
+### Clearance
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -19,7 +19,7 @@ Check for interferences
 ## Inputs
 
 
-### assembly
+### Assembly
 - **Type:** Assembly
 - **Required:** Yes
 
@@ -28,12 +28,12 @@ Check for interferences
 ## Outputs
 
 
-### interferences
+### Interferences
 - **Type:** Interference[]
 
 
 
-### hasInterference
+### Has Interference
 - **Type:** boolean
 
 

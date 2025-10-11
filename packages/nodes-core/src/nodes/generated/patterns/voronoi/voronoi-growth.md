@@ -8,7 +8,7 @@ Organic growth pattern
 ## Parameters
 
 
-### generations
+### Generations
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -16,7 +16,7 @@ Organic growth pattern
 
 
 
-### growthRate
+### Growth Rate
 - **Type:** number
 - **Default:** 1.5
 - **Min:** 1
@@ -27,13 +27,13 @@ Organic growth pattern
 ## Inputs
 
 
-### seeds
+### Seeds
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** No
 
@@ -42,7 +42,7 @@ Organic growth pattern
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Wire[]
 
 

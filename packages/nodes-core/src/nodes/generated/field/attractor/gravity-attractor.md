@@ -8,7 +8,7 @@ Gravity well attractor
 ## Parameters
 
 
-### mass
+### Mass
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -27,13 +27,13 @@ Gravity well attractor
 ## Inputs
 
 
-### bodies
+### Bodies
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### masses
+### Masses
 - **Type:** number[]
 - **Required:** No
 
@@ -42,7 +42,7 @@ Gravity well attractor
 ## Outputs
 
 
-### field
+### Field
 - **Type:** VectorField
 
 

@@ -8,7 +8,7 @@ Truchet tile pattern
 ## Parameters
 
 
-### tileType
+### Tile Type
 - **Type:** enum
 - **Default:** "arc"
 
@@ -16,7 +16,7 @@ Truchet tile pattern
 
 
 
-### randomSeed
+### Random Seed
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -27,7 +27,7 @@ Truchet tile pattern
 ## Inputs
 
 
-### grid
+### Grid
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Truchet tile pattern
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Wire[]
 
 

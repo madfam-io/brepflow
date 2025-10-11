@@ -1,73 +1,83 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TorsionSpringParams {
   wireDiameter: number;
   coilDiameter: number;
   coils: number;
   legLength: number;
   legAngle: number;
 }
-interface Inputs {
-  center: Point;
+
+interface TorsionSpringInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  spring: Shape;
-  legs: Wire[];
+
+interface TorsionSpringOutputs {
+  spring: unknown;
+  legs: unknown;
 }
 
 export const TorsionSpringNode: NodeDefinition<TorsionSpringInputs, TorsionSpringOutputs, TorsionSpringParams> = {
-  type: 'MechanicalEngineering::TorsionSpring',
+  id: 'MechanicalEngineering::TorsionSpring',
   category: 'MechanicalEngineering',
-  subcategory: 'Springs',
-
-  metadata: {
-    label: 'TorsionSpring',
-    description: 'Create torsion spring',
-    
-    
-  },
-
-  params: {
-        wireDiameter: {
-      "default": 2,
-      "min": 0.5,
-      "max": 8
-    },
-    coilDiameter: {
-      "default": 20,
-      "min": 5,
-      "max": 80
-    },
-    coils: {
-      "default": 5,
-      "min": 2,
-      "max": 20
-    },
-    legLength: {
-      "default": 30,
-      "min": 10,
-      "max": 100
-    },
-    legAngle: {
-      "default": 90,
-      "min": 0,
-      "max": 180
+  label: 'TorsionSpring',
+  description: 'Create torsion spring',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        spring: 'Shape',
-    legs: 'Wire[]'
+    spring: {
+      type: 'Shape',
+      label: 'Spring'
+    },
+    legs: {
+      type: 'Wire[]',
+      label: 'Legs'
+    }
   },
-
+  params: {
+    wireDiameter: {
+      type: 'number',
+      label: 'Wire Diameter',
+      default: 2,
+      min: 0.5,
+      max: 8
+    },
+    coilDiameter: {
+      type: 'number',
+      label: 'Coil Diameter',
+      default: 20,
+      min: 5,
+      max: 80
+    },
+    coils: {
+      type: 'number',
+      label: 'Coils',
+      default: 5,
+      min: 2,
+      max: 20
+    },
+    legLength: {
+      type: 'number',
+      label: 'Leg Length',
+      default: 30,
+      min: 10,
+      max: 100
+    },
+    legAngle: {
+      type: 'number',
+      label: 'Leg Angle',
+      default: 90,
+      min: 0,
+      max: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'torsionSpring',
       params: {
         center: inputs.center,
@@ -78,10 +88,10 @@ export const TorsionSpringNode: NodeDefinition<TorsionSpringInputs, TorsionSprin
         legAngle: params.legAngle
       }
     });
-
+    
     return {
-      spring: result,
-      legs: result
+      spring: results.spring,
+      legs: results.legs
     };
-  }
+  },
 };

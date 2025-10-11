@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldSubtractParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  fieldA: ScalarField;
-  fieldB: ScalarField;
+interface FieldSubtractInputs {
+  fieldA: unknown;
+  fieldB: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface FieldSubtractOutputs {
+  field: unknown;
 }
 
 export const FieldSubtractNode: NodeDefinition<FieldSubtractInputs, FieldSubtractOutputs, FieldSubtractParams> = {
-  type: 'Field::FieldSubtract',
+  id: 'Field::FieldSubtract',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldSubtract',
-    description: 'Subtract fields',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldSubtract',
+  description: 'Subtract fields',
   inputs: {
-        fieldA: 'ScalarField',
-    fieldB: 'ScalarField'
+    fieldA: {
+      type: 'ScalarField',
+      label: 'Field A',
+      required: true
+    },
+    fieldB: {
+      type: 'ScalarField',
+      label: 'Field B',
+      required: true
+    }
   },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldSubtract',
       params: {
         fieldA: inputs.fieldA,
         fieldB: inputs.fieldB
-        
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

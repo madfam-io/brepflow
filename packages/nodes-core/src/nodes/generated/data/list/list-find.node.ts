@@ -1,56 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListFindParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
-  pattern: Data;
+interface ListFindInputs {
+  list: unknown;
+  pattern: unknown;
 }
-interface Outputs {
-  items: Data[];
-  indices: number[];
+
+interface ListFindOutputs {
+  items: unknown;
+  indices: unknown;
 }
 
 export const ListFindNode: NodeDefinition<ListFindInputs, ListFindOutputs, ListFindParams> = {
-  type: 'Data::ListFind',
+  id: 'Data::ListFind',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListFind',
-    description: 'Find items matching condition',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListFind',
+  description: 'Find items matching condition',
   inputs: {
-        list: 'Data[]',
-    pattern: 'Data'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    pattern: {
+      type: 'Data',
+      label: 'Pattern',
+      required: true
+    }
   },
-
   outputs: {
-        items: 'Data[]',
-    indices: 'number[]'
+    items: {
+      type: 'Data[]',
+      label: 'Items'
+    },
+    indices: {
+      type: 'number[]',
+      label: 'Indices'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'listFind',
       params: {
         list: inputs.list,
         pattern: inputs.pattern
-        
       }
     });
-
+    
     return {
-      items: result,
-      indices: result
+      items: results.items,
+      indices: results.indices
     };
-  }
+  },
 };

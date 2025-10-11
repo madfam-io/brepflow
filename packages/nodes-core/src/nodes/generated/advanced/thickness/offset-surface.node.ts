@@ -1,54 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface OffsetSurfaceParams {
   offset: number;
   fillGaps: boolean;
   extend: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface OffsetSurfaceInputs {
+  shape: unknown;
 }
-interface Outputs {
-  offsetShape: Shape;
+
+interface OffsetSurfaceOutputs {
+  offsetShape: unknown;
 }
 
 export const OffsetSurfaceNode: NodeDefinition<OffsetSurfaceInputs, OffsetSurfaceOutputs, OffsetSurfaceParams> = {
-  type: 'Advanced::OffsetSurface',
+  id: 'Advanced::OffsetSurface',
   category: 'Advanced',
-  subcategory: 'Thickness',
-
-  metadata: {
-    label: 'OffsetSurface',
-    description: 'Offset surface or solid',
-    
-    
-  },
-
-  params: {
-        offset: {
-      "default": 5,
-      "min": -1000,
-      "max": 1000
-    },
-    fillGaps: {
-      "default": true
-    },
-    extend: {
-      "default": false
+  label: 'OffsetSurface',
+  description: 'Offset surface or solid',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        offsetShape: 'Shape'
+    offsetShape: {
+      type: 'Shape',
+      label: 'Offset Shape'
+    }
   },
-
+  params: {
+    offset: {
+      type: 'number',
+      label: 'Offset',
+      default: 5,
+      min: -1000,
+      max: 1000
+    },
+    fillGaps: {
+      type: 'boolean',
+      label: 'Fill Gaps',
+      default: true
+    },
+    extend: {
+      type: 'boolean',
+      label: 'Extend',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'offsetSurface',
       params: {
@@ -58,9 +61,9 @@ export const OffsetSurfaceNode: NodeDefinition<OffsetSurfaceInputs, OffsetSurfac
         extend: params.extend
       }
     });
-
+    
     return {
       offsetShape: result
     };
-  }
+  },
 };

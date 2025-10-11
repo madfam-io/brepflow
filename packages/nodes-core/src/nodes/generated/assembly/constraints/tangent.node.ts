@@ -1,49 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TangentParams {
   inside: boolean;
 }
-interface Inputs {
-  entity1: Shape;
-  entity2: Shape;
+
+interface TangentInputs {
+  entity1: unknown;
+  entity2: unknown;
 }
-interface Outputs {
-  constrained: Shape[];
-  constraint: Constraint;
+
+interface TangentOutputs {
+  constrained: unknown;
+  constraint: unknown;
 }
 
 export const TangentNode: NodeDefinition<TangentInputs, TangentOutputs, TangentParams> = {
-  type: 'Assembly::Tangent',
+  id: 'Assembly::Tangent',
   category: 'Assembly',
-  subcategory: 'Constraints',
-
-  metadata: {
-    label: 'Tangent',
-    description: 'Make two entities tangent',
-    
-    
-  },
-
-  params: {
-        inside: {
-      "default": false
+  label: 'Tangent',
+  description: 'Make two entities tangent',
+  inputs: {
+    entity1: {
+      type: 'Shape',
+      label: 'Entity1',
+      required: true
+    },
+    entity2: {
+      type: 'Shape',
+      label: 'Entity2',
+      required: true
     }
   },
-
-  inputs: {
-        entity1: 'Shape',
-    entity2: 'Shape'
-  },
-
   outputs: {
-        constrained: 'Shape[]',
-    constraint: 'Constraint'
+    constrained: {
+      type: 'Shape[]',
+      label: 'Constrained'
+    },
+    constraint: {
+      type: 'Constraint',
+      label: 'Constraint'
+    }
   },
-
+  params: {
+    inside: {
+      type: 'boolean',
+      label: 'Inside',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'constraintTangent',
       params: {
         entity1: inputs.entity1,
@@ -51,10 +57,10 @@ export const TangentNode: NodeDefinition<TangentInputs, TangentOutputs, TangentP
         inside: params.inside
       }
     });
-
+    
     return {
-      constrained: result,
-      constraint: result
+      constrained: results.constrained,
+      constraint: results.constraint
     };
-  }
+  },
 };

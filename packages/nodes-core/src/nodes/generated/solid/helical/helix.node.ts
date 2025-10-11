@@ -1,73 +1,71 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HelixParams {
   radius: number;
   pitch: number;
   height: number;
   leftHanded: boolean;
 }
-type Inputs = {};
-interface Outputs {
-  helix: Wire;
+
+type HelixInputs = Record<string, never>;
+
+interface HelixOutputs {
+  helix: unknown;
 }
 
 export const HelixNode: NodeDefinition<HelixInputs, HelixOutputs, HelixParams> = {
-  type: 'Solid::Helix',
+  id: 'Solid::Helix',
   category: 'Solid',
-  subcategory: 'Helical',
-
-  metadata: {
-    label: 'Helix',
-    description: 'Create a helical curve',
-    
-    
-  },
-
-  params: {
-        radius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    pitch: {
-      "default": 20,
-      "min": 0.1,
-      "max": 10000
-    },
-    height: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    leftHanded: {
-      "default": false
+  label: 'Helix',
+  description: 'Create a helical curve',
+  inputs: {},
+  outputs: {
+    helix: {
+      type: 'Wire',
+      label: 'Helix'
     }
   },
-
-  inputs: {
-    
+  params: {
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    pitch: {
+      type: 'number',
+      label: 'Pitch',
+      default: 20,
+      min: 0.1,
+      max: 10000
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    leftHanded: {
+      type: 'boolean',
+      label: 'Left Handed',
+      default: false
+    }
   },
-
-  outputs: {
-        helix: 'Wire'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeHelix',
       params: {
-        
         radius: params.radius,
         pitch: params.pitch,
         height: params.height,
         leftHanded: params.leftHanded
       }
     });
-
+    
     return {
       helix: result
     };
-  }
+  },
 };

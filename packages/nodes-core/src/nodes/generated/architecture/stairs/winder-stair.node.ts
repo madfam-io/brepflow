@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WinderStairParams {
   winderCount: number;
   turnAngle: number;
 }
-interface Inputs {
-  path: Wire;
+
+interface WinderStairInputs {
+  path: unknown;
 }
-interface Outputs {
-  winderStair: Shape;
+
+interface WinderStairOutputs {
+  winderStair: unknown;
 }
 
 export const WinderStairNode: NodeDefinition<WinderStairInputs, WinderStairOutputs, WinderStairParams> = {
-  type: 'Architecture::WinderStair',
+  id: 'Architecture::WinderStair',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'WinderStair',
-    description: 'Winder staircase',
-    
-    
-  },
-
-  params: {
-        winderCount: {
-      "default": 3,
-      "min": 2,
-      "max": 5,
-      "step": 1
-    },
-    turnAngle: {
-      "default": 90,
-      "min": 45,
-      "max": 180
+  label: 'WinderStair',
+  description: 'Winder staircase',
+  inputs: {
+    path: {
+      type: 'Wire',
+      label: 'Path',
+      required: true
     }
   },
-
-  inputs: {
-        path: 'Wire'
-  },
-
   outputs: {
-        winderStair: 'Shape'
+    winderStair: {
+      type: 'Shape',
+      label: 'Winder Stair'
+    }
   },
-
+  params: {
+    winderCount: {
+      type: 'number',
+      label: 'Winder Count',
+      default: 3,
+      min: 2,
+      max: 5,
+      step: 1
+    },
+    turnAngle: {
+      type: 'number',
+      label: 'Turn Angle',
+      default: 90,
+      min: 45,
+      max: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'winderStair',
       params: {
@@ -56,9 +57,9 @@ export const WinderStairNode: NodeDefinition<WinderStairInputs, WinderStairOutpu
         turnAngle: params.turnAngle
       }
     });
-
+    
     return {
       winderStair: result
     };
-  }
+  },
 };

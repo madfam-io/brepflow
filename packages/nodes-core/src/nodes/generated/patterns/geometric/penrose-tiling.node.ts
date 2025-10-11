@@ -1,56 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PenroseTilingParams {
   type: string;
   subdivisions: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface PenroseTilingInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  tiles: Face[];
+
+interface PenroseTilingOutputs {
+  tiles: unknown;
 }
 
 export const PenroseTilingNode: NodeDefinition<PenroseTilingInputs, PenroseTilingOutputs, PenroseTilingParams> = {
-  type: 'Patterns::PenroseTiling',
+  id: 'Patterns::PenroseTiling',
   category: 'Patterns',
-  subcategory: 'Geometric',
-
-  metadata: {
-    label: 'PenroseTiling',
-    description: 'Penrose aperiodic tiling',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "P2",
-      "options": [
-        "P1",
-        "P2",
-        "P3"
-      ]
-    },
-    subdivisions: {
-      "default": 5,
-      "min": 1,
-      "max": 10,
-      "step": 1
+  label: 'PenroseTiling',
+  description: 'Penrose aperiodic tiling',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        tiles: 'Face[]'
+    tiles: {
+      type: 'Face[]',
+      label: 'Tiles'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "P2",
+      options: ["P1","P2","P3"]
+    },
+    subdivisions: {
+      type: 'number',
+      label: 'Subdivisions',
+      default: 5,
+      min: 1,
+      max: 10,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'penroseTiling',
       params: {
@@ -59,9 +56,9 @@ export const PenroseTilingNode: NodeDefinition<PenroseTilingInputs, PenroseTilin
         subdivisions: params.subdivisions
       }
     });
-
+    
     return {
       tiles: result
     };
-  }
+  },
 };

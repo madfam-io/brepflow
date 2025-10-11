@@ -1,58 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EmbossParams {
   height: number;
   angle: number;
   roundEdges: boolean;
 }
-interface Inputs {
-  targetFace: Face;
-  pattern: Wire;
+
+interface EmbossInputs {
+  targetFace: unknown;
+  pattern: unknown;
 }
-interface Outputs {
-  embossed: Shape;
+
+interface EmbossOutputs {
+  embossed: unknown;
 }
 
 export const EmbossNode: NodeDefinition<EmbossInputs, EmbossOutputs, EmbossParams> = {
-  type: 'Specialized::Emboss',
+  id: 'Specialized::Emboss',
   category: 'Specialized',
-  subcategory: 'Text',
-
-  metadata: {
-    label: 'Emboss',
-    description: 'Emboss text or pattern',
-    
-    
-  },
-
-  params: {
-        height: {
-      "default": 1,
-      "min": 0.01,
-      "max": 100
+  label: 'Emboss',
+  description: 'Emboss text or pattern',
+  inputs: {
+    targetFace: {
+      type: 'Face',
+      label: 'Target Face',
+      required: true
     },
-    angle: {
-      "default": 45,
-      "min": 0,
-      "max": 90
-    },
-    roundEdges: {
-      "default": true
+    pattern: {
+      type: 'Wire',
+      label: 'Pattern',
+      required: true
     }
   },
-
-  inputs: {
-        targetFace: 'Face',
-    pattern: 'Wire'
-  },
-
   outputs: {
-        embossed: 'Shape'
+    embossed: {
+      type: 'Shape',
+      label: 'Embossed'
+    }
   },
-
+  params: {
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 1,
+      min: 0.01,
+      max: 100
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 45,
+      min: 0,
+      max: 90
+    },
+    roundEdges: {
+      type: 'boolean',
+      label: 'Round Edges',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'emboss',
       params: {
@@ -63,9 +70,9 @@ export const EmbossNode: NodeDefinition<EmbossInputs, EmbossOutputs, EmbossParam
         roundEdges: params.roundEdges
       }
     });
-
+    
     return {
       embossed: result
     };
-  }
+  },
 };

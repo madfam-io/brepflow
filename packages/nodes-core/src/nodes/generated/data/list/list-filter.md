@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
 
 
-### mask
+### Mask
 - **Type:** boolean[]
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### filtered
+### Filtered
 - **Type:** Data[]
 
 

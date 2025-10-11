@@ -1,61 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveTorsionParams {
   samples: number;
   scale: number;
   showGraph: boolean;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveTorsionInputs {
+  curve: unknown;
 }
-interface Outputs {
-  torsionValues: number[];
-  maxTorsion: number;
-  torsionGraph: Wire;
+
+interface CurveTorsionOutputs {
+  torsionValues: unknown;
+  maxTorsion: unknown;
+  torsionGraph: unknown;
 }
 
 export const CurveTorsionNode: NodeDefinition<CurveTorsionInputs, CurveTorsionOutputs, CurveTorsionParams> = {
-  type: 'Analysis::CurveTorsion',
+  id: 'Analysis::CurveTorsion',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveTorsion',
-    description: 'Calculate curve torsion values',
-    
-    
-  },
-
-  params: {
-        samples: {
-      "default": 100,
-      "min": 10,
-      "max": 500
-    },
-    scale: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
-    },
-    showGraph: {
-      "default": true
+  label: 'CurveTorsion',
+  description: 'Calculate curve torsion values',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        torsionValues: 'number[]',
-    maxTorsion: 'number',
-    torsionGraph: 'Wire'
+    torsionValues: {
+      type: 'number[]',
+      label: 'Torsion Values'
+    },
+    maxTorsion: {
+      type: 'number',
+      label: 'Max Torsion'
+    },
+    torsionGraph: {
+      type: 'Wire',
+      label: 'Torsion Graph'
+    }
   },
-
+  params: {
+    samples: {
+      type: 'number',
+      label: 'Samples',
+      default: 100,
+      min: 10,
+      max: 500
+    },
+    scale: {
+      type: 'number',
+      label: 'Scale',
+      default: 1,
+      min: 0.1,
+      max: 10
+    },
+    showGraph: {
+      type: 'boolean',
+      label: 'Show Graph',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveTorsion',
       params: {
         curve: inputs.curve,
@@ -64,11 +73,11 @@ export const CurveTorsionNode: NodeDefinition<CurveTorsionInputs, CurveTorsionOu
         showGraph: params.showGraph
       }
     });
-
+    
     return {
-      torsionValues: result,
-      maxTorsion: result,
-      torsionGraph: result
+      torsionValues: results.torsionValues,
+      maxTorsion: results.maxTorsion,
+      torsionGraph: results.torsionGraph
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Create a polyline from points
 ## Parameters
 
 
-### closed
+### Closed
 - **Type:** boolean
 - **Default:** false
 
@@ -19,7 +19,7 @@ Create a polyline from points
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 - **Description:** Array of points
@@ -28,7 +28,7 @@ Create a polyline from points
 ## Outputs
 
 
-### wire
+### Wire
 - **Type:** Wire
 - **Description:** Polyline wire
 

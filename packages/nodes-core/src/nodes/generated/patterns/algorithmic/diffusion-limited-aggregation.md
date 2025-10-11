@@ -8,7 +8,7 @@ DLA growth pattern
 ## Parameters
 
 
-### particles
+### Particles
 - **Type:** number
 - **Default:** 1000
 - **Min:** 100
@@ -16,7 +16,7 @@ DLA growth pattern
 
 
 
-### stickiness
+### Stickiness
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -27,7 +27,7 @@ DLA growth pattern
 ## Inputs
 
 
-### seed
+### Seed
 - **Type:** Point
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ DLA growth pattern
 ## Outputs
 
 
-### aggregate
+### Aggregate
 - **Type:** Point[]
 
 

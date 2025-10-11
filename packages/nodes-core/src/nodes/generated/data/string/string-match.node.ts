@@ -1,46 +1,49 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StringMatchParams {
   global: boolean;
 }
-interface Inputs {
-  string: string;
-  pattern: string;
+
+interface StringMatchInputs {
+  string: unknown;
+  pattern: unknown;
 }
-interface Outputs {
-  matches: string[];
+
+interface StringMatchOutputs {
+  matches: unknown;
 }
 
 export const StringMatchNode: NodeDefinition<StringMatchInputs, StringMatchOutputs, StringMatchParams> = {
-  type: 'Data::StringMatch',
+  id: 'Data::StringMatch',
   category: 'Data',
-  subcategory: 'String',
-
-  metadata: {
-    label: 'StringMatch',
-    description: 'Match with regex',
-    
-    
-  },
-
-  params: {
-        global: {
-      "default": false
+  label: 'StringMatch',
+  description: 'Match with regex',
+  inputs: {
+    string: {
+      type: 'string',
+      label: 'String',
+      required: true
+    },
+    pattern: {
+      type: 'string',
+      label: 'Pattern',
+      required: true
     }
   },
-
-  inputs: {
-        string: 'string',
-    pattern: 'string'
-  },
-
   outputs: {
-        matches: 'string[]'
+    matches: {
+      type: 'string[]',
+      label: 'Matches'
+    }
   },
-
+  params: {
+    global: {
+      type: 'boolean',
+      label: 'Global',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stringMatch',
       params: {
@@ -49,9 +52,9 @@ export const StringMatchNode: NodeDefinition<StringMatchInputs, StringMatchOutpu
         global: params.global
       }
     });
-
+    
     return {
       matches: result
     };
-  }
+  },
 };

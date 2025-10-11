@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type AddParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  a: number;
-  b: number;
+interface AddInputs {
+  a: unknown;
+  b: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface AddOutputs {
+  result: unknown;
 }
 
 export const AddNode: NodeDefinition<AddInputs, AddOutputs, AddParams> = {
-  type: 'Math::Add',
+  id: 'Math::Add',
   category: 'Math',
-  subcategory: 'Operators',
-
-  metadata: {
-    label: 'Add',
-    description: 'Add two numbers',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Add',
+  description: 'Add two numbers',
   inputs: {
-        a: 'number',
-    b: 'number'
+    a: {
+      type: 'number',
+      label: 'A',
+      required: true
+    },
+    b: {
+      type: 'number',
+      label: 'B',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathAdd',
       params: {
         a: inputs.a,
         b: inputs.b
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

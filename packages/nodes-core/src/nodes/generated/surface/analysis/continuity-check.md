@@ -8,7 +8,7 @@ Check surface continuity
 ## Parameters
 
 
-### checkType
+### Check Type
 - **Type:** enum
 - **Default:** "G1"
 
@@ -16,7 +16,7 @@ Check surface continuity
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -27,19 +27,19 @@ Check surface continuity
 ## Inputs
 
 
-### surface1
+### Surface1
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### surface2
+### Surface2
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### edge
+### Edge
 - **Type:** Edge
 - **Required:** No
 
@@ -48,12 +48,12 @@ Check surface continuity
 ## Outputs
 
 
-### isContinuous
+### Is Continuous
 - **Type:** boolean
 
 
 
-### deviations
+### Deviations
 - **Type:** Data
 
 

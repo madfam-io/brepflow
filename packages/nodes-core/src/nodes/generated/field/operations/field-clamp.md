@@ -8,7 +8,7 @@ Clamp field values
 ## Parameters
 
 
-### min
+### Min
 - **Type:** number
 - **Default:** 0
 
@@ -16,7 +16,7 @@ Clamp field values
 
 
 
-### max
+### Max
 - **Type:** number
 - **Default:** 1
 
@@ -27,7 +27,7 @@ Clamp field values
 ## Inputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Clamp field values
 ## Outputs
 
 
-### clamped
+### Clamped
 - **Type:** ScalarField
 
 

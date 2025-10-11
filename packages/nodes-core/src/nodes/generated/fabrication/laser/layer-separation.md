@@ -8,7 +8,7 @@ Separate by layer/color
 ## Parameters
 
 
-### separateBy
+### Separate By
 - **Type:** enum
 - **Default:** "color"
 
@@ -19,7 +19,7 @@ Separate by layer/color
 ## Inputs
 
 
-### drawing
+### Drawing
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Separate by layer/color
 ## Outputs
 
 
-### layers
+### Layers
 - **Type:** Wire[][]
 
 

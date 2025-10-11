@@ -1,49 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface Voronoi3DParams {
   clipToBox: boolean;
 }
-interface Inputs {
-  points: Point[];
-  bounds?: Box;
+
+interface Voronoi3DInputs {
+  points: Array<[number, number, number]>;
+  bounds?: unknown;
 }
-interface Outputs {
-  cells: Shape[];
-  faces: Face[];
+
+interface Voronoi3DOutputs {
+  cells: unknown;
+  faces: unknown;
 }
 
 export const Voronoi3DNode: NodeDefinition<Voronoi3DInputs, Voronoi3DOutputs, Voronoi3DParams> = {
-  type: 'Patterns::Voronoi3D',
+  id: 'Patterns::Voronoi3D',
   category: 'Patterns',
-  subcategory: 'Voronoi',
-
-  metadata: {
-    label: 'Voronoi3D',
-    description: 'Create 3D Voronoi cells',
-    
-    
-  },
-
-  params: {
-        clipToBox: {
-      "default": true
+  label: 'Voronoi3D',
+  description: 'Create 3D Voronoi cells',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
+    },
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      optional: true
     }
   },
-
-  inputs: {
-        points: 'Point[]',
-    bounds: 'Box'
-  },
-
   outputs: {
-        cells: 'Shape[]',
-    faces: 'Face[]'
+    cells: {
+      type: 'Shape[]',
+      label: 'Cells'
+    },
+    faces: {
+      type: 'Face[]',
+      label: 'Faces'
+    }
   },
-
+  params: {
+    clipToBox: {
+      type: 'boolean',
+      label: 'Clip To Box',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'voronoi3D',
       params: {
         points: inputs.points,
@@ -51,10 +57,10 @@ export const Voronoi3DNode: NodeDefinition<Voronoi3DInputs, Voronoi3DOutputs, Vo
         clipToBox: params.clipToBox
       }
     });
-
+    
     return {
-      cells: result,
-      faces: result
+      cells: results.cells,
+      faces: results.faces
     };
-  }
+  },
 };

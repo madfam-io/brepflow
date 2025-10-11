@@ -8,7 +8,7 @@ Predict cut quality
 ## Parameters
 
 
-### speed
+### Speed
 - **Type:** number
 - **Default:** 20
 - **Min:** 1
@@ -16,7 +16,7 @@ Predict cut quality
 
 
 
-### power
+### Power
 - **Type:** number
 - **Default:** 80
 - **Min:** 10
@@ -27,7 +27,7 @@ Predict cut quality
 ## Inputs
 
 
-### material
+### Material
 - **Type:** Data
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Predict cut quality
 ## Outputs
 
 
-### edgeQuality
+### Edge Quality
 - **Type:** Data
 
 
 
-### heatAffectedZone
+### Heat Affected Zone
 - **Type:** Number
 
 

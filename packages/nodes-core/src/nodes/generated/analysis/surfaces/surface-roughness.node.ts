@@ -1,63 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceRoughnessParams {
   sampleDensity: number;
   analysisType: string;
 }
-interface Inputs {
-  surface: Face;
+
+interface SurfaceRoughnessInputs {
+  surface: unknown;
 }
-interface Outputs {
-  roughnessRa: number;
-  roughnessRz: number;
-  roughnessRq: number;
-  roughnessMap: Shape;
+
+interface SurfaceRoughnessOutputs {
+  roughnessRa: unknown;
+  roughnessRz: unknown;
+  roughnessRq: unknown;
+  roughnessMap: unknown;
 }
 
 export const SurfaceRoughnessNode: NodeDefinition<SurfaceRoughnessInputs, SurfaceRoughnessOutputs, SurfaceRoughnessParams> = {
-  type: 'Analysis::SurfaceRoughness',
+  id: 'Analysis::SurfaceRoughness',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceRoughness',
-    description: 'Calculate surface roughness metrics',
-    
-    
-  },
-
-  params: {
-        sampleDensity: {
-      "default": 50,
-      "min": 10,
-      "max": 200
-    },
-    analysisType: {
-      "default": "all",
-      "options": [
-        "Ra",
-        "Rz",
-        "Rq",
-        "all"
-      ]
+  label: 'SurfaceRoughness',
+  description: 'Calculate surface roughness metrics',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        roughnessRa: 'number',
-    roughnessRz: 'number',
-    roughnessRq: 'number',
-    roughnessMap: 'Shape'
+    roughnessRa: {
+      type: 'number',
+      label: 'Roughness Ra'
+    },
+    roughnessRz: {
+      type: 'number',
+      label: 'Roughness Rz'
+    },
+    roughnessRq: {
+      type: 'number',
+      label: 'Roughness Rq'
+    },
+    roughnessMap: {
+      type: 'Shape',
+      label: 'Roughness Map'
+    }
   },
-
+  params: {
+    sampleDensity: {
+      type: 'number',
+      label: 'Sample Density',
+      default: 50,
+      min: 10,
+      max: 200
+    },
+    analysisType: {
+      type: 'enum',
+      label: 'Analysis Type',
+      default: "all",
+      options: ["Ra","Rz","Rq","all"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceRoughness',
       params: {
         surface: inputs.surface,
@@ -65,12 +70,12 @@ export const SurfaceRoughnessNode: NodeDefinition<SurfaceRoughnessInputs, Surfac
         analysisType: params.analysisType
       }
     });
-
+    
     return {
-      roughnessRa: result,
-      roughnessRz: result,
-      roughnessRq: result,
-      roughnessMap: result
+      roughnessRa: results.roughnessRa,
+      roughnessRz: results.roughnessRz,
+      roughnessRq: results.roughnessRq,
+      roughnessMap: results.roughnessMap
     };
-  }
+  },
 };

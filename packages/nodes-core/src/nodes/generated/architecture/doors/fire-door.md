@@ -8,7 +8,7 @@ Fire-rated door
 ## Parameters
 
 
-### rating
+### Rating
 - **Type:** enum
 - **Default:** "60-min"
 
@@ -16,7 +16,7 @@ Fire-rated door
 
 
 
-### closer
+### Closer
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Fire-rated door
 
 
 
-### panic
+### Panic
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Fire-rated door
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Fire-rated door
 ## Outputs
 
 
-### fireDoor
+### Fire Door
 - **Type:** Shape
 
 

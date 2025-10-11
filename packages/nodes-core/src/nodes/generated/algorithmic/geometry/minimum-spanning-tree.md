@@ -8,7 +8,7 @@ Compute minimum spanning tree of points
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "kruskal"
 
@@ -16,7 +16,7 @@ Compute minimum spanning tree of points
 
 
 
-### showWeights
+### Show Weights
 - **Type:** boolean
 - **Default:** false
 
@@ -27,7 +27,7 @@ Compute minimum spanning tree of points
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Compute minimum spanning tree of points
 ## Outputs
 
 
-### tree
+### Tree
 - **Type:** Wire[]
 
 
 
-### totalWeight
+### Total Weight
 - **Type:** number
 
 
 
-### edges
+### Edges
 - **Type:** Properties[]
 
 

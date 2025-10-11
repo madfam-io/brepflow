@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type NegateParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface NegateInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface NegateOutputs {
+  result: unknown;
 }
 
 export const NegateNode: NodeDefinition<NegateInputs, NegateOutputs, NegateParams> = {
-  type: 'Math::Negate',
+  id: 'Math::Negate',
   category: 'Math',
-  subcategory: 'Operators',
-
-  metadata: {
-    label: 'Negate',
-    description: 'Negate value',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Negate',
+  description: 'Negate value',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathNegate',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

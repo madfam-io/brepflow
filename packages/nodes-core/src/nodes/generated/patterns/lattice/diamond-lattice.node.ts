@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DiamondLatticeParams {
   cellSize: number;
   strutDiameter: number;
 }
-interface Inputs {
-  bounds: Box;
+
+interface DiamondLatticeInputs {
+  bounds: unknown;
 }
-interface Outputs {
-  lattice: Wire[];
+
+interface DiamondLatticeOutputs {
+  lattice: unknown;
 }
 
 export const DiamondLatticeNode: NodeDefinition<DiamondLatticeInputs, DiamondLatticeOutputs, DiamondLatticeParams> = {
-  type: 'Patterns::DiamondLattice',
+  id: 'Patterns::DiamondLattice',
   category: 'Patterns',
-  subcategory: 'Lattice',
-
-  metadata: {
-    label: 'DiamondLattice',
-    description: 'Diamond lattice structure',
-    
-    
-  },
-
-  params: {
-        cellSize: {
-      "default": 10,
-      "min": 1
-    },
-    strutDiameter: {
-      "default": 1,
-      "min": 0.1
+  label: 'DiamondLattice',
+  description: 'Diamond lattice structure',
+  inputs: {
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        bounds: 'Box'
-  },
-
   outputs: {
-        lattice: 'Wire[]'
+    lattice: {
+      type: 'Wire[]',
+      label: 'Lattice'
+    }
   },
-
+  params: {
+    cellSize: {
+      type: 'number',
+      label: 'Cell Size',
+      default: 10,
+      min: 1
+    },
+    strutDiameter: {
+      type: 'number',
+      label: 'Strut Diameter',
+      default: 1,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'diamondLattice',
       params: {
@@ -53,9 +54,9 @@ export const DiamondLatticeNode: NodeDefinition<DiamondLatticeInputs, DiamondLat
         strutDiameter: params.strutDiameter
       }
     });
-
+    
     return {
       lattice: result
     };
-  }
+  },
 };

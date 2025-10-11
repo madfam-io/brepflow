@@ -1,73 +1,76 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StainedGlassWindowParams {
   pattern: string;
   leadWidth: number;
 }
-interface Inputs {
-  opening: Wire;
-  pattern?: Wire[];
+
+interface StainedGlassWindowInputs {
+  opening: unknown;
+  pattern?: unknown;
 }
-interface Outputs {
-  stainedGlass: Shape;
-  leadCame: Wire[];
+
+interface StainedGlassWindowOutputs {
+  stainedGlass: unknown;
+  leadCame: unknown;
 }
 
 export const StainedGlassWindowNode: NodeDefinition<StainedGlassWindowInputs, StainedGlassWindowOutputs, StainedGlassWindowParams> = {
-  type: 'Architecture::StainedGlassWindow',
+  id: 'Architecture::StainedGlassWindow',
   category: 'Architecture',
-  subcategory: 'Windows',
-
-  metadata: {
-    label: 'StainedGlassWindow',
-    description: 'Stained glass window',
-    
-    
-  },
-
-  params: {
-        pattern: {
-      "default": "geometric",
-      "options": [
-        "geometric",
-        "floral",
-        "abstract",
-        "pictorial"
-      ]
+  label: 'StainedGlassWindow',
+  description: 'Stained glass window',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     },
-    leadWidth: {
-      "default": 6,
-      "min": 4,
-      "max": 10
+    pattern: {
+      type: 'Wire[]',
+      label: 'Pattern',
+      optional: true
     }
   },
-
-  inputs: {
-        opening: 'Wire',
-    pattern: 'Wire[]'
-  },
-
   outputs: {
-        stainedGlass: 'Shape',
-    leadCame: 'Wire[]'
+    stainedGlass: {
+      type: 'Shape',
+      label: 'Stained Glass'
+    },
+    leadCame: {
+      type: 'Wire[]',
+      label: 'Lead Came'
+    }
   },
-
+  params: {
+    pattern: {
+      type: 'enum',
+      label: 'Pattern',
+      default: "geometric",
+      options: ["geometric","floral","abstract","pictorial"]
+    },
+    leadWidth: {
+      type: 'number',
+      label: 'Lead Width',
+      default: 6,
+      min: 4,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'stainedGlassWindow',
       params: {
         opening: inputs.opening,
-        patternWires: inputs.pattern,
+        pattern: inputs.pattern,
         pattern: params.pattern,
         leadWidth: params.leadWidth
       }
     });
-
+    
     return {
-      stainedGlass: result,
-      leadCame: result
+      stainedGlass: results.stainedGlass,
+      leadCame: results.leadCame
     };
-  }
+  },
 };

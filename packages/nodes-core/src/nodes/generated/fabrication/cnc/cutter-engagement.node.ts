@@ -1,48 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CutterEngagementParams {
   toolDiameter: number;
 }
-interface Inputs {
-  toolpath: Wire;
-  stock: Shape;
+
+interface CutterEngagementInputs {
+  toolpath: unknown;
+  stock: unknown;
 }
-interface Outputs {
-  engagementAngle: Number[];
+
+interface CutterEngagementOutputs {
+  engagementAngle: number[];
 }
 
 export const CutterEngagementNode: NodeDefinition<CutterEngagementInputs, CutterEngagementOutputs, CutterEngagementParams> = {
-  type: 'Fabrication::CutterEngagement',
+  id: 'Fabrication::CutterEngagement',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'CutterEngagement',
-    description: 'Analyze cutter engagement',
-    
-    
-  },
-
-  params: {
-        toolDiameter: {
-      "default": 10,
-      "min": 1,
-      "max": 50
+  label: 'CutterEngagement',
+  description: 'Analyze cutter engagement',
+  inputs: {
+    toolpath: {
+      type: 'Wire',
+      label: 'Toolpath',
+      required: true
+    },
+    stock: {
+      type: 'Shape',
+      label: 'Stock',
+      required: true
     }
   },
-
-  inputs: {
-        toolpath: 'Wire',
-    stock: 'Shape'
-  },
-
   outputs: {
-        engagementAngle: 'Number[]'
+    engagementAngle: {
+      type: 'Number[]',
+      label: 'Engagement Angle'
+    }
   },
-
+  params: {
+    toolDiameter: {
+      type: 'number',
+      label: 'Tool Diameter',
+      default: 10,
+      min: 1,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'cutterEngagement',
       params: {
@@ -51,9 +54,9 @@ export const CutterEngagementNode: NodeDefinition<CutterEngagementInputs, Cutter
         toolDiameter: params.toolDiameter
       }
     });
-
+    
     return {
       engagementAngle: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Creates a 2D rectangular grid pattern
 ## Parameters
 
 
-### countX
+### Count X
 - **Type:** number
 - **Default:** 4
 - **Min:** 1
@@ -16,7 +16,7 @@ Creates a 2D rectangular grid pattern
 
 
 
-### countY
+### Count Y
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -24,7 +24,7 @@ Creates a 2D rectangular grid pattern
 
 
 
-### spacingX
+### Spacing X
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Creates a 2D rectangular grid pattern
 
 
 
-### spacingY
+### Spacing Y
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Creates a 2D rectangular grid pattern
 
 
 
-### staggered
+### Staggered
 - **Type:** boolean
 - **Default:** false
 
@@ -51,7 +51,7 @@ Creates a 2D rectangular grid pattern
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -60,12 +60,12 @@ Creates a 2D rectangular grid pattern
 ## Outputs
 
 
-### shapes
+### Shapes
 - **Type:** Shape[]
 
 
 
-### compound
+### Compound
 - **Type:** Shape
 
 

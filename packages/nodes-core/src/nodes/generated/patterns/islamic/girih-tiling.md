@@ -8,7 +8,7 @@ Girih pentagonal tiling
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "pentagon"
 
@@ -16,7 +16,7 @@ Girih pentagonal tiling
 
 
 
-### size
+### Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,7 +27,7 @@ Girih pentagonal tiling
 ## Inputs
 
 
-### plane
+### Plane
 - **Type:** Plane
 - **Required:** No
 
@@ -36,12 +36,12 @@ Girih pentagonal tiling
 ## Outputs
 
 
-### tiles
+### Tiles
 - **Type:** Face[]
 
 
 
-### pattern
+### Pattern
 - **Type:** Wire[]
 
 

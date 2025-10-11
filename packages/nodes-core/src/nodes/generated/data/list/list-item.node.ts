@@ -1,46 +1,49 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ListItemParams {
   wrap: boolean;
 }
-interface Inputs {
-  list: Data[];
-  index: number;
+
+interface ListItemInputs {
+  list: unknown;
+  index: unknown;
 }
-interface Outputs {
-  item: Data;
+
+interface ListItemOutputs {
+  item: unknown;
 }
 
 export const ListItemNode: NodeDefinition<ListItemInputs, ListItemOutputs, ListItemParams> = {
-  type: 'Data::ListItem',
+  id: 'Data::ListItem',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListItem',
-    description: 'Get item at index',
-    
-    
-  },
-
-  params: {
-        wrap: {
-      "default": false
+  label: 'ListItem',
+  description: 'Get item at index',
+  inputs: {
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    index: {
+      type: 'number',
+      label: 'Index',
+      required: true
     }
   },
-
-  inputs: {
-        list: 'Data[]',
-    index: 'number'
-  },
-
   outputs: {
-        item: 'Data'
+    item: {
+      type: 'Data',
+      label: 'Item'
+    }
   },
-
+  params: {
+    wrap: {
+      type: 'boolean',
+      label: 'Wrap',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listItem',
       params: {
@@ -49,9 +52,9 @@ export const ListItemNode: NodeDefinition<ListItemInputs, ListItemOutputs, ListI
         wrap: params.wrap
       }
     });
-
+    
     return {
       item: result
     };
-  }
+  },
 };

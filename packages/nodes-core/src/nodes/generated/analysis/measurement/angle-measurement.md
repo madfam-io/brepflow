@@ -8,7 +8,7 @@ Measure angles between vectors/faces
 ## Parameters
 
 
-### units
+### Units
 - **Type:** enum
 - **Default:** "degrees"
 
@@ -16,7 +16,7 @@ Measure angles between vectors/faces
 
 
 
-### showAnnotation
+### Show Annotation
 - **Type:** boolean
 - **Default:** true
 
@@ -27,19 +27,19 @@ Measure angles between vectors/faces
 ## Inputs
 
 
-### vector1
+### Vector1
 - **Type:** Vector
 - **Required:** Yes
 
 
 
-### vector2
+### Vector2
 - **Type:** Vector
 - **Required:** Yes
 
 
 
-### vertex
+### Vertex
 - **Type:** Point
 - **Required:** No
 
@@ -48,17 +48,17 @@ Measure angles between vectors/faces
 ## Outputs
 
 
-### angle
+### Angle
 - **Type:** number
 
 
 
-### complementAngle
+### Complement Angle
 - **Type:** number
 
 
 
-### angleBisector
+### Angle Bisector
 - **Type:** Vector
 
 

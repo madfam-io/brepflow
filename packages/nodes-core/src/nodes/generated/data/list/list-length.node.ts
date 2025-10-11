@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListLengthParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
+interface ListLengthInputs {
+  list: unknown;
 }
-interface Outputs {
-  length: number;
+
+interface ListLengthOutputs {
+  length: unknown;
 }
 
 export const ListLengthNode: NodeDefinition<ListLengthInputs, ListLengthOutputs, ListLengthParams> = {
-  type: 'Data::ListLength',
+  id: 'Data::ListLength',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListLength',
-    description: 'Get list length',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListLength',
+  description: 'Get list length',
   inputs: {
-        list: 'Data[]'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    }
   },
-
   outputs: {
-        length: 'number'
+    length: {
+      type: 'number',
+      label: 'Length'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listLength',
       params: {
         list: inputs.list
-        
       }
     });
-
+    
     return {
       length: result
     };
-  }
+  },
 };

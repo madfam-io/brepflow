@@ -1,46 +1,45 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VoronoiSkeletonParams {
   pruning: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface VoronoiSkeletonInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  skeleton: Wire[];
+
+interface VoronoiSkeletonOutputs {
+  skeleton: unknown;
 }
 
 export const VoronoiSkeletonNode: NodeDefinition<VoronoiSkeletonInputs, VoronoiSkeletonOutputs, VoronoiSkeletonParams> = {
-  type: 'Patterns::VoronoiSkeleton',
+  id: 'Patterns::VoronoiSkeleton',
   category: 'Patterns',
-  subcategory: 'Voronoi',
-
-  metadata: {
-    label: 'VoronoiSkeleton',
-    description: 'Medial axis from Voronoi',
-    
-    
-  },
-
-  params: {
-        pruning: {
-      "default": 0.1,
-      "min": 0,
-      "max": 1
+  label: 'VoronoiSkeleton',
+  description: 'Medial axis from Voronoi',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        skeleton: 'Wire[]'
+    skeleton: {
+      type: 'Wire[]',
+      label: 'Skeleton'
+    }
   },
-
+  params: {
+    pruning: {
+      type: 'number',
+      label: 'Pruning',
+      default: 0.1,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'voronoiSkeleton',
       params: {
@@ -48,9 +47,9 @@ export const VoronoiSkeletonNode: NodeDefinition<VoronoiSkeletonInputs, VoronoiS
         pruning: params.pruning
       }
     });
-
+    
     return {
       skeleton: result
     };
-  }
+  },
 };

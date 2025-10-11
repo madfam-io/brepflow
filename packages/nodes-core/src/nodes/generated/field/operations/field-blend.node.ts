@@ -1,54 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldBlendParams {
   mode: string;
 }
-interface Inputs {
-  fieldA: ScalarField;
-  fieldB: ScalarField;
-  factor: number;
+
+interface FieldBlendInputs {
+  fieldA: unknown;
+  fieldB: unknown;
+  factor: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface FieldBlendOutputs {
+  field: unknown;
 }
 
 export const FieldBlendNode: NodeDefinition<FieldBlendInputs, FieldBlendOutputs, FieldBlendParams> = {
-  type: 'Field::FieldBlend',
+  id: 'Field::FieldBlend',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldBlend',
-    description: 'Blend fields',
-    
-    
-  },
-
-  params: {
-        mode: {
-      "default": "linear",
-      "options": [
-        "linear",
-        "smooth",
-        "overlay",
-        "multiply"
-      ]
+  label: 'FieldBlend',
+  description: 'Blend fields',
+  inputs: {
+    fieldA: {
+      type: 'ScalarField',
+      label: 'Field A',
+      required: true
+    },
+    fieldB: {
+      type: 'ScalarField',
+      label: 'Field B',
+      required: true
+    },
+    factor: {
+      type: 'number',
+      label: 'Factor',
+      required: true
     }
   },
-
-  inputs: {
-        fieldA: 'ScalarField',
-    fieldB: 'ScalarField',
-    factor: 'number'
-  },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    mode: {
+      type: 'enum',
+      label: 'Mode',
+      default: "linear",
+      options: ["linear","smooth","overlay","multiply"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldBlend',
       params: {
@@ -58,9 +60,9 @@ export const FieldBlendNode: NodeDefinition<FieldBlendInputs, FieldBlendOutputs,
         mode: params.mode
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

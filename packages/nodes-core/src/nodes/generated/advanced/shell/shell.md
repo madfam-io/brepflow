@@ -8,7 +8,7 @@ Hollow out solid
 ## Parameters
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Hollow out solid
 - **Description:** Wall thickness
 
 
-### direction
+### Direction
 - **Type:** enum
 - **Default:** "inward"
 
@@ -24,7 +24,7 @@ Hollow out solid
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -35,13 +35,13 @@ Hollow out solid
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### facesToRemove
+### Faces To Remove
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Hollow out solid
 ## Outputs
 
 
-### shell
+### Shell
 - **Type:** Shape
 
 

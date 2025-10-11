@@ -8,7 +8,7 @@ Imprint one shape onto another
 ## Parameters
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -19,13 +19,13 @@ Imprint one shape onto another
 ## Inputs
 
 
-### base
+### Base
 - **Type:** Shape
 - **Required:** Yes
 - **Description:** Base shape
 
 
-### imprint
+### Imprint
 - **Type:** Shape
 - **Required:** Yes
 - **Description:** Shape to imprint
@@ -34,7 +34,7 @@ Imprint one shape onto another
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 - **Description:** Imprinted shape
 

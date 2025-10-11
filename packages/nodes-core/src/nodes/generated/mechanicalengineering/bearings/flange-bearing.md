@@ -8,7 +8,7 @@ Create flanged bearing unit
 ## Parameters
 
 
-### boreDiameter
+### Bore Diameter
 - **Type:** number
 - **Default:** 12
 - **Min:** 5
@@ -16,7 +16,7 @@ Create flanged bearing unit
 
 
 
-### flangeDiameter
+### Flange Diameter
 - **Type:** number
 - **Default:** 40
 - **Min:** 20
@@ -24,7 +24,7 @@ Create flanged bearing unit
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 8
 - **Min:** 3
@@ -32,7 +32,7 @@ Create flanged bearing unit
 
 
 
-### mountingHoles
+### Mounting Holes
 - **Type:** number
 - **Default:** 4
 - **Min:** 3
@@ -43,7 +43,7 @@ Create flanged bearing unit
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create flanged bearing unit
 ## Outputs
 
 
-### bearing
+### Bearing
 - **Type:** Shape
 
 
 
-### flange
+### Flange
 - **Type:** Face
 
 
 
-### holes
+### Holes
 - **Type:** Wire[]
 
 

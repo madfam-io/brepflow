@@ -8,7 +8,7 @@ Find surface-surface intersection curves
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Find surface-surface intersection curves
 
 
 
-### approximation
+### Approximation
 - **Type:** boolean
 - **Default:** false
 
@@ -27,13 +27,13 @@ Find surface-surface intersection curves
 ## Inputs
 
 
-### surface1
+### Surface1
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### surface2
+### Surface2
 - **Type:** Face
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Find surface-surface intersection curves
 ## Outputs
 
 
-### intersectionCurves
+### Intersection Curves
 - **Type:** Wire[]
 
 
 
-### intersectionPoints
+### Intersection Points
 - **Type:** Point[]
 
 

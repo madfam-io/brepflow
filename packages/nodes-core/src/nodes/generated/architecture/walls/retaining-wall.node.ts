@@ -1,58 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RetainingWallParams {
   height: number;
   baseThickness: number;
   batter: number;
 }
-interface Inputs {
-  path: Wire;
+
+interface RetainingWallInputs {
+  path: unknown;
 }
-interface Outputs {
-  retainingWall: Shape;
+
+interface RetainingWallOutputs {
+  retainingWall: unknown;
 }
 
 export const RetainingWallNode: NodeDefinition<RetainingWallInputs, RetainingWallOutputs, RetainingWallParams> = {
-  type: 'Architecture::RetainingWall',
+  id: 'Architecture::RetainingWall',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'RetainingWall',
-    description: 'Retaining wall with batter',
-    
-    
-  },
-
-  params: {
-        height: {
-      "default": 2000,
-      "min": 500,
-      "max": 6000
-    },
-    baseThickness: {
-      "default": 400,
-      "min": 200,
-      "max": 1000
-    },
-    batter: {
-      "default": 10,
-      "min": 0,
-      "max": 30
+  label: 'RetainingWall',
+  description: 'Retaining wall with batter',
+  inputs: {
+    path: {
+      type: 'Wire',
+      label: 'Path',
+      required: true
     }
   },
-
-  inputs: {
-        path: 'Wire'
-  },
-
   outputs: {
-        retainingWall: 'Shape'
+    retainingWall: {
+      type: 'Shape',
+      label: 'Retaining Wall'
+    }
   },
-
+  params: {
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 2000,
+      min: 500,
+      max: 6000
+    },
+    baseThickness: {
+      type: 'number',
+      label: 'Base Thickness',
+      default: 400,
+      min: 200,
+      max: 1000
+    },
+    batter: {
+      type: 'number',
+      label: 'Batter',
+      default: 10,
+      min: 0,
+      max: 30
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'retainingWall',
       params: {
@@ -62,9 +65,9 @@ export const RetainingWallNode: NodeDefinition<RetainingWallInputs, RetainingWal
         batter: params.batter
       }
     });
-
+    
     return {
       retainingWall: result
     };
-  }
+  },
 };

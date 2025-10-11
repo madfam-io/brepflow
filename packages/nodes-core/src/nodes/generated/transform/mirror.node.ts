@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MirrorParams {
   planeOriginX: number;
   planeOriginY: number;
   planeOriginZ: number;
@@ -10,72 +9,83 @@ interface Params {
   planeNormalZ: number;
   copy: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface MirrorInputs {
+  shape: unknown;
 }
-interface Outputs {
-  mirrored: Shape;
+
+interface MirrorOutputs {
+  mirrored: unknown;
 }
 
 export const MirrorNode: NodeDefinition<MirrorInputs, MirrorOutputs, MirrorParams> = {
-  type: 'Transform::Mirror',
+  id: 'Transform::Mirror',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'Mirror',
-    description: 'Mirror shape across a plane',
-    
-    
-  },
-
-  params: {
-        planeOriginX: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    planeOriginY: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    planeOriginZ: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    planeNormalX: {
-      "default": 1,
-      "min": -1,
-      "max": 1
-    },
-    planeNormalY: {
-      "default": 0,
-      "min": -1,
-      "max": 1
-    },
-    planeNormalZ: {
-      "default": 0,
-      "min": -1,
-      "max": 1
-    },
-    copy: {
-      "default": true,
-      "description": "Keep original"
+  label: 'Mirror',
+  description: 'Mirror shape across a plane',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        mirrored: 'Shape'
+    mirrored: {
+      type: 'Shape',
+      label: 'Mirrored'
+    }
   },
-
+  params: {
+    planeOriginX: {
+      type: 'number',
+      label: 'Plane Origin X',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    planeOriginY: {
+      type: 'number',
+      label: 'Plane Origin Y',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    planeOriginZ: {
+      type: 'number',
+      label: 'Plane Origin Z',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    planeNormalX: {
+      type: 'number',
+      label: 'Plane Normal X',
+      default: 1,
+      min: -1,
+      max: 1
+    },
+    planeNormalY: {
+      type: 'number',
+      label: 'Plane Normal Y',
+      default: 0,
+      min: -1,
+      max: 1
+    },
+    planeNormalZ: {
+      type: 'number',
+      label: 'Plane Normal Z',
+      default: 0,
+      min: -1,
+      max: 1
+    },
+    copy: {
+      type: 'boolean',
+      label: 'Copy',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'transformMirror',
       params: {
@@ -89,9 +99,9 @@ export const MirrorNode: NodeDefinition<MirrorInputs, MirrorOutputs, MirrorParam
         copy: params.copy
       }
     });
-
+    
     return {
       mirrored: result
     };
-  }
+  },
 };

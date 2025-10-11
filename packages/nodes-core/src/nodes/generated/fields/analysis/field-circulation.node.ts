@@ -1,43 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldCirculationParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  vectorField?: VectorField;
-  curve: Curve;
+interface FieldCirculationInputs {
+  vectorField?: unknown;
+  curve: unknown;
 }
-interface Outputs {
-  circulation: Number;
+
+interface FieldCirculationOutputs {
+  circulation: number;
 }
 
 export const FieldCirculationNode: NodeDefinition<FieldCirculationInputs, FieldCirculationOutputs, FieldCirculationParams> = {
-  type: 'Fields::FieldCirculation',
+  id: 'Fields::FieldCirculation',
   category: 'Fields',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'FieldCirculation',
-    description: 'Calculate circulation along curve',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldCirculation',
+  description: 'Calculate circulation along curve',
   inputs: {
-        vectorField: 'VectorField',
-    curve: 'Curve'
+    vectorField: {
+      type: 'VectorField',
+      label: 'Vector Field',
+      optional: true
+    },
+    curve: {
+      type: 'Curve',
+      label: 'Curve',
+      required: true
+    }
   },
-
   outputs: {
-        circulation: 'Number'
+    circulation: {
+      type: 'Number',
+      label: 'Circulation'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'calculateCirculation',
+      params: {
+        vectorField: inputs.vectorField,
+        curve: inputs.curve
+      }
+    });
     
-    // TODO: Implement FieldCirculation logic
-    throw new Error('FieldCirculation not yet implemented');
-  }
+    return {
+      circulation: result
+    };
+  },
 };

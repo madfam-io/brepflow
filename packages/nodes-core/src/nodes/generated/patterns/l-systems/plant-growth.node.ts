@@ -1,58 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PlantGrowthParams {
   species: string;
   age: number;
 }
-interface Inputs {
-  ground: Plane;
+
+interface PlantGrowthInputs {
+  ground: unknown;
 }
-interface Outputs {
-  plant: Wire[];
+
+interface PlantGrowthOutputs {
+  plant: unknown;
 }
 
 export const PlantGrowthNode: NodeDefinition<PlantGrowthInputs, PlantGrowthOutputs, PlantGrowthParams> = {
-  type: 'Patterns::PlantGrowth',
+  id: 'Patterns::PlantGrowth',
   category: 'Patterns',
-  subcategory: 'L-Systems',
-
-  metadata: {
-    label: 'PlantGrowth',
-    description: 'Parametric plant growth',
-    
-    
-  },
-
-  params: {
-        species: {
-      "default": "fern",
-      "options": [
-        "fern",
-        "bush",
-        "weed",
-        "algae",
-        "moss"
-      ]
-    },
-    age: {
-      "default": 5,
-      "min": 1,
-      "max": 20,
-      "step": 1
+  label: 'PlantGrowth',
+  description: 'Parametric plant growth',
+  inputs: {
+    ground: {
+      type: 'Plane',
+      label: 'Ground',
+      required: true
     }
   },
-
-  inputs: {
-        ground: 'Plane'
-  },
-
   outputs: {
-        plant: 'Wire[]'
+    plant: {
+      type: 'Wire[]',
+      label: 'Plant'
+    }
   },
-
+  params: {
+    species: {
+      type: 'enum',
+      label: 'Species',
+      default: "fern",
+      options: ["fern","bush","weed","algae","moss"]
+    },
+    age: {
+      type: 'number',
+      label: 'Age',
+      default: 5,
+      min: 1,
+      max: 20,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'plantGrowth',
       params: {
@@ -61,9 +56,9 @@ export const PlantGrowthNode: NodeDefinition<PlantGrowthInputs, PlantGrowthOutpu
         age: params.age
       }
     });
-
+    
     return {
       plant: result
     };
-  }
+  },
 };

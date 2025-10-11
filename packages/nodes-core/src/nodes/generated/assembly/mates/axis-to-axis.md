@@ -8,7 +8,7 @@ Align two axes
 ## Parameters
 
 
-### colinear
+### Colinear
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Align two axes
 
 
 
-### offset
+### Offset
 - **Type:** number
 - **Default:** 0
 
@@ -27,13 +27,13 @@ Align two axes
 ## Inputs
 
 
-### axis1
+### Axis1
 - **Type:** Axis
 - **Required:** Yes
 
 
 
-### axis2
+### Axis2
 - **Type:** Axis
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Align two axes
 ## Outputs
 
 
-### mated
+### Mated
 - **Type:** Shape[]
 
 
 
-### mate
+### Mate
 - **Type:** Mate
 
 

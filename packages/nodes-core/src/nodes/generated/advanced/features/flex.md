@@ -8,7 +8,7 @@ Flex solid for living hinges
 ## Parameters
 
 
-### bendAngle
+### Bend Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** 0
@@ -16,7 +16,7 @@ Flex solid for living hinges
 
 
 
-### bendRadius
+### Bend Radius
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Flex solid for living hinges
 
 
 
-### accuracy
+### Accuracy
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -35,19 +35,19 @@ Flex solid for living hinges
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### bendPlane
+### Bend Plane
 - **Type:** Plane
 - **Required:** Yes
 
 
 
-### trimPlanes
+### Trim Planes
 - **Type:** Plane[]
 - **Required:** No
 
@@ -56,7 +56,7 @@ Flex solid for living hinges
 ## Outputs
 
 
-### flexed
+### Flexed
 - **Type:** Shape
 
 

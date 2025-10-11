@@ -8,7 +8,7 @@ Create ratchet and pawl
 ## Parameters
 
 
-### wheelDiameter
+### Wheel Diameter
 - **Type:** number
 - **Default:** 50
 - **Min:** 20
@@ -16,7 +16,7 @@ Create ratchet and pawl
 
 
 
-### teeth
+### Teeth
 - **Type:** number
 - **Default:** 24
 - **Min:** 12
@@ -24,7 +24,7 @@ Create ratchet and pawl
 
 
 
-### pawlLength
+### Pawl Length
 - **Type:** number
 - **Default:** 20
 - **Min:** 10
@@ -32,7 +32,7 @@ Create ratchet and pawl
 
 
 
-### springTension
+### Spring Tension
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -43,7 +43,7 @@ Create ratchet and pawl
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create ratchet and pawl
 ## Outputs
 
 
-### assembly
+### Assembly
 - **Type:** Shape
 
 
 
-### wheel
+### Wheel
 - **Type:** Shape
 
 
 
-### pawl
+### Pawl
 - **Type:** Shape
 
 

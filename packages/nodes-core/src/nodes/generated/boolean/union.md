@@ -8,7 +8,7 @@ Combine multiple shapes into one
 ## Parameters
 
 
-### keepOriginals
+### Keep Originals
 - **Type:** boolean
 - **Default:** false
 
@@ -16,7 +16,7 @@ Combine multiple shapes into one
 - **Description:** Keep original shapes
 
 
-### fuzzyValue
+### Fuzzy Value
 - **Type:** number
 - **Default:** 1e-7
 - **Min:** 0
@@ -27,7 +27,7 @@ Combine multiple shapes into one
 ## Inputs
 
 
-### shapes
+### Shapes
 - **Type:** Shape[]
 - **Required:** Yes
 - **Description:** Shapes to unite
@@ -36,7 +36,7 @@ Combine multiple shapes into one
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 - **Description:** United shape
 

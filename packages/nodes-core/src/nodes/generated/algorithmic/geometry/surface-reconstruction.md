@@ -8,7 +8,7 @@ Reconstruct surface from point cloud
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "poisson"
 
@@ -16,7 +16,7 @@ Reconstruct surface from point cloud
 
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 8
 - **Min:** 4
@@ -24,7 +24,7 @@ Reconstruct surface from point cloud
 
 
 
-### samples
+### Samples
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -35,13 +35,13 @@ Reconstruct surface from point cloud
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### normals
+### Normals
 - **Type:** Vector[]
 - **Required:** No
 
@@ -50,17 +50,17 @@ Reconstruct surface from point cloud
 ## Outputs
 
 
-### surface
+### Surface
 - **Type:** Shape
 
 
 
-### mesh
+### Mesh
 - **Type:** Shape
 
 
 
-### quality
+### Quality
 - **Type:** number
 
 

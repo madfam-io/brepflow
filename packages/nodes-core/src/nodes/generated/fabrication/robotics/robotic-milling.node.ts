@@ -1,54 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RoboticMillingParams {
   spindleSpeed: number;
   feedRate: number;
 }
-interface Inputs {
-  millingPaths: Wire[];
-  toolOrientation?: Vector;
+
+interface RoboticMillingInputs {
+  millingPaths: unknown;
+  toolOrientation?: [number, number, number];
 }
-interface Outputs {
-  robotProgram: Data;
+
+interface RoboticMillingOutputs {
+  robotProgram: unknown;
 }
 
 export const RoboticMillingNode: NodeDefinition<RoboticMillingInputs, RoboticMillingOutputs, RoboticMillingParams> = {
-  type: 'Fabrication::RoboticMilling',
+  id: 'Fabrication::RoboticMilling',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'RoboticMilling',
-    description: 'Robotic milling paths',
-    
-    
-  },
-
-  params: {
-        spindleSpeed: {
-      "default": 10000,
-      "min": 1000,
-      "max": 30000
+  label: 'RoboticMilling',
+  description: 'Robotic milling paths',
+  inputs: {
+    millingPaths: {
+      type: 'Wire[]',
+      label: 'Milling Paths',
+      required: true
     },
-    feedRate: {
-      "default": 1000,
-      "min": 10,
-      "max": 5000
+    toolOrientation: {
+      type: 'Vector',
+      label: 'Tool Orientation',
+      optional: true
     }
   },
-
-  inputs: {
-        millingPaths: 'Wire[]',
-    toolOrientation: 'Vector'
-  },
-
   outputs: {
-        robotProgram: 'Data'
+    robotProgram: {
+      type: 'Data',
+      label: 'Robot Program'
+    }
   },
-
+  params: {
+    spindleSpeed: {
+      type: 'number',
+      label: 'Spindle Speed',
+      default: 10000,
+      min: 1000,
+      max: 30000
+    },
+    feedRate: {
+      type: 'number',
+      label: 'Feed Rate',
+      default: 1000,
+      min: 10,
+      max: 5000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'roboticMilling',
       params: {
@@ -58,9 +63,9 @@ export const RoboticMillingNode: NodeDefinition<RoboticMillingInputs, RoboticMil
         feedRate: params.feedRate
       }
     });
-
+    
     return {
       robotProgram: result
     };
-  }
+  },
 };

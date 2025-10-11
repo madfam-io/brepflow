@@ -8,7 +8,7 @@ Create clutch assembly
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "friction"
 
@@ -16,7 +16,7 @@ Create clutch assembly
 
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 100
 - **Min:** 30
@@ -24,7 +24,7 @@ Create clutch assembly
 
 
 
-### innerDiameter
+### Inner Diameter
 - **Type:** number
 - **Default:** 50
 - **Min:** 20
@@ -32,7 +32,7 @@ Create clutch assembly
 
 
 
-### plateCount
+### Plate Count
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -43,7 +43,7 @@ Create clutch assembly
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create clutch assembly
 ## Outputs
 
 
-### clutch
+### Clutch
 - **Type:** Shape
 
 
 
-### plates
+### Plates
 - **Type:** Shape[]
 
 

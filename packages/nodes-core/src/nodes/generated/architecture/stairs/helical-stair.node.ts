@@ -1,58 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HelicalStairParams {
   innerRadius: number;
   outerRadius: number;
   totalRise: number;
 }
-interface Inputs {
-  centerPoint: Point;
+
+interface HelicalStairInputs {
+  centerPoint: [number, number, number];
 }
-interface Outputs {
-  helicalStair: Shape;
+
+interface HelicalStairOutputs {
+  helicalStair: unknown;
 }
 
 export const HelicalStairNode: NodeDefinition<HelicalStairInputs, HelicalStairOutputs, HelicalStairParams> = {
-  type: 'Architecture::HelicalStair',
+  id: 'Architecture::HelicalStair',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'HelicalStair',
-    description: 'Helical staircase',
-    
-    
-  },
-
-  params: {
-        innerRadius: {
-      "default": 500,
-      "min": 0,
-      "max": 1000
-    },
-    outerRadius: {
-      "default": 1500,
-      "min": 1000,
-      "max": 3000
-    },
-    totalRise: {
-      "default": 3000,
-      "min": 1000,
-      "max": 6000
+  label: 'HelicalStair',
+  description: 'Helical staircase',
+  inputs: {
+    centerPoint: {
+      type: 'Point',
+      label: 'Center Point',
+      required: true
     }
   },
-
-  inputs: {
-        centerPoint: 'Point'
-  },
-
   outputs: {
-        helicalStair: 'Shape'
+    helicalStair: {
+      type: 'Shape',
+      label: 'Helical Stair'
+    }
   },
-
+  params: {
+    innerRadius: {
+      type: 'number',
+      label: 'Inner Radius',
+      default: 500,
+      min: 0,
+      max: 1000
+    },
+    outerRadius: {
+      type: 'number',
+      label: 'Outer Radius',
+      default: 1500,
+      min: 1000,
+      max: 3000
+    },
+    totalRise: {
+      type: 'number',
+      label: 'Total Rise',
+      default: 3000,
+      min: 1000,
+      max: 6000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'helicalStair',
       params: {
@@ -62,9 +65,9 @@ export const HelicalStairNode: NodeDefinition<HelicalStairInputs, HelicalStairOu
         totalRise: params.totalRise
       }
     });
-
+    
     return {
       helicalStair: result
     };
-  }
+  },
 };

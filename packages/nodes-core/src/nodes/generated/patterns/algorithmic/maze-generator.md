@@ -8,7 +8,7 @@ Maze generation algorithms
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "recursive-backtracker"
 
@@ -16,7 +16,7 @@ Maze generation algorithms
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -24,7 +24,7 @@ Maze generation algorithms
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -35,7 +35,7 @@ Maze generation algorithms
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Maze generation algorithms
 ## Outputs
 
 
-### walls
+### Walls
 - **Type:** Wire[]
 
 
 
-### path
+### Path
 - **Type:** Wire
 
 

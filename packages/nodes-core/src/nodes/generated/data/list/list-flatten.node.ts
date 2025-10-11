@@ -1,46 +1,45 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ListFlattenParams {
   depth: number;
 }
-interface Inputs {
-  list: Data[];
+
+interface ListFlattenInputs {
+  list: unknown;
 }
-interface Outputs {
-  flattened: Data[];
+
+interface ListFlattenOutputs {
+  flattened: unknown;
 }
 
 export const ListFlattenNode: NodeDefinition<ListFlattenInputs, ListFlattenOutputs, ListFlattenParams> = {
-  type: 'Data::ListFlatten',
+  id: 'Data::ListFlatten',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListFlatten',
-    description: 'Flatten nested lists',
-    
-    
-  },
-
-  params: {
-        depth: {
-      "default": 1,
-      "min": 1,
-      "max": 10
+  label: 'ListFlatten',
+  description: 'Flatten nested lists',
+  inputs: {
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
     }
   },
-
-  inputs: {
-        list: 'Data[]'
-  },
-
   outputs: {
-        flattened: 'Data[]'
+    flattened: {
+      type: 'Data[]',
+      label: 'Flattened'
+    }
   },
-
+  params: {
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: 1,
+      min: 1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listFlatten',
       params: {
@@ -48,9 +47,9 @@ export const ListFlattenNode: NodeDefinition<ListFlattenInputs, ListFlattenOutpu
         depth: params.depth
       }
     });
-
+    
     return {
       flattened: result
     };
-  }
+  },
 };

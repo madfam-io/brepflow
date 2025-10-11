@@ -1,70 +1,85 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldOptimizeParams {
   iterations: number;
   objective: string;
   learningRate: number;
 }
-interface Inputs {
-  initialField?: Field;
-  constraints?: Field;
+
+interface FieldOptimizeInputs {
+  initialField?: unknown;
+  constraints?: unknown;
 }
-interface Outputs {
-  optimizedField: Field;
-  convergence: NumberList;
+
+interface FieldOptimizeOutputs {
+  optimizedField: unknown;
+  convergence: unknown;
 }
 
 export const FieldOptimizeNode: NodeDefinition<FieldOptimizeInputs, FieldOptimizeOutputs, FieldOptimizeParams> = {
-  type: 'Fields::FieldOptimize',
+  id: 'Fields::FieldOptimize',
   category: 'Fields',
-  subcategory: 'Advanced',
-
-  metadata: {
-    label: 'FieldOptimize',
-    description: 'Optimize field for objective',
-    
-    
-  },
-
-  params: {
-        iterations: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "description": "Optimization iterations"
+  label: 'FieldOptimize',
+  description: 'Optimize field for objective',
+  inputs: {
+    initialField: {
+      type: 'Field',
+      label: 'Initial Field',
+      optional: true
     },
-    objective: {
-      "default": "\"minimize\"",
-      "options": [
-        "minimize",
-        "maximize",
-        "smooth",
-        "sharpen"
-      ],
-      "description": "Optimization objective"
-    },
-    learningRate: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1,
-      "description": "Learning rate"
+    constraints: {
+      type: 'Field',
+      label: 'Constraints',
+      optional: true
     }
   },
-
-  inputs: {
-        initialField: 'Field',
-    constraints: 'Field'
-  },
-
   outputs: {
-        optimizedField: 'Field',
-    convergence: 'NumberList'
+    optimizedField: {
+      type: 'Field',
+      label: 'Optimized Field'
+    },
+    convergence: {
+      type: 'NumberList',
+      label: 'Convergence'
+    }
   },
-
+  params: {
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 100,
+      min: 10,
+      max: 1000
+    },
+    objective: {
+      type: 'enum',
+      label: 'Objective',
+      default: "\"minimize\"",
+      options: ["minimize","maximize","smooth","sharpen"]
+    },
+    learningRate: {
+      type: 'number',
+      label: 'Learning Rate',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
+    const results = await context.geometry.execute({
+      type: 'optimizeField',
+      params: {
+        initialField: inputs.initialField,
+        constraints: inputs.constraints,
+        iterations: params.iterations,
+        objective: params.objective,
+        learningRate: params.learningRate
+      }
+    });
     
-    // TODO: Implement FieldOptimize logic
-    throw new Error('FieldOptimize not yet implemented');
-  }
+    return {
+      optimizedField: results.optimizedField,
+      convergence: results.convergence
+    };
+  },
 };

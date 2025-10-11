@@ -8,7 +8,7 @@ Calculate scallop height
 ## Parameters
 
 
-### ballRadius
+### Ball Radius
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Calculate scallop height
 
 
 
-### stepover
+### Stepover
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Calculate scallop height
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Calculate scallop height
 ## Outputs
 
 
-### scallopMap
+### Scallop Map
 - **Type:** Data
 
 
 
-### maxScallop
+### Max Scallop
 - **Type:** Number
 
 

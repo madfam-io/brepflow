@@ -8,7 +8,7 @@ Ramped plunge entry
 ## Parameters
 
 
-### rampAngle
+### Ramp Angle
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -16,7 +16,7 @@ Ramped plunge entry
 
 
 
-### rampLength
+### Ramp Length
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -27,13 +27,13 @@ Ramped plunge entry
 ## Inputs
 
 
-### entryEdge
+### Entry Edge
 - **Type:** Edge
 - **Required:** Yes
 
 
 
-### depth
+### Depth
 - **Type:** Number
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Ramped plunge entry
 ## Outputs
 
 
-### rampPath
+### Ramp Path
 - **Type:** Wire
 
 

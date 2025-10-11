@@ -8,7 +8,7 @@ Create a circular arc
 ## Parameters
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -16,7 +16,7 @@ Create a circular arc
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -24,7 +24,7 @@ Create a circular arc
 
 
 
-### centerZ
+### Center Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -32,7 +32,7 @@ Create a circular arc
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Create a circular arc
 
 
 
-### startAngle
+### Start Angle
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -48,7 +48,7 @@ Create a circular arc
 - **Description:** Start angle in degrees
 
 
-### endAngle
+### End Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** 0
@@ -63,7 +63,7 @@ This node has no inputs.
 ## Outputs
 
 
-### edge
+### Edge
 - **Type:** Edge
 - **Description:** Arc segment
 

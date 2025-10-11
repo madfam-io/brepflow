@@ -8,7 +8,7 @@ Procedural noise patterns
 ## Parameters
 
 
-### noiseType
+### Noise Type
 - **Type:** enum
 - **Default:** "perlin"
 
@@ -16,7 +16,7 @@ Procedural noise patterns
 
 
 
-### octaves
+### Octaves
 - **Type:** number
 - **Default:** 4
 - **Min:** 1
@@ -24,7 +24,7 @@ Procedural noise patterns
 
 
 
-### frequency
+### Frequency
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Procedural noise patterns
 
 
 
-### amplitude
+### Amplitude
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -43,7 +43,7 @@ Procedural noise patterns
 ## Inputs
 
 
-### domain
+### Domain
 - **Type:** Box
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Procedural noise patterns
 ## Outputs
 
 
-### noiseField
+### Noise Field
 - **Type:** Data
 
 

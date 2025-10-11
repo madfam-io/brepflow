@@ -1,60 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldHeatMapParams {
   resolution: number;
   interpolation: string;
 }
-interface Inputs {
-  field?: Field;
-  plane: Plane;
+
+interface FieldHeatMapInputs {
+  field?: unknown;
+  plane: unknown;
 }
-interface Outputs {
-  heatMap: Mesh;
+
+interface FieldHeatMapOutputs {
+  heatMap: unknown;
 }
 
 export const FieldHeatMapNode: NodeDefinition<FieldHeatMapInputs, FieldHeatMapOutputs, FieldHeatMapParams> = {
-  type: 'Fields::FieldHeatMap',
+  id: 'Fields::FieldHeatMap',
   category: 'Fields',
-  subcategory: 'Visualization',
-
-  metadata: {
-    label: 'FieldHeatMap',
-    description: 'Generate heat map visualization',
-    
-    
-  },
-
-  params: {
-        resolution: {
-      "default": 50,
-      "min": 10,
-      "max": 200,
-      "description": "Grid resolution"
+  label: 'FieldHeatMap',
+  description: 'Generate heat map visualization',
+  inputs: {
+    field: {
+      type: 'Field',
+      label: 'Field',
+      optional: true
     },
-    interpolation: {
-      "default": "\"bilinear\"",
-      "options": [
-        "nearest",
-        "bilinear",
-        "bicubic"
-      ],
-      "description": "Interpolation method"
+    plane: {
+      type: 'Plane',
+      label: 'Plane',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'Field',
-    plane: 'Plane'
-  },
-
   outputs: {
-        heatMap: 'Mesh'
+    heatMap: {
+      type: 'Mesh',
+      label: 'Heat Map'
+    }
   },
-
+  params: {
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 50,
+      min: 10,
+      max: 200
+    },
+    interpolation: {
+      type: 'enum',
+      label: 'Interpolation',
+      default: "\"bilinear\"",
+      options: ["nearest","bilinear","bicubic"]
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'generateHeatMap',
+      params: {
+        field: inputs.field,
+        plane: inputs.plane,
+        resolution: params.resolution,
+        interpolation: params.interpolation
+      }
+    });
     
-    // TODO: Implement FieldHeatMap logic
-    throw new Error('FieldHeatMap not yet implemented');
-  }
+    return {
+      heatMap: result
+    };
+  },
 };

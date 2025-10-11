@@ -1,46 +1,45 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface JointLimitAvoidanceParams {
   margin: number;
 }
-interface Inputs {
-  jointTrajectory: Data;
+
+interface JointLimitAvoidanceInputs {
+  jointTrajectory: unknown;
 }
-interface Outputs {
-  safeTrajectory: Data;
+
+interface JointLimitAvoidanceOutputs {
+  safeTrajectory: unknown;
 }
 
 export const JointLimitAvoidanceNode: NodeDefinition<JointLimitAvoidanceInputs, JointLimitAvoidanceOutputs, JointLimitAvoidanceParams> = {
-  type: 'Fabrication::JointLimitAvoidance',
+  id: 'Fabrication::JointLimitAvoidance',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'JointLimitAvoidance',
-    description: 'Avoid joint limits',
-    
-    
-  },
-
-  params: {
-        margin: {
-      "default": 5,
-      "min": 0,
-      "max": 30
+  label: 'JointLimitAvoidance',
+  description: 'Avoid joint limits',
+  inputs: {
+    jointTrajectory: {
+      type: 'Data',
+      label: 'Joint Trajectory',
+      required: true
     }
   },
-
-  inputs: {
-        jointTrajectory: 'Data'
-  },
-
   outputs: {
-        safeTrajectory: 'Data'
+    safeTrajectory: {
+      type: 'Data',
+      label: 'Safe Trajectory'
+    }
   },
-
+  params: {
+    margin: {
+      type: 'number',
+      label: 'Margin',
+      default: 5,
+      min: 0,
+      max: 30
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jointLimitAvoidance',
       params: {
@@ -48,9 +47,9 @@ export const JointLimitAvoidanceNode: NodeDefinition<JointLimitAvoidanceInputs, 
         margin: params.margin
       }
     });
-
+    
     return {
       safeTrajectory: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Normal distribution
 ## Parameters
 
 
-### mean
+### Mean
 - **Type:** number
 - **Default:** 0
 
@@ -16,7 +16,7 @@ Normal distribution
 
 
 
-### stddev
+### Stddev
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -24,7 +24,7 @@ Normal distribution
 
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -39,7 +39,7 @@ This node has no inputs.
 ## Outputs
 
 
-### value
+### Value
 - **Type:** number
 
 

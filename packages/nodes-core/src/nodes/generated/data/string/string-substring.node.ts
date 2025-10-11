@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type StringSubstringParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  string: string;
-  start: number;
-  length?: number;
+interface StringSubstringInputs {
+  string: unknown;
+  start: unknown;
+  length?: unknown;
 }
-interface Outputs {
-  substring: string;
+
+interface StringSubstringOutputs {
+  substring: unknown;
 }
 
 export const StringSubstringNode: NodeDefinition<StringSubstringInputs, StringSubstringOutputs, StringSubstringParams> = {
-  type: 'Data::StringSubstring',
+  id: 'Data::StringSubstring',
   category: 'Data',
-  subcategory: 'String',
-
-  metadata: {
-    label: 'StringSubstring',
-    description: 'Extract substring',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'StringSubstring',
+  description: 'Extract substring',
   inputs: {
-        string: 'string',
-    start: 'number',
-    length: 'number'
+    string: {
+      type: 'string',
+      label: 'String',
+      required: true
+    },
+    start: {
+      type: 'number',
+      label: 'Start',
+      required: true
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      optional: true
+    }
   },
-
   outputs: {
-        substring: 'string'
+    substring: {
+      type: 'string',
+      label: 'Substring'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stringSubstring',
       params: {
         string: inputs.string,
         start: inputs.start,
         length: inputs.length
-        
       }
     });
-
+    
     return {
       substring: result
     };
-  }
+  },
 };

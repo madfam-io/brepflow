@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type TreePruneParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  tree: DataTree;
+interface TreePruneInputs {
+  tree: unknown;
 }
-interface Outputs {
-  pruned: DataTree;
+
+interface TreePruneOutputs {
+  pruned: unknown;
 }
 
 export const TreePruneNode: NodeDefinition<TreePruneInputs, TreePruneOutputs, TreePruneParams> = {
-  type: 'Data::TreePrune',
+  id: 'Data::TreePrune',
   category: 'Data',
-  subcategory: 'Tree',
-
-  metadata: {
-    label: 'TreePrune',
-    description: 'Remove empty branches',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'TreePrune',
+  description: 'Remove empty branches',
   inputs: {
-        tree: 'DataTree'
+    tree: {
+      type: 'DataTree',
+      label: 'Tree',
+      required: true
+    }
   },
-
   outputs: {
-        pruned: 'DataTree'
+    pruned: {
+      type: 'DataTree',
+      label: 'Pruned'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'treePrune',
       params: {
         tree: inputs.tree
-        
       }
     });
-
+    
     return {
       pruned: result
     };
-  }
+  },
 };

@@ -1,59 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BoundaryParams {
   type: string;
   tangencyType: string;
 }
-interface Inputs {
-  curves: Wire[];
-  tangentFaces?: Face[];
+
+interface BoundaryInputs {
+  curves: unknown;
+  tangentFaces?: unknown;
 }
-interface Outputs {
-  shape: Shape;
+
+interface BoundaryOutputs {
+  shape: unknown;
 }
 
 export const BoundaryNode: NodeDefinition<BoundaryInputs, BoundaryOutputs, BoundaryParams> = {
-  type: 'Advanced::Boundary',
+  id: 'Advanced::Boundary',
   category: 'Advanced',
-  subcategory: 'Boundary',
-
-  metadata: {
-    label: 'Boundary',
-    description: 'Create surface from boundary curves',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "surface",
-      "options": [
-        "surface",
-        "solid"
-      ]
+  label: 'Boundary',
+  description: 'Create surface from boundary curves',
+  inputs: {
+    curves: {
+      type: 'Wire[]',
+      label: 'Curves',
+      required: true
     },
-    tangencyType: {
-      "default": "none",
-      "options": [
-        "none",
-        "tangent",
-        "curvature"
-      ]
+    tangentFaces: {
+      type: 'Face[]',
+      label: 'Tangent Faces',
+      optional: true
     }
   },
-
-  inputs: {
-        curves: 'Wire[]',
-    tangentFaces: 'Face[]'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "surface",
+      options: ["surface","solid"]
+    },
+    tangencyType: {
+      type: 'enum',
+      label: 'Tangency Type',
+      default: "none",
+      options: ["none","tangent","curvature"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'boundary',
       params: {
@@ -63,9 +61,9 @@ export const BoundaryNode: NodeDefinition<BoundaryInputs, BoundaryOutputs, Bound
         tangencyType: params.tangencyType
       }
     });
-
+    
     return {
       shape: result
     };
-  }
+  },
 };

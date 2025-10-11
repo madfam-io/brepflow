@@ -1,63 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BeadParams {
   beadWidth: number;
   beadHeight: number;
   beadProfile: string;
 }
-interface Inputs {
-  sheet: Shape;
-  path: Wire;
+
+interface BeadInputs {
+  sheet: unknown;
+  path: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface BeadOutputs {
+  result: unknown;
 }
 
 export const BeadNode: NodeDefinition<BeadInputs, BeadOutputs, BeadParams> = {
-  type: 'SheetMetal::Bead',
+  id: 'SheetMetal::Bead',
   category: 'SheetMetal',
-  subcategory: 'Features',
-
-  metadata: {
-    label: 'Bead',
-    description: 'Create stiffening bead',
-    
-    
-  },
-
-  params: {
-        beadWidth: {
-      "default": 10,
-      "min": 0.5,
-      "max": 100
+  label: 'Bead',
+  description: 'Create stiffening bead',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    beadHeight: {
-      "default": 3,
-      "min": 0.1,
-      "max": 50
-    },
-    beadProfile: {
-      "default": "U",
-      "options": [
-        "U",
-        "V",
-        "round"
-      ]
+    path: {
+      type: 'Wire',
+      label: 'Path',
+      required: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    path: 'Wire'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    beadWidth: {
+      type: 'number',
+      label: 'Bead Width',
+      default: 10,
+      min: 0.5,
+      max: 100
+    },
+    beadHeight: {
+      type: 'number',
+      label: 'Bead Height',
+      default: 3,
+      min: 0.1,
+      max: 50
+    },
+    beadProfile: {
+      type: 'enum',
+      label: 'Bead Profile',
+      default: "U",
+      options: ["U","V","round"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetBead',
       params: {
@@ -68,9 +71,9 @@ export const BeadNode: NodeDefinition<BeadInputs, BeadOutputs, BeadParams> = {
         beadProfile: params.beadProfile
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

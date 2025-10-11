@@ -8,7 +8,7 @@ Flocking behavior simulation
 ## Parameters
 
 
-### agents
+### Agents
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -16,7 +16,7 @@ Flocking behavior simulation
 
 
 
-### steps
+### Steps
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -24,7 +24,7 @@ Flocking behavior simulation
 
 
 
-### cohesion
+### Cohesion
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -32,7 +32,7 @@ Flocking behavior simulation
 
 
 
-### separation
+### Separation
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -40,7 +40,7 @@ Flocking behavior simulation
 
 
 
-### alignment
+### Alignment
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -51,7 +51,7 @@ Flocking behavior simulation
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Box
 - **Required:** Yes
 
@@ -60,7 +60,7 @@ Flocking behavior simulation
 ## Outputs
 
 
-### trails
+### Trails
 - **Type:** Wire[]
 
 

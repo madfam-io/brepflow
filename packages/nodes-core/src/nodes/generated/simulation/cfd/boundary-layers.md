@@ -8,7 +8,7 @@ Add boundary layer mesh
 ## Parameters
 
 
-### firstLayerHeight
+### First Layer Height
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -16,7 +16,7 @@ Add boundary layer mesh
 
 
 
-### growthRate
+### Growth Rate
 - **Type:** number
 - **Default:** 1.2
 - **Min:** 1
@@ -24,7 +24,7 @@ Add boundary layer mesh
 
 
 
-### numberOfLayers
+### Number Of Layers
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -32,7 +32,7 @@ Add boundary layer mesh
 
 
 
-### transitionRatio
+### Transition Ratio
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -43,13 +43,13 @@ Add boundary layer mesh
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
 
 
-### wallFaces
+### Wall Faces
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -58,7 +58,7 @@ Add boundary layer mesh
 ## Outputs
 
 
-### layeredMesh
+### Layered Mesh
 - **Type:** Mesh
 
 

@@ -8,7 +8,7 @@ Spring interpolation
 ## Parameters
 
 
-### stiffness
+### Stiffness
 - **Type:** number
 - **Default:** 100
 - **Min:** 1
@@ -16,7 +16,7 @@ Spring interpolation
 
 
 
-### damping
+### Damping
 - **Type:** number
 - **Default:** 10
 - **Min:** 0
@@ -27,25 +27,25 @@ Spring interpolation
 ## Inputs
 
 
-### current
+### Current
 - **Type:** number
 - **Required:** Yes
 
 
 
-### target
+### Target
 - **Type:** number
 - **Required:** Yes
 
 
 
-### velocity
+### Velocity
 - **Type:** number
 - **Required:** Yes
 
 
 
-### deltaTime
+### Delta Time
 - **Type:** number
 - **Required:** Yes
 
@@ -54,12 +54,12 @@ Spring interpolation
 ## Outputs
 
 
-### position
+### Position
 - **Type:** number
 
 
 
-### velocity
+### Velocity
 - **Type:** number
 
 

@@ -8,7 +8,7 @@ Create 3D Voronoi cells
 ## Parameters
 
 
-### clipToBox
+### Clip To Box
 - **Type:** boolean
 - **Default:** true
 
@@ -19,13 +19,13 @@ Create 3D Voronoi cells
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### bounds
+### Bounds
 - **Type:** Box
 - **Required:** No
 
@@ -34,12 +34,12 @@ Create 3D Voronoi cells
 ## Outputs
 
 
-### cells
+### Cells
 - **Type:** Shape[]
 
 
 
-### faces
+### Faces
 - **Type:** Face[]
 
 

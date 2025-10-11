@@ -8,7 +8,7 @@ Particle swarm optimization
 ## Parameters
 
 
-### swarmSize
+### Swarm Size
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -16,7 +16,7 @@ Particle swarm optimization
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -24,7 +24,7 @@ Particle swarm optimization
 
 
 
-### inertia
+### Inertia
 - **Type:** number
 - **Default:** 0.7
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Particle swarm optimization
 
 
 
-### cognitive
+### Cognitive
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Particle swarm optimization
 
 
 
-### social
+### Social
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -51,13 +51,13 @@ Particle swarm optimization
 ## Inputs
 
 
-### objective
+### Objective
 - **Type:** Properties
 - **Required:** Yes
 
 
 
-### bounds
+### Bounds
 - **Type:** Properties
 - **Required:** Yes
 
@@ -66,17 +66,17 @@ Particle swarm optimization
 ## Outputs
 
 
-### globalBest
+### Global Best
 - **Type:** Properties
 
 
 
-### bestValue
+### Best Value
 - **Type:** number
 
 
 
-### swarmHistory
+### Swarm History
 - **Type:** Properties[]
 
 

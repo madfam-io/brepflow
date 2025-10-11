@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FloorExpansionJointParams {
   jointWidth: number;
   sealantDepth: number;
 }
-interface Inputs {
-  jointPath: Wire;
+
+interface FloorExpansionJointInputs {
+  jointPath: unknown;
 }
-interface Outputs {
-  expansionJoint: Shape;
+
+interface FloorExpansionJointOutputs {
+  expansionJoint: unknown;
 }
 
 export const FloorExpansionJointNode: NodeDefinition<FloorExpansionJointInputs, FloorExpansionJointOutputs, FloorExpansionJointParams> = {
-  type: 'Architecture::FloorExpansionJoint',
+  id: 'Architecture::FloorExpansionJoint',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'FloorExpansionJoint',
-    description: 'Expansion joint detail',
-    
-    
-  },
-
-  params: {
-        jointWidth: {
-      "default": 25,
-      "min": 10,
-      "max": 100
-    },
-    sealantDepth: {
-      "default": 10,
-      "min": 5,
-      "max": 25
+  label: 'FloorExpansionJoint',
+  description: 'Expansion joint detail',
+  inputs: {
+    jointPath: {
+      type: 'Wire',
+      label: 'Joint Path',
+      required: true
     }
   },
-
-  inputs: {
-        jointPath: 'Wire'
-  },
-
   outputs: {
-        expansionJoint: 'Shape'
+    expansionJoint: {
+      type: 'Shape',
+      label: 'Expansion Joint'
+    }
   },
-
+  params: {
+    jointWidth: {
+      type: 'number',
+      label: 'Joint Width',
+      default: 25,
+      min: 10,
+      max: 100
+    },
+    sealantDepth: {
+      type: 'number',
+      label: 'Sealant Depth',
+      default: 10,
+      min: 5,
+      max: 25
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'floorExpansionJoint',
       params: {
@@ -55,9 +56,9 @@ export const FloorExpansionJointNode: NodeDefinition<FloorExpansionJointInputs, 
         sealantDepth: params.sealantDepth
       }
     });
-
+    
     return {
       expansionJoint: result
     };
-  }
+  },
 };

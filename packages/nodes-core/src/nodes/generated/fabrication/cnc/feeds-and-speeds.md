@@ -8,7 +8,7 @@ Calculate feeds and speeds
 ## Parameters
 
 
-### material
+### Material
 - **Type:** enum
 - **Default:** "aluminum"
 
@@ -16,7 +16,7 @@ Calculate feeds and speeds
 
 
 
-### toolMaterial
+### Tool Material
 - **Type:** enum
 - **Default:** "carbide"
 
@@ -24,7 +24,7 @@ Calculate feeds and speeds
 
 
 
-### toolDiameter
+### Tool Diameter
 - **Type:** number
 - **Default:** 6
 - **Min:** 0.1
@@ -39,17 +39,17 @@ This node has no inputs.
 ## Outputs
 
 
-### spindleSpeed
+### Spindle Speed
 - **Type:** Number
 
 
 
-### feedRate
+### Feed Rate
 - **Type:** Number
 
 
 
-### chipLoad
+### Chip Load
 - **Type:** Number
 
 

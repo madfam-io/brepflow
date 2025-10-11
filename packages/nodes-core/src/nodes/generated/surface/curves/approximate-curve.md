@@ -8,7 +8,7 @@ Approximate points with curve
 ## Parameters
 
 
-### degree
+### Degree
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Approximate points with curve
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -24,7 +24,7 @@ Approximate points with curve
 
 
 
-### smoothness
+### Smoothness
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -35,7 +35,7 @@ Approximate points with curve
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Approximate points with curve
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 
 

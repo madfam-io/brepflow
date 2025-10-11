@@ -8,7 +8,7 @@ Green roof system
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "extensive"
 
@@ -16,7 +16,7 @@ Green roof system
 
 
 
-### soilDepth
+### Soil Depth
 - **Type:** number
 - **Default:** 100
 - **Min:** 50
@@ -27,7 +27,7 @@ Green roof system
 ## Inputs
 
 
-### roofSurface
+### Roof Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Green roof system
 ## Outputs
 
 
-### greenRoof
+### Green Roof
 - **Type:** Shape
 
 
 
-### layers
+### Layers
 - **Type:** Shape[]
 
 

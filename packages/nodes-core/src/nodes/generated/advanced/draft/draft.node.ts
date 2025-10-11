@@ -1,65 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DraftParams {
   angle: number;
   pullDirection: [number, number, number];
   neutralPlane: [number, number, number];
 }
-interface Inputs {
-  solid: Shape;
-  facesToDraft: Face[];
+
+interface DraftInputs {
+  solid: unknown;
+  facesToDraft: unknown;
 }
-interface Outputs {
-  drafted: Shape;
+
+interface DraftOutputs {
+  drafted: unknown;
 }
 
 export const DraftNode: NodeDefinition<DraftInputs, DraftOutputs, DraftParams> = {
-  type: 'Advanced::Draft',
+  id: 'Advanced::Draft',
   category: 'Advanced',
-  subcategory: 'Draft',
-
-  metadata: {
-    label: 'Draft',
-    description: 'Add draft angle to faces',
-    
-    
-  },
-
-  params: {
-        angle: {
-      "default": 3,
-      "min": -30,
-      "max": 30,
-      "description": "Draft angle in degrees"
+  label: 'Draft',
+  description: 'Add draft angle to faces',
+  inputs: {
+    solid: {
+      type: 'Shape',
+      label: 'Solid',
+      required: true
     },
-    pullDirection: {
-      "default": [
-        0,
-        0,
-        1
-      ]
-    },
-    neutralPlane: {
-      "default": [
-        0,
-        0,
-        0
-      ]
+    facesToDraft: {
+      type: 'Face[]',
+      label: 'Faces To Draft',
+      required: true
     }
   },
-
-  inputs: {
-        solid: 'Shape',
-    facesToDraft: 'Face[]'
-  },
-
   outputs: {
-        drafted: 'Shape'
+    drafted: {
+      type: 'Shape',
+      label: 'Drafted'
+    }
   },
-
+  params: {
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 3,
+      min: -30,
+      max: 30
+    },
+    pullDirection: {
+      type: 'vec3',
+      label: 'Pull Direction',
+      default: [0,0,1]
+    },
+    neutralPlane: {
+      type: 'vec3',
+      label: 'Neutral Plane',
+      default: [0,0,0]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'draft',
       params: {
@@ -70,9 +68,9 @@ export const DraftNode: NodeDefinition<DraftInputs, DraftOutputs, DraftParams> =
         neutralPlane: params.neutralPlane
       }
     });
-
+    
     return {
       drafted: result
     };
-  }
+  },
 };

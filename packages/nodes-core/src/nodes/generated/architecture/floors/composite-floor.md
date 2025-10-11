@@ -8,7 +8,7 @@ Steel deck composite floor
 ## Parameters
 
 
-### deckType
+### Deck Type
 - **Type:** enum
 - **Default:** "3-inch"
 
@@ -16,7 +16,7 @@ Steel deck composite floor
 
 
 
-### concreteThickness
+### Concrete Thickness
 - **Type:** number
 - **Default:** 100
 - **Min:** 75
@@ -27,13 +27,13 @@ Steel deck composite floor
 ## Inputs
 
 
-### floorOutline
+### Floor Outline
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### beams
+### Beams
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Steel deck composite floor
 ## Outputs
 
 
-### compositeFloor
+### Composite Floor
 - **Type:** Shape
 
 
 
-### deck
+### Deck
 - **Type:** Shape
 
 

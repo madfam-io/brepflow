@@ -8,7 +8,7 @@ Sweep profile along helix
 ## Parameters
 
 
-### pitch
+### Pitch
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Sweep profile along helix
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Sweep profile along helix
 
 
 
-### turns
+### Turns
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Sweep profile along helix
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 20
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Sweep profile along helix
 
 
 
-### leftHanded
+### Left Handed
 - **Type:** boolean
 - **Default:** false
 
@@ -48,7 +48,7 @@ Sweep profile along helix
 
 
 
-### taper
+### Taper
 - **Type:** number
 - **Default:** 0
 - **Min:** -45
@@ -59,13 +59,13 @@ Sweep profile along helix
 ## Inputs
 
 
-### profile
+### Profile
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### axis
+### Axis
 - **Type:** Axis
 - **Required:** No
 
@@ -74,7 +74,7 @@ Sweep profile along helix
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

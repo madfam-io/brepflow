@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### field
+### Field
 - **Type:** Field
 - **Required:** No
 
 
 
-### domain
+### Domain
 - **Type:** Geometry
 - **Required:** No
 
@@ -27,22 +27,22 @@ This node has no parameters.
 ## Outputs
 
 
-### min
+### Min
 - **Type:** Number
 
 
 
-### max
+### Max
 - **Type:** Number
 
 
 
-### minPoint
+### Min Point
 - **Type:** Point
 
 
 
-### maxPoint
+### Max Point
 - **Type:** Point
 
 

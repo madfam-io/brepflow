@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type HyperbolicCosineParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface HyperbolicCosineInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface HyperbolicCosineOutputs {
+  result: unknown;
 }
 
 export const HyperbolicCosineNode: NodeDefinition<HyperbolicCosineInputs, HyperbolicCosineOutputs, HyperbolicCosineParams> = {
-  type: 'Math::HyperbolicCosine',
+  id: 'Math::HyperbolicCosine',
   category: 'Math',
-  subcategory: 'Trigonometry',
-
-  metadata: {
-    label: 'HyperbolicCosine',
-    description: 'Hyperbolic cosine',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'HyperbolicCosine',
+  description: 'Hyperbolic cosine',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathCosh',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

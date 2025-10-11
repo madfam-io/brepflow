@@ -8,7 +8,7 @@ Spatial data structure for fast queries
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "octree"
 
@@ -16,7 +16,7 @@ Spatial data structure for fast queries
 
 
 
-### maxDepth
+### Max Depth
 - **Type:** number
 - **Default:** 8
 - **Min:** 3
@@ -24,7 +24,7 @@ Spatial data structure for fast queries
 
 
 
-### leafSize
+### Leaf Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -35,7 +35,7 @@ Spatial data structure for fast queries
 ## Inputs
 
 
-### objects
+### Objects
 - **Type:** Shape[]
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Spatial data structure for fast queries
 ## Outputs
 
 
-### structure
+### Structure
 - **Type:** Properties
 
 
 
-### stats
+### Stats
 - **Type:** Properties
 
 
 
-### visualization
+### Visualization
 - **Type:** Wire[]
 
 

@@ -8,7 +8,7 @@ Topology optimization for structures
 ## Parameters
 
 
-### densityElements
+### Density Elements
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Topology optimization for structures
 
 
 
-### volumeFraction
+### Volume Fraction
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Topology optimization for structures
 
 
 
-### penalization
+### Penalization
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -32,7 +32,7 @@ Topology optimization for structures
 
 
 
-### filter
+### Filter
 - **Type:** boolean
 - **Default:** true
 
@@ -43,19 +43,19 @@ Topology optimization for structures
 ## Inputs
 
 
-### designDomain
+### Design Domain
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### loads
+### Loads
 - **Type:** Properties[]
 - **Required:** Yes
 
 
 
-### supports
+### Supports
 - **Type:** Properties[]
 - **Required:** Yes
 
@@ -64,17 +64,17 @@ Topology optimization for structures
 ## Outputs
 
 
-### optimizedShape
+### Optimized Shape
 - **Type:** Shape
 
 
 
-### densityField
+### Density Field
 - **Type:** Properties
 
 
 
-### compliance
+### Compliance
 - **Type:** number
 
 

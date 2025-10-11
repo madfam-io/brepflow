@@ -8,7 +8,7 @@ Create dome on face
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create dome on face
 
 
 
-### constraintType
+### Constraint Type
 - **Type:** enum
 - **Default:** "tangent"
 
@@ -27,7 +27,7 @@ Create dome on face
 ## Inputs
 
 
-### face
+### Face
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Create dome on face
 ## Outputs
 
 
-### dome
+### Dome
 - **Type:** Shape
 
 

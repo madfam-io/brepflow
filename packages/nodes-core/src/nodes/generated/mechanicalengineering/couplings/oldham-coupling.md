@@ -8,7 +8,7 @@ Create Oldham coupling
 ## Parameters
 
 
-### hubDiameter
+### Hub Diameter
 - **Type:** number
 - **Default:** 40
 - **Min:** 20
@@ -16,7 +16,7 @@ Create Oldham coupling
 
 
 
-### discDiameter
+### Disc Diameter
 - **Type:** number
 - **Default:** 35
 - **Min:** 15
@@ -24,7 +24,7 @@ Create Oldham coupling
 
 
 
-### slotWidth
+### Slot Width
 - **Type:** number
 - **Default:** 8
 - **Min:** 3
@@ -32,7 +32,7 @@ Create Oldham coupling
 
 
 
-### totalLength
+### Total Length
 - **Type:** number
 - **Default:** 40
 - **Min:** 20
@@ -43,7 +43,7 @@ Create Oldham coupling
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create Oldham coupling
 ## Outputs
 
 
-### assembly
+### Assembly
 - **Type:** Shape
 
 
 
-### hubs
+### Hubs
 - **Type:** Shape[]
 
 
 
-### disc
+### Disc
 - **Type:** Shape
 
 

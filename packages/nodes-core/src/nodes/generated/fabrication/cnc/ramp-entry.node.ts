@@ -1,54 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RampEntryParams {
   rampAngle: number;
   rampLength: number;
 }
-interface Inputs {
-  entryEdge: Edge;
-  depth: Number;
+
+interface RampEntryInputs {
+  entryEdge: unknown;
+  depth: number;
 }
-interface Outputs {
-  rampPath: Wire;
+
+interface RampEntryOutputs {
+  rampPath: unknown;
 }
 
 export const RampEntryNode: NodeDefinition<RampEntryInputs, RampEntryOutputs, RampEntryParams> = {
-  type: 'Fabrication::RampEntry',
+  id: 'Fabrication::RampEntry',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'RampEntry',
-    description: 'Ramped plunge entry',
-    
-    
-  },
-
-  params: {
-        rampAngle: {
-      "default": 5,
-      "min": 1,
-      "max": 30
+  label: 'RampEntry',
+  description: 'Ramped plunge entry',
+  inputs: {
+    entryEdge: {
+      type: 'Edge',
+      label: 'Entry Edge',
+      required: true
     },
-    rampLength: {
-      "default": 20,
-      "min": 5,
-      "max": 100
+    depth: {
+      type: 'Number',
+      label: 'Depth',
+      required: true
     }
   },
-
-  inputs: {
-        entryEdge: 'Edge',
-    depth: 'Number'
-  },
-
   outputs: {
-        rampPath: 'Wire'
+    rampPath: {
+      type: 'Wire',
+      label: 'Ramp Path'
+    }
   },
-
+  params: {
+    rampAngle: {
+      type: 'number',
+      label: 'Ramp Angle',
+      default: 5,
+      min: 1,
+      max: 30
+    },
+    rampLength: {
+      type: 'number',
+      label: 'Ramp Length',
+      default: 20,
+      min: 5,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'rampEntry',
       params: {
@@ -58,9 +63,9 @@ export const RampEntryNode: NodeDefinition<RampEntryInputs, RampEntryOutputs, Ra
         rampLength: params.rampLength
       }
     });
-
+    
     return {
       rampPath: result
     };
-  }
+  },
 };

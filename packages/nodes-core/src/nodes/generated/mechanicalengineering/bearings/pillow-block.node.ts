@@ -1,69 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PillowBlockParams {
   shaftDiameter: number;
   mountingHoles: number;
   baseWidth: number;
   height: number;
 }
-interface Inputs {
-  position: Point;
+
+interface PillowBlockInputs {
+  position: [number, number, number];
 }
-interface Outputs {
-  housing: Shape;
-  bearing: Shape;
-  mountingPoints: Point[];
+
+interface PillowBlockOutputs {
+  housing: unknown;
+  bearing: unknown;
+  mountingPoints: Array<[number, number, number]>;
 }
 
 export const PillowBlockNode: NodeDefinition<PillowBlockInputs, PillowBlockOutputs, PillowBlockParams> = {
-  type: 'MechanicalEngineering::PillowBlock',
+  id: 'MechanicalEngineering::PillowBlock',
   category: 'MechanicalEngineering',
-  subcategory: 'Bearings',
-
-  metadata: {
-    label: 'PillowBlock',
-    description: 'Create pillow block bearing housing',
-    
-    
-  },
-
-  params: {
-        shaftDiameter: {
-      "default": 20,
-      "min": 8,
-      "max": 100
-    },
-    mountingHoles: {
-      "default": 2,
-      "min": 2,
-      "max": 4
-    },
-    baseWidth: {
-      "default": 80,
-      "min": 30,
-      "max": 200
-    },
-    height: {
-      "default": 50,
-      "min": 20,
-      "max": 150
+  label: 'PillowBlock',
+  description: 'Create pillow block bearing housing',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        position: 'Point'
-  },
-
   outputs: {
-        housing: 'Shape',
-    bearing: 'Shape',
-    mountingPoints: 'Point[]'
+    housing: {
+      type: 'Shape',
+      label: 'Housing'
+    },
+    bearing: {
+      type: 'Shape',
+      label: 'Bearing'
+    },
+    mountingPoints: {
+      type: 'Point[]',
+      label: 'Mounting Points'
+    }
   },
-
+  params: {
+    shaftDiameter: {
+      type: 'number',
+      label: 'Shaft Diameter',
+      default: 20,
+      min: 8,
+      max: 100
+    },
+    mountingHoles: {
+      type: 'number',
+      label: 'Mounting Holes',
+      default: 2,
+      min: 2,
+      max: 4
+    },
+    baseWidth: {
+      type: 'number',
+      label: 'Base Width',
+      default: 80,
+      min: 30,
+      max: 200
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 50,
+      min: 20,
+      max: 150
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'pillowBlock',
       params: {
         position: inputs.position,
@@ -73,11 +84,11 @@ export const PillowBlockNode: NodeDefinition<PillowBlockInputs, PillowBlockOutpu
         height: params.height
       }
     });
-
+    
     return {
-      housing: result,
-      bearing: result,
-      mountingPoints: result
+      housing: results.housing,
+      bearing: results.bearing,
+      mountingPoints: results.mountingPoints
     };
-  }
+  },
 };

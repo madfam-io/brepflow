@@ -8,7 +8,7 @@ Analyze surface continuity across edges
 ## Parameters
 
 
-### continuityType
+### Continuity Type
 - **Type:** enum
 - **Default:** "G1"
 
@@ -16,7 +16,7 @@ Analyze surface continuity across edges
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -24,7 +24,7 @@ Analyze surface continuity across edges
 
 
 
-### showAnalysis
+### Show Analysis
 - **Type:** boolean
 - **Default:** true
 
@@ -35,13 +35,13 @@ Analyze surface continuity across edges
 ## Inputs
 
 
-### surface1
+### Surface1
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### surface2
+### Surface2
 - **Type:** Face
 - **Required:** Yes
 
@@ -50,17 +50,17 @@ Analyze surface continuity across edges
 ## Outputs
 
 
-### isContinuous
+### Is Continuous
 - **Type:** boolean
 
 
 
-### discontinuityPoints
+### Discontinuity Points
 - **Type:** Point[]
 
 
 
-### analysisLines
+### Analysis Lines
 - **Type:** Wire[]
 
 

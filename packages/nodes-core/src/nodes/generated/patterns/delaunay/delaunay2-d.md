@@ -8,7 +8,7 @@ Create 2D Delaunay triangulation
 ## Parameters
 
 
-### constrainEdges
+### Constrain Edges
 - **Type:** boolean
 - **Default:** false
 
@@ -19,13 +19,13 @@ Create 2D Delaunay triangulation
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### constraints
+### Constraints
 - **Type:** Edge[]
 - **Required:** No
 
@@ -34,12 +34,12 @@ Create 2D Delaunay triangulation
 ## Outputs
 
 
-### triangles
+### Triangles
 - **Type:** Face[]
 
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 
 

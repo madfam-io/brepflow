@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldLaplacianParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  field: ScalarField;
+interface FieldLaplacianInputs {
+  field: unknown;
 }
-interface Outputs {
-  laplacian: ScalarField;
+
+interface FieldLaplacianOutputs {
+  laplacian: unknown;
 }
 
 export const FieldLaplacianNode: NodeDefinition<FieldLaplacianInputs, FieldLaplacianOutputs, FieldLaplacianParams> = {
-  type: 'Field::FieldLaplacian',
+  id: 'Field::FieldLaplacian',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldLaplacian',
-    description: 'Compute Laplacian',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldLaplacian',
+  description: 'Compute Laplacian',
   inputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
+    }
   },
-
   outputs: {
-        laplacian: 'ScalarField'
+    laplacian: {
+      type: 'ScalarField',
+      label: 'Laplacian'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldLaplacian',
       params: {
         field: inputs.field
-        
       }
     });
-
+    
     return {
       laplacian: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Simplex noise
 ## Parameters
 
 
-### scale
+### Scale
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Simplex noise
 
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -27,19 +27,19 @@ Simplex noise
 ## Inputs
 
 
-### x
+### X
 - **Type:** number
 - **Required:** Yes
 
 
 
-### y
+### Y
 - **Type:** number
 - **Required:** No
 
 
 
-### z
+### Z
 - **Type:** number
 - **Required:** No
 
@@ -48,7 +48,7 @@ Simplex noise
 ## Outputs
 
 
-### noise
+### Noise
 - **Type:** number
 
 

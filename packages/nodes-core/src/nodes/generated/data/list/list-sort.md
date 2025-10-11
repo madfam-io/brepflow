@@ -8,7 +8,7 @@ Sort list
 ## Parameters
 
 
-### ascending
+### Ascending
 - **Type:** boolean
 - **Default:** true
 
@@ -19,13 +19,13 @@ Sort list
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
 
 
-### keys
+### Keys
 - **Type:** number[]
 - **Required:** No
 
@@ -34,12 +34,12 @@ Sort list
 ## Outputs
 
 
-### sorted
+### Sorted
 - **Type:** Data[]
 
 
 
-### indices
+### Indices
 - **Type:** number[]
 
 

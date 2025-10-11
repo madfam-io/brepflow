@@ -8,7 +8,7 @@ Avoid robot singularities
 ## Parameters
 
 
-### threshold
+### Threshold
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.01
@@ -19,7 +19,7 @@ Avoid robot singularities
 ## Inputs
 
 
-### jointTrajectory
+### Joint Trajectory
 - **Type:** Data
 - **Required:** Yes
 
@@ -28,12 +28,12 @@ Avoid robot singularities
 ## Outputs
 
 
-### safeTrajectory
+### Safe Trajectory
 - **Type:** Data
 
 
 
-### singularityPoints
+### Singularity Points
 - **Type:** Number[]
 
 

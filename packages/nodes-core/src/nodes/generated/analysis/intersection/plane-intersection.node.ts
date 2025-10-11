@@ -1,51 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PlaneIntersectionParams {
   tolerance: number;
 }
-interface Inputs {
-  geometry: Shape;
-  plane: Face;
+
+interface PlaneIntersectionInputs {
+  geometry: unknown;
+  plane: unknown;
 }
-interface Outputs {
-  intersectionCurves: Wire[];
-  sectionProfiles: Wire[];
+
+interface PlaneIntersectionOutputs {
+  intersectionCurves: unknown;
+  sectionProfiles: unknown;
 }
 
 export const PlaneIntersectionNode: NodeDefinition<PlaneIntersectionInputs, PlaneIntersectionOutputs, PlaneIntersectionParams> = {
-  type: 'Analysis::PlaneIntersection',
+  id: 'Analysis::PlaneIntersection',
   category: 'Analysis',
-  subcategory: 'Intersection',
-
-  metadata: {
-    label: 'PlaneIntersection',
-    description: 'Intersect geometry with plane',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
+  label: 'PlaneIntersection',
+  description: 'Intersect geometry with plane',
+  inputs: {
+    geometry: {
+      type: 'Shape',
+      label: 'Geometry',
+      required: true
+    },
+    plane: {
+      type: 'Face',
+      label: 'Plane',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Shape',
-    plane: 'Face'
-  },
-
   outputs: {
-        intersectionCurves: 'Wire[]',
-    sectionProfiles: 'Wire[]'
+    intersectionCurves: {
+      type: 'Wire[]',
+      label: 'Intersection Curves'
+    },
+    sectionProfiles: {
+      type: 'Wire[]',
+      label: 'Section Profiles'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'planeIntersection',
       params: {
         geometry: inputs.geometry,
@@ -53,10 +59,10 @@ export const PlaneIntersectionNode: NodeDefinition<PlaneIntersectionInputs, Plan
         tolerance: params.tolerance
       }
     });
-
+    
     return {
-      intersectionCurves: result,
-      sectionProfiles: result
+      intersectionCurves: results.intersectionCurves,
+      sectionProfiles: results.sectionProfiles
     };
-  }
+  },
 };

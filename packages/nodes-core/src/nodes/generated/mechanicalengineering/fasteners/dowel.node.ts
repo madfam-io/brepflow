@@ -1,68 +1,72 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DowelParams {
   diameter: number;
   length: number;
   tolerance: string;
   chamfered: boolean;
 }
-interface Inputs {
-  position: Point;
-  direction?: Vector;
+
+interface DowelInputs {
+  position: [number, number, number];
+  direction?: [number, number, number];
 }
-interface Outputs {
-  dowel: Shape;
+
+interface DowelOutputs {
+  dowel: unknown;
 }
 
 export const DowelNode: NodeDefinition<DowelInputs, DowelOutputs, DowelParams> = {
-  type: 'MechanicalEngineering::Dowel',
+  id: 'MechanicalEngineering::Dowel',
   category: 'MechanicalEngineering',
-  subcategory: 'Fasteners',
-
-  metadata: {
-    label: 'Dowel',
-    description: 'Create dowel pin',
-    
-    
-  },
-
-  params: {
-        diameter: {
-      "default": 6,
-      "min": 2,
-      "max": 20
+  label: 'Dowel',
+  description: 'Create dowel pin',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     },
-    length: {
-      "default": 20,
-      "min": 5,
-      "max": 100
-    },
-    tolerance: {
-      "default": "h7",
-      "options": [
-        "h6",
-        "h7",
-        "h8",
-        "m6"
-      ]
-    },
-    chamfered: {
-      "default": true
+    direction: {
+      type: 'Vector',
+      label: 'Direction',
+      optional: true
     }
   },
-
-  inputs: {
-        position: 'Point',
-    direction: 'Vector'
-  },
-
   outputs: {
-        dowel: 'Shape'
+    dowel: {
+      type: 'Shape',
+      label: 'Dowel'
+    }
   },
-
+  params: {
+    diameter: {
+      type: 'number',
+      label: 'Diameter',
+      default: 6,
+      min: 2,
+      max: 20
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 20,
+      min: 5,
+      max: 100
+    },
+    tolerance: {
+      type: 'enum',
+      label: 'Tolerance',
+      default: "h7",
+      options: ["h6","h7","h8","m6"]
+    },
+    chamfered: {
+      type: 'boolean',
+      label: 'Chamfered',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'dowelPin',
       params: {
@@ -74,9 +78,9 @@ export const DowelNode: NodeDefinition<DowelInputs, DowelOutputs, DowelParams> =
         chamfered: params.chamfered
       }
     });
-
+    
     return {
       dowel: result
     };
-  }
+  },
 };

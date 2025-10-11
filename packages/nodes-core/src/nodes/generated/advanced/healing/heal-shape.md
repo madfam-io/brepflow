@@ -8,7 +8,7 @@ Repair geometric errors
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -16,7 +16,7 @@ Repair geometric errors
 
 
 
-### fixSmallEdges
+### Fix Small Edges
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Repair geometric errors
 
 
 
-### fixSmallFaces
+### Fix Small Faces
 - **Type:** boolean
 - **Default:** true
 
@@ -32,7 +32,7 @@ Repair geometric errors
 
 
 
-### sewFaces
+### Sew Faces
 - **Type:** boolean
 - **Default:** true
 
@@ -40,7 +40,7 @@ Repair geometric errors
 
 
 
-### makeManifold
+### Make Manifold
 - **Type:** boolean
 - **Default:** false
 
@@ -51,7 +51,7 @@ Repair geometric errors
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -60,12 +60,12 @@ Repair geometric errors
 ## Outputs
 
 
-### healed
+### Healed
 - **Type:** Shape
 
 
 
-### report
+### Report
 - **Type:** Data
 
 

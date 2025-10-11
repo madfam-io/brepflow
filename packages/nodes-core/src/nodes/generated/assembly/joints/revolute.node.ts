@@ -1,56 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RevoluteParams {
   minAngle: number;
   maxAngle: number;
 }
-interface Inputs {
-  part1: Shape;
-  part2: Shape;
-  axis: Axis;
+
+interface RevoluteInputs {
+  part1: unknown;
+  part2: unknown;
+  axis: unknown;
 }
-interface Outputs {
-  joint: Joint;
+
+interface RevoluteOutputs {
+  joint: unknown;
 }
 
 export const RevoluteNode: NodeDefinition<RevoluteInputs, RevoluteOutputs, RevoluteParams> = {
-  type: 'Assembly::Revolute',
+  id: 'Assembly::Revolute',
   category: 'Assembly',
-  subcategory: 'Joints',
-
-  metadata: {
-    label: 'Revolute',
-    description: 'Create revolute (hinge) joint',
-    
-    
-  },
-
-  params: {
-        minAngle: {
-      "default": -180,
-      "min": -360,
-      "max": 360
+  label: 'Revolute',
+  description: 'Create revolute (hinge) joint',
+  inputs: {
+    part1: {
+      type: 'Shape',
+      label: 'Part1',
+      required: true
     },
-    maxAngle: {
-      "default": 180,
-      "min": -360,
-      "max": 360
+    part2: {
+      type: 'Shape',
+      label: 'Part2',
+      required: true
+    },
+    axis: {
+      type: 'Axis',
+      label: 'Axis',
+      required: true
     }
   },
-
-  inputs: {
-        part1: 'Shape',
-    part2: 'Shape',
-    axis: 'Axis'
-  },
-
   outputs: {
-        joint: 'Joint'
+    joint: {
+      type: 'Joint',
+      label: 'Joint'
+    }
   },
-
+  params: {
+    minAngle: {
+      type: 'number',
+      label: 'Min Angle',
+      default: -180,
+      min: -360,
+      max: 360
+    },
+    maxAngle: {
+      type: 'number',
+      label: 'Max Angle',
+      default: 180,
+      min: -360,
+      max: 360
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jointRevolute',
       params: {
@@ -61,9 +70,9 @@ export const RevoluteNode: NodeDefinition<RevoluteInputs, RevoluteOutputs, Revol
         maxAngle: params.maxAngle
       }
     });
-
+    
     return {
       joint: result
     };
-  }
+  },
 };

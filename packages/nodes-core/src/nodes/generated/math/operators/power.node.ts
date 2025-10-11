@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type PowerParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  base: number;
-  exponent: number;
+interface PowerInputs {
+  base: unknown;
+  exponent: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface PowerOutputs {
+  result: unknown;
 }
 
 export const PowerNode: NodeDefinition<PowerInputs, PowerOutputs, PowerParams> = {
-  type: 'Math::Power',
+  id: 'Math::Power',
   category: 'Math',
-  subcategory: 'Operators',
-
-  metadata: {
-    label: 'Power',
-    description: 'Raise to power',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Power',
+  description: 'Raise to power',
   inputs: {
-        base: 'number',
-    exponent: 'number'
+    base: {
+      type: 'number',
+      label: 'Base',
+      required: true
+    },
+    exponent: {
+      type: 'number',
+      label: 'Exponent',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathPower',
       params: {
         base: inputs.base,
         exponent: inputs.exponent
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

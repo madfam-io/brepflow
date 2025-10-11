@@ -1,70 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FluidCouplingParams {
   impellerDiameter: number;
   housingDiameter: number;
   vaneCount: number;
   fluidCapacity: number;
 }
-interface Inputs {
-  center: Point;
+
+interface FluidCouplingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  coupling: Shape;
-  impeller: Shape;
-  turbine: Shape;
+
+interface FluidCouplingOutputs {
+  coupling: unknown;
+  impeller: unknown;
+  turbine: unknown;
 }
 
 export const FluidCouplingNode: NodeDefinition<FluidCouplingInputs, FluidCouplingOutputs, FluidCouplingParams> = {
-  type: 'MechanicalEngineering::FluidCoupling',
+  id: 'MechanicalEngineering::FluidCoupling',
   category: 'MechanicalEngineering',
-  subcategory: 'Couplings',
-
-  metadata: {
-    label: 'FluidCoupling',
-    description: 'Create fluid coupling design',
-    
-    
-  },
-
-  params: {
-        impellerDiameter: {
-      "default": 150,
-      "min": 50,
-      "max": 500
-    },
-    housingDiameter: {
-      "default": 180,
-      "min": 60,
-      "max": 600
-    },
-    vaneCount: {
-      "default": 32,
-      "min": 16,
-      "max": 64
-    },
-    fluidCapacity: {
-      "default": 2,
-      "min": 0.5,
-      "max": 20,
-      "description": "Liters"
+  label: 'FluidCoupling',
+  description: 'Create fluid coupling design',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        coupling: 'Shape',
-    impeller: 'Shape',
-    turbine: 'Shape'
+    coupling: {
+      type: 'Shape',
+      label: 'Coupling'
+    },
+    impeller: {
+      type: 'Shape',
+      label: 'Impeller'
+    },
+    turbine: {
+      type: 'Shape',
+      label: 'Turbine'
+    }
   },
-
+  params: {
+    impellerDiameter: {
+      type: 'number',
+      label: 'Impeller Diameter',
+      default: 150,
+      min: 50,
+      max: 500
+    },
+    housingDiameter: {
+      type: 'number',
+      label: 'Housing Diameter',
+      default: 180,
+      min: 60,
+      max: 600
+    },
+    vaneCount: {
+      type: 'number',
+      label: 'Vane Count',
+      default: 32,
+      min: 16,
+      max: 64
+    },
+    fluidCapacity: {
+      type: 'number',
+      label: 'Fluid Capacity',
+      default: 2,
+      min: 0.5,
+      max: 20
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'fluidCoupling',
       params: {
         center: inputs.center,
@@ -74,11 +84,11 @@ export const FluidCouplingNode: NodeDefinition<FluidCouplingInputs, FluidCouplin
         fluidCapacity: params.fluidCapacity
       }
     });
-
+    
     return {
-      coupling: result,
-      impeller: result,
-      turbine: result
+      coupling: results.coupling,
+      impeller: results.impeller,
+      turbine: results.turbine
     };
-  }
+  },
 };

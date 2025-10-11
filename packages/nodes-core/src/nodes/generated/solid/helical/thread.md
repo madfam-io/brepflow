@@ -8,7 +8,7 @@ Create threaded geometry
 ## Parameters
 
 
-### majorRadius
+### Major Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create threaded geometry
 
 
 
-### pitch
+### Pitch
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create threaded geometry
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create threaded geometry
 
 
 
-### threadAngle
+### Thread Angle
 - **Type:** number
 - **Default:** 60
 - **Min:** 30
@@ -40,7 +40,7 @@ Create threaded geometry
 
 
 
-### internal
+### Internal
 - **Type:** boolean
 - **Default:** false
 
@@ -55,7 +55,7 @@ This node has no inputs.
 ## Outputs
 
 
-### thread
+### Thread
 - **Type:** Solid
 - **Description:** Threaded geometry
 

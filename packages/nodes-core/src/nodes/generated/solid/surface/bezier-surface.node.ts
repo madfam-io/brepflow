@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BezierSurfaceParams {
   uDegree: number;
   vDegree: number;
 }
-interface Inputs {
-  controlPoints: Point[][];
+
+interface BezierSurfaceInputs {
+  controlPoints: unknown;
 }
-interface Outputs {
-  surface: Face;
+
+interface BezierSurfaceOutputs {
+  surface: unknown;
 }
 
 export const BezierSurfaceNode: NodeDefinition<BezierSurfaceInputs, BezierSurfaceOutputs, BezierSurfaceParams> = {
-  type: 'Solid::BezierSurface',
+  id: 'Solid::BezierSurface',
   category: 'Solid',
-  subcategory: 'Surface',
-
-  metadata: {
-    label: 'BezierSurface',
-    description: 'Create a Bezier surface from control points',
-    
-    
-  },
-
-  params: {
-        uDegree: {
-      "default": 3,
-      "min": 1,
-      "max": 10
-    },
-    vDegree: {
-      "default": 3,
-      "min": 1,
-      "max": 10
+  label: 'BezierSurface',
+  description: 'Create a Bezier surface from control points',
+  inputs: {
+    controlPoints: {
+      type: 'Point[][]',
+      label: 'Control Points',
+      required: true
     }
   },
-
-  inputs: {
-        controlPoints: 'Point[][]'
-  },
-
   outputs: {
-        surface: 'Face'
+    surface: {
+      type: 'Face',
+      label: 'Surface'
+    }
   },
-
+  params: {
+    uDegree: {
+      type: 'number',
+      label: 'U Degree',
+      default: 3,
+      min: 1,
+      max: 10
+    },
+    vDegree: {
+      type: 'number',
+      label: 'V Degree',
+      default: 3,
+      min: 1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeBezierSurface',
       params: {
@@ -55,9 +56,9 @@ export const BezierSurfaceNode: NodeDefinition<BezierSurfaceInputs, BezierSurfac
         vDegree: params.vDegree
       }
     });
-
+    
     return {
       surface: result
     };
-  }
+  },
 };

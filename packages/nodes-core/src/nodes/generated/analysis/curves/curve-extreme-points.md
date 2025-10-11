@@ -1,5 +1,5 @@
 
-# CurveExtremePo}ints Node
+# CurveExtremePoints Node
 
 **Category:** Analysis / Curves
 
@@ -8,7 +8,7 @@ Find extreme points (min/max X,Y,Z)
 ## Parameters
 
 
-### axis
+### Axis
 - **Type:** enum
 - **Default:** "all"
 
@@ -16,7 +16,7 @@ Find extreme points (min/max X,Y,Z)
 
 
 
-### markPoints
+### Mark Points
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Find extreme points (min/max X,Y,Z)
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Find extreme points (min/max X,Y,Z)
 ## Outputs
 
 
-### minPoints
+### Min Points
 - **Type:** Point[]
 
 
 
-### maxPoints
+### Max Points
 - **Type:** Point[]
 
 
 
-### extremeValues
+### Extreme Values
 - **Type:** number[]
 
 

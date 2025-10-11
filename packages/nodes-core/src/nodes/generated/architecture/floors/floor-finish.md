@@ -8,7 +8,7 @@ Floor finish materials
 ## Parameters
 
 
-### material
+### Material
 - **Type:** enum
 - **Default:** "tile"
 
@@ -16,7 +16,7 @@ Floor finish materials
 
 
 
-### pattern
+### Pattern
 - **Type:** enum
 - **Default:** "straight"
 
@@ -27,7 +27,7 @@ Floor finish materials
 ## Inputs
 
 
-### floorArea
+### Floor Area
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Floor finish materials
 ## Outputs
 
 
-### finishedFloor
+### Finished Floor
 - **Type:** Face
 
 
 
-### pattern
+### Pattern
 - **Type:** Wire[]
 
 

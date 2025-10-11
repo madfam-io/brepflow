@@ -8,7 +8,7 @@ Create a regular polygon
 ## Parameters
 
 
-### sides
+### Sides
 - **Type:** number
 - **Default:** 6
 - **Min:** 3
@@ -16,7 +16,7 @@ Create a regular polygon
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a regular polygon
 
 
 
-### inscribed
+### Inscribed
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Create a regular polygon
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** No
 
@@ -44,7 +44,7 @@ Create a regular polygon
 ## Outputs
 
 
-### polygon
+### Polygon
 - **Type:** Wire
 - **Description:** Regular polygon
 

@@ -1,53 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TiltUpPanelParams {
   panelThickness: number;
   reinforcement: boolean;
 }
-interface Inputs {
-  panelOutline: Wire;
+
+interface TiltUpPanelInputs {
+  panelOutline: unknown;
 }
-interface Outputs {
-  panel: Shape;
-  liftingPoints: Point[];
+
+interface TiltUpPanelOutputs {
+  panel: unknown;
+  liftingPoints: Array<[number, number, number]>;
 }
 
 export const TiltUpPanelNode: NodeDefinition<TiltUpPanelInputs, TiltUpPanelOutputs, TiltUpPanelParams> = {
-  type: 'Architecture::TiltUpPanel',
+  id: 'Architecture::TiltUpPanel',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'TiltUpPanel',
-    description: 'Tilt-up concrete panel',
-    
-    
-  },
-
-  params: {
-        panelThickness: {
-      "default": 200,
-      "min": 150,
-      "max": 400
-    },
-    reinforcement: {
-      "default": true
+  label: 'TiltUpPanel',
+  description: 'Tilt-up concrete panel',
+  inputs: {
+    panelOutline: {
+      type: 'Wire',
+      label: 'Panel Outline',
+      required: true
     }
   },
-
-  inputs: {
-        panelOutline: 'Wire'
-  },
-
   outputs: {
-        panel: 'Shape',
-    liftingPoints: 'Point[]'
+    panel: {
+      type: 'Shape',
+      label: 'Panel'
+    },
+    liftingPoints: {
+      type: 'Point[]',
+      label: 'Lifting Points'
+    }
   },
-
+  params: {
+    panelThickness: {
+      type: 'number',
+      label: 'Panel Thickness',
+      default: 200,
+      min: 150,
+      max: 400
+    },
+    reinforcement: {
+      type: 'boolean',
+      label: 'Reinforcement',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'tiltUpPanel',
       params: {
         panelOutline: inputs.panelOutline,
@@ -55,10 +59,10 @@ export const TiltUpPanelNode: NodeDefinition<TiltUpPanelInputs, TiltUpPanelOutpu
         reinforcement: params.reinforcement
       }
     });
-
+    
     return {
-      panel: result,
-      liftingPoints: result
+      panel: results.panel,
+      liftingPoints: results.liftingPoints
     };
-  }
+  },
 };

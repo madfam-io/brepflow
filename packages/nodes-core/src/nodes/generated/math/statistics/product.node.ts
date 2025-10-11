@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ProductParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  values: number[];
+interface ProductInputs {
+  values: unknown;
 }
-interface Outputs {
-  product: number;
+
+interface ProductOutputs {
+  product: unknown;
 }
 
 export const ProductNode: NodeDefinition<ProductInputs, ProductOutputs, ProductParams> = {
-  type: 'Math::Product',
+  id: 'Math::Product',
   category: 'Math',
-  subcategory: 'Statistics',
-
-  metadata: {
-    label: 'Product',
-    description: 'Product of values',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Product',
+  description: 'Product of values',
   inputs: {
-        values: 'number[]'
+    values: {
+      type: 'number[]',
+      label: 'Values',
+      required: true
+    }
   },
-
   outputs: {
-        product: 'number'
+    product: {
+      type: 'number',
+      label: 'Product'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathProduct',
       params: {
         values: inputs.values
-        
       }
     });
-
+    
     return {
       product: result
     };
-  }
+  },
 };

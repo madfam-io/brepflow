@@ -1,66 +1,69 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveSmoothnessAnalysisParams {
   continuityLevel: string;
   tolerance: number;
   showBreaks: boolean;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveSmoothnessAnalysisInputs {
+  curve: unknown;
 }
-interface Outputs {
-  isSmooth: boolean;
-  breakPoints: Point[];
-  continuityReport: Properties;
+
+interface CurveSmoothnessAnalysisOutputs {
+  isSmooth: unknown;
+  breakPoints: Array<[number, number, number]>;
+  continuityReport: unknown;
 }
 
 export const CurveSmoothnessAnalysisNode: NodeDefinition<CurveSmoothnessAnalysisInputs, CurveSmoothnessAnalysisOutputs, CurveSmoothnessAnalysisParams> = {
-  type: 'Analysis::CurveSmoothnessAnalysis',
+  id: 'Analysis::CurveSmoothnessAnalysis',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveSmoothnessAnalysis',
-    description: 'Analyze curve continuity and smoothness',
-    
-    
-  },
-
-  params: {
-        continuityLevel: {
-      "default": "G2",
-      "options": [
-        "C0",
-        "C1",
-        "C2",
-        "G1",
-        "G2"
-      ]
-    },
-    tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
-    },
-    showBreaks: {
-      "default": true
+  label: 'CurveSmoothnessAnalysis',
+  description: 'Analyze curve continuity and smoothness',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        isSmooth: 'boolean',
-    breakPoints: 'Point[]',
-    continuityReport: 'Properties'
+    isSmooth: {
+      type: 'boolean',
+      label: 'Is Smooth'
+    },
+    breakPoints: {
+      type: 'Point[]',
+      label: 'Break Points'
+    },
+    continuityReport: {
+      type: 'Properties',
+      label: 'Continuity Report'
+    }
   },
-
+  params: {
+    continuityLevel: {
+      type: 'enum',
+      label: 'Continuity Level',
+      default: "G2",
+      options: ["C0","C1","C2","G1","G2"]
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    showBreaks: {
+      type: 'boolean',
+      label: 'Show Breaks',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveSmoothness',
       params: {
         curve: inputs.curve,
@@ -69,11 +72,11 @@ export const CurveSmoothnessAnalysisNode: NodeDefinition<CurveSmoothnessAnalysis
         showBreaks: params.showBreaks
       }
     });
-
+    
     return {
-      isSmooth: result,
-      breakPoints: result,
-      continuityReport: result
+      isSmooth: results.isSmooth,
+      breakPoints: results.breakPoints,
+      continuityReport: results.continuityReport
     };
-  }
+  },
 };

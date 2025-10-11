@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type AverageParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  values: number[];
+interface AverageInputs {
+  values: unknown;
 }
-interface Outputs {
-  average: number;
+
+interface AverageOutputs {
+  average: unknown;
 }
 
 export const AverageNode: NodeDefinition<AverageInputs, AverageOutputs, AverageParams> = {
-  type: 'Math::Average',
+  id: 'Math::Average',
   category: 'Math',
-  subcategory: 'Statistics',
-
-  metadata: {
-    label: 'Average',
-    description: 'Calculate average',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Average',
+  description: 'Calculate average',
   inputs: {
-        values: 'number[]'
+    values: {
+      type: 'number[]',
+      label: 'Values',
+      required: true
+    }
   },
-
   outputs: {
-        average: 'number'
+    average: {
+      type: 'number',
+      label: 'Average'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathAverage',
       params: {
         values: inputs.values
-        
       }
     });
-
+    
     return {
       average: result
     };
-  }
+  },
 };

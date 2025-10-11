@@ -8,7 +8,7 @@ Generate raster engraving
 ## Parameters
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 300
 - **Min:** 100
@@ -16,7 +16,7 @@ Generate raster engraving
 
 
 
-### dithering
+### Dithering
 - **Type:** enum
 - **Default:** "floyd-steinberg"
 
@@ -27,13 +27,13 @@ Generate raster engraving
 ## Inputs
 
 
-### image
+### Image
 - **Type:** Data
 - **Required:** Yes
 
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Generate raster engraving
 ## Outputs
 
 
-### rasterData
+### Raster Data
 - **Type:** Data
 
 

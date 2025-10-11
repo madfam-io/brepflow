@@ -8,7 +8,7 @@ Voronoi on curved surface
 ## Parameters
 
 
-### geodesic
+### Geodesic
 - **Type:** boolean
 - **Default:** true
 
@@ -19,13 +19,13 @@ Voronoi on curved surface
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Voronoi on curved surface
 ## Outputs
 
 
-### cells
+### Cells
 - **Type:** Wire[]
 
 

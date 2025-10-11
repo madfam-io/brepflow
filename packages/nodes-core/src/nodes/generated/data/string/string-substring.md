@@ -12,19 +12,19 @@ This node has no parameters.
 ## Inputs
 
 
-### string
+### String
 - **Type:** string
 - **Required:** Yes
 
 
 
-### start
+### Start
 - **Type:** number
 - **Required:** Yes
 
 
 
-### length
+### Length
 - **Type:** number
 - **Required:** No
 
@@ -33,7 +33,7 @@ This node has no parameters.
 ## Outputs
 
 
-### substring
+### Substring
 - **Type:** string
 
 

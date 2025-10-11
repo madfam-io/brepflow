@@ -1,59 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SlidingWindowParams {
   panels: number;
   operablePanel: string;
 }
-interface Inputs {
-  opening: Wire;
+
+interface SlidingWindowInputs {
+  opening: unknown;
 }
-interface Outputs {
-  window: Shape;
-  panels: Shape[];
+
+interface SlidingWindowOutputs {
+  window: unknown;
+  panels: unknown;
 }
 
 export const SlidingWindowNode: NodeDefinition<SlidingWindowInputs, SlidingWindowOutputs, SlidingWindowParams> = {
-  type: 'Architecture::SlidingWindow',
+  id: 'Architecture::SlidingWindow',
   category: 'Architecture',
-  subcategory: 'Windows',
-
-  metadata: {
-    label: 'SlidingWindow',
-    description: 'Horizontal sliding window',
-    
-    
-  },
-
-  params: {
-        panels: {
-      "default": 2,
-      "min": 2,
-      "max": 4,
-      "step": 1
-    },
-    operablePanel: {
-      "default": "left",
-      "options": [
-        "left",
-        "right",
-        "both"
-      ]
+  label: 'SlidingWindow',
+  description: 'Horizontal sliding window',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        window: 'Shape',
-    panels: 'Shape[]'
+    window: {
+      type: 'Shape',
+      label: 'Window'
+    },
+    panels: {
+      type: 'Shape[]',
+      label: 'Panels'
+    }
   },
-
+  params: {
+    panels: {
+      type: 'number',
+      label: 'Panels',
+      default: 2,
+      min: 2,
+      max: 4,
+      step: 1
+    },
+    operablePanel: {
+      type: 'enum',
+      label: 'Operable Panel',
+      default: "left",
+      options: ["left","right","both"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'slidingWindow',
       params: {
         opening: inputs.opening,
@@ -61,10 +61,10 @@ export const SlidingWindowNode: NodeDefinition<SlidingWindowInputs, SlidingWindo
         operablePanel: params.operablePanel
       }
     });
-
+    
     return {
-      window: result,
-      panels: result
+      window: results.window,
+      panels: results.panels
     };
-  }
+  },
 };

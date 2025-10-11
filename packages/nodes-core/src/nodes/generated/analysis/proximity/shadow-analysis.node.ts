@@ -1,66 +1,81 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ShadowAnalysisParams {
   lightType: string;
   intensity: number;
 }
-interface Inputs {
-  lightSource: Point;
-  lightDirection?: Vector;
-  objects: Shape[];
-  groundPlane: Face;
+
+interface ShadowAnalysisInputs {
+  lightSource: [number, number, number];
+  lightDirection?: [number, number, number];
+  objects: unknown;
+  groundPlane: unknown;
 }
-interface Outputs {
-  shadowRegions: Face[];
-  lightRays: Wire[];
-  illuminatedAreas: Face[];
+
+interface ShadowAnalysisOutputs {
+  shadowRegions: unknown;
+  lightRays: unknown;
+  illuminatedAreas: unknown;
 }
 
 export const ShadowAnalysisNode: NodeDefinition<ShadowAnalysisInputs, ShadowAnalysisOutputs, ShadowAnalysisParams> = {
-  type: 'Analysis::ShadowAnalysis',
+  id: 'Analysis::ShadowAnalysis',
   category: 'Analysis',
-  subcategory: 'Proximity',
-
-  metadata: {
-    label: 'ShadowAnalysis',
-    description: 'Calculate shadow patterns',
-    
-    
-  },
-
-  params: {
-        lightType: {
-      "default": "directional",
-      "options": [
-        "directional",
-        "point",
-        "spot"
-      ]
+  label: 'ShadowAnalysis',
+  description: 'Calculate shadow patterns',
+  inputs: {
+    lightSource: {
+      type: 'Point',
+      label: 'Light Source',
+      required: true
     },
-    intensity: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
+    lightDirection: {
+      type: 'Vector',
+      label: 'Light Direction',
+      optional: true
+    },
+    objects: {
+      type: 'Shape[]',
+      label: 'Objects',
+      required: true
+    },
+    groundPlane: {
+      type: 'Face',
+      label: 'Ground Plane',
+      required: true
     }
   },
-
-  inputs: {
-        lightSource: 'Point',
-    lightDirection: 'Vector',
-    objects: 'Shape[]',
-    groundPlane: 'Face'
-  },
-
   outputs: {
-        shadowRegions: 'Face[]',
-    lightRays: 'Wire[]',
-    illuminatedAreas: 'Face[]'
+    shadowRegions: {
+      type: 'Face[]',
+      label: 'Shadow Regions'
+    },
+    lightRays: {
+      type: 'Wire[]',
+      label: 'Light Rays'
+    },
+    illuminatedAreas: {
+      type: 'Face[]',
+      label: 'Illuminated Areas'
+    }
   },
-
+  params: {
+    lightType: {
+      type: 'enum',
+      label: 'Light Type',
+      default: "directional",
+      options: ["directional","point","spot"]
+    },
+    intensity: {
+      type: 'number',
+      label: 'Intensity',
+      default: 1,
+      min: 0.1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'shadowAnalysis',
       params: {
         lightSource: inputs.lightSource,
@@ -71,11 +86,11 @@ export const ShadowAnalysisNode: NodeDefinition<ShadowAnalysisInputs, ShadowAnal
         intensity: params.intensity
       }
     });
-
+    
     return {
-      shadowRegions: result,
-      lightRays: result,
-      illuminatedAreas: result
+      shadowRegions: results.shadowRegions,
+      lightRays: results.lightRays,
+      illuminatedAreas: results.illuminatedAreas
     };
-  }
+  },
 };

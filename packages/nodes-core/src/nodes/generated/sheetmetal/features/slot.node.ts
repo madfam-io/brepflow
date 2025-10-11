@@ -1,62 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SlotParams {
   slotWidth: number;
   slotDepth: number;
   clearance: number;
 }
-interface Inputs {
-  sheet: Shape;
-  edge: Edge;
-  position: Point;
+
+interface SlotInputs {
+  sheet: unknown;
+  edge: unknown;
+  position: [number, number, number];
 }
-interface Outputs {
-  result: Shape;
+
+interface SlotOutputs {
+  result: unknown;
 }
 
 export const SlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
-  type: 'SheetMetal::Slot',
+  id: 'SheetMetal::Slot',
   category: 'SheetMetal',
-  subcategory: 'Features',
-
-  metadata: {
-    label: 'Slot',
-    description: 'Create slot for tab',
-    
-    
-  },
-
-  params: {
-        slotWidth: {
-      "default": 20,
-      "min": 0.1,
-      "max": 500
+  label: 'Slot',
+  description: 'Create slot for tab',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    slotDepth: {
-      "default": 10,
-      "min": 0.1,
-      "max": 100
+    edge: {
+      type: 'Edge',
+      label: 'Edge',
+      required: true
     },
-    clearance: {
-      "default": 0.2,
-      "min": 0,
-      "max": 5
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    edge: 'Edge',
-    position: 'Point'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    slotWidth: {
+      type: 'number',
+      label: 'Slot Width',
+      default: 20,
+      min: 0.1,
+      max: 500
+    },
+    slotDepth: {
+      type: 'number',
+      label: 'Slot Depth',
+      default: 10,
+      min: 0.1,
+      max: 100
+    },
+    clearance: {
+      type: 'number',
+      label: 'Clearance',
+      default: 0.2,
+      min: 0,
+      max: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetSlot',
       params: {
@@ -68,9 +79,9 @@ export const SlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
         clearance: params.clearance
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

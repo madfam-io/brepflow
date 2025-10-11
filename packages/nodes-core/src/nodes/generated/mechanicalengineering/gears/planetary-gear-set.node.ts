@@ -1,71 +1,85 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PlanetaryGearSetParams {
   sunTeeth: number;
   planetTeeth: number;
   planetCount: number;
   module: number;
 }
-interface Inputs {
-  center: Point;
+
+interface PlanetaryGearSetInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  assembly: Shape;
-  sunGear: Shape;
-  planetGears: Shape[];
-  ringGear: Shape;
+
+interface PlanetaryGearSetOutputs {
+  assembly: unknown;
+  sunGear: unknown;
+  planetGears: unknown;
+  ringGear: unknown;
 }
 
 export const PlanetaryGearSetNode: NodeDefinition<PlanetaryGearSetInputs, PlanetaryGearSetOutputs, PlanetaryGearSetParams> = {
-  type: 'MechanicalEngineering::PlanetaryGearSet',
+  id: 'MechanicalEngineering::PlanetaryGearSet',
   category: 'MechanicalEngineering',
-  subcategory: 'Gears',
-
-  metadata: {
-    label: 'PlanetaryGearSet',
-    description: 'Create planetary gear system',
-    
-    
-  },
-
-  params: {
-        sunTeeth: {
-      "default": 20,
-      "min": 12,
-      "max": 40
-    },
-    planetTeeth: {
-      "default": 16,
-      "min": 8,
-      "max": 30
-    },
-    planetCount: {
-      "default": 3,
-      "min": 2,
-      "max": 6
-    },
-    module: {
-      "default": 2,
-      "min": 0.5,
-      "max": 5
+  label: 'PlanetaryGearSet',
+  description: 'Create planetary gear system',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        assembly: 'Shape',
-    sunGear: 'Shape',
-    planetGears: 'Shape[]',
-    ringGear: 'Shape'
+    assembly: {
+      type: 'Shape',
+      label: 'Assembly'
+    },
+    sunGear: {
+      type: 'Shape',
+      label: 'Sun Gear'
+    },
+    planetGears: {
+      type: 'Shape[]',
+      label: 'Planet Gears'
+    },
+    ringGear: {
+      type: 'Shape',
+      label: 'Ring Gear'
+    }
   },
-
+  params: {
+    sunTeeth: {
+      type: 'number',
+      label: 'Sun Teeth',
+      default: 20,
+      min: 12,
+      max: 40
+    },
+    planetTeeth: {
+      type: 'number',
+      label: 'Planet Teeth',
+      default: 16,
+      min: 8,
+      max: 30
+    },
+    planetCount: {
+      type: 'number',
+      label: 'Planet Count',
+      default: 3,
+      min: 2,
+      max: 6
+    },
+    module: {
+      type: 'number',
+      label: 'Module',
+      default: 2,
+      min: 0.5,
+      max: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'planetaryGears',
       params: {
         center: inputs.center,
@@ -75,12 +89,12 @@ export const PlanetaryGearSetNode: NodeDefinition<PlanetaryGearSetInputs, Planet
         module: params.module
       }
     });
-
+    
     return {
-      assembly: result,
-      sunGear: result,
-      planetGears: result,
-      ringGear: result
+      assembly: results.assembly,
+      sunGear: results.sunGear,
+      planetGears: results.planetGears,
+      ringGear: results.ringGear
     };
-  }
+  },
 };

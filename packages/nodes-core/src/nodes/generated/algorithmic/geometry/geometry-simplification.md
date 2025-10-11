@@ -8,7 +8,7 @@ Simplify complex geometry
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "quadric"
 
@@ -16,7 +16,7 @@ Simplify complex geometry
 
 
 
-### reduction
+### Reduction
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Simplify complex geometry
 
 
 
-### preserveBoundary
+### Preserve Boundary
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Simplify complex geometry
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Simplify complex geometry
 ## Outputs
 
 
-### simplified
+### Simplified
 - **Type:** Shape
 
 
 
-### reductionRatio
+### Reduction Ratio
 - **Type:** number
 
 
 
-### error
+### Error
 - **Type:** number
 
 

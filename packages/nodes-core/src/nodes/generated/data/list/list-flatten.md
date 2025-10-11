@@ -8,7 +8,7 @@ Flatten nested lists
 ## Parameters
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 1
 - **Min:** 1
@@ -19,7 +19,7 @@ Flatten nested lists
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Flatten nested lists
 ## Outputs
 
 
-### flattened
+### Flattened
 - **Type:** Data[]
 
 

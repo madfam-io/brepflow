@@ -8,7 +8,7 @@ Create a parametric cone or truncated cone
 ## Parameters
 
 
-### radius1
+### Radius1
 - **Type:** number
 - **Default:** 50
 - **Min:** 0
@@ -16,7 +16,7 @@ Create a parametric cone or truncated cone
 - **Description:** Bottom radius
 
 
-### radius2
+### Radius2
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -24,7 +24,7 @@ Create a parametric cone or truncated cone
 - **Description:** Top radius (0 for pointed)
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create a parametric cone or truncated cone
 - **Description:** Cone height
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -40,7 +40,7 @@ Create a parametric cone or truncated cone
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -48,7 +48,7 @@ Create a parametric cone or truncated cone
 
 
 
-### centerZ
+### Center Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -56,7 +56,7 @@ Create a parametric cone or truncated cone
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 360
 - **Min:** 0
@@ -71,7 +71,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Generated cone
 

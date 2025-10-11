@@ -1,56 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ConcentricParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  entity1: Shape;
-  entity2: Shape;
+interface ConcentricInputs {
+  entity1: unknown;
+  entity2: unknown;
 }
-interface Outputs {
-  constrained: Shape[];
-  constraint: Constraint;
+
+interface ConcentricOutputs {
+  constrained: unknown;
+  constraint: unknown;
 }
 
 export const ConcentricNode: NodeDefinition<ConcentricInputs, ConcentricOutputs, ConcentricParams> = {
-  type: 'Assembly::Concentric',
+  id: 'Assembly::Concentric',
   category: 'Assembly',
-  subcategory: 'Constraints',
-
-  metadata: {
-    label: 'Concentric',
-    description: 'Make two circular entities concentric',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Concentric',
+  description: 'Make two circular entities concentric',
   inputs: {
-        entity1: 'Shape',
-    entity2: 'Shape'
+    entity1: {
+      type: 'Shape',
+      label: 'Entity1',
+      required: true
+    },
+    entity2: {
+      type: 'Shape',
+      label: 'Entity2',
+      required: true
+    }
   },
-
   outputs: {
-        constrained: 'Shape[]',
-    constraint: 'Constraint'
+    constrained: {
+      type: 'Shape[]',
+      label: 'Constrained'
+    },
+    constraint: {
+      type: 'Constraint',
+      label: 'Constraint'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'constraintConcentric',
       params: {
         entity1: inputs.entity1,
         entity2: inputs.entity2
-        
       }
     });
-
+    
     return {
-      constrained: result,
-      constraint: result
+      constrained: results.constrained,
+      constraint: results.constraint
     };
-  }
+  },
 };

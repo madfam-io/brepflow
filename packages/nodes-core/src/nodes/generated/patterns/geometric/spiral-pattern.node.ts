@@ -1,62 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SpiralPatternParams {
   spiralType: string;
   turns: number;
   growth: number;
 }
-interface Inputs {
-  center: Point;
+
+interface SpiralPatternInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  spiral: Wire;
+
+interface SpiralPatternOutputs {
+  spiral: unknown;
 }
 
 export const SpiralPatternNode: NodeDefinition<SpiralPatternInputs, SpiralPatternOutputs, SpiralPatternParams> = {
-  type: 'Patterns::SpiralPattern',
+  id: 'Patterns::SpiralPattern',
   category: 'Patterns',
-  subcategory: 'Geometric',
-
-  metadata: {
-    label: 'SpiralPattern',
-    description: 'Spiral-based pattern',
-    
-    
-  },
-
-  params: {
-        spiralType: {
-      "default": "logarithmic",
-      "options": [
-        "archimedean",
-        "logarithmic",
-        "fermat",
-        "golden"
-      ]
-    },
-    turns: {
-      "default": 5,
-      "min": 0.5,
-      "max": 20
-    },
-    growth: {
-      "default": 1.2,
-      "min": 1,
-      "max": 3
+  label: 'SpiralPattern',
+  description: 'Spiral-based pattern',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        spiral: 'Wire'
+    spiral: {
+      type: 'Wire',
+      label: 'Spiral'
+    }
   },
-
+  params: {
+    spiralType: {
+      type: 'enum',
+      label: 'Spiral Type',
+      default: "logarithmic",
+      options: ["archimedean","logarithmic","fermat","golden"]
+    },
+    turns: {
+      type: 'number',
+      label: 'Turns',
+      default: 5,
+      min: 0.5,
+      max: 20
+    },
+    growth: {
+      type: 'number',
+      label: 'Growth',
+      default: 1.2,
+      min: 1,
+      max: 3
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'spiralPattern',
       params: {
@@ -66,9 +64,9 @@ export const SpiralPatternNode: NodeDefinition<SpiralPatternInputs, SpiralPatter
         growth: params.growth
       }
     });
-
+    
     return {
       spiral: result
     };
-  }
+  },
 };

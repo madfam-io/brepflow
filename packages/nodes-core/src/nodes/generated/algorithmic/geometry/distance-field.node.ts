@@ -1,60 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DistanceFieldParams {
   resolution: number;
-  bounds: any;
+  bounds: unknown;
   signed: boolean;
 }
-interface Inputs {
-  geometry: Shape;
+
+interface DistanceFieldInputs {
+  geometry: unknown;
 }
-interface Outputs {
-  field: Properties;
-  isosurface: Shape;
-  gradient: Vector[];
+
+interface DistanceFieldOutputs {
+  field: unknown;
+  isosurface: unknown;
+  gradient: Array<[number, number, number]>;
 }
 
 export const DistanceFieldNode: NodeDefinition<DistanceFieldInputs, DistanceFieldOutputs, DistanceFieldParams> = {
-  type: 'Algorithmic::DistanceField',
+  id: 'Algorithmic::DistanceField',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'DistanceField',
-    description: 'Compute signed distance field',
-    
-    
-  },
-
-  params: {
-        resolution: {
-      "default": 50,
-      "min": 10,
-      "max": 200
-    },
-    bounds: {
-      "default": "100,100,100",
-      "description": "Bounding box size"
-    },
-    signed: {
-      "default": true
+  label: 'DistanceField',
+  description: 'Compute signed distance field',
+  inputs: {
+    geometry: {
+      type: 'Shape',
+      label: 'Geometry',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Shape'
-  },
-
   outputs: {
-        field: 'Properties',
-    isosurface: 'Shape',
-    gradient: 'Vector[]'
+    field: {
+      type: 'Properties',
+      label: 'Field'
+    },
+    isosurface: {
+      type: 'Shape',
+      label: 'Isosurface'
+    },
+    gradient: {
+      type: 'Vector[]',
+      label: 'Gradient'
+    }
   },
-
+  params: {
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 50,
+      min: 10,
+      max: 200
+    },
+    bounds: {
+      type: 'Vector',
+      label: 'Bounds',
+      default: "100,100,100"
+    },
+    signed: {
+      type: 'boolean',
+      label: 'Signed',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'distanceField',
       params: {
         geometry: inputs.geometry,
@@ -63,11 +71,11 @@ export const DistanceFieldNode: NodeDefinition<DistanceFieldInputs, DistanceFiel
         signed: params.signed
       }
     });
-
+    
     return {
-      field: result,
-      isosurface: result,
-      gradient: result
+      field: results.field,
+      isosurface: results.isosurface,
+      gradient: results.gradient
     };
-  }
+  },
 };

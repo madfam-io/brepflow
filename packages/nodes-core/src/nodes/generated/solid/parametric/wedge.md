@@ -8,7 +8,7 @@ Create a wedge solid
 ## Parameters
 
 
-### dx
+### Dx
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a wedge solid
 
 
 
-### dy
+### Dy
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a wedge solid
 
 
 
-### dz
+### Dz
 - **Type:** number
 - **Default:** 75
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create a wedge solid
 
 
 
-### xmax
+### Xmax
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Create a wedge solid
 
 
 
-### zmin
+### Zmin
 - **Type:** number
 - **Default:** 25
 - **Min:** 0.1
@@ -48,7 +48,7 @@ Create a wedge solid
 
 
 
-### zmax
+### Zmax
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -63,7 +63,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Generated wedge
 

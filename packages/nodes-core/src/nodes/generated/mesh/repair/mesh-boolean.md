@@ -8,7 +8,7 @@ Boolean operations on meshes
 ## Parameters
 
 
-### operation
+### Operation
 - **Type:** enum
 - **Default:** "union"
 
@@ -16,7 +16,7 @@ Boolean operations on meshes
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -27,13 +27,13 @@ Boolean operations on meshes
 ## Inputs
 
 
-### mesh1
+### Mesh1
 - **Type:** Mesh
 - **Required:** Yes
 
 
 
-### mesh2
+### Mesh2
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Boolean operations on meshes
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Mesh
 
 

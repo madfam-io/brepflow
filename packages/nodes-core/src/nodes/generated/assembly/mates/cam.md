@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### cam
+### Cam
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### follower
+### Follower
 - **Type:** Shape
 - **Required:** Yes
 
@@ -27,12 +27,12 @@ This node has no parameters.
 ## Outputs
 
 
-### cammed
+### Cammed
 - **Type:** Shape[]
 
 
 
-### mate
+### Mate
 - **Type:** Mate
 
 

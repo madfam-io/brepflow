@@ -1,55 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FoundationWallParams {
   depth: number;
   footingWidth: number;
 }
-interface Inputs {
-  foundationLine: Wire;
+
+interface FoundationWallInputs {
+  foundationLine: unknown;
 }
-interface Outputs {
-  foundationWall: Shape;
-  footing: Shape;
+
+interface FoundationWallOutputs {
+  foundationWall: unknown;
+  footing: unknown;
 }
 
 export const FoundationWallNode: NodeDefinition<FoundationWallInputs, FoundationWallOutputs, FoundationWallParams> = {
-  type: 'Architecture::FoundationWall',
+  id: 'Architecture::FoundationWall',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'FoundationWall',
-    description: 'Foundation wall system',
-    
-    
-  },
-
-  params: {
-        depth: {
-      "default": 1500,
-      "min": 1000,
-      "max": 3000
-    },
-    footingWidth: {
-      "default": 600,
-      "min": 400,
-      "max": 1200
+  label: 'FoundationWall',
+  description: 'Foundation wall system',
+  inputs: {
+    foundationLine: {
+      type: 'Wire',
+      label: 'Foundation Line',
+      required: true
     }
   },
-
-  inputs: {
-        foundationLine: 'Wire'
-  },
-
   outputs: {
-        foundationWall: 'Shape',
-    footing: 'Shape'
+    foundationWall: {
+      type: 'Shape',
+      label: 'Foundation Wall'
+    },
+    footing: {
+      type: 'Shape',
+      label: 'Footing'
+    }
   },
-
+  params: {
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: 1500,
+      min: 1000,
+      max: 3000
+    },
+    footingWidth: {
+      type: 'number',
+      label: 'Footing Width',
+      default: 600,
+      min: 400,
+      max: 1200
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'foundationWall',
       params: {
         foundationLine: inputs.foundationLine,
@@ -57,10 +61,10 @@ export const FoundationWallNode: NodeDefinition<FoundationWallInputs, Foundation
         footingWidth: params.footingWidth
       }
     });
-
+    
     return {
-      foundationWall: result,
-      footing: result
+      foundationWall: results.foundationWall,
+      footing: results.footing
     };
-  }
+  },
 };

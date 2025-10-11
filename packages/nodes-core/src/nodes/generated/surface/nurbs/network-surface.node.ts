@@ -1,57 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface NetworkSurfaceParams {
   continuity: string;
   tolerance: number;
 }
-interface Inputs {
-  uCurves: Wire[];
-  vCurves: Wire[];
+
+interface NetworkSurfaceInputs {
+  uCurves: unknown;
+  vCurves: unknown;
 }
-interface Outputs {
-  surface: Face;
+
+interface NetworkSurfaceOutputs {
+  surface: unknown;
 }
 
 export const NetworkSurfaceNode: NodeDefinition<NetworkSurfaceInputs, NetworkSurfaceOutputs, NetworkSurfaceParams> = {
-  type: 'Surface::NetworkSurface',
+  id: 'Surface::NetworkSurface',
   category: 'Surface',
-  subcategory: 'NURBS',
-
-  metadata: {
-    label: 'NetworkSurface',
-    description: 'Create surface from curve network',
-    
-    
-  },
-
-  params: {
-        continuity: {
-      "default": "G1",
-      "options": [
-        "G0",
-        "G1",
-        "G2"
-      ]
+  label: 'NetworkSurface',
+  description: 'Create surface from curve network',
+  inputs: {
+    uCurves: {
+      type: 'Wire[]',
+      label: 'U Curves',
+      required: true
     },
-    tolerance: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
+    vCurves: {
+      type: 'Wire[]',
+      label: 'V Curves',
+      required: true
     }
   },
-
-  inputs: {
-        uCurves: 'Wire[]',
-    vCurves: 'Wire[]'
-  },
-
   outputs: {
-        surface: 'Face'
+    surface: {
+      type: 'Face',
+      label: 'Surface'
+    }
   },
-
+  params: {
+    continuity: {
+      type: 'enum',
+      label: 'Continuity',
+      default: "G1",
+      options: ["G0","G1","G2"]
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'networkSurface',
       params: {
@@ -61,9 +62,9 @@ export const NetworkSurfaceNode: NodeDefinition<NetworkSurfaceInputs, NetworkSur
         tolerance: params.tolerance
       }
     });
-
+    
     return {
       surface: result
     };
-  }
+  },
 };

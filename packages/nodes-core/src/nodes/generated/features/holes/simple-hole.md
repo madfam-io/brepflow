@@ -8,7 +8,7 @@ Creates a simple through hole
 ## Parameters
 
 
-### diameter
+### Diameter
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Creates a simple through hole
 - **Description:** Hole diameter in mm
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -27,19 +27,19 @@ Creates a simple through hole
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 - **Description:** Solid to create hole in
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 - **Description:** Hole center position
 
 
-### direction
+### Direction
 - **Type:** Vector
 - **Required:** No
 - **Description:** Hole direction (default: -Z)
@@ -48,7 +48,7 @@ Creates a simple through hole
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Description:** Solid with hole
 

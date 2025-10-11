@@ -1,54 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface NeuralPatternParams {
   neurons: number;
   connections: number;
 }
-interface Inputs {
-  inputPoints: Point[];
+
+interface NeuralPatternInputs {
+  inputPoints: Array<[number, number, number]>;
 }
-interface Outputs {
-  network: Wire[];
+
+interface NeuralPatternOutputs {
+  network: unknown;
 }
 
 export const NeuralPatternNode: NodeDefinition<NeuralPatternInputs, NeuralPatternOutputs, NeuralPatternParams> = {
-  type: 'Patterns::NeuralPattern',
+  id: 'Patterns::NeuralPattern',
   category: 'Patterns',
-  subcategory: 'Procedural',
-
-  metadata: {
-    label: 'NeuralPattern',
-    description: 'Neural network pattern',
-    
-    
-  },
-
-  params: {
-        neurons: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
-    },
-    connections: {
-      "default": 3,
-      "min": 1,
-      "max": 10,
-      "step": 1
+  label: 'NeuralPattern',
+  description: 'Neural network pattern',
+  inputs: {
+    inputPoints: {
+      type: 'Point[]',
+      label: 'Input Points',
+      required: true
     }
   },
-
-  inputs: {
-        inputPoints: 'Point[]'
-  },
-
   outputs: {
-        network: 'Wire[]'
+    network: {
+      type: 'Wire[]',
+      label: 'Network'
+    }
   },
-
+  params: {
+    neurons: {
+      type: 'number',
+      label: 'Neurons',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    },
+    connections: {
+      type: 'number',
+      label: 'Connections',
+      default: 3,
+      min: 1,
+      max: 10,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'neuralPattern',
       params: {
@@ -57,9 +58,9 @@ export const NeuralPatternNode: NodeDefinition<NeuralPatternInputs, NeuralPatter
         connections: params.connections
       }
     });
-
+    
     return {
       network: result
     };
-  }
+  },
 };

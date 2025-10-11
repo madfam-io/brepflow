@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type CorrelationParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  x: number[];
-  y: number[];
+interface CorrelationInputs {
+  x: unknown;
+  y: unknown;
 }
-interface Outputs {
-  correlation: number;
+
+interface CorrelationOutputs {
+  correlation: unknown;
 }
 
 export const CorrelationNode: NodeDefinition<CorrelationInputs, CorrelationOutputs, CorrelationParams> = {
-  type: 'Math::Correlation',
+  id: 'Math::Correlation',
   category: 'Math',
-  subcategory: 'Statistics',
-
-  metadata: {
-    label: 'Correlation',
-    description: 'Correlation coefficient',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Correlation',
+  description: 'Correlation coefficient',
   inputs: {
-        x: 'number[]',
-    y: 'number[]'
+    x: {
+      type: 'number[]',
+      label: 'X',
+      required: true
+    },
+    y: {
+      type: 'number[]',
+      label: 'Y',
+      required: true
+    }
   },
-
   outputs: {
-        correlation: 'number'
+    correlation: {
+      type: 'number',
+      label: 'Correlation'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathCorrelation',
       params: {
         x: inputs.x,
         y: inputs.y
-        
       }
     });
-
+    
     return {
       correlation: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Create cylindrical joint
 ## Parameters
 
 
-### minDistance
+### Min Distance
 - **Type:** number
 - **Default:** 0
 
@@ -16,7 +16,7 @@ Create cylindrical joint
 
 
 
-### maxDistance
+### Max Distance
 - **Type:** number
 - **Default:** 100
 
@@ -24,7 +24,7 @@ Create cylindrical joint
 
 
 
-### minAngle
+### Min Angle
 - **Type:** number
 - **Default:** -180
 
@@ -32,7 +32,7 @@ Create cylindrical joint
 
 
 
-### maxAngle
+### Max Angle
 - **Type:** number
 - **Default:** 180
 
@@ -43,19 +43,19 @@ Create cylindrical joint
 ## Inputs
 
 
-### part1
+### Part1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### part2
+### Part2
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### axis
+### Axis
 - **Type:** Axis
 - **Required:** Yes
 
@@ -64,7 +64,7 @@ Create cylindrical joint
 ## Outputs
 
 
-### joint
+### Joint
 - **Type:** Joint
 
 

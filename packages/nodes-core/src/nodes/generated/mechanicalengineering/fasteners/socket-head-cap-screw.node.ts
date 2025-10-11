@@ -1,73 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SocketHeadCapScrewParams {
   diameter: string;
   length: number;
   socketSize: number;
   headDiameter: number;
 }
-interface Inputs {
-  position: Point;
+
+interface SocketHeadCapScrewInputs {
+  position: [number, number, number];
 }
-interface Outputs {
-  screw: Shape;
-  socket: Wire;
+
+interface SocketHeadCapScrewOutputs {
+  screw: unknown;
+  socket: unknown;
 }
 
 export const SocketHeadCapScrewNode: NodeDefinition<SocketHeadCapScrewInputs, SocketHeadCapScrewOutputs, SocketHeadCapScrewParams> = {
-  type: 'MechanicalEngineering::SocketHeadCapScrew',
+  id: 'MechanicalEngineering::SocketHeadCapScrew',
   category: 'MechanicalEngineering',
-  subcategory: 'Fasteners',
-
-  metadata: {
-    label: 'SocketHeadCapScrew',
-    description: 'Create socket head cap screw',
-    
-    
-  },
-
-  params: {
-        diameter: {
-      "default": "M5",
-      "options": [
-        "M3",
-        "M4",
-        "M5",
-        "M6",
-        "M8",
-        "M10"
-      ]
-    },
-    length: {
-      "default": 16,
-      "min": 6,
-      "max": 100
-    },
-    socketSize: {
-      "default": 4,
-      "min": 2,
-      "max": 10
-    },
-    headDiameter: {
-      "default": 8.5,
-      "min": 5,
-      "max": 20
+  label: 'SocketHeadCapScrew',
+  description: 'Create socket head cap screw',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        position: 'Point'
-  },
-
   outputs: {
-        screw: 'Shape',
-    socket: 'Wire'
+    screw: {
+      type: 'Shape',
+      label: 'Screw'
+    },
+    socket: {
+      type: 'Wire',
+      label: 'Socket'
+    }
   },
-
+  params: {
+    diameter: {
+      type: 'enum',
+      label: 'Diameter',
+      default: "M5",
+      options: ["M3","M4","M5","M6","M8","M10"]
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 16,
+      min: 6,
+      max: 100
+    },
+    socketSize: {
+      type: 'number',
+      label: 'Socket Size',
+      default: 4,
+      min: 2,
+      max: 10
+    },
+    headDiameter: {
+      type: 'number',
+      label: 'Head Diameter',
+      default: 8.5,
+      min: 5,
+      max: 20
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'socketHeadScrew',
       params: {
         position: inputs.position,
@@ -77,10 +78,10 @@ export const SocketHeadCapScrewNode: NodeDefinition<SocketHeadCapScrewInputs, So
         headDiameter: params.headDiameter
       }
     });
-
+    
     return {
-      screw: result,
-      socket: result
+      screw: results.screw,
+      socket: results.socket
     };
-  }
+  },
 };

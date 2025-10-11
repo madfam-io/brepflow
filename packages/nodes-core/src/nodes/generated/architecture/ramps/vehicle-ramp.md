@@ -8,7 +8,7 @@ Vehicular access ramp
 ## Parameters
 
 
-### gradient
+### Gradient
 - **Type:** number
 - **Default:** 0.15
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Vehicular access ramp
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 6000
 - **Min:** 5000
@@ -24,7 +24,7 @@ Vehicular access ramp
 
 
 
-### transitionLength
+### Transition Length
 - **Type:** number
 - **Default:** 3000
 - **Min:** 2000
@@ -35,7 +35,7 @@ Vehicular access ramp
 ## Inputs
 
 
-### rampPath
+### Ramp Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Vehicular access ramp
 ## Outputs
 
 
-### vehicleRamp
+### Vehicle Ramp
 - **Type:** Shape
 
 

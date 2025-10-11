@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### shapes
+### Shapes
 - **Type:** Shape[]
 - **Required:** Yes
 - **Description:** Shapes to compound
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### compound
+### Compound
 - **Type:** Compound
 - **Description:** Compound shape
 

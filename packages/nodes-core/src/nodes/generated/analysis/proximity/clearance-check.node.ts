@@ -1,57 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ClearanceCheckParams {
   requiredClearance: number;
   highlightViolations: boolean;
 }
-interface Inputs {
-  movingObject: Shape;
-  obstacles: Shape[];
+
+interface ClearanceCheckInputs {
+  movingObject: unknown;
+  obstacles: unknown;
 }
-interface Outputs {
-  hasViolations: boolean;
-  violationPoints: Point[];
-  clearanceValues: number[];
+
+interface ClearanceCheckOutputs {
+  hasViolations: unknown;
+  violationPoints: Array<[number, number, number]>;
+  clearanceValues: unknown;
 }
 
 export const ClearanceCheckNode: NodeDefinition<ClearanceCheckInputs, ClearanceCheckOutputs, ClearanceCheckParams> = {
-  type: 'Analysis::ClearanceCheck',
+  id: 'Analysis::ClearanceCheck',
   category: 'Analysis',
-  subcategory: 'Proximity',
-
-  metadata: {
-    label: 'ClearanceCheck',
-    description: 'Check clearance requirements',
-    
-    
-  },
-
-  params: {
-        requiredClearance: {
-      "default": 5,
-      "min": 0.1,
-      "max": 100
+  label: 'ClearanceCheck',
+  description: 'Check clearance requirements',
+  inputs: {
+    movingObject: {
+      type: 'Shape',
+      label: 'Moving Object',
+      required: true
     },
-    highlightViolations: {
-      "default": true
+    obstacles: {
+      type: 'Shape[]',
+      label: 'Obstacles',
+      required: true
     }
   },
-
-  inputs: {
-        movingObject: 'Shape',
-    obstacles: 'Shape[]'
-  },
-
   outputs: {
-        hasViolations: 'boolean',
-    violationPoints: 'Point[]',
-    clearanceValues: 'number[]'
+    hasViolations: {
+      type: 'boolean',
+      label: 'Has Violations'
+    },
+    violationPoints: {
+      type: 'Point[]',
+      label: 'Violation Points'
+    },
+    clearanceValues: {
+      type: 'number[]',
+      label: 'Clearance Values'
+    }
   },
-
+  params: {
+    requiredClearance: {
+      type: 'number',
+      label: 'Required Clearance',
+      default: 5,
+      min: 0.1,
+      max: 100
+    },
+    highlightViolations: {
+      type: 'boolean',
+      label: 'Highlight Violations',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'clearanceCheck',
       params: {
         movingObject: inputs.movingObject,
@@ -60,11 +71,11 @@ export const ClearanceCheckNode: NodeDefinition<ClearanceCheckInputs, ClearanceC
         highlightViolations: params.highlightViolations
       }
     });
-
+    
     return {
-      hasViolations: result,
-      violationPoints: result,
-      clearanceValues: result
+      hasViolations: results.hasViolations,
+      violationPoints: results.violationPoints,
+      clearanceValues: results.clearanceValues
     };
-  }
+  },
 };

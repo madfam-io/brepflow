@@ -1,54 +1,46 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RandomParams {
   seed: number;
 }
-type Inputs = {};
-interface Outputs {
-  value: number;
+
+type RandomInputs = Record<string, never>;
+
+interface RandomOutputs {
+  value: unknown;
 }
 
 export const RandomNode: NodeDefinition<RandomInputs, RandomOutputs, RandomParams> = {
-  type: 'Math::Random',
+  id: 'Math::Random',
   category: 'Math',
-  subcategory: 'Random',
-
-  metadata: {
-    label: 'Random',
-    description: 'Random number 0-1',
-    
-    
-  },
-
-  params: {
-        seed: {
-      "default": -1,
-      "min": -1,
-      "max": 999999
+  label: 'Random',
+  description: 'Random number 0-1',
+  inputs: {},
+  outputs: {
+    value: {
+      type: 'number',
+      label: 'Value'
     }
   },
-
-  inputs: {
-    
+  params: {
+    seed: {
+      type: 'number',
+      label: 'Seed',
+      default: -1,
+      min: -1,
+      max: 999999
+    }
   },
-
-  outputs: {
-        value: 'number'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathRandom',
       params: {
-        
         seed: params.seed
       }
     });
-
+    
     return {
       value: result
     };
-  }
+  },
 };

@@ -1,54 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface QuasiCrystalParams {
   symmetry: number;
   waves: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface QuasiCrystalInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  pattern: Wire[];
+
+interface QuasiCrystalOutputs {
+  pattern: unknown;
 }
 
 export const QuasiCrystalNode: NodeDefinition<QuasiCrystalInputs, QuasiCrystalOutputs, QuasiCrystalParams> = {
-  type: 'Patterns::QuasiCrystal',
+  id: 'Patterns::QuasiCrystal',
   category: 'Patterns',
-  subcategory: 'Geometric',
-
-  metadata: {
-    label: 'QuasiCrystal',
-    description: 'Quasicrystalline pattern',
-    
-    
-  },
-
-  params: {
-        symmetry: {
-      "default": 5,
-      "min": 5,
-      "max": 12,
-      "step": 1
-    },
-    waves: {
-      "default": 4,
-      "min": 3,
-      "max": 8,
-      "step": 1
+  label: 'QuasiCrystal',
+  description: 'Quasicrystalline pattern',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        pattern: 'Wire[]'
+    pattern: {
+      type: 'Wire[]',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    symmetry: {
+      type: 'number',
+      label: 'Symmetry',
+      default: 5,
+      min: 5,
+      max: 12,
+      step: 1
+    },
+    waves: {
+      type: 'number',
+      label: 'Waves',
+      default: 4,
+      min: 3,
+      max: 8,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'quasiCrystal',
       params: {
@@ -57,9 +58,9 @@ export const QuasiCrystalNode: NodeDefinition<QuasiCrystalInputs, QuasiCrystalOu
         waves: params.waves
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

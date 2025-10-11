@@ -8,7 +8,7 @@ Surface attractor field
 ## Parameters
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 1
 - **Min:** -10
@@ -16,7 +16,7 @@ Surface attractor field
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 30
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Surface attractor field
 
 
 
-### falloff
+### Falloff
 - **Type:** enum
 - **Default:** "smooth"
 
@@ -35,7 +35,7 @@ Surface attractor field
 ## Inputs
 
 
-### surfaces
+### Surfaces
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Surface attractor field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

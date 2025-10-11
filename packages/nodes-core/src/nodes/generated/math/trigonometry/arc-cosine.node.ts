@@ -1,48 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ArcCosineParams {
   angleUnit: string;
 }
-interface Inputs {
-  value: number;
+
+interface ArcCosineInputs {
+  value: unknown;
 }
-interface Outputs {
-  angle: number;
+
+interface ArcCosineOutputs {
+  angle: unknown;
 }
 
 export const ArcCosineNode: NodeDefinition<ArcCosineInputs, ArcCosineOutputs, ArcCosineParams> = {
-  type: 'Math::ArcCosine',
+  id: 'Math::ArcCosine',
   category: 'Math',
-  subcategory: 'Trigonometry',
-
-  metadata: {
-    label: 'ArcCosine',
-    description: 'Arc cosine function',
-    
-    
-  },
-
-  params: {
-        angleUnit: {
-      "default": "radians",
-      "options": [
-        "radians",
-        "degrees"
-      ]
+  label: 'ArcCosine',
+  description: 'Arc cosine function',
+  inputs: {
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
     }
   },
-
-  inputs: {
-        value: 'number'
-  },
-
   outputs: {
-        angle: 'number'
+    angle: {
+      type: 'number',
+      label: 'Angle'
+    }
   },
-
+  params: {
+    angleUnit: {
+      type: 'enum',
+      label: 'Angle Unit',
+      default: "radians",
+      options: ["radians","degrees"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathAcos',
       params: {
@@ -50,9 +46,9 @@ export const ArcCosineNode: NodeDefinition<ArcCosineInputs, ArcCosineOutputs, Ar
         angleUnit: params.angleUnit
       }
     });
-
+    
     return {
       angle: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Quasicrystalline pattern
 ## Parameters
 
 
-### symmetry
+### Symmetry
 - **Type:** number
 - **Default:** 5
 - **Min:** 5
@@ -16,7 +16,7 @@ Quasicrystalline pattern
 
 
 
-### waves
+### Waves
 - **Type:** number
 - **Default:** 4
 - **Min:** 3
@@ -27,7 +27,7 @@ Quasicrystalline pattern
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Quasicrystalline pattern
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Wire[]
 
 

@@ -8,7 +8,7 @@ Analyze mesh quality metrics
 ## Parameters
 
 
-### aspectRatioThreshold
+### Aspect Ratio Threshold
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -16,7 +16,7 @@ Analyze mesh quality metrics
 
 
 
-### skewnessThreshold
+### Skewness Threshold
 - **Type:** number
 - **Default:** 0.8
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Analyze mesh quality metrics
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,22 +36,22 @@ Analyze mesh quality metrics
 ## Outputs
 
 
-### averageAspectRatio
+### Average Aspect Ratio
 - **Type:** number
 
 
 
-### maxSkewness
+### Max Skewness
 - **Type:** number
 
 
 
-### problemElements
+### Problem Elements
 - **Type:** Shape[]
 
 
 
-### qualityReport
+### Quality Report
 - **Type:** Properties
 
 

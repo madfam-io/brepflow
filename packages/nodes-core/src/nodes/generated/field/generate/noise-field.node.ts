@@ -1,74 +1,76 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface NoiseFieldParams {
   type: string;
   scale: number;
   octaves: number;
   persistence: number;
   seed: number;
 }
-interface Inputs {
-  domain: Box;
+
+interface NoiseFieldInputs {
+  domain: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface NoiseFieldOutputs {
+  field: unknown;
 }
 
 export const NoiseFieldNode: NodeDefinition<NoiseFieldInputs, NoiseFieldOutputs, NoiseFieldParams> = {
-  type: 'Field::NoiseField',
+  id: 'Field::NoiseField',
   category: 'Field',
-  subcategory: 'Generate',
-
-  metadata: {
-    label: 'NoiseField',
-    description: 'Noise-based field',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "perlin",
-      "options": [
-        "perlin",
-        "simplex",
-        "worley",
-        "turbulence"
-      ]
-    },
-    scale: {
-      "default": 10,
-      "min": 0.1
-    },
-    octaves: {
-      "default": 4,
-      "min": 1,
-      "max": 8,
-      "step": 1
-    },
-    persistence: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
-    },
-    seed: {
-      "default": 0,
-      "min": 0,
-      "max": 999999
+  label: 'NoiseField',
+  description: 'Noise-based field',
+  inputs: {
+    domain: {
+      type: 'Box',
+      label: 'Domain',
+      required: true
     }
   },
-
-  inputs: {
-        domain: 'Box'
-  },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "perlin",
+      options: ["perlin","simplex","worley","turbulence"]
+    },
+    scale: {
+      type: 'number',
+      label: 'Scale',
+      default: 10,
+      min: 0.1
+    },
+    octaves: {
+      type: 'number',
+      label: 'Octaves',
+      default: 4,
+      min: 1,
+      max: 8,
+      step: 1
+    },
+    persistence: {
+      type: 'number',
+      label: 'Persistence',
+      default: 0.5,
+      min: 0,
+      max: 1
+    },
+    seed: {
+      type: 'number',
+      label: 'Seed',
+      default: 0,
+      min: 0,
+      max: 999999
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldNoise',
       params: {
@@ -80,9 +82,9 @@ export const NoiseFieldNode: NodeDefinition<NoiseFieldInputs, NoiseFieldOutputs,
         seed: params.seed
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

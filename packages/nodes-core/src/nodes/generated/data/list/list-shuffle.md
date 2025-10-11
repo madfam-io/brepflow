@@ -8,7 +8,7 @@ Randomize list order
 ## Parameters
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** -1
 
@@ -19,7 +19,7 @@ Randomize list order
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Randomize list order
 ## Outputs
 
 
-### shuffled
+### Shuffled
 - **Type:** Data[]
 
 

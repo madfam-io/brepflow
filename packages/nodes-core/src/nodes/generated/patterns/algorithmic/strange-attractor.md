@@ -8,7 +8,7 @@ Strange attractor patterns
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "lorenz"
 
@@ -16,7 +16,7 @@ Strange attractor patterns
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 10000
 - **Min:** 100
@@ -24,7 +24,7 @@ Strange attractor patterns
 
 
 
-### dt
+### Dt
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -35,7 +35,7 @@ Strange attractor patterns
 ## Inputs
 
 
-### initial
+### Initial
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Strange attractor patterns
 ## Outputs
 
 
-### attractor
+### Attractor
 - **Type:** Point[]
 
 
 
-### trajectory
+### Trajectory
 - **Type:** Wire
 
 

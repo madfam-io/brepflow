@@ -1,54 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CelticBraidParams {
   strands: number;
   crossings: number;
 }
-interface Inputs {
-  centerline: Wire;
+
+interface CelticBraidInputs {
+  centerline: unknown;
 }
-interface Outputs {
-  braid: Wire[];
+
+interface CelticBraidOutputs {
+  braid: unknown;
 }
 
 export const CelticBraidNode: NodeDefinition<CelticBraidInputs, CelticBraidOutputs, CelticBraidParams> = {
-  type: 'Patterns::CelticBraid',
+  id: 'Patterns::CelticBraid',
   category: 'Patterns',
-  subcategory: 'Celtic',
-
-  metadata: {
-    label: 'CelticBraid',
-    description: 'Celtic braid pattern',
-    
-    
-  },
-
-  params: {
-        strands: {
-      "default": 3,
-      "min": 2,
-      "max": 8,
-      "step": 1
-    },
-    crossings: {
-      "default": 5,
-      "min": 1,
-      "max": 20,
-      "step": 1
+  label: 'CelticBraid',
+  description: 'Celtic braid pattern',
+  inputs: {
+    centerline: {
+      type: 'Wire',
+      label: 'Centerline',
+      required: true
     }
   },
-
-  inputs: {
-        centerline: 'Wire'
-  },
-
   outputs: {
-        braid: 'Wire[]'
+    braid: {
+      type: 'Wire[]',
+      label: 'Braid'
+    }
   },
-
+  params: {
+    strands: {
+      type: 'number',
+      label: 'Strands',
+      default: 3,
+      min: 2,
+      max: 8,
+      step: 1
+    },
+    crossings: {
+      type: 'number',
+      label: 'Crossings',
+      default: 5,
+      min: 1,
+      max: 20,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'celticBraid',
       params: {
@@ -57,9 +58,9 @@ export const CelticBraidNode: NodeDefinition<CelticBraidInputs, CelticBraidOutpu
         crossings: params.crossings
       }
     });
-
+    
     return {
       braid: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Calculate area moments for closed curves
 ## Parameters
 
 
-### precision
+### Precision
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Calculate area moments for closed curves
 
 
 
-### showCentroid
+### Show Centroid
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Calculate area moments for closed curves
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,22 +36,22 @@ Calculate area moments for closed curves
 ## Outputs
 
 
-### area
+### Area
 - **Type:** number
 
 
 
-### centroid
+### Centroid
 - **Type:** Point
 
 
 
-### momentX
+### Moment X
 - **Type:** number
 
 
 
-### momentY
+### Moment Y
 - **Type:** number
 
 

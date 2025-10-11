@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ToBase64Params = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  data: Data;
+interface ToBase64Inputs {
+  data: unknown;
 }
-interface Outputs {
-  base64: string;
+
+interface ToBase64Outputs {
+  base64: unknown;
 }
 
 export const ToBase64Node: NodeDefinition<ToBase64Inputs, ToBase64Outputs, ToBase64Params> = {
-  type: 'Data::ToBase64',
+  id: 'Data::ToBase64',
   category: 'Data',
-  subcategory: 'Convert',
-
-  metadata: {
-    label: 'ToBase64',
-    description: 'Encode to Base64',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ToBase64',
+  description: 'Encode to Base64',
   inputs: {
-        data: 'Data'
+    data: {
+      type: 'Data',
+      label: 'Data',
+      required: true
+    }
   },
-
   outputs: {
-        base64: 'string'
+    base64: {
+      type: 'string',
+      label: 'Base64'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'convertToBase64',
       params: {
         data: inputs.data
-        
       }
     });
-
+    
     return {
       base64: result
     };
-  }
+  },
 };

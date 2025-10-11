@@ -8,7 +8,7 @@ Post-tensioned concrete slab
 ## Parameters
 
 
-### slabThickness
+### Slab Thickness
 - **Type:** number
 - **Default:** 200
 - **Min:** 150
@@ -16,7 +16,7 @@ Post-tensioned concrete slab
 
 
 
-### tendonSpacing
+### Tendon Spacing
 - **Type:** number
 - **Default:** 1200
 - **Min:** 900
@@ -27,13 +27,13 @@ Post-tensioned concrete slab
 ## Inputs
 
 
-### slabOutline
+### Slab Outline
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### columnPoints
+### Column Points
 - **Type:** Point[]
 - **Required:** No
 
@@ -42,12 +42,12 @@ Post-tensioned concrete slab
 ## Outputs
 
 
-### ptSlab
+### Pt Slab
 - **Type:** Shape
 
 
 
-### tendons
+### Tendons
 - **Type:** Wire[]
 
 

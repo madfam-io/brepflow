@@ -8,7 +8,7 @@ Glass curtain wall system
 ## Parameters
 
 
-### gridU
+### Grid U
 - **Type:** number
 - **Default:** 1500
 - **Min:** 500
@@ -16,7 +16,7 @@ Glass curtain wall system
 
 
 
-### gridV
+### Grid V
 - **Type:** number
 - **Default:** 1500
 - **Min:** 500
@@ -24,7 +24,7 @@ Glass curtain wall system
 
 
 
-### mullionWidth
+### Mullion Width
 - **Type:** number
 - **Default:** 50
 - **Min:** 20
@@ -32,7 +32,7 @@ Glass curtain wall system
 
 
 
-### mullionDepth
+### Mullion Depth
 - **Type:** number
 - **Default:** 100
 - **Min:** 50
@@ -43,7 +43,7 @@ Glass curtain wall system
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Glass curtain wall system
 ## Outputs
 
 
-### curtainWall
+### Curtain Wall
 - **Type:** Shape
 
 
 
-### mullions
+### Mullions
 - **Type:** Shape[]
 
 
 
-### panels
+### Panels
 - **Type:** Face[]
 
 

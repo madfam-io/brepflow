@@ -4,9 +4,8 @@ import ora from 'ora';
 import fs from 'fs-extra';
 import path from 'path';
 import type { GraphInstance, ExportFormat, WorkerAPI } from '@brepflow/types';
-import { GraphManager, DAGEngine } from '@brepflow/engine-core';
+import { GraphManager, DAGEngine, GeometryAPIFactory, GeometryEvaluationError } from '@brepflow/engine-core';
 import { registerCoreNodes } from '@brepflow/nodes-core';
-import { createGeometryAPI } from '@brepflow/engine-occt';
 
 export const SUPPORTED_FORMATS: ExportFormat[] = ['step', 'iges', 'stl', 'obj', '3dm', 'gltf', 'usd'];
 
@@ -62,13 +61,12 @@ export const renderCommand = new Command('render')
 
       // Initialize geometry API
       spinner.start('Initializing geometry engine...');
-      const geometryAPI = createGeometryAPI({
-        enableRealOCCT: true,
-        fallbackToMock: false,
-        maxRetries: 1,
-        operationTimeout: 30000,
+      const geometryAPI = await GeometryAPIFactory.getAPI({
+        forceMode: 'real',
+        enableRetry: true,
+        retryAttempts: 2,
+        validateOutput: true,
       });
-      await geometryAPI.init();
       const healthPayload = unwrapOperationResult<any>(await geometryAPI.invoke('HEALTH_CHECK', {}));
       if (!healthPayload.success || !healthPayload.result?.healthy) {
         throw new Error('OCCT health check failed');
@@ -90,6 +88,13 @@ export const renderCommand = new Command('render')
 
       const evalTime = Date.now() - startTime;
       spinner.succeed(`Graph evaluated in ${evalTime}ms`);
+
+      const summary = dagEngine.getEvaluationSummary();
+      if (summary && summary.sampleCount > 0) {
+        spinner.info(
+          `Evaluation metrics — p95: ${summary.p95Ms.toFixed(0)}ms (${summary.sampleCount} nodes, failures: ${summary.failureCount})`
+        );
+      }
 
       const evaluatedGraph = graphManager.getGraph();
       const shapeHandles = collectShapeHandles(evaluatedGraph);
@@ -158,7 +163,17 @@ export const renderCommand = new Command('render')
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       spinner.fail(`Error: ${errorMessage}`);
-      if (options.verbose) {
+
+      if (error instanceof GeometryEvaluationError) {
+        const details = {
+          nodeId: error.nodeId,
+          nodeType: error.nodeType,
+          durationMs: error.durationMs,
+          code: error.code,
+          params: error.params,
+        };
+        console.error(chalk.red('Geometry evaluation failed:'), details);
+      } else if (options.verbose) {
         console.error(error);
       }
       process.exit(1);

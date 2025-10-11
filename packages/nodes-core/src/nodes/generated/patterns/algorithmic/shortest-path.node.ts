@@ -1,56 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ShortestPathParams {
   algorithm: string;
 }
-interface Inputs {
-  graph: Wire[];
-  start: Point;
-  end: Point;
+
+interface ShortestPathInputs {
+  graph: unknown;
+  start: [number, number, number];
+  end: [number, number, number];
 }
-interface Outputs {
-  path: Wire;
-  distance: Number;
+
+interface ShortestPathOutputs {
+  path: unknown;
+  distance: number;
 }
 
 export const ShortestPathNode: NodeDefinition<ShortestPathInputs, ShortestPathOutputs, ShortestPathParams> = {
-  type: 'Patterns::ShortestPath',
+  id: 'Patterns::ShortestPath',
   category: 'Patterns',
-  subcategory: 'Algorithmic',
-
-  metadata: {
-    label: 'ShortestPath',
-    description: 'Shortest path algorithms',
-    
-    
-  },
-
-  params: {
-        algorithm: {
-      "default": "dijkstra",
-      "options": [
-        "dijkstra",
-        "a-star",
-        "bellman-ford"
-      ]
+  label: 'ShortestPath',
+  description: 'Shortest path algorithms',
+  inputs: {
+    graph: {
+      type: 'Wire[]',
+      label: 'Graph',
+      required: true
+    },
+    start: {
+      type: 'Point',
+      label: 'Start',
+      required: true
+    },
+    end: {
+      type: 'Point',
+      label: 'End',
+      required: true
     }
   },
-
-  inputs: {
-        graph: 'Wire[]',
-    start: 'Point',
-    end: 'Point'
-  },
-
   outputs: {
-        path: 'Wire',
-    distance: 'Number'
+    path: {
+      type: 'Wire',
+      label: 'Path'
+    },
+    distance: {
+      type: 'Number',
+      label: 'Distance'
+    }
   },
-
+  params: {
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "dijkstra",
+      options: ["dijkstra","a-star","bellman-ford"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'shortestPath',
       params: {
         graph: inputs.graph,
@@ -59,10 +65,10 @@ export const ShortestPathNode: NodeDefinition<ShortestPathInputs, ShortestPathOu
         algorithm: params.algorithm
       }
     });
-
+    
     return {
-      path: result,
-      distance: result
+      path: results.path,
+      distance: results.distance
     };
-  }
+  },
 };

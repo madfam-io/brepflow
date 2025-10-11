@@ -8,7 +8,7 @@ Create jog offset in sheet
 ## Parameters
 
 
-### jogOffset
+### Jog Offset
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create jog offset in sheet
 
 
 
-### jogAngle
+### Jog Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** 0
@@ -24,7 +24,7 @@ Create jog offset in sheet
 
 
 
-### bendRadius
+### Bend Radius
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -35,13 +35,13 @@ Create jog offset in sheet
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### jogLine
+### Jog Line
 - **Type:** Edge
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Create jog offset in sheet
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

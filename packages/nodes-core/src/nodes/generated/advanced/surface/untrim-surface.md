@@ -8,7 +8,7 @@ Remove trimming from surface
 ## Parameters
 
 
-### keepHoles
+### Keep Holes
 - **Type:** boolean
 - **Default:** false
 
@@ -19,7 +19,7 @@ Remove trimming from surface
 ## Inputs
 
 
-### trimmedSurface
+### Trimmed Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Remove trimming from surface
 ## Outputs
 
 
-### untrimmedSurface
+### Untrimmed Surface
 - **Type:** Face
 
 

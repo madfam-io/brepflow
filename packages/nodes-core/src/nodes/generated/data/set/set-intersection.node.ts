@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SetIntersectionParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  setA: Data[];
-  setB: Data[];
+interface SetIntersectionInputs {
+  setA: unknown;
+  setB: unknown;
 }
-interface Outputs {
-  intersection: Data[];
+
+interface SetIntersectionOutputs {
+  intersection: unknown;
 }
 
 export const SetIntersectionNode: NodeDefinition<SetIntersectionInputs, SetIntersectionOutputs, SetIntersectionParams> = {
-  type: 'Data::SetIntersection',
+  id: 'Data::SetIntersection',
   category: 'Data',
-  subcategory: 'Set',
-
-  metadata: {
-    label: 'SetIntersection',
-    description: 'Intersection of sets',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'SetIntersection',
+  description: 'Intersection of sets',
   inputs: {
-        setA: 'Data[]',
-    setB: 'Data[]'
+    setA: {
+      type: 'Data[]',
+      label: 'Set A',
+      required: true
+    },
+    setB: {
+      type: 'Data[]',
+      label: 'Set B',
+      required: true
+    }
   },
-
   outputs: {
-        intersection: 'Data[]'
+    intersection: {
+      type: 'Data[]',
+      label: 'Intersection'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'setIntersection',
       params: {
         setA: inputs.setA,
         setB: inputs.setB
-        
       }
     });
-
+    
     return {
       intersection: result
     };
-  }
+  },
 };

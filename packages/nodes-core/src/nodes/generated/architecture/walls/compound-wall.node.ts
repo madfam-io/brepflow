@@ -1,58 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CompoundWallParams {
   layers: number;
   layerThicknesses: string;
   layerMaterials: string;
 }
-interface Inputs {
-  path: Wire;
+
+interface CompoundWallInputs {
+  path: unknown;
 }
-interface Outputs {
-  compoundWall: Shape;
-  layers: Shape[];
+
+interface CompoundWallOutputs {
+  compoundWall: unknown;
+  layers: unknown;
 }
 
 export const CompoundWallNode: NodeDefinition<CompoundWallInputs, CompoundWallOutputs, CompoundWallParams> = {
-  type: 'Architecture::CompoundWall',
+  id: 'Architecture::CompoundWall',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'CompoundWall',
-    description: 'Multi-layer wall assembly',
-    
-    
-  },
-
-  params: {
-        layers: {
-      "default": 3,
-      "min": 1,
-      "max": 10,
-      "step": 1
-    },
-    layerThicknesses: {
-      "default": "100,50,100"
-    },
-    layerMaterials: {
-      "default": "brick,insulation,drywall"
+  label: 'CompoundWall',
+  description: 'Multi-layer wall assembly',
+  inputs: {
+    path: {
+      type: 'Wire',
+      label: 'Path',
+      required: true
     }
   },
-
-  inputs: {
-        path: 'Wire'
-  },
-
   outputs: {
-        compoundWall: 'Shape',
-    layers: 'Shape[]'
+    compoundWall: {
+      type: 'Shape',
+      label: 'Compound Wall'
+    },
+    layers: {
+      type: 'Shape[]',
+      label: 'Layers'
+    }
   },
-
+  params: {
+    layers: {
+      type: 'number',
+      label: 'Layers',
+      default: 3,
+      min: 1,
+      max: 10,
+      step: 1
+    },
+    layerThicknesses: {
+      type: 'string',
+      label: 'Layer Thicknesses',
+      default: "100,50,100"
+    },
+    layerMaterials: {
+      type: 'string',
+      label: 'Layer Materials',
+      default: "brick,insulation,drywall"
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'compoundWall',
       params: {
         path: inputs.path,
@@ -61,10 +67,10 @@ export const CompoundWallNode: NodeDefinition<CompoundWallInputs, CompoundWallOu
         layerMaterials: params.layerMaterials
       }
     });
-
+    
     return {
-      compoundWall: result,
-      layers: result
+      compoundWall: results.compoundWall,
+      layers: results.layers
     };
-  }
+  },
 };

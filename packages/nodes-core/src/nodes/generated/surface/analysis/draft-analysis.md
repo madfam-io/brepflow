@@ -8,7 +8,7 @@ Analyze draft angles
 ## Parameters
 
 
-### pullDirection
+### Pull Direction
 - **Type:** vector3
 - **Default:** [0,0,1]
 
@@ -16,7 +16,7 @@ Analyze draft angles
 
 
 
-### requiredAngle
+### Required Angle
 - **Type:** number
 - **Default:** 3
 - **Min:** 0
@@ -24,7 +24,7 @@ Analyze draft angles
 
 
 
-### colorMapping
+### Color Mapping
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Analyze draft angles
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Analyze draft angles
 ## Outputs
 
 
-### analysis
+### Analysis
 - **Type:** Data
 
 
 
-### problematicFaces
+### Problematic Faces
 - **Type:** Face[]
 
 

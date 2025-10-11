@@ -1,57 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EscapeStairParams {
   enclosure: string;
   width: number;
 }
-interface Inputs {
-  stairwell: Wire;
-  floors: Number;
+
+interface EscapeStairInputs {
+  stairwell: unknown;
+  floors: number;
 }
-interface Outputs {
-  escapeStair: Shape;
+
+interface EscapeStairOutputs {
+  escapeStair: unknown;
 }
 
 export const EscapeStairNode: NodeDefinition<EscapeStairInputs, EscapeStairOutputs, EscapeStairParams> = {
-  type: 'Architecture::EscapeStair',
+  id: 'Architecture::EscapeStair',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'EscapeStair',
-    description: 'Fire escape staircase',
-    
-    
-  },
-
-  params: {
-        enclosure: {
-      "default": "enclosed",
-      "options": [
-        "open",
-        "enclosed",
-        "pressurized"
-      ]
+  label: 'EscapeStair',
+  description: 'Fire escape staircase',
+  inputs: {
+    stairwell: {
+      type: 'Wire',
+      label: 'Stairwell',
+      required: true
     },
-    width: {
-      "default": 1200,
-      "min": 1100,
-      "max": 1500
+    floors: {
+      type: 'Number',
+      label: 'Floors',
+      required: true
     }
   },
-
-  inputs: {
-        stairwell: 'Wire',
-    floors: 'Number'
-  },
-
   outputs: {
-        escapeStair: 'Shape'
+    escapeStair: {
+      type: 'Shape',
+      label: 'Escape Stair'
+    }
   },
-
+  params: {
+    enclosure: {
+      type: 'enum',
+      label: 'Enclosure',
+      default: "enclosed",
+      options: ["open","enclosed","pressurized"]
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 1200,
+      min: 1100,
+      max: 1500
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'escapeStair',
       params: {
@@ -61,9 +62,9 @@ export const EscapeStairNode: NodeDefinition<EscapeStairInputs, EscapeStairOutpu
         width: params.width
       }
     });
-
+    
     return {
       escapeStair: result
     };
-  }
+  },
 };

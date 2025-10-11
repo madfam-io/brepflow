@@ -8,7 +8,7 @@ Electric charge field
 ## Parameters
 
 
-### charge
+### Charge
 - **Type:** number
 - **Default:** 1
 - **Min:** -10
@@ -16,7 +16,7 @@ Electric charge field
 
 
 
-### falloff
+### Falloff
 - **Type:** enum
 - **Default:** "inverse-square"
 
@@ -27,7 +27,7 @@ Electric charge field
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Electric charge field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

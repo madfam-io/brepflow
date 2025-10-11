@@ -1,54 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldHistogramParams {
   bins: number;
 }
-interface Inputs {
-  field?: Field;
-  domain?: Geometry;
+
+interface FieldHistogramInputs {
+  field?: unknown;
+  domain?: unknown;
 }
-interface Outputs {
-  binCenters: NumberList;
-  binCounts: NumberList;
-  binEdges: NumberList;
+
+interface FieldHistogramOutputs {
+  binCenters: unknown;
+  binCounts: unknown;
+  binEdges: unknown;
 }
 
 export const FieldHistogramNode: NodeDefinition<FieldHistogramInputs, FieldHistogramOutputs, FieldHistogramParams> = {
-  type: 'Fields::FieldHistogram',
+  id: 'Fields::FieldHistogram',
   category: 'Fields',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'FieldHistogram',
-    description: 'Generate histogram of field values',
-    
-    
-  },
-
-  params: {
-        bins: {
-      "default": 20,
-      "min": 5,
-      "max": 100,
-      "description": "Number of histogram bins"
+  label: 'FieldHistogram',
+  description: 'Generate histogram of field values',
+  inputs: {
+    field: {
+      type: 'Field',
+      label: 'Field',
+      optional: true
+    },
+    domain: {
+      type: 'Geometry',
+      label: 'Domain',
+      optional: true
     }
   },
-
-  inputs: {
-        field: 'Field',
-    domain: 'Geometry'
-  },
-
   outputs: {
-        binCenters: 'NumberList',
-    binCounts: 'NumberList',
-    binEdges: 'NumberList'
+    binCenters: {
+      type: 'NumberList',
+      label: 'Bin Centers'
+    },
+    binCounts: {
+      type: 'NumberList',
+      label: 'Bin Counts'
+    },
+    binEdges: {
+      type: 'NumberList',
+      label: 'Bin Edges'
+    }
   },
-
+  params: {
+    bins: {
+      type: 'number',
+      label: 'Bins',
+      default: 20,
+      min: 5,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
+    const results = await context.geometry.execute({
+      type: 'generateHistogram',
+      params: {
+        field: inputs.field,
+        domain: inputs.domain,
+        bins: params.bins
+      }
+    });
     
-    // TODO: Implement FieldHistogram logic
-    throw new Error('FieldHistogram not yet implemented');
-  }
+    return {
+      binCenters: results.binCenters,
+      binCounts: results.binCounts,
+      binEdges: results.binEdges
+    };
+  },
 };

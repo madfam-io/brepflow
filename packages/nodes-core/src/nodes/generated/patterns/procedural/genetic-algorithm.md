@@ -8,7 +8,7 @@ GA-based pattern optimization
 ## Parameters
 
 
-### population
+### Population
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -16,7 +16,7 @@ GA-based pattern optimization
 
 
 
-### generations
+### Generations
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -24,7 +24,7 @@ GA-based pattern optimization
 
 
 
-### mutationRate
+### Mutation Rate
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0
@@ -35,13 +35,13 @@ GA-based pattern optimization
 ## Inputs
 
 
-### fitness
+### Fitness
 - **Type:** Data
 - **Required:** Yes
 
 
 
-### constraints
+### Constraints
 - **Type:** Data
 - **Required:** No
 
@@ -50,12 +50,12 @@ GA-based pattern optimization
 ## Outputs
 
 
-### best
+### Best
 - **Type:** Shape
 
 
 
-### population
+### Population
 - **Type:** Shape[]
 
 

@@ -1,58 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CellularAutomataParams {
   rule: number;
   generations: number;
   cellSize: number;
 }
-interface Inputs {
-  initialState: Point[];
+
+interface CellularAutomataInputs {
+  initialState: Array<[number, number, number]>;
 }
-interface Outputs {
-  cells: Face[];
+
+interface CellularAutomataOutputs {
+  cells: unknown;
 }
 
 export const CellularAutomataNode: NodeDefinition<CellularAutomataInputs, CellularAutomataOutputs, CellularAutomataParams> = {
-  type: 'Patterns::CellularAutomata',
+  id: 'Patterns::CellularAutomata',
   category: 'Patterns',
-  subcategory: 'Cellular',
-
-  metadata: {
-    label: 'CellularAutomata',
-    description: 'Cellular automaton pattern',
-    
-    
-  },
-
-  params: {
-        rule: {
-      "default": 30,
-      "min": 0,
-      "max": 255
-    },
-    generations: {
-      "default": 50,
-      "min": 1,
-      "max": 200,
-      "step": 1
-    },
-    cellSize: {
-      "default": 1,
-      "min": 0.1
+  label: 'CellularAutomata',
+  description: 'Cellular automaton pattern',
+  inputs: {
+    initialState: {
+      type: 'Point[]',
+      label: 'Initial State',
+      required: true
     }
   },
-
-  inputs: {
-        initialState: 'Point[]'
-  },
-
   outputs: {
-        cells: 'Face[]'
+    cells: {
+      type: 'Face[]',
+      label: 'Cells'
+    }
   },
-
+  params: {
+    rule: {
+      type: 'number',
+      label: 'Rule',
+      default: 30,
+      min: 0,
+      max: 255
+    },
+    generations: {
+      type: 'number',
+      label: 'Generations',
+      default: 50,
+      min: 1,
+      max: 200,
+      step: 1
+    },
+    cellSize: {
+      type: 'number',
+      label: 'Cell Size',
+      default: 1,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'cellularAutomata',
       params: {
@@ -62,9 +65,9 @@ export const CellularAutomataNode: NodeDefinition<CellularAutomataInputs, Cellul
         cellSize: params.cellSize
       }
     });
-
+    
     return {
       cells: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Peano space-filling curve
 ## Parameters
 
 
-### order
+### Order
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -19,7 +19,7 @@ Peano space-filling curve
 ## Inputs
 
 
-### bounds
+### Bounds
 - **Type:** Box
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Peano space-filling curve
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 
 

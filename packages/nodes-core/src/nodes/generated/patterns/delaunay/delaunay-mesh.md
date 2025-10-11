@@ -8,7 +8,7 @@ Quality mesh generation
 ## Parameters
 
 
-### targetSize
+### Target Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Quality mesh generation
 
 
 
-### minAngle
+### Min Angle
 - **Type:** number
 - **Default:** 20
 - **Min:** 0
@@ -27,7 +27,7 @@ Quality mesh generation
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Quality mesh generation
 ## Outputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 
 

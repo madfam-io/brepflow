@@ -8,7 +8,7 @@ Nature-inspired structures
 ## Parameters
 
 
-### inspiration
+### Inspiration
 - **Type:** enum
 - **Default:** "bone"
 
@@ -16,7 +16,7 @@ Nature-inspired structures
 
 
 
-### density
+### Density
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Nature-inspired structures
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Nature-inspired structures
 ## Outputs
 
 
-### biomimetic
+### Biomimetic
 - **Type:** Shape
 
 

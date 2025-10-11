@@ -8,7 +8,7 @@ Zebra stripe analysis
 ## Parameters
 
 
-### stripeCount
+### Stripe Count
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -16,7 +16,7 @@ Zebra stripe analysis
 
 
 
-### stripeDirection
+### Stripe Direction
 - **Type:** vector3
 - **Default:** [0,0,1]
 
@@ -24,7 +24,7 @@ Zebra stripe analysis
 
 
 
-### stripeWidth
+### Stripe Width
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -35,7 +35,7 @@ Zebra stripe analysis
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Zebra stripe analysis
 ## Outputs
 
 
-### stripes
+### Stripes
 - **Type:** Wire[]
 
 

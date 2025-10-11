@@ -8,7 +8,7 @@ Stained glass window
 ## Parameters
 
 
-### pattern
+### Pattern
 - **Type:** enum
 - **Default:** "geometric"
 
@@ -16,7 +16,7 @@ Stained glass window
 
 
 
-### leadWidth
+### Lead Width
 - **Type:** number
 - **Default:** 6
 - **Min:** 4
@@ -27,13 +27,13 @@ Stained glass window
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### pattern
+### Pattern
 - **Type:** Wire[]
 - **Required:** No
 
@@ -42,12 +42,12 @@ Stained glass window
 ## Outputs
 
 
-### stainedGlass
+### Stained Glass
 - **Type:** Shape
 
 
 
-### leadCame
+### Lead Came
 - **Type:** Wire[]
 
 

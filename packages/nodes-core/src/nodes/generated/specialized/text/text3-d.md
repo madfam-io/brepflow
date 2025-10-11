@@ -8,7 +8,7 @@ Create 3D text
 ## Parameters
 
 
-### text
+### Text
 - **Type:** string
 - **Default:** "HELLO"
 
@@ -16,7 +16,7 @@ Create 3D text
 
 
 
-### font
+### Font
 - **Type:** enum
 - **Default:** "Arial"
 
@@ -24,7 +24,7 @@ Create 3D text
 
 
 
-### size
+### Size
 - **Type:** number
 - **Default:** 20
 - **Min:** 1
@@ -32,7 +32,7 @@ Create 3D text
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Create 3D text
 
 
 
-### bold
+### Bold
 - **Type:** boolean
 - **Default:** false
 
@@ -48,7 +48,7 @@ Create 3D text
 
 
 
-### italic
+### Italic
 - **Type:** boolean
 - **Default:** false
 
@@ -59,13 +59,13 @@ Create 3D text
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** No
 
 
 
-### direction
+### Direction
 - **Type:** Vector
 - **Required:** No
 
@@ -74,7 +74,7 @@ Create 3D text
 ## Outputs
 
 
-### text
+### Text
 - **Type:** Shape
 
 

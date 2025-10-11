@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ProjectToPlaneParams {
   planeOriginX: number;
   planeOriginY: number;
   planeOriginZ: number;
@@ -9,56 +8,66 @@ interface Params {
   planeNormalY: number;
   planeNormalZ: number;
 }
-interface Inputs {
-  shape: Shape;
+
+interface ProjectToPlaneInputs {
+  shape: unknown;
 }
-interface Outputs {
-  projected: Shape;
+
+interface ProjectToPlaneOutputs {
+  projected: unknown;
 }
 
 export const ProjectToPlaneNode: NodeDefinition<ProjectToPlaneInputs, ProjectToPlaneOutputs, ProjectToPlaneParams> = {
-  type: 'Transform::ProjectToPlane',
+  id: 'Transform::ProjectToPlane',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'ProjectToPlane',
-    description: 'Project shape onto a plane',
-    
-    
-  },
-
-  params: {
-        planeOriginX: {
-      "default": 0
-    },
-    planeOriginY: {
-      "default": 0
-    },
-    planeOriginZ: {
-      "default": 0
-    },
-    planeNormalX: {
-      "default": 0
-    },
-    planeNormalY: {
-      "default": 0
-    },
-    planeNormalZ: {
-      "default": 1
+  label: 'ProjectToPlane',
+  description: 'Project shape onto a plane',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        projected: 'Shape'
+    projected: {
+      type: 'Shape',
+      label: 'Projected'
+    }
   },
-
+  params: {
+    planeOriginX: {
+      type: 'number',
+      label: 'Plane Origin X',
+      default: 0
+    },
+    planeOriginY: {
+      type: 'number',
+      label: 'Plane Origin Y',
+      default: 0
+    },
+    planeOriginZ: {
+      type: 'number',
+      label: 'Plane Origin Z',
+      default: 0
+    },
+    planeNormalX: {
+      type: 'number',
+      label: 'Plane Normal X',
+      default: 0
+    },
+    planeNormalY: {
+      type: 'number',
+      label: 'Plane Normal Y',
+      default: 0
+    },
+    planeNormalZ: {
+      type: 'number',
+      label: 'Plane Normal Z',
+      default: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'transformProject',
       params: {
@@ -71,9 +80,9 @@ export const ProjectToPlaneNode: NodeDefinition<ProjectToPlaneInputs, ProjectToP
         planeNormalZ: params.planeNormalZ
       }
     });
-
+    
     return {
       projected: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Reflection line analysis
 ## Parameters
 
 
-### lineCount
+### Line Count
 - **Type:** number
 - **Default:** 10
 - **Min:** 3
@@ -16,7 +16,7 @@ Reflection line analysis
 
 
 
-### viewDirection
+### View Direction
 - **Type:** vector3
 - **Default:** [0,0,1]
 
@@ -27,7 +27,7 @@ Reflection line analysis
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Reflection line analysis
 ## Outputs
 
 
-### reflectionLines
+### Reflection Lines
 - **Type:** Wire[]
 
 

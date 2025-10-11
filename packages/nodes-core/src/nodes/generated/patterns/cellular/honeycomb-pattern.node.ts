@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HoneycombPatternParams {
   cellSize: number;
   wallThickness: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface HoneycombPatternInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  honeycomb: Wire[];
+
+interface HoneycombPatternOutputs {
+  honeycomb: unknown;
 }
 
 export const HoneycombPatternNode: NodeDefinition<HoneycombPatternInputs, HoneycombPatternOutputs, HoneycombPatternParams> = {
-  type: 'Patterns::HoneycombPattern',
+  id: 'Patterns::HoneycombPattern',
   category: 'Patterns',
-  subcategory: 'Cellular',
-
-  metadata: {
-    label: 'HoneycombPattern',
-    description: 'Honeycomb hexagonal pattern',
-    
-    
-  },
-
-  params: {
-        cellSize: {
-      "default": 10,
-      "min": 1
-    },
-    wallThickness: {
-      "default": 1,
-      "min": 0.1
+  label: 'HoneycombPattern',
+  description: 'Honeycomb hexagonal pattern',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        honeycomb: 'Wire[]'
+    honeycomb: {
+      type: 'Wire[]',
+      label: 'Honeycomb'
+    }
   },
-
+  params: {
+    cellSize: {
+      type: 'number',
+      label: 'Cell Size',
+      default: 10,
+      min: 1
+    },
+    wallThickness: {
+      type: 'number',
+      label: 'Wall Thickness',
+      default: 1,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'honeycombPattern',
       params: {
@@ -53,9 +54,9 @@ export const HoneycombPatternNode: NodeDefinition<HoneycombPatternInputs, Honeyc
         wallThickness: params.wallThickness
       }
     });
-
+    
     return {
       honeycomb: result
     };
-  }
+  },
 };

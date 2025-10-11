@@ -8,7 +8,7 @@ Tilt-up concrete panel
 ## Parameters
 
 
-### panelThickness
+### Panel Thickness
 - **Type:** number
 - **Default:** 200
 - **Min:** 150
@@ -16,7 +16,7 @@ Tilt-up concrete panel
 
 
 
-### reinforcement
+### Reinforcement
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Tilt-up concrete panel
 ## Inputs
 
 
-### panelOutline
+### Panel Outline
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Tilt-up concrete panel
 ## Outputs
 
 
-### panel
+### Panel
 - **Type:** Shape
 
 
 
-### liftingPoints
+### Lifting Points
 - **Type:** Point[]
 
 

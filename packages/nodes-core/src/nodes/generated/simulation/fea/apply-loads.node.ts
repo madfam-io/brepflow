@@ -1,81 +1,77 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ApplyLoadsParams {
   loadType: string;
   magnitude: number;
   direction: [number, number, number];
   units: string;
 }
-interface Inputs {
-  mesh: Mesh;
-  applicationFaces: Face[];
+
+interface ApplyLoadsInputs {
+  mesh: unknown;
+  applicationFaces: unknown;
 }
-interface Outputs {
-  loadedMesh: Mesh;
-  loadData: Data;
+
+interface ApplyLoadsOutputs {
+  loadedMesh: unknown;
+  loadData: unknown;
 }
 
 export const ApplyLoadsNode: NodeDefinition<ApplyLoadsInputs, ApplyLoadsOutputs, ApplyLoadsParams> = {
-  type: 'Simulation::ApplyLoads',
+  id: 'Simulation::ApplyLoads',
   category: 'Simulation',
-  subcategory: 'FEA',
-
-  metadata: {
-    label: 'ApplyLoads',
-    description: 'Define load conditions',
-    
-    
-  },
-
-  params: {
-        loadType: {
-      "default": "force",
-      "options": [
-        "force",
-        "pressure",
-        "torque",
-        "gravity",
-        "thermal"
-      ]
+  label: 'ApplyLoads',
+  description: 'Define load conditions',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     },
-    magnitude: {
-      "default": 1000,
-      "min": 0,
-      "max": 1000000
-    },
-    direction: {
-      "default": [
-        0,
-        0,
-        -1
-      ]
-    },
-    units: {
-      "default": "N",
-      "options": [
-        "N",
-        "kN",
-        "lbf",
-        "Pa",
-        "MPa"
-      ]
+    applicationFaces: {
+      type: 'Face[]',
+      label: 'Application Faces',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh',
-    applicationFaces: 'Face[]'
-  },
-
   outputs: {
-        loadedMesh: 'Mesh',
-    loadData: 'Data'
+    loadedMesh: {
+      type: 'Mesh',
+      label: 'Loaded Mesh'
+    },
+    loadData: {
+      type: 'Data',
+      label: 'Load Data'
+    }
   },
-
+  params: {
+    loadType: {
+      type: 'enum',
+      label: 'Load Type',
+      default: "force",
+      options: ["force","pressure","torque","gravity","thermal"]
+    },
+    magnitude: {
+      type: 'number',
+      label: 'Magnitude',
+      default: 1000,
+      min: 0,
+      max: 1000000
+    },
+    direction: {
+      type: 'vec3',
+      label: 'Direction',
+      default: [0,0,-1]
+    },
+    units: {
+      type: 'enum',
+      label: 'Units',
+      default: "N",
+      options: ["N","kN","lbf","Pa","MPa"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'applyLoads',
       params: {
         mesh: inputs.mesh,
@@ -86,10 +82,10 @@ export const ApplyLoadsNode: NodeDefinition<ApplyLoadsInputs, ApplyLoadsOutputs,
         units: params.units
       }
     });
-
+    
     return {
-      loadedMesh: result,
-      loadData: result
+      loadedMesh: results.loadedMesh,
+      loadData: results.loadData
     };
-  }
+  },
 };

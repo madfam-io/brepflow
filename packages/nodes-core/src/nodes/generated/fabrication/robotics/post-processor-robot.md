@@ -8,7 +8,7 @@ Robot code generation
 ## Parameters
 
 
-### robotBrand
+### Robot Brand
 - **Type:** enum
 - **Default:** "abb"
 
@@ -19,7 +19,7 @@ Robot code generation
 ## Inputs
 
 
-### trajectory
+### Trajectory
 - **Type:** Transform[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Robot code generation
 ## Outputs
 
 
-### robotCode
+### Robot Code
 - **Type:** Data
 
 

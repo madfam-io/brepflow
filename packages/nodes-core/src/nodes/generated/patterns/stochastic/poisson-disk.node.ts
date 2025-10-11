@@ -1,51 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PoissonDiskParams {
   radius: number;
   k: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface PoissonDiskInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  points: Point[];
+
+interface PoissonDiskOutputs {
+  points: Array<[number, number, number]>;
 }
 
 export const PoissonDiskNode: NodeDefinition<PoissonDiskInputs, PoissonDiskOutputs, PoissonDiskParams> = {
-  type: 'Patterns::PoissonDisk',
+  id: 'Patterns::PoissonDisk',
   category: 'Patterns',
-  subcategory: 'Stochastic',
-
-  metadata: {
-    label: 'PoissonDisk',
-    description: 'Poisson disk sampling',
-    
-    
-  },
-
-  params: {
-        radius: {
-      "default": 5,
-      "min": 0.1
-    },
-    k: {
-      "default": 30,
-      "min": 3,
-      "max": 100
+  label: 'PoissonDisk',
+  description: 'Poisson disk sampling',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        points: 'Point[]'
+    points: {
+      type: 'Point[]',
+      label: 'Points'
+    }
   },
-
+  params: {
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 5,
+      min: 0.1
+    },
+    k: {
+      type: 'number',
+      label: 'K',
+      default: 30,
+      min: 3,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'poissonDisk',
       params: {
@@ -54,9 +55,9 @@ export const PoissonDiskNode: NodeDefinition<PoissonDiskInputs, PoissonDiskOutpu
         k: params.k
       }
     });
-
+    
     return {
       points: result
     };
-  }
+  },
 };

@@ -1,49 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StepDraftParams {
   steps: number;
 }
-interface Inputs {
-  solid: Shape;
-  draftData: Data;
+
+interface StepDraftInputs {
+  solid: unknown;
+  draftData: unknown;
 }
-interface Outputs {
-  drafted: Shape;
+
+interface StepDraftOutputs {
+  drafted: unknown;
 }
 
 export const StepDraftNode: NodeDefinition<StepDraftInputs, StepDraftOutputs, StepDraftParams> = {
-  type: 'Advanced::StepDraft',
+  id: 'Advanced::StepDraft',
   category: 'Advanced',
-  subcategory: 'Draft',
-
-  metadata: {
-    label: 'StepDraft',
-    description: 'Multi-step draft',
-    
-    
-  },
-
-  params: {
-        steps: {
-      "default": 2,
-      "min": 1,
-      "max": 10,
-      "step": 1
+  label: 'StepDraft',
+  description: 'Multi-step draft',
+  inputs: {
+    solid: {
+      type: 'Shape',
+      label: 'Solid',
+      required: true
+    },
+    draftData: {
+      type: 'Data',
+      label: 'Draft Data',
+      required: true
     }
   },
-
-  inputs: {
-        solid: 'Shape',
-    draftData: 'Data'
-  },
-
   outputs: {
-        drafted: 'Shape'
+    drafted: {
+      type: 'Shape',
+      label: 'Drafted'
+    }
   },
-
+  params: {
+    steps: {
+      type: 'number',
+      label: 'Steps',
+      default: 2,
+      min: 1,
+      max: 10,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stepDraft',
       params: {
@@ -52,9 +55,9 @@ export const StepDraftNode: NodeDefinition<StepDraftInputs, StepDraftOutputs, St
         steps: params.steps
       }
     });
-
+    
     return {
       drafted: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Calculate correlation between fields
 ## Parameters
 
 
-### sampleCount
+### Sample Count
 - **Type:** number
 - **Default:** 1000
 - **Min:** 100
@@ -19,19 +19,19 @@ Calculate correlation between fields
 ## Inputs
 
 
-### field1
+### Field1
 - **Type:** Field
 - **Required:** No
 
 
 
-### field2
+### Field2
 - **Type:** Field
 - **Required:** No
 
 
 
-### domain
+### Domain
 - **Type:** Geometry
 - **Required:** No
 
@@ -40,12 +40,12 @@ Calculate correlation between fields
 ## Outputs
 
 
-### correlation
+### Correlation
 - **Type:** Number
 
 
 
-### covariance
+### Covariance
 - **Type:** Number
 
 

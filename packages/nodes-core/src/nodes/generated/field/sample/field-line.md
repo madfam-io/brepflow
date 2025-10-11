@@ -8,7 +8,7 @@ Create field lines
 ## Parameters
 
 
-### stepSize
+### Step Size
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Create field lines
 
 
 
-### maxSteps
+### Max Steps
 - **Type:** number
 - **Default:** 1000
 - **Min:** 10
@@ -24,7 +24,7 @@ Create field lines
 
 
 
-### direction
+### Direction
 - **Type:** enum
 - **Default:** "forward"
 
@@ -35,13 +35,13 @@ Create field lines
 ## Inputs
 
 
-### field
+### Field
 - **Type:** VectorField
 - **Required:** Yes
 
 
 
-### seeds
+### Seeds
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Create field lines
 ## Outputs
 
 
-### lines
+### Lines
 - **Type:** Wire[]
 
 

@@ -1,48 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RackPinionParams {
   module: number;
 }
-interface Inputs {
-  rack: Shape;
-  pinion: Shape;
+
+interface RackPinionInputs {
+  rack: unknown;
+  pinion: unknown;
 }
-interface Outputs {
-  joint: Joint;
+
+interface RackPinionOutputs {
+  joint: unknown;
 }
 
 export const RackPinionNode: NodeDefinition<RackPinionInputs, RackPinionOutputs, RackPinionParams> = {
-  type: 'Assembly::RackPinion',
+  id: 'Assembly::RackPinion',
   category: 'Assembly',
-  subcategory: 'Joints',
-
-  metadata: {
-    label: 'RackPinion',
-    description: 'Create rack and pinion joint',
-    
-    
-  },
-
-  params: {
-        module: {
-      "default": 1,
-      "min": 0.1,
-      "max": 100
+  label: 'RackPinion',
+  description: 'Create rack and pinion joint',
+  inputs: {
+    rack: {
+      type: 'Shape',
+      label: 'Rack',
+      required: true
+    },
+    pinion: {
+      type: 'Shape',
+      label: 'Pinion',
+      required: true
     }
   },
-
-  inputs: {
-        rack: 'Shape',
-    pinion: 'Shape'
-  },
-
   outputs: {
-        joint: 'Joint'
+    joint: {
+      type: 'Joint',
+      label: 'Joint'
+    }
   },
-
+  params: {
+    module: {
+      type: 'number',
+      label: 'Module',
+      default: 1,
+      min: 0.1,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jointRackPinion',
       params: {
@@ -51,9 +54,9 @@ export const RackPinionNode: NodeDefinition<RackPinionInputs, RackPinionOutputs,
         module: params.module
       }
     });
-
+    
     return {
       joint: result
     };
-  }
+  },
 };

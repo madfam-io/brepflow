@@ -1,46 +1,45 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ShuffleParams {
   seed: number;
 }
-interface Inputs {
-  list: Data[];
+
+interface ShuffleInputs {
+  list: unknown;
 }
-interface Outputs {
-  shuffled: Data[];
+
+interface ShuffleOutputs {
+  shuffled: unknown;
 }
 
 export const ShuffleNode: NodeDefinition<ShuffleInputs, ShuffleOutputs, ShuffleParams> = {
-  type: 'Math::Shuffle',
+  id: 'Math::Shuffle',
   category: 'Math',
-  subcategory: 'Random',
-
-  metadata: {
-    label: 'Shuffle',
-    description: 'Shuffle list randomly',
-    
-    
-  },
-
-  params: {
-        seed: {
-      "default": -1,
-      "min": -1,
-      "max": 999999
+  label: 'Shuffle',
+  description: 'Shuffle list randomly',
+  inputs: {
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
     }
   },
-
-  inputs: {
-        list: 'Data[]'
-  },
-
   outputs: {
-        shuffled: 'Data[]'
+    shuffled: {
+      type: 'Data[]',
+      label: 'Shuffled'
+    }
   },
-
+  params: {
+    seed: {
+      type: 'number',
+      label: 'Seed',
+      default: -1,
+      min: -1,
+      max: 999999
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathShuffle',
       params: {
@@ -48,9 +47,9 @@ export const ShuffleNode: NodeDefinition<ShuffleInputs, ShuffleOutputs, ShuffleP
         seed: params.seed
       }
     });
-
+    
     return {
       shuffled: result
     };
-  }
+  },
 };

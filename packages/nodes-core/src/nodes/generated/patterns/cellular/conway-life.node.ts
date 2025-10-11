@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ConwayLifeParams {
   generations: number;
   cellSize: number;
 }
-interface Inputs {
-  initialCells: Point[];
+
+interface ConwayLifeInputs {
+  initialCells: Array<[number, number, number]>;
 }
-interface Outputs {
-  liveCells: Face[];
+
+interface ConwayLifeOutputs {
+  liveCells: unknown;
 }
 
 export const ConwayLifeNode: NodeDefinition<ConwayLifeInputs, ConwayLifeOutputs, ConwayLifeParams> = {
-  type: 'Patterns::ConwayLife',
+  id: 'Patterns::ConwayLife',
   category: 'Patterns',
-  subcategory: 'Cellular',
-
-  metadata: {
-    label: 'ConwayLife',
-    description: 'Conway Game of Life',
-    
-    
-  },
-
-  params: {
-        generations: {
-      "default": 10,
-      "min": 1,
-      "max": 100,
-      "step": 1
-    },
-    cellSize: {
-      "default": 1,
-      "min": 0.1
+  label: 'ConwayLife',
+  description: 'Conway Game of Life',
+  inputs: {
+    initialCells: {
+      type: 'Point[]',
+      label: 'Initial Cells',
+      required: true
     }
   },
-
-  inputs: {
-        initialCells: 'Point[]'
-  },
-
   outputs: {
-        liveCells: 'Face[]'
+    liveCells: {
+      type: 'Face[]',
+      label: 'Live Cells'
+    }
   },
-
+  params: {
+    generations: {
+      type: 'number',
+      label: 'Generations',
+      default: 10,
+      min: 1,
+      max: 100,
+      step: 1
+    },
+    cellSize: {
+      type: 'number',
+      label: 'Cell Size',
+      default: 1,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'conwayLife',
       params: {
@@ -55,9 +56,9 @@ export const ConwayLifeNode: NodeDefinition<ConwayLifeInputs, ConwayLifeOutputs,
         cellSize: params.cellSize
       }
     });
-
+    
     return {
       liveCells: result
     };
-  }
+  },
 };

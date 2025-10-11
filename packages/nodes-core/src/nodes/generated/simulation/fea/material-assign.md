@@ -8,7 +8,7 @@ Assign material properties
 ## Parameters
 
 
-### material
+### Material
 - **Type:** enum
 - **Default:** "steel"
 
@@ -16,7 +16,7 @@ Assign material properties
 
 
 
-### youngsModulus
+### Youngs Modulus
 - **Type:** number
 - **Default:** 200000
 - **Min:** 1
@@ -24,7 +24,7 @@ Assign material properties
 - **Description:** MPa
 
 
-### poissonsRatio
+### Poissons Ratio
 - **Type:** number
 - **Default:** 0.3
 - **Min:** 0
@@ -32,7 +32,7 @@ Assign material properties
 
 
 
-### density
+### Density
 - **Type:** number
 - **Default:** 7850
 - **Min:** 1
@@ -40,7 +40,7 @@ Assign material properties
 - **Description:** kg/m³
 
 
-### yieldStrength
+### Yield Strength
 - **Type:** number
 - **Default:** 250
 - **Min:** 1
@@ -51,13 +51,13 @@ Assign material properties
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
 
 
-### bodies
+### Bodies
 - **Type:** Shape[]
 - **Required:** No
 
@@ -66,12 +66,12 @@ Assign material properties
 ## Outputs
 
 
-### materializedMesh
+### Materialized Mesh
 - **Type:** Mesh
 
 
 
-### materialData
+### Material Data
 - **Type:** Data
 
 

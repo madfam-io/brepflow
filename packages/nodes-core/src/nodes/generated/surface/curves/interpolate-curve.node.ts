@@ -1,58 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface InterpolateCurveParams {
   degree: number;
   periodic: boolean;
   tangentStart: [number, number, number];
   tangentEnd: [number, number, number];
 }
-interface Inputs {
-  points: Point[];
+
+interface InterpolateCurveInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  curve: Wire;
+
+interface InterpolateCurveOutputs {
+  curve: unknown;
 }
 
 export const InterpolateCurveNode: NodeDefinition<InterpolateCurveInputs, InterpolateCurveOutputs, InterpolateCurveParams> = {
-  type: 'Surface::InterpolateCurve',
+  id: 'Surface::InterpolateCurve',
   category: 'Surface',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'InterpolateCurve',
-    description: 'Interpolate curve through points',
-    
-    
-  },
-
-  params: {
-        degree: {
-      "default": 3,
-      "min": 1,
-      "max": 10
-    },
-    periodic: {
-      "default": false
-    },
-    tangentStart: {
-      "default": null
-    },
-    tangentEnd: {
-      "default": null
+  label: 'InterpolateCurve',
+  description: 'Interpolate curve through points',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     }
   },
-
-  inputs: {
-        points: 'Point[]'
-  },
-
   outputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve'
+    }
   },
-
+  params: {
+    degree: {
+      type: 'number',
+      label: 'Degree',
+      default: 3,
+      min: 1,
+      max: 10
+    },
+    periodic: {
+      type: 'boolean',
+      label: 'Periodic',
+      default: false
+    },
+    tangentStart: {
+      type: 'vec3',
+      label: 'Tangent Start',
+      default: null
+    },
+    tangentEnd: {
+      type: 'vec3',
+      label: 'Tangent End',
+      default: null
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'interpolateCurve',
       params: {
@@ -63,9 +68,9 @@ export const InterpolateCurveNode: NodeDefinition<InterpolateCurveInputs, Interp
         tangentEnd: params.tangentEnd
       }
     });
-
+    
     return {
       curve: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Measure distances with annotations
 ## Parameters
 
 
-### precision
+### Precision
 - **Type:** number
 - **Default:** 2
 - **Min:** 0
@@ -16,7 +16,7 @@ Measure distances with annotations
 - **Description:** Decimal places
 
 
-### showDimension
+### Show Dimension
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Measure distances with annotations
 ## Inputs
 
 
-### point1
+### Point1
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### point2
+### Point2
 - **Type:** Point
 - **Required:** Yes
 
@@ -42,17 +42,17 @@ Measure distances with annotations
 ## Outputs
 
 
-### distance
+### Distance
 - **Type:** number
 
 
 
-### dimensionLine
+### Dimension Line
 - **Type:** Wire
 
 
 
-### midpoint
+### Midpoint
 - **Type:** Point
 
 

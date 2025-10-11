@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface TorusParams {
   majorRadius: number;
   minorRadius: number;
   centerX: number;
@@ -11,85 +10,87 @@ interface Params {
   angle2: number;
   angle: number;
 }
-type Inputs = {};
-interface Outputs {
-  solid: Solid;
+
+type TorusInputs = Record<string, never>;
+
+interface TorusOutputs {
+  solid: unknown;
 }
 
 export const TorusNode: NodeDefinition<TorusInputs, TorusOutputs, TorusParams> = {
-  type: 'Solid::Torus',
+  id: 'Solid::Torus',
   category: 'Solid',
-  subcategory: 'Primitives',
-
-  metadata: {
-    label: 'Torus',
-    description: 'Create a parametric torus',
-    
-    
-  },
-
-  params: {
-        majorRadius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000,
-      "description": "Major radius"
-    },
-    minorRadius: {
-      "default": 10,
-      "min": 0.1,
-      "max": 10000,
-      "description": "Minor radius"
-    },
-    centerX: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerY: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerZ: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    angle1: {
-      "default": 0,
-      "min": 0,
-      "max": 360,
-      "description": "Start angle"
-    },
-    angle2: {
-      "default": 360,
-      "min": 0,
-      "max": 360,
-      "description": "End angle"
-    },
-    angle: {
-      "default": 360,
-      "min": 0,
-      "max": 360,
-      "description": "Sweep angle"
+  label: 'Torus',
+  description: 'Create a parametric torus',
+  inputs: {},
+  outputs: {
+    solid: {
+      type: 'Solid',
+      label: 'Solid'
     }
   },
-
-  inputs: {
-    
+  params: {
+    majorRadius: {
+      type: 'number',
+      label: 'Major Radius',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    minorRadius: {
+      type: 'number',
+      label: 'Minor Radius',
+      default: 10,
+      min: 0.1,
+      max: 10000
+    },
+    centerX: {
+      type: 'number',
+      label: 'Center X',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerY: {
+      type: 'number',
+      label: 'Center Y',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerZ: {
+      type: 'number',
+      label: 'Center Z',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    angle1: {
+      type: 'number',
+      label: 'Angle1',
+      default: 0,
+      min: 0,
+      max: 360
+    },
+    angle2: {
+      type: 'number',
+      label: 'Angle2',
+      default: 360,
+      min: 0,
+      max: 360
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 360,
+      min: 0,
+      max: 360
+    }
   },
-
-  outputs: {
-        solid: 'Solid'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeTorus',
       params: {
-        
         majorRadius: params.majorRadius,
         minorRadius: params.minorRadius,
         centerX: params.centerX,
@@ -100,9 +101,9 @@ export const TorusNode: NodeDefinition<TorusInputs, TorusOutputs, TorusParams> =
         angle: params.angle
       }
     });
-
+    
     return {
       solid: result
     };
-  }
+  },
 };

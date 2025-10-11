@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type Log10Params = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface Log10Inputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface Log10Outputs {
+  result: unknown;
 }
 
 export const Log10Node: NodeDefinition<Log10Inputs, Log10Outputs, Log10Params> = {
-  type: 'Math::Log10',
+  id: 'Math::Log10',
   category: 'Math',
-  subcategory: 'Logarithmic',
-
-  metadata: {
-    label: 'Log10',
-    description: 'Base-10 logarithm',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Log10',
+  description: 'Base-10 logarithm',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathLog10',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

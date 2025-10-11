@@ -1,66 +1,71 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SpacePartitioningParams {
   type: string;
   maxDepth: number;
   leafSize: number;
 }
-interface Inputs {
-  objects: Shape[];
+
+interface SpacePartitioningInputs {
+  objects: unknown;
 }
-interface Outputs {
-  structure: Properties;
-  stats: Properties;
-  visualization: Wire[];
+
+interface SpacePartitioningOutputs {
+  structure: unknown;
+  stats: unknown;
+  visualization: unknown;
 }
 
 export const SpacePartitioningNode: NodeDefinition<SpacePartitioningInputs, SpacePartitioningOutputs, SpacePartitioningParams> = {
-  type: 'Algorithmic::SpacePartitioning',
+  id: 'Algorithmic::SpacePartitioning',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'SpacePartitioning',
-    description: 'Spatial data structure for fast queries',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "octree",
-      "options": [
-        "octree",
-        "kdtree",
-        "bvh"
-      ]
-    },
-    maxDepth: {
-      "default": 8,
-      "min": 3,
-      "max": 15
-    },
-    leafSize: {
-      "default": 10,
-      "min": 1,
-      "max": 100
+  label: 'SpacePartitioning',
+  description: 'Spatial data structure for fast queries',
+  inputs: {
+    objects: {
+      type: 'Shape[]',
+      label: 'Objects',
+      required: true
     }
   },
-
-  inputs: {
-        objects: 'Shape[]'
-  },
-
   outputs: {
-        structure: 'Properties',
-    stats: 'Properties',
-    visualization: 'Wire[]'
+    structure: {
+      type: 'Properties',
+      label: 'Structure'
+    },
+    stats: {
+      type: 'Properties',
+      label: 'Stats'
+    },
+    visualization: {
+      type: 'Wire[]',
+      label: 'Visualization'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "octree",
+      options: ["octree","kdtree","bvh"]
+    },
+    maxDepth: {
+      type: 'number',
+      label: 'Max Depth',
+      default: 8,
+      min: 3,
+      max: 15
+    },
+    leafSize: {
+      type: 'number',
+      label: 'Leaf Size',
+      default: 10,
+      min: 1,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'spacePartitioning',
       params: {
         objects: inputs.objects,
@@ -69,11 +74,11 @@ export const SpacePartitioningNode: NodeDefinition<SpacePartitioningInputs, Spac
         leafSize: params.leafSize
       }
     });
-
+    
     return {
-      structure: result,
-      stats: result,
-      visualization: result
+      structure: results.structure,
+      stats: results.stats,
+      visualization: results.visualization
     };
-  }
+  },
 };

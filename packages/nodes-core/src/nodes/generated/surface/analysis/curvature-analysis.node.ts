@@ -1,60 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurvatureAnalysisParams {
   analysisType: string;
   sampleDensity: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface CurvatureAnalysisInputs {
+  surface: unknown;
 }
-interface Outputs {
-  analysis: Data;
-  visualization: Shape;
+
+interface CurvatureAnalysisOutputs {
+  analysis: unknown;
+  visualization: unknown;
 }
 
 export const CurvatureAnalysisNode: NodeDefinition<CurvatureAnalysisInputs, CurvatureAnalysisOutputs, CurvatureAnalysisParams> = {
-  type: 'Surface::CurvatureAnalysis',
+  id: 'Surface::CurvatureAnalysis',
   category: 'Surface',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'CurvatureAnalysis',
-    description: 'Analyze surface curvature',
-    
-    
-  },
-
-  params: {
-        analysisType: {
-      "default": "gaussian",
-      "options": [
-        "gaussian",
-        "mean",
-        "principal",
-        "radius"
-      ]
-    },
-    sampleDensity: {
-      "default": 50,
-      "min": 10,
-      "max": 200,
-      "step": 1
+  label: 'CurvatureAnalysis',
+  description: 'Analyze surface curvature',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        analysis: 'Data',
-    visualization: 'Shape'
+    analysis: {
+      type: 'Data',
+      label: 'Analysis'
+    },
+    visualization: {
+      type: 'Shape',
+      label: 'Visualization'
+    }
   },
-
+  params: {
+    analysisType: {
+      type: 'enum',
+      label: 'Analysis Type',
+      default: "gaussian",
+      options: ["gaussian","mean","principal","radius"]
+    },
+    sampleDensity: {
+      type: 'number',
+      label: 'Sample Density',
+      default: 50,
+      min: 10,
+      max: 200,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curvatureAnalysis',
       params: {
         surface: inputs.surface,
@@ -62,10 +61,10 @@ export const CurvatureAnalysisNode: NodeDefinition<CurvatureAnalysisInputs, Curv
         sampleDensity: params.sampleDensity
       }
     });
-
+    
     return {
-      analysis: result,
-      visualization: result
+      analysis: results.analysis,
+      visualization: results.visualization
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Double hung window
 ## Parameters
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 900
 - **Min:** 600
@@ -16,7 +16,7 @@ Double hung window
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 1500
 - **Min:** 900
@@ -24,7 +24,7 @@ Double hung window
 
 
 
-### sashPosition
+### Sash Position
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -35,7 +35,7 @@ Double hung window
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Double hung window
 ## Outputs
 
 
-### window
+### Window
 - **Type:** Shape
 
 
 
-### upperSash
+### Upper Sash
 - **Type:** Shape
 
 
 
-### lowerSash
+### Lower Sash
 - **Type:** Shape
 
 

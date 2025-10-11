@@ -1,59 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveConvexHullParams {
   samples: number;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveConvexHullInputs {
+  curve: unknown;
 }
-interface Outputs {
-  convexHull: Wire;
-  hullPoints: Point[];
+
+interface CurveConvexHullOutputs {
+  convexHull: unknown;
+  hullPoints: Array<[number, number, number]>;
 }
 
 export const CurveConvexHullNode: NodeDefinition<CurveConvexHullInputs, CurveConvexHullOutputs, CurveConvexHullParams> = {
-  type: 'Analysis::CurveConvexHull',
+  id: 'Analysis::CurveConvexHull',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveConvexHull',
-    description: 'Generate convex hull of curve points',
-    
-    
-  },
-
-  params: {
-        samples: {
-      "default": 100,
-      "min": 20,
-      "max": 500
+  label: 'CurveConvexHull',
+  description: 'Generate convex hull of curve points',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        convexHull: 'Wire',
-    hullPoints: 'Point[]'
+    convexHull: {
+      type: 'Wire',
+      label: 'Convex Hull'
+    },
+    hullPoints: {
+      type: 'Point[]',
+      label: 'Hull Points'
+    }
   },
-
+  params: {
+    samples: {
+      type: 'number',
+      label: 'Samples',
+      default: 100,
+      min: 20,
+      max: 500
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveConvexHull',
       params: {
         curve: inputs.curve,
         samples: params.samples
       }
     });
-
+    
     return {
-      convexHull: result,
-      hullPoints: result
+      convexHull: results.convexHull,
+      hullPoints: results.hullPoints
     };
-  }
+  },
 };

@@ -1,60 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-import { NumberParam, BoolParam, StringParam, EnumParam, Vector3Param } from '../../../../utils/param-utils.js';
-
-interface Params {
+interface CurveExtremePointsParams {
   axis: string;
   markPoints: boolean;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveExtremePointsInputs {
+  curve: unknown;
 }
-interface Outputs {
-  minPoints: Point[];
-  maxPoints: Point[];
-  extremeValues: number[];
+
+interface CurveExtremePointsOutputs {
+  minPoints: Array<[number, number, number]>;
+  maxPoints: Array<[number, number, number]>;
+  extremeValues: unknown;
 }
 
 export const CurveExtremePointsNode: NodeDefinition<CurveExtremePointsInputs, CurveExtremePointsOutputs, CurveExtremePointsParams> = {
-  type: 'Analysis::CurveExtremePoints',
+  id: 'Analysis::CurveExtremePoints',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveExtremePoints',
-    description: 'Find extreme points (min/max X,Y,Z)',
-    
-    
-  },
-
-  params: {
-        axis: EnumParam({
-      "default": "all",
-      "options": [
-        "X",
-        "Y",
-        "Z",
-        "all"
-      ]
-    }),
-    markPoints: BoolParam({
-      "default": true
-    })
-  },
-
+  label: 'CurveExtremePoints',
+  description: 'Find extreme points (min/max X,Y,Z)',
   inputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
+    }
   },
-
   outputs: {
-        minPoints: 'Point[]',
-    maxPoints: 'Point[]',
-    extremeValues: 'number[]'
+    minPoints: {
+      type: 'Point[]',
+      label: 'Min Points'
+    },
+    maxPoints: {
+      type: 'Point[]',
+      label: 'Max Points'
+    },
+    extremeValues: {
+      type: 'number[]',
+      label: 'Extreme Values'
+    }
   },
-
+  params: {
+    axis: {
+      type: 'enum',
+      label: 'Axis',
+      default: "all",
+      options: ["X","Y","Z","all"]
+    },
+    markPoints: {
+      type: 'boolean',
+      label: 'Mark Points',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveExtremePoints',
       params: {
         curve: inputs.curve,
@@ -62,11 +63,11 @@ export const CurveExtremePointsNode: NodeDefinition<CurveExtremePointsInputs, Cu
         markPoints: params.markPoints
       }
     });
-
+    
     return {
-      minPoints: result,
-      maxPoints: result,
-      extremeValues: result
+      minPoints: results.minPoints,
+      maxPoints: results.maxPoints,
+      extremeValues: results.extremeValues
     };
-  }
+  },
 };

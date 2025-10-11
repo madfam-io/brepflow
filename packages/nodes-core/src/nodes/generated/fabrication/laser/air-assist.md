@@ -8,7 +8,7 @@ Air assist optimization
 ## Parameters
 
 
-### pressure
+### Pressure
 - **Type:** number
 - **Default:** 20
 - **Min:** 0
@@ -16,7 +16,7 @@ Air assist optimization
 
 
 
-### nozzleType
+### Nozzle Type
 - **Type:** enum
 - **Default:** "standard"
 
@@ -27,7 +27,7 @@ Air assist optimization
 ## Inputs
 
 
-### material
+### Material
 - **Type:** Data
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Air assist optimization
 ## Outputs
 
 
-### airSettings
+### Air Settings
 - **Type:** Data
 
 

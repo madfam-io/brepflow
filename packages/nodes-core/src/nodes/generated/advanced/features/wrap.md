@@ -8,7 +8,7 @@ Wrap geometry onto surface
 ## Parameters
 
 
-### wrapType
+### Wrap Type
 - **Type:** enum
 - **Default:** "emboss"
 
@@ -16,7 +16,7 @@ Wrap geometry onto surface
 
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -27,19 +27,19 @@ Wrap geometry onto surface
 ## Inputs
 
 
-### targetSurface
+### Target Surface
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### sketch
+### Sketch
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### projectionDirection
+### Projection Direction
 - **Type:** Vector
 - **Required:** No
 
@@ -48,7 +48,7 @@ Wrap geometry onto surface
 ## Outputs
 
 
-### wrappedShape
+### Wrapped Shape
 - **Type:** Shape
 
 

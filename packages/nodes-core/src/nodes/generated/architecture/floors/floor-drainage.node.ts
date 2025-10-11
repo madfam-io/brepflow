@@ -1,60 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FloorDrainageParams {
   slope: number;
   drainType: string;
 }
-interface Inputs {
-  floorBoundary: Wire;
-  drainLocations: Point[];
+
+interface FloorDrainageInputs {
+  floorBoundary: unknown;
+  drainLocations: Array<[number, number, number]>;
 }
-interface Outputs {
-  slopedFloor: Shape;
-  drains: Shape[];
+
+interface FloorDrainageOutputs {
+  slopedFloor: unknown;
+  drains: unknown;
 }
 
 export const FloorDrainageNode: NodeDefinition<FloorDrainageInputs, FloorDrainageOutputs, FloorDrainageParams> = {
-  type: 'Architecture::FloorDrainage',
+  id: 'Architecture::FloorDrainage',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'FloorDrainage',
-    description: 'Floor drainage system',
-    
-    
-  },
-
-  params: {
-        slope: {
-      "default": 0.01,
-      "min": 0.005,
-      "max": 0.02
+  label: 'FloorDrainage',
+  description: 'Floor drainage system',
+  inputs: {
+    floorBoundary: {
+      type: 'Wire',
+      label: 'Floor Boundary',
+      required: true
     },
-    drainType: {
-      "default": "point",
-      "options": [
-        "point",
-        "linear",
-        "area"
-      ]
+    drainLocations: {
+      type: 'Point[]',
+      label: 'Drain Locations',
+      required: true
     }
   },
-
-  inputs: {
-        floorBoundary: 'Wire',
-    drainLocations: 'Point[]'
-  },
-
   outputs: {
-        slopedFloor: 'Shape',
-    drains: 'Shape[]'
+    slopedFloor: {
+      type: 'Shape',
+      label: 'Sloped Floor'
+    },
+    drains: {
+      type: 'Shape[]',
+      label: 'Drains'
+    }
   },
-
+  params: {
+    slope: {
+      type: 'number',
+      label: 'Slope',
+      default: 0.01,
+      min: 0.005,
+      max: 0.02
+    },
+    drainType: {
+      type: 'enum',
+      label: 'Drain Type',
+      default: "point",
+      options: ["point","linear","area"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'floorDrainage',
       params: {
         floorBoundary: inputs.floorBoundary,
@@ -63,10 +67,10 @@ export const FloorDrainageNode: NodeDefinition<FloorDrainageInputs, FloorDrainag
         drainType: params.drainType
       }
     });
-
+    
     return {
-      slopedFloor: result,
-      drains: result
+      slopedFloor: results.slopedFloor,
+      drains: results.drains
     };
-  }
+  },
 };

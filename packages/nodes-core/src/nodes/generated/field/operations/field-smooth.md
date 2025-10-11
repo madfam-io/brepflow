@@ -8,7 +8,7 @@ Smooth field
 ## Parameters
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Smooth field
 
 
 
-### factor
+### Factor
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -27,7 +27,7 @@ Smooth field
 ## Inputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Smooth field
 ## Outputs
 
 
-### smoothed
+### Smoothed
 - **Type:** ScalarField
 
 

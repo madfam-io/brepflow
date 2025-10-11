@@ -8,7 +8,7 @@ Penrose aperiodic tiling
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "P2"
 
@@ -16,7 +16,7 @@ Penrose aperiodic tiling
 
 
 
-### subdivisions
+### Subdivisions
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -27,7 +27,7 @@ Penrose aperiodic tiling
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Penrose aperiodic tiling
 ## Outputs
 
 
-### tiles
+### Tiles
 - **Type:** Face[]
 
 

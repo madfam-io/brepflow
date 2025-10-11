@@ -1,53 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type Delaunay3DParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  points: Point[];
+interface Delaunay3DInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  tetrahedra: Shape[];
-  mesh: Mesh;
+
+interface Delaunay3DOutputs {
+  tetrahedra: unknown;
+  mesh: unknown;
 }
 
 export const Delaunay3DNode: NodeDefinition<Delaunay3DInputs, Delaunay3DOutputs, Delaunay3DParams> = {
-  type: 'Patterns::Delaunay3D',
+  id: 'Patterns::Delaunay3D',
   category: 'Patterns',
-  subcategory: 'Delaunay',
-
-  metadata: {
-    label: 'Delaunay3D',
-    description: 'Create 3D Delaunay tetrahedralization',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Delaunay3D',
+  description: 'Create 3D Delaunay tetrahedralization',
   inputs: {
-        points: 'Point[]'
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
+    }
   },
-
   outputs: {
-        tetrahedra: 'Shape[]',
-    mesh: 'Mesh'
+    tetrahedra: {
+      type: 'Shape[]',
+      label: 'Tetrahedra'
+    },
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'delaunay3D',
       params: {
         points: inputs.points
-        
       }
     });
-
+    
     return {
-      tetrahedra: result,
-      mesh: result
+      tetrahedra: results.tetrahedra,
+      mesh: results.mesh
     };
-  }
+  },
 };

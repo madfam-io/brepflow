@@ -8,7 +8,7 @@ Subtract tool shapes from base shape
 ## Parameters
 
 
-### keepOriginals
+### Keep Originals
 - **Type:** boolean
 - **Default:** false
 
@@ -16,7 +16,7 @@ Subtract tool shapes from base shape
 
 
 
-### fuzzyValue
+### Fuzzy Value
 - **Type:** number
 - **Default:** 1e-7
 - **Min:** 0
@@ -27,13 +27,13 @@ Subtract tool shapes from base shape
 ## Inputs
 
 
-### base
+### Base
 - **Type:** Shape
 - **Required:** Yes
 - **Description:** Base shape
 
 
-### tools
+### Tools
 - **Type:** Shape[]
 - **Required:** Yes
 - **Description:** Shapes to subtract
@@ -42,7 +42,7 @@ Subtract tool shapes from base shape
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 - **Description:** Difference result
 

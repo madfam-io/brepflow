@@ -12,31 +12,31 @@ This node has no parameters.
 ## Inputs
 
 
-### value
+### Value
 - **Type:** number
 - **Required:** Yes
 
 
 
-### fromMin
+### From Min
 - **Type:** number
 - **Required:** Yes
 
 
 
-### fromMax
+### From Max
 - **Type:** number
 - **Required:** Yes
 
 
 
-### toMin
+### To Min
 - **Type:** number
 - **Required:** Yes
 
 
 
-### toMax
+### To Max
 - **Type:** number
 - **Required:** Yes
 
@@ -45,7 +45,7 @@ This node has no parameters.
 ## Outputs
 
 
-### remapped
+### Remapped
 - **Type:** number
 
 

@@ -8,7 +8,7 @@ AI-driven generative design
 ## Parameters
 
 
-### objectives
+### Objectives
 - **Type:** string[]
 - **Default:** ["weight","strength"]
 
@@ -16,7 +16,7 @@ AI-driven generative design
 
 
 
-### generations
+### Generations
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -24,7 +24,7 @@ AI-driven generative design
 
 
 
-### populationSize
+### Population Size
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -35,13 +35,13 @@ AI-driven generative design
 ## Inputs
 
 
-### designSpace
+### Design Space
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### requirements
+### Requirements
 - **Type:** Data
 - **Required:** Yes
 
@@ -50,12 +50,12 @@ AI-driven generative design
 ## Outputs
 
 
-### designs
+### Designs
 - **Type:** Shape[]
 
 
 
-### paretoFront
+### Pareto Front
 - **Type:** Data
 
 

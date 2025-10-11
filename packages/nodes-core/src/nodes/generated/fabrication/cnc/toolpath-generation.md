@@ -8,7 +8,7 @@ Generate CNC toolpaths
 ## Parameters
 
 
-### strategy
+### Strategy
 - **Type:** enum
 - **Default:** "parallel"
 
@@ -16,7 +16,7 @@ Generate CNC toolpaths
 
 
 
-### toolDiameter
+### Tool Diameter
 - **Type:** number
 - **Default:** 6
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Generate CNC toolpaths
 
 
 
-### stepover
+### Stepover
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -35,13 +35,13 @@ Generate CNC toolpaths
 ## Inputs
 
 
-### model
+### Model
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### stock
+### Stock
 - **Type:** Shape
 - **Required:** No
 
@@ -50,12 +50,12 @@ Generate CNC toolpaths
 ## Outputs
 
 
-### toolpath
+### Toolpath
 - **Type:** Wire[]
 
 
 
-### rapids
+### Rapids
 - **Type:** Wire[]
 
 

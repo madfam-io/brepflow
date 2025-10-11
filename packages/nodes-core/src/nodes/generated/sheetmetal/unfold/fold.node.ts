@@ -1,56 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FoldParams {
   foldSequence: string;
   partialFold: number;
 }
-interface Inputs {
-  flatPattern: Shape;
-  bendLines: Edge[];
-  bendAngles: number[];
+
+interface FoldInputs {
+  flatPattern: unknown;
+  bendLines: unknown;
+  bendAngles: unknown;
 }
-interface Outputs {
-  foldedShape: Shape;
+
+interface FoldOutputs {
+  foldedShape: unknown;
 }
 
 export const FoldNode: NodeDefinition<FoldInputs, FoldOutputs, FoldParams> = {
-  type: 'SheetMetal::Fold',
+  id: 'SheetMetal::Fold',
   category: 'SheetMetal',
-  subcategory: 'Unfold',
-
-  metadata: {
-    label: 'Fold',
-    description: 'Fold flat pattern to 3D',
-    
-    
-  },
-
-  params: {
-        foldSequence: {
-      "default": "auto",
-      "description": "Bend sequence order"
+  label: 'Fold',
+  description: 'Fold flat pattern to 3D',
+  inputs: {
+    flatPattern: {
+      type: 'Shape',
+      label: 'Flat Pattern',
+      required: true
     },
-    partialFold: {
-      "default": 1,
-      "min": 0,
-      "max": 1,
-      "description": "Fold completion ratio"
+    bendLines: {
+      type: 'Edge[]',
+      label: 'Bend Lines',
+      required: true
+    },
+    bendAngles: {
+      type: 'number[]',
+      label: 'Bend Angles',
+      required: true
     }
   },
-
-  inputs: {
-        flatPattern: 'Shape',
-    bendLines: 'Edge[]',
-    bendAngles: 'number[]'
-  },
-
   outputs: {
-        foldedShape: 'Shape'
+    foldedShape: {
+      type: 'Shape',
+      label: 'Folded Shape'
+    }
   },
-
+  params: {
+    foldSequence: {
+      type: 'string',
+      label: 'Fold Sequence',
+      default: "auto"
+    },
+    partialFold: {
+      type: 'number',
+      label: 'Partial Fold',
+      default: 1,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetFold',
       params: {
@@ -61,9 +68,9 @@ export const FoldNode: NodeDefinition<FoldInputs, FoldOutputs, FoldParams> = {
         partialFold: params.partialFold
       }
     });
-
+    
     return {
       foldedShape: result
     };
-  }
+  },
 };

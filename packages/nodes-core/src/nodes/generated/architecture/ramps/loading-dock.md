@@ -8,7 +8,7 @@ Loading dock ramp
 ## Parameters
 
 
-### dockHeight
+### Dock Height
 - **Type:** number
 - **Default:** 1200
 - **Min:** 900
@@ -16,7 +16,7 @@ Loading dock ramp
 
 
 
-### levellerType
+### Leveller Type
 - **Type:** enum
 - **Default:** "hydraulic"
 
@@ -27,7 +27,7 @@ Loading dock ramp
 ## Inputs
 
 
-### dockPosition
+### Dock Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Loading dock ramp
 ## Outputs
 
 
-### dockRamp
+### Dock Ramp
 - **Type:** Shape
 
 
 
-### leveller
+### Leveller
 - **Type:** Shape
 
 

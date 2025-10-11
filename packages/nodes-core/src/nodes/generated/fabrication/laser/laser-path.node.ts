@@ -1,52 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LaserPathParams {
   kerf: number;
   cornerRadius: number;
 }
-interface Inputs {
-  profiles: Wire[];
+
+interface LaserPathInputs {
+  profiles: unknown;
 }
-interface Outputs {
-  cuttingPath: Wire[];
+
+interface LaserPathOutputs {
+  cuttingPath: unknown;
 }
 
 export const LaserPathNode: NodeDefinition<LaserPathInputs, LaserPathOutputs, LaserPathParams> = {
-  type: 'Fabrication::LaserPath',
+  id: 'Fabrication::LaserPath',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'LaserPath',
-    description: 'Generate laser cutting path',
-    
-    
-  },
-
-  params: {
-        kerf: {
-      "default": 0.15,
-      "min": 0,
-      "max": 1
-    },
-    cornerRadius: {
-      "default": 0,
-      "min": 0,
-      "max": 5
+  label: 'LaserPath',
+  description: 'Generate laser cutting path',
+  inputs: {
+    profiles: {
+      type: 'Wire[]',
+      label: 'Profiles',
+      required: true
     }
   },
-
-  inputs: {
-        profiles: 'Wire[]'
-  },
-
   outputs: {
-        cuttingPath: 'Wire[]'
+    cuttingPath: {
+      type: 'Wire[]',
+      label: 'Cutting Path'
+    }
   },
-
+  params: {
+    kerf: {
+      type: 'number',
+      label: 'Kerf',
+      default: 0.15,
+      min: 0,
+      max: 1
+    },
+    cornerRadius: {
+      type: 'number',
+      label: 'Corner Radius',
+      default: 0,
+      min: 0,
+      max: 5
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'laserPath',
       params: {
@@ -55,9 +56,9 @@ export const LaserPathNode: NodeDefinition<LaserPathInputs, LaserPathOutputs, La
         cornerRadius: params.cornerRadius
       }
     });
-
+    
     return {
       cuttingPath: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Genetic algorithm optimization
 ## Parameters
 
 
-### populationSize
+### Population Size
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Genetic algorithm optimization
 
 
 
-### generations
+### Generations
 - **Type:** number
 - **Default:** 50
 - **Min:** 5
@@ -24,7 +24,7 @@ Genetic algorithm optimization
 
 
 
-### mutationRate
+### Mutation Rate
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.01
@@ -32,7 +32,7 @@ Genetic algorithm optimization
 
 
 
-### crossoverRate
+### Crossover Rate
 - **Type:** number
 - **Default:** 0.8
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Genetic algorithm optimization
 
 
 
-### elitism
+### Elitism
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0
@@ -51,19 +51,19 @@ Genetic algorithm optimization
 ## Inputs
 
 
-### objectives
+### Objectives
 - **Type:** Properties
 - **Required:** Yes
 
 
 
-### constraints
+### Constraints
 - **Type:** Properties
 - **Required:** No
 
 
 
-### bounds
+### Bounds
 - **Type:** Properties
 - **Required:** Yes
 
@@ -72,22 +72,22 @@ Genetic algorithm optimization
 ## Outputs
 
 
-### bestSolution
+### Best Solution
 - **Type:** Properties
 
 
 
-### fitness
+### Fitness
 - **Type:** number
 
 
 
-### generations
+### Generations
 - **Type:** Properties[]
 
 
 
-### convergence
+### Convergence
 - **Type:** number[]
 
 

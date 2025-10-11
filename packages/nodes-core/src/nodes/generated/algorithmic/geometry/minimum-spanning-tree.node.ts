@@ -1,57 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MinimumSpanningTreeParams {
   algorithm: string;
   showWeights: boolean;
 }
-interface Inputs {
-  points: Point[];
+
+interface MinimumSpanningTreeInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  tree: Wire[];
-  totalWeight: number;
-  edges: Properties[];
+
+interface MinimumSpanningTreeOutputs {
+  tree: unknown;
+  totalWeight: unknown;
+  edges: unknown;
 }
 
 export const MinimumSpanningTreeNode: NodeDefinition<MinimumSpanningTreeInputs, MinimumSpanningTreeOutputs, MinimumSpanningTreeParams> = {
-  type: 'Algorithmic::MinimumSpanningTree',
+  id: 'Algorithmic::MinimumSpanningTree',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'MinimumSpanningTree',
-    description: 'Compute minimum spanning tree of points',
-    
-    
-  },
-
-  params: {
-        algorithm: {
-      "default": "kruskal",
-      "options": [
-        "kruskal",
-        "prim"
-      ]
-    },
-    showWeights: {
-      "default": false
+  label: 'MinimumSpanningTree',
+  description: 'Compute minimum spanning tree of points',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     }
   },
-
-  inputs: {
-        points: 'Point[]'
-  },
-
   outputs: {
-        tree: 'Wire[]',
-    totalWeight: 'number',
-    edges: 'Properties[]'
+    tree: {
+      type: 'Wire[]',
+      label: 'Tree'
+    },
+    totalWeight: {
+      type: 'number',
+      label: 'Total Weight'
+    },
+    edges: {
+      type: 'Properties[]',
+      label: 'Edges'
+    }
   },
-
+  params: {
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "kruskal",
+      options: ["kruskal","prim"]
+    },
+    showWeights: {
+      type: 'boolean',
+      label: 'Show Weights',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'minimumSpanningTree',
       params: {
         points: inputs.points,
@@ -59,11 +63,11 @@ export const MinimumSpanningTreeNode: NodeDefinition<MinimumSpanningTreeInputs, 
         showWeights: params.showWeights
       }
     });
-
+    
     return {
-      tree: result,
-      totalWeight: result,
-      edges: result
+      tree: results.tree,
+      totalWeight: results.totalWeight,
+      edges: results.edges
     };
-  }
+  },
 };

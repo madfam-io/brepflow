@@ -8,7 +8,7 @@ Create bevel gear for angle transmission
 ## Parameters
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Create bevel gear for angle transmission
 
 
 
-### teeth
+### Teeth
 - **Type:** number
 - **Default:** 25
 - **Min:** 10
@@ -24,7 +24,7 @@ Create bevel gear for angle transmission
 
 
 
-### coneAngle
+### Cone Angle
 - **Type:** number
 - **Default:** 45
 - **Min:** 10
@@ -32,7 +32,7 @@ Create bevel gear for angle transmission
 - **Description:** Pitch cone angle
 
 
-### faceWidth
+### Face Width
 - **Type:** number
 - **Default:** 15
 - **Min:** 5
@@ -43,7 +43,7 @@ Create bevel gear for angle transmission
 ## Inputs
 
 
-### apex
+### Apex
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create bevel gear for angle transmission
 ## Outputs
 
 
-### gear
+### Gear
 - **Type:** Shape
 
 
 
-### pitchCone
+### Pitch Cone
 - **Type:** Surface
 
 

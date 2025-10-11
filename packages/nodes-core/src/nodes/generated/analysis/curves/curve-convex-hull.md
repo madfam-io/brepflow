@@ -8,7 +8,7 @@ Generate convex hull of curve points
 ## Parameters
 
 
-### samples
+### Samples
 - **Type:** number
 - **Default:** 100
 - **Min:** 20
@@ -19,7 +19,7 @@ Generate convex hull of curve points
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -28,12 +28,12 @@ Generate convex hull of curve points
 ## Outputs
 
 
-### convexHull
+### Convex Hull
 - **Type:** Wire
 
 
 
-### hullPoints
+### Hull Points
 - **Type:** Point[]
 
 

@@ -1,56 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PrismaticParams {
   minDistance: number;
   maxDistance: number;
 }
-interface Inputs {
-  part1: Shape;
-  part2: Shape;
-  direction: Vector;
+
+interface PrismaticInputs {
+  part1: unknown;
+  part2: unknown;
+  direction: [number, number, number];
 }
-interface Outputs {
-  joint: Joint;
+
+interface PrismaticOutputs {
+  joint: unknown;
 }
 
 export const PrismaticNode: NodeDefinition<PrismaticInputs, PrismaticOutputs, PrismaticParams> = {
-  type: 'Assembly::Prismatic',
+  id: 'Assembly::Prismatic',
   category: 'Assembly',
-  subcategory: 'Joints',
-
-  metadata: {
-    label: 'Prismatic',
-    description: 'Create prismatic (sliding) joint',
-    
-    
-  },
-
-  params: {
-        minDistance: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
+  label: 'Prismatic',
+  description: 'Create prismatic (sliding) joint',
+  inputs: {
+    part1: {
+      type: 'Shape',
+      label: 'Part1',
+      required: true
     },
-    maxDistance: {
-      "default": 100,
-      "min": -10000,
-      "max": 10000
+    part2: {
+      type: 'Shape',
+      label: 'Part2',
+      required: true
+    },
+    direction: {
+      type: 'Vector',
+      label: 'Direction',
+      required: true
     }
   },
-
-  inputs: {
-        part1: 'Shape',
-    part2: 'Shape',
-    direction: 'Vector'
-  },
-
   outputs: {
-        joint: 'Joint'
+    joint: {
+      type: 'Joint',
+      label: 'Joint'
+    }
   },
-
+  params: {
+    minDistance: {
+      type: 'number',
+      label: 'Min Distance',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    maxDistance: {
+      type: 'number',
+      label: 'Max Distance',
+      default: 100,
+      min: -10000,
+      max: 10000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jointPrismatic',
       params: {
@@ -61,9 +70,9 @@ export const PrismaticNode: NodeDefinition<PrismaticInputs, PrismaticOutputs, Pr
         maxDistance: params.maxDistance
       }
     });
-
+    
     return {
       joint: result
     };
-  }
+  },
 };

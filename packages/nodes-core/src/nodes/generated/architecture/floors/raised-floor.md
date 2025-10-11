@@ -8,7 +8,7 @@ Raised access floor system
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 300
 - **Min:** 150
@@ -16,7 +16,7 @@ Raised access floor system
 
 
 
-### panelSize
+### Panel Size
 - **Type:** number
 - **Default:** 600
 - **Min:** 500
@@ -24,7 +24,7 @@ Raised access floor system
 
 
 
-### loadRating
+### Load Rating
 - **Type:** number
 - **Default:** 1250
 - **Min:** 500
@@ -35,7 +35,7 @@ Raised access floor system
 ## Inputs
 
 
-### roomBoundary
+### Room Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Raised access floor system
 ## Outputs
 
 
-### raisedFloor
+### Raised Floor
 - **Type:** Shape
 
 
 
-### pedestals
+### Pedestals
 - **Type:** Shape[]
 
 
 
-### panels
+### Panels
 - **Type:** Face[]
 
 

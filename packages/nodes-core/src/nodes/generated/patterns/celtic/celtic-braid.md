@@ -8,7 +8,7 @@ Celtic braid pattern
 ## Parameters
 
 
-### strands
+### Strands
 - **Type:** number
 - **Default:** 3
 - **Min:** 2
@@ -16,7 +16,7 @@ Celtic braid pattern
 
 
 
-### crossings
+### Crossings
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -27,7 +27,7 @@ Celtic braid pattern
 ## Inputs
 
 
-### centerline
+### Centerline
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Celtic braid pattern
 ## Outputs
 
 
-### braid
+### Braid
 - **Type:** Wire[]
 
 

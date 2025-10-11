@@ -8,7 +8,7 @@ Deform shape with control points
 ## Parameters
 
 
-### method
+### Method
 - **Type:** enum
 - **Default:** "bend"
 
@@ -16,7 +16,7 @@ Deform shape with control points
 
 
 
-### amount
+### Amount
 - **Type:** number
 - **Default:** 1
 - **Min:** -10
@@ -27,13 +27,13 @@ Deform shape with control points
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### controlPoints
+### Control Points
 - **Type:** Point[]
 - **Required:** No
 
@@ -42,7 +42,7 @@ Deform shape with control points
 ## Outputs
 
 
-### deformed
+### Deformed
 - **Type:** Shape
 
 

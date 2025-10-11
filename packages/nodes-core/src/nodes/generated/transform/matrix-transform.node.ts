@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type MatrixTransformParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  shape: Shape;
-  matrix: Matrix4x4;
+interface MatrixTransformInputs {
+  shape: unknown;
+  matrix: unknown;
 }
-interface Outputs {
-  transformed: Shape;
+
+interface MatrixTransformOutputs {
+  transformed: unknown;
 }
 
 export const MatrixTransformNode: NodeDefinition<MatrixTransformInputs, MatrixTransformOutputs, MatrixTransformParams> = {
-  type: 'Transform::MatrixTransform',
+  id: 'Transform::MatrixTransform',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'MatrixTransform',
-    description: 'Apply transformation matrix',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'MatrixTransform',
+  description: 'Apply transformation matrix',
   inputs: {
-        shape: 'Shape',
-    matrix: 'Matrix4x4'
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
+    },
+    matrix: {
+      type: 'Matrix4x4',
+      label: 'Matrix',
+      required: true
+    }
   },
-
   outputs: {
-        transformed: 'Shape'
+    transformed: {
+      type: 'Shape',
+      label: 'Transformed'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'transformMatrix',
       params: {
         shape: inputs.shape,
         matrix: inputs.matrix
-        
       }
     });
-
+    
     return {
       transformed: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Robotic milling paths
 ## Parameters
 
 
-### spindleSpeed
+### Spindle Speed
 - **Type:** number
 - **Default:** 10000
 - **Min:** 1000
@@ -16,7 +16,7 @@ Robotic milling paths
 
 
 
-### feedRate
+### Feed Rate
 - **Type:** number
 - **Default:** 1000
 - **Min:** 10
@@ -27,13 +27,13 @@ Robotic milling paths
 ## Inputs
 
 
-### millingPaths
+### Milling Paths
 - **Type:** Wire[]
 - **Required:** Yes
 
 
 
-### toolOrientation
+### Tool Orientation
 - **Type:** Vector
 - **Required:** No
 
@@ -42,7 +42,7 @@ Robotic milling paths
 ## Outputs
 
 
-### robotProgram
+### Robot Program
 - **Type:** Data
 
 

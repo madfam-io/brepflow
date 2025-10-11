@@ -1,67 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface InverseKinematicsParams {
   solver: string;
   maxIterations: number;
   tolerance: number;
 }
-interface Inputs {
-  mechanism: Data;
-  targetPose: Data;
+
+interface InverseKinematicsInputs {
+  mechanism: unknown;
+  targetPose: unknown;
 }
-interface Outputs {
-  jointValues: number[];
-  reachable: boolean;
+
+interface InverseKinematicsOutputs {
+  jointValues: unknown;
+  reachable: unknown;
 }
 
 export const InverseKinematicsNode: NodeDefinition<InverseKinematicsInputs, InverseKinematicsOutputs, InverseKinematicsParams> = {
-  type: 'Simulation::InverseKinematics',
+  id: 'Simulation::InverseKinematics',
   category: 'Simulation',
-  subcategory: 'Kinematics',
-
-  metadata: {
-    label: 'InverseKinematics',
-    description: 'Calculate inverse kinematics',
-    
-    
-  },
-
-  params: {
-        solver: {
-      "default": "jacobian",
-      "options": [
-        "jacobian",
-        "ccd",
-        "fabrik"
-      ]
+  label: 'InverseKinematics',
+  description: 'Calculate inverse kinematics',
+  inputs: {
+    mechanism: {
+      type: 'Data',
+      label: 'Mechanism',
+      required: true
     },
-    maxIterations: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
-    },
-    tolerance: {
-      "default": 0.001,
-      "min": 0.0001,
-      "max": 0.1
+    targetPose: {
+      type: 'Data',
+      label: 'Target Pose',
+      required: true
     }
   },
-
-  inputs: {
-        mechanism: 'Data',
-    targetPose: 'Data'
-  },
-
   outputs: {
-        jointValues: 'number[]',
-    reachable: 'boolean'
+    jointValues: {
+      type: 'number[]',
+      label: 'Joint Values'
+    },
+    reachable: {
+      type: 'boolean',
+      label: 'Reachable'
+    }
   },
-
+  params: {
+    solver: {
+      type: 'enum',
+      label: 'Solver',
+      default: "jacobian",
+      options: ["jacobian","ccd","fabrik"]
+    },
+    maxIterations: {
+      type: 'number',
+      label: 'Max Iterations',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.001,
+      min: 0.0001,
+      max: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'inverseKinematics',
       params: {
         mechanism: inputs.mechanism,
@@ -71,10 +77,10 @@ export const InverseKinematicsNode: NodeDefinition<InverseKinematicsInputs, Inve
         tolerance: params.tolerance
       }
     });
-
+    
     return {
-      jointValues: result,
-      reachable: result
+      jointValues: results.jointValues,
+      reachable: results.reachable
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Generate barcode geometry
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "QR"
 
@@ -16,7 +16,7 @@ Generate barcode geometry
 
 
 
-### data
+### Data
 - **Type:** string
 - **Default:** "123456789"
 
@@ -24,7 +24,7 @@ Generate barcode geometry
 
 
 
-### size
+### Size
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -32,7 +32,7 @@ Generate barcode geometry
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.01
@@ -47,7 +47,7 @@ This node has no inputs.
 ## Outputs
 
 
-### barcode
+### Barcode
 - **Type:** Shape
 
 

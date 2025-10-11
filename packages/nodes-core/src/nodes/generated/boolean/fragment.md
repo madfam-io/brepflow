@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### shapes
+### Shapes
 - **Type:** Shape[]
 - **Required:** Yes
 - **Description:** Shapes to fragment
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### fragments
+### Fragments
 - **Type:** Shape[]
 - **Description:** All fragments
 

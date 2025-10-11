@@ -1,61 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceNormalsParams {
   density: number;
   vectorLength: number;
   showVectors: boolean;
 }
-interface Inputs {
-  surface: Face;
+
+interface SurfaceNormalsInputs {
+  surface: unknown;
 }
-interface Outputs {
-  normalVectors: Vector[];
-  normalLines: Wire[];
-  samplePoints: Point[];
+
+interface SurfaceNormalsOutputs {
+  normalVectors: Array<[number, number, number]>;
+  normalLines: unknown;
+  samplePoints: Array<[number, number, number]>;
 }
 
 export const SurfaceNormalsNode: NodeDefinition<SurfaceNormalsInputs, SurfaceNormalsOutputs, SurfaceNormalsParams> = {
-  type: 'Analysis::SurfaceNormals',
+  id: 'Analysis::SurfaceNormals',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceNormals',
-    description: 'Calculate surface normal vectors',
-    
-    
-  },
-
-  params: {
-        density: {
-      "default": 20,
-      "min": 5,
-      "max": 100
-    },
-    vectorLength: {
-      "default": 5,
-      "min": 1,
-      "max": 50
-    },
-    showVectors: {
-      "default": true
+  label: 'SurfaceNormals',
+  description: 'Calculate surface normal vectors',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        normalVectors: 'Vector[]',
-    normalLines: 'Wire[]',
-    samplePoints: 'Point[]'
+    normalVectors: {
+      type: 'Vector[]',
+      label: 'Normal Vectors'
+    },
+    normalLines: {
+      type: 'Wire[]',
+      label: 'Normal Lines'
+    },
+    samplePoints: {
+      type: 'Point[]',
+      label: 'Sample Points'
+    }
   },
-
+  params: {
+    density: {
+      type: 'number',
+      label: 'Density',
+      default: 20,
+      min: 5,
+      max: 100
+    },
+    vectorLength: {
+      type: 'number',
+      label: 'Vector Length',
+      default: 5,
+      min: 1,
+      max: 50
+    },
+    showVectors: {
+      type: 'boolean',
+      label: 'Show Vectors',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceNormals',
       params: {
         surface: inputs.surface,
@@ -64,11 +73,11 @@ export const SurfaceNormalsNode: NodeDefinition<SurfaceNormalsInputs, SurfaceNor
         showVectors: params.showVectors
       }
     });
-
+    
     return {
-      normalVectors: result,
-      normalLines: result,
-      samplePoints: result
+      normalVectors: results.normalVectors,
+      normalLines: results.normalLines,
+      samplePoints: results.samplePoints
     };
-  }
+  },
 };

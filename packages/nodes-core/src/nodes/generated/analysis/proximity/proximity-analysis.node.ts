@@ -1,55 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ProximityAnalysisParams {
   threshold: number;
   showConnections: boolean;
 }
-interface Inputs {
-  objects: Shape[];
+
+interface ProximityAnalysisInputs {
+  objects: unknown;
 }
-interface Outputs {
-  proximityPairs: Shape[][];
-  distances: number[];
-  connections: Wire[];
+
+interface ProximityAnalysisOutputs {
+  proximityPairs: unknown;
+  distances: unknown;
+  connections: unknown;
 }
 
 export const ProximityAnalysisNode: NodeDefinition<ProximityAnalysisInputs, ProximityAnalysisOutputs, ProximityAnalysisParams> = {
-  type: 'Analysis::ProximityAnalysis',
+  id: 'Analysis::ProximityAnalysis',
   category: 'Analysis',
-  subcategory: 'Proximity',
-
-  metadata: {
-    label: 'ProximityAnalysis',
-    description: 'Analyze proximity between multiple objects',
-    
-    
-  },
-
-  params: {
-        threshold: {
-      "default": 1,
-      "min": 0.1,
-      "max": 100
-    },
-    showConnections: {
-      "default": true
+  label: 'ProximityAnalysis',
+  description: 'Analyze proximity between multiple objects',
+  inputs: {
+    objects: {
+      type: 'Shape[]',
+      label: 'Objects',
+      required: true
     }
   },
-
-  inputs: {
-        objects: 'Shape[]'
-  },
-
   outputs: {
-        proximityPairs: 'Shape[][]',
-    distances: 'number[]',
-    connections: 'Wire[]'
+    proximityPairs: {
+      type: 'Shape[][]',
+      label: 'Proximity Pairs'
+    },
+    distances: {
+      type: 'number[]',
+      label: 'Distances'
+    },
+    connections: {
+      type: 'Wire[]',
+      label: 'Connections'
+    }
   },
-
+  params: {
+    threshold: {
+      type: 'number',
+      label: 'Threshold',
+      default: 1,
+      min: 0.1,
+      max: 100
+    },
+    showConnections: {
+      type: 'boolean',
+      label: 'Show Connections',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'proximityAnalysis',
       params: {
         objects: inputs.objects,
@@ -57,11 +64,11 @@ export const ProximityAnalysisNode: NodeDefinition<ProximityAnalysisInputs, Prox
         showConnections: params.showConnections
       }
     });
-
+    
     return {
-      proximityPairs: result,
-      distances: result,
-      connections: result
+      proximityPairs: results.proximityPairs,
+      distances: results.distances,
+      connections: results.connections
     };
-  }
+  },
 };

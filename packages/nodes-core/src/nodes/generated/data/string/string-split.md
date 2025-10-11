@@ -8,7 +8,7 @@ Split string
 ## Parameters
 
 
-### delimiter
+### Delimiter
 - **Type:** string
 - **Default:** ","
 
@@ -19,7 +19,7 @@ Split string
 ## Inputs
 
 
-### string
+### String
 - **Type:** string
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Split string
 ## Outputs
 
 
-### parts
+### Parts
 - **Type:** string[]
 
 

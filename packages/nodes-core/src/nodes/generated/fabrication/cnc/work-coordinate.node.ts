@@ -1,54 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WorkCoordinateParams {
   wcs: string;
 }
-interface Inputs {
-  origin: Point;
-  orientation?: Transform;
+
+interface WorkCoordinateInputs {
+  origin: [number, number, number];
+  orientation?: unknown;
 }
-interface Outputs {
-  coordinate: Transform;
+
+interface WorkCoordinateOutputs {
+  coordinate: unknown;
 }
 
 export const WorkCoordinateNode: NodeDefinition<WorkCoordinateInputs, WorkCoordinateOutputs, WorkCoordinateParams> = {
-  type: 'Fabrication::WorkCoordinate',
+  id: 'Fabrication::WorkCoordinate',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'WorkCoordinate',
-    description: 'Work coordinate system',
-    
-    
-  },
-
-  params: {
-        wcs: {
-      "default": "G54",
-      "options": [
-        "G54",
-        "G55",
-        "G56",
-        "G57",
-        "G58",
-        "G59"
-      ]
+  label: 'WorkCoordinate',
+  description: 'Work coordinate system',
+  inputs: {
+    origin: {
+      type: 'Point',
+      label: 'Origin',
+      required: true
+    },
+    orientation: {
+      type: 'Transform',
+      label: 'Orientation',
+      optional: true
     }
   },
-
-  inputs: {
-        origin: 'Point',
-    orientation: 'Transform'
-  },
-
   outputs: {
-        coordinate: 'Transform'
+    coordinate: {
+      type: 'Transform',
+      label: 'Coordinate'
+    }
   },
-
+  params: {
+    wcs: {
+      type: 'enum',
+      label: 'Wcs',
+      default: "G54",
+      options: ["G54","G55","G56","G57","G58","G59"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'workCoordinate',
       params: {
@@ -57,9 +53,9 @@ export const WorkCoordinateNode: NodeDefinition<WorkCoordinateInputs, WorkCoordi
         wcs: params.wcs
       }
     });
-
+    
     return {
       coordinate: result
     };
-  }
+  },
 };

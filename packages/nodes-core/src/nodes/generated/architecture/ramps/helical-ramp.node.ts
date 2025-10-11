@@ -1,60 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HelicalRampParams {
   radius: number;
   pitch: number;
   width: number;
 }
-interface Inputs {
-  centerPoint: Point;
-  levels: Number;
+
+interface HelicalRampInputs {
+  centerPoint: [number, number, number];
+  levels: number;
 }
-interface Outputs {
-  helicalRamp: Shape;
+
+interface HelicalRampOutputs {
+  helicalRamp: unknown;
 }
 
 export const HelicalRampNode: NodeDefinition<HelicalRampInputs, HelicalRampOutputs, HelicalRampParams> = {
-  type: 'Architecture::HelicalRamp',
+  id: 'Architecture::HelicalRamp',
   category: 'Architecture',
-  subcategory: 'Ramps',
-
-  metadata: {
-    label: 'HelicalRamp',
-    description: 'Helical parking ramp',
-    
-    
-  },
-
-  params: {
-        radius: {
-      "default": 15000,
-      "min": 10000,
-      "max": 25000
+  label: 'HelicalRamp',
+  description: 'Helical parking ramp',
+  inputs: {
+    centerPoint: {
+      type: 'Point',
+      label: 'Center Point',
+      required: true
     },
-    pitch: {
-      "default": 3000,
-      "min": 2500,
-      "max": 4000
-    },
-    width: {
-      "default": 7000,
-      "min": 5500,
-      "max": 9000
+    levels: {
+      type: 'Number',
+      label: 'Levels',
+      required: true
     }
   },
-
-  inputs: {
-        centerPoint: 'Point',
-    levels: 'Number'
-  },
-
   outputs: {
-        helicalRamp: 'Shape'
+    helicalRamp: {
+      type: 'Shape',
+      label: 'Helical Ramp'
+    }
   },
-
+  params: {
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 15000,
+      min: 10000,
+      max: 25000
+    },
+    pitch: {
+      type: 'number',
+      label: 'Pitch',
+      default: 3000,
+      min: 2500,
+      max: 4000
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 7000,
+      min: 5500,
+      max: 9000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'helicalRamp',
       params: {
@@ -65,9 +72,9 @@ export const HelicalRampNode: NodeDefinition<HelicalRampInputs, HelicalRampOutpu
         width: params.width
       }
     });
-
+    
     return {
       helicalRamp: result
     };
-  }
+  },
 };

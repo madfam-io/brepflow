@@ -8,7 +8,7 @@ Create hollow shaft
 ## Parameters
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 40
 - **Min:** 10
@@ -16,7 +16,7 @@ Create hollow shaft
 
 
 
-### innerDiameter
+### Inner Diameter
 - **Type:** number
 - **Default:** 30
 - **Min:** 5
@@ -24,7 +24,7 @@ Create hollow shaft
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 100
 - **Min:** 20
@@ -32,7 +32,7 @@ Create hollow shaft
 
 
 
-### endMachining
+### End Machining
 - **Type:** enum
 - **Default:** "none"
 
@@ -43,13 +43,13 @@ Create hollow shaft
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### axis
+### Axis
 - **Type:** Vector
 - **Required:** No
 
@@ -58,12 +58,12 @@ Create hollow shaft
 ## Outputs
 
 
-### shaft
+### Shaft
 - **Type:** Shape
 
 
 
-### bore
+### Bore
 - **Type:** Wire
 
 

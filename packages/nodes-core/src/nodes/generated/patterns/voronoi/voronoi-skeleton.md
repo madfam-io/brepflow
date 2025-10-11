@@ -8,7 +8,7 @@ Medial axis from Voronoi
 ## Parameters
 
 
-### pruning
+### Pruning
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0
@@ -19,7 +19,7 @@ Medial axis from Voronoi
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Medial axis from Voronoi
 ## Outputs
 
 
-### skeleton
+### Skeleton
 - **Type:** Wire[]
 
 

@@ -1,74 +1,85 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PathArrayParams {
   count: number;
   alignToPath: boolean;
   spacing: string;
   distance: number;
   merge: boolean;
 }
-interface Inputs {
-  shape: Shape;
-  path: Wire;
+
+interface PathArrayInputs {
+  shape: unknown;
+  path: unknown;
 }
-interface Outputs {
-  array: Shape[];
-  merged: Shape;
+
+interface PathArrayOutputs {
+  array: unknown;
+  merged: unknown;
 }
 
 export const PathArrayNode: NodeDefinition<PathArrayInputs, PathArrayOutputs, PathArrayParams> = {
-  type: 'Transform::PathArray',
+  id: 'Transform::PathArray',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'PathArray',
-    description: 'Array shapes along a path',
-    
-    
-  },
-
-  params: {
-        count: {
-      "default": 10,
-      "min": 2,
-      "max": 1000,
-      "step": 1
+  label: 'PathArray',
+  description: 'Array shapes along a path',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     },
-    alignToPath: {
-      "default": true
-    },
-    spacing: {
-      "default": "equal",
-      "options": [
-        "equal",
-        "distance"
-      ]
-    },
-    distance: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    merge: {
-      "default": false
+    path: {
+      type: 'Wire',
+      label: 'Path',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape',
-    path: 'Wire'
-  },
-
   outputs: {
-        array: 'Shape[]',
-    merged: 'Shape'
+    array: {
+      type: 'Shape[]',
+      label: 'Array'
+    },
+    merged: {
+      type: 'Shape',
+      label: 'Merged'
+    }
   },
-
+  params: {
+    count: {
+      type: 'number',
+      label: 'Count',
+      default: 10,
+      min: 2,
+      max: 1000,
+      step: 1
+    },
+    alignToPath: {
+      type: 'boolean',
+      label: 'Align To Path',
+      default: true
+    },
+    spacing: {
+      type: 'enum',
+      label: 'Spacing',
+      default: "equal",
+      options: ["equal","distance"]
+    },
+    distance: {
+      type: 'number',
+      label: 'Distance',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    merge: {
+      type: 'boolean',
+      label: 'Merge',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'transformPathArray',
       params: {
         shape: inputs.shape,
@@ -80,10 +91,10 @@ export const PathArrayNode: NodeDefinition<PathArrayInputs, PathArrayOutputs, Pa
         merge: params.merge
       }
     });
-
+    
     return {
-      array: result,
-      merged: result
+      array: results.array,
+      merged: results.merged
     };
-  }
+  },
 };

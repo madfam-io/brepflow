@@ -1,59 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveClosestPointParams {
   tolerance: number;
   showConnection: boolean;
 }
-interface Inputs {
-  curve: Wire;
-  point: Point;
+
+interface CurveClosestPointInputs {
+  curve: unknown;
+  point: [number, number, number];
 }
-interface Outputs {
-  closestPoint: Point;
-  distance: number;
-  parameter: number;
-  connectionLine: Wire;
+
+interface CurveClosestPointOutputs {
+  closestPoint: [number, number, number];
+  distance: unknown;
+  parameter: unknown;
+  connectionLine: unknown;
 }
 
 export const CurveClosestPointNode: NodeDefinition<CurveClosestPointInputs, CurveClosestPointOutputs, CurveClosestPointParams> = {
-  type: 'Analysis::CurveClosestPoint',
+  id: 'Analysis::CurveClosestPoint',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveClosestPoint',
-    description: 'Find closest point on curve to reference',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
+  label: 'CurveClosestPoint',
+  description: 'Find closest point on curve to reference',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     },
-    showConnection: {
-      "default": true
+    point: {
+      type: 'Point',
+      label: 'Point',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire',
-    point: 'Point'
-  },
-
   outputs: {
-        closestPoint: 'Point',
-    distance: 'number',
-    parameter: 'number',
-    connectionLine: 'Wire'
+    closestPoint: {
+      type: 'Point',
+      label: 'Closest Point'
+    },
+    distance: {
+      type: 'number',
+      label: 'Distance'
+    },
+    parameter: {
+      type: 'number',
+      label: 'Parameter'
+    },
+    connectionLine: {
+      type: 'Wire',
+      label: 'Connection Line'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    showConnection: {
+      type: 'boolean',
+      label: 'Show Connection',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveClosestPoint',
       params: {
         curve: inputs.curve,
@@ -62,12 +76,12 @@ export const CurveClosestPointNode: NodeDefinition<CurveClosestPointInputs, Curv
         showConnection: params.showConnection
       }
     });
-
+    
     return {
-      closestPoint: result,
-      distance: result,
-      parameter: result,
-      connectionLine: result
+      closestPoint: results.closestPoint,
+      distance: results.distance,
+      parameter: results.parameter,
+      connectionLine: results.connectionLine
     };
-  }
+  },
 };

@@ -1,59 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AlphaShapeParams {
   alpha: number;
   mode: string;
 }
-interface Inputs {
-  points: Point[];
+
+interface AlphaShapeInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  shape: Shape;
-  boundary: Wire[];
-  simplices: Properties[];
+
+interface AlphaShapeOutputs {
+  shape: unknown;
+  boundary: unknown;
+  simplices: unknown;
 }
 
 export const AlphaShapeNode: NodeDefinition<AlphaShapeInputs, AlphaShapeOutputs, AlphaShapeParams> = {
-  type: 'Algorithmic::AlphaShape',
+  id: 'Algorithmic::AlphaShape',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'AlphaShape',
-    description: 'Generate alpha shape from point cloud',
-    
-    
-  },
-
-  params: {
-        alpha: {
-      "default": 1,
-      "min": 0.1,
-      "max": 100
-    },
-    mode: {
-      "default": "3D",
-      "options": [
-        "3D",
-        "2D"
-      ]
+  label: 'AlphaShape',
+  description: 'Generate alpha shape from point cloud',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     }
   },
-
-  inputs: {
-        points: 'Point[]'
-  },
-
   outputs: {
-        shape: 'Shape',
-    boundary: 'Wire[]',
-    simplices: 'Properties[]'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    },
+    boundary: {
+      type: 'Wire[]',
+      label: 'Boundary'
+    },
+    simplices: {
+      type: 'Properties[]',
+      label: 'Simplices'
+    }
   },
-
+  params: {
+    alpha: {
+      type: 'number',
+      label: 'Alpha',
+      default: 1,
+      min: 0.1,
+      max: 100
+    },
+    mode: {
+      type: 'enum',
+      label: 'Mode',
+      default: "3D",
+      options: ["3D","2D"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'alphaShape',
       params: {
         points: inputs.points,
@@ -61,11 +65,11 @@ export const AlphaShapeNode: NodeDefinition<AlphaShapeInputs, AlphaShapeOutputs,
         mode: params.mode
       }
     });
-
+    
     return {
-      shape: result,
-      boundary: result,
-      simplices: result
+      shape: results.shape,
+      boundary: results.boundary,
+      simplices: results.simplices
     };
-  }
+  },
 };

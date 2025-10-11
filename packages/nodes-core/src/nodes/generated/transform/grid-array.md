@@ -8,7 +8,7 @@ Create 2D or 3D grid array
 ## Parameters
 
 
-### countX
+### Count X
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Create 2D or 3D grid array
 
 
 
-### countY
+### Count Y
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -24,7 +24,7 @@ Create 2D or 3D grid array
 
 
 
-### countZ
+### Count Z
 - **Type:** number
 - **Default:** 1
 - **Min:** 1
@@ -32,7 +32,7 @@ Create 2D or 3D grid array
 
 
 
-### spacingX
+### Spacing X
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Create 2D or 3D grid array
 
 
 
-### spacingY
+### Spacing Y
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -48,7 +48,7 @@ Create 2D or 3D grid array
 
 
 
-### spacingZ
+### Spacing Z
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -56,7 +56,7 @@ Create 2D or 3D grid array
 
 
 
-### merge
+### Merge
 - **Type:** boolean
 - **Default:** false
 
@@ -67,7 +67,7 @@ Create 2D or 3D grid array
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -76,12 +76,12 @@ Create 2D or 3D grid array
 ## Outputs
 
 
-### array
+### Array
 - **Type:** Shape[]
 
 
 
-### merged
+### Merged
 - **Type:** Shape
 
 

@@ -1,77 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface InletOutletParams {
   boundaryType: string;
   velocity: number;
   pressure: number;
   temperature: number;
 }
-interface Inputs {
-  mesh: Mesh;
-  boundaryFaces: Face[];
+
+interface InletOutletInputs {
+  mesh: unknown;
+  boundaryFaces: unknown;
 }
-interface Outputs {
-  boundaryMesh: Mesh;
-  boundaryData: Data;
+
+interface InletOutletOutputs {
+  boundaryMesh: unknown;
+  boundaryData: unknown;
 }
 
 export const InletOutletNode: NodeDefinition<InletOutletInputs, InletOutletOutputs, InletOutletParams> = {
-  type: 'Simulation::InletOutlet',
+  id: 'Simulation::InletOutlet',
   category: 'Simulation',
-  subcategory: 'CFD',
-
-  metadata: {
-    label: 'InletOutlet',
-    description: 'Define inlet/outlet conditions',
-    
-    
-  },
-
-  params: {
-        boundaryType: {
-      "default": "velocity-inlet",
-      "options": [
-        "velocity-inlet",
-        "pressure-inlet",
-        "mass-flow-inlet",
-        "pressure-outlet",
-        "outflow"
-      ]
+  label: 'InletOutlet',
+  description: 'Define inlet/outlet conditions',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     },
-    velocity: {
-      "default": 1,
-      "min": 0,
-      "max": 1000,
-      "description": "m/s"
-    },
-    pressure: {
-      "default": 101325,
-      "min": 0,
-      "max": 10000000,
-      "description": "Pa"
-    },
-    temperature: {
-      "default": 293,
-      "min": 0,
-      "max": 1000,
-      "description": "K"
+    boundaryFaces: {
+      type: 'Face[]',
+      label: 'Boundary Faces',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh',
-    boundaryFaces: 'Face[]'
-  },
-
   outputs: {
-        boundaryMesh: 'Mesh',
-    boundaryData: 'Data'
+    boundaryMesh: {
+      type: 'Mesh',
+      label: 'Boundary Mesh'
+    },
+    boundaryData: {
+      type: 'Data',
+      label: 'Boundary Data'
+    }
   },
-
+  params: {
+    boundaryType: {
+      type: 'enum',
+      label: 'Boundary Type',
+      default: "velocity-inlet",
+      options: ["velocity-inlet","pressure-inlet","mass-flow-inlet","pressure-outlet","outflow"]
+    },
+    velocity: {
+      type: 'number',
+      label: 'Velocity',
+      default: 1,
+      min: 0,
+      max: 1000
+    },
+    pressure: {
+      type: 'number',
+      label: 'Pressure',
+      default: 101325,
+      min: 0,
+      max: 10000000
+    },
+    temperature: {
+      type: 'number',
+      label: 'Temperature',
+      default: 293,
+      min: 0,
+      max: 1000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'inletOutlet',
       params: {
         mesh: inputs.mesh,
@@ -82,10 +85,10 @@ export const InletOutletNode: NodeDefinition<InletOutletInputs, InletOutletOutpu
         temperature: params.temperature
       }
     });
-
+    
     return {
-      boundaryMesh: result,
-      boundaryData: result
+      boundaryMesh: results.boundaryMesh,
+      boundaryData: results.boundaryData
     };
-  }
+  },
 };

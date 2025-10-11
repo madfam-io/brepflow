@@ -8,7 +8,7 @@ Multi-layer wall assembly
 ## Parameters
 
 
-### layers
+### Layers
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Multi-layer wall assembly
 
 
 
-### layerThicknesses
+### Layer Thicknesses
 - **Type:** string
 - **Default:** "100,50,100"
 
@@ -24,7 +24,7 @@ Multi-layer wall assembly
 
 
 
-### layerMaterials
+### Layer Materials
 - **Type:** string
 - **Default:** "brick,insulation,drywall"
 
@@ -35,7 +35,7 @@ Multi-layer wall assembly
 ## Inputs
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Multi-layer wall assembly
 ## Outputs
 
 
-### compoundWall
+### Compound Wall
 - **Type:** Shape
 
 
 
-### layers
+### Layers
 - **Type:** Shape[]
 
 

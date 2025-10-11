@@ -8,7 +8,7 @@ Irregular polygon packing
 ## Parameters
 
 
-### rotations
+### Rotations
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Irregular polygon packing
 
 
 
-### angleStep
+### Angle Step
 - **Type:** number
 - **Default:** 90
 - **Min:** 1
@@ -27,13 +27,13 @@ Irregular polygon packing
 ## Inputs
 
 
-### container
+### Container
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### polygons
+### Polygons
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Irregular polygon packing
 ## Outputs
 
 
-### packed
+### Packed
 - **Type:** Face[]
 
 
 
-### utilization
+### Utilization
 - **Type:** Number
 
 

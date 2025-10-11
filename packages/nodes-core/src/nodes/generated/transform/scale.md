@@ -8,7 +8,7 @@ Scale shape uniformly or non-uniformly
 ## Parameters
 
 
-### scaleX
+### Scale X
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Scale shape uniformly or non-uniformly
 - **Description:** X scale factor
 
 
-### scaleY
+### Scale Y
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.001
@@ -24,7 +24,7 @@ Scale shape uniformly or non-uniformly
 - **Description:** Y scale factor
 
 
-### scaleZ
+### Scale Z
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.001
@@ -32,7 +32,7 @@ Scale shape uniformly or non-uniformly
 - **Description:** Z scale factor
 
 
-### uniform
+### Uniform
 - **Type:** boolean
 - **Default:** true
 
@@ -40,7 +40,7 @@ Scale shape uniformly or non-uniformly
 - **Description:** Use uniform scaling
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -48,7 +48,7 @@ Scale shape uniformly or non-uniformly
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -56,7 +56,7 @@ Scale shape uniformly or non-uniformly
 
 
 
-### centerZ
+### Center Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -64,7 +64,7 @@ Scale shape uniformly or non-uniformly
 
 
 
-### copy
+### Copy
 - **Type:** boolean
 - **Default:** true
 
@@ -75,7 +75,7 @@ Scale shape uniformly or non-uniformly
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -84,7 +84,7 @@ Scale shape uniformly or non-uniformly
 ## Outputs
 
 
-### scaled
+### Scaled
 - **Type:** Shape
 - **Description:** Scaled shape
 

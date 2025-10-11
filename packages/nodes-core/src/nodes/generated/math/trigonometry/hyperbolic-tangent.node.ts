@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type HyperbolicTangentParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface HyperbolicTangentInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface HyperbolicTangentOutputs {
+  result: unknown;
 }
 
 export const HyperbolicTangentNode: NodeDefinition<HyperbolicTangentInputs, HyperbolicTangentOutputs, HyperbolicTangentParams> = {
-  type: 'Math::HyperbolicTangent',
+  id: 'Math::HyperbolicTangent',
   category: 'Math',
-  subcategory: 'Trigonometry',
-
-  metadata: {
-    label: 'HyperbolicTangent',
-    description: 'Hyperbolic tangent',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'HyperbolicTangent',
+  description: 'Hyperbolic tangent',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathTanh',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

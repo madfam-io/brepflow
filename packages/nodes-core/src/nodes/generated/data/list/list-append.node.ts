@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListAppendParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
-  item: Data;
+interface ListAppendInputs {
+  list: unknown;
+  item: unknown;
 }
-interface Outputs {
-  result: Data[];
+
+interface ListAppendOutputs {
+  result: unknown;
 }
 
 export const ListAppendNode: NodeDefinition<ListAppendInputs, ListAppendOutputs, ListAppendParams> = {
-  type: 'Data::ListAppend',
+  id: 'Data::ListAppend',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListAppend',
-    description: 'Append to list',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListAppend',
+  description: 'Append to list',
   inputs: {
-        list: 'Data[]',
-    item: 'Data'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    item: {
+      type: 'Data',
+      label: 'Item',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'Data[]'
+    result: {
+      type: 'Data[]',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listAppend',
       params: {
         list: inputs.list,
         item: inputs.item
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

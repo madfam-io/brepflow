@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ConformLatticeParams {
   conformType: string;
   cellSize: number;
 }
-interface Inputs {
-  targetShape: Shape;
-  latticePattern: Shape;
+
+interface ConformLatticeInputs {
+  targetShape: unknown;
+  latticePattern: unknown;
 }
-interface Outputs {
-  conformed: Shape;
+
+interface ConformLatticeOutputs {
+  conformed: unknown;
 }
 
 export const ConformLatticeNode: NodeDefinition<ConformLatticeInputs, ConformLatticeOutputs, ConformLatticeParams> = {
-  type: 'Specialized::ConformLattice',
+  id: 'Specialized::ConformLattice',
   category: 'Specialized',
-  subcategory: 'Lattice',
-
-  metadata: {
-    label: 'ConformLattice',
-    description: 'Conformal lattice mapping',
-    
-    
-  },
-
-  params: {
-        conformType: {
-      "default": "volume",
-      "options": [
-        "surface",
-        "volume"
-      ]
+  label: 'ConformLattice',
+  description: 'Conformal lattice mapping',
+  inputs: {
+    targetShape: {
+      type: 'Shape',
+      label: 'Target Shape',
+      required: true
     },
-    cellSize: {
-      "default": 10,
-      "min": 1,
-      "max": 100
+    latticePattern: {
+      type: 'Shape',
+      label: 'Lattice Pattern',
+      required: true
     }
   },
-
-  inputs: {
-        targetShape: 'Shape',
-    latticePattern: 'Shape'
-  },
-
   outputs: {
-        conformed: 'Shape'
+    conformed: {
+      type: 'Shape',
+      label: 'Conformed'
+    }
   },
-
+  params: {
+    conformType: {
+      type: 'enum',
+      label: 'Conform Type',
+      default: "volume",
+      options: ["surface","volume"]
+    },
+    cellSize: {
+      type: 'number',
+      label: 'Cell Size',
+      default: 10,
+      min: 1,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'conformLattice',
       params: {
@@ -60,9 +62,9 @@ export const ConformLatticeNode: NodeDefinition<ConformLatticeInputs, ConformLat
         cellSize: params.cellSize
       }
     });
-
+    
     return {
       conformed: result
     };
-  }
+  },
 };

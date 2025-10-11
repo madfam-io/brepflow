@@ -1,53 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PlaneToPlaneParams {
   distance: number;
   parallel: boolean;
 }
-interface Inputs {
-  plane1: Plane;
-  plane2: Plane;
+
+interface PlaneToPlaneInputs {
+  plane1: unknown;
+  plane2: unknown;
 }
-interface Outputs {
-  mated: Shape[];
-  mate: Mate;
+
+interface PlaneToPlaneOutputs {
+  mated: unknown;
+  mate: unknown;
 }
 
 export const PlaneToPlaneNode: NodeDefinition<PlaneToPlaneInputs, PlaneToPlaneOutputs, PlaneToPlaneParams> = {
-  type: 'Assembly::PlaneToPlane',
+  id: 'Assembly::PlaneToPlane',
   category: 'Assembly',
-  subcategory: 'Mates',
-
-  metadata: {
-    label: 'PlaneToPlane',
-    description: 'Mate two planes',
-    
-    
-  },
-
-  params: {
-        distance: {
-      "default": 0
+  label: 'PlaneToPlane',
+  description: 'Mate two planes',
+  inputs: {
+    plane1: {
+      type: 'Plane',
+      label: 'Plane1',
+      required: true
     },
-    parallel: {
-      "default": true
+    plane2: {
+      type: 'Plane',
+      label: 'Plane2',
+      required: true
     }
   },
-
-  inputs: {
-        plane1: 'Plane',
-    plane2: 'Plane'
-  },
-
   outputs: {
-        mated: 'Shape[]',
-    mate: 'Mate'
+    mated: {
+      type: 'Shape[]',
+      label: 'Mated'
+    },
+    mate: {
+      type: 'Mate',
+      label: 'Mate'
+    }
   },
-
+  params: {
+    distance: {
+      type: 'number',
+      label: 'Distance',
+      default: 0
+    },
+    parallel: {
+      type: 'boolean',
+      label: 'Parallel',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'matePlaneToPlane',
       params: {
         plane1: inputs.plane1,
@@ -56,10 +64,10 @@ export const PlaneToPlaneNode: NodeDefinition<PlaneToPlaneInputs, PlaneToPlaneOu
         parallel: params.parallel
       }
     });
-
+    
     return {
-      mated: result,
-      mate: result
+      mated: results.mated,
+      mate: results.mate
     };
-  }
+  },
 };

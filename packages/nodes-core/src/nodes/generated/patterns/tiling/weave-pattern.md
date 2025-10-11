@@ -8,7 +8,7 @@ Weaving patterns
 ## Parameters
 
 
-### weaveType
+### Weave Type
 - **Type:** enum
 - **Default:** "plain"
 
@@ -16,7 +16,7 @@ Weaving patterns
 
 
 
-### warpCount
+### Warp Count
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -24,7 +24,7 @@ Weaving patterns
 
 
 
-### weftCount
+### Weft Count
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -35,7 +35,7 @@ Weaving patterns
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Weaving patterns
 ## Outputs
 
 
-### weave
+### Weave
 - **Type:** Wire[]
 
 

@@ -8,7 +8,7 @@ Create gear relationship
 ## Parameters
 
 
-### ratio
+### Ratio
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create gear relationship
 
 
 
-### reverse
+### Reverse
 - **Type:** boolean
 - **Default:** false
 
@@ -27,13 +27,13 @@ Create gear relationship
 ## Inputs
 
 
-### gear1
+### Gear1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### gear2
+### Gear2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Create gear relationship
 ## Outputs
 
 
-### geared
+### Geared
 - **Type:** Shape[]
 
 
 
-### mate
+### Mate
 - **Type:** Mate
 
 

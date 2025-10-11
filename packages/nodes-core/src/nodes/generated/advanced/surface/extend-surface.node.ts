@@ -1,57 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ExtendSurfaceParams {
   extensionLength: number;
   extensionType: string;
 }
-interface Inputs {
-  surface: Face;
-  edges: Edge[];
+
+interface ExtendSurfaceInputs {
+  surface: unknown;
+  edges: unknown;
 }
-interface Outputs {
-  extendedSurface: Face;
+
+interface ExtendSurfaceOutputs {
+  extendedSurface: unknown;
 }
 
 export const ExtendSurfaceNode: NodeDefinition<ExtendSurfaceInputs, ExtendSurfaceOutputs, ExtendSurfaceParams> = {
-  type: 'Advanced::ExtendSurface',
+  id: 'Advanced::ExtendSurface',
   category: 'Advanced',
-  subcategory: 'Surface',
-
-  metadata: {
-    label: 'ExtendSurface',
-    description: 'Extend surface edges',
-    
-    
-  },
-
-  params: {
-        extensionLength: {
-      "default": 10,
-      "min": 0.1,
-      "max": 1000
+  label: 'ExtendSurface',
+  description: 'Extend surface edges',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     },
-    extensionType: {
-      "default": "natural",
-      "options": [
-        "linear",
-        "natural",
-        "reflective"
-      ]
+    edges: {
+      type: 'Edge[]',
+      label: 'Edges',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face',
-    edges: 'Edge[]'
-  },
-
   outputs: {
-        extendedSurface: 'Face'
+    extendedSurface: {
+      type: 'Face',
+      label: 'Extended Surface'
+    }
   },
-
+  params: {
+    extensionLength: {
+      type: 'number',
+      label: 'Extension Length',
+      default: 10,
+      min: 0.1,
+      max: 1000
+    },
+    extensionType: {
+      type: 'enum',
+      label: 'Extension Type',
+      default: "natural",
+      options: ["linear","natural","reflective"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'extendSurface',
       params: {
@@ -61,9 +62,9 @@ export const ExtendSurfaceNode: NodeDefinition<ExtendSurfaceInputs, ExtendSurfac
         extensionType: params.extensionType
       }
     });
-
+    
     return {
       extendedSurface: result
     };
-  }
+  },
 };

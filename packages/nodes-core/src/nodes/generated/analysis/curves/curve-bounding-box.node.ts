@@ -1,59 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveBoundingBoxParams {
   orientation: string;
   showBox: boolean;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveBoundingBoxInputs {
+  curve: unknown;
 }
-interface Outputs {
-  boundingBox: Shape;
-  minPoint: Point;
-  maxPoint: Point;
-  dimensions: Vector;
+
+interface CurveBoundingBoxOutputs {
+  boundingBox: unknown;
+  minPoint: [number, number, number];
+  maxPoint: [number, number, number];
+  dimensions: [number, number, number];
 }
 
 export const CurveBoundingBoxNode: NodeDefinition<CurveBoundingBoxInputs, CurveBoundingBoxOutputs, CurveBoundingBoxParams> = {
-  type: 'Analysis::CurveBoundingBox',
+  id: 'Analysis::CurveBoundingBox',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveBoundingBox',
-    description: 'Calculate oriented bounding box',
-    
-    
-  },
-
-  params: {
-        orientation: {
-      "default": "axis-aligned",
-      "options": [
-        "axis-aligned",
-        "minimal"
-      ]
-    },
-    showBox: {
-      "default": true
+  label: 'CurveBoundingBox',
+  description: 'Calculate oriented bounding box',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        boundingBox: 'Shape',
-    minPoint: 'Point',
-    maxPoint: 'Point',
-    dimensions: 'Vector'
+    boundingBox: {
+      type: 'Shape',
+      label: 'Bounding Box'
+    },
+    minPoint: {
+      type: 'Point',
+      label: 'Min Point'
+    },
+    maxPoint: {
+      type: 'Point',
+      label: 'Max Point'
+    },
+    dimensions: {
+      type: 'Vector',
+      label: 'Dimensions'
+    }
   },
-
+  params: {
+    orientation: {
+      type: 'enum',
+      label: 'Orientation',
+      default: "axis-aligned",
+      options: ["axis-aligned","minimal"]
+    },
+    showBox: {
+      type: 'boolean',
+      label: 'Show Box',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveBoundingBox',
       params: {
         curve: inputs.curve,
@@ -61,12 +68,12 @@ export const CurveBoundingBoxNode: NodeDefinition<CurveBoundingBoxInputs, CurveB
         showBox: params.showBox
       }
     });
-
+    
     return {
-      boundingBox: result,
-      minPoint: result,
-      maxPoint: result,
-      dimensions: result
+      boundingBox: results.boundingBox,
+      minPoint: results.minPoint,
+      maxPoint: results.maxPoint,
+      dimensions: results.dimensions
     };
-  }
+  },
 };

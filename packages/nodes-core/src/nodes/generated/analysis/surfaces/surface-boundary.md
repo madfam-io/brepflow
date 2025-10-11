@@ -8,7 +8,7 @@ Extract surface boundary curves
 ## Parameters
 
 
-### includeHoles
+### Include Holes
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Extract surface boundary curves
 
 
 
-### simplify
+### Simplify
 - **Type:** boolean
 - **Default:** false
 
@@ -27,7 +27,7 @@ Extract surface boundary curves
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Extract surface boundary curves
 ## Outputs
 
 
-### outerBoundary
+### Outer Boundary
 - **Type:** Wire
 
 
 
-### innerBoundaries
+### Inner Boundaries
 - **Type:** Wire[]
 
 
 
-### allBoundaries
+### All Boundaries
 - **Type:** Wire[]
 
 

@@ -1,64 +1,69 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EllipseParams {
   majorRadius: number;
   minorRadius: number;
   startAngle: number;
   endAngle: number;
 }
-interface Inputs {
-  center?: Point;
+
+interface EllipseInputs {
+  center?: [number, number, number];
 }
-interface Outputs {
-  curve: Wire;
+
+interface EllipseOutputs {
+  curve: unknown;
 }
 
 export const EllipseNode: NodeDefinition<EllipseInputs, EllipseOutputs, EllipseParams> = {
-  type: 'Sketch::Ellipse',
+  id: 'Sketch::Ellipse',
   category: 'Sketch',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'Ellipse',
-    description: 'Create an ellipse',
-    
-    
-  },
-
-  params: {
-        majorRadius: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    minorRadius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    startAngle: {
-      "default": 0,
-      "min": 0,
-      "max": 360
-    },
-    endAngle: {
-      "default": 360,
-      "min": 0,
-      "max": 360
+  label: 'Ellipse',
+  description: 'Create an ellipse',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve'
+    }
   },
-
+  params: {
+    majorRadius: {
+      type: 'number',
+      label: 'Major Radius',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    minorRadius: {
+      type: 'number',
+      label: 'Minor Radius',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    startAngle: {
+      type: 'number',
+      label: 'Start Angle',
+      default: 0,
+      min: 0,
+      max: 360
+    },
+    endAngle: {
+      type: 'number',
+      label: 'End Angle',
+      default: 360,
+      min: 0,
+      max: 360
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeEllipse',
       params: {
@@ -69,9 +74,9 @@ export const EllipseNode: NodeDefinition<EllipseInputs, EllipseOutputs, EllipseP
         endAngle: params.endAngle
       }
     });
-
+    
     return {
       curve: result
     };
-  }
+  },
 };

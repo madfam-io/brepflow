@@ -8,7 +8,7 @@ Generate alpha shape from point cloud
 ## Parameters
 
 
-### alpha
+### Alpha
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Generate alpha shape from point cloud
 
 
 
-### mode
+### Mode
 - **Type:** enum
 - **Default:** "3D"
 
@@ -27,7 +27,7 @@ Generate alpha shape from point cloud
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Generate alpha shape from point cloud
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 
 
-### boundary
+### Boundary
 - **Type:** Wire[]
 
 
 
-### simplices
+### Simplices
 - **Type:** Properties[]
 
 

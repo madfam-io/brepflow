@@ -1,64 +1,69 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HyperbolaParams {
   majorRadius: number;
   minorRadius: number;
   startParam: number;
   endParam: number;
 }
-interface Inputs {
-  center?: Point;
+
+interface HyperbolaInputs {
+  center?: [number, number, number];
 }
-interface Outputs {
-  curve: Wire;
+
+interface HyperbolaOutputs {
+  curve: unknown;
 }
 
 export const HyperbolaNode: NodeDefinition<HyperbolaInputs, HyperbolaOutputs, HyperbolaParams> = {
-  type: 'Sketch::Hyperbola',
+  id: 'Sketch::Hyperbola',
   category: 'Sketch',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'Hyperbola',
-    description: 'Create a hyperbolic curve',
-    
-    
-  },
-
-  params: {
-        majorRadius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    minorRadius: {
-      "default": 30,
-      "min": 0.1,
-      "max": 10000
-    },
-    startParam: {
-      "default": -2,
-      "min": -10,
-      "max": 10
-    },
-    endParam: {
-      "default": 2,
-      "min": -10,
-      "max": 10
+  label: 'Hyperbola',
+  description: 'Create a hyperbolic curve',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve'
+    }
   },
-
+  params: {
+    majorRadius: {
+      type: 'number',
+      label: 'Major Radius',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    minorRadius: {
+      type: 'number',
+      label: 'Minor Radius',
+      default: 30,
+      min: 0.1,
+      max: 10000
+    },
+    startParam: {
+      type: 'number',
+      label: 'Start Param',
+      default: -2,
+      min: -10,
+      max: 10
+    },
+    endParam: {
+      type: 'number',
+      label: 'End Param',
+      default: 2,
+      min: -10,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeHyperbola',
       params: {
@@ -69,9 +74,9 @@ export const HyperbolaNode: NodeDefinition<HyperbolaInputs, HyperbolaOutputs, Hy
         endParam: params.endParam
       }
     });
-
+    
     return {
       curve: result
     };
-  }
+  },
 };

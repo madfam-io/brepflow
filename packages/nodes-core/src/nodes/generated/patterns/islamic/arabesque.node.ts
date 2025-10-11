@@ -1,54 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ArabesqueParams {
   complexity: number;
   symmetry: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface ArabesqueInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  pattern: Wire[];
+
+interface ArabesqueOutputs {
+  pattern: unknown;
 }
 
 export const ArabesqueNode: NodeDefinition<ArabesqueInputs, ArabesqueOutputs, ArabesqueParams> = {
-  type: 'Patterns::Arabesque',
+  id: 'Patterns::Arabesque',
   category: 'Patterns',
-  subcategory: 'Islamic',
-
-  metadata: {
-    label: 'Arabesque',
-    description: 'Arabesque pattern',
-    
-    
-  },
-
-  params: {
-        complexity: {
-      "default": 3,
-      "min": 1,
-      "max": 5,
-      "step": 1
-    },
-    symmetry: {
-      "default": 6,
-      "min": 3,
-      "max": 12,
-      "step": 1
+  label: 'Arabesque',
+  description: 'Arabesque pattern',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        pattern: 'Wire[]'
+    pattern: {
+      type: 'Wire[]',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    complexity: {
+      type: 'number',
+      label: 'Complexity',
+      default: 3,
+      min: 1,
+      max: 5,
+      step: 1
+    },
+    symmetry: {
+      type: 'number',
+      label: 'Symmetry',
+      default: 6,
+      min: 3,
+      max: 12,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'arabesque',
       params: {
@@ -57,9 +58,9 @@ export const ArabesqueNode: NodeDefinition<ArabesqueInputs, ArabesqueOutputs, Ar
         symmetry: params.symmetry
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

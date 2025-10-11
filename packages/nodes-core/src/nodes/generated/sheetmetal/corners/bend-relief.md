@@ -8,7 +8,7 @@ Add bend relief cuts
 ## Parameters
 
 
-### reliefType
+### Relief Type
 - **Type:** enum
 - **Default:** "rectangular"
 
@@ -16,7 +16,7 @@ Add bend relief cuts
 
 
 
-### reliefDepth
+### Relief Depth
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Add bend relief cuts
 
 
 
-### reliefWidth
+### Relief Width
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -35,13 +35,13 @@ Add bend relief cuts
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### bends
+### Bends
 - **Type:** Edge[]
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Add bend relief cuts
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

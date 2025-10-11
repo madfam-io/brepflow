@@ -8,7 +8,7 @@ Robot kinematics solver
 ## Parameters
 
 
-### robotType
+### Robot Type
 - **Type:** enum
 - **Default:** "6-axis"
 
@@ -16,7 +16,7 @@ Robot kinematics solver
 
 
 
-### solver
+### Solver
 - **Type:** enum
 - **Default:** "inverse"
 
@@ -27,13 +27,13 @@ Robot kinematics solver
 ## Inputs
 
 
-### target
+### Target
 - **Type:** Transform
 - **Required:** Yes
 
 
 
-### jointLimits
+### Joint Limits
 - **Type:** Data
 - **Required:** No
 
@@ -42,12 +42,12 @@ Robot kinematics solver
 ## Outputs
 
 
-### jointAngles
+### Joint Angles
 - **Type:** Number[]
 
 
 
-### reachable
+### Reachable
 - **Type:** Boolean
 
 

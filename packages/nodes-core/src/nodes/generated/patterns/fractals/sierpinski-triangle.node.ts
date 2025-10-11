@@ -1,51 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SierpinskiTriangleParams {
   iterations: number;
   filled: boolean;
 }
-interface Inputs {
-  triangle: Face;
+
+interface SierpinskiTriangleInputs {
+  triangle: unknown;
 }
-interface Outputs {
-  fractal: Face[];
+
+interface SierpinskiTriangleOutputs {
+  fractal: unknown;
 }
 
 export const SierpinskiTriangleNode: NodeDefinition<SierpinskiTriangleInputs, SierpinskiTriangleOutputs, SierpinskiTriangleParams> = {
-  type: 'Patterns::SierpinskiTriangle',
+  id: 'Patterns::SierpinskiTriangle',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'SierpinskiTriangle',
-    description: 'Sierpinski triangle',
-    
-    
-  },
-
-  params: {
-        iterations: {
-      "default": 5,
-      "min": 0,
-      "max": 10,
-      "step": 1
-    },
-    filled: {
-      "default": true
+  label: 'SierpinskiTriangle',
+  description: 'Sierpinski triangle',
+  inputs: {
+    triangle: {
+      type: 'Face',
+      label: 'Triangle',
+      required: true
     }
   },
-
-  inputs: {
-        triangle: 'Face'
-  },
-
   outputs: {
-        fractal: 'Face[]'
+    fractal: {
+      type: 'Face[]',
+      label: 'Fractal'
+    }
   },
-
+  params: {
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 5,
+      min: 0,
+      max: 10,
+      step: 1
+    },
+    filled: {
+      type: 'boolean',
+      label: 'Filled',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sierpinskiTriangle',
       params: {
@@ -54,9 +55,9 @@ export const SierpinskiTriangleNode: NodeDefinition<SierpinskiTriangleInputs, Si
         filled: params.filled
       }
     });
-
+    
     return {
       fractal: result
     };
-  }
+  },
 };

@@ -1,58 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RemoveFeaturesParams {
   minSize: number;
   removeHoles: boolean;
   removeFillets: boolean;
   removeChamfers: boolean;
 }
-interface Inputs {
-  shape: Shape;
+
+interface RemoveFeaturesInputs {
+  shape: unknown;
 }
-interface Outputs {
-  simplified: Shape;
+
+interface RemoveFeaturesOutputs {
+  simplified: unknown;
 }
 
 export const RemoveFeaturesNode: NodeDefinition<RemoveFeaturesInputs, RemoveFeaturesOutputs, RemoveFeaturesParams> = {
-  type: 'Advanced::RemoveFeatures',
+  id: 'Advanced::RemoveFeatures',
   category: 'Advanced',
-  subcategory: 'Healing',
-
-  metadata: {
-    label: 'RemoveFeatures',
-    description: 'Remove small features',
-    
-    
-  },
-
-  params: {
-        minSize: {
-      "default": 0.5,
-      "min": 0.01,
-      "max": 100
-    },
-    removeHoles: {
-      "default": true
-    },
-    removeFillets: {
-      "default": false
-    },
-    removeChamfers: {
-      "default": false
+  label: 'RemoveFeatures',
+  description: 'Remove small features',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        simplified: 'Shape'
+    simplified: {
+      type: 'Shape',
+      label: 'Simplified'
+    }
   },
-
+  params: {
+    minSize: {
+      type: 'number',
+      label: 'Min Size',
+      default: 0.5,
+      min: 0.01,
+      max: 100
+    },
+    removeHoles: {
+      type: 'boolean',
+      label: 'Remove Holes',
+      default: true
+    },
+    removeFillets: {
+      type: 'boolean',
+      label: 'Remove Fillets',
+      default: false
+    },
+    removeChamfers: {
+      type: 'boolean',
+      label: 'Remove Chamfers',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'removeFeatures',
       params: {
@@ -63,9 +68,9 @@ export const RemoveFeaturesNode: NodeDefinition<RemoveFeaturesInputs, RemoveFeat
         removeChamfers: params.removeChamfers
       }
     });
-
+    
     return {
       simplified: result
     };
-  }
+  },
 };

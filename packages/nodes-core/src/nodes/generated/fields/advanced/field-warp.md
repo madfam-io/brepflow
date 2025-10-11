@@ -8,7 +8,7 @@ Warp field with deformation
 ## Parameters
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 1
 - **Min:** 0
@@ -19,13 +19,13 @@ Warp field with deformation
 ## Inputs
 
 
-### field
+### Field
 - **Type:** Field
 - **Required:** No
 
 
 
-### deformation
+### Deformation
 - **Type:** VectorField
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Warp field with deformation
 ## Outputs
 
 
-### warpedField
+### Warped Field
 - **Type:** Field
 
 

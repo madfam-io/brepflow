@@ -8,7 +8,7 @@ Analyze surface curvature (Gaussian and Mean)
 ## Parameters
 
 
-### uSamples
+### U Samples
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -16,7 +16,7 @@ Analyze surface curvature (Gaussian and Mean)
 
 
 
-### vSamples
+### V Samples
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -24,7 +24,7 @@ Analyze surface curvature (Gaussian and Mean)
 
 
 
-### curvatureType
+### Curvature Type
 - **Type:** enum
 - **Default:** "gaussian"
 
@@ -32,7 +32,7 @@ Analyze surface curvature (Gaussian and Mean)
 
 
 
-### colorMap
+### Color Map
 - **Type:** boolean
 - **Default:** true
 
@@ -43,7 +43,7 @@ Analyze surface curvature (Gaussian and Mean)
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -52,22 +52,22 @@ Analyze surface curvature (Gaussian and Mean)
 ## Outputs
 
 
-### curvatureMap
+### Curvature Map
 - **Type:** Shape
 
 
 
-### maxCurvature
+### Max Curvature
 - **Type:** number
 
 
 
-### minCurvature
+### Min Curvature
 - **Type:** number
 
 
 
-### averageCurvature
+### Average Curvature
 - **Type:** number
 
 

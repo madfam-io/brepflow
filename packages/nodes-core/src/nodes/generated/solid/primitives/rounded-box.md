@@ -8,7 +8,7 @@ Create a box with rounded edges
 ## Parameters
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a box with rounded edges
 
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a box with rounded edges
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create a box with rounded edges
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -47,7 +47,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Rounded box
 

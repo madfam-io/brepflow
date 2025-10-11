@@ -8,7 +8,7 @@ Vector field from expression
 ## Parameters
 
 
-### expressionX
+### Expression X
 - **Type:** string
 - **Default:** "y"
 
@@ -16,7 +16,7 @@ Vector field from expression
 
 
 
-### expressionY
+### Expression Y
 - **Type:** string
 - **Default:** "-x"
 
@@ -24,7 +24,7 @@ Vector field from expression
 
 
 
-### expressionZ
+### Expression Z
 - **Type:** string
 - **Default:** "0"
 
@@ -35,7 +35,7 @@ Vector field from expression
 ## Inputs
 
 
-### domain
+### Domain
 - **Type:** Box
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Vector field from expression
 ## Outputs
 
 
-### field
+### Field
 - **Type:** VectorField
 
 

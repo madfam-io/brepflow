@@ -1,64 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StairStringerParams {
   type: string;
   material: string;
   depth: number;
 }
-interface Inputs {
-  stairProfile: Wire;
+
+interface StairStringerInputs {
+  stairProfile: unknown;
 }
-interface Outputs {
-  stringers: Shape[];
+
+interface StairStringerOutputs {
+  stringers: unknown;
 }
 
 export const StairStringerNode: NodeDefinition<StairStringerInputs, StairStringerOutputs, StairStringerParams> = {
-  type: 'Architecture::StairStringer',
+  id: 'Architecture::StairStringer',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'StairStringer',
-    description: 'Stair stringer structure',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "closed",
-      "options": [
-        "closed",
-        "open",
-        "mono"
-      ]
-    },
-    material: {
-      "default": "steel",
-      "options": [
-        "steel",
-        "wood",
-        "concrete"
-      ]
-    },
-    depth: {
-      "default": 300,
-      "min": 200,
-      "max": 500
+  label: 'StairStringer',
+  description: 'Stair stringer structure',
+  inputs: {
+    stairProfile: {
+      type: 'Wire',
+      label: 'Stair Profile',
+      required: true
     }
   },
-
-  inputs: {
-        stairProfile: 'Wire'
-  },
-
   outputs: {
-        stringers: 'Shape[]'
+    stringers: {
+      type: 'Shape[]',
+      label: 'Stringers'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "closed",
+      options: ["closed","open","mono"]
+    },
+    material: {
+      type: 'enum',
+      label: 'Material',
+      default: "steel",
+      options: ["steel","wood","concrete"]
+    },
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: 300,
+      min: 200,
+      max: 500
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stairStringer',
       params: {
@@ -68,9 +63,9 @@ export const StairStringerNode: NodeDefinition<StairStringerInputs, StairStringe
         depth: params.depth
       }
     });
-
+    
     return {
       stringers: result
     };
-  }
+  },
 };

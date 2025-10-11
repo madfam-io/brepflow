@@ -8,7 +8,7 @@ Find closest point on curve to reference
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Find closest point on curve to reference
 
 
 
-### showConnection
+### Show Connection
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Find closest point on curve to reference
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### point
+### Point
 - **Type:** Point
 - **Required:** Yes
 
@@ -42,22 +42,22 @@ Find closest point on curve to reference
 ## Outputs
 
 
-### closestPoint
+### Closest Point
 - **Type:** Point
 
 
 
-### distance
+### Distance
 - **Type:** number
 
 
 
-### parameter
+### Parameter
 - **Type:** number
 
 
 
-### connectionLine
+### Connection Line
 - **Type:** Wire
 
 

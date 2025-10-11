@@ -8,7 +8,7 @@ Cosine function
 ## Parameters
 
 
-### angleUnit
+### Angle Unit
 - **Type:** enum
 - **Default:** "radians"
 
@@ -19,7 +19,7 @@ Cosine function
 ## Inputs
 
 
-### angle
+### Angle
 - **Type:** number
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Cosine function
 ## Outputs
 
 
-### result
+### Result
 - **Type:** number
 
 

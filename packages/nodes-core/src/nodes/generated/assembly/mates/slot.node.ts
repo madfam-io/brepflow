@@ -1,49 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SlotParams {
   freeRotation: boolean;
 }
-interface Inputs {
-  slot: Shape;
-  slider: Shape;
+
+interface SlotInputs {
+  slot: unknown;
+  slider: unknown;
 }
-interface Outputs {
-  slotted: Shape[];
-  mate: Mate;
+
+interface SlotOutputs {
+  slotted: unknown;
+  mate: unknown;
 }
 
 export const SlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
-  type: 'Assembly::Slot',
+  id: 'Assembly::Slot',
   category: 'Assembly',
-  subcategory: 'Mates',
-
-  metadata: {
-    label: 'Slot',
-    description: 'Create slot constraint',
-    
-    
-  },
-
-  params: {
-        freeRotation: {
-      "default": true
+  label: 'Slot',
+  description: 'Create slot constraint',
+  inputs: {
+    slot: {
+      type: 'Shape',
+      label: 'Slot',
+      required: true
+    },
+    slider: {
+      type: 'Shape',
+      label: 'Slider',
+      required: true
     }
   },
-
-  inputs: {
-        slot: 'Shape',
-    slider: 'Shape'
-  },
-
   outputs: {
-        slotted: 'Shape[]',
-    mate: 'Mate'
+    slotted: {
+      type: 'Shape[]',
+      label: 'Slotted'
+    },
+    mate: {
+      type: 'Mate',
+      label: 'Mate'
+    }
   },
-
+  params: {
+    freeRotation: {
+      type: 'boolean',
+      label: 'Free Rotation',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'mateSlot',
       params: {
         slot: inputs.slot,
@@ -51,10 +57,10 @@ export const SlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
         freeRotation: params.freeRotation
       }
     });
-
+    
     return {
-      slotted: result,
-      mate: result
+      slotted: results.slotted,
+      mate: results.mate
     };
-  }
+  },
 };

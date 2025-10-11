@@ -1,54 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SlabOnGradeParams {
   thickness: number;
   vaporBarrier: boolean;
   insulation: boolean;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface SlabOnGradeInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  slab: Shape;
+
+interface SlabOnGradeOutputs {
+  slab: unknown;
 }
 
 export const SlabOnGradeNode: NodeDefinition<SlabOnGradeInputs, SlabOnGradeOutputs, SlabOnGradeParams> = {
-  type: 'Architecture::SlabOnGrade',
+  id: 'Architecture::SlabOnGrade',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'SlabOnGrade',
-    description: 'Concrete slab on grade',
-    
-    
-  },
-
-  params: {
-        thickness: {
-      "default": 150,
-      "min": 100,
-      "max": 300
-    },
-    vaporBarrier: {
-      "default": true
-    },
-    insulation: {
-      "default": true
+  label: 'SlabOnGrade',
+  description: 'Concrete slab on grade',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        slab: 'Shape'
+    slab: {
+      type: 'Shape',
+      label: 'Slab'
+    }
   },
-
+  params: {
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 150,
+      min: 100,
+      max: 300
+    },
+    vaporBarrier: {
+      type: 'boolean',
+      label: 'Vapor Barrier',
+      default: true
+    },
+    insulation: {
+      type: 'boolean',
+      label: 'Insulation',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'slabOnGrade',
       params: {
@@ -58,9 +61,9 @@ export const SlabOnGradeNode: NodeDefinition<SlabOnGradeInputs, SlabOnGradeOutpu
         insulation: params.insulation
       }
     });
-
+    
     return {
       slab: result
     };
-  }
+  },
 };

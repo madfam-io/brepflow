@@ -8,7 +8,7 @@ Sliding door system
 ## Parameters
 
 
-### panelCount
+### Panel Count
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -16,7 +16,7 @@ Sliding door system
 
 
 
-### panelWidth
+### Panel Width
 - **Type:** number
 - **Default:** 900
 - **Min:** 600
@@ -24,7 +24,7 @@ Sliding door system
 
 
 
-### openingPercent
+### Opening Percent
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -35,7 +35,7 @@ Sliding door system
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Sliding door system
 ## Outputs
 
 
-### panels
+### Panels
 - **Type:** Shape[]
 
 
 
-### track
+### Track
 - **Type:** Shape
 
 

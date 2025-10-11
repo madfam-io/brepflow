@@ -8,7 +8,7 @@ Display vector field as arrows
 ## Parameters
 
 
-### arrowScale
+### Arrow Scale
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Display vector field as arrows
 - **Description:** Scale factor for arrows
 
 
-### density
+### Density
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -27,13 +27,13 @@ Display vector field as arrows
 ## Inputs
 
 
-### field
+### Field
 - **Type:** VectorField
 - **Required:** No
 
 
 
-### domain
+### Domain
 - **Type:** Geometry
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Display vector field as arrows
 ## Outputs
 
 
-### arrows
+### Arrows
 - **Type:** GeometrySet
 
 

@@ -8,7 +8,7 @@ Multi-step draft
 ## Parameters
 
 
-### steps
+### Steps
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -19,13 +19,13 @@ Multi-step draft
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### draftData
+### Draft Data
 - **Type:** Data
 - **Required:** Yes
 - **Description:** Step heights and angles
@@ -34,7 +34,7 @@ Multi-step draft
 ## Outputs
 
 
-### drafted
+### Drafted
 - **Type:** Shape
 
 

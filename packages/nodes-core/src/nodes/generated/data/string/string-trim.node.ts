@@ -1,49 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StringTrimParams {
   mode: string;
 }
-interface Inputs {
-  string: string;
+
+interface StringTrimInputs {
+  string: unknown;
 }
-interface Outputs {
-  trimmed: string;
+
+interface StringTrimOutputs {
+  trimmed: unknown;
 }
 
 export const StringTrimNode: NodeDefinition<StringTrimInputs, StringTrimOutputs, StringTrimParams> = {
-  type: 'Data::StringTrim',
+  id: 'Data::StringTrim',
   category: 'Data',
-  subcategory: 'String',
-
-  metadata: {
-    label: 'StringTrim',
-    description: 'Trim whitespace',
-    
-    
-  },
-
-  params: {
-        mode: {
-      "default": "both",
-      "options": [
-        "both",
-        "start",
-        "end"
-      ]
+  label: 'StringTrim',
+  description: 'Trim whitespace',
+  inputs: {
+    string: {
+      type: 'string',
+      label: 'String',
+      required: true
     }
   },
-
-  inputs: {
-        string: 'string'
-  },
-
   outputs: {
-        trimmed: 'string'
+    trimmed: {
+      type: 'string',
+      label: 'Trimmed'
+    }
   },
-
+  params: {
+    mode: {
+      type: 'enum',
+      label: 'Mode',
+      default: "both",
+      options: ["both","start","end"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stringTrim',
       params: {
@@ -51,9 +46,9 @@ export const StringTrimNode: NodeDefinition<StringTrimInputs, StringTrimOutputs,
         mode: params.mode
       }
     });
-
+    
     return {
       trimmed: result
     };
-  }
+  },
 };

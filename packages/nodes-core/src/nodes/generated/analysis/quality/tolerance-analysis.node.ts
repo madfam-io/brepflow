@@ -1,57 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ToleranceAnalysisParams {
   nominalTolerance: number;
   showDeviations: boolean;
 }
-interface Inputs {
-  measured: Shape;
-  nominal: Shape;
+
+interface ToleranceAnalysisInputs {
+  measured: unknown;
+  nominal: unknown;
 }
-interface Outputs {
-  withinTolerance: boolean;
-  maxDeviation: number;
-  deviationMap: Shape;
+
+interface ToleranceAnalysisOutputs {
+  withinTolerance: unknown;
+  maxDeviation: unknown;
+  deviationMap: unknown;
 }
 
 export const ToleranceAnalysisNode: NodeDefinition<ToleranceAnalysisInputs, ToleranceAnalysisOutputs, ToleranceAnalysisParams> = {
-  type: 'Analysis::ToleranceAnalysis',
+  id: 'Analysis::ToleranceAnalysis',
   category: 'Analysis',
-  subcategory: 'Quality',
-
-  metadata: {
-    label: 'ToleranceAnalysis',
-    description: 'Analyze geometric tolerances',
-    
-    
-  },
-
-  params: {
-        nominalTolerance: {
-      "default": 0.1,
-      "min": 0.001,
-      "max": 10
+  label: 'ToleranceAnalysis',
+  description: 'Analyze geometric tolerances',
+  inputs: {
+    measured: {
+      type: 'Shape',
+      label: 'Measured',
+      required: true
     },
-    showDeviations: {
-      "default": true
+    nominal: {
+      type: 'Shape',
+      label: 'Nominal',
+      required: true
     }
   },
-
-  inputs: {
-        measured: 'Shape',
-    nominal: 'Shape'
-  },
-
   outputs: {
-        withinTolerance: 'boolean',
-    maxDeviation: 'number',
-    deviationMap: 'Shape'
+    withinTolerance: {
+      type: 'boolean',
+      label: 'Within Tolerance'
+    },
+    maxDeviation: {
+      type: 'number',
+      label: 'Max Deviation'
+    },
+    deviationMap: {
+      type: 'Shape',
+      label: 'Deviation Map'
+    }
   },
-
+  params: {
+    nominalTolerance: {
+      type: 'number',
+      label: 'Nominal Tolerance',
+      default: 0.1,
+      min: 0.001,
+      max: 10
+    },
+    showDeviations: {
+      type: 'boolean',
+      label: 'Show Deviations',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'toleranceAnalysis',
       params: {
         measured: inputs.measured,
@@ -60,11 +71,11 @@ export const ToleranceAnalysisNode: NodeDefinition<ToleranceAnalysisInputs, Tole
         showDeviations: params.showDeviations
       }
     });
-
+    
     return {
-      withinTolerance: result,
-      maxDeviation: result,
-      deviationMap: result
+      withinTolerance: results.withinTolerance,
+      maxDeviation: results.maxDeviation,
+      deviationMap: results.deviationMap
     };
-  }
+  },
 };

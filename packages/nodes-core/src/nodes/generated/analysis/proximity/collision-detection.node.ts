@@ -1,55 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CollisionDetectionParams {
   tolerance: number;
   showCollisions: boolean;
 }
-interface Inputs {
-  objects: Shape[];
+
+interface CollisionDetectionInputs {
+  objects: unknown;
 }
-interface Outputs {
-  hasCollisions: boolean;
-  collidingPairs: Shape[][];
-  collisionRegions: Shape[];
+
+interface CollisionDetectionOutputs {
+  hasCollisions: unknown;
+  collidingPairs: unknown;
+  collisionRegions: unknown;
 }
 
 export const CollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, CollisionDetectionOutputs, CollisionDetectionParams> = {
-  type: 'Analysis::CollisionDetection',
+  id: 'Analysis::CollisionDetection',
   category: 'Analysis',
-  subcategory: 'Proximity',
-
-  metadata: {
-    label: 'CollisionDetection',
-    description: 'Detect collisions between objects',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
-    },
-    showCollisions: {
-      "default": true
+  label: 'CollisionDetection',
+  description: 'Detect collisions between objects',
+  inputs: {
+    objects: {
+      type: 'Shape[]',
+      label: 'Objects',
+      required: true
     }
   },
-
-  inputs: {
-        objects: 'Shape[]'
-  },
-
   outputs: {
-        hasCollisions: 'boolean',
-    collidingPairs: 'Shape[][]',
-    collisionRegions: 'Shape[]'
+    hasCollisions: {
+      type: 'boolean',
+      label: 'Has Collisions'
+    },
+    collidingPairs: {
+      type: 'Shape[][]',
+      label: 'Colliding Pairs'
+    },
+    collisionRegions: {
+      type: 'Shape[]',
+      label: 'Collision Regions'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    showCollisions: {
+      type: 'boolean',
+      label: 'Show Collisions',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'collisionDetection',
       params: {
         objects: inputs.objects,
@@ -57,11 +64,11 @@ export const CollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, Co
         showCollisions: params.showCollisions
       }
     });
-
+    
     return {
-      hasCollisions: result,
-      collidingPairs: result,
-      collisionRegions: result
+      hasCollisions: results.hasCollisions,
+      collidingPairs: results.collidingPairs,
+      collisionRegions: results.collisionRegions
     };
-  }
+  },
 };

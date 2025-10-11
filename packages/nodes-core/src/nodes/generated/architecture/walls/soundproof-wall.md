@@ -8,7 +8,7 @@ Acoustic wall assembly
 ## Parameters
 
 
-### stcRating
+### Stc Rating
 - **Type:** number
 - **Default:** 50
 - **Min:** 30
@@ -16,7 +16,7 @@ Acoustic wall assembly
 
 
 
-### massLayers
+### Mass Layers
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -27,7 +27,7 @@ Acoustic wall assembly
 ## Inputs
 
 
-### wallPath
+### Wall Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Acoustic wall assembly
 ## Outputs
 
 
-### acousticWall
+### Acoustic Wall
 - **Type:** Shape
 
 

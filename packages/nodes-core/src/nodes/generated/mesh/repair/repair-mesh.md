@@ -8,7 +8,7 @@ Repair mesh defects
 ## Parameters
 
 
-### fillHoles
+### Fill Holes
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Repair mesh defects
 
 
 
-### fixNormals
+### Fix Normals
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Repair mesh defects
 
 
 
-### removeDegenerate
+### Remove Degenerate
 - **Type:** boolean
 - **Default:** true
 
@@ -32,7 +32,7 @@ Repair mesh defects
 
 
 
-### removeDuplicates
+### Remove Duplicates
 - **Type:** boolean
 - **Default:** true
 
@@ -40,7 +40,7 @@ Repair mesh defects
 
 
 
-### makeManifold
+### Make Manifold
 - **Type:** boolean
 - **Default:** false
 
@@ -51,7 +51,7 @@ Repair mesh defects
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -60,12 +60,12 @@ Repair mesh defects
 ## Outputs
 
 
-### repaired
+### Repaired
 - **Type:** Mesh
 
 
 
-### report
+### Report
 - **Type:** Data
 
 

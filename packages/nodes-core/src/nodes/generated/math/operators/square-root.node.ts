@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SquareRootParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface SquareRootInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface SquareRootOutputs {
+  result: unknown;
 }
 
 export const SquareRootNode: NodeDefinition<SquareRootInputs, SquareRootOutputs, SquareRootParams> = {
-  type: 'Math::SquareRoot',
+  id: 'Math::SquareRoot',
   category: 'Math',
-  subcategory: 'Operators',
-
-  metadata: {
-    label: 'SquareRoot',
-    description: 'Square root',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'SquareRoot',
+  description: 'Square root',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathSqrt',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

@@ -1,68 +1,87 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EmailSenderParams {
   smtpServer: string;
   port: number;
   username: string;
   password: string;
 }
-interface Inputs {
-  to: string;
-  subject: string;
-  body: string;
-  attachments?: string[];
+
+interface EmailSenderInputs {
+  to: unknown;
+  subject: unknown;
+  body: unknown;
+  attachments?: unknown;
 }
-interface Outputs {
-  sent: boolean;
-  messageId: string;
+
+interface EmailSenderOutputs {
+  sent: unknown;
+  messageId: unknown;
 }
 
 export const EmailSenderNode: NodeDefinition<EmailSenderInputs, EmailSenderOutputs, EmailSenderParams> = {
-  type: 'Interoperability::EmailSender',
+  id: 'Interoperability::EmailSender',
   category: 'Interoperability',
-  subcategory: 'Messaging',
-
-  metadata: {
-    label: 'EmailSender',
-    description: 'Send email notifications',
-    
-    
-  },
-
-  params: {
-        smtpServer: {
-      "default": "",
-      "description": "SMTP server address"
+  label: 'EmailSender',
+  description: 'Send email notifications',
+  inputs: {
+    to: {
+      type: 'string',
+      label: 'To',
+      required: true
     },
-    port: {
-      "default": 587,
-      "min": 1,
-      "max": 65535
+    subject: {
+      type: 'string',
+      label: 'Subject',
+      required: true
     },
-    username: {
-      "default": ""
+    body: {
+      type: 'string',
+      label: 'Body',
+      required: true
     },
-    password: {
-      "default": ""
+    attachments: {
+      type: 'string[]',
+      label: 'Attachments',
+      optional: true
     }
   },
-
-  inputs: {
-        to: 'string',
-    subject: 'string',
-    body: 'string',
-    attachments: 'string[]'
-  },
-
   outputs: {
-        sent: 'boolean',
-    messageId: 'string'
+    sent: {
+      type: 'boolean',
+      label: 'Sent'
+    },
+    messageId: {
+      type: 'string',
+      label: 'Message Id'
+    }
   },
-
+  params: {
+    smtpServer: {
+      type: 'string',
+      label: 'Smtp Server',
+      default: ""
+    },
+    port: {
+      type: 'number',
+      label: 'Port',
+      default: 587,
+      min: 1,
+      max: 65535
+    },
+    username: {
+      type: 'string',
+      label: 'Username',
+      default: ""
+    },
+    password: {
+      type: 'string',
+      label: 'Password',
+      default: ""
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'emailSender',
       params: {
         to: inputs.to,
@@ -75,10 +94,10 @@ export const EmailSenderNode: NodeDefinition<EmailSenderInputs, EmailSenderOutpu
         password: params.password
       }
     });
-
+    
     return {
-      sent: result,
-      messageId: result
+      sent: results.sent,
+      messageId: results.messageId
     };
-  }
+  },
 };

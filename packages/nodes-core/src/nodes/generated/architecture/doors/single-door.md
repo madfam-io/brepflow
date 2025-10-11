@@ -8,7 +8,7 @@ Single swing door
 ## Parameters
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 900
 - **Min:** 600
@@ -16,7 +16,7 @@ Single swing door
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 2100
 - **Min:** 1800
@@ -24,7 +24,7 @@ Single swing door
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 45
 - **Min:** 35
@@ -32,7 +32,7 @@ Single swing door
 
 
 
-### swing
+### Swing
 - **Type:** enum
 - **Default:** "right"
 
@@ -40,7 +40,7 @@ Single swing door
 
 
 
-### opening
+### Opening
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -51,13 +51,13 @@ Single swing door
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### wall
+### Wall
 - **Type:** Shape
 - **Required:** No
 
@@ -66,12 +66,12 @@ Single swing door
 ## Outputs
 
 
-### door
+### Door
 - **Type:** Shape
 
 
 
-### frame
+### Frame
 - **Type:** Shape
 
 

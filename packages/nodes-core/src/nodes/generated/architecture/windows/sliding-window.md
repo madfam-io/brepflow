@@ -8,7 +8,7 @@ Horizontal sliding window
 ## Parameters
 
 
-### panels
+### Panels
 - **Type:** number
 - **Default:** 2
 - **Min:** 2
@@ -16,7 +16,7 @@ Horizontal sliding window
 
 
 
-### operablePanel
+### Operable Panel
 - **Type:** enum
 - **Default:** "left"
 
@@ -27,7 +27,7 @@ Horizontal sliding window
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Horizontal sliding window
 ## Outputs
 
 
-### window
+### Window
 - **Type:** Shape
 
 
 
-### panels
+### Panels
 - **Type:** Shape[]
 
 

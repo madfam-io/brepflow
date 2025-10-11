@@ -1,55 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GearParams {
   ratio: number;
   reverse: boolean;
 }
-interface Inputs {
-  gear1: Shape;
-  gear2: Shape;
+
+interface GearInputs {
+  gear1: unknown;
+  gear2: unknown;
 }
-interface Outputs {
-  geared: Shape[];
-  mate: Mate;
+
+interface GearOutputs {
+  geared: unknown;
+  mate: unknown;
 }
 
 export const GearNode: NodeDefinition<GearInputs, GearOutputs, GearParams> = {
-  type: 'Assembly::Gear',
+  id: 'Assembly::Gear',
   category: 'Assembly',
-  subcategory: 'Mates',
-
-  metadata: {
-    label: 'Gear',
-    description: 'Create gear relationship',
-    
-    
-  },
-
-  params: {
-        ratio: {
-      "default": 1,
-      "min": 0.1,
-      "max": 100
+  label: 'Gear',
+  description: 'Create gear relationship',
+  inputs: {
+    gear1: {
+      type: 'Shape',
+      label: 'Gear1',
+      required: true
     },
-    reverse: {
-      "default": false
+    gear2: {
+      type: 'Shape',
+      label: 'Gear2',
+      required: true
     }
   },
-
-  inputs: {
-        gear1: 'Shape',
-    gear2: 'Shape'
-  },
-
   outputs: {
-        geared: 'Shape[]',
-    mate: 'Mate'
+    geared: {
+      type: 'Shape[]',
+      label: 'Geared'
+    },
+    mate: {
+      type: 'Mate',
+      label: 'Mate'
+    }
   },
-
+  params: {
+    ratio: {
+      type: 'number',
+      label: 'Ratio',
+      default: 1,
+      min: 0.1,
+      max: 100
+    },
+    reverse: {
+      type: 'boolean',
+      label: 'Reverse',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'mateGear',
       params: {
         gear1: inputs.gear1,
@@ -58,10 +66,10 @@ export const GearNode: NodeDefinition<GearInputs, GearOutputs, GearParams> = {
         reverse: params.reverse
       }
     });
-
+    
     return {
-      geared: result,
-      mate: result
+      geared: results.geared,
+      mate: results.mate
     };
-  }
+  },
 };

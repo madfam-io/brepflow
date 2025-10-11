@@ -1,55 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EndEffectorSetupParams {
   toolType: string;
   tcpOffset: [number, number, number];
 }
-interface Inputs {
-  toolGeometry?: Shape;
+
+interface EndEffectorSetupInputs {
+  toolGeometry?: unknown;
 }
-interface Outputs {
-  toolConfiguration: Data;
+
+interface EndEffectorSetupOutputs {
+  toolConfiguration: unknown;
 }
 
 export const EndEffectorSetupNode: NodeDefinition<EndEffectorSetupInputs, EndEffectorSetupOutputs, EndEffectorSetupParams> = {
-  type: 'Fabrication::EndEffectorSetup',
+  id: 'Fabrication::EndEffectorSetup',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'EndEffectorSetup',
-    description: 'Configure end effector',
-    
-    
-  },
-
-  params: {
-        toolType: {
-      "default": "gripper",
-      "options": [
-        "gripper",
-        "welder",
-        "extruder",
-        "mill",
-        "laser"
-      ]
-    },
-    tcpOffset: {
-      "default": "[0, 0, 100]"
+  label: 'EndEffectorSetup',
+  description: 'Configure end effector',
+  inputs: {
+    toolGeometry: {
+      type: 'Shape',
+      label: 'Tool Geometry',
+      optional: true
     }
   },
-
-  inputs: {
-        toolGeometry: 'Shape'
-  },
-
   outputs: {
-        toolConfiguration: 'Data'
+    toolConfiguration: {
+      type: 'Data',
+      label: 'Tool Configuration'
+    }
   },
-
+  params: {
+    toolType: {
+      type: 'enum',
+      label: 'Tool Type',
+      default: "gripper",
+      options: ["gripper","welder","extruder","mill","laser"]
+    },
+    tcpOffset: {
+      type: 'vec3',
+      label: 'Tcp Offset',
+      default: "[0, 0, 100]"
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'endEffectorSetup',
       params: {
@@ -58,9 +53,9 @@ export const EndEffectorSetupNode: NodeDefinition<EndEffectorSetupInputs, EndEff
         tcpOffset: params.tcpOffset
       }
     });
-
+    
     return {
       toolConfiguration: result
     };
-  }
+  },
 };

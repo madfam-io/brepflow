@@ -8,7 +8,7 @@ Create circular/polar array
 ## Parameters
 
 
-### count
+### Count
 - **Type:** number
 - **Default:** 8
 - **Min:** 2
@@ -16,7 +16,7 @@ Create circular/polar array
 
 
 
-### totalAngle
+### Total Angle
 - **Type:** number
 - **Default:** 360
 - **Min:** 0
@@ -24,7 +24,7 @@ Create circular/polar array
 
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -32,7 +32,7 @@ Create circular/polar array
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -40,7 +40,7 @@ Create circular/polar array
 
 
 
-### centerZ
+### Center Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -48,7 +48,7 @@ Create circular/polar array
 
 
 
-### axisX
+### Axis X
 - **Type:** number
 - **Default:** 0
 - **Min:** -1
@@ -56,7 +56,7 @@ Create circular/polar array
 
 
 
-### axisY
+### Axis Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -1
@@ -64,7 +64,7 @@ Create circular/polar array
 
 
 
-### axisZ
+### Axis Z
 - **Type:** number
 - **Default:** 1
 - **Min:** -1
@@ -72,7 +72,7 @@ Create circular/polar array
 
 
 
-### rotateItems
+### Rotate Items
 - **Type:** boolean
 - **Default:** true
 
@@ -80,7 +80,7 @@ Create circular/polar array
 
 
 
-### merge
+### Merge
 - **Type:** boolean
 - **Default:** false
 
@@ -91,7 +91,7 @@ Create circular/polar array
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -100,12 +100,12 @@ Create circular/polar array
 ## Outputs
 
 
-### array
+### Array
 - **Type:** Shape[]
 
 
 
-### merged
+### Merged
 - **Type:** Shape
 
 

@@ -8,7 +8,7 @@ Set distance between entities
 ## Parameters
 
 
-### distance
+### Distance
 - **Type:** number
 - **Default:** 10
 - **Min:** 0
@@ -16,7 +16,7 @@ Set distance between entities
 
 
 
-### minimum
+### Minimum
 - **Type:** boolean
 - **Default:** false
 
@@ -27,13 +27,13 @@ Set distance between entities
 ## Inputs
 
 
-### entity1
+### Entity1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### entity2
+### Entity2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Set distance between entities
 ## Outputs
 
 
-### constrained
+### Constrained
 - **Type:** Shape[]
 
 
 
-### constraint
+### Constraint
 - **Type:** Constraint
 
 

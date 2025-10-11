@@ -8,7 +8,7 @@ Arabesque pattern
 ## Parameters
 
 
-### complexity
+### Complexity
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Arabesque pattern
 
 
 
-### symmetry
+### Symmetry
 - **Type:** number
 - **Default:** 6
 - **Min:** 3
@@ -27,7 +27,7 @@ Arabesque pattern
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Arabesque pattern
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Wire[]
 
 

@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface JitteredGridParams {
   gridSize: number;
   jitter: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface JitteredGridInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  points: Point[];
+
+interface JitteredGridOutputs {
+  points: Array<[number, number, number]>;
 }
 
 export const JitteredGridNode: NodeDefinition<JitteredGridInputs, JitteredGridOutputs, JitteredGridParams> = {
-  type: 'Patterns::JitteredGrid',
+  id: 'Patterns::JitteredGrid',
   category: 'Patterns',
-  subcategory: 'Stochastic',
-
-  metadata: {
-    label: 'JitteredGrid',
-    description: 'Jittered grid sampling',
-    
-    
-  },
-
-  params: {
-        gridSize: {
-      "default": 10,
-      "min": 2,
-      "max": 100,
-      "step": 1
-    },
-    jitter: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+  label: 'JitteredGrid',
+  description: 'Jittered grid sampling',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        points: 'Point[]'
+    points: {
+      type: 'Point[]',
+      label: 'Points'
+    }
   },
-
+  params: {
+    gridSize: {
+      type: 'number',
+      label: 'Grid Size',
+      default: 10,
+      min: 2,
+      max: 100,
+      step: 1
+    },
+    jitter: {
+      type: 'number',
+      label: 'Jitter',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jitteredGrid',
       params: {
@@ -56,9 +57,9 @@ export const JitteredGridNode: NodeDefinition<JitteredGridInputs, JitteredGridOu
         jitter: params.jitter
       }
     });
-
+    
     return {
       points: result
     };
-  }
+  },
 };

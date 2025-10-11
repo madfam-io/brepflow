@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### template
+### Template
 - **Type:** string
 - **Required:** Yes
 
 
 
-### values
+### Values
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### formatted
+### Formatted
 - **Type:** string
 
 

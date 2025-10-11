@@ -8,7 +8,7 @@ Adaptive clearing strategy
 ## Parameters
 
 
-### optimalLoad
+### Optimal Load
 - **Type:** number
 - **Default:** 0.4
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Adaptive clearing strategy
 
 
 
-### helixAngle
+### Helix Angle
 - **Type:** number
 - **Default:** 3
 - **Min:** 0
@@ -27,13 +27,13 @@ Adaptive clearing strategy
 ## Inputs
 
 
-### region
+### Region
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### depth
+### Depth
 - **Type:** Number
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Adaptive clearing strategy
 ## Outputs
 
 
-### adaptivePath
+### Adaptive Path
 - **Type:** Wire
 
 

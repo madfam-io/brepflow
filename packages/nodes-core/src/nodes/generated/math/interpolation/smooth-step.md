@@ -12,19 +12,19 @@ This node has no parameters.
 ## Inputs
 
 
-### edge0
+### Edge0
 - **Type:** number
 - **Required:** Yes
 
 
 
-### edge1
+### Edge1
 - **Type:** number
 - **Required:** Yes
 
 
 
-### x
+### X
 - **Type:** number
 - **Required:** Yes
 
@@ -33,7 +33,7 @@ This node has no parameters.
 ## Outputs
 
 
-### result
+### Result
 - **Type:** number
 
 

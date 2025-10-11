@@ -8,7 +8,7 @@ Calculate curve length and properties
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Calculate curve length and properties
 
 
 
-### segments
+### Segments
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -27,7 +27,7 @@ Calculate curve length and properties
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Calculate curve length and properties
 ## Outputs
 
 
-### length
+### Length
 - **Type:** number
 
 
 
-### segmentLengths
+### Segment Lengths
 - **Type:** number[]
 
 
 
-### arcLength
+### Arc Length
 - **Type:** Wire
 
 

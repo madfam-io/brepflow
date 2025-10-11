@@ -8,7 +8,7 @@ Create bronze bushing
 ## Parameters
 
 
-### innerDiameter
+### Inner Diameter
 - **Type:** number
 - **Default:** 10
 - **Min:** 3
@@ -16,7 +16,7 @@ Create bronze bushing
 
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 14
 - **Min:** 5
@@ -24,7 +24,7 @@ Create bronze bushing
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 15
 - **Min:** 5
@@ -32,7 +32,7 @@ Create bronze bushing
 
 
 
-### oilGrooves
+### Oil Grooves
 - **Type:** boolean
 - **Default:** true
 
@@ -40,7 +40,7 @@ Create bronze bushing
 
 
 
-### flanged
+### Flanged
 - **Type:** boolean
 - **Default:** false
 
@@ -51,7 +51,7 @@ Create bronze bushing
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -60,12 +60,12 @@ Create bronze bushing
 ## Outputs
 
 
-### bushing
+### Bushing
 - **Type:** Shape
 
 
 
-### grooves
+### Grooves
 - **Type:** Wire[]
 
 

@@ -1,54 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceDeviationParams {
   sampleCount: number;
 }
-interface Inputs {
-  surface1: Face;
-  surface2: Face;
+
+interface SurfaceDeviationInputs {
+  surface1: unknown;
+  surface2: unknown;
 }
-interface Outputs {
-  maxDeviation: number;
-  avgDeviation: number;
-  deviationMap: Data;
+
+interface SurfaceDeviationOutputs {
+  maxDeviation: unknown;
+  avgDeviation: unknown;
+  deviationMap: unknown;
 }
 
 export const SurfaceDeviationNode: NodeDefinition<SurfaceDeviationInputs, SurfaceDeviationOutputs, SurfaceDeviationParams> = {
-  type: 'Surface::SurfaceDeviation',
+  id: 'Surface::SurfaceDeviation',
   category: 'Surface',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'SurfaceDeviation',
-    description: 'Measure surface deviation',
-    
-    
-  },
-
-  params: {
-        sampleCount: {
-      "default": 1000,
-      "min": 100,
-      "max": 10000,
-      "step": 100
+  label: 'SurfaceDeviation',
+  description: 'Measure surface deviation',
+  inputs: {
+    surface1: {
+      type: 'Face',
+      label: 'Surface1',
+      required: true
+    },
+    surface2: {
+      type: 'Face',
+      label: 'Surface2',
+      required: true
     }
   },
-
-  inputs: {
-        surface1: 'Face',
-    surface2: 'Face'
-  },
-
   outputs: {
-        maxDeviation: 'number',
-    avgDeviation: 'number',
-    deviationMap: 'Data'
+    maxDeviation: {
+      type: 'number',
+      label: 'Max Deviation'
+    },
+    avgDeviation: {
+      type: 'number',
+      label: 'Avg Deviation'
+    },
+    deviationMap: {
+      type: 'Data',
+      label: 'Deviation Map'
+    }
   },
-
+  params: {
+    sampleCount: {
+      type: 'number',
+      label: 'Sample Count',
+      default: 1000,
+      min: 100,
+      max: 10000,
+      step: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceDeviation',
       params: {
         surface1: inputs.surface1,
@@ -56,11 +65,11 @@ export const SurfaceDeviationNode: NodeDefinition<SurfaceDeviationInputs, Surfac
         sampleCount: params.sampleCount
       }
     });
-
+    
     return {
-      maxDeviation: result,
-      avgDeviation: result,
-      deviationMap: result
+      maxDeviation: results.maxDeviation,
+      avgDeviation: results.avgDeviation,
+      deviationMap: results.deviationMap
     };
-  }
+  },
 };

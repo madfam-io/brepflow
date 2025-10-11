@@ -8,7 +8,7 @@ Add holding bridges
 ## Parameters
 
 
-### bridgeWidth
+### Bridge Width
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Add holding bridges
 
 
 
-### bridgeCount
+### Bridge Count
 - **Type:** number
 - **Default:** 4
 - **Min:** 1
@@ -27,7 +27,7 @@ Add holding bridges
 ## Inputs
 
 
-### cutPath
+### Cut Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Add holding bridges
 ## Outputs
 
 
-### bridgedPath
+### Bridged Path
 - **Type:** Wire[]
 
 

@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### setA
+### Set A
 - **Type:** Data[]
 - **Required:** Yes
 
 
 
-### setB
+### Set B
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### isSubset
+### Is Subset
 - **Type:** boolean
 
 

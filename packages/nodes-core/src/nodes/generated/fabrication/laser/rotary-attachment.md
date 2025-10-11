@@ -8,7 +8,7 @@ Setup rotary cutting
 ## Parameters
 
 
-### diameter
+### Diameter
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Setup rotary cutting
 
 
 
-### stepsPerRotation
+### Steps Per Rotation
 - **Type:** number
 - **Default:** 10000
 - **Min:** 100
@@ -27,7 +27,7 @@ Setup rotary cutting
 ## Inputs
 
 
-### cylindricalPattern
+### Cylindrical Pattern
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Setup rotary cutting
 ## Outputs
 
 
-### unwrappedPattern
+### Unwrapped Pattern
 - **Type:** Wire[]
 
 

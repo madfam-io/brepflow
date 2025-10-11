@@ -8,7 +8,7 @@ Minimal surface pattern
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "gyroid"
 
@@ -16,7 +16,7 @@ Minimal surface pattern
 
 
 
-### period
+### Period
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,7 +27,7 @@ Minimal surface pattern
 ## Inputs
 
 
-### box
+### Box
 - **Type:** Box
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Minimal surface pattern
 ## Outputs
 
 
-### surface
+### Surface
 - **Type:** Face[]
 
 

@@ -8,7 +8,7 @@ Find critical points in field
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.001
 - **Min:** 0
@@ -16,7 +16,7 @@ Find critical points in field
 - **Description:** Search tolerance
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "\"all\""
 
@@ -27,13 +27,13 @@ Find critical points in field
 ## Inputs
 
 
-### field
+### Field
 - **Type:** Field
 - **Required:** No
 
 
 
-### domain
+### Domain
 - **Type:** Geometry
 - **Required:** No
 
@@ -42,17 +42,17 @@ Find critical points in field
 ## Outputs
 
 
-### points
+### Points
 - **Type:** PointSet
 
 
 
-### types
+### Types
 - **Type:** StringList
 
 
 
-### values
+### Values
 - **Type:** NumberList
 
 

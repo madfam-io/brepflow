@@ -1,51 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ContextFreeArtParams {
   rules: string;
   depth: number;
 }
-interface Inputs {
-  canvas: Face;
+
+interface ContextFreeArtInputs {
+  canvas: unknown;
 }
-interface Outputs {
-  art: Shape[];
+
+interface ContextFreeArtOutputs {
+  art: unknown;
 }
 
 export const ContextFreeArtNode: NodeDefinition<ContextFreeArtInputs, ContextFreeArtOutputs, ContextFreeArtParams> = {
-  type: 'Patterns::ContextFreeArt',
+  id: 'Patterns::ContextFreeArt',
   category: 'Patterns',
-  subcategory: 'Procedural',
-
-  metadata: {
-    label: 'ContextFreeArt',
-    description: 'Context-free art generation',
-    
-    
-  },
-
-  params: {
-        rules: {
-      "default": "CIRCLE{},SQUARE{r 45}"
-    },
-    depth: {
-      "default": 10,
-      "min": 1,
-      "max": 20,
-      "step": 1
+  label: 'ContextFreeArt',
+  description: 'Context-free art generation',
+  inputs: {
+    canvas: {
+      type: 'Face',
+      label: 'Canvas',
+      required: true
     }
   },
-
-  inputs: {
-        canvas: 'Face'
-  },
-
   outputs: {
-        art: 'Shape[]'
+    art: {
+      type: 'Shape[]',
+      label: 'Art'
+    }
   },
-
+  params: {
+    rules: {
+      type: 'string',
+      label: 'Rules',
+      default: "CIRCLE{},SQUARE{r 45}"
+    },
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: 10,
+      min: 1,
+      max: 20,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'contextFreeArt',
       params: {
@@ -54,9 +55,9 @@ export const ContextFreeArtNode: NodeDefinition<ContextFreeArtInputs, ContextFre
         depth: params.depth
       }
     });
-
+    
     return {
       art: result
     };
-  }
+  },
 };

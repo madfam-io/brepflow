@@ -1,52 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface UnionParams {
   keepOriginals: boolean;
   fuzzyValue: number;
 }
-interface Inputs {
-  shapes: Shape[];
+
+interface UnionInputs {
+  shapes: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface UnionOutputs {
+  result: unknown;
 }
 
 export const UnionNode: NodeDefinition<UnionInputs, UnionOutputs, UnionParams> = {
-  type: 'Boolean::Union',
+  id: 'Boolean::Union',
   category: 'Boolean',
-  
-
-  metadata: {
-    label: 'Union',
-    description: 'Combine multiple shapes into one',
-    
-    
-  },
-
-  params: {
-        keepOriginals: {
-      "default": false,
-      "description": "Keep original shapes"
-    },
-    fuzzyValue: {
-      "default": 1e-7,
-      "min": 0,
-      "max": 1,
-      "description": "Tolerance for fuzzy boolean"
+  label: 'Union',
+  description: 'Combine multiple shapes into one',
+  inputs: {
+    shapes: {
+      type: 'Shape[]',
+      label: 'Shapes',
+      required: true
     }
   },
-
-  inputs: {
-        shapes: 'Shape[]'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    keepOriginals: {
+      type: 'boolean',
+      label: 'Keep Originals',
+      default: false
+    },
+    fuzzyValue: {
+      type: 'number',
+      label: 'Fuzzy Value',
+      default: 1e-7,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'booleanUnion',
       params: {
@@ -55,9 +54,9 @@ export const UnionNode: NodeDefinition<UnionInputs, UnionOutputs, UnionParams> =
         fuzzyValue: params.fuzzyValue
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

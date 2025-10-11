@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### points
+### Points
 - **Type:** number[]
 - **Required:** Yes
 
 
 
-### t
+### T
 - **Type:** number
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### result
+### Result
 - **Type:** number
 
 

@@ -8,7 +8,7 @@ Define robot safety zones
 ## Parameters
 
 
-### zoneType
+### Zone Type
 - **Type:** enum
 - **Default:** "slow"
 
@@ -16,7 +16,7 @@ Define robot safety zones
 
 
 
-### responseTime
+### Response Time
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Define robot safety zones
 ## Inputs
 
 
-### zones
+### Zones
 - **Type:** Box[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Define robot safety zones
 ## Outputs
 
 
-### safetyConfiguration
+### Safety Configuration
 - **Type:** Data
 
 

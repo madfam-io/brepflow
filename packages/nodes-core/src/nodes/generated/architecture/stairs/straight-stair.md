@@ -8,7 +8,7 @@ Straight run staircase
 ## Parameters
 
 
-### totalRise
+### Total Rise
 - **Type:** number
 - **Default:** 3000
 - **Min:** 1000
@@ -16,7 +16,7 @@ Straight run staircase
 
 
 
-### treadDepth
+### Tread Depth
 - **Type:** number
 - **Default:** 280
 - **Min:** 250
@@ -24,7 +24,7 @@ Straight run staircase
 
 
 
-### riserHeight
+### Riser Height
 - **Type:** number
 - **Default:** 175
 - **Min:** 150
@@ -32,7 +32,7 @@ Straight run staircase
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 1200
 - **Min:** 900
@@ -43,7 +43,7 @@ Straight run staircase
 ## Inputs
 
 
-### startPoint
+### Start Point
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Straight run staircase
 ## Outputs
 
 
-### staircase
+### Staircase
 - **Type:** Shape
 
 
 
-### treads
+### Treads
 - **Type:** Shape[]
 
 
 
-### risers
+### Risers
 - **Type:** Shape[]
 
 

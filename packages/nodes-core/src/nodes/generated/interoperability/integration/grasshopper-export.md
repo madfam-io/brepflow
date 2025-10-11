@@ -8,7 +8,7 @@ Export definitions compatible with Grasshopper
 ## Parameters
 
 
-### version
+### Version
 - **Type:** enum
 - **Default:** "GH1"
 
@@ -16,7 +16,7 @@ Export definitions compatible with Grasshopper
 
 
 
-### embedGeometry
+### Embed Geometry
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Export definitions compatible with Grasshopper
 ## Inputs
 
 
-### definition
+### Definition
 - **Type:** Properties
 - **Required:** Yes
 
 
 
-### filePath
+### File Path
 - **Type:** string
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Export definitions compatible with Grasshopper
 ## Outputs
 
 
-### success
+### Success
 - **Type:** boolean
 
 
 
-### componentCount
+### Component Count
 - **Type:** number
 
 

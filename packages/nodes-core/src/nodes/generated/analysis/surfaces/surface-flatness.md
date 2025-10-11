@@ -8,7 +8,7 @@ Analyze surface flatness
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Analyze surface flatness
 
 
 
-### showBestFitPlane
+### Show Best Fit Plane
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Analyze surface flatness
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,22 +36,22 @@ Analyze surface flatness
 ## Outputs
 
 
-### isFlat
+### Is Flat
 - **Type:** boolean
 
 
 
-### flatness
+### Flatness
 - **Type:** number
 
 
 
-### bestFitPlane
+### Best Fit Plane
 - **Type:** Face
 
 
 
-### maxDeviation
+### Max Deviation
 - **Type:** number
 
 

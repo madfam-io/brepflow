@@ -1,44 +1,43 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface UntrimSurfaceParams {
   keepHoles: boolean;
 }
-interface Inputs {
-  trimmedSurface: Face;
+
+interface UntrimSurfaceInputs {
+  trimmedSurface: unknown;
 }
-interface Outputs {
-  untrimmedSurface: Face;
+
+interface UntrimSurfaceOutputs {
+  untrimmedSurface: unknown;
 }
 
 export const UntrimSurfaceNode: NodeDefinition<UntrimSurfaceInputs, UntrimSurfaceOutputs, UntrimSurfaceParams> = {
-  type: 'Advanced::UntrimSurface',
+  id: 'Advanced::UntrimSurface',
   category: 'Advanced',
-  subcategory: 'Surface',
-
-  metadata: {
-    label: 'UntrimSurface',
-    description: 'Remove trimming from surface',
-    
-    
-  },
-
-  params: {
-        keepHoles: {
-      "default": false
+  label: 'UntrimSurface',
+  description: 'Remove trimming from surface',
+  inputs: {
+    trimmedSurface: {
+      type: 'Face',
+      label: 'Trimmed Surface',
+      required: true
     }
   },
-
-  inputs: {
-        trimmedSurface: 'Face'
-  },
-
   outputs: {
-        untrimmedSurface: 'Face'
+    untrimmedSurface: {
+      type: 'Face',
+      label: 'Untrimmed Surface'
+    }
   },
-
+  params: {
+    keepHoles: {
+      type: 'boolean',
+      label: 'Keep Holes',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'untrimSurface',
       params: {
@@ -46,9 +45,9 @@ export const UntrimSurfaceNode: NodeDefinition<UntrimSurfaceInputs, UntrimSurfac
         keepHoles: params.keepHoles
       }
     });
-
+    
     return {
       untrimmedSurface: result
     };
-  }
+  },
 };

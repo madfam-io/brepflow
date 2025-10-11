@@ -8,7 +8,7 @@ Make two entities parallel
 ## Parameters
 
 
-### offset
+### Offset
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -16,7 +16,7 @@ Make two entities parallel
 
 
 
-### flip
+### Flip
 - **Type:** boolean
 - **Default:** false
 
@@ -27,13 +27,13 @@ Make two entities parallel
 ## Inputs
 
 
-### entity1
+### Entity1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### entity2
+### Entity2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Make two entities parallel
 ## Outputs
 
 
-### constrained
+### Constrained
 - **Type:** Shape[]
 
 
 
-### constraint
+### Constraint
 - **Type:** Constraint
 
 

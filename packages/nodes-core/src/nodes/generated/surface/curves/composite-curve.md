@@ -8,7 +8,7 @@ Create composite curve
 ## Parameters
 
 
-### continuity
+### Continuity
 - **Type:** enum
 - **Default:** "G1"
 
@@ -16,7 +16,7 @@ Create composite curve
 
 
 
-### mergeTolerance
+### Merge Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -27,7 +27,7 @@ Create composite curve
 ## Inputs
 
 
-### curves
+### Curves
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Create composite curve
 ## Outputs
 
 
-### composite
+### Composite
 - **Type:** Wire
 
 

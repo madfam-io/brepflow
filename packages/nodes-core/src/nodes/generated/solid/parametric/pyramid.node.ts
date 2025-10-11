@@ -1,73 +1,72 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PyramidParams {
   baseWidth: number;
   baseDepth: number;
   height: number;
   topWidth: number;
   topDepth: number;
 }
-type Inputs = {};
-interface Outputs {
-  solid: Solid;
+
+type PyramidInputs = Record<string, never>;
+
+interface PyramidOutputs {
+  solid: unknown;
 }
 
 export const PyramidNode: NodeDefinition<PyramidInputs, PyramidOutputs, PyramidParams> = {
-  type: 'Solid::Pyramid',
+  id: 'Solid::Pyramid',
   category: 'Solid',
-  subcategory: 'Parametric',
-
-  metadata: {
-    label: 'Pyramid',
-    description: 'Create a pyramid or truncated pyramid',
-    
-    
-  },
-
-  params: {
-        baseWidth: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    baseDepth: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    height: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    topWidth: {
-      "default": 0,
-      "min": 0,
-      "max": 10000,
-      "description": "0 for pointed pyramid"
-    },
-    topDepth: {
-      "default": 0,
-      "min": 0,
-      "max": 10000
+  label: 'Pyramid',
+  description: 'Create a pyramid or truncated pyramid',
+  inputs: {},
+  outputs: {
+    solid: {
+      type: 'Solid',
+      label: 'Solid'
     }
   },
-
-  inputs: {
-    
+  params: {
+    baseWidth: {
+      type: 'number',
+      label: 'Base Width',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    baseDepth: {
+      type: 'number',
+      label: 'Base Depth',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    topWidth: {
+      type: 'number',
+      label: 'Top Width',
+      default: 0,
+      min: 0,
+      max: 10000
+    },
+    topDepth: {
+      type: 'number',
+      label: 'Top Depth',
+      default: 0,
+      min: 0,
+      max: 10000
+    }
   },
-
-  outputs: {
-        solid: 'Solid'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makePyramid',
       params: {
-        
         baseWidth: params.baseWidth,
         baseDepth: params.baseDepth,
         height: params.height,
@@ -75,9 +74,9 @@ export const PyramidNode: NodeDefinition<PyramidInputs, PyramidOutputs, PyramidP
         topDepth: params.topDepth
       }
     });
-
+    
     return {
       solid: result
     };
-  }
+  },
 };

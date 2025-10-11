@@ -1,56 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LinearFieldParams {
   direction: [number, number, number];
   min: number;
   max: number;
 }
-interface Inputs {
-  bounds: Box;
+
+interface LinearFieldInputs {
+  bounds: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface LinearFieldOutputs {
+  field: unknown;
 }
 
 export const LinearFieldNode: NodeDefinition<LinearFieldInputs, LinearFieldOutputs, LinearFieldParams> = {
-  type: 'Field::LinearField',
+  id: 'Field::LinearField',
   category: 'Field',
-  subcategory: 'Generate',
-
-  metadata: {
-    label: 'LinearField',
-    description: 'Linear gradient field',
-    
-    
-  },
-
-  params: {
-        direction: {
-      "default": [
-        1,
-        0,
-        0
-      ]
-    },
-    min: {
-      "default": 0
-    },
-    max: {
-      "default": 1
+  label: 'LinearField',
+  description: 'Linear gradient field',
+  inputs: {
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        bounds: 'Box'
-  },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    direction: {
+      type: 'vec3',
+      label: 'Direction',
+      default: [1,0,0]
+    },
+    min: {
+      type: 'number',
+      label: 'Min',
+      default: 0
+    },
+    max: {
+      type: 'number',
+      label: 'Max',
+      default: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldLinear',
       params: {
@@ -60,9 +59,9 @@ export const LinearFieldNode: NodeDefinition<LinearFieldInputs, LinearFieldOutpu
         max: params.max
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

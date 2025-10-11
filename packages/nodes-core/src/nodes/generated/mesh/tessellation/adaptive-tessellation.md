@@ -8,7 +8,7 @@ Adaptive mesh generation
 ## Parameters
 
 
-### minEdgeLength
+### Min Edge Length
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Adaptive mesh generation
 
 
 
-### maxEdgeLength
+### Max Edge Length
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Adaptive mesh generation
 
 
 
-### curvatureFactor
+### Curvature Factor
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -35,7 +35,7 @@ Adaptive mesh generation
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Adaptive mesh generation
 ## Outputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 
 

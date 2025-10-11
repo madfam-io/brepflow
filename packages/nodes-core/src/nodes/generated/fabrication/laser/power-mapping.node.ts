@@ -1,64 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PowerMappingParams {
   material: string;
   thickness: number;
   wattage: number;
 }
-interface Inputs {
-  geometry: Wire[];
+
+interface PowerMappingInputs {
+  geometry: unknown;
 }
-interface Outputs {
-  powerSettings: Data;
+
+interface PowerMappingOutputs {
+  powerSettings: unknown;
 }
 
 export const PowerMappingNode: NodeDefinition<PowerMappingInputs, PowerMappingOutputs, PowerMappingParams> = {
-  type: 'Fabrication::PowerMapping',
+  id: 'Fabrication::PowerMapping',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'PowerMapping',
-    description: 'Map laser power settings',
-    
-    
-  },
-
-  params: {
-        material: {
-      "default": "acrylic",
-      "options": [
-        "acrylic",
-        "wood",
-        "mdf",
-        "cardboard",
-        "leather",
-        "fabric"
-      ]
-    },
-    thickness: {
-      "default": 3,
-      "min": 0.1,
-      "max": 50
-    },
-    wattage: {
-      "default": 60,
-      "min": 10,
-      "max": 500
+  label: 'PowerMapping',
+  description: 'Map laser power settings',
+  inputs: {
+    geometry: {
+      type: 'Wire[]',
+      label: 'Geometry',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Wire[]'
-  },
-
   outputs: {
-        powerSettings: 'Data'
+    powerSettings: {
+      type: 'Data',
+      label: 'Power Settings'
+    }
   },
-
+  params: {
+    material: {
+      type: 'enum',
+      label: 'Material',
+      default: "acrylic",
+      options: ["acrylic","wood","mdf","cardboard","leather","fabric"]
+    },
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 3,
+      min: 0.1,
+      max: 50
+    },
+    wattage: {
+      type: 'number',
+      label: 'Wattage',
+      default: 60,
+      min: 10,
+      max: 500
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'powerMapping',
       params: {
@@ -68,9 +64,9 @@ export const PowerMappingNode: NodeDefinition<PowerMappingInputs, PowerMappingOu
         wattage: params.wattage
       }
     });
-
+    
     return {
       powerSettings: result
     };
-  }
+  },
 };

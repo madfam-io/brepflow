@@ -1,55 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceParametrizationParams {
   showGrid: boolean;
   gridDensity: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface SurfaceParametrizationInputs {
+  surface: unknown;
 }
-interface Outputs {
-  uRange: number[];
-  vRange: number[];
-  parameterGrid: Wire[];
+
+interface SurfaceParametrizationOutputs {
+  uRange: unknown;
+  vRange: unknown;
+  parameterGrid: unknown;
 }
 
 export const SurfaceParametrizationNode: NodeDefinition<SurfaceParametrizationInputs, SurfaceParametrizationOutputs, SurfaceParametrizationParams> = {
-  type: 'Analysis::SurfaceParametrization',
+  id: 'Analysis::SurfaceParametrization',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceParametrization',
-    description: 'Analyze surface parametrization',
-    
-    
-  },
-
-  params: {
-        showGrid: {
-      "default": true
-    },
-    gridDensity: {
-      "default": 20,
-      "min": 5,
-      "max": 100
+  label: 'SurfaceParametrization',
+  description: 'Analyze surface parametrization',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        uRange: 'number[]',
-    vRange: 'number[]',
-    parameterGrid: 'Wire[]'
+    uRange: {
+      type: 'number[]',
+      label: 'U Range'
+    },
+    vRange: {
+      type: 'number[]',
+      label: 'V Range'
+    },
+    parameterGrid: {
+      type: 'Wire[]',
+      label: 'Parameter Grid'
+    }
   },
-
+  params: {
+    showGrid: {
+      type: 'boolean',
+      label: 'Show Grid',
+      default: true
+    },
+    gridDensity: {
+      type: 'number',
+      label: 'Grid Density',
+      default: 20,
+      min: 5,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceParametrization',
       params: {
         surface: inputs.surface,
@@ -57,11 +64,11 @@ export const SurfaceParametrizationNode: NodeDefinition<SurfaceParametrizationIn
         gridDensity: params.gridDensity
       }
     });
-
+    
     return {
-      uRange: result,
-      vRange: result,
-      parameterGrid: result
+      uRange: results.uRange,
+      vRange: results.vRange,
+      parameterGrid: results.parameterGrid
     };
-  }
+  },
 };

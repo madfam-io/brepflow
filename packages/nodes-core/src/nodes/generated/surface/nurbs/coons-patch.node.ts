@@ -1,46 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type CoonsPatchParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  edge1: Edge;
-  edge2: Edge;
-  edge3: Edge;
-  edge4: Edge;
+interface CoonsPatchInputs {
+  edge1: unknown;
+  edge2: unknown;
+  edge3: unknown;
+  edge4: unknown;
 }
-interface Outputs {
-  surface: Face;
+
+interface CoonsPatchOutputs {
+  surface: unknown;
 }
 
 export const CoonsPatchNode: NodeDefinition<CoonsPatchInputs, CoonsPatchOutputs, CoonsPatchParams> = {
-  type: 'Surface::CoonsPatch',
+  id: 'Surface::CoonsPatch',
   category: 'Surface',
-  subcategory: 'NURBS',
-
-  metadata: {
-    label: 'CoonsPatch',
-    description: 'Create Coons patch surface',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'CoonsPatch',
+  description: 'Create Coons patch surface',
   inputs: {
-        edge1: 'Edge',
-    edge2: 'Edge',
-    edge3: 'Edge',
-    edge4: 'Edge'
+    edge1: {
+      type: 'Edge',
+      label: 'Edge1',
+      required: true
+    },
+    edge2: {
+      type: 'Edge',
+      label: 'Edge2',
+      required: true
+    },
+    edge3: {
+      type: 'Edge',
+      label: 'Edge3',
+      required: true
+    },
+    edge4: {
+      type: 'Edge',
+      label: 'Edge4',
+      required: true
+    }
   },
-
   outputs: {
-        surface: 'Face'
+    surface: {
+      type: 'Face',
+      label: 'Surface'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'coonsPatch',
       params: {
@@ -48,12 +55,11 @@ export const CoonsPatchNode: NodeDefinition<CoonsPatchInputs, CoonsPatchOutputs,
         edge2: inputs.edge2,
         edge3: inputs.edge3,
         edge4: inputs.edge4
-        
       }
     });
-
+    
     return {
       surface: result
     };
-  }
+  },
 };

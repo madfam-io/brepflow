@@ -1,60 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WrapParams {
   type: string;
   radius: number;
   angle: number;
 }
-interface Inputs {
-  shape: Shape;
+
+interface WrapInputs {
+  shape: unknown;
 }
-interface Outputs {
-  wrapped: Shape;
+
+interface WrapOutputs {
+  wrapped: unknown;
 }
 
 export const WrapNode: NodeDefinition<WrapInputs, WrapOutputs, WrapParams> = {
-  type: 'Transform::Wrap',
+  id: 'Transform::Wrap',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'Wrap',
-    description: 'Wrap shape around cylinder or sphere',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "cylinder",
-      "options": [
-        "cylinder",
-        "sphere"
-      ]
-    },
-    radius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    angle: {
-      "default": 360,
-      "min": 0,
-      "max": 360
+  label: 'Wrap',
+  description: 'Wrap shape around cylinder or sphere',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        wrapped: 'Shape'
+    wrapped: {
+      type: 'Shape',
+      label: 'Wrapped'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "cylinder",
+      options: ["cylinder","sphere"]
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 360,
+      min: 0,
+      max: 360
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'transformWrap',
       params: {
@@ -64,9 +64,9 @@ export const WrapNode: NodeDefinition<WrapInputs, WrapOutputs, WrapParams> = {
         angle: params.angle
       }
     });
-
+    
     return {
       wrapped: result
     };
-  }
+  },
 };

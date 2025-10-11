@@ -1,70 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RollerBearingParams {
   innerDiameter: number;
   outerDiameter: number;
   width: number;
   rollerType: string;
 }
-interface Inputs {
-  center: Point;
+
+interface RollerBearingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  bearing: Shape;
-  rollers: Shape[];
+
+interface RollerBearingOutputs {
+  bearing: unknown;
+  rollers: unknown;
 }
 
 export const RollerBearingNode: NodeDefinition<RollerBearingInputs, RollerBearingOutputs, RollerBearingParams> = {
-  type: 'MechanicalEngineering::RollerBearing',
+  id: 'MechanicalEngineering::RollerBearing',
   category: 'MechanicalEngineering',
-  subcategory: 'Bearings',
-
-  metadata: {
-    label: 'RollerBearing',
-    description: 'Create roller bearing',
-    
-    
-  },
-
-  params: {
-        innerDiameter: {
-      "default": 25,
-      "min": 5,
-      "max": 200
-    },
-    outerDiameter: {
-      "default": 52,
-      "min": 15,
-      "max": 400
-    },
-    width: {
-      "default": 15,
-      "min": 5,
-      "max": 100
-    },
-    rollerType: {
-      "default": "cylindrical",
-      "options": [
-        "cylindrical",
-        "tapered",
-        "spherical"
-      ]
+  label: 'RollerBearing',
+  description: 'Create roller bearing',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        bearing: 'Shape',
-    rollers: 'Shape[]'
+    bearing: {
+      type: 'Shape',
+      label: 'Bearing'
+    },
+    rollers: {
+      type: 'Shape[]',
+      label: 'Rollers'
+    }
   },
-
+  params: {
+    innerDiameter: {
+      type: 'number',
+      label: 'Inner Diameter',
+      default: 25,
+      min: 5,
+      max: 200
+    },
+    outerDiameter: {
+      type: 'number',
+      label: 'Outer Diameter',
+      default: 52,
+      min: 15,
+      max: 400
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 15,
+      min: 5,
+      max: 100
+    },
+    rollerType: {
+      type: 'enum',
+      label: 'Roller Type',
+      default: "cylindrical",
+      options: ["cylindrical","tapered","spherical"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'rollerBearing',
       params: {
         center: inputs.center,
@@ -74,10 +78,10 @@ export const RollerBearingNode: NodeDefinition<RollerBearingInputs, RollerBearin
         rollerType: params.rollerType
       }
     });
-
+    
     return {
-      bearing: result,
-      rollers: result
+      bearing: results.bearing,
+      rollers: results.rollers
     };
-  }
+  },
 };

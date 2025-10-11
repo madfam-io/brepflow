@@ -8,7 +8,7 @@ Create assembly envelope
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "bounding"
 
@@ -19,7 +19,7 @@ Create assembly envelope
 ## Inputs
 
 
-### assembly
+### Assembly
 - **Type:** Assembly
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Create assembly envelope
 ## Outputs
 
 
-### envelope
+### Envelope
 - **Type:** Shape
 
 

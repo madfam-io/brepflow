@@ -8,7 +8,7 @@ Analyze assembly motion
 ## Parameters
 
 
-### steps
+### Steps
 - **Type:** number
 - **Default:** 10
 - **Min:** 2
@@ -16,7 +16,7 @@ Analyze assembly motion
 
 
 
-### duration
+### Duration
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -27,13 +27,13 @@ Analyze assembly motion
 ## Inputs
 
 
-### assembly
+### Assembly
 - **Type:** Assembly
 - **Required:** Yes
 
 
 
-### drivers
+### Drivers
 - **Type:** Driver[]
 - **Required:** Yes
 
@@ -42,12 +42,12 @@ Analyze assembly motion
 ## Outputs
 
 
-### frames
+### Frames
 - **Type:** Frame[]
 
 
 
-### collisions
+### Collisions
 - **Type:** Collision[]
 
 

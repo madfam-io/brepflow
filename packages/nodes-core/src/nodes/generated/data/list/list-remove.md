@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
 
 
-### index
+### Index
 - **Type:** number
 - **Required:** Yes
 
@@ -27,12 +27,12 @@ This node has no parameters.
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Data[]
 
 
 
-### removed
+### Removed
 - **Type:** Data
 
 

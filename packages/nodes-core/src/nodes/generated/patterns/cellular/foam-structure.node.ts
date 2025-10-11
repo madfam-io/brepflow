@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FoamStructureParams {
   bubbleCount: number;
   sizeVariation: number;
 }
-interface Inputs {
-  container: Shape;
+
+interface FoamStructureInputs {
+  container: unknown;
 }
-interface Outputs {
-  foam: Face[];
+
+interface FoamStructureOutputs {
+  foam: unknown;
 }
 
 export const FoamStructureNode: NodeDefinition<FoamStructureInputs, FoamStructureOutputs, FoamStructureParams> = {
-  type: 'Patterns::FoamStructure',
+  id: 'Patterns::FoamStructure',
   category: 'Patterns',
-  subcategory: 'Cellular',
-
-  metadata: {
-    label: 'FoamStructure',
-    description: 'Foam bubble structure',
-    
-    
-  },
-
-  params: {
-        bubbleCount: {
-      "default": 50,
-      "min": 5,
-      "max": 500,
-      "step": 5
-    },
-    sizeVariation: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+  label: 'FoamStructure',
+  description: 'Foam bubble structure',
+  inputs: {
+    container: {
+      type: 'Shape',
+      label: 'Container',
+      required: true
     }
   },
-
-  inputs: {
-        container: 'Shape'
-  },
-
   outputs: {
-        foam: 'Face[]'
+    foam: {
+      type: 'Face[]',
+      label: 'Foam'
+    }
   },
-
+  params: {
+    bubbleCount: {
+      type: 'number',
+      label: 'Bubble Count',
+      default: 50,
+      min: 5,
+      max: 500,
+      step: 5
+    },
+    sizeVariation: {
+      type: 'number',
+      label: 'Size Variation',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'foamStructure',
       params: {
@@ -56,9 +57,9 @@ export const FoamStructureNode: NodeDefinition<FoamStructureInputs, FoamStructur
         sizeVariation: params.sizeVariation
       }
     });
-
+    
     return {
       foam: result
     };
-  }
+  },
 };

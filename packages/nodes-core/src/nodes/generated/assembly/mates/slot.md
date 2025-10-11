@@ -8,7 +8,7 @@ Create slot constraint
 ## Parameters
 
 
-### freeRotation
+### Free Rotation
 - **Type:** boolean
 - **Default:** true
 
@@ -19,13 +19,13 @@ Create slot constraint
 ## Inputs
 
 
-### slot
+### Slot
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### slider
+### Slider
 - **Type:** Shape
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Create slot constraint
 ## Outputs
 
 
-### slotted
+### Slotted
 - **Type:** Shape[]
 
 
 
-### mate
+### Mate
 - **Type:** Mate
 
 

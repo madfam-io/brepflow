@@ -8,7 +8,7 @@ Calculate surface area and properties
 ## Parameters
 
 
-### precision
+### Precision
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Calculate surface area and properties
 
 
 
-### showCentroid
+### Show Centroid
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Calculate surface area and properties
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,17 +36,17 @@ Calculate surface area and properties
 ## Outputs
 
 
-### area
+### Area
 - **Type:** number
 
 
 
-### centroid
+### Centroid
 - **Type:** Point
 
 
 
-### boundaryLength
+### Boundary Length
 - **Type:** number
 
 

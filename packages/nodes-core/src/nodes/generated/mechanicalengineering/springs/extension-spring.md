@@ -8,7 +8,7 @@ Create extension spring with hooks
 ## Parameters
 
 
-### wireDiameter
+### Wire Diameter
 - **Type:** number
 - **Default:** 1.5
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Create extension spring with hooks
 
 
 
-### coilDiameter
+### Coil Diameter
 - **Type:** number
 - **Default:** 15
 - **Min:** 5
@@ -24,7 +24,7 @@ Create extension spring with hooks
 
 
 
-### bodyLength
+### Body Length
 - **Type:** number
 - **Default:** 40
 - **Min:** 10
@@ -32,7 +32,7 @@ Create extension spring with hooks
 
 
 
-### coils
+### Coils
 - **Type:** number
 - **Default:** 10
 - **Min:** 5
@@ -40,7 +40,7 @@ Create extension spring with hooks
 
 
 
-### hookType
+### Hook Type
 - **Type:** enum
 - **Default:** "machine"
 
@@ -51,7 +51,7 @@ Create extension spring with hooks
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -60,12 +60,12 @@ Create extension spring with hooks
 ## Outputs
 
 
-### spring
+### Spring
 - **Type:** Shape
 
 
 
-### hooks
+### Hooks
 - **Type:** Wire[]
 
 

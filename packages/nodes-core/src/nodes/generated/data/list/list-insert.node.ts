@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListInsertParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
-  item: Data;
-  index: number;
+interface ListInsertInputs {
+  list: unknown;
+  item: unknown;
+  index: unknown;
 }
-interface Outputs {
-  result: Data[];
+
+interface ListInsertOutputs {
+  result: unknown;
 }
 
 export const ListInsertNode: NodeDefinition<ListInsertInputs, ListInsertOutputs, ListInsertParams> = {
-  type: 'Data::ListInsert',
+  id: 'Data::ListInsert',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListInsert',
-    description: 'Insert item in list',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListInsert',
+  description: 'Insert item in list',
   inputs: {
-        list: 'Data[]',
-    item: 'Data',
-    index: 'number'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    item: {
+      type: 'Data',
+      label: 'Item',
+      required: true
+    },
+    index: {
+      type: 'number',
+      label: 'Index',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'Data[]'
+    result: {
+      type: 'Data[]',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'listInsert',
       params: {
         list: inputs.list,
         item: inputs.item,
         index: inputs.index
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

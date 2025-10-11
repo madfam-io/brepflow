@@ -8,7 +8,7 @@ Create linear motion bearing
 ## Parameters
 
 
-### shaftDiameter
+### Shaft Diameter
 - **Type:** number
 - **Default:** 8
 - **Min:** 3
@@ -16,7 +16,7 @@ Create linear motion bearing
 
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 15
 - **Min:** 8
@@ -24,7 +24,7 @@ Create linear motion bearing
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 24
 - **Min:** 10
@@ -32,7 +32,7 @@ Create linear motion bearing
 
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "ball"
 
@@ -43,13 +43,13 @@ Create linear motion bearing
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### axis
+### Axis
 - **Type:** Vector
 - **Required:** No
 
@@ -58,12 +58,12 @@ Create linear motion bearing
 ## Outputs
 
 
-### bearing
+### Bearing
 - **Type:** Shape
 
 
 
-### bore
+### Bore
 - **Type:** Wire
 
 

@@ -1,57 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PostTensionedSlabParams {
   slabThickness: number;
   tendonSpacing: number;
 }
-interface Inputs {
-  slabOutline: Wire;
-  columnPoints?: Point[];
+
+interface PostTensionedSlabInputs {
+  slabOutline: unknown;
+  columnPoints?: Array<[number, number, number]>;
 }
-interface Outputs {
-  ptSlab: Shape;
-  tendons: Wire[];
+
+interface PostTensionedSlabOutputs {
+  ptSlab: unknown;
+  tendons: unknown;
 }
 
 export const PostTensionedSlabNode: NodeDefinition<PostTensionedSlabInputs, PostTensionedSlabOutputs, PostTensionedSlabParams> = {
-  type: 'Architecture::PostTensionedSlab',
+  id: 'Architecture::PostTensionedSlab',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'PostTensionedSlab',
-    description: 'Post-tensioned concrete slab',
-    
-    
-  },
-
-  params: {
-        slabThickness: {
-      "default": 200,
-      "min": 150,
-      "max": 400
+  label: 'PostTensionedSlab',
+  description: 'Post-tensioned concrete slab',
+  inputs: {
+    slabOutline: {
+      type: 'Wire',
+      label: 'Slab Outline',
+      required: true
     },
-    tendonSpacing: {
-      "default": 1200,
-      "min": 900,
-      "max": 1800
+    columnPoints: {
+      type: 'Point[]',
+      label: 'Column Points',
+      optional: true
     }
   },
-
-  inputs: {
-        slabOutline: 'Wire',
-    columnPoints: 'Point[]'
-  },
-
   outputs: {
-        ptSlab: 'Shape',
-    tendons: 'Wire[]'
+    ptSlab: {
+      type: 'Shape',
+      label: 'Pt Slab'
+    },
+    tendons: {
+      type: 'Wire[]',
+      label: 'Tendons'
+    }
   },
-
+  params: {
+    slabThickness: {
+      type: 'number',
+      label: 'Slab Thickness',
+      default: 200,
+      min: 150,
+      max: 400
+    },
+    tendonSpacing: {
+      type: 'number',
+      label: 'Tendon Spacing',
+      default: 1200,
+      min: 900,
+      max: 1800
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'postTensionedSlab',
       params: {
         slabOutline: inputs.slabOutline,
@@ -60,10 +68,10 @@ export const PostTensionedSlabNode: NodeDefinition<PostTensionedSlabInputs, Post
         tendonSpacing: params.tendonSpacing
       }
     });
-
+    
     return {
-      ptSlab: result,
-      tendons: result
+      ptSlab: results.ptSlab,
+      tendons: results.tendons
     };
-  }
+  },
 };

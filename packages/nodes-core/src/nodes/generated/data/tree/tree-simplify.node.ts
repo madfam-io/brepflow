@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type TreeSimplifyParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  tree: DataTree;
+interface TreeSimplifyInputs {
+  tree: unknown;
 }
-interface Outputs {
-  simplified: DataTree;
+
+interface TreeSimplifyOutputs {
+  simplified: unknown;
 }
 
 export const TreeSimplifyNode: NodeDefinition<TreeSimplifyInputs, TreeSimplifyOutputs, TreeSimplifyParams> = {
-  type: 'Data::TreeSimplify',
+  id: 'Data::TreeSimplify',
   category: 'Data',
-  subcategory: 'Tree',
-
-  metadata: {
-    label: 'TreeSimplify',
-    description: 'Simplify tree paths',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'TreeSimplify',
+  description: 'Simplify tree paths',
   inputs: {
-        tree: 'DataTree'
+    tree: {
+      type: 'DataTree',
+      label: 'Tree',
+      required: true
+    }
   },
-
   outputs: {
-        simplified: 'DataTree'
+    simplified: {
+      type: 'DataTree',
+      label: 'Simplified'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'treeSimplify',
       params: {
         tree: inputs.tree
-        
       }
     });
-
+    
     return {
       simplified: result
     };
-  }
+  },
 };

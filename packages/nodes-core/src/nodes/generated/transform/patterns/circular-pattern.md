@@ -8,7 +8,7 @@ Creates a circular array of features or shapes
 ## Parameters
 
 
-### count
+### Count
 - **Type:** number
 - **Default:** 6
 - **Min:** 2
@@ -16,7 +16,7 @@ Creates a circular array of features or shapes
 
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 360
 - **Min:** 0
@@ -24,7 +24,7 @@ Creates a circular array of features or shapes
 - **Description:** Total angle to fill (degrees)
 
 
-### center
+### Center
 - **Type:** vector3
 - **Default:** [0,0,0]
 
@@ -32,7 +32,7 @@ Creates a circular array of features or shapes
 - **Description:** Pattern center point
 
 
-### axis
+### Axis
 - **Type:** vector3
 - **Default:** [0,0,1]
 
@@ -40,7 +40,7 @@ Creates a circular array of features or shapes
 - **Description:** Rotation axis
 
 
-### rotateInstances
+### Rotate Instances
 - **Type:** boolean
 - **Default:** true
 
@@ -51,7 +51,7 @@ Creates a circular array of features or shapes
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -60,12 +60,12 @@ Creates a circular array of features or shapes
 ## Outputs
 
 
-### shapes
+### Shapes
 - **Type:** Shape[]
 
 
 
-### compound
+### Compound
 - **Type:** Shape
 
 

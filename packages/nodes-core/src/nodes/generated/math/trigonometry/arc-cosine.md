@@ -8,7 +8,7 @@ Arc cosine function
 ## Parameters
 
 
-### angleUnit
+### Angle Unit
 - **Type:** enum
 - **Default:** "radians"
 
@@ -19,7 +19,7 @@ Arc cosine function
 ## Inputs
 
 
-### value
+### Value
 - **Type:** number
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Arc cosine function
 ## Outputs
 
 
-### angle
+### Angle
 - **Type:** number
 
 

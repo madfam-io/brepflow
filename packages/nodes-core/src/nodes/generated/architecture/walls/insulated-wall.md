@@ -8,7 +8,7 @@ Wall with insulation layers
 ## Parameters
 
 
-### insulationType
+### Insulation Type
 - **Type:** enum
 - **Default:** "batt"
 
@@ -16,7 +16,7 @@ Wall with insulation layers
 
 
 
-### rValue
+### R Value
 - **Type:** number
 - **Default:** 19
 - **Min:** 5
@@ -27,7 +27,7 @@ Wall with insulation layers
 ## Inputs
 
 
-### wallCavity
+### Wall Cavity
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Wall with insulation layers
 ## Outputs
 
 
-### insulatedWall
+### Insulated Wall
 - **Type:** Shape
 
 

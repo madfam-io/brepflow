@@ -8,7 +8,7 @@ Celtic knot pattern
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "trinity"
 
@@ -16,7 +16,7 @@ Celtic knot pattern
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -27,7 +27,7 @@ Celtic knot pattern
 ## Inputs
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Celtic knot pattern
 ## Outputs
 
 
-### knot
+### Knot
 - **Type:** Wire[]
 
 

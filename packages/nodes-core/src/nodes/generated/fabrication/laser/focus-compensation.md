@@ -8,7 +8,7 @@ Focus height compensation
 ## Parameters
 
 
-### focalLength
+### Focal Length
 - **Type:** number
 - **Default:** 50
 - **Min:** 20
@@ -16,7 +16,7 @@ Focus height compensation
 
 
 
-### beamDivergence
+### Beam Divergence
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -27,7 +27,7 @@ Focus height compensation
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Focus height compensation
 ## Outputs
 
 
-### focusMap
+### Focus Map
 - **Type:** Data
 
 

@@ -8,7 +8,7 @@ Overhead sectional door
 ## Parameters
 
 
-### sections
+### Sections
 - **Type:** number
 - **Default:** 4
 - **Min:** 3
@@ -16,7 +16,7 @@ Overhead sectional door
 
 
 
-### trackType
+### Track Type
 - **Type:** enum
 - **Default:** "standard"
 
@@ -27,7 +27,7 @@ Overhead sectional door
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Overhead sectional door
 ## Outputs
 
 
-### overheadDoor
+### Overhead Door
 - **Type:** Shape
 
 
 
-### tracks
+### Tracks
 - **Type:** Wire[]
 
 

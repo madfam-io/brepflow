@@ -1,67 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RigidCouplingParams {
   shaft1Diameter: number;
   shaft2Diameter: number;
   couplingDiameter: number;
   length: number;
 }
-interface Inputs {
-  center: Point;
+
+interface RigidCouplingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  coupling: Shape;
-  bores: Wire[];
+
+interface RigidCouplingOutputs {
+  coupling: unknown;
+  bores: unknown;
 }
 
 export const RigidCouplingNode: NodeDefinition<RigidCouplingInputs, RigidCouplingOutputs, RigidCouplingParams> = {
-  type: 'MechanicalEngineering::RigidCoupling',
+  id: 'MechanicalEngineering::RigidCoupling',
   category: 'MechanicalEngineering',
-  subcategory: 'Couplings',
-
-  metadata: {
-    label: 'RigidCoupling',
-    description: 'Create rigid shaft coupling',
-    
-    
-  },
-
-  params: {
-        shaft1Diameter: {
-      "default": 20,
-      "min": 5,
-      "max": 100
-    },
-    shaft2Diameter: {
-      "default": 20,
-      "min": 5,
-      "max": 100
-    },
-    couplingDiameter: {
-      "default": 40,
-      "min": 15,
-      "max": 150
-    },
-    length: {
-      "default": 50,
-      "min": 20,
-      "max": 150
+  label: 'RigidCoupling',
+  description: 'Create rigid shaft coupling',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        coupling: 'Shape',
-    bores: 'Wire[]'
+    coupling: {
+      type: 'Shape',
+      label: 'Coupling'
+    },
+    bores: {
+      type: 'Wire[]',
+      label: 'Bores'
+    }
   },
-
+  params: {
+    shaft1Diameter: {
+      type: 'number',
+      label: 'Shaft1 Diameter',
+      default: 20,
+      min: 5,
+      max: 100
+    },
+    shaft2Diameter: {
+      type: 'number',
+      label: 'Shaft2 Diameter',
+      default: 20,
+      min: 5,
+      max: 100
+    },
+    couplingDiameter: {
+      type: 'number',
+      label: 'Coupling Diameter',
+      default: 40,
+      min: 15,
+      max: 150
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 50,
+      min: 20,
+      max: 150
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'rigidCoupling',
       params: {
         center: inputs.center,
@@ -71,10 +79,10 @@ export const RigidCouplingNode: NodeDefinition<RigidCouplingInputs, RigidCouplin
         length: params.length
       }
     });
-
+    
     return {
-      coupling: result,
-      bores: result
+      coupling: results.coupling,
+      bores: results.bores
     };
-  }
+  },
 };

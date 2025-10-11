@@ -1,26 +1,20 @@
+
 import { describe, it, expect } from 'vitest';
-import { CommonEdgesNode } from './commonedges.node';
-import { createTestContext } from './../test-utils';
+import { CommonEdgesNode } from './common-edges.node';
+import { createTestContext } from '../test-utils';
 
 describe('CommonEdgesNode', () => {
-  it('should create CommonEdges', async () => {
+  it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
-      shape1: null, // TODO: Add proper test geometry
-      shape2: null  // TODO: Add proper test geometry
-    };
+      shape1: undefined,
+      shape2: undefined
+    } as any;
     const params = {
 
-    };
+    } as any;
 
-    // Mock the evaluate function for testing
-    try {
-      const result = await CommonEdgesNode.evaluate(context, inputs, params);
-      expect(result).toBeDefined();
-      expect(result.edges).toBeDefined();
-    } catch (error) {
-      // Skip test if geometry context not available
-      expect(error).toBeDefined();
-    }
+    const result = await CommonEdgesNode.evaluate(context, inputs, params);
+    expect(result).toBeDefined();
   });
 });

@@ -1,67 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MazeGeneratorParams {
   algorithm: string;
   width: number;
   height: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface MazeGeneratorInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  walls: Wire[];
-  path: Wire;
+
+interface MazeGeneratorOutputs {
+  walls: unknown;
+  path: unknown;
 }
 
 export const MazeGeneratorNode: NodeDefinition<MazeGeneratorInputs, MazeGeneratorOutputs, MazeGeneratorParams> = {
-  type: 'Patterns::MazeGenerator',
+  id: 'Patterns::MazeGenerator',
   category: 'Patterns',
-  subcategory: 'Algorithmic',
-
-  metadata: {
-    label: 'MazeGenerator',
-    description: 'Maze generation algorithms',
-    
-    
-  },
-
-  params: {
-        algorithm: {
-      "default": "recursive-backtracker",
-      "options": [
-        "recursive-backtracker",
-        "prims",
-        "kruskals",
-        "wilsons"
-      ]
-    },
-    width: {
-      "default": 20,
-      "min": 5,
-      "max": 100,
-      "step": 1
-    },
-    height: {
-      "default": 20,
-      "min": 5,
-      "max": 100,
-      "step": 1
+  label: 'MazeGenerator',
+  description: 'Maze generation algorithms',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        walls: 'Wire[]',
-    path: 'Wire'
+    walls: {
+      type: 'Wire[]',
+      label: 'Walls'
+    },
+    path: {
+      type: 'Wire',
+      label: 'Path'
+    }
   },
-
+  params: {
+    algorithm: {
+      type: 'enum',
+      label: 'Algorithm',
+      default: "recursive-backtracker",
+      options: ["recursive-backtracker","prims","kruskals","wilsons"]
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 20,
+      min: 5,
+      max: 100,
+      step: 1
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 20,
+      min: 5,
+      max: 100,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'mazeGenerator',
       params: {
         boundary: inputs.boundary,
@@ -70,10 +71,10 @@ export const MazeGeneratorNode: NodeDefinition<MazeGeneratorInputs, MazeGenerato
         height: params.height
       }
     });
-
+    
     return {
-      walls: result,
-      path: result
+      walls: results.walls,
+      path: results.path
     };
-  }
+  },
 };

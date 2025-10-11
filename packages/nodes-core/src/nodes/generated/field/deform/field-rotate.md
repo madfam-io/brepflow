@@ -8,7 +8,7 @@ Rotate by field
 ## Parameters
 
 
-### maxAngle
+### Max Angle
 - **Type:** number
 - **Default:** 180
 - **Min:** -360
@@ -19,13 +19,13 @@ Rotate by field
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Shape[]
 - **Required:** Yes
 
 
 
-### field
+### Field
 - **Type:** VectorField
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Rotate by field
 ## Outputs
 
 
-### rotated
+### Rotated
 - **Type:** Shape[]
 
 

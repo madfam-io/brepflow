@@ -8,7 +8,7 @@ Extract iso-contours
 ## Parameters
 
 
-### value
+### Value
 - **Type:** number
 - **Default:** 0.5
 
@@ -16,7 +16,7 @@ Extract iso-contours
 
 
 
-### smooth
+### Smooth
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Extract iso-contours
 ## Inputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Extract iso-contours
 ## Outputs
 
 
-### contours
+### Contours
 - **Type:** Wire[]
 
 

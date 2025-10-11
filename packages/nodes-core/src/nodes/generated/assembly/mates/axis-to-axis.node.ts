@@ -1,53 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AxisToAxisParams {
   colinear: boolean;
   offset: number;
 }
-interface Inputs {
-  axis1: Axis;
-  axis2: Axis;
+
+interface AxisToAxisInputs {
+  axis1: unknown;
+  axis2: unknown;
 }
-interface Outputs {
-  mated: Shape[];
-  mate: Mate;
+
+interface AxisToAxisOutputs {
+  mated: unknown;
+  mate: unknown;
 }
 
 export const AxisToAxisNode: NodeDefinition<AxisToAxisInputs, AxisToAxisOutputs, AxisToAxisParams> = {
-  type: 'Assembly::AxisToAxis',
+  id: 'Assembly::AxisToAxis',
   category: 'Assembly',
-  subcategory: 'Mates',
-
-  metadata: {
-    label: 'AxisToAxis',
-    description: 'Align two axes',
-    
-    
-  },
-
-  params: {
-        colinear: {
-      "default": true
+  label: 'AxisToAxis',
+  description: 'Align two axes',
+  inputs: {
+    axis1: {
+      type: 'Axis',
+      label: 'Axis1',
+      required: true
     },
-    offset: {
-      "default": 0
+    axis2: {
+      type: 'Axis',
+      label: 'Axis2',
+      required: true
     }
   },
-
-  inputs: {
-        axis1: 'Axis',
-    axis2: 'Axis'
-  },
-
   outputs: {
-        mated: 'Shape[]',
-    mate: 'Mate'
+    mated: {
+      type: 'Shape[]',
+      label: 'Mated'
+    },
+    mate: {
+      type: 'Mate',
+      label: 'Mate'
+    }
   },
-
+  params: {
+    colinear: {
+      type: 'boolean',
+      label: 'Colinear',
+      default: true
+    },
+    offset: {
+      type: 'number',
+      label: 'Offset',
+      default: 0
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'mateAxisToAxis',
       params: {
         axis1: inputs.axis1,
@@ -56,10 +64,10 @@ export const AxisToAxisNode: NodeDefinition<AxisToAxisInputs, AxisToAxisOutputs,
         offset: params.offset
       }
     });
-
+    
     return {
-      mated: result,
-      mate: result
+      mated: results.mated,
+      mate: results.mate
     };
-  }
+  },
 };

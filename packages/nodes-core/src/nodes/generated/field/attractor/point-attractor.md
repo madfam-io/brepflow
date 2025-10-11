@@ -8,7 +8,7 @@ Point attractor field
 ## Parameters
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 1
 - **Min:** -10
@@ -16,7 +16,7 @@ Point attractor field
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Point attractor field
 
 
 
-### falloff
+### Falloff
 - **Type:** enum
 - **Default:** "quadratic"
 
@@ -35,7 +35,7 @@ Point attractor field
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Point attractor field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

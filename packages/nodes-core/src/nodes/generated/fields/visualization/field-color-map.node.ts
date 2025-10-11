@@ -1,66 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldColorMapParams {
   colorScheme: string;
   minValue: number;
   maxValue: number;
 }
-interface Inputs {
-  field?: Field;
-  mesh: Mesh;
+
+interface FieldColorMapInputs {
+  field?: unknown;
+  mesh: unknown;
 }
-interface Outputs {
-  coloredMesh: Mesh;
+
+interface FieldColorMapOutputs {
+  coloredMesh: unknown;
 }
 
 export const FieldColorMapNode: NodeDefinition<FieldColorMapInputs, FieldColorMapOutputs, FieldColorMapParams> = {
-  type: 'Fields::FieldColorMap',
+  id: 'Fields::FieldColorMap',
   category: 'Fields',
-  subcategory: 'Visualization',
-
-  metadata: {
-    label: 'FieldColorMap',
-    description: 'Visualize field values as colors',
-    
-    
-  },
-
-  params: {
-        colorScheme: {
-      "default": "\"viridis\"",
-      "options": [
-        "viridis",
-        "plasma",
-        "inferno",
-        "magma",
-        "turbo",
-        "rainbow"
-      ],
-      "description": "Color scheme for visualization"
+  label: 'FieldColorMap',
+  description: 'Visualize field values as colors',
+  inputs: {
+    field: {
+      type: 'Field',
+      label: 'Field',
+      optional: true
     },
-    minValue: {
-      "default": 0,
-      "description": "Minimum field value"
-    },
-    maxValue: {
-      "default": 1,
-      "description": "Maximum field value"
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'Field',
-    mesh: 'Mesh'
-  },
-
   outputs: {
-        coloredMesh: 'Mesh'
+    coloredMesh: {
+      type: 'Mesh',
+      label: 'Colored Mesh'
+    }
   },
-
+  params: {
+    colorScheme: {
+      type: 'enum',
+      label: 'Color Scheme',
+      default: "\"viridis\"",
+      options: ["viridis","plasma","inferno","magma","turbo","rainbow"]
+    },
+    minValue: {
+      type: 'number',
+      label: 'Min Value',
+      default: 0
+    },
+    maxValue: {
+      type: 'number',
+      label: 'Max Value',
+      default: 1
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'visualizeFieldColors',
+      params: {
+        field: inputs.field,
+        mesh: inputs.mesh,
+        colorScheme: params.colorScheme,
+        minValue: params.minValue,
+        maxValue: params.maxValue
+      }
+    });
     
-    // TODO: Implement FieldColorMap logic
-    throw new Error('FieldColorMap not yet implemented');
-  }
+    return {
+      coloredMesh: result
+    };
+  },
 };

@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### x
+### X
 - **Type:** number[]
 - **Required:** Yes
 
 
 
-### y
+### Y
 - **Type:** number[]
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### correlation
+### Correlation
 - **Type:** number
 
 

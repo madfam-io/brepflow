@@ -8,7 +8,7 @@ Create prismatic (sliding) joint
 ## Parameters
 
 
-### minDistance
+### Min Distance
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -16,7 +16,7 @@ Create prismatic (sliding) joint
 
 
 
-### maxDistance
+### Max Distance
 - **Type:** number
 - **Default:** 100
 - **Min:** -10000
@@ -27,19 +27,19 @@ Create prismatic (sliding) joint
 ## Inputs
 
 
-### part1
+### Part1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### part2
+### Part2
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### direction
+### Direction
 - **Type:** Vector
 - **Required:** Yes
 
@@ -48,7 +48,7 @@ Create prismatic (sliding) joint
 ## Outputs
 
 
-### joint
+### Joint
 - **Type:** Joint
 
 

@@ -8,7 +8,7 @@ Generate heat map visualization
 ## Parameters
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -16,7 +16,7 @@ Generate heat map visualization
 - **Description:** Grid resolution
 
 
-### interpolation
+### Interpolation
 - **Type:** enum
 - **Default:** "\"bilinear\""
 
@@ -27,13 +27,13 @@ Generate heat map visualization
 ## Inputs
 
 
-### field
+### Field
 - **Type:** Field
 - **Required:** No
 
 
 
-### plane
+### Plane
 - **Type:** Plane
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Generate heat map visualization
 ## Outputs
 
 
-### heatMap
+### Heat Map
 - **Type:** Mesh
 
 

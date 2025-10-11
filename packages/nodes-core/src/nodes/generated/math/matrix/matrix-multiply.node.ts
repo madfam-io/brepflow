@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type MatrixMultiplyParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  a: Matrix;
-  b: Matrix;
+interface MatrixMultiplyInputs {
+  a: unknown;
+  b: unknown;
 }
-interface Outputs {
-  result: Matrix;
+
+interface MatrixMultiplyOutputs {
+  result: unknown;
 }
 
 export const MatrixMultiplyNode: NodeDefinition<MatrixMultiplyInputs, MatrixMultiplyOutputs, MatrixMultiplyParams> = {
-  type: 'Math::MatrixMultiply',
+  id: 'Math::MatrixMultiply',
   category: 'Math',
-  subcategory: 'Matrix',
-
-  metadata: {
-    label: 'MatrixMultiply',
-    description: 'Matrix multiplication',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'MatrixMultiply',
+  description: 'Matrix multiplication',
   inputs: {
-        a: 'Matrix',
-    b: 'Matrix'
+    a: {
+      type: 'Matrix',
+      label: 'A',
+      required: true
+    },
+    b: {
+      type: 'Matrix',
+      label: 'B',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'Matrix'
+    result: {
+      type: 'Matrix',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathMatrixMultiply',
       params: {
         a: inputs.a,
         b: inputs.b
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

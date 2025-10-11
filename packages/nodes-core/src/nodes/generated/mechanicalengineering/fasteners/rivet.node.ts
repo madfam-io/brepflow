@@ -1,72 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RivetParams {
   diameter: number;
   length: number;
   headType: string;
   material: string;
 }
-interface Inputs {
-  position: Point;
+
+interface RivetInputs {
+  position: [number, number, number];
 }
-interface Outputs {
-  rivet: Shape;
+
+interface RivetOutputs {
+  rivet: unknown;
 }
 
 export const RivetNode: NodeDefinition<RivetInputs, RivetOutputs, RivetParams> = {
-  type: 'MechanicalEngineering::Rivet',
+  id: 'MechanicalEngineering::Rivet',
   category: 'MechanicalEngineering',
-  subcategory: 'Fasteners',
-
-  metadata: {
-    label: 'Rivet',
-    description: 'Create rivet fastener',
-    
-    
-  },
-
-  params: {
-        diameter: {
-      "default": 4,
-      "min": 2,
-      "max": 10
-    },
-    length: {
-      "default": 10,
-      "min": 5,
-      "max": 30
-    },
-    headType: {
-      "default": "round",
-      "options": [
-        "round",
-        "flat",
-        "countersunk",
-        "pan"
-      ]
-    },
-    material: {
-      "default": "aluminum",
-      "options": [
-        "aluminum",
-        "steel",
-        "stainless",
-        "copper"
-      ]
+  label: 'Rivet',
+  description: 'Create rivet fastener',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        position: 'Point'
-  },
-
   outputs: {
-        rivet: 'Shape'
+    rivet: {
+      type: 'Shape',
+      label: 'Rivet'
+    }
   },
-
+  params: {
+    diameter: {
+      type: 'number',
+      label: 'Diameter',
+      default: 4,
+      min: 2,
+      max: 10
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 10,
+      min: 5,
+      max: 30
+    },
+    headType: {
+      type: 'enum',
+      label: 'Head Type',
+      default: "round",
+      options: ["round","flat","countersunk","pan"]
+    },
+    material: {
+      type: 'enum',
+      label: 'Material',
+      default: "aluminum",
+      options: ["aluminum","steel","stainless","copper"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'rivet',
       params: {
@@ -77,9 +72,9 @@ export const RivetNode: NodeDefinition<RivetInputs, RivetOutputs, RivetParams> =
         material: params.material
       }
     });
-
+    
     return {
       rivet: result
     };
-  }
+  },
 };

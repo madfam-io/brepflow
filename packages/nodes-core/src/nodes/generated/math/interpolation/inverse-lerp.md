@@ -12,19 +12,19 @@ This node has no parameters.
 ## Inputs
 
 
-### a
+### A
 - **Type:** number
 - **Required:** Yes
 
 
 
-### b
+### B
 - **Type:** number
 - **Required:** Yes
 
 
 
-### value
+### Value
 - **Type:** number
 - **Required:** Yes
 
@@ -33,7 +33,7 @@ This node has no parameters.
 ## Outputs
 
 
-### t
+### T
 - **Type:** number
 
 

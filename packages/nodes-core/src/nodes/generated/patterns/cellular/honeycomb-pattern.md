@@ -8,7 +8,7 @@ Honeycomb hexagonal pattern
 ## Parameters
 
 
-### cellSize
+### Cell Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -16,7 +16,7 @@ Honeycomb hexagonal pattern
 
 
 
-### wallThickness
+### Wall Thickness
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -27,7 +27,7 @@ Honeycomb hexagonal pattern
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Honeycomb hexagonal pattern
 ## Outputs
 
 
-### honeycomb
+### Honeycomb
 - **Type:** Wire[]
 
 

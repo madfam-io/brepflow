@@ -8,7 +8,7 @@ Unfold sheet metal to flat pattern
 ## Parameters
 
 
-### kFactor
+### K Factor
 - **Type:** number
 - **Default:** 0.44
 - **Min:** 0
@@ -16,7 +16,7 @@ Unfold sheet metal to flat pattern
 - **Description:** Neutral axis position
 
 
-### bendAllowance
+### Bend Allowance
 - **Type:** number
 - **Default:** 0
 - **Min:** -10
@@ -24,7 +24,7 @@ Unfold sheet metal to flat pattern
 
 
 
-### autoRelief
+### Auto Relief
 - **Type:** boolean
 - **Default:** true
 
@@ -35,13 +35,13 @@ Unfold sheet metal to flat pattern
 ## Inputs
 
 
-### foldedShape
+### Folded Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### fixedFace
+### Fixed Face
 - **Type:** Face
 - **Required:** No
 - **Description:** Face to keep fixed
@@ -50,17 +50,17 @@ Unfold sheet metal to flat pattern
 ## Outputs
 
 
-### flatPattern
+### Flat Pattern
 - **Type:** Shape
 
 
 
-### bendLines
+### Bend Lines
 - **Type:** Edge[]
 
 
 
-### bendTable
+### Bend Table
 - **Type:** Data
 - **Description:** Bend sequence information
 

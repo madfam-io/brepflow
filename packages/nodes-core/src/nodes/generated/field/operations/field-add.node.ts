@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FieldAddParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  fieldA: ScalarField;
-  fieldB: ScalarField;
+interface FieldAddInputs {
+  fieldA: unknown;
+  fieldB: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface FieldAddOutputs {
+  field: unknown;
 }
 
 export const FieldAddNode: NodeDefinition<FieldAddInputs, FieldAddOutputs, FieldAddParams> = {
-  type: 'Field::FieldAdd',
+  id: 'Field::FieldAdd',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldAdd',
-    description: 'Add fields',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'FieldAdd',
+  description: 'Add fields',
   inputs: {
-        fieldA: 'ScalarField',
-    fieldB: 'ScalarField'
+    fieldA: {
+      type: 'ScalarField',
+      label: 'Field A',
+      required: true
+    },
+    fieldB: {
+      type: 'ScalarField',
+      label: 'Field B',
+      required: true
+    }
   },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldAdd',
       params: {
         fieldA: inputs.fieldA,
         fieldB: inputs.fieldB
-        
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

@@ -1,65 +1,72 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ContourFlangeParams {
   angle: number;
   bendRadius: number;
   flangePosition: string;
 }
-interface Inputs {
-  sheet: Shape;
-  contour: Wire;
-  profile?: Wire;
+
+interface ContourFlangeInputs {
+  sheet: unknown;
+  contour: unknown;
+  profile?: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface ContourFlangeOutputs {
+  result: unknown;
 }
 
 export const ContourFlangeNode: NodeDefinition<ContourFlangeInputs, ContourFlangeOutputs, ContourFlangeParams> = {
-  type: 'SheetMetal::ContourFlange',
+  id: 'SheetMetal::ContourFlange',
   category: 'SheetMetal',
-  subcategory: 'Flanges',
-
-  metadata: {
-    label: 'ContourFlange',
-    description: 'Create flange from sketch contour',
-    
-    
-  },
-
-  params: {
-        angle: {
-      "default": 90,
-      "min": 0,
-      "max": 180
+  label: 'ContourFlange',
+  description: 'Create flange from sketch contour',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    bendRadius: {
-      "default": 3,
-      "min": 0.1,
-      "max": 100
+    contour: {
+      type: 'Wire',
+      label: 'Contour',
+      required: true
     },
-    flangePosition: {
-      "default": "material-inside",
-      "options": [
-        "material-inside",
-        "bend-outside",
-        "material-outside"
-      ]
+    profile: {
+      type: 'Wire',
+      label: 'Profile',
+      optional: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    contour: 'Wire',
-    profile: 'Wire'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 90,
+      min: 0,
+      max: 180
+    },
+    bendRadius: {
+      type: 'number',
+      label: 'Bend Radius',
+      default: 3,
+      min: 0.1,
+      max: 100
+    },
+    flangePosition: {
+      type: 'enum',
+      label: 'Flange Position',
+      default: "material-inside",
+      options: ["material-inside","bend-outside","material-outside"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetContourFlange',
       params: {
@@ -71,9 +78,9 @@ export const ContourFlangeNode: NodeDefinition<ContourFlangeInputs, ContourFlang
         flangePosition: params.flangePosition
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

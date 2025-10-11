@@ -8,7 +8,7 @@ Vaulted ceiling geometry
 ## Parameters
 
 
-### vaultType
+### Vault Type
 - **Type:** enum
 - **Default:** "barrel"
 
@@ -16,7 +16,7 @@ Vaulted ceiling geometry
 
 
 
-### rise
+### Rise
 - **Type:** number
 - **Default:** 1000
 - **Min:** 500
@@ -27,7 +27,7 @@ Vaulted ceiling geometry
 ## Inputs
 
 
-### ceilingOutline
+### Ceiling Outline
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Vaulted ceiling geometry
 ## Outputs
 
 
-### vaultedCeiling
+### Vaulted Ceiling
 - **Type:** Shape
 
 

@@ -1,57 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MeshBooleanParams {
   operation: string;
   tolerance: number;
 }
-interface Inputs {
-  mesh1: Mesh;
-  mesh2: Mesh;
-}
-interface Outputs {
-  result: Mesh;
+
+interface MeshBooleanInputs {
+  mesh1: unknown;
+  mesh2: unknown;
 }
 
-export const MeshBooleanNode: NodeDefinition<MeshBooleanInputs, MeshBooleanOutputs, MeshBoolParams> = {
-  type: 'Mesh::MeshBoolean',
+interface MeshBooleanOutputs {
+  result: unknown;
+}
+
+export const MeshBooleanNode: NodeDefinition<MeshBooleanInputs, MeshBooleanOutputs, MeshBooleanParams> = {
+  id: 'Mesh::MeshBoolean',
   category: 'Mesh',
-  subcategory: 'Repair',
-
-  metadata: {
-    label: 'MeshBoolean',
-    description: 'Boolean operations on meshes',
-    
-    
-  },
-
-  params: {
-        operation: {
-      "default": "union",
-      "options": [
-        "union",
-        "difference",
-        "intersection"
-      ]
+  label: 'MeshBoolean',
+  description: 'Boolean operations on meshes',
+  inputs: {
+    mesh1: {
+      type: 'Mesh',
+      label: 'Mesh1',
+      required: true
     },
-    tolerance: {
-      "default": 0.01,
-      "min": 0.0001,
-      "max": 1
+    mesh2: {
+      type: 'Mesh',
+      label: 'Mesh2',
+      required: true
     }
   },
-
-  inputs: {
-        mesh1: 'Mesh',
-    mesh2: 'Mesh'
-  },
-
   outputs: {
-        result: 'Mesh'
+    result: {
+      type: 'Mesh',
+      label: 'Result'
+    }
   },
-
+  params: {
+    operation: {
+      type: 'enum',
+      label: 'Operation',
+      default: "union",
+      options: ["union","difference","intersection"]
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.0001,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'meshBoolean',
       params: {
@@ -61,9 +62,9 @@ export const MeshBooleanNode: NodeDefinition<MeshBooleanInputs, MeshBooleanOutpu
         tolerance: params.tolerance
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

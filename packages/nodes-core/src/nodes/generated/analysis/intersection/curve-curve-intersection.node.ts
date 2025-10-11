@@ -1,57 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveCurveIntersectionParams {
   tolerance: number;
   extendCurves: boolean;
 }
-interface Inputs {
-  curve1: Wire;
-  curve2: Wire;
+
+interface CurveCurveIntersectionInputs {
+  curve1: unknown;
+  curve2: unknown;
 }
-interface Outputs {
-  intersectionPoints: Point[];
-  parameters1: number[];
-  parameters2: number[];
+
+interface CurveCurveIntersectionOutputs {
+  intersectionPoints: Array<[number, number, number]>;
+  parameters1: unknown;
+  parameters2: unknown;
 }
 
 export const CurveCurveIntersectionNode: NodeDefinition<CurveCurveIntersectionInputs, CurveCurveIntersectionOutputs, CurveCurveIntersectionParams> = {
-  type: 'Analysis::CurveCurveIntersection',
+  id: 'Analysis::CurveCurveIntersection',
   category: 'Analysis',
-  subcategory: 'Intersection',
-
-  metadata: {
-    label: 'CurveCurveIntersection',
-    description: 'Find curve-curve intersections',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
+  label: 'CurveCurveIntersection',
+  description: 'Find curve-curve intersections',
+  inputs: {
+    curve1: {
+      type: 'Wire',
+      label: 'Curve1',
+      required: true
     },
-    extendCurves: {
-      "default": false
+    curve2: {
+      type: 'Wire',
+      label: 'Curve2',
+      required: true
     }
   },
-
-  inputs: {
-        curve1: 'Wire',
-    curve2: 'Wire'
-  },
-
   outputs: {
-        intersectionPoints: 'Point[]',
-    parameters1: 'number[]',
-    parameters2: 'number[]'
+    intersectionPoints: {
+      type: 'Point[]',
+      label: 'Intersection Points'
+    },
+    parameters1: {
+      type: 'number[]',
+      label: 'Parameters1'
+    },
+    parameters2: {
+      type: 'number[]',
+      label: 'Parameters2'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    extendCurves: {
+      type: 'boolean',
+      label: 'Extend Curves',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveCurveIntersection',
       params: {
         curve1: inputs.curve1,
@@ -60,11 +71,11 @@ export const CurveCurveIntersectionNode: NodeDefinition<CurveCurveIntersectionIn
         extendCurves: params.extendCurves
       }
     });
-
+    
     return {
-      intersectionPoints: result,
-      parameters1: result,
-      parameters2: result
+      intersectionPoints: results.intersectionPoints,
+      parameters1: results.parameters1,
+      parameters2: results.parameters2
     };
-  }
+  },
 };

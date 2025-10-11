@@ -1,56 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface InsulatedWallParams {
   insulationType: string;
   rValue: number;
 }
-interface Inputs {
-  wallCavity: Shape;
+
+interface InsulatedWallInputs {
+  wallCavity: unknown;
 }
-interface Outputs {
-  insulatedWall: Shape;
+
+interface InsulatedWallOutputs {
+  insulatedWall: unknown;
 }
 
 export const InsulatedWallNode: NodeDefinition<InsulatedWallInputs, InsulatedWallOutputs, InsulatedWallParams> = {
-  type: 'Architecture::InsulatedWall',
+  id: 'Architecture::InsulatedWall',
   category: 'Architecture',
-  subcategory: 'Walls',
-
-  metadata: {
-    label: 'InsulatedWall',
-    description: 'Wall with insulation layers',
-    
-    
-  },
-
-  params: {
-        insulationType: {
-      "default": "batt",
-      "options": [
-        "batt",
-        "rigid",
-        "spray",
-        "blown"
-      ]
-    },
-    rValue: {
-      "default": 19,
-      "min": 5,
-      "max": 50
+  label: 'InsulatedWall',
+  description: 'Wall with insulation layers',
+  inputs: {
+    wallCavity: {
+      type: 'Shape',
+      label: 'Wall Cavity',
+      required: true
     }
   },
-
-  inputs: {
-        wallCavity: 'Shape'
-  },
-
   outputs: {
-        insulatedWall: 'Shape'
+    insulatedWall: {
+      type: 'Shape',
+      label: 'Insulated Wall'
+    }
   },
-
+  params: {
+    insulationType: {
+      type: 'enum',
+      label: 'Insulation Type',
+      default: "batt",
+      options: ["batt","rigid","spray","blown"]
+    },
+    rValue: {
+      type: 'number',
+      label: 'R Value',
+      default: 19,
+      min: 5,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'insulatedWall',
       params: {
@@ -59,9 +55,9 @@ export const InsulatedWallNode: NodeDefinition<InsulatedWallInputs, InsulatedWal
         rValue: params.rValue
       }
     });
-
+    
     return {
       insulatedWall: result
     };
-  }
+  },
 };

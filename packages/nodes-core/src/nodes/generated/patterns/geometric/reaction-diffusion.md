@@ -8,7 +8,7 @@ Reaction-diffusion pattern
 ## Parameters
 
 
-### pattern
+### Pattern
 - **Type:** enum
 - **Default:** "spots"
 
@@ -16,7 +16,7 @@ Reaction-diffusion pattern
 
 
 
-### scale
+### Scale
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -24,7 +24,7 @@ Reaction-diffusion pattern
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -35,7 +35,7 @@ Reaction-diffusion pattern
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Reaction-diffusion pattern
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Wire[]
 
 

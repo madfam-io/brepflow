@@ -8,7 +8,7 @@ Parametric plant growth
 ## Parameters
 
 
-### species
+### Species
 - **Type:** enum
 - **Default:** "fern"
 
@@ -16,7 +16,7 @@ Parametric plant growth
 
 
 
-### age
+### Age
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -27,7 +27,7 @@ Parametric plant growth
 ## Inputs
 
 
-### ground
+### Ground
 - **Type:** Plane
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Parametric plant growth
 ## Outputs
 
 
-### plant
+### Plant
 - **Type:** Wire[]
 
 

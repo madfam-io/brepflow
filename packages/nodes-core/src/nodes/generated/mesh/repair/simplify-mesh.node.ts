@@ -1,64 +1,71 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SimplifyMeshParams {
   targetRatio: number;
   preserveBoundaries: boolean;
   preserveTopology: boolean;
   maxError: number;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface SimplifyMeshInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  simplified: Mesh;
-  triangleCount: number;
+
+interface SimplifyMeshOutputs {
+  simplified: unknown;
+  triangleCount: unknown;
 }
 
 export const SimplifyMeshNode: NodeDefinition<SimplifyMeshInputs, SimplifyMeshOutputs, SimplifyMeshParams> = {
-  type: 'Mesh::SimplifyMesh',
+  id: 'Mesh::SimplifyMesh',
   category: 'Mesh',
-  subcategory: 'Repair',
-
-  metadata: {
-    label: 'SimplifyMesh',
-    description: 'Reduce mesh complexity',
-    
-    
-  },
-
-  params: {
-        targetRatio: {
-      "default": 0.5,
-      "min": 0.01,
-      "max": 1,
-      "description": "Target triangle ratio"
-    },
-    preserveBoundaries: {
-      "default": true
-    },
-    preserveTopology: {
-      "default": false
-    },
-    maxError: {
-      "default": 0.1,
-      "min": 0.001,
-      "max": 10
+  label: 'SimplifyMesh',
+  description: 'Reduce mesh complexity',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        simplified: 'Mesh',
-    triangleCount: 'number'
+    simplified: {
+      type: 'Mesh',
+      label: 'Simplified'
+    },
+    triangleCount: {
+      type: 'number',
+      label: 'Triangle Count'
+    }
   },
-
+  params: {
+    targetRatio: {
+      type: 'number',
+      label: 'Target Ratio',
+      default: 0.5,
+      min: 0.01,
+      max: 1
+    },
+    preserveBoundaries: {
+      type: 'boolean',
+      label: 'Preserve Boundaries',
+      default: true
+    },
+    preserveTopology: {
+      type: 'boolean',
+      label: 'Preserve Topology',
+      default: false
+    },
+    maxError: {
+      type: 'number',
+      label: 'Max Error',
+      default: 0.1,
+      min: 0.001,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'simplifyMesh',
       params: {
         mesh: inputs.mesh,
@@ -68,10 +75,10 @@ export const SimplifyMeshNode: NodeDefinition<SimplifyMeshInputs, SimplifyMeshOu
         maxError: params.maxError
       }
     });
-
+    
     return {
-      simplified: result,
-      triangleCount: result
+      simplified: results.simplified,
+      triangleCount: results.triangleCount
     };
-  }
+  },
 };

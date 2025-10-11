@@ -1,55 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FaceToFaceParams {
   offset: number;
   flip: boolean;
 }
-interface Inputs {
-  face1: Face;
-  face2: Face;
+
+interface FaceToFaceInputs {
+  face1: unknown;
+  face2: unknown;
 }
-interface Outputs {
-  mated: Shape[];
-  mate: Mate;
+
+interface FaceToFaceOutputs {
+  mated: unknown;
+  mate: unknown;
 }
 
 export const FaceToFaceNode: NodeDefinition<FaceToFaceInputs, FaceToFaceOutputs, FaceToFaceParams> = {
-  type: 'Assembly::FaceToFace',
+  id: 'Assembly::FaceToFace',
   category: 'Assembly',
-  subcategory: 'Mates',
-
-  metadata: {
-    label: 'FaceToFace',
-    description: 'Mate two faces together',
-    
-    
-  },
-
-  params: {
-        offset: {
-      "default": 0,
-      "min": -1000,
-      "max": 1000
+  label: 'FaceToFace',
+  description: 'Mate two faces together',
+  inputs: {
+    face1: {
+      type: 'Face',
+      label: 'Face1',
+      required: true
     },
-    flip: {
-      "default": false
+    face2: {
+      type: 'Face',
+      label: 'Face2',
+      required: true
     }
   },
-
-  inputs: {
-        face1: 'Face',
-    face2: 'Face'
-  },
-
   outputs: {
-        mated: 'Shape[]',
-    mate: 'Mate'
+    mated: {
+      type: 'Shape[]',
+      label: 'Mated'
+    },
+    mate: {
+      type: 'Mate',
+      label: 'Mate'
+    }
   },
-
+  params: {
+    offset: {
+      type: 'number',
+      label: 'Offset',
+      default: 0,
+      min: -1000,
+      max: 1000
+    },
+    flip: {
+      type: 'boolean',
+      label: 'Flip',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'mateFaceToFace',
       params: {
         face1: inputs.face1,
@@ -58,10 +66,10 @@ export const FaceToFaceNode: NodeDefinition<FaceToFaceInputs, FaceToFaceOutputs,
         flip: params.flip
       }
     });
-
+    
     return {
-      mated: result,
-      mate: result
+      mated: results.mated,
+      mate: results.mate
     };
-  }
+  },
 };

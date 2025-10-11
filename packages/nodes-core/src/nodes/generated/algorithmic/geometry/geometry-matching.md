@@ -8,7 +8,7 @@ Match and align geometries
 ## Parameters
 
 
-### algorithm
+### Algorithm
 - **Type:** enum
 - **Default:** "icp"
 
@@ -16,7 +16,7 @@ Match and align geometries
 
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -24,7 +24,7 @@ Match and align geometries
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -35,13 +35,13 @@ Match and align geometries
 ## Inputs
 
 
-### source
+### Source
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### target
+### Target
 - **Type:** Shape
 - **Required:** Yes
 
@@ -50,22 +50,22 @@ Match and align geometries
 ## Outputs
 
 
-### transform
+### Transform
 - **Type:** Properties
 
 
 
-### aligned
+### Aligned
 - **Type:** Shape
 
 
 
-### error
+### Error
 - **Type:** number
 
 
 
-### correspondences
+### Correspondences
 - **Type:** Properties[]
 
 

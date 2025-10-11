@@ -1,48 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type HermiteInterpParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  p0: number;
-  p1: number;
-  m0: number;
-  m1: number;
-  t: number;
+interface HermiteInterpInputs {
+  p0: unknown;
+  p1: unknown;
+  m0: unknown;
+  m1: unknown;
+  t: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface HermiteInterpOutputs {
+  result: unknown;
 }
 
 export const HermiteInterpNode: NodeDefinition<HermiteInterpInputs, HermiteInterpOutputs, HermiteInterpParams> = {
-  type: 'Math::HermiteInterp',
+  id: 'Math::HermiteInterp',
   category: 'Math',
-  subcategory: 'Interpolation',
-
-  metadata: {
-    label: 'HermiteInterp',
-    description: 'Hermite interpolation',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'HermiteInterp',
+  description: 'Hermite interpolation',
   inputs: {
-        p0: 'number',
-    p1: 'number',
-    m0: 'number',
-    m1: 'number',
-    t: 'number'
+    p0: {
+      type: 'number',
+      label: 'P0',
+      required: true
+    },
+    p1: {
+      type: 'number',
+      label: 'P1',
+      required: true
+    },
+    m0: {
+      type: 'number',
+      label: 'M0',
+      required: true
+    },
+    m1: {
+      type: 'number',
+      label: 'M1',
+      required: true
+    },
+    t: {
+      type: 'number',
+      label: 'T',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathHermiteInterp',
       params: {
@@ -51,12 +62,11 @@ export const HermiteInterpNode: NodeDefinition<HermiteInterpInputs, HermiteInter
         m0: inputs.m0,
         m1: inputs.m1,
         t: inputs.t
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

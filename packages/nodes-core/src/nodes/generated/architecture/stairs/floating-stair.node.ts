@@ -1,57 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FloatingStairParams {
   cantileverDepth: number;
   treadThickness: number;
 }
-interface Inputs {
-  wallLine: Wire;
-  riseRun: Vector;
+
+interface FloatingStairInputs {
+  wallLine: unknown;
+  riseRun: [number, number, number];
 }
-interface Outputs {
-  floatingStair: Shape;
-  anchors: Point[];
+
+interface FloatingStairOutputs {
+  floatingStair: unknown;
+  anchors: Array<[number, number, number]>;
 }
 
 export const FloatingStairNode: NodeDefinition<FloatingStairInputs, FloatingStairOutputs, FloatingStairParams> = {
-  type: 'Architecture::FloatingStair',
+  id: 'Architecture::FloatingStair',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'FloatingStair',
-    description: 'Floating cantilevered stairs',
-    
-    
-  },
-
-  params: {
-        cantileverDepth: {
-      "default": 100,
-      "min": 50,
-      "max": 200
+  label: 'FloatingStair',
+  description: 'Floating cantilevered stairs',
+  inputs: {
+    wallLine: {
+      type: 'Wire',
+      label: 'Wall Line',
+      required: true
     },
-    treadThickness: {
-      "default": 60,
-      "min": 40,
-      "max": 100
+    riseRun: {
+      type: 'Vector',
+      label: 'Rise Run',
+      required: true
     }
   },
-
-  inputs: {
-        wallLine: 'Wire',
-    riseRun: 'Vector'
-  },
-
   outputs: {
-        floatingStair: 'Shape',
-    anchors: 'Point[]'
+    floatingStair: {
+      type: 'Shape',
+      label: 'Floating Stair'
+    },
+    anchors: {
+      type: 'Point[]',
+      label: 'Anchors'
+    }
   },
-
+  params: {
+    cantileverDepth: {
+      type: 'number',
+      label: 'Cantilever Depth',
+      default: 100,
+      min: 50,
+      max: 200
+    },
+    treadThickness: {
+      type: 'number',
+      label: 'Tread Thickness',
+      default: 60,
+      min: 40,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'floatingStair',
       params: {
         wallLine: inputs.wallLine,
@@ -60,10 +68,10 @@ export const FloatingStairNode: NodeDefinition<FloatingStairInputs, FloatingStai
         treadThickness: params.treadThickness
       }
     });
-
+    
     return {
-      floatingStair: result,
-      anchors: result
+      floatingStair: results.floatingStair,
+      anchors: results.anchors
     };
-  }
+  },
 };

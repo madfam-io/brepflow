@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VoronoiOffsetParams {
   offset: number;
   roundCorners: boolean;
 }
-interface Inputs {
-  cells: Wire[];
+
+interface VoronoiOffsetInputs {
+  cells: unknown;
 }
-interface Outputs {
-  offsetCells: Wire[];
+
+interface VoronoiOffsetOutputs {
+  offsetCells: unknown;
 }
 
 export const VoronoiOffsetNode: NodeDefinition<VoronoiOffsetInputs, VoronoiOffsetOutputs, VoronoiOffsetParams> = {
-  type: 'Patterns::VoronoiOffset',
+  id: 'Patterns::VoronoiOffset',
   category: 'Patterns',
-  subcategory: 'Voronoi',
-
-  metadata: {
-    label: 'VoronoiOffset',
-    description: 'Offset Voronoi cells',
-    
-    
-  },
-
-  params: {
-        offset: {
-      "default": 1,
-      "min": -10,
-      "max": 10
-    },
-    roundCorners: {
-      "default": false
+  label: 'VoronoiOffset',
+  description: 'Offset Voronoi cells',
+  inputs: {
+    cells: {
+      type: 'Wire[]',
+      label: 'Cells',
+      required: true
     }
   },
-
-  inputs: {
-        cells: 'Wire[]'
-  },
-
   outputs: {
-        offsetCells: 'Wire[]'
+    offsetCells: {
+      type: 'Wire[]',
+      label: 'Offset Cells'
+    }
   },
-
+  params: {
+    offset: {
+      type: 'number',
+      label: 'Offset',
+      default: 1,
+      min: -10,
+      max: 10
+    },
+    roundCorners: {
+      type: 'boolean',
+      label: 'Round Corners',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'voronoiOffset',
       params: {
@@ -53,9 +54,9 @@ export const VoronoiOffsetNode: NodeDefinition<VoronoiOffsetInputs, VoronoiOffse
         roundCorners: params.roundCorners
       }
     });
-
+    
     return {
       offsetCells: result
     };
-  }
+  },
 };

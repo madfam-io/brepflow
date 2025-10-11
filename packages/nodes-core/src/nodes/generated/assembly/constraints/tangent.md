@@ -8,7 +8,7 @@ Make two entities tangent
 ## Parameters
 
 
-### inside
+### Inside
 - **Type:** boolean
 - **Default:** false
 
@@ -19,13 +19,13 @@ Make two entities tangent
 ## Inputs
 
 
-### entity1
+### Entity1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### entity2
+### Entity2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Make two entities tangent
 ## Outputs
 
 
-### constrained
+### Constrained
 - **Type:** Shape[]
 
 
 
-### constraint
+### Constraint
 - **Type:** Constraint
 
 

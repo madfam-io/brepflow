@@ -8,7 +8,7 @@ Generate quad-dominant mesh
 ## Parameters
 
 
-### targetQuadSize
+### Target Quad Size
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Generate quad-dominant mesh
 
 
 
-### quadDominance
+### Quad Dominance
 - **Type:** number
 - **Default:** 0.8
 - **Min:** 0
@@ -27,7 +27,7 @@ Generate quad-dominant mesh
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Generate quad-dominant mesh
 ## Outputs
 
 
-### quadMesh
+### Quad Mesh
 - **Type:** Mesh
 
 

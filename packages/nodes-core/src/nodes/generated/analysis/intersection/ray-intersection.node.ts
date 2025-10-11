@@ -1,61 +1,76 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RayIntersectionParams {
   tolerance: number;
   maxDistance: number;
 }
-interface Inputs {
-  rayOrigin: Point;
-  rayDirection: Vector;
-  targets: Shape[];
+
+interface RayIntersectionInputs {
+  rayOrigin: [number, number, number];
+  rayDirection: [number, number, number];
+  targets: unknown;
 }
-interface Outputs {
-  hitPoints: Point[];
-  hitDistances: number[];
-  hitNormals: Vector[];
+
+interface RayIntersectionOutputs {
+  hitPoints: Array<[number, number, number]>;
+  hitDistances: unknown;
+  hitNormals: Array<[number, number, number]>;
 }
 
 export const RayIntersectionNode: NodeDefinition<RayIntersectionInputs, RayIntersectionOutputs, RayIntersectionParams> = {
-  type: 'Analysis::RayIntersection',
+  id: 'Analysis::RayIntersection',
   category: 'Analysis',
-  subcategory: 'Intersection',
-
-  metadata: {
-    label: 'RayIntersection',
-    description: 'Cast ray and find intersections',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
+  label: 'RayIntersection',
+  description: 'Cast ray and find intersections',
+  inputs: {
+    rayOrigin: {
+      type: 'Point',
+      label: 'Ray Origin',
+      required: true
     },
-    maxDistance: {
-      "default": 1000,
-      "min": 1,
-      "max": 10000
+    rayDirection: {
+      type: 'Vector',
+      label: 'Ray Direction',
+      required: true
+    },
+    targets: {
+      type: 'Shape[]',
+      label: 'Targets',
+      required: true
     }
   },
-
-  inputs: {
-        rayOrigin: 'Point',
-    rayDirection: 'Vector',
-    targets: 'Shape[]'
-  },
-
   outputs: {
-        hitPoints: 'Point[]',
-    hitDistances: 'number[]',
-    hitNormals: 'Vector[]'
+    hitPoints: {
+      type: 'Point[]',
+      label: 'Hit Points'
+    },
+    hitDistances: {
+      type: 'number[]',
+      label: 'Hit Distances'
+    },
+    hitNormals: {
+      type: 'Vector[]',
+      label: 'Hit Normals'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    maxDistance: {
+      type: 'number',
+      label: 'Max Distance',
+      default: 1000,
+      min: 1,
+      max: 10000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'rayIntersection',
       params: {
         rayOrigin: inputs.rayOrigin,
@@ -65,11 +80,11 @@ export const RayIntersectionNode: NodeDefinition<RayIntersectionInputs, RayInter
         maxDistance: params.maxDistance
       }
     });
-
+    
     return {
-      hitPoints: result,
-      hitDistances: result,
-      hitNormals: result
+      hitPoints: results.hitPoints,
+      hitDistances: results.hitDistances,
+      hitNormals: results.hitNormals
     };
-  }
+  },
 };

@@ -8,6 +8,38 @@ import type {
 import { NodeRegistry } from './node-registry';
 import { ComputeCache } from './cache';
 import { hashNode } from './hash';
+import { GeometryEvaluationError } from './errors';
+import { EvaluationProfiler } from './diagnostics/evaluation-profiler';
+import type { EvaluationSummary } from './diagnostics/evaluation-profiler';
+
+interface LoggerLike {
+  error(message: string, data?: unknown): void;
+  warn(message: string, data?: unknown): void;
+  info(message: string, data?: unknown): void;
+  debug(message: string, data?: unknown): void;
+}
+
+let loggerInstance: LoggerLike | null = null;
+function getLogger(): LoggerLike {
+  if (loggerInstance) {
+    return loggerInstance;
+  }
+
+  try {
+    const { ProductionLogger } = require('@brepflow/engine-occt');
+    loggerInstance = new ProductionLogger('DAGEngine');
+  } catch (error) {
+    // Fallback to console methods when OCCT logger is unavailable (tests)
+    loggerInstance = {
+      error: (message: string, data?: unknown) => console.error(`[DAGEngine] ${message}`, data ?? ''),
+      warn: (message: string, data?: unknown) => console.warn(`[DAGEngine] ${message}`, data ?? ''),
+      info: (message: string, data?: unknown) => console.info(`[DAGEngine] ${message}`, data ?? ''),
+      debug: (message: string, data?: unknown) => console.debug(`[DAGEngine] ${message}`, data ?? ''),
+    };
+  }
+
+  return loggerInstance;
+}
 
 // Try-catch import for optional GeometryProxy to handle test environments
 let GeometryProxy: any;
@@ -41,6 +73,8 @@ export class DAGEngine {
   private registry: NodeRegistry;
   private evaluating = new Set<NodeId>();
   private abortControllers = new Map<NodeId, AbortController>();
+  private profiler = new EvaluationProfiler();
+  private lastSummary: EvaluationSummary | null = null;
 
   constructor(options: DAGEngineOptions) {
     this.worker = options.worker;
@@ -57,6 +91,9 @@ export class DAGEngine {
    * Evaluate a graph with dirty propagation
    */
   async evaluate(graph: GraphInstance, dirtyNodes: Set<NodeId>): Promise<void> {
+    this.profiler.clear();
+    this.lastSummary = null;
+
     // Build dependency graph
     const deps = this.buildDependencyGraph(graph);
 
@@ -69,18 +106,10 @@ export class DAGEngine {
     // Evaluate affected nodes in order
     for (const nodeId of evalOrder) {
       if (!affected.has(nodeId)) continue;
-
-      try {
-        await this.evaluateNode(graph, nodeId);
-      } catch (error) {
-        console.error(`Failed to evaluate node ${nodeId}:`, error);
-        // Mark node as errored
-        const node = graph.nodes.find(n => n.id === nodeId);
-        if (node) {
-          node.state = { ...node.state, error: error instanceof Error ? error.message : String(error) };
-        }
-      }
+      await this.evaluateNode(graph, nodeId);
     }
+
+    this.emitEvaluationSummary();
   }
 
   /**
@@ -97,26 +126,25 @@ export class DAGEngine {
 
     this.evaluating.add(nodeId);
 
+    const start = performance.now();
+    let inputs: Record<string, unknown> | undefined;
+    let cacheKey: string | null = null;
+    let cacheHit = false;
+
     try {
-      // Get node definition
       const definition = this.registry.getNode(node.type);
       if (!definition) {
         throw new Error(`Unknown node type: ${node.type}`);
       }
 
-      // Collect input values
-      const inputs = await this.collectInputs(graph, node);
+      inputs = await this.collectInputs(graph, node);
+      cacheKey = hashNode(node, inputs);
 
-      // Generate cache key
-      const cacheKey = hashNode(node, inputs);
-
-      // Check cache
       let outputs = this.cache.get(cacheKey);
+      cacheHit = !!outputs;
 
       if (!outputs) {
-        // Create evaluation context
         const abortController = new AbortController();
-        // Create base context
         const baseContext: EvalContext = {
           nodeId,
           graph,
@@ -125,32 +153,87 @@ export class DAGEngine {
           abort: abortController,
         };
 
-        // Enhance context with geometry proxy for node compatibility
         const context = this.createEnhancedContext(baseContext);
 
         this.abortControllers.set(nodeId, abortController);
-
-        // Evaluate node
         outputs = await definition.evaluate(context, inputs, node.params);
-
-        // Cache result
         this.cache.set(cacheKey, outputs);
-
         this.abortControllers.delete(nodeId);
       }
 
-      // Store outputs on node
       node.outputs = outputs;
       node.dirty = false;
 
-      // Update node state
+      const durationMs = performance.now() - start;
+
       node.state = {
         ...node.state,
         error: undefined,
-        computeTime: Date.now(),
+        computeTime: durationMs,
+        computeTimeMs: durationMs,
+        cacheHit,
       };
+
+      this.profiler.record({
+        nodeId,
+        nodeType: node.type,
+        durationMs,
+        success: true,
+        operation: definition.id || node.type,
+        cacheHit,
+        timestamp: Date.now(),
+      });
+
+      if (durationMs >= 1500) {
+        getLogger().warn('Node evaluation exceeded 1.5s budget', {
+          nodeId,
+          nodeType: node.type,
+          durationMs,
+          cacheHit,
+        });
+      }
+    } catch (error: unknown) {
+      const durationMs = performance.now() - start;
+
+      const geometryError = GeometryEvaluationError.fromUnknown(error, {
+        nodeId,
+        nodeType: node.type,
+        durationMs,
+        operation: node.type,
+        inputs: inputs ? Object.keys(inputs) : undefined,
+        params: node.params as Record<string, unknown>,
+      });
+
+      this.profiler.record({
+        nodeId,
+        nodeType: node.type,
+        durationMs,
+        success: false,
+        errorCode: geometryError.code,
+        errorMessage: geometryError.message,
+        operation: geometryError.operation || node.type,
+        timestamp: Date.now(),
+      });
+
+      node.state = {
+        ...node.state,
+        error: geometryError.message,
+        lastError: geometryError.toDiagnostic(),
+        computeTime: durationMs,
+        cacheHit,
+      };
+
+      getLogger().error(`Node ${nodeId} evaluation failed`, geometryError.toDiagnostic());
+
+      throw geometryError;
     } finally {
       this.evaluating.delete(nodeId);
+
+      const abortController = this.abortControllers.get(nodeId);
+      if (abortController) {
+        abortController.abort();
+        this.abortControllers.delete(nodeId);
+      }
     }
   }
 
@@ -165,14 +248,12 @@ export class DAGEngine {
         ...baseContext,
         geometry // Add geometry proxy that nodes expect
       };
-    } catch (error) {
-      // Fallback context without geometry proxy for test environments
-      return {
-        ...baseContext,
-        geometry: {
-          execute: async (operation: any) => ({ type: operation.type, ...operation.params })
-        }
-      };
+    } catch (error: unknown) {
+      getLogger().error('Failed to create geometry proxy for node evaluation', {
+        nodeId: baseContext.nodeId,
+        error,
+      });
+      throw new Error('Geometry proxy unavailable. Ensure the OCCT worker is initialized.');
     }
   }
 
@@ -236,6 +317,48 @@ export class DAGEngine {
     }
 
     return deps;
+  }
+
+  private emitEvaluationSummary(): void {
+    const summary = this.profiler.getSummary();
+    this.lastSummary = summary;
+
+    if (summary.sampleCount === 0) {
+      return;
+    }
+
+    const logger = getLogger();
+
+    if (summary.failureCount > 0) {
+      logger.error('Geometry evaluation failures detected', {
+        failureCount: summary.failureCount,
+        recentFailures: this.profiler.getRecentFailures(Math.min(5, summary.failureCount)).map(sample => ({
+          nodeId: sample.nodeId,
+          nodeType: sample.nodeType,
+          errorCode: sample.errorCode,
+          errorMessage: sample.errorMessage,
+          durationMs: sample.durationMs,
+        })),
+      });
+    }
+
+    if (summary.p95Ms >= 1500) {
+      logger.warn('Evaluation P95 exceeded 1.5s target', {
+        p95Ms: summary.p95Ms,
+        sampleCount: summary.sampleCount,
+        slowNodes: summary.slowNodes,
+      });
+    } else {
+      logger.debug('Evaluation performance summary', {
+        averageMs: summary.averageMs,
+        p95Ms: summary.p95Ms,
+        sampleCount: summary.sampleCount,
+      });
+    }
+  }
+
+  getEvaluationSummary(): EvaluationSummary | null {
+    return this.lastSummary;
   }
 
   /**

@@ -8,7 +8,7 @@ Offset a curve
 ## Parameters
 
 
-### distance
+### Distance
 - **Type:** number
 - **Default:** 10
 - **Min:** -10000
@@ -16,7 +16,7 @@ Offset a curve
 
 
 
-### side
+### Side
 - **Type:** enum
 - **Default:** "right"
 
@@ -27,7 +27,7 @@ Offset a curve
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 - **Description:** Curve to offset
@@ -36,7 +36,7 @@ Offset a curve
 ## Outputs
 
 
-### offset
+### Offset
 - **Type:** Wire
 - **Description:** Offset curve
 

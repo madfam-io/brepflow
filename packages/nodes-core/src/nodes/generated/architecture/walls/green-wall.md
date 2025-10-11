@@ -8,7 +8,7 @@ Living green wall system
 ## Parameters
 
 
-### moduleSize
+### Module Size
 - **Type:** number
 - **Default:** 600
 - **Min:** 300
@@ -16,7 +16,7 @@ Living green wall system
 
 
 
-### irrigationType
+### Irrigation Type
 - **Type:** enum
 - **Default:** "drip"
 
@@ -27,7 +27,7 @@ Living green wall system
 ## Inputs
 
 
-### wallSurface
+### Wall Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Living green wall system
 ## Outputs
 
 
-### greenWall
+### Green Wall
 - **Type:** Shape
 
 
 
-### modules
+### Modules
 - **Type:** Shape[]
 
 

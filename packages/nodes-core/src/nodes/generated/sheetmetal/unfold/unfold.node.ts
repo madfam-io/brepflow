@@ -1,64 +1,76 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface UnfoldParams {
   kFactor: number;
   bendAllowance: number;
   autoRelief: boolean;
 }
-interface Inputs {
-  foldedShape: Shape;
-  fixedFace?: Face;
+
+interface UnfoldInputs {
+  foldedShape: unknown;
+  fixedFace?: unknown;
 }
-interface Outputs {
-  flatPattern: Shape;
-  bendLines: Edge[];
-  bendTable: Data;
+
+interface UnfoldOutputs {
+  flatPattern: unknown;
+  bendLines: unknown;
+  bendTable: unknown;
 }
 
 export const UnfoldNode: NodeDefinition<UnfoldInputs, UnfoldOutputs, UnfoldParams> = {
-  type: 'SheetMetal::Unfold',
+  id: 'SheetMetal::Unfold',
   category: 'SheetMetal',
-  subcategory: 'Unfold',
-
-  metadata: {
-    label: 'Unfold',
-    description: 'Unfold sheet metal to flat pattern',
-    
-    
-  },
-
-  params: {
-        kFactor: {
-      "default": 0.44,
-      "min": 0,
-      "max": 1,
-      "description": "Neutral axis position"
+  label: 'Unfold',
+  description: 'Unfold sheet metal to flat pattern',
+  inputs: {
+    foldedShape: {
+      type: 'Shape',
+      label: 'Folded Shape',
+      required: true
     },
-    bendAllowance: {
-      "default": 0,
-      "min": -10,
-      "max": 10
-    },
-    autoRelief: {
-      "default": true
+    fixedFace: {
+      type: 'Face',
+      label: 'Fixed Face',
+      optional: true
     }
   },
-
-  inputs: {
-        foldedShape: 'Shape',
-    fixedFace: 'Face'
-  },
-
   outputs: {
-        flatPattern: 'Shape',
-    bendLines: 'Edge[]',
-    bendTable: 'Data'
+    flatPattern: {
+      type: 'Shape',
+      label: 'Flat Pattern'
+    },
+    bendLines: {
+      type: 'Edge[]',
+      label: 'Bend Lines'
+    },
+    bendTable: {
+      type: 'Data',
+      label: 'Bend Table'
+    }
   },
-
+  params: {
+    kFactor: {
+      type: 'number',
+      label: 'K Factor',
+      default: 0.44,
+      min: 0,
+      max: 1
+    },
+    bendAllowance: {
+      type: 'number',
+      label: 'Bend Allowance',
+      default: 0,
+      min: -10,
+      max: 10
+    },
+    autoRelief: {
+      type: 'boolean',
+      label: 'Auto Relief',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'sheetUnfold',
       params: {
         foldedShape: inputs.foldedShape,
@@ -68,11 +80,11 @@ export const UnfoldNode: NodeDefinition<UnfoldInputs, UnfoldOutputs, UnfoldParam
         autoRelief: params.autoRelief
       }
     });
-
+    
     return {
-      flatPattern: result,
-      bendLines: result,
-      bendTable: result
+      flatPattern: results.flatPattern,
+      bendLines: results.bendLines,
+      bendTable: results.bendTable
     };
-  }
+  },
 };

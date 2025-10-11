@@ -1,57 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveAreaMomentsParams {
   precision: number;
   showCentroid: boolean;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveAreaMomentsInputs {
+  curve: unknown;
 }
-interface Outputs {
-  area: number;
-  centroid: Point;
-  momentX: number;
-  momentY: number;
+
+interface CurveAreaMomentsOutputs {
+  area: unknown;
+  centroid: [number, number, number];
+  momentX: unknown;
+  momentY: unknown;
 }
 
 export const CurveAreaMomentsNode: NodeDefinition<CurveAreaMomentsInputs, CurveAreaMomentsOutputs, CurveAreaMomentsParams> = {
-  type: 'Analysis::CurveAreaMoments',
+  id: 'Analysis::CurveAreaMoments',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveAreaMoments',
-    description: 'Calculate area moments for closed curves',
-    
-    
-  },
-
-  params: {
-        precision: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
-    },
-    showCentroid: {
-      "default": true
+  label: 'CurveAreaMoments',
+  description: 'Calculate area moments for closed curves',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        area: 'number',
-    centroid: 'Point',
-    momentX: 'number',
-    momentY: 'number'
+    area: {
+      type: 'number',
+      label: 'Area'
+    },
+    centroid: {
+      type: 'Point',
+      label: 'Centroid'
+    },
+    momentX: {
+      type: 'number',
+      label: 'Moment X'
+    },
+    momentY: {
+      type: 'number',
+      label: 'Moment Y'
+    }
   },
-
+  params: {
+    precision: {
+      type: 'number',
+      label: 'Precision',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    showCentroid: {
+      type: 'boolean',
+      label: 'Show Centroid',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveAreaMoments',
       params: {
         curve: inputs.curve,
@@ -59,12 +69,12 @@ export const CurveAreaMomentsNode: NodeDefinition<CurveAreaMomentsInputs, CurveA
         showCentroid: params.showCentroid
       }
     });
-
+    
     return {
-      area: result,
-      centroid: result,
-      momentX: result,
-      momentY: result
+      area: results.area,
+      centroid: results.centroid,
+      momentX: results.momentX,
+      momentY: results.momentY
     };
-  }
+  },
 };

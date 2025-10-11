@@ -1,77 +1,83 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HelicalGearParams {
   module: number;
   teeth: number;
   helixAngle: number;
   width: number;
   handedness: string;
 }
-interface Inputs {
-  center?: Point;
+
+interface HelicalGearInputs {
+  center?: [number, number, number];
 }
-interface Outputs {
-  gear: Shape;
-  profile: Wire;
+
+interface HelicalGearOutputs {
+  gear: unknown;
+  profile: unknown;
 }
 
 export const HelicalGearNode: NodeDefinition<HelicalGearInputs, HelicalGearOutputs, HelicalGearParams> = {
-  type: 'MechanicalEngineering::HelicalGear',
+  id: 'MechanicalEngineering::HelicalGear',
   category: 'MechanicalEngineering',
-  subcategory: 'Gears',
-
-  metadata: {
-    label: 'HelicalGear',
-    description: 'Create helical gear with angle',
-    
-    
-  },
-
-  params: {
-        module: {
-      "default": 2,
-      "min": 0.5,
-      "max": 20,
-      "step": 0.1
-    },
-    teeth: {
-      "default": 20,
-      "min": 6,
-      "max": 200
-    },
-    helixAngle: {
-      "default": 15,
-      "min": 0,
-      "max": 45,
-      "description": "Helix angle in degrees"
-    },
-    width: {
-      "default": 20,
-      "min": 1,
-      "max": 200
-    },
-    handedness: {
-      "default": "right",
-      "options": [
-        "left",
-        "right"
-      ]
+  label: 'HelicalGear',
+  description: 'Create helical gear with angle',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        gear: 'Shape',
-    profile: 'Wire'
+    gear: {
+      type: 'Shape',
+      label: 'Gear'
+    },
+    profile: {
+      type: 'Wire',
+      label: 'Profile'
+    }
   },
-
+  params: {
+    module: {
+      type: 'number',
+      label: 'Module',
+      default: 2,
+      min: 0.5,
+      max: 20,
+      step: 0.1
+    },
+    teeth: {
+      type: 'number',
+      label: 'Teeth',
+      default: 20,
+      min: 6,
+      max: 200
+    },
+    helixAngle: {
+      type: 'number',
+      label: 'Helix Angle',
+      default: 15,
+      min: 0,
+      max: 45
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 20,
+      min: 1,
+      max: 200
+    },
+    handedness: {
+      type: 'enum',
+      label: 'Handedness',
+      default: "right",
+      options: ["left","right"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'helicalGear',
       params: {
         center: inputs.center,
@@ -82,10 +88,10 @@ export const HelicalGearNode: NodeDefinition<HelicalGearInputs, HelicalGearOutpu
         handedness: params.handedness
       }
     });
-
+    
     return {
-      gear: result,
-      profile: result
+      gear: results.gear,
+      profile: results.profile
     };
-  }
+  },
 };

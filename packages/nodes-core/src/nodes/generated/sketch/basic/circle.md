@@ -8,7 +8,7 @@ Create a circle
 ## Parameters
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -16,7 +16,7 @@ Create a circle
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -24,7 +24,7 @@ Create a circle
 
 
 
-### centerZ
+### Center Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -32,7 +32,7 @@ Create a circle
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Create a circle
 
 
 
-### filled
+### Filled
 - **Type:** boolean
 - **Default:** true
 
@@ -55,7 +55,7 @@ This node has no inputs.
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Description:** Circle face or wire
 

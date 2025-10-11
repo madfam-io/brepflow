@@ -8,7 +8,7 @@ Vortex attractor field
 ## Parameters
 
 
-### strength
+### Strength
 - **Type:** number
 - **Default:** 1
 - **Min:** -10
@@ -16,7 +16,7 @@ Vortex attractor field
 
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Vortex attractor field
 
 
 
-### coreRadius
+### Core Radius
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Vortex attractor field
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 200
 - **Min:** 0.1
@@ -43,7 +43,7 @@ Vortex attractor field
 ## Inputs
 
 
-### axis
+### Axis
 - **Type:** Line
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Vortex attractor field
 ## Outputs
 
 
-### field
+### Field
 - **Type:** VectorField
 
 

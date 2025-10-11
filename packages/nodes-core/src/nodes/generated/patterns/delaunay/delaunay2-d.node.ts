@@ -1,49 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface Delaunay2DParams {
   constrainEdges: boolean;
 }
-interface Inputs {
-  points: Point[];
-  constraints?: Edge[];
+
+interface Delaunay2DInputs {
+  points: Array<[number, number, number]>;
+  constraints?: unknown;
 }
-interface Outputs {
-  triangles: Face[];
-  mesh: Mesh;
+
+interface Delaunay2DOutputs {
+  triangles: unknown;
+  mesh: unknown;
 }
 
 export const Delaunay2DNode: NodeDefinition<Delaunay2DInputs, Delaunay2DOutputs, Delaunay2DParams> = {
-  type: 'Patterns::Delaunay2D',
+  id: 'Patterns::Delaunay2D',
   category: 'Patterns',
-  subcategory: 'Delaunay',
-
-  metadata: {
-    label: 'Delaunay2D',
-    description: 'Create 2D Delaunay triangulation',
-    
-    
-  },
-
-  params: {
-        constrainEdges: {
-      "default": false
+  label: 'Delaunay2D',
+  description: 'Create 2D Delaunay triangulation',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
+    },
+    constraints: {
+      type: 'Edge[]',
+      label: 'Constraints',
+      optional: true
     }
   },
-
-  inputs: {
-        points: 'Point[]',
-    constraints: 'Edge[]'
-  },
-
   outputs: {
-        triangles: 'Face[]',
-    mesh: 'Mesh'
+    triangles: {
+      type: 'Face[]',
+      label: 'Triangles'
+    },
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh'
+    }
   },
-
+  params: {
+    constrainEdges: {
+      type: 'boolean',
+      label: 'Constrain Edges',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'delaunay2D',
       params: {
         points: inputs.points,
@@ -51,10 +57,10 @@ export const Delaunay2DNode: NodeDefinition<Delaunay2DInputs, Delaunay2DOutputs,
         constrainEdges: params.constrainEdges
       }
     });
-
+    
     return {
-      triangles: result,
-      mesh: result
+      triangles: results.triangles,
+      mesh: results.mesh
     };
-  }
+  },
 };

@@ -1,56 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldRemapParams {
   fromMin: number;
   fromMax: number;
   toMin: number;
   toMax: number;
 }
-interface Inputs {
-  field: ScalarField;
+
+interface FieldRemapInputs {
+  field: unknown;
 }
-interface Outputs {
-  remapped: ScalarField;
+
+interface FieldRemapOutputs {
+  remapped: unknown;
 }
 
 export const FieldRemapNode: NodeDefinition<FieldRemapInputs, FieldRemapOutputs, FieldRemapParams> = {
-  type: 'Field::FieldRemap',
+  id: 'Field::FieldRemap',
   category: 'Field',
-  subcategory: 'Operations',
-
-  metadata: {
-    label: 'FieldRemap',
-    description: 'Remap field values',
-    
-    
-  },
-
-  params: {
-        fromMin: {
-      "default": 0
-    },
-    fromMax: {
-      "default": 1
-    },
-    toMin: {
-      "default": 0
-    },
-    toMax: {
-      "default": 100
+  label: 'FieldRemap',
+  description: 'Remap field values',
+  inputs: {
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'ScalarField'
-  },
-
   outputs: {
-        remapped: 'ScalarField'
+    remapped: {
+      type: 'ScalarField',
+      label: 'Remapped'
+    }
   },
-
+  params: {
+    fromMin: {
+      type: 'number',
+      label: 'From Min',
+      default: 0
+    },
+    fromMax: {
+      type: 'number',
+      label: 'From Max',
+      default: 1
+    },
+    toMin: {
+      type: 'number',
+      label: 'To Min',
+      default: 0
+    },
+    toMax: {
+      type: 'number',
+      label: 'To Max',
+      default: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldRemap',
       params: {
@@ -61,9 +66,9 @@ export const FieldRemapNode: NodeDefinition<FieldRemapInputs, FieldRemapOutputs,
         toMax: params.toMax
       }
     });
-
+    
     return {
       remapped: result
     };
-  }
+  },
 };

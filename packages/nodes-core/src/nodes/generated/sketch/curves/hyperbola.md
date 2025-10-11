@@ -8,7 +8,7 @@ Create a hyperbolic curve
 ## Parameters
 
 
-### majorRadius
+### Major Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a hyperbolic curve
 
 
 
-### minorRadius
+### Minor Radius
 - **Type:** number
 - **Default:** 30
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a hyperbolic curve
 
 
 
-### startParam
+### Start Param
 - **Type:** number
 - **Default:** -2
 - **Min:** -10
@@ -32,7 +32,7 @@ Create a hyperbolic curve
 
 
 
-### endParam
+### End Param
 - **Type:** number
 - **Default:** 2
 - **Min:** -10
@@ -43,7 +43,7 @@ Create a hyperbolic curve
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** No
 
@@ -52,7 +52,7 @@ Create a hyperbolic curve
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Description:** Hyperbolic curve
 

@@ -1,72 +1,79 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FlockingPatternParams {
   agents: number;
   steps: number;
   cohesion: number;
   separation: number;
   alignment: number;
 }
-interface Inputs {
-  boundary: Box;
+
+interface FlockingPatternInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  trails: Wire[];
+
+interface FlockingPatternOutputs {
+  trails: unknown;
 }
 
 export const FlockingPatternNode: NodeDefinition<FlockingPatternInputs, FlockingPatternOutputs, FlockingPatternParams> = {
-  type: 'Patterns::FlockingPattern',
+  id: 'Patterns::FlockingPattern',
   category: 'Patterns',
-  subcategory: 'Algorithmic',
-
-  metadata: {
-    label: 'FlockingPattern',
-    description: 'Flocking behavior simulation',
-    
-    
-  },
-
-  params: {
-        agents: {
-      "default": 50,
-      "min": 10,
-      "max": 200,
-      "step": 5
-    },
-    steps: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
-    },
-    cohesion: {
-      "default": 1,
-      "min": 0,
-      "max": 2
-    },
-    separation: {
-      "default": 1,
-      "min": 0,
-      "max": 2
-    },
-    alignment: {
-      "default": 1,
-      "min": 0,
-      "max": 2
+  label: 'FlockingPattern',
+  description: 'Flocking behavior simulation',
+  inputs: {
+    boundary: {
+      type: 'Box',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Box'
-  },
-
   outputs: {
-        trails: 'Wire[]'
+    trails: {
+      type: 'Wire[]',
+      label: 'Trails'
+    }
   },
-
+  params: {
+    agents: {
+      type: 'number',
+      label: 'Agents',
+      default: 50,
+      min: 10,
+      max: 200,
+      step: 5
+    },
+    steps: {
+      type: 'number',
+      label: 'Steps',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    },
+    cohesion: {
+      type: 'number',
+      label: 'Cohesion',
+      default: 1,
+      min: 0,
+      max: 2
+    },
+    separation: {
+      type: 'number',
+      label: 'Separation',
+      default: 1,
+      min: 0,
+      max: 2
+    },
+    alignment: {
+      type: 'number',
+      label: 'Alignment',
+      default: 1,
+      min: 0,
+      max: 2
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'flockingPattern',
       params: {
@@ -78,9 +85,9 @@ export const FlockingPatternNode: NodeDefinition<FlockingPatternInputs, Flocking
         alignment: params.alignment
       }
     });
-
+    
     return {
       trails: result
     };
-  }
+  },
 };

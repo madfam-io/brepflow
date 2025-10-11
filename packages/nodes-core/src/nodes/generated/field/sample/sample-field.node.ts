@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type SampleFieldParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  field: ScalarField;
-  points: Point[];
+interface SampleFieldInputs {
+  field: unknown;
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  values: number[];
+
+interface SampleFieldOutputs {
+  values: unknown;
 }
 
 export const SampleFieldNode: NodeDefinition<SampleFieldInputs, SampleFieldOutputs, SampleFieldParams> = {
-  type: 'Field::SampleField',
+  id: 'Field::SampleField',
   category: 'Field',
-  subcategory: 'Sample',
-
-  metadata: {
-    label: 'SampleField',
-    description: 'Sample field at points',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'SampleField',
+  description: 'Sample field at points',
   inputs: {
-        field: 'ScalarField',
-    points: 'Point[]'
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
+    },
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
+    }
   },
-
   outputs: {
-        values: 'number[]'
+    values: {
+      type: 'number[]',
+      label: 'Values'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldSample',
       params: {
         field: inputs.field,
         points: inputs.points
-        
       }
     });
-
+    
     return {
       values: result
     };
-  }
+  },
 };

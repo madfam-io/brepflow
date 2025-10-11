@@ -8,7 +8,7 @@ Wood parquet patterns
 ## Parameters
 
 
-### pattern
+### Pattern
 - **Type:** enum
 - **Default:** "herringbone"
 
@@ -16,7 +16,7 @@ Wood parquet patterns
 
 
 
-### plankLength
+### Plank Length
 - **Type:** number
 - **Default:** 30
 - **Min:** 1
@@ -24,7 +24,7 @@ Wood parquet patterns
 
 
 
-### plankWidth
+### Plank Width
 - **Type:** number
 - **Default:** 5
 - **Min:** 1
@@ -35,7 +35,7 @@ Wood parquet patterns
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Wood parquet patterns
 ## Outputs
 
 
-### planks
+### Planks
 - **Type:** Face[]
 
 

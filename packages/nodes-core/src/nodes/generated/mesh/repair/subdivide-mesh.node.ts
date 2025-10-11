@@ -1,56 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SubdivideMeshParams {
   subdivisionType: string;
   levels: number;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface SubdivideMeshInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  subdivided: Mesh;
+
+interface SubdivideMeshOutputs {
+  subdivided: unknown;
 }
 
 export const SubdivideMeshNode: NodeDefinition<SubdivideMeshInputs, SubdivideMeshOutputs, SubdivideMeshParams> = {
-  type: 'Mesh::SubdivideMesh',
+  id: 'Mesh::SubdivideMesh',
   category: 'Mesh',
-  subcategory: 'Repair',
-
-  metadata: {
-    label: 'SubdivideMesh',
-    description: 'Subdivide mesh faces',
-    
-    
-  },
-
-  params: {
-        subdivisionType: {
-      "default": "loop",
-      "options": [
-        "loop",
-        "catmull-clark",
-        "simple"
-      ]
-    },
-    levels: {
-      "default": 1,
-      "min": 1,
-      "max": 5,
-      "step": 1
+  label: 'SubdivideMesh',
+  description: 'Subdivide mesh faces',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        subdivided: 'Mesh'
+    subdivided: {
+      type: 'Mesh',
+      label: 'Subdivided'
+    }
   },
-
+  params: {
+    subdivisionType: {
+      type: 'enum',
+      label: 'Subdivision Type',
+      default: "loop",
+      options: ["loop","catmull-clark","simple"]
+    },
+    levels: {
+      type: 'number',
+      label: 'Levels',
+      default: 1,
+      min: 1,
+      max: 5,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'subdivideMesh',
       params: {
@@ -59,9 +56,9 @@ export const SubdivideMeshNode: NodeDefinition<SubdivideMeshInputs, SubdivideMes
         levels: params.levels
       }
     });
-
+    
     return {
       subdivided: result
     };
-  }
+  },
 };

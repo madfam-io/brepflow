@@ -1,63 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ReactionDiffusionParams {
   pattern: string;
   scale: number;
   iterations: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface ReactionDiffusionInputs {
+  surface: unknown;
 }
-interface Outputs {
-  pattern: Shape;
+
+interface ReactionDiffusionOutputs {
+  pattern: unknown;
 }
 
 export const ReactionDiffusionNode: NodeDefinition<ReactionDiffusionInputs, ReactionDiffusionOutputs, ReactionDiffusionParams> = {
-  type: 'Specialized::ReactionDiffusion',
+  id: 'Specialized::ReactionDiffusion',
   category: 'Specialized',
-  subcategory: 'Organic',
-
-  metadata: {
-    label: 'ReactionDiffusion',
-    description: 'Reaction-diffusion patterns',
-    
-    
-  },
-
-  params: {
-        pattern: {
-      "default": "spots",
-      "options": [
-        "spots",
-        "stripes",
-        "labyrinth",
-        "holes"
-      ]
-    },
-    scale: {
-      "default": 10,
-      "min": 1,
-      "max": 100
-    },
-    iterations: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
+  label: 'ReactionDiffusion',
+  description: 'Reaction-diffusion patterns',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        pattern: 'Shape'
+    pattern: {
+      type: 'Shape',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    pattern: {
+      type: 'enum',
+      label: 'Pattern',
+      default: "spots",
+      options: ["spots","stripes","labyrinth","holes"]
+    },
+    scale: {
+      type: 'number',
+      label: 'Scale',
+      default: 10,
+      min: 1,
+      max: 100
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'reactionDiffusion',
       params: {
@@ -67,9 +65,9 @@ export const ReactionDiffusionNode: NodeDefinition<ReactionDiffusionInputs, Reac
         iterations: params.iterations
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

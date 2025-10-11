@@ -8,7 +8,7 @@ Analyze curve curvature with visual comb
 ## Parameters
 
 
-### scale
+### Scale
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Analyze curve curvature with visual comb
 - **Description:** Comb scale factor
 
 
-### density
+### Density
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -24,7 +24,7 @@ Analyze curve curvature with visual comb
 - **Description:** Number of samples
 
 
-### showNormals
+### Show Normals
 - **Type:** boolean
 - **Default:** true
 
@@ -32,7 +32,7 @@ Analyze curve curvature with visual comb
 
 
 
-### colorCode
+### Color Code
 - **Type:** boolean
 - **Default:** false
 
@@ -43,7 +43,7 @@ Analyze curve curvature with visual comb
 ## Inputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Required:** Yes
 
@@ -52,22 +52,22 @@ Analyze curve curvature with visual comb
 ## Outputs
 
 
-### comb
+### Comb
 - **Type:** Shape
 
 
 
-### maxCurvature
+### Max Curvature
 - **Type:** number
 
 
 
-### minCurvature
+### Min Curvature
 - **Type:** number
 
 
 
-### curvatureValues
+### Curvature Values
 - **Type:** number[]
 
 

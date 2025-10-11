@@ -8,7 +8,7 @@ Generate bill of materials
 ## Parameters
 
 
-### includeSubAssemblies
+### Include Sub Assemblies
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Generate bill of materials
 
 
 
-### groupIdentical
+### Group Identical
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Generate bill of materials
 ## Inputs
 
 
-### assembly
+### Assembly
 - **Type:** Assembly
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Generate bill of materials
 ## Outputs
 
 
-### bom
+### Bom
 - **Type:** BOM
 
 

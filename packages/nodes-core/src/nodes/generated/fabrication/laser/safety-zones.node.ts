@@ -1,59 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SafetyZonesParams {
   margin: number;
 }
-interface Inputs {
-  workArea: Face;
+
+interface SafetyZonesInputs {
+  workArea: unknown;
 }
-interface Outputs {
-  safeArea: Face;
-  noGoZones: Face[];
+
+interface SafetyZonesOutputs {
+  safeArea: unknown;
+  noGoZones: unknown;
 }
 
 export const SafetyZonesNode: NodeDefinition<SafetyZonesInputs, SafetyZonesOutputs, SafetyZonesParams> = {
-  type: 'Fabrication::SafetyZones',
+  id: 'Fabrication::SafetyZones',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'SafetyZones',
-    description: 'Define safety zones',
-    
-    
-  },
-
-  params: {
-        margin: {
-      "default": 5,
-      "min": 0,
-      "max": 50
+  label: 'SafetyZones',
+  description: 'Define safety zones',
+  inputs: {
+    workArea: {
+      type: 'Face',
+      label: 'Work Area',
+      required: true
     }
   },
-
-  inputs: {
-        workArea: 'Face'
-  },
-
   outputs: {
-        safeArea: 'Face',
-    noGoZones: 'Face[]'
+    safeArea: {
+      type: 'Face',
+      label: 'Safe Area'
+    },
+    noGoZones: {
+      type: 'Face[]',
+      label: 'No Go Zones'
+    }
   },
-
+  params: {
+    margin: {
+      type: 'number',
+      label: 'Margin',
+      default: 5,
+      min: 0,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'safetyZones',
       params: {
         workArea: inputs.workArea,
         margin: params.margin
       }
     });
-
+    
     return {
-      safeArea: result,
-      noGoZones: result
+      safeArea: results.safeArea,
+      noGoZones: results.noGoZones
     };
-  }
+  },
 };

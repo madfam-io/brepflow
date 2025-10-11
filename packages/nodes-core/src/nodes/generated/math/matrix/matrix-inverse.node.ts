@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type MatrixInverseParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  matrix: Matrix;
+interface MatrixInverseInputs {
+  matrix: unknown;
 }
-interface Outputs {
-  inverse: Matrix;
+
+interface MatrixInverseOutputs {
+  inverse: unknown;
 }
 
 export const MatrixInverseNode: NodeDefinition<MatrixInverseInputs, MatrixInverseOutputs, MatrixInverseParams> = {
-  type: 'Math::MatrixInverse',
+  id: 'Math::MatrixInverse',
   category: 'Math',
-  subcategory: 'Matrix',
-
-  metadata: {
-    label: 'MatrixInverse',
-    description: 'Matrix inverse',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'MatrixInverse',
+  description: 'Matrix inverse',
   inputs: {
-        matrix: 'Matrix'
+    matrix: {
+      type: 'Matrix',
+      label: 'Matrix',
+      required: true
+    }
   },
-
   outputs: {
-        inverse: 'Matrix'
+    inverse: {
+      type: 'Matrix',
+      label: 'Inverse'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathMatrixInverse',
       params: {
         matrix: inputs.matrix
-        
       }
     });
-
+    
     return {
       inverse: result
     };
-  }
+  },
 };

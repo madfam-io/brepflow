@@ -1,48 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldDisplaceParams {
   strength: number;
 }
-interface Inputs {
-  surface: Face;
-  field: ScalarField;
+
+interface FieldDisplaceInputs {
+  surface: unknown;
+  field: unknown;
 }
-interface Outputs {
-  displaced: Face;
+
+interface FieldDisplaceOutputs {
+  displaced: unknown;
 }
 
 export const FieldDisplaceNode: NodeDefinition<FieldDisplaceInputs, FieldDisplaceOutputs, FieldDisplaceParams> = {
-  type: 'Field::FieldDisplace',
+  id: 'Field::FieldDisplace',
   category: 'Field',
-  subcategory: 'Deform',
-
-  metadata: {
-    label: 'FieldDisplace',
-    description: 'Displace along normals',
-    
-    
-  },
-
-  params: {
-        strength: {
-      "default": 10,
-      "min": -100,
-      "max": 100
+  label: 'FieldDisplace',
+  description: 'Displace along normals',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
+    },
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face',
-    field: 'ScalarField'
-  },
-
   outputs: {
-        displaced: 'Face'
+    displaced: {
+      type: 'Face',
+      label: 'Displaced'
+    }
   },
-
+  params: {
+    strength: {
+      type: 'number',
+      label: 'Strength',
+      default: 10,
+      min: -100,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldDisplace',
       params: {
@@ -51,9 +54,9 @@ export const FieldDisplaceNode: NodeDefinition<FieldDisplaceInputs, FieldDisplac
         strength: params.strength
       }
     });
-
+    
     return {
       displaced: result
     };
-  }
+  },
 };

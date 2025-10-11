@@ -1,58 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DeformParams {
   method: string;
   amount: number;
 }
-interface Inputs {
-  shape: Shape;
-  controlPoints?: Point[];
+
+interface DeformInputs {
+  shape: unknown;
+  controlPoints?: Array<[number, number, number]>;
 }
-interface Outputs {
-  deformed: Shape;
+
+interface DeformOutputs {
+  deformed: unknown;
 }
 
 export const DeformNode: NodeDefinition<DeformInputs, DeformOutputs, DeformParams> = {
-  type: 'Transform::Deform',
+  id: 'Transform::Deform',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'Deform',
-    description: 'Deform shape with control points',
-    
-    
-  },
-
-  params: {
-        method: {
-      "default": "bend",
-      "options": [
-        "bend",
-        "twist",
-        "taper",
-        "stretch"
-      ]
+  label: 'Deform',
+  description: 'Deform shape with control points',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     },
-    amount: {
-      "default": 1,
-      "min": -10,
-      "max": 10
+    controlPoints: {
+      type: 'Point[]',
+      label: 'Control Points',
+      optional: true
     }
   },
-
-  inputs: {
-        shape: 'Shape',
-    controlPoints: 'Point[]'
-  },
-
   outputs: {
-        deformed: 'Shape'
+    deformed: {
+      type: 'Shape',
+      label: 'Deformed'
+    }
   },
-
+  params: {
+    method: {
+      type: 'enum',
+      label: 'Method',
+      default: "bend",
+      options: ["bend","twist","taper","stretch"]
+    },
+    amount: {
+      type: 'number',
+      label: 'Amount',
+      default: 1,
+      min: -10,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'transformDeform',
       params: {
@@ -62,9 +62,9 @@ export const DeformNode: NodeDefinition<DeformInputs, DeformOutputs, DeformParam
         amount: params.amount
       }
     });
-
+    
     return {
       deformed: result
     };
-  }
+  },
 };

@@ -1,54 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface IslamicGridParams {
   gridType: string;
   spacing: number;
 }
-interface Inputs {
-  boundary: Wire;
+
+interface IslamicGridInputs {
+  boundary: unknown;
 }
-interface Outputs {
-  grid: Wire[];
+
+interface IslamicGridOutputs {
+  grid: unknown;
 }
 
 export const IslamicGridNode: NodeDefinition<IslamicGridInputs, IslamicGridOutputs, IslamicGridParams> = {
-  type: 'Patterns::IslamicGrid',
+  id: 'Patterns::IslamicGrid',
   category: 'Patterns',
-  subcategory: 'Islamic',
-
-  metadata: {
-    label: 'IslamicGrid',
-    description: 'Islamic grid system',
-    
-    
-  },
-
-  params: {
-        gridType: {
-      "default": "octagonal",
-      "options": [
-        "square",
-        "hexagonal",
-        "octagonal"
-      ]
-    },
-    spacing: {
-      "default": 10,
-      "min": 1
+  label: 'IslamicGrid',
+  description: 'Islamic grid system',
+  inputs: {
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      required: true
     }
   },
-
-  inputs: {
-        boundary: 'Wire'
-  },
-
   outputs: {
-        grid: 'Wire[]'
+    grid: {
+      type: 'Wire[]',
+      label: 'Grid'
+    }
   },
-
+  params: {
+    gridType: {
+      type: 'enum',
+      label: 'Grid Type',
+      default: "octagonal",
+      options: ["square","hexagonal","octagonal"]
+    },
+    spacing: {
+      type: 'number',
+      label: 'Spacing',
+      default: 10,
+      min: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'islamicGrid',
       params: {
@@ -57,9 +54,9 @@ export const IslamicGridNode: NodeDefinition<IslamicGridInputs, IslamicGridOutpu
         spacing: params.spacing
       }
     });
-
+    
     return {
       grid: result
     };
-  }
+  },
 };

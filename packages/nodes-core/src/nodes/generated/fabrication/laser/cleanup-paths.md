@@ -8,7 +8,7 @@ Clean and optimize paths
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Clean and optimize paths
 
 
 
-### removeDoubles
+### Remove Doubles
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Clean and optimize paths
 ## Inputs
 
 
-### paths
+### Paths
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Clean and optimize paths
 ## Outputs
 
 
-### cleanPaths
+### Clean Paths
 - **Type:** Wire[]
 
 

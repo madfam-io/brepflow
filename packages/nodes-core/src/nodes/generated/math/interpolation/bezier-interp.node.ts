@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type BezierInterpParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  points: number[];
-  t: number;
+interface BezierInterpInputs {
+  points: unknown;
+  t: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface BezierInterpOutputs {
+  result: unknown;
 }
 
 export const BezierInterpNode: NodeDefinition<BezierInterpInputs, BezierInterpOutputs, BezierInterpParams> = {
-  type: 'Math::BezierInterp',
+  id: 'Math::BezierInterp',
   category: 'Math',
-  subcategory: 'Interpolation',
-
-  metadata: {
-    label: 'BezierInterp',
-    description: 'Bezier interpolation',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'BezierInterp',
+  description: 'Bezier interpolation',
   inputs: {
-        points: 'number[]',
-    t: 'number'
+    points: {
+      type: 'number[]',
+      label: 'Points',
+      required: true
+    },
+    t: {
+      type: 'number',
+      label: 'T',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathBezierInterp',
       params: {
         points: inputs.points,
         t: inputs.t
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

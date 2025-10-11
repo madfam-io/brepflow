@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### point1
+### Point1
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### point2
+### Point2
 - **Type:** Point
 - **Required:** Yes
 
@@ -27,12 +27,12 @@ This node has no parameters.
 ## Outputs
 
 
-### mated
+### Mated
 - **Type:** Shape[]
 
 
 
-### mate
+### Mate
 - **Type:** Mate
 
 

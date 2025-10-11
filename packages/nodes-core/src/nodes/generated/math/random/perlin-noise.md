@@ -8,7 +8,7 @@ Perlin noise
 ## Parameters
 
 
-### octaves
+### Octaves
 - **Type:** number
 - **Default:** 4
 - **Min:** 1
@@ -16,7 +16,7 @@ Perlin noise
 
 
 
-### persistence
+### Persistence
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0
@@ -24,7 +24,7 @@ Perlin noise
 
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -35,19 +35,19 @@ Perlin noise
 ## Inputs
 
 
-### x
+### X
 - **Type:** number
 - **Required:** Yes
 
 
 
-### y
+### Y
 - **Type:** number
 - **Required:** No
 
 
 
-### z
+### Z
 - **Type:** number
 - **Required:** No
 
@@ -56,7 +56,7 @@ Perlin noise
 ## Outputs
 
 
-### noise
+### Noise
 - **Type:** number
 
 

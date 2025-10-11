@@ -8,7 +8,7 @@ Define bend deduction table
 ## Parameters
 
 
-### tableType
+### Table Type
 - **Type:** enum
 - **Default:** "k-factor"
 
@@ -19,7 +19,7 @@ Define bend deduction table
 ## Inputs
 
 
-### tableData
+### Table Data
 - **Type:** Data
 - **Required:** Yes
 - **Description:** CSV or table data
@@ -28,7 +28,7 @@ Define bend deduction table
 ## Outputs
 
 
-### bendTable
+### Bend Table
 - **Type:** Data
 
 

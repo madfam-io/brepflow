@@ -8,7 +8,7 @@ Create torsion spring
 ## Parameters
 
 
-### wireDiameter
+### Wire Diameter
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Create torsion spring
 
 
 
-### coilDiameter
+### Coil Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -24,7 +24,7 @@ Create torsion spring
 
 
 
-### coils
+### Coils
 - **Type:** number
 - **Default:** 5
 - **Min:** 2
@@ -32,7 +32,7 @@ Create torsion spring
 
 
 
-### legLength
+### Leg Length
 - **Type:** number
 - **Default:** 30
 - **Min:** 10
@@ -40,7 +40,7 @@ Create torsion spring
 
 
 
-### legAngle
+### Leg Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** 0
@@ -51,7 +51,7 @@ Create torsion spring
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -60,12 +60,12 @@ Create torsion spring
 ## Outputs
 
 
-### spring
+### Spring
 - **Type:** Shape
 
 
 
-### legs
+### Legs
 - **Type:** Wire[]
 
 

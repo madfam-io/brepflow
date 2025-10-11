@@ -8,7 +8,7 @@ Create stepped shaft
 ## Parameters
 
 
-### sections
+### Sections
 - **Type:** string
 - **Default:** "20x50,25x80,20x30"
 
@@ -16,7 +16,7 @@ Create stepped shaft
 - **Description:** Diameter x Length pairs
 
 
-### chamfers
+### Chamfers
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Create stepped shaft
 
 
 
-### filletRadius
+### Fillet Radius
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.5
@@ -35,7 +35,7 @@ Create stepped shaft
 ## Inputs
 
 
-### centerline
+### Centerline
 - **Type:** Wire
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Create stepped shaft
 ## Outputs
 
 
-### shaft
+### Shaft
 - **Type:** Shape
 
 
 
-### sections
+### Sections
 - **Type:** Shape[]
 
 

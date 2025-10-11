@@ -1,63 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ProceduralTextureParams {
   type: string;
   scale: number;
   seed: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface ProceduralTextureInputs {
+  surface: unknown;
 }
-interface Outputs {
-  texture: Data;
+
+interface ProceduralTextureOutputs {
+  texture: unknown;
 }
 
 export const ProceduralTextureNode: NodeDefinition<ProceduralTextureInputs, ProceduralTextureOutputs, ProceduralTextureParams> = {
-  type: 'Patterns::ProceduralTexture',
+  id: 'Patterns::ProceduralTexture',
   category: 'Patterns',
-  subcategory: 'Procedural',
-
-  metadata: {
-    label: 'ProceduralTexture',
-    description: 'Procedural texture generation',
-    
-    
-  },
-
-  params: {
-        type: {
-      "default": "wood",
-      "options": [
-        "wood",
-        "marble",
-        "clouds",
-        "rust",
-        "concrete"
-      ]
-    },
-    scale: {
-      "default": 10,
-      "min": 1,
-      "max": 100
-    },
-    seed: {
-      "default": 0,
-      "min": 0,
-      "max": 999999
+  label: 'ProceduralTexture',
+  description: 'Procedural texture generation',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        texture: 'Data'
+    texture: {
+      type: 'Data',
+      label: 'Texture'
+    }
   },
-
+  params: {
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "wood",
+      options: ["wood","marble","clouds","rust","concrete"]
+    },
+    scale: {
+      type: 'number',
+      label: 'Scale',
+      default: 10,
+      min: 1,
+      max: 100
+    },
+    seed: {
+      type: 'number',
+      label: 'Seed',
+      default: 0,
+      min: 0,
+      max: 999999
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'proceduralTexture',
       params: {
@@ -67,9 +64,9 @@ export const ProceduralTextureNode: NodeDefinition<ProceduralTextureInputs, Proc
         seed: params.seed
       }
     });
-
+    
     return {
       texture: result
     };
-  }
+  },
 };

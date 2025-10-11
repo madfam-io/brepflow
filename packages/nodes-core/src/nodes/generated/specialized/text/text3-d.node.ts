@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface Text3DParams {
   text: string;
   font: string;
   size: number;
@@ -9,68 +8,77 @@ interface Params {
   bold: boolean;
   italic: boolean;
 }
-interface Inputs {
-  position?: Point;
-  direction?: Vector;
+
+interface Text3DInputs {
+  position?: [number, number, number];
+  direction?: [number, number, number];
 }
-interface Outputs {
-  text: Shape;
+
+interface Text3DOutputs {
+  text: unknown;
 }
 
 export const Text3DNode: NodeDefinition<Text3DInputs, Text3DOutputs, Text3DParams> = {
-  type: 'Specialized::Text3D',
+  id: 'Specialized::Text3D',
   category: 'Specialized',
-  subcategory: 'Text',
-
-  metadata: {
-    label: 'Text3D',
-    description: 'Create 3D text',
-    
-    
-  },
-
-  params: {
-        text: {
-      "default": "HELLO"
+  label: 'Text3D',
+  description: 'Create 3D text',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      optional: true
     },
-    font: {
-      "default": "Arial",
-      "options": [
-        "Arial",
-        "Helvetica",
-        "Times",
-        "Courier"
-      ]
-    },
-    size: {
-      "default": 20,
-      "min": 1,
-      "max": 1000
-    },
-    height: {
-      "default": 5,
-      "min": 0.1,
-      "max": 1000
-    },
-    bold: {
-      "default": false
-    },
-    italic: {
-      "default": false
+    direction: {
+      type: 'Vector',
+      label: 'Direction',
+      optional: true
     }
   },
-
-  inputs: {
-        position: 'Point',
-    direction: 'Vector'
-  },
-
   outputs: {
-        text: 'Shape'
+    text: {
+      type: 'Shape',
+      label: 'Text'
+    }
   },
-
+  params: {
+    text: {
+      type: 'string',
+      label: 'Text',
+      default: "HELLO"
+    },
+    font: {
+      type: 'enum',
+      label: 'Font',
+      default: "Arial",
+      options: ["Arial","Helvetica","Times","Courier"]
+    },
+    size: {
+      type: 'number',
+      label: 'Size',
+      default: 20,
+      min: 1,
+      max: 1000
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 5,
+      min: 0.1,
+      max: 1000
+    },
+    bold: {
+      type: 'boolean',
+      label: 'Bold',
+      default: false
+    },
+    italic: {
+      type: 'boolean',
+      label: 'Italic',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'text3D',
       params: {
@@ -84,9 +92,9 @@ export const Text3DNode: NodeDefinition<Text3DInputs, Text3DOutputs, Text3DParam
         italic: params.italic
       }
     });
-
+    
     return {
       text: result
     };
-  }
+  },
 };

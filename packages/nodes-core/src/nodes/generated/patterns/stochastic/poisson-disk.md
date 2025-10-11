@@ -8,7 +8,7 @@ Poisson disk sampling
 ## Parameters
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Poisson disk sampling
 
 
 
-### k
+### K
 - **Type:** number
 - **Default:** 30
 - **Min:** 3
@@ -27,7 +27,7 @@ Poisson disk sampling
 ## Inputs
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Poisson disk sampling
 ## Outputs
 
 
-### points
+### Points
 - **Type:** Point[]
 
 

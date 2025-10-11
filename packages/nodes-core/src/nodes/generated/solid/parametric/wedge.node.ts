@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WedgeParams {
   dx: number;
   dy: number;
   dz: number;
@@ -9,70 +8,73 @@ interface Params {
   zmin: number;
   zmax: number;
 }
-type Inputs = {};
-interface Outputs {
-  solid: Solid;
+
+type WedgeInputs = Record<string, never>;
+
+interface WedgeOutputs {
+  solid: unknown;
 }
 
 export const WedgeNode: NodeDefinition<WedgeInputs, WedgeOutputs, WedgeParams> = {
-  type: 'Solid::Wedge',
+  id: 'Solid::Wedge',
   category: 'Solid',
-  subcategory: 'Parametric',
-
-  metadata: {
-    label: 'Wedge',
-    description: 'Create a wedge solid',
-    
-    
-  },
-
-  params: {
-        dx: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    dy: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    dz: {
-      "default": 75,
-      "min": 0.1,
-      "max": 10000
-    },
-    xmax: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    zmin: {
-      "default": 25,
-      "min": 0.1,
-      "max": 10000
-    },
-    zmax: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
+  label: 'Wedge',
+  description: 'Create a wedge solid',
+  inputs: {},
+  outputs: {
+    solid: {
+      type: 'Solid',
+      label: 'Solid'
     }
   },
-
-  inputs: {
-    
+  params: {
+    dx: {
+      type: 'number',
+      label: 'Dx',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    dy: {
+      type: 'number',
+      label: 'Dy',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    dz: {
+      type: 'number',
+      label: 'Dz',
+      default: 75,
+      min: 0.1,
+      max: 10000
+    },
+    xmax: {
+      type: 'number',
+      label: 'Xmax',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    zmin: {
+      type: 'number',
+      label: 'Zmin',
+      default: 25,
+      min: 0.1,
+      max: 10000
+    },
+    zmax: {
+      type: 'number',
+      label: 'Zmax',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    }
   },
-
-  outputs: {
-        solid: 'Solid'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeWedge',
       params: {
-        
         dx: params.dx,
         dy: params.dy,
         dz: params.dz,
@@ -81,9 +83,9 @@ export const WedgeNode: NodeDefinition<WedgeInputs, WedgeOutputs, WedgeParams> =
         zmax: params.zmax
       }
     });
-
+    
     return {
       solid: result
     };
-  }
+  },
 };

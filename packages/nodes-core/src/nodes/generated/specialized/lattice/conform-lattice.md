@@ -8,7 +8,7 @@ Conformal lattice mapping
 ## Parameters
 
 
-### conformType
+### Conform Type
 - **Type:** enum
 - **Default:** "volume"
 
@@ -16,7 +16,7 @@ Conformal lattice mapping
 
 
 
-### cellSize
+### Cell Size
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,13 +27,13 @@ Conformal lattice mapping
 ## Inputs
 
 
-### targetShape
+### Target Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### latticePattern
+### Lattice Pattern
 - **Type:** Shape
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Conformal lattice mapping
 ## Outputs
 
 
-### conformed
+### Conformed
 - **Type:** Shape
 
 

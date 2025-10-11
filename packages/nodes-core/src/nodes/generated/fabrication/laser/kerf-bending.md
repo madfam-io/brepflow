@@ -8,7 +8,7 @@ Kerf bending patterns
 ## Parameters
 
 
-### bendRadius
+### Bend Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -16,7 +16,7 @@ Kerf bending patterns
 
 
 
-### materialThickness
+### Material Thickness
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.5
@@ -24,7 +24,7 @@ Kerf bending patterns
 
 
 
-### kerfWidth
+### Kerf Width
 - **Type:** number
 - **Default:** 0.15
 - **Min:** 0.05
@@ -35,7 +35,7 @@ Kerf bending patterns
 ## Inputs
 
 
-### bendZone
+### Bend Zone
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Kerf bending patterns
 ## Outputs
 
 
-### kerfPattern
+### Kerf Pattern
 - **Type:** Wire[]
 
 

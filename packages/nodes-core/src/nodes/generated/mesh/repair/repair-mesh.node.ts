@@ -1,63 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RepairMeshParams {
   fillHoles: boolean;
   fixNormals: boolean;
   removeDegenerate: boolean;
   removeDuplicates: boolean;
   makeManifold: boolean;
 }
-interface Inputs {
-  mesh: Mesh;
+
+interface RepairMeshInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  repaired: Mesh;
-  report: Data;
+
+interface RepairMeshOutputs {
+  repaired: unknown;
+  report: unknown;
 }
 
 export const RepairMeshNode: NodeDefinition<RepairMeshInputs, RepairMeshOutputs, RepairMeshParams> = {
-  type: 'Mesh::RepairMesh',
+  id: 'Mesh::RepairMesh',
   category: 'Mesh',
-  subcategory: 'Repair',
-
-  metadata: {
-    label: 'RepairMesh',
-    description: 'Repair mesh defects',
-    
-    
-  },
-
-  params: {
-        fillHoles: {
-      "default": true
-    },
-    fixNormals: {
-      "default": true
-    },
-    removeDegenerate: {
-      "default": true
-    },
-    removeDuplicates: {
-      "default": true
-    },
-    makeManifold: {
-      "default": false
+  label: 'RepairMesh',
+  description: 'Repair mesh defects',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh'
-  },
-
   outputs: {
-        repaired: 'Mesh',
-    report: 'Data'
+    repaired: {
+      type: 'Mesh',
+      label: 'Repaired'
+    },
+    report: {
+      type: 'Data',
+      label: 'Report'
+    }
   },
-
+  params: {
+    fillHoles: {
+      type: 'boolean',
+      label: 'Fill Holes',
+      default: true
+    },
+    fixNormals: {
+      type: 'boolean',
+      label: 'Fix Normals',
+      default: true
+    },
+    removeDegenerate: {
+      type: 'boolean',
+      label: 'Remove Degenerate',
+      default: true
+    },
+    removeDuplicates: {
+      type: 'boolean',
+      label: 'Remove Duplicates',
+      default: true
+    },
+    makeManifold: {
+      type: 'boolean',
+      label: 'Make Manifold',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'repairMesh',
       params: {
         mesh: inputs.mesh,
@@ -68,10 +78,10 @@ export const RepairMeshNode: NodeDefinition<RepairMeshInputs, RepairMeshOutputs,
         makeManifold: params.makeManifold
       }
     });
-
+    
     return {
-      repaired: result,
-      report: result
+      repaired: results.repaired,
+      report: results.report
     };
-  }
+  },
 };

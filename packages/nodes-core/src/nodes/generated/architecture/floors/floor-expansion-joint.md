@@ -8,7 +8,7 @@ Expansion joint detail
 ## Parameters
 
 
-### jointWidth
+### Joint Width
 - **Type:** number
 - **Default:** 25
 - **Min:** 10
@@ -16,7 +16,7 @@ Expansion joint detail
 
 
 
-### sealantDepth
+### Sealant Depth
 - **Type:** number
 - **Default:** 10
 - **Min:** 5
@@ -27,7 +27,7 @@ Expansion joint detail
 ## Inputs
 
 
-### jointPath
+### Joint Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Expansion joint detail
 ## Outputs
 
 
-### expansionJoint
+### Expansion Joint
 - **Type:** Shape
 
 

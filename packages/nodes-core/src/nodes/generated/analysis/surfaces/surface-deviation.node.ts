@@ -1,65 +1,81 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceDeviationParams {
   samples: number;
   colorMap: boolean;
   tolerance: number;
 }
-interface Inputs {
-  testSurface: Face;
-  referenceSurface: Face;
+
+interface SurfaceDeviationInputs {
+  testSurface: unknown;
+  referenceSurface: unknown;
 }
-interface Outputs {
-  deviationMap: Shape;
-  maxDeviation: number;
-  averageDeviation: number;
-  deviationPoints: Point[];
+
+interface SurfaceDeviationOutputs {
+  deviationMap: unknown;
+  maxDeviation: unknown;
+  averageDeviation: unknown;
+  deviationPoints: Array<[number, number, number]>;
 }
 
 export const SurfaceDeviationNode: NodeDefinition<SurfaceDeviationInputs, SurfaceDeviationOutputs, SurfaceDeviationParams> = {
-  type: 'Analysis::SurfaceDeviation',
+  id: 'Analysis::SurfaceDeviation',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceDeviation',
-    description: 'Compare surface deviation from reference',
-    
-    
-  },
-
-  params: {
-        samples: {
-      "default": 100,
-      "min": 20,
-      "max": 500
+  label: 'SurfaceDeviation',
+  description: 'Compare surface deviation from reference',
+  inputs: {
+    testSurface: {
+      type: 'Face',
+      label: 'Test Surface',
+      required: true
     },
-    colorMap: {
-      "default": true
-    },
-    tolerance: {
-      "default": 0.1,
-      "min": 0.001,
-      "max": 10
+    referenceSurface: {
+      type: 'Face',
+      label: 'Reference Surface',
+      required: true
     }
   },
-
-  inputs: {
-        testSurface: 'Face',
-    referenceSurface: 'Face'
-  },
-
   outputs: {
-        deviationMap: 'Shape',
-    maxDeviation: 'number',
-    averageDeviation: 'number',
-    deviationPoints: 'Point[]'
+    deviationMap: {
+      type: 'Shape',
+      label: 'Deviation Map'
+    },
+    maxDeviation: {
+      type: 'number',
+      label: 'Max Deviation'
+    },
+    averageDeviation: {
+      type: 'number',
+      label: 'Average Deviation'
+    },
+    deviationPoints: {
+      type: 'Point[]',
+      label: 'Deviation Points'
+    }
   },
-
+  params: {
+    samples: {
+      type: 'number',
+      label: 'Samples',
+      default: 100,
+      min: 20,
+      max: 500
+    },
+    colorMap: {
+      type: 'boolean',
+      label: 'Color Map',
+      default: true
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.1,
+      min: 0.001,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceDeviation',
       params: {
         testSurface: inputs.testSurface,
@@ -69,12 +85,12 @@ export const SurfaceDeviationNode: NodeDefinition<SurfaceDeviationInputs, Surfac
         tolerance: params.tolerance
       }
     });
-
+    
     return {
-      deviationMap: result,
-      maxDeviation: result,
-      averageDeviation: result,
-      deviationPoints: result
+      deviationMap: results.deviationMap,
+      maxDeviation: results.maxDeviation,
+      averageDeviation: results.averageDeviation,
+      deviationPoints: results.deviationPoints
     };
-  }
+  },
 };

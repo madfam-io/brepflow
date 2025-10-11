@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### vectorField
+### Vector Field
 - **Type:** VectorField
 - **Required:** No
 
 
 
-### curve
+### Curve
 - **Type:** Curve
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### circulation
+### Circulation
 - **Type:** Number
 
 

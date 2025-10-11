@@ -1,66 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MiterFlangeParams {
   height: number;
   angle: number;
   miterAngle: number;
   bendRadius: number;
 }
-interface Inputs {
-  sheet: Shape;
-  edges: Edge[];
+
+interface MiterFlangeInputs {
+  sheet: unknown;
+  edges: unknown;
 }
-interface Outputs {
-  result: Shape;
+
+interface MiterFlangeOutputs {
+  result: unknown;
 }
 
 export const MiterFlangeNode: NodeDefinition<MiterFlangeInputs, MiterFlangeOutputs, MiterFlangeParams> = {
-  type: 'SheetMetal::MiterFlange',
+  id: 'SheetMetal::MiterFlange',
   category: 'SheetMetal',
-  subcategory: 'Flanges',
-
-  metadata: {
-    label: 'MiterFlange',
-    description: 'Create mitered flange',
-    
-    
-  },
-
-  params: {
-        height: {
-      "default": 25,
-      "min": 0.1,
-      "max": 1000
+  label: 'MiterFlange',
+  description: 'Create mitered flange',
+  inputs: {
+    sheet: {
+      type: 'Shape',
+      label: 'Sheet',
+      required: true
     },
-    angle: {
-      "default": 90,
-      "min": 0,
-      "max": 180
-    },
-    miterAngle: {
-      "default": 45,
-      "min": 0,
-      "max": 90
-    },
-    bendRadius: {
-      "default": 3,
-      "min": 0.1,
-      "max": 100
+    edges: {
+      type: 'Edge[]',
+      label: 'Edges',
+      required: true
     }
   },
-
-  inputs: {
-        sheet: 'Shape',
-    edges: 'Edge[]'
-  },
-
   outputs: {
-        result: 'Shape'
+    result: {
+      type: 'Shape',
+      label: 'Result'
+    }
   },
-
+  params: {
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 25,
+      min: 0.1,
+      max: 1000
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 90,
+      min: 0,
+      max: 180
+    },
+    miterAngle: {
+      type: 'number',
+      label: 'Miter Angle',
+      default: 45,
+      min: 0,
+      max: 90
+    },
+    bendRadius: {
+      type: 'number',
+      label: 'Bend Radius',
+      default: 3,
+      min: 0.1,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sheetMiterFlange',
       params: {
@@ -72,9 +81,9 @@ export const MiterFlangeNode: NodeDefinition<MiterFlangeInputs, MiterFlangeOutpu
         bendRadius: params.bendRadius
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

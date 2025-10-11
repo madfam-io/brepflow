@@ -1,46 +1,45 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SetPartitionsParams {
   k: number;
 }
-interface Inputs {
-  set: Data[];
+
+interface SetPartitionsInputs {
+  set: unknown;
 }
-interface Outputs {
-  partitions: Data[][][];
+
+interface SetPartitionsOutputs {
+  partitions: unknown;
 }
 
 export const SetPartitionsNode: NodeDefinition<SetPartitionsInputs, SetPartitionsOutputs, SetPartitionsParams> = {
-  type: 'Data::SetPartitions',
+  id: 'Data::SetPartitions',
   category: 'Data',
-  subcategory: 'Set',
-
-  metadata: {
-    label: 'SetPartitions',
-    description: 'Set partitions',
-    
-    
-  },
-
-  params: {
-        k: {
-      "default": 2,
-      "min": 2,
-      "max": 10
+  label: 'SetPartitions',
+  description: 'Set partitions',
+  inputs: {
+    set: {
+      type: 'Data[]',
+      label: 'Set',
+      required: true
     }
   },
-
-  inputs: {
-        set: 'Data[]'
-  },
-
   outputs: {
-        partitions: 'Data[][][]'
+    partitions: {
+      type: 'Data[][][]',
+      label: 'Partitions'
+    }
   },
-
+  params: {
+    k: {
+      type: 'number',
+      label: 'K',
+      default: 2,
+      min: 2,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'setPartitions',
       params: {
@@ -48,9 +47,9 @@ export const SetPartitionsNode: NodeDefinition<SetPartitionsInputs, SetPartition
         k: params.k
       }
     });
-
+    
     return {
       partitions: result
     };
-  }
+  },
 };

@@ -1,48 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldDeformParams {
   strength: number;
 }
-interface Inputs {
-  geometry: Shape;
-  field: VectorField;
+
+interface FieldDeformInputs {
+  geometry: unknown;
+  field: unknown;
 }
-interface Outputs {
-  deformed: Shape;
+
+interface FieldDeformOutputs {
+  deformed: unknown;
 }
 
 export const FieldDeformNode: NodeDefinition<FieldDeformInputs, FieldDeformOutputs, FieldDeformParams> = {
-  type: 'Field::FieldDeform',
+  id: 'Field::FieldDeform',
   category: 'Field',
-  subcategory: 'Deform',
-
-  metadata: {
-    label: 'FieldDeform',
-    description: 'Deform by field',
-    
-    
-  },
-
-  params: {
-        strength: {
-      "default": 10,
-      "min": -100,
-      "max": 100
+  label: 'FieldDeform',
+  description: 'Deform by field',
+  inputs: {
+    geometry: {
+      type: 'Shape',
+      label: 'Geometry',
+      required: true
+    },
+    field: {
+      type: 'VectorField',
+      label: 'Field',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Shape',
-    field: 'VectorField'
-  },
-
   outputs: {
-        deformed: 'Shape'
+    deformed: {
+      type: 'Shape',
+      label: 'Deformed'
+    }
   },
-
+  params: {
+    strength: {
+      type: 'number',
+      label: 'Strength',
+      default: 10,
+      min: -100,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldDeform',
       params: {
@@ -51,9 +54,9 @@ export const FieldDeformNode: NodeDefinition<FieldDeformInputs, FieldDeformOutpu
         strength: params.strength
       }
     });
-
+    
     return {
       deformed: result
     };
-  }
+  },
 };

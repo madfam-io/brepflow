@@ -1,71 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CircleParams {
   centerX: number;
   centerY: number;
   centerZ: number;
   radius: number;
   filled: boolean;
 }
-type Inputs = {};
-interface Outputs {
-  shape: Shape;
+
+type CircleInputs = Record<string, never>;
+
+interface CircleOutputs {
+  shape: unknown;
 }
 
 export const CircleNode: NodeDefinition<CircleInputs, CircleOutputs, CircleParams> = {
-  type: 'Sketch::Circle',
+  id: 'Sketch::Circle',
   category: 'Sketch',
-  subcategory: 'Basic',
-
-  metadata: {
-    label: 'Circle',
-    description: 'Create a circle',
-    
-    
-  },
-
-  params: {
-        centerX: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerY: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerZ: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    radius: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
-    },
-    filled: {
-      "default": true,
-      "description": "Create as face (filled) or wire (outline)"
+  label: 'Circle',
+  description: 'Create a circle',
+  inputs: {},
+  outputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
     }
   },
-
-  inputs: {
-    
+  params: {
+    centerX: {
+      type: 'number',
+      label: 'Center X',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerY: {
+      type: 'number',
+      label: 'Center Y',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerZ: {
+      type: 'number',
+      label: 'Center Z',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    filled: {
+      type: 'boolean',
+      label: 'Filled',
+      default: true
+    }
   },
-
-  outputs: {
-        shape: 'Shape'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeCircle',
       params: {
-        
         centerX: params.centerX,
         centerY: params.centerY,
         centerZ: params.centerZ,
@@ -73,9 +72,9 @@ export const CircleNode: NodeDefinition<CircleInputs, CircleOutputs, CircleParam
         filled: params.filled
       }
     });
-
+    
     return {
       shape: result
     };
-  }
+  },
 };

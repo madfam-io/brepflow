@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CubicLatticeParams {
   cellSize: number;
   strutDiameter: number;
 }
-interface Inputs {
-  bounds: Box;
+
+interface CubicLatticeInputs {
+  bounds: unknown;
 }
-interface Outputs {
-  lattice: Wire[];
+
+interface CubicLatticeOutputs {
+  lattice: unknown;
 }
 
 export const CubicLatticeNode: NodeDefinition<CubicLatticeInputs, CubicLatticeOutputs, CubicLatticeParams> = {
-  type: 'Patterns::CubicLattice',
+  id: 'Patterns::CubicLattice',
   category: 'Patterns',
-  subcategory: 'Lattice',
-
-  metadata: {
-    label: 'CubicLattice',
-    description: 'Cubic lattice structure',
-    
-    
-  },
-
-  params: {
-        cellSize: {
-      "default": 10,
-      "min": 1
-    },
-    strutDiameter: {
-      "default": 1,
-      "min": 0.1
+  label: 'CubicLattice',
+  description: 'Cubic lattice structure',
+  inputs: {
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        bounds: 'Box'
-  },
-
   outputs: {
-        lattice: 'Wire[]'
+    lattice: {
+      type: 'Wire[]',
+      label: 'Lattice'
+    }
   },
-
+  params: {
+    cellSize: {
+      type: 'number',
+      label: 'Cell Size',
+      default: 10,
+      min: 1
+    },
+    strutDiameter: {
+      type: 'number',
+      label: 'Strut Diameter',
+      default: 1,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'cubicLattice',
       params: {
@@ -53,9 +54,9 @@ export const CubicLatticeNode: NodeDefinition<CubicLatticeInputs, CubicLatticeOu
         strutDiameter: params.strutDiameter
       }
     });
-
+    
     return {
       lattice: result
     };
-  }
+  },
 };

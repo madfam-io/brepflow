@@ -1,59 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StarParams {
   points: number;
   outerRadius: number;
   innerRadius: number;
 }
-interface Inputs {
-  center?: Point;
+
+interface StarInputs {
+  center?: [number, number, number];
 }
-interface Outputs {
-  star: Wire;
+
+interface StarOutputs {
+  star: unknown;
 }
 
 export const StarNode: NodeDefinition<StarInputs, StarOutputs, StarParams> = {
-  type: 'Sketch::Star',
+  id: 'Sketch::Star',
   category: 'Sketch',
-  subcategory: 'Patterns',
-
-  metadata: {
-    label: 'Star',
-    description: 'Create a star shape',
-    
-    
-  },
-
-  params: {
-        points: {
-      "default": 5,
-      "min": 3,
-      "max": 100,
-      "step": 1
-    },
-    outerRadius: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000
-    },
-    innerRadius: {
-      "default": 40,
-      "min": 0.1,
-      "max": 10000
+  label: 'Star',
+  description: 'Create a star shape',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      optional: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        star: 'Wire'
+    star: {
+      type: 'Wire',
+      label: 'Star'
+    }
   },
-
+  params: {
+    points: {
+      type: 'number',
+      label: 'Points',
+      default: 5,
+      min: 3,
+      max: 100,
+      step: 1
+    },
+    outerRadius: {
+      type: 'number',
+      label: 'Outer Radius',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    innerRadius: {
+      type: 'number',
+      label: 'Inner Radius',
+      default: 40,
+      min: 0.1,
+      max: 10000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeStar',
       params: {
@@ -63,9 +66,9 @@ export const StarNode: NodeDefinition<StarInputs, StarOutputs, StarParams> = {
         innerRadius: params.innerRadius
       }
     });
-
+    
     return {
       star: result
     };
-  }
+  },
 };

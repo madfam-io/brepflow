@@ -1,49 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MultiRobotCoordinationParams {
   syncMethod: string;
 }
-interface Inputs {
-  robotPaths: Transform[][];
+
+interface MultiRobotCoordinationInputs {
+  robotPaths: unknown;
 }
-interface Outputs {
-  synchronizedPaths: Transform[][];
+
+interface MultiRobotCoordinationOutputs {
+  synchronizedPaths: unknown;
 }
 
 export const MultiRobotCoordinationNode: NodeDefinition<MultiRobotCoordinationInputs, MultiRobotCoordinationOutputs, MultiRobotCoordinationParams> = {
-  type: 'Fabrication::MultiRobotCoordination',
+  id: 'Fabrication::MultiRobotCoordination',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'MultiRobotCoordination',
-    description: 'Coordinate multiple robots',
-    
-    
-  },
-
-  params: {
-        syncMethod: {
-      "default": "position",
-      "options": [
-        "time",
-        "position",
-        "event"
-      ]
+  label: 'MultiRobotCoordination',
+  description: 'Coordinate multiple robots',
+  inputs: {
+    robotPaths: {
+      type: 'Transform[][]',
+      label: 'Robot Paths',
+      required: true
     }
   },
-
-  inputs: {
-        robotPaths: 'Transform[][]'
-  },
-
   outputs: {
-        synchronizedPaths: 'Transform[][]'
+    synchronizedPaths: {
+      type: 'Transform[][]',
+      label: 'Synchronized Paths'
+    }
   },
-
+  params: {
+    syncMethod: {
+      type: 'enum',
+      label: 'Sync Method',
+      default: "position",
+      options: ["time","position","event"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'multiRobotCoordination',
       params: {
@@ -51,9 +46,9 @@ export const MultiRobotCoordinationNode: NodeDefinition<MultiRobotCoordinationIn
         syncMethod: params.syncMethod
       }
     });
-
+    
     return {
       synchronizedPaths: result
     };
-  }
+  },
 };

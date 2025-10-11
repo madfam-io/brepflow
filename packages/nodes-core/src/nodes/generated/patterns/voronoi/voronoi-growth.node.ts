@@ -1,55 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VoronoiGrowthParams {
   generations: number;
   growthRate: number;
 }
-interface Inputs {
-  seeds: Point[];
-  boundary?: Wire;
+
+interface VoronoiGrowthInputs {
+  seeds: Array<[number, number, number]>;
+  boundary?: unknown;
 }
-interface Outputs {
-  pattern: Wire[];
+
+interface VoronoiGrowthOutputs {
+  pattern: unknown;
 }
 
 export const VoronoiGrowthNode: NodeDefinition<VoronoiGrowthInputs, VoronoiGrowthOutputs, VoronoiGrowthParams> = {
-  type: 'Patterns::VoronoiGrowth',
+  id: 'Patterns::VoronoiGrowth',
   category: 'Patterns',
-  subcategory: 'Voronoi',
-
-  metadata: {
-    label: 'VoronoiGrowth',
-    description: 'Organic growth pattern',
-    
-    
-  },
-
-  params: {
-        generations: {
-      "default": 5,
-      "min": 1,
-      "max": 20,
-      "step": 1
+  label: 'VoronoiGrowth',
+  description: 'Organic growth pattern',
+  inputs: {
+    seeds: {
+      type: 'Point[]',
+      label: 'Seeds',
+      required: true
     },
-    growthRate: {
-      "default": 1.5,
-      "min": 1,
-      "max": 3
+    boundary: {
+      type: 'Wire',
+      label: 'Boundary',
+      optional: true
     }
   },
-
-  inputs: {
-        seeds: 'Point[]',
-    boundary: 'Wire'
-  },
-
   outputs: {
-        pattern: 'Wire[]'
+    pattern: {
+      type: 'Wire[]',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    generations: {
+      type: 'number',
+      label: 'Generations',
+      default: 5,
+      min: 1,
+      max: 20,
+      step: 1
+    },
+    growthRate: {
+      type: 'number',
+      label: 'Growth Rate',
+      default: 1.5,
+      min: 1,
+      max: 3
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'voronoiGrowth',
       params: {
@@ -59,9 +64,9 @@ export const VoronoiGrowthNode: NodeDefinition<VoronoiGrowthInputs, VoronoiGrowt
         growthRate: params.growthRate
       }
     });
-
+    
     return {
       pattern: result
     };
-  }
+  },
 };

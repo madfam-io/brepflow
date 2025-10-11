@@ -1,66 +1,71 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface JuliaSetParams {
   cReal: number;
   cImag: number;
   iterations: number;
   resolution: number;
 }
-interface Inputs {
-  bounds: Box;
+
+interface JuliaSetInputs {
+  bounds: unknown;
 }
-interface Outputs {
-  fractal: Mesh;
+
+interface JuliaSetOutputs {
+  fractal: unknown;
 }
 
 export const JuliaSetNode: NodeDefinition<JuliaSetInputs, JuliaSetOutputs, JuliaSetParams> = {
-  type: 'Patterns::JuliaSet',
+  id: 'Patterns::JuliaSet',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'JuliaSet',
-    description: 'Julia set fractal',
-    
-    
-  },
-
-  params: {
-        cReal: {
-      "default": -0.7,
-      "min": -2,
-      "max": 2
-    },
-    cImag: {
-      "default": 0.27,
-      "min": -2,
-      "max": 2
-    },
-    iterations: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
-    },
-    resolution: {
-      "default": 100,
-      "min": 50,
-      "max": 500,
-      "step": 10
+  label: 'JuliaSet',
+  description: 'Julia set fractal',
+  inputs: {
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        bounds: 'Box'
-  },
-
   outputs: {
-        fractal: 'Mesh'
+    fractal: {
+      type: 'Mesh',
+      label: 'Fractal'
+    }
   },
-
+  params: {
+    cReal: {
+      type: 'number',
+      label: 'C Real',
+      default: -0.7,
+      min: -2,
+      max: 2
+    },
+    cImag: {
+      type: 'number',
+      label: 'C Imag',
+      default: 0.27,
+      min: -2,
+      max: 2
+    },
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    },
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 100,
+      min: 50,
+      max: 500,
+      step: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'juliaSet',
       params: {
@@ -71,9 +76,9 @@ export const JuliaSetNode: NodeDefinition<JuliaSetInputs, JuliaSetOutputs, Julia
         resolution: params.resolution
       }
     });
-
+    
     return {
       fractal: result
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Exposed ceiling beams
 ## Parameters
 
 
-### beamDepth
+### Beam Depth
 - **Type:** number
 - **Default:** 300
 - **Min:** 200
@@ -16,7 +16,7 @@ Exposed ceiling beams
 
 
 
-### beamWidth
+### Beam Width
 - **Type:** number
 - **Default:** 150
 - **Min:** 100
@@ -24,7 +24,7 @@ Exposed ceiling beams
 
 
 
-### spacing
+### Spacing
 - **Type:** number
 - **Default:** 1200
 - **Min:** 600
@@ -35,7 +35,7 @@ Exposed ceiling beams
 ## Inputs
 
 
-### ceilingArea
+### Ceiling Area
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Exposed ceiling beams
 ## Outputs
 
 
-### beams
+### Beams
 - **Type:** Shape[]
 
 

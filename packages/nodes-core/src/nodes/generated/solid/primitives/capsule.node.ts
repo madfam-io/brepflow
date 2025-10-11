@@ -1,63 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CapsuleParams {
   radius: number;
   height: number;
 }
-type Inputs = {};
-interface Outputs {
-  solid: Solid;
+
+type CapsuleInputs = Record<string, never>;
+
+interface CapsuleOutputs {
+  solid: unknown;
 }
 
 export const CapsuleNode: NodeDefinition<CapsuleInputs, CapsuleOutputs, CapsuleParams> = {
-  type: 'Solid::Capsule',
+  id: 'Solid::Capsule',
   category: 'Solid',
-  subcategory: 'Primitives',
-
-  metadata: {
-    label: 'Capsule',
-    description: 'Create a capsule (cylinder with hemisphere caps)',
-    
-    
-  },
-
-  params: {
-        radius: {
-      "default": 25,
-      "min": 0.1,
-      "max": 10000,
-      "description": "Capsule radius"
-    },
-    height: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000,
-      "description": "Cylindrical section height"
+  label: 'Capsule',
+  description: 'Create a capsule (cylinder with hemisphere caps)',
+  inputs: {},
+  outputs: {
+    solid: {
+      type: 'Solid',
+      label: 'Solid'
     }
   },
-
-  inputs: {
-    
+  params: {
+    radius: {
+      type: 'number',
+      label: 'Radius',
+      default: 25,
+      min: 0.1,
+      max: 10000
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    }
   },
-
-  outputs: {
-        solid: 'Solid'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeCapsule',
       params: {
-        
         radius: params.radius,
         height: params.height
       }
     });
-
+    
     return {
       solid: result
     };
-  }
+  },
 };

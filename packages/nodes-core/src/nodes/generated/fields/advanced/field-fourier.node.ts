@@ -1,54 +1,66 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldFourierParams {
   direction: string;
 }
-interface Inputs {
-  field?: Field;
+
+interface FieldFourierInputs {
+  field?: unknown;
 }
-interface Outputs {
-  transformedField: Field;
-  phase: Field;
-  magnitude: Field;
+
+interface FieldFourierOutputs {
+  transformedField: unknown;
+  phase: unknown;
+  magnitude: unknown;
 }
 
 export const FieldFourierNode: NodeDefinition<FieldFourierInputs, FieldFourierOutputs, FieldFourierParams> = {
-  type: 'Fields::FieldFourier',
+  id: 'Fields::FieldFourier',
   category: 'Fields',
-  subcategory: 'Advanced',
-
-  metadata: {
-    label: 'FieldFourier',
-    description: 'Fourier transform of field',
-    
-    
-  },
-
-  params: {
-        direction: {
-      "default": "\"forward\"",
-      "options": [
-        "forward",
-        "inverse"
-      ],
-      "description": "Transform direction"
+  label: 'FieldFourier',
+  description: 'Fourier transform of field',
+  inputs: {
+    field: {
+      type: 'Field',
+      label: 'Field',
+      optional: true
     }
   },
-
-  inputs: {
-        field: 'Field'
-  },
-
   outputs: {
-        transformedField: 'Field',
-    phase: 'Field',
-    magnitude: 'Field'
+    transformedField: {
+      type: 'Field',
+      label: 'Transformed Field'
+    },
+    phase: {
+      type: 'Field',
+      label: 'Phase'
+    },
+    magnitude: {
+      type: 'Field',
+      label: 'Magnitude'
+    }
   },
-
+  params: {
+    direction: {
+      type: 'enum',
+      label: 'Direction',
+      default: "\"forward\"",
+      options: ["forward","inverse"]
+    }
+  },
   async evaluate(context, inputs, params) {
+    const results = await context.geometry.execute({
+      type: 'fourierTransform',
+      params: {
+        field: inputs.field,
+        direction: params.direction
+      }
+    });
     
-    // TODO: Implement FieldFourier logic
-    throw new Error('FieldFourier not yet implemented');
-  }
+    return {
+      transformedField: results.transformedField,
+      phase: results.phase,
+      magnitude: results.magnitude
+    };
+  },
 };

@@ -1,54 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AdaptiveClearingParams {
   optimalLoad: number;
   helixAngle: number;
 }
-interface Inputs {
-  region: Face;
-  depth: Number;
+
+interface AdaptiveClearingInputs {
+  region: unknown;
+  depth: number;
 }
-interface Outputs {
-  adaptivePath: Wire;
+
+interface AdaptiveClearingOutputs {
+  adaptivePath: unknown;
 }
 
 export const AdaptiveClearingNode: NodeDefinition<AdaptiveClearingInputs, AdaptiveClearingOutputs, AdaptiveClearingParams> = {
-  type: 'Fabrication::AdaptiveClearing',
+  id: 'Fabrication::AdaptiveClearing',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'AdaptiveClearing',
-    description: 'Adaptive clearing strategy',
-    
-    
-  },
-
-  params: {
-        optimalLoad: {
-      "default": 0.4,
-      "min": 0.1,
-      "max": 1
+  label: 'AdaptiveClearing',
+  description: 'Adaptive clearing strategy',
+  inputs: {
+    region: {
+      type: 'Face',
+      label: 'Region',
+      required: true
     },
-    helixAngle: {
-      "default": 3,
-      "min": 0,
-      "max": 10
+    depth: {
+      type: 'Number',
+      label: 'Depth',
+      required: true
     }
   },
-
-  inputs: {
-        region: 'Face',
-    depth: 'Number'
-  },
-
   outputs: {
-        adaptivePath: 'Wire'
+    adaptivePath: {
+      type: 'Wire',
+      label: 'Adaptive Path'
+    }
   },
-
+  params: {
+    optimalLoad: {
+      type: 'number',
+      label: 'Optimal Load',
+      default: 0.4,
+      min: 0.1,
+      max: 1
+    },
+    helixAngle: {
+      type: 'number',
+      label: 'Helix Angle',
+      default: 3,
+      min: 0,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'adaptiveClearing',
       params: {
@@ -58,9 +63,9 @@ export const AdaptiveClearingNode: NodeDefinition<AdaptiveClearingInputs, Adapti
         helixAngle: params.helixAngle
       }
     });
-
+    
     return {
       adaptivePath: result
     };
-  }
+  },
 };

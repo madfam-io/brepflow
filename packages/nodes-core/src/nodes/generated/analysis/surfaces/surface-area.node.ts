@@ -1,55 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceAreaParams {
   precision: number;
   showCentroid: boolean;
 }
-interface Inputs {
-  surface: Face;
+
+interface SurfaceAreaInputs {
+  surface: unknown;
 }
-interface Outputs {
-  area: number;
-  centroid: Point;
-  boundaryLength: number;
+
+interface SurfaceAreaOutputs {
+  area: unknown;
+  centroid: [number, number, number];
+  boundaryLength: unknown;
 }
 
 export const SurfaceAreaNode: NodeDefinition<SurfaceAreaInputs, SurfaceAreaOutputs, SurfaceAreaParams> = {
-  type: 'Analysis::SurfaceArea',
+  id: 'Analysis::SurfaceArea',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceArea',
-    description: 'Calculate surface area and properties',
-    
-    
-  },
-
-  params: {
-        precision: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
-    },
-    showCentroid: {
-      "default": true
+  label: 'SurfaceArea',
+  description: 'Calculate surface area and properties',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        area: 'number',
-    centroid: 'Point',
-    boundaryLength: 'number'
+    area: {
+      type: 'number',
+      label: 'Area'
+    },
+    centroid: {
+      type: 'Point',
+      label: 'Centroid'
+    },
+    boundaryLength: {
+      type: 'number',
+      label: 'Boundary Length'
+    }
   },
-
+  params: {
+    precision: {
+      type: 'number',
+      label: 'Precision',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    showCentroid: {
+      type: 'boolean',
+      label: 'Show Centroid',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceArea',
       params: {
         surface: inputs.surface,
@@ -57,11 +64,11 @@ export const SurfaceAreaNode: NodeDefinition<SurfaceAreaInputs, SurfaceAreaOutpu
         showCentroid: params.showCentroid
       }
     });
-
+    
     return {
-      area: result,
-      centroid: result,
-      boundaryLength: result
+      area: results.area,
+      centroid: results.centroid,
+      boundaryLength: results.boundaryLength
     };
-  }
+  },
 };

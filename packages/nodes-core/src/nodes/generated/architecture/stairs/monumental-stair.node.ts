@@ -1,55 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MonumentalStairParams {
   style: string;
   width: number;
 }
-interface Inputs {
-  footprint: Wire;
+
+interface MonumentalStairInputs {
+  footprint: unknown;
 }
-interface Outputs {
-  monumentalStair: Shape;
+
+interface MonumentalStairOutputs {
+  monumentalStair: unknown;
 }
 
 export const MonumentalStairNode: NodeDefinition<MonumentalStairInputs, MonumentalStairOutputs, MonumentalStairParams> = {
-  type: 'Architecture::MonumentalStair',
+  id: 'Architecture::MonumentalStair',
   category: 'Architecture',
-  subcategory: 'Stairs',
-
-  metadata: {
-    label: 'MonumentalStair',
-    description: 'Grand monumental staircase',
-    
-    
-  },
-
-  params: {
-        style: {
-      "default": "imperial",
-      "options": [
-        "imperial",
-        "bifurcated",
-        "horseshoe"
-      ]
-    },
-    width: {
-      "default": 3000,
-      "min": 2000,
-      "max": 6000
+  label: 'MonumentalStair',
+  description: 'Grand monumental staircase',
+  inputs: {
+    footprint: {
+      type: 'Wire',
+      label: 'Footprint',
+      required: true
     }
   },
-
-  inputs: {
-        footprint: 'Wire'
-  },
-
   outputs: {
-        monumentalStair: 'Shape'
+    monumentalStair: {
+      type: 'Shape',
+      label: 'Monumental Stair'
+    }
   },
-
+  params: {
+    style: {
+      type: 'enum',
+      label: 'Style',
+      default: "imperial",
+      options: ["imperial","bifurcated","horseshoe"]
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 3000,
+      min: 2000,
+      max: 6000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'monumentalStair',
       params: {
@@ -58,9 +55,9 @@ export const MonumentalStairNode: NodeDefinition<MonumentalStairInputs, Monument
         width: params.width
       }
     });
-
+    
     return {
       monumentalStair: result
     };
-  }
+  },
 };

@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type InverseLerpParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  a: number;
-  b: number;
-  value: number;
+interface InverseLerpInputs {
+  a: unknown;
+  b: unknown;
+  value: unknown;
 }
-interface Outputs {
-  t: number;
+
+interface InverseLerpOutputs {
+  t: unknown;
 }
 
 export const InverseLerpNode: NodeDefinition<InverseLerpInputs, InverseLerpOutputs, InverseLerpParams> = {
-  type: 'Math::InverseLerp',
+  id: 'Math::InverseLerp',
   category: 'Math',
-  subcategory: 'Interpolation',
-
-  metadata: {
-    label: 'InverseLerp',
-    description: 'Inverse linear interpolation',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'InverseLerp',
+  description: 'Inverse linear interpolation',
   inputs: {
-        a: 'number',
-    b: 'number',
-    value: 'number'
+    a: {
+      type: 'number',
+      label: 'A',
+      required: true
+    },
+    b: {
+      type: 'number',
+      label: 'B',
+      required: true
+    },
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        t: 'number'
+    t: {
+      type: 'number',
+      label: 'T'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathInverseLerp',
       params: {
         a: inputs.a,
         b: inputs.b,
         value: inputs.value
-        
       }
     });
-
+    
     return {
       t: result
     };
-  }
+  },
 };

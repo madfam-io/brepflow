@@ -8,7 +8,7 @@ Clerestory window band
 ## Parameters
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 600
 - **Min:** 400
@@ -16,7 +16,7 @@ Clerestory window band
 
 
 
-### continuous
+### Continuous
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Clerestory window band
 ## Inputs
 
 
-### wallTop
+### Wall Top
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Clerestory window band
 ## Outputs
 
 
-### clerestory
+### Clerestory
 - **Type:** Shape
 
 

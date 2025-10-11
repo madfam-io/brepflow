@@ -8,7 +8,7 @@ Decimate mesh intelligently
 ## Parameters
 
 
-### targetTriangles
+### Target Triangles
 - **Type:** number
 - **Default:** 1000
 - **Min:** 10
@@ -16,7 +16,7 @@ Decimate mesh intelligently
 
 
 
-### preserveFeatures
+### Preserve Features
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Decimate mesh intelligently
 
 
 
-### featureAngle
+### Feature Angle
 - **Type:** number
 - **Default:** 30
 - **Min:** 0
@@ -35,7 +35,7 @@ Decimate mesh intelligently
 ## Inputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Decimate mesh intelligently
 ## Outputs
 
 
-### decimated
+### Decimated
 - **Type:** Mesh
 
 

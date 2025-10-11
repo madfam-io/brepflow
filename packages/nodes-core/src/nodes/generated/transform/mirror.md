@@ -8,7 +8,7 @@ Mirror shape across a plane
 ## Parameters
 
 
-### planeOriginX
+### Plane Origin X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -16,7 +16,7 @@ Mirror shape across a plane
 
 
 
-### planeOriginY
+### Plane Origin Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -24,7 +24,7 @@ Mirror shape across a plane
 
 
 
-### planeOriginZ
+### Plane Origin Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -32,7 +32,7 @@ Mirror shape across a plane
 
 
 
-### planeNormalX
+### Plane Normal X
 - **Type:** number
 - **Default:** 1
 - **Min:** -1
@@ -40,7 +40,7 @@ Mirror shape across a plane
 
 
 
-### planeNormalY
+### Plane Normal Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -1
@@ -48,7 +48,7 @@ Mirror shape across a plane
 
 
 
-### planeNormalZ
+### Plane Normal Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -1
@@ -56,7 +56,7 @@ Mirror shape across a plane
 
 
 
-### copy
+### Copy
 - **Type:** boolean
 - **Default:** true
 
@@ -67,7 +67,7 @@ Mirror shape across a plane
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -76,7 +76,7 @@ Mirror shape across a plane
 ## Outputs
 
 
-### mirrored
+### Mirrored
 - **Type:** Shape
 - **Description:** Mirrored shape
 

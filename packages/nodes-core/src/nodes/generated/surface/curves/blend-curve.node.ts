@@ -1,72 +1,77 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BlendCurveParams {
   continuityStart: string;
   continuityEnd: string;
   bulge: number;
 }
-interface Inputs {
-  curve1: Wire;
-  curve2: Wire;
-  point1?: Point;
-  point2?: Point;
+
+interface BlendCurveInputs {
+  curve1: unknown;
+  curve2: unknown;
+  point1?: [number, number, number];
+  point2?: [number, number, number];
 }
-interface Outputs {
-  blendCurve: Wire;
+
+interface BlendCurveOutputs {
+  blendCurve: unknown;
 }
 
 export const BlendCurveNode: NodeDefinition<BlendCurveInputs, BlendCurveOutputs, BlendCurveParams> = {
-  type: 'Surface::BlendCurve',
+  id: 'Surface::BlendCurve',
   category: 'Surface',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'BlendCurve',
-    description: 'Blend between two curves',
-    
-    
-  },
-
-  params: {
-        continuityStart: {
-      "default": "G1",
-      "options": [
-        "G0",
-        "G1",
-        "G2",
-        "G3"
-      ]
+  label: 'BlendCurve',
+  description: 'Blend between two curves',
+  inputs: {
+    curve1: {
+      type: 'Wire',
+      label: 'Curve1',
+      required: true
     },
-    continuityEnd: {
-      "default": "G1",
-      "options": [
-        "G0",
-        "G1",
-        "G2",
-        "G3"
-      ]
+    curve2: {
+      type: 'Wire',
+      label: 'Curve2',
+      required: true
     },
-    bulge: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
+    point1: {
+      type: 'Point',
+      label: 'Point1',
+      optional: true
+    },
+    point2: {
+      type: 'Point',
+      label: 'Point2',
+      optional: true
     }
   },
-
-  inputs: {
-        curve1: 'Wire',
-    curve2: 'Wire',
-    point1: 'Point',
-    point2: 'Point'
-  },
-
   outputs: {
-        blendCurve: 'Wire'
+    blendCurve: {
+      type: 'Wire',
+      label: 'Blend Curve'
+    }
   },
-
+  params: {
+    continuityStart: {
+      type: 'enum',
+      label: 'Continuity Start',
+      default: "G1",
+      options: ["G0","G1","G2","G3"]
+    },
+    continuityEnd: {
+      type: 'enum',
+      label: 'Continuity End',
+      default: "G1",
+      options: ["G0","G1","G2","G3"]
+    },
+    bulge: {
+      type: 'number',
+      label: 'Bulge',
+      default: 1,
+      min: 0.1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'blendCurve',
       params: {
@@ -79,9 +84,9 @@ export const BlendCurveNode: NodeDefinition<BlendCurveInputs, BlendCurveOutputs,
         bulge: params.bulge
       }
     });
-
+    
     return {
       blendCurve: result
     };
-  }
+  },
 };

@@ -1,68 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ApplyConstraintsParams {
   constraintType: string;
-  dof: any;
+  dof: unknown;
 }
-interface Inputs {
-  mesh: Mesh;
-  constraintFaces: Face[];
+
+interface ApplyConstraintsInputs {
+  mesh: unknown;
+  constraintFaces: unknown;
 }
-interface Outputs {
-  constrainedMesh: Mesh;
-  constraintData: Data;
+
+interface ApplyConstraintsOutputs {
+  constrainedMesh: unknown;
+  constraintData: unknown;
 }
 
 export const ApplyConstraintsNode: NodeDefinition<ApplyConstraintsInputs, ApplyConstraintsOutputs, ApplyConstraintsParams> = {
-  type: 'Simulation::ApplyConstraints',
+  id: 'Simulation::ApplyConstraints',
   category: 'Simulation',
-  subcategory: 'FEA',
-
-  metadata: {
-    label: 'ApplyConstraints',
-    description: 'Define boundary conditions',
-    
-    
-  },
-
-  params: {
-        constraintType: {
-      "default": "fixed",
-      "options": [
-        "fixed",
-        "pinned",
-        "roller",
-        "spring",
-        "displacement"
-      ]
+  label: 'ApplyConstraints',
+  description: 'Define boundary conditions',
+  inputs: {
+    mesh: {
+      type: 'Mesh',
+      label: 'Mesh',
+      required: true
     },
-    dof: {
-      "default": [
-        true,
-        true,
-        true,
-        true,
-        true,
-        true
-      ],
-      "description": "X,Y,Z,RX,RY,RZ"
+    constraintFaces: {
+      type: 'Face[]',
+      label: 'Constraint Faces',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Mesh',
-    constraintFaces: 'Face[]'
-  },
-
   outputs: {
-        constrainedMesh: 'Mesh',
-    constraintData: 'Data'
+    constrainedMesh: {
+      type: 'Mesh',
+      label: 'Constrained Mesh'
+    },
+    constraintData: {
+      type: 'Data',
+      label: 'Constraint Data'
+    }
   },
-
+  params: {
+    constraintType: {
+      type: 'enum',
+      label: 'Constraint Type',
+      default: "fixed",
+      options: ["fixed","pinned","roller","spring","displacement"]
+    },
+    dof: {
+      type: 'boolean[]',
+      label: 'Dof',
+      default: [true,true,true,true,true,true]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'applyConstraints',
       params: {
         mesh: inputs.mesh,
@@ -71,10 +65,10 @@ export const ApplyConstraintsNode: NodeDefinition<ApplyConstraintsInputs, ApplyC
         dof: params.dof
       }
     });
-
+    
     return {
-      constrainedMesh: result,
-      constraintData: result
+      constrainedMesh: results.constrainedMesh,
+      constraintData: results.constraintData
     };
-  }
+  },
 };

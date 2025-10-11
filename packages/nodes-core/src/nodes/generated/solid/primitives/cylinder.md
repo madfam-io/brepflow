@@ -8,7 +8,7 @@ Create a parametric cylinder
 ## Parameters
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create a parametric cylinder
 - **Description:** Cylinder radius
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Create a parametric cylinder
 - **Description:** Cylinder height
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -32,7 +32,7 @@ Create a parametric cylinder
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -40,7 +40,7 @@ Create a parametric cylinder
 
 
 
-### centerZ
+### Center Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -48,7 +48,7 @@ Create a parametric cylinder
 
 
 
-### axisX
+### Axis X
 - **Type:** number
 - **Default:** 0
 - **Min:** -1
@@ -56,7 +56,7 @@ Create a parametric cylinder
 - **Description:** Axis X component
 
 
-### axisY
+### Axis Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -1
@@ -64,7 +64,7 @@ Create a parametric cylinder
 - **Description:** Axis Y component
 
 
-### axisZ
+### Axis Z
 - **Type:** number
 - **Default:** 1
 - **Min:** -1
@@ -72,7 +72,7 @@ Create a parametric cylinder
 - **Description:** Axis Z component
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 360
 - **Min:** 0
@@ -87,7 +87,7 @@ This node has no inputs.
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Solid
 - **Description:** Generated cylinder
 

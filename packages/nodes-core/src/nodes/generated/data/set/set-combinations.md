@@ -8,7 +8,7 @@ Combinations of set
 ## Parameters
 
 
-### k
+### K
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -19,7 +19,7 @@ Combinations of set
 ## Inputs
 
 
-### set
+### Set
 - **Type:** Data[]
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Combinations of set
 ## Outputs
 
 
-### combinations
+### Combinations
 - **Type:** Data[][]
 
 

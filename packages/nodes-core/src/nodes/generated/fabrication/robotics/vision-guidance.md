@@ -8,7 +8,7 @@ Vision-guided robotics
 ## Parameters
 
 
-### cameraType
+### Camera Type
 - **Type:** enum
 - **Default:** "3d"
 
@@ -16,7 +16,7 @@ Vision-guided robotics
 
 
 
-### patternType
+### Pattern Type
 - **Type:** enum
 - **Default:** "aruco"
 
@@ -27,7 +27,7 @@ Vision-guided robotics
 ## Inputs
 
 
-### targetFeatures
+### Target Features
 - **Type:** Shape[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Vision-guided robotics
 ## Outputs
 
 
-### detectedPoses
+### Detected Poses
 - **Type:** Transform[]
 
 

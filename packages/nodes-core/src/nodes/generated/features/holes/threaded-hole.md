@@ -8,7 +8,7 @@ Creates a threaded (tapped) hole
 ## Parameters
 
 
-### threadSize
+### Thread Size
 - **Type:** enum
 - **Default:** "M6"
 
@@ -16,7 +16,7 @@ Creates a threaded (tapped) hole
 - **Description:** Thread size
 
 
-### pitch
+### Pitch
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.25
@@ -24,7 +24,7 @@ Creates a threaded (tapped) hole
 - **Description:** Thread pitch
 
 
-### depth
+### Depth
 - **Type:** number
 - **Default:** 20
 - **Min:** 1
@@ -32,7 +32,7 @@ Creates a threaded (tapped) hole
 
 
 
-### threadClass
+### Thread Class
 - **Type:** enum
 - **Default:** "6H"
 
@@ -43,13 +43,13 @@ Creates a threaded (tapped) hole
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -58,7 +58,7 @@ Creates a threaded (tapped) hole
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 
 

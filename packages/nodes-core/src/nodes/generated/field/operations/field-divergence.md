@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### field
+### Field
 - **Type:** VectorField
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### divergence
+### Divergence
 - **Type:** ScalarField
 
 

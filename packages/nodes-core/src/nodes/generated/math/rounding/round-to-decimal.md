@@ -8,7 +8,7 @@ Round to decimal places
 ## Parameters
 
 
-### decimals
+### Decimals
 - **Type:** number
 - **Default:** 2
 - **Min:** 0
@@ -19,7 +19,7 @@ Round to decimal places
 ## Inputs
 
 
-### value
+### Value
 - **Type:** number
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Round to decimal places
 ## Outputs
 
 
-### result
+### Result
 - **Type:** number
 
 

@@ -1,56 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BoundingBoxAlignParams {
   alignToOrigin: boolean;
   alignCorner: string;
 }
-interface Inputs {
-  shape: Shape;
+
+interface BoundingBoxAlignInputs {
+  shape: unknown;
 }
-interface Outputs {
-  aligned: Shape;
-  boundingBox: Shape;
+
+interface BoundingBoxAlignOutputs {
+  aligned: unknown;
+  boundingBox: unknown;
 }
 
 export const BoundingBoxAlignNode: NodeDefinition<BoundingBoxAlignInputs, BoundingBoxAlignOutputs, BoundingBoxAlignParams> = {
-  type: 'Transform::BoundingBoxAlign',
+  id: 'Transform::BoundingBoxAlign',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'BoundingBoxAlign',
-    description: 'Align shape to its bounding box',
-    
-    
-  },
-
-  params: {
-        alignToOrigin: {
-      "default": true
-    },
-    alignCorner: {
-      "default": "min",
-      "options": [
-        "min",
-        "center",
-        "max"
-      ]
+  label: 'BoundingBoxAlign',
+  description: 'Align shape to its bounding box',
+  inputs: {
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
     }
   },
-
-  inputs: {
-        shape: 'Shape'
-  },
-
   outputs: {
-        aligned: 'Shape',
-    boundingBox: 'Shape'
+    aligned: {
+      type: 'Shape',
+      label: 'Aligned'
+    },
+    boundingBox: {
+      type: 'Shape',
+      label: 'Bounding Box'
+    }
   },
-
+  params: {
+    alignToOrigin: {
+      type: 'boolean',
+      label: 'Align To Origin',
+      default: true
+    },
+    alignCorner: {
+      type: 'enum',
+      label: 'Align Corner',
+      default: "min",
+      options: ["min","center","max"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'transformBBoxAlign',
       params: {
         shape: inputs.shape,
@@ -58,10 +58,10 @@ export const BoundingBoxAlignNode: NodeDefinition<BoundingBoxAlignInputs, Boundi
         alignCorner: params.alignCorner
       }
     });
-
+    
     return {
-      aligned: result,
-      boundingBox: result
+      aligned: results.aligned,
+      boundingBox: results.boundingBox
     };
-  }
+  },
 };

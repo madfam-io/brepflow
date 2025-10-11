@@ -8,7 +8,7 @@ Create 2D Voronoi diagram
 ## Parameters
 
 
-### boundary
+### Boundary
 - **Type:** enum
 - **Default:** "box"
 
@@ -16,7 +16,7 @@ Create 2D Voronoi diagram
 
 
 
-### clipToBoundary
+### Clip To Boundary
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Create 2D Voronoi diagram
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### plane
+### Plane
 - **Type:** Plane
 - **Required:** No
 
@@ -42,12 +42,12 @@ Create 2D Voronoi diagram
 ## Outputs
 
 
-### cells
+### Cells
 - **Type:** Wire[]
 
 
 
-### edges
+### Edges
 - **Type:** Edge[]
 
 

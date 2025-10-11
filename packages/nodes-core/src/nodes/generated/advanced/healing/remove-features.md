@@ -8,7 +8,7 @@ Remove small features
 ## Parameters
 
 
-### minSize
+### Min Size
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Remove small features
 
 
 
-### removeHoles
+### Remove Holes
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Remove small features
 
 
 
-### removeFillets
+### Remove Fillets
 - **Type:** boolean
 - **Default:** false
 
@@ -32,7 +32,7 @@ Remove small features
 
 
 
-### removeChamfers
+### Remove Chamfers
 - **Type:** boolean
 - **Default:** false
 
@@ -43,7 +43,7 @@ Remove small features
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -52,7 +52,7 @@ Remove small features
 ## Outputs
 
 
-### simplified
+### Simplified
 - **Type:** Shape
 
 

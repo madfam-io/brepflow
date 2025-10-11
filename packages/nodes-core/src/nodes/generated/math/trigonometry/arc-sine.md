@@ -8,7 +8,7 @@ Arc sine function
 ## Parameters
 
 
-### angleUnit
+### Angle Unit
 - **Type:** enum
 - **Default:** "radians"
 
@@ -19,7 +19,7 @@ Arc sine function
 ## Inputs
 
 
-### value
+### Value
 - **Type:** number
 - **Required:** Yes
 
@@ -28,7 +28,7 @@ Arc sine function
 ## Outputs
 
 
-### angle
+### Angle
 - **Type:** number
 
 

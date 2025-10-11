@@ -8,7 +8,7 @@ Measure surface deviation
 ## Parameters
 
 
-### sampleCount
+### Sample Count
 - **Type:** number
 - **Default:** 1000
 - **Min:** 100
@@ -19,13 +19,13 @@ Measure surface deviation
 ## Inputs
 
 
-### surface1
+### Surface1
 - **Type:** Face
 - **Required:** Yes
 
 
 
-### surface2
+### Surface2
 - **Type:** Face
 - **Required:** Yes
 
@@ -34,17 +34,17 @@ Measure surface deviation
 ## Outputs
 
 
-### maxDeviation
+### Max Deviation
 - **Type:** number
 
 
 
-### avgDeviation
+### Avg Deviation
 - **Type:** number
 
 
 
-### deviationMap
+### Deviation Map
 - **Type:** Data
 
 

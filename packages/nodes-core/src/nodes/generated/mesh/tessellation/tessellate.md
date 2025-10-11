@@ -8,7 +8,7 @@ Convert shape to mesh
 ## Parameters
 
 
-### linearDeflection
+### Linear Deflection
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Convert shape to mesh
 - **Description:** Maximum deviation from true surface
 
 
-### angularDeflection
+### Angular Deflection
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.01
@@ -24,7 +24,7 @@ Convert shape to mesh
 - **Description:** Angular deflection in radians
 
 
-### relative
+### Relative
 - **Type:** boolean
 - **Default:** false
 
@@ -32,7 +32,7 @@ Convert shape to mesh
 - **Description:** Use relative deflection
 
 
-### qualityNormals
+### Quality Normals
 - **Type:** boolean
 - **Default:** true
 
@@ -43,7 +43,7 @@ Convert shape to mesh
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Convert shape to mesh
 ## Outputs
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 
 
 
-### triangleCount
+### Triangle Count
 - **Type:** number
 
 
 
-### vertexCount
+### Vertex Count
 - **Type:** number
 
 

@@ -1,61 +1,70 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BlendSurfaceParams {
   continuity: string;
   blendFactor: number;
 }
-interface Inputs {
-  surface1: Face;
-  surface2: Face;
-  edge1?: Edge;
-  edge2?: Edge;
+
+interface BlendSurfaceInputs {
+  surface1: unknown;
+  surface2: unknown;
+  edge1?: unknown;
+  edge2?: unknown;
 }
-interface Outputs {
-  blendSurface: Shape;
+
+interface BlendSurfaceOutputs {
+  blendSurface: unknown;
 }
 
 export const BlendSurfaceNode: NodeDefinition<BlendSurfaceInputs, BlendSurfaceOutputs, BlendSurfaceParams> = {
-  type: 'Advanced::BlendSurface',
+  id: 'Advanced::BlendSurface',
   category: 'Advanced',
-  subcategory: 'Loft',
-
-  metadata: {
-    label: 'BlendSurface',
-    description: 'Blend between surfaces',
-    
-    
-  },
-
-  params: {
-        continuity: {
-      "default": "G1",
-      "options": [
-        "G0",
-        "G1",
-        "G2"
-      ]
+  label: 'BlendSurface',
+  description: 'Blend between surfaces',
+  inputs: {
+    surface1: {
+      type: 'Face',
+      label: 'Surface1',
+      required: true
     },
-    blendFactor: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+    surface2: {
+      type: 'Face',
+      label: 'Surface2',
+      required: true
+    },
+    edge1: {
+      type: 'Edge',
+      label: 'Edge1',
+      optional: true
+    },
+    edge2: {
+      type: 'Edge',
+      label: 'Edge2',
+      optional: true
     }
   },
-
-  inputs: {
-        surface1: 'Face',
-    surface2: 'Face',
-    edge1: 'Edge',
-    edge2: 'Edge'
-  },
-
   outputs: {
-        blendSurface: 'Shape'
+    blendSurface: {
+      type: 'Shape',
+      label: 'Blend Surface'
+    }
   },
-
+  params: {
+    continuity: {
+      type: 'enum',
+      label: 'Continuity',
+      default: "G1",
+      options: ["G0","G1","G2"]
+    },
+    blendFactor: {
+      type: 'number',
+      label: 'Blend Factor',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'blendSurface',
       params: {
@@ -67,9 +76,9 @@ export const BlendSurfaceNode: NodeDefinition<BlendSurfaceInputs, BlendSurfaceOu
         blendFactor: params.blendFactor
       }
     });
-
+    
     return {
       blendSurface: result
     };
-  }
+  },
 };

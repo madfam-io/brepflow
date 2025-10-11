@@ -1,63 +1,72 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DoubleHungWindowParams {
   width: number;
   height: number;
   sashPosition: number;
 }
-interface Inputs {
-  position: Point;
+
+interface DoubleHungWindowInputs {
+  position: [number, number, number];
 }
-interface Outputs {
-  window: Shape;
-  upperSash: Shape;
-  lowerSash: Shape;
+
+interface DoubleHungWindowOutputs {
+  window: unknown;
+  upperSash: unknown;
+  lowerSash: unknown;
 }
 
 export const DoubleHungWindowNode: NodeDefinition<DoubleHungWindowInputs, DoubleHungWindowOutputs, DoubleHungWindowParams> = {
-  type: 'Architecture::DoubleHungWindow',
+  id: 'Architecture::DoubleHungWindow',
   category: 'Architecture',
-  subcategory: 'Windows',
-
-  metadata: {
-    label: 'DoubleHungWindow',
-    description: 'Double hung window',
-    
-    
-  },
-
-  params: {
-        width: {
-      "default": 900,
-      "min": 600,
-      "max": 1500
-    },
-    height: {
-      "default": 1500,
-      "min": 900,
-      "max": 2400
-    },
-    sashPosition: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+  label: 'DoubleHungWindow',
+  description: 'Double hung window',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        position: 'Point'
-  },
-
   outputs: {
-        window: 'Shape',
-    upperSash: 'Shape',
-    lowerSash: 'Shape'
+    window: {
+      type: 'Shape',
+      label: 'Window'
+    },
+    upperSash: {
+      type: 'Shape',
+      label: 'Upper Sash'
+    },
+    lowerSash: {
+      type: 'Shape',
+      label: 'Lower Sash'
+    }
   },
-
+  params: {
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 900,
+      min: 600,
+      max: 1500
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 1500,
+      min: 900,
+      max: 2400
+    },
+    sashPosition: {
+      type: 'number',
+      label: 'Sash Position',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'doubleHungWindow',
       params: {
         position: inputs.position,
@@ -66,11 +75,11 @@ export const DoubleHungWindowNode: NodeDefinition<DoubleHungWindowInputs, Double
         sashPosition: params.sashPosition
       }
     });
-
+    
     return {
-      window: result,
-      upperSash: result,
-      lowerSash: result
+      window: results.window,
+      upperSash: results.upperSash,
+      lowerSash: results.lowerSash
     };
-  }
+  },
 };

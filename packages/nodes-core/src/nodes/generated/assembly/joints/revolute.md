@@ -8,7 +8,7 @@ Create revolute (hinge) joint
 ## Parameters
 
 
-### minAngle
+### Min Angle
 - **Type:** number
 - **Default:** -180
 - **Min:** -360
@@ -16,7 +16,7 @@ Create revolute (hinge) joint
 
 
 
-### maxAngle
+### Max Angle
 - **Type:** number
 - **Default:** 180
 - **Min:** -360
@@ -27,19 +27,19 @@ Create revolute (hinge) joint
 ## Inputs
 
 
-### part1
+### Part1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### part2
+### Part2
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### axis
+### Axis
 - **Type:** Axis
 - **Required:** Yes
 
@@ -48,7 +48,7 @@ Create revolute (hinge) joint
 ## Outputs
 
 
-### joint
+### Joint
 - **Type:** Joint
 
 

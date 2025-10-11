@@ -8,7 +8,7 @@ Winder staircase
 ## Parameters
 
 
-### winderCount
+### Winder Count
 - **Type:** number
 - **Default:** 3
 - **Min:** 2
@@ -16,7 +16,7 @@ Winder staircase
 
 
 
-### turnAngle
+### Turn Angle
 - **Type:** number
 - **Default:** 90
 - **Min:** 45
@@ -27,7 +27,7 @@ Winder staircase
 ## Inputs
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Winder staircase
 ## Outputs
 
 
-### winderStair
+### Winder Stair
 - **Type:** Shape
 
 

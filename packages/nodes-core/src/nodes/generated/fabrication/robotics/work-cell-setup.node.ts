@@ -1,49 +1,52 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WorkCellSetupParams {
   robotCount: number;
 }
-interface Inputs {
-  cellBoundary: Box;
-  fixtures?: Shape[];
+
+interface WorkCellSetupInputs {
+  cellBoundary: unknown;
+  fixtures?: unknown;
 }
-interface Outputs {
-  workCell: Data;
+
+interface WorkCellSetupOutputs {
+  workCell: unknown;
 }
 
 export const WorkCellSetupNode: NodeDefinition<WorkCellSetupInputs, WorkCellSetupOutputs, WorkCellSetupParams> = {
-  type: 'Fabrication::WorkCellSetup',
+  id: 'Fabrication::WorkCellSetup',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'WorkCellSetup',
-    description: 'Setup robotic work cell',
-    
-    
-  },
-
-  params: {
-        robotCount: {
-      "default": 1,
-      "min": 1,
-      "max": 4,
-      "step": 1
+  label: 'WorkCellSetup',
+  description: 'Setup robotic work cell',
+  inputs: {
+    cellBoundary: {
+      type: 'Box',
+      label: 'Cell Boundary',
+      required: true
+    },
+    fixtures: {
+      type: 'Shape[]',
+      label: 'Fixtures',
+      optional: true
     }
   },
-
-  inputs: {
-        cellBoundary: 'Box',
-    fixtures: 'Shape[]'
-  },
-
   outputs: {
-        workCell: 'Data'
+    workCell: {
+      type: 'Data',
+      label: 'Work Cell'
+    }
   },
-
+  params: {
+    robotCount: {
+      type: 'number',
+      label: 'Robot Count',
+      default: 1,
+      min: 1,
+      max: 4,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'workCellSetup',
       params: {
@@ -52,9 +55,9 @@ export const WorkCellSetupNode: NodeDefinition<WorkCellSetupInputs, WorkCellSetu
         robotCount: params.robotCount
       }
     });
-
+    
     return {
       workCell: result
     };
-  }
+  },
 };

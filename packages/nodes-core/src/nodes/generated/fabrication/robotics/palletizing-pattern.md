@@ -8,7 +8,7 @@ Palletizing patterns
 ## Parameters
 
 
-### pattern
+### Pattern
 - **Type:** enum
 - **Default:** "interlocked"
 
@@ -16,7 +16,7 @@ Palletizing patterns
 
 
 
-### layersCount
+### Layers Count
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -27,13 +27,13 @@ Palletizing patterns
 ## Inputs
 
 
-### boxSize
+### Box Size
 - **Type:** Vector
 - **Required:** Yes
 
 
 
-### palletSize
+### Pallet Size
 - **Type:** Vector
 - **Required:** Yes
 
@@ -42,7 +42,7 @@ Palletizing patterns
 ## Outputs
 
 
-### placementPoints
+### Placement Points
 - **Type:** Transform[]
 
 

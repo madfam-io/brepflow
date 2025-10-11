@@ -8,7 +8,7 @@ Add stress relief features
 ## Parameters
 
 
-### analysisType
+### Analysis Type
 - **Type:** enum
 - **Default:** "geometric"
 
@@ -16,7 +16,7 @@ Add stress relief features
 
 
 
-### reliefRadius
+### Relief Radius
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -27,13 +27,13 @@ Add stress relief features
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### stressData
+### Stress Data
 - **Type:** Data
 - **Required:** No
 
@@ -42,7 +42,7 @@ Add stress relief features
 ## Outputs
 
 
-### relieved
+### Relieved
 - **Type:** Shape
 
 

@@ -1,62 +1,60 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LivingHingeParams {
   pattern: string;
   spacing: number;
   cutLength: number;
 }
-interface Inputs {
-  hingeArea: Face;
+
+interface LivingHingeInputs {
+  hingeArea: unknown;
 }
-interface Outputs {
-  hingePattern: Wire[];
+
+interface LivingHingeOutputs {
+  hingePattern: unknown;
 }
 
 export const LivingHingeNode: NodeDefinition<LivingHingeInputs, LivingHingeOutputs, LivingHingeParams> = {
-  type: 'Fabrication::LivingHinge',
+  id: 'Fabrication::LivingHinge',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'LivingHinge',
-    description: 'Generate living hinge pattern',
-    
-    
-  },
-
-  params: {
-        pattern: {
-      "default": "straight",
-      "options": [
-        "straight",
-        "wave",
-        "diamond",
-        "honeycomb"
-      ]
-    },
-    spacing: {
-      "default": 2,
-      "min": 0.5,
-      "max": 10
-    },
-    cutLength: {
-      "default": 10,
-      "min": 1,
-      "max": 50
+  label: 'LivingHinge',
+  description: 'Generate living hinge pattern',
+  inputs: {
+    hingeArea: {
+      type: 'Face',
+      label: 'Hinge Area',
+      required: true
     }
   },
-
-  inputs: {
-        hingeArea: 'Face'
-  },
-
   outputs: {
-        hingePattern: 'Wire[]'
+    hingePattern: {
+      type: 'Wire[]',
+      label: 'Hinge Pattern'
+    }
   },
-
+  params: {
+    pattern: {
+      type: 'enum',
+      label: 'Pattern',
+      default: "straight",
+      options: ["straight","wave","diamond","honeycomb"]
+    },
+    spacing: {
+      type: 'number',
+      label: 'Spacing',
+      default: 2,
+      min: 0.5,
+      max: 10
+    },
+    cutLength: {
+      type: 'number',
+      label: 'Cut Length',
+      default: 10,
+      min: 1,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'livingHinge',
       params: {
@@ -66,9 +64,9 @@ export const LivingHingeNode: NodeDefinition<LivingHingeInputs, LivingHingeOutpu
         cutLength: params.cutLength
       }
     });
-
+    
     return {
       hingePattern: result
     };
-  }
+  },
 };

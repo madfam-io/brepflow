@@ -8,7 +8,7 @@ Add micro-joints
 ## Parameters
 
 
-### jointWidth
+### Joint Width
 - **Type:** number
 - **Default:** 0.2
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Add micro-joints
 
 
 
-### jointSpacing
+### Joint Spacing
 - **Type:** number
 - **Default:** 30
 - **Min:** 10
@@ -27,7 +27,7 @@ Add micro-joints
 ## Inputs
 
 
-### cutPath
+### Cut Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Add micro-joints
 ## Outputs
 
 
-### jointedPath
+### Jointed Path
 - **Type:** Wire[]
 
 

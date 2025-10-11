@@ -1,67 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface InternalGearParams {
   module: number;
   teeth: number;
   rimThickness: number;
   width: number;
 }
-interface Inputs {
-  center: Point;
+
+interface InternalGearInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  gear: Shape;
-  innerProfile: Wire;
+
+interface InternalGearOutputs {
+  gear: unknown;
+  innerProfile: unknown;
 }
 
 export const InternalGearNode: NodeDefinition<InternalGearInputs, InternalGearOutputs, InternalGearParams> = {
-  type: 'MechanicalEngineering::InternalGear',
+  id: 'MechanicalEngineering::InternalGear',
   category: 'MechanicalEngineering',
-  subcategory: 'Gears',
-
-  metadata: {
-    label: 'InternalGear',
-    description: 'Create internal/ring gear',
-    
-    
-  },
-
-  params: {
-        module: {
-      "default": 2,
-      "min": 0.5,
-      "max": 10
-    },
-    teeth: {
-      "default": 60,
-      "min": 30,
-      "max": 200
-    },
-    rimThickness: {
-      "default": 10,
-      "min": 5,
-      "max": 30
-    },
-    width: {
-      "default": 20,
-      "min": 5,
-      "max": 50
+  label: 'InternalGear',
+  description: 'Create internal/ring gear',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        gear: 'Shape',
-    innerProfile: 'Wire'
+    gear: {
+      type: 'Shape',
+      label: 'Gear'
+    },
+    innerProfile: {
+      type: 'Wire',
+      label: 'Inner Profile'
+    }
   },
-
+  params: {
+    module: {
+      type: 'number',
+      label: 'Module',
+      default: 2,
+      min: 0.5,
+      max: 10
+    },
+    teeth: {
+      type: 'number',
+      label: 'Teeth',
+      default: 60,
+      min: 30,
+      max: 200
+    },
+    rimThickness: {
+      type: 'number',
+      label: 'Rim Thickness',
+      default: 10,
+      min: 5,
+      max: 30
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 20,
+      min: 5,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'internalGear',
       params: {
         center: inputs.center,
@@ -71,10 +79,10 @@ export const InternalGearNode: NodeDefinition<InternalGearInputs, InternalGearOu
         width: params.width
       }
     });
-
+    
     return {
-      gear: result,
-      innerProfile: result
+      gear: results.gear,
+      innerProfile: results.innerProfile
     };
-  }
+  },
 };

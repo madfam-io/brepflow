@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type CompoundParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  shapes: Shape[];
+interface CompoundInputs {
+  shapes: unknown;
 }
-interface Outputs {
-  compound: Compound;
+
+interface CompoundOutputs {
+  compound: unknown;
 }
 
 export const CompoundNode: NodeDefinition<CompoundInputs, CompoundOutputs, CompoundParams> = {
-  type: 'Boolean::Compound',
+  id: 'Boolean::Compound',
   category: 'Boolean',
-  
-
-  metadata: {
-    label: 'Compound',
-    description: 'Create a compound from multiple shapes',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Compound',
+  description: 'Create a compound from multiple shapes',
   inputs: {
-        shapes: 'Shape[]'
+    shapes: {
+      type: 'Shape[]',
+      label: 'Shapes',
+      required: true
+    }
   },
-
   outputs: {
-        compound: 'Compound'
+    compound: {
+      type: 'Compound',
+      label: 'Compound'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeCompound',
       params: {
         shapes: inputs.shapes
-        
       }
     });
-
+    
     return {
       compound: result
     };
-  }
+  },
 };

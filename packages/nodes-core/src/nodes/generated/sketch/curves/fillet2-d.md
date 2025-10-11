@@ -8,7 +8,7 @@ Fillet corners of a 2D shape
 ## Parameters
 
 
-### radius
+### Radius
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Fillet corners of a 2D shape
 
 
 
-### allCorners
+### All Corners
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Fillet corners of a 2D shape
 ## Inputs
 
 
-### wire
+### Wire
 - **Type:** Wire
 - **Required:** Yes
 - **Description:** Wire to fillet
 
 
-### vertices
+### Vertices
 - **Type:** Vertex[]
 - **Required:** No
 - **Description:** Specific vertices to fillet
@@ -42,7 +42,7 @@ Fillet corners of a 2D shape
 ## Outputs
 
 
-### filleted
+### Filleted
 - **Type:** Wire
 - **Description:** Filleted wire
 

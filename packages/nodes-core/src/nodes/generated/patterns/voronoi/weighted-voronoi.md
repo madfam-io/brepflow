@@ -8,7 +8,7 @@ Weighted Voronoi diagram
 ## Parameters
 
 
-### powerExponent
+### Power Exponent
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -19,13 +19,13 @@ Weighted Voronoi diagram
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### weights
+### Weights
 - **Type:** number[]
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Weighted Voronoi diagram
 ## Outputs
 
 
-### cells
+### Cells
 - **Type:** Wire[]
 
 

@@ -8,7 +8,7 @@ Send email notifications
 ## Parameters
 
 
-### smtpServer
+### Smtp Server
 - **Type:** string
 - **Default:** ""
 
@@ -16,7 +16,7 @@ Send email notifications
 - **Description:** SMTP server address
 
 
-### port
+### Port
 - **Type:** number
 - **Default:** 587
 - **Min:** 1
@@ -24,7 +24,7 @@ Send email notifications
 
 
 
-### username
+### Username
 - **Type:** string
 - **Default:** ""
 
@@ -32,7 +32,7 @@ Send email notifications
 
 
 
-### password
+### Password
 - **Type:** string
 - **Default:** ""
 
@@ -43,25 +43,25 @@ Send email notifications
 ## Inputs
 
 
-### to
+### To
 - **Type:** string
 - **Required:** Yes
 
 
 
-### subject
+### Subject
 - **Type:** string
 - **Required:** Yes
 
 
 
-### body
+### Body
 - **Type:** string
 - **Required:** Yes
 
 
 
-### attachments
+### Attachments
 - **Type:** string[]
 - **Required:** No
 
@@ -70,12 +70,12 @@ Send email notifications
 ## Outputs
 
 
-### sent
+### Sent
 - **Type:** boolean
 
 
 
-### messageId
+### Message Id
 - **Type:** string
 
 

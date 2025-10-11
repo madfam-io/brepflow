@@ -1,69 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SphericalBearingParams {
   ballDiameter: number;
   boreDiameter: number;
   housingDiameter: number;
   misalignmentAngle: number;
 }
-interface Inputs {
-  center: Point;
+
+interface SphericalBearingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  bearing: Shape;
-  ball: Shape;
-  housing: Shape;
+
+interface SphericalBearingOutputs {
+  bearing: unknown;
+  ball: unknown;
+  housing: unknown;
 }
 
 export const SphericalBearingNode: NodeDefinition<SphericalBearingInputs, SphericalBearingOutputs, SphericalBearingParams> = {
-  type: 'MechanicalEngineering::SphericalBearing',
+  id: 'MechanicalEngineering::SphericalBearing',
   category: 'MechanicalEngineering',
-  subcategory: 'Bearings',
-
-  metadata: {
-    label: 'SphericalBearing',
-    description: 'Create spherical bearing for misalignment',
-    
-    
-  },
-
-  params: {
-        ballDiameter: {
-      "default": 20,
-      "min": 5,
-      "max": 100
-    },
-    boreDiameter: {
-      "default": 8,
-      "min": 3,
-      "max": 50
-    },
-    housingDiameter: {
-      "default": 30,
-      "min": 10,
-      "max": 150
-    },
-    misalignmentAngle: {
-      "default": 15,
-      "min": 5,
-      "max": 30
+  label: 'SphericalBearing',
+  description: 'Create spherical bearing for misalignment',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        bearing: 'Shape',
-    ball: 'Shape',
-    housing: 'Shape'
+    bearing: {
+      type: 'Shape',
+      label: 'Bearing'
+    },
+    ball: {
+      type: 'Shape',
+      label: 'Ball'
+    },
+    housing: {
+      type: 'Shape',
+      label: 'Housing'
+    }
   },
-
+  params: {
+    ballDiameter: {
+      type: 'number',
+      label: 'Ball Diameter',
+      default: 20,
+      min: 5,
+      max: 100
+    },
+    boreDiameter: {
+      type: 'number',
+      label: 'Bore Diameter',
+      default: 8,
+      min: 3,
+      max: 50
+    },
+    housingDiameter: {
+      type: 'number',
+      label: 'Housing Diameter',
+      default: 30,
+      min: 10,
+      max: 150
+    },
+    misalignmentAngle: {
+      type: 'number',
+      label: 'Misalignment Angle',
+      default: 15,
+      min: 5,
+      max: 30
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'sphericalBearing',
       params: {
         center: inputs.center,
@@ -73,11 +84,11 @@ export const SphericalBearingNode: NodeDefinition<SphericalBearingInputs, Spheri
         misalignmentAngle: params.misalignmentAngle
       }
     });
-
+    
     return {
-      bearing: result,
-      ball: result,
-      housing: result
+      bearing: results.bearing,
+      ball: results.ball,
+      housing: results.housing
     };
-  }
+  },
 };

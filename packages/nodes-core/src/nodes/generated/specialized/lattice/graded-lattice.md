@@ -8,7 +8,7 @@ Density-graded lattice
 ## Parameters
 
 
-### minDensity
+### Min Density
 - **Type:** number
 - **Default:** 0.2
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Density-graded lattice
 
 
 
-### maxDensity
+### Max Density
 - **Type:** number
 - **Default:** 0.8
 - **Min:** 0.2
@@ -24,7 +24,7 @@ Density-graded lattice
 
 
 
-### gradientType
+### Gradient Type
 - **Type:** enum
 - **Default:** "linear"
 
@@ -35,13 +35,13 @@ Density-graded lattice
 ## Inputs
 
 
-### boundingShape
+### Bounding Shape
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### densityField
+### Density Field
 - **Type:** Data
 - **Required:** No
 
@@ -50,7 +50,7 @@ Density-graded lattice
 ## Outputs
 
 
-### gradedLattice
+### Graded Lattice
 - **Type:** Shape
 
 

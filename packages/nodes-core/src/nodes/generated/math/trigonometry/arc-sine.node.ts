@@ -1,48 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ArcSineParams {
   angleUnit: string;
 }
-interface Inputs {
-  value: number;
+
+interface ArcSineInputs {
+  value: unknown;
 }
-interface Outputs {
-  angle: number;
+
+interface ArcSineOutputs {
+  angle: unknown;
 }
 
 export const ArcSineNode: NodeDefinition<ArcSineInputs, ArcSineOutputs, ArcSineParams> = {
-  type: 'Math::ArcSine',
+  id: 'Math::ArcSine',
   category: 'Math',
-  subcategory: 'Trigonometry',
-
-  metadata: {
-    label: 'ArcSine',
-    description: 'Arc sine function',
-    
-    
-  },
-
-  params: {
-        angleUnit: {
-      "default": "radians",
-      "options": [
-        "radians",
-        "degrees"
-      ]
+  label: 'ArcSine',
+  description: 'Arc sine function',
+  inputs: {
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
     }
   },
-
-  inputs: {
-        value: 'number'
-  },
-
   outputs: {
-        angle: 'number'
+    angle: {
+      type: 'number',
+      label: 'Angle'
+    }
   },
-
+  params: {
+    angleUnit: {
+      type: 'enum',
+      label: 'Angle Unit',
+      default: "radians",
+      options: ["radians","degrees"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathAsin',
       params: {
@@ -50,9 +46,9 @@ export const ArcSineNode: NodeDefinition<ArcSineInputs, ArcSineOutputs, ArcSineP
         angleUnit: params.angleUnit
       }
     });
-
+    
     return {
       angle: result
     };
-  }
+  },
 };

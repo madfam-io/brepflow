@@ -8,7 +8,7 @@ Blend fields
 ## Parameters
 
 
-### mode
+### Mode
 - **Type:** enum
 - **Default:** "linear"
 
@@ -19,19 +19,19 @@ Blend fields
 ## Inputs
 
 
-### fieldA
+### Field A
 - **Type:** ScalarField
 - **Required:** Yes
 
 
 
-### fieldB
+### Field B
 - **Type:** ScalarField
 - **Required:** Yes
 
 
 
-### factor
+### Factor
 - **Type:** number
 - **Required:** Yes
 
@@ -40,7 +40,7 @@ Blend fields
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

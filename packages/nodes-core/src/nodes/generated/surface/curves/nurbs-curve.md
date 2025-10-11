@@ -8,7 +8,7 @@ Create NURBS curve
 ## Parameters
 
 
-### degree
+### Degree
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Create NURBS curve
 
 
 
-### periodic
+### Periodic
 - **Type:** boolean
 - **Default:** false
 
@@ -27,19 +27,19 @@ Create NURBS curve
 ## Inputs
 
 
-### controlPoints
+### Control Points
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### weights
+### Weights
 - **Type:** number[]
 - **Required:** No
 
 
 
-### knots
+### Knots
 - **Type:** number[]
 - **Required:** No
 
@@ -48,7 +48,7 @@ Create NURBS curve
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 
 

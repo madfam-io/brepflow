@@ -1,52 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VectorFieldParams {
   expressionX: string;
   expressionY: string;
   expressionZ: string;
 }
-interface Inputs {
-  domain: Box;
+
+interface VectorFieldInputs {
+  domain: unknown;
 }
-interface Outputs {
-  field: VectorField;
+
+interface VectorFieldOutputs {
+  field: unknown;
 }
 
 export const VectorFieldNode: NodeDefinition<VectorFieldInputs, VectorFieldOutputs, VectorFieldParams> = {
-  type: 'Field::VectorField',
+  id: 'Field::VectorField',
   category: 'Field',
-  subcategory: 'Generate',
-
-  metadata: {
-    label: 'VectorField',
-    description: 'Vector field from expression',
-    
-    
-  },
-
-  params: {
-        expressionX: {
-      "default": "y"
-    },
-    expressionY: {
-      "default": "-x"
-    },
-    expressionZ: {
-      "default": "0"
+  label: 'VectorField',
+  description: 'Vector field from expression',
+  inputs: {
+    domain: {
+      type: 'Box',
+      label: 'Domain',
+      required: true
     }
   },
-
-  inputs: {
-        domain: 'Box'
-  },
-
   outputs: {
-        field: 'VectorField'
+    field: {
+      type: 'VectorField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    expressionX: {
+      type: 'string',
+      label: 'Expression X',
+      default: "y"
+    },
+    expressionY: {
+      type: 'string',
+      label: 'Expression Y',
+      default: "-x"
+    },
+    expressionZ: {
+      type: 'string',
+      label: 'Expression Z',
+      default: "0"
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldVector',
       params: {
@@ -56,9 +59,9 @@ export const VectorFieldNode: NodeDefinition<VectorFieldInputs, VectorFieldOutpu
         expressionZ: params.expressionZ
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

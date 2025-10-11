@@ -8,7 +8,7 @@ Configure end effector
 ## Parameters
 
 
-### toolType
+### Tool Type
 - **Type:** enum
 - **Default:** "gripper"
 
@@ -16,7 +16,7 @@ Configure end effector
 
 
 
-### tcpOffset
+### Tcp Offset
 - **Type:** vector3
 - **Default:** "[0, 0, 100]"
 
@@ -27,7 +27,7 @@ Configure end effector
 ## Inputs
 
 
-### toolGeometry
+### Tool Geometry
 - **Type:** Shape
 - **Required:** No
 
@@ -36,7 +36,7 @@ Configure end effector
 ## Outputs
 
 
-### toolConfiguration
+### Tool Configuration
 - **Type:** Data
 
 

@@ -1,62 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceFromPointsParams {
   degreeU: number;
   degreeV: number;
   smoothness: number;
 }
-interface Inputs {
-  points: Point[];
-  uCount: number;
-  vCount: number;
+
+interface SurfaceFromPointsInputs {
+  points: Array<[number, number, number]>;
+  uCount: unknown;
+  vCount: unknown;
 }
-interface Outputs {
-  surface: Face;
+
+interface SurfaceFromPointsOutputs {
+  surface: unknown;
 }
 
 export const SurfaceFromPointsNode: NodeDefinition<SurfaceFromPointsInputs, SurfaceFromPointsOutputs, SurfaceFromPointsParams> = {
-  type: 'Surface::SurfaceFromPoints',
+  id: 'Surface::SurfaceFromPoints',
   category: 'Surface',
-  subcategory: 'NURBS',
-
-  metadata: {
-    label: 'SurfaceFromPoints',
-    description: 'Fit surface through points',
-    
-    
-  },
-
-  params: {
-        degreeU: {
-      "default": 3,
-      "min": 1,
-      "max": 10
+  label: 'SurfaceFromPoints',
+  description: 'Fit surface through points',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     },
-    degreeV: {
-      "default": 3,
-      "min": 1,
-      "max": 10
+    uCount: {
+      type: 'number',
+      label: 'U Count',
+      required: true
     },
-    smoothness: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+    vCount: {
+      type: 'number',
+      label: 'V Count',
+      required: true
     }
   },
-
-  inputs: {
-        points: 'Point[]',
-    uCount: 'number',
-    vCount: 'number'
-  },
-
   outputs: {
-        surface: 'Face'
+    surface: {
+      type: 'Face',
+      label: 'Surface'
+    }
   },
-
+  params: {
+    degreeU: {
+      type: 'number',
+      label: 'Degree U',
+      default: 3,
+      min: 1,
+      max: 10
+    },
+    degreeV: {
+      type: 'number',
+      label: 'Degree V',
+      default: 3,
+      min: 1,
+      max: 10
+    },
+    smoothness: {
+      type: 'number',
+      label: 'Smoothness',
+      default: 0.5,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'surfaceFromPoints',
       params: {
@@ -68,9 +79,9 @@ export const SurfaceFromPointsNode: NodeDefinition<SurfaceFromPointsInputs, Surf
         smoothness: params.smoothness
       }
     });
-
+    
     return {
       surface: result
     };
-  }
+  },
 };

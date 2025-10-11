@@ -1,69 +1,80 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface OldhamCouplingParams {
   hubDiameter: number;
   discDiameter: number;
   slotWidth: number;
   totalLength: number;
 }
-interface Inputs {
-  center: Point;
+
+interface OldhamCouplingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  assembly: Shape;
-  hubs: Shape[];
-  disc: Shape;
+
+interface OldhamCouplingOutputs {
+  assembly: unknown;
+  hubs: unknown;
+  disc: unknown;
 }
 
 export const OldhamCouplingNode: NodeDefinition<OldhamCouplingInputs, OldhamCouplingOutputs, OldhamCouplingParams> = {
-  type: 'MechanicalEngineering::OldhamCoupling',
+  id: 'MechanicalEngineering::OldhamCoupling',
   category: 'MechanicalEngineering',
-  subcategory: 'Couplings',
-
-  metadata: {
-    label: 'OldhamCoupling',
-    description: 'Create Oldham coupling',
-    
-    
-  },
-
-  params: {
-        hubDiameter: {
-      "default": 40,
-      "min": 20,
-      "max": 100
-    },
-    discDiameter: {
-      "default": 35,
-      "min": 15,
-      "max": 90
-    },
-    slotWidth: {
-      "default": 8,
-      "min": 3,
-      "max": 20
-    },
-    totalLength: {
-      "default": 40,
-      "min": 20,
-      "max": 100
+  label: 'OldhamCoupling',
+  description: 'Create Oldham coupling',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        assembly: 'Shape',
-    hubs: 'Shape[]',
-    disc: 'Shape'
+    assembly: {
+      type: 'Shape',
+      label: 'Assembly'
+    },
+    hubs: {
+      type: 'Shape[]',
+      label: 'Hubs'
+    },
+    disc: {
+      type: 'Shape',
+      label: 'Disc'
+    }
   },
-
+  params: {
+    hubDiameter: {
+      type: 'number',
+      label: 'Hub Diameter',
+      default: 40,
+      min: 20,
+      max: 100
+    },
+    discDiameter: {
+      type: 'number',
+      label: 'Disc Diameter',
+      default: 35,
+      min: 15,
+      max: 90
+    },
+    slotWidth: {
+      type: 'number',
+      label: 'Slot Width',
+      default: 8,
+      min: 3,
+      max: 20
+    },
+    totalLength: {
+      type: 'number',
+      label: 'Total Length',
+      default: 40,
+      min: 20,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'oldhamCoupling',
       params: {
         center: inputs.center,
@@ -73,11 +84,11 @@ export const OldhamCouplingNode: NodeDefinition<OldhamCouplingInputs, OldhamCoup
         totalLength: params.totalLength
       }
     });
-
+    
     return {
-      assembly: result,
-      hubs: result,
-      disc: result
+      assembly: results.assembly,
+      hubs: results.hubs,
+      disc: results.disc
     };
-  }
+  },
 };

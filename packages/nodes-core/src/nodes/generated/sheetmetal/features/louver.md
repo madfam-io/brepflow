@@ -8,7 +8,7 @@ Create louver ventilation
 ## Parameters
 
 
-### louverLength
+### Louver Length
 - **Type:** number
 - **Default:** 30
 - **Min:** 1
@@ -16,7 +16,7 @@ Create louver ventilation
 
 
 
-### louverWidth
+### Louver Width
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.5
@@ -24,7 +24,7 @@ Create louver ventilation
 
 
 
-### louverHeight
+### Louver Height
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.5
@@ -32,7 +32,7 @@ Create louver ventilation
 
 
 
-### louverAngle
+### Louver Angle
 - **Type:** number
 - **Default:** 45
 - **Min:** 0
@@ -43,19 +43,19 @@ Create louver ventilation
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### direction
+### Direction
 - **Type:** Vector
 - **Required:** Yes
 
@@ -64,7 +64,7 @@ Create louver ventilation
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

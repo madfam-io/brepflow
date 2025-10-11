@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type Exp10Params = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface Exp10Inputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface Exp10Outputs {
+  result: unknown;
 }
 
 export const Exp10Node: NodeDefinition<Exp10Inputs, Exp10Outputs, Exp10Params> = {
-  type: 'Math::Exp10',
+  id: 'Math::Exp10',
   category: 'Math',
-  subcategory: 'Logarithmic',
-
-  metadata: {
-    label: 'Exp10',
-    description: '10 raised to power',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Exp10',
+  description: '10 raised to power',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathExp10',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

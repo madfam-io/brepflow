@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type TruncateParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface TruncateInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface TruncateOutputs {
+  result: unknown;
 }
 
 export const TruncateNode: NodeDefinition<TruncateInputs, TruncateOutputs, TruncateParams> = {
-  type: 'Math::Truncate',
+  id: 'Math::Truncate',
   category: 'Math',
-  subcategory: 'Rounding',
-
-  metadata: {
-    label: 'Truncate',
-    description: 'Remove decimal part',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Truncate',
+  description: 'Remove decimal part',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathTrunc',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

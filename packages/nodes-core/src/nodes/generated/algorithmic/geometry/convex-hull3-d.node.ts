@@ -1,57 +1,67 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ConvexHull3DParams {
   tolerance: number;
   includeInterior: boolean;
 }
-interface Inputs {
-  points: Point[];
+
+interface ConvexHull3DInputs {
+  points: Array<[number, number, number]>;
 }
-interface Outputs {
-  hull: Shape;
-  vertices: Point[];
-  faces: Face[];
-  volume: number;
+
+interface ConvexHull3DOutputs {
+  hull: unknown;
+  vertices: Array<[number, number, number]>;
+  faces: unknown;
+  volume: unknown;
 }
 
 export const ConvexHull3DNode: NodeDefinition<ConvexHull3DInputs, ConvexHull3DOutputs, ConvexHull3DParams> = {
-  type: 'Algorithmic::ConvexHull3D',
+  id: 'Algorithmic::ConvexHull3D',
   category: 'Algorithmic',
-  subcategory: 'Geometry',
-
-  metadata: {
-    label: 'ConvexHull3D',
-    description: 'Compute 3D convex hull',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
-    },
-    includeInterior: {
-      "default": false
+  label: 'ConvexHull3D',
+  description: 'Compute 3D convex hull',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     }
   },
-
-  inputs: {
-        points: 'Point[]'
-  },
-
   outputs: {
-        hull: 'Shape',
-    vertices: 'Point[]',
-    faces: 'Face[]',
-    volume: 'number'
+    hull: {
+      type: 'Shape',
+      label: 'Hull'
+    },
+    vertices: {
+      type: 'Point[]',
+      label: 'Vertices'
+    },
+    faces: {
+      type: 'Face[]',
+      label: 'Faces'
+    },
+    volume: {
+      type: 'number',
+      label: 'Volume'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    includeInterior: {
+      type: 'boolean',
+      label: 'Include Interior',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'convexHull3D',
       params: {
         points: inputs.points,
@@ -59,12 +69,12 @@ export const ConvexHull3DNode: NodeDefinition<ConvexHull3DInputs, ConvexHull3DOu
         includeInterior: params.includeInterior
       }
     });
-
+    
     return {
-      hull: result,
-      vertices: result,
-      faces: result,
-      volume: result
+      hull: results.hull,
+      vertices: results.vertices,
+      faces: results.faces,
+      volume: results.volume
     };
-  }
+  },
 };

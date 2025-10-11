@@ -1,60 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CompositeFloorParams {
   deckType: string;
   concreteThickness: number;
 }
-interface Inputs {
-  floorOutline: Wire;
-  beams: Wire[];
+
+interface CompositeFloorInputs {
+  floorOutline: unknown;
+  beams: unknown;
 }
-interface Outputs {
-  compositeFloor: Shape;
-  deck: Shape;
+
+interface CompositeFloorOutputs {
+  compositeFloor: unknown;
+  deck: unknown;
 }
 
 export const CompositeFloorNode: NodeDefinition<CompositeFloorInputs, CompositeFloorOutputs, CompositeFloorParams> = {
-  type: 'Architecture::CompositeFloor',
+  id: 'Architecture::CompositeFloor',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'CompositeFloor',
-    description: 'Steel deck composite floor',
-    
-    
-  },
-
-  params: {
-        deckType: {
-      "default": "3-inch",
-      "options": [
-        "2-inch",
-        "3-inch",
-        "cellular"
-      ]
+  label: 'CompositeFloor',
+  description: 'Steel deck composite floor',
+  inputs: {
+    floorOutline: {
+      type: 'Wire',
+      label: 'Floor Outline',
+      required: true
     },
-    concreteThickness: {
-      "default": 100,
-      "min": 75,
-      "max": 200
+    beams: {
+      type: 'Wire[]',
+      label: 'Beams',
+      required: true
     }
   },
-
-  inputs: {
-        floorOutline: 'Wire',
-    beams: 'Wire[]'
-  },
-
   outputs: {
-        compositeFloor: 'Shape',
-    deck: 'Shape'
+    compositeFloor: {
+      type: 'Shape',
+      label: 'Composite Floor'
+    },
+    deck: {
+      type: 'Shape',
+      label: 'Deck'
+    }
   },
-
+  params: {
+    deckType: {
+      type: 'enum',
+      label: 'Deck Type',
+      default: "3-inch",
+      options: ["2-inch","3-inch","cellular"]
+    },
+    concreteThickness: {
+      type: 'number',
+      label: 'Concrete Thickness',
+      default: 100,
+      min: 75,
+      max: 200
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'compositeFloor',
       params: {
         floorOutline: inputs.floorOutline,
@@ -63,10 +67,10 @@ export const CompositeFloorNode: NodeDefinition<CompositeFloorInputs, CompositeF
         concreteThickness: params.concreteThickness
       }
     });
-
+    
     return {
-      compositeFloor: result,
-      deck: result
+      compositeFloor: results.compositeFloor,
+      deck: results.deck
     };
-  }
+  },
 };

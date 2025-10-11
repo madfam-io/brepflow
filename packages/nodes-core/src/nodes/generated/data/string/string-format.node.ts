@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type StringFormatParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  template: string;
-  values: Data[];
+interface StringFormatInputs {
+  template: unknown;
+  values: unknown;
 }
-interface Outputs {
-  formatted: string;
+
+interface StringFormatOutputs {
+  formatted: unknown;
 }
 
 export const StringFormatNode: NodeDefinition<StringFormatInputs, StringFormatOutputs, StringFormatParams> = {
-  type: 'Data::StringFormat',
+  id: 'Data::StringFormat',
   category: 'Data',
-  subcategory: 'String',
-
-  metadata: {
-    label: 'StringFormat',
-    description: 'Format string',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'StringFormat',
+  description: 'Format string',
   inputs: {
-        template: 'string',
-    values: 'Data[]'
+    template: {
+      type: 'string',
+      label: 'Template',
+      required: true
+    },
+    values: {
+      type: 'Data[]',
+      label: 'Values',
+      required: true
+    }
   },
-
   outputs: {
-        formatted: 'string'
+    formatted: {
+      type: 'string',
+      label: 'Formatted'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stringFormat',
       params: {
         template: inputs.template,
         values: inputs.values
-        
       }
     });
-
+    
     return {
       formatted: result
     };
-  }
+  },
 };

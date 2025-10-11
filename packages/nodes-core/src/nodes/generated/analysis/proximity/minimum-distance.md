@@ -8,7 +8,7 @@ Find minimum distance between geometries
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Find minimum distance between geometries
 
 
 
-### showConnection
+### Show Connection
 - **Type:** boolean
 - **Default:** true
 
@@ -27,13 +27,13 @@ Find minimum distance between geometries
 ## Inputs
 
 
-### geometry1
+### Geometry1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### geometry2
+### Geometry2
 - **Type:** Shape
 - **Required:** Yes
 
@@ -42,22 +42,22 @@ Find minimum distance between geometries
 ## Outputs
 
 
-### distance
+### Distance
 - **Type:** number
 
 
 
-### point1
+### Point1
 - **Type:** Point
 
 
 
-### point2
+### Point2
 - **Type:** Point
 
 
 
-### connectionLine
+### Connection Line
 - **Type:** Wire
 
 

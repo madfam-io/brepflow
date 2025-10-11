@@ -1,47 +1,49 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SplitParams {
   keepAll: boolean;
 }
-interface Inputs {
-  shapes: Shape[];
-  tools: Shape[];
+
+interface SplitInputs {
+  shapes: unknown;
+  tools: unknown;
 }
-interface Outputs {
-  fragments: Shape[];
+
+interface SplitOutputs {
+  fragments: unknown;
 }
 
 export const SplitNode: NodeDefinition<SplitInputs, SplitOutputs, SplitParams> = {
-  type: 'Boolean::Split',
+  id: 'Boolean::Split',
   category: 'Boolean',
-  
-
-  metadata: {
-    label: 'Split',
-    description: 'Split shapes by each other',
-    
-    
-  },
-
-  params: {
-        keepAll: {
-      "default": true,
-      "description": "Keep all fragments"
+  label: 'Split',
+  description: 'Split shapes by each other',
+  inputs: {
+    shapes: {
+      type: 'Shape[]',
+      label: 'Shapes',
+      required: true
+    },
+    tools: {
+      type: 'Shape[]',
+      label: 'Tools',
+      required: true
     }
   },
-
-  inputs: {
-        shapes: 'Shape[]',
-    tools: 'Shape[]'
-  },
-
   outputs: {
-        fragments: 'Shape[]'
+    fragments: {
+      type: 'Shape[]',
+      label: 'Fragments'
+    }
   },
-
+  params: {
+    keepAll: {
+      type: 'boolean',
+      label: 'Keep All',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'booleanSplit',
       params: {
@@ -50,9 +52,9 @@ export const SplitNode: NodeDefinition<SplitInputs, SplitOutputs, SplitParams> =
         keepAll: params.keepAll
       }
     });
-
+    
     return {
       fragments: result
     };
-  }
+  },
 };

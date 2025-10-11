@@ -8,7 +8,7 @@ Create voxel mesh
 ## Parameters
 
 
-### voxelSize
+### Voxel Size
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Create voxel mesh
 
 
 
-### fillInterior
+### Fill Interior
 - **Type:** boolean
 - **Default:** false
 
@@ -27,7 +27,7 @@ Create voxel mesh
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Create voxel mesh
 ## Outputs
 
 
-### voxels
+### Voxels
 - **Type:** Mesh
 
 

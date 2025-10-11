@@ -1,72 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AlignParams {
   alignX: string;
   alignY: string;
   alignZ: string;
 }
-interface Inputs {
-  shapes: Shape[];
-  reference?: Shape;
+
+interface AlignInputs {
+  shapes: unknown;
+  reference?: unknown;
 }
-interface Outputs {
-  aligned: Shape[];
+
+interface AlignOutputs {
+  aligned: unknown;
 }
 
 export const AlignNode: NodeDefinition<AlignInputs, AlignOutputs, AlignParams> = {
-  type: 'Transform::Align',
+  id: 'Transform::Align',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'Align',
-    description: 'Align shapes to each other',
-    
-    
-  },
-
-  params: {
-        alignX: {
-      "default": "center",
-      "options": [
-        "none",
-        "min",
-        "center",
-        "max"
-      ]
+  label: 'Align',
+  description: 'Align shapes to each other',
+  inputs: {
+    shapes: {
+      type: 'Shape[]',
+      label: 'Shapes',
+      required: true
     },
-    alignY: {
-      "default": "center",
-      "options": [
-        "none",
-        "min",
-        "center",
-        "max"
-      ]
-    },
-    alignZ: {
-      "default": "none",
-      "options": [
-        "none",
-        "min",
-        "center",
-        "max"
-      ]
+    reference: {
+      type: 'Shape',
+      label: 'Reference',
+      optional: true
     }
   },
-
-  inputs: {
-        shapes: 'Shape[]',
-    reference: 'Shape'
-  },
-
   outputs: {
-        aligned: 'Shape[]'
+    aligned: {
+      type: 'Shape[]',
+      label: 'Aligned'
+    }
   },
-
+  params: {
+    alignX: {
+      type: 'enum',
+      label: 'Align X',
+      default: "center",
+      options: ["none","min","center","max"]
+    },
+    alignY: {
+      type: 'enum',
+      label: 'Align Y',
+      default: "center",
+      options: ["none","min","center","max"]
+    },
+    alignZ: {
+      type: 'enum',
+      label: 'Align Z',
+      default: "none",
+      options: ["none","min","center","max"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'transformAlign',
       params: {
@@ -77,9 +69,9 @@ export const AlignNode: NodeDefinition<AlignInputs, AlignOutputs, AlignParams> =
         alignZ: params.alignZ
       }
     });
-
+    
     return {
       aligned: result
     };
-  }
+  },
 };

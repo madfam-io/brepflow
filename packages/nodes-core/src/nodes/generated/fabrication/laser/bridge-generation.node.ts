@@ -1,53 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BridgeGenerationParams {
   bridgeWidth: number;
   bridgeCount: number;
 }
-interface Inputs {
-  cutPath: Wire;
+
+interface BridgeGenerationInputs {
+  cutPath: unknown;
 }
-interface Outputs {
-  bridgedPath: Wire[];
+
+interface BridgeGenerationOutputs {
+  bridgedPath: unknown;
 }
 
 export const BridgeGenerationNode: NodeDefinition<BridgeGenerationInputs, BridgeGenerationOutputs, BridgeGenerationParams> = {
-  type: 'Fabrication::BridgeGeneration',
+  id: 'Fabrication::BridgeGeneration',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'BridgeGeneration',
-    description: 'Add holding bridges',
-    
-    
-  },
-
-  params: {
-        bridgeWidth: {
-      "default": 2,
-      "min": 0.5,
-      "max": 10
-    },
-    bridgeCount: {
-      "default": 4,
-      "min": 1,
-      "max": 20,
-      "step": 1
+  label: 'BridgeGeneration',
+  description: 'Add holding bridges',
+  inputs: {
+    cutPath: {
+      type: 'Wire',
+      label: 'Cut Path',
+      required: true
     }
   },
-
-  inputs: {
-        cutPath: 'Wire'
-  },
-
   outputs: {
-        bridgedPath: 'Wire[]'
+    bridgedPath: {
+      type: 'Wire[]',
+      label: 'Bridged Path'
+    }
   },
-
+  params: {
+    bridgeWidth: {
+      type: 'number',
+      label: 'Bridge Width',
+      default: 2,
+      min: 0.5,
+      max: 10
+    },
+    bridgeCount: {
+      type: 'number',
+      label: 'Bridge Count',
+      default: 4,
+      min: 1,
+      max: 20,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'bridgeGeneration',
       params: {
@@ -56,9 +57,9 @@ export const BridgeGenerationNode: NodeDefinition<BridgeGenerationInputs, Bridge
         bridgeCount: params.bridgeCount
       }
     });
-
+    
     return {
       bridgedPath: result
     };
-  }
+  },
 };

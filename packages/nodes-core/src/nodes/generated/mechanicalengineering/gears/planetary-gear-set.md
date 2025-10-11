@@ -8,7 +8,7 @@ Create planetary gear system
 ## Parameters
 
 
-### sunTeeth
+### Sun Teeth
 - **Type:** number
 - **Default:** 20
 - **Min:** 12
@@ -16,7 +16,7 @@ Create planetary gear system
 
 
 
-### planetTeeth
+### Planet Teeth
 - **Type:** number
 - **Default:** 16
 - **Min:** 8
@@ -24,7 +24,7 @@ Create planetary gear system
 
 
 
-### planetCount
+### Planet Count
 - **Type:** number
 - **Default:** 3
 - **Min:** 2
@@ -32,7 +32,7 @@ Create planetary gear system
 
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -43,7 +43,7 @@ Create planetary gear system
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,22 +52,22 @@ Create planetary gear system
 ## Outputs
 
 
-### assembly
+### Assembly
 - **Type:** Shape
 
 
 
-### sunGear
+### Sun Gear
 - **Type:** Shape
 
 
 
-### planetGears
+### Planet Gears
 - **Type:** Shape[]
 
 
 
-### ringGear
+### Ring Gear
 - **Type:** Shape
 
 

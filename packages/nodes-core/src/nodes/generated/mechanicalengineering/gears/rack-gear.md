@@ -8,7 +8,7 @@ Create linear rack gear
 ## Parameters
 
 
-### module
+### Module
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Create linear rack gear
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 100
 - **Min:** 20
@@ -24,7 +24,7 @@ Create linear rack gear
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -32,7 +32,7 @@ Create linear rack gear
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 15
 - **Min:** 5
@@ -43,7 +43,7 @@ Create linear rack gear
 ## Inputs
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create linear rack gear
 ## Outputs
 
 
-### rack
+### Rack
 - **Type:** Shape
 
 
 
-### pitchLine
+### Pitch Line
 - **Type:** Wire
 
 

@@ -1,70 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LatticeStructureParams {
   cellType: string;
   cellSize: number;
   strutDiameter: number;
   porosity: number;
 }
-interface Inputs {
-  boundingShape: Shape;
+
+interface LatticeStructureInputs {
+  boundingShape: unknown;
 }
-interface Outputs {
-  lattice: Shape;
+
+interface LatticeStructureOutputs {
+  lattice: unknown;
 }
 
 export const LatticeStructureNode: NodeDefinition<LatticeStructureInputs, LatticeStructureOutputs, LatticeStructureParams> = {
-  type: 'Specialized::LatticeStructure',
+  id: 'Specialized::LatticeStructure',
   category: 'Specialized',
-  subcategory: 'Lattice',
-
-  metadata: {
-    label: 'LatticeStructure',
-    description: 'Create lattice structure',
-    
-    
-  },
-
-  params: {
-        cellType: {
-      "default": "cubic",
-      "options": [
-        "cubic",
-        "gyroid",
-        "diamond",
-        "schwarz",
-        "bcc",
-        "fcc"
-      ]
-    },
-    cellSize: {
-      "default": 10,
-      "min": 0.1,
-      "max": 100
-    },
-    strutDiameter: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
-    },
-    porosity: {
-      "default": 0.7,
-      "min": 0.1,
-      "max": 0.95
+  label: 'LatticeStructure',
+  description: 'Create lattice structure',
+  inputs: {
+    boundingShape: {
+      type: 'Shape',
+      label: 'Bounding Shape',
+      required: true
     }
   },
-
-  inputs: {
-        boundingShape: 'Shape'
-  },
-
   outputs: {
-        lattice: 'Shape'
+    lattice: {
+      type: 'Shape',
+      label: 'Lattice'
+    }
   },
-
+  params: {
+    cellType: {
+      type: 'enum',
+      label: 'Cell Type',
+      default: "cubic",
+      options: ["cubic","gyroid","diamond","schwarz","bcc","fcc"]
+    },
+    cellSize: {
+      type: 'number',
+      label: 'Cell Size',
+      default: 10,
+      min: 0.1,
+      max: 100
+    },
+    strutDiameter: {
+      type: 'number',
+      label: 'Strut Diameter',
+      default: 1,
+      min: 0.1,
+      max: 10
+    },
+    porosity: {
+      type: 'number',
+      label: 'Porosity',
+      default: 0.7,
+      min: 0.1,
+      max: 0.95
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'latticeStructure',
       params: {
@@ -75,9 +73,9 @@ export const LatticeStructureNode: NodeDefinition<LatticeStructureInputs, Lattic
         porosity: params.porosity
       }
     });
-
+    
     return {
       lattice: result
     };
-  }
+  },
 };

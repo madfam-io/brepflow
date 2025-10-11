@@ -1,68 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WormShaftParams {
   module: number;
   starts: number;
   length: number;
   leadAngle: number;
 }
-interface Inputs {
-  axis: Wire;
+
+interface WormShaftInputs {
+  axis: unknown;
 }
-interface Outputs {
-  worm: Shape;
-  helix: Wire;
+
+interface WormShaftOutputs {
+  worm: unknown;
+  helix: unknown;
 }
 
 export const WormShaftNode: NodeDefinition<WormShaftInputs, WormShaftOutputs, WormShaftParams> = {
-  type: 'MechanicalEngineering::WormShaft',
+  id: 'MechanicalEngineering::WormShaft',
   category: 'MechanicalEngineering',
-  subcategory: 'Gears',
-
-  metadata: {
-    label: 'WormShaft',
-    description: 'Create worm shaft for worm gear',
-    
-    
-  },
-
-  params: {
-        module: {
-      "default": 2,
-      "min": 0.5,
-      "max": 10
-    },
-    starts: {
-      "default": 1,
-      "min": 1,
-      "max": 4,
-      "description": "Number of starts"
-    },
-    length: {
-      "default": 50,
-      "min": 20,
-      "max": 200
-    },
-    leadAngle: {
-      "default": 5,
-      "min": 1,
-      "max": 30
+  label: 'WormShaft',
+  description: 'Create worm shaft for worm gear',
+  inputs: {
+    axis: {
+      type: 'Wire',
+      label: 'Axis',
+      required: true
     }
   },
-
-  inputs: {
-        axis: 'Wire'
-  },
-
   outputs: {
-        worm: 'Shape',
-    helix: 'Wire'
+    worm: {
+      type: 'Shape',
+      label: 'Worm'
+    },
+    helix: {
+      type: 'Wire',
+      label: 'Helix'
+    }
   },
-
+  params: {
+    module: {
+      type: 'number',
+      label: 'Module',
+      default: 2,
+      min: 0.5,
+      max: 10
+    },
+    starts: {
+      type: 'number',
+      label: 'Starts',
+      default: 1,
+      min: 1,
+      max: 4
+    },
+    length: {
+      type: 'number',
+      label: 'Length',
+      default: 50,
+      min: 20,
+      max: 200
+    },
+    leadAngle: {
+      type: 'number',
+      label: 'Lead Angle',
+      default: 5,
+      min: 1,
+      max: 30
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'wormShaft',
       params: {
         axis: inputs.axis,
@@ -72,10 +79,10 @@ export const WormShaftNode: NodeDefinition<WormShaftInputs, WormShaftOutputs, Wo
         leadAngle: params.leadAngle
       }
     });
-
+    
     return {
-      worm: result,
-      helix: result
+      worm: results.worm,
+      helix: results.helix
     };
-  }
+  },
 };

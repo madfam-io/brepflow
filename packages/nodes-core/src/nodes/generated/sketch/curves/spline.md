@@ -8,7 +8,7 @@ Create a spline curve through points
 ## Parameters
 
 
-### degree
+### Degree
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Create a spline curve through points
 - **Description:** Spline degree
 
 
-### closed
+### Closed
 - **Type:** boolean
 - **Default:** false
 
@@ -24,7 +24,7 @@ Create a spline curve through points
 - **Description:** Close the spline
 
 
-### smooth
+### Smooth
 - **Type:** boolean
 - **Default:** true
 
@@ -35,13 +35,13 @@ Create a spline curve through points
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 - **Description:** Control points
 
 
-### tangents
+### Tangents
 - **Type:** Vector[]
 - **Required:** No
 - **Description:** Optional tangent vectors
@@ -50,7 +50,7 @@ Create a spline curve through points
 ## Outputs
 
 
-### curve
+### Curve
 - **Type:** Wire
 - **Description:** Spline curve
 

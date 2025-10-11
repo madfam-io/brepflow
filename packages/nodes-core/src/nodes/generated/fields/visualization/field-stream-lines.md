@@ -8,7 +8,7 @@ Generate streamlines through vector field
 ## Parameters
 
 
-### seedCount
+### Seed Count
 - **Type:** number
 - **Default:** 20
 - **Min:** 1
@@ -16,7 +16,7 @@ Generate streamlines through vector field
 - **Description:** Number of streamlines
 
 
-### stepSize
+### Step Size
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.01
@@ -24,7 +24,7 @@ Generate streamlines through vector field
 - **Description:** Integration step size
 
 
-### maxSteps
+### Max Steps
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -35,13 +35,13 @@ Generate streamlines through vector field
 ## Inputs
 
 
-### field
+### Field
 - **Type:** VectorField
 - **Required:** No
 
 
 
-### seedPoints
+### Seed Points
 - **Type:** PointSet
 - **Required:** No
 
@@ -50,7 +50,7 @@ Generate streamlines through vector field
 ## Outputs
 
 
-### streamlines
+### Streamlines
 - **Type:** CurveSet
 
 

@@ -1,72 +1,79 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AirBearingParams {
   diameter: number;
   thickness: number;
   pocketCount: number;
   restrictorType: string;
 }
-interface Inputs {
-  center: Point;
+
+interface AirBearingInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  bearing: Shape;
-  pockets: Face[];
-  restrictors: Wire[];
+
+interface AirBearingOutputs {
+  bearing: unknown;
+  pockets: unknown;
+  restrictors: unknown;
 }
 
 export const AirBearingNode: NodeDefinition<AirBearingInputs, AirBearingOutputs, AirBearingParams> = {
-  type: 'MechanicalEngineering::AirBearing',
+  id: 'MechanicalEngineering::AirBearing',
   category: 'MechanicalEngineering',
-  subcategory: 'Bearings',
-
-  metadata: {
-    label: 'AirBearing',
-    description: 'Create air bearing design',
-    
-    
-  },
-
-  params: {
-        diameter: {
-      "default": 50,
-      "min": 20,
-      "max": 200
-    },
-    thickness: {
-      "default": 10,
-      "min": 5,
-      "max": 30
-    },
-    pocketCount: {
-      "default": 6,
-      "min": 3,
-      "max": 12
-    },
-    restrictorType: {
-      "default": "orifice",
-      "options": [
-        "orifice",
-        "porous",
-        "groove"
-      ]
+  label: 'AirBearing',
+  description: 'Create air bearing design',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        bearing: 'Shape',
-    pockets: 'Face[]',
-    restrictors: 'Wire[]'
+    bearing: {
+      type: 'Shape',
+      label: 'Bearing'
+    },
+    pockets: {
+      type: 'Face[]',
+      label: 'Pockets'
+    },
+    restrictors: {
+      type: 'Wire[]',
+      label: 'Restrictors'
+    }
   },
-
+  params: {
+    diameter: {
+      type: 'number',
+      label: 'Diameter',
+      default: 50,
+      min: 20,
+      max: 200
+    },
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 10,
+      min: 5,
+      max: 30
+    },
+    pocketCount: {
+      type: 'number',
+      label: 'Pocket Count',
+      default: 6,
+      min: 3,
+      max: 12
+    },
+    restrictorType: {
+      type: 'enum',
+      label: 'Restrictor Type',
+      default: "orifice",
+      options: ["orifice","porous","groove"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'airBearing',
       params: {
         center: inputs.center,
@@ -76,11 +83,11 @@ export const AirBearingNode: NodeDefinition<AirBearingInputs, AirBearingOutputs,
         restrictorType: params.restrictorType
       }
     });
-
+    
     return {
-      bearing: result,
-      pockets: result,
-      restrictors: result
+      bearing: results.bearing,
+      pockets: results.pockets,
+      restrictors: results.restrictors
     };
-  }
+  },
 };

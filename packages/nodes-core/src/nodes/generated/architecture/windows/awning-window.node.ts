@@ -1,56 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface AwningWindowParams {
   opening: number;
 }
-interface Inputs {
-  opening: Wire;
+
+interface AwningWindowInputs {
+  opening: unknown;
 }
-interface Outputs {
-  window: Shape;
+
+interface AwningWindowOutputs {
+  window: unknown;
 }
 
 export const AwningWindowNode: NodeDefinition<AwningWindowInputs, AwningWindowOutputs, AwningWindowParams> = {
-  type: 'Architecture::AwningWindow',
+  id: 'Architecture::AwningWindow',
   category: 'Architecture',
-  subcategory: 'Windows',
-
-  metadata: {
-    label: 'AwningWindow',
-    description: 'Awning window',
-    
-    
-  },
-
-  params: {
-        opening: {
-      "default": 0,
-      "min": 0,
-      "max": 45
+  label: 'AwningWindow',
+  description: 'Awning window',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        window: 'Shape'
+    window: {
+      type: 'Shape',
+      label: 'Window'
+    }
   },
-
+  params: {
+    opening: {
+      type: 'number',
+      label: 'Opening',
+      default: 0,
+      min: 0,
+      max: 45
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'awningWindow',
       params: {
-        openingWire: inputs.opening,
+        opening: inputs.opening,
         opening: params.opening
       }
     });
-
+    
     return {
       window: result
     };
-  }
+  },
 };

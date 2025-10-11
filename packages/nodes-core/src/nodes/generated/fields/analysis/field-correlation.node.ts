@@ -1,54 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldCorrelationParams {
   sampleCount: number;
 }
-interface Inputs {
-  field1?: Field;
-  field2?: Field;
-  domain?: Geometry;
+
+interface FieldCorrelationInputs {
+  field1?: unknown;
+  field2?: unknown;
+  domain?: unknown;
 }
-interface Outputs {
-  correlation: Number;
-  covariance: Number;
+
+interface FieldCorrelationOutputs {
+  correlation: number;
+  covariance: number;
 }
 
 export const FieldCorrelationNode: NodeDefinition<FieldCorrelationInputs, FieldCorrelationOutputs, FieldCorrelationParams> = {
-  type: 'Fields::FieldCorrelation',
+  id: 'Fields::FieldCorrelation',
   category: 'Fields',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'FieldCorrelation',
-    description: 'Calculate correlation between fields',
-    
-    
-  },
-
-  params: {
-        sampleCount: {
-      "default": 1000,
-      "min": 100,
-      "max": 10000,
-      "description": "Number of samples"
+  label: 'FieldCorrelation',
+  description: 'Calculate correlation between fields',
+  inputs: {
+    field1: {
+      type: 'Field',
+      label: 'Field1',
+      optional: true
+    },
+    field2: {
+      type: 'Field',
+      label: 'Field2',
+      optional: true
+    },
+    domain: {
+      type: 'Geometry',
+      label: 'Domain',
+      optional: true
     }
   },
-
-  inputs: {
-        field1: 'Field',
-    field2: 'Field',
-    domain: 'Geometry'
-  },
-
   outputs: {
-        correlation: 'Number',
-    covariance: 'Number'
+    correlation: {
+      type: 'Number',
+      label: 'Correlation'
+    },
+    covariance: {
+      type: 'Number',
+      label: 'Covariance'
+    }
   },
-
+  params: {
+    sampleCount: {
+      type: 'number',
+      label: 'Sample Count',
+      default: 1000,
+      min: 100,
+      max: 10000
+    }
+  },
   async evaluate(context, inputs, params) {
+    const results = await context.geometry.execute({
+      type: 'calculateCorrelation',
+      params: {
+        field1: inputs.field1,
+        field2: inputs.field2,
+        domain: inputs.domain,
+        sampleCount: params.sampleCount
+      }
+    });
     
-    // TODO: Implement FieldCorrelation logic
-    throw new Error('FieldCorrelation not yet implemented');
-  }
+    return {
+      correlation: results.correlation,
+      covariance: results.covariance
+    };
+  },
 };

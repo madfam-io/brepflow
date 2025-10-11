@@ -8,7 +8,7 @@ Structural shear wall
 ## Parameters
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 300
 - **Min:** 200
@@ -16,7 +16,7 @@ Structural shear wall
 
 
 
-### reinforcementRatio
+### Reinforcement Ratio
 - **Type:** number
 - **Default:** 0.025
 - **Min:** 0.01
@@ -27,7 +27,7 @@ Structural shear wall
 ## Inputs
 
 
-### wallOutline
+### Wall Outline
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Structural shear wall
 ## Outputs
 
 
-### shearWall
+### Shear Wall
 - **Type:** Shape
 
 
 
-### reinforcement
+### Reinforcement
 - **Type:** Wire[]
 
 

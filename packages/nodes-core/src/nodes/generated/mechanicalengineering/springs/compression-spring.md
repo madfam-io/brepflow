@@ -8,7 +8,7 @@ Create compression coil spring
 ## Parameters
 
 
-### wireDiameter
+### Wire Diameter
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Create compression coil spring
 
 
 
-### coilDiameter
+### Coil Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -24,7 +24,7 @@ Create compression coil spring
 
 
 
-### freeLength
+### Free Length
 - **Type:** number
 - **Default:** 50
 - **Min:** 10
@@ -32,7 +32,7 @@ Create compression coil spring
 
 
 
-### coils
+### Coils
 - **Type:** number
 - **Default:** 8
 - **Min:** 3
@@ -40,7 +40,7 @@ Create compression coil spring
 
 
 
-### endType
+### End Type
 - **Type:** enum
 - **Default:** "closed"
 
@@ -51,13 +51,13 @@ Create compression coil spring
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### axis
+### Axis
 - **Type:** Vector
 - **Required:** No
 
@@ -66,12 +66,12 @@ Create compression coil spring
 ## Outputs
 
 
-### spring
+### Spring
 - **Type:** Shape
 
 
 
-### helix
+### Helix
 - **Type:** Wire
 
 

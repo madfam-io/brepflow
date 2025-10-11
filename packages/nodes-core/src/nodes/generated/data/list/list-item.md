@@ -8,7 +8,7 @@ Get item at index
 ## Parameters
 
 
-### wrap
+### Wrap
 - **Type:** boolean
 - **Default:** false
 
@@ -19,13 +19,13 @@ Get item at index
 ## Inputs
 
 
-### list
+### List
 - **Type:** Data[]
 - **Required:** Yes
 
 
 
-### index
+### Index
 - **Type:** number
 - **Required:** Yes
 
@@ -34,7 +34,7 @@ Get item at index
 ## Outputs
 
 
-### item
+### Item
 - **Type:** Data
 
 

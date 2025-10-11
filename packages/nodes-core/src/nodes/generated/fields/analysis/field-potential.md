@@ -8,7 +8,7 @@ Find potential function for conservative field
 ## Parameters
 
 
-### referencePoint
+### Reference Point
 - **Type:** vector3
 - **Default:** "[0, 0, 0]"
 
@@ -19,7 +19,7 @@ Find potential function for conservative field
 ## Inputs
 
 
-### vectorField
+### Vector Field
 - **Type:** VectorField
 - **Required:** No
 
@@ -28,12 +28,12 @@ Find potential function for conservative field
 ## Outputs
 
 
-### potentialField
+### Potential Field
 - **Type:** Field
 
 
 
-### isConservative
+### Is Conservative
 - **Type:** Boolean
 
 

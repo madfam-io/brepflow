@@ -1,51 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CoincidentParams {
   tolerance: number;
 }
-interface Inputs {
-  entity1: Shape;
-  entity2: Shape;
+
+interface CoincidentInputs {
+  entity1: unknown;
+  entity2: unknown;
 }
-interface Outputs {
-  constrained: Shape[];
-  constraint: Constraint;
+
+interface CoincidentOutputs {
+  constrained: unknown;
+  constraint: unknown;
 }
 
 export const CoincidentNode: NodeDefinition<CoincidentInputs, CoincidentOutputs, CoincidentParams> = {
-  type: 'Assembly::Coincident',
+  id: 'Assembly::Coincident',
   category: 'Assembly',
-  subcategory: 'Constraints',
-
-  metadata: {
-    label: 'Coincident',
-    description: 'Make two entities coincident',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.001,
-      "min": 0,
-      "max": 1
+  label: 'Coincident',
+  description: 'Make two entities coincident',
+  inputs: {
+    entity1: {
+      type: 'Shape',
+      label: 'Entity1',
+      required: true
+    },
+    entity2: {
+      type: 'Shape',
+      label: 'Entity2',
+      required: true
     }
   },
-
-  inputs: {
-        entity1: 'Shape',
-    entity2: 'Shape'
-  },
-
   outputs: {
-        constrained: 'Shape[]',
-    constraint: 'Constraint'
+    constrained: {
+      type: 'Shape[]',
+      label: 'Constrained'
+    },
+    constraint: {
+      type: 'Constraint',
+      label: 'Constraint'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.001,
+      min: 0,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'constraintCoincident',
       params: {
         entity1: inputs.entity1,
@@ -53,10 +59,10 @@ export const CoincidentNode: NodeDefinition<CoincidentInputs, CoincidentOutputs,
         tolerance: params.tolerance
       }
     });
-
+    
     return {
-      constrained: result,
-      constraint: result
+      constrained: results.constrained,
+      constraint: results.constraint
     };
-  }
+  },
 };

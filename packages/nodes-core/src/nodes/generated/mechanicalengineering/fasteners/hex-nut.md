@@ -8,7 +8,7 @@ Create hexagonal nut
 ## Parameters
 
 
-### size
+### Size
 - **Type:** enum
 - **Default:** "M6"
 
@@ -16,7 +16,7 @@ Create hexagonal nut
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 5
 - **Min:** 2
@@ -24,7 +24,7 @@ Create hexagonal nut
 
 
 
-### style
+### Style
 - **Type:** enum
 - **Default:** "standard"
 
@@ -35,7 +35,7 @@ Create hexagonal nut
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,12 +44,12 @@ Create hexagonal nut
 ## Outputs
 
 
-### nut
+### Nut
 - **Type:** Shape
 
 
 
-### thread
+### Thread
 - **Type:** Wire
 
 

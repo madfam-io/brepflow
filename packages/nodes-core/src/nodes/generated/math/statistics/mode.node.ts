@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ModeParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  values: number[];
+interface ModeInputs {
+  values: unknown;
 }
-interface Outputs {
-  mode: number[];
+
+interface ModeOutputs {
+  mode: unknown;
 }
 
 export const ModeNode: NodeDefinition<ModeInputs, ModeOutputs, ModeParams> = {
-  type: 'Math::Mode',
+  id: 'Math::Mode',
   category: 'Math',
-  subcategory: 'Statistics',
-
-  metadata: {
-    label: 'Mode',
-    description: 'Calculate mode',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Mode',
+  description: 'Calculate mode',
   inputs: {
-        values: 'number[]'
+    values: {
+      type: 'number[]',
+      label: 'Values',
+      required: true
+    }
   },
-
   outputs: {
-        mode: 'number[]'
+    mode: {
+      type: 'number[]',
+      label: 'Mode'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathMode',
       params: {
         values: inputs.values
-        
       }
     });
-
+    
     return {
       mode: result
     };
-  }
+  },
 };

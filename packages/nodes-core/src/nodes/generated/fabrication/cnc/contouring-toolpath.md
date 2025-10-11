@@ -8,7 +8,7 @@ Contour machining paths
 ## Parameters
 
 
-### levels
+### Levels
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -16,7 +16,7 @@ Contour machining paths
 
 
 
-### climb
+### Climb
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Contour machining paths
 
 
 
-### compensation
+### Compensation
 - **Type:** enum
 - **Default:** "right"
 
@@ -35,7 +35,7 @@ Contour machining paths
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Contour machining paths
 ## Outputs
 
 
-### contours
+### Contours
 - **Type:** Wire[]
 
 

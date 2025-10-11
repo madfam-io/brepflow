@@ -1,59 +1,69 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MeshQualityParams {
   aspectRatioThreshold: number;
   skewnessThreshold: number;
 }
-interface Inputs {
-  mesh: Shape;
+
+interface MeshQualityInputs {
+  mesh: unknown;
 }
-interface Outputs {
-  averageAspectRatio: number;
-  maxSkewness: number;
-  problemElements: Shape[];
-  qualityReport: Properties;
+
+interface MeshQualityOutputs {
+  averageAspectRatio: unknown;
+  maxSkewness: unknown;
+  problemElements: unknown;
+  qualityReport: unknown;
 }
 
 export const MeshQualityNode: NodeDefinition<MeshQualityInputs, MeshQualityOutputs, MeshQualityParams> = {
-  type: 'Analysis::MeshQuality',
+  id: 'Analysis::MeshQuality',
   category: 'Analysis',
-  subcategory: 'Quality',
-
-  metadata: {
-    label: 'MeshQuality',
-    description: 'Analyze mesh quality metrics',
-    
-    
-  },
-
-  params: {
-        aspectRatioThreshold: {
-      "default": 5,
-      "min": 1,
-      "max": 20
-    },
-    skewnessThreshold: {
-      "default": 0.8,
-      "min": 0.1,
-      "max": 1
+  label: 'MeshQuality',
+  description: 'Analyze mesh quality metrics',
+  inputs: {
+    mesh: {
+      type: 'Shape',
+      label: 'Mesh',
+      required: true
     }
   },
-
-  inputs: {
-        mesh: 'Shape'
-  },
-
   outputs: {
-        averageAspectRatio: 'number',
-    maxSkewness: 'number',
-    problemElements: 'Shape[]',
-    qualityReport: 'Properties'
+    averageAspectRatio: {
+      type: 'number',
+      label: 'Average Aspect Ratio'
+    },
+    maxSkewness: {
+      type: 'number',
+      label: 'Max Skewness'
+    },
+    problemElements: {
+      type: 'Shape[]',
+      label: 'Problem Elements'
+    },
+    qualityReport: {
+      type: 'Properties',
+      label: 'Quality Report'
+    }
   },
-
+  params: {
+    aspectRatioThreshold: {
+      type: 'number',
+      label: 'Aspect Ratio Threshold',
+      default: 5,
+      min: 1,
+      max: 20
+    },
+    skewnessThreshold: {
+      type: 'number',
+      label: 'Skewness Threshold',
+      default: 0.8,
+      min: 0.1,
+      max: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'meshQuality',
       params: {
         mesh: inputs.mesh,
@@ -61,12 +71,12 @@ export const MeshQualityNode: NodeDefinition<MeshQualityInputs, MeshQualityOutpu
         skewnessThreshold: params.skewnessThreshold
       }
     });
-
+    
     return {
-      averageAspectRatio: result,
-      maxSkewness: result,
-      problemElements: result,
-      qualityReport: result
+      averageAspectRatio: results.averageAspectRatio,
+      maxSkewness: results.maxSkewness,
+      problemElements: results.problemElements,
+      qualityReport: results.qualityReport
     };
-  }
+  },
 };

@@ -8,7 +8,7 @@ Honeycomb infill structure
 ## Parameters
 
 
-### cellSize
+### Cell Size
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.5
@@ -16,7 +16,7 @@ Honeycomb infill structure
 
 
 
-### wallThickness
+### Wall Thickness
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Honeycomb infill structure
 
 
 
-### fillDensity
+### Fill Density
 - **Type:** number
 - **Default:** 0.3
 - **Min:** 0.1
@@ -35,7 +35,7 @@ Honeycomb infill structure
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Honeycomb infill structure
 ## Outputs
 
 
-### honeycomb
+### Honeycomb
 - **Type:** Shape
 
 

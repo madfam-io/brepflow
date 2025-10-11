@@ -8,7 +8,7 @@ Create timing belt pulley
 ## Parameters
 
 
-### pitch
+### Pitch
 - **Type:** enum
 - **Default:** "GT2"
 
@@ -16,7 +16,7 @@ Create timing belt pulley
 
 
 
-### teeth
+### Teeth
 - **Type:** number
 - **Default:** 20
 - **Min:** 10
@@ -24,7 +24,7 @@ Create timing belt pulley
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 10
 - **Min:** 6
@@ -32,7 +32,7 @@ Create timing belt pulley
 
 
 
-### flanges
+### Flanges
 - **Type:** boolean
 - **Default:** true
 
@@ -43,7 +43,7 @@ Create timing belt pulley
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create timing belt pulley
 ## Outputs
 
 
-### pulley
+### Pulley
 - **Type:** Shape
 
 
 
-### pitchCircle
+### Pitch Circle
 - **Type:** Wire
 
 

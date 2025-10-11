@@ -1,47 +1,46 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ToolChangerSetupParams {
   toolCount: number;
 }
-interface Inputs {
-  toolRack: Transform;
+
+interface ToolChangerSetupInputs {
+  toolRack: unknown;
 }
-interface Outputs {
-  toolChangeSequence: Transform[];
+
+interface ToolChangerSetupOutputs {
+  toolChangeSequence: unknown;
 }
 
 export const ToolChangerSetupNode: NodeDefinition<ToolChangerSetupInputs, ToolChangerSetupOutputs, ToolChangerSetupParams> = {
-  type: 'Fabrication::ToolChangerSetup',
+  id: 'Fabrication::ToolChangerSetup',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'ToolChangerSetup',
-    description: 'Automatic tool changer',
-    
-    
-  },
-
-  params: {
-        toolCount: {
-      "default": 6,
-      "min": 1,
-      "max": 20,
-      "step": 1
+  label: 'ToolChangerSetup',
+  description: 'Automatic tool changer',
+  inputs: {
+    toolRack: {
+      type: 'Transform',
+      label: 'Tool Rack',
+      required: true
     }
   },
-
-  inputs: {
-        toolRack: 'Transform'
-  },
-
   outputs: {
-        toolChangeSequence: 'Transform[]'
+    toolChangeSequence: {
+      type: 'Transform[]',
+      label: 'Tool Change Sequence'
+    }
   },
-
+  params: {
+    toolCount: {
+      type: 'number',
+      label: 'Tool Count',
+      default: 6,
+      min: 1,
+      max: 20,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'toolChangerSetup',
       params: {
@@ -49,9 +48,9 @@ export const ToolChangerSetupNode: NodeDefinition<ToolChangerSetupInputs, ToolCh
         toolCount: params.toolCount
       }
     });
-
+    
     return {
       toolChangeSequence: result
     };
-  }
+  },
 };

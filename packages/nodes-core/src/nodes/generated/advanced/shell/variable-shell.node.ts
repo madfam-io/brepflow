@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type VariableShellParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  solid: Shape;
-  facesToRemove: Face[];
-  thicknessMap: Data;
+interface VariableShellInputs {
+  solid: unknown;
+  facesToRemove: unknown;
+  thicknessMap: unknown;
 }
-interface Outputs {
-  shell: Shape;
+
+interface VariableShellOutputs {
+  shell: unknown;
 }
 
 export const VariableShellNode: NodeDefinition<VariableShellInputs, VariableShellOutputs, VariableShellParams> = {
-  type: 'Advanced::VariableShell',
+  id: 'Advanced::VariableShell',
   category: 'Advanced',
-  subcategory: 'Shell',
-
-  metadata: {
-    label: 'VariableShell',
-    description: 'Shell with variable thickness',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'VariableShell',
+  description: 'Shell with variable thickness',
   inputs: {
-        solid: 'Shape',
-    facesToRemove: 'Face[]',
-    thicknessMap: 'Data'
+    solid: {
+      type: 'Shape',
+      label: 'Solid',
+      required: true
+    },
+    facesToRemove: {
+      type: 'Face[]',
+      label: 'Faces To Remove',
+      required: true
+    },
+    thicknessMap: {
+      type: 'Data',
+      label: 'Thickness Map',
+      required: true
+    }
   },
-
   outputs: {
-        shell: 'Shape'
+    shell: {
+      type: 'Shape',
+      label: 'Shell'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'variableShell',
       params: {
         solid: inputs.solid,
         facesToRemove: inputs.facesToRemove,
         thicknessMap: inputs.thicknessMap
-        
       }
     });
-
+    
     return {
       shell: result
     };
-  }
+  },
 };

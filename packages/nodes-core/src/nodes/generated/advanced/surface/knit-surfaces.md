@@ -8,7 +8,7 @@ Knit surfaces together
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.0001
@@ -16,7 +16,7 @@ Knit surfaces together
 
 
 
-### createSolid
+### Create Solid
 - **Type:** boolean
 - **Default:** false
 
@@ -27,7 +27,7 @@ Knit surfaces together
 ## Inputs
 
 
-### surfaces
+### Surfaces
 - **Type:** Face[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Knit surfaces together
 ## Outputs
 
 
-### knittedShape
+### Knitted Shape
 - **Type:** Shape
 
 

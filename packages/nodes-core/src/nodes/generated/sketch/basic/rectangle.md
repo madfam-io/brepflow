@@ -8,7 +8,7 @@ Create a rectangle
 ## Parameters
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -16,7 +16,7 @@ Create a rectangle
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -24,7 +24,7 @@ Create a rectangle
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create a rectangle
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 50
 - **Min:** 0.1
@@ -40,7 +40,7 @@ Create a rectangle
 
 
 
-### filled
+### Filled
 - **Type:** boolean
 - **Default:** true
 
@@ -48,7 +48,7 @@ Create a rectangle
 - **Description:** Create as face (filled) or wire (outline)
 
 
-### cornerRadius
+### Corner Radius
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -63,7 +63,7 @@ This node has no inputs.
 ## Outputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Description:** Rectangle face or wire
 

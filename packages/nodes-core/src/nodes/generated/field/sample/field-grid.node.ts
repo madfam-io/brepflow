@@ -1,68 +1,81 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldGridParams {
   resolutionX: number;
   resolutionY: number;
   resolutionZ: number;
 }
-interface Inputs {
-  field: ScalarField;
-  bounds: Box;
+
+interface FieldGridInputs {
+  field: unknown;
+  bounds: unknown;
 }
-interface Outputs {
-  grid: Data;
-  points: Point[];
-  values: number[];
+
+interface FieldGridOutputs {
+  grid: unknown;
+  points: Array<[number, number, number]>;
+  values: unknown;
 }
 
 export const FieldGridNode: NodeDefinition<FieldGridInputs, FieldGridOutputs, FieldGridParams> = {
-  type: 'Field::FieldGrid',
+  id: 'Field::FieldGrid',
   category: 'Field',
-  subcategory: 'Sample',
-
-  metadata: {
-    label: 'FieldGrid',
-    description: 'Sample field on grid',
-    
-    
-  },
-
-  params: {
-        resolutionX: {
-      "default": 10,
-      "min": 2,
-      "max": 100,
-      "step": 1
+  label: 'FieldGrid',
+  description: 'Sample field on grid',
+  inputs: {
+    field: {
+      type: 'ScalarField',
+      label: 'Field',
+      required: true
     },
-    resolutionY: {
-      "default": 10,
-      "min": 2,
-      "max": 100,
-      "step": 1
-    },
-    resolutionZ: {
-      "default": 10,
-      "min": 2,
-      "max": 100,
-      "step": 1
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        field: 'ScalarField',
-    bounds: 'Box'
-  },
-
   outputs: {
-        grid: 'Data',
-    points: 'Point[]',
-    values: 'number[]'
+    grid: {
+      type: 'Data',
+      label: 'Grid'
+    },
+    points: {
+      type: 'Point[]',
+      label: 'Points'
+    },
+    values: {
+      type: 'number[]',
+      label: 'Values'
+    }
   },
-
+  params: {
+    resolutionX: {
+      type: 'number',
+      label: 'Resolution X',
+      default: 10,
+      min: 2,
+      max: 100,
+      step: 1
+    },
+    resolutionY: {
+      type: 'number',
+      label: 'Resolution Y',
+      default: 10,
+      min: 2,
+      max: 100,
+      step: 1
+    },
+    resolutionZ: {
+      type: 'number',
+      label: 'Resolution Z',
+      default: 10,
+      min: 2,
+      max: 100,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'fieldGrid',
       params: {
         field: inputs.field,
@@ -72,11 +85,11 @@ export const FieldGridNode: NodeDefinition<FieldGridInputs, FieldGridOutputs, Fi
         resolutionZ: params.resolutionZ
       }
     });
-
+    
     return {
-      grid: result,
-      points: result,
-      values: result
+      grid: results.grid,
+      points: results.points,
+      values: results.values
     };
-  }
+  },
 };

@@ -1,63 +1,63 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RobotKinematicsParams {
   robotType: string;
   solver: string;
 }
-interface Inputs {
-  target: Transform;
-  jointLimits?: Data;
+
+interface RobotKinematicsInputs {
+  target: unknown;
+  jointLimits?: unknown;
 }
-interface Outputs {
-  jointAngles: Number[];
-  reachable: Boolean;
+
+interface RobotKinematicsOutputs {
+  jointAngles: number[];
+  reachable: boolean;
 }
 
 export const RobotKinematicsNode: NodeDefinition<RobotKinematicsInputs, RobotKinematicsOutputs, RobotKinematicsParams> = {
-  type: 'Fabrication::RobotKinematics',
+  id: 'Fabrication::RobotKinematics',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'RobotKinematics',
-    description: 'Robot kinematics solver',
-    
-    
-  },
-
-  params: {
-        robotType: {
-      "default": "6-axis",
-      "options": [
-        "6-axis",
-        "scara",
-        "delta",
-        "cartesian"
-      ]
+  label: 'RobotKinematics',
+  description: 'Robot kinematics solver',
+  inputs: {
+    target: {
+      type: 'Transform',
+      label: 'Target',
+      required: true
     },
-    solver: {
-      "default": "inverse",
-      "options": [
-        "forward",
-        "inverse"
-      ]
+    jointLimits: {
+      type: 'Data',
+      label: 'Joint Limits',
+      optional: true
     }
   },
-
-  inputs: {
-        target: 'Transform',
-    jointLimits: 'Data'
-  },
-
   outputs: {
-        jointAngles: 'Number[]',
-    reachable: 'Boolean'
+    jointAngles: {
+      type: 'Number[]',
+      label: 'Joint Angles'
+    },
+    reachable: {
+      type: 'Boolean',
+      label: 'Reachable'
+    }
   },
-
+  params: {
+    robotType: {
+      type: 'enum',
+      label: 'Robot Type',
+      default: "6-axis",
+      options: ["6-axis","scara","delta","cartesian"]
+    },
+    solver: {
+      type: 'enum',
+      label: 'Solver',
+      default: "inverse",
+      options: ["forward","inverse"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'robotKinematics',
       params: {
         target: inputs.target,
@@ -66,10 +66,10 @@ export const RobotKinematicsNode: NodeDefinition<RobotKinematicsInputs, RobotKin
         solver: params.solver
       }
     });
-
+    
     return {
-      jointAngles: result,
-      reachable: result
+      jointAngles: results.jointAngles,
+      reachable: results.reachable
     };
-  }
+  },
 };

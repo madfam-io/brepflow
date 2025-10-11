@@ -1,54 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FiveAxisPositioningParams {
   leadAngle: number;
   tiltAngle: number;
 }
-interface Inputs {
-  surface: Face;
-  toolAxis?: Vector;
+
+interface FiveAxisPositioningInputs {
+  surface: unknown;
+  toolAxis?: [number, number, number];
 }
-interface Outputs {
-  toolOrientations: Transform[];
+
+interface FiveAxisPositioningOutputs {
+  toolOrientations: unknown;
 }
 
 export const FiveAxisPositioningNode: NodeDefinition<FiveAxisPositioningInputs, FiveAxisPositioningOutputs, FiveAxisPositioningParams> = {
-  type: 'Fabrication::FiveAxisPositioning',
+  id: 'Fabrication::FiveAxisPositioning',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'FiveAxisPositioning',
-    description: '5-axis positioning strategy',
-    
-    
-  },
-
-  params: {
-        leadAngle: {
-      "default": 10,
-      "min": 0,
-      "max": 45
+  label: 'FiveAxisPositioning',
+  description: '5-axis positioning strategy',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     },
-    tiltAngle: {
-      "default": 0,
-      "min": -90,
-      "max": 90
+    toolAxis: {
+      type: 'Vector',
+      label: 'Tool Axis',
+      optional: true
     }
   },
-
-  inputs: {
-        surface: 'Face',
-    toolAxis: 'Vector'
-  },
-
   outputs: {
-        toolOrientations: 'Transform[]'
+    toolOrientations: {
+      type: 'Transform[]',
+      label: 'Tool Orientations'
+    }
   },
-
+  params: {
+    leadAngle: {
+      type: 'number',
+      label: 'Lead Angle',
+      default: 10,
+      min: 0,
+      max: 45
+    },
+    tiltAngle: {
+      type: 'number',
+      label: 'Tilt Angle',
+      default: 0,
+      min: -90,
+      max: 90
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fiveAxisPositioning',
       params: {
@@ -58,9 +63,9 @@ export const FiveAxisPositioningNode: NodeDefinition<FiveAxisPositioningInputs, 
         tiltAngle: params.tiltAngle
       }
     });
-
+    
     return {
       toolOrientations: result
     };
-  }
+  },
 };

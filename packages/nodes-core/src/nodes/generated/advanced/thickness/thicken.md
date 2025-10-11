@@ -8,7 +8,7 @@ Thicken surface to solid
 ## Parameters
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Thicken surface to solid
 
 
 
-### direction
+### Direction
 - **Type:** enum
 - **Default:** "normal"
 
@@ -24,7 +24,7 @@ Thicken surface to solid
 
 
 
-### autoClose
+### Auto Close
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Thicken surface to solid
 ## Inputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Thicken surface to solid
 ## Outputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 
 

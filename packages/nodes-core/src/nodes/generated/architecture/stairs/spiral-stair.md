@@ -8,7 +8,7 @@ Spiral staircase
 ## Parameters
 
 
-### diameter
+### Diameter
 - **Type:** number
 - **Default:** 2000
 - **Min:** 1200
@@ -16,7 +16,7 @@ Spiral staircase
 
 
 
-### totalRise
+### Total Rise
 - **Type:** number
 - **Default:** 3000
 - **Min:** 1000
@@ -24,7 +24,7 @@ Spiral staircase
 
 
 
-### rotation
+### Rotation
 - **Type:** number
 - **Default:** 360
 - **Min:** 270
@@ -32,7 +32,7 @@ Spiral staircase
 
 
 
-### centerPole
+### Center Pole
 - **Type:** boolean
 - **Default:** true
 
@@ -43,7 +43,7 @@ Spiral staircase
 ## Inputs
 
 
-### centerPoint
+### Center Point
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Spiral staircase
 ## Outputs
 
 
-### spiralStair
+### Spiral Stair
 - **Type:** Shape
 
 
 
-### centerPole
+### Center Pole
 - **Type:** Shape
 
 

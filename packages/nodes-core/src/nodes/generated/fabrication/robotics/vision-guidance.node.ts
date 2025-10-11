@@ -1,58 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface VisionGuidanceParams {
   cameraType: string;
   patternType: string;
 }
-interface Inputs {
-  targetFeatures: Shape[];
+
+interface VisionGuidanceInputs {
+  targetFeatures: unknown;
 }
-interface Outputs {
-  detectedPoses: Transform[];
+
+interface VisionGuidanceOutputs {
+  detectedPoses: unknown;
 }
 
 export const VisionGuidanceNode: NodeDefinition<VisionGuidanceInputs, VisionGuidanceOutputs, VisionGuidanceParams> = {
-  type: 'Fabrication::VisionGuidance',
+  id: 'Fabrication::VisionGuidance',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'VisionGuidance',
-    description: 'Vision-guided robotics',
-    
-    
-  },
-
-  params: {
-        cameraType: {
-      "default": "3d",
-      "options": [
-        "2d",
-        "3d",
-        "stereo"
-      ]
-    },
-    patternType: {
-      "default": "aruco",
-      "options": [
-        "checkerboard",
-        "aruco",
-        "feature"
-      ]
+  label: 'VisionGuidance',
+  description: 'Vision-guided robotics',
+  inputs: {
+    targetFeatures: {
+      type: 'Shape[]',
+      label: 'Target Features',
+      required: true
     }
   },
-
-  inputs: {
-        targetFeatures: 'Shape[]'
-  },
-
   outputs: {
-        detectedPoses: 'Transform[]'
+    detectedPoses: {
+      type: 'Transform[]',
+      label: 'Detected Poses'
+    }
   },
-
+  params: {
+    cameraType: {
+      type: 'enum',
+      label: 'Camera Type',
+      default: "3d",
+      options: ["2d","3d","stereo"]
+    },
+    patternType: {
+      type: 'enum',
+      label: 'Pattern Type',
+      default: "aruco",
+      options: ["checkerboard","aruco","feature"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'visionGuidance',
       params: {
@@ -61,9 +54,9 @@ export const VisionGuidanceNode: NodeDefinition<VisionGuidanceInputs, VisionGuid
         patternType: params.patternType
       }
     });
-
+    
     return {
       detectedPoses: result
     };
-  }
+  },
 };

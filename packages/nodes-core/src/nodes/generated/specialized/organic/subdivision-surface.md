@@ -8,7 +8,7 @@ Subdivision surface modeling
 ## Parameters
 
 
-### scheme
+### Scheme
 - **Type:** enum
 - **Default:** "catmull-clark"
 
@@ -16,7 +16,7 @@ Subdivision surface modeling
 
 
 
-### levels
+### Levels
 - **Type:** number
 - **Default:** 2
 - **Min:** 1
@@ -27,7 +27,7 @@ Subdivision surface modeling
 ## Inputs
 
 
-### controlMesh
+### Control Mesh
 - **Type:** Shape
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Subdivision surface modeling
 ## Outputs
 
 
-### subdivided
+### Subdivided
 - **Type:** Shape
 
 

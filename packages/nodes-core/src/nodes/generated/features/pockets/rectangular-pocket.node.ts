@@ -1,75 +1,98 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RectangularPocketParams {
   width: number;
   height: number;
   depth: number;
   cornerRadius: number;
   draftAngle: number;
 }
-interface Inputs {
-  face: Face;
-  position: Point;
+
+interface RectangularPocketInputs {
+  face: unknown;
+  position: [number, number, number];
 }
-interface Outputs {
-  shape: Shape;
+
+interface RectangularPocketOutputs {
+  shape: unknown;
 }
 
 export const RectangularPocketNode: NodeDefinition<RectangularPocketInputs, RectangularPocketOutputs, RectangularPocketParams> = {
-  type: 'Features::RectangularPocket',
+  id: 'Features::RectangularPocket',
   category: 'Features',
-  subcategory: 'Pockets',
-
-  metadata: {
-    label: 'RectangularPocket',
-    description: 'Creates a rectangular pocket with optional corner radius',
-    
-    tags: ["pocket","cavity","milling"],
-  },
-
-  params: {
-        width: {
-      "default": 50,
-      "min": 0.1,
-      "max": 10000
+  label: 'RectangularPocket',
+  description: 'Creates a rectangular pocket with optional corner radius',
+  inputs: {
+    face: {
+      type: 'Face',
+      label: 'Face',
+      required: true
     },
-    height: {
-      "default": 30,
-      "min": 0.1,
-      "max": 10000
-    },
-    depth: {
-      "default": 10,
-      "min": 0.1,
-      "max": 1000
-    },
-    cornerRadius: {
-      "default": 0,
-      "min": 0,
-      "max": 100,
-      "description": "Corner radius (0 for sharp corners)"
-    },
-    draftAngle: {
-      "default": 0,
-      "min": 0,
-      "max": 45,
-      "description": "Draft angle for molding"
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        face: 'Face',
-    position: 'Point'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 50,
+      min: 0.1,
+      max: 10000
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 30,
+      min: 0.1,
+      max: 10000
+    },
+    depth: {
+      type: 'number',
+      label: 'Depth',
+      default: 10,
+      min: 0.1,
+      max: 1000
+    },
+    cornerRadius: {
+      type: 'number',
+      label: 'Corner Radius',
+      default: 0,
+      min: 0,
+      max: 100
+    },
+    draftAngle: {
+      type: 'number',
+      label: 'Draft Angle',
+      default: 0,
+      min: 0,
+      max: 45
+    }
+  },
   async evaluate(context, inputs, params) {
+    const result = await context.geometry.execute({
+      type: 'MAKE_POCKET_RECT',
+      params: {
+        face: inputs.face,
+        position: inputs.position,
+        width: params.width,
+        height: params.height,
+        depth: params.depth,
+        cornerRadius: params.cornerRadius,
+        draftAngle: params.draftAngle
+      }
+    });
     
-    // TODO: Implement RectangularPocket logic
-    throw new Error('RectangularPocket not yet implemented');
-  }
+    return {
+      shape: result
+    };
+  },
 };

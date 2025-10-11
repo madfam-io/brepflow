@@ -8,7 +8,7 @@ Check if contains
 ## Parameters
 
 
-### caseSensitive
+### Case Sensitive
 - **Type:** boolean
 - **Default:** true
 
@@ -19,13 +19,13 @@ Check if contains
 ## Inputs
 
 
-### string
+### String
 - **Type:** string
 - **Required:** Yes
 
 
 
-### search
+### Search
 - **Type:** string
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Check if contains
 ## Outputs
 
 
-### contains
+### Contains
 - **Type:** boolean
 
 
 
-### index
+### Index
 - **Type:** number
 
 

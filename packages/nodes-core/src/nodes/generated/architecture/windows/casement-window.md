@@ -8,7 +8,7 @@ Casement window
 ## Parameters
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 600
 - **Min:** 400
@@ -16,7 +16,7 @@ Casement window
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 1200
 - **Min:** 600
@@ -24,7 +24,7 @@ Casement window
 
 
 
-### hinge
+### Hinge
 - **Type:** enum
 - **Default:** "left"
 
@@ -32,7 +32,7 @@ Casement window
 
 
 
-### opening
+### Opening
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -43,7 +43,7 @@ Casement window
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Casement window
 ## Outputs
 
 
-### window
+### Window
 - **Type:** Shape
 
 
 
-### frame
+### Frame
 - **Type:** Shape
 
 
 
-### glass
+### Glass
 - **Type:** Face
 
 

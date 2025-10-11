@@ -1,55 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CurveParameterParams {
   samples: number;
   showParameter: boolean;
 }
-interface Inputs {
-  curve: Wire;
+
+interface CurveParameterInputs {
+  curve: unknown;
 }
-interface Outputs {
-  parameterRange: number[];
-  samplePoints: Point[];
-  parameterValues: number[];
+
+interface CurveParameterOutputs {
+  parameterRange: unknown;
+  samplePoints: Array<[number, number, number]>;
+  parameterValues: unknown;
 }
 
 export const CurveParameterNode: NodeDefinition<CurveParameterInputs, CurveParameterOutputs, CurveParameterParams> = {
-  type: 'Analysis::CurveParameter',
+  id: 'Analysis::CurveParameter',
   category: 'Analysis',
-  subcategory: 'Curves',
-
-  metadata: {
-    label: 'CurveParameter',
-    description: 'Analyze curve parameterization',
-    
-    
-  },
-
-  params: {
-        samples: {
-      "default": 50,
-      "min": 10,
-      "max": 200
-    },
-    showParameter: {
-      "default": true
+  label: 'CurveParameter',
+  description: 'Analyze curve parameterization',
+  inputs: {
+    curve: {
+      type: 'Wire',
+      label: 'Curve',
+      required: true
     }
   },
-
-  inputs: {
-        curve: 'Wire'
-  },
-
   outputs: {
-        parameterRange: 'number[]',
-    samplePoints: 'Point[]',
-    parameterValues: 'number[]'
+    parameterRange: {
+      type: 'number[]',
+      label: 'Parameter Range'
+    },
+    samplePoints: {
+      type: 'Point[]',
+      label: 'Sample Points'
+    },
+    parameterValues: {
+      type: 'number[]',
+      label: 'Parameter Values'
+    }
   },
-
+  params: {
+    samples: {
+      type: 'number',
+      label: 'Samples',
+      default: 50,
+      min: 10,
+      max: 200
+    },
+    showParameter: {
+      type: 'boolean',
+      label: 'Show Parameter',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'curveParameter',
       params: {
         curve: inputs.curve,
@@ -57,11 +64,11 @@ export const CurveParameterNode: NodeDefinition<CurveParameterInputs, CurveParam
         showParameter: params.showParameter
       }
     });
-
+    
     return {
-      parameterRange: result,
-      samplePoints: result,
-      parameterValues: result
+      parameterRange: results.parameterRange,
+      samplePoints: results.samplePoints,
+      parameterValues: results.parameterValues
     };
-  }
+  },
 };

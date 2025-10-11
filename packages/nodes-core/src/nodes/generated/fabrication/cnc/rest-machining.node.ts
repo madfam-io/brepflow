@@ -1,57 +1,65 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RestMachiningParams {
   previousTool: number;
   currentTool: number;
 }
-interface Inputs {
-  model: Shape;
-  previousPaths: Wire[];
+
+interface RestMachiningInputs {
+  model: unknown;
+  previousPaths: unknown;
 }
-interface Outputs {
-  restAreas: Face[];
-  restPaths: Wire[];
+
+interface RestMachiningOutputs {
+  restAreas: unknown;
+  restPaths: unknown;
 }
 
 export const RestMachiningNode: NodeDefinition<RestMachiningInputs, RestMachiningOutputs, RestMachiningParams> = {
-  type: 'Fabrication::RestMachining',
+  id: 'Fabrication::RestMachining',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'RestMachining',
-    description: 'Rest material machining',
-    
-    
-  },
-
-  params: {
-        previousTool: {
-      "default": 10,
-      "min": 1,
-      "max": 50
+  label: 'RestMachining',
+  description: 'Rest material machining',
+  inputs: {
+    model: {
+      type: 'Shape',
+      label: 'Model',
+      required: true
     },
-    currentTool: {
-      "default": 3,
-      "min": 0.1,
-      "max": 50
+    previousPaths: {
+      type: 'Wire[]',
+      label: 'Previous Paths',
+      required: true
     }
   },
-
-  inputs: {
-        model: 'Shape',
-    previousPaths: 'Wire[]'
-  },
-
   outputs: {
-        restAreas: 'Face[]',
-    restPaths: 'Wire[]'
+    restAreas: {
+      type: 'Face[]',
+      label: 'Rest Areas'
+    },
+    restPaths: {
+      type: 'Wire[]',
+      label: 'Rest Paths'
+    }
   },
-
+  params: {
+    previousTool: {
+      type: 'number',
+      label: 'Previous Tool',
+      default: 10,
+      min: 1,
+      max: 50
+    },
+    currentTool: {
+      type: 'number',
+      label: 'Current Tool',
+      default: 3,
+      min: 0.1,
+      max: 50
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'restMachining',
       params: {
         model: inputs.model,
@@ -60,10 +68,10 @@ export const RestMachiningNode: NodeDefinition<RestMachiningInputs, RestMachinin
         currentTool: params.currentTool
       }
     });
-
+    
     return {
-      restAreas: result,
-      restPaths: result
+      restAreas: results.restAreas,
+      restPaths: results.restPaths
     };
-  }
+  },
 };

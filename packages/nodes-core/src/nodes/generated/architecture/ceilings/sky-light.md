@@ -8,7 +8,7 @@ Skylight opening
 ## Parameters
 
 
-### type
+### Type
 - **Type:** enum
 - **Default:** "pyramid"
 
@@ -16,7 +16,7 @@ Skylight opening
 
 
 
-### glazingType
+### Glazing Type
 - **Type:** enum
 - **Default:** "double"
 
@@ -27,7 +27,7 @@ Skylight opening
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Skylight opening
 ## Outputs
 
 
-### skylight
+### Skylight
 - **Type:** Shape
 
 
 
-### frame
+### Frame
 - **Type:** Shape
 
 

@@ -8,7 +8,7 @@ Create lightweight structure
 ## Parameters
 
 
-### targetWeight
+### Target Weight
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Create lightweight structure
 
 
 
-### structureType
+### Structure Type
 - **Type:** enum
 - **Default:** "hybrid"
 
@@ -27,13 +27,13 @@ Create lightweight structure
 ## Inputs
 
 
-### solid
+### Solid
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### loadPaths
+### Load Paths
 - **Type:** Data
 - **Required:** No
 
@@ -42,12 +42,12 @@ Create lightweight structure
 ## Outputs
 
 
-### lightweighted
+### Lightweighted
 - **Type:** Shape
 
 
 
-### weightReduction
+### Weight Reduction
 - **Type:** number
 
 

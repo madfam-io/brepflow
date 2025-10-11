@@ -8,7 +8,7 @@ HSM toolpath optimization
 ## Parameters
 
 
-### cornerRadius
+### Corner Radius
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -16,7 +16,7 @@ HSM toolpath optimization
 
 
 
-### entrySpeed
+### Entry Speed
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -27,7 +27,7 @@ HSM toolpath optimization
 ## Inputs
 
 
-### toolpath
+### Toolpath
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ HSM toolpath optimization
 ## Outputs
 
 
-### hsmPath
+### Hsm Path
 - **Type:** Wire[]
 
 

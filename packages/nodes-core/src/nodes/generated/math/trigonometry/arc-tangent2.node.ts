@@ -1,50 +1,50 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ArcTangent2Params {
   angleUnit: string;
 }
-interface Inputs {
-  y: number;
-  x: number;
+
+interface ArcTangent2Inputs {
+  y: unknown;
+  x: unknown;
 }
-interface Outputs {
-  angle: number;
+
+interface ArcTangent2Outputs {
+  angle: unknown;
 }
 
 export const ArcTangent2Node: NodeDefinition<ArcTangent2Inputs, ArcTangent2Outputs, ArcTangent2Params> = {
-  type: 'Math::ArcTangent2',
+  id: 'Math::ArcTangent2',
   category: 'Math',
-  subcategory: 'Trigonometry',
-
-  metadata: {
-    label: 'ArcTangent2',
-    description: 'Two-argument arc tangent',
-    
-    
-  },
-
-  params: {
-        angleUnit: {
-      "default": "radians",
-      "options": [
-        "radians",
-        "degrees"
-      ]
+  label: 'ArcTangent2',
+  description: 'Two-argument arc tangent',
+  inputs: {
+    y: {
+      type: 'number',
+      label: 'Y',
+      required: true
+    },
+    x: {
+      type: 'number',
+      label: 'X',
+      required: true
     }
   },
-
-  inputs: {
-        y: 'number',
-    x: 'number'
-  },
-
   outputs: {
-        angle: 'number'
+    angle: {
+      type: 'number',
+      label: 'Angle'
+    }
   },
-
+  params: {
+    angleUnit: {
+      type: 'enum',
+      label: 'Angle Unit',
+      default: "radians",
+      options: ["radians","degrees"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathAtan2',
       params: {
@@ -53,9 +53,9 @@ export const ArcTangent2Node: NodeDefinition<ArcTangent2Inputs, ArcTangent2Outpu
         angleUnit: params.angleUnit
       }
     });
-
+    
     return {
       angle: result
     };
-  }
+  },
 };

@@ -1,48 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StringReplaceParams {
   global: boolean;
 }
-interface Inputs {
-  string: string;
-  search: string;
-  replace: string;
+
+interface StringReplaceInputs {
+  string: unknown;
+  search: unknown;
+  replace: unknown;
 }
-interface Outputs {
-  result: string;
+
+interface StringReplaceOutputs {
+  result: unknown;
 }
 
 export const StringReplaceNode: NodeDefinition<StringReplaceInputs, StringReplaceOutputs, StringReplaceParams> = {
-  type: 'Data::StringReplace',
+  id: 'Data::StringReplace',
   category: 'Data',
-  subcategory: 'String',
-
-  metadata: {
-    label: 'StringReplace',
-    description: 'Replace in string',
-    
-    
-  },
-
-  params: {
-        global: {
-      "default": true
+  label: 'StringReplace',
+  description: 'Replace in string',
+  inputs: {
+    string: {
+      type: 'string',
+      label: 'String',
+      required: true
+    },
+    search: {
+      type: 'string',
+      label: 'Search',
+      required: true
+    },
+    replace: {
+      type: 'string',
+      label: 'Replace',
+      required: true
     }
   },
-
-  inputs: {
-        string: 'string',
-    search: 'string',
-    replace: 'string'
-  },
-
   outputs: {
-        result: 'string'
+    result: {
+      type: 'string',
+      label: 'Result'
+    }
   },
-
+  params: {
+    global: {
+      type: 'boolean',
+      label: 'Global',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stringReplace',
       params: {
@@ -52,9 +59,9 @@ export const StringReplaceNode: NodeDefinition<StringReplaceInputs, StringReplac
         global: params.global
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

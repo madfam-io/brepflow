@@ -8,7 +8,7 @@ Create a line segment
 ## Parameters
 
 
-### startX
+### Start X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -16,7 +16,7 @@ Create a line segment
 
 
 
-### startY
+### Start Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -24,7 +24,7 @@ Create a line segment
 
 
 
-### startZ
+### Start Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -32,7 +32,7 @@ Create a line segment
 
 
 
-### endX
+### End X
 - **Type:** number
 - **Default:** 100
 - **Min:** -10000
@@ -40,7 +40,7 @@ Create a line segment
 
 
 
-### endY
+### End Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -48,7 +48,7 @@ Create a line segment
 
 
 
-### endZ
+### End Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -63,7 +63,7 @@ This node has no inputs.
 ## Outputs
 
 
-### edge
+### Edge
 - **Type:** Edge
 - **Description:** Line segment
 

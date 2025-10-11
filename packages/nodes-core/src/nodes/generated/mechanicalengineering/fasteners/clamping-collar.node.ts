@@ -1,70 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ClampingCollarParams {
   shaftDiameter: number;
   outerDiameter: number;
   width: number;
   clampType: string;
 }
-interface Inputs {
-  position: Point;
+
+interface ClampingCollarInputs {
+  position: [number, number, number];
 }
-interface Outputs {
-  collar: Shape;
-  bore: Wire;
+
+interface ClampingCollarOutputs {
+  collar: unknown;
+  bore: unknown;
 }
 
 export const ClampingCollarNode: NodeDefinition<ClampingCollarInputs, ClampingCollarOutputs, ClampingCollarParams> = {
-  type: 'MechanicalEngineering::ClampingCollar',
+  id: 'MechanicalEngineering::ClampingCollar',
   category: 'MechanicalEngineering',
-  subcategory: 'Fasteners',
-
-  metadata: {
-    label: 'ClampingCollar',
-    description: 'Create shaft collar/clamp',
-    
-    
-  },
-
-  params: {
-        shaftDiameter: {
-      "default": 10,
-      "min": 3,
-      "max": 50
-    },
-    outerDiameter: {
-      "default": 20,
-      "min": 8,
-      "max": 80
-    },
-    width: {
-      "default": 8,
-      "min": 3,
-      "max": 20
-    },
-    clampType: {
-      "default": "set-screw",
-      "options": [
-        "set-screw",
-        "split",
-        "hinged"
-      ]
+  label: 'ClampingCollar',
+  description: 'Create shaft collar/clamp',
+  inputs: {
+    position: {
+      type: 'Point',
+      label: 'Position',
+      required: true
     }
   },
-
-  inputs: {
-        position: 'Point'
-  },
-
   outputs: {
-        collar: 'Shape',
-    bore: 'Wire'
+    collar: {
+      type: 'Shape',
+      label: 'Collar'
+    },
+    bore: {
+      type: 'Wire',
+      label: 'Bore'
+    }
   },
-
+  params: {
+    shaftDiameter: {
+      type: 'number',
+      label: 'Shaft Diameter',
+      default: 10,
+      min: 3,
+      max: 50
+    },
+    outerDiameter: {
+      type: 'number',
+      label: 'Outer Diameter',
+      default: 20,
+      min: 8,
+      max: 80
+    },
+    width: {
+      type: 'number',
+      label: 'Width',
+      default: 8,
+      min: 3,
+      max: 20
+    },
+    clampType: {
+      type: 'enum',
+      label: 'Clamp Type',
+      default: "set-screw",
+      options: ["set-screw","split","hinged"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'clampingCollar',
       params: {
         position: inputs.position,
@@ -74,10 +78,10 @@ export const ClampingCollarNode: NodeDefinition<ClampingCollarInputs, ClampingCo
         clampType: params.clampType
       }
     });
-
+    
     return {
-      collar: result,
-      bore: result
+      collar: results.collar,
+      bore: results.bore
     };
-  }
+  },
 };

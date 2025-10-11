@@ -8,7 +8,7 @@ Geodesic dome pattern
 ## Parameters
 
 
-### frequency
+### Frequency
 - **Type:** number
 - **Default:** 3
 - **Min:** 1
@@ -16,7 +16,7 @@ Geodesic dome pattern
 
 
 
-### class
+### Class
 - **Type:** enum
 - **Default:** "I"
 
@@ -27,7 +27,7 @@ Geodesic dome pattern
 ## Inputs
 
 
-### sphere
+### Sphere
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Geodesic dome pattern
 ## Outputs
 
 
-### geodesic
+### Geodesic
 - **Type:** Wire[]
 
 

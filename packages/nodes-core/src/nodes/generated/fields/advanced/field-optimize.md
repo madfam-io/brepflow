@@ -8,7 +8,7 @@ Optimize field for objective
 ## Parameters
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -16,7 +16,7 @@ Optimize field for objective
 - **Description:** Optimization iterations
 
 
-### objective
+### Objective
 - **Type:** enum
 - **Default:** "\"minimize\""
 
@@ -24,7 +24,7 @@ Optimize field for objective
 - **Description:** Optimization objective
 
 
-### learningRate
+### Learning Rate
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -35,13 +35,13 @@ Optimize field for objective
 ## Inputs
 
 
-### initialField
+### Initial Field
 - **Type:** Field
 - **Required:** No
 
 
 
-### constraints
+### Constraints
 - **Type:** Field
 - **Required:** No
 
@@ -50,12 +50,12 @@ Optimize field for objective
 ## Outputs
 
 
-### optimizedField
+### Optimized Field
 - **Type:** Field
 
 
 
-### convergence
+### Convergence
 - **Type:** NumberList
 
 

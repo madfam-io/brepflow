@@ -1,56 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type TreeStatisticsParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  tree: DataTree;
+interface TreeStatisticsInputs {
+  tree: unknown;
 }
-interface Outputs {
-  branchCount: number;
-  itemCount: number;
-  depth: number;
+
+interface TreeStatisticsOutputs {
+  branchCount: unknown;
+  itemCount: unknown;
+  depth: unknown;
 }
 
 export const TreeStatisticsNode: NodeDefinition<TreeStatisticsInputs, TreeStatisticsOutputs, TreeStatisticsParams> = {
-  type: 'Data::TreeStatistics',
+  id: 'Data::TreeStatistics',
   category: 'Data',
-  subcategory: 'Tree',
-
-  metadata: {
-    label: 'TreeStatistics',
-    description: 'Tree statistics',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'TreeStatistics',
+  description: 'Tree statistics',
   inputs: {
-        tree: 'DataTree'
+    tree: {
+      type: 'DataTree',
+      label: 'Tree',
+      required: true
+    }
   },
-
   outputs: {
-        branchCount: 'number',
-    itemCount: 'number',
-    depth: 'number'
+    branchCount: {
+      type: 'number',
+      label: 'Branch Count'
+    },
+    itemCount: {
+      type: 'number',
+      label: 'Item Count'
+    },
+    depth: {
+      type: 'number',
+      label: 'Depth'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'treeStatistics',
       params: {
         tree: inputs.tree
-        
       }
     });
-
+    
     return {
-      branchCount: result,
-      itemCount: result,
-      depth: result
+      branchCount: results.branchCount,
+      itemCount: results.itemCount,
+      depth: results.depth
     };
-  }
+  },
 };

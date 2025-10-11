@@ -1,44 +1,43 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StandardDeviationParams {
   sample: boolean;
 }
-interface Inputs {
-  values: number[];
+
+interface StandardDeviationInputs {
+  values: unknown;
 }
-interface Outputs {
-  stddev: number;
+
+interface StandardDeviationOutputs {
+  stddev: unknown;
 }
 
 export const StandardDeviationNode: NodeDefinition<StandardDeviationInputs, StandardDeviationOutputs, StandardDeviationParams> = {
-  type: 'Math::StandardDeviation',
+  id: 'Math::StandardDeviation',
   category: 'Math',
-  subcategory: 'Statistics',
-
-  metadata: {
-    label: 'StandardDeviation',
-    description: 'Calculate standard deviation',
-    
-    
-  },
-
-  params: {
-        sample: {
-      "default": false
+  label: 'StandardDeviation',
+  description: 'Calculate standard deviation',
+  inputs: {
+    values: {
+      type: 'number[]',
+      label: 'Values',
+      required: true
     }
   },
-
-  inputs: {
-        values: 'number[]'
-  },
-
   outputs: {
-        stddev: 'number'
+    stddev: {
+      type: 'number',
+      label: 'Stddev'
+    }
   },
-
+  params: {
+    sample: {
+      type: 'boolean',
+      label: 'Sample',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathStdDev',
       params: {
@@ -46,9 +45,9 @@ export const StandardDeviationNode: NodeDefinition<StandardDeviationInputs, Stan
         sample: params.sample
       }
     });
-
+    
     return {
       stddev: result
     };
-  }
+  },
 };

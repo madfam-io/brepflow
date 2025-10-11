@@ -1,50 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface OctetLatticeParams {
   cellSize: number;
   strutDiameter: number;
 }
-interface Inputs {
-  bounds: Box;
+
+interface OctetLatticeInputs {
+  bounds: unknown;
 }
-interface Outputs {
-  lattice: Wire[];
+
+interface OctetLatticeOutputs {
+  lattice: unknown;
 }
 
 export const OctetLatticeNode: NodeDefinition<OctetLatticeInputs, OctetLatticeOutputs, OctetLatticeParams> = {
-  type: 'Patterns::OctetLattice',
+  id: 'Patterns::OctetLattice',
   category: 'Patterns',
-  subcategory: 'Lattice',
-
-  metadata: {
-    label: 'OctetLattice',
-    description: 'Octet truss lattice',
-    
-    
-  },
-
-  params: {
-        cellSize: {
-      "default": 10,
-      "min": 1
-    },
-    strutDiameter: {
-      "default": 1,
-      "min": 0.1
+  label: 'OctetLattice',
+  description: 'Octet truss lattice',
+  inputs: {
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        bounds: 'Box'
-  },
-
   outputs: {
-        lattice: 'Wire[]'
+    lattice: {
+      type: 'Wire[]',
+      label: 'Lattice'
+    }
   },
-
+  params: {
+    cellSize: {
+      type: 'number',
+      label: 'Cell Size',
+      default: 10,
+      min: 1
+    },
+    strutDiameter: {
+      type: 'number',
+      label: 'Strut Diameter',
+      default: 1,
+      min: 0.1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'octetLattice',
       params: {
@@ -53,9 +54,9 @@ export const OctetLatticeNode: NodeDefinition<OctetLatticeInputs, OctetLatticeOu
         strutDiameter: params.strutDiameter
       }
     });
-
+    
     return {
       lattice: result
     };
-  }
+  },
 };

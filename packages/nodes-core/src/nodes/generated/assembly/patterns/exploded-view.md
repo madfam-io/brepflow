@@ -8,7 +8,7 @@ Create exploded view
 ## Parameters
 
 
-### distance
+### Distance
 - **Type:** number
 - **Default:** 100
 - **Min:** 0
@@ -16,7 +16,7 @@ Create exploded view
 
 
 
-### autoSpace
+### Auto Space
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Create exploded view
 ## Inputs
 
 
-### assembly
+### Assembly
 - **Type:** Assembly
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Create exploded view
 ## Outputs
 
 
-### exploded
+### Exploded
 - **Type:** Shape[]
 
 
 
-### paths
+### Paths
 - **Type:** Wire[]
 
 

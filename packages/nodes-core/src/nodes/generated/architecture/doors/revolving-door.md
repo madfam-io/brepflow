@@ -8,7 +8,7 @@ Revolving door entry
 ## Parameters
 
 
-### diameter
+### Diameter
 - **Type:** number
 - **Default:** 2000
 - **Min:** 1800
@@ -16,7 +16,7 @@ Revolving door entry
 
 
 
-### wings
+### Wings
 - **Type:** number
 - **Default:** 4
 - **Min:** 3
@@ -24,7 +24,7 @@ Revolving door entry
 
 
 
-### rotation
+### Rotation
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -35,7 +35,7 @@ Revolving door entry
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Revolving door entry
 ## Outputs
 
 
-### revolvingDoor
+### Revolving Door
 - **Type:** Shape
 
 

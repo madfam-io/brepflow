@@ -8,7 +8,7 @@ Compute medial axis/skeleton
 ## Parameters
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.01
@@ -16,7 +16,7 @@ Compute medial axis/skeleton
 
 
 
-### pruning
+### Pruning
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0
@@ -24,7 +24,7 @@ Compute medial axis/skeleton
 
 
 
-### simplify
+### Simplify
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Compute medial axis/skeleton
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Compute medial axis/skeleton
 ## Outputs
 
 
-### skeleton
+### Skeleton
 - **Type:** Wire[]
 
 
 
-### branchPoints
+### Branch Points
 - **Type:** Point[]
 
 
 
-### endpoints
+### Endpoints
 - **Type:** Point[]
 
 

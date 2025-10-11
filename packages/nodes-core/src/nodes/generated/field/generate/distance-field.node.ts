@@ -1,53 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface DistanceFieldParams {
   maxDistance: number;
   inside: boolean;
   signed: boolean;
 }
-interface Inputs {
-  geometry: Shape;
+
+interface DistanceFieldInputs {
+  geometry: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface DistanceFieldOutputs {
+  field: unknown;
 }
 
 export const DistanceFieldNode: NodeDefinition<DistanceFieldInputs, DistanceFieldOutputs, DistanceFieldParams> = {
-  type: 'Field::DistanceField',
+  id: 'Field::DistanceField',
   category: 'Field',
-  subcategory: 'Generate',
-
-  metadata: {
-    label: 'DistanceField',
-    description: 'Distance field from geometry',
-    
-    
-  },
-
-  params: {
-        maxDistance: {
-      "default": 100,
-      "min": 0.1
-    },
-    inside: {
-      "default": false
-    },
-    signed: {
-      "default": true
+  label: 'DistanceField',
+  description: 'Distance field from geometry',
+  inputs: {
+    geometry: {
+      type: 'Shape',
+      label: 'Geometry',
+      required: true
     }
   },
-
-  inputs: {
-        geometry: 'Shape'
-  },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    maxDistance: {
+      type: 'number',
+      label: 'Max Distance',
+      default: 100,
+      min: 0.1
+    },
+    inside: {
+      type: 'boolean',
+      label: 'Inside',
+      default: false
+    },
+    signed: {
+      type: 'boolean',
+      label: 'Signed',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldDistance',
       params: {
@@ -57,9 +60,9 @@ export const DistanceFieldNode: NodeDefinition<DistanceFieldInputs, DistanceFiel
         signed: params.signed
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

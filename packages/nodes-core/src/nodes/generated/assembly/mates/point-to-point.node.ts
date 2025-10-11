@@ -1,56 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type PointToPointParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  point1: Point;
-  point2: Point;
+interface PointToPointInputs {
+  point1: [number, number, number];
+  point2: [number, number, number];
 }
-interface Outputs {
-  mated: Shape[];
-  mate: Mate;
+
+interface PointToPointOutputs {
+  mated: unknown;
+  mate: unknown;
 }
 
 export const PointToPointNode: NodeDefinition<PointToPointInputs, PointToPointOutputs, PointToPointParams> = {
-  type: 'Assembly::PointToPoint',
+  id: 'Assembly::PointToPoint',
   category: 'Assembly',
-  subcategory: 'Mates',
-
-  metadata: {
-    label: 'PointToPoint',
-    description: 'Mate two points together',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'PointToPoint',
+  description: 'Mate two points together',
   inputs: {
-        point1: 'Point',
-    point2: 'Point'
+    point1: {
+      type: 'Point',
+      label: 'Point1',
+      required: true
+    },
+    point2: {
+      type: 'Point',
+      label: 'Point2',
+      required: true
+    }
   },
-
   outputs: {
-        mated: 'Shape[]',
-    mate: 'Mate'
+    mated: {
+      type: 'Shape[]',
+      label: 'Mated'
+    },
+    mate: {
+      type: 'Mate',
+      label: 'Mate'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'matePointToPoint',
       params: {
         point1: inputs.point1,
         point2: inputs.point2
-        
       }
     });
-
+    
     return {
-      mated: result,
-      mate: result
+      mated: results.mated,
+      mate: results.mate
     };
-  }
+  },
 };

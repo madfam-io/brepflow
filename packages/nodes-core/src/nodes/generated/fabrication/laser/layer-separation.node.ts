@@ -1,49 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LayerSeparationParams {
   separateBy: string;
 }
-interface Inputs {
-  drawing: Wire[];
+
+interface LayerSeparationInputs {
+  drawing: unknown;
 }
-interface Outputs {
-  layers: Wire[][];
+
+interface LayerSeparationOutputs {
+  layers: unknown;
 }
 
 export const LayerSeparationNode: NodeDefinition<LayerSeparationInputs, LayerSeparationOutputs, LayerSeparationParams> = {
-  type: 'Fabrication::LayerSeparation',
+  id: 'Fabrication::LayerSeparation',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'LayerSeparation',
-    description: 'Separate by layer/color',
-    
-    
-  },
-
-  params: {
-        separateBy: {
-      "default": "color",
-      "options": [
-        "color",
-        "layer",
-        "lineweight"
-      ]
+  label: 'LayerSeparation',
+  description: 'Separate by layer/color',
+  inputs: {
+    drawing: {
+      type: 'Wire[]',
+      label: 'Drawing',
+      required: true
     }
   },
-
-  inputs: {
-        drawing: 'Wire[]'
-  },
-
   outputs: {
-        layers: 'Wire[][]'
+    layers: {
+      type: 'Wire[][]',
+      label: 'Layers'
+    }
   },
-
+  params: {
+    separateBy: {
+      type: 'enum',
+      label: 'Separate By',
+      default: "color",
+      options: ["color","layer","lineweight"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'layerSeparation',
       params: {
@@ -51,9 +46,9 @@ export const LayerSeparationNode: NodeDefinition<LayerSeparationInputs, LayerSep
         separateBy: params.separateBy
       }
     });
-
+    
     return {
       layers: result
     };
-  }
+  },
 };

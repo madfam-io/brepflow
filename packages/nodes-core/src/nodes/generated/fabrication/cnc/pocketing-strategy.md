@@ -8,7 +8,7 @@ Pocket machining strategy
 ## Parameters
 
 
-### pattern
+### Pattern
 - **Type:** enum
 - **Default:** "spiral"
 
@@ -16,7 +16,7 @@ Pocket machining strategy
 
 
 
-### stepdown
+### Stepdown
 - **Type:** number
 - **Default:** 2
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Pocket machining strategy
 
 
 
-### finishPass
+### Finish Pass
 - **Type:** boolean
 - **Default:** true
 
@@ -35,13 +35,13 @@ Pocket machining strategy
 ## Inputs
 
 
-### pocket
+### Pocket
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### depth
+### Depth
 - **Type:** Number
 - **Required:** Yes
 
@@ -50,12 +50,12 @@ Pocket machining strategy
 ## Outputs
 
 
-### roughing
+### Roughing
 - **Type:** Wire[]
 
 
 
-### finishing
+### Finishing
 - **Type:** Wire[]
 
 

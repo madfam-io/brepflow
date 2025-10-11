@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type FloorParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface FloorInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface FloorOutputs {
+  result: unknown;
 }
 
 export const FloorNode: NodeDefinition<FloorInputs, FloorOutputs, FloorParams> = {
-  type: 'Math::Floor',
+  id: 'Math::Floor',
   category: 'Math',
-  subcategory: 'Rounding',
-
-  metadata: {
-    label: 'Floor',
-    description: 'Round down',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Floor',
+  description: 'Round down',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathFloor',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

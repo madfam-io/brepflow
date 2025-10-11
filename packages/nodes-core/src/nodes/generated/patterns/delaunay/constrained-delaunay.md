@@ -8,7 +8,7 @@ Constrained Delaunay triangulation
 ## Parameters
 
 
-### refinement
+### Refinement
 - **Type:** boolean
 - **Default:** true
 
@@ -16,7 +16,7 @@ Constrained Delaunay triangulation
 
 
 
-### maxArea
+### Max Area
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -27,19 +27,19 @@ Constrained Delaunay triangulation
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### boundary
+### Boundary
 - **Type:** Wire
 - **Required:** Yes
 
 
 
-### holes
+### Holes
 - **Type:** Wire[]
 - **Required:** No
 
@@ -48,7 +48,7 @@ Constrained Delaunay triangulation
 ## Outputs
 
 
-### triangulation
+### Triangulation
 - **Type:** Mesh
 
 

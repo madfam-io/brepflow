@@ -8,7 +8,7 @@ Create rigid shaft coupling
 ## Parameters
 
 
-### shaft1Diameter
+### Shaft1 Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -16,7 +16,7 @@ Create rigid shaft coupling
 
 
 
-### shaft2Diameter
+### Shaft2 Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -24,7 +24,7 @@ Create rigid shaft coupling
 
 
 
-### couplingDiameter
+### Coupling Diameter
 - **Type:** number
 - **Default:** 40
 - **Min:** 15
@@ -32,7 +32,7 @@ Create rigid shaft coupling
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 50
 - **Min:** 20
@@ -43,7 +43,7 @@ Create rigid shaft coupling
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create rigid shaft coupling
 ## Outputs
 
 
-### coupling
+### Coupling
 - **Type:** Shape
 
 
 
-### bores
+### Bores
 - **Type:** Wire[]
 
 

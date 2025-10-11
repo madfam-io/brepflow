@@ -8,7 +8,7 @@ Offset surface or solid
 ## Parameters
 
 
-### offset
+### Offset
 - **Type:** number
 - **Default:** 5
 - **Min:** -1000
@@ -16,7 +16,7 @@ Offset surface or solid
 
 
 
-### fillGaps
+### Fill Gaps
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Offset surface or solid
 
 
 
-### extend
+### Extend
 - **Type:** boolean
 - **Default:** false
 
@@ -35,7 +35,7 @@ Offset surface or solid
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Offset surface or solid
 ## Outputs
 
 
-### offsetShape
+### Offset Shape
 - **Type:** Shape
 
 

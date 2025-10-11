@@ -1,7 +1,6 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ConeParams {
   radius1: number;
   radius2: number;
   height: number;
@@ -10,79 +9,80 @@ interface Params {
   centerZ: number;
   angle: number;
 }
-type Inputs = {};
-interface Outputs {
-  solid: Solid;
+
+type ConeInputs = Record<string, never>;
+
+interface ConeOutputs {
+  solid: unknown;
 }
 
 export const ConeNode: NodeDefinition<ConeInputs, ConeOutputs, ConeParams> = {
-  type: 'Solid::Cone',
+  id: 'Solid::Cone',
   category: 'Solid',
-  subcategory: 'Primitives',
-
-  metadata: {
-    label: 'Cone',
-    description: 'Create a parametric cone or truncated cone',
-    
-    
-  },
-
-  params: {
-        radius1: {
-      "default": 50,
-      "min": 0,
-      "max": 10000,
-      "description": "Bottom radius"
-    },
-    radius2: {
-      "default": 0,
-      "min": 0,
-      "max": 10000,
-      "description": "Top radius (0 for pointed)"
-    },
-    height: {
-      "default": 100,
-      "min": 0.1,
-      "max": 10000,
-      "description": "Cone height"
-    },
-    centerX: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerY: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    centerZ: {
-      "default": 0,
-      "min": -10000,
-      "max": 10000
-    },
-    angle: {
-      "default": 360,
-      "min": 0,
-      "max": 360,
-      "description": "Sweep angle"
+  label: 'Cone',
+  description: 'Create a parametric cone or truncated cone',
+  inputs: {},
+  outputs: {
+    solid: {
+      type: 'Solid',
+      label: 'Solid'
     }
   },
-
-  inputs: {
-    
+  params: {
+    radius1: {
+      type: 'number',
+      label: 'Radius1',
+      default: 50,
+      min: 0,
+      max: 10000
+    },
+    radius2: {
+      type: 'number',
+      label: 'Radius2',
+      default: 0,
+      min: 0,
+      max: 10000
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 100,
+      min: 0.1,
+      max: 10000
+    },
+    centerX: {
+      type: 'number',
+      label: 'Center X',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerY: {
+      type: 'number',
+      label: 'Center Y',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    centerZ: {
+      type: 'number',
+      label: 'Center Z',
+      default: 0,
+      min: -10000,
+      max: 10000
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 360,
+      min: 0,
+      max: 360
+    }
   },
-
-  outputs: {
-        solid: 'Solid'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'makeCone',
       params: {
-        
         radius1: params.radius1,
         radius2: params.radius2,
         height: params.height,
@@ -92,9 +92,9 @@ export const ConeNode: NodeDefinition<ConeInputs, ConeOutputs, ConeParams> = {
         angle: params.angle
       }
     });
-
+    
     return {
       solid: result
     };
-  }
+  },
 };

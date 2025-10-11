@@ -1,58 +1,62 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface Voronoi2DParams {
   boundary: string;
   clipToBoundary: boolean;
 }
-interface Inputs {
-  points: Point[];
-  plane?: Plane;
+
+interface Voronoi2DInputs {
+  points: Array<[number, number, number]>;
+  plane?: unknown;
 }
-interface Outputs {
-  cells: Wire[];
-  edges: Edge[];
+
+interface Voronoi2DOutputs {
+  cells: unknown;
+  edges: unknown;
 }
 
 export const Voronoi2DNode: NodeDefinition<Voronoi2DInputs, Voronoi2DOutputs, Voronoi2DParams> = {
-  type: 'Patterns::Voronoi2D',
+  id: 'Patterns::Voronoi2D',
   category: 'Patterns',
-  subcategory: 'Voronoi',
-
-  metadata: {
-    label: 'Voronoi2D',
-    description: 'Create 2D Voronoi diagram',
-    
-    
-  },
-
-  params: {
-        boundary: {
-      "default": "box",
-      "options": [
-        "box",
-        "circle",
-        "polygon"
-      ]
+  label: 'Voronoi2D',
+  description: 'Create 2D Voronoi diagram',
+  inputs: {
+    points: {
+      type: 'Point[]',
+      label: 'Points',
+      required: true
     },
-    clipToBoundary: {
-      "default": true
+    plane: {
+      type: 'Plane',
+      label: 'Plane',
+      optional: true
     }
   },
-
-  inputs: {
-        points: 'Point[]',
-    plane: 'Plane'
-  },
-
   outputs: {
-        cells: 'Wire[]',
-    edges: 'Edge[]'
+    cells: {
+      type: 'Wire[]',
+      label: 'Cells'
+    },
+    edges: {
+      type: 'Edge[]',
+      label: 'Edges'
+    }
   },
-
+  params: {
+    boundary: {
+      type: 'enum',
+      label: 'Boundary',
+      default: "box",
+      options: ["box","circle","polygon"]
+    },
+    clipToBoundary: {
+      type: 'boolean',
+      label: 'Clip To Boundary',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'voronoi2D',
       params: {
         points: inputs.points,
@@ -61,10 +65,10 @@ export const Voronoi2DNode: NodeDefinition<Voronoi2DInputs, Voronoi2DOutputs, Vo
         clipToBoundary: params.clipToBoundary
       }
     });
-
+    
     return {
-      cells: result,
-      edges: result
+      cells: results.cells,
+      edges: results.edges
     };
-  }
+  },
 };

@@ -1,64 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FloorFinishParams {
   material: string;
   pattern: string;
 }
-interface Inputs {
-  floorArea: Face;
+
+interface FloorFinishInputs {
+  floorArea: unknown;
 }
-interface Outputs {
-  finishedFloor: Face;
-  pattern: Wire[];
+
+interface FloorFinishOutputs {
+  finishedFloor: unknown;
+  pattern: unknown;
 }
 
 export const FloorFinishNode: NodeDefinition<FloorFinishInputs, FloorFinishOutputs, FloorFinishParams> = {
-  type: 'Architecture::FloorFinish',
+  id: 'Architecture::FloorFinish',
   category: 'Architecture',
-  subcategory: 'Floors',
-
-  metadata: {
-    label: 'FloorFinish',
-    description: 'Floor finish materials',
-    
-    
-  },
-
-  params: {
-        material: {
-      "default": "tile",
-      "options": [
-        "tile",
-        "wood",
-        "carpet",
-        "vinyl",
-        "polished-concrete"
-      ]
-    },
-    pattern: {
-      "default": "straight",
-      "options": [
-        "straight",
-        "diagonal",
-        "herringbone",
-        "random"
-      ]
+  label: 'FloorFinish',
+  description: 'Floor finish materials',
+  inputs: {
+    floorArea: {
+      type: 'Face',
+      label: 'Floor Area',
+      required: true
     }
   },
-
-  inputs: {
-        floorArea: 'Face'
-  },
-
   outputs: {
-        finishedFloor: 'Face',
-    pattern: 'Wire[]'
+    finishedFloor: {
+      type: 'Face',
+      label: 'Finished Floor'
+    },
+    pattern: {
+      type: 'Wire[]',
+      label: 'Pattern'
+    }
   },
-
+  params: {
+    material: {
+      type: 'enum',
+      label: 'Material',
+      default: "tile",
+      options: ["tile","wood","carpet","vinyl","polished-concrete"]
+    },
+    pattern: {
+      type: 'enum',
+      label: 'Pattern',
+      default: "straight",
+      options: ["straight","diagonal","herringbone","random"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'floorFinish',
       params: {
         floorArea: inputs.floorArea,
@@ -66,10 +59,10 @@ export const FloorFinishNode: NodeDefinition<FloorFinishInputs, FloorFinishOutpu
         pattern: params.pattern
       }
     });
-
+    
     return {
-      finishedFloor: result,
-      pattern: result
+      finishedFloor: results.finishedFloor,
+      pattern: results.pattern
     };
-  }
+  },
 };

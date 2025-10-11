@@ -1,68 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface WasherParams {
   innerDiameter: number;
   outerDiameter: number;
   thickness: number;
   type: string;
 }
-interface Inputs {
-  center: Point;
+
+interface WasherInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  washer: Shape;
+
+interface WasherOutputs {
+  washer: unknown;
 }
 
 export const WasherNode: NodeDefinition<WasherInputs, WasherOutputs, WasherParams> = {
-  type: 'MechanicalEngineering::Washer',
+  id: 'MechanicalEngineering::Washer',
   category: 'MechanicalEngineering',
-  subcategory: 'Fasteners',
-
-  metadata: {
-    label: 'Washer',
-    description: 'Create washer',
-    
-    
-  },
-
-  params: {
-        innerDiameter: {
-      "default": 6.4,
-      "min": 2,
-      "max": 50
-    },
-    outerDiameter: {
-      "default": 12,
-      "min": 4,
-      "max": 100
-    },
-    thickness: {
-      "default": 1.6,
-      "min": 0.5,
-      "max": 5
-    },
-    type: {
-      "default": "flat",
-      "options": [
-        "flat",
-        "spring",
-        "lock",
-        "fender"
-      ]
+  label: 'Washer',
+  description: 'Create washer',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        washer: 'Shape'
+    washer: {
+      type: 'Shape',
+      label: 'Washer'
+    }
   },
-
+  params: {
+    innerDiameter: {
+      type: 'number',
+      label: 'Inner Diameter',
+      default: 6.4,
+      min: 2,
+      max: 50
+    },
+    outerDiameter: {
+      type: 'number',
+      label: 'Outer Diameter',
+      default: 12,
+      min: 4,
+      max: 100
+    },
+    thickness: {
+      type: 'number',
+      label: 'Thickness',
+      default: 1.6,
+      min: 0.5,
+      max: 5
+    },
+    type: {
+      type: 'enum',
+      label: 'Type',
+      default: "flat",
+      options: ["flat","spring","lock","fender"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'washer',
       params: {
@@ -73,9 +73,9 @@ export const WasherNode: NodeDefinition<WasherInputs, WasherOutputs, WasherParam
         type: params.type
       }
     });
-
+    
     return {
       washer: result
     };
-  }
+  },
 };

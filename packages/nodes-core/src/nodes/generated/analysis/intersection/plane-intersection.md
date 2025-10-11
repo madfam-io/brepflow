@@ -8,7 +8,7 @@ Intersect geometry with plane
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -19,13 +19,13 @@ Intersect geometry with plane
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### plane
+### Plane
 - **Type:** Face
 - **Required:** Yes
 
@@ -34,12 +34,12 @@ Intersect geometry with plane
 ## Outputs
 
 
-### intersectionCurves
+### Intersection Curves
 - **Type:** Wire[]
 
 
 
-### sectionProfiles
+### Section Profiles
 - **Type:** Wire[]
 
 

@@ -8,7 +8,7 @@ Gothic arch window
 ## Parameters
 
 
-### style
+### Style
 - **Type:** enum
 - **Default:** "equilateral"
 
@@ -16,7 +16,7 @@ Gothic arch window
 
 
 
-### tracery
+### Tracery
 - **Type:** boolean
 - **Default:** true
 
@@ -27,7 +27,7 @@ Gothic arch window
 ## Inputs
 
 
-### opening
+### Opening
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Gothic arch window
 ## Outputs
 
 
-### gothicWindow
+### Gothic Window
 - **Type:** Shape
 
 
 
-### tracery
+### Tracery
 - **Type:** Wire[]
 
 

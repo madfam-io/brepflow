@@ -8,7 +8,7 @@ Distance field from geometry
 ## Parameters
 
 
-### maxDistance
+### Max Distance
 - **Type:** number
 - **Default:** 100
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Distance field from geometry
 
 
 
-### inside
+### Inside
 - **Type:** boolean
 - **Default:** false
 
@@ -24,7 +24,7 @@ Distance field from geometry
 
 
 
-### signed
+### Signed
 - **Type:** boolean
 - **Default:** true
 
@@ -35,7 +35,7 @@ Distance field from geometry
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Distance field from geometry
 ## Outputs
 
 
-### field
+### Field
 - **Type:** ScalarField
 
 

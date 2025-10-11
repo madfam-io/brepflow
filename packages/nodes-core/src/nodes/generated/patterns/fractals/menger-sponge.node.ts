@@ -1,47 +1,46 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface MengerSpongeParams {
   iterations: number;
 }
-interface Inputs {
-  cube: Shape;
+
+interface MengerSpongeInputs {
+  cube: unknown;
 }
-interface Outputs {
-  fractal: Shape;
+
+interface MengerSpongeOutputs {
+  fractal: unknown;
 }
 
 export const MengerSpongeNode: NodeDefinition<MengerSpongeInputs, MengerSpongeOutputs, MengerSpongeParams> = {
-  type: 'Patterns::MengerSponge',
+  id: 'Patterns::MengerSponge',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'MengerSponge',
-    description: 'Menger sponge 3D fractal',
-    
-    
-  },
-
-  params: {
-        iterations: {
-      "default": 3,
-      "min": 0,
-      "max": 4,
-      "step": 1
+  label: 'MengerSponge',
+  description: 'Menger sponge 3D fractal',
+  inputs: {
+    cube: {
+      type: 'Shape',
+      label: 'Cube',
+      required: true
     }
   },
-
-  inputs: {
-        cube: 'Shape'
-  },
-
   outputs: {
-        fractal: 'Shape'
+    fractal: {
+      type: 'Shape',
+      label: 'Fractal'
+    }
   },
-
+  params: {
+    iterations: {
+      type: 'number',
+      label: 'Iterations',
+      default: 3,
+      min: 0,
+      max: 4,
+      step: 1
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mengerSponge',
       params: {
@@ -49,9 +48,9 @@ export const MengerSpongeNode: NodeDefinition<MengerSpongeInputs, MengerSpongeOu
         iterations: params.iterations
       }
     });
-
+    
     return {
       fractal: result
     };
-  }
+  },
 };

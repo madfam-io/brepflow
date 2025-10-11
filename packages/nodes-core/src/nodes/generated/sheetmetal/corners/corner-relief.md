@@ -8,7 +8,7 @@ Add corner relief cuts
 ## Parameters
 
 
-### reliefType
+### Relief Type
 - **Type:** enum
 - **Default:** "circular"
 
@@ -16,7 +16,7 @@ Add corner relief cuts
 
 
 
-### reliefSize
+### Relief Size
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Add corner relief cuts
 
 
 
-### reliefRatio
+### Relief Ratio
 - **Type:** number
 - **Default:** 0.5
 - **Min:** 0.1
@@ -35,13 +35,13 @@ Add corner relief cuts
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### corners
+### Corners
 - **Type:** Vertex[]
 - **Required:** Yes
 
@@ -50,7 +50,7 @@ Add corner relief cuts
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

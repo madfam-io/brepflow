@@ -8,7 +8,7 @@ Epoxy floor coating system
 ## Parameters
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 3
 - **Min:** 2
@@ -16,7 +16,7 @@ Epoxy floor coating system
 
 
 
-### texture
+### Texture
 - **Type:** enum
 - **Default:** "smooth"
 
@@ -27,7 +27,7 @@ Epoxy floor coating system
 ## Inputs
 
 
-### floorSurface
+### Floor Surface
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Epoxy floor coating system
 ## Outputs
 
 
-### epoxyFloor
+### Epoxy Floor
 - **Type:** Face
 
 

@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### curve1
+### Curve1
 - **Type:** Wire
 - **Required:** Yes
 - **Description:** First curve
 
 
-### curve2
+### Curve2
 - **Type:** Wire
 - **Required:** Yes
 - **Description:** Second curve
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### surface
+### Surface
 - **Type:** Face
 - **Description:** Ruled surface
 

@@ -1,59 +1,69 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface NestingOptimizationParams {
   spacing: number;
   rotations: boolean;
   grainDirection: boolean;
 }
-interface Inputs {
-  parts: Face[];
-  sheet: Face;
+
+interface NestingOptimizationInputs {
+  parts: unknown;
+  sheet: unknown;
 }
-interface Outputs {
-  nestedParts: Face[];
-  utilization: Number;
+
+interface NestingOptimizationOutputs {
+  nestedParts: unknown;
+  utilization: number;
 }
 
 export const NestingOptimizationNode: NodeDefinition<NestingOptimizationInputs, NestingOptimizationOutputs, NestingOptimizationParams> = {
-  type: 'Fabrication::NestingOptimization',
+  id: 'Fabrication::NestingOptimization',
   category: 'Fabrication',
-  subcategory: 'Laser',
-
-  metadata: {
-    label: 'NestingOptimization',
-    description: 'Optimize material nesting',
-    
-    
-  },
-
-  params: {
-        spacing: {
-      "default": 2,
-      "min": 0,
-      "max": 10
+  label: 'NestingOptimization',
+  description: 'Optimize material nesting',
+  inputs: {
+    parts: {
+      type: 'Face[]',
+      label: 'Parts',
+      required: true
     },
-    rotations: {
-      "default": true
-    },
-    grainDirection: {
-      "default": false
+    sheet: {
+      type: 'Face',
+      label: 'Sheet',
+      required: true
     }
   },
-
-  inputs: {
-        parts: 'Face[]',
-    sheet: 'Face'
-  },
-
   outputs: {
-        nestedParts: 'Face[]',
-    utilization: 'Number'
+    nestedParts: {
+      type: 'Face[]',
+      label: 'Nested Parts'
+    },
+    utilization: {
+      type: 'Number',
+      label: 'Utilization'
+    }
   },
-
+  params: {
+    spacing: {
+      type: 'number',
+      label: 'Spacing',
+      default: 2,
+      min: 0,
+      max: 10
+    },
+    rotations: {
+      type: 'boolean',
+      label: 'Rotations',
+      default: true
+    },
+    grainDirection: {
+      type: 'boolean',
+      label: 'Grain Direction',
+      default: false
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'nestingOptimization',
       params: {
         parts: inputs.parts,
@@ -63,10 +73,10 @@ export const NestingOptimizationNode: NodeDefinition<NestingOptimizationInputs, 
         grainDirection: params.grainDirection
       }
     });
-
+    
     return {
-      nestedParts: result,
-      utilization: result
+      nestedParts: results.nestedParts,
+      utilization: results.utilization
     };
-  }
+  },
 };

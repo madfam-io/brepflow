@@ -8,7 +8,7 @@ Map laser power settings
 ## Parameters
 
 
-### material
+### Material
 - **Type:** enum
 - **Default:** "acrylic"
 
@@ -16,7 +16,7 @@ Map laser power settings
 
 
 
-### thickness
+### Thickness
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Map laser power settings
 
 
 
-### wattage
+### Wattage
 - **Type:** number
 - **Default:** 60
 - **Min:** 10
@@ -35,7 +35,7 @@ Map laser power settings
 ## Inputs
 
 
-### geometry
+### Geometry
 - **Type:** Wire[]
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Map laser power settings
 ## Outputs
 
 
-### powerSettings
+### Power Settings
 - **Type:** Data
 
 

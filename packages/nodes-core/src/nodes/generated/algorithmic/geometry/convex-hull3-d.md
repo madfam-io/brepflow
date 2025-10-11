@@ -8,7 +8,7 @@ Compute 3D convex hull
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Compute 3D convex hull
 
 
 
-### includeInterior
+### Include Interior
 - **Type:** boolean
 - **Default:** false
 
@@ -27,7 +27,7 @@ Compute 3D convex hull
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -36,22 +36,22 @@ Compute 3D convex hull
 ## Outputs
 
 
-### hull
+### Hull
 - **Type:** Shape
 
 
 
-### vertices
+### Vertices
 - **Type:** Point[]
 
 
 
-### faces
+### Faces
 - **Type:** Face[]
 
 
 
-### volume
+### Volume
 - **Type:** number
 
 

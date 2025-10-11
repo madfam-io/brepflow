@@ -8,7 +8,7 @@ Rotate shape around axis
 ## Parameters
 
 
-### angle
+### Angle
 - **Type:** number
 - **Default:** 45
 - **Min:** -360
@@ -16,7 +16,7 @@ Rotate shape around axis
 - **Description:** Rotation angle in degrees
 
 
-### axisX
+### Axis X
 - **Type:** number
 - **Default:** 0
 - **Min:** -1
@@ -24,7 +24,7 @@ Rotate shape around axis
 - **Description:** Axis X component
 
 
-### axisY
+### Axis Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -1
@@ -32,7 +32,7 @@ Rotate shape around axis
 - **Description:** Axis Y component
 
 
-### axisZ
+### Axis Z
 - **Type:** number
 - **Default:** 1
 - **Min:** -1
@@ -40,7 +40,7 @@ Rotate shape around axis
 - **Description:** Axis Z component
 
 
-### centerX
+### Center X
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -48,7 +48,7 @@ Rotate shape around axis
 
 
 
-### centerY
+### Center Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -56,7 +56,7 @@ Rotate shape around axis
 
 
 
-### centerZ
+### Center Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -64,7 +64,7 @@ Rotate shape around axis
 
 
 
-### copy
+### Copy
 - **Type:** boolean
 - **Default:** true
 
@@ -75,7 +75,7 @@ Rotate shape around axis
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -84,7 +84,7 @@ Rotate shape around axis
 ## Outputs
 
 
-### rotated
+### Rotated
 - **Type:** Shape
 - **Description:** Rotated shape
 

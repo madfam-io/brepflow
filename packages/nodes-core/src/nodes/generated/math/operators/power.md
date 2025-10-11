@@ -12,13 +12,13 @@ This node has no parameters.
 ## Inputs
 
 
-### base
+### Base
 - **Type:** number
 - **Required:** Yes
 
 
 
-### exponent
+### Exponent
 - **Type:** number
 - **Required:** Yes
 
@@ -27,7 +27,7 @@ This node has no parameters.
 ## Outputs
 
 
-### result
+### Result
 - **Type:** number
 
 

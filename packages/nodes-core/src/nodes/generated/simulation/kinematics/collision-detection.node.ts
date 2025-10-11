@@ -1,58 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface CollisionDetectionParams {
   detectionType: string;
   tolerance: number;
   includeSelfCollision: boolean;
 }
-interface Inputs {
-  bodies: Shape[];
+
+interface CollisionDetectionInputs {
+  bodies: unknown;
 }
-interface Outputs {
-  collisionPairs: Data;
+
+interface CollisionDetectionOutputs {
+  collisionPairs: unknown;
 }
 
 export const CollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, CollisionDetectionOutputs, CollisionDetectionParams> = {
-  type: 'Simulation::CollisionDetection',
+  id: 'Simulation::CollisionDetection',
   category: 'Simulation',
-  subcategory: 'Kinematics',
-
-  metadata: {
-    label: 'CollisionDetection',
-    description: 'Setup collision detection',
-    
-    
-  },
-
-  params: {
-        detectionType: {
-      "default": "discrete",
-      "options": [
-        "discrete",
-        "continuous"
-      ]
-    },
-    tolerance: {
-      "default": 0.1,
-      "min": 0.001,
-      "max": 10
-    },
-    includeSelfCollision: {
-      "default": true
+  label: 'CollisionDetection',
+  description: 'Setup collision detection',
+  inputs: {
+    bodies: {
+      type: 'Shape[]',
+      label: 'Bodies',
+      required: true
     }
   },
-
-  inputs: {
-        bodies: 'Shape[]'
-  },
-
   outputs: {
-        collisionPairs: 'Data'
+    collisionPairs: {
+      type: 'Data',
+      label: 'Collision Pairs'
+    }
   },
-
+  params: {
+    detectionType: {
+      type: 'enum',
+      label: 'Detection Type',
+      default: "discrete",
+      options: ["discrete","continuous"]
+    },
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.1,
+      min: 0.001,
+      max: 10
+    },
+    includeSelfCollision: {
+      type: 'boolean',
+      label: 'Include Self Collision',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'collisionDetection',
       params: {
@@ -62,9 +62,9 @@ export const CollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, Co
         includeSelfCollision: params.includeSelfCollision
       }
     });
-
+    
     return {
       collisionPairs: result
     };
-  }
+  },
 };

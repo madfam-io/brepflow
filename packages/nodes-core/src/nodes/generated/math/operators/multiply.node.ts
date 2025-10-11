@@ -1,53 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type MultiplyParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  a: number;
-  b: number;
+interface MultiplyInputs {
+  a: unknown;
+  b: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface MultiplyOutputs {
+  result: unknown;
 }
 
 export const MultiplyNode: NodeDefinition<MultiplyInputs, MultiplyOutputs, MultiplyParams> = {
-  type: 'Math::Multiply',
+  id: 'Math::Multiply',
   category: 'Math',
-  subcategory: 'Operators',
-
-  metadata: {
-    label: 'Multiply',
-    description: 'Multiply numbers',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Multiply',
+  description: 'Multiply numbers',
   inputs: {
-        a: 'number',
-    b: 'number'
+    a: {
+      type: 'number',
+      label: 'A',
+      required: true
+    },
+    b: {
+      type: 'number',
+      label: 'B',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathMultiply',
       params: {
         a: inputs.a,
         b: inputs.b
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

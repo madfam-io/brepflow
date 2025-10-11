@@ -1,50 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SphericalParams {
   coneAngle: number;
 }
-interface Inputs {
-  part1: Shape;
-  part2: Shape;
-  center: Point;
+
+interface SphericalInputs {
+  part1: unknown;
+  part2: unknown;
+  center: [number, number, number];
 }
-interface Outputs {
-  joint: Joint;
+
+interface SphericalOutputs {
+  joint: unknown;
 }
 
 export const SphericalNode: NodeDefinition<SphericalInputs, SphericalOutputs, SphericalParams> = {
-  type: 'Assembly::Spherical',
+  id: 'Assembly::Spherical',
   category: 'Assembly',
-  subcategory: 'Joints',
-
-  metadata: {
-    label: 'Spherical',
-    description: 'Create spherical (ball) joint',
-    
-    
-  },
-
-  params: {
-        coneAngle: {
-      "default": 45,
-      "min": 0,
-      "max": 180
+  label: 'Spherical',
+  description: 'Create spherical (ball) joint',
+  inputs: {
+    part1: {
+      type: 'Shape',
+      label: 'Part1',
+      required: true
+    },
+    part2: {
+      type: 'Shape',
+      label: 'Part2',
+      required: true
+    },
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        part1: 'Shape',
-    part2: 'Shape',
-    center: 'Point'
-  },
-
   outputs: {
-        joint: 'Joint'
+    joint: {
+      type: 'Joint',
+      label: 'Joint'
+    }
   },
-
+  params: {
+    coneAngle: {
+      type: 'number',
+      label: 'Cone Angle',
+      default: 45,
+      min: 0,
+      max: 180
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jointSpherical',
       params: {
@@ -54,9 +61,9 @@ export const SphericalNode: NodeDefinition<SphericalInputs, SphericalOutputs, Sp
         coneAngle: params.coneAngle
       }
     });
-
+    
     return {
       joint: result
     };
-  }
+  },
 };

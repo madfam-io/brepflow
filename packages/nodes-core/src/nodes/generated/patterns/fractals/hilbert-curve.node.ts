@@ -1,55 +1,53 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface HilbertCurveParams {
   order: number;
   dimension: string;
 }
-interface Inputs {
-  bounds: Box;
+
+interface HilbertCurveInputs {
+  bounds: unknown;
 }
-interface Outputs {
-  curve: Wire;
+
+interface HilbertCurveOutputs {
+  curve: unknown;
 }
 
 export const HilbertCurveNode: NodeDefinition<HilbertCurveInputs, HilbertCurveOutputs, HilbertCurveParams> = {
-  type: 'Patterns::HilbertCurve',
+  id: 'Patterns::HilbertCurve',
   category: 'Patterns',
-  subcategory: 'Fractals',
-
-  metadata: {
-    label: 'HilbertCurve',
-    description: 'Hilbert space-filling curve',
-    
-    
-  },
-
-  params: {
-        order: {
-      "default": 4,
-      "min": 1,
-      "max": 8,
-      "step": 1
-    },
-    dimension: {
-      "default": "2D",
-      "options": [
-        "2D",
-        "3D"
-      ]
+  label: 'HilbertCurve',
+  description: 'Hilbert space-filling curve',
+  inputs: {
+    bounds: {
+      type: 'Box',
+      label: 'Bounds',
+      required: true
     }
   },
-
-  inputs: {
-        bounds: 'Box'
-  },
-
   outputs: {
-        curve: 'Wire'
+    curve: {
+      type: 'Wire',
+      label: 'Curve'
+    }
   },
-
+  params: {
+    order: {
+      type: 'number',
+      label: 'Order',
+      default: 4,
+      min: 1,
+      max: 8,
+      step: 1
+    },
+    dimension: {
+      type: 'enum',
+      label: 'Dimension',
+      default: "2D",
+      options: ["2D","3D"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'hilbertCurve',
       params: {
@@ -58,9 +56,9 @@ export const HilbertCurveNode: NodeDefinition<HilbertCurveInputs, HilbertCurveOu
         dimension: params.dimension
       }
     });
-
+    
     return {
       curve: result
     };
-  }
+  },
 };

@@ -1,64 +1,75 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LoftParams {
   ruled: boolean;
   closed: boolean;
   solid: boolean;
   maxDegree: number;
 }
-interface Inputs {
-  profiles: Wire[];
-  guides?: Wire[];
-  centerLine?: Wire;
+
+interface LoftInputs {
+  profiles: unknown;
+  guides?: unknown;
+  centerLine?: unknown;
 }
-interface Outputs {
-  shape: Shape;
+
+interface LoftOutputs {
+  shape: unknown;
 }
 
 export const LoftNode: NodeDefinition<LoftInputs, LoftOutputs, LoftParams> = {
-  type: 'Advanced::Loft',
+  id: 'Advanced::Loft',
   category: 'Advanced',
-  subcategory: 'Loft',
-
-  metadata: {
-    label: 'Loft',
-    description: 'Loft between profiles',
-    
-    
-  },
-
-  params: {
-        ruled: {
-      "default": false,
-      "description": "Straight sections between profiles"
+  label: 'Loft',
+  description: 'Loft between profiles',
+  inputs: {
+    profiles: {
+      type: 'Wire[]',
+      label: 'Profiles',
+      required: true
     },
-    closed: {
-      "default": false,
-      "description": "Close loft to first profile"
+    guides: {
+      type: 'Wire[]',
+      label: 'Guides',
+      optional: true
     },
-    solid: {
-      "default": true
-    },
-    maxDegree: {
-      "default": 3,
-      "min": 1,
-      "max": 10
+    centerLine: {
+      type: 'Wire',
+      label: 'Center Line',
+      optional: true
     }
   },
-
-  inputs: {
-        profiles: 'Wire[]',
-    guides: 'Wire[]',
-    centerLine: 'Wire'
-  },
-
   outputs: {
-        shape: 'Shape'
+    shape: {
+      type: 'Shape',
+      label: 'Shape'
+    }
   },
-
+  params: {
+    ruled: {
+      type: 'boolean',
+      label: 'Ruled',
+      default: false
+    },
+    closed: {
+      type: 'boolean',
+      label: 'Closed',
+      default: false
+    },
+    solid: {
+      type: 'boolean',
+      label: 'Solid',
+      default: true
+    },
+    maxDegree: {
+      type: 'number',
+      label: 'Max Degree',
+      default: 3,
+      min: 1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'loft',
       params: {
@@ -71,9 +82,9 @@ export const LoftNode: NodeDefinition<LoftInputs, LoftOutputs, LoftParams> = {
         maxDegree: params.maxDegree
       }
     });
-
+    
     return {
       shape: result
     };
-  }
+  },
 };

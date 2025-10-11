@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### complex
+### Complex
 - **Type:** Complex
 - **Required:** Yes
 
@@ -21,7 +21,7 @@ This node has no parameters.
 ## Outputs
 
 
-### conjugate
+### Conjugate
 - **Type:** Complex
 
 

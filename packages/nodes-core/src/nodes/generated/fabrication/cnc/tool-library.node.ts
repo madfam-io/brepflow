@@ -1,68 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ToolLibraryParams {
   toolNumber: number;
   toolType: string;
 }
-type Inputs = {};
-interface Outputs {
-  toolData: Data;
+
+type ToolLibraryInputs = Record<string, never>;
+
+interface ToolLibraryOutputs {
+  toolData: unknown;
 }
 
 export const ToolLibraryNode: NodeDefinition<ToolLibraryInputs, ToolLibraryOutputs, ToolLibraryParams> = {
-  type: 'Fabrication::ToolLibrary',
+  id: 'Fabrication::ToolLibrary',
   category: 'Fabrication',
-  subcategory: 'CNC',
-
-  metadata: {
-    label: 'ToolLibrary',
-    description: 'Tool library management',
-    
-    
-  },
-
-  params: {
-        toolNumber: {
-      "default": 1,
-      "min": 1,
-      "max": 999,
-      "step": 1
-    },
-    toolType: {
-      "default": "endmill",
-      "options": [
-        "endmill",
-        "ballmill",
-        "drill",
-        "tap",
-        "reamer",
-        "boring"
-      ]
+  label: 'ToolLibrary',
+  description: 'Tool library management',
+  inputs: {},
+  outputs: {
+    toolData: {
+      type: 'Data',
+      label: 'Tool Data'
     }
   },
-
-  inputs: {
-    
+  params: {
+    toolNumber: {
+      type: 'number',
+      label: 'Tool Number',
+      default: 1,
+      min: 1,
+      max: 999,
+      step: 1
+    },
+    toolType: {
+      type: 'enum',
+      label: 'Tool Type',
+      default: "endmill",
+      options: ["endmill","ballmill","drill","tap","reamer","boring"]
+    }
   },
-
-  outputs: {
-        toolData: 'Data'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'toolLibrary',
       params: {
-        
         toolNumber: params.toolNumber,
         toolType: params.toolType
       }
     });
-
+    
     return {
       toolData: result
     };
-  }
+  },
 };

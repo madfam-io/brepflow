@@ -1,57 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface GothicWindowParams {
   style: string;
   tracery: boolean;
 }
-interface Inputs {
-  opening: Wire;
+
+interface GothicWindowInputs {
+  opening: unknown;
 }
-interface Outputs {
-  gothicWindow: Shape;
-  tracery: Wire[];
+
+interface GothicWindowOutputs {
+  gothicWindow: unknown;
+  tracery: unknown;
 }
 
 export const GothicWindowNode: NodeDefinition<GothicWindowInputs, GothicWindowOutputs, GothicWindowParams> = {
-  type: 'Architecture::GothicWindow',
+  id: 'Architecture::GothicWindow',
   category: 'Architecture',
-  subcategory: 'Windows',
-
-  metadata: {
-    label: 'GothicWindow',
-    description: 'Gothic arch window',
-    
-    
-  },
-
-  params: {
-        style: {
-      "default": "equilateral",
-      "options": [
-        "lancet",
-        "equilateral",
-        "flamboyant",
-        "perpendicular"
-      ]
-    },
-    tracery: {
-      "default": true
+  label: 'GothicWindow',
+  description: 'Gothic arch window',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        gothicWindow: 'Shape',
-    tracery: 'Wire[]'
+    gothicWindow: {
+      type: 'Shape',
+      label: 'Gothic Window'
+    },
+    tracery: {
+      type: 'Wire[]',
+      label: 'Tracery'
+    }
   },
-
+  params: {
+    style: {
+      type: 'enum',
+      label: 'Style',
+      default: "equilateral",
+      options: ["lancet","equilateral","flamboyant","perpendicular"]
+    },
+    tracery: {
+      type: 'boolean',
+      label: 'Tracery',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'gothicWindow',
       params: {
         opening: inputs.opening,
@@ -59,10 +58,10 @@ export const GothicWindowNode: NodeDefinition<GothicWindowInputs, GothicWindowOu
         tracery: params.tracery
       }
     });
-
+    
     return {
-      gothicWindow: result,
-      tracery: result
+      gothicWindow: results.gothicWindow,
+      tracery: results.tracery
     };
-  }
+  },
 };

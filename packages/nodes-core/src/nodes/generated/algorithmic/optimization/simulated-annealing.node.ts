@@ -1,73 +1,91 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SimulatedAnnealingParams {
   initialTemp: number;
   finalTemp: number;
   coolingRate: number;
   maxIterations: number;
 }
-interface Inputs {
-  objective: Properties;
-  initialSolution: Properties;
+
+interface SimulatedAnnealingInputs {
+  objective: unknown;
+  initialSolution: unknown;
 }
-interface Outputs {
-  bestSolution: Properties;
-  bestValue: number;
-  temperature: number[];
-  values: number[];
+
+interface SimulatedAnnealingOutputs {
+  bestSolution: unknown;
+  bestValue: unknown;
+  temperature: unknown;
+  values: unknown;
 }
 
 export const SimulatedAnnealingNode: NodeDefinition<SimulatedAnnealingInputs, SimulatedAnnealingOutputs, SimulatedAnnealingParams> = {
-  type: 'Algorithmic::SimulatedAnnealing',
+  id: 'Algorithmic::SimulatedAnnealing',
   category: 'Algorithmic',
-  subcategory: 'Optimization',
-
-  metadata: {
-    label: 'SimulatedAnnealing',
-    description: 'Simulated annealing optimization',
-    
-    
-  },
-
-  params: {
-        initialTemp: {
-      "default": 1000,
-      "min": 1,
-      "max": 10000
+  label: 'SimulatedAnnealing',
+  description: 'Simulated annealing optimization',
+  inputs: {
+    objective: {
+      type: 'Properties',
+      label: 'Objective',
+      required: true
     },
-    finalTemp: {
-      "default": 0.1,
-      "min": 0.001,
-      "max": 10
-    },
-    coolingRate: {
-      "default": 0.95,
-      "min": 0.8,
-      "max": 0.99
-    },
-    maxIterations: {
-      "default": 1000,
-      "min": 100,
-      "max": 10000
+    initialSolution: {
+      type: 'Properties',
+      label: 'Initial Solution',
+      required: true
     }
   },
-
-  inputs: {
-        objective: 'Properties',
-    initialSolution: 'Properties'
-  },
-
   outputs: {
-        bestSolution: 'Properties',
-    bestValue: 'number',
-    temperature: 'number[]',
-    values: 'number[]'
+    bestSolution: {
+      type: 'Properties',
+      label: 'Best Solution'
+    },
+    bestValue: {
+      type: 'number',
+      label: 'Best Value'
+    },
+    temperature: {
+      type: 'number[]',
+      label: 'Temperature'
+    },
+    values: {
+      type: 'number[]',
+      label: 'Values'
+    }
   },
-
+  params: {
+    initialTemp: {
+      type: 'number',
+      label: 'Initial Temp',
+      default: 1000,
+      min: 1,
+      max: 10000
+    },
+    finalTemp: {
+      type: 'number',
+      label: 'Final Temp',
+      default: 0.1,
+      min: 0.001,
+      max: 10
+    },
+    coolingRate: {
+      type: 'number',
+      label: 'Cooling Rate',
+      default: 0.95,
+      min: 0.8,
+      max: 0.99
+    },
+    maxIterations: {
+      type: 'number',
+      label: 'Max Iterations',
+      default: 1000,
+      min: 100,
+      max: 10000
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'simulatedAnnealing',
       params: {
         objective: inputs.objective,
@@ -78,12 +96,12 @@ export const SimulatedAnnealingNode: NodeDefinition<SimulatedAnnealingInputs, Si
         maxIterations: params.maxIterations
       }
     });
-
+    
     return {
-      bestSolution: result,
-      bestValue: result,
-      temperature: result,
-      values: result
+      bestSolution: results.bestSolution,
+      bestValue: results.bestValue,
+      temperature: results.temperature,
+      values: results.values
     };
-  }
+  },
 };

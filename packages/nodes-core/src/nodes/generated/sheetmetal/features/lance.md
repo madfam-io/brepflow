@@ -8,7 +8,7 @@ Create lanced form
 ## Parameters
 
 
-### lanceLength
+### Lance Length
 - **Type:** number
 - **Default:** 20
 - **Min:** 1
@@ -16,7 +16,7 @@ Create lanced form
 
 
 
-### lanceWidth
+### Lance Width
 - **Type:** number
 - **Default:** 5
 - **Min:** 0.5
@@ -24,7 +24,7 @@ Create lanced form
 
 
 
-### lanceHeight
+### Lance Height
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -32,7 +32,7 @@ Create lanced form
 
 
 
-### lanceAngle
+### Lance Angle
 - **Type:** number
 - **Default:** 30
 - **Min:** 0
@@ -43,13 +43,13 @@ Create lanced form
 ## Inputs
 
 
-### sheet
+### Sheet
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### sketch
+### Sketch
 - **Type:** Wire
 - **Required:** Yes
 
@@ -58,7 +58,7 @@ Create lanced form
 ## Outputs
 
 
-### result
+### Result
 - **Type:** Shape
 
 

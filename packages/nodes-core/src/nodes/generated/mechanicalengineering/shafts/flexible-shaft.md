@@ -8,7 +8,7 @@ Create flexible shaft design
 ## Parameters
 
 
-### coreDiameter
+### Core Diameter
 - **Type:** number
 - **Default:** 5
 - **Min:** 2
@@ -16,7 +16,7 @@ Create flexible shaft design
 
 
 
-### outerDiameter
+### Outer Diameter
 - **Type:** number
 - **Default:** 8
 - **Min:** 4
@@ -24,7 +24,7 @@ Create flexible shaft design
 
 
 
-### length
+### Length
 - **Type:** number
 - **Default:** 300
 - **Min:** 100
@@ -32,7 +32,7 @@ Create flexible shaft design
 
 
 
-### windingAngle
+### Winding Angle
 - **Type:** number
 - **Default:** 45
 - **Min:** 30
@@ -43,7 +43,7 @@ Create flexible shaft design
 ## Inputs
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create flexible shaft design
 ## Outputs
 
 
-### shaft
+### Shaft
 - **Type:** Shape
 
 
 
-### centerline
+### Centerline
 - **Type:** Wire
 
 

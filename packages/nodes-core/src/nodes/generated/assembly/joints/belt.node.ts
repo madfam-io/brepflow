@@ -1,48 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface BeltParams {
   ratio: number;
 }
-interface Inputs {
-  pulley1: Shape;
-  pulley2: Shape;
+
+interface BeltInputs {
+  pulley1: unknown;
+  pulley2: unknown;
 }
-interface Outputs {
-  joint: Joint;
+
+interface BeltOutputs {
+  joint: unknown;
 }
 
 export const BeltNode: NodeDefinition<BeltInputs, BeltOutputs, BeltParams> = {
-  type: 'Assembly::Belt',
+  id: 'Assembly::Belt',
   category: 'Assembly',
-  subcategory: 'Joints',
-
-  metadata: {
-    label: 'Belt',
-    description: 'Create belt/chain constraint',
-    
-    
-  },
-
-  params: {
-        ratio: {
-      "default": 1,
-      "min": 0.1,
-      "max": 100
+  label: 'Belt',
+  description: 'Create belt/chain constraint',
+  inputs: {
+    pulley1: {
+      type: 'Shape',
+      label: 'Pulley1',
+      required: true
+    },
+    pulley2: {
+      type: 'Shape',
+      label: 'Pulley2',
+      required: true
     }
   },
-
-  inputs: {
-        pulley1: 'Shape',
-    pulley2: 'Shape'
-  },
-
   outputs: {
-        joint: 'Joint'
+    joint: {
+      type: 'Joint',
+      label: 'Joint'
+    }
   },
-
+  params: {
+    ratio: {
+      type: 'number',
+      label: 'Ratio',
+      default: 1,
+      min: 0.1,
+      max: 100
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'jointBelt',
       params: {
@@ -51,9 +54,9 @@ export const BeltNode: NodeDefinition<BeltInputs, BeltOutputs, BeltParams> = {
         ratio: params.ratio
       }
     });
-
+    
     return {
       joint: result
     };
-  }
+  },
 };

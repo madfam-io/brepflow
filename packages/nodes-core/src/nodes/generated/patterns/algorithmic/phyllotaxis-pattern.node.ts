@@ -1,62 +1,68 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PhyllotaxisPatternParams {
   count: number;
   angle: number;
   c: number;
 }
-interface Inputs {
-  center: Point;
+
+interface PhyllotaxisPatternInputs {
+  center: [number, number, number];
 }
-interface Outputs {
-  points: Point[];
-  spiral: Wire;
+
+interface PhyllotaxisPatternOutputs {
+  points: Array<[number, number, number]>;
+  spiral: unknown;
 }
 
 export const PhyllotaxisPatternNode: NodeDefinition<PhyllotaxisPatternInputs, PhyllotaxisPatternOutputs, PhyllotaxisPatternParams> = {
-  type: 'Patterns::PhyllotaxisPattern',
+  id: 'Patterns::PhyllotaxisPattern',
   category: 'Patterns',
-  subcategory: 'Algorithmic',
-
-  metadata: {
-    label: 'PhyllotaxisPattern',
-    description: 'Phyllotaxis spiral pattern',
-    
-    
-  },
-
-  params: {
-        count: {
-      "default": 100,
-      "min": 10,
-      "max": 1000,
-      "step": 10
-    },
-    angle: {
-      "default": 137.5,
-      "min": 0,
-      "max": 360
-    },
-    c: {
-      "default": 1,
-      "min": 0.1,
-      "max": 10
+  label: 'PhyllotaxisPattern',
+  description: 'Phyllotaxis spiral pattern',
+  inputs: {
+    center: {
+      type: 'Point',
+      label: 'Center',
+      required: true
     }
   },
-
-  inputs: {
-        center: 'Point'
-  },
-
   outputs: {
-        points: 'Point[]',
-    spiral: 'Wire'
+    points: {
+      type: 'Point[]',
+      label: 'Points'
+    },
+    spiral: {
+      type: 'Wire',
+      label: 'Spiral'
+    }
   },
-
+  params: {
+    count: {
+      type: 'number',
+      label: 'Count',
+      default: 100,
+      min: 10,
+      max: 1000,
+      step: 10
+    },
+    angle: {
+      type: 'number',
+      label: 'Angle',
+      default: 137.5,
+      min: 0,
+      max: 360
+    },
+    c: {
+      type: 'number',
+      label: 'C',
+      default: 1,
+      min: 0.1,
+      max: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'phyllotaxisPattern',
       params: {
         center: inputs.center,
@@ -65,10 +71,10 @@ export const PhyllotaxisPatternNode: NodeDefinition<PhyllotaxisPatternInputs, Ph
         c: params.c
       }
     });
-
+    
     return {
-      points: result,
-      spiral: result
+      points: results.points,
+      spiral: results.spiral
     };
-  }
+  },
 };

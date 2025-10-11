@@ -8,7 +8,7 @@ Analyze line-of-sight visibility
 ## Parameters
 
 
-### viewAngle
+### View Angle
 - **Type:** number
 - **Default:** 120
 - **Min:** 10
@@ -16,7 +16,7 @@ Analyze line-of-sight visibility
 
 
 
-### maxDistance
+### Max Distance
 - **Type:** number
 - **Default:** 100
 - **Min:** 1
@@ -27,19 +27,19 @@ Analyze line-of-sight visibility
 ## Inputs
 
 
-### viewpoint
+### Viewpoint
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### targets
+### Targets
 - **Type:** Point[]
 - **Required:** Yes
 
 
 
-### obstacles
+### Obstacles
 - **Type:** Shape[]
 - **Required:** No
 
@@ -48,17 +48,17 @@ Analyze line-of-sight visibility
 ## Outputs
 
 
-### visibleTargets
+### Visible Targets
 - **Type:** Point[]
 
 
 
-### occludedTargets
+### Occluded Targets
 - **Type:** Point[]
 
 
 
-### sightLines
+### Sight Lines
 - **Type:** Wire[]
 
 

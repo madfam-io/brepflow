@@ -1,49 +1,55 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ListSortParams {
   ascending: boolean;
 }
-interface Inputs {
-  list: Data[];
-  keys?: number[];
+
+interface ListSortInputs {
+  list: unknown;
+  keys?: unknown;
 }
-interface Outputs {
-  sorted: Data[];
-  indices: number[];
+
+interface ListSortOutputs {
+  sorted: unknown;
+  indices: unknown;
 }
 
 export const ListSortNode: NodeDefinition<ListSortInputs, ListSortOutputs, ListSortParams> = {
-  type: 'Data::ListSort',
+  id: 'Data::ListSort',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListSort',
-    description: 'Sort list',
-    
-    
-  },
-
-  params: {
-        ascending: {
-      "default": true
+  label: 'ListSort',
+  description: 'Sort list',
+  inputs: {
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    keys: {
+      type: 'number[]',
+      label: 'Keys',
+      optional: true
     }
   },
-
-  inputs: {
-        list: 'Data[]',
-    keys: 'number[]'
-  },
-
   outputs: {
-        sorted: 'Data[]',
-    indices: 'number[]'
+    sorted: {
+      type: 'Data[]',
+      label: 'Sorted'
+    },
+    indices: {
+      type: 'number[]',
+      label: 'Indices'
+    }
   },
-
+  params: {
+    ascending: {
+      type: 'boolean',
+      label: 'Ascending',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'listSort',
       params: {
         list: inputs.list,
@@ -51,10 +57,10 @@ export const ListSortNode: NodeDefinition<ListSortInputs, ListSortOutputs, ListS
         ascending: params.ascending
       }
     });
-
+    
     return {
-      sorted: result,
-      indices: result
+      sorted: results.sorted,
+      indices: results.indices
     };
-  }
+  },
 };

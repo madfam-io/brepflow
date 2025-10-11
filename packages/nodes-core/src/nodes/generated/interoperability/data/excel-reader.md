@@ -8,7 +8,7 @@ Read Excel spreadsheet files
 ## Parameters
 
 
-### sheetName
+### Sheet Name
 - **Type:** string
 - **Default:** ""
 
@@ -16,7 +16,7 @@ Read Excel spreadsheet files
 - **Description:** Sheet name (empty for first)
 
 
-### hasHeader
+### Has Header
 - **Type:** boolean
 - **Default:** true
 
@@ -24,7 +24,7 @@ Read Excel spreadsheet files
 
 
 
-### range
+### Range
 - **Type:** string
 - **Default:** ""
 
@@ -35,7 +35,7 @@ Read Excel spreadsheet files
 ## Inputs
 
 
-### filePath
+### File Path
 - **Type:** string
 - **Required:** Yes
 
@@ -44,17 +44,17 @@ Read Excel spreadsheet files
 ## Outputs
 
 
-### data
+### Data
 - **Type:** Properties[]
 
 
 
-### sheetNames
+### Sheet Names
 - **Type:** string[]
 
 
 
-### dimensions
+### Dimensions
 - **Type:** number[]
 
 

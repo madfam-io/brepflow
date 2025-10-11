@@ -1,48 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type CubicInterpParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  v0: number;
-  v1: number;
-  v2: number;
-  v3: number;
-  t: number;
+interface CubicInterpInputs {
+  v0: unknown;
+  v1: unknown;
+  v2: unknown;
+  v3: unknown;
+  t: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface CubicInterpOutputs {
+  result: unknown;
 }
 
 export const CubicInterpNode: NodeDefinition<CubicInterpInputs, CubicInterpOutputs, CubicInterpParams> = {
-  type: 'Math::CubicInterp',
+  id: 'Math::CubicInterp',
   category: 'Math',
-  subcategory: 'Interpolation',
-
-  metadata: {
-    label: 'CubicInterp',
-    description: 'Cubic interpolation',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'CubicInterp',
+  description: 'Cubic interpolation',
   inputs: {
-        v0: 'number',
-    v1: 'number',
-    v2: 'number',
-    v3: 'number',
-    t: 'number'
+    v0: {
+      type: 'number',
+      label: 'V0',
+      required: true
+    },
+    v1: {
+      type: 'number',
+      label: 'V1',
+      required: true
+    },
+    v2: {
+      type: 'number',
+      label: 'V2',
+      required: true
+    },
+    v3: {
+      type: 'number',
+      label: 'V3',
+      required: true
+    },
+    t: {
+      type: 'number',
+      label: 'T',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathCubicInterp',
       params: {
@@ -51,12 +62,11 @@ export const CubicInterpNode: NodeDefinition<CubicInterpInputs, CubicInterpOutpu
         v2: inputs.v2,
         v3: inputs.v3,
         t: inputs.t
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

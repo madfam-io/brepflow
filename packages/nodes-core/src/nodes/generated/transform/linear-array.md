@@ -8,7 +8,7 @@ Create linear array of shapes
 ## Parameters
 
 
-### count
+### Count
 - **Type:** number
 - **Default:** 5
 - **Min:** 2
@@ -16,7 +16,7 @@ Create linear array of shapes
 
 
 
-### spacingX
+### Spacing X
 - **Type:** number
 - **Default:** 100
 - **Min:** -10000
@@ -24,7 +24,7 @@ Create linear array of shapes
 
 
 
-### spacingY
+### Spacing Y
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -32,7 +32,7 @@ Create linear array of shapes
 
 
 
-### spacingZ
+### Spacing Z
 - **Type:** number
 - **Default:** 0
 - **Min:** -10000
@@ -40,7 +40,7 @@ Create linear array of shapes
 
 
 
-### merge
+### Merge
 - **Type:** boolean
 - **Default:** false
 
@@ -51,7 +51,7 @@ Create linear array of shapes
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -60,12 +60,12 @@ Create linear array of shapes
 ## Outputs
 
 
-### array
+### Array
 - **Type:** Shape[]
 - **Description:** Array of shapes
 
 
-### merged
+### Merged
 - **Type:** Shape
 - **Description:** Merged result (if merge=true)
 

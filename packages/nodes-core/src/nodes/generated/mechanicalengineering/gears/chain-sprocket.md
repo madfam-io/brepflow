@@ -8,7 +8,7 @@ Create chain drive sprocket
 ## Parameters
 
 
-### chainPitch
+### Chain Pitch
 - **Type:** number
 - **Default:** 12.7
 - **Min:** 6
@@ -16,7 +16,7 @@ Create chain drive sprocket
 - **Description:** Chain pitch in mm
 
 
-### teeth
+### Teeth
 - **Type:** number
 - **Default:** 18
 - **Min:** 9
@@ -24,7 +24,7 @@ Create chain drive sprocket
 
 
 
-### rollerDiameter
+### Roller Diameter
 - **Type:** number
 - **Default:** 7.92
 - **Min:** 3
@@ -32,7 +32,7 @@ Create chain drive sprocket
 
 
 
-### width
+### Width
 - **Type:** number
 - **Default:** 7.85
 - **Min:** 3
@@ -43,7 +43,7 @@ Create chain drive sprocket
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Create chain drive sprocket
 ## Outputs
 
 
-### sprocket
+### Sprocket
 - **Type:** Shape
 
 
 
-### pitchCircle
+### Pitch Circle
 - **Type:** Wire
 
 

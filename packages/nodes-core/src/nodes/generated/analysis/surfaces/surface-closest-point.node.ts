@@ -1,59 +1,73 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SurfaceClosestPointParams {
   tolerance: number;
   showConnection: boolean;
 }
-interface Inputs {
-  surface: Face;
-  point: Point;
+
+interface SurfaceClosestPointInputs {
+  surface: unknown;
+  point: [number, number, number];
 }
-interface Outputs {
-  closestPoint: Point;
-  distance: number;
-  uParameter: number;
-  vParameter: number;
+
+interface SurfaceClosestPointOutputs {
+  closestPoint: [number, number, number];
+  distance: unknown;
+  uParameter: unknown;
+  vParameter: unknown;
 }
 
 export const SurfaceClosestPointNode: NodeDefinition<SurfaceClosestPointInputs, SurfaceClosestPointOutputs, SurfaceClosestPointParams> = {
-  type: 'Analysis::SurfaceClosestPoint',
+  id: 'Analysis::SurfaceClosestPoint',
   category: 'Analysis',
-  subcategory: 'Surfaces',
-
-  metadata: {
-    label: 'SurfaceClosestPoint',
-    description: 'Find closest point on surface',
-    
-    
-  },
-
-  params: {
-        tolerance: {
-      "default": 0.01,
-      "min": 0.001,
-      "max": 1
+  label: 'SurfaceClosestPoint',
+  description: 'Find closest point on surface',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     },
-    showConnection: {
-      "default": true
+    point: {
+      type: 'Point',
+      label: 'Point',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face',
-    point: 'Point'
-  },
-
   outputs: {
-        closestPoint: 'Point',
-    distance: 'number',
-    uParameter: 'number',
-    vParameter: 'number'
+    closestPoint: {
+      type: 'Point',
+      label: 'Closest Point'
+    },
+    distance: {
+      type: 'number',
+      label: 'Distance'
+    },
+    uParameter: {
+      type: 'number',
+      label: 'U Parameter'
+    },
+    vParameter: {
+      type: 'number',
+      label: 'V Parameter'
+    }
   },
-
+  params: {
+    tolerance: {
+      type: 'number',
+      label: 'Tolerance',
+      default: 0.01,
+      min: 0.001,
+      max: 1
+    },
+    showConnection: {
+      type: 'boolean',
+      label: 'Show Connection',
+      default: true
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'surfaceClosestPoint',
       params: {
         surface: inputs.surface,
@@ -62,12 +76,12 @@ export const SurfaceClosestPointNode: NodeDefinition<SurfaceClosestPointInputs, 
         showConnection: params.showConnection
       }
     });
-
+    
     return {
-      closestPoint: result,
-      distance: result,
-      uParameter: result,
-      vParameter: result
+      closestPoint: results.closestPoint,
+      distance: results.distance,
+      uParameter: results.uParameter,
+      vParameter: results.vParameter
     };
-  }
+  },
 };

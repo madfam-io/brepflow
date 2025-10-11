@@ -8,7 +8,7 @@ Simulated annealing optimization
 ## Parameters
 
 
-### initialTemp
+### Initial Temp
 - **Type:** number
 - **Default:** 1000
 - **Min:** 1
@@ -16,7 +16,7 @@ Simulated annealing optimization
 
 
 
-### finalTemp
+### Final Temp
 - **Type:** number
 - **Default:** 0.1
 - **Min:** 0.001
@@ -24,7 +24,7 @@ Simulated annealing optimization
 
 
 
-### coolingRate
+### Cooling Rate
 - **Type:** number
 - **Default:** 0.95
 - **Min:** 0.8
@@ -32,7 +32,7 @@ Simulated annealing optimization
 
 
 
-### maxIterations
+### Max Iterations
 - **Type:** number
 - **Default:** 1000
 - **Min:** 100
@@ -43,13 +43,13 @@ Simulated annealing optimization
 ## Inputs
 
 
-### objective
+### Objective
 - **Type:** Properties
 - **Required:** Yes
 
 
 
-### initialSolution
+### Initial Solution
 - **Type:** Properties
 - **Required:** Yes
 
@@ -58,22 +58,22 @@ Simulated annealing optimization
 ## Outputs
 
 
-### bestSolution
+### Best Solution
 - **Type:** Properties
 
 
 
-### bestValue
+### Best Value
 - **Type:** number
 
 
 
-### temperature
+### Temperature
 - **Type:** number[]
 
 
 
-### values
+### Values
 - **Type:** number[]
 
 

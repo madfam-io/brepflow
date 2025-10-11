@@ -8,7 +8,7 @@ Parametric tree generator
 ## Parameters
 
 
-### treeType
+### Tree Type
 - **Type:** enum
 - **Default:** "oak"
 
@@ -16,7 +16,7 @@ Parametric tree generator
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 10
@@ -24,7 +24,7 @@ Parametric tree generator
 
 
 
-### branches
+### Branches
 - **Type:** number
 - **Default:** 5
 - **Min:** 2
@@ -32,7 +32,7 @@ Parametric tree generator
 
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** 0
 - **Min:** 0
@@ -43,7 +43,7 @@ Parametric tree generator
 ## Inputs
 
 
-### base
+### Base
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,12 +52,12 @@ Parametric tree generator
 ## Outputs
 
 
-### trunk
+### Trunk
 - **Type:** Wire[]
 
 
 
-### leaves
+### Leaves
 - **Type:** Point[]
 
 

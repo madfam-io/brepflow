@@ -8,7 +8,7 @@ Tool radius compensation
 ## Parameters
 
 
-### toolRadius
+### Tool Radius
 - **Type:** number
 - **Default:** 3
 - **Min:** 0.1
@@ -16,7 +16,7 @@ Tool radius compensation
 
 
 
-### wearOffset
+### Wear Offset
 - **Type:** number
 - **Default:** 0
 - **Min:** -1
@@ -27,7 +27,7 @@ Tool radius compensation
 ## Inputs
 
 
-### path
+### Path
 - **Type:** Wire
 - **Required:** Yes
 
@@ -36,7 +36,7 @@ Tool radius compensation
 ## Outputs
 
 
-### compensatedPath
+### Compensated Path
 - **Type:** Wire
 
 

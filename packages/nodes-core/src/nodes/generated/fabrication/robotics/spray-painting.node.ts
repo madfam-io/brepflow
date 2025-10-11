@@ -1,58 +1,61 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SprayPaintingParams {
   sprayWidth: number;
   overlap: number;
   standoffDistance: number;
 }
-interface Inputs {
-  surface: Face;
+
+interface SprayPaintingInputs {
+  surface: unknown;
 }
-interface Outputs {
-  sprayPath: Transform[];
+
+interface SprayPaintingOutputs {
+  sprayPath: unknown;
 }
 
 export const SprayPaintingNode: NodeDefinition<SprayPaintingInputs, SprayPaintingOutputs, SprayPaintingParams> = {
-  type: 'Fabrication::SprayPainting',
+  id: 'Fabrication::SprayPainting',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'SprayPainting',
-    description: 'Robotic spray painting',
-    
-    
-  },
-
-  params: {
-        sprayWidth: {
-      "default": 100,
-      "min": 10,
-      "max": 500
-    },
-    overlap: {
-      "default": 0.5,
-      "min": 0,
-      "max": 0.9
-    },
-    standoffDistance: {
-      "default": 200,
-      "min": 50,
-      "max": 500
+  label: 'SprayPainting',
+  description: 'Robotic spray painting',
+  inputs: {
+    surface: {
+      type: 'Face',
+      label: 'Surface',
+      required: true
     }
   },
-
-  inputs: {
-        surface: 'Face'
-  },
-
   outputs: {
-        sprayPath: 'Transform[]'
+    sprayPath: {
+      type: 'Transform[]',
+      label: 'Spray Path'
+    }
   },
-
+  params: {
+    sprayWidth: {
+      type: 'number',
+      label: 'Spray Width',
+      default: 100,
+      min: 10,
+      max: 500
+    },
+    overlap: {
+      type: 'number',
+      label: 'Overlap',
+      default: 0.5,
+      min: 0,
+      max: 0.9
+    },
+    standoffDistance: {
+      type: 'number',
+      label: 'Standoff Distance',
+      default: 200,
+      min: 50,
+      max: 500
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'sprayPainting',
       params: {
@@ -62,9 +65,9 @@ export const SprayPaintingNode: NodeDefinition<SprayPaintingInputs, SprayPaintin
         standoffDistance: params.standoffDistance
       }
     });
-
+    
     return {
       sprayPath: result
     };
-  }
+  },
 };

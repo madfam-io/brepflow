@@ -8,7 +8,7 @@ Cast ray and find intersections
 ## Parameters
 
 
-### tolerance
+### Tolerance
 - **Type:** number
 - **Default:** 0.01
 - **Min:** 0.001
@@ -16,7 +16,7 @@ Cast ray and find intersections
 
 
 
-### maxDistance
+### Max Distance
 - **Type:** number
 - **Default:** 1000
 - **Min:** 1
@@ -27,19 +27,19 @@ Cast ray and find intersections
 ## Inputs
 
 
-### rayOrigin
+### Ray Origin
 - **Type:** Point
 - **Required:** Yes
 
 
 
-### rayDirection
+### Ray Direction
 - **Type:** Vector
 - **Required:** Yes
 
 
 
-### targets
+### Targets
 - **Type:** Shape[]
 - **Required:** Yes
 
@@ -48,17 +48,17 @@ Cast ray and find intersections
 ## Outputs
 
 
-### hitPoints
+### Hit Points
 - **Type:** Point[]
 
 
 
-### hitDistances
+### Hit Distances
 - **Type:** number[]
 
 
 
-### hitNormals
+### Hit Normals
 - **Type:** Vector[]
 
 

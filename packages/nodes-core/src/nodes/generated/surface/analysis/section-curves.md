@@ -8,7 +8,7 @@ Extract section curves
 ## Parameters
 
 
-### planeNormal
+### Plane Normal
 - **Type:** vector3
 - **Default:** [0,0,1]
 
@@ -16,7 +16,7 @@ Extract section curves
 
 
 
-### spacing
+### Spacing
 - **Type:** number
 - **Default:** 10
 - **Min:** 0.1
@@ -24,7 +24,7 @@ Extract section curves
 
 
 
-### count
+### Count
 - **Type:** number
 - **Default:** 10
 - **Min:** 1
@@ -35,7 +35,7 @@ Extract section curves
 ## Inputs
 
 
-### shape
+### Shape
 - **Type:** Shape
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Extract section curves
 ## Outputs
 
 
-### sections
+### Sections
 - **Type:** Wire[]
 
 

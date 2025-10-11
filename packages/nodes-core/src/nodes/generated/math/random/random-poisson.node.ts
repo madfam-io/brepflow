@@ -1,60 +1,54 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface RandomPoissonParams {
   lambda: number;
   seed: number;
 }
-type Inputs = {};
-interface Outputs {
-  value: number;
+
+type RandomPoissonInputs = Record<string, never>;
+
+interface RandomPoissonOutputs {
+  value: unknown;
 }
 
 export const RandomPoissonNode: NodeDefinition<RandomPoissonInputs, RandomPoissonOutputs, RandomPoissonParams> = {
-  type: 'Math::RandomPoisson',
+  id: 'Math::RandomPoisson',
   category: 'Math',
-  subcategory: 'Random',
-
-  metadata: {
-    label: 'RandomPoisson',
-    description: 'Poisson distribution',
-    
-    
-  },
-
-  params: {
-        lambda: {
-      "default": 1,
-      "min": 0.01
-    },
-    seed: {
-      "default": -1,
-      "min": -1,
-      "max": 999999
+  label: 'RandomPoisson',
+  description: 'Poisson distribution',
+  inputs: {},
+  outputs: {
+    value: {
+      type: 'number',
+      label: 'Value'
     }
   },
-
-  inputs: {
-    
+  params: {
+    lambda: {
+      type: 'number',
+      label: 'Lambda',
+      default: 1,
+      min: 0.01
+    },
+    seed: {
+      type: 'number',
+      label: 'Seed',
+      default: -1,
+      min: -1,
+      max: 999999
+    }
   },
-
-  outputs: {
-        value: 'number'
-  },
-
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathRandomPoisson',
       params: {
-        
         lambda: params.lambda,
         seed: params.seed
       }
     });
-
+    
     return {
       value: result
     };
-  }
+  },
 };

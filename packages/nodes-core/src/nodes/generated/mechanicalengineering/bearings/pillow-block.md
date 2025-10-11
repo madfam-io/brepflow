@@ -8,7 +8,7 @@ Create pillow block bearing housing
 ## Parameters
 
 
-### shaftDiameter
+### Shaft Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 8
@@ -16,7 +16,7 @@ Create pillow block bearing housing
 
 
 
-### mountingHoles
+### Mounting Holes
 - **Type:** number
 - **Default:** 2
 - **Min:** 2
@@ -24,7 +24,7 @@ Create pillow block bearing housing
 
 
 
-### baseWidth
+### Base Width
 - **Type:** number
 - **Default:** 80
 - **Min:** 30
@@ -32,7 +32,7 @@ Create pillow block bearing housing
 
 
 
-### height
+### Height
 - **Type:** number
 - **Default:** 50
 - **Min:** 20
@@ -43,7 +43,7 @@ Create pillow block bearing housing
 ## Inputs
 
 
-### position
+### Position
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create pillow block bearing housing
 ## Outputs
 
 
-### housing
+### Housing
 - **Type:** Shape
 
 
 
-### bearing
+### Bearing
 - **Type:** Shape
 
 
 
-### mountingPoints
+### Mounting Points
 - **Type:** Point[]
 
 

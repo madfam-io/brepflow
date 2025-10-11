@@ -8,7 +8,7 @@ Turing reaction-diffusion
 ## Parameters
 
 
-### model
+### Model
 - **Type:** enum
 - **Default:** "gray-scott"
 
@@ -16,7 +16,7 @@ Turing reaction-diffusion
 
 
 
-### iterations
+### Iterations
 - **Type:** number
 - **Default:** 1000
 - **Min:** 100
@@ -24,7 +24,7 @@ Turing reaction-diffusion
 
 
 
-### resolution
+### Resolution
 - **Type:** number
 - **Default:** 100
 - **Min:** 50
@@ -35,7 +35,7 @@ Turing reaction-diffusion
 ## Inputs
 
 
-### domain
+### Domain
 - **Type:** Face
 - **Required:** Yes
 
@@ -44,7 +44,7 @@ Turing reaction-diffusion
 ## Outputs
 
 
-### pattern
+### Pattern
 - **Type:** Mesh
 
 

@@ -8,7 +8,7 @@ Create screw joint
 ## Parameters
 
 
-### pitch
+### Pitch
 - **Type:** number
 - **Default:** 1
 - **Min:** 0.01
@@ -19,19 +19,19 @@ Create screw joint
 ## Inputs
 
 
-### part1
+### Part1
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### part2
+### Part2
 - **Type:** Shape
 - **Required:** Yes
 
 
 
-### axis
+### Axis
 - **Type:** Axis
 - **Required:** Yes
 
@@ -40,7 +40,7 @@ Create screw joint
 ## Outputs
 
 
-### joint
+### Joint
 - **Type:** Joint
 
 

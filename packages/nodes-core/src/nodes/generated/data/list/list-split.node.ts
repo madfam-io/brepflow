@@ -1,56 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ListSplitParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  list: Data[];
-  index: number;
+interface ListSplitInputs {
+  list: unknown;
+  index: unknown;
 }
-interface Outputs {
-  before: Data[];
-  after: Data[];
+
+interface ListSplitOutputs {
+  before: unknown;
+  after: unknown;
 }
 
 export const ListSplitNode: NodeDefinition<ListSplitInputs, ListSplitOutputs, ListSplitParams> = {
-  type: 'Data::ListSplit',
+  id: 'Data::ListSplit',
   category: 'Data',
-  subcategory: 'List',
-
-  metadata: {
-    label: 'ListSplit',
-    description: 'Split list',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'ListSplit',
+  description: 'Split list',
   inputs: {
-        list: 'Data[]',
-    index: 'number'
+    list: {
+      type: 'Data[]',
+      label: 'List',
+      required: true
+    },
+    index: {
+      type: 'number',
+      label: 'Index',
+      required: true
+    }
   },
-
   outputs: {
-        before: 'Data[]',
-    after: 'Data[]'
+    before: {
+      type: 'Data[]',
+      label: 'Before'
+    },
+    after: {
+      type: 'Data[]',
+      label: 'After'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'listSplit',
       params: {
         list: inputs.list,
         index: inputs.index
-        
       }
     });
-
+    
     return {
-      before: result,
-      after: result
+      before: results.before,
+      after: results.after
     };
-  }
+  },
 };

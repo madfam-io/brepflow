@@ -1,56 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type OrientParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  shape: Shape;
-  fromDirection: Vector;
-  toDirection: Vector;
+interface OrientInputs {
+  shape: unknown;
+  fromDirection: [number, number, number];
+  toDirection: [number, number, number];
 }
-interface Outputs {
-  oriented: Shape;
+
+interface OrientOutputs {
+  oriented: unknown;
 }
 
 export const OrientNode: NodeDefinition<OrientInputs, OrientOutputs, OrientParams> = {
-  type: 'Transform::Orient',
+  id: 'Transform::Orient',
   category: 'Transform',
-  
-
-  metadata: {
-    label: 'Orient',
-    description: 'Orient shape to match reference orientation',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Orient',
+  description: 'Orient shape to match reference orientation',
   inputs: {
-        shape: 'Shape',
-    fromDirection: 'Vector',
-    toDirection: 'Vector'
+    shape: {
+      type: 'Shape',
+      label: 'Shape',
+      required: true
+    },
+    fromDirection: {
+      type: 'Vector',
+      label: 'From Direction',
+      required: true
+    },
+    toDirection: {
+      type: 'Vector',
+      label: 'To Direction',
+      required: true
+    }
   },
-
   outputs: {
-        oriented: 'Shape'
+    oriented: {
+      type: 'Shape',
+      label: 'Oriented'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'transformOrient',
       params: {
         shape: inputs.shape,
         fromDirection: inputs.fromDirection,
         toDirection: inputs.toDirection
-        
       }
     });
-
+    
     return {
       oriented: result
     };
-  }
+  },
 };

@@ -1,63 +1,57 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ImageFieldParams {
   channel: string;
-  scale: any;
+  scale: unknown;
   height: number;
 }
-interface Inputs {
-  image: Data;
+
+interface ImageFieldInputs {
+  image: unknown;
 }
-interface Outputs {
-  field: ScalarField;
+
+interface ImageFieldOutputs {
+  field: unknown;
 }
 
 export const ImageFieldNode: NodeDefinition<ImageFieldInputs, ImageFieldOutputs, ImageFieldParams> = {
-  type: 'Field::ImageField',
+  id: 'Field::ImageField',
   category: 'Field',
-  subcategory: 'Generate',
-
-  metadata: {
-    label: 'ImageField',
-    description: 'Field from image',
-    
-    
-  },
-
-  params: {
-        channel: {
-      "default": "luminance",
-      "options": [
-        "red",
-        "green",
-        "blue",
-        "alpha",
-        "luminance"
-      ]
-    },
-    scale: {
-      "default": [
-        100,
-        100
-      ]
-    },
-    height: {
-      "default": 10,
-      "min": 0
+  label: 'ImageField',
+  description: 'Field from image',
+  inputs: {
+    image: {
+      type: 'Data',
+      label: 'Image',
+      required: true
     }
   },
-
-  inputs: {
-        image: 'Data'
-  },
-
   outputs: {
-        field: 'ScalarField'
+    field: {
+      type: 'ScalarField',
+      label: 'Field'
+    }
   },
-
+  params: {
+    channel: {
+      type: 'enum',
+      label: 'Channel',
+      default: "luminance",
+      options: ["red","green","blue","alpha","luminance"]
+    },
+    scale: {
+      type: 'vector2',
+      label: 'Scale',
+      default: [100,100]
+    },
+    height: {
+      type: 'number',
+      label: 'Height',
+      default: 10,
+      min: 0
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'fieldImage',
       params: {
@@ -67,9 +61,9 @@ export const ImageFieldNode: NodeDefinition<ImageFieldInputs, ImageFieldOutputs,
         height: params.height
       }
     });
-
+    
     return {
       field: result
     };
-  }
+  },
 };

@@ -1,59 +1,51 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface SecurityDoorParams {
   level: string;
   accessControl: string;
 }
-interface Inputs {
-  opening: Wire;
+
+interface SecurityDoorInputs {
+  opening: unknown;
 }
-interface Outputs {
-  securityDoor: Shape;
+
+interface SecurityDoorOutputs {
+  securityDoor: unknown;
 }
 
 export const SecurityDoorNode: NodeDefinition<SecurityDoorInputs, SecurityDoorOutputs, SecurityDoorParams> = {
-  type: 'Architecture::SecurityDoor',
+  id: 'Architecture::SecurityDoor',
   category: 'Architecture',
-  subcategory: 'Doors',
-
-  metadata: {
-    label: 'SecurityDoor',
-    description: 'Security door system',
-    
-    
-  },
-
-  params: {
-        level: {
-      "default": "high",
-      "options": [
-        "standard",
-        "high",
-        "maximum"
-      ]
-    },
-    accessControl: {
-      "default": "card",
-      "options": [
-        "key",
-        "code",
-        "card",
-        "biometric"
-      ]
+  label: 'SecurityDoor',
+  description: 'Security door system',
+  inputs: {
+    opening: {
+      type: 'Wire',
+      label: 'Opening',
+      required: true
     }
   },
-
-  inputs: {
-        opening: 'Wire'
-  },
-
   outputs: {
-        securityDoor: 'Shape'
+    securityDoor: {
+      type: 'Shape',
+      label: 'Security Door'
+    }
   },
-
+  params: {
+    level: {
+      type: 'enum',
+      label: 'Level',
+      default: "high",
+      options: ["standard","high","maximum"]
+    },
+    accessControl: {
+      type: 'enum',
+      label: 'Access Control',
+      default: "card",
+      options: ["key","code","card","biometric"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'securityDoor',
       params: {
@@ -62,9 +54,9 @@ export const SecurityDoorNode: NodeDefinition<SecurityDoorInputs, SecurityDoorOu
         accessControl: params.accessControl
       }
     });
-
+    
     return {
       securityDoor: result
     };
-  }
+  },
 };

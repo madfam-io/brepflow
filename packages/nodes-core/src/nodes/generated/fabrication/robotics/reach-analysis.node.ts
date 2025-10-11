@@ -1,52 +1,58 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ReachAnalysisParams {
   resolution: number;
 }
-interface Inputs {
-  robotModel: Data;
-  workspace: Box;
+
+interface ReachAnalysisInputs {
+  robotModel: unknown;
+  workspace: unknown;
 }
-interface Outputs {
-  reachableVolume: Shape;
-  coverage: Number;
+
+interface ReachAnalysisOutputs {
+  reachableVolume: unknown;
+  coverage: number;
 }
 
 export const ReachAnalysisNode: NodeDefinition<ReachAnalysisInputs, ReachAnalysisOutputs, ReachAnalysisParams> = {
-  type: 'Fabrication::ReachAnalysis',
+  id: 'Fabrication::ReachAnalysis',
   category: 'Fabrication',
-  subcategory: 'Robotics',
-
-  metadata: {
-    label: 'ReachAnalysis',
-    description: 'Analyze robot reach',
-    
-    
-  },
-
-  params: {
-        resolution: {
-      "default": 50,
-      "min": 10,
-      "max": 200,
-      "step": 10
+  label: 'ReachAnalysis',
+  description: 'Analyze robot reach',
+  inputs: {
+    robotModel: {
+      type: 'Data',
+      label: 'Robot Model',
+      required: true
+    },
+    workspace: {
+      type: 'Box',
+      label: 'Workspace',
+      required: true
     }
   },
-
-  inputs: {
-        robotModel: 'Data',
-    workspace: 'Box'
-  },
-
   outputs: {
-        reachableVolume: 'Shape',
-    coverage: 'Number'
+    reachableVolume: {
+      type: 'Shape',
+      label: 'Reachable Volume'
+    },
+    coverage: {
+      type: 'Number',
+      label: 'Coverage'
+    }
   },
-
+  params: {
+    resolution: {
+      type: 'number',
+      label: 'Resolution',
+      default: 50,
+      min: 10,
+      max: 200,
+      step: 10
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'reachAnalysis',
       params: {
         robotModel: inputs.robotModel,
@@ -54,10 +60,10 @@ export const ReachAnalysisNode: NodeDefinition<ReachAnalysisInputs, ReachAnalysi
         resolution: params.resolution
       }
     });
-
+    
     return {
-      reachableVolume: result,
-      coverage: result
+      reachableVolume: results.reachableVolume,
+      coverage: results.coverage
     };
-  }
+  },
 };

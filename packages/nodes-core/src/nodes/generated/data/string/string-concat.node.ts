@@ -1,44 +1,43 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface StringConcatParams {
   separator: string;
 }
-interface Inputs {
-  strings: string[];
+
+interface StringConcatInputs {
+  strings: unknown;
 }
-interface Outputs {
-  result: string;
+
+interface StringConcatOutputs {
+  result: unknown;
 }
 
 export const StringConcatNode: NodeDefinition<StringConcatInputs, StringConcatOutputs, StringConcatParams> = {
-  type: 'Data::StringConcat',
+  id: 'Data::StringConcat',
   category: 'Data',
-  subcategory: 'String',
-
-  metadata: {
-    label: 'StringConcat',
-    description: 'Concatenate strings',
-    
-    
-  },
-
-  params: {
-        separator: {
-      "default": ""
+  label: 'StringConcat',
+  description: 'Concatenate strings',
+  inputs: {
+    strings: {
+      type: 'string[]',
+      label: 'Strings',
+      required: true
     }
   },
-
-  inputs: {
-        strings: 'string[]'
-  },
-
   outputs: {
-        result: 'string'
+    result: {
+      type: 'string',
+      label: 'Result'
+    }
   },
-
+  params: {
+    separator: {
+      type: 'string',
+      label: 'Separator',
+      default: ""
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'stringConcat',
       params: {
@@ -46,9 +45,9 @@ export const StringConcatNode: NodeDefinition<StringConcatInputs, StringConcatOu
         separator: params.separator
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

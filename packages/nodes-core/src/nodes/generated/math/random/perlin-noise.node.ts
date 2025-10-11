@@ -1,63 +1,74 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface PerlinNoiseParams {
   octaves: number;
   persistence: number;
   seed: number;
 }
-interface Inputs {
-  x: number;
-  y?: number;
-  z?: number;
+
+interface PerlinNoiseInputs {
+  x: unknown;
+  y?: unknown;
+  z?: unknown;
 }
-interface Outputs {
-  noise: number;
+
+interface PerlinNoiseOutputs {
+  noise: unknown;
 }
 
 export const PerlinNoiseNode: NodeDefinition<PerlinNoiseInputs, PerlinNoiseOutputs, PerlinNoiseParams> = {
-  type: 'Math::PerlinNoise',
+  id: 'Math::PerlinNoise',
   category: 'Math',
-  subcategory: 'Random',
-
-  metadata: {
-    label: 'PerlinNoise',
-    description: 'Perlin noise',
-    
-    
-  },
-
-  params: {
-        octaves: {
-      "default": 4,
-      "min": 1,
-      "max": 8,
-      "step": 1
+  label: 'PerlinNoise',
+  description: 'Perlin noise',
+  inputs: {
+    x: {
+      type: 'number',
+      label: 'X',
+      required: true
     },
-    persistence: {
-      "default": 0.5,
-      "min": 0,
-      "max": 1
+    y: {
+      type: 'number',
+      label: 'Y',
+      optional: true
     },
-    seed: {
-      "default": -1,
-      "min": -1,
-      "max": 999999
+    z: {
+      type: 'number',
+      label: 'Z',
+      optional: true
     }
   },
-
-  inputs: {
-        x: 'number',
-    y: 'number',
-    z: 'number'
-  },
-
   outputs: {
-        noise: 'number'
+    noise: {
+      type: 'number',
+      label: 'Noise'
+    }
   },
-
+  params: {
+    octaves: {
+      type: 'number',
+      label: 'Octaves',
+      default: 4,
+      min: 1,
+      max: 8,
+      step: 1
+    },
+    persistence: {
+      type: 'number',
+      label: 'Persistence',
+      default: 0.5,
+      min: 0,
+      max: 1
+    },
+    seed: {
+      type: 'number',
+      label: 'Seed',
+      default: -1,
+      min: -1,
+      max: 999999
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathPerlinNoise',
       params: {
@@ -69,9 +80,9 @@ export const PerlinNoiseNode: NodeDefinition<PerlinNoiseInputs, PerlinNoiseOutpu
         seed: params.seed
       }
     });
-
+    
     return {
       noise: result
     };
-  }
+  },
 };

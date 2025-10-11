@@ -8,7 +8,7 @@ Create spherical bearing for misalignment
 ## Parameters
 
 
-### ballDiameter
+### Ball Diameter
 - **Type:** number
 - **Default:** 20
 - **Min:** 5
@@ -16,7 +16,7 @@ Create spherical bearing for misalignment
 
 
 
-### boreDiameter
+### Bore Diameter
 - **Type:** number
 - **Default:** 8
 - **Min:** 3
@@ -24,7 +24,7 @@ Create spherical bearing for misalignment
 
 
 
-### housingDiameter
+### Housing Diameter
 - **Type:** number
 - **Default:** 30
 - **Min:** 10
@@ -32,7 +32,7 @@ Create spherical bearing for misalignment
 
 
 
-### misalignmentAngle
+### Misalignment Angle
 - **Type:** number
 - **Default:** 15
 - **Min:** 5
@@ -43,7 +43,7 @@ Create spherical bearing for misalignment
 ## Inputs
 
 
-### center
+### Center
 - **Type:** Point
 - **Required:** Yes
 
@@ -52,17 +52,17 @@ Create spherical bearing for misalignment
 ## Outputs
 
 
-### bearing
+### Bearing
 - **Type:** Shape
 
 
 
-### ball
+### Ball
 - **Type:** Shape
 
 
 
-### housing
+### Housing
 - **Type:** Shape
 
 

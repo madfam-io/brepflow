@@ -1,50 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
+type ExponentialParams = Record<string, never>;
 
-type Params = {};
-interface Inputs {
-  value: number;
+interface ExponentialInputs {
+  value: unknown;
 }
-interface Outputs {
-  result: number;
+
+interface ExponentialOutputs {
+  result: unknown;
 }
 
 export const ExponentialNode: NodeDefinition<ExponentialInputs, ExponentialOutputs, ExponentialParams> = {
-  type: 'Math::Exponential',
+  id: 'Math::Exponential',
   category: 'Math',
-  subcategory: 'Logarithmic',
-
-  metadata: {
-    label: 'Exponential',
-    description: 'Exponential function',
-    
-    
-  },
-
-  params: {
-    
-  },
-
+  label: 'Exponential',
+  description: 'Exponential function',
   inputs: {
-        value: 'number'
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
+    }
   },
-
   outputs: {
-        result: 'number'
+    result: {
+      type: 'number',
+      label: 'Result'
+    }
   },
-
+  params: {},
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathExp',
       params: {
         value: inputs.value
-        
       }
     });
-
+    
     return {
       result: result
     };
-  }
+  },
 };

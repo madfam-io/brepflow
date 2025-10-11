@@ -1,53 +1,56 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface EdgeToEdgeParams {
   alignment: string;
 }
-interface Inputs {
-  edge1: Edge;
-  edge2: Edge;
+
+interface EdgeToEdgeInputs {
+  edge1: unknown;
+  edge2: unknown;
 }
-interface Outputs {
-  mated: Shape[];
-  mate: Mate;
+
+interface EdgeToEdgeOutputs {
+  mated: unknown;
+  mate: unknown;
 }
 
 export const EdgeToEdgeNode: NodeDefinition<EdgeToEdgeInputs, EdgeToEdgeOutputs, EdgeToEdgeParams> = {
-  type: 'Assembly::EdgeToEdge',
+  id: 'Assembly::EdgeToEdge',
   category: 'Assembly',
-  subcategory: 'Mates',
-
-  metadata: {
-    label: 'EdgeToEdge',
-    description: 'Mate two edges together',
-    
-    
-  },
-
-  params: {
-        alignment: {
-      "default": "aligned",
-      "options": [
-        "aligned",
-        "anti-aligned"
-      ]
+  label: 'EdgeToEdge',
+  description: 'Mate two edges together',
+  inputs: {
+    edge1: {
+      type: 'Edge',
+      label: 'Edge1',
+      required: true
+    },
+    edge2: {
+      type: 'Edge',
+      label: 'Edge2',
+      required: true
     }
   },
-
-  inputs: {
-        edge1: 'Edge',
-    edge2: 'Edge'
-  },
-
   outputs: {
-        mated: 'Shape[]',
-    mate: 'Mate'
+    mated: {
+      type: 'Shape[]',
+      label: 'Mated'
+    },
+    mate: {
+      type: 'Mate',
+      label: 'Mate'
+    }
   },
-
+  params: {
+    alignment: {
+      type: 'enum',
+      label: 'Alignment',
+      default: "aligned",
+      options: ["aligned","anti-aligned"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'mateEdgeToEdge',
       params: {
         edge1: inputs.edge1,
@@ -55,10 +58,10 @@ export const EdgeToEdgeNode: NodeDefinition<EdgeToEdgeInputs, EdgeToEdgeOutputs,
         alignment: params.alignment
       }
     });
-
+    
     return {
-      mated: result,
-      mate: result
+      mated: results.mated,
+      mate: results.mate
     };
-  }
+  },
 };

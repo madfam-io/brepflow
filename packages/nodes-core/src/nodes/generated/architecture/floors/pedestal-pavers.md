@@ -8,7 +8,7 @@ Pedestal paver system
 ## Parameters
 
 
-### paverSize
+### Paver Size
 - **Type:** number
 - **Default:** 600
 - **Min:** 300
@@ -16,7 +16,7 @@ Pedestal paver system
 
 
 
-### pedestalHeight
+### Pedestal Height
 - **Type:** number
 - **Default:** 100
 - **Min:** 25
@@ -27,7 +27,7 @@ Pedestal paver system
 ## Inputs
 
 
-### area
+### Area
 - **Type:** Face
 - **Required:** Yes
 
@@ -36,12 +36,12 @@ Pedestal paver system
 ## Outputs
 
 
-### pavers
+### Pavers
 - **Type:** Face[]
 
 
 
-### pedestals
+### Pedestals
 - **Type:** Shape[]
 
 

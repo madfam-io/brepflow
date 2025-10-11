@@ -12,7 +12,7 @@ This node has no parameters.
 ## Inputs
 
 
-### points
+### Points
 - **Type:** Point[]
 - **Required:** Yes
 
@@ -21,12 +21,12 @@ This node has no parameters.
 ## Outputs
 
 
-### tetrahedra
+### Tetrahedra
 - **Type:** Shape[]
 
 
 
-### mesh
+### Mesh
 - **Type:** Mesh
 
 

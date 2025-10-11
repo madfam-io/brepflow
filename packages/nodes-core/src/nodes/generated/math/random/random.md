@@ -8,7 +8,7 @@ Random number 0-1
 ## Parameters
 
 
-### seed
+### Seed
 - **Type:** number
 - **Default:** -1
 - **Min:** -1
@@ -23,7 +23,7 @@ This node has no inputs.
 ## Outputs
 
 
-### value
+### Value
 - **Type:** number
 
 

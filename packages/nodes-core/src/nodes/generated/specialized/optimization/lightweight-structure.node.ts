@@ -1,61 +1,64 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface LightweightStructureParams {
   targetWeight: number;
   structureType: string;
 }
-interface Inputs {
-  solid: Shape;
-  loadPaths?: Data;
+
+interface LightweightStructureInputs {
+  solid: unknown;
+  loadPaths?: unknown;
 }
-interface Outputs {
-  lightweighted: Shape;
-  weightReduction: number;
+
+interface LightweightStructureOutputs {
+  lightweighted: unknown;
+  weightReduction: unknown;
 }
 
 export const LightweightStructureNode: NodeDefinition<LightweightStructureInputs, LightweightStructureOutputs, LightweightStructureParams> = {
-  type: 'Specialized::LightweightStructure',
+  id: 'Specialized::LightweightStructure',
   category: 'Specialized',
-  subcategory: 'Optimization',
-
-  metadata: {
-    label: 'LightweightStructure',
-    description: 'Create lightweight structure',
-    
-    
-  },
-
-  params: {
-        targetWeight: {
-      "default": 0.5,
-      "min": 0.1,
-      "max": 0.9
+  label: 'LightweightStructure',
+  description: 'Create lightweight structure',
+  inputs: {
+    solid: {
+      type: 'Shape',
+      label: 'Solid',
+      required: true
     },
-    structureType: {
-      "default": "hybrid",
-      "options": [
-        "ribs",
-        "shells",
-        "lattice",
-        "hybrid"
-      ]
+    loadPaths: {
+      type: 'Data',
+      label: 'Load Paths',
+      optional: true
     }
   },
-
-  inputs: {
-        solid: 'Shape',
-    loadPaths: 'Data'
-  },
-
   outputs: {
-        lightweighted: 'Shape',
-    weightReduction: 'number'
+    lightweighted: {
+      type: 'Shape',
+      label: 'Lightweighted'
+    },
+    weightReduction: {
+      type: 'number',
+      label: 'Weight Reduction'
+    }
   },
-
+  params: {
+    targetWeight: {
+      type: 'number',
+      label: 'Target Weight',
+      default: 0.5,
+      min: 0.1,
+      max: 0.9
+    },
+    structureType: {
+      type: 'enum',
+      label: 'Structure Type',
+      default: "hybrid",
+      options: ["ribs","shells","lattice","hybrid"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
-    const result = await context.geometry.execute({
+    const results = await context.geometry.execute({
       type: 'lightweightStructure',
       params: {
         solid: inputs.solid,
@@ -64,10 +67,10 @@ export const LightweightStructureNode: NodeDefinition<LightweightStructureInputs
         structureType: params.structureType
       }
     });
-
+    
     return {
-      lightweighted: result,
-      weightReduction: result
+      lightweighted: results.lightweighted,
+      weightReduction: results.weightReduction
     };
-  }
+  },
 };

@@ -1,48 +1,44 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface ArcTangentParams {
   angleUnit: string;
 }
-interface Inputs {
-  value: number;
+
+interface ArcTangentInputs {
+  value: unknown;
 }
-interface Outputs {
-  angle: number;
+
+interface ArcTangentOutputs {
+  angle: unknown;
 }
 
 export const ArcTangentNode: NodeDefinition<ArcTangentInputs, ArcTangentOutputs, ArcTangentParams> = {
-  type: 'Math::ArcTangent',
+  id: 'Math::ArcTangent',
   category: 'Math',
-  subcategory: 'Trigonometry',
-
-  metadata: {
-    label: 'ArcTangent',
-    description: 'Arc tangent function',
-    
-    
-  },
-
-  params: {
-        angleUnit: {
-      "default": "radians",
-      "options": [
-        "radians",
-        "degrees"
-      ]
+  label: 'ArcTangent',
+  description: 'Arc tangent function',
+  inputs: {
+    value: {
+      type: 'number',
+      label: 'Value',
+      required: true
     }
   },
-
-  inputs: {
-        value: 'number'
-  },
-
   outputs: {
-        angle: 'number'
+    angle: {
+      type: 'number',
+      label: 'Angle'
+    }
   },
-
+  params: {
+    angleUnit: {
+      type: 'enum',
+      label: 'Angle Unit',
+      default: "radians",
+      options: ["radians","degrees"]
+    }
+  },
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'mathAtan',
       params: {
@@ -50,9 +46,9 @@ export const ArcTangentNode: NodeDefinition<ArcTangentInputs, ArcTangentOutputs,
         angleUnit: params.angleUnit
       }
     });
-
+    
     return {
       angle: result
     };
-  }
+  },
 };

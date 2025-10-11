@@ -1,48 +1,59 @@
+import type { NodeDefinition } from '@brepflow/types';
 
-import { NodeDefinition } from '@brepflow/types';
-
-interface Params {
+interface FieldPotentialParams {
   referencePoint: [number, number, number];
 }
-interface Inputs {
-  vectorField?: VectorField;
+
+interface FieldPotentialInputs {
+  vectorField?: unknown;
 }
-interface Outputs {
-  potentialField: Field;
-  isConservative: Boolean;
+
+interface FieldPotentialOutputs {
+  potentialField: unknown;
+  isConservative: boolean;
 }
 
 export const FieldPotentialNode: NodeDefinition<FieldPotentialInputs, FieldPotentialOutputs, FieldPotentialParams> = {
-  type: 'Fields::FieldPotential',
+  id: 'Fields::FieldPotential',
   category: 'Fields',
-  subcategory: 'Analysis',
-
-  metadata: {
-    label: 'FieldPotential',
-    description: 'Find potential function for conservative field',
-    
-    
-  },
-
-  params: {
-        referencePoint: {
-      "default": "[0, 0, 0]",
-      "description": "Reference point for potential"
+  label: 'FieldPotential',
+  description: 'Find potential function for conservative field',
+  inputs: {
+    vectorField: {
+      type: 'VectorField',
+      label: 'Vector Field',
+      optional: true
     }
   },
-
-  inputs: {
-        vectorField: 'VectorField'
-  },
-
   outputs: {
-        potentialField: 'Field',
-    isConservative: 'Boolean'
+    potentialField: {
+      type: 'Field',
+      label: 'Potential Field'
+    },
+    isConservative: {
+      type: 'Boolean',
+      label: 'Is Conservative'
+    }
   },
-
+  params: {
+    referencePoint: {
+      type: 'vec3',
+      label: 'Reference Point',
+      default: "[0, 0, 0]"
+    }
+  },
   async evaluate(context, inputs, params) {
+    const results = await context.geometry.execute({
+      type: 'findPotential',
+      params: {
+        vectorField: inputs.vectorField,
+        referencePoint: params.referencePoint
+      }
+    });
     
-    // TODO: Implement FieldPotential logic
-    throw new Error('FieldPotential not yet implemented');
-  }
+    return {
+      potentialField: results.potentialField,
+      isConservative: results.isConservative
+    };
+  },
 };
