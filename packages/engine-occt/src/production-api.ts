@@ -5,6 +5,8 @@
 
 import { getConfig } from '@brepflow/engine-core';
 import type { WorkerAPI, WorkerRequest, WorkerResponse } from '@brepflow/types';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 // Lazy logger initialization to avoid constructor issues during module loading
 let logger: any = null;
@@ -24,7 +26,7 @@ export interface ProductionWorkerConfig {
 }
 
 export class ProductionWorkerAPI implements WorkerAPI {
-  private worker: Worker | null = null;
+  private worker: any = null;
   private requestId = 0;
   private pendingRequests = new Map<number, {
     resolve: (value: any) => void;
@@ -56,26 +58,37 @@ export class ProductionWorkerAPI implements WorkerAPI {
     try {
       // Use public directory path for worker - this works reliably across environments
       let workerUrl: string;
-      
-      // Check if we're in development or production mode
-      if (typeof window !== 'undefined') {
-        // Browser context - use public path
+      let nodeWorkerUrlObject: URL | null = null;
+      const isNodeRuntime = typeof process !== 'undefined' && !!process.versions?.node;
+
+      if (isNodeRuntime) {
+        const localWorkerPath = path.resolve(process.cwd(), 'packages/engine-occt/dist/worker.mjs');
+        nodeWorkerUrlObject = pathToFileURL(localWorkerPath);
+        workerUrl = nodeWorkerUrlObject.href;
+        getLogger().info('Node context: using local worker file', { workerUrl, localWorkerPath });
+      } else if (typeof window !== 'undefined' && typeof window.document !== 'undefined') {
         workerUrl = '/wasm/worker.mjs';
         getLogger().info('Browser context: using public worker path');
-      } else if (typeof self !== 'undefined') {
-        // Worker context - construct full URL
-        const origin = self.location?.origin || 'http://localhost:5174';
+      } else if (typeof self !== 'undefined' && (self as any).location) {
+        const origin = (self as any).location?.origin || 'http://localhost:5174';
         workerUrl = `${origin}/wasm/worker.mjs`;
         getLogger().info('Worker context: using public worker URL');
       } else {
-        // Fallback - use public path
-        workerUrl = '/wasm/worker.mjs';
-        getLogger().info('Unknown context: using fallback public worker path');
+        const localWorkerPath = path.resolve(process.cwd(), 'packages/engine-occt/dist/worker.mjs');
+        nodeWorkerUrlObject = pathToFileURL(localWorkerPath);
+        workerUrl = nodeWorkerUrlObject.href;
+        getLogger().info('Unknown context: falling back to local worker file', { workerUrl, localWorkerPath });
       }
 
       getLogger().info(`Creating worker with URL: ${workerUrl}`);
-      getLogger().info(`Current import.meta.url: ${import.meta.url}`);
-      this.worker = new Worker(workerUrl, { type: 'module' });
+      const workerOptions: any = { type: 'module' };
+
+      if (isNodeRuntime) {
+        const { Worker: NodeWorker } = await import('node:worker_threads');
+        this.worker = new NodeWorker(nodeWorkerUrlObject ?? workerUrl, workerOptions);
+      } else {
+        this.worker = new Worker(workerUrl, workerOptions);
+      }
       
       this.setupWorkerHandlers();
       
@@ -94,16 +107,13 @@ export class ProductionWorkerAPI implements WorkerAPI {
   private setupWorkerHandlers(): void {
     if (!this.worker) return;
 
-    this.worker.onmessage = (event: MessageEvent<WorkerResponse>) => {
-      const response = event.data;
-      
+    const handleMessage = (response: WorkerResponse) => {
       if (response.id !== undefined) {
-        // Handle request response
         const pending = this.pendingRequests.get(response.id);
         if (pending) {
           clearTimeout(pending.timeout);
           this.pendingRequests.delete(response.id);
-          
+
           if (response.success) {
             pending.resolve(response.result);
           } else {
@@ -114,20 +124,25 @@ export class ProductionWorkerAPI implements WorkerAPI {
           }
         }
       } else {
-        // Handle worker events (memory pressure, etc.)
         this.handleWorkerEvent(response);
       }
     };
 
-    this.worker.onerror = (event) => {
+    const handleError = (event: any) => {
+      const message = event?.message || event?.toString?.() || 'Worker error';
       getLogger().error('Worker error', event);
-      this.handleWorkerError(new Error(`Worker error: ${event.message}`));
+      this.handleWorkerError(new Error(message));
     };
 
-    this.worker.onmessageerror = (event) => {
-      getLogger().error('Worker message error', event);
-      this.handleWorkerError(new Error('Worker message error'));
-    };
+    if (typeof this.worker.on === 'function') {
+      this.worker.on('message', (data: WorkerResponse) => handleMessage(data));
+      this.worker.on('error', handleError);
+      this.worker.on('messageerror', handleError);
+    } else {
+      this.worker.onmessage = (event: MessageEvent<WorkerResponse>) => handleMessage(event.data);
+      this.worker.onerror = handleError;
+      this.worker.onmessageerror = handleError;
+    }
   }
 
   private handleWorkerEvent(event: any): void {

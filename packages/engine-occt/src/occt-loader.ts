@@ -8,10 +8,9 @@ import { WASMCapabilityDetector, WASMPerformanceMonitor, type OCCTConfig } from 
 declare function createOCCTCoreModule(config?: any): Promise<any>;
 
 export interface LoaderOptions {
-  forceMode?: 'full-occt' | 'optimized-occt' | 'mock-geometry';
+  forceMode?: 'full-occt' | 'optimized-occt';
   wasmBasePath?: string;
   enablePerformanceMonitoring?: boolean;
-  fallbackToMock?: boolean;
 }
 
 interface CircuitBreakerState {
@@ -69,9 +68,8 @@ export async function loadOCCTModule(options: LoaderOptions = {}): Promise<any> 
 
   try {
     // Check circuit breaker
-    if (LoaderState.isCircuitOpen() && options.fallbackToMock !== false) {
-      console.warn('[OCCT] Circuit breaker open, falling back to mock');
-      return loadMockGeometry();
+    if (LoaderState.isCircuitOpen()) {
+      throw new Error('OCCT circuit breaker open due to repeated failures');
     }
 
     // Enhanced environment detection
@@ -112,11 +110,8 @@ export async function loadOCCTModule(options: LoaderOptions = {}): Promise<any> 
           case 'optimized-occt':
             occtModule = await loadOptimizedOCCTModule(config, options);
             break;
-          case 'mock-geometry':
-            occtModule = await loadMockGeometry();
-            break;
           default:
-            throw new Error(`Unknown OCCT mode: ${config.mode}`);
+            throw new Error(`Unsupported OCCT mode: ${config.mode}`);
         }
 
         // Success - reset circuit breaker
@@ -132,13 +127,6 @@ export async function loadOCCTModule(options: LoaderOptions = {}): Promise<any> 
 
         if (attempts >= maxAttempts) {
           LoaderState.recordFailure();
-
-          // Fallback to mock if enabled
-          if (options.fallbackToMock !== false && config.mode !== 'mock-geometry') {
-            console.warn('[OCCT] All attempts failed, falling back to mock geometry');
-            return loadMockGeometry();
-          }
-
           throw new Error(`Failed to load OCCT after ${maxAttempts} attempts: ${error.message}`);
         }
 
@@ -405,104 +393,6 @@ async function loadOptimizedOCCTModule(config: OCCTConfig, options: LoaderOption
   return occtModule;
 }
 
-async function loadMockGeometry(): Promise<any> {
-  // Import mock geometry dynamically
-  const { MockGeometry } = await import('./mock-geometry');
-  const mockGeometry = new MockGeometry();
-  await mockGeometry.init();
-
-  // Create unique ID generator for consistent test results
-  let idCounter = 0;
-  const generateId = (prefix: string) => `${prefix}_${Date.now()}_${++idCounter}`;
-
-  return {
-    // Wrap mock geometry in OCCT-like interface
-    invoke: (operation: string, params: any) => mockGeometry.invoke(operation, params),
-    tessellate: (shape: any, tolerance: number) => {
-      const result = mockGeometry.tessellate(shape, tolerance);
-      // Ensure proper mesh structure for tests
-      return {
-        ...result,
-        vertices: result.vertices || new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
-        indices: result.indices || new Uint32Array([0, 1, 2]),
-        positions: result.vertices || new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
-        triangles: result.indices || new Uint32Array([0, 1, 2])
-      };
-    },
-    terminate: () => Promise.resolve(),
-
-    // Mock geometry operations - add all expected methods from tests
-    makeBox: function(dx: number, dy: number, dz: number) {
-      return { id: generateId('mock_box'), type: 'solid', volume: dx * dy * dz };
-    },
-    makeBoxWithOrigin: function(x: number, y: number, z: number, dx: number, dy: number, dz: number) {
-      return { id: generateId('mock_box_origin'), type: 'solid', volume: dx * dy * dz };
-    },
-    makeSphere: function(radius: number) {
-      return { id: generateId('mock_sphere'), type: 'solid', volume: (4/3) * Math.PI * radius * radius * radius };
-    },
-    makeCylinder: function(radius: number, height: number) {
-      return { id: generateId('mock_cylinder'), type: 'solid', volume: Math.PI * radius * radius * height };
-    },
-    makeTorus: function(majorRadius: number, minorRadius: number) {
-      return { id: generateId('mock_torus'), type: 'solid' };
-    },
-    booleanUnion: function(shape1Id: string, shape2Id: string) {
-      return { id: generateId('mock_union'), type: 'solid' };
-    },
-    booleanSubtract: function(shape1Id: string, shape2Id: string) {
-      return { id: generateId('mock_subtract'), type: 'solid' };
-    },
-    booleanIntersect: function(shape1Id: string, shape2Id: string) {
-      return { id: generateId('mock_intersect'), type: 'solid' };
-    },
-    makeFillet: function(shapeId: string, radius: number) {
-      return { id: generateId('mock_fillet'), type: 'solid' };
-    },
-    makeChamfer: function(shapeId: string, distance: number) {
-      return { id: generateId('mock_chamfer'), type: 'solid' };
-    },
-    transform: function(shapeId: string, tx: number, ty: number, tz: number, rx?: number, ry?: number, rz?: number, sx?: number, sy?: number, sz?: number) {
-      return { id: generateId('mock_transform'), type: 'solid' };
-    },
-    copyShape: function(shapeId: string) {
-      return { id: generateId('mock_copy'), type: 'solid' };
-    },
-
-    // File I/O
-    exportSTEP: function(shapeId: string) {
-      return `Mock STEP data for ${shapeId}`;
-    },
-    exportSTL: function(shapeId: string, binary?: boolean) {
-      return binary ? new ArrayBuffer(512) : `Mock STL data for ${shapeId}`;
-    },
-
-    // Memory management
-    deleteShape: function(shapeId: string) {
-      return undefined; // Mock deletion returns undefined
-    },
-    getShapeCount: function() {
-      return 0;
-    },
-    clearAllShapes: function() {
-      // No-op for mock
-    },
-
-    // Status and version
-    getStatus: function() {
-      return 'Mock Geometry Engine: Ready';
-    },
-    getOCCTVersion: function() {
-      return 'Mock-7.8.0';
-    },
-
-    // Mock OCCT-specific methods
-    _BRepPrimAPI_MakeBox: () => 'mock_box_function',
-    _BRepPrimAPI_MakeSphere: () => 'mock_sphere_function',
-    _BRepPrimAPI_MakeCylinder: () => 'mock_cylinder_function',
-  };
-}
-
 async function instantiateWASMDirect(wasmUrl: string, Module?: any): Promise<any> {
   const response = await fetch(wasmUrl);
   const wasmBuffer = await response.arrayBuffer();
@@ -566,14 +456,6 @@ async function getConfigForMode(mode: string): Promise<OCCTConfig> {
         mode: 'optimized-occt',
         wasmFile: 'occt-core.wasm'
       };
-    case 'mock-geometry':
-      return {
-        ...baseConfig,
-        mode: 'mock-geometry',
-        wasmFile: '',
-        workers: 1,
-        memory: '512MB'
-      };
     default:
       throw new Error(`Unknown forced mode: ${mode}`);
   }
@@ -606,10 +488,10 @@ export async function isOCCTAvailable(): Promise<{ available: boolean; mode: str
       }
     }
 
-    // No WASM available, but mock geometry is always available
-    return { available: true, mode: 'mock-geometry', capabilities };
+    // No WASM bundle accessible
+    return { available: false, mode: 'unavailable', capabilities };
   } catch {
-    return { available: true, mode: 'mock-geometry' };
+    return { available: false, mode: 'unknown' };
   }
 }
 
@@ -635,7 +517,6 @@ ${performanceReport}
 
 /**
  * Adapter that wraps the raw OCCT module with the invoke interface
- * Compatible with MockGeometry API for seamless fallback
  */
 class OCCTAdapter {
   constructor(private readonly occtModule: any) {}

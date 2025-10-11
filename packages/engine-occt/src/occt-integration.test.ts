@@ -38,11 +38,12 @@ describe('OCCT Integration Tests', () => {
     return false;
   };
 
-  // Helper function to check if we're using mock geometry
   const isUsingMock = () => {
-    if (!occtModule) return true;
+    if (!occtModule || typeof occtModule.getStatus !== 'function') {
+      return true;
+    }
     const status = occtModule.getStatus();
-    return status && (status.includes('Mock') || status.includes('mock'));
+    return typeof status === 'string' && status.toLowerCase().includes('mock');
   };
 
   beforeAll(async () => {
@@ -57,7 +58,7 @@ describe('OCCT Integration Tests', () => {
 
     try {
       console.log('Loading OCCT module for integration tests...');
-      occtModule = await loadOCCTModule({ fallbackToMock: true });
+      occtModule = await loadOCCTModule();
 
       if (!occtModule) {
         console.warn('OCCT module unavailable in test environment - tests will be skipped');
@@ -66,8 +67,8 @@ describe('OCCT Integration Tests', () => {
 
       console.log('OCCT module loaded successfully');
     } catch (error) {
-      console.warn('Failed to load OCCT, tests will use fallback:', error);
-      // Tests will run but may have different expectations
+      console.warn('Failed to load OCCT, skipping integration tests:', error);
+      occtModule = null;
     }
   }, TEST_CONFIG.timeout);
 
@@ -96,14 +97,7 @@ describe('OCCT Integration Tests', () => {
   describe('Module Loading and Initialization', () => {
     it('should load OCCT module', async () => {
       expect(occtModule).toBeDefined();
-
-      if (isUsingMock()) {
-        console.log('Test running with mock geometry');
-        expect(occtModule.getStatus()).toContain('Mock');
-      } else {
-        console.log('Test running with real OCCT');
-        expect(occtModule.getStatus).toBeDefined();
-      }
+      expect(occtModule.getStatus).toBeDefined();
     });
 
     it('should provide status information', async () => {
@@ -112,25 +106,14 @@ describe('OCCT Integration Tests', () => {
       const status = occtModule.getStatus();
       expect(status).toBeDefined();
       expect(typeof status).toBe('string');
-
-      if (isUsingMock()) {
-        expect(status).toContain('Mock');
-      }
     });
 
     it('should support memory management', async () => {
       if (skipIfNoOCCT()) return;
 
       expect(occtModule.getShapeCount).toBeDefined();
-
-      if (isUsingMock()) {
-        // Mock implementation should handle this gracefully
-        const shapeCount = occtModule.getShapeCount();
-        expect(typeof shapeCount).toBe('number');
-      } else {
-        const shapeCount = occtModule.getShapeCount();
-        expect(shapeCount).toBeGreaterThanOrEqual(0);
-      }
+      const shapeCount = occtModule.getShapeCount();
+      expect(shapeCount).toBeGreaterThanOrEqual(0);
     });
   });
 
@@ -142,13 +125,8 @@ describe('OCCT Integration Tests', () => {
       expect(box).toBeDefined();
       expect(box.id).toBeDefined();
 
-      if (isUsingMock()) {
-        // Mock should provide basic shape structure
-        expect(box.type).toBeDefined();
-      } else {
-        expect(box.type).toBe('solid');
-        expect(box.volume).toBeCloseTo(6000, 1);
-      }
+      expect(box.type).toBe('solid');
+      expect(box.volume).toBeCloseTo(6000, 1);
 
       testShapes.set('test_box', box);
     });
@@ -160,13 +138,9 @@ describe('OCCT Integration Tests', () => {
       expect(sphere).toBeDefined();
       expect(sphere.id).toBeDefined();
 
-      if (isUsingMock()) {
-        expect(sphere.type).toBeDefined();
-      } else {
-        expect(sphere.type).toBe('solid');
-        const expectedVolume = (4/3) * Math.PI * Math.pow(15, 3);
-        expect(sphere.volume).toBeCloseTo(expectedVolume, 1);
-      }
+      expect(sphere.type).toBe('solid');
+      const expectedVolume = (4/3) * Math.PI * Math.pow(15, 3);
+      expect(sphere.volume).toBeCloseTo(expectedVolume, 1);
 
       testShapes.set('test_sphere', sphere);
     });
@@ -178,13 +152,9 @@ describe('OCCT Integration Tests', () => {
       expect(cylinder).toBeDefined();
       expect(cylinder.id).toBeDefined();
 
-      if (isUsingMock()) {
-        expect(cylinder.type).toBeDefined();
-      } else {
-        expect(cylinder.type).toBe('solid');
-        const expectedVolume = Math.PI * Math.pow(10, 2) * 25;
-        expect(cylinder.volume).toBeCloseTo(expectedVolume, 1);
-      }
+      expect(cylinder.type).toBe('solid');
+      const expectedVolume = Math.PI * Math.pow(10, 2) * 25;
+      expect(cylinder.volume).toBeCloseTo(expectedVolume, 1);
 
       testShapes.set('test_cylinder', cylinder);
     });

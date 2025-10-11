@@ -34,7 +34,6 @@ describe('Node OCCT smoke', () => {
 
     const config = createProductionSafeConfig({
       enableRealOCCT: true,
-      fallbackToMock: false,
       enablePerformanceMonitoring: false,
       enableMemoryManagement: false,
       enableErrorRecovery: false,

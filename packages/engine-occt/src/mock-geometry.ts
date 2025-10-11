@@ -23,6 +23,10 @@ export class MockGeometry implements WorkerAPI {
     console.log('[MockGeometry] Initialized');
   }
 
+  async terminate(): Promise<void> {
+    this.shapes.clear();
+  }
+
   /**
    * Create a mock shape handle
    */
@@ -34,9 +38,12 @@ export class MockGeometry implements WorkerAPI {
 
     const handle: ShapeHandle = {
       id,
-      type,
+      type: 'SOLID',
       bbox: bbox || this.defaultBBox(),
       hash: id.substring(0, 16),
+      metadata: {
+        sourceType: type,
+      },
     };
 
     this.shapes.set(id, {

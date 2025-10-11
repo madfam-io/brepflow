@@ -70,19 +70,6 @@ vi.mock('./wasm-capability-detector', () => ({
   }
 }));
 
-vi.mock('./mock-geometry', () => ({
-  MockGeometry: vi.fn().mockImplementation(() => ({
-    init: vi.fn().mockResolvedValue(undefined),
-    invoke: vi.fn().mockResolvedValue({ id: 'mock-shape-1', type: 'solid' }),
-    tessellate: vi.fn().mockResolvedValue({
-      vertices: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
-      indices: new Uint32Array([0, 1, 2]),
-      normals: new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1])
-    }),
-    terminate: vi.fn().mockResolvedValue(undefined)
-  }))
-}));
-
 describe('IntegratedGeometryAPI', () => {
   let geometryAPI: IntegratedGeometryAPI;
 
@@ -102,13 +89,21 @@ describe('IntegratedGeometryAPI', () => {
     it('should create with custom configuration', () => {
       const customConfig: GeometryAPIConfig = {
         ...DEFAULT_API_CONFIG,
-        enableRealOCCT: false,
-        fallbackToMock: true,
-        enablePerformanceMonitoring: false
+        enablePerformanceMonitoring: false,
+        enableErrorRecovery: false
       };
 
       geometryAPI = new IntegratedGeometryAPI(customConfig);
       expect(geometryAPI).toBeDefined();
+    });
+
+    it('should fail initialization when real OCCT is disabled', async () => {
+      geometryAPI = new IntegratedGeometryAPI({
+        ...DEFAULT_API_CONFIG,
+        enableRealOCCT: false
+      });
+
+      await expect(geometryAPI.init()).rejects.toThrow('Real OCCT is required');
     });
 
     it('should initialize successfully', async () => {
@@ -126,10 +121,7 @@ describe('IntegratedGeometryAPI', () => {
       // Temporarily mock to fail
       mockLoader.loadOCCTModule = vi.fn().mockRejectedValue(new Error('WASM load failed'));
 
-      geometryAPI = new IntegratedGeometryAPI({
-        ...DEFAULT_API_CONFIG,
-        fallbackToMock: true
-      });
+      geometryAPI = new IntegratedGeometryAPI(DEFAULT_API_CONFIG);
 
       await expect(geometryAPI.init()).rejects.toThrow();
 
@@ -182,25 +174,28 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should handle operation failure gracefully', async () => {
-      // Override the mock to throw for invalid operations
-      const { MockGeometry } = await import('./mock-geometry');
-      const mockInstance = new (MockGeometry as any)();
-
-      // Make invoke throw for INVALID_OPERATION
-      mockInstance.invoke = vi.fn().mockImplementation((operation: string) => {
+      const loader = await import('./occt-loader');
+      const invokeSpy = vi.fn().mockImplementation((operation: string) => {
         if (operation === 'INVALID_OPERATION') {
           throw new Error('Unknown operation: INVALID_OPERATION');
         }
-        return Promise.resolve({ id: 'mock-shape-1', type: 'solid' });
+        return Promise.resolve({ id: 'shape-1', type: 'solid' });
       });
 
-      // Override the MockGeometry constructor to return our instance
-      (MockGeometry as any).mockImplementation(() => mockInstance);
+      (loader.loadOCCTModule as any).mockResolvedValueOnce({
+        invoke: invokeSpy,
+        tessellate: vi.fn().mockResolvedValue({
+          vertices: new Float32Array([0, 0, 0]),
+          indices: new Uint32Array([0, 1, 2]),
+          normals: new Float32Array([0, 0, 1])
+        }),
+        terminate: vi.fn()
+      });
 
       geometryAPI = new IntegratedGeometryAPI(DEFAULT_API_CONFIG);
       await geometryAPI.init();
 
-      // INVALID_OPERATION should fail because MockGeometry throws
+      // INVALID_OPERATION should fail because the OCCT adapter throws
       const result = await geometryAPI.invoke('INVALID_OPERATION', {});
 
       expect(result.success).toBe(false);
@@ -318,17 +313,12 @@ describe('IntegratedGeometryAPI', () => {
         terminate: vi.fn()
       });
 
-      geometryAPI = new IntegratedGeometryAPI({
-        ...DEFAULT_API_CONFIG,
-        fallbackToMock: false
-      });
+      geometryAPI = new IntegratedGeometryAPI(DEFAULT_API_CONFIG);
 
       const testResult = await geometryAPI.test();
 
-      // With robust fallback mechanisms, the API should succeed even with OCCT failures
-      // This represents production-ready resilience
-      expect(testResult.success).toBe(true);
-      expect(testResult.report).toContain('API test successful');
+      expect(testResult.success).toBe(false);
+      expect(testResult.report).toContain('API test failed');
 
       // Restore original mock for subsequent tests
       mockOCCTLoader.loadOCCTModule = originalLoadOCCTModule;
@@ -368,8 +358,8 @@ describe('IntegratedGeometryAPI', () => {
 
     it('should create with custom configuration', () => {
       const customConfig: Partial<GeometryAPIConfig> = {
-        enableRealOCCT: false,
-        fallbackToMock: true
+        enablePerformanceMonitoring: false,
+        enableErrorRecovery: false
       };
 
       const api = createGeometryAPI(customConfig);

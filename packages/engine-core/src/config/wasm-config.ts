@@ -32,7 +32,10 @@ export function getWASMConfig(): WASMConfig {
     initTimeout: 30000,
 
     // Enable SharedArrayBuffer for better performance
-    enableSharedArrayBuffer: typeof SharedArrayBuffer !== 'undefined' && crossOriginIsolated
+    enableSharedArrayBuffer:
+      typeof SharedArrayBuffer !== 'undefined' &&
+      typeof crossOriginIsolated !== 'undefined' &&
+      crossOriginIsolated === true
   };
 }
 

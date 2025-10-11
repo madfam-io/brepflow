@@ -92,7 +92,6 @@ describe('Production Safety', () => {
       const config = createProductionSafeConfig();
 
       expect(config.enableRealOCCT).toBe(true);
-      expect(config.fallbackToMock).toBe(false);
       expect(config.maxRetries).toBe(1);
       expect(config.operationTimeout).toBe(15000);
     });
@@ -103,7 +102,6 @@ describe('Production Safety', () => {
       const config = createProductionSafeConfig();
 
       expect(config.enableRealOCCT).toBe(true);
-      expect(config.fallbackToMock).toBe(false);
       expect(config.maxRetries).toBe(3);
       expect(config.operationTimeout).toBe(30000);
     });
@@ -112,7 +110,7 @@ describe('Production Safety', () => {
       process.env.NODE_ENV = 'production';
 
       expect(() => {
-        createProductionSafeConfig({ fallbackToMock: true });
+        createProductionSafeConfig({ enableRealOCCT: false });
       }).toThrow(ProductionSafetyError);
     });
 

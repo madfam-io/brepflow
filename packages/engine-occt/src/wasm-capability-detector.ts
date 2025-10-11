@@ -15,7 +15,7 @@ export interface WASMCapabilities {
 }
 
 export interface OCCTConfig {
-  mode: 'full-occt' | 'optimized-occt' | 'mock-geometry';
+  mode: 'full-occt' | 'optimized-occt';
   wasmFile: string;
   workers: number;
   memory: string;
@@ -81,16 +81,8 @@ export class WASMCapabilityDetector {
       };
     }
 
-    // Fallback to mock geometry
-    console.warn('[WASM] Browser capabilities insufficient for OCCT, using mock geometry');
-    return {
-      mode: 'mock-geometry',
-      wasmFile: '',
-      workers: 1,
-      memory: '512MB',
-      useThreads: false,
-      enableSIMD: false
-    };
+    // No supported configuration available
+    throw new Error('[WASM] Browser capabilities insufficient for OCCT WebAssembly modules');
   }
 
   /**

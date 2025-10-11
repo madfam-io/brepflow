@@ -17,7 +17,7 @@ export interface PoolWorker {
   taskCount: number;
   errorCount: number;
   memoryPressure: boolean;
-  occtMode: 'full-occt' | 'optimized-occt' | 'mock-geometry';
+  occtMode: 'full-occt' | 'optimized-occt';
   capabilities: any;
   averageTaskDuration: number;
   lastHealthCheck: number;
@@ -35,7 +35,7 @@ export interface PoolConfig {
   enableCapabilityDetection: boolean;
   enablePerformanceMonitoring: boolean;
   enableCircuitBreaker: boolean;
-  preferredOCCTMode?: 'full-occt' | 'optimized-occt' | 'mock-geometry';
+  preferredOCCTMode?: 'full-occt' | 'optimized-occt';
   adaptiveScaling: boolean;
   taskTimeout: number;
 }
@@ -77,15 +77,7 @@ export class WorkerPool {
         console.log('[WorkerPool] Optimal OCCT config:', this.optimalOCCTConfig);
       } catch (error) {
         console.warn('[WorkerPool] Failed to detect capabilities:', error);
-        // Fallback to basic configuration
-        this.optimalOCCTConfig = {
-          mode: 'mock-geometry',
-          wasmFile: '',
-          workers: 2,
-          memory: '512MB',
-          useThreads: false,
-          enableSIMD: false
-        };
+        this.optimalOCCTConfig = null;
       }
     }
   }
@@ -156,7 +148,7 @@ export class WorkerPool {
   /**
    * Determine the optimal OCCT mode for a new worker
    */
-  private determineWorkerOCCTMode(): 'full-occt' | 'optimized-occt' | 'mock-geometry' {
+  private determineWorkerOCCTMode(): 'full-occt' | 'optimized-occt' {
     // Use explicit preference if set
     if (this.config.preferredOCCTMode) {
       return this.config.preferredOCCTMode;
@@ -172,23 +164,20 @@ export class WorkerPool {
       const workerModes = Array.from(this.workers.values()).map(w => w.occtMode);
       const fullOCCTCount = workerModes.filter(m => m === 'full-occt').length;
       const optimizedCount = workerModes.filter(m => m === 'optimized-occt').length;
-      const mockCount = workerModes.filter(m => m === 'mock-geometry').length;
 
       // Balance the pool - prefer having at least one of each type if capabilities allow
       if (this.globalCapabilities?.hasWASM && fullOCCTCount === 0) {
         return 'full-occt';
       } else if (this.globalCapabilities?.hasWASM && optimizedCount === 0) {
         return 'optimized-occt';
-      } else if (mockCount === 0) {
-        return 'mock-geometry';
       }
 
       // Default to optimal configuration
-      return this.optimalOCCTConfig?.mode || 'mock-geometry';
+      return this.optimalOCCTConfig?.mode || 'optimized-occt';
     }
 
-    // Fallback to mock geometry
-    return 'mock-geometry';
+    // Conservative default
+    return 'optimized-occt';
   }
 
   /**
@@ -270,7 +259,7 @@ export class WorkerPool {
     options: {
       priority?: number;
       timeout?: number;
-      preferredMode?: 'full-occt' | 'optimized-occt' | 'mock-geometry';
+      preferredMode?: 'full-occt' | 'optimized-occt';
     } = {}
   ): Promise<T> {
     if (this.isShuttingDown) {

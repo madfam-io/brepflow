@@ -89,8 +89,6 @@ export function createProductionSafeConfig(overrides: any = {}): any {
   // Base configuration - production safe by default
   const safeConfig = {
     enableRealOCCT: true,
-    // Mock fallback is disabled by default; explicit overrides must opt-in from tests/tools
-    fallbackToMock: false,
     enablePerformanceMonitoring: true,
     enableMemoryManagement: true,
     enableErrorRecovery: true,
@@ -99,17 +97,9 @@ export function createProductionSafeConfig(overrides: any = {}): any {
     ...overrides
   };
 
-  // CRITICAL: Only enable worker pool when real OCCT is possible
-  // In test environments with mock geometry, disable worker pool to avoid WASM loading attempts
-  if (env.isTest && safeConfig.fallbackToMock && !safeConfig.enableRealOCCT) {
-    // Remove worker pool config to force direct mock execution
-    delete safeConfig.workerPoolConfig;
-  }
-
-  // CRITICAL VALIDATION: Never allow mock fallback in production
-  if (env.isProduction && safeConfig.fallbackToMock) {
+  if (env.isProduction && safeConfig.enableRealOCCT !== true) {
     throw new ProductionSafetyError(
-      'Configuration explicitly enables mock fallback in production environment. This is not allowed.',
+      'Real OCCT cannot be disabled in production environments.',
       {
         environment: env,
         config: safeConfig,

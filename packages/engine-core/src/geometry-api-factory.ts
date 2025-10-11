@@ -6,14 +6,72 @@
 import { getConfig } from './config/environment';
 import { shouldUseRealWASM, getWASMConfig } from './config/wasm-config';
 import type { WorkerAPI } from '@brepflow/types';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
-// Lazy logger initialization to avoid constructor issues during module loading
-let logger: any = null;
-const getLogger = () => {
-  if (!logger) {
-    const { ProductionLogger } = require('@brepflow/engine-occt');
-    logger = new ProductionLogger('GeometryAPIFactory');
+interface LoggerLike {
+  error(message: string, data?: unknown): void;
+  warn(message: string, data?: unknown): void;
+  info(message: string, data?: unknown): void;
+  debug(message: string, data?: unknown): void;
+}
+
+const resolveEngineOCCTDistPath = () =>
+  path.resolve(process.cwd(), 'packages/engine-occt/dist/index.js');
+
+const requireEngineOCCTSafely = (): any | null => {
+  try {
+    return require('@brepflow/engine-occt');
+  } catch (primaryError) {
+    try {
+      const distPath = resolveEngineOCCTDistPath();
+      return require(distPath);
+    } catch (fallbackError) {
+      return null;
+    }
   }
+};
+
+const importEngineOCCTSafely = async (): Promise<any> => {
+  const requiredModule = requireEngineOCCTSafely();
+  if (requiredModule) {
+    return requiredModule;
+  }
+
+  try {
+    return await import('@brepflow/engine-occt');
+  } catch (primaryError) {
+    const distPath = resolveEngineOCCTDistPath();
+    try {
+      return await import(pathToFileURL(distPath).href);
+    } catch (fallbackError) {
+      const error = new Error('Failed to load @brepflow/engine-occt module');
+      (error as any).cause = primaryError;
+      throw error;
+    }
+  }
+};
+
+let logger: LoggerLike | null = null;
+const getLogger = (): LoggerLike => {
+  if (logger) {
+    return logger;
+  }
+
+  const engineOcctModule = requireEngineOCCTSafely();
+  if (engineOcctModule?.ProductionLogger) {
+    logger = new engineOcctModule.ProductionLogger('GeometryAPIFactory');
+    return logger;
+  }
+
+  // Fallback to console methods when OCCT logger is unavailable (tests or build failures)
+  logger = {
+    error: (message: string, data?: unknown) => console.error(`[GeometryAPIFactory] ${message}`, data ?? ''),
+    warn: (message: string, data?: unknown) => console.warn(`[GeometryAPIFactory] ${message}`, data ?? ''),
+    info: (message: string, data?: unknown) => console.info(`[GeometryAPIFactory] ${message}`, data ?? ''),
+    debug: (message: string, data?: unknown) => console.debug(`[GeometryAPIFactory] ${message}`, data ?? ''),
+  };
+
   return logger;
 };
 
@@ -114,7 +172,7 @@ export class GeometryAPIFactory {
 
     try {
       // Dynamic import to avoid loading in environments where it's not available
-      const { createProductionAPI } = await import('@brepflow/engine-occt');
+      const { createProductionAPI } = await importEngineOCCTSafely();
 
       const api = createProductionAPI({
         wasmPath: config.occtWasmPath,
@@ -186,7 +244,7 @@ export class GeometryAPIFactory {
     getLogger().info('Initializing mock geometry API');
 
     try {
-      const { MockGeometry } = await import('@brepflow/engine-occt');
+      const { MockGeometry } = await importEngineOCCTSafely();
       this.mockAPI = new MockGeometry();
       await this.mockAPI.init();
 

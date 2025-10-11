@@ -5,7 +5,6 @@
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { GeometryAPI } from './geometry-api';
-import { IntegratedGeometryAPI, DEFAULT_API_CONFIG, type OperationResult } from './integrated-geometry-api';
 
 // Mock the dependencies for IntegratedGeometryAPI
 vi.mock('./occt-loader', () => ({

@@ -10,7 +10,7 @@ export default defineConfig([
     // Main entry - Library configuration for ESM
     ...createLibraryConfig({
       entry: ['src/index.ts'],
-      format: ['esm'], // ESM only for import.meta
+      format: ['esm', 'cjs'], // Provide both module formats for Node + bundlers
       dts: false, // TODO: Re-enable after fixing branded type issues
       shims: false, // Disable ESM shims to avoid Node.js module imports
     }),
