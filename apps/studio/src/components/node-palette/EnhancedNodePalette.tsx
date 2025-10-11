@@ -29,6 +29,11 @@ export function EnhancedNodePalette({
     allCategories,
     allTags,
     statistics,
+    discoveryStatus,
+    discoveryErrors,
+    isCatalogReady,
+    isCatalogFallback,
+    isCatalogInitializing,
     searchQuery,
     filters,
     sortBy,
@@ -82,12 +87,45 @@ export function EnhancedNodePalette({
 
   // Render nodes based on view mode
   const renderNodes = () => {
+    if (!isCatalogReady) {
+      return (
+        <div className={`node-registry-placeholder ${isCatalogFallback ? 'warning' : 'info'}`}>
+          {isCatalogInitializing ? (
+            <>
+              <div className="placeholder-icon">⌛</div>
+              <h4>Node catalogue is initializing</h4>
+              <p>Hang tight—generated nodes will appear once the enhanced registry finishes loading.</p>
+            </>
+          ) : (
+            <>
+              <div className="placeholder-icon">🚧</div>
+              <h4>Node catalogue build required</h4>
+              <p>
+                Generated nodes stay hidden until the registry validates the latest build.
+                Run <code>pnpm --filter @brepflow/nodes-core build</code> (or the full workspace build) and refresh Studio to enable the complete palette.
+              </p>
+              {discoveryErrors.length > 0 && (
+                <details className="placeholder-errors">
+                  <summary>View build diagnostic details</summary>
+                  <ul>
+                    {discoveryErrors.map((err, index) => (
+                      <li key={index}>{err}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </>
+          )}
+        </div>
+      );
+    }
+
     if (filteredNodes.length === 0) {
       return (
         <div className="no-nodes-found">
           <div className="no-nodes-icon">🔍</div>
           <div className="no-nodes-text">
-            {searchQuery || Object.values(filters).some(f => Array.isArray(f) ? f.length > 0 : f) ? (
+            {searchQuery || Object.values(filters).some(f => (Array.isArray(f) ? f.length > 0 : f)) ? (
               <>
                 <h4>No nodes found</h4>
                 <p>Try adjusting your search or filters</p>
@@ -97,8 +135,8 @@ export function EnhancedNodePalette({
               </>
             ) : (
               <>
-                <h4>Loading nodes...</h4>
-                <p>Enhanced node registry is initializing</p>
+                <h4>No nodes to display</h4>
+                <p>Switch filters or categories to explore the library.</p>
               </>
             )}
           </div>
@@ -190,10 +228,22 @@ export function EnhancedNodePalette({
             {compact ? 'Nodes' : 'Enhanced Node Library'}
           </h3>
           <div className="panel-subtitle">
-            {totalNodeCount} nodes across {allCategories.length} categories
+            {isCatalogReady
+              ? `${totalNodeCount} nodes across ${allCategories.length} categories`
+              : discoveryStatus === 'discovering'
+                ? 'Validating enhanced node registry…'
+                : 'Enhanced registry pending — build required'}
           </div>
         </div>
       </div>
+
+      {!isCatalogReady && (
+        <div className={`palette-status ${isCatalogFallback ? 'palette-status--warning' : 'palette-status--info'}`}>
+          {isCatalogInitializing
+            ? 'The enhanced node registry is still initializing. Generated nodes will appear once validation completes.'
+            : 'Fallback catalogue detected. Run a fresh build for @brepflow/nodes-core so the enhanced node registry can load real nodes.'}
+        </div>
+      )}
 
       {enableAdvancedSearch && (
         <NodeSearchBar
@@ -209,12 +259,18 @@ export function EnhancedNodePalette({
           availableTags={allTags}
           resultCount={filteredCount}
           totalCount={totalNodeCount}
+          disabled={!isCatalogReady}
+          statusText={!isCatalogReady
+            ? isCatalogInitializing
+              ? 'Node catalogue is initializing…'
+              : 'Build required to surface generated nodes'
+            : undefined}
         />
       )}
 
       <div className="panel-content">
         <div className="content-layout">
-          {enableCategoryTree && !compact && (
+          {enableCategoryTree && !compact && isCatalogReady && (
             <div className="category-sidebar">
               <CategoryTreeSidebar
                 categoryTree={categoryTree}
@@ -231,7 +287,13 @@ export function EnhancedNodePalette({
           <div className="nodes-display">
             <div className="nodes-header">
               <div className="results-info">
-                {hasActiveFilters ? (
+                {!isCatalogReady ? (
+                  <span className="total-results">
+                    {discoveryStatus === 'discovering'
+                      ? 'Validating enhanced node registry…'
+                      : 'Enhanced node registry requires a fresh build.'}
+                  </span>
+                ) : hasActiveFilters ? (
                   <span className="filtered-results">
                     Showing {filteredCount} of {totalNodeCount} nodes
                     {selectedCategory && (
@@ -239,13 +301,11 @@ export function EnhancedNodePalette({
                     )}
                   </span>
                 ) : (
-                  <span className="total-results">
-                    {totalNodeCount} nodes available
-                  </span>
+                  <span className="total-results">{totalNodeCount} nodes available</span>
                 )}
               </div>
 
-              {hasActiveFilters && (
+              {hasActiveFilters && isCatalogReady && (
                 <button
                   className="clear-all-btn"
                   onClick={clearFilters}
@@ -264,7 +324,7 @@ export function EnhancedNodePalette({
       </div>
 
       {/* Loading state */}
-      {filteredNodes.length === 0 && !hasActiveFilters && (
+      {isCatalogReady && filteredNodes.length === 0 && !hasActiveFilters && (
         <div className="loading-state">
           <div className="loading-spinner" />
           <p>Loading enhanced node library...</p>

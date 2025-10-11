@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useResilientNodeDiscovery } from './useResilientNodeDiscovery';
 
 export interface NodeFilters {
@@ -23,9 +23,8 @@ export function useNodePalette({
   initialFilters = {},
   initialSort = 'name',
   initialView = 'list',
-  enableAdvancedFeatures = true
+  enableAdvancedFeatures = true,
 }: UseNodePaletteOptions = {}) {
-  // Use the resilient node discovery system
   const {
     nodes: discoveredNodes,
     categoryTree,
@@ -33,10 +32,13 @@ export function useNodePalette({
     discoveryStatus,
     errors,
     isReady,
-    nodeCount
+    nodeCount,
   } = useResilientNodeDiscovery();
 
-  // Local state for palette UI
+  const isCatalogReady = discoveryStatus === 'complete';
+  const isCatalogFallback = discoveryStatus === 'fallback';
+  const isCatalogInitializing = discoveryStatus === 'discovering';
+
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<NodeFilters>({
     categories: [],
@@ -44,7 +46,7 @@ export function useNodePalette({
     complexity: [],
     showFavoritesOnly: false,
     showRecentOnly: false,
-    ...initialFilters
+    ...initialFilters,
   });
 
   const [sortBy, setSortBy] = useState(initialSort);
@@ -52,86 +54,102 @@ export function useNodePalette({
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
 
-  // Create registry compatibility layer
-  const registry = useMemo(() => ({
-    getNodeMetadata: (nodeType: string) => {
-      const node = discoveredNodes.find(n => n.type === nodeType);
-      return node?.metadata || {
-        label: nodeType.split('::').pop() || nodeType,
-        description: `${nodeType} node for CAD operations`,
-        category: nodeType.split('::')[0] || 'General',
-        tags: [nodeType.split('::')[0]?.toLowerCase() || 'general'],
-        complexity: 'beginner' as const
-      };
-    }
-  }), [discoveredNodes]);
+  const registry = useMemo(
+    () => ({
+      getNodeMetadata: (nodeType: string) => {
+        const node = discoveredNodes.find((n) => n.type === nodeType);
+        return (
+          node?.metadata || {
+            label: nodeType.split('::').pop() || nodeType,
+            description: `${nodeType} node for CAD operations`,
+            category: nodeType.split('::')[0] || 'General',
+            tags: [nodeType.split('::')[0]?.toLowerCase() || 'general'],
+            complexity: 'beginner' as const,
+          }
+        );
+      },
+    }),
+    [discoveredNodes],
+  );
 
-  // Extract categories and tags from discovered nodes
-  const allCategories = useMemo(() => Object.keys(categoryTree), [categoryTree]);
+  const allCategories = useMemo(() => {
+    if (!isCatalogReady) return [] as string[];
+    return Object.keys(categoryTree);
+  }, [categoryTree, isCatalogReady]);
 
   const allTags = useMemo(() => {
+    if (!isCatalogReady) return [] as string[];
     const tags = new Set<string>();
-    discoveredNodes.forEach(node => {
-      if (node.metadata?.tags) {
-        node.metadata.tags.forEach(tag => tags.add(tag));
-      }
+    discoveredNodes.forEach((node) => {
+      node.metadata?.tags?.forEach((tag) => tags.add(tag));
     });
     return Array.from(tags);
-  }, [discoveredNodes]);
+  }, [discoveredNodes, isCatalogReady]);
 
-  // Statistics
-  const statistics = useMemo(() => ({
-    totalNodes: nodeCount,
-    totalCategories: allCategories.length,
-    nodesByCategory: Object.fromEntries(
-      Object.entries(categoryTree).map(([cat, data]) => [cat, data.nodes.length])
-    ),
+  const statistics = useMemo(() => {
+    const nodesByCategory = isCatalogReady
+      ? Object.fromEntries(
+          Object.entries(categoryTree).map(([cat, data]) => [cat, data.nodes.length]),
+        )
+      : {};
+
+    return {
+      totalNodes: isCatalogReady ? nodeCount : 0,
+      rawNodeCount: nodeCount,
+      totalCategories: isCatalogReady ? allCategories.length : 0,
+      nodesByCategory,
+      discoveryStatus,
+      discoveryErrors: errors,
+      isCatalogReady,
+      isCatalogFallback,
+    };
+  }, [
+    isCatalogReady,
+    isCatalogFallback,
+    nodeCount,
+    categoryTree,
+    allCategories.length,
     discoveryStatus,
-    errors
-  }), [nodeCount, allCategories, categoryTree, discoveryStatus, errors]);
+    errors,
+  ]);
 
-  // Enhanced filtering and search logic
   const filteredNodes = useMemo(() => {
-    if (!isReady || discoveredNodes.length === 0) {
-      return [];
+    if (!isReady || !isCatalogReady || discoveredNodes.length === 0) {
+      return [] as typeof discoveredNodes;
     }
 
-    // Start with search if query exists
-    let filtered = searchQuery.trim() ? searchNodes(searchQuery) : [...discoveredNodes];
+    let filtered = searchQuery.trim()
+      ? searchNodes(searchQuery)
+      : [...discoveredNodes];
 
-    // Apply category filter from sidebar selection
     if (selectedCategory) {
-      filtered = filtered.filter(node => {
+      filtered = filtered.filter((node) => {
         const nodeCategory = node.metadata?.category || node.category;
         return nodeCategory === selectedCategory;
       });
     }
 
-    // Apply additional category filters
     if (filters.categories.length > 0) {
-      filtered = filtered.filter(node => {
+      filtered = filtered.filter((node) => {
         const nodeCategory = node.metadata?.category || node.category;
         return filters.categories.includes(nodeCategory);
       });
     }
 
-    // Apply tag filters
     if (filters.tags.length > 0) {
-      filtered = filtered.filter(node => {
+      filtered = filtered.filter((node) => {
         const nodeTags = node.metadata?.tags || [];
-        return filters.tags.some(tag => nodeTags.includes(tag));
+        return filters.tags.some((tag) => nodeTags.includes(tag));
       });
     }
 
-    // Apply complexity filters
     if (filters.complexity.length > 0) {
-      filtered = filtered.filter(node => {
+      filtered = filtered.filter((node) => {
         const nodeComplexity = node.metadata?.complexity || 'beginner';
         return filters.complexity.includes(nodeComplexity);
       });
     }
 
-    // Sort nodes
     filtered.sort((a, b) => {
       switch (sortBy) {
         case 'name': {
@@ -145,9 +163,8 @@ export function useNodePalette({
           return aCategory.localeCompare(bCategory);
         }
         case 'recent':
-          return 0; // TODO: Implement recent usage tracking
         case 'popularity':
-          return 0; // TODO: Implement popularity tracking
+          return 0;
         default: {
           const aLabel = a.metadata?.label || a.type;
           const bLabel = b.metadata?.label || b.type;
@@ -157,11 +174,23 @@ export function useNodePalette({
     });
 
     return filtered;
-  }, [isReady, discoveredNodes, searchQuery, searchNodes, selectedCategory, filters, sortBy]);
+  }, [
+    isReady,
+    isCatalogReady,
+    discoveredNodes,
+    searchQuery,
+    searchNodes,
+    selectedCategory,
+    filters,
+    sortBy,
+  ]);
 
-  // Category expansion helpers
+  const filteredCount = filteredNodes.length;
+  const totalNodeCount = isCatalogReady ? nodeCount : 0;
+  const effectiveCategoryTree = isCatalogReady ? categoryTree : {};
+
   const toggleCategoryExpansion = (category: string) => {
-    setExpandedCategories(prev => {
+    setExpandedCategories((prev) => {
       const next = new Set(prev);
       if (next.has(category)) {
         next.delete(category);
@@ -172,7 +201,6 @@ export function useNodePalette({
     });
   };
 
-  // Reset all filters and search
   const clearFilters = () => {
     setSearchQuery('');
     setFilters({
@@ -180,46 +208,38 @@ export function useNodePalette({
       tags: [],
       complexity: [],
       showFavoritesOnly: false,
-      showRecentOnly: false
+      showRecentOnly: false,
     });
     setSelectedCategory(null);
   };
 
   return {
-    // Registry compatibility
     registry,
-
-    // Discovery status
     isReady,
     discoveryStatus,
     discoveryErrors: errors,
-
-    // Data
-    categoryTree,
+    isCatalogReady,
+    isCatalogFallback,
+    isCatalogInitializing,
+    categoryTree: effectiveCategoryTree,
     allCategories,
     allTags,
     statistics,
-
-    // State
     searchQuery,
     filters,
     sortBy,
     viewMode,
     selectedCategory,
     expandedCategories,
-
-    // Computed
     filteredNodes,
-    filteredCount: filteredNodes.length,
-    totalNodeCount: nodeCount,
-
-    // Actions
+    filteredCount,
+    totalNodeCount,
     setSearchQuery,
     setFilters,
     setSortBy,
     setViewMode,
     setSelectedCategory,
     toggleCategoryExpansion,
-    clearFilters
+    clearFilters,
   };
 }
