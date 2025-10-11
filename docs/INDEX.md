@@ -15,6 +15,7 @@
 
 ### 🛠️ Development
 - [Setup Guide](./development/SETUP.md)
+- [OCCT Build Prerequisites](./development/OCCT_BUILD_PREREQS.md)
 - [Contributing Guidelines](./development/CONTRIBUTING.md)
 - [Testing Strategy](./development/TESTING.md)
 - [Lockfile Management](./development/lockfile-management.md)

@@ -175,6 +175,8 @@ After setup you can:
 
 You must compile OCCT with Emscripten (pthreads) before running Studio or the CLI. The scripts in `scripts/` automate the process and place artefacts under `packages/engine-occt/wasm`.
 
+> 📘 **Prerequisites:** See [docs/development/OCCT_BUILD_PREREQS.md](./docs/development/OCCT_BUILD_PREREQS.md) for required toolchains, environment variables, and expected outputs before invoking the build.
+
 ```bash
 # scripts/build-occt.sh (simplified)
 EMSDK=~/emsdk
