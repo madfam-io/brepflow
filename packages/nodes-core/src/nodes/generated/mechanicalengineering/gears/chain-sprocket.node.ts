@@ -16,7 +16,7 @@ interface ChainSprocketOutputs {
   pitchCircle: unknown;
 }
 
-export const ChainSprocketNode: NodeDefinition<ChainSprocketInputs, ChainSprocketOutputs, ChainSprocketParams> = {
+export const MechanicalEngineeringGearsChainSprocketNode: NodeDefinition<ChainSprocketInputs, ChainSprocketOutputs, ChainSprocketParams> = {
   id: 'MechanicalEngineering::ChainSprocket',
   category: 'MechanicalEngineering',
   label: 'ChainSprocket',

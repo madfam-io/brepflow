@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HatchFillNode } from './hatch-fill.node';
+import { FabricationLaserHatchFillNode } from './hatch-fill.node';
 import { createTestContext } from '../test-utils';
 
-describe('HatchFillNode', () => {
+describe('FabricationLaserHatchFillNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('HatchFillNode', () => {
       crosshatch: false
     } as any;
 
-    const result = await HatchFillNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserHatchFillNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

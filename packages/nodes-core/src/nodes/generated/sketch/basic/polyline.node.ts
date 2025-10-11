@@ -12,7 +12,7 @@ interface PolylineOutputs {
   wire: unknown;
 }
 
-export const PolylineNode: NodeDefinition<PolylineInputs, PolylineOutputs, PolylineParams> = {
+export const SketchBasicPolylineNode: NodeDefinition<PolylineInputs, PolylineOutputs, PolylineParams> = {
   id: 'Sketch::Polyline',
   category: 'Sketch',
   label: 'Polyline',

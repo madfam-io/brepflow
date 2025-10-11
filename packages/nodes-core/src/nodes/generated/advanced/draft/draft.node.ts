@@ -15,7 +15,7 @@ interface DraftOutputs {
   drafted: unknown;
 }
 
-export const DraftNode: NodeDefinition<DraftInputs, DraftOutputs, DraftParams> = {
+export const AdvancedDraftDraftNode: NodeDefinition<DraftInputs, DraftOutputs, DraftParams> = {
   id: 'Advanced::Draft',
   category: 'Advanced',
   label: 'Draft',

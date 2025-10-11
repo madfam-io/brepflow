@@ -14,7 +14,7 @@ interface MovablePartitionOutputs {
   track: unknown;
 }
 
-export const MovablePartitionNode: NodeDefinition<MovablePartitionInputs, MovablePartitionOutputs, MovablePartitionParams> = {
+export const ArchitectureWallsMovablePartitionNode: NodeDefinition<MovablePartitionInputs, MovablePartitionOutputs, MovablePartitionParams> = {
   id: 'Architecture::MovablePartition',
   category: 'Architecture',
   label: 'MovablePartition',

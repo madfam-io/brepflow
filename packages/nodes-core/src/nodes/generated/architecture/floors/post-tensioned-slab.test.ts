@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PostTensionedSlabNode } from './post-tensioned-slab.node';
+import { ArchitectureFloorsPostTensionedSlabNode } from './post-tensioned-slab.node';
 import { createTestContext } from '../test-utils';
 
-describe('PostTensionedSlabNode', () => {
+describe('ArchitectureFloorsPostTensionedSlabNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('PostTensionedSlabNode', () => {
       tendonSpacing: 1200
     } as any;
 
-    const result = await PostTensionedSlabNode.evaluate(context, inputs, params);
+    const result = await ArchitectureFloorsPostTensionedSlabNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -14,7 +14,7 @@ interface StarOutputs {
   star: unknown;
 }
 
-export const StarNode: NodeDefinition<StarInputs, StarOutputs, StarParams> = {
+export const SketchPatternsStarNode: NodeDefinition<StarInputs, StarOutputs, StarParams> = {
   id: 'Sketch::Star',
   category: 'Sketch',
   label: 'Star',

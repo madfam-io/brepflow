@@ -16,7 +16,7 @@ interface SurfaceIsoCurvesOutputs {
   allCurves: unknown;
 }
 
-export const SurfaceIsoCurvesNode: NodeDefinition<SurfaceIsoCurvesInputs, SurfaceIsoCurvesOutputs, SurfaceIsoCurvesParams> = {
+export const AnalysisSurfacesSurfaceIsoCurvesNode: NodeDefinition<SurfaceIsoCurvesInputs, SurfaceIsoCurvesOutputs, SurfaceIsoCurvesParams> = {
   id: 'Analysis::SurfaceIsoCurves',
   category: 'Analysis',
   label: 'SurfaceIsoCurves',

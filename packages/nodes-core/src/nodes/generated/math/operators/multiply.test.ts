@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MultiplyNode } from './multiply.node';
+import { MathOperatorsMultiplyNode } from './multiply.node';
 import { createTestContext } from '../test-utils';
 
-describe('MultiplyNode', () => {
+describe('MathOperatorsMultiplyNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('MultiplyNode', () => {
 
     } as any;
 
-    const result = await MultiplyNode.evaluate(context, inputs, params);
+    const result = await MathOperatorsMultiplyNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

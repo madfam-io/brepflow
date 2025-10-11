@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MultiMaterialSetupNode } from './multi-material-setup.node';
+import { Fabrication3DPrintingMultiMaterialSetupNode } from './multi-material-setup.node';
 import { createTestContext } from '../test-utils';
 
-describe('MultiMaterialSetupNode', () => {
+describe('Fabrication3DPrintingMultiMaterialSetupNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('MultiMaterialSetupNode', () => {
       purgeVolume: 50
     } as any;
 
-    const result = await MultiMaterialSetupNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingMultiMaterialSetupNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

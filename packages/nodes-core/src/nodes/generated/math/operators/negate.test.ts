@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { NegateNode } from './negate.node';
+import { MathOperatorsNegateNode } from './negate.node';
 import { createTestContext } from '../test-utils';
 
-describe('NegateNode', () => {
+describe('MathOperatorsNegateNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('NegateNode', () => {
 
     } as any;
 
-    const result = await NegateNode.evaluate(context, inputs, params);
+    const result = await MathOperatorsNegateNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

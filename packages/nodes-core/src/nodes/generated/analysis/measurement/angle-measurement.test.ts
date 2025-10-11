@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AngleMeasurementNode } from './angle-measurement.node';
+import { AnalysisMeasurementAngleMeasurementNode } from './angle-measurement.node';
 import { createTestContext } from '../test-utils';
 
-describe('AngleMeasurementNode', () => {
+describe('AnalysisMeasurementAngleMeasurementNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('AngleMeasurementNode', () => {
       showAnnotation: true
     } as any;
 
-    const result = await AngleMeasurementNode.evaluate(context, inputs, params);
+    const result = await AnalysisMeasurementAngleMeasurementNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -14,7 +14,7 @@ interface StretchCeilingOutputs {
   track: unknown;
 }
 
-export const StretchCeilingNode: NodeDefinition<StretchCeilingInputs, StretchCeilingOutputs, StretchCeilingParams> = {
+export const ArchitectureCeilingsStretchCeilingNode: NodeDefinition<StretchCeilingInputs, StretchCeilingOutputs, StretchCeilingParams> = {
   id: 'Architecture::StretchCeiling',
   category: 'Architecture',
   label: 'StretchCeiling',

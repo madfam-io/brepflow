@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ScrewNode } from './screw.node';
+import { AssemblyJointsScrewNode } from './screw.node';
 import { createTestContext } from '../test-utils';
 
-describe('ScrewNode', () => {
+describe('AssemblyJointsScrewNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ScrewNode', () => {
       pitch: 1
     } as any;
 
-    const result = await ScrewNode.evaluate(context, inputs, params);
+    const result = await AssemblyJointsScrewNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface BiomimeticStructureOutputs {
   biomimetic: unknown;
 }
 
-export const BiomimeticStructureNode: NodeDefinition<BiomimeticStructureInputs, BiomimeticStructureOutputs, BiomimeticStructureParams> = {
+export const SpecializedOrganicBiomimeticStructureNode: NodeDefinition<BiomimeticStructureInputs, BiomimeticStructureOutputs, BiomimeticStructureParams> = {
   id: 'Specialized::BiomimeticStructure',
   category: 'Specialized',
   label: 'BiomimeticStructure',

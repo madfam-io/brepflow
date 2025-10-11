@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StrangeAttractorNode } from './strange-attractor.node';
+import { PatternsAlgorithmicStrangeAttractorNode } from './strange-attractor.node';
 import { createTestContext } from '../test-utils';
 
-describe('StrangeAttractorNode', () => {
+describe('PatternsAlgorithmicStrangeAttractorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('StrangeAttractorNode', () => {
       dt: 0.01
     } as any;
 
-    const result = await StrangeAttractorNode.evaluate(context, inputs, params);
+    const result = await PatternsAlgorithmicStrangeAttractorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

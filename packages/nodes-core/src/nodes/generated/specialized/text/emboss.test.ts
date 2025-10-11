@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { EmbossNode } from './emboss.node';
+import { SpecializedTextEmbossNode } from './emboss.node';
 import { createTestContext } from '../test-utils';
 
-describe('EmbossNode', () => {
+describe('SpecializedTextEmbossNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('EmbossNode', () => {
       roundEdges: true
     } as any;
 
-    const result = await EmbossNode.evaluate(context, inputs, params);
+    const result = await SpecializedTextEmbossNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface CleanupPathsOutputs {
   cleanPaths: unknown;
 }
 
-export const CleanupPathsNode: NodeDefinition<CleanupPathsInputs, CleanupPathsOutputs, CleanupPathsParams> = {
+export const FabricationLaserCleanupPathsNode: NodeDefinition<CleanupPathsInputs, CleanupPathsOutputs, CleanupPathsParams> = {
   id: 'Fabrication::CleanupPaths',
   category: 'Fabrication',
   label: 'CleanupPaths',

@@ -17,7 +17,7 @@ interface RayIntersectionOutputs {
   hitNormals: Array<[number, number, number]>;
 }
 
-export const RayIntersectionNode: NodeDefinition<RayIntersectionInputs, RayIntersectionOutputs, RayIntersectionParams> = {
+export const AnalysisIntersectionRayIntersectionNode: NodeDefinition<RayIntersectionInputs, RayIntersectionOutputs, RayIntersectionParams> = {
   id: 'Analysis::RayIntersection',
   category: 'Analysis',
   label: 'RayIntersection',

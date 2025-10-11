@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AdaptiveLayerHeightNode } from './adaptive-layer-height.node';
+import { Fabrication3DPrintingAdaptiveLayerHeightNode } from './adaptive-layer-height.node';
 import { createTestContext } from '../test-utils';
 
-describe('AdaptiveLayerHeightNode', () => {
+describe('Fabrication3DPrintingAdaptiveLayerHeightNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('AdaptiveLayerHeightNode', () => {
       quality: 0.5
     } as any;
 
-    const result = await AdaptiveLayerHeightNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingAdaptiveLayerHeightNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

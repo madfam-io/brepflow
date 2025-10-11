@@ -16,7 +16,7 @@ interface SlackNotificationOutputs {
   timestamp: unknown;
 }
 
-export const SlackNotificationNode: NodeDefinition<SlackNotificationInputs, SlackNotificationOutputs, SlackNotificationParams> = {
+export const InteroperabilityMessagingSlackNotificationNode: NodeDefinition<SlackNotificationInputs, SlackNotificationOutputs, SlackNotificationParams> = {
   id: 'Interoperability::SlackNotification',
   category: 'Interoperability',
   label: 'SlackNotification',

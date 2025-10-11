@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AwningWindowNode } from './awning-window.node';
+import { ArchitectureWindowsAwningWindowNode } from './awning-window.node';
 import { createTestContext } from '../test-utils';
 
-describe('AwningWindowNode', () => {
+describe('ArchitectureWindowsAwningWindowNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('AwningWindowNode', () => {
       opening: 0
     } as any;
 
-    const result = await AwningWindowNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWindowsAwningWindowNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

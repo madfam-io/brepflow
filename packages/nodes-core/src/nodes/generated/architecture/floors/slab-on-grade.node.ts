@@ -14,7 +14,7 @@ interface SlabOnGradeOutputs {
   slab: unknown;
 }
 
-export const SlabOnGradeNode: NodeDefinition<SlabOnGradeInputs, SlabOnGradeOutputs, SlabOnGradeParams> = {
+export const ArchitectureFloorsSlabOnGradeNode: NodeDefinition<SlabOnGradeInputs, SlabOnGradeOutputs, SlabOnGradeParams> = {
   id: 'Architecture::SlabOnGrade',
   category: 'Architecture',
   label: 'SlabOnGrade',

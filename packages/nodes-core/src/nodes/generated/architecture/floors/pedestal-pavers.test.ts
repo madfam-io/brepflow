@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PedestalPaversNode } from './pedestal-pavers.node';
+import { ArchitectureFloorsPedestalPaversNode } from './pedestal-pavers.node';
 import { createTestContext } from '../test-utils';
 
-describe('PedestalPaversNode', () => {
+describe('ArchitectureFloorsPedestalPaversNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('PedestalPaversNode', () => {
       pedestalHeight: 100
     } as any;
 
-    const result = await PedestalPaversNode.evaluate(context, inputs, params);
+    const result = await ArchitectureFloorsPedestalPaversNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface ToolCompensationOutputs {
   compensatedPath: unknown;
 }
 
-export const ToolCompensationNode: NodeDefinition<ToolCompensationInputs, ToolCompensationOutputs, ToolCompensationParams> = {
+export const FabricationCNCToolCompensationNode: NodeDefinition<ToolCompensationInputs, ToolCompensationOutputs, ToolCompensationParams> = {
   id: 'Fabrication::ToolCompensation',
   category: 'Fabrication',
   label: 'ToolCompensation',

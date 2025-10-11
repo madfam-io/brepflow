@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RollerBearingNode } from './roller-bearing.node';
+import { MechanicalEngineeringBearingsRollerBearingNode } from './roller-bearing.node';
 import { createTestContext } from '../test-utils';
 
-describe('RollerBearingNode', () => {
+describe('MechanicalEngineeringBearingsRollerBearingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('RollerBearingNode', () => {
       rollerType: "cylindrical"
     } as any;
 
-    const result = await RollerBearingNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringBearingsRollerBearingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -14,7 +14,7 @@ interface SlidingWindowOutputs {
   panels: unknown;
 }
 
-export const SlidingWindowNode: NodeDefinition<SlidingWindowInputs, SlidingWindowOutputs, SlidingWindowParams> = {
+export const ArchitectureWindowsSlidingWindowNode: NodeDefinition<SlidingWindowInputs, SlidingWindowOutputs, SlidingWindowParams> = {
   id: 'Architecture::SlidingWindow',
   category: 'Architecture',
   label: 'SlidingWindow',

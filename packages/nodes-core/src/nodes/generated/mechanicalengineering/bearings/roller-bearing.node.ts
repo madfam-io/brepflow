@@ -16,7 +16,7 @@ interface RollerBearingOutputs {
   rollers: unknown;
 }
 
-export const RollerBearingNode: NodeDefinition<RollerBearingInputs, RollerBearingOutputs, RollerBearingParams> = {
+export const MechanicalEngineeringBearingsRollerBearingNode: NodeDefinition<RollerBearingInputs, RollerBearingOutputs, RollerBearingParams> = {
   id: 'MechanicalEngineering::RollerBearing',
   category: 'MechanicalEngineering',
   label: 'RollerBearing',

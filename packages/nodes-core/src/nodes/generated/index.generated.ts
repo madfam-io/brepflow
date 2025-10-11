@@ -1,2671 +1,2671 @@
 /**
  * Auto-generated Node Index
- * Generated from templates on 2025-10-11T07:44:16.056Z
+ * Generated from templates on 2025-10-11T08:01:22.197Z
  */
 
-import { SimpleHoleNode } from './features/holes/simple-hole.node';
-import { CounterboreHoleNode } from './features/holes/counterbore-hole.node';
-import { CountersinkHoleNode } from './features/holes/countersink-hole.node';
-import { ThreadedHoleNode } from './features/holes/threaded-hole.node';
-import { RectangularPocketNode } from './features/pockets/rectangular-pocket.node';
-import { CircularPocketNode } from './features/pockets/circular-pocket.node';
-import { LinearRibNode } from './features/structural/linear-rib.node';
-import { MountingBossNode } from './features/structural/mounting-boss.node';
-import { LinearPatternNode } from './transform/patterns/linear-pattern.node';
-import { CircularPatternNode } from './transform/patterns/circular-pattern.node';
-import { RectangularPatternNode } from './transform/patterns/rectangular-pattern.node';
-import { MoveNode } from './transform/move.node';
-import { RotateNode } from './transform/rotate.node';
-import { ScaleNode } from './transform/scale.node';
-import { MirrorNode } from './transform/mirror.node';
-import { LinearArrayNode } from './transform/linear-array.node';
-import { PolarArrayNode } from './transform/polar-array.node';
-import { PathArrayNode } from './transform/path-array.node';
-import { GridArrayNode } from './transform/grid-array.node';
-import { AlignNode } from './transform/align.node';
-import { OrientNode } from './transform/orient.node';
-import { ProjectToPlaneNode } from './transform/project-to-plane.node';
-import { WrapNode } from './transform/wrap.node';
-import { DeformNode } from './transform/deform.node';
-import { BoundingBoxAlignNode } from './transform/bounding-box-align.node';
-import { MatrixTransformNode } from './transform/matrix-transform.node';
-import { PrismNode } from './solid/parametric/prism.node';
-import { WedgeNode } from './solid/parametric/wedge.node';
-import { PyramidNode } from './solid/parametric/pyramid.node';
-import { BezierSurfaceNode } from './solid/surface/bezier-surface.node';
-import { BSplineSurfaceNode } from './solid/surface/bspline-surface.node';
-import { RuledSurfaceNode } from './solid/surface/ruled-surface.node';
-import { HelixNode } from './solid/helical/helix.node';
-import { SpringNode } from './solid/helical/spring.node';
-import { ThreadNode } from './solid/helical/thread.node';
-import { BoxNode } from './solid/primitives/box.node';
-import { SphereNode } from './solid/primitives/sphere.node';
-import { CylinderNode } from './solid/primitives/cylinder.node';
-import { ConeNode } from './solid/primitives/cone.node';
-import { TorusNode } from './solid/primitives/torus.node';
-import { EllipsoidNode } from './solid/primitives/ellipsoid.node';
-import { CapsuleNode } from './solid/primitives/capsule.node';
-import { RoundedBoxNode } from './solid/primitives/rounded-box.node';
-import { PipeNode } from './solid/primitives/pipe.node';
-import { PolyhedronNode } from './solid/primitives/polyhedron.node';
-import { EllipseNode } from './sketch/curves/ellipse.node';
-import { ParabolaNode } from './sketch/curves/parabola.node';
-import { HyperbolaNode } from './sketch/curves/hyperbola.node';
-import { SpiralNode } from './sketch/curves/spiral.node';
-import { PolygonNode } from './sketch/patterns/polygon.node';
-import { StarNode } from './sketch/patterns/star.node';
-import { GearNode } from './sketch/patterns/gear.node';
-import { LineNode } from './sketch/basic/line.node';
-import { ArcNode } from './sketch/basic/arc.node';
-import { CircleNode } from './sketch/basic/circle.node';
-import { RectangleNode } from './sketch/basic/rectangle.node';
-import { PolylineNode } from './sketch/basic/polyline.node';
-import { SplineNode } from './sketch/curves/spline.node';
-import { BezierCurveNode } from './sketch/curves/bezier-curve.node';
-import { BSplineCurveNode } from './sketch/curves/bspline-curve.node';
-import { PointNode } from './sketch/basic/point.node';
-import { SlotNode } from './sketch/basic/slot.node';
-import { TextNode } from './sketch/basic/text.node';
-import { OffsetNode } from './sketch/curves/offset.node';
-import { Fillet2DNode } from './sketch/curves/fillet2-d.node';
-import { Chamfer2DNode } from './sketch/curves/chamfer2-d.node';
-import { TrimNode } from './sketch/curves/trim.node';
-import { UnionNode } from './boolean/union.node';
-import { DifferenceNode } from './boolean/difference.node';
-import { IntersectionNode } from './boolean/intersection.node';
-import { XORNode } from './boolean/xor.node';
-import { SplitNode } from './boolean/split.node';
-import { FragmentNode } from './boolean/fragment.node';
-import { CommonEdgesNode } from './boolean/common-edges.node';
-import { ImprintNode } from './boolean/imprint.node';
-import { GlueNode } from './boolean/glue.node';
-import { CompoundNode } from './boolean/compound.node';
-import { CoincidentNode } from './assembly/constraints/coincident.node';
-import { ParallelNode } from './assembly/constraints/parallel.node';
-import { PerpendicularNode } from './assembly/constraints/perpendicular.node';
-import { TangentNode } from './assembly/constraints/tangent.node';
-import { ConcentricNode } from './assembly/constraints/concentric.node';
-import { DistanceNode } from './assembly/constraints/distance.node';
-import { AngleNode } from './assembly/constraints/angle.node';
-import { HorizontalNode } from './assembly/constraints/horizontal.node';
-import { VerticalNode } from './assembly/constraints/vertical.node';
-import { FixedNode } from './assembly/constraints/fixed.node';
-import { FaceToFaceNode } from './assembly/mates/face-to-face.node';
-import { EdgeToEdgeNode } from './assembly/mates/edge-to-edge.node';
-import { PointToPointNode } from './assembly/mates/point-to-point.node';
-import { AxisToAxisNode } from './assembly/mates/axis-to-axis.node';
-import { PlaneToPlaneNode } from './assembly/mates/plane-to-plane.node';
-import { FastenedNode } from './assembly/mates/fastened.node';
-import { GearNode } from './assembly/mates/gear.node';
-import { CamNode } from './assembly/mates/cam.node';
-import { SlotNode } from './assembly/mates/slot.node';
-import { PathNode } from './assembly/mates/path.node';
-import { RevoluteNode } from './assembly/joints/revolute.node';
-import { PrismaticNode } from './assembly/joints/prismatic.node';
-import { CylindricalNode } from './assembly/joints/cylindrical.node';
-import { SphericalNode } from './assembly/joints/spherical.node';
-import { PlanarNode } from './assembly/joints/planar.node';
-import { UniversalNode } from './assembly/joints/universal.node';
-import { FixedNode } from './assembly/joints/fixed.node';
-import { ScrewNode } from './assembly/joints/screw.node';
-import { BeltNode } from './assembly/joints/belt.node';
-import { RackPinionNode } from './assembly/joints/rack-pinion.node';
-import { ComponentPatternNode } from './assembly/patterns/component-pattern.node';
-import { FlexibleSubAssemblyNode } from './assembly/patterns/flexible-sub-assembly.node';
-import { ConfigurationNode } from './assembly/patterns/configuration.node';
-import { ExplodedViewNode } from './assembly/patterns/exploded-view.node';
-import { BillOfMaterialsNode } from './assembly/patterns/bill-of-materials.node';
-import { InterferenceCheckNode } from './assembly/patterns/interference-check.node';
-import { MotionStudyNode } from './assembly/patterns/motion-study.node';
-import { EnvelopeNode } from './assembly/patterns/envelope.node';
-import { SmartFastenersNode } from './assembly/patterns/smart-fasteners.node';
-import { ContactSetNode } from './assembly/patterns/contact-set.node';
-import { EdgeFlangeNode } from './sheetmetal/flanges/edge-flange.node';
-import { ContourFlangeNode } from './sheetmetal/flanges/contour-flange.node';
-import { MiterFlangeNode } from './sheetmetal/flanges/miter-flange.node';
-import { SketchedBendNode } from './sheetmetal/bends/sketched-bend.node';
-import { HemNode } from './sheetmetal/bends/hem.node';
-import { JogNode } from './sheetmetal/bends/jog.node';
-import { CornerReliefNode } from './sheetmetal/corners/corner-relief.node';
-import { BendReliefNode } from './sheetmetal/corners/bend-relief.node';
-import { ClosedCornerNode } from './sheetmetal/corners/closed-corner.node';
-import { TabNode } from './sheetmetal/features/tab.node';
-import { SlotNode } from './sheetmetal/features/slot.node';
-import { LouverNode } from './sheetmetal/features/louver.node';
-import { LanceNode } from './sheetmetal/features/lance.node';
-import { BeadNode } from './sheetmetal/features/bead.node';
-import { UnfoldNode } from './sheetmetal/unfold/unfold.node';
-import { FoldNode } from './sheetmetal/unfold/fold.node';
-import { ExportDXFNode } from './sheetmetal/unfold/export-dxf.node';
-import { SheetMetalStyleNode } from './sheetmetal/properties/sheet-metal-style.node';
-import { BendTableNode } from './sheetmetal/properties/bend-table.node';
-import { CostEstimateNode } from './sheetmetal/properties/cost-estimate.node';
-import { SweepNode } from './advanced/sweep/sweep.node';
-import { HelicalSweepNode } from './advanced/sweep/helical-sweep.node';
-import { LoftNode } from './advanced/loft/loft.node';
-import { BlendSurfaceNode } from './advanced/loft/blend-surface.node';
-import { BoundaryNode } from './advanced/boundary/boundary.node';
-import { ShellNode } from './advanced/shell/shell.node';
-import { VariableShellNode } from './advanced/shell/variable-shell.node';
-import { ThickenNode } from './advanced/thickness/thicken.node';
-import { OffsetSurfaceNode } from './advanced/thickness/offset-surface.node';
-import { DraftNode } from './advanced/draft/draft.node';
-import { PartingLineDraftNode } from './advanced/draft/parting-line-draft.node';
-import { StepDraftNode } from './advanced/draft/step-draft.node';
-import { TrimSurfaceNode } from './advanced/surface/trim-surface.node';
-import { ExtendSurfaceNode } from './advanced/surface/extend-surface.node';
-import { UntrimSurfaceNode } from './advanced/surface/untrim-surface.node';
-import { KnitSurfacesNode } from './advanced/surface/knit-surfaces.node';
-import { PatchSurfaceNode } from './advanced/surface/patch-surface.node';
-import { WrapNode } from './advanced/features/wrap.node';
-import { DomeNode } from './advanced/features/dome.node';
-import { FlexNode } from './advanced/features/flex.node';
-import { IndentNode } from './advanced/features/indent.node';
-import { DeformNode } from './advanced/features/deform.node';
-import { HealShapeNode } from './advanced/healing/heal-shape.node';
-import { RemoveFeaturesNode } from './advanced/healing/remove-features.node';
-import { DeleteFaceNode } from './advanced/healing/delete-face.node';
-import { SimplifyShapeNode } from './advanced/healing/simplify-shape.node';
-import { CheckGeometryNode } from './advanced/healing/check-geometry.node';
-import { NurbsSurfaceNode } from './surface/nurbs/nurbs-surface.node';
-import { NetworkSurfaceNode } from './surface/nurbs/network-surface.node';
-import { SurfaceFromPointsNode } from './surface/nurbs/surface-from-points.node';
-import { CoonsPatchNode } from './surface/nurbs/coons-patch.node';
-import { GordonSurfaceNode } from './surface/nurbs/gordon-surface.node';
-import { NurbsCurveNode } from './surface/curves/nurbs-curve.node';
-import { InterpolateCurveNode } from './surface/curves/interpolate-curve.node';
-import { ApproximateCurveNode } from './surface/curves/approximate-curve.node';
-import { BlendCurveNode } from './surface/curves/blend-curve.node';
-import { CompositeCurveNode } from './surface/curves/composite-curve.node';
-import { CurvatureAnalysisNode } from './surface/analysis/curvature-analysis.node';
-import { ZebraAnalysisNode } from './surface/analysis/zebra-analysis.node';
-import { DraftAnalysisNode } from './surface/analysis/draft-analysis.node';
-import { ContinuityCheckNode } from './surface/analysis/continuity-check.node';
-import { SurfaceDeviationNode } from './surface/analysis/surface-deviation.node';
-import { ReflectionLinesNode } from './surface/analysis/reflection-lines.node';
-import { IsocurveExtractNode } from './surface/analysis/isocurve-extract.node';
-import { SectionCurvesNode } from './surface/analysis/section-curves.node';
-import { ProjectCurveNode } from './surface/curve-ops/project-curve.node';
-import { IntersectCurvesNode } from './surface/curve-ops/intersect-curves.node';
-import { CurveOnSurfaceNode } from './surface/curve-ops/curve-on-surface.node';
-import { GeodesicCurveNode } from './surface/curve-ops/geodesic-curve.node';
-import { IsoparametricCurveNode } from './surface/curve-ops/isoparametric-curve.node';
-import { TessellateNode } from './mesh/tessellation/tessellate.node';
-import { AdaptiveTessellationNode } from './mesh/tessellation/adaptive-tessellation.node';
-import { RemeshUniformNode } from './mesh/tessellation/remesh-uniform.node';
-import { QuadMeshNode } from './mesh/tessellation/quad-mesh.node';
-import { VoxelMeshNode } from './mesh/tessellation/voxel-mesh.node';
-import { RepairMeshNode } from './mesh/repair/repair-mesh.node';
-import { SimplifyMeshNode } from './mesh/repair/simplify-mesh.node';
-import { FillHolesNode } from './mesh/repair/fill-holes.node';
-import { SmoothMeshNode } from './mesh/repair/smooth-mesh.node';
-import { DecimateMeshNode } from './mesh/repair/decimate-mesh.node';
-import { SubdivideMeshNode } from './mesh/repair/subdivide-mesh.node';
-import { MeshBooleanNode } from './mesh/repair/mesh-boolean.node';
-import { MeshOffsetNode } from './mesh/repair/mesh-offset.node';
-import { ImportSTLNode } from './mesh/files/import-stl.node';
-import { ExportSTLNode } from './mesh/files/export-stl.node';
-import { ImportOBJNode } from './mesh/files/import-obj.node';
-import { ExportOBJNode } from './mesh/files/export-obj.node';
-import { ImportPLYNode } from './mesh/files/import-ply.node';
-import { Export3MFNode } from './mesh/files/export3-mf.node';
-import { MeshToShapeNode } from './mesh/files/mesh-to-shape.node';
-import { ImportSTEPNode } from './io/cad/import-step.node';
-import { ExportSTEPNode } from './io/cad/export-step.node';
-import { ImportIGESNode } from './io/cad/import-iges.node';
-import { ExportIGESNode } from './io/cad/export-iges.node';
-import { ImportBREPNode } from './io/cad/import-brep.node';
-import { ExportBREPNode } from './io/cad/export-brep.node';
-import { ImportParasolidNode } from './io/cad/import-parasolid.node';
-import { ImportACISNode } from './io/cad/import-acis.node';
-import { ImportDXFNode } from './io/drawing/import-dxf.node';
-import { ExportDXFNode } from './io/drawing/export-dxf.node';
-import { ExportSVGNode } from './io/drawing/export-svg.node';
-import { ImportGLTFNode } from './io/exchange/import-gltf.node';
-import { ExportGLTFNode } from './io/exchange/export-gltf.node';
-import { ImportJSONNode } from './io/exchange/import-json.node';
-import { ExportJSONNode } from './io/exchange/export-json.node';
-import { Text3DNode } from './specialized/text/text3-d.node';
-import { EngraveNode } from './specialized/text/engrave.node';
-import { EmbossNode } from './specialized/text/emboss.node';
-import { SerialNumberNode } from './specialized/text/serial-number.node';
-import { BarcodeNode } from './specialized/text/barcode.node';
-import { LatticeStructureNode } from './specialized/lattice/lattice-structure.node';
-import { TPMSNode } from './specialized/lattice/tpms.node';
-import { VoronoiLatticeNode } from './specialized/lattice/voronoi-lattice.node';
-import { GradedLatticeNode } from './specialized/lattice/graded-lattice.node';
-import { ConformLatticeNode } from './specialized/lattice/conform-lattice.node';
-import { HoneycombStructureNode } from './specialized/lattice/honeycomb-structure.node';
-import { TopologyOptimizeNode } from './specialized/optimization/topology-optimize.node';
-import { ShapeOptimizeNode } from './specialized/optimization/shape-optimize.node';
-import { GenerativeDesignNode } from './specialized/optimization/generative-design.node';
-import { LightweightStructureNode } from './specialized/optimization/lightweight-structure.node';
-import { StressReliefNode } from './specialized/optimization/stress-relief.node';
-import { PackingOptimizeNode } from './specialized/optimization/packing-optimize.node';
-import { MetaBallsNode } from './specialized/organic/meta-balls.node';
-import { SubdivisionSurfaceNode } from './specialized/organic/subdivision-surface.node';
-import { FractalGeometryNode } from './specialized/organic/fractal-geometry.node';
-import { ReactionDiffusionNode } from './specialized/organic/reaction-diffusion.node';
-import { BiomimeticStructureNode } from './specialized/organic/biomimetic-structure.node';
-import { MeshForFEANode } from './simulation/fea/mesh-for-fea.node';
-import { ApplyLoadsNode } from './simulation/fea/apply-loads.node';
-import { ApplyConstraintsNode } from './simulation/fea/apply-constraints.node';
-import { MaterialAssignNode } from './simulation/fea/material-assign.node';
-import { ExportFEANode } from './simulation/fea/export-fea.node';
-import { FluidDomainNode } from './simulation/cfd/fluid-domain.node';
-import { BoundaryLayersNode } from './simulation/cfd/boundary-layers.node';
-import { InletOutletNode } from './simulation/cfd/inlet-outlet.node';
-import { FluidPropertiesNode } from './simulation/cfd/fluid-properties.node';
-import { ExportCFDNode } from './simulation/cfd/export-cfd.node';
-import { JointDefinitionNode } from './simulation/kinematics/joint-definition.node';
-import { MotionDriverNode } from './simulation/kinematics/motion-driver.node';
-import { CollisionDetectionNode } from './simulation/kinematics/collision-detection.node';
-import { ForwardKinematicsNode } from './simulation/kinematics/forward-kinematics.node';
-import { InverseKinematicsNode } from './simulation/kinematics/inverse-kinematics.node';
-import { AddNode } from './math/operators/add.node';
-import { SubtractNode } from './math/operators/subtract.node';
-import { MultiplyNode } from './math/operators/multiply.node';
-import { DivideNode } from './math/operators/divide.node';
-import { PowerNode } from './math/operators/power.node';
-import { ModuloNode } from './math/operators/modulo.node';
-import { AbsoluteNode } from './math/operators/absolute.node';
-import { NegateNode } from './math/operators/negate.node';
-import { SquareRootNode } from './math/operators/square-root.node';
-import { FactorialNode } from './math/operators/factorial.node';
-import { SineNode } from './math/trigonometry/sine.node';
-import { CosineNode } from './math/trigonometry/cosine.node';
-import { TangentNode } from './math/trigonometry/tangent.node';
-import { ArcSineNode } from './math/trigonometry/arc-sine.node';
-import { ArcCosineNode } from './math/trigonometry/arc-cosine.node';
-import { ArcTangentNode } from './math/trigonometry/arc-tangent.node';
-import { ArcTangent2Node } from './math/trigonometry/arc-tangent2.node';
-import { HyperbolicSineNode } from './math/trigonometry/hyperbolic-sine.node';
-import { HyperbolicCosineNode } from './math/trigonometry/hyperbolic-cosine.node';
-import { HyperbolicTangentNode } from './math/trigonometry/hyperbolic-tangent.node';
-import { NaturalLogNode } from './math/logarithmic/natural-log.node';
-import { Log10Node } from './math/logarithmic/log10.node';
-import { LogBaseNode } from './math/logarithmic/log-base.node';
-import { ExponentialNode } from './math/logarithmic/exponential.node';
-import { Exp10Node } from './math/logarithmic/exp10.node';
-import { RoundNode } from './math/rounding/round.node';
-import { FloorNode } from './math/rounding/floor.node';
-import { CeilingNode } from './math/rounding/ceiling.node';
-import { TruncateNode } from './math/rounding/truncate.node';
-import { RoundToDecimalNode } from './math/rounding/round-to-decimal.node';
-import { MinNode } from './math/comparison/min.node';
-import { MaxNode } from './math/comparison/max.node';
-import { ClampNode } from './math/comparison/clamp.node';
-import { SignNode } from './math/comparison/sign.node';
-import { IsEqualNode } from './math/comparison/is-equal.node';
-import { AverageNode } from './math/statistics/average.node';
-import { MedianNode } from './math/statistics/median.node';
-import { ModeNode } from './math/statistics/mode.node';
-import { StandardDeviationNode } from './math/statistics/standard-deviation.node';
-import { VarianceNode } from './math/statistics/variance.node';
-import { SumNode } from './math/statistics/sum.node';
-import { ProductNode } from './math/statistics/product.node';
-import { RangeNode } from './math/statistics/range.node';
-import { PercentileNode } from './math/statistics/percentile.node';
-import { CorrelationNode } from './math/statistics/correlation.node';
-import { RandomNode } from './math/random/random.node';
-import { RandomRangeNode } from './math/random/random-range.node';
-import { RandomIntegerNode } from './math/random/random-integer.node';
-import { RandomNormalNode } from './math/random/random-normal.node';
-import { RandomPoissonNode } from './math/random/random-poisson.node';
-import { RandomExponentialNode } from './math/random/random-exponential.node';
-import { RandomChoiceNode } from './math/random/random-choice.node';
-import { ShuffleNode } from './math/random/shuffle.node';
-import { PerlinNoiseNode } from './math/random/perlin-noise.node';
-import { SimplexNoiseNode } from './math/random/simplex-noise.node';
-import { LerpNode } from './math/interpolation/lerp.node';
-import { InverseLerpNode } from './math/interpolation/inverse-lerp.node';
-import { RemapNode } from './math/interpolation/remap.node';
-import { SmoothStepNode } from './math/interpolation/smooth-step.node';
-import { SmootherStepNode } from './math/interpolation/smoother-step.node';
-import { CubicInterpNode } from './math/interpolation/cubic-interp.node';
-import { HermiteInterpNode } from './math/interpolation/hermite-interp.node';
-import { BezierInterpNode } from './math/interpolation/bezier-interp.node';
-import { EaseInNode } from './math/interpolation/ease-in.node';
-import { EaseOutNode } from './math/interpolation/ease-out.node';
-import { EaseInOutNode } from './math/interpolation/ease-in-out.node';
-import { SpringInterpNode } from './math/interpolation/spring-interp.node';
-import { ComplexNumberNode } from './math/complex/complex-number.node';
-import { ComplexAddNode } from './math/complex/complex-add.node';
-import { ComplexMultiplyNode } from './math/complex/complex-multiply.node';
-import { ComplexConjugateNode } from './math/complex/complex-conjugate.node';
-import { ComplexMagnitudeNode } from './math/complex/complex-magnitude.node';
-import { ComplexPhaseNode } from './math/complex/complex-phase.node';
-import { MatrixMultiplyNode } from './math/matrix/matrix-multiply.node';
-import { MatrixInverseNode } from './math/matrix/matrix-inverse.node';
-import { MatrixDeterminantNode } from './math/matrix/matrix-determinant.node';
-import { MatrixTransposeNode } from './math/matrix/matrix-transpose.node';
-import { ListLengthNode } from './data/list/list-length.node';
-import { ListItemNode } from './data/list/list-item.node';
-import { ListSliceNode } from './data/list/list-slice.node';
-import { ListReverseNode } from './data/list/list-reverse.node';
-import { ListSortNode } from './data/list/list-sort.node';
-import { ListShuffleNode } from './data/list/list-shuffle.node';
-import { ListShiftNode } from './data/list/list-shift.node';
-import { ListInsertNode } from './data/list/list-insert.node';
-import { ListRemoveNode } from './data/list/list-remove.node';
-import { ListReplaceNode } from './data/list/list-replace.node';
-import { ListAppendNode } from './data/list/list-append.node';
-import { ListPrependNode } from './data/list/list-prepend.node';
-import { ListJoinNode } from './data/list/list-join.node';
-import { ListSplitNode } from './data/list/list-split.node';
-import { ListPartitionNode } from './data/list/list-partition.node';
-import { ListFlattenNode } from './data/list/list-flatten.node';
-import { ListUniqueNode } from './data/list/list-unique.node';
-import { ListContainsNode } from './data/list/list-contains.node';
-import { ListFindNode } from './data/list/list-find.node';
-import { ListFilterNode } from './data/list/list-filter.node';
-import { SetUnionNode } from './data/set/set-union.node';
-import { SetIntersectionNode } from './data/set/set-intersection.node';
-import { SetDifferenceNode } from './data/set/set-difference.node';
-import { SetSymmetricDifferenceNode } from './data/set/set-symmetric-difference.node';
-import { SetSubsetNode } from './data/set/set-subset.node';
-import { SetCartesianProductNode } from './data/set/set-cartesian-product.node';
-import { SetPowerSetNode } from './data/set/set-power-set.node';
-import { SetCombinationsNode } from './data/set/set-combinations.node';
-import { SetPermutationsNode } from './data/set/set-permutations.node';
-import { SetPartitionsNode } from './data/set/set-partitions.node';
-import { TreeBranchNode } from './data/tree/tree-branch.node';
-import { TreePathsNode } from './data/tree/tree-paths.node';
-import { TreeGraftNode } from './data/tree/tree-graft.node';
-import { TreeFlattenNode } from './data/tree/tree-flatten.node';
-import { TreeSimplifyNode } from './data/tree/tree-simplify.node';
-import { TreePruneNode } from './data/tree/tree-prune.node';
-import { TreeMergeNode } from './data/tree/tree-merge.node';
-import { TreeExplodeNode } from './data/tree/tree-explode.node';
-import { TreeShiftNode } from './data/tree/tree-shift.node';
-import { TreeStatisticsNode } from './data/tree/tree-statistics.node';
-import { StringConcatNode } from './data/string/string-concat.node';
-import { StringSplitNode } from './data/string/string-split.node';
-import { StringReplaceNode } from './data/string/string-replace.node';
-import { StringFormatNode } from './data/string/string-format.node';
-import { StringCaseNode } from './data/string/string-case.node';
-import { StringTrimNode } from './data/string/string-trim.node';
-import { StringLengthNode } from './data/string/string-length.node';
-import { StringSubstringNode } from './data/string/string-substring.node';
-import { StringContainsNode } from './data/string/string-contains.node';
-import { StringMatchNode } from './data/string/string-match.node';
-import { ToStringNode } from './data/convert/to-string.node';
-import { ToNumberNode } from './data/convert/to-number.node';
-import { ToBooleanNode } from './data/convert/to-boolean.node';
-import { ToJSONNode } from './data/convert/to-json.node';
-import { FromJSONNode } from './data/convert/from-json.node';
-import { ToCSVNode } from './data/convert/to-csv.node';
-import { FromCSVNode } from './data/convert/from-csv.node';
-import { ToBase64Node } from './data/convert/to-base64.node';
-import { FromBase64Node } from './data/convert/from-base64.node';
-import { TypeOfNode } from './data/convert/type-of.node';
-import { LinearFieldNode } from './field/generate/linear-field.node';
-import { RadialFieldNode } from './field/generate/radial-field.node';
-import { SphericalFieldNode } from './field/generate/spherical-field.node';
-import { CylindricalFieldNode } from './field/generate/cylindrical-field.node';
-import { NoiseFieldNode } from './field/generate/noise-field.node';
-import { SineFieldNode } from './field/generate/sine-field.node';
-import { VectorFieldNode } from './field/generate/vector-field.node';
-import { ImageFieldNode } from './field/generate/image-field.node';
-import { DistanceFieldNode } from './field/generate/distance-field.node';
-import { ChargeFieldNode } from './field/generate/charge-field.node';
-import { PointAttractorNode } from './field/attractor/point-attractor.node';
-import { CurveAttractorNode } from './field/attractor/curve-attractor.node';
-import { SurfaceAttractorNode } from './field/attractor/surface-attractor.node';
-import { MeshAttractorNode } from './field/attractor/mesh-attractor.node';
-import { SpinAttractorNode } from './field/attractor/spin-attractor.node';
-import { DirectionalAttractorNode } from './field/attractor/directional-attractor.node';
-import { TwistAttractorNode } from './field/attractor/twist-attractor.node';
-import { VortexAttractorNode } from './field/attractor/vortex-attractor.node';
-import { GravityAttractorNode } from './field/attractor/gravity-attractor.node';
-import { FlowAttractorNode } from './field/attractor/flow-attractor.node';
-import { FieldAddNode } from './field/operations/field-add.node';
-import { FieldSubtractNode } from './field/operations/field-subtract.node';
-import { FieldMultiplyNode } from './field/operations/field-multiply.node';
-import { FieldDivideNode } from './field/operations/field-divide.node';
-import { FieldMinNode } from './field/operations/field-min.node';
-import { FieldMaxNode } from './field/operations/field-max.node';
-import { FieldBlendNode } from './field/operations/field-blend.node';
-import { FieldRemapNode } from './field/operations/field-remap.node';
-import { FieldClampNode } from './field/operations/field-clamp.node';
-import { FieldInvertNode } from './field/operations/field-invert.node';
-import { FieldGradientNode } from './field/operations/field-gradient.node';
-import { FieldDivergenceNode } from './field/operations/field-divergence.node';
-import { FieldCurlNode } from './field/operations/field-curl.node';
-import { FieldLaplacianNode } from './field/operations/field-laplacian.node';
-import { FieldSmoothNode } from './field/operations/field-smooth.node';
-import { SampleFieldNode } from './field/sample/sample-field.node';
-import { FieldLineNode } from './field/sample/field-line.node';
-import { IsoContourNode } from './field/sample/iso-contour.node';
-import { IsoSurfaceNode } from './field/sample/iso-surface.node';
-import { FieldGridNode } from './field/sample/field-grid.node';
-import { FieldDeformNode } from './field/deform/field-deform.node';
-import { FieldDisplaceNode } from './field/deform/field-displace.node';
-import { FieldScaleNode } from './field/deform/field-scale.node';
-import { FieldRotateNode } from './field/deform/field-rotate.node';
-import { FieldColorNode } from './field/deform/field-color.node';
-import { FieldColorMapNode } from './fields/visualization/field-color-map.node';
-import { FieldVectorArrowsNode } from './fields/visualization/field-vector-arrows.node';
-import { FieldStreamLinesNode } from './fields/visualization/field-stream-lines.node';
-import { FieldHeatMapNode } from './fields/visualization/field-heat-map.node';
-import { FieldVolumeNode } from './fields/visualization/field-volume.node';
-import { FieldMinMaxNode } from './fields/analysis/field-min-max.node';
-import { FieldAverageNode } from './fields/analysis/field-average.node';
-import { FieldCriticalPointsNode } from './fields/analysis/field-critical-points.node';
-import { FieldDivergenceAnalysisNode } from './fields/analysis/field-divergence-analysis.node';
-import { FieldCurlAnalysisNode } from './fields/analysis/field-curl-analysis.node';
-import { FieldFluxNode } from './fields/analysis/field-flux.node';
-import { FieldCirculationNode } from './fields/analysis/field-circulation.node';
-import { FieldPotentialNode } from './fields/analysis/field-potential.node';
-import { FieldHistogramNode } from './fields/analysis/field-histogram.node';
-import { FieldCorrelationNode } from './fields/analysis/field-correlation.node';
-import { FieldMorphingNode } from './fields/advanced/field-morphing.node';
-import { FieldWarpNode } from './fields/advanced/field-warp.node';
-import { FieldConvolutionNode } from './fields/advanced/field-convolution.node';
-import { FieldFourierNode } from './fields/advanced/field-fourier.node';
-import { FieldOptimizeNode } from './fields/advanced/field-optimize.node';
-import { Voronoi2DNode } from './patterns/voronoi/voronoi2-d.node';
-import { Voronoi3DNode } from './patterns/voronoi/voronoi3-d.node';
-import { WeightedVoronoiNode } from './patterns/voronoi/weighted-voronoi.node';
-import { CentroidalVoronoiNode } from './patterns/voronoi/centroidal-voronoi.node';
-import { VoronoiOnSurfaceNode } from './patterns/voronoi/voronoi-on-surface.node';
-import { Delaunay2DNode } from './patterns/delaunay/delaunay2-d.node';
-import { Delaunay3DNode } from './patterns/delaunay/delaunay3-d.node';
-import { ConstrainedDelaunayNode } from './patterns/delaunay/constrained-delaunay.node';
-import { AlphaShapeNode } from './patterns/delaunay/alpha-shape.node';
-import { VoronoiFractureNode } from './patterns/voronoi/voronoi-fracture.node';
-import { VoronoiGrowthNode } from './patterns/voronoi/voronoi-growth.node';
-import { DelaunayMeshNode } from './patterns/delaunay/delaunay-mesh.node';
-import { VoronoiSkeletonNode } from './patterns/voronoi/voronoi-skeleton.node';
-import { VoronoiOffsetNode } from './patterns/voronoi/voronoi-offset.node';
-import { ConvexHullNode } from './patterns/delaunay/convex-hull.node';
-import { IslamicStarNode } from './patterns/islamic/islamic-star.node';
-import { GirihTilingNode } from './patterns/islamic/girih-tiling.node';
-import { ArabesqueNode } from './patterns/islamic/arabesque.node';
-import { MoorishPatternNode } from './patterns/islamic/moorish-pattern.node';
-import { IslamicGridNode } from './patterns/islamic/islamic-grid.node';
-import { CelticKnotNode } from './patterns/celtic/celtic-knot.node';
-import { CelticBraidNode } from './patterns/celtic/celtic-braid.node';
-import { PenroseTilingNode } from './patterns/geometric/penrose-tiling.node';
-import { TruchetTilesNode } from './patterns/geometric/truchet-tiles.node';
-import { SpiralPatternNode } from './patterns/geometric/spiral-pattern.node';
-import { MandalaPatternNode } from './patterns/geometric/mandala-pattern.node';
-import { PolygonalTessellationNode } from './patterns/geometric/polygonal-tessellation.node';
-import { CirclePackingNode } from './patterns/geometric/circle-packing.node';
-import { HyperbolicTilingNode } from './patterns/geometric/hyperbolic-tiling.node';
-import { GeodesicPatternNode } from './patterns/geometric/geodesic-pattern.node';
-import { MuqarnasNode } from './patterns/islamic/muqarnas.node';
-import { QuasiCrystalNode } from './patterns/geometric/quasi-crystal.node';
-import { MinimalSurfaceNode } from './patterns/geometric/minimal-surface.node';
-import { ReactionDiffusionNode } from './patterns/geometric/reaction-diffusion.node';
-import { ParquetDeformationNode } from './patterns/geometric/parquet-deformation.node';
-import { KochSnowflakeNode } from './patterns/fractals/koch-snowflake.node';
-import { SierpinskiTriangleNode } from './patterns/fractals/sierpinski-triangle.node';
-import { MengerSpongeNode } from './patterns/fractals/menger-sponge.node';
-import { JuliaSetNode } from './patterns/fractals/julia-set.node';
-import { MandelbrotSetNode } from './patterns/fractals/mandelbrot-set.node';
-import { LSystem2DNode } from './patterns/l-systems/lsystem2-d.node';
-import { LSystem3DNode } from './patterns/l-systems/lsystem3-d.node';
-import { TreeGeneratorNode } from './patterns/l-systems/tree-generator.node';
-import { DragonCurveNode } from './patterns/fractals/dragon-curve.node';
-import { HilbertCurveNode } from './patterns/fractals/hilbert-curve.node';
-import { PeanoCurveNode } from './patterns/fractals/peano-curve.node';
-import { CantorSetNode } from './patterns/fractals/cantor-set.node';
-import { PlantGrowthNode } from './patterns/l-systems/plant-growth.node';
-import { BarnsleyFernNode } from './patterns/fractals/barnsley-fern.node';
-import { ApollonianGasketNode } from './patterns/fractals/apollonian-gasket.node';
-import { RectanglePackingNode } from './patterns/packing/rectangle-packing.node';
-import { SpherePackingNode } from './patterns/packing/sphere-packing.node';
-import { PolygonPackingNode } from './patterns/packing/polygon-packing.node';
-import { CubicLatticeNode } from './patterns/lattice/cubic-lattice.node';
-import { OctetLatticeNode } from './patterns/lattice/octet-lattice.node';
-import { DiamondLatticeNode } from './patterns/lattice/diamond-lattice.node';
-import { KelvinLatticeNode } from './patterns/lattice/kelvin-lattice.node';
-import { TPMSLatticeNode } from './patterns/lattice/tpmslattice.node';
-import { BrickPatternNode } from './patterns/tiling/brick-pattern.node';
-import { ParquetPatternNode } from './patterns/tiling/parquet-pattern.node';
-import { WeavePatternNode } from './patterns/tiling/weave-pattern.node';
-import { HoneycombPatternNode } from './patterns/cellular/honeycomb-pattern.node';
-import { FoamStructureNode } from './patterns/cellular/foam-structure.node';
-import { CellularAutomataNode } from './patterns/cellular/cellular-automata.node';
-import { ConwayLifeNode } from './patterns/cellular/conway-life.node';
-import { PoissonDiskNode } from './patterns/stochastic/poisson-disk.node';
-import { BlueNoiseNode } from './patterns/stochastic/blue-noise.node';
-import { JitteredGridNode } from './patterns/stochastic/jittered-grid.node';
-import { MinimumSpanningTreeNode } from './patterns/network/minimum-spanning-tree.node';
-import { RelativeNeighborhoodNode } from './patterns/network/relative-neighborhood.node';
-import { BinaryTreeNode } from './patterns/algorithmic/binary-tree.node';
-import { MazeGeneratorNode } from './patterns/algorithmic/maze-generator.node';
-import { SubdivisionSurfaceNode } from './patterns/algorithmic/subdivision-surface.node';
-import { FlockingPatternNode } from './patterns/algorithmic/flocking-pattern.node';
-import { DiffusionLimitedAggregationNode } from './patterns/algorithmic/diffusion-limited-aggregation.node';
-import { GrammarShapesNode } from './patterns/procedural/grammar-shapes.node';
-import { WaveFunctionCollapseNode } from './patterns/procedural/wave-function-collapse.node';
-import { MarkovChainNode } from './patterns/procedural/markov-chain.node';
-import { GeneticAlgorithmNode } from './patterns/procedural/genetic-algorithm.node';
-import { NeuralPatternNode } from './patterns/procedural/neural-pattern.node';
-import { StrangeAttractorNode } from './patterns/algorithmic/strange-attractor.node';
-import { PhyllotaxisPatternNode } from './patterns/algorithmic/phyllotaxis-pattern.node';
-import { TuringPatternNode } from './patterns/procedural/turing-pattern.node';
-import { NoisePatternNode } from './patterns/procedural/noise-pattern.node';
-import { PackingCirclesNode } from './patterns/algorithmic/packing-circles.node';
-import { KMeansClusteringNode } from './patterns/algorithmic/kmeans-clustering.node';
-import { ContextFreeArtNode } from './patterns/procedural/context-free-art.node';
-import { ProceduralTextureNode } from './patterns/procedural/procedural-texture.node';
-import { GraphLayoutNode } from './patterns/algorithmic/graph-layout.node';
-import { ShortestPathNode } from './patterns/algorithmic/shortest-path.node';
-import { SupportGenerationNode } from './fabrication/3-d-printing/support-generation.node';
-import { PrintOrientationNode } from './fabrication/3-d-printing/print-orientation.node';
-import { SliceModelNode } from './fabrication/3-d-printing/slice-model.node';
-import { BridgeDetectionNode } from './fabrication/3-d-printing/bridge-detection.node';
-import { WallThicknessNode } from './fabrication/3-d-printing/wall-thickness.node';
-import { PrintTimeEstimateNode } from './fabrication/3-d-printing/print-time-estimate.node';
-import { RaftGenerationNode } from './fabrication/3-d-printing/raft-generation.node';
-import { BrimGenerationNode } from './fabrication/3-d-printing/brim-generation.node';
-import { SeamOptimizationNode } from './fabrication/3-d-printing/seam-optimization.node';
-import { InfillOptimizationNode } from './fabrication/3-d-printing/infill-optimization.node';
-import { CoolingAnalysisNode } from './fabrication/3-d-printing/cooling-analysis.node';
-import { RetractionOptimizationNode } from './fabrication/3-d-printing/retraction-optimization.node';
-import { VaseModeNode } from './fabrication/3-d-printing/vase-mode.node';
-import { MultiMaterialSetupNode } from './fabrication/3-d-printing/multi-material-setup.node';
-import { TreeSupportsNode } from './fabrication/3-d-printing/tree-supports.node';
-import { IroningPassNode } from './fabrication/3-d-printing/ironing-pass.node';
-import { FuzzySkinnNode } from './fabrication/3-d-printing/fuzzy-skinn.node';
-import { CoastingSetupNode } from './fabrication/3-d-printing/coasting-setup.node';
-import { WipeTowerNode } from './fabrication/3-d-printing/wipe-tower.node';
-import { AdaptiveLayerHeightNode } from './fabrication/3-d-printing/adaptive-layer-height.node';
-import { PerimeterGeneratorNode } from './fabrication/3-d-printing/perimeter-generator.node';
-import { GCodePostProcessorNode } from './fabrication/3-d-printing/gcode-post-processor.node';
-import { NonPlanarSlicingNode } from './fabrication/3-d-printing/non-planar-slicing.node';
-import { ConicalSlicingNode } from './fabrication/3-d-printing/conical-slicing.node';
-import { SolubleSupportInterfaceNode } from './fabrication/3-d-printing/soluble-support-interface.node';
-import { ToolpathGenerationNode } from './fabrication/cnc/toolpath-generation.node';
-import { PocketingStrategyNode } from './fabrication/cnc/pocketing-strategy.node';
-import { ContouringToolpathNode } from './fabrication/cnc/contouring-toolpath.node';
-import { DrillingOperationNode } from './fabrication/cnc/drilling-operation.node';
-import { ThreadMillingNode } from './fabrication/cnc/thread-milling.node';
-import { AdaptiveClearingNode } from './fabrication/cnc/adaptive-clearing.node';
-import { TrochoidalMillingNode } from './fabrication/cnc/trochoidal-milling.node';
-import { RestMachiningNode } from './fabrication/cnc/rest-machining.node';
-import { ToolCompensationNode } from './fabrication/cnc/tool-compensation.node';
-import { HelicalEntryNode } from './fabrication/cnc/helical-entry.node';
-import { RampEntryNode } from './fabrication/cnc/ramp-entry.node';
-import { HighSpeedMachiningNode } from './fabrication/cnc/high-speed-machining.node';
-import { ScallopHeightNode } from './fabrication/cnc/scallop-height.node';
-import { CollisionDetectionNode } from './fabrication/cnc/collision-detection.node';
-import { FeedsAndSpeedsNode } from './fabrication/cnc/feeds-and-speeds.node';
-import { FiveAxisPositioningNode } from './fabrication/cnc/five-axis-positioning.node';
-import { SwarmMillingNode } from './fabrication/cnc/swarm-milling.node';
-import { ToolLibraryNode } from './fabrication/cnc/tool-library.node';
-import { WorkCoordinateNode } from './fabrication/cnc/work-coordinate.node';
-import { PostProcessorNode } from './fabrication/cnc/post-processor.node';
-import { ChipEvacuationNode } from './fabrication/cnc/chip-evacuation.node';
-import { CutterEngagementNode } from './fabrication/cnc/cutter-engagement.node';
-import { ToolWearNode } from './fabrication/cnc/tool-wear.node';
-import { SetupSheetsNode } from './fabrication/cnc/setup-sheets.node';
-import { ProbeRoutineNode } from './fabrication/cnc/probe-routine.node';
-import { LaserPathNode } from './fabrication/laser/laser-path.node';
-import { TabsAndSlotsNode } from './fabrication/laser/tabs-and-slots.node';
-import { LivingHingeNode } from './fabrication/laser/living-hinge.node';
-import { KerfBendingNode } from './fabrication/laser/kerf-bending.node';
-import { PowerMappingNode } from './fabrication/laser/power-mapping.node';
-import { EngraveRasterNode } from './fabrication/laser/engrave-raster.node';
-import { VectorEngraveNode } from './fabrication/laser/vector-engrave.node';
-import { NestingOptimizationNode } from './fabrication/laser/nesting-optimization.node';
-import { CutOrderOptimizationNode } from './fabrication/laser/cut-order-optimization.node';
-import { LeadInOutNode } from './fabrication/laser/lead-in-out.node';
-import { BridgeGenerationNode } from './fabrication/laser/bridge-generation.node';
-import { FocusCompensationNode } from './fabrication/laser/focus-compensation.node';
-import { HatchFillNode } from './fabrication/laser/hatch-fill.node';
-import { TextEngravingNode } from './fabrication/laser/text-engraving.node';
-import { MaterialDatabaseNode } from './fabrication/laser/material-database.node';
-import { LayerSeparationNode } from './fabrication/laser/layer-separation.node';
-import { MultiplePassesNode } from './fabrication/laser/multiple-passes.node';
-import { CleanupPathsNode } from './fabrication/laser/cleanup-paths.node';
-import { PierceOptimizationNode } from './fabrication/laser/pierce-optimization.node';
-import { MicroJointsNode } from './fabrication/laser/micro-joints.node';
-import { CutQualityNode } from './fabrication/laser/cut-quality.node';
-import { RotaryAttachmentNode } from './fabrication/laser/rotary-attachment.node';
-import { AirAssistNode } from './fabrication/laser/air-assist.node';
-import { SafetyZonesNode } from './fabrication/laser/safety-zones.node';
-import { JobTimeEstimateNode } from './fabrication/laser/job-time-estimate.node';
-import { RobotKinematicsNode } from './fabrication/robotics/robot-kinematics.node';
-import { PathPlanningNode } from './fabrication/robotics/path-planning.node';
-import { CollisionAvoidanceNode } from './fabrication/robotics/collision-avoidance.node';
-import { EndEffectorSetupNode } from './fabrication/robotics/end-effector-setup.node';
-import { WorkCellSetupNode } from './fabrication/robotics/work-cell-setup.node';
-import { TrajectoryOptimizationNode } from './fabrication/robotics/trajectory-optimization.node';
-import { SingularityAvoidanceNode } from './fabrication/robotics/singularity-avoidance.node';
-import { RobotCalibrationNode } from './fabrication/robotics/robot-calibration.node';
-import { ForceControlNode } from './fabrication/robotics/force-control.node';
-import { WeldingPathNode } from './fabrication/robotics/welding-path.node';
-import { PickAndPlaceNode } from './fabrication/robotics/pick-and-place.node';
-import { PalletizingPatternNode } from './fabrication/robotics/palletizing-pattern.node';
-import { RoboticMillingNode } from './fabrication/robotics/robotic-milling.node';
-import { SprayPaintingNode } from './fabrication/robotics/spray-painting.node';
-import { AdditiveManufacturingNode } from './fabrication/robotics/additive-manufacturing.node';
-import { VisionGuidanceNode } from './fabrication/robotics/vision-guidance.node';
-import { MultiRobotCoordinationNode } from './fabrication/robotics/multi-robot-coordination.node';
-import { ConveyorTrackingNode } from './fabrication/robotics/conveyor-tracking.node';
-import { SafetyZoneSetupNode } from './fabrication/robotics/safety-zone-setup.node';
-import { RobotSimulationNode } from './fabrication/robotics/robot-simulation.node';
-import { PostProcessorRobotNode } from './fabrication/robotics/post-processor-robot.node';
-import { ReachAnalysisNode } from './fabrication/robotics/reach-analysis.node';
-import { JointLimitAvoidanceNode } from './fabrication/robotics/joint-limit-avoidance.node';
-import { ToolChangerSetupNode } from './fabrication/robotics/tool-changer-setup.node';
-import { RobotMaintenanceNode } from './fabrication/robotics/robot-maintenance.node';
-import { StraightWallNode } from './architecture/walls/straight-wall.node';
-import { CurvedWallNode } from './architecture/walls/curved-wall.node';
-import { CompoundWallNode } from './architecture/walls/compound-wall.node';
-import { CurtainWallNode } from './architecture/walls/curtain-wall.node';
-import { WallOpeningNode } from './architecture/walls/wall-opening.node';
-import { WallJoinNode } from './architecture/walls/wall-join.node';
-import { RetainingWallNode } from './architecture/walls/retaining-wall.node';
-import { StudWallNode } from './architecture/walls/stud-wall.node';
-import { InsulatedWallNode } from './architecture/walls/insulated-wall.node';
-import { TiltUpPanelNode } from './architecture/walls/tilt-up-panel.node';
-import { ParapetWallNode } from './architecture/walls/parapet-wall.node';
-import { FireWallNode } from './architecture/walls/fire-wall.node';
-import { MovablePartitionNode } from './architecture/walls/movable-partition.node';
-import { SoundproofWallNode } from './architecture/walls/soundproof-wall.node';
-import { GreenWallNode } from './architecture/walls/green-wall.node';
-import { DoubleSkinnedFacadeNode } from './architecture/walls/double-skinned-facade.node';
-import { RainScreenNode } from './architecture/walls/rain-screen.node';
-import { ShearWallNode } from './architecture/walls/shear-wall.node';
-import { FoundationWallNode } from './architecture/walls/foundation-wall.node';
-import { HistoricWallRestorationNode } from './architecture/walls/historic-wall-restoration.node';
-import { SlabOnGradeNode } from './architecture/floors/slab-on-grade.node';
-import { CompositeFloorNode } from './architecture/floors/composite-floor.node';
-import { RaisedFloorNode } from './architecture/floors/raised-floor.node';
-import { WoodJoistFloorNode } from './architecture/floors/wood-joist-floor.node';
-import { PostTensionedSlabNode } from './architecture/floors/post-tensioned-slab.node';
-import { SuspendedCeilingNode } from './architecture/ceilings/suspended-ceiling.node';
-import { CofferedCeilingNode } from './architecture/ceilings/coffered-ceiling.node';
-import { VaultedCeilingNode } from './architecture/ceilings/vaulted-ceiling.node';
-import { MezzanineFloorNode } from './architecture/floors/mezzanine-floor.node';
-import { EpoxyFloorNode } from './architecture/floors/epoxy-floor.node';
-import { RadiantFloorNode } from './architecture/floors/radiant-floor.node';
-import { AcousticCeilingNode } from './architecture/ceilings/acoustic-ceiling.node';
-import { FloorDrainageNode } from './architecture/floors/floor-drainage.node';
-import { StretchCeilingNode } from './architecture/ceilings/stretch-ceiling.node';
-import { GreenRoofNode } from './architecture/floors/green-roof.node';
-import { FloorExpansionJointNode } from './architecture/floors/floor-expansion-joint.node';
-import { SkyLightNode } from './architecture/ceilings/sky-light.node';
-import { FloorFinishNode } from './architecture/floors/floor-finish.node';
-import { CeilingBeamNode } from './architecture/ceilings/ceiling-beam.node';
-import { PedestalPaversNode } from './architecture/floors/pedestal-pavers.node';
-import { StraightStairNode } from './architecture/stairs/straight-stair.node';
-import { LShapedStairNode } from './architecture/stairs/lshaped-stair.node';
-import { UShapedStairNode } from './architecture/stairs/ushaped-stair.node';
-import { SpiralStairNode } from './architecture/stairs/spiral-stair.node';
-import { HelicalStairNode } from './architecture/stairs/helical-stair.node';
-import { WinderStairNode } from './architecture/stairs/winder-stair.node';
-import { StraightRampNode } from './architecture/ramps/straight-ramp.node';
-import { SwitchbackRampNode } from './architecture/ramps/switchback-ramp.node';
-import { HelicalRampNode } from './architecture/ramps/helical-ramp.node';
-import { StairHandrailNode } from './architecture/stairs/stair-handrail.node';
-import { StairBalustradeNode } from './architecture/stairs/stair-balustrade.node';
-import { StairNosingNode } from './architecture/stairs/stair-nosing.node';
-import { StairStringerNode } from './architecture/stairs/stair-stringer.node';
-import { EscapeStairNode } from './architecture/stairs/escape-stair.node';
-import { MonumentalStairNode } from './architecture/stairs/monumental-stair.node';
-import { FloatingStairNode } from './architecture/stairs/floating-stair.node';
-import { LoadingDockNode } from './architecture/ramps/loading-dock.node';
-import { CurbRampNode } from './architecture/ramps/curb-ramp.node';
-import { AlternatingTreadStairNode } from './architecture/stairs/alternating-tread-stair.node';
-import { VehicleRampNode } from './architecture/ramps/vehicle-ramp.node';
-import { SingleDoorNode } from './architecture/doors/single-door.node';
-import { DoubleDoorNode } from './architecture/doors/double-door.node';
-import { SlidingDoorNode } from './architecture/doors/sliding-door.node';
-import { RevolvingDoorNode } from './architecture/doors/revolving-door.node';
-import { FoldingDoorNode } from './architecture/doors/folding-door.node';
-import { RollupDoorNode } from './architecture/doors/rollup-door.node';
-import { CasementWindowNode } from './architecture/windows/casement-window.node';
-import { SlidingWindowNode } from './architecture/windows/sliding-window.node';
-import { DoubleHungWindowNode } from './architecture/windows/double-hung-window.node';
-import { AwningWindowNode } from './architecture/windows/awning-window.node';
-import { BayWindowNode } from './architecture/windows/bay-window.node';
-import { BowWindowNode } from './architecture/windows/bow-window.node';
-import { ClerestroyWindowNode } from './architecture/windows/clerestroy-window.node';
-import { FireDoorNode } from './architecture/doors/fire-door.node';
-import { SecurityDoorNode } from './architecture/doors/security-door.node';
-import { StainedGlassWindowNode } from './architecture/windows/stained-glass-window.node';
-import { OverheadDoorNode } from './architecture/doors/overhead-door.node';
-import { JalousieWindowNode } from './architecture/windows/jalousie-window.node';
-import { DutchDoorNode } from './architecture/doors/dutch-door.node';
-import { GothicWindowNode } from './architecture/windows/gothic-window.node';
-import { SpurGearNode } from './mechanicalengineering/gears/spur-gear.node';
-import { HelicalGearNode } from './mechanicalengineering/gears/helical-gear.node';
-import { BevelGearNode } from './mechanicalengineering/gears/bevel-gear.node';
-import { WormGearNode } from './mechanicalengineering/gears/worm-gear.node';
-import { WormShaftNode } from './mechanicalengineering/gears/worm-shaft.node';
-import { RackGearNode } from './mechanicalengineering/gears/rack-gear.node';
-import { InternalGearNode } from './mechanicalengineering/gears/internal-gear.node';
-import { PlanetaryGearSetNode } from './mechanicalengineering/gears/planetary-gear-set.node';
-import { TimingPulleyNode } from './mechanicalengineering/gears/timing-pulley.node';
-import { ChainSprocketNode } from './mechanicalengineering/gears/chain-sprocket.node';
-import { CVTDiscNode } from './mechanicalengineering/gears/cvtdisc.node';
-import { DifferentialGearNode } from './mechanicalengineering/gears/differential-gear.node';
-import { BallBearingNode } from './mechanicalengineering/bearings/ball-bearing.node';
-import { RollerBearingNode } from './mechanicalengineering/bearings/roller-bearing.node';
-import { ThrustBearingNode } from './mechanicalengineering/bearings/thrust-bearing.node';
-import { NeedleBearingNode } from './mechanicalengineering/bearings/needle-bearing.node';
-import { LinearBearingNode } from './mechanicalengineering/bearings/linear-bearing.node';
-import { PillowBlockNode } from './mechanicalengineering/bearings/pillow-block.node';
-import { FlangeBearingNode } from './mechanicalengineering/bearings/flange-bearing.node';
-import { BronzeBushingNode } from './mechanicalengineering/bearings/bronze-bushing.node';
-import { SphericalBearingNode } from './mechanicalengineering/bearings/spherical-bearing.node';
-import { AirBearingNode } from './mechanicalengineering/bearings/air-bearing.node';
-import { HexBoltNode } from './mechanicalengineering/fasteners/hex-bolt.node';
-import { SocketHeadCapScrewNode } from './mechanicalengineering/fasteners/socket-head-cap-screw.node';
-import { HexNutNode } from './mechanicalengineering/fasteners/hex-nut.node';
-import { WasherNode } from './mechanicalengineering/fasteners/washer.node';
-import { ThreadInsertNode } from './mechanicalengineering/fasteners/thread-insert.node';
-import { RivetNode } from './mechanicalengineering/fasteners/rivet.node';
-import { ClampingCollarNode } from './mechanicalengineering/fasteners/clamping-collar.node';
-import { DowelNode } from './mechanicalengineering/fasteners/dowel.node';
-import { RetainingRingNode } from './mechanicalengineering/fasteners/retaining-ring.node';
-import { KeywayJointNode } from './mechanicalengineering/fasteners/keyway-joint.node';
-import { CompressionSpringNode } from './mechanicalengineering/springs/compression-spring.node';
-import { ExtensionSpringNode } from './mechanicalengineering/springs/extension-spring.node';
-import { TorsionSpringNode } from './mechanicalengineering/springs/torsion-spring.node';
-import { LeafSpringNode } from './mechanicalengineering/springs/leaf-spring.node';
-import { GasSpringNode } from './mechanicalengineering/springs/gas-spring.node';
-import { CamProfileNode } from './mechanicalengineering/mechanisms/cam-profile.node';
-import { LinkageMechanismNode } from './mechanicalengineering/mechanisms/linkage-mechanism.node';
-import { RatchetMechanismNode } from './mechanicalengineering/mechanisms/ratchet-mechanism.node';
-import { ClutchMechanismNode } from './mechanicalengineering/mechanisms/clutch-mechanism.node';
-import { UniversalJointNode } from './mechanicalengineering/mechanisms/universal-joint.node';
-import { SteppedShaftNode } from './mechanicalengineering/shafts/stepped-shaft.node';
-import { SplinedShaftNode } from './mechanicalengineering/shafts/splined-shaft.node';
-import { FlexibleShaftNode } from './mechanicalengineering/shafts/flexible-shaft.node';
-import { HollowShaftNode } from './mechanicalengineering/shafts/hollow-shaft.node';
-import { RigidCouplingNode } from './mechanicalengineering/couplings/rigid-coupling.node';
-import { FlexibleCouplingNode } from './mechanicalengineering/couplings/flexible-coupling.node';
-import { OldhamCouplingNode } from './mechanicalengineering/couplings/oldham-coupling.node';
-import { FluidCouplingNode } from './mechanicalengineering/couplings/fluid-coupling.node';
-import { PulleySystemNode } from './mechanicalengineering/power-transmission/pulley-system.node';
-import { ChainDriveNode } from './mechanicalengineering/power-transmission/chain-drive.node';
-import { CurvatureCombNode } from './analysis/curves/curvature-comb.node';
-import { CurveLengthNode } from './analysis/curves/curve-length.node';
-import { CurveSmoothnessAnalysisNode } from './analysis/curves/curve-smoothness-analysis.node';
-import { CurveInflectionPointsNode } from './analysis/curves/curve-inflection-points.node';
-import { CurveTorsionNode } from './analysis/curves/curve-torsion.node';
-import { CurveDerivativesNode } from './analysis/curves/curve-derivatives.node';
-import { CurveParameterNode } from './analysis/curves/curve-parameter.node';
-import { CurveEndpointsNode } from './analysis/curves/curve-endpoints.node';
-import { CurveClosestPointNode } from './analysis/curves/curve-closest-point.node';
-import { CurveExtremePointsNode } from './analysis/curves/curve-extreme-points.node';
-import { CurveAreaMomentsNode } from './analysis/curves/curve-area-moments.node';
-import { CurveConvexHullNode } from './analysis/curves/curve-convex-hull.node';
-import { CurveBoundingBoxNode } from './analysis/curves/curve-bounding-box.node';
-import { CurveSpiralNode } from './analysis/curves/curve-spiral.node';
-import { SurfaceCurvatureNode } from './analysis/surfaces/surface-curvature.node';
-import { SurfaceNormalsNode } from './analysis/surfaces/surface-normals.node';
-import { SurfaceAreaNode } from './analysis/surfaces/surface-area.node';
-import { SurfaceIsoCurvesNode } from './analysis/surfaces/surface-iso-curves.node';
-import { SurfaceParametrizationNode } from './analysis/surfaces/surface-parametrization.node';
-import { SurfaceDerivativesNode } from './analysis/surfaces/surface-derivatives.node';
-import { SurfaceClosestPointNode } from './analysis/surfaces/surface-closest-point.node';
-import { SurfaceBoundaryNode } from './analysis/surfaces/surface-boundary.node';
-import { SurfaceContinuityNode } from './analysis/surfaces/surface-continuity.node';
-import { SurfaceDeviationNode } from './analysis/surfaces/surface-deviation.node';
-import { SurfaceFlatnessNode } from './analysis/surfaces/surface-flatness.node';
-import { SurfaceRoughnessNode } from './analysis/surfaces/surface-roughness.node';
-import { CurveCurveIntersectionNode } from './analysis/intersection/curve-curve-intersection.node';
-import { CurveSurfaceIntersectionNode } from './analysis/intersection/curve-surface-intersection.node';
-import { SurfaceSurfaceIntersectionNode } from './analysis/intersection/surface-surface-intersection.node';
-import { PlaneIntersectionNode } from './analysis/intersection/plane-intersection.node';
-import { RayIntersectionNode } from './analysis/intersection/ray-intersection.node';
-import { MinimumDistanceNode } from './analysis/proximity/minimum-distance.node';
-import { ProximityAnalysisNode } from './analysis/proximity/proximity-analysis.node';
-import { ClearanceCheckNode } from './analysis/proximity/clearance-check.node';
-import { CollisionDetectionNode } from './analysis/proximity/collision-detection.node';
-import { VisibilityAnalysisNode } from './analysis/proximity/visibility-analysis.node';
-import { ShadowAnalysisNode } from './analysis/proximity/shadow-analysis.node';
-import { VolumeCalculationNode } from './analysis/measurement/volume-calculation.node';
-import { AngleMeasurementNode } from './analysis/measurement/angle-measurement.node';
-import { DistanceMeasurementNode } from './analysis/measurement/distance-measurement.node';
-import { GeometryValidationNode } from './analysis/quality/geometry-validation.node';
-import { MeshQualityNode } from './analysis/quality/mesh-quality.node';
-import { ToleranceAnalysisNode } from './analysis/quality/tolerance-analysis.node';
-import { STEPImportNode } from './interoperability/import/stepimport.node';
-import { STEPExportNode } from './interoperability/export/stepexport.node';
-import { IGESImportNode } from './interoperability/import/igesimport.node';
-import { IGESExportNode } from './interoperability/export/igesexport.node';
-import { STLImportNode } from './interoperability/import/stlimport.node';
-import { STLExportNode } from './interoperability/export/stlexport.node';
-import { OBJImportNode } from './interoperability/import/objimport.node';
-import { OBJExportNode } from './interoperability/export/objexport.node';
-import { PLYImportNode } from './interoperability/import/plyimport.node';
-import { PLYExportNode } from './interoperability/export/plyexport.node';
-import { ThreeMFImportNode } from './interoperability/import/three-mfimport.node';
-import { ThreeMFExportNode } from './interoperability/export/three-mfexport.node';
-import { DXFImportNode } from './interoperability/import/dxfimport.node';
-import { DXFExportNode } from './interoperability/export/dxfexport.node';
-import { SVGImportNode } from './interoperability/import/svgimport.node';
-import { SVGExportNode } from './interoperability/export/svgexport.node';
-import { SQLQueryNode } from './interoperability/database/sqlquery.node';
-import { SQLInsertNode } from './interoperability/database/sqlinsert.node';
-import { HTTPRequestNode } from './interoperability/api/httprequest.node';
-import { JSONParserNode } from './interoperability/api/jsonparser.node';
-import { JSONGeneratorNode } from './interoperability/api/jsongenerator.node';
-import { S3UploadNode } from './interoperability/cloud/s3-upload.node';
-import { S3DownloadNode } from './interoperability/cloud/s3-download.node';
-import { EmailSenderNode } from './interoperability/messaging/email-sender.node';
-import { SlackNotificationNode } from './interoperability/messaging/slack-notification.node';
-import { CSVReaderNode } from './interoperability/data/csvreader.node';
-import { CSVWriterNode } from './interoperability/data/csvwriter.node';
-import { ExcelReaderNode } from './interoperability/data/excel-reader.node';
-import { ExcelWriterNode } from './interoperability/data/excel-writer.node';
-import { GrasshopperExportNode } from './interoperability/integration/grasshopper-export.node';
-import { WebSocketClientNode } from './interoperability/streaming/web-socket-client.node';
-import { MQTTPublisherNode } from './interoperability/streaming/mqttpublisher.node';
-import { MQTTSubscriberNode } from './interoperability/streaming/mqttsubscriber.node';
-import { SerialPortNode } from './interoperability/streaming/serial-port.node';
-import { TCPClientNode } from './interoperability/streaming/tcpclient.node';
-import { GeneticOptimizerNode } from './algorithmic/optimization/genetic-optimizer.node';
-import { ParticleSwarmOptimizerNode } from './algorithmic/optimization/particle-swarm-optimizer.node';
-import { SimulatedAnnealingNode } from './algorithmic/optimization/simulated-annealing.node';
-import { GradientDescentNode } from './algorithmic/optimization/gradient-descent.node';
-import { TopologyOptimizerNode } from './algorithmic/optimization/topology-optimizer.node';
-import { LinearRegressionNode } from './algorithmic/machine-learning/linear-regression.node';
-import { KMeansClusteringNode } from './algorithmic/machine-learning/kmeans-clustering.node';
-import { DecisionTreeNode } from './algorithmic/machine-learning/decision-tree.node';
-import { NeuralNetworkNode } from './algorithmic/machine-learning/neural-network.node';
-import { SupportVectorMachineNode } from './algorithmic/machine-learning/support-vector-machine.node';
-import { ConvexHull3DNode } from './algorithmic/geometry/convex-hull3-d.node';
-import { AlphaShapeNode } from './algorithmic/geometry/alpha-shape.node';
-import { MinimumSpanningTreeNode } from './algorithmic/geometry/minimum-spanning-tree.node';
-import { ShortestPathNode } from './algorithmic/geometry/shortest-path.node';
-import { VisibilityGraphNode } from './algorithmic/geometry/visibility-graph.node';
-import { MedialAxisNode } from './algorithmic/geometry/medial-axis.node';
-import { DistanceFieldNode } from './algorithmic/geometry/distance-field.node';
-import { MarchingCubesNode } from './algorithmic/geometry/marching-cubes.node';
-import { SpacePartitioningNode } from './algorithmic/geometry/space-partitioning.node';
-import { VoxelGridNode } from './algorithmic/geometry/voxel-grid.node';
-import { PointCloudProcessingNode } from './algorithmic/geometry/point-cloud-processing.node';
-import { SurfaceReconstructionNode } from './algorithmic/geometry/surface-reconstruction.node';
-import { GeometrySimplificationNode } from './algorithmic/geometry/geometry-simplification.node';
-import { GeometryMatchingNode } from './algorithmic/geometry/geometry-matching.node';
-import { ShapeDescriptorNode } from './algorithmic/geometry/shape-descriptor.node';
+import { FeaturesHolesSimpleHoleNode } from './features/holes/simple-hole.node';
+import { FeaturesHolesCounterboreHoleNode } from './features/holes/counterbore-hole.node';
+import { FeaturesHolesCountersinkHoleNode } from './features/holes/countersink-hole.node';
+import { FeaturesHolesThreadedHoleNode } from './features/holes/threaded-hole.node';
+import { FeaturesPocketsRectangularPocketNode } from './features/pockets/rectangular-pocket.node';
+import { FeaturesPocketsCircularPocketNode } from './features/pockets/circular-pocket.node';
+import { FeaturesStructuralLinearRibNode } from './features/structural/linear-rib.node';
+import { FeaturesStructuralMountingBossNode } from './features/structural/mounting-boss.node';
+import { TransformPatternsLinearPatternNode } from './transform/patterns/linear-pattern.node';
+import { TransformPatternsCircularPatternNode } from './transform/patterns/circular-pattern.node';
+import { TransformPatternsRectangularPatternNode } from './transform/patterns/rectangular-pattern.node';
+import { TransformMoveNode } from './transform/move.node';
+import { TransformRotateNode } from './transform/rotate.node';
+import { TransformScaleNode } from './transform/scale.node';
+import { TransformMirrorNode } from './transform/mirror.node';
+import { TransformLinearArrayNode } from './transform/linear-array.node';
+import { TransformPolarArrayNode } from './transform/polar-array.node';
+import { TransformPathArrayNode } from './transform/path-array.node';
+import { TransformGridArrayNode } from './transform/grid-array.node';
+import { TransformAlignNode } from './transform/align.node';
+import { TransformOrientNode } from './transform/orient.node';
+import { TransformProjectToPlaneNode } from './transform/project-to-plane.node';
+import { TransformWrapNode } from './transform/wrap.node';
+import { TransformDeformNode } from './transform/deform.node';
+import { TransformBoundingBoxAlignNode } from './transform/bounding-box-align.node';
+import { TransformMatrixTransformNode } from './transform/matrix-transform.node';
+import { SolidParametricPrismNode } from './solid/parametric/prism.node';
+import { SolidParametricWedgeNode } from './solid/parametric/wedge.node';
+import { SolidParametricPyramidNode } from './solid/parametric/pyramid.node';
+import { SolidSurfaceBezierSurfaceNode } from './solid/surface/bezier-surface.node';
+import { SolidSurfaceBSplineSurfaceNode } from './solid/surface/bspline-surface.node';
+import { SolidSurfaceRuledSurfaceNode } from './solid/surface/ruled-surface.node';
+import { SolidHelicalHelixNode } from './solid/helical/helix.node';
+import { SolidHelicalSpringNode } from './solid/helical/spring.node';
+import { SolidHelicalThreadNode } from './solid/helical/thread.node';
+import { SolidPrimitivesBoxNode } from './solid/primitives/box.node';
+import { SolidPrimitivesSphereNode } from './solid/primitives/sphere.node';
+import { SolidPrimitivesCylinderNode } from './solid/primitives/cylinder.node';
+import { SolidPrimitivesConeNode } from './solid/primitives/cone.node';
+import { SolidPrimitivesTorusNode } from './solid/primitives/torus.node';
+import { SolidPrimitivesEllipsoidNode } from './solid/primitives/ellipsoid.node';
+import { SolidPrimitivesCapsuleNode } from './solid/primitives/capsule.node';
+import { SolidPrimitivesRoundedBoxNode } from './solid/primitives/rounded-box.node';
+import { SolidPrimitivesPipeNode } from './solid/primitives/pipe.node';
+import { SolidPrimitivesPolyhedronNode } from './solid/primitives/polyhedron.node';
+import { SketchCurvesEllipseNode } from './sketch/curves/ellipse.node';
+import { SketchCurvesParabolaNode } from './sketch/curves/parabola.node';
+import { SketchCurvesHyperbolaNode } from './sketch/curves/hyperbola.node';
+import { SketchCurvesSpiralNode } from './sketch/curves/spiral.node';
+import { SketchPatternsPolygonNode } from './sketch/patterns/polygon.node';
+import { SketchPatternsStarNode } from './sketch/patterns/star.node';
+import { SketchPatternsGearNode } from './sketch/patterns/gear.node';
+import { SketchBasicLineNode } from './sketch/basic/line.node';
+import { SketchBasicArcNode } from './sketch/basic/arc.node';
+import { SketchBasicCircleNode } from './sketch/basic/circle.node';
+import { SketchBasicRectangleNode } from './sketch/basic/rectangle.node';
+import { SketchBasicPolylineNode } from './sketch/basic/polyline.node';
+import { SketchCurvesSplineNode } from './sketch/curves/spline.node';
+import { SketchCurvesBezierCurveNode } from './sketch/curves/bezier-curve.node';
+import { SketchCurvesBSplineCurveNode } from './sketch/curves/bspline-curve.node';
+import { SketchBasicPointNode } from './sketch/basic/point.node';
+import { SketchBasicSlotNode } from './sketch/basic/slot.node';
+import { SketchBasicTextNode } from './sketch/basic/text.node';
+import { SketchCurvesOffsetNode } from './sketch/curves/offset.node';
+import { SketchCurvesFillet2DNode } from './sketch/curves/fillet2-d.node';
+import { SketchCurvesChamfer2DNode } from './sketch/curves/chamfer2-d.node';
+import { SketchCurvesTrimNode } from './sketch/curves/trim.node';
+import { BooleanUnionNode } from './boolean/union.node';
+import { BooleanDifferenceNode } from './boolean/difference.node';
+import { BooleanIntersectionNode } from './boolean/intersection.node';
+import { BooleanXORNode } from './boolean/xor.node';
+import { BooleanSplitNode } from './boolean/split.node';
+import { BooleanFragmentNode } from './boolean/fragment.node';
+import { BooleanCommonEdgesNode } from './boolean/common-edges.node';
+import { BooleanImprintNode } from './boolean/imprint.node';
+import { BooleanGlueNode } from './boolean/glue.node';
+import { BooleanCompoundNode } from './boolean/compound.node';
+import { AssemblyConstraintsCoincidentNode } from './assembly/constraints/coincident.node';
+import { AssemblyConstraintsParallelNode } from './assembly/constraints/parallel.node';
+import { AssemblyConstraintsPerpendicularNode } from './assembly/constraints/perpendicular.node';
+import { AssemblyConstraintsTangentNode } from './assembly/constraints/tangent.node';
+import { AssemblyConstraintsConcentricNode } from './assembly/constraints/concentric.node';
+import { AssemblyConstraintsDistanceNode } from './assembly/constraints/distance.node';
+import { AssemblyConstraintsAngleNode } from './assembly/constraints/angle.node';
+import { AssemblyConstraintsHorizontalNode } from './assembly/constraints/horizontal.node';
+import { AssemblyConstraintsVerticalNode } from './assembly/constraints/vertical.node';
+import { AssemblyConstraintsFixedNode } from './assembly/constraints/fixed.node';
+import { AssemblyMatesFaceToFaceNode } from './assembly/mates/face-to-face.node';
+import { AssemblyMatesEdgeToEdgeNode } from './assembly/mates/edge-to-edge.node';
+import { AssemblyMatesPointToPointNode } from './assembly/mates/point-to-point.node';
+import { AssemblyMatesAxisToAxisNode } from './assembly/mates/axis-to-axis.node';
+import { AssemblyMatesPlaneToPlaneNode } from './assembly/mates/plane-to-plane.node';
+import { AssemblyMatesFastenedNode } from './assembly/mates/fastened.node';
+import { AssemblyMatesGearNode } from './assembly/mates/gear.node';
+import { AssemblyMatesCamNode } from './assembly/mates/cam.node';
+import { AssemblyMatesSlotNode } from './assembly/mates/slot.node';
+import { AssemblyMatesPathNode } from './assembly/mates/path.node';
+import { AssemblyJointsRevoluteNode } from './assembly/joints/revolute.node';
+import { AssemblyJointsPrismaticNode } from './assembly/joints/prismatic.node';
+import { AssemblyJointsCylindricalNode } from './assembly/joints/cylindrical.node';
+import { AssemblyJointsSphericalNode } from './assembly/joints/spherical.node';
+import { AssemblyJointsPlanarNode } from './assembly/joints/planar.node';
+import { AssemblyJointsUniversalNode } from './assembly/joints/universal.node';
+import { AssemblyJointsFixedNode } from './assembly/joints/fixed.node';
+import { AssemblyJointsScrewNode } from './assembly/joints/screw.node';
+import { AssemblyJointsBeltNode } from './assembly/joints/belt.node';
+import { AssemblyJointsRackPinionNode } from './assembly/joints/rack-pinion.node';
+import { AssemblyPatternsComponentPatternNode } from './assembly/patterns/component-pattern.node';
+import { AssemblyPatternsFlexibleSubAssemblyNode } from './assembly/patterns/flexible-sub-assembly.node';
+import { AssemblyPatternsConfigurationNode } from './assembly/patterns/configuration.node';
+import { AssemblyPatternsExplodedViewNode } from './assembly/patterns/exploded-view.node';
+import { AssemblyPatternsBillOfMaterialsNode } from './assembly/patterns/bill-of-materials.node';
+import { AssemblyPatternsInterferenceCheckNode } from './assembly/patterns/interference-check.node';
+import { AssemblyPatternsMotionStudyNode } from './assembly/patterns/motion-study.node';
+import { AssemblyPatternsEnvelopeNode } from './assembly/patterns/envelope.node';
+import { AssemblyPatternsSmartFastenersNode } from './assembly/patterns/smart-fasteners.node';
+import { AssemblyPatternsContactSetNode } from './assembly/patterns/contact-set.node';
+import { SheetMetalFlangesEdgeFlangeNode } from './sheetmetal/flanges/edge-flange.node';
+import { SheetMetalFlangesContourFlangeNode } from './sheetmetal/flanges/contour-flange.node';
+import { SheetMetalFlangesMiterFlangeNode } from './sheetmetal/flanges/miter-flange.node';
+import { SheetMetalBendsSketchedBendNode } from './sheetmetal/bends/sketched-bend.node';
+import { SheetMetalBendsHemNode } from './sheetmetal/bends/hem.node';
+import { SheetMetalBendsJogNode } from './sheetmetal/bends/jog.node';
+import { SheetMetalCornersCornerReliefNode } from './sheetmetal/corners/corner-relief.node';
+import { SheetMetalCornersBendReliefNode } from './sheetmetal/corners/bend-relief.node';
+import { SheetMetalCornersClosedCornerNode } from './sheetmetal/corners/closed-corner.node';
+import { SheetMetalFeaturesTabNode } from './sheetmetal/features/tab.node';
+import { SheetMetalFeaturesSlotNode } from './sheetmetal/features/slot.node';
+import { SheetMetalFeaturesLouverNode } from './sheetmetal/features/louver.node';
+import { SheetMetalFeaturesLanceNode } from './sheetmetal/features/lance.node';
+import { SheetMetalFeaturesBeadNode } from './sheetmetal/features/bead.node';
+import { SheetMetalUnfoldUnfoldNode } from './sheetmetal/unfold/unfold.node';
+import { SheetMetalUnfoldFoldNode } from './sheetmetal/unfold/fold.node';
+import { SheetMetalUnfoldExportDXFNode } from './sheetmetal/unfold/export-dxf.node';
+import { SheetMetalPropertiesSheetMetalStyleNode } from './sheetmetal/properties/sheet-metal-style.node';
+import { SheetMetalPropertiesBendTableNode } from './sheetmetal/properties/bend-table.node';
+import { SheetMetalPropertiesCostEstimateNode } from './sheetmetal/properties/cost-estimate.node';
+import { AdvancedSweepSweepNode } from './advanced/sweep/sweep.node';
+import { AdvancedSweepHelicalSweepNode } from './advanced/sweep/helical-sweep.node';
+import { AdvancedLoftLoftNode } from './advanced/loft/loft.node';
+import { AdvancedLoftBlendSurfaceNode } from './advanced/loft/blend-surface.node';
+import { AdvancedBoundaryBoundaryNode } from './advanced/boundary/boundary.node';
+import { AdvancedShellShellNode } from './advanced/shell/shell.node';
+import { AdvancedShellVariableShellNode } from './advanced/shell/variable-shell.node';
+import { AdvancedThicknessThickenNode } from './advanced/thickness/thicken.node';
+import { AdvancedThicknessOffsetSurfaceNode } from './advanced/thickness/offset-surface.node';
+import { AdvancedDraftDraftNode } from './advanced/draft/draft.node';
+import { AdvancedDraftPartingLineDraftNode } from './advanced/draft/parting-line-draft.node';
+import { AdvancedDraftStepDraftNode } from './advanced/draft/step-draft.node';
+import { AdvancedSurfaceTrimSurfaceNode } from './advanced/surface/trim-surface.node';
+import { AdvancedSurfaceExtendSurfaceNode } from './advanced/surface/extend-surface.node';
+import { AdvancedSurfaceUntrimSurfaceNode } from './advanced/surface/untrim-surface.node';
+import { AdvancedSurfaceKnitSurfacesNode } from './advanced/surface/knit-surfaces.node';
+import { AdvancedSurfacePatchSurfaceNode } from './advanced/surface/patch-surface.node';
+import { AdvancedFeaturesWrapNode } from './advanced/features/wrap.node';
+import { AdvancedFeaturesDomeNode } from './advanced/features/dome.node';
+import { AdvancedFeaturesFlexNode } from './advanced/features/flex.node';
+import { AdvancedFeaturesIndentNode } from './advanced/features/indent.node';
+import { AdvancedFeaturesDeformNode } from './advanced/features/deform.node';
+import { AdvancedHealingHealShapeNode } from './advanced/healing/heal-shape.node';
+import { AdvancedHealingRemoveFeaturesNode } from './advanced/healing/remove-features.node';
+import { AdvancedHealingDeleteFaceNode } from './advanced/healing/delete-face.node';
+import { AdvancedHealingSimplifyShapeNode } from './advanced/healing/simplify-shape.node';
+import { AdvancedHealingCheckGeometryNode } from './advanced/healing/check-geometry.node';
+import { SurfaceNURBSNurbsSurfaceNode } from './surface/nurbs/nurbs-surface.node';
+import { SurfaceNURBSNetworkSurfaceNode } from './surface/nurbs/network-surface.node';
+import { SurfaceNURBSSurfaceFromPointsNode } from './surface/nurbs/surface-from-points.node';
+import { SurfaceNURBSCoonsPatchNode } from './surface/nurbs/coons-patch.node';
+import { SurfaceNURBSGordonSurfaceNode } from './surface/nurbs/gordon-surface.node';
+import { SurfaceCurvesNurbsCurveNode } from './surface/curves/nurbs-curve.node';
+import { SurfaceCurvesInterpolateCurveNode } from './surface/curves/interpolate-curve.node';
+import { SurfaceCurvesApproximateCurveNode } from './surface/curves/approximate-curve.node';
+import { SurfaceCurvesBlendCurveNode } from './surface/curves/blend-curve.node';
+import { SurfaceCurvesCompositeCurveNode } from './surface/curves/composite-curve.node';
+import { SurfaceAnalysisCurvatureAnalysisNode } from './surface/analysis/curvature-analysis.node';
+import { SurfaceAnalysisZebraAnalysisNode } from './surface/analysis/zebra-analysis.node';
+import { SurfaceAnalysisDraftAnalysisNode } from './surface/analysis/draft-analysis.node';
+import { SurfaceAnalysisContinuityCheckNode } from './surface/analysis/continuity-check.node';
+import { SurfaceAnalysisSurfaceDeviationNode } from './surface/analysis/surface-deviation.node';
+import { SurfaceAnalysisReflectionLinesNode } from './surface/analysis/reflection-lines.node';
+import { SurfaceAnalysisIsocurveExtractNode } from './surface/analysis/isocurve-extract.node';
+import { SurfaceAnalysisSectionCurvesNode } from './surface/analysis/section-curves.node';
+import { SurfaceCurveOpsProjectCurveNode } from './surface/curve-ops/project-curve.node';
+import { SurfaceCurveOpsIntersectCurvesNode } from './surface/curve-ops/intersect-curves.node';
+import { SurfaceCurveOpsCurveOnSurfaceNode } from './surface/curve-ops/curve-on-surface.node';
+import { SurfaceCurveOpsGeodesicCurveNode } from './surface/curve-ops/geodesic-curve.node';
+import { SurfaceCurveOpsIsoparametricCurveNode } from './surface/curve-ops/isoparametric-curve.node';
+import { MeshTessellationTessellateNode } from './mesh/tessellation/tessellate.node';
+import { MeshTessellationAdaptiveTessellationNode } from './mesh/tessellation/adaptive-tessellation.node';
+import { MeshTessellationRemeshUniformNode } from './mesh/tessellation/remesh-uniform.node';
+import { MeshTessellationQuadMeshNode } from './mesh/tessellation/quad-mesh.node';
+import { MeshTessellationVoxelMeshNode } from './mesh/tessellation/voxel-mesh.node';
+import { MeshRepairRepairMeshNode } from './mesh/repair/repair-mesh.node';
+import { MeshRepairSimplifyMeshNode } from './mesh/repair/simplify-mesh.node';
+import { MeshRepairFillHolesNode } from './mesh/repair/fill-holes.node';
+import { MeshRepairSmoothMeshNode } from './mesh/repair/smooth-mesh.node';
+import { MeshRepairDecimateMeshNode } from './mesh/repair/decimate-mesh.node';
+import { MeshRepairSubdivideMeshNode } from './mesh/repair/subdivide-mesh.node';
+import { MeshRepairMeshBooleanNode } from './mesh/repair/mesh-boolean.node';
+import { MeshRepairMeshOffsetNode } from './mesh/repair/mesh-offset.node';
+import { MeshFilesImportSTLNode } from './mesh/files/import-stl.node';
+import { MeshFilesExportSTLNode } from './mesh/files/export-stl.node';
+import { MeshFilesImportOBJNode } from './mesh/files/import-obj.node';
+import { MeshFilesExportOBJNode } from './mesh/files/export-obj.node';
+import { MeshFilesImportPLYNode } from './mesh/files/import-ply.node';
+import { MeshFilesExport3MFNode } from './mesh/files/export3-mf.node';
+import { MeshFilesMeshToShapeNode } from './mesh/files/mesh-to-shape.node';
+import { IOCADImportSTEPNode } from './io/cad/import-step.node';
+import { IOCADExportSTEPNode } from './io/cad/export-step.node';
+import { IOCADImportIGESNode } from './io/cad/import-iges.node';
+import { IOCADExportIGESNode } from './io/cad/export-iges.node';
+import { IOCADImportBREPNode } from './io/cad/import-brep.node';
+import { IOCADExportBREPNode } from './io/cad/export-brep.node';
+import { IOCADImportParasolidNode } from './io/cad/import-parasolid.node';
+import { IOCADImportACISNode } from './io/cad/import-acis.node';
+import { IODrawingImportDXFNode } from './io/drawing/import-dxf.node';
+import { IODrawingExportDXFNode } from './io/drawing/export-dxf.node';
+import { IODrawingExportSVGNode } from './io/drawing/export-svg.node';
+import { IOExchangeImportGLTFNode } from './io/exchange/import-gltf.node';
+import { IOExchangeExportGLTFNode } from './io/exchange/export-gltf.node';
+import { IOExchangeImportJSONNode } from './io/exchange/import-json.node';
+import { IOExchangeExportJSONNode } from './io/exchange/export-json.node';
+import { SpecializedTextText3DNode } from './specialized/text/text3-d.node';
+import { SpecializedTextEngraveNode } from './specialized/text/engrave.node';
+import { SpecializedTextEmbossNode } from './specialized/text/emboss.node';
+import { SpecializedTextSerialNumberNode } from './specialized/text/serial-number.node';
+import { SpecializedTextBarcodeNode } from './specialized/text/barcode.node';
+import { SpecializedLatticeLatticeStructureNode } from './specialized/lattice/lattice-structure.node';
+import { SpecializedLatticeTPMSNode } from './specialized/lattice/tpms.node';
+import { SpecializedLatticeVoronoiLatticeNode } from './specialized/lattice/voronoi-lattice.node';
+import { SpecializedLatticeGradedLatticeNode } from './specialized/lattice/graded-lattice.node';
+import { SpecializedLatticeConformLatticeNode } from './specialized/lattice/conform-lattice.node';
+import { SpecializedLatticeHoneycombStructureNode } from './specialized/lattice/honeycomb-structure.node';
+import { SpecializedOptimizationTopologyOptimizeNode } from './specialized/optimization/topology-optimize.node';
+import { SpecializedOptimizationShapeOptimizeNode } from './specialized/optimization/shape-optimize.node';
+import { SpecializedOptimizationGenerativeDesignNode } from './specialized/optimization/generative-design.node';
+import { SpecializedOptimizationLightweightStructureNode } from './specialized/optimization/lightweight-structure.node';
+import { SpecializedOptimizationStressReliefNode } from './specialized/optimization/stress-relief.node';
+import { SpecializedOptimizationPackingOptimizeNode } from './specialized/optimization/packing-optimize.node';
+import { SpecializedOrganicMetaBallsNode } from './specialized/organic/meta-balls.node';
+import { SpecializedOrganicSubdivisionSurfaceNode } from './specialized/organic/subdivision-surface.node';
+import { SpecializedOrganicFractalGeometryNode } from './specialized/organic/fractal-geometry.node';
+import { SpecializedOrganicReactionDiffusionNode } from './specialized/organic/reaction-diffusion.node';
+import { SpecializedOrganicBiomimeticStructureNode } from './specialized/organic/biomimetic-structure.node';
+import { SimulationFEAMeshForFEANode } from './simulation/fea/mesh-for-fea.node';
+import { SimulationFEAApplyLoadsNode } from './simulation/fea/apply-loads.node';
+import { SimulationFEAApplyConstraintsNode } from './simulation/fea/apply-constraints.node';
+import { SimulationFEAMaterialAssignNode } from './simulation/fea/material-assign.node';
+import { SimulationFEAExportFEANode } from './simulation/fea/export-fea.node';
+import { SimulationCFDFluidDomainNode } from './simulation/cfd/fluid-domain.node';
+import { SimulationCFDBoundaryLayersNode } from './simulation/cfd/boundary-layers.node';
+import { SimulationCFDInletOutletNode } from './simulation/cfd/inlet-outlet.node';
+import { SimulationCFDFluidPropertiesNode } from './simulation/cfd/fluid-properties.node';
+import { SimulationCFDExportCFDNode } from './simulation/cfd/export-cfd.node';
+import { SimulationKinematicsJointDefinitionNode } from './simulation/kinematics/joint-definition.node';
+import { SimulationKinematicsMotionDriverNode } from './simulation/kinematics/motion-driver.node';
+import { SimulationKinematicsCollisionDetectionNode } from './simulation/kinematics/collision-detection.node';
+import { SimulationKinematicsForwardKinematicsNode } from './simulation/kinematics/forward-kinematics.node';
+import { SimulationKinematicsInverseKinematicsNode } from './simulation/kinematics/inverse-kinematics.node';
+import { MathOperatorsAddNode } from './math/operators/add.node';
+import { MathOperatorsSubtractNode } from './math/operators/subtract.node';
+import { MathOperatorsMultiplyNode } from './math/operators/multiply.node';
+import { MathOperatorsDivideNode } from './math/operators/divide.node';
+import { MathOperatorsPowerNode } from './math/operators/power.node';
+import { MathOperatorsModuloNode } from './math/operators/modulo.node';
+import { MathOperatorsAbsoluteNode } from './math/operators/absolute.node';
+import { MathOperatorsNegateNode } from './math/operators/negate.node';
+import { MathOperatorsSquareRootNode } from './math/operators/square-root.node';
+import { MathOperatorsFactorialNode } from './math/operators/factorial.node';
+import { MathTrigonometrySineNode } from './math/trigonometry/sine.node';
+import { MathTrigonometryCosineNode } from './math/trigonometry/cosine.node';
+import { MathTrigonometryTangentNode } from './math/trigonometry/tangent.node';
+import { MathTrigonometryArcSineNode } from './math/trigonometry/arc-sine.node';
+import { MathTrigonometryArcCosineNode } from './math/trigonometry/arc-cosine.node';
+import { MathTrigonometryArcTangentNode } from './math/trigonometry/arc-tangent.node';
+import { MathTrigonometryArcTangent2Node } from './math/trigonometry/arc-tangent2.node';
+import { MathTrigonometryHyperbolicSineNode } from './math/trigonometry/hyperbolic-sine.node';
+import { MathTrigonometryHyperbolicCosineNode } from './math/trigonometry/hyperbolic-cosine.node';
+import { MathTrigonometryHyperbolicTangentNode } from './math/trigonometry/hyperbolic-tangent.node';
+import { MathLogarithmicNaturalLogNode } from './math/logarithmic/natural-log.node';
+import { MathLogarithmicLog10Node } from './math/logarithmic/log10.node';
+import { MathLogarithmicLogBaseNode } from './math/logarithmic/log-base.node';
+import { MathLogarithmicExponentialNode } from './math/logarithmic/exponential.node';
+import { MathLogarithmicExp10Node } from './math/logarithmic/exp10.node';
+import { MathRoundingRoundNode } from './math/rounding/round.node';
+import { MathRoundingFloorNode } from './math/rounding/floor.node';
+import { MathRoundingCeilingNode } from './math/rounding/ceiling.node';
+import { MathRoundingTruncateNode } from './math/rounding/truncate.node';
+import { MathRoundingRoundToDecimalNode } from './math/rounding/round-to-decimal.node';
+import { MathComparisonMinNode } from './math/comparison/min.node';
+import { MathComparisonMaxNode } from './math/comparison/max.node';
+import { MathComparisonClampNode } from './math/comparison/clamp.node';
+import { MathComparisonSignNode } from './math/comparison/sign.node';
+import { MathComparisonIsEqualNode } from './math/comparison/is-equal.node';
+import { MathStatisticsAverageNode } from './math/statistics/average.node';
+import { MathStatisticsMedianNode } from './math/statistics/median.node';
+import { MathStatisticsModeNode } from './math/statistics/mode.node';
+import { MathStatisticsStandardDeviationNode } from './math/statistics/standard-deviation.node';
+import { MathStatisticsVarianceNode } from './math/statistics/variance.node';
+import { MathStatisticsSumNode } from './math/statistics/sum.node';
+import { MathStatisticsProductNode } from './math/statistics/product.node';
+import { MathStatisticsRangeNode } from './math/statistics/range.node';
+import { MathStatisticsPercentileNode } from './math/statistics/percentile.node';
+import { MathStatisticsCorrelationNode } from './math/statistics/correlation.node';
+import { MathRandomRandomNode } from './math/random/random.node';
+import { MathRandomRandomRangeNode } from './math/random/random-range.node';
+import { MathRandomRandomIntegerNode } from './math/random/random-integer.node';
+import { MathRandomRandomNormalNode } from './math/random/random-normal.node';
+import { MathRandomRandomPoissonNode } from './math/random/random-poisson.node';
+import { MathRandomRandomExponentialNode } from './math/random/random-exponential.node';
+import { MathRandomRandomChoiceNode } from './math/random/random-choice.node';
+import { MathRandomShuffleNode } from './math/random/shuffle.node';
+import { MathRandomPerlinNoiseNode } from './math/random/perlin-noise.node';
+import { MathRandomSimplexNoiseNode } from './math/random/simplex-noise.node';
+import { MathInterpolationLerpNode } from './math/interpolation/lerp.node';
+import { MathInterpolationInverseLerpNode } from './math/interpolation/inverse-lerp.node';
+import { MathInterpolationRemapNode } from './math/interpolation/remap.node';
+import { MathInterpolationSmoothStepNode } from './math/interpolation/smooth-step.node';
+import { MathInterpolationSmootherStepNode } from './math/interpolation/smoother-step.node';
+import { MathInterpolationCubicInterpNode } from './math/interpolation/cubic-interp.node';
+import { MathInterpolationHermiteInterpNode } from './math/interpolation/hermite-interp.node';
+import { MathInterpolationBezierInterpNode } from './math/interpolation/bezier-interp.node';
+import { MathInterpolationEaseInNode } from './math/interpolation/ease-in.node';
+import { MathInterpolationEaseOutNode } from './math/interpolation/ease-out.node';
+import { MathInterpolationEaseInOutNode } from './math/interpolation/ease-in-out.node';
+import { MathInterpolationSpringInterpNode } from './math/interpolation/spring-interp.node';
+import { MathComplexComplexNumberNode } from './math/complex/complex-number.node';
+import { MathComplexComplexAddNode } from './math/complex/complex-add.node';
+import { MathComplexComplexMultiplyNode } from './math/complex/complex-multiply.node';
+import { MathComplexComplexConjugateNode } from './math/complex/complex-conjugate.node';
+import { MathComplexComplexMagnitudeNode } from './math/complex/complex-magnitude.node';
+import { MathComplexComplexPhaseNode } from './math/complex/complex-phase.node';
+import { MathMatrixMatrixMultiplyNode } from './math/matrix/matrix-multiply.node';
+import { MathMatrixMatrixInverseNode } from './math/matrix/matrix-inverse.node';
+import { MathMatrixMatrixDeterminantNode } from './math/matrix/matrix-determinant.node';
+import { MathMatrixMatrixTransposeNode } from './math/matrix/matrix-transpose.node';
+import { DataListListLengthNode } from './data/list/list-length.node';
+import { DataListListItemNode } from './data/list/list-item.node';
+import { DataListListSliceNode } from './data/list/list-slice.node';
+import { DataListListReverseNode } from './data/list/list-reverse.node';
+import { DataListListSortNode } from './data/list/list-sort.node';
+import { DataListListShuffleNode } from './data/list/list-shuffle.node';
+import { DataListListShiftNode } from './data/list/list-shift.node';
+import { DataListListInsertNode } from './data/list/list-insert.node';
+import { DataListListRemoveNode } from './data/list/list-remove.node';
+import { DataListListReplaceNode } from './data/list/list-replace.node';
+import { DataListListAppendNode } from './data/list/list-append.node';
+import { DataListListPrependNode } from './data/list/list-prepend.node';
+import { DataListListJoinNode } from './data/list/list-join.node';
+import { DataListListSplitNode } from './data/list/list-split.node';
+import { DataListListPartitionNode } from './data/list/list-partition.node';
+import { DataListListFlattenNode } from './data/list/list-flatten.node';
+import { DataListListUniqueNode } from './data/list/list-unique.node';
+import { DataListListContainsNode } from './data/list/list-contains.node';
+import { DataListListFindNode } from './data/list/list-find.node';
+import { DataListListFilterNode } from './data/list/list-filter.node';
+import { DataSetSetUnionNode } from './data/set/set-union.node';
+import { DataSetSetIntersectionNode } from './data/set/set-intersection.node';
+import { DataSetSetDifferenceNode } from './data/set/set-difference.node';
+import { DataSetSetSymmetricDifferenceNode } from './data/set/set-symmetric-difference.node';
+import { DataSetSetSubsetNode } from './data/set/set-subset.node';
+import { DataSetSetCartesianProductNode } from './data/set/set-cartesian-product.node';
+import { DataSetSetPowerSetNode } from './data/set/set-power-set.node';
+import { DataSetSetCombinationsNode } from './data/set/set-combinations.node';
+import { DataSetSetPermutationsNode } from './data/set/set-permutations.node';
+import { DataSetSetPartitionsNode } from './data/set/set-partitions.node';
+import { DataTreeTreeBranchNode } from './data/tree/tree-branch.node';
+import { DataTreeTreePathsNode } from './data/tree/tree-paths.node';
+import { DataTreeTreeGraftNode } from './data/tree/tree-graft.node';
+import { DataTreeTreeFlattenNode } from './data/tree/tree-flatten.node';
+import { DataTreeTreeSimplifyNode } from './data/tree/tree-simplify.node';
+import { DataTreeTreePruneNode } from './data/tree/tree-prune.node';
+import { DataTreeTreeMergeNode } from './data/tree/tree-merge.node';
+import { DataTreeTreeExplodeNode } from './data/tree/tree-explode.node';
+import { DataTreeTreeShiftNode } from './data/tree/tree-shift.node';
+import { DataTreeTreeStatisticsNode } from './data/tree/tree-statistics.node';
+import { DataStringStringConcatNode } from './data/string/string-concat.node';
+import { DataStringStringSplitNode } from './data/string/string-split.node';
+import { DataStringStringReplaceNode } from './data/string/string-replace.node';
+import { DataStringStringFormatNode } from './data/string/string-format.node';
+import { DataStringStringCaseNode } from './data/string/string-case.node';
+import { DataStringStringTrimNode } from './data/string/string-trim.node';
+import { DataStringStringLengthNode } from './data/string/string-length.node';
+import { DataStringStringSubstringNode } from './data/string/string-substring.node';
+import { DataStringStringContainsNode } from './data/string/string-contains.node';
+import { DataStringStringMatchNode } from './data/string/string-match.node';
+import { DataConvertToStringNode } from './data/convert/to-string.node';
+import { DataConvertToNumberNode } from './data/convert/to-number.node';
+import { DataConvertToBooleanNode } from './data/convert/to-boolean.node';
+import { DataConvertToJSONNode } from './data/convert/to-json.node';
+import { DataConvertFromJSONNode } from './data/convert/from-json.node';
+import { DataConvertToCSVNode } from './data/convert/to-csv.node';
+import { DataConvertFromCSVNode } from './data/convert/from-csv.node';
+import { DataConvertToBase64Node } from './data/convert/to-base64.node';
+import { DataConvertFromBase64Node } from './data/convert/from-base64.node';
+import { DataConvertTypeOfNode } from './data/convert/type-of.node';
+import { FieldGenerateLinearFieldNode } from './field/generate/linear-field.node';
+import { FieldGenerateRadialFieldNode } from './field/generate/radial-field.node';
+import { FieldGenerateSphericalFieldNode } from './field/generate/spherical-field.node';
+import { FieldGenerateCylindricalFieldNode } from './field/generate/cylindrical-field.node';
+import { FieldGenerateNoiseFieldNode } from './field/generate/noise-field.node';
+import { FieldGenerateSineFieldNode } from './field/generate/sine-field.node';
+import { FieldGenerateVectorFieldNode } from './field/generate/vector-field.node';
+import { FieldGenerateImageFieldNode } from './field/generate/image-field.node';
+import { FieldGenerateDistanceFieldNode } from './field/generate/distance-field.node';
+import { FieldGenerateChargeFieldNode } from './field/generate/charge-field.node';
+import { FieldAttractorPointAttractorNode } from './field/attractor/point-attractor.node';
+import { FieldAttractorCurveAttractorNode } from './field/attractor/curve-attractor.node';
+import { FieldAttractorSurfaceAttractorNode } from './field/attractor/surface-attractor.node';
+import { FieldAttractorMeshAttractorNode } from './field/attractor/mesh-attractor.node';
+import { FieldAttractorSpinAttractorNode } from './field/attractor/spin-attractor.node';
+import { FieldAttractorDirectionalAttractorNode } from './field/attractor/directional-attractor.node';
+import { FieldAttractorTwistAttractorNode } from './field/attractor/twist-attractor.node';
+import { FieldAttractorVortexAttractorNode } from './field/attractor/vortex-attractor.node';
+import { FieldAttractorGravityAttractorNode } from './field/attractor/gravity-attractor.node';
+import { FieldAttractorFlowAttractorNode } from './field/attractor/flow-attractor.node';
+import { FieldOperationsFieldAddNode } from './field/operations/field-add.node';
+import { FieldOperationsFieldSubtractNode } from './field/operations/field-subtract.node';
+import { FieldOperationsFieldMultiplyNode } from './field/operations/field-multiply.node';
+import { FieldOperationsFieldDivideNode } from './field/operations/field-divide.node';
+import { FieldOperationsFieldMinNode } from './field/operations/field-min.node';
+import { FieldOperationsFieldMaxNode } from './field/operations/field-max.node';
+import { FieldOperationsFieldBlendNode } from './field/operations/field-blend.node';
+import { FieldOperationsFieldRemapNode } from './field/operations/field-remap.node';
+import { FieldOperationsFieldClampNode } from './field/operations/field-clamp.node';
+import { FieldOperationsFieldInvertNode } from './field/operations/field-invert.node';
+import { FieldOperationsFieldGradientNode } from './field/operations/field-gradient.node';
+import { FieldOperationsFieldDivergenceNode } from './field/operations/field-divergence.node';
+import { FieldOperationsFieldCurlNode } from './field/operations/field-curl.node';
+import { FieldOperationsFieldLaplacianNode } from './field/operations/field-laplacian.node';
+import { FieldOperationsFieldSmoothNode } from './field/operations/field-smooth.node';
+import { FieldSampleSampleFieldNode } from './field/sample/sample-field.node';
+import { FieldSampleFieldLineNode } from './field/sample/field-line.node';
+import { FieldSampleIsoContourNode } from './field/sample/iso-contour.node';
+import { FieldSampleIsoSurfaceNode } from './field/sample/iso-surface.node';
+import { FieldSampleFieldGridNode } from './field/sample/field-grid.node';
+import { FieldDeformFieldDeformNode } from './field/deform/field-deform.node';
+import { FieldDeformFieldDisplaceNode } from './field/deform/field-displace.node';
+import { FieldDeformFieldScaleNode } from './field/deform/field-scale.node';
+import { FieldDeformFieldRotateNode } from './field/deform/field-rotate.node';
+import { FieldDeformFieldColorNode } from './field/deform/field-color.node';
+import { FieldsVisualizationFieldColorMapNode } from './fields/visualization/field-color-map.node';
+import { FieldsVisualizationFieldVectorArrowsNode } from './fields/visualization/field-vector-arrows.node';
+import { FieldsVisualizationFieldStreamLinesNode } from './fields/visualization/field-stream-lines.node';
+import { FieldsVisualizationFieldHeatMapNode } from './fields/visualization/field-heat-map.node';
+import { FieldsVisualizationFieldVolumeNode } from './fields/visualization/field-volume.node';
+import { FieldsAnalysisFieldMinMaxNode } from './fields/analysis/field-min-max.node';
+import { FieldsAnalysisFieldAverageNode } from './fields/analysis/field-average.node';
+import { FieldsAnalysisFieldCriticalPointsNode } from './fields/analysis/field-critical-points.node';
+import { FieldsAnalysisFieldDivergenceAnalysisNode } from './fields/analysis/field-divergence-analysis.node';
+import { FieldsAnalysisFieldCurlAnalysisNode } from './fields/analysis/field-curl-analysis.node';
+import { FieldsAnalysisFieldFluxNode } from './fields/analysis/field-flux.node';
+import { FieldsAnalysisFieldCirculationNode } from './fields/analysis/field-circulation.node';
+import { FieldsAnalysisFieldPotentialNode } from './fields/analysis/field-potential.node';
+import { FieldsAnalysisFieldHistogramNode } from './fields/analysis/field-histogram.node';
+import { FieldsAnalysisFieldCorrelationNode } from './fields/analysis/field-correlation.node';
+import { FieldsAdvancedFieldMorphingNode } from './fields/advanced/field-morphing.node';
+import { FieldsAdvancedFieldWarpNode } from './fields/advanced/field-warp.node';
+import { FieldsAdvancedFieldConvolutionNode } from './fields/advanced/field-convolution.node';
+import { FieldsAdvancedFieldFourierNode } from './fields/advanced/field-fourier.node';
+import { FieldsAdvancedFieldOptimizeNode } from './fields/advanced/field-optimize.node';
+import { PatternsVoronoiVoronoi2DNode } from './patterns/voronoi/voronoi2-d.node';
+import { PatternsVoronoiVoronoi3DNode } from './patterns/voronoi/voronoi3-d.node';
+import { PatternsVoronoiWeightedVoronoiNode } from './patterns/voronoi/weighted-voronoi.node';
+import { PatternsVoronoiCentroidalVoronoiNode } from './patterns/voronoi/centroidal-voronoi.node';
+import { PatternsVoronoiVoronoiOnSurfaceNode } from './patterns/voronoi/voronoi-on-surface.node';
+import { PatternsDelaunayDelaunay2DNode } from './patterns/delaunay/delaunay2-d.node';
+import { PatternsDelaunayDelaunay3DNode } from './patterns/delaunay/delaunay3-d.node';
+import { PatternsDelaunayConstrainedDelaunayNode } from './patterns/delaunay/constrained-delaunay.node';
+import { PatternsDelaunayAlphaShapeNode } from './patterns/delaunay/alpha-shape.node';
+import { PatternsVoronoiVoronoiFractureNode } from './patterns/voronoi/voronoi-fracture.node';
+import { PatternsVoronoiVoronoiGrowthNode } from './patterns/voronoi/voronoi-growth.node';
+import { PatternsDelaunayDelaunayMeshNode } from './patterns/delaunay/delaunay-mesh.node';
+import { PatternsVoronoiVoronoiSkeletonNode } from './patterns/voronoi/voronoi-skeleton.node';
+import { PatternsVoronoiVoronoiOffsetNode } from './patterns/voronoi/voronoi-offset.node';
+import { PatternsDelaunayConvexHullNode } from './patterns/delaunay/convex-hull.node';
+import { PatternsIslamicIslamicStarNode } from './patterns/islamic/islamic-star.node';
+import { PatternsIslamicGirihTilingNode } from './patterns/islamic/girih-tiling.node';
+import { PatternsIslamicArabesqueNode } from './patterns/islamic/arabesque.node';
+import { PatternsIslamicMoorishPatternNode } from './patterns/islamic/moorish-pattern.node';
+import { PatternsIslamicIslamicGridNode } from './patterns/islamic/islamic-grid.node';
+import { PatternsCelticCelticKnotNode } from './patterns/celtic/celtic-knot.node';
+import { PatternsCelticCelticBraidNode } from './patterns/celtic/celtic-braid.node';
+import { PatternsGeometricPenroseTilingNode } from './patterns/geometric/penrose-tiling.node';
+import { PatternsGeometricTruchetTilesNode } from './patterns/geometric/truchet-tiles.node';
+import { PatternsGeometricSpiralPatternNode } from './patterns/geometric/spiral-pattern.node';
+import { PatternsGeometricMandalaPatternNode } from './patterns/geometric/mandala-pattern.node';
+import { PatternsGeometricPolygonalTessellationNode } from './patterns/geometric/polygonal-tessellation.node';
+import { PatternsGeometricCirclePackingNode } from './patterns/geometric/circle-packing.node';
+import { PatternsGeometricHyperbolicTilingNode } from './patterns/geometric/hyperbolic-tiling.node';
+import { PatternsGeometricGeodesicPatternNode } from './patterns/geometric/geodesic-pattern.node';
+import { PatternsIslamicMuqarnasNode } from './patterns/islamic/muqarnas.node';
+import { PatternsGeometricQuasiCrystalNode } from './patterns/geometric/quasi-crystal.node';
+import { PatternsGeometricMinimalSurfaceNode } from './patterns/geometric/minimal-surface.node';
+import { PatternsGeometricReactionDiffusionNode } from './patterns/geometric/reaction-diffusion.node';
+import { PatternsGeometricParquetDeformationNode } from './patterns/geometric/parquet-deformation.node';
+import { PatternsFractalsKochSnowflakeNode } from './patterns/fractals/koch-snowflake.node';
+import { PatternsFractalsSierpinskiTriangleNode } from './patterns/fractals/sierpinski-triangle.node';
+import { PatternsFractalsMengerSpongeNode } from './patterns/fractals/menger-sponge.node';
+import { PatternsFractalsJuliaSetNode } from './patterns/fractals/julia-set.node';
+import { PatternsFractalsMandelbrotSetNode } from './patterns/fractals/mandelbrot-set.node';
+import { PatternsLSystemsLSystem2DNode } from './patterns/l-systems/lsystem2-d.node';
+import { PatternsLSystemsLSystem3DNode } from './patterns/l-systems/lsystem3-d.node';
+import { PatternsLSystemsTreeGeneratorNode } from './patterns/l-systems/tree-generator.node';
+import { PatternsFractalsDragonCurveNode } from './patterns/fractals/dragon-curve.node';
+import { PatternsFractalsHilbertCurveNode } from './patterns/fractals/hilbert-curve.node';
+import { PatternsFractalsPeanoCurveNode } from './patterns/fractals/peano-curve.node';
+import { PatternsFractalsCantorSetNode } from './patterns/fractals/cantor-set.node';
+import { PatternsLSystemsPlantGrowthNode } from './patterns/l-systems/plant-growth.node';
+import { PatternsFractalsBarnsleyFernNode } from './patterns/fractals/barnsley-fern.node';
+import { PatternsFractalsApollonianGasketNode } from './patterns/fractals/apollonian-gasket.node';
+import { PatternsPackingRectanglePackingNode } from './patterns/packing/rectangle-packing.node';
+import { PatternsPackingSpherePackingNode } from './patterns/packing/sphere-packing.node';
+import { PatternsPackingPolygonPackingNode } from './patterns/packing/polygon-packing.node';
+import { PatternsLatticeCubicLatticeNode } from './patterns/lattice/cubic-lattice.node';
+import { PatternsLatticeOctetLatticeNode } from './patterns/lattice/octet-lattice.node';
+import { PatternsLatticeDiamondLatticeNode } from './patterns/lattice/diamond-lattice.node';
+import { PatternsLatticeKelvinLatticeNode } from './patterns/lattice/kelvin-lattice.node';
+import { PatternsLatticeTPMSLatticeNode } from './patterns/lattice/tpmslattice.node';
+import { PatternsTilingBrickPatternNode } from './patterns/tiling/brick-pattern.node';
+import { PatternsTilingParquetPatternNode } from './patterns/tiling/parquet-pattern.node';
+import { PatternsTilingWeavePatternNode } from './patterns/tiling/weave-pattern.node';
+import { PatternsCellularHoneycombPatternNode } from './patterns/cellular/honeycomb-pattern.node';
+import { PatternsCellularFoamStructureNode } from './patterns/cellular/foam-structure.node';
+import { PatternsCellularCellularAutomataNode } from './patterns/cellular/cellular-automata.node';
+import { PatternsCellularConwayLifeNode } from './patterns/cellular/conway-life.node';
+import { PatternsStochasticPoissonDiskNode } from './patterns/stochastic/poisson-disk.node';
+import { PatternsStochasticBlueNoiseNode } from './patterns/stochastic/blue-noise.node';
+import { PatternsStochasticJitteredGridNode } from './patterns/stochastic/jittered-grid.node';
+import { PatternsNetworkMinimumSpanningTreeNode } from './patterns/network/minimum-spanning-tree.node';
+import { PatternsNetworkRelativeNeighborhoodNode } from './patterns/network/relative-neighborhood.node';
+import { PatternsAlgorithmicBinaryTreeNode } from './patterns/algorithmic/binary-tree.node';
+import { PatternsAlgorithmicMazeGeneratorNode } from './patterns/algorithmic/maze-generator.node';
+import { PatternsAlgorithmicSubdivisionSurfaceNode } from './patterns/algorithmic/subdivision-surface.node';
+import { PatternsAlgorithmicFlockingPatternNode } from './patterns/algorithmic/flocking-pattern.node';
+import { PatternsAlgorithmicDiffusionLimitedAggregationNode } from './patterns/algorithmic/diffusion-limited-aggregation.node';
+import { PatternsProceduralGrammarShapesNode } from './patterns/procedural/grammar-shapes.node';
+import { PatternsProceduralWaveFunctionCollapseNode } from './patterns/procedural/wave-function-collapse.node';
+import { PatternsProceduralMarkovChainNode } from './patterns/procedural/markov-chain.node';
+import { PatternsProceduralGeneticAlgorithmNode } from './patterns/procedural/genetic-algorithm.node';
+import { PatternsProceduralNeuralPatternNode } from './patterns/procedural/neural-pattern.node';
+import { PatternsAlgorithmicStrangeAttractorNode } from './patterns/algorithmic/strange-attractor.node';
+import { PatternsAlgorithmicPhyllotaxisPatternNode } from './patterns/algorithmic/phyllotaxis-pattern.node';
+import { PatternsProceduralTuringPatternNode } from './patterns/procedural/turing-pattern.node';
+import { PatternsProceduralNoisePatternNode } from './patterns/procedural/noise-pattern.node';
+import { PatternsAlgorithmicPackingCirclesNode } from './patterns/algorithmic/packing-circles.node';
+import { PatternsAlgorithmicKMeansClusteringNode } from './patterns/algorithmic/kmeans-clustering.node';
+import { PatternsProceduralContextFreeArtNode } from './patterns/procedural/context-free-art.node';
+import { PatternsProceduralProceduralTextureNode } from './patterns/procedural/procedural-texture.node';
+import { PatternsAlgorithmicGraphLayoutNode } from './patterns/algorithmic/graph-layout.node';
+import { PatternsAlgorithmicShortestPathNode } from './patterns/algorithmic/shortest-path.node';
+import { Fabrication3DPrintingSupportGenerationNode } from './fabrication/3-d-printing/support-generation.node';
+import { Fabrication3DPrintingPrintOrientationNode } from './fabrication/3-d-printing/print-orientation.node';
+import { Fabrication3DPrintingSliceModelNode } from './fabrication/3-d-printing/slice-model.node';
+import { Fabrication3DPrintingBridgeDetectionNode } from './fabrication/3-d-printing/bridge-detection.node';
+import { Fabrication3DPrintingWallThicknessNode } from './fabrication/3-d-printing/wall-thickness.node';
+import { Fabrication3DPrintingPrintTimeEstimateNode } from './fabrication/3-d-printing/print-time-estimate.node';
+import { Fabrication3DPrintingRaftGenerationNode } from './fabrication/3-d-printing/raft-generation.node';
+import { Fabrication3DPrintingBrimGenerationNode } from './fabrication/3-d-printing/brim-generation.node';
+import { Fabrication3DPrintingSeamOptimizationNode } from './fabrication/3-d-printing/seam-optimization.node';
+import { Fabrication3DPrintingInfillOptimizationNode } from './fabrication/3-d-printing/infill-optimization.node';
+import { Fabrication3DPrintingCoolingAnalysisNode } from './fabrication/3-d-printing/cooling-analysis.node';
+import { Fabrication3DPrintingRetractionOptimizationNode } from './fabrication/3-d-printing/retraction-optimization.node';
+import { Fabrication3DPrintingVaseModeNode } from './fabrication/3-d-printing/vase-mode.node';
+import { Fabrication3DPrintingMultiMaterialSetupNode } from './fabrication/3-d-printing/multi-material-setup.node';
+import { Fabrication3DPrintingTreeSupportsNode } from './fabrication/3-d-printing/tree-supports.node';
+import { Fabrication3DPrintingIroningPassNode } from './fabrication/3-d-printing/ironing-pass.node';
+import { Fabrication3DPrintingFuzzySkinnNode } from './fabrication/3-d-printing/fuzzy-skinn.node';
+import { Fabrication3DPrintingCoastingSetupNode } from './fabrication/3-d-printing/coasting-setup.node';
+import { Fabrication3DPrintingWipeTowerNode } from './fabrication/3-d-printing/wipe-tower.node';
+import { Fabrication3DPrintingAdaptiveLayerHeightNode } from './fabrication/3-d-printing/adaptive-layer-height.node';
+import { Fabrication3DPrintingPerimeterGeneratorNode } from './fabrication/3-d-printing/perimeter-generator.node';
+import { Fabrication3DPrintingGCodePostProcessorNode } from './fabrication/3-d-printing/gcode-post-processor.node';
+import { Fabrication3DPrintingNonPlanarSlicingNode } from './fabrication/3-d-printing/non-planar-slicing.node';
+import { Fabrication3DPrintingConicalSlicingNode } from './fabrication/3-d-printing/conical-slicing.node';
+import { Fabrication3DPrintingSolubleSupportInterfaceNode } from './fabrication/3-d-printing/soluble-support-interface.node';
+import { FabricationCNCToolpathGenerationNode } from './fabrication/cnc/toolpath-generation.node';
+import { FabricationCNCPocketingStrategyNode } from './fabrication/cnc/pocketing-strategy.node';
+import { FabricationCNCContouringToolpathNode } from './fabrication/cnc/contouring-toolpath.node';
+import { FabricationCNCDrillingOperationNode } from './fabrication/cnc/drilling-operation.node';
+import { FabricationCNCThreadMillingNode } from './fabrication/cnc/thread-milling.node';
+import { FabricationCNCAdaptiveClearingNode } from './fabrication/cnc/adaptive-clearing.node';
+import { FabricationCNCTrochoidalMillingNode } from './fabrication/cnc/trochoidal-milling.node';
+import { FabricationCNCRestMachiningNode } from './fabrication/cnc/rest-machining.node';
+import { FabricationCNCToolCompensationNode } from './fabrication/cnc/tool-compensation.node';
+import { FabricationCNCHelicalEntryNode } from './fabrication/cnc/helical-entry.node';
+import { FabricationCNCRampEntryNode } from './fabrication/cnc/ramp-entry.node';
+import { FabricationCNCHighSpeedMachiningNode } from './fabrication/cnc/high-speed-machining.node';
+import { FabricationCNCScallopHeightNode } from './fabrication/cnc/scallop-height.node';
+import { FabricationCNCCollisionDetectionNode } from './fabrication/cnc/collision-detection.node';
+import { FabricationCNCFeedsAndSpeedsNode } from './fabrication/cnc/feeds-and-speeds.node';
+import { FabricationCNCFiveAxisPositioningNode } from './fabrication/cnc/five-axis-positioning.node';
+import { FabricationCNCSwarmMillingNode } from './fabrication/cnc/swarm-milling.node';
+import { FabricationCNCToolLibraryNode } from './fabrication/cnc/tool-library.node';
+import { FabricationCNCWorkCoordinateNode } from './fabrication/cnc/work-coordinate.node';
+import { FabricationCNCPostProcessorNode } from './fabrication/cnc/post-processor.node';
+import { FabricationCNCChipEvacuationNode } from './fabrication/cnc/chip-evacuation.node';
+import { FabricationCNCCutterEngagementNode } from './fabrication/cnc/cutter-engagement.node';
+import { FabricationCNCToolWearNode } from './fabrication/cnc/tool-wear.node';
+import { FabricationCNCSetupSheetsNode } from './fabrication/cnc/setup-sheets.node';
+import { FabricationCNCProbeRoutineNode } from './fabrication/cnc/probe-routine.node';
+import { FabricationLaserLaserPathNode } from './fabrication/laser/laser-path.node';
+import { FabricationLaserTabsAndSlotsNode } from './fabrication/laser/tabs-and-slots.node';
+import { FabricationLaserLivingHingeNode } from './fabrication/laser/living-hinge.node';
+import { FabricationLaserKerfBendingNode } from './fabrication/laser/kerf-bending.node';
+import { FabricationLaserPowerMappingNode } from './fabrication/laser/power-mapping.node';
+import { FabricationLaserEngraveRasterNode } from './fabrication/laser/engrave-raster.node';
+import { FabricationLaserVectorEngraveNode } from './fabrication/laser/vector-engrave.node';
+import { FabricationLaserNestingOptimizationNode } from './fabrication/laser/nesting-optimization.node';
+import { FabricationLaserCutOrderOptimizationNode } from './fabrication/laser/cut-order-optimization.node';
+import { FabricationLaserLeadInOutNode } from './fabrication/laser/lead-in-out.node';
+import { FabricationLaserBridgeGenerationNode } from './fabrication/laser/bridge-generation.node';
+import { FabricationLaserFocusCompensationNode } from './fabrication/laser/focus-compensation.node';
+import { FabricationLaserHatchFillNode } from './fabrication/laser/hatch-fill.node';
+import { FabricationLaserTextEngravingNode } from './fabrication/laser/text-engraving.node';
+import { FabricationLaserMaterialDatabaseNode } from './fabrication/laser/material-database.node';
+import { FabricationLaserLayerSeparationNode } from './fabrication/laser/layer-separation.node';
+import { FabricationLaserMultiplePassesNode } from './fabrication/laser/multiple-passes.node';
+import { FabricationLaserCleanupPathsNode } from './fabrication/laser/cleanup-paths.node';
+import { FabricationLaserPierceOptimizationNode } from './fabrication/laser/pierce-optimization.node';
+import { FabricationLaserMicroJointsNode } from './fabrication/laser/micro-joints.node';
+import { FabricationLaserCutQualityNode } from './fabrication/laser/cut-quality.node';
+import { FabricationLaserRotaryAttachmentNode } from './fabrication/laser/rotary-attachment.node';
+import { FabricationLaserAirAssistNode } from './fabrication/laser/air-assist.node';
+import { FabricationLaserSafetyZonesNode } from './fabrication/laser/safety-zones.node';
+import { FabricationLaserJobTimeEstimateNode } from './fabrication/laser/job-time-estimate.node';
+import { FabricationRoboticsRobotKinematicsNode } from './fabrication/robotics/robot-kinematics.node';
+import { FabricationRoboticsPathPlanningNode } from './fabrication/robotics/path-planning.node';
+import { FabricationRoboticsCollisionAvoidanceNode } from './fabrication/robotics/collision-avoidance.node';
+import { FabricationRoboticsEndEffectorSetupNode } from './fabrication/robotics/end-effector-setup.node';
+import { FabricationRoboticsWorkCellSetupNode } from './fabrication/robotics/work-cell-setup.node';
+import { FabricationRoboticsTrajectoryOptimizationNode } from './fabrication/robotics/trajectory-optimization.node';
+import { FabricationRoboticsSingularityAvoidanceNode } from './fabrication/robotics/singularity-avoidance.node';
+import { FabricationRoboticsRobotCalibrationNode } from './fabrication/robotics/robot-calibration.node';
+import { FabricationRoboticsForceControlNode } from './fabrication/robotics/force-control.node';
+import { FabricationRoboticsWeldingPathNode } from './fabrication/robotics/welding-path.node';
+import { FabricationRoboticsPickAndPlaceNode } from './fabrication/robotics/pick-and-place.node';
+import { FabricationRoboticsPalletizingPatternNode } from './fabrication/robotics/palletizing-pattern.node';
+import { FabricationRoboticsRoboticMillingNode } from './fabrication/robotics/robotic-milling.node';
+import { FabricationRoboticsSprayPaintingNode } from './fabrication/robotics/spray-painting.node';
+import { FabricationRoboticsAdditiveManufacturingNode } from './fabrication/robotics/additive-manufacturing.node';
+import { FabricationRoboticsVisionGuidanceNode } from './fabrication/robotics/vision-guidance.node';
+import { FabricationRoboticsMultiRobotCoordinationNode } from './fabrication/robotics/multi-robot-coordination.node';
+import { FabricationRoboticsConveyorTrackingNode } from './fabrication/robotics/conveyor-tracking.node';
+import { FabricationRoboticsSafetyZoneSetupNode } from './fabrication/robotics/safety-zone-setup.node';
+import { FabricationRoboticsRobotSimulationNode } from './fabrication/robotics/robot-simulation.node';
+import { FabricationRoboticsPostProcessorRobotNode } from './fabrication/robotics/post-processor-robot.node';
+import { FabricationRoboticsReachAnalysisNode } from './fabrication/robotics/reach-analysis.node';
+import { FabricationRoboticsJointLimitAvoidanceNode } from './fabrication/robotics/joint-limit-avoidance.node';
+import { FabricationRoboticsToolChangerSetupNode } from './fabrication/robotics/tool-changer-setup.node';
+import { FabricationRoboticsRobotMaintenanceNode } from './fabrication/robotics/robot-maintenance.node';
+import { ArchitectureWallsStraightWallNode } from './architecture/walls/straight-wall.node';
+import { ArchitectureWallsCurvedWallNode } from './architecture/walls/curved-wall.node';
+import { ArchitectureWallsCompoundWallNode } from './architecture/walls/compound-wall.node';
+import { ArchitectureWallsCurtainWallNode } from './architecture/walls/curtain-wall.node';
+import { ArchitectureWallsWallOpeningNode } from './architecture/walls/wall-opening.node';
+import { ArchitectureWallsWallJoinNode } from './architecture/walls/wall-join.node';
+import { ArchitectureWallsRetainingWallNode } from './architecture/walls/retaining-wall.node';
+import { ArchitectureWallsStudWallNode } from './architecture/walls/stud-wall.node';
+import { ArchitectureWallsInsulatedWallNode } from './architecture/walls/insulated-wall.node';
+import { ArchitectureWallsTiltUpPanelNode } from './architecture/walls/tilt-up-panel.node';
+import { ArchitectureWallsParapetWallNode } from './architecture/walls/parapet-wall.node';
+import { ArchitectureWallsFireWallNode } from './architecture/walls/fire-wall.node';
+import { ArchitectureWallsMovablePartitionNode } from './architecture/walls/movable-partition.node';
+import { ArchitectureWallsSoundproofWallNode } from './architecture/walls/soundproof-wall.node';
+import { ArchitectureWallsGreenWallNode } from './architecture/walls/green-wall.node';
+import { ArchitectureWallsDoubleSkinnedFacadeNode } from './architecture/walls/double-skinned-facade.node';
+import { ArchitectureWallsRainScreenNode } from './architecture/walls/rain-screen.node';
+import { ArchitectureWallsShearWallNode } from './architecture/walls/shear-wall.node';
+import { ArchitectureWallsFoundationWallNode } from './architecture/walls/foundation-wall.node';
+import { ArchitectureWallsHistoricWallRestorationNode } from './architecture/walls/historic-wall-restoration.node';
+import { ArchitectureFloorsSlabOnGradeNode } from './architecture/floors/slab-on-grade.node';
+import { ArchitectureFloorsCompositeFloorNode } from './architecture/floors/composite-floor.node';
+import { ArchitectureFloorsRaisedFloorNode } from './architecture/floors/raised-floor.node';
+import { ArchitectureFloorsWoodJoistFloorNode } from './architecture/floors/wood-joist-floor.node';
+import { ArchitectureFloorsPostTensionedSlabNode } from './architecture/floors/post-tensioned-slab.node';
+import { ArchitectureCeilingsSuspendedCeilingNode } from './architecture/ceilings/suspended-ceiling.node';
+import { ArchitectureCeilingsCofferedCeilingNode } from './architecture/ceilings/coffered-ceiling.node';
+import { ArchitectureCeilingsVaultedCeilingNode } from './architecture/ceilings/vaulted-ceiling.node';
+import { ArchitectureFloorsMezzanineFloorNode } from './architecture/floors/mezzanine-floor.node';
+import { ArchitectureFloorsEpoxyFloorNode } from './architecture/floors/epoxy-floor.node';
+import { ArchitectureFloorsRadiantFloorNode } from './architecture/floors/radiant-floor.node';
+import { ArchitectureCeilingsAcousticCeilingNode } from './architecture/ceilings/acoustic-ceiling.node';
+import { ArchitectureFloorsFloorDrainageNode } from './architecture/floors/floor-drainage.node';
+import { ArchitectureCeilingsStretchCeilingNode } from './architecture/ceilings/stretch-ceiling.node';
+import { ArchitectureFloorsGreenRoofNode } from './architecture/floors/green-roof.node';
+import { ArchitectureFloorsFloorExpansionJointNode } from './architecture/floors/floor-expansion-joint.node';
+import { ArchitectureCeilingsSkyLightNode } from './architecture/ceilings/sky-light.node';
+import { ArchitectureFloorsFloorFinishNode } from './architecture/floors/floor-finish.node';
+import { ArchitectureCeilingsCeilingBeamNode } from './architecture/ceilings/ceiling-beam.node';
+import { ArchitectureFloorsPedestalPaversNode } from './architecture/floors/pedestal-pavers.node';
+import { ArchitectureStairsStraightStairNode } from './architecture/stairs/straight-stair.node';
+import { ArchitectureStairsLShapedStairNode } from './architecture/stairs/lshaped-stair.node';
+import { ArchitectureStairsUShapedStairNode } from './architecture/stairs/ushaped-stair.node';
+import { ArchitectureStairsSpiralStairNode } from './architecture/stairs/spiral-stair.node';
+import { ArchitectureStairsHelicalStairNode } from './architecture/stairs/helical-stair.node';
+import { ArchitectureStairsWinderStairNode } from './architecture/stairs/winder-stair.node';
+import { ArchitectureRampsStraightRampNode } from './architecture/ramps/straight-ramp.node';
+import { ArchitectureRampsSwitchbackRampNode } from './architecture/ramps/switchback-ramp.node';
+import { ArchitectureRampsHelicalRampNode } from './architecture/ramps/helical-ramp.node';
+import { ArchitectureStairsStairHandrailNode } from './architecture/stairs/stair-handrail.node';
+import { ArchitectureStairsStairBalustradeNode } from './architecture/stairs/stair-balustrade.node';
+import { ArchitectureStairsStairNosingNode } from './architecture/stairs/stair-nosing.node';
+import { ArchitectureStairsStairStringerNode } from './architecture/stairs/stair-stringer.node';
+import { ArchitectureStairsEscapeStairNode } from './architecture/stairs/escape-stair.node';
+import { ArchitectureStairsMonumentalStairNode } from './architecture/stairs/monumental-stair.node';
+import { ArchitectureStairsFloatingStairNode } from './architecture/stairs/floating-stair.node';
+import { ArchitectureRampsLoadingDockNode } from './architecture/ramps/loading-dock.node';
+import { ArchitectureRampsCurbRampNode } from './architecture/ramps/curb-ramp.node';
+import { ArchitectureStairsAlternatingTreadStairNode } from './architecture/stairs/alternating-tread-stair.node';
+import { ArchitectureRampsVehicleRampNode } from './architecture/ramps/vehicle-ramp.node';
+import { ArchitectureDoorsSingleDoorNode } from './architecture/doors/single-door.node';
+import { ArchitectureDoorsDoubleDoorNode } from './architecture/doors/double-door.node';
+import { ArchitectureDoorsSlidingDoorNode } from './architecture/doors/sliding-door.node';
+import { ArchitectureDoorsRevolvingDoorNode } from './architecture/doors/revolving-door.node';
+import { ArchitectureDoorsFoldingDoorNode } from './architecture/doors/folding-door.node';
+import { ArchitectureDoorsRollupDoorNode } from './architecture/doors/rollup-door.node';
+import { ArchitectureWindowsCasementWindowNode } from './architecture/windows/casement-window.node';
+import { ArchitectureWindowsSlidingWindowNode } from './architecture/windows/sliding-window.node';
+import { ArchitectureWindowsDoubleHungWindowNode } from './architecture/windows/double-hung-window.node';
+import { ArchitectureWindowsAwningWindowNode } from './architecture/windows/awning-window.node';
+import { ArchitectureWindowsBayWindowNode } from './architecture/windows/bay-window.node';
+import { ArchitectureWindowsBowWindowNode } from './architecture/windows/bow-window.node';
+import { ArchitectureWindowsClerestroyWindowNode } from './architecture/windows/clerestroy-window.node';
+import { ArchitectureDoorsFireDoorNode } from './architecture/doors/fire-door.node';
+import { ArchitectureDoorsSecurityDoorNode } from './architecture/doors/security-door.node';
+import { ArchitectureWindowsStainedGlassWindowNode } from './architecture/windows/stained-glass-window.node';
+import { ArchitectureDoorsOverheadDoorNode } from './architecture/doors/overhead-door.node';
+import { ArchitectureWindowsJalousieWindowNode } from './architecture/windows/jalousie-window.node';
+import { ArchitectureDoorsDutchDoorNode } from './architecture/doors/dutch-door.node';
+import { ArchitectureWindowsGothicWindowNode } from './architecture/windows/gothic-window.node';
+import { MechanicalEngineeringGearsSpurGearNode } from './mechanicalengineering/gears/spur-gear.node';
+import { MechanicalEngineeringGearsHelicalGearNode } from './mechanicalengineering/gears/helical-gear.node';
+import { MechanicalEngineeringGearsBevelGearNode } from './mechanicalengineering/gears/bevel-gear.node';
+import { MechanicalEngineeringGearsWormGearNode } from './mechanicalengineering/gears/worm-gear.node';
+import { MechanicalEngineeringGearsWormShaftNode } from './mechanicalengineering/gears/worm-shaft.node';
+import { MechanicalEngineeringGearsRackGearNode } from './mechanicalengineering/gears/rack-gear.node';
+import { MechanicalEngineeringGearsInternalGearNode } from './mechanicalengineering/gears/internal-gear.node';
+import { MechanicalEngineeringGearsPlanetaryGearSetNode } from './mechanicalengineering/gears/planetary-gear-set.node';
+import { MechanicalEngineeringGearsTimingPulleyNode } from './mechanicalengineering/gears/timing-pulley.node';
+import { MechanicalEngineeringGearsChainSprocketNode } from './mechanicalengineering/gears/chain-sprocket.node';
+import { MechanicalEngineeringGearsCVTDiscNode } from './mechanicalengineering/gears/cvtdisc.node';
+import { MechanicalEngineeringGearsDifferentialGearNode } from './mechanicalengineering/gears/differential-gear.node';
+import { MechanicalEngineeringBearingsBallBearingNode } from './mechanicalengineering/bearings/ball-bearing.node';
+import { MechanicalEngineeringBearingsRollerBearingNode } from './mechanicalengineering/bearings/roller-bearing.node';
+import { MechanicalEngineeringBearingsThrustBearingNode } from './mechanicalengineering/bearings/thrust-bearing.node';
+import { MechanicalEngineeringBearingsNeedleBearingNode } from './mechanicalengineering/bearings/needle-bearing.node';
+import { MechanicalEngineeringBearingsLinearBearingNode } from './mechanicalengineering/bearings/linear-bearing.node';
+import { MechanicalEngineeringBearingsPillowBlockNode } from './mechanicalengineering/bearings/pillow-block.node';
+import { MechanicalEngineeringBearingsFlangeBearingNode } from './mechanicalengineering/bearings/flange-bearing.node';
+import { MechanicalEngineeringBearingsBronzeBushingNode } from './mechanicalengineering/bearings/bronze-bushing.node';
+import { MechanicalEngineeringBearingsSphericalBearingNode } from './mechanicalengineering/bearings/spherical-bearing.node';
+import { MechanicalEngineeringBearingsAirBearingNode } from './mechanicalengineering/bearings/air-bearing.node';
+import { MechanicalEngineeringFastenersHexBoltNode } from './mechanicalengineering/fasteners/hex-bolt.node';
+import { MechanicalEngineeringFastenersSocketHeadCapScrewNode } from './mechanicalengineering/fasteners/socket-head-cap-screw.node';
+import { MechanicalEngineeringFastenersHexNutNode } from './mechanicalengineering/fasteners/hex-nut.node';
+import { MechanicalEngineeringFastenersWasherNode } from './mechanicalengineering/fasteners/washer.node';
+import { MechanicalEngineeringFastenersThreadInsertNode } from './mechanicalengineering/fasteners/thread-insert.node';
+import { MechanicalEngineeringFastenersRivetNode } from './mechanicalengineering/fasteners/rivet.node';
+import { MechanicalEngineeringFastenersClampingCollarNode } from './mechanicalengineering/fasteners/clamping-collar.node';
+import { MechanicalEngineeringFastenersDowelNode } from './mechanicalengineering/fasteners/dowel.node';
+import { MechanicalEngineeringFastenersRetainingRingNode } from './mechanicalengineering/fasteners/retaining-ring.node';
+import { MechanicalEngineeringFastenersKeywayJointNode } from './mechanicalengineering/fasteners/keyway-joint.node';
+import { MechanicalEngineeringSpringsCompressionSpringNode } from './mechanicalengineering/springs/compression-spring.node';
+import { MechanicalEngineeringSpringsExtensionSpringNode } from './mechanicalengineering/springs/extension-spring.node';
+import { MechanicalEngineeringSpringsTorsionSpringNode } from './mechanicalengineering/springs/torsion-spring.node';
+import { MechanicalEngineeringSpringsLeafSpringNode } from './mechanicalengineering/springs/leaf-spring.node';
+import { MechanicalEngineeringSpringsGasSpringNode } from './mechanicalengineering/springs/gas-spring.node';
+import { MechanicalEngineeringMechanismsCamProfileNode } from './mechanicalengineering/mechanisms/cam-profile.node';
+import { MechanicalEngineeringMechanismsLinkageMechanismNode } from './mechanicalengineering/mechanisms/linkage-mechanism.node';
+import { MechanicalEngineeringMechanismsRatchetMechanismNode } from './mechanicalengineering/mechanisms/ratchet-mechanism.node';
+import { MechanicalEngineeringMechanismsClutchMechanismNode } from './mechanicalengineering/mechanisms/clutch-mechanism.node';
+import { MechanicalEngineeringMechanismsUniversalJointNode } from './mechanicalengineering/mechanisms/universal-joint.node';
+import { MechanicalEngineeringShaftsSteppedShaftNode } from './mechanicalengineering/shafts/stepped-shaft.node';
+import { MechanicalEngineeringShaftsSplinedShaftNode } from './mechanicalengineering/shafts/splined-shaft.node';
+import { MechanicalEngineeringShaftsFlexibleShaftNode } from './mechanicalengineering/shafts/flexible-shaft.node';
+import { MechanicalEngineeringShaftsHollowShaftNode } from './mechanicalengineering/shafts/hollow-shaft.node';
+import { MechanicalEngineeringCouplingsRigidCouplingNode } from './mechanicalengineering/couplings/rigid-coupling.node';
+import { MechanicalEngineeringCouplingsFlexibleCouplingNode } from './mechanicalengineering/couplings/flexible-coupling.node';
+import { MechanicalEngineeringCouplingsOldhamCouplingNode } from './mechanicalengineering/couplings/oldham-coupling.node';
+import { MechanicalEngineeringCouplingsFluidCouplingNode } from './mechanicalengineering/couplings/fluid-coupling.node';
+import { MechanicalEngineeringPowerTransmissionPulleySystemNode } from './mechanicalengineering/power-transmission/pulley-system.node';
+import { MechanicalEngineeringPowerTransmissionChainDriveNode } from './mechanicalengineering/power-transmission/chain-drive.node';
+import { AnalysisCurvesCurvatureCombNode } from './analysis/curves/curvature-comb.node';
+import { AnalysisCurvesCurveLengthNode } from './analysis/curves/curve-length.node';
+import { AnalysisCurvesCurveSmoothnessAnalysisNode } from './analysis/curves/curve-smoothness-analysis.node';
+import { AnalysisCurvesCurveInflectionPointsNode } from './analysis/curves/curve-inflection-points.node';
+import { AnalysisCurvesCurveTorsionNode } from './analysis/curves/curve-torsion.node';
+import { AnalysisCurvesCurveDerivativesNode } from './analysis/curves/curve-derivatives.node';
+import { AnalysisCurvesCurveParameterNode } from './analysis/curves/curve-parameter.node';
+import { AnalysisCurvesCurveEndpointsNode } from './analysis/curves/curve-endpoints.node';
+import { AnalysisCurvesCurveClosestPointNode } from './analysis/curves/curve-closest-point.node';
+import { AnalysisCurvesCurveExtremePointsNode } from './analysis/curves/curve-extreme-points.node';
+import { AnalysisCurvesCurveAreaMomentsNode } from './analysis/curves/curve-area-moments.node';
+import { AnalysisCurvesCurveConvexHullNode } from './analysis/curves/curve-convex-hull.node';
+import { AnalysisCurvesCurveBoundingBoxNode } from './analysis/curves/curve-bounding-box.node';
+import { AnalysisCurvesCurveSpiralNode } from './analysis/curves/curve-spiral.node';
+import { AnalysisSurfacesSurfaceCurvatureNode } from './analysis/surfaces/surface-curvature.node';
+import { AnalysisSurfacesSurfaceNormalsNode } from './analysis/surfaces/surface-normals.node';
+import { AnalysisSurfacesSurfaceAreaNode } from './analysis/surfaces/surface-area.node';
+import { AnalysisSurfacesSurfaceIsoCurvesNode } from './analysis/surfaces/surface-iso-curves.node';
+import { AnalysisSurfacesSurfaceParametrizationNode } from './analysis/surfaces/surface-parametrization.node';
+import { AnalysisSurfacesSurfaceDerivativesNode } from './analysis/surfaces/surface-derivatives.node';
+import { AnalysisSurfacesSurfaceClosestPointNode } from './analysis/surfaces/surface-closest-point.node';
+import { AnalysisSurfacesSurfaceBoundaryNode } from './analysis/surfaces/surface-boundary.node';
+import { AnalysisSurfacesSurfaceContinuityNode } from './analysis/surfaces/surface-continuity.node';
+import { AnalysisSurfacesSurfaceDeviationNode } from './analysis/surfaces/surface-deviation.node';
+import { AnalysisSurfacesSurfaceFlatnessNode } from './analysis/surfaces/surface-flatness.node';
+import { AnalysisSurfacesSurfaceRoughnessNode } from './analysis/surfaces/surface-roughness.node';
+import { AnalysisIntersectionCurveCurveIntersectionNode } from './analysis/intersection/curve-curve-intersection.node';
+import { AnalysisIntersectionCurveSurfaceIntersectionNode } from './analysis/intersection/curve-surface-intersection.node';
+import { AnalysisIntersectionSurfaceSurfaceIntersectionNode } from './analysis/intersection/surface-surface-intersection.node';
+import { AnalysisIntersectionPlaneIntersectionNode } from './analysis/intersection/plane-intersection.node';
+import { AnalysisIntersectionRayIntersectionNode } from './analysis/intersection/ray-intersection.node';
+import { AnalysisProximityMinimumDistanceNode } from './analysis/proximity/minimum-distance.node';
+import { AnalysisProximityProximityAnalysisNode } from './analysis/proximity/proximity-analysis.node';
+import { AnalysisProximityClearanceCheckNode } from './analysis/proximity/clearance-check.node';
+import { AnalysisProximityCollisionDetectionNode } from './analysis/proximity/collision-detection.node';
+import { AnalysisProximityVisibilityAnalysisNode } from './analysis/proximity/visibility-analysis.node';
+import { AnalysisProximityShadowAnalysisNode } from './analysis/proximity/shadow-analysis.node';
+import { AnalysisMeasurementVolumeCalculationNode } from './analysis/measurement/volume-calculation.node';
+import { AnalysisMeasurementAngleMeasurementNode } from './analysis/measurement/angle-measurement.node';
+import { AnalysisMeasurementDistanceMeasurementNode } from './analysis/measurement/distance-measurement.node';
+import { AnalysisQualityGeometryValidationNode } from './analysis/quality/geometry-validation.node';
+import { AnalysisQualityMeshQualityNode } from './analysis/quality/mesh-quality.node';
+import { AnalysisQualityToleranceAnalysisNode } from './analysis/quality/tolerance-analysis.node';
+import { InteroperabilityImportSTEPImportNode } from './interoperability/import/stepimport.node';
+import { InteroperabilityExportSTEPExportNode } from './interoperability/export/stepexport.node';
+import { InteroperabilityImportIGESImportNode } from './interoperability/import/igesimport.node';
+import { InteroperabilityExportIGESExportNode } from './interoperability/export/igesexport.node';
+import { InteroperabilityImportSTLImportNode } from './interoperability/import/stlimport.node';
+import { InteroperabilityExportSTLExportNode } from './interoperability/export/stlexport.node';
+import { InteroperabilityImportOBJImportNode } from './interoperability/import/objimport.node';
+import { InteroperabilityExportOBJExportNode } from './interoperability/export/objexport.node';
+import { InteroperabilityImportPLYImportNode } from './interoperability/import/plyimport.node';
+import { InteroperabilityExportPLYExportNode } from './interoperability/export/plyexport.node';
+import { InteroperabilityImportThreeMFImportNode } from './interoperability/import/three-mfimport.node';
+import { InteroperabilityExportThreeMFExportNode } from './interoperability/export/three-mfexport.node';
+import { InteroperabilityImportDXFImportNode } from './interoperability/import/dxfimport.node';
+import { InteroperabilityExportDXFExportNode } from './interoperability/export/dxfexport.node';
+import { InteroperabilityImportSVGImportNode } from './interoperability/import/svgimport.node';
+import { InteroperabilityExportSVGExportNode } from './interoperability/export/svgexport.node';
+import { InteroperabilityDatabaseSQLQueryNode } from './interoperability/database/sqlquery.node';
+import { InteroperabilityDatabaseSQLInsertNode } from './interoperability/database/sqlinsert.node';
+import { InteroperabilityAPIHTTPRequestNode } from './interoperability/api/httprequest.node';
+import { InteroperabilityAPIJSONParserNode } from './interoperability/api/jsonparser.node';
+import { InteroperabilityAPIJSONGeneratorNode } from './interoperability/api/jsongenerator.node';
+import { InteroperabilityCloudS3UploadNode } from './interoperability/cloud/s3-upload.node';
+import { InteroperabilityCloudS3DownloadNode } from './interoperability/cloud/s3-download.node';
+import { InteroperabilityMessagingEmailSenderNode } from './interoperability/messaging/email-sender.node';
+import { InteroperabilityMessagingSlackNotificationNode } from './interoperability/messaging/slack-notification.node';
+import { InteroperabilityDataCSVReaderNode } from './interoperability/data/csvreader.node';
+import { InteroperabilityDataCSVWriterNode } from './interoperability/data/csvwriter.node';
+import { InteroperabilityDataExcelReaderNode } from './interoperability/data/excel-reader.node';
+import { InteroperabilityDataExcelWriterNode } from './interoperability/data/excel-writer.node';
+import { InteroperabilityIntegrationGrasshopperExportNode } from './interoperability/integration/grasshopper-export.node';
+import { InteroperabilityStreamingWebSocketClientNode } from './interoperability/streaming/web-socket-client.node';
+import { InteroperabilityStreamingMQTTPublisherNode } from './interoperability/streaming/mqttpublisher.node';
+import { InteroperabilityStreamingMQTTSubscriberNode } from './interoperability/streaming/mqttsubscriber.node';
+import { InteroperabilityStreamingSerialPortNode } from './interoperability/streaming/serial-port.node';
+import { InteroperabilityStreamingTCPClientNode } from './interoperability/streaming/tcpclient.node';
+import { AlgorithmicOptimizationGeneticOptimizerNode } from './algorithmic/optimization/genetic-optimizer.node';
+import { AlgorithmicOptimizationParticleSwarmOptimizerNode } from './algorithmic/optimization/particle-swarm-optimizer.node';
+import { AlgorithmicOptimizationSimulatedAnnealingNode } from './algorithmic/optimization/simulated-annealing.node';
+import { AlgorithmicOptimizationGradientDescentNode } from './algorithmic/optimization/gradient-descent.node';
+import { AlgorithmicOptimizationTopologyOptimizerNode } from './algorithmic/optimization/topology-optimizer.node';
+import { AlgorithmicMachineLearningLinearRegressionNode } from './algorithmic/machine-learning/linear-regression.node';
+import { AlgorithmicMachineLearningKMeansClusteringNode } from './algorithmic/machine-learning/kmeans-clustering.node';
+import { AlgorithmicMachineLearningDecisionTreeNode } from './algorithmic/machine-learning/decision-tree.node';
+import { AlgorithmicMachineLearningNeuralNetworkNode } from './algorithmic/machine-learning/neural-network.node';
+import { AlgorithmicMachineLearningSupportVectorMachineNode } from './algorithmic/machine-learning/support-vector-machine.node';
+import { AlgorithmicGeometryConvexHull3DNode } from './algorithmic/geometry/convex-hull3-d.node';
+import { AlgorithmicGeometryAlphaShapeNode } from './algorithmic/geometry/alpha-shape.node';
+import { AlgorithmicGeometryMinimumSpanningTreeNode } from './algorithmic/geometry/minimum-spanning-tree.node';
+import { AlgorithmicGeometryShortestPathNode } from './algorithmic/geometry/shortest-path.node';
+import { AlgorithmicGeometryVisibilityGraphNode } from './algorithmic/geometry/visibility-graph.node';
+import { AlgorithmicGeometryMedialAxisNode } from './algorithmic/geometry/medial-axis.node';
+import { AlgorithmicGeometryDistanceFieldNode } from './algorithmic/geometry/distance-field.node';
+import { AlgorithmicGeometryMarchingCubesNode } from './algorithmic/geometry/marching-cubes.node';
+import { AlgorithmicGeometrySpacePartitioningNode } from './algorithmic/geometry/space-partitioning.node';
+import { AlgorithmicGeometryVoxelGridNode } from './algorithmic/geometry/voxel-grid.node';
+import { AlgorithmicGeometryPointCloudProcessingNode } from './algorithmic/geometry/point-cloud-processing.node';
+import { AlgorithmicGeometrySurfaceReconstructionNode } from './algorithmic/geometry/surface-reconstruction.node';
+import { AlgorithmicGeometryGeometrySimplificationNode } from './algorithmic/geometry/geometry-simplification.node';
+import { AlgorithmicGeometryGeometryMatchingNode } from './algorithmic/geometry/geometry-matching.node';
+import { AlgorithmicGeometryShapeDescriptorNode } from './algorithmic/geometry/shape-descriptor.node';
 
 // Re-export all nodes
 export {
-  SimpleHoleNode,
-  CounterboreHoleNode,
-  CountersinkHoleNode,
-  ThreadedHoleNode,
-  RectangularPocketNode,
-  CircularPocketNode,
-  LinearRibNode,
-  MountingBossNode,
-  LinearPatternNode,
-  CircularPatternNode,
-  RectangularPatternNode,
-  MoveNode,
-  RotateNode,
-  ScaleNode,
-  MirrorNode,
-  LinearArrayNode,
-  PolarArrayNode,
-  PathArrayNode,
-  GridArrayNode,
-  AlignNode,
-  OrientNode,
-  ProjectToPlaneNode,
-  WrapNode,
-  DeformNode,
-  BoundingBoxAlignNode,
-  MatrixTransformNode,
-  PrismNode,
-  WedgeNode,
-  PyramidNode,
-  BezierSurfaceNode,
-  BSplineSurfaceNode,
-  RuledSurfaceNode,
-  HelixNode,
-  SpringNode,
-  ThreadNode,
-  BoxNode,
-  SphereNode,
-  CylinderNode,
-  ConeNode,
-  TorusNode,
-  EllipsoidNode,
-  CapsuleNode,
-  RoundedBoxNode,
-  PipeNode,
-  PolyhedronNode,
-  EllipseNode,
-  ParabolaNode,
-  HyperbolaNode,
-  SpiralNode,
-  PolygonNode,
-  StarNode,
-  GearNode,
-  LineNode,
-  ArcNode,
-  CircleNode,
-  RectangleNode,
-  PolylineNode,
-  SplineNode,
-  BezierCurveNode,
-  BSplineCurveNode,
-  PointNode,
-  SlotNode,
-  TextNode,
-  OffsetNode,
-  Fillet2DNode,
-  Chamfer2DNode,
-  TrimNode,
-  UnionNode,
-  DifferenceNode,
-  IntersectionNode,
-  XORNode,
-  SplitNode,
-  FragmentNode,
-  CommonEdgesNode,
-  ImprintNode,
-  GlueNode,
-  CompoundNode,
-  CoincidentNode,
-  ParallelNode,
-  PerpendicularNode,
-  TangentNode,
-  ConcentricNode,
-  DistanceNode,
-  AngleNode,
-  HorizontalNode,
-  VerticalNode,
-  FixedNode,
-  FaceToFaceNode,
-  EdgeToEdgeNode,
-  PointToPointNode,
-  AxisToAxisNode,
-  PlaneToPlaneNode,
-  FastenedNode,
-  GearNode,
-  CamNode,
-  SlotNode,
-  PathNode,
-  RevoluteNode,
-  PrismaticNode,
-  CylindricalNode,
-  SphericalNode,
-  PlanarNode,
-  UniversalNode,
-  FixedNode,
-  ScrewNode,
-  BeltNode,
-  RackPinionNode,
-  ComponentPatternNode,
-  FlexibleSubAssemblyNode,
-  ConfigurationNode,
-  ExplodedViewNode,
-  BillOfMaterialsNode,
-  InterferenceCheckNode,
-  MotionStudyNode,
-  EnvelopeNode,
-  SmartFastenersNode,
-  ContactSetNode,
-  EdgeFlangeNode,
-  ContourFlangeNode,
-  MiterFlangeNode,
-  SketchedBendNode,
-  HemNode,
-  JogNode,
-  CornerReliefNode,
-  BendReliefNode,
-  ClosedCornerNode,
-  TabNode,
-  SlotNode,
-  LouverNode,
-  LanceNode,
-  BeadNode,
-  UnfoldNode,
-  FoldNode,
-  ExportDXFNode,
-  SheetMetalStyleNode,
-  BendTableNode,
-  CostEstimateNode,
-  SweepNode,
-  HelicalSweepNode,
-  LoftNode,
-  BlendSurfaceNode,
-  BoundaryNode,
-  ShellNode,
-  VariableShellNode,
-  ThickenNode,
-  OffsetSurfaceNode,
-  DraftNode,
-  PartingLineDraftNode,
-  StepDraftNode,
-  TrimSurfaceNode,
-  ExtendSurfaceNode,
-  UntrimSurfaceNode,
-  KnitSurfacesNode,
-  PatchSurfaceNode,
-  WrapNode,
-  DomeNode,
-  FlexNode,
-  IndentNode,
-  DeformNode,
-  HealShapeNode,
-  RemoveFeaturesNode,
-  DeleteFaceNode,
-  SimplifyShapeNode,
-  CheckGeometryNode,
-  NurbsSurfaceNode,
-  NetworkSurfaceNode,
-  SurfaceFromPointsNode,
-  CoonsPatchNode,
-  GordonSurfaceNode,
-  NurbsCurveNode,
-  InterpolateCurveNode,
-  ApproximateCurveNode,
-  BlendCurveNode,
-  CompositeCurveNode,
-  CurvatureAnalysisNode,
-  ZebraAnalysisNode,
-  DraftAnalysisNode,
-  ContinuityCheckNode,
-  SurfaceDeviationNode,
-  ReflectionLinesNode,
-  IsocurveExtractNode,
-  SectionCurvesNode,
-  ProjectCurveNode,
-  IntersectCurvesNode,
-  CurveOnSurfaceNode,
-  GeodesicCurveNode,
-  IsoparametricCurveNode,
-  TessellateNode,
-  AdaptiveTessellationNode,
-  RemeshUniformNode,
-  QuadMeshNode,
-  VoxelMeshNode,
-  RepairMeshNode,
-  SimplifyMeshNode,
-  FillHolesNode,
-  SmoothMeshNode,
-  DecimateMeshNode,
-  SubdivideMeshNode,
-  MeshBooleanNode,
-  MeshOffsetNode,
-  ImportSTLNode,
-  ExportSTLNode,
-  ImportOBJNode,
-  ExportOBJNode,
-  ImportPLYNode,
-  Export3MFNode,
-  MeshToShapeNode,
-  ImportSTEPNode,
-  ExportSTEPNode,
-  ImportIGESNode,
-  ExportIGESNode,
-  ImportBREPNode,
-  ExportBREPNode,
-  ImportParasolidNode,
-  ImportACISNode,
-  ImportDXFNode,
-  ExportDXFNode,
-  ExportSVGNode,
-  ImportGLTFNode,
-  ExportGLTFNode,
-  ImportJSONNode,
-  ExportJSONNode,
-  Text3DNode,
-  EngraveNode,
-  EmbossNode,
-  SerialNumberNode,
-  BarcodeNode,
-  LatticeStructureNode,
-  TPMSNode,
-  VoronoiLatticeNode,
-  GradedLatticeNode,
-  ConformLatticeNode,
-  HoneycombStructureNode,
-  TopologyOptimizeNode,
-  ShapeOptimizeNode,
-  GenerativeDesignNode,
-  LightweightStructureNode,
-  StressReliefNode,
-  PackingOptimizeNode,
-  MetaBallsNode,
-  SubdivisionSurfaceNode,
-  FractalGeometryNode,
-  ReactionDiffusionNode,
-  BiomimeticStructureNode,
-  MeshForFEANode,
-  ApplyLoadsNode,
-  ApplyConstraintsNode,
-  MaterialAssignNode,
-  ExportFEANode,
-  FluidDomainNode,
-  BoundaryLayersNode,
-  InletOutletNode,
-  FluidPropertiesNode,
-  ExportCFDNode,
-  JointDefinitionNode,
-  MotionDriverNode,
-  CollisionDetectionNode,
-  ForwardKinematicsNode,
-  InverseKinematicsNode,
-  AddNode,
-  SubtractNode,
-  MultiplyNode,
-  DivideNode,
-  PowerNode,
-  ModuloNode,
-  AbsoluteNode,
-  NegateNode,
-  SquareRootNode,
-  FactorialNode,
-  SineNode,
-  CosineNode,
-  TangentNode,
-  ArcSineNode,
-  ArcCosineNode,
-  ArcTangentNode,
-  ArcTangent2Node,
-  HyperbolicSineNode,
-  HyperbolicCosineNode,
-  HyperbolicTangentNode,
-  NaturalLogNode,
-  Log10Node,
-  LogBaseNode,
-  ExponentialNode,
-  Exp10Node,
-  RoundNode,
-  FloorNode,
-  CeilingNode,
-  TruncateNode,
-  RoundToDecimalNode,
-  MinNode,
-  MaxNode,
-  ClampNode,
-  SignNode,
-  IsEqualNode,
-  AverageNode,
-  MedianNode,
-  ModeNode,
-  StandardDeviationNode,
-  VarianceNode,
-  SumNode,
-  ProductNode,
-  RangeNode,
-  PercentileNode,
-  CorrelationNode,
-  RandomNode,
-  RandomRangeNode,
-  RandomIntegerNode,
-  RandomNormalNode,
-  RandomPoissonNode,
-  RandomExponentialNode,
-  RandomChoiceNode,
-  ShuffleNode,
-  PerlinNoiseNode,
-  SimplexNoiseNode,
-  LerpNode,
-  InverseLerpNode,
-  RemapNode,
-  SmoothStepNode,
-  SmootherStepNode,
-  CubicInterpNode,
-  HermiteInterpNode,
-  BezierInterpNode,
-  EaseInNode,
-  EaseOutNode,
-  EaseInOutNode,
-  SpringInterpNode,
-  ComplexNumberNode,
-  ComplexAddNode,
-  ComplexMultiplyNode,
-  ComplexConjugateNode,
-  ComplexMagnitudeNode,
-  ComplexPhaseNode,
-  MatrixMultiplyNode,
-  MatrixInverseNode,
-  MatrixDeterminantNode,
-  MatrixTransposeNode,
-  ListLengthNode,
-  ListItemNode,
-  ListSliceNode,
-  ListReverseNode,
-  ListSortNode,
-  ListShuffleNode,
-  ListShiftNode,
-  ListInsertNode,
-  ListRemoveNode,
-  ListReplaceNode,
-  ListAppendNode,
-  ListPrependNode,
-  ListJoinNode,
-  ListSplitNode,
-  ListPartitionNode,
-  ListFlattenNode,
-  ListUniqueNode,
-  ListContainsNode,
-  ListFindNode,
-  ListFilterNode,
-  SetUnionNode,
-  SetIntersectionNode,
-  SetDifferenceNode,
-  SetSymmetricDifferenceNode,
-  SetSubsetNode,
-  SetCartesianProductNode,
-  SetPowerSetNode,
-  SetCombinationsNode,
-  SetPermutationsNode,
-  SetPartitionsNode,
-  TreeBranchNode,
-  TreePathsNode,
-  TreeGraftNode,
-  TreeFlattenNode,
-  TreeSimplifyNode,
-  TreePruneNode,
-  TreeMergeNode,
-  TreeExplodeNode,
-  TreeShiftNode,
-  TreeStatisticsNode,
-  StringConcatNode,
-  StringSplitNode,
-  StringReplaceNode,
-  StringFormatNode,
-  StringCaseNode,
-  StringTrimNode,
-  StringLengthNode,
-  StringSubstringNode,
-  StringContainsNode,
-  StringMatchNode,
-  ToStringNode,
-  ToNumberNode,
-  ToBooleanNode,
-  ToJSONNode,
-  FromJSONNode,
-  ToCSVNode,
-  FromCSVNode,
-  ToBase64Node,
-  FromBase64Node,
-  TypeOfNode,
-  LinearFieldNode,
-  RadialFieldNode,
-  SphericalFieldNode,
-  CylindricalFieldNode,
-  NoiseFieldNode,
-  SineFieldNode,
-  VectorFieldNode,
-  ImageFieldNode,
-  DistanceFieldNode,
-  ChargeFieldNode,
-  PointAttractorNode,
-  CurveAttractorNode,
-  SurfaceAttractorNode,
-  MeshAttractorNode,
-  SpinAttractorNode,
-  DirectionalAttractorNode,
-  TwistAttractorNode,
-  VortexAttractorNode,
-  GravityAttractorNode,
-  FlowAttractorNode,
-  FieldAddNode,
-  FieldSubtractNode,
-  FieldMultiplyNode,
-  FieldDivideNode,
-  FieldMinNode,
-  FieldMaxNode,
-  FieldBlendNode,
-  FieldRemapNode,
-  FieldClampNode,
-  FieldInvertNode,
-  FieldGradientNode,
-  FieldDivergenceNode,
-  FieldCurlNode,
-  FieldLaplacianNode,
-  FieldSmoothNode,
-  SampleFieldNode,
-  FieldLineNode,
-  IsoContourNode,
-  IsoSurfaceNode,
-  FieldGridNode,
-  FieldDeformNode,
-  FieldDisplaceNode,
-  FieldScaleNode,
-  FieldRotateNode,
-  FieldColorNode,
-  FieldColorMapNode,
-  FieldVectorArrowsNode,
-  FieldStreamLinesNode,
-  FieldHeatMapNode,
-  FieldVolumeNode,
-  FieldMinMaxNode,
-  FieldAverageNode,
-  FieldCriticalPointsNode,
-  FieldDivergenceAnalysisNode,
-  FieldCurlAnalysisNode,
-  FieldFluxNode,
-  FieldCirculationNode,
-  FieldPotentialNode,
-  FieldHistogramNode,
-  FieldCorrelationNode,
-  FieldMorphingNode,
-  FieldWarpNode,
-  FieldConvolutionNode,
-  FieldFourierNode,
-  FieldOptimizeNode,
-  Voronoi2DNode,
-  Voronoi3DNode,
-  WeightedVoronoiNode,
-  CentroidalVoronoiNode,
-  VoronoiOnSurfaceNode,
-  Delaunay2DNode,
-  Delaunay3DNode,
-  ConstrainedDelaunayNode,
-  AlphaShapeNode,
-  VoronoiFractureNode,
-  VoronoiGrowthNode,
-  DelaunayMeshNode,
-  VoronoiSkeletonNode,
-  VoronoiOffsetNode,
-  ConvexHullNode,
-  IslamicStarNode,
-  GirihTilingNode,
-  ArabesqueNode,
-  MoorishPatternNode,
-  IslamicGridNode,
-  CelticKnotNode,
-  CelticBraidNode,
-  PenroseTilingNode,
-  TruchetTilesNode,
-  SpiralPatternNode,
-  MandalaPatternNode,
-  PolygonalTessellationNode,
-  CirclePackingNode,
-  HyperbolicTilingNode,
-  GeodesicPatternNode,
-  MuqarnasNode,
-  QuasiCrystalNode,
-  MinimalSurfaceNode,
-  ReactionDiffusionNode,
-  ParquetDeformationNode,
-  KochSnowflakeNode,
-  SierpinskiTriangleNode,
-  MengerSpongeNode,
-  JuliaSetNode,
-  MandelbrotSetNode,
-  LSystem2DNode,
-  LSystem3DNode,
-  TreeGeneratorNode,
-  DragonCurveNode,
-  HilbertCurveNode,
-  PeanoCurveNode,
-  CantorSetNode,
-  PlantGrowthNode,
-  BarnsleyFernNode,
-  ApollonianGasketNode,
-  RectanglePackingNode,
-  SpherePackingNode,
-  PolygonPackingNode,
-  CubicLatticeNode,
-  OctetLatticeNode,
-  DiamondLatticeNode,
-  KelvinLatticeNode,
-  TPMSLatticeNode,
-  BrickPatternNode,
-  ParquetPatternNode,
-  WeavePatternNode,
-  HoneycombPatternNode,
-  FoamStructureNode,
-  CellularAutomataNode,
-  ConwayLifeNode,
-  PoissonDiskNode,
-  BlueNoiseNode,
-  JitteredGridNode,
-  MinimumSpanningTreeNode,
-  RelativeNeighborhoodNode,
-  BinaryTreeNode,
-  MazeGeneratorNode,
-  SubdivisionSurfaceNode,
-  FlockingPatternNode,
-  DiffusionLimitedAggregationNode,
-  GrammarShapesNode,
-  WaveFunctionCollapseNode,
-  MarkovChainNode,
-  GeneticAlgorithmNode,
-  NeuralPatternNode,
-  StrangeAttractorNode,
-  PhyllotaxisPatternNode,
-  TuringPatternNode,
-  NoisePatternNode,
-  PackingCirclesNode,
-  KMeansClusteringNode,
-  ContextFreeArtNode,
-  ProceduralTextureNode,
-  GraphLayoutNode,
-  ShortestPathNode,
-  SupportGenerationNode,
-  PrintOrientationNode,
-  SliceModelNode,
-  BridgeDetectionNode,
-  WallThicknessNode,
-  PrintTimeEstimateNode,
-  RaftGenerationNode,
-  BrimGenerationNode,
-  SeamOptimizationNode,
-  InfillOptimizationNode,
-  CoolingAnalysisNode,
-  RetractionOptimizationNode,
-  VaseModeNode,
-  MultiMaterialSetupNode,
-  TreeSupportsNode,
-  IroningPassNode,
-  FuzzySkinnNode,
-  CoastingSetupNode,
-  WipeTowerNode,
-  AdaptiveLayerHeightNode,
-  PerimeterGeneratorNode,
-  GCodePostProcessorNode,
-  NonPlanarSlicingNode,
-  ConicalSlicingNode,
-  SolubleSupportInterfaceNode,
-  ToolpathGenerationNode,
-  PocketingStrategyNode,
-  ContouringToolpathNode,
-  DrillingOperationNode,
-  ThreadMillingNode,
-  AdaptiveClearingNode,
-  TrochoidalMillingNode,
-  RestMachiningNode,
-  ToolCompensationNode,
-  HelicalEntryNode,
-  RampEntryNode,
-  HighSpeedMachiningNode,
-  ScallopHeightNode,
-  CollisionDetectionNode,
-  FeedsAndSpeedsNode,
-  FiveAxisPositioningNode,
-  SwarmMillingNode,
-  ToolLibraryNode,
-  WorkCoordinateNode,
-  PostProcessorNode,
-  ChipEvacuationNode,
-  CutterEngagementNode,
-  ToolWearNode,
-  SetupSheetsNode,
-  ProbeRoutineNode,
-  LaserPathNode,
-  TabsAndSlotsNode,
-  LivingHingeNode,
-  KerfBendingNode,
-  PowerMappingNode,
-  EngraveRasterNode,
-  VectorEngraveNode,
-  NestingOptimizationNode,
-  CutOrderOptimizationNode,
-  LeadInOutNode,
-  BridgeGenerationNode,
-  FocusCompensationNode,
-  HatchFillNode,
-  TextEngravingNode,
-  MaterialDatabaseNode,
-  LayerSeparationNode,
-  MultiplePassesNode,
-  CleanupPathsNode,
-  PierceOptimizationNode,
-  MicroJointsNode,
-  CutQualityNode,
-  RotaryAttachmentNode,
-  AirAssistNode,
-  SafetyZonesNode,
-  JobTimeEstimateNode,
-  RobotKinematicsNode,
-  PathPlanningNode,
-  CollisionAvoidanceNode,
-  EndEffectorSetupNode,
-  WorkCellSetupNode,
-  TrajectoryOptimizationNode,
-  SingularityAvoidanceNode,
-  RobotCalibrationNode,
-  ForceControlNode,
-  WeldingPathNode,
-  PickAndPlaceNode,
-  PalletizingPatternNode,
-  RoboticMillingNode,
-  SprayPaintingNode,
-  AdditiveManufacturingNode,
-  VisionGuidanceNode,
-  MultiRobotCoordinationNode,
-  ConveyorTrackingNode,
-  SafetyZoneSetupNode,
-  RobotSimulationNode,
-  PostProcessorRobotNode,
-  ReachAnalysisNode,
-  JointLimitAvoidanceNode,
-  ToolChangerSetupNode,
-  RobotMaintenanceNode,
-  StraightWallNode,
-  CurvedWallNode,
-  CompoundWallNode,
-  CurtainWallNode,
-  WallOpeningNode,
-  WallJoinNode,
-  RetainingWallNode,
-  StudWallNode,
-  InsulatedWallNode,
-  TiltUpPanelNode,
-  ParapetWallNode,
-  FireWallNode,
-  MovablePartitionNode,
-  SoundproofWallNode,
-  GreenWallNode,
-  DoubleSkinnedFacadeNode,
-  RainScreenNode,
-  ShearWallNode,
-  FoundationWallNode,
-  HistoricWallRestorationNode,
-  SlabOnGradeNode,
-  CompositeFloorNode,
-  RaisedFloorNode,
-  WoodJoistFloorNode,
-  PostTensionedSlabNode,
-  SuspendedCeilingNode,
-  CofferedCeilingNode,
-  VaultedCeilingNode,
-  MezzanineFloorNode,
-  EpoxyFloorNode,
-  RadiantFloorNode,
-  AcousticCeilingNode,
-  FloorDrainageNode,
-  StretchCeilingNode,
-  GreenRoofNode,
-  FloorExpansionJointNode,
-  SkyLightNode,
-  FloorFinishNode,
-  CeilingBeamNode,
-  PedestalPaversNode,
-  StraightStairNode,
-  LShapedStairNode,
-  UShapedStairNode,
-  SpiralStairNode,
-  HelicalStairNode,
-  WinderStairNode,
-  StraightRampNode,
-  SwitchbackRampNode,
-  HelicalRampNode,
-  StairHandrailNode,
-  StairBalustradeNode,
-  StairNosingNode,
-  StairStringerNode,
-  EscapeStairNode,
-  MonumentalStairNode,
-  FloatingStairNode,
-  LoadingDockNode,
-  CurbRampNode,
-  AlternatingTreadStairNode,
-  VehicleRampNode,
-  SingleDoorNode,
-  DoubleDoorNode,
-  SlidingDoorNode,
-  RevolvingDoorNode,
-  FoldingDoorNode,
-  RollupDoorNode,
-  CasementWindowNode,
-  SlidingWindowNode,
-  DoubleHungWindowNode,
-  AwningWindowNode,
-  BayWindowNode,
-  BowWindowNode,
-  ClerestroyWindowNode,
-  FireDoorNode,
-  SecurityDoorNode,
-  StainedGlassWindowNode,
-  OverheadDoorNode,
-  JalousieWindowNode,
-  DutchDoorNode,
-  GothicWindowNode,
-  SpurGearNode,
-  HelicalGearNode,
-  BevelGearNode,
-  WormGearNode,
-  WormShaftNode,
-  RackGearNode,
-  InternalGearNode,
-  PlanetaryGearSetNode,
-  TimingPulleyNode,
-  ChainSprocketNode,
-  CVTDiscNode,
-  DifferentialGearNode,
-  BallBearingNode,
-  RollerBearingNode,
-  ThrustBearingNode,
-  NeedleBearingNode,
-  LinearBearingNode,
-  PillowBlockNode,
-  FlangeBearingNode,
-  BronzeBushingNode,
-  SphericalBearingNode,
-  AirBearingNode,
-  HexBoltNode,
-  SocketHeadCapScrewNode,
-  HexNutNode,
-  WasherNode,
-  ThreadInsertNode,
-  RivetNode,
-  ClampingCollarNode,
-  DowelNode,
-  RetainingRingNode,
-  KeywayJointNode,
-  CompressionSpringNode,
-  ExtensionSpringNode,
-  TorsionSpringNode,
-  LeafSpringNode,
-  GasSpringNode,
-  CamProfileNode,
-  LinkageMechanismNode,
-  RatchetMechanismNode,
-  ClutchMechanismNode,
-  UniversalJointNode,
-  SteppedShaftNode,
-  SplinedShaftNode,
-  FlexibleShaftNode,
-  HollowShaftNode,
-  RigidCouplingNode,
-  FlexibleCouplingNode,
-  OldhamCouplingNode,
-  FluidCouplingNode,
-  PulleySystemNode,
-  ChainDriveNode,
-  CurvatureCombNode,
-  CurveLengthNode,
-  CurveSmoothnessAnalysisNode,
-  CurveInflectionPointsNode,
-  CurveTorsionNode,
-  CurveDerivativesNode,
-  CurveParameterNode,
-  CurveEndpointsNode,
-  CurveClosestPointNode,
-  CurveExtremePointsNode,
-  CurveAreaMomentsNode,
-  CurveConvexHullNode,
-  CurveBoundingBoxNode,
-  CurveSpiralNode,
-  SurfaceCurvatureNode,
-  SurfaceNormalsNode,
-  SurfaceAreaNode,
-  SurfaceIsoCurvesNode,
-  SurfaceParametrizationNode,
-  SurfaceDerivativesNode,
-  SurfaceClosestPointNode,
-  SurfaceBoundaryNode,
-  SurfaceContinuityNode,
-  SurfaceDeviationNode,
-  SurfaceFlatnessNode,
-  SurfaceRoughnessNode,
-  CurveCurveIntersectionNode,
-  CurveSurfaceIntersectionNode,
-  SurfaceSurfaceIntersectionNode,
-  PlaneIntersectionNode,
-  RayIntersectionNode,
-  MinimumDistanceNode,
-  ProximityAnalysisNode,
-  ClearanceCheckNode,
-  CollisionDetectionNode,
-  VisibilityAnalysisNode,
-  ShadowAnalysisNode,
-  VolumeCalculationNode,
-  AngleMeasurementNode,
-  DistanceMeasurementNode,
-  GeometryValidationNode,
-  MeshQualityNode,
-  ToleranceAnalysisNode,
-  STEPImportNode,
-  STEPExportNode,
-  IGESImportNode,
-  IGESExportNode,
-  STLImportNode,
-  STLExportNode,
-  OBJImportNode,
-  OBJExportNode,
-  PLYImportNode,
-  PLYExportNode,
-  ThreeMFImportNode,
-  ThreeMFExportNode,
-  DXFImportNode,
-  DXFExportNode,
-  SVGImportNode,
-  SVGExportNode,
-  SQLQueryNode,
-  SQLInsertNode,
-  HTTPRequestNode,
-  JSONParserNode,
-  JSONGeneratorNode,
-  S3UploadNode,
-  S3DownloadNode,
-  EmailSenderNode,
-  SlackNotificationNode,
-  CSVReaderNode,
-  CSVWriterNode,
-  ExcelReaderNode,
-  ExcelWriterNode,
-  GrasshopperExportNode,
-  WebSocketClientNode,
-  MQTTPublisherNode,
-  MQTTSubscriberNode,
-  SerialPortNode,
-  TCPClientNode,
-  GeneticOptimizerNode,
-  ParticleSwarmOptimizerNode,
-  SimulatedAnnealingNode,
-  GradientDescentNode,
-  TopologyOptimizerNode,
-  LinearRegressionNode,
-  KMeansClusteringNode,
-  DecisionTreeNode,
-  NeuralNetworkNode,
-  SupportVectorMachineNode,
-  ConvexHull3DNode,
-  AlphaShapeNode,
-  MinimumSpanningTreeNode,
-  ShortestPathNode,
-  VisibilityGraphNode,
-  MedialAxisNode,
-  DistanceFieldNode,
-  MarchingCubesNode,
-  SpacePartitioningNode,
-  VoxelGridNode,
-  PointCloudProcessingNode,
-  SurfaceReconstructionNode,
-  GeometrySimplificationNode,
-  GeometryMatchingNode,
-  ShapeDescriptorNode,
+  FeaturesHolesSimpleHoleNode,
+  FeaturesHolesCounterboreHoleNode,
+  FeaturesHolesCountersinkHoleNode,
+  FeaturesHolesThreadedHoleNode,
+  FeaturesPocketsRectangularPocketNode,
+  FeaturesPocketsCircularPocketNode,
+  FeaturesStructuralLinearRibNode,
+  FeaturesStructuralMountingBossNode,
+  TransformPatternsLinearPatternNode,
+  TransformPatternsCircularPatternNode,
+  TransformPatternsRectangularPatternNode,
+  TransformMoveNode,
+  TransformRotateNode,
+  TransformScaleNode,
+  TransformMirrorNode,
+  TransformLinearArrayNode,
+  TransformPolarArrayNode,
+  TransformPathArrayNode,
+  TransformGridArrayNode,
+  TransformAlignNode,
+  TransformOrientNode,
+  TransformProjectToPlaneNode,
+  TransformWrapNode,
+  TransformDeformNode,
+  TransformBoundingBoxAlignNode,
+  TransformMatrixTransformNode,
+  SolidParametricPrismNode,
+  SolidParametricWedgeNode,
+  SolidParametricPyramidNode,
+  SolidSurfaceBezierSurfaceNode,
+  SolidSurfaceBSplineSurfaceNode,
+  SolidSurfaceRuledSurfaceNode,
+  SolidHelicalHelixNode,
+  SolidHelicalSpringNode,
+  SolidHelicalThreadNode,
+  SolidPrimitivesBoxNode,
+  SolidPrimitivesSphereNode,
+  SolidPrimitivesCylinderNode,
+  SolidPrimitivesConeNode,
+  SolidPrimitivesTorusNode,
+  SolidPrimitivesEllipsoidNode,
+  SolidPrimitivesCapsuleNode,
+  SolidPrimitivesRoundedBoxNode,
+  SolidPrimitivesPipeNode,
+  SolidPrimitivesPolyhedronNode,
+  SketchCurvesEllipseNode,
+  SketchCurvesParabolaNode,
+  SketchCurvesHyperbolaNode,
+  SketchCurvesSpiralNode,
+  SketchPatternsPolygonNode,
+  SketchPatternsStarNode,
+  SketchPatternsGearNode,
+  SketchBasicLineNode,
+  SketchBasicArcNode,
+  SketchBasicCircleNode,
+  SketchBasicRectangleNode,
+  SketchBasicPolylineNode,
+  SketchCurvesSplineNode,
+  SketchCurvesBezierCurveNode,
+  SketchCurvesBSplineCurveNode,
+  SketchBasicPointNode,
+  SketchBasicSlotNode,
+  SketchBasicTextNode,
+  SketchCurvesOffsetNode,
+  SketchCurvesFillet2DNode,
+  SketchCurvesChamfer2DNode,
+  SketchCurvesTrimNode,
+  BooleanUnionNode,
+  BooleanDifferenceNode,
+  BooleanIntersectionNode,
+  BooleanXORNode,
+  BooleanSplitNode,
+  BooleanFragmentNode,
+  BooleanCommonEdgesNode,
+  BooleanImprintNode,
+  BooleanGlueNode,
+  BooleanCompoundNode,
+  AssemblyConstraintsCoincidentNode,
+  AssemblyConstraintsParallelNode,
+  AssemblyConstraintsPerpendicularNode,
+  AssemblyConstraintsTangentNode,
+  AssemblyConstraintsConcentricNode,
+  AssemblyConstraintsDistanceNode,
+  AssemblyConstraintsAngleNode,
+  AssemblyConstraintsHorizontalNode,
+  AssemblyConstraintsVerticalNode,
+  AssemblyConstraintsFixedNode,
+  AssemblyMatesFaceToFaceNode,
+  AssemblyMatesEdgeToEdgeNode,
+  AssemblyMatesPointToPointNode,
+  AssemblyMatesAxisToAxisNode,
+  AssemblyMatesPlaneToPlaneNode,
+  AssemblyMatesFastenedNode,
+  AssemblyMatesGearNode,
+  AssemblyMatesCamNode,
+  AssemblyMatesSlotNode,
+  AssemblyMatesPathNode,
+  AssemblyJointsRevoluteNode,
+  AssemblyJointsPrismaticNode,
+  AssemblyJointsCylindricalNode,
+  AssemblyJointsSphericalNode,
+  AssemblyJointsPlanarNode,
+  AssemblyJointsUniversalNode,
+  AssemblyJointsFixedNode,
+  AssemblyJointsScrewNode,
+  AssemblyJointsBeltNode,
+  AssemblyJointsRackPinionNode,
+  AssemblyPatternsComponentPatternNode,
+  AssemblyPatternsFlexibleSubAssemblyNode,
+  AssemblyPatternsConfigurationNode,
+  AssemblyPatternsExplodedViewNode,
+  AssemblyPatternsBillOfMaterialsNode,
+  AssemblyPatternsInterferenceCheckNode,
+  AssemblyPatternsMotionStudyNode,
+  AssemblyPatternsEnvelopeNode,
+  AssemblyPatternsSmartFastenersNode,
+  AssemblyPatternsContactSetNode,
+  SheetMetalFlangesEdgeFlangeNode,
+  SheetMetalFlangesContourFlangeNode,
+  SheetMetalFlangesMiterFlangeNode,
+  SheetMetalBendsSketchedBendNode,
+  SheetMetalBendsHemNode,
+  SheetMetalBendsJogNode,
+  SheetMetalCornersCornerReliefNode,
+  SheetMetalCornersBendReliefNode,
+  SheetMetalCornersClosedCornerNode,
+  SheetMetalFeaturesTabNode,
+  SheetMetalFeaturesSlotNode,
+  SheetMetalFeaturesLouverNode,
+  SheetMetalFeaturesLanceNode,
+  SheetMetalFeaturesBeadNode,
+  SheetMetalUnfoldUnfoldNode,
+  SheetMetalUnfoldFoldNode,
+  SheetMetalUnfoldExportDXFNode,
+  SheetMetalPropertiesSheetMetalStyleNode,
+  SheetMetalPropertiesBendTableNode,
+  SheetMetalPropertiesCostEstimateNode,
+  AdvancedSweepSweepNode,
+  AdvancedSweepHelicalSweepNode,
+  AdvancedLoftLoftNode,
+  AdvancedLoftBlendSurfaceNode,
+  AdvancedBoundaryBoundaryNode,
+  AdvancedShellShellNode,
+  AdvancedShellVariableShellNode,
+  AdvancedThicknessThickenNode,
+  AdvancedThicknessOffsetSurfaceNode,
+  AdvancedDraftDraftNode,
+  AdvancedDraftPartingLineDraftNode,
+  AdvancedDraftStepDraftNode,
+  AdvancedSurfaceTrimSurfaceNode,
+  AdvancedSurfaceExtendSurfaceNode,
+  AdvancedSurfaceUntrimSurfaceNode,
+  AdvancedSurfaceKnitSurfacesNode,
+  AdvancedSurfacePatchSurfaceNode,
+  AdvancedFeaturesWrapNode,
+  AdvancedFeaturesDomeNode,
+  AdvancedFeaturesFlexNode,
+  AdvancedFeaturesIndentNode,
+  AdvancedFeaturesDeformNode,
+  AdvancedHealingHealShapeNode,
+  AdvancedHealingRemoveFeaturesNode,
+  AdvancedHealingDeleteFaceNode,
+  AdvancedHealingSimplifyShapeNode,
+  AdvancedHealingCheckGeometryNode,
+  SurfaceNURBSNurbsSurfaceNode,
+  SurfaceNURBSNetworkSurfaceNode,
+  SurfaceNURBSSurfaceFromPointsNode,
+  SurfaceNURBSCoonsPatchNode,
+  SurfaceNURBSGordonSurfaceNode,
+  SurfaceCurvesNurbsCurveNode,
+  SurfaceCurvesInterpolateCurveNode,
+  SurfaceCurvesApproximateCurveNode,
+  SurfaceCurvesBlendCurveNode,
+  SurfaceCurvesCompositeCurveNode,
+  SurfaceAnalysisCurvatureAnalysisNode,
+  SurfaceAnalysisZebraAnalysisNode,
+  SurfaceAnalysisDraftAnalysisNode,
+  SurfaceAnalysisContinuityCheckNode,
+  SurfaceAnalysisSurfaceDeviationNode,
+  SurfaceAnalysisReflectionLinesNode,
+  SurfaceAnalysisIsocurveExtractNode,
+  SurfaceAnalysisSectionCurvesNode,
+  SurfaceCurveOpsProjectCurveNode,
+  SurfaceCurveOpsIntersectCurvesNode,
+  SurfaceCurveOpsCurveOnSurfaceNode,
+  SurfaceCurveOpsGeodesicCurveNode,
+  SurfaceCurveOpsIsoparametricCurveNode,
+  MeshTessellationTessellateNode,
+  MeshTessellationAdaptiveTessellationNode,
+  MeshTessellationRemeshUniformNode,
+  MeshTessellationQuadMeshNode,
+  MeshTessellationVoxelMeshNode,
+  MeshRepairRepairMeshNode,
+  MeshRepairSimplifyMeshNode,
+  MeshRepairFillHolesNode,
+  MeshRepairSmoothMeshNode,
+  MeshRepairDecimateMeshNode,
+  MeshRepairSubdivideMeshNode,
+  MeshRepairMeshBooleanNode,
+  MeshRepairMeshOffsetNode,
+  MeshFilesImportSTLNode,
+  MeshFilesExportSTLNode,
+  MeshFilesImportOBJNode,
+  MeshFilesExportOBJNode,
+  MeshFilesImportPLYNode,
+  MeshFilesExport3MFNode,
+  MeshFilesMeshToShapeNode,
+  IOCADImportSTEPNode,
+  IOCADExportSTEPNode,
+  IOCADImportIGESNode,
+  IOCADExportIGESNode,
+  IOCADImportBREPNode,
+  IOCADExportBREPNode,
+  IOCADImportParasolidNode,
+  IOCADImportACISNode,
+  IODrawingImportDXFNode,
+  IODrawingExportDXFNode,
+  IODrawingExportSVGNode,
+  IOExchangeImportGLTFNode,
+  IOExchangeExportGLTFNode,
+  IOExchangeImportJSONNode,
+  IOExchangeExportJSONNode,
+  SpecializedTextText3DNode,
+  SpecializedTextEngraveNode,
+  SpecializedTextEmbossNode,
+  SpecializedTextSerialNumberNode,
+  SpecializedTextBarcodeNode,
+  SpecializedLatticeLatticeStructureNode,
+  SpecializedLatticeTPMSNode,
+  SpecializedLatticeVoronoiLatticeNode,
+  SpecializedLatticeGradedLatticeNode,
+  SpecializedLatticeConformLatticeNode,
+  SpecializedLatticeHoneycombStructureNode,
+  SpecializedOptimizationTopologyOptimizeNode,
+  SpecializedOptimizationShapeOptimizeNode,
+  SpecializedOptimizationGenerativeDesignNode,
+  SpecializedOptimizationLightweightStructureNode,
+  SpecializedOptimizationStressReliefNode,
+  SpecializedOptimizationPackingOptimizeNode,
+  SpecializedOrganicMetaBallsNode,
+  SpecializedOrganicSubdivisionSurfaceNode,
+  SpecializedOrganicFractalGeometryNode,
+  SpecializedOrganicReactionDiffusionNode,
+  SpecializedOrganicBiomimeticStructureNode,
+  SimulationFEAMeshForFEANode,
+  SimulationFEAApplyLoadsNode,
+  SimulationFEAApplyConstraintsNode,
+  SimulationFEAMaterialAssignNode,
+  SimulationFEAExportFEANode,
+  SimulationCFDFluidDomainNode,
+  SimulationCFDBoundaryLayersNode,
+  SimulationCFDInletOutletNode,
+  SimulationCFDFluidPropertiesNode,
+  SimulationCFDExportCFDNode,
+  SimulationKinematicsJointDefinitionNode,
+  SimulationKinematicsMotionDriverNode,
+  SimulationKinematicsCollisionDetectionNode,
+  SimulationKinematicsForwardKinematicsNode,
+  SimulationKinematicsInverseKinematicsNode,
+  MathOperatorsAddNode,
+  MathOperatorsSubtractNode,
+  MathOperatorsMultiplyNode,
+  MathOperatorsDivideNode,
+  MathOperatorsPowerNode,
+  MathOperatorsModuloNode,
+  MathOperatorsAbsoluteNode,
+  MathOperatorsNegateNode,
+  MathOperatorsSquareRootNode,
+  MathOperatorsFactorialNode,
+  MathTrigonometrySineNode,
+  MathTrigonometryCosineNode,
+  MathTrigonometryTangentNode,
+  MathTrigonometryArcSineNode,
+  MathTrigonometryArcCosineNode,
+  MathTrigonometryArcTangentNode,
+  MathTrigonometryArcTangent2Node,
+  MathTrigonometryHyperbolicSineNode,
+  MathTrigonometryHyperbolicCosineNode,
+  MathTrigonometryHyperbolicTangentNode,
+  MathLogarithmicNaturalLogNode,
+  MathLogarithmicLog10Node,
+  MathLogarithmicLogBaseNode,
+  MathLogarithmicExponentialNode,
+  MathLogarithmicExp10Node,
+  MathRoundingRoundNode,
+  MathRoundingFloorNode,
+  MathRoundingCeilingNode,
+  MathRoundingTruncateNode,
+  MathRoundingRoundToDecimalNode,
+  MathComparisonMinNode,
+  MathComparisonMaxNode,
+  MathComparisonClampNode,
+  MathComparisonSignNode,
+  MathComparisonIsEqualNode,
+  MathStatisticsAverageNode,
+  MathStatisticsMedianNode,
+  MathStatisticsModeNode,
+  MathStatisticsStandardDeviationNode,
+  MathStatisticsVarianceNode,
+  MathStatisticsSumNode,
+  MathStatisticsProductNode,
+  MathStatisticsRangeNode,
+  MathStatisticsPercentileNode,
+  MathStatisticsCorrelationNode,
+  MathRandomRandomNode,
+  MathRandomRandomRangeNode,
+  MathRandomRandomIntegerNode,
+  MathRandomRandomNormalNode,
+  MathRandomRandomPoissonNode,
+  MathRandomRandomExponentialNode,
+  MathRandomRandomChoiceNode,
+  MathRandomShuffleNode,
+  MathRandomPerlinNoiseNode,
+  MathRandomSimplexNoiseNode,
+  MathInterpolationLerpNode,
+  MathInterpolationInverseLerpNode,
+  MathInterpolationRemapNode,
+  MathInterpolationSmoothStepNode,
+  MathInterpolationSmootherStepNode,
+  MathInterpolationCubicInterpNode,
+  MathInterpolationHermiteInterpNode,
+  MathInterpolationBezierInterpNode,
+  MathInterpolationEaseInNode,
+  MathInterpolationEaseOutNode,
+  MathInterpolationEaseInOutNode,
+  MathInterpolationSpringInterpNode,
+  MathComplexComplexNumberNode,
+  MathComplexComplexAddNode,
+  MathComplexComplexMultiplyNode,
+  MathComplexComplexConjugateNode,
+  MathComplexComplexMagnitudeNode,
+  MathComplexComplexPhaseNode,
+  MathMatrixMatrixMultiplyNode,
+  MathMatrixMatrixInverseNode,
+  MathMatrixMatrixDeterminantNode,
+  MathMatrixMatrixTransposeNode,
+  DataListListLengthNode,
+  DataListListItemNode,
+  DataListListSliceNode,
+  DataListListReverseNode,
+  DataListListSortNode,
+  DataListListShuffleNode,
+  DataListListShiftNode,
+  DataListListInsertNode,
+  DataListListRemoveNode,
+  DataListListReplaceNode,
+  DataListListAppendNode,
+  DataListListPrependNode,
+  DataListListJoinNode,
+  DataListListSplitNode,
+  DataListListPartitionNode,
+  DataListListFlattenNode,
+  DataListListUniqueNode,
+  DataListListContainsNode,
+  DataListListFindNode,
+  DataListListFilterNode,
+  DataSetSetUnionNode,
+  DataSetSetIntersectionNode,
+  DataSetSetDifferenceNode,
+  DataSetSetSymmetricDifferenceNode,
+  DataSetSetSubsetNode,
+  DataSetSetCartesianProductNode,
+  DataSetSetPowerSetNode,
+  DataSetSetCombinationsNode,
+  DataSetSetPermutationsNode,
+  DataSetSetPartitionsNode,
+  DataTreeTreeBranchNode,
+  DataTreeTreePathsNode,
+  DataTreeTreeGraftNode,
+  DataTreeTreeFlattenNode,
+  DataTreeTreeSimplifyNode,
+  DataTreeTreePruneNode,
+  DataTreeTreeMergeNode,
+  DataTreeTreeExplodeNode,
+  DataTreeTreeShiftNode,
+  DataTreeTreeStatisticsNode,
+  DataStringStringConcatNode,
+  DataStringStringSplitNode,
+  DataStringStringReplaceNode,
+  DataStringStringFormatNode,
+  DataStringStringCaseNode,
+  DataStringStringTrimNode,
+  DataStringStringLengthNode,
+  DataStringStringSubstringNode,
+  DataStringStringContainsNode,
+  DataStringStringMatchNode,
+  DataConvertToStringNode,
+  DataConvertToNumberNode,
+  DataConvertToBooleanNode,
+  DataConvertToJSONNode,
+  DataConvertFromJSONNode,
+  DataConvertToCSVNode,
+  DataConvertFromCSVNode,
+  DataConvertToBase64Node,
+  DataConvertFromBase64Node,
+  DataConvertTypeOfNode,
+  FieldGenerateLinearFieldNode,
+  FieldGenerateRadialFieldNode,
+  FieldGenerateSphericalFieldNode,
+  FieldGenerateCylindricalFieldNode,
+  FieldGenerateNoiseFieldNode,
+  FieldGenerateSineFieldNode,
+  FieldGenerateVectorFieldNode,
+  FieldGenerateImageFieldNode,
+  FieldGenerateDistanceFieldNode,
+  FieldGenerateChargeFieldNode,
+  FieldAttractorPointAttractorNode,
+  FieldAttractorCurveAttractorNode,
+  FieldAttractorSurfaceAttractorNode,
+  FieldAttractorMeshAttractorNode,
+  FieldAttractorSpinAttractorNode,
+  FieldAttractorDirectionalAttractorNode,
+  FieldAttractorTwistAttractorNode,
+  FieldAttractorVortexAttractorNode,
+  FieldAttractorGravityAttractorNode,
+  FieldAttractorFlowAttractorNode,
+  FieldOperationsFieldAddNode,
+  FieldOperationsFieldSubtractNode,
+  FieldOperationsFieldMultiplyNode,
+  FieldOperationsFieldDivideNode,
+  FieldOperationsFieldMinNode,
+  FieldOperationsFieldMaxNode,
+  FieldOperationsFieldBlendNode,
+  FieldOperationsFieldRemapNode,
+  FieldOperationsFieldClampNode,
+  FieldOperationsFieldInvertNode,
+  FieldOperationsFieldGradientNode,
+  FieldOperationsFieldDivergenceNode,
+  FieldOperationsFieldCurlNode,
+  FieldOperationsFieldLaplacianNode,
+  FieldOperationsFieldSmoothNode,
+  FieldSampleSampleFieldNode,
+  FieldSampleFieldLineNode,
+  FieldSampleIsoContourNode,
+  FieldSampleIsoSurfaceNode,
+  FieldSampleFieldGridNode,
+  FieldDeformFieldDeformNode,
+  FieldDeformFieldDisplaceNode,
+  FieldDeformFieldScaleNode,
+  FieldDeformFieldRotateNode,
+  FieldDeformFieldColorNode,
+  FieldsVisualizationFieldColorMapNode,
+  FieldsVisualizationFieldVectorArrowsNode,
+  FieldsVisualizationFieldStreamLinesNode,
+  FieldsVisualizationFieldHeatMapNode,
+  FieldsVisualizationFieldVolumeNode,
+  FieldsAnalysisFieldMinMaxNode,
+  FieldsAnalysisFieldAverageNode,
+  FieldsAnalysisFieldCriticalPointsNode,
+  FieldsAnalysisFieldDivergenceAnalysisNode,
+  FieldsAnalysisFieldCurlAnalysisNode,
+  FieldsAnalysisFieldFluxNode,
+  FieldsAnalysisFieldCirculationNode,
+  FieldsAnalysisFieldPotentialNode,
+  FieldsAnalysisFieldHistogramNode,
+  FieldsAnalysisFieldCorrelationNode,
+  FieldsAdvancedFieldMorphingNode,
+  FieldsAdvancedFieldWarpNode,
+  FieldsAdvancedFieldConvolutionNode,
+  FieldsAdvancedFieldFourierNode,
+  FieldsAdvancedFieldOptimizeNode,
+  PatternsVoronoiVoronoi2DNode,
+  PatternsVoronoiVoronoi3DNode,
+  PatternsVoronoiWeightedVoronoiNode,
+  PatternsVoronoiCentroidalVoronoiNode,
+  PatternsVoronoiVoronoiOnSurfaceNode,
+  PatternsDelaunayDelaunay2DNode,
+  PatternsDelaunayDelaunay3DNode,
+  PatternsDelaunayConstrainedDelaunayNode,
+  PatternsDelaunayAlphaShapeNode,
+  PatternsVoronoiVoronoiFractureNode,
+  PatternsVoronoiVoronoiGrowthNode,
+  PatternsDelaunayDelaunayMeshNode,
+  PatternsVoronoiVoronoiSkeletonNode,
+  PatternsVoronoiVoronoiOffsetNode,
+  PatternsDelaunayConvexHullNode,
+  PatternsIslamicIslamicStarNode,
+  PatternsIslamicGirihTilingNode,
+  PatternsIslamicArabesqueNode,
+  PatternsIslamicMoorishPatternNode,
+  PatternsIslamicIslamicGridNode,
+  PatternsCelticCelticKnotNode,
+  PatternsCelticCelticBraidNode,
+  PatternsGeometricPenroseTilingNode,
+  PatternsGeometricTruchetTilesNode,
+  PatternsGeometricSpiralPatternNode,
+  PatternsGeometricMandalaPatternNode,
+  PatternsGeometricPolygonalTessellationNode,
+  PatternsGeometricCirclePackingNode,
+  PatternsGeometricHyperbolicTilingNode,
+  PatternsGeometricGeodesicPatternNode,
+  PatternsIslamicMuqarnasNode,
+  PatternsGeometricQuasiCrystalNode,
+  PatternsGeometricMinimalSurfaceNode,
+  PatternsGeometricReactionDiffusionNode,
+  PatternsGeometricParquetDeformationNode,
+  PatternsFractalsKochSnowflakeNode,
+  PatternsFractalsSierpinskiTriangleNode,
+  PatternsFractalsMengerSpongeNode,
+  PatternsFractalsJuliaSetNode,
+  PatternsFractalsMandelbrotSetNode,
+  PatternsLSystemsLSystem2DNode,
+  PatternsLSystemsLSystem3DNode,
+  PatternsLSystemsTreeGeneratorNode,
+  PatternsFractalsDragonCurveNode,
+  PatternsFractalsHilbertCurveNode,
+  PatternsFractalsPeanoCurveNode,
+  PatternsFractalsCantorSetNode,
+  PatternsLSystemsPlantGrowthNode,
+  PatternsFractalsBarnsleyFernNode,
+  PatternsFractalsApollonianGasketNode,
+  PatternsPackingRectanglePackingNode,
+  PatternsPackingSpherePackingNode,
+  PatternsPackingPolygonPackingNode,
+  PatternsLatticeCubicLatticeNode,
+  PatternsLatticeOctetLatticeNode,
+  PatternsLatticeDiamondLatticeNode,
+  PatternsLatticeKelvinLatticeNode,
+  PatternsLatticeTPMSLatticeNode,
+  PatternsTilingBrickPatternNode,
+  PatternsTilingParquetPatternNode,
+  PatternsTilingWeavePatternNode,
+  PatternsCellularHoneycombPatternNode,
+  PatternsCellularFoamStructureNode,
+  PatternsCellularCellularAutomataNode,
+  PatternsCellularConwayLifeNode,
+  PatternsStochasticPoissonDiskNode,
+  PatternsStochasticBlueNoiseNode,
+  PatternsStochasticJitteredGridNode,
+  PatternsNetworkMinimumSpanningTreeNode,
+  PatternsNetworkRelativeNeighborhoodNode,
+  PatternsAlgorithmicBinaryTreeNode,
+  PatternsAlgorithmicMazeGeneratorNode,
+  PatternsAlgorithmicSubdivisionSurfaceNode,
+  PatternsAlgorithmicFlockingPatternNode,
+  PatternsAlgorithmicDiffusionLimitedAggregationNode,
+  PatternsProceduralGrammarShapesNode,
+  PatternsProceduralWaveFunctionCollapseNode,
+  PatternsProceduralMarkovChainNode,
+  PatternsProceduralGeneticAlgorithmNode,
+  PatternsProceduralNeuralPatternNode,
+  PatternsAlgorithmicStrangeAttractorNode,
+  PatternsAlgorithmicPhyllotaxisPatternNode,
+  PatternsProceduralTuringPatternNode,
+  PatternsProceduralNoisePatternNode,
+  PatternsAlgorithmicPackingCirclesNode,
+  PatternsAlgorithmicKMeansClusteringNode,
+  PatternsProceduralContextFreeArtNode,
+  PatternsProceduralProceduralTextureNode,
+  PatternsAlgorithmicGraphLayoutNode,
+  PatternsAlgorithmicShortestPathNode,
+  Fabrication3DPrintingSupportGenerationNode,
+  Fabrication3DPrintingPrintOrientationNode,
+  Fabrication3DPrintingSliceModelNode,
+  Fabrication3DPrintingBridgeDetectionNode,
+  Fabrication3DPrintingWallThicknessNode,
+  Fabrication3DPrintingPrintTimeEstimateNode,
+  Fabrication3DPrintingRaftGenerationNode,
+  Fabrication3DPrintingBrimGenerationNode,
+  Fabrication3DPrintingSeamOptimizationNode,
+  Fabrication3DPrintingInfillOptimizationNode,
+  Fabrication3DPrintingCoolingAnalysisNode,
+  Fabrication3DPrintingRetractionOptimizationNode,
+  Fabrication3DPrintingVaseModeNode,
+  Fabrication3DPrintingMultiMaterialSetupNode,
+  Fabrication3DPrintingTreeSupportsNode,
+  Fabrication3DPrintingIroningPassNode,
+  Fabrication3DPrintingFuzzySkinnNode,
+  Fabrication3DPrintingCoastingSetupNode,
+  Fabrication3DPrintingWipeTowerNode,
+  Fabrication3DPrintingAdaptiveLayerHeightNode,
+  Fabrication3DPrintingPerimeterGeneratorNode,
+  Fabrication3DPrintingGCodePostProcessorNode,
+  Fabrication3DPrintingNonPlanarSlicingNode,
+  Fabrication3DPrintingConicalSlicingNode,
+  Fabrication3DPrintingSolubleSupportInterfaceNode,
+  FabricationCNCToolpathGenerationNode,
+  FabricationCNCPocketingStrategyNode,
+  FabricationCNCContouringToolpathNode,
+  FabricationCNCDrillingOperationNode,
+  FabricationCNCThreadMillingNode,
+  FabricationCNCAdaptiveClearingNode,
+  FabricationCNCTrochoidalMillingNode,
+  FabricationCNCRestMachiningNode,
+  FabricationCNCToolCompensationNode,
+  FabricationCNCHelicalEntryNode,
+  FabricationCNCRampEntryNode,
+  FabricationCNCHighSpeedMachiningNode,
+  FabricationCNCScallopHeightNode,
+  FabricationCNCCollisionDetectionNode,
+  FabricationCNCFeedsAndSpeedsNode,
+  FabricationCNCFiveAxisPositioningNode,
+  FabricationCNCSwarmMillingNode,
+  FabricationCNCToolLibraryNode,
+  FabricationCNCWorkCoordinateNode,
+  FabricationCNCPostProcessorNode,
+  FabricationCNCChipEvacuationNode,
+  FabricationCNCCutterEngagementNode,
+  FabricationCNCToolWearNode,
+  FabricationCNCSetupSheetsNode,
+  FabricationCNCProbeRoutineNode,
+  FabricationLaserLaserPathNode,
+  FabricationLaserTabsAndSlotsNode,
+  FabricationLaserLivingHingeNode,
+  FabricationLaserKerfBendingNode,
+  FabricationLaserPowerMappingNode,
+  FabricationLaserEngraveRasterNode,
+  FabricationLaserVectorEngraveNode,
+  FabricationLaserNestingOptimizationNode,
+  FabricationLaserCutOrderOptimizationNode,
+  FabricationLaserLeadInOutNode,
+  FabricationLaserBridgeGenerationNode,
+  FabricationLaserFocusCompensationNode,
+  FabricationLaserHatchFillNode,
+  FabricationLaserTextEngravingNode,
+  FabricationLaserMaterialDatabaseNode,
+  FabricationLaserLayerSeparationNode,
+  FabricationLaserMultiplePassesNode,
+  FabricationLaserCleanupPathsNode,
+  FabricationLaserPierceOptimizationNode,
+  FabricationLaserMicroJointsNode,
+  FabricationLaserCutQualityNode,
+  FabricationLaserRotaryAttachmentNode,
+  FabricationLaserAirAssistNode,
+  FabricationLaserSafetyZonesNode,
+  FabricationLaserJobTimeEstimateNode,
+  FabricationRoboticsRobotKinematicsNode,
+  FabricationRoboticsPathPlanningNode,
+  FabricationRoboticsCollisionAvoidanceNode,
+  FabricationRoboticsEndEffectorSetupNode,
+  FabricationRoboticsWorkCellSetupNode,
+  FabricationRoboticsTrajectoryOptimizationNode,
+  FabricationRoboticsSingularityAvoidanceNode,
+  FabricationRoboticsRobotCalibrationNode,
+  FabricationRoboticsForceControlNode,
+  FabricationRoboticsWeldingPathNode,
+  FabricationRoboticsPickAndPlaceNode,
+  FabricationRoboticsPalletizingPatternNode,
+  FabricationRoboticsRoboticMillingNode,
+  FabricationRoboticsSprayPaintingNode,
+  FabricationRoboticsAdditiveManufacturingNode,
+  FabricationRoboticsVisionGuidanceNode,
+  FabricationRoboticsMultiRobotCoordinationNode,
+  FabricationRoboticsConveyorTrackingNode,
+  FabricationRoboticsSafetyZoneSetupNode,
+  FabricationRoboticsRobotSimulationNode,
+  FabricationRoboticsPostProcessorRobotNode,
+  FabricationRoboticsReachAnalysisNode,
+  FabricationRoboticsJointLimitAvoidanceNode,
+  FabricationRoboticsToolChangerSetupNode,
+  FabricationRoboticsRobotMaintenanceNode,
+  ArchitectureWallsStraightWallNode,
+  ArchitectureWallsCurvedWallNode,
+  ArchitectureWallsCompoundWallNode,
+  ArchitectureWallsCurtainWallNode,
+  ArchitectureWallsWallOpeningNode,
+  ArchitectureWallsWallJoinNode,
+  ArchitectureWallsRetainingWallNode,
+  ArchitectureWallsStudWallNode,
+  ArchitectureWallsInsulatedWallNode,
+  ArchitectureWallsTiltUpPanelNode,
+  ArchitectureWallsParapetWallNode,
+  ArchitectureWallsFireWallNode,
+  ArchitectureWallsMovablePartitionNode,
+  ArchitectureWallsSoundproofWallNode,
+  ArchitectureWallsGreenWallNode,
+  ArchitectureWallsDoubleSkinnedFacadeNode,
+  ArchitectureWallsRainScreenNode,
+  ArchitectureWallsShearWallNode,
+  ArchitectureWallsFoundationWallNode,
+  ArchitectureWallsHistoricWallRestorationNode,
+  ArchitectureFloorsSlabOnGradeNode,
+  ArchitectureFloorsCompositeFloorNode,
+  ArchitectureFloorsRaisedFloorNode,
+  ArchitectureFloorsWoodJoistFloorNode,
+  ArchitectureFloorsPostTensionedSlabNode,
+  ArchitectureCeilingsSuspendedCeilingNode,
+  ArchitectureCeilingsCofferedCeilingNode,
+  ArchitectureCeilingsVaultedCeilingNode,
+  ArchitectureFloorsMezzanineFloorNode,
+  ArchitectureFloorsEpoxyFloorNode,
+  ArchitectureFloorsRadiantFloorNode,
+  ArchitectureCeilingsAcousticCeilingNode,
+  ArchitectureFloorsFloorDrainageNode,
+  ArchitectureCeilingsStretchCeilingNode,
+  ArchitectureFloorsGreenRoofNode,
+  ArchitectureFloorsFloorExpansionJointNode,
+  ArchitectureCeilingsSkyLightNode,
+  ArchitectureFloorsFloorFinishNode,
+  ArchitectureCeilingsCeilingBeamNode,
+  ArchitectureFloorsPedestalPaversNode,
+  ArchitectureStairsStraightStairNode,
+  ArchitectureStairsLShapedStairNode,
+  ArchitectureStairsUShapedStairNode,
+  ArchitectureStairsSpiralStairNode,
+  ArchitectureStairsHelicalStairNode,
+  ArchitectureStairsWinderStairNode,
+  ArchitectureRampsStraightRampNode,
+  ArchitectureRampsSwitchbackRampNode,
+  ArchitectureRampsHelicalRampNode,
+  ArchitectureStairsStairHandrailNode,
+  ArchitectureStairsStairBalustradeNode,
+  ArchitectureStairsStairNosingNode,
+  ArchitectureStairsStairStringerNode,
+  ArchitectureStairsEscapeStairNode,
+  ArchitectureStairsMonumentalStairNode,
+  ArchitectureStairsFloatingStairNode,
+  ArchitectureRampsLoadingDockNode,
+  ArchitectureRampsCurbRampNode,
+  ArchitectureStairsAlternatingTreadStairNode,
+  ArchitectureRampsVehicleRampNode,
+  ArchitectureDoorsSingleDoorNode,
+  ArchitectureDoorsDoubleDoorNode,
+  ArchitectureDoorsSlidingDoorNode,
+  ArchitectureDoorsRevolvingDoorNode,
+  ArchitectureDoorsFoldingDoorNode,
+  ArchitectureDoorsRollupDoorNode,
+  ArchitectureWindowsCasementWindowNode,
+  ArchitectureWindowsSlidingWindowNode,
+  ArchitectureWindowsDoubleHungWindowNode,
+  ArchitectureWindowsAwningWindowNode,
+  ArchitectureWindowsBayWindowNode,
+  ArchitectureWindowsBowWindowNode,
+  ArchitectureWindowsClerestroyWindowNode,
+  ArchitectureDoorsFireDoorNode,
+  ArchitectureDoorsSecurityDoorNode,
+  ArchitectureWindowsStainedGlassWindowNode,
+  ArchitectureDoorsOverheadDoorNode,
+  ArchitectureWindowsJalousieWindowNode,
+  ArchitectureDoorsDutchDoorNode,
+  ArchitectureWindowsGothicWindowNode,
+  MechanicalEngineeringGearsSpurGearNode,
+  MechanicalEngineeringGearsHelicalGearNode,
+  MechanicalEngineeringGearsBevelGearNode,
+  MechanicalEngineeringGearsWormGearNode,
+  MechanicalEngineeringGearsWormShaftNode,
+  MechanicalEngineeringGearsRackGearNode,
+  MechanicalEngineeringGearsInternalGearNode,
+  MechanicalEngineeringGearsPlanetaryGearSetNode,
+  MechanicalEngineeringGearsTimingPulleyNode,
+  MechanicalEngineeringGearsChainSprocketNode,
+  MechanicalEngineeringGearsCVTDiscNode,
+  MechanicalEngineeringGearsDifferentialGearNode,
+  MechanicalEngineeringBearingsBallBearingNode,
+  MechanicalEngineeringBearingsRollerBearingNode,
+  MechanicalEngineeringBearingsThrustBearingNode,
+  MechanicalEngineeringBearingsNeedleBearingNode,
+  MechanicalEngineeringBearingsLinearBearingNode,
+  MechanicalEngineeringBearingsPillowBlockNode,
+  MechanicalEngineeringBearingsFlangeBearingNode,
+  MechanicalEngineeringBearingsBronzeBushingNode,
+  MechanicalEngineeringBearingsSphericalBearingNode,
+  MechanicalEngineeringBearingsAirBearingNode,
+  MechanicalEngineeringFastenersHexBoltNode,
+  MechanicalEngineeringFastenersSocketHeadCapScrewNode,
+  MechanicalEngineeringFastenersHexNutNode,
+  MechanicalEngineeringFastenersWasherNode,
+  MechanicalEngineeringFastenersThreadInsertNode,
+  MechanicalEngineeringFastenersRivetNode,
+  MechanicalEngineeringFastenersClampingCollarNode,
+  MechanicalEngineeringFastenersDowelNode,
+  MechanicalEngineeringFastenersRetainingRingNode,
+  MechanicalEngineeringFastenersKeywayJointNode,
+  MechanicalEngineeringSpringsCompressionSpringNode,
+  MechanicalEngineeringSpringsExtensionSpringNode,
+  MechanicalEngineeringSpringsTorsionSpringNode,
+  MechanicalEngineeringSpringsLeafSpringNode,
+  MechanicalEngineeringSpringsGasSpringNode,
+  MechanicalEngineeringMechanismsCamProfileNode,
+  MechanicalEngineeringMechanismsLinkageMechanismNode,
+  MechanicalEngineeringMechanismsRatchetMechanismNode,
+  MechanicalEngineeringMechanismsClutchMechanismNode,
+  MechanicalEngineeringMechanismsUniversalJointNode,
+  MechanicalEngineeringShaftsSteppedShaftNode,
+  MechanicalEngineeringShaftsSplinedShaftNode,
+  MechanicalEngineeringShaftsFlexibleShaftNode,
+  MechanicalEngineeringShaftsHollowShaftNode,
+  MechanicalEngineeringCouplingsRigidCouplingNode,
+  MechanicalEngineeringCouplingsFlexibleCouplingNode,
+  MechanicalEngineeringCouplingsOldhamCouplingNode,
+  MechanicalEngineeringCouplingsFluidCouplingNode,
+  MechanicalEngineeringPowerTransmissionPulleySystemNode,
+  MechanicalEngineeringPowerTransmissionChainDriveNode,
+  AnalysisCurvesCurvatureCombNode,
+  AnalysisCurvesCurveLengthNode,
+  AnalysisCurvesCurveSmoothnessAnalysisNode,
+  AnalysisCurvesCurveInflectionPointsNode,
+  AnalysisCurvesCurveTorsionNode,
+  AnalysisCurvesCurveDerivativesNode,
+  AnalysisCurvesCurveParameterNode,
+  AnalysisCurvesCurveEndpointsNode,
+  AnalysisCurvesCurveClosestPointNode,
+  AnalysisCurvesCurveExtremePointsNode,
+  AnalysisCurvesCurveAreaMomentsNode,
+  AnalysisCurvesCurveConvexHullNode,
+  AnalysisCurvesCurveBoundingBoxNode,
+  AnalysisCurvesCurveSpiralNode,
+  AnalysisSurfacesSurfaceCurvatureNode,
+  AnalysisSurfacesSurfaceNormalsNode,
+  AnalysisSurfacesSurfaceAreaNode,
+  AnalysisSurfacesSurfaceIsoCurvesNode,
+  AnalysisSurfacesSurfaceParametrizationNode,
+  AnalysisSurfacesSurfaceDerivativesNode,
+  AnalysisSurfacesSurfaceClosestPointNode,
+  AnalysisSurfacesSurfaceBoundaryNode,
+  AnalysisSurfacesSurfaceContinuityNode,
+  AnalysisSurfacesSurfaceDeviationNode,
+  AnalysisSurfacesSurfaceFlatnessNode,
+  AnalysisSurfacesSurfaceRoughnessNode,
+  AnalysisIntersectionCurveCurveIntersectionNode,
+  AnalysisIntersectionCurveSurfaceIntersectionNode,
+  AnalysisIntersectionSurfaceSurfaceIntersectionNode,
+  AnalysisIntersectionPlaneIntersectionNode,
+  AnalysisIntersectionRayIntersectionNode,
+  AnalysisProximityMinimumDistanceNode,
+  AnalysisProximityProximityAnalysisNode,
+  AnalysisProximityClearanceCheckNode,
+  AnalysisProximityCollisionDetectionNode,
+  AnalysisProximityVisibilityAnalysisNode,
+  AnalysisProximityShadowAnalysisNode,
+  AnalysisMeasurementVolumeCalculationNode,
+  AnalysisMeasurementAngleMeasurementNode,
+  AnalysisMeasurementDistanceMeasurementNode,
+  AnalysisQualityGeometryValidationNode,
+  AnalysisQualityMeshQualityNode,
+  AnalysisQualityToleranceAnalysisNode,
+  InteroperabilityImportSTEPImportNode,
+  InteroperabilityExportSTEPExportNode,
+  InteroperabilityImportIGESImportNode,
+  InteroperabilityExportIGESExportNode,
+  InteroperabilityImportSTLImportNode,
+  InteroperabilityExportSTLExportNode,
+  InteroperabilityImportOBJImportNode,
+  InteroperabilityExportOBJExportNode,
+  InteroperabilityImportPLYImportNode,
+  InteroperabilityExportPLYExportNode,
+  InteroperabilityImportThreeMFImportNode,
+  InteroperabilityExportThreeMFExportNode,
+  InteroperabilityImportDXFImportNode,
+  InteroperabilityExportDXFExportNode,
+  InteroperabilityImportSVGImportNode,
+  InteroperabilityExportSVGExportNode,
+  InteroperabilityDatabaseSQLQueryNode,
+  InteroperabilityDatabaseSQLInsertNode,
+  InteroperabilityAPIHTTPRequestNode,
+  InteroperabilityAPIJSONParserNode,
+  InteroperabilityAPIJSONGeneratorNode,
+  InteroperabilityCloudS3UploadNode,
+  InteroperabilityCloudS3DownloadNode,
+  InteroperabilityMessagingEmailSenderNode,
+  InteroperabilityMessagingSlackNotificationNode,
+  InteroperabilityDataCSVReaderNode,
+  InteroperabilityDataCSVWriterNode,
+  InteroperabilityDataExcelReaderNode,
+  InteroperabilityDataExcelWriterNode,
+  InteroperabilityIntegrationGrasshopperExportNode,
+  InteroperabilityStreamingWebSocketClientNode,
+  InteroperabilityStreamingMQTTPublisherNode,
+  InteroperabilityStreamingMQTTSubscriberNode,
+  InteroperabilityStreamingSerialPortNode,
+  InteroperabilityStreamingTCPClientNode,
+  AlgorithmicOptimizationGeneticOptimizerNode,
+  AlgorithmicOptimizationParticleSwarmOptimizerNode,
+  AlgorithmicOptimizationSimulatedAnnealingNode,
+  AlgorithmicOptimizationGradientDescentNode,
+  AlgorithmicOptimizationTopologyOptimizerNode,
+  AlgorithmicMachineLearningLinearRegressionNode,
+  AlgorithmicMachineLearningKMeansClusteringNode,
+  AlgorithmicMachineLearningDecisionTreeNode,
+  AlgorithmicMachineLearningNeuralNetworkNode,
+  AlgorithmicMachineLearningSupportVectorMachineNode,
+  AlgorithmicGeometryConvexHull3DNode,
+  AlgorithmicGeometryAlphaShapeNode,
+  AlgorithmicGeometryMinimumSpanningTreeNode,
+  AlgorithmicGeometryShortestPathNode,
+  AlgorithmicGeometryVisibilityGraphNode,
+  AlgorithmicGeometryMedialAxisNode,
+  AlgorithmicGeometryDistanceFieldNode,
+  AlgorithmicGeometryMarchingCubesNode,
+  AlgorithmicGeometrySpacePartitioningNode,
+  AlgorithmicGeometryVoxelGridNode,
+  AlgorithmicGeometryPointCloudProcessingNode,
+  AlgorithmicGeometrySurfaceReconstructionNode,
+  AlgorithmicGeometryGeometrySimplificationNode,
+  AlgorithmicGeometryGeometryMatchingNode,
+  AlgorithmicGeometryShapeDescriptorNode,
 };
 
 // Registry for dynamic loading
 export const nodeRegistry = {
-  'Features::SimpleHole': SimpleHoleNode,
-  'Features::CounterboreHole': CounterboreHoleNode,
-  'Features::CountersinkHole': CountersinkHoleNode,
-  'Features::ThreadedHole': ThreadedHoleNode,
-  'Features::RectangularPocket': RectangularPocketNode,
-  'Features::CircularPocket': CircularPocketNode,
-  'Features::LinearRib': LinearRibNode,
-  'Features::MountingBoss': MountingBossNode,
-  'Transform::LinearPattern': LinearPatternNode,
-  'Transform::CircularPattern': CircularPatternNode,
-  'Transform::RectangularPattern': RectangularPatternNode,
-  'Transform::Move': MoveNode,
-  'Transform::Rotate': RotateNode,
-  'Transform::Scale': ScaleNode,
-  'Transform::Mirror': MirrorNode,
-  'Transform::LinearArray': LinearArrayNode,
-  'Transform::PolarArray': PolarArrayNode,
-  'Transform::PathArray': PathArrayNode,
-  'Transform::GridArray': GridArrayNode,
-  'Transform::Align': AlignNode,
-  'Transform::Orient': OrientNode,
-  'Transform::ProjectToPlane': ProjectToPlaneNode,
-  'Transform::Wrap': WrapNode,
-  'Transform::Deform': DeformNode,
-  'Transform::BoundingBoxAlign': BoundingBoxAlignNode,
-  'Transform::MatrixTransform': MatrixTransformNode,
-  'Solid::Prism': PrismNode,
-  'Solid::Wedge': WedgeNode,
-  'Solid::Pyramid': PyramidNode,
-  'Solid::BezierSurface': BezierSurfaceNode,
-  'Solid::BSplineSurface': BSplineSurfaceNode,
-  'Solid::RuledSurface': RuledSurfaceNode,
-  'Solid::Helix': HelixNode,
-  'Solid::Spring': SpringNode,
-  'Solid::Thread': ThreadNode,
-  'Solid::Box': BoxNode,
-  'Solid::Sphere': SphereNode,
-  'Solid::Cylinder': CylinderNode,
-  'Solid::Cone': ConeNode,
-  'Solid::Torus': TorusNode,
-  'Solid::Ellipsoid': EllipsoidNode,
-  'Solid::Capsule': CapsuleNode,
-  'Solid::RoundedBox': RoundedBoxNode,
-  'Solid::Pipe': PipeNode,
-  'Solid::Polyhedron': PolyhedronNode,
-  'Sketch::Ellipse': EllipseNode,
-  'Sketch::Parabola': ParabolaNode,
-  'Sketch::Hyperbola': HyperbolaNode,
-  'Sketch::Spiral': SpiralNode,
-  'Sketch::Polygon': PolygonNode,
-  'Sketch::Star': StarNode,
-  'Sketch::Gear': GearNode,
-  'Sketch::Line': LineNode,
-  'Sketch::Arc': ArcNode,
-  'Sketch::Circle': CircleNode,
-  'Sketch::Rectangle': RectangleNode,
-  'Sketch::Polyline': PolylineNode,
-  'Sketch::Spline': SplineNode,
-  'Sketch::BezierCurve': BezierCurveNode,
-  'Sketch::BSplineCurve': BSplineCurveNode,
-  'Sketch::Point': PointNode,
-  'Sketch::Slot': SlotNode,
-  'Sketch::Text': TextNode,
-  'Sketch::Offset': OffsetNode,
-  'Sketch::Fillet2D': Fillet2DNode,
-  'Sketch::Chamfer2D': Chamfer2DNode,
-  'Sketch::Trim': TrimNode,
-  'Boolean::Union': UnionNode,
-  'Boolean::Difference': DifferenceNode,
-  'Boolean::Intersection': IntersectionNode,
-  'Boolean::XOR': XORNode,
-  'Boolean::Split': SplitNode,
-  'Boolean::Fragment': FragmentNode,
-  'Boolean::CommonEdges': CommonEdgesNode,
-  'Boolean::Imprint': ImprintNode,
-  'Boolean::Glue': GlueNode,
-  'Boolean::Compound': CompoundNode,
-  'Assembly::Coincident': CoincidentNode,
-  'Assembly::Parallel': ParallelNode,
-  'Assembly::Perpendicular': PerpendicularNode,
-  'Assembly::Tangent': TangentNode,
-  'Assembly::Concentric': ConcentricNode,
-  'Assembly::Distance': DistanceNode,
-  'Assembly::Angle': AngleNode,
-  'Assembly::Horizontal': HorizontalNode,
-  'Assembly::Vertical': VerticalNode,
-  'Assembly::Fixed': FixedNode,
-  'Assembly::FaceToFace': FaceToFaceNode,
-  'Assembly::EdgeToEdge': EdgeToEdgeNode,
-  'Assembly::PointToPoint': PointToPointNode,
-  'Assembly::AxisToAxis': AxisToAxisNode,
-  'Assembly::PlaneToPlane': PlaneToPlaneNode,
-  'Assembly::Fastened': FastenedNode,
-  'Assembly::Gear': GearNode,
-  'Assembly::Cam': CamNode,
-  'Assembly::Slot': SlotNode,
-  'Assembly::Path': PathNode,
-  'Assembly::Revolute': RevoluteNode,
-  'Assembly::Prismatic': PrismaticNode,
-  'Assembly::Cylindrical': CylindricalNode,
-  'Assembly::Spherical': SphericalNode,
-  'Assembly::Planar': PlanarNode,
-  'Assembly::Universal': UniversalNode,
-  'Assembly::Fixed': FixedNode,
-  'Assembly::Screw': ScrewNode,
-  'Assembly::Belt': BeltNode,
-  'Assembly::RackPinion': RackPinionNode,
-  'Assembly::ComponentPattern': ComponentPatternNode,
-  'Assembly::FlexibleSubAssembly': FlexibleSubAssemblyNode,
-  'Assembly::Configuration': ConfigurationNode,
-  'Assembly::ExplodedView': ExplodedViewNode,
-  'Assembly::BillOfMaterials': BillOfMaterialsNode,
-  'Assembly::InterferenceCheck': InterferenceCheckNode,
-  'Assembly::MotionStudy': MotionStudyNode,
-  'Assembly::Envelope': EnvelopeNode,
-  'Assembly::SmartFasteners': SmartFastenersNode,
-  'Assembly::ContactSet': ContactSetNode,
-  'SheetMetal::EdgeFlange': EdgeFlangeNode,
-  'SheetMetal::ContourFlange': ContourFlangeNode,
-  'SheetMetal::MiterFlange': MiterFlangeNode,
-  'SheetMetal::SketchedBend': SketchedBendNode,
-  'SheetMetal::Hem': HemNode,
-  'SheetMetal::Jog': JogNode,
-  'SheetMetal::CornerRelief': CornerReliefNode,
-  'SheetMetal::BendRelief': BendReliefNode,
-  'SheetMetal::ClosedCorner': ClosedCornerNode,
-  'SheetMetal::Tab': TabNode,
-  'SheetMetal::Slot': SlotNode,
-  'SheetMetal::Louver': LouverNode,
-  'SheetMetal::Lance': LanceNode,
-  'SheetMetal::Bead': BeadNode,
-  'SheetMetal::Unfold': UnfoldNode,
-  'SheetMetal::Fold': FoldNode,
-  'SheetMetal::ExportDXF': ExportDXFNode,
-  'SheetMetal::SheetMetalStyle': SheetMetalStyleNode,
-  'SheetMetal::BendTable': BendTableNode,
-  'SheetMetal::CostEstimate': CostEstimateNode,
-  'Advanced::Sweep': SweepNode,
-  'Advanced::HelicalSweep': HelicalSweepNode,
-  'Advanced::Loft': LoftNode,
-  'Advanced::BlendSurface': BlendSurfaceNode,
-  'Advanced::Boundary': BoundaryNode,
-  'Advanced::Shell': ShellNode,
-  'Advanced::VariableShell': VariableShellNode,
-  'Advanced::Thicken': ThickenNode,
-  'Advanced::OffsetSurface': OffsetSurfaceNode,
-  'Advanced::Draft': DraftNode,
-  'Advanced::PartingLineDraft': PartingLineDraftNode,
-  'Advanced::StepDraft': StepDraftNode,
-  'Advanced::TrimSurface': TrimSurfaceNode,
-  'Advanced::ExtendSurface': ExtendSurfaceNode,
-  'Advanced::UntrimSurface': UntrimSurfaceNode,
-  'Advanced::KnitSurfaces': KnitSurfacesNode,
-  'Advanced::PatchSurface': PatchSurfaceNode,
-  'Advanced::Wrap': WrapNode,
-  'Advanced::Dome': DomeNode,
-  'Advanced::Flex': FlexNode,
-  'Advanced::Indent': IndentNode,
-  'Advanced::Deform': DeformNode,
-  'Advanced::HealShape': HealShapeNode,
-  'Advanced::RemoveFeatures': RemoveFeaturesNode,
-  'Advanced::DeleteFace': DeleteFaceNode,
-  'Advanced::SimplifyShape': SimplifyShapeNode,
-  'Advanced::CheckGeometry': CheckGeometryNode,
-  'Surface::NurbsSurface': NurbsSurfaceNode,
-  'Surface::NetworkSurface': NetworkSurfaceNode,
-  'Surface::SurfaceFromPoints': SurfaceFromPointsNode,
-  'Surface::CoonsPatch': CoonsPatchNode,
-  'Surface::GordonSurface': GordonSurfaceNode,
-  'Surface::NurbsCurve': NurbsCurveNode,
-  'Surface::InterpolateCurve': InterpolateCurveNode,
-  'Surface::ApproximateCurve': ApproximateCurveNode,
-  'Surface::BlendCurve': BlendCurveNode,
-  'Surface::CompositeCurve': CompositeCurveNode,
-  'Surface::CurvatureAnalysis': CurvatureAnalysisNode,
-  'Surface::ZebraAnalysis': ZebraAnalysisNode,
-  'Surface::DraftAnalysis': DraftAnalysisNode,
-  'Surface::ContinuityCheck': ContinuityCheckNode,
-  'Surface::SurfaceDeviation': SurfaceDeviationNode,
-  'Surface::ReflectionLines': ReflectionLinesNode,
-  'Surface::IsocurveExtract': IsocurveExtractNode,
-  'Surface::SectionCurves': SectionCurvesNode,
-  'Surface::ProjectCurve': ProjectCurveNode,
-  'Surface::IntersectCurves': IntersectCurvesNode,
-  'Surface::CurveOnSurface': CurveOnSurfaceNode,
-  'Surface::GeodesicCurve': GeodesicCurveNode,
-  'Surface::IsoparametricCurve': IsoparametricCurveNode,
-  'Mesh::Tessellate': TessellateNode,
-  'Mesh::AdaptiveTessellation': AdaptiveTessellationNode,
-  'Mesh::RemeshUniform': RemeshUniformNode,
-  'Mesh::QuadMesh': QuadMeshNode,
-  'Mesh::VoxelMesh': VoxelMeshNode,
-  'Mesh::RepairMesh': RepairMeshNode,
-  'Mesh::SimplifyMesh': SimplifyMeshNode,
-  'Mesh::FillHoles': FillHolesNode,
-  'Mesh::SmoothMesh': SmoothMeshNode,
-  'Mesh::DecimateMesh': DecimateMeshNode,
-  'Mesh::SubdivideMesh': SubdivideMeshNode,
-  'Mesh::MeshBoolean': MeshBooleanNode,
-  'Mesh::MeshOffset': MeshOffsetNode,
-  'Mesh::ImportSTL': ImportSTLNode,
-  'Mesh::ExportSTL': ExportSTLNode,
-  'Mesh::ImportOBJ': ImportOBJNode,
-  'Mesh::ExportOBJ': ExportOBJNode,
-  'Mesh::ImportPLY': ImportPLYNode,
-  'Mesh::Export3MF': Export3MFNode,
-  'Mesh::MeshToShape': MeshToShapeNode,
-  'IO::ImportSTEP': ImportSTEPNode,
-  'IO::ExportSTEP': ExportSTEPNode,
-  'IO::ImportIGES': ImportIGESNode,
-  'IO::ExportIGES': ExportIGESNode,
-  'IO::ImportBREP': ImportBREPNode,
-  'IO::ExportBREP': ExportBREPNode,
-  'IO::ImportParasolid': ImportParasolidNode,
-  'IO::ImportACIS': ImportACISNode,
-  'IO::ImportDXF': ImportDXFNode,
-  'IO::ExportDXF': ExportDXFNode,
-  'IO::ExportSVG': ExportSVGNode,
-  'IO::ImportGLTF': ImportGLTFNode,
-  'IO::ExportGLTF': ExportGLTFNode,
-  'IO::ImportJSON': ImportJSONNode,
-  'IO::ExportJSON': ExportJSONNode,
-  'Specialized::Text3D': Text3DNode,
-  'Specialized::Engrave': EngraveNode,
-  'Specialized::Emboss': EmbossNode,
-  'Specialized::SerialNumber': SerialNumberNode,
-  'Specialized::Barcode': BarcodeNode,
-  'Specialized::LatticeStructure': LatticeStructureNode,
-  'Specialized::TPMS': TPMSNode,
-  'Specialized::VoronoiLattice': VoronoiLatticeNode,
-  'Specialized::GradedLattice': GradedLatticeNode,
-  'Specialized::ConformLattice': ConformLatticeNode,
-  'Specialized::HoneycombStructure': HoneycombStructureNode,
-  'Specialized::TopologyOptimize': TopologyOptimizeNode,
-  'Specialized::ShapeOptimize': ShapeOptimizeNode,
-  'Specialized::GenerativeDesign': GenerativeDesignNode,
-  'Specialized::LightweightStructure': LightweightStructureNode,
-  'Specialized::StressRelief': StressReliefNode,
-  'Specialized::PackingOptimize': PackingOptimizeNode,
-  'Specialized::MetaBalls': MetaBallsNode,
-  'Specialized::SubdivisionSurface': SubdivisionSurfaceNode,
-  'Specialized::FractalGeometry': FractalGeometryNode,
-  'Specialized::ReactionDiffusion': ReactionDiffusionNode,
-  'Specialized::BiomimeticStructure': BiomimeticStructureNode,
-  'Simulation::MeshForFEA': MeshForFEANode,
-  'Simulation::ApplyLoads': ApplyLoadsNode,
-  'Simulation::ApplyConstraints': ApplyConstraintsNode,
-  'Simulation::MaterialAssign': MaterialAssignNode,
-  'Simulation::ExportFEA': ExportFEANode,
-  'Simulation::FluidDomain': FluidDomainNode,
-  'Simulation::BoundaryLayers': BoundaryLayersNode,
-  'Simulation::InletOutlet': InletOutletNode,
-  'Simulation::FluidProperties': FluidPropertiesNode,
-  'Simulation::ExportCFD': ExportCFDNode,
-  'Simulation::JointDefinition': JointDefinitionNode,
-  'Simulation::MotionDriver': MotionDriverNode,
-  'Simulation::CollisionDetection': CollisionDetectionNode,
-  'Simulation::ForwardKinematics': ForwardKinematicsNode,
-  'Simulation::InverseKinematics': InverseKinematicsNode,
-  'Math::Add': AddNode,
-  'Math::Subtract': SubtractNode,
-  'Math::Multiply': MultiplyNode,
-  'Math::Divide': DivideNode,
-  'Math::Power': PowerNode,
-  'Math::Modulo': ModuloNode,
-  'Math::Absolute': AbsoluteNode,
-  'Math::Negate': NegateNode,
-  'Math::SquareRoot': SquareRootNode,
-  'Math::Factorial': FactorialNode,
-  'Math::Sine': SineNode,
-  'Math::Cosine': CosineNode,
-  'Math::Tangent': TangentNode,
-  'Math::ArcSine': ArcSineNode,
-  'Math::ArcCosine': ArcCosineNode,
-  'Math::ArcTangent': ArcTangentNode,
-  'Math::ArcTangent2': ArcTangent2Node,
-  'Math::HyperbolicSine': HyperbolicSineNode,
-  'Math::HyperbolicCosine': HyperbolicCosineNode,
-  'Math::HyperbolicTangent': HyperbolicTangentNode,
-  'Math::NaturalLog': NaturalLogNode,
-  'Math::Log10': Log10Node,
-  'Math::LogBase': LogBaseNode,
-  'Math::Exponential': ExponentialNode,
-  'Math::Exp10': Exp10Node,
-  'Math::Round': RoundNode,
-  'Math::Floor': FloorNode,
-  'Math::Ceiling': CeilingNode,
-  'Math::Truncate': TruncateNode,
-  'Math::RoundToDecimal': RoundToDecimalNode,
-  'Math::Min': MinNode,
-  'Math::Max': MaxNode,
-  'Math::Clamp': ClampNode,
-  'Math::Sign': SignNode,
-  'Math::IsEqual': IsEqualNode,
-  'Math::Average': AverageNode,
-  'Math::Median': MedianNode,
-  'Math::Mode': ModeNode,
-  'Math::StandardDeviation': StandardDeviationNode,
-  'Math::Variance': VarianceNode,
-  'Math::Sum': SumNode,
-  'Math::Product': ProductNode,
-  'Math::Range': RangeNode,
-  'Math::Percentile': PercentileNode,
-  'Math::Correlation': CorrelationNode,
-  'Math::Random': RandomNode,
-  'Math::RandomRange': RandomRangeNode,
-  'Math::RandomInteger': RandomIntegerNode,
-  'Math::RandomNormal': RandomNormalNode,
-  'Math::RandomPoisson': RandomPoissonNode,
-  'Math::RandomExponential': RandomExponentialNode,
-  'Math::RandomChoice': RandomChoiceNode,
-  'Math::Shuffle': ShuffleNode,
-  'Math::PerlinNoise': PerlinNoiseNode,
-  'Math::SimplexNoise': SimplexNoiseNode,
-  'Math::Lerp': LerpNode,
-  'Math::InverseLerp': InverseLerpNode,
-  'Math::Remap': RemapNode,
-  'Math::SmoothStep': SmoothStepNode,
-  'Math::SmootherStep': SmootherStepNode,
-  'Math::CubicInterp': CubicInterpNode,
-  'Math::HermiteInterp': HermiteInterpNode,
-  'Math::BezierInterp': BezierInterpNode,
-  'Math::EaseIn': EaseInNode,
-  'Math::EaseOut': EaseOutNode,
-  'Math::EaseInOut': EaseInOutNode,
-  'Math::SpringInterp': SpringInterpNode,
-  'Math::ComplexNumber': ComplexNumberNode,
-  'Math::ComplexAdd': ComplexAddNode,
-  'Math::ComplexMultiply': ComplexMultiplyNode,
-  'Math::ComplexConjugate': ComplexConjugateNode,
-  'Math::ComplexMagnitude': ComplexMagnitudeNode,
-  'Math::ComplexPhase': ComplexPhaseNode,
-  'Math::MatrixMultiply': MatrixMultiplyNode,
-  'Math::MatrixInverse': MatrixInverseNode,
-  'Math::MatrixDeterminant': MatrixDeterminantNode,
-  'Math::MatrixTranspose': MatrixTransposeNode,
-  'Data::ListLength': ListLengthNode,
-  'Data::ListItem': ListItemNode,
-  'Data::ListSlice': ListSliceNode,
-  'Data::ListReverse': ListReverseNode,
-  'Data::ListSort': ListSortNode,
-  'Data::ListShuffle': ListShuffleNode,
-  'Data::ListShift': ListShiftNode,
-  'Data::ListInsert': ListInsertNode,
-  'Data::ListRemove': ListRemoveNode,
-  'Data::ListReplace': ListReplaceNode,
-  'Data::ListAppend': ListAppendNode,
-  'Data::ListPrepend': ListPrependNode,
-  'Data::ListJoin': ListJoinNode,
-  'Data::ListSplit': ListSplitNode,
-  'Data::ListPartition': ListPartitionNode,
-  'Data::ListFlatten': ListFlattenNode,
-  'Data::ListUnique': ListUniqueNode,
-  'Data::ListContains': ListContainsNode,
-  'Data::ListFind': ListFindNode,
-  'Data::ListFilter': ListFilterNode,
-  'Data::SetUnion': SetUnionNode,
-  'Data::SetIntersection': SetIntersectionNode,
-  'Data::SetDifference': SetDifferenceNode,
-  'Data::SetSymmetricDifference': SetSymmetricDifferenceNode,
-  'Data::SetSubset': SetSubsetNode,
-  'Data::SetCartesianProduct': SetCartesianProductNode,
-  'Data::SetPowerSet': SetPowerSetNode,
-  'Data::SetCombinations': SetCombinationsNode,
-  'Data::SetPermutations': SetPermutationsNode,
-  'Data::SetPartitions': SetPartitionsNode,
-  'Data::TreeBranch': TreeBranchNode,
-  'Data::TreePaths': TreePathsNode,
-  'Data::TreeGraft': TreeGraftNode,
-  'Data::TreeFlatten': TreeFlattenNode,
-  'Data::TreeSimplify': TreeSimplifyNode,
-  'Data::TreePrune': TreePruneNode,
-  'Data::TreeMerge': TreeMergeNode,
-  'Data::TreeExplode': TreeExplodeNode,
-  'Data::TreeShift': TreeShiftNode,
-  'Data::TreeStatistics': TreeStatisticsNode,
-  'Data::StringConcat': StringConcatNode,
-  'Data::StringSplit': StringSplitNode,
-  'Data::StringReplace': StringReplaceNode,
-  'Data::StringFormat': StringFormatNode,
-  'Data::StringCase': StringCaseNode,
-  'Data::StringTrim': StringTrimNode,
-  'Data::StringLength': StringLengthNode,
-  'Data::StringSubstring': StringSubstringNode,
-  'Data::StringContains': StringContainsNode,
-  'Data::StringMatch': StringMatchNode,
-  'Data::ToString': ToStringNode,
-  'Data::ToNumber': ToNumberNode,
-  'Data::ToBoolean': ToBooleanNode,
-  'Data::ToJSON': ToJSONNode,
-  'Data::FromJSON': FromJSONNode,
-  'Data::ToCSV': ToCSVNode,
-  'Data::FromCSV': FromCSVNode,
-  'Data::ToBase64': ToBase64Node,
-  'Data::FromBase64': FromBase64Node,
-  'Data::TypeOf': TypeOfNode,
-  'Field::LinearField': LinearFieldNode,
-  'Field::RadialField': RadialFieldNode,
-  'Field::SphericalField': SphericalFieldNode,
-  'Field::CylindricalField': CylindricalFieldNode,
-  'Field::NoiseField': NoiseFieldNode,
-  'Field::SineField': SineFieldNode,
-  'Field::VectorField': VectorFieldNode,
-  'Field::ImageField': ImageFieldNode,
-  'Field::DistanceField': DistanceFieldNode,
-  'Field::ChargeField': ChargeFieldNode,
-  'Field::PointAttractor': PointAttractorNode,
-  'Field::CurveAttractor': CurveAttractorNode,
-  'Field::SurfaceAttractor': SurfaceAttractorNode,
-  'Field::MeshAttractor': MeshAttractorNode,
-  'Field::SpinAttractor': SpinAttractorNode,
-  'Field::DirectionalAttractor': DirectionalAttractorNode,
-  'Field::TwistAttractor': TwistAttractorNode,
-  'Field::VortexAttractor': VortexAttractorNode,
-  'Field::GravityAttractor': GravityAttractorNode,
-  'Field::FlowAttractor': FlowAttractorNode,
-  'Field::FieldAdd': FieldAddNode,
-  'Field::FieldSubtract': FieldSubtractNode,
-  'Field::FieldMultiply': FieldMultiplyNode,
-  'Field::FieldDivide': FieldDivideNode,
-  'Field::FieldMin': FieldMinNode,
-  'Field::FieldMax': FieldMaxNode,
-  'Field::FieldBlend': FieldBlendNode,
-  'Field::FieldRemap': FieldRemapNode,
-  'Field::FieldClamp': FieldClampNode,
-  'Field::FieldInvert': FieldInvertNode,
-  'Field::FieldGradient': FieldGradientNode,
-  'Field::FieldDivergence': FieldDivergenceNode,
-  'Field::FieldCurl': FieldCurlNode,
-  'Field::FieldLaplacian': FieldLaplacianNode,
-  'Field::FieldSmooth': FieldSmoothNode,
-  'Field::SampleField': SampleFieldNode,
-  'Field::FieldLine': FieldLineNode,
-  'Field::IsoContour': IsoContourNode,
-  'Field::IsoSurface': IsoSurfaceNode,
-  'Field::FieldGrid': FieldGridNode,
-  'Field::FieldDeform': FieldDeformNode,
-  'Field::FieldDisplace': FieldDisplaceNode,
-  'Field::FieldScale': FieldScaleNode,
-  'Field::FieldRotate': FieldRotateNode,
-  'Field::FieldColor': FieldColorNode,
-  'Fields::FieldColorMap': FieldColorMapNode,
-  'Fields::FieldVectorArrows': FieldVectorArrowsNode,
-  'Fields::FieldStreamLines': FieldStreamLinesNode,
-  'Fields::FieldHeatMap': FieldHeatMapNode,
-  'Fields::FieldVolume': FieldVolumeNode,
-  'Fields::FieldMinMax': FieldMinMaxNode,
-  'Fields::FieldAverage': FieldAverageNode,
-  'Fields::FieldCriticalPoints': FieldCriticalPointsNode,
-  'Fields::FieldDivergenceAnalysis': FieldDivergenceAnalysisNode,
-  'Fields::FieldCurlAnalysis': FieldCurlAnalysisNode,
-  'Fields::FieldFlux': FieldFluxNode,
-  'Fields::FieldCirculation': FieldCirculationNode,
-  'Fields::FieldPotential': FieldPotentialNode,
-  'Fields::FieldHistogram': FieldHistogramNode,
-  'Fields::FieldCorrelation': FieldCorrelationNode,
-  'Fields::FieldMorphing': FieldMorphingNode,
-  'Fields::FieldWarp': FieldWarpNode,
-  'Fields::FieldConvolution': FieldConvolutionNode,
-  'Fields::FieldFourier': FieldFourierNode,
-  'Fields::FieldOptimize': FieldOptimizeNode,
-  'Patterns::Voronoi2D': Voronoi2DNode,
-  'Patterns::Voronoi3D': Voronoi3DNode,
-  'Patterns::WeightedVoronoi': WeightedVoronoiNode,
-  'Patterns::CentroidalVoronoi': CentroidalVoronoiNode,
-  'Patterns::VoronoiOnSurface': VoronoiOnSurfaceNode,
-  'Patterns::Delaunay2D': Delaunay2DNode,
-  'Patterns::Delaunay3D': Delaunay3DNode,
-  'Patterns::ConstrainedDelaunay': ConstrainedDelaunayNode,
-  'Patterns::AlphaShape': AlphaShapeNode,
-  'Patterns::VoronoiFracture': VoronoiFractureNode,
-  'Patterns::VoronoiGrowth': VoronoiGrowthNode,
-  'Patterns::DelaunayMesh': DelaunayMeshNode,
-  'Patterns::VoronoiSkeleton': VoronoiSkeletonNode,
-  'Patterns::VoronoiOffset': VoronoiOffsetNode,
-  'Patterns::ConvexHull': ConvexHullNode,
-  'Patterns::IslamicStar': IslamicStarNode,
-  'Patterns::GirihTiling': GirihTilingNode,
-  'Patterns::Arabesque': ArabesqueNode,
-  'Patterns::MoorishPattern': MoorishPatternNode,
-  'Patterns::IslamicGrid': IslamicGridNode,
-  'Patterns::CelticKnot': CelticKnotNode,
-  'Patterns::CelticBraid': CelticBraidNode,
-  'Patterns::PenroseTiling': PenroseTilingNode,
-  'Patterns::TruchetTiles': TruchetTilesNode,
-  'Patterns::SpiralPattern': SpiralPatternNode,
-  'Patterns::MandalaPattern': MandalaPatternNode,
-  'Patterns::PolygonalTessellation': PolygonalTessellationNode,
-  'Patterns::CirclePacking': CirclePackingNode,
-  'Patterns::HyperbolicTiling': HyperbolicTilingNode,
-  'Patterns::GeodesicPattern': GeodesicPatternNode,
-  'Patterns::Muqarnas': MuqarnasNode,
-  'Patterns::QuasiCrystal': QuasiCrystalNode,
-  'Patterns::MinimalSurface': MinimalSurfaceNode,
-  'Patterns::ReactionDiffusion': ReactionDiffusionNode,
-  'Patterns::ParquetDeformation': ParquetDeformationNode,
-  'Patterns::KochSnowflake': KochSnowflakeNode,
-  'Patterns::SierpinskiTriangle': SierpinskiTriangleNode,
-  'Patterns::MengerSponge': MengerSpongeNode,
-  'Patterns::JuliaSet': JuliaSetNode,
-  'Patterns::MandelbrotSet': MandelbrotSetNode,
-  'Patterns::LSystem2D': LSystem2DNode,
-  'Patterns::LSystem3D': LSystem3DNode,
-  'Patterns::TreeGenerator': TreeGeneratorNode,
-  'Patterns::DragonCurve': DragonCurveNode,
-  'Patterns::HilbertCurve': HilbertCurveNode,
-  'Patterns::PeanoCurve': PeanoCurveNode,
-  'Patterns::CantorSet': CantorSetNode,
-  'Patterns::PlantGrowth': PlantGrowthNode,
-  'Patterns::BarnsleyFern': BarnsleyFernNode,
-  'Patterns::ApollonianGasket': ApollonianGasketNode,
-  'Patterns::RectanglePacking': RectanglePackingNode,
-  'Patterns::SpherePacking': SpherePackingNode,
-  'Patterns::PolygonPacking': PolygonPackingNode,
-  'Patterns::CubicLattice': CubicLatticeNode,
-  'Patterns::OctetLattice': OctetLatticeNode,
-  'Patterns::DiamondLattice': DiamondLatticeNode,
-  'Patterns::KelvinLattice': KelvinLatticeNode,
-  'Patterns::TPMSLattice': TPMSLatticeNode,
-  'Patterns::BrickPattern': BrickPatternNode,
-  'Patterns::ParquetPattern': ParquetPatternNode,
-  'Patterns::WeavePattern': WeavePatternNode,
-  'Patterns::HoneycombPattern': HoneycombPatternNode,
-  'Patterns::FoamStructure': FoamStructureNode,
-  'Patterns::CellularAutomata': CellularAutomataNode,
-  'Patterns::ConwayLife': ConwayLifeNode,
-  'Patterns::PoissonDisk': PoissonDiskNode,
-  'Patterns::BlueNoise': BlueNoiseNode,
-  'Patterns::JitteredGrid': JitteredGridNode,
-  'Patterns::MinimumSpanningTree': MinimumSpanningTreeNode,
-  'Patterns::RelativeNeighborhood': RelativeNeighborhoodNode,
-  'Patterns::BinaryTree': BinaryTreeNode,
-  'Patterns::MazeGenerator': MazeGeneratorNode,
-  'Patterns::SubdivisionSurface': SubdivisionSurfaceNode,
-  'Patterns::FlockingPattern': FlockingPatternNode,
-  'Patterns::DiffusionLimitedAggregation': DiffusionLimitedAggregationNode,
-  'Patterns::GrammarShapes': GrammarShapesNode,
-  'Patterns::WaveFunctionCollapse': WaveFunctionCollapseNode,
-  'Patterns::MarkovChain': MarkovChainNode,
-  'Patterns::GeneticAlgorithm': GeneticAlgorithmNode,
-  'Patterns::NeuralPattern': NeuralPatternNode,
-  'Patterns::StrangeAttractor': StrangeAttractorNode,
-  'Patterns::PhyllotaxisPattern': PhyllotaxisPatternNode,
-  'Patterns::TuringPattern': TuringPatternNode,
-  'Patterns::NoisePattern': NoisePatternNode,
-  'Patterns::PackingCircles': PackingCirclesNode,
-  'Patterns::KMeansClustering': KMeansClusteringNode,
-  'Patterns::ContextFreeArt': ContextFreeArtNode,
-  'Patterns::ProceduralTexture': ProceduralTextureNode,
-  'Patterns::GraphLayout': GraphLayoutNode,
-  'Patterns::ShortestPath': ShortestPathNode,
-  'Fabrication::SupportGeneration': SupportGenerationNode,
-  'Fabrication::PrintOrientation': PrintOrientationNode,
-  'Fabrication::SliceModel': SliceModelNode,
-  'Fabrication::BridgeDetection': BridgeDetectionNode,
-  'Fabrication::WallThickness': WallThicknessNode,
-  'Fabrication::PrintTimeEstimate': PrintTimeEstimateNode,
-  'Fabrication::RaftGeneration': RaftGenerationNode,
-  'Fabrication::BrimGeneration': BrimGenerationNode,
-  'Fabrication::SeamOptimization': SeamOptimizationNode,
-  'Fabrication::InfillOptimization': InfillOptimizationNode,
-  'Fabrication::CoolingAnalysis': CoolingAnalysisNode,
-  'Fabrication::RetractionOptimization': RetractionOptimizationNode,
-  'Fabrication::VaseMode': VaseModeNode,
-  'Fabrication::MultiMaterialSetup': MultiMaterialSetupNode,
-  'Fabrication::TreeSupports': TreeSupportsNode,
-  'Fabrication::IroningPass': IroningPassNode,
-  'Fabrication::FuzzySkinn': FuzzySkinnNode,
-  'Fabrication::CoastingSetup': CoastingSetupNode,
-  'Fabrication::WipeTower': WipeTowerNode,
-  'Fabrication::AdaptiveLayerHeight': AdaptiveLayerHeightNode,
-  'Fabrication::PerimeterGenerator': PerimeterGeneratorNode,
-  'Fabrication::GCodePostProcessor': GCodePostProcessorNode,
-  'Fabrication::NonPlanarSlicing': NonPlanarSlicingNode,
-  'Fabrication::ConicalSlicing': ConicalSlicingNode,
-  'Fabrication::SolubleSupportInterface': SolubleSupportInterfaceNode,
-  'Fabrication::ToolpathGeneration': ToolpathGenerationNode,
-  'Fabrication::PocketingStrategy': PocketingStrategyNode,
-  'Fabrication::ContouringToolpath': ContouringToolpathNode,
-  'Fabrication::DrillingOperation': DrillingOperationNode,
-  'Fabrication::ThreadMilling': ThreadMillingNode,
-  'Fabrication::AdaptiveClearing': AdaptiveClearingNode,
-  'Fabrication::TrochoidalMilling': TrochoidalMillingNode,
-  'Fabrication::RestMachining': RestMachiningNode,
-  'Fabrication::ToolCompensation': ToolCompensationNode,
-  'Fabrication::HelicalEntry': HelicalEntryNode,
-  'Fabrication::RampEntry': RampEntryNode,
-  'Fabrication::HighSpeedMachining': HighSpeedMachiningNode,
-  'Fabrication::ScallopHeight': ScallopHeightNode,
-  'Fabrication::CollisionDetection': CollisionDetectionNode,
-  'Fabrication::FeedsAndSpeeds': FeedsAndSpeedsNode,
-  'Fabrication::FiveAxisPositioning': FiveAxisPositioningNode,
-  'Fabrication::SwarmMilling': SwarmMillingNode,
-  'Fabrication::ToolLibrary': ToolLibraryNode,
-  'Fabrication::WorkCoordinate': WorkCoordinateNode,
-  'Fabrication::PostProcessor': PostProcessorNode,
-  'Fabrication::ChipEvacuation': ChipEvacuationNode,
-  'Fabrication::CutterEngagement': CutterEngagementNode,
-  'Fabrication::ToolWear': ToolWearNode,
-  'Fabrication::SetupSheets': SetupSheetsNode,
-  'Fabrication::ProbeRoutine': ProbeRoutineNode,
-  'Fabrication::LaserPath': LaserPathNode,
-  'Fabrication::TabsAndSlots': TabsAndSlotsNode,
-  'Fabrication::LivingHinge': LivingHingeNode,
-  'Fabrication::KerfBending': KerfBendingNode,
-  'Fabrication::PowerMapping': PowerMappingNode,
-  'Fabrication::EngraveRaster': EngraveRasterNode,
-  'Fabrication::VectorEngrave': VectorEngraveNode,
-  'Fabrication::NestingOptimization': NestingOptimizationNode,
-  'Fabrication::CutOrderOptimization': CutOrderOptimizationNode,
-  'Fabrication::LeadInOut': LeadInOutNode,
-  'Fabrication::BridgeGeneration': BridgeGenerationNode,
-  'Fabrication::FocusCompensation': FocusCompensationNode,
-  'Fabrication::HatchFill': HatchFillNode,
-  'Fabrication::TextEngraving': TextEngravingNode,
-  'Fabrication::MaterialDatabase': MaterialDatabaseNode,
-  'Fabrication::LayerSeparation': LayerSeparationNode,
-  'Fabrication::MultiplePasses': MultiplePassesNode,
-  'Fabrication::CleanupPaths': CleanupPathsNode,
-  'Fabrication::PierceOptimization': PierceOptimizationNode,
-  'Fabrication::MicroJoints': MicroJointsNode,
-  'Fabrication::CutQuality': CutQualityNode,
-  'Fabrication::RotaryAttachment': RotaryAttachmentNode,
-  'Fabrication::AirAssist': AirAssistNode,
-  'Fabrication::SafetyZones': SafetyZonesNode,
-  'Fabrication::JobTimeEstimate': JobTimeEstimateNode,
-  'Fabrication::RobotKinematics': RobotKinematicsNode,
-  'Fabrication::PathPlanning': PathPlanningNode,
-  'Fabrication::CollisionAvoidance': CollisionAvoidanceNode,
-  'Fabrication::EndEffectorSetup': EndEffectorSetupNode,
-  'Fabrication::WorkCellSetup': WorkCellSetupNode,
-  'Fabrication::TrajectoryOptimization': TrajectoryOptimizationNode,
-  'Fabrication::SingularityAvoidance': SingularityAvoidanceNode,
-  'Fabrication::RobotCalibration': RobotCalibrationNode,
-  'Fabrication::ForceControl': ForceControlNode,
-  'Fabrication::WeldingPath': WeldingPathNode,
-  'Fabrication::PickAndPlace': PickAndPlaceNode,
-  'Fabrication::PalletizingPattern': PalletizingPatternNode,
-  'Fabrication::RoboticMilling': RoboticMillingNode,
-  'Fabrication::SprayPainting': SprayPaintingNode,
-  'Fabrication::AdditiveManufacturing': AdditiveManufacturingNode,
-  'Fabrication::VisionGuidance': VisionGuidanceNode,
-  'Fabrication::MultiRobotCoordination': MultiRobotCoordinationNode,
-  'Fabrication::ConveyorTracking': ConveyorTrackingNode,
-  'Fabrication::SafetyZoneSetup': SafetyZoneSetupNode,
-  'Fabrication::RobotSimulation': RobotSimulationNode,
-  'Fabrication::PostProcessorRobot': PostProcessorRobotNode,
-  'Fabrication::ReachAnalysis': ReachAnalysisNode,
-  'Fabrication::JointLimitAvoidance': JointLimitAvoidanceNode,
-  'Fabrication::ToolChangerSetup': ToolChangerSetupNode,
-  'Fabrication::RobotMaintenance': RobotMaintenanceNode,
-  'Architecture::StraightWall': StraightWallNode,
-  'Architecture::CurvedWall': CurvedWallNode,
-  'Architecture::CompoundWall': CompoundWallNode,
-  'Architecture::CurtainWall': CurtainWallNode,
-  'Architecture::WallOpening': WallOpeningNode,
-  'Architecture::WallJoin': WallJoinNode,
-  'Architecture::RetainingWall': RetainingWallNode,
-  'Architecture::StudWall': StudWallNode,
-  'Architecture::InsulatedWall': InsulatedWallNode,
-  'Architecture::TiltUpPanel': TiltUpPanelNode,
-  'Architecture::ParapetWall': ParapetWallNode,
-  'Architecture::FireWall': FireWallNode,
-  'Architecture::MovablePartition': MovablePartitionNode,
-  'Architecture::SoundproofWall': SoundproofWallNode,
-  'Architecture::GreenWall': GreenWallNode,
-  'Architecture::DoubleSkinnedFacade': DoubleSkinnedFacadeNode,
-  'Architecture::RainScreen': RainScreenNode,
-  'Architecture::ShearWall': ShearWallNode,
-  'Architecture::FoundationWall': FoundationWallNode,
-  'Architecture::HistoricWallRestoration': HistoricWallRestorationNode,
-  'Architecture::SlabOnGrade': SlabOnGradeNode,
-  'Architecture::CompositeFloor': CompositeFloorNode,
-  'Architecture::RaisedFloor': RaisedFloorNode,
-  'Architecture::WoodJoistFloor': WoodJoistFloorNode,
-  'Architecture::PostTensionedSlab': PostTensionedSlabNode,
-  'Architecture::SuspendedCeiling': SuspendedCeilingNode,
-  'Architecture::CofferedCeiling': CofferedCeilingNode,
-  'Architecture::VaultedCeiling': VaultedCeilingNode,
-  'Architecture::MezzanineFloor': MezzanineFloorNode,
-  'Architecture::EpoxyFloor': EpoxyFloorNode,
-  'Architecture::RadiantFloor': RadiantFloorNode,
-  'Architecture::AcousticCeiling': AcousticCeilingNode,
-  'Architecture::FloorDrainage': FloorDrainageNode,
-  'Architecture::StretchCeiling': StretchCeilingNode,
-  'Architecture::GreenRoof': GreenRoofNode,
-  'Architecture::FloorExpansionJoint': FloorExpansionJointNode,
-  'Architecture::SkyLight': SkyLightNode,
-  'Architecture::FloorFinish': FloorFinishNode,
-  'Architecture::CeilingBeam': CeilingBeamNode,
-  'Architecture::PedestalPavers': PedestalPaversNode,
-  'Architecture::StraightStair': StraightStairNode,
-  'Architecture::LShapedStair': LShapedStairNode,
-  'Architecture::UShapedStair': UShapedStairNode,
-  'Architecture::SpiralStair': SpiralStairNode,
-  'Architecture::HelicalStair': HelicalStairNode,
-  'Architecture::WinderStair': WinderStairNode,
-  'Architecture::StraightRamp': StraightRampNode,
-  'Architecture::SwitchbackRamp': SwitchbackRampNode,
-  'Architecture::HelicalRamp': HelicalRampNode,
-  'Architecture::StairHandrail': StairHandrailNode,
-  'Architecture::StairBalustrade': StairBalustradeNode,
-  'Architecture::StairNosing': StairNosingNode,
-  'Architecture::StairStringer': StairStringerNode,
-  'Architecture::EscapeStair': EscapeStairNode,
-  'Architecture::MonumentalStair': MonumentalStairNode,
-  'Architecture::FloatingStair': FloatingStairNode,
-  'Architecture::LoadingDock': LoadingDockNode,
-  'Architecture::CurbRamp': CurbRampNode,
-  'Architecture::AlternatingTreadStair': AlternatingTreadStairNode,
-  'Architecture::VehicleRamp': VehicleRampNode,
-  'Architecture::SingleDoor': SingleDoorNode,
-  'Architecture::DoubleDoor': DoubleDoorNode,
-  'Architecture::SlidingDoor': SlidingDoorNode,
-  'Architecture::RevolvingDoor': RevolvingDoorNode,
-  'Architecture::FoldingDoor': FoldingDoorNode,
-  'Architecture::RollupDoor': RollupDoorNode,
-  'Architecture::CasementWindow': CasementWindowNode,
-  'Architecture::SlidingWindow': SlidingWindowNode,
-  'Architecture::DoubleHungWindow': DoubleHungWindowNode,
-  'Architecture::AwningWindow': AwningWindowNode,
-  'Architecture::BayWindow': BayWindowNode,
-  'Architecture::BowWindow': BowWindowNode,
-  'Architecture::ClerestroyWindow': ClerestroyWindowNode,
-  'Architecture::FireDoor': FireDoorNode,
-  'Architecture::SecurityDoor': SecurityDoorNode,
-  'Architecture::StainedGlassWindow': StainedGlassWindowNode,
-  'Architecture::OverheadDoor': OverheadDoorNode,
-  'Architecture::JalousieWindow': JalousieWindowNode,
-  'Architecture::DutchDoor': DutchDoorNode,
-  'Architecture::GothicWindow': GothicWindowNode,
-  'MechanicalEngineering::SpurGear': SpurGearNode,
-  'MechanicalEngineering::HelicalGear': HelicalGearNode,
-  'MechanicalEngineering::BevelGear': BevelGearNode,
-  'MechanicalEngineering::WormGear': WormGearNode,
-  'MechanicalEngineering::WormShaft': WormShaftNode,
-  'MechanicalEngineering::RackGear': RackGearNode,
-  'MechanicalEngineering::InternalGear': InternalGearNode,
-  'MechanicalEngineering::PlanetaryGearSet': PlanetaryGearSetNode,
-  'MechanicalEngineering::TimingPulley': TimingPulleyNode,
-  'MechanicalEngineering::ChainSprocket': ChainSprocketNode,
-  'MechanicalEngineering::CVTDisc': CVTDiscNode,
-  'MechanicalEngineering::DifferentialGear': DifferentialGearNode,
-  'MechanicalEngineering::BallBearing': BallBearingNode,
-  'MechanicalEngineering::RollerBearing': RollerBearingNode,
-  'MechanicalEngineering::ThrustBearing': ThrustBearingNode,
-  'MechanicalEngineering::NeedleBearing': NeedleBearingNode,
-  'MechanicalEngineering::LinearBearing': LinearBearingNode,
-  'MechanicalEngineering::PillowBlock': PillowBlockNode,
-  'MechanicalEngineering::FlangeBearing': FlangeBearingNode,
-  'MechanicalEngineering::BronzeBushing': BronzeBushingNode,
-  'MechanicalEngineering::SphericalBearing': SphericalBearingNode,
-  'MechanicalEngineering::AirBearing': AirBearingNode,
-  'MechanicalEngineering::HexBolt': HexBoltNode,
-  'MechanicalEngineering::SocketHeadCapScrew': SocketHeadCapScrewNode,
-  'MechanicalEngineering::HexNut': HexNutNode,
-  'MechanicalEngineering::Washer': WasherNode,
-  'MechanicalEngineering::ThreadInsert': ThreadInsertNode,
-  'MechanicalEngineering::Rivet': RivetNode,
-  'MechanicalEngineering::ClampingCollar': ClampingCollarNode,
-  'MechanicalEngineering::Dowel': DowelNode,
-  'MechanicalEngineering::RetainingRing': RetainingRingNode,
-  'MechanicalEngineering::KeywayJoint': KeywayJointNode,
-  'MechanicalEngineering::CompressionSpring': CompressionSpringNode,
-  'MechanicalEngineering::ExtensionSpring': ExtensionSpringNode,
-  'MechanicalEngineering::TorsionSpring': TorsionSpringNode,
-  'MechanicalEngineering::LeafSpring': LeafSpringNode,
-  'MechanicalEngineering::GasSpring': GasSpringNode,
-  'MechanicalEngineering::CamProfile': CamProfileNode,
-  'MechanicalEngineering::LinkageMechanism': LinkageMechanismNode,
-  'MechanicalEngineering::RatchetMechanism': RatchetMechanismNode,
-  'MechanicalEngineering::ClutchMechanism': ClutchMechanismNode,
-  'MechanicalEngineering::UniversalJoint': UniversalJointNode,
-  'MechanicalEngineering::SteppedShaft': SteppedShaftNode,
-  'MechanicalEngineering::SplinedShaft': SplinedShaftNode,
-  'MechanicalEngineering::FlexibleShaft': FlexibleShaftNode,
-  'MechanicalEngineering::HollowShaft': HollowShaftNode,
-  'MechanicalEngineering::RigidCoupling': RigidCouplingNode,
-  'MechanicalEngineering::FlexibleCoupling': FlexibleCouplingNode,
-  'MechanicalEngineering::OldhamCoupling': OldhamCouplingNode,
-  'MechanicalEngineering::FluidCoupling': FluidCouplingNode,
-  'MechanicalEngineering::PulleySystem': PulleySystemNode,
-  'MechanicalEngineering::ChainDrive': ChainDriveNode,
-  'Analysis::CurvatureComb': CurvatureCombNode,
-  'Analysis::CurveLength': CurveLengthNode,
-  'Analysis::CurveSmoothnessAnalysis': CurveSmoothnessAnalysisNode,
-  'Analysis::CurveInflectionPoints': CurveInflectionPointsNode,
-  'Analysis::CurveTorsion': CurveTorsionNode,
-  'Analysis::CurveDerivatives': CurveDerivativesNode,
-  'Analysis::CurveParameter': CurveParameterNode,
-  'Analysis::CurveEndpoints': CurveEndpointsNode,
-  'Analysis::CurveClosestPoint': CurveClosestPointNode,
-  'Analysis::CurveExtremePoints': CurveExtremePointsNode,
-  'Analysis::CurveAreaMoments': CurveAreaMomentsNode,
-  'Analysis::CurveConvexHull': CurveConvexHullNode,
-  'Analysis::CurveBoundingBox': CurveBoundingBoxNode,
-  'Analysis::CurveSpiral': CurveSpiralNode,
-  'Analysis::SurfaceCurvature': SurfaceCurvatureNode,
-  'Analysis::SurfaceNormals': SurfaceNormalsNode,
-  'Analysis::SurfaceArea': SurfaceAreaNode,
-  'Analysis::SurfaceIsoCurves': SurfaceIsoCurvesNode,
-  'Analysis::SurfaceParametrization': SurfaceParametrizationNode,
-  'Analysis::SurfaceDerivatives': SurfaceDerivativesNode,
-  'Analysis::SurfaceClosestPoint': SurfaceClosestPointNode,
-  'Analysis::SurfaceBoundary': SurfaceBoundaryNode,
-  'Analysis::SurfaceContinuity': SurfaceContinuityNode,
-  'Analysis::SurfaceDeviation': SurfaceDeviationNode,
-  'Analysis::SurfaceFlatness': SurfaceFlatnessNode,
-  'Analysis::SurfaceRoughness': SurfaceRoughnessNode,
-  'Analysis::CurveCurveIntersection': CurveCurveIntersectionNode,
-  'Analysis::CurveSurfaceIntersection': CurveSurfaceIntersectionNode,
-  'Analysis::SurfaceSurfaceIntersection': SurfaceSurfaceIntersectionNode,
-  'Analysis::PlaneIntersection': PlaneIntersectionNode,
-  'Analysis::RayIntersection': RayIntersectionNode,
-  'Analysis::MinimumDistance': MinimumDistanceNode,
-  'Analysis::ProximityAnalysis': ProximityAnalysisNode,
-  'Analysis::ClearanceCheck': ClearanceCheckNode,
-  'Analysis::CollisionDetection': CollisionDetectionNode,
-  'Analysis::VisibilityAnalysis': VisibilityAnalysisNode,
-  'Analysis::ShadowAnalysis': ShadowAnalysisNode,
-  'Analysis::VolumeCalculation': VolumeCalculationNode,
-  'Analysis::AngleMeasurement': AngleMeasurementNode,
-  'Analysis::DistanceMeasurement': DistanceMeasurementNode,
-  'Analysis::GeometryValidation': GeometryValidationNode,
-  'Analysis::MeshQuality': MeshQualityNode,
-  'Analysis::ToleranceAnalysis': ToleranceAnalysisNode,
-  'Interoperability::STEPImport': STEPImportNode,
-  'Interoperability::STEPExport': STEPExportNode,
-  'Interoperability::IGESImport': IGESImportNode,
-  'Interoperability::IGESExport': IGESExportNode,
-  'Interoperability::STLImport': STLImportNode,
-  'Interoperability::STLExport': STLExportNode,
-  'Interoperability::OBJImport': OBJImportNode,
-  'Interoperability::OBJExport': OBJExportNode,
-  'Interoperability::PLYImport': PLYImportNode,
-  'Interoperability::PLYExport': PLYExportNode,
-  'Interoperability::ThreeMFImport': ThreeMFImportNode,
-  'Interoperability::ThreeMFExport': ThreeMFExportNode,
-  'Interoperability::DXFImport': DXFImportNode,
-  'Interoperability::DXFExport': DXFExportNode,
-  'Interoperability::SVGImport': SVGImportNode,
-  'Interoperability::SVGExport': SVGExportNode,
-  'Interoperability::SQLQuery': SQLQueryNode,
-  'Interoperability::SQLInsert': SQLInsertNode,
-  'Interoperability::HTTPRequest': HTTPRequestNode,
-  'Interoperability::JSONParser': JSONParserNode,
-  'Interoperability::JSONGenerator': JSONGeneratorNode,
-  'Interoperability::S3Upload': S3UploadNode,
-  'Interoperability::S3Download': S3DownloadNode,
-  'Interoperability::EmailSender': EmailSenderNode,
-  'Interoperability::SlackNotification': SlackNotificationNode,
-  'Interoperability::CSVReader': CSVReaderNode,
-  'Interoperability::CSVWriter': CSVWriterNode,
-  'Interoperability::ExcelReader': ExcelReaderNode,
-  'Interoperability::ExcelWriter': ExcelWriterNode,
-  'Interoperability::GrasshopperExport': GrasshopperExportNode,
-  'Interoperability::WebSocketClient': WebSocketClientNode,
-  'Interoperability::MQTTPublisher': MQTTPublisherNode,
-  'Interoperability::MQTTSubscriber': MQTTSubscriberNode,
-  'Interoperability::SerialPort': SerialPortNode,
-  'Interoperability::TCPClient': TCPClientNode,
-  'Algorithmic::GeneticOptimizer': GeneticOptimizerNode,
-  'Algorithmic::ParticleSwarmOptimizer': ParticleSwarmOptimizerNode,
-  'Algorithmic::SimulatedAnnealing': SimulatedAnnealingNode,
-  'Algorithmic::GradientDescent': GradientDescentNode,
-  'Algorithmic::TopologyOptimizer': TopologyOptimizerNode,
-  'Algorithmic::LinearRegression': LinearRegressionNode,
-  'Algorithmic::KMeansClustering': KMeansClusteringNode,
-  'Algorithmic::DecisionTree': DecisionTreeNode,
-  'Algorithmic::NeuralNetwork': NeuralNetworkNode,
-  'Algorithmic::SupportVectorMachine': SupportVectorMachineNode,
-  'Algorithmic::ConvexHull3D': ConvexHull3DNode,
-  'Algorithmic::AlphaShape': AlphaShapeNode,
-  'Algorithmic::MinimumSpanningTree': MinimumSpanningTreeNode,
-  'Algorithmic::ShortestPath': ShortestPathNode,
-  'Algorithmic::VisibilityGraph': VisibilityGraphNode,
-  'Algorithmic::MedialAxis': MedialAxisNode,
-  'Algorithmic::DistanceField': DistanceFieldNode,
-  'Algorithmic::MarchingCubes': MarchingCubesNode,
-  'Algorithmic::SpacePartitioning': SpacePartitioningNode,
-  'Algorithmic::VoxelGrid': VoxelGridNode,
-  'Algorithmic::PointCloudProcessing': PointCloudProcessingNode,
-  'Algorithmic::SurfaceReconstruction': SurfaceReconstructionNode,
-  'Algorithmic::GeometrySimplification': GeometrySimplificationNode,
-  'Algorithmic::GeometryMatching': GeometryMatchingNode,
-  'Algorithmic::ShapeDescriptor': ShapeDescriptorNode,
+  'Features::SimpleHole': FeaturesHolesSimpleHoleNode,
+  'Features::CounterboreHole': FeaturesHolesCounterboreHoleNode,
+  'Features::CountersinkHole': FeaturesHolesCountersinkHoleNode,
+  'Features::ThreadedHole': FeaturesHolesThreadedHoleNode,
+  'Features::RectangularPocket': FeaturesPocketsRectangularPocketNode,
+  'Features::CircularPocket': FeaturesPocketsCircularPocketNode,
+  'Features::LinearRib': FeaturesStructuralLinearRibNode,
+  'Features::MountingBoss': FeaturesStructuralMountingBossNode,
+  'Transform::LinearPattern': TransformPatternsLinearPatternNode,
+  'Transform::CircularPattern': TransformPatternsCircularPatternNode,
+  'Transform::RectangularPattern': TransformPatternsRectangularPatternNode,
+  'Transform::Move': TransformMoveNode,
+  'Transform::Rotate': TransformRotateNode,
+  'Transform::Scale': TransformScaleNode,
+  'Transform::Mirror': TransformMirrorNode,
+  'Transform::LinearArray': TransformLinearArrayNode,
+  'Transform::PolarArray': TransformPolarArrayNode,
+  'Transform::PathArray': TransformPathArrayNode,
+  'Transform::GridArray': TransformGridArrayNode,
+  'Transform::Align': TransformAlignNode,
+  'Transform::Orient': TransformOrientNode,
+  'Transform::ProjectToPlane': TransformProjectToPlaneNode,
+  'Transform::Wrap': TransformWrapNode,
+  'Transform::Deform': TransformDeformNode,
+  'Transform::BoundingBoxAlign': TransformBoundingBoxAlignNode,
+  'Transform::MatrixTransform': TransformMatrixTransformNode,
+  'Solid::Prism': SolidParametricPrismNode,
+  'Solid::Wedge': SolidParametricWedgeNode,
+  'Solid::Pyramid': SolidParametricPyramidNode,
+  'Solid::BezierSurface': SolidSurfaceBezierSurfaceNode,
+  'Solid::BSplineSurface': SolidSurfaceBSplineSurfaceNode,
+  'Solid::RuledSurface': SolidSurfaceRuledSurfaceNode,
+  'Solid::Helix': SolidHelicalHelixNode,
+  'Solid::Spring': SolidHelicalSpringNode,
+  'Solid::Thread': SolidHelicalThreadNode,
+  'Solid::Box': SolidPrimitivesBoxNode,
+  'Solid::Sphere': SolidPrimitivesSphereNode,
+  'Solid::Cylinder': SolidPrimitivesCylinderNode,
+  'Solid::Cone': SolidPrimitivesConeNode,
+  'Solid::Torus': SolidPrimitivesTorusNode,
+  'Solid::Ellipsoid': SolidPrimitivesEllipsoidNode,
+  'Solid::Capsule': SolidPrimitivesCapsuleNode,
+  'Solid::RoundedBox': SolidPrimitivesRoundedBoxNode,
+  'Solid::Pipe': SolidPrimitivesPipeNode,
+  'Solid::Polyhedron': SolidPrimitivesPolyhedronNode,
+  'Sketch::Ellipse': SketchCurvesEllipseNode,
+  'Sketch::Parabola': SketchCurvesParabolaNode,
+  'Sketch::Hyperbola': SketchCurvesHyperbolaNode,
+  'Sketch::Spiral': SketchCurvesSpiralNode,
+  'Sketch::Polygon': SketchPatternsPolygonNode,
+  'Sketch::Star': SketchPatternsStarNode,
+  'Sketch::Gear': SketchPatternsGearNode,
+  'Sketch::Line': SketchBasicLineNode,
+  'Sketch::Arc': SketchBasicArcNode,
+  'Sketch::Circle': SketchBasicCircleNode,
+  'Sketch::Rectangle': SketchBasicRectangleNode,
+  'Sketch::Polyline': SketchBasicPolylineNode,
+  'Sketch::Spline': SketchCurvesSplineNode,
+  'Sketch::BezierCurve': SketchCurvesBezierCurveNode,
+  'Sketch::BSplineCurve': SketchCurvesBSplineCurveNode,
+  'Sketch::Point': SketchBasicPointNode,
+  'Sketch::Slot': SketchBasicSlotNode,
+  'Sketch::Text': SketchBasicTextNode,
+  'Sketch::Offset': SketchCurvesOffsetNode,
+  'Sketch::Fillet2D': SketchCurvesFillet2DNode,
+  'Sketch::Chamfer2D': SketchCurvesChamfer2DNode,
+  'Sketch::Trim': SketchCurvesTrimNode,
+  'Boolean::Union': BooleanUnionNode,
+  'Boolean::Difference': BooleanDifferenceNode,
+  'Boolean::Intersection': BooleanIntersectionNode,
+  'Boolean::XOR': BooleanXORNode,
+  'Boolean::Split': BooleanSplitNode,
+  'Boolean::Fragment': BooleanFragmentNode,
+  'Boolean::CommonEdges': BooleanCommonEdgesNode,
+  'Boolean::Imprint': BooleanImprintNode,
+  'Boolean::Glue': BooleanGlueNode,
+  'Boolean::Compound': BooleanCompoundNode,
+  'Assembly::Coincident': AssemblyConstraintsCoincidentNode,
+  'Assembly::Parallel': AssemblyConstraintsParallelNode,
+  'Assembly::Perpendicular': AssemblyConstraintsPerpendicularNode,
+  'Assembly::Tangent': AssemblyConstraintsTangentNode,
+  'Assembly::Concentric': AssemblyConstraintsConcentricNode,
+  'Assembly::Distance': AssemblyConstraintsDistanceNode,
+  'Assembly::Angle': AssemblyConstraintsAngleNode,
+  'Assembly::Horizontal': AssemblyConstraintsHorizontalNode,
+  'Assembly::Vertical': AssemblyConstraintsVerticalNode,
+  'Assembly::Fixed': AssemblyConstraintsFixedNode,
+  'Assembly::FaceToFace': AssemblyMatesFaceToFaceNode,
+  'Assembly::EdgeToEdge': AssemblyMatesEdgeToEdgeNode,
+  'Assembly::PointToPoint': AssemblyMatesPointToPointNode,
+  'Assembly::AxisToAxis': AssemblyMatesAxisToAxisNode,
+  'Assembly::PlaneToPlane': AssemblyMatesPlaneToPlaneNode,
+  'Assembly::Fastened': AssemblyMatesFastenedNode,
+  'Assembly::Gear': AssemblyMatesGearNode,
+  'Assembly::Cam': AssemblyMatesCamNode,
+  'Assembly::Slot': AssemblyMatesSlotNode,
+  'Assembly::Path': AssemblyMatesPathNode,
+  'Assembly::Revolute': AssemblyJointsRevoluteNode,
+  'Assembly::Prismatic': AssemblyJointsPrismaticNode,
+  'Assembly::Cylindrical': AssemblyJointsCylindricalNode,
+  'Assembly::Spherical': AssemblyJointsSphericalNode,
+  'Assembly::Planar': AssemblyJointsPlanarNode,
+  'Assembly::Universal': AssemblyJointsUniversalNode,
+  'Assembly::Fixed': AssemblyJointsFixedNode,
+  'Assembly::Screw': AssemblyJointsScrewNode,
+  'Assembly::Belt': AssemblyJointsBeltNode,
+  'Assembly::RackPinion': AssemblyJointsRackPinionNode,
+  'Assembly::ComponentPattern': AssemblyPatternsComponentPatternNode,
+  'Assembly::FlexibleSubAssembly': AssemblyPatternsFlexibleSubAssemblyNode,
+  'Assembly::Configuration': AssemblyPatternsConfigurationNode,
+  'Assembly::ExplodedView': AssemblyPatternsExplodedViewNode,
+  'Assembly::BillOfMaterials': AssemblyPatternsBillOfMaterialsNode,
+  'Assembly::InterferenceCheck': AssemblyPatternsInterferenceCheckNode,
+  'Assembly::MotionStudy': AssemblyPatternsMotionStudyNode,
+  'Assembly::Envelope': AssemblyPatternsEnvelopeNode,
+  'Assembly::SmartFasteners': AssemblyPatternsSmartFastenersNode,
+  'Assembly::ContactSet': AssemblyPatternsContactSetNode,
+  'SheetMetal::EdgeFlange': SheetMetalFlangesEdgeFlangeNode,
+  'SheetMetal::ContourFlange': SheetMetalFlangesContourFlangeNode,
+  'SheetMetal::MiterFlange': SheetMetalFlangesMiterFlangeNode,
+  'SheetMetal::SketchedBend': SheetMetalBendsSketchedBendNode,
+  'SheetMetal::Hem': SheetMetalBendsHemNode,
+  'SheetMetal::Jog': SheetMetalBendsJogNode,
+  'SheetMetal::CornerRelief': SheetMetalCornersCornerReliefNode,
+  'SheetMetal::BendRelief': SheetMetalCornersBendReliefNode,
+  'SheetMetal::ClosedCorner': SheetMetalCornersClosedCornerNode,
+  'SheetMetal::Tab': SheetMetalFeaturesTabNode,
+  'SheetMetal::Slot': SheetMetalFeaturesSlotNode,
+  'SheetMetal::Louver': SheetMetalFeaturesLouverNode,
+  'SheetMetal::Lance': SheetMetalFeaturesLanceNode,
+  'SheetMetal::Bead': SheetMetalFeaturesBeadNode,
+  'SheetMetal::Unfold': SheetMetalUnfoldUnfoldNode,
+  'SheetMetal::Fold': SheetMetalUnfoldFoldNode,
+  'SheetMetal::ExportDXF': SheetMetalUnfoldExportDXFNode,
+  'SheetMetal::SheetMetalStyle': SheetMetalPropertiesSheetMetalStyleNode,
+  'SheetMetal::BendTable': SheetMetalPropertiesBendTableNode,
+  'SheetMetal::CostEstimate': SheetMetalPropertiesCostEstimateNode,
+  'Advanced::Sweep': AdvancedSweepSweepNode,
+  'Advanced::HelicalSweep': AdvancedSweepHelicalSweepNode,
+  'Advanced::Loft': AdvancedLoftLoftNode,
+  'Advanced::BlendSurface': AdvancedLoftBlendSurfaceNode,
+  'Advanced::Boundary': AdvancedBoundaryBoundaryNode,
+  'Advanced::Shell': AdvancedShellShellNode,
+  'Advanced::VariableShell': AdvancedShellVariableShellNode,
+  'Advanced::Thicken': AdvancedThicknessThickenNode,
+  'Advanced::OffsetSurface': AdvancedThicknessOffsetSurfaceNode,
+  'Advanced::Draft': AdvancedDraftDraftNode,
+  'Advanced::PartingLineDraft': AdvancedDraftPartingLineDraftNode,
+  'Advanced::StepDraft': AdvancedDraftStepDraftNode,
+  'Advanced::TrimSurface': AdvancedSurfaceTrimSurfaceNode,
+  'Advanced::ExtendSurface': AdvancedSurfaceExtendSurfaceNode,
+  'Advanced::UntrimSurface': AdvancedSurfaceUntrimSurfaceNode,
+  'Advanced::KnitSurfaces': AdvancedSurfaceKnitSurfacesNode,
+  'Advanced::PatchSurface': AdvancedSurfacePatchSurfaceNode,
+  'Advanced::Wrap': AdvancedFeaturesWrapNode,
+  'Advanced::Dome': AdvancedFeaturesDomeNode,
+  'Advanced::Flex': AdvancedFeaturesFlexNode,
+  'Advanced::Indent': AdvancedFeaturesIndentNode,
+  'Advanced::Deform': AdvancedFeaturesDeformNode,
+  'Advanced::HealShape': AdvancedHealingHealShapeNode,
+  'Advanced::RemoveFeatures': AdvancedHealingRemoveFeaturesNode,
+  'Advanced::DeleteFace': AdvancedHealingDeleteFaceNode,
+  'Advanced::SimplifyShape': AdvancedHealingSimplifyShapeNode,
+  'Advanced::CheckGeometry': AdvancedHealingCheckGeometryNode,
+  'Surface::NurbsSurface': SurfaceNURBSNurbsSurfaceNode,
+  'Surface::NetworkSurface': SurfaceNURBSNetworkSurfaceNode,
+  'Surface::SurfaceFromPoints': SurfaceNURBSSurfaceFromPointsNode,
+  'Surface::CoonsPatch': SurfaceNURBSCoonsPatchNode,
+  'Surface::GordonSurface': SurfaceNURBSGordonSurfaceNode,
+  'Surface::NurbsCurve': SurfaceCurvesNurbsCurveNode,
+  'Surface::InterpolateCurve': SurfaceCurvesInterpolateCurveNode,
+  'Surface::ApproximateCurve': SurfaceCurvesApproximateCurveNode,
+  'Surface::BlendCurve': SurfaceCurvesBlendCurveNode,
+  'Surface::CompositeCurve': SurfaceCurvesCompositeCurveNode,
+  'Surface::CurvatureAnalysis': SurfaceAnalysisCurvatureAnalysisNode,
+  'Surface::ZebraAnalysis': SurfaceAnalysisZebraAnalysisNode,
+  'Surface::DraftAnalysis': SurfaceAnalysisDraftAnalysisNode,
+  'Surface::ContinuityCheck': SurfaceAnalysisContinuityCheckNode,
+  'Surface::SurfaceDeviation': SurfaceAnalysisSurfaceDeviationNode,
+  'Surface::ReflectionLines': SurfaceAnalysisReflectionLinesNode,
+  'Surface::IsocurveExtract': SurfaceAnalysisIsocurveExtractNode,
+  'Surface::SectionCurves': SurfaceAnalysisSectionCurvesNode,
+  'Surface::ProjectCurve': SurfaceCurveOpsProjectCurveNode,
+  'Surface::IntersectCurves': SurfaceCurveOpsIntersectCurvesNode,
+  'Surface::CurveOnSurface': SurfaceCurveOpsCurveOnSurfaceNode,
+  'Surface::GeodesicCurve': SurfaceCurveOpsGeodesicCurveNode,
+  'Surface::IsoparametricCurve': SurfaceCurveOpsIsoparametricCurveNode,
+  'Mesh::Tessellate': MeshTessellationTessellateNode,
+  'Mesh::AdaptiveTessellation': MeshTessellationAdaptiveTessellationNode,
+  'Mesh::RemeshUniform': MeshTessellationRemeshUniformNode,
+  'Mesh::QuadMesh': MeshTessellationQuadMeshNode,
+  'Mesh::VoxelMesh': MeshTessellationVoxelMeshNode,
+  'Mesh::RepairMesh': MeshRepairRepairMeshNode,
+  'Mesh::SimplifyMesh': MeshRepairSimplifyMeshNode,
+  'Mesh::FillHoles': MeshRepairFillHolesNode,
+  'Mesh::SmoothMesh': MeshRepairSmoothMeshNode,
+  'Mesh::DecimateMesh': MeshRepairDecimateMeshNode,
+  'Mesh::SubdivideMesh': MeshRepairSubdivideMeshNode,
+  'Mesh::MeshBoolean': MeshRepairMeshBooleanNode,
+  'Mesh::MeshOffset': MeshRepairMeshOffsetNode,
+  'Mesh::ImportSTL': MeshFilesImportSTLNode,
+  'Mesh::ExportSTL': MeshFilesExportSTLNode,
+  'Mesh::ImportOBJ': MeshFilesImportOBJNode,
+  'Mesh::ExportOBJ': MeshFilesExportOBJNode,
+  'Mesh::ImportPLY': MeshFilesImportPLYNode,
+  'Mesh::Export3MF': MeshFilesExport3MFNode,
+  'Mesh::MeshToShape': MeshFilesMeshToShapeNode,
+  'IO::ImportSTEP': IOCADImportSTEPNode,
+  'IO::ExportSTEP': IOCADExportSTEPNode,
+  'IO::ImportIGES': IOCADImportIGESNode,
+  'IO::ExportIGES': IOCADExportIGESNode,
+  'IO::ImportBREP': IOCADImportBREPNode,
+  'IO::ExportBREP': IOCADExportBREPNode,
+  'IO::ImportParasolid': IOCADImportParasolidNode,
+  'IO::ImportACIS': IOCADImportACISNode,
+  'IO::ImportDXF': IODrawingImportDXFNode,
+  'IO::ExportDXF': IODrawingExportDXFNode,
+  'IO::ExportSVG': IODrawingExportSVGNode,
+  'IO::ImportGLTF': IOExchangeImportGLTFNode,
+  'IO::ExportGLTF': IOExchangeExportGLTFNode,
+  'IO::ImportJSON': IOExchangeImportJSONNode,
+  'IO::ExportJSON': IOExchangeExportJSONNode,
+  'Specialized::Text3D': SpecializedTextText3DNode,
+  'Specialized::Engrave': SpecializedTextEngraveNode,
+  'Specialized::Emboss': SpecializedTextEmbossNode,
+  'Specialized::SerialNumber': SpecializedTextSerialNumberNode,
+  'Specialized::Barcode': SpecializedTextBarcodeNode,
+  'Specialized::LatticeStructure': SpecializedLatticeLatticeStructureNode,
+  'Specialized::TPMS': SpecializedLatticeTPMSNode,
+  'Specialized::VoronoiLattice': SpecializedLatticeVoronoiLatticeNode,
+  'Specialized::GradedLattice': SpecializedLatticeGradedLatticeNode,
+  'Specialized::ConformLattice': SpecializedLatticeConformLatticeNode,
+  'Specialized::HoneycombStructure': SpecializedLatticeHoneycombStructureNode,
+  'Specialized::TopologyOptimize': SpecializedOptimizationTopologyOptimizeNode,
+  'Specialized::ShapeOptimize': SpecializedOptimizationShapeOptimizeNode,
+  'Specialized::GenerativeDesign': SpecializedOptimizationGenerativeDesignNode,
+  'Specialized::LightweightStructure': SpecializedOptimizationLightweightStructureNode,
+  'Specialized::StressRelief': SpecializedOptimizationStressReliefNode,
+  'Specialized::PackingOptimize': SpecializedOptimizationPackingOptimizeNode,
+  'Specialized::MetaBalls': SpecializedOrganicMetaBallsNode,
+  'Specialized::SubdivisionSurface': SpecializedOrganicSubdivisionSurfaceNode,
+  'Specialized::FractalGeometry': SpecializedOrganicFractalGeometryNode,
+  'Specialized::ReactionDiffusion': SpecializedOrganicReactionDiffusionNode,
+  'Specialized::BiomimeticStructure': SpecializedOrganicBiomimeticStructureNode,
+  'Simulation::MeshForFEA': SimulationFEAMeshForFEANode,
+  'Simulation::ApplyLoads': SimulationFEAApplyLoadsNode,
+  'Simulation::ApplyConstraints': SimulationFEAApplyConstraintsNode,
+  'Simulation::MaterialAssign': SimulationFEAMaterialAssignNode,
+  'Simulation::ExportFEA': SimulationFEAExportFEANode,
+  'Simulation::FluidDomain': SimulationCFDFluidDomainNode,
+  'Simulation::BoundaryLayers': SimulationCFDBoundaryLayersNode,
+  'Simulation::InletOutlet': SimulationCFDInletOutletNode,
+  'Simulation::FluidProperties': SimulationCFDFluidPropertiesNode,
+  'Simulation::ExportCFD': SimulationCFDExportCFDNode,
+  'Simulation::JointDefinition': SimulationKinematicsJointDefinitionNode,
+  'Simulation::MotionDriver': SimulationKinematicsMotionDriverNode,
+  'Simulation::CollisionDetection': SimulationKinematicsCollisionDetectionNode,
+  'Simulation::ForwardKinematics': SimulationKinematicsForwardKinematicsNode,
+  'Simulation::InverseKinematics': SimulationKinematicsInverseKinematicsNode,
+  'Math::Add': MathOperatorsAddNode,
+  'Math::Subtract': MathOperatorsSubtractNode,
+  'Math::Multiply': MathOperatorsMultiplyNode,
+  'Math::Divide': MathOperatorsDivideNode,
+  'Math::Power': MathOperatorsPowerNode,
+  'Math::Modulo': MathOperatorsModuloNode,
+  'Math::Absolute': MathOperatorsAbsoluteNode,
+  'Math::Negate': MathOperatorsNegateNode,
+  'Math::SquareRoot': MathOperatorsSquareRootNode,
+  'Math::Factorial': MathOperatorsFactorialNode,
+  'Math::Sine': MathTrigonometrySineNode,
+  'Math::Cosine': MathTrigonometryCosineNode,
+  'Math::Tangent': MathTrigonometryTangentNode,
+  'Math::ArcSine': MathTrigonometryArcSineNode,
+  'Math::ArcCosine': MathTrigonometryArcCosineNode,
+  'Math::ArcTangent': MathTrigonometryArcTangentNode,
+  'Math::ArcTangent2': MathTrigonometryArcTangent2Node,
+  'Math::HyperbolicSine': MathTrigonometryHyperbolicSineNode,
+  'Math::HyperbolicCosine': MathTrigonometryHyperbolicCosineNode,
+  'Math::HyperbolicTangent': MathTrigonometryHyperbolicTangentNode,
+  'Math::NaturalLog': MathLogarithmicNaturalLogNode,
+  'Math::Log10': MathLogarithmicLog10Node,
+  'Math::LogBase': MathLogarithmicLogBaseNode,
+  'Math::Exponential': MathLogarithmicExponentialNode,
+  'Math::Exp10': MathLogarithmicExp10Node,
+  'Math::Round': MathRoundingRoundNode,
+  'Math::Floor': MathRoundingFloorNode,
+  'Math::Ceiling': MathRoundingCeilingNode,
+  'Math::Truncate': MathRoundingTruncateNode,
+  'Math::RoundToDecimal': MathRoundingRoundToDecimalNode,
+  'Math::Min': MathComparisonMinNode,
+  'Math::Max': MathComparisonMaxNode,
+  'Math::Clamp': MathComparisonClampNode,
+  'Math::Sign': MathComparisonSignNode,
+  'Math::IsEqual': MathComparisonIsEqualNode,
+  'Math::Average': MathStatisticsAverageNode,
+  'Math::Median': MathStatisticsMedianNode,
+  'Math::Mode': MathStatisticsModeNode,
+  'Math::StandardDeviation': MathStatisticsStandardDeviationNode,
+  'Math::Variance': MathStatisticsVarianceNode,
+  'Math::Sum': MathStatisticsSumNode,
+  'Math::Product': MathStatisticsProductNode,
+  'Math::Range': MathStatisticsRangeNode,
+  'Math::Percentile': MathStatisticsPercentileNode,
+  'Math::Correlation': MathStatisticsCorrelationNode,
+  'Math::Random': MathRandomRandomNode,
+  'Math::RandomRange': MathRandomRandomRangeNode,
+  'Math::RandomInteger': MathRandomRandomIntegerNode,
+  'Math::RandomNormal': MathRandomRandomNormalNode,
+  'Math::RandomPoisson': MathRandomRandomPoissonNode,
+  'Math::RandomExponential': MathRandomRandomExponentialNode,
+  'Math::RandomChoice': MathRandomRandomChoiceNode,
+  'Math::Shuffle': MathRandomShuffleNode,
+  'Math::PerlinNoise': MathRandomPerlinNoiseNode,
+  'Math::SimplexNoise': MathRandomSimplexNoiseNode,
+  'Math::Lerp': MathInterpolationLerpNode,
+  'Math::InverseLerp': MathInterpolationInverseLerpNode,
+  'Math::Remap': MathInterpolationRemapNode,
+  'Math::SmoothStep': MathInterpolationSmoothStepNode,
+  'Math::SmootherStep': MathInterpolationSmootherStepNode,
+  'Math::CubicInterp': MathInterpolationCubicInterpNode,
+  'Math::HermiteInterp': MathInterpolationHermiteInterpNode,
+  'Math::BezierInterp': MathInterpolationBezierInterpNode,
+  'Math::EaseIn': MathInterpolationEaseInNode,
+  'Math::EaseOut': MathInterpolationEaseOutNode,
+  'Math::EaseInOut': MathInterpolationEaseInOutNode,
+  'Math::SpringInterp': MathInterpolationSpringInterpNode,
+  'Math::ComplexNumber': MathComplexComplexNumberNode,
+  'Math::ComplexAdd': MathComplexComplexAddNode,
+  'Math::ComplexMultiply': MathComplexComplexMultiplyNode,
+  'Math::ComplexConjugate': MathComplexComplexConjugateNode,
+  'Math::ComplexMagnitude': MathComplexComplexMagnitudeNode,
+  'Math::ComplexPhase': MathComplexComplexPhaseNode,
+  'Math::MatrixMultiply': MathMatrixMatrixMultiplyNode,
+  'Math::MatrixInverse': MathMatrixMatrixInverseNode,
+  'Math::MatrixDeterminant': MathMatrixMatrixDeterminantNode,
+  'Math::MatrixTranspose': MathMatrixMatrixTransposeNode,
+  'Data::ListLength': DataListListLengthNode,
+  'Data::ListItem': DataListListItemNode,
+  'Data::ListSlice': DataListListSliceNode,
+  'Data::ListReverse': DataListListReverseNode,
+  'Data::ListSort': DataListListSortNode,
+  'Data::ListShuffle': DataListListShuffleNode,
+  'Data::ListShift': DataListListShiftNode,
+  'Data::ListInsert': DataListListInsertNode,
+  'Data::ListRemove': DataListListRemoveNode,
+  'Data::ListReplace': DataListListReplaceNode,
+  'Data::ListAppend': DataListListAppendNode,
+  'Data::ListPrepend': DataListListPrependNode,
+  'Data::ListJoin': DataListListJoinNode,
+  'Data::ListSplit': DataListListSplitNode,
+  'Data::ListPartition': DataListListPartitionNode,
+  'Data::ListFlatten': DataListListFlattenNode,
+  'Data::ListUnique': DataListListUniqueNode,
+  'Data::ListContains': DataListListContainsNode,
+  'Data::ListFind': DataListListFindNode,
+  'Data::ListFilter': DataListListFilterNode,
+  'Data::SetUnion': DataSetSetUnionNode,
+  'Data::SetIntersection': DataSetSetIntersectionNode,
+  'Data::SetDifference': DataSetSetDifferenceNode,
+  'Data::SetSymmetricDifference': DataSetSetSymmetricDifferenceNode,
+  'Data::SetSubset': DataSetSetSubsetNode,
+  'Data::SetCartesianProduct': DataSetSetCartesianProductNode,
+  'Data::SetPowerSet': DataSetSetPowerSetNode,
+  'Data::SetCombinations': DataSetSetCombinationsNode,
+  'Data::SetPermutations': DataSetSetPermutationsNode,
+  'Data::SetPartitions': DataSetSetPartitionsNode,
+  'Data::TreeBranch': DataTreeTreeBranchNode,
+  'Data::TreePaths': DataTreeTreePathsNode,
+  'Data::TreeGraft': DataTreeTreeGraftNode,
+  'Data::TreeFlatten': DataTreeTreeFlattenNode,
+  'Data::TreeSimplify': DataTreeTreeSimplifyNode,
+  'Data::TreePrune': DataTreeTreePruneNode,
+  'Data::TreeMerge': DataTreeTreeMergeNode,
+  'Data::TreeExplode': DataTreeTreeExplodeNode,
+  'Data::TreeShift': DataTreeTreeShiftNode,
+  'Data::TreeStatistics': DataTreeTreeStatisticsNode,
+  'Data::StringConcat': DataStringStringConcatNode,
+  'Data::StringSplit': DataStringStringSplitNode,
+  'Data::StringReplace': DataStringStringReplaceNode,
+  'Data::StringFormat': DataStringStringFormatNode,
+  'Data::StringCase': DataStringStringCaseNode,
+  'Data::StringTrim': DataStringStringTrimNode,
+  'Data::StringLength': DataStringStringLengthNode,
+  'Data::StringSubstring': DataStringStringSubstringNode,
+  'Data::StringContains': DataStringStringContainsNode,
+  'Data::StringMatch': DataStringStringMatchNode,
+  'Data::ToString': DataConvertToStringNode,
+  'Data::ToNumber': DataConvertToNumberNode,
+  'Data::ToBoolean': DataConvertToBooleanNode,
+  'Data::ToJSON': DataConvertToJSONNode,
+  'Data::FromJSON': DataConvertFromJSONNode,
+  'Data::ToCSV': DataConvertToCSVNode,
+  'Data::FromCSV': DataConvertFromCSVNode,
+  'Data::ToBase64': DataConvertToBase64Node,
+  'Data::FromBase64': DataConvertFromBase64Node,
+  'Data::TypeOf': DataConvertTypeOfNode,
+  'Field::LinearField': FieldGenerateLinearFieldNode,
+  'Field::RadialField': FieldGenerateRadialFieldNode,
+  'Field::SphericalField': FieldGenerateSphericalFieldNode,
+  'Field::CylindricalField': FieldGenerateCylindricalFieldNode,
+  'Field::NoiseField': FieldGenerateNoiseFieldNode,
+  'Field::SineField': FieldGenerateSineFieldNode,
+  'Field::VectorField': FieldGenerateVectorFieldNode,
+  'Field::ImageField': FieldGenerateImageFieldNode,
+  'Field::DistanceField': FieldGenerateDistanceFieldNode,
+  'Field::ChargeField': FieldGenerateChargeFieldNode,
+  'Field::PointAttractor': FieldAttractorPointAttractorNode,
+  'Field::CurveAttractor': FieldAttractorCurveAttractorNode,
+  'Field::SurfaceAttractor': FieldAttractorSurfaceAttractorNode,
+  'Field::MeshAttractor': FieldAttractorMeshAttractorNode,
+  'Field::SpinAttractor': FieldAttractorSpinAttractorNode,
+  'Field::DirectionalAttractor': FieldAttractorDirectionalAttractorNode,
+  'Field::TwistAttractor': FieldAttractorTwistAttractorNode,
+  'Field::VortexAttractor': FieldAttractorVortexAttractorNode,
+  'Field::GravityAttractor': FieldAttractorGravityAttractorNode,
+  'Field::FlowAttractor': FieldAttractorFlowAttractorNode,
+  'Field::FieldAdd': FieldOperationsFieldAddNode,
+  'Field::FieldSubtract': FieldOperationsFieldSubtractNode,
+  'Field::FieldMultiply': FieldOperationsFieldMultiplyNode,
+  'Field::FieldDivide': FieldOperationsFieldDivideNode,
+  'Field::FieldMin': FieldOperationsFieldMinNode,
+  'Field::FieldMax': FieldOperationsFieldMaxNode,
+  'Field::FieldBlend': FieldOperationsFieldBlendNode,
+  'Field::FieldRemap': FieldOperationsFieldRemapNode,
+  'Field::FieldClamp': FieldOperationsFieldClampNode,
+  'Field::FieldInvert': FieldOperationsFieldInvertNode,
+  'Field::FieldGradient': FieldOperationsFieldGradientNode,
+  'Field::FieldDivergence': FieldOperationsFieldDivergenceNode,
+  'Field::FieldCurl': FieldOperationsFieldCurlNode,
+  'Field::FieldLaplacian': FieldOperationsFieldLaplacianNode,
+  'Field::FieldSmooth': FieldOperationsFieldSmoothNode,
+  'Field::SampleField': FieldSampleSampleFieldNode,
+  'Field::FieldLine': FieldSampleFieldLineNode,
+  'Field::IsoContour': FieldSampleIsoContourNode,
+  'Field::IsoSurface': FieldSampleIsoSurfaceNode,
+  'Field::FieldGrid': FieldSampleFieldGridNode,
+  'Field::FieldDeform': FieldDeformFieldDeformNode,
+  'Field::FieldDisplace': FieldDeformFieldDisplaceNode,
+  'Field::FieldScale': FieldDeformFieldScaleNode,
+  'Field::FieldRotate': FieldDeformFieldRotateNode,
+  'Field::FieldColor': FieldDeformFieldColorNode,
+  'Fields::FieldColorMap': FieldsVisualizationFieldColorMapNode,
+  'Fields::FieldVectorArrows': FieldsVisualizationFieldVectorArrowsNode,
+  'Fields::FieldStreamLines': FieldsVisualizationFieldStreamLinesNode,
+  'Fields::FieldHeatMap': FieldsVisualizationFieldHeatMapNode,
+  'Fields::FieldVolume': FieldsVisualizationFieldVolumeNode,
+  'Fields::FieldMinMax': FieldsAnalysisFieldMinMaxNode,
+  'Fields::FieldAverage': FieldsAnalysisFieldAverageNode,
+  'Fields::FieldCriticalPoints': FieldsAnalysisFieldCriticalPointsNode,
+  'Fields::FieldDivergenceAnalysis': FieldsAnalysisFieldDivergenceAnalysisNode,
+  'Fields::FieldCurlAnalysis': FieldsAnalysisFieldCurlAnalysisNode,
+  'Fields::FieldFlux': FieldsAnalysisFieldFluxNode,
+  'Fields::FieldCirculation': FieldsAnalysisFieldCirculationNode,
+  'Fields::FieldPotential': FieldsAnalysisFieldPotentialNode,
+  'Fields::FieldHistogram': FieldsAnalysisFieldHistogramNode,
+  'Fields::FieldCorrelation': FieldsAnalysisFieldCorrelationNode,
+  'Fields::FieldMorphing': FieldsAdvancedFieldMorphingNode,
+  'Fields::FieldWarp': FieldsAdvancedFieldWarpNode,
+  'Fields::FieldConvolution': FieldsAdvancedFieldConvolutionNode,
+  'Fields::FieldFourier': FieldsAdvancedFieldFourierNode,
+  'Fields::FieldOptimize': FieldsAdvancedFieldOptimizeNode,
+  'Patterns::Voronoi2D': PatternsVoronoiVoronoi2DNode,
+  'Patterns::Voronoi3D': PatternsVoronoiVoronoi3DNode,
+  'Patterns::WeightedVoronoi': PatternsVoronoiWeightedVoronoiNode,
+  'Patterns::CentroidalVoronoi': PatternsVoronoiCentroidalVoronoiNode,
+  'Patterns::VoronoiOnSurface': PatternsVoronoiVoronoiOnSurfaceNode,
+  'Patterns::Delaunay2D': PatternsDelaunayDelaunay2DNode,
+  'Patterns::Delaunay3D': PatternsDelaunayDelaunay3DNode,
+  'Patterns::ConstrainedDelaunay': PatternsDelaunayConstrainedDelaunayNode,
+  'Patterns::AlphaShape': PatternsDelaunayAlphaShapeNode,
+  'Patterns::VoronoiFracture': PatternsVoronoiVoronoiFractureNode,
+  'Patterns::VoronoiGrowth': PatternsVoronoiVoronoiGrowthNode,
+  'Patterns::DelaunayMesh': PatternsDelaunayDelaunayMeshNode,
+  'Patterns::VoronoiSkeleton': PatternsVoronoiVoronoiSkeletonNode,
+  'Patterns::VoronoiOffset': PatternsVoronoiVoronoiOffsetNode,
+  'Patterns::ConvexHull': PatternsDelaunayConvexHullNode,
+  'Patterns::IslamicStar': PatternsIslamicIslamicStarNode,
+  'Patterns::GirihTiling': PatternsIslamicGirihTilingNode,
+  'Patterns::Arabesque': PatternsIslamicArabesqueNode,
+  'Patterns::MoorishPattern': PatternsIslamicMoorishPatternNode,
+  'Patterns::IslamicGrid': PatternsIslamicIslamicGridNode,
+  'Patterns::CelticKnot': PatternsCelticCelticKnotNode,
+  'Patterns::CelticBraid': PatternsCelticCelticBraidNode,
+  'Patterns::PenroseTiling': PatternsGeometricPenroseTilingNode,
+  'Patterns::TruchetTiles': PatternsGeometricTruchetTilesNode,
+  'Patterns::SpiralPattern': PatternsGeometricSpiralPatternNode,
+  'Patterns::MandalaPattern': PatternsGeometricMandalaPatternNode,
+  'Patterns::PolygonalTessellation': PatternsGeometricPolygonalTessellationNode,
+  'Patterns::CirclePacking': PatternsGeometricCirclePackingNode,
+  'Patterns::HyperbolicTiling': PatternsGeometricHyperbolicTilingNode,
+  'Patterns::GeodesicPattern': PatternsGeometricGeodesicPatternNode,
+  'Patterns::Muqarnas': PatternsIslamicMuqarnasNode,
+  'Patterns::QuasiCrystal': PatternsGeometricQuasiCrystalNode,
+  'Patterns::MinimalSurface': PatternsGeometricMinimalSurfaceNode,
+  'Patterns::ReactionDiffusion': PatternsGeometricReactionDiffusionNode,
+  'Patterns::ParquetDeformation': PatternsGeometricParquetDeformationNode,
+  'Patterns::KochSnowflake': PatternsFractalsKochSnowflakeNode,
+  'Patterns::SierpinskiTriangle': PatternsFractalsSierpinskiTriangleNode,
+  'Patterns::MengerSponge': PatternsFractalsMengerSpongeNode,
+  'Patterns::JuliaSet': PatternsFractalsJuliaSetNode,
+  'Patterns::MandelbrotSet': PatternsFractalsMandelbrotSetNode,
+  'Patterns::LSystem2D': PatternsLSystemsLSystem2DNode,
+  'Patterns::LSystem3D': PatternsLSystemsLSystem3DNode,
+  'Patterns::TreeGenerator': PatternsLSystemsTreeGeneratorNode,
+  'Patterns::DragonCurve': PatternsFractalsDragonCurveNode,
+  'Patterns::HilbertCurve': PatternsFractalsHilbertCurveNode,
+  'Patterns::PeanoCurve': PatternsFractalsPeanoCurveNode,
+  'Patterns::CantorSet': PatternsFractalsCantorSetNode,
+  'Patterns::PlantGrowth': PatternsLSystemsPlantGrowthNode,
+  'Patterns::BarnsleyFern': PatternsFractalsBarnsleyFernNode,
+  'Patterns::ApollonianGasket': PatternsFractalsApollonianGasketNode,
+  'Patterns::RectanglePacking': PatternsPackingRectanglePackingNode,
+  'Patterns::SpherePacking': PatternsPackingSpherePackingNode,
+  'Patterns::PolygonPacking': PatternsPackingPolygonPackingNode,
+  'Patterns::CubicLattice': PatternsLatticeCubicLatticeNode,
+  'Patterns::OctetLattice': PatternsLatticeOctetLatticeNode,
+  'Patterns::DiamondLattice': PatternsLatticeDiamondLatticeNode,
+  'Patterns::KelvinLattice': PatternsLatticeKelvinLatticeNode,
+  'Patterns::TPMSLattice': PatternsLatticeTPMSLatticeNode,
+  'Patterns::BrickPattern': PatternsTilingBrickPatternNode,
+  'Patterns::ParquetPattern': PatternsTilingParquetPatternNode,
+  'Patterns::WeavePattern': PatternsTilingWeavePatternNode,
+  'Patterns::HoneycombPattern': PatternsCellularHoneycombPatternNode,
+  'Patterns::FoamStructure': PatternsCellularFoamStructureNode,
+  'Patterns::CellularAutomata': PatternsCellularCellularAutomataNode,
+  'Patterns::ConwayLife': PatternsCellularConwayLifeNode,
+  'Patterns::PoissonDisk': PatternsStochasticPoissonDiskNode,
+  'Patterns::BlueNoise': PatternsStochasticBlueNoiseNode,
+  'Patterns::JitteredGrid': PatternsStochasticJitteredGridNode,
+  'Patterns::MinimumSpanningTree': PatternsNetworkMinimumSpanningTreeNode,
+  'Patterns::RelativeNeighborhood': PatternsNetworkRelativeNeighborhoodNode,
+  'Patterns::BinaryTree': PatternsAlgorithmicBinaryTreeNode,
+  'Patterns::MazeGenerator': PatternsAlgorithmicMazeGeneratorNode,
+  'Patterns::SubdivisionSurface': PatternsAlgorithmicSubdivisionSurfaceNode,
+  'Patterns::FlockingPattern': PatternsAlgorithmicFlockingPatternNode,
+  'Patterns::DiffusionLimitedAggregation': PatternsAlgorithmicDiffusionLimitedAggregationNode,
+  'Patterns::GrammarShapes': PatternsProceduralGrammarShapesNode,
+  'Patterns::WaveFunctionCollapse': PatternsProceduralWaveFunctionCollapseNode,
+  'Patterns::MarkovChain': PatternsProceduralMarkovChainNode,
+  'Patterns::GeneticAlgorithm': PatternsProceduralGeneticAlgorithmNode,
+  'Patterns::NeuralPattern': PatternsProceduralNeuralPatternNode,
+  'Patterns::StrangeAttractor': PatternsAlgorithmicStrangeAttractorNode,
+  'Patterns::PhyllotaxisPattern': PatternsAlgorithmicPhyllotaxisPatternNode,
+  'Patterns::TuringPattern': PatternsProceduralTuringPatternNode,
+  'Patterns::NoisePattern': PatternsProceduralNoisePatternNode,
+  'Patterns::PackingCircles': PatternsAlgorithmicPackingCirclesNode,
+  'Patterns::KMeansClustering': PatternsAlgorithmicKMeansClusteringNode,
+  'Patterns::ContextFreeArt': PatternsProceduralContextFreeArtNode,
+  'Patterns::ProceduralTexture': PatternsProceduralProceduralTextureNode,
+  'Patterns::GraphLayout': PatternsAlgorithmicGraphLayoutNode,
+  'Patterns::ShortestPath': PatternsAlgorithmicShortestPathNode,
+  'Fabrication::SupportGeneration': Fabrication3DPrintingSupportGenerationNode,
+  'Fabrication::PrintOrientation': Fabrication3DPrintingPrintOrientationNode,
+  'Fabrication::SliceModel': Fabrication3DPrintingSliceModelNode,
+  'Fabrication::BridgeDetection': Fabrication3DPrintingBridgeDetectionNode,
+  'Fabrication::WallThickness': Fabrication3DPrintingWallThicknessNode,
+  'Fabrication::PrintTimeEstimate': Fabrication3DPrintingPrintTimeEstimateNode,
+  'Fabrication::RaftGeneration': Fabrication3DPrintingRaftGenerationNode,
+  'Fabrication::BrimGeneration': Fabrication3DPrintingBrimGenerationNode,
+  'Fabrication::SeamOptimization': Fabrication3DPrintingSeamOptimizationNode,
+  'Fabrication::InfillOptimization': Fabrication3DPrintingInfillOptimizationNode,
+  'Fabrication::CoolingAnalysis': Fabrication3DPrintingCoolingAnalysisNode,
+  'Fabrication::RetractionOptimization': Fabrication3DPrintingRetractionOptimizationNode,
+  'Fabrication::VaseMode': Fabrication3DPrintingVaseModeNode,
+  'Fabrication::MultiMaterialSetup': Fabrication3DPrintingMultiMaterialSetupNode,
+  'Fabrication::TreeSupports': Fabrication3DPrintingTreeSupportsNode,
+  'Fabrication::IroningPass': Fabrication3DPrintingIroningPassNode,
+  'Fabrication::FuzzySkinn': Fabrication3DPrintingFuzzySkinnNode,
+  'Fabrication::CoastingSetup': Fabrication3DPrintingCoastingSetupNode,
+  'Fabrication::WipeTower': Fabrication3DPrintingWipeTowerNode,
+  'Fabrication::AdaptiveLayerHeight': Fabrication3DPrintingAdaptiveLayerHeightNode,
+  'Fabrication::PerimeterGenerator': Fabrication3DPrintingPerimeterGeneratorNode,
+  'Fabrication::GCodePostProcessor': Fabrication3DPrintingGCodePostProcessorNode,
+  'Fabrication::NonPlanarSlicing': Fabrication3DPrintingNonPlanarSlicingNode,
+  'Fabrication::ConicalSlicing': Fabrication3DPrintingConicalSlicingNode,
+  'Fabrication::SolubleSupportInterface': Fabrication3DPrintingSolubleSupportInterfaceNode,
+  'Fabrication::ToolpathGeneration': FabricationCNCToolpathGenerationNode,
+  'Fabrication::PocketingStrategy': FabricationCNCPocketingStrategyNode,
+  'Fabrication::ContouringToolpath': FabricationCNCContouringToolpathNode,
+  'Fabrication::DrillingOperation': FabricationCNCDrillingOperationNode,
+  'Fabrication::ThreadMilling': FabricationCNCThreadMillingNode,
+  'Fabrication::AdaptiveClearing': FabricationCNCAdaptiveClearingNode,
+  'Fabrication::TrochoidalMilling': FabricationCNCTrochoidalMillingNode,
+  'Fabrication::RestMachining': FabricationCNCRestMachiningNode,
+  'Fabrication::ToolCompensation': FabricationCNCToolCompensationNode,
+  'Fabrication::HelicalEntry': FabricationCNCHelicalEntryNode,
+  'Fabrication::RampEntry': FabricationCNCRampEntryNode,
+  'Fabrication::HighSpeedMachining': FabricationCNCHighSpeedMachiningNode,
+  'Fabrication::ScallopHeight': FabricationCNCScallopHeightNode,
+  'Fabrication::CollisionDetection': FabricationCNCCollisionDetectionNode,
+  'Fabrication::FeedsAndSpeeds': FabricationCNCFeedsAndSpeedsNode,
+  'Fabrication::FiveAxisPositioning': FabricationCNCFiveAxisPositioningNode,
+  'Fabrication::SwarmMilling': FabricationCNCSwarmMillingNode,
+  'Fabrication::ToolLibrary': FabricationCNCToolLibraryNode,
+  'Fabrication::WorkCoordinate': FabricationCNCWorkCoordinateNode,
+  'Fabrication::PostProcessor': FabricationCNCPostProcessorNode,
+  'Fabrication::ChipEvacuation': FabricationCNCChipEvacuationNode,
+  'Fabrication::CutterEngagement': FabricationCNCCutterEngagementNode,
+  'Fabrication::ToolWear': FabricationCNCToolWearNode,
+  'Fabrication::SetupSheets': FabricationCNCSetupSheetsNode,
+  'Fabrication::ProbeRoutine': FabricationCNCProbeRoutineNode,
+  'Fabrication::LaserPath': FabricationLaserLaserPathNode,
+  'Fabrication::TabsAndSlots': FabricationLaserTabsAndSlotsNode,
+  'Fabrication::LivingHinge': FabricationLaserLivingHingeNode,
+  'Fabrication::KerfBending': FabricationLaserKerfBendingNode,
+  'Fabrication::PowerMapping': FabricationLaserPowerMappingNode,
+  'Fabrication::EngraveRaster': FabricationLaserEngraveRasterNode,
+  'Fabrication::VectorEngrave': FabricationLaserVectorEngraveNode,
+  'Fabrication::NestingOptimization': FabricationLaserNestingOptimizationNode,
+  'Fabrication::CutOrderOptimization': FabricationLaserCutOrderOptimizationNode,
+  'Fabrication::LeadInOut': FabricationLaserLeadInOutNode,
+  'Fabrication::BridgeGeneration': FabricationLaserBridgeGenerationNode,
+  'Fabrication::FocusCompensation': FabricationLaserFocusCompensationNode,
+  'Fabrication::HatchFill': FabricationLaserHatchFillNode,
+  'Fabrication::TextEngraving': FabricationLaserTextEngravingNode,
+  'Fabrication::MaterialDatabase': FabricationLaserMaterialDatabaseNode,
+  'Fabrication::LayerSeparation': FabricationLaserLayerSeparationNode,
+  'Fabrication::MultiplePasses': FabricationLaserMultiplePassesNode,
+  'Fabrication::CleanupPaths': FabricationLaserCleanupPathsNode,
+  'Fabrication::PierceOptimization': FabricationLaserPierceOptimizationNode,
+  'Fabrication::MicroJoints': FabricationLaserMicroJointsNode,
+  'Fabrication::CutQuality': FabricationLaserCutQualityNode,
+  'Fabrication::RotaryAttachment': FabricationLaserRotaryAttachmentNode,
+  'Fabrication::AirAssist': FabricationLaserAirAssistNode,
+  'Fabrication::SafetyZones': FabricationLaserSafetyZonesNode,
+  'Fabrication::JobTimeEstimate': FabricationLaserJobTimeEstimateNode,
+  'Fabrication::RobotKinematics': FabricationRoboticsRobotKinematicsNode,
+  'Fabrication::PathPlanning': FabricationRoboticsPathPlanningNode,
+  'Fabrication::CollisionAvoidance': FabricationRoboticsCollisionAvoidanceNode,
+  'Fabrication::EndEffectorSetup': FabricationRoboticsEndEffectorSetupNode,
+  'Fabrication::WorkCellSetup': FabricationRoboticsWorkCellSetupNode,
+  'Fabrication::TrajectoryOptimization': FabricationRoboticsTrajectoryOptimizationNode,
+  'Fabrication::SingularityAvoidance': FabricationRoboticsSingularityAvoidanceNode,
+  'Fabrication::RobotCalibration': FabricationRoboticsRobotCalibrationNode,
+  'Fabrication::ForceControl': FabricationRoboticsForceControlNode,
+  'Fabrication::WeldingPath': FabricationRoboticsWeldingPathNode,
+  'Fabrication::PickAndPlace': FabricationRoboticsPickAndPlaceNode,
+  'Fabrication::PalletizingPattern': FabricationRoboticsPalletizingPatternNode,
+  'Fabrication::RoboticMilling': FabricationRoboticsRoboticMillingNode,
+  'Fabrication::SprayPainting': FabricationRoboticsSprayPaintingNode,
+  'Fabrication::AdditiveManufacturing': FabricationRoboticsAdditiveManufacturingNode,
+  'Fabrication::VisionGuidance': FabricationRoboticsVisionGuidanceNode,
+  'Fabrication::MultiRobotCoordination': FabricationRoboticsMultiRobotCoordinationNode,
+  'Fabrication::ConveyorTracking': FabricationRoboticsConveyorTrackingNode,
+  'Fabrication::SafetyZoneSetup': FabricationRoboticsSafetyZoneSetupNode,
+  'Fabrication::RobotSimulation': FabricationRoboticsRobotSimulationNode,
+  'Fabrication::PostProcessorRobot': FabricationRoboticsPostProcessorRobotNode,
+  'Fabrication::ReachAnalysis': FabricationRoboticsReachAnalysisNode,
+  'Fabrication::JointLimitAvoidance': FabricationRoboticsJointLimitAvoidanceNode,
+  'Fabrication::ToolChangerSetup': FabricationRoboticsToolChangerSetupNode,
+  'Fabrication::RobotMaintenance': FabricationRoboticsRobotMaintenanceNode,
+  'Architecture::StraightWall': ArchitectureWallsStraightWallNode,
+  'Architecture::CurvedWall': ArchitectureWallsCurvedWallNode,
+  'Architecture::CompoundWall': ArchitectureWallsCompoundWallNode,
+  'Architecture::CurtainWall': ArchitectureWallsCurtainWallNode,
+  'Architecture::WallOpening': ArchitectureWallsWallOpeningNode,
+  'Architecture::WallJoin': ArchitectureWallsWallJoinNode,
+  'Architecture::RetainingWall': ArchitectureWallsRetainingWallNode,
+  'Architecture::StudWall': ArchitectureWallsStudWallNode,
+  'Architecture::InsulatedWall': ArchitectureWallsInsulatedWallNode,
+  'Architecture::TiltUpPanel': ArchitectureWallsTiltUpPanelNode,
+  'Architecture::ParapetWall': ArchitectureWallsParapetWallNode,
+  'Architecture::FireWall': ArchitectureWallsFireWallNode,
+  'Architecture::MovablePartition': ArchitectureWallsMovablePartitionNode,
+  'Architecture::SoundproofWall': ArchitectureWallsSoundproofWallNode,
+  'Architecture::GreenWall': ArchitectureWallsGreenWallNode,
+  'Architecture::DoubleSkinnedFacade': ArchitectureWallsDoubleSkinnedFacadeNode,
+  'Architecture::RainScreen': ArchitectureWallsRainScreenNode,
+  'Architecture::ShearWall': ArchitectureWallsShearWallNode,
+  'Architecture::FoundationWall': ArchitectureWallsFoundationWallNode,
+  'Architecture::HistoricWallRestoration': ArchitectureWallsHistoricWallRestorationNode,
+  'Architecture::SlabOnGrade': ArchitectureFloorsSlabOnGradeNode,
+  'Architecture::CompositeFloor': ArchitectureFloorsCompositeFloorNode,
+  'Architecture::RaisedFloor': ArchitectureFloorsRaisedFloorNode,
+  'Architecture::WoodJoistFloor': ArchitectureFloorsWoodJoistFloorNode,
+  'Architecture::PostTensionedSlab': ArchitectureFloorsPostTensionedSlabNode,
+  'Architecture::SuspendedCeiling': ArchitectureCeilingsSuspendedCeilingNode,
+  'Architecture::CofferedCeiling': ArchitectureCeilingsCofferedCeilingNode,
+  'Architecture::VaultedCeiling': ArchitectureCeilingsVaultedCeilingNode,
+  'Architecture::MezzanineFloor': ArchitectureFloorsMezzanineFloorNode,
+  'Architecture::EpoxyFloor': ArchitectureFloorsEpoxyFloorNode,
+  'Architecture::RadiantFloor': ArchitectureFloorsRadiantFloorNode,
+  'Architecture::AcousticCeiling': ArchitectureCeilingsAcousticCeilingNode,
+  'Architecture::FloorDrainage': ArchitectureFloorsFloorDrainageNode,
+  'Architecture::StretchCeiling': ArchitectureCeilingsStretchCeilingNode,
+  'Architecture::GreenRoof': ArchitectureFloorsGreenRoofNode,
+  'Architecture::FloorExpansionJoint': ArchitectureFloorsFloorExpansionJointNode,
+  'Architecture::SkyLight': ArchitectureCeilingsSkyLightNode,
+  'Architecture::FloorFinish': ArchitectureFloorsFloorFinishNode,
+  'Architecture::CeilingBeam': ArchitectureCeilingsCeilingBeamNode,
+  'Architecture::PedestalPavers': ArchitectureFloorsPedestalPaversNode,
+  'Architecture::StraightStair': ArchitectureStairsStraightStairNode,
+  'Architecture::LShapedStair': ArchitectureStairsLShapedStairNode,
+  'Architecture::UShapedStair': ArchitectureStairsUShapedStairNode,
+  'Architecture::SpiralStair': ArchitectureStairsSpiralStairNode,
+  'Architecture::HelicalStair': ArchitectureStairsHelicalStairNode,
+  'Architecture::WinderStair': ArchitectureStairsWinderStairNode,
+  'Architecture::StraightRamp': ArchitectureRampsStraightRampNode,
+  'Architecture::SwitchbackRamp': ArchitectureRampsSwitchbackRampNode,
+  'Architecture::HelicalRamp': ArchitectureRampsHelicalRampNode,
+  'Architecture::StairHandrail': ArchitectureStairsStairHandrailNode,
+  'Architecture::StairBalustrade': ArchitectureStairsStairBalustradeNode,
+  'Architecture::StairNosing': ArchitectureStairsStairNosingNode,
+  'Architecture::StairStringer': ArchitectureStairsStairStringerNode,
+  'Architecture::EscapeStair': ArchitectureStairsEscapeStairNode,
+  'Architecture::MonumentalStair': ArchitectureStairsMonumentalStairNode,
+  'Architecture::FloatingStair': ArchitectureStairsFloatingStairNode,
+  'Architecture::LoadingDock': ArchitectureRampsLoadingDockNode,
+  'Architecture::CurbRamp': ArchitectureRampsCurbRampNode,
+  'Architecture::AlternatingTreadStair': ArchitectureStairsAlternatingTreadStairNode,
+  'Architecture::VehicleRamp': ArchitectureRampsVehicleRampNode,
+  'Architecture::SingleDoor': ArchitectureDoorsSingleDoorNode,
+  'Architecture::DoubleDoor': ArchitectureDoorsDoubleDoorNode,
+  'Architecture::SlidingDoor': ArchitectureDoorsSlidingDoorNode,
+  'Architecture::RevolvingDoor': ArchitectureDoorsRevolvingDoorNode,
+  'Architecture::FoldingDoor': ArchitectureDoorsFoldingDoorNode,
+  'Architecture::RollupDoor': ArchitectureDoorsRollupDoorNode,
+  'Architecture::CasementWindow': ArchitectureWindowsCasementWindowNode,
+  'Architecture::SlidingWindow': ArchitectureWindowsSlidingWindowNode,
+  'Architecture::DoubleHungWindow': ArchitectureWindowsDoubleHungWindowNode,
+  'Architecture::AwningWindow': ArchitectureWindowsAwningWindowNode,
+  'Architecture::BayWindow': ArchitectureWindowsBayWindowNode,
+  'Architecture::BowWindow': ArchitectureWindowsBowWindowNode,
+  'Architecture::ClerestroyWindow': ArchitectureWindowsClerestroyWindowNode,
+  'Architecture::FireDoor': ArchitectureDoorsFireDoorNode,
+  'Architecture::SecurityDoor': ArchitectureDoorsSecurityDoorNode,
+  'Architecture::StainedGlassWindow': ArchitectureWindowsStainedGlassWindowNode,
+  'Architecture::OverheadDoor': ArchitectureDoorsOverheadDoorNode,
+  'Architecture::JalousieWindow': ArchitectureWindowsJalousieWindowNode,
+  'Architecture::DutchDoor': ArchitectureDoorsDutchDoorNode,
+  'Architecture::GothicWindow': ArchitectureWindowsGothicWindowNode,
+  'MechanicalEngineering::SpurGear': MechanicalEngineeringGearsSpurGearNode,
+  'MechanicalEngineering::HelicalGear': MechanicalEngineeringGearsHelicalGearNode,
+  'MechanicalEngineering::BevelGear': MechanicalEngineeringGearsBevelGearNode,
+  'MechanicalEngineering::WormGear': MechanicalEngineeringGearsWormGearNode,
+  'MechanicalEngineering::WormShaft': MechanicalEngineeringGearsWormShaftNode,
+  'MechanicalEngineering::RackGear': MechanicalEngineeringGearsRackGearNode,
+  'MechanicalEngineering::InternalGear': MechanicalEngineeringGearsInternalGearNode,
+  'MechanicalEngineering::PlanetaryGearSet': MechanicalEngineeringGearsPlanetaryGearSetNode,
+  'MechanicalEngineering::TimingPulley': MechanicalEngineeringGearsTimingPulleyNode,
+  'MechanicalEngineering::ChainSprocket': MechanicalEngineeringGearsChainSprocketNode,
+  'MechanicalEngineering::CVTDisc': MechanicalEngineeringGearsCVTDiscNode,
+  'MechanicalEngineering::DifferentialGear': MechanicalEngineeringGearsDifferentialGearNode,
+  'MechanicalEngineering::BallBearing': MechanicalEngineeringBearingsBallBearingNode,
+  'MechanicalEngineering::RollerBearing': MechanicalEngineeringBearingsRollerBearingNode,
+  'MechanicalEngineering::ThrustBearing': MechanicalEngineeringBearingsThrustBearingNode,
+  'MechanicalEngineering::NeedleBearing': MechanicalEngineeringBearingsNeedleBearingNode,
+  'MechanicalEngineering::LinearBearing': MechanicalEngineeringBearingsLinearBearingNode,
+  'MechanicalEngineering::PillowBlock': MechanicalEngineeringBearingsPillowBlockNode,
+  'MechanicalEngineering::FlangeBearing': MechanicalEngineeringBearingsFlangeBearingNode,
+  'MechanicalEngineering::BronzeBushing': MechanicalEngineeringBearingsBronzeBushingNode,
+  'MechanicalEngineering::SphericalBearing': MechanicalEngineeringBearingsSphericalBearingNode,
+  'MechanicalEngineering::AirBearing': MechanicalEngineeringBearingsAirBearingNode,
+  'MechanicalEngineering::HexBolt': MechanicalEngineeringFastenersHexBoltNode,
+  'MechanicalEngineering::SocketHeadCapScrew': MechanicalEngineeringFastenersSocketHeadCapScrewNode,
+  'MechanicalEngineering::HexNut': MechanicalEngineeringFastenersHexNutNode,
+  'MechanicalEngineering::Washer': MechanicalEngineeringFastenersWasherNode,
+  'MechanicalEngineering::ThreadInsert': MechanicalEngineeringFastenersThreadInsertNode,
+  'MechanicalEngineering::Rivet': MechanicalEngineeringFastenersRivetNode,
+  'MechanicalEngineering::ClampingCollar': MechanicalEngineeringFastenersClampingCollarNode,
+  'MechanicalEngineering::Dowel': MechanicalEngineeringFastenersDowelNode,
+  'MechanicalEngineering::RetainingRing': MechanicalEngineeringFastenersRetainingRingNode,
+  'MechanicalEngineering::KeywayJoint': MechanicalEngineeringFastenersKeywayJointNode,
+  'MechanicalEngineering::CompressionSpring': MechanicalEngineeringSpringsCompressionSpringNode,
+  'MechanicalEngineering::ExtensionSpring': MechanicalEngineeringSpringsExtensionSpringNode,
+  'MechanicalEngineering::TorsionSpring': MechanicalEngineeringSpringsTorsionSpringNode,
+  'MechanicalEngineering::LeafSpring': MechanicalEngineeringSpringsLeafSpringNode,
+  'MechanicalEngineering::GasSpring': MechanicalEngineeringSpringsGasSpringNode,
+  'MechanicalEngineering::CamProfile': MechanicalEngineeringMechanismsCamProfileNode,
+  'MechanicalEngineering::LinkageMechanism': MechanicalEngineeringMechanismsLinkageMechanismNode,
+  'MechanicalEngineering::RatchetMechanism': MechanicalEngineeringMechanismsRatchetMechanismNode,
+  'MechanicalEngineering::ClutchMechanism': MechanicalEngineeringMechanismsClutchMechanismNode,
+  'MechanicalEngineering::UniversalJoint': MechanicalEngineeringMechanismsUniversalJointNode,
+  'MechanicalEngineering::SteppedShaft': MechanicalEngineeringShaftsSteppedShaftNode,
+  'MechanicalEngineering::SplinedShaft': MechanicalEngineeringShaftsSplinedShaftNode,
+  'MechanicalEngineering::FlexibleShaft': MechanicalEngineeringShaftsFlexibleShaftNode,
+  'MechanicalEngineering::HollowShaft': MechanicalEngineeringShaftsHollowShaftNode,
+  'MechanicalEngineering::RigidCoupling': MechanicalEngineeringCouplingsRigidCouplingNode,
+  'MechanicalEngineering::FlexibleCoupling': MechanicalEngineeringCouplingsFlexibleCouplingNode,
+  'MechanicalEngineering::OldhamCoupling': MechanicalEngineeringCouplingsOldhamCouplingNode,
+  'MechanicalEngineering::FluidCoupling': MechanicalEngineeringCouplingsFluidCouplingNode,
+  'MechanicalEngineering::PulleySystem': MechanicalEngineeringPowerTransmissionPulleySystemNode,
+  'MechanicalEngineering::ChainDrive': MechanicalEngineeringPowerTransmissionChainDriveNode,
+  'Analysis::CurvatureComb': AnalysisCurvesCurvatureCombNode,
+  'Analysis::CurveLength': AnalysisCurvesCurveLengthNode,
+  'Analysis::CurveSmoothnessAnalysis': AnalysisCurvesCurveSmoothnessAnalysisNode,
+  'Analysis::CurveInflectionPoints': AnalysisCurvesCurveInflectionPointsNode,
+  'Analysis::CurveTorsion': AnalysisCurvesCurveTorsionNode,
+  'Analysis::CurveDerivatives': AnalysisCurvesCurveDerivativesNode,
+  'Analysis::CurveParameter': AnalysisCurvesCurveParameterNode,
+  'Analysis::CurveEndpoints': AnalysisCurvesCurveEndpointsNode,
+  'Analysis::CurveClosestPoint': AnalysisCurvesCurveClosestPointNode,
+  'Analysis::CurveExtremePoints': AnalysisCurvesCurveExtremePointsNode,
+  'Analysis::CurveAreaMoments': AnalysisCurvesCurveAreaMomentsNode,
+  'Analysis::CurveConvexHull': AnalysisCurvesCurveConvexHullNode,
+  'Analysis::CurveBoundingBox': AnalysisCurvesCurveBoundingBoxNode,
+  'Analysis::CurveSpiral': AnalysisCurvesCurveSpiralNode,
+  'Analysis::SurfaceCurvature': AnalysisSurfacesSurfaceCurvatureNode,
+  'Analysis::SurfaceNormals': AnalysisSurfacesSurfaceNormalsNode,
+  'Analysis::SurfaceArea': AnalysisSurfacesSurfaceAreaNode,
+  'Analysis::SurfaceIsoCurves': AnalysisSurfacesSurfaceIsoCurvesNode,
+  'Analysis::SurfaceParametrization': AnalysisSurfacesSurfaceParametrizationNode,
+  'Analysis::SurfaceDerivatives': AnalysisSurfacesSurfaceDerivativesNode,
+  'Analysis::SurfaceClosestPoint': AnalysisSurfacesSurfaceClosestPointNode,
+  'Analysis::SurfaceBoundary': AnalysisSurfacesSurfaceBoundaryNode,
+  'Analysis::SurfaceContinuity': AnalysisSurfacesSurfaceContinuityNode,
+  'Analysis::SurfaceDeviation': AnalysisSurfacesSurfaceDeviationNode,
+  'Analysis::SurfaceFlatness': AnalysisSurfacesSurfaceFlatnessNode,
+  'Analysis::SurfaceRoughness': AnalysisSurfacesSurfaceRoughnessNode,
+  'Analysis::CurveCurveIntersection': AnalysisIntersectionCurveCurveIntersectionNode,
+  'Analysis::CurveSurfaceIntersection': AnalysisIntersectionCurveSurfaceIntersectionNode,
+  'Analysis::SurfaceSurfaceIntersection': AnalysisIntersectionSurfaceSurfaceIntersectionNode,
+  'Analysis::PlaneIntersection': AnalysisIntersectionPlaneIntersectionNode,
+  'Analysis::RayIntersection': AnalysisIntersectionRayIntersectionNode,
+  'Analysis::MinimumDistance': AnalysisProximityMinimumDistanceNode,
+  'Analysis::ProximityAnalysis': AnalysisProximityProximityAnalysisNode,
+  'Analysis::ClearanceCheck': AnalysisProximityClearanceCheckNode,
+  'Analysis::CollisionDetection': AnalysisProximityCollisionDetectionNode,
+  'Analysis::VisibilityAnalysis': AnalysisProximityVisibilityAnalysisNode,
+  'Analysis::ShadowAnalysis': AnalysisProximityShadowAnalysisNode,
+  'Analysis::VolumeCalculation': AnalysisMeasurementVolumeCalculationNode,
+  'Analysis::AngleMeasurement': AnalysisMeasurementAngleMeasurementNode,
+  'Analysis::DistanceMeasurement': AnalysisMeasurementDistanceMeasurementNode,
+  'Analysis::GeometryValidation': AnalysisQualityGeometryValidationNode,
+  'Analysis::MeshQuality': AnalysisQualityMeshQualityNode,
+  'Analysis::ToleranceAnalysis': AnalysisQualityToleranceAnalysisNode,
+  'Interoperability::STEPImport': InteroperabilityImportSTEPImportNode,
+  'Interoperability::STEPExport': InteroperabilityExportSTEPExportNode,
+  'Interoperability::IGESImport': InteroperabilityImportIGESImportNode,
+  'Interoperability::IGESExport': InteroperabilityExportIGESExportNode,
+  'Interoperability::STLImport': InteroperabilityImportSTLImportNode,
+  'Interoperability::STLExport': InteroperabilityExportSTLExportNode,
+  'Interoperability::OBJImport': InteroperabilityImportOBJImportNode,
+  'Interoperability::OBJExport': InteroperabilityExportOBJExportNode,
+  'Interoperability::PLYImport': InteroperabilityImportPLYImportNode,
+  'Interoperability::PLYExport': InteroperabilityExportPLYExportNode,
+  'Interoperability::ThreeMFImport': InteroperabilityImportThreeMFImportNode,
+  'Interoperability::ThreeMFExport': InteroperabilityExportThreeMFExportNode,
+  'Interoperability::DXFImport': InteroperabilityImportDXFImportNode,
+  'Interoperability::DXFExport': InteroperabilityExportDXFExportNode,
+  'Interoperability::SVGImport': InteroperabilityImportSVGImportNode,
+  'Interoperability::SVGExport': InteroperabilityExportSVGExportNode,
+  'Interoperability::SQLQuery': InteroperabilityDatabaseSQLQueryNode,
+  'Interoperability::SQLInsert': InteroperabilityDatabaseSQLInsertNode,
+  'Interoperability::HTTPRequest': InteroperabilityAPIHTTPRequestNode,
+  'Interoperability::JSONParser': InteroperabilityAPIJSONParserNode,
+  'Interoperability::JSONGenerator': InteroperabilityAPIJSONGeneratorNode,
+  'Interoperability::S3Upload': InteroperabilityCloudS3UploadNode,
+  'Interoperability::S3Download': InteroperabilityCloudS3DownloadNode,
+  'Interoperability::EmailSender': InteroperabilityMessagingEmailSenderNode,
+  'Interoperability::SlackNotification': InteroperabilityMessagingSlackNotificationNode,
+  'Interoperability::CSVReader': InteroperabilityDataCSVReaderNode,
+  'Interoperability::CSVWriter': InteroperabilityDataCSVWriterNode,
+  'Interoperability::ExcelReader': InteroperabilityDataExcelReaderNode,
+  'Interoperability::ExcelWriter': InteroperabilityDataExcelWriterNode,
+  'Interoperability::GrasshopperExport': InteroperabilityIntegrationGrasshopperExportNode,
+  'Interoperability::WebSocketClient': InteroperabilityStreamingWebSocketClientNode,
+  'Interoperability::MQTTPublisher': InteroperabilityStreamingMQTTPublisherNode,
+  'Interoperability::MQTTSubscriber': InteroperabilityStreamingMQTTSubscriberNode,
+  'Interoperability::SerialPort': InteroperabilityStreamingSerialPortNode,
+  'Interoperability::TCPClient': InteroperabilityStreamingTCPClientNode,
+  'Algorithmic::GeneticOptimizer': AlgorithmicOptimizationGeneticOptimizerNode,
+  'Algorithmic::ParticleSwarmOptimizer': AlgorithmicOptimizationParticleSwarmOptimizerNode,
+  'Algorithmic::SimulatedAnnealing': AlgorithmicOptimizationSimulatedAnnealingNode,
+  'Algorithmic::GradientDescent': AlgorithmicOptimizationGradientDescentNode,
+  'Algorithmic::TopologyOptimizer': AlgorithmicOptimizationTopologyOptimizerNode,
+  'Algorithmic::LinearRegression': AlgorithmicMachineLearningLinearRegressionNode,
+  'Algorithmic::KMeansClustering': AlgorithmicMachineLearningKMeansClusteringNode,
+  'Algorithmic::DecisionTree': AlgorithmicMachineLearningDecisionTreeNode,
+  'Algorithmic::NeuralNetwork': AlgorithmicMachineLearningNeuralNetworkNode,
+  'Algorithmic::SupportVectorMachine': AlgorithmicMachineLearningSupportVectorMachineNode,
+  'Algorithmic::ConvexHull3D': AlgorithmicGeometryConvexHull3DNode,
+  'Algorithmic::AlphaShape': AlgorithmicGeometryAlphaShapeNode,
+  'Algorithmic::MinimumSpanningTree': AlgorithmicGeometryMinimumSpanningTreeNode,
+  'Algorithmic::ShortestPath': AlgorithmicGeometryShortestPathNode,
+  'Algorithmic::VisibilityGraph': AlgorithmicGeometryVisibilityGraphNode,
+  'Algorithmic::MedialAxis': AlgorithmicGeometryMedialAxisNode,
+  'Algorithmic::DistanceField': AlgorithmicGeometryDistanceFieldNode,
+  'Algorithmic::MarchingCubes': AlgorithmicGeometryMarchingCubesNode,
+  'Algorithmic::SpacePartitioning': AlgorithmicGeometrySpacePartitioningNode,
+  'Algorithmic::VoxelGrid': AlgorithmicGeometryVoxelGridNode,
+  'Algorithmic::PointCloudProcessing': AlgorithmicGeometryPointCloudProcessingNode,
+  'Algorithmic::SurfaceReconstruction': AlgorithmicGeometrySurfaceReconstructionNode,
+  'Algorithmic::GeometrySimplification': AlgorithmicGeometryGeometrySimplificationNode,
+  'Algorithmic::GeometryMatching': AlgorithmicGeometryGeometryMatchingNode,
+  'Algorithmic::ShapeDescriptor': AlgorithmicGeometryShapeDescriptorNode,
 };

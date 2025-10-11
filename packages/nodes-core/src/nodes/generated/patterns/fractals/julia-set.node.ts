@@ -15,7 +15,7 @@ interface JuliaSetOutputs {
   fractal: unknown;
 }
 
-export const JuliaSetNode: NodeDefinition<JuliaSetInputs, JuliaSetOutputs, JuliaSetParams> = {
+export const PatternsFractalsJuliaSetNode: NodeDefinition<JuliaSetInputs, JuliaSetOutputs, JuliaSetParams> = {
   id: 'Patterns::JuliaSet',
   category: 'Patterns',
   label: 'JuliaSet',

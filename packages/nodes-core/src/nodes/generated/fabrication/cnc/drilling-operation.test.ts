@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DrillingOperationNode } from './drilling-operation.node';
+import { FabricationCNCDrillingOperationNode } from './drilling-operation.node';
 import { createTestContext } from '../test-utils';
 
-describe('DrillingOperationNode', () => {
+describe('FabricationCNCDrillingOperationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('DrillingOperationNode', () => {
       dwellTime: 0
     } as any;
 
-    const result = await DrillingOperationNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCDrillingOperationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

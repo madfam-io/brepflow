@@ -18,7 +18,7 @@ interface NurbsSurfaceOutputs {
   surface: unknown;
 }
 
-export const NurbsSurfaceNode: NodeDefinition<NurbsSurfaceInputs, NurbsSurfaceOutputs, NurbsSurfaceParams> = {
+export const SurfaceNURBSNurbsSurfaceNode: NodeDefinition<NurbsSurfaceInputs, NurbsSurfaceOutputs, NurbsSurfaceParams> = {
   id: 'Surface::NurbsSurface',
   category: 'Surface',
   label: 'NurbsSurface',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LatticeStructureNode } from './lattice-structure.node';
+import { SpecializedLatticeLatticeStructureNode } from './lattice-structure.node';
 import { createTestContext } from '../test-utils';
 
-describe('LatticeStructureNode', () => {
+describe('SpecializedLatticeLatticeStructureNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('LatticeStructureNode', () => {
       porosity: 0.7
     } as any;
 
-    const result = await LatticeStructureNode.evaluate(context, inputs, params);
+    const result = await SpecializedLatticeLatticeStructureNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -15,7 +15,7 @@ interface CollisionDetectionOutputs {
   safePath: unknown;
 }
 
-export const CollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, CollisionDetectionOutputs, CollisionDetectionParams> = {
+export const FabricationCNCCollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, CollisionDetectionOutputs, CollisionDetectionParams> = {
   id: 'Fabrication::CollisionDetection',
   category: 'Fabrication',
   label: 'CollisionDetection',

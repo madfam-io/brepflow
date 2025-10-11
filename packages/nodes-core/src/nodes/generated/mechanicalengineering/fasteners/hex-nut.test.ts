@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HexNutNode } from './hex-nut.node';
+import { MechanicalEngineeringFastenersHexNutNode } from './hex-nut.node';
 import { createTestContext } from '../test-utils';
 
-describe('HexNutNode', () => {
+describe('MechanicalEngineeringFastenersHexNutNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('HexNutNode', () => {
       style: "standard"
     } as any;
 
-    const result = await HexNutNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringFastenersHexNutNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

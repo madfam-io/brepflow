@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExtensionSpringNode } from './extension-spring.node';
+import { MechanicalEngineeringSpringsExtensionSpringNode } from './extension-spring.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExtensionSpringNode', () => {
+describe('MechanicalEngineeringSpringsExtensionSpringNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('ExtensionSpringNode', () => {
       hookType: "machine"
     } as any;
 
-    const result = await ExtensionSpringNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringSpringsExtensionSpringNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -11,7 +11,7 @@ interface SetSymmetricDifferenceOutputs {
   difference: unknown;
 }
 
-export const SetSymmetricDifferenceNode: NodeDefinition<SetSymmetricDifferenceInputs, SetSymmetricDifferenceOutputs, SetSymmetricDifferenceParams> = {
+export const DataSetSetSymmetricDifferenceNode: NodeDefinition<SetSymmetricDifferenceInputs, SetSymmetricDifferenceOutputs, SetSymmetricDifferenceParams> = {
   id: 'Data::SetSymmetricDifference',
   category: 'Data',
   label: 'SetSymmetricDifference',

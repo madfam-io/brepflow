@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HelicalSweepNode } from './helical-sweep.node';
+import { AdvancedSweepHelicalSweepNode } from './helical-sweep.node';
 import { createTestContext } from '../test-utils';
 
-describe('HelicalSweepNode', () => {
+describe('AdvancedSweepHelicalSweepNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('HelicalSweepNode', () => {
       taper: 0
     } as any;
 
-    const result = await HelicalSweepNode.evaluate(context, inputs, params);
+    const result = await AdvancedSweepHelicalSweepNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

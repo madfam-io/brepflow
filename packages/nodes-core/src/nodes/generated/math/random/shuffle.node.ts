@@ -12,7 +12,7 @@ interface ShuffleOutputs {
   shuffled: unknown;
 }
 
-export const ShuffleNode: NodeDefinition<ShuffleInputs, ShuffleOutputs, ShuffleParams> = {
+export const MathRandomShuffleNode: NodeDefinition<ShuffleInputs, ShuffleOutputs, ShuffleParams> = {
   id: 'Math::Shuffle',
   category: 'Math',
   label: 'Shuffle',

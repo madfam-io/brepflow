@@ -98,6 +98,15 @@ function indentBlock(block: string, spaces = 2): string {
     .join('\n');
 }
 
+export function getExportIdentifier(template: NodeTemplate): string {
+  const parts = [template.category];
+  if (template.subcategory) {
+    parts.push(template.subcategory);
+  }
+  parts.push(template.name);
+  return parts.map(toPascalCase).join('');
+}
+
 function mapSocketTsType(type: string): string {
   return SOCKET_TS_TYPE_MAP[type] ?? 'unknown';
 }
@@ -146,6 +155,8 @@ export function generateNodeImplementation(template: NodeTemplate): string {
   const paramsTypeName = `${pascalName}Params`;
   const inputTypeName = `${pascalName}Inputs`;
   const outputTypeName = `${pascalName}Outputs`;
+  const exportIdentifier = getExportIdentifier(template);
+  const constantName = `${exportIdentifier}Node`;
 
   const sections = [
     `import type { NodeDefinition } from '@brepflow/types';`,
@@ -156,7 +167,7 @@ export function generateNodeImplementation(template: NodeTemplate): string {
     '',
     renderSocketInterface(outputTypeName, template.outputs, false),
     '',
-    `export const ${pascalName}Node: NodeDefinition<${inputTypeName}, ${outputTypeName}, ${paramsTypeName}> = {`,
+    `export const ${constantName}: NodeDefinition<${inputTypeName}, ${outputTypeName}, ${paramsTypeName}> = {`,
     `  id: '${template.category}::${template.name}',`,
     `  category: '${template.category}',`,
     `  label: '${escapeSingleQuotes(template.name)}',`,
@@ -346,13 +357,15 @@ function renderEvaluationLogic(template: NodeTemplate): string {
 export function generateNodeTest(template: NodeTemplate): string {
   const pascalName = toPascalCase(template.name);
   const importPath = `./${toKebabCase(template.name)}.node`;
+  const exportIdentifier = getExportIdentifier(template);
+  const constantName = `${exportIdentifier}Node`;
 
   return `
 import { describe, it, expect } from 'vitest';
-import { ${pascalName}Node } from '${importPath}';
+import { ${constantName} } from '${importPath}';
 import { createTestContext } from '../test-utils';
 
-describe('${pascalName}Node', () => {
+describe('${constantName}', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -362,7 +375,7 @@ ${template.inputs.filter(i => i.required).map(i => `      ${i.name}: undefined`)
 ${template.parameters.map(p => `      ${p.name}: ${p.default !== undefined ? JSON.stringify(p.default) : 'undefined'}`).join(',\n')}
     } as any;
 
-    const result = await ${pascalName}Node.evaluate(context, inputs, params);
+    const result = await ${constantName}.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

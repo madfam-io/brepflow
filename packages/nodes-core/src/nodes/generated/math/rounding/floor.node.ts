@@ -10,7 +10,7 @@ interface FloorOutputs {
   result: unknown;
 }
 
-export const FloorNode: NodeDefinition<FloorInputs, FloorOutputs, FloorParams> = {
+export const MathRoundingFloorNode: NodeDefinition<FloorInputs, FloorOutputs, FloorParams> = {
   id: 'Math::Floor',
   category: 'Math',
   label: 'Floor',

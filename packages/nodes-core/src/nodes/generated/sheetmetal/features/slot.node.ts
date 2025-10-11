@@ -16,7 +16,7 @@ interface SlotOutputs {
   result: unknown;
 }
 
-export const SlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
+export const SheetMetalFeaturesSlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
   id: 'SheetMetal::Slot',
   category: 'SheetMetal',
   label: 'Slot',

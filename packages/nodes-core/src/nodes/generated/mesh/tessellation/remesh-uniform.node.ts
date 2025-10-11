@@ -14,7 +14,7 @@ interface RemeshUniformOutputs {
   remeshed: unknown;
 }
 
-export const RemeshUniformNode: NodeDefinition<RemeshUniformInputs, RemeshUniformOutputs, RemeshUniformParams> = {
+export const MeshTessellationRemeshUniformNode: NodeDefinition<RemeshUniformInputs, RemeshUniformOutputs, RemeshUniformParams> = {
   id: 'Mesh::RemeshUniform',
   category: 'Mesh',
   label: 'RemeshUniform',

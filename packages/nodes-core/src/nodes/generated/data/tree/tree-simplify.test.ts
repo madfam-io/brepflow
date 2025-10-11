@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TreeSimplifyNode } from './tree-simplify.node';
+import { DataTreeTreeSimplifyNode } from './tree-simplify.node';
 import { createTestContext } from '../test-utils';
 
-describe('TreeSimplifyNode', () => {
+describe('DataTreeTreeSimplifyNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('TreeSimplifyNode', () => {
 
     } as any;
 
-    const result = await TreeSimplifyNode.evaluate(context, inputs, params);
+    const result = await DataTreeTreeSimplifyNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

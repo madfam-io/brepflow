@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CoonsPatchNode } from './coons-patch.node';
+import { SurfaceNURBSCoonsPatchNode } from './coons-patch.node';
 import { createTestContext } from '../test-utils';
 
-describe('CoonsPatchNode', () => {
+describe('SurfaceNURBSCoonsPatchNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('CoonsPatchNode', () => {
 
     } as any;
 
-    const result = await CoonsPatchNode.evaluate(context, inputs, params);
+    const result = await SurfaceNURBSCoonsPatchNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

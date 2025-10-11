@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToolWearNode } from './tool-wear.node';
+import { FabricationCNCToolWearNode } from './tool-wear.node';
 import { createTestContext } from '../test-utils';
 
-describe('ToolWearNode', () => {
+describe('FabricationCNCToolWearNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ToolWearNode', () => {
       cuttingTime: 60
     } as any;
 
-    const result = await ToolWearNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCToolWearNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

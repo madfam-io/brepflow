@@ -13,7 +13,7 @@ interface MeshToShapeOutputs {
   shape: unknown;
 }
 
-export const MeshToShapeNode: NodeDefinition<MeshToShapeInputs, MeshToShapeOutputs, MeshToShapeParams> = {
+export const MeshFilesMeshToShapeNode: NodeDefinition<MeshToShapeInputs, MeshToShapeOutputs, MeshToShapeParams> = {
   id: 'Mesh::MeshToShape',
   category: 'Mesh',
   label: 'MeshToShape',

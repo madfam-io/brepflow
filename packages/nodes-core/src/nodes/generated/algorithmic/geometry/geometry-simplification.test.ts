@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GeometrySimplificationNode } from './geometry-simplification.node';
+import { AlgorithmicGeometryGeometrySimplificationNode } from './geometry-simplification.node';
 import { createTestContext } from '../test-utils';
 
-describe('GeometrySimplificationNode', () => {
+describe('AlgorithmicGeometryGeometrySimplificationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('GeometrySimplificationNode', () => {
       preserveBoundary: true
     } as any;
 
-    const result = await GeometrySimplificationNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicGeometryGeometrySimplificationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

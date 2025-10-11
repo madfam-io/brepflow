@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ThreadedHoleNode } from './threaded-hole.node';
+import { FeaturesHolesThreadedHoleNode } from './threaded-hole.node';
 import { createTestContext } from '../test-utils';
 
-describe('ThreadedHoleNode', () => {
+describe('FeaturesHolesThreadedHoleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('ThreadedHoleNode', () => {
       threadClass: "6H"
     } as any;
 
-    const result = await ThreadedHoleNode.evaluate(context, inputs, params);
+    const result = await FeaturesHolesThreadedHoleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -12,7 +12,7 @@ interface OrientOutputs {
   oriented: unknown;
 }
 
-export const OrientNode: NodeDefinition<OrientInputs, OrientOutputs, OrientParams> = {
+export const TransformOrientNode: NodeDefinition<OrientInputs, OrientOutputs, OrientParams> = {
   id: 'Transform::Orient',
   category: 'Transform',
   label: 'Orient',

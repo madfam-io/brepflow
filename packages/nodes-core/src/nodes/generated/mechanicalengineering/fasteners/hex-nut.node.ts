@@ -15,7 +15,7 @@ interface HexNutOutputs {
   thread: unknown;
 }
 
-export const HexNutNode: NodeDefinition<HexNutInputs, HexNutOutputs, HexNutParams> = {
+export const MechanicalEngineeringFastenersHexNutNode: NodeDefinition<HexNutInputs, HexNutOutputs, HexNutParams> = {
   id: 'MechanicalEngineering::HexNut',
   category: 'MechanicalEngineering',
   label: 'HexNut',

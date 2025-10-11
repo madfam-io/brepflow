@@ -10,7 +10,7 @@ interface SquareRootOutputs {
   result: unknown;
 }
 
-export const SquareRootNode: NodeDefinition<SquareRootInputs, SquareRootOutputs, SquareRootParams> = {
+export const MathOperatorsSquareRootNode: NodeDefinition<SquareRootInputs, SquareRootOutputs, SquareRootParams> = {
   id: 'Math::SquareRoot',
   category: 'Math',
   label: 'SquareRoot',

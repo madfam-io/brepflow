@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { Fillet2DNode } from './fillet2-d.node';
+import { SketchCurvesFillet2DNode } from './fillet2-d.node';
 import { createTestContext } from '../test-utils';
 
-describe('Fillet2DNode', () => {
+describe('SketchCurvesFillet2DNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('Fillet2DNode', () => {
       allCorners: true
     } as any;
 
-    const result = await Fillet2DNode.evaluate(context, inputs, params);
+    const result = await SketchCurvesFillet2DNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

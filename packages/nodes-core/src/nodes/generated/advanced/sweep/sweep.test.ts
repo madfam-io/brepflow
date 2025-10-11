@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SweepNode } from './sweep.node';
+import { AdvancedSweepSweepNode } from './sweep.node';
 import { createTestContext } from '../test-utils';
 
-describe('SweepNode', () => {
+describe('AdvancedSweepSweepNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('SweepNode', () => {
       solid: true
     } as any;
 
-    const result = await SweepNode.evaluate(context, inputs, params);
+    const result = await AdvancedSweepSweepNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

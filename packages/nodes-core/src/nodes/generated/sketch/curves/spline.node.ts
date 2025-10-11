@@ -15,7 +15,7 @@ interface SplineOutputs {
   curve: unknown;
 }
 
-export const SplineNode: NodeDefinition<SplineInputs, SplineOutputs, SplineParams> = {
+export const SketchCurvesSplineNode: NodeDefinition<SplineInputs, SplineOutputs, SplineParams> = {
   id: 'Sketch::Spline',
   category: 'Sketch',
   label: 'Spline',

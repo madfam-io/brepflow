@@ -12,7 +12,7 @@ interface PercentileOutputs {
   result: unknown;
 }
 
-export const PercentileNode: NodeDefinition<PercentileInputs, PercentileOutputs, PercentileParams> = {
+export const MathStatisticsPercentileNode: NodeDefinition<PercentileInputs, PercentileOutputs, PercentileParams> = {
   id: 'Math::Percentile',
   category: 'Math',
   label: 'Percentile',

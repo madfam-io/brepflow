@@ -14,7 +14,7 @@ interface Delaunay2DOutputs {
   mesh: unknown;
 }
 
-export const Delaunay2DNode: NodeDefinition<Delaunay2DInputs, Delaunay2DOutputs, Delaunay2DParams> = {
+export const PatternsDelaunayDelaunay2DNode: NodeDefinition<Delaunay2DInputs, Delaunay2DOutputs, Delaunay2DParams> = {
   id: 'Patterns::Delaunay2D',
   category: 'Patterns',
   label: 'Delaunay2D',

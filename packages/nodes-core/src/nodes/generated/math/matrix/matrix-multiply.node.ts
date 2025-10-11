@@ -11,7 +11,7 @@ interface MatrixMultiplyOutputs {
   result: unknown;
 }
 
-export const MatrixMultiplyNode: NodeDefinition<MatrixMultiplyInputs, MatrixMultiplyOutputs, MatrixMultiplyParams> = {
+export const MathMatrixMatrixMultiplyNode: NodeDefinition<MatrixMultiplyInputs, MatrixMultiplyOutputs, MatrixMultiplyParams> = {
   id: 'Math::MatrixMultiply',
   category: 'Math',
   label: 'MatrixMultiply',

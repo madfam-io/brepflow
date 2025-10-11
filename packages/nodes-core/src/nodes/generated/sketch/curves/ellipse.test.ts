@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { EllipseNode } from './ellipse.node';
+import { SketchCurvesEllipseNode } from './ellipse.node';
 import { createTestContext } from '../test-utils';
 
-describe('EllipseNode', () => {
+describe('SketchCurvesEllipseNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('EllipseNode', () => {
       endAngle: 360
     } as any;
 
-    const result = await EllipseNode.evaluate(context, inputs, params);
+    const result = await SketchCurvesEllipseNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

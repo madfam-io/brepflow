@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurvedWallNode } from './curved-wall.node';
+import { ArchitectureWallsCurvedWallNode } from './curved-wall.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurvedWallNode', () => {
+describe('ArchitectureWallsCurvedWallNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CurvedWallNode', () => {
       segments: 10
     } as any;
 
-    const result = await CurvedWallNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsCurvedWallNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

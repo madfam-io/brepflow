@@ -16,7 +16,7 @@ interface SketchedBendOutputs {
   result: unknown;
 }
 
-export const SketchedBendNode: NodeDefinition<SketchedBendInputs, SketchedBendOutputs, SketchedBendParams> = {
+export const SheetMetalBendsSketchedBendNode: NodeDefinition<SketchedBendInputs, SketchedBendOutputs, SketchedBendParams> = {
   id: 'SheetMetal::SketchedBend',
   category: 'SheetMetal',
   label: 'SketchedBend',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToCSVNode } from './to-csv.node';
+import { DataConvertToCSVNode } from './to-csv.node';
 import { createTestContext } from '../test-utils';
 
-describe('ToCSVNode', () => {
+describe('DataConvertToCSVNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ToCSVNode', () => {
       headers: true
     } as any;
 
-    const result = await ToCSVNode.evaluate(context, inputs, params);
+    const result = await DataConvertToCSVNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

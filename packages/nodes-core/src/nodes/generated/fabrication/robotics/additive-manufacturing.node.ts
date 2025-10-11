@@ -13,7 +13,7 @@ interface AdditiveManufacturingOutputs {
   roboticPrintPath: unknown;
 }
 
-export const AdditiveManufacturingNode: NodeDefinition<AdditiveManufacturingInputs, AdditiveManufacturingOutputs, AdditiveManufacturingParams> = {
+export const FabricationRoboticsAdditiveManufacturingNode: NodeDefinition<AdditiveManufacturingInputs, AdditiveManufacturingOutputs, AdditiveManufacturingParams> = {
   id: 'Fabrication::AdditiveManufacturing',
   category: 'Fabrication',
   label: 'AdditiveManufacturing',

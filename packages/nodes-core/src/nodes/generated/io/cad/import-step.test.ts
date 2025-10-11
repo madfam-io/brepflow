@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImportSTEPNode } from './import-step.node';
+import { IOCADImportSTEPNode } from './import-step.node';
 import { createTestContext } from '../test-utils';
 
-describe('ImportSTEPNode', () => {
+describe('IOCADImportSTEPNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('ImportSTEPNode', () => {
       preferBrep: true
     } as any;
 
-    const result = await ImportSTEPNode.evaluate(context, inputs, params);
+    const result = await IOCADImportSTEPNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

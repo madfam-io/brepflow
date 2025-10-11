@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldGridNode } from './field-grid.node';
+import { FieldSampleFieldGridNode } from './field-grid.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldGridNode', () => {
+describe('FieldSampleFieldGridNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('FieldGridNode', () => {
       resolutionZ: 10
     } as any;
 
-    const result = await FieldGridNode.evaluate(context, inputs, params);
+    const result = await FieldSampleFieldGridNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

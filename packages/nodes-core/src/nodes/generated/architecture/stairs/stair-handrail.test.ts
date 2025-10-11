@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StairHandrailNode } from './stair-handrail.node';
+import { ArchitectureStairsStairHandrailNode } from './stair-handrail.node';
 import { createTestContext } from '../test-utils';
 
-describe('StairHandrailNode', () => {
+describe('ArchitectureStairsStairHandrailNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('StairHandrailNode', () => {
       mountType: "post"
     } as any;
 
-    const result = await StairHandrailNode.evaluate(context, inputs, params);
+    const result = await ArchitectureStairsStairHandrailNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

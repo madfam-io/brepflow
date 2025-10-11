@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PoissonDiskNode } from './poisson-disk.node';
+import { PatternsStochasticPoissonDiskNode } from './poisson-disk.node';
 import { createTestContext } from '../test-utils';
 
-describe('PoissonDiskNode', () => {
+describe('PatternsStochasticPoissonDiskNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('PoissonDiskNode', () => {
       k: 30
     } as any;
 
-    const result = await PoissonDiskNode.evaluate(context, inputs, params);
+    const result = await PatternsStochasticPoissonDiskNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

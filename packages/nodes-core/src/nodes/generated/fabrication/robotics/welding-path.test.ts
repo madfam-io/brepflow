@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WeldingPathNode } from './welding-path.node';
+import { FabricationRoboticsWeldingPathNode } from './welding-path.node';
 import { createTestContext } from '../test-utils';
 
-describe('WeldingPathNode', () => {
+describe('FabricationRoboticsWeldingPathNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('WeldingPathNode', () => {
       travelSpeed: 10
     } as any;
 
-    const result = await WeldingPathNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsWeldingPathNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

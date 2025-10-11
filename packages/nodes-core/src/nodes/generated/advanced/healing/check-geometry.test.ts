@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CheckGeometryNode } from './check-geometry.node';
+import { AdvancedHealingCheckGeometryNode } from './check-geometry.node';
 import { createTestContext } from '../test-utils';
 
-describe('CheckGeometryNode', () => {
+describe('AdvancedHealingCheckGeometryNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('CheckGeometryNode', () => {
       checkLevel: "standard"
     } as any;
 
-    const result = await CheckGeometryNode.evaluate(context, inputs, params);
+    const result = await AdvancedHealingCheckGeometryNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

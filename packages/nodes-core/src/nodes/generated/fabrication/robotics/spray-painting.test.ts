@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SprayPaintingNode } from './spray-painting.node';
+import { FabricationRoboticsSprayPaintingNode } from './spray-painting.node';
 import { createTestContext } from '../test-utils';
 
-describe('SprayPaintingNode', () => {
+describe('FabricationRoboticsSprayPaintingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SprayPaintingNode', () => {
       standoffDistance: 200
     } as any;
 
-    const result = await SprayPaintingNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsSprayPaintingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

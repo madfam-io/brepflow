@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { UniversalJointNode } from './universal-joint.node';
+import { MechanicalEngineeringMechanismsUniversalJointNode } from './universal-joint.node';
 import { createTestContext } from '../test-utils';
 
-describe('UniversalJointNode', () => {
+describe('MechanicalEngineeringMechanismsUniversalJointNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('UniversalJointNode', () => {
       angle: 0
     } as any;
 
-    const result = await UniversalJointNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringMechanismsUniversalJointNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

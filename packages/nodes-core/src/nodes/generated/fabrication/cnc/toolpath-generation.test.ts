@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToolpathGenerationNode } from './toolpath-generation.node';
+import { FabricationCNCToolpathGenerationNode } from './toolpath-generation.node';
 import { createTestContext } from '../test-utils';
 
-describe('ToolpathGenerationNode', () => {
+describe('FabricationCNCToolpathGenerationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ToolpathGenerationNode', () => {
       stepover: 0.5
     } as any;
 
-    const result = await ToolpathGenerationNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCToolpathGenerationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

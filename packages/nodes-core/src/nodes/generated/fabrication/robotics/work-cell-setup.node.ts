@@ -13,7 +13,7 @@ interface WorkCellSetupOutputs {
   workCell: unknown;
 }
 
-export const WorkCellSetupNode: NodeDefinition<WorkCellSetupInputs, WorkCellSetupOutputs, WorkCellSetupParams> = {
+export const FabricationRoboticsWorkCellSetupNode: NodeDefinition<WorkCellSetupInputs, WorkCellSetupOutputs, WorkCellSetupParams> = {
   id: 'Fabrication::WorkCellSetup',
   category: 'Fabrication',
   label: 'WorkCellSetup',

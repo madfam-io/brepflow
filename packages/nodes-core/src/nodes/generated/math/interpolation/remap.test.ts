@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RemapNode } from './remap.node';
+import { MathInterpolationRemapNode } from './remap.node';
 import { createTestContext } from '../test-utils';
 
-describe('RemapNode', () => {
+describe('MathInterpolationRemapNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('RemapNode', () => {
 
     } as any;
 
-    const result = await RemapNode.evaluate(context, inputs, params);
+    const result = await MathInterpolationRemapNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

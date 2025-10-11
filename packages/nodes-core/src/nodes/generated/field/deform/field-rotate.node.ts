@@ -13,7 +13,7 @@ interface FieldRotateOutputs {
   rotated: unknown;
 }
 
-export const FieldRotateNode: NodeDefinition<FieldRotateInputs, FieldRotateOutputs, FieldRotateParams> = {
+export const FieldDeformFieldRotateNode: NodeDefinition<FieldRotateInputs, FieldRotateOutputs, FieldRotateParams> = {
   id: 'Field::FieldRotate',
   category: 'Field',
   label: 'FieldRotate',

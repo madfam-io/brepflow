@@ -16,7 +16,7 @@ interface CSVWriterOutputs {
   rowsWritten: unknown;
 }
 
-export const CSVWriterNode: NodeDefinition<CSVWriterInputs, CSVWriterOutputs, CSVWriterParams> = {
+export const InteroperabilityDataCSVWriterNode: NodeDefinition<CSVWriterInputs, CSVWriterOutputs, CSVWriterParams> = {
   id: 'Interoperability::CSVWriter',
   category: 'Interoperability',
   label: 'CSVWriter',

@@ -12,7 +12,7 @@ interface BendTableOutputs {
   bendTable: unknown;
 }
 
-export const BendTableNode: NodeDefinition<BendTableInputs, BendTableOutputs, BendTableParams> = {
+export const SheetMetalPropertiesBendTableNode: NodeDefinition<BendTableInputs, BendTableOutputs, BendTableParams> = {
   id: 'SheetMetal::BendTable',
   category: 'SheetMetal',
   label: 'BendTable',

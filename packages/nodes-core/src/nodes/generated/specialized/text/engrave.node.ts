@@ -15,7 +15,7 @@ interface EngraveOutputs {
   engraved: unknown;
 }
 
-export const EngraveNode: NodeDefinition<EngraveInputs, EngraveOutputs, EngraveParams> = {
+export const SpecializedTextEngraveNode: NodeDefinition<EngraveInputs, EngraveOutputs, EngraveParams> = {
   id: 'Specialized::Engrave',
   category: 'Specialized',
   label: 'Engrave',

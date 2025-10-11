@@ -16,7 +16,7 @@ interface FieldOptimizeOutputs {
   convergence: unknown;
 }
 
-export const FieldOptimizeNode: NodeDefinition<FieldOptimizeInputs, FieldOptimizeOutputs, FieldOptimizeParams> = {
+export const FieldsAdvancedFieldOptimizeNode: NodeDefinition<FieldOptimizeInputs, FieldOptimizeOutputs, FieldOptimizeParams> = {
   id: 'Fields::FieldOptimize',
   category: 'Fields',
   label: 'FieldOptimize',

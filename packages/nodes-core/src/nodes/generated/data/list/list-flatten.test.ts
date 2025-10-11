@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListFlattenNode } from './list-flatten.node';
+import { DataListListFlattenNode } from './list-flatten.node';
 import { createTestContext } from '../test-utils';
 
-describe('ListFlattenNode', () => {
+describe('DataListListFlattenNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('ListFlattenNode', () => {
       depth: 1
     } as any;
 
-    const result = await ListFlattenNode.evaluate(context, inputs, params);
+    const result = await DataListListFlattenNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

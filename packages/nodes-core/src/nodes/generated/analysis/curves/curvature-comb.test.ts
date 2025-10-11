@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurvatureCombNode } from './curvature-comb.node';
+import { AnalysisCurvesCurvatureCombNode } from './curvature-comb.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurvatureCombNode', () => {
+describe('AnalysisCurvesCurvatureCombNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('CurvatureCombNode', () => {
       colorCode: false
     } as any;
 
-    const result = await CurvatureCombNode.evaluate(context, inputs, params);
+    const result = await AnalysisCurvesCurvatureCombNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BSplineSurfaceNode } from './bspline-surface.node';
+import { SolidSurfaceBSplineSurfaceNode } from './bspline-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('BSplineSurfaceNode', () => {
+describe('SolidSurfaceBSplineSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('BSplineSurfaceNode', () => {
       vPeriodic: false
     } as any;
 
-    const result = await BSplineSurfaceNode.evaluate(context, inputs, params);
+    const result = await SolidSurfaceBSplineSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

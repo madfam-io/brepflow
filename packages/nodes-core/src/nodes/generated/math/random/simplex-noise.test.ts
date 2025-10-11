@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SimplexNoiseNode } from './simplex-noise.node';
+import { MathRandomSimplexNoiseNode } from './simplex-noise.node';
 import { createTestContext } from '../test-utils';
 
-describe('SimplexNoiseNode', () => {
+describe('MathRandomSimplexNoiseNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SimplexNoiseNode', () => {
       seed: -1
     } as any;
 
-    const result = await SimplexNoiseNode.evaluate(context, inputs, params);
+    const result = await MathRandomSimplexNoiseNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -15,7 +15,7 @@ interface CircularPocketOutputs {
   shape: unknown;
 }
 
-export const CircularPocketNode: NodeDefinition<CircularPocketInputs, CircularPocketOutputs, CircularPocketParams> = {
+export const FeaturesPocketsCircularPocketNode: NodeDefinition<CircularPocketInputs, CircularPocketOutputs, CircularPocketParams> = {
   id: 'Features::CircularPocket',
   category: 'Features',
   label: 'CircularPocket',

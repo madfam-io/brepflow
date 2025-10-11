@@ -14,7 +14,7 @@ interface FieldBlendOutputs {
   field: unknown;
 }
 
-export const FieldBlendNode: NodeDefinition<FieldBlendInputs, FieldBlendOutputs, FieldBlendParams> = {
+export const FieldOperationsFieldBlendNode: NodeDefinition<FieldBlendInputs, FieldBlendOutputs, FieldBlendParams> = {
   id: 'Field::FieldBlend',
   category: 'Field',
   label: 'FieldBlend',

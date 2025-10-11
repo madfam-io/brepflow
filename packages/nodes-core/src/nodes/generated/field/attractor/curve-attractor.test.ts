@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveAttractorNode } from './curve-attractor.node';
+import { FieldAttractorCurveAttractorNode } from './curve-attractor.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurveAttractorNode', () => {
+describe('FieldAttractorCurveAttractorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CurveAttractorNode', () => {
       falloff: "smooth"
     } as any;
 
-    const result = await CurveAttractorNode.evaluate(context, inputs, params);
+    const result = await FieldAttractorCurveAttractorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

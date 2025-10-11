@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FlexibleSubAssemblyNode } from './flexible-sub-assembly.node';
+import { AssemblyPatternsFlexibleSubAssemblyNode } from './flexible-sub-assembly.node';
 import { createTestContext } from '../test-utils';
 
-describe('FlexibleSubAssemblyNode', () => {
+describe('AssemblyPatternsFlexibleSubAssemblyNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FlexibleSubAssemblyNode', () => {
       flexibility: "flexible"
     } as any;
 
-    const result = await FlexibleSubAssemblyNode.evaluate(context, inputs, params);
+    const result = await AssemblyPatternsFlexibleSubAssemblyNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

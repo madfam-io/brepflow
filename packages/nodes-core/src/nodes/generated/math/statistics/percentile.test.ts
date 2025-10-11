@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PercentileNode } from './percentile.node';
+import { MathStatisticsPercentileNode } from './percentile.node';
 import { createTestContext } from '../test-utils';
 
-describe('PercentileNode', () => {
+describe('MathStatisticsPercentileNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('PercentileNode', () => {
       percentile: 50
     } as any;
 
-    const result = await PercentileNode.evaluate(context, inputs, params);
+    const result = await MathStatisticsPercentileNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

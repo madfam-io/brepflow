@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RobotMaintenanceNode } from './robot-maintenance.node';
+import { FabricationRoboticsRobotMaintenanceNode } from './robot-maintenance.node';
 import { createTestContext } from '../test-utils';
 
-describe('RobotMaintenanceNode', () => {
+describe('FabricationRoboticsRobotMaintenanceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('RobotMaintenanceNode', () => {
       operatingHours: 1000
     } as any;
 
-    const result = await RobotMaintenanceNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsRobotMaintenanceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

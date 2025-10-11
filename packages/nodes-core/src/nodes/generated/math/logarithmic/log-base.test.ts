@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LogBaseNode } from './log-base.node';
+import { MathLogarithmicLogBaseNode } from './log-base.node';
 import { createTestContext } from '../test-utils';
 
-describe('LogBaseNode', () => {
+describe('MathLogarithmicLogBaseNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('LogBaseNode', () => {
 
     } as any;
 
-    const result = await LogBaseNode.evaluate(context, inputs, params);
+    const result = await MathLogarithmicLogBaseNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

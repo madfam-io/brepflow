@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceDerivativesNode } from './surface-derivatives.node';
+import { AnalysisSurfacesSurfaceDerivativesNode } from './surface-derivatives.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceDerivativesNode', () => {
+describe('AnalysisSurfacesSurfaceDerivativesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('SurfaceDerivativesNode', () => {
       vectorScale: 1
     } as any;
 
-    const result = await SurfaceDerivativesNode.evaluate(context, inputs, params);
+    const result = await AnalysisSurfacesSurfaceDerivativesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -15,7 +15,7 @@ interface SerialNumberOutputs {
   serials: unknown;
 }
 
-export const SerialNumberNode: NodeDefinition<SerialNumberInputs, SerialNumberOutputs, SerialNumberParams> = {
+export const SpecializedTextSerialNumberNode: NodeDefinition<SerialNumberInputs, SerialNumberOutputs, SerialNumberParams> = {
   id: 'Specialized::SerialNumber',
   category: 'Specialized',
   label: 'SerialNumber',

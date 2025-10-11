@@ -13,7 +13,7 @@ interface VoronoiOnSurfaceOutputs {
   cells: unknown;
 }
 
-export const VoronoiOnSurfaceNode: NodeDefinition<VoronoiOnSurfaceInputs, VoronoiOnSurfaceOutputs, VoronoiOnSurfaceParams> = {
+export const PatternsVoronoiVoronoiOnSurfaceNode: NodeDefinition<VoronoiOnSurfaceInputs, VoronoiOnSurfaceOutputs, VoronoiOnSurfaceParams> = {
   id: 'Patterns::VoronoiOnSurface',
   category: 'Patterns',
   label: 'VoronoiOnSurface',

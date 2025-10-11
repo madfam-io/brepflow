@@ -15,7 +15,7 @@ interface StairHandrailOutputs {
   posts: unknown;
 }
 
-export const StairHandrailNode: NodeDefinition<StairHandrailInputs, StairHandrailOutputs, StairHandrailParams> = {
+export const ArchitectureStairsStairHandrailNode: NodeDefinition<StairHandrailInputs, StairHandrailOutputs, StairHandrailParams> = {
   id: 'Architecture::StairHandrail',
   category: 'Architecture',
   label: 'StairHandrail',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BendReliefNode } from './bend-relief.node';
+import { SheetMetalCornersBendReliefNode } from './bend-relief.node';
 import { createTestContext } from '../test-utils';
 
-describe('BendReliefNode', () => {
+describe('SheetMetalCornersBendReliefNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('BendReliefNode', () => {
       reliefWidth: 2
     } as any;
 
-    const result = await BendReliefNode.evaluate(context, inputs, params);
+    const result = await SheetMetalCornersBendReliefNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

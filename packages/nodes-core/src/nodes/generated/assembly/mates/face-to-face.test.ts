@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FaceToFaceNode } from './face-to-face.node';
+import { AssemblyMatesFaceToFaceNode } from './face-to-face.node';
 import { createTestContext } from '../test-utils';
 
-describe('FaceToFaceNode', () => {
+describe('AssemblyMatesFaceToFaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('FaceToFaceNode', () => {
       flip: false
     } as any;
 
-    const result = await FaceToFaceNode.evaluate(context, inputs, params);
+    const result = await AssemblyMatesFaceToFaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

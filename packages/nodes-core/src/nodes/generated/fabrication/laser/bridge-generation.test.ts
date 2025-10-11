@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BridgeGenerationNode } from './bridge-generation.node';
+import { FabricationLaserBridgeGenerationNode } from './bridge-generation.node';
 import { createTestContext } from '../test-utils';
 
-describe('BridgeGenerationNode', () => {
+describe('FabricationLaserBridgeGenerationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BridgeGenerationNode', () => {
       bridgeCount: 4
     } as any;
 
-    const result = await BridgeGenerationNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserBridgeGenerationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

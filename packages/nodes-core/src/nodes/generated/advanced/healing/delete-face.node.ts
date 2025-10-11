@@ -13,7 +13,7 @@ interface DeleteFaceOutputs {
   result: unknown;
 }
 
-export const DeleteFaceNode: NodeDefinition<DeleteFaceInputs, DeleteFaceOutputs, DeleteFaceParams> = {
+export const AdvancedHealingDeleteFaceNode: NodeDefinition<DeleteFaceInputs, DeleteFaceOutputs, DeleteFaceParams> = {
   id: 'Advanced::DeleteFace',
   category: 'Advanced',
   label: 'DeleteFace',

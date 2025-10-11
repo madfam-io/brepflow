@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BallBearingNode } from './ball-bearing.node';
+import { MechanicalEngineeringBearingsBallBearingNode } from './ball-bearing.node';
 import { createTestContext } from '../test-utils';
 
-describe('BallBearingNode', () => {
+describe('MechanicalEngineeringBearingsBallBearingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('BallBearingNode', () => {
       showCage: true
     } as any;
 
-    const result = await BallBearingNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringBearingsBallBearingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

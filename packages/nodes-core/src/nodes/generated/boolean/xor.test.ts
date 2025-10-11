@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { XORNode } from './xor.node';
+import { BooleanXORNode } from './xor.node';
 import { createTestContext } from '../test-utils';
 
-describe('XORNode', () => {
+describe('BooleanXORNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('XORNode', () => {
       fuzzyValue: 1e-7
     } as any;
 
-    const result = await XORNode.evaluate(context, inputs, params);
+    const result = await BooleanXORNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

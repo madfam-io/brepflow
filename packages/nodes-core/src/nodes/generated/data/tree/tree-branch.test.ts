@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TreeBranchNode } from './tree-branch.node';
+import { DataTreeTreeBranchNode } from './tree-branch.node';
 import { createTestContext } from '../test-utils';
 
-describe('TreeBranchNode', () => {
+describe('DataTreeTreeBranchNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('TreeBranchNode', () => {
 
     } as any;
 
-    const result = await TreeBranchNode.evaluate(context, inputs, params);
+    const result = await DataTreeTreeBranchNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

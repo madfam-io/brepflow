@@ -14,7 +14,7 @@ interface ImportPLYOutputs {
   properties: unknown;
 }
 
-export const ImportPLYNode: NodeDefinition<ImportPLYInputs, ImportPLYOutputs, ImportPLYParams> = {
+export const MeshFilesImportPLYNode: NodeDefinition<ImportPLYInputs, ImportPLYOutputs, ImportPLYParams> = {
   id: 'Mesh::ImportPLY',
   category: 'Mesh',
   label: 'ImportPLY',

@@ -13,7 +13,7 @@ interface ImprintOutputs {
   result: unknown;
 }
 
-export const ImprintNode: NodeDefinition<ImprintInputs, ImprintOutputs, ImprintParams> = {
+export const BooleanImprintNode: NodeDefinition<ImprintInputs, ImprintOutputs, ImprintParams> = {
   id: 'Boolean::Imprint',
   category: 'Boolean',
   label: 'Imprint',

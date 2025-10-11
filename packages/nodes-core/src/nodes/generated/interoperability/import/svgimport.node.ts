@@ -16,7 +16,7 @@ interface SVGImportOutputs {
   open: unknown;
 }
 
-export const SVGImportNode: NodeDefinition<SVGImportInputs, SVGImportOutputs, SVGImportParams> = {
+export const InteroperabilityImportSVGImportNode: NodeDefinition<SVGImportInputs, SVGImportOutputs, SVGImportParams> = {
   id: 'Interoperability::SVGImport',
   category: 'Interoperability',
   label: 'SVGImport',

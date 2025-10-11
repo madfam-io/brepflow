@@ -13,7 +13,7 @@ interface VisionGuidanceOutputs {
   detectedPoses: unknown;
 }
 
-export const VisionGuidanceNode: NodeDefinition<VisionGuidanceInputs, VisionGuidanceOutputs, VisionGuidanceParams> = {
+export const FabricationRoboticsVisionGuidanceNode: NodeDefinition<VisionGuidanceInputs, VisionGuidanceOutputs, VisionGuidanceParams> = {
   id: 'Fabrication::VisionGuidance',
   category: 'Fabrication',
   label: 'VisionGuidance',

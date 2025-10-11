@@ -13,7 +13,7 @@ interface CoonsPatchOutputs {
   surface: unknown;
 }
 
-export const CoonsPatchNode: NodeDefinition<CoonsPatchInputs, CoonsPatchOutputs, CoonsPatchParams> = {
+export const SurfaceNURBSCoonsPatchNode: NodeDefinition<CoonsPatchInputs, CoonsPatchOutputs, CoonsPatchParams> = {
   id: 'Surface::CoonsPatch',
   category: 'Surface',
   label: 'CoonsPatch',

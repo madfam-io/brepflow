@@ -10,7 +10,7 @@ interface FactorialOutputs {
   result: unknown;
 }
 
-export const FactorialNode: NodeDefinition<FactorialInputs, FactorialOutputs, FactorialParams> = {
+export const MathOperatorsFactorialNode: NodeDefinition<FactorialInputs, FactorialOutputs, FactorialParams> = {
   id: 'Math::Factorial',
   category: 'Math',
   label: 'Factorial',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurbRampNode } from './curb-ramp.node';
+import { ArchitectureRampsCurbRampNode } from './curb-ramp.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurbRampNode', () => {
+describe('ArchitectureRampsCurbRampNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CurbRampNode', () => {
       flareSlope: 0.1
     } as any;
 
-    const result = await CurbRampNode.evaluate(context, inputs, params);
+    const result = await ArchitectureRampsCurbRampNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

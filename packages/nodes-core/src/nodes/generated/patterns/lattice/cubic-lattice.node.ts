@@ -13,7 +13,7 @@ interface CubicLatticeOutputs {
   lattice: unknown;
 }
 
-export const CubicLatticeNode: NodeDefinition<CubicLatticeInputs, CubicLatticeOutputs, CubicLatticeParams> = {
+export const PatternsLatticeCubicLatticeNode: NodeDefinition<CubicLatticeInputs, CubicLatticeOutputs, CubicLatticeParams> = {
   id: 'Patterns::CubicLattice',
   category: 'Patterns',
   label: 'CubicLattice',

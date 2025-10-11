@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WoodJoistFloorNode } from './wood-joist-floor.node';
+import { ArchitectureFloorsWoodJoistFloorNode } from './wood-joist-floor.node';
 import { createTestContext } from '../test-utils';
 
-describe('WoodJoistFloorNode', () => {
+describe('ArchitectureFloorsWoodJoistFloorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('WoodJoistFloorNode', () => {
       subfloorThickness: 18
     } as any;
 
-    const result = await WoodJoistFloorNode.evaluate(context, inputs, params);
+    const result = await ArchitectureFloorsWoodJoistFloorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -14,7 +14,7 @@ interface CoolingAnalysisOutputs {
   fanProfile: unknown;
 }
 
-export const CoolingAnalysisNode: NodeDefinition<CoolingAnalysisInputs, CoolingAnalysisOutputs, CoolingAnalysisParams> = {
+export const Fabrication3DPrintingCoolingAnalysisNode: NodeDefinition<CoolingAnalysisInputs, CoolingAnalysisOutputs, CoolingAnalysisParams> = {
   id: 'Fabrication::CoolingAnalysis',
   category: 'Fabrication',
   label: 'CoolingAnalysis',

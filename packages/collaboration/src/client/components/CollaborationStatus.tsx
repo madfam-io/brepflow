@@ -1,5 +1,6 @@
 import React from 'react';
-import { usePresence, useCollaboration } from '../hooks';
+import { usePresence } from '../hooks';
+import { useCollaboration } from '../collaboration-provider';
 
 export interface CollaborationStatusProps {
   showDetails?: boolean;

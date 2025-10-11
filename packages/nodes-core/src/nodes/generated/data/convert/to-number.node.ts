@@ -11,7 +11,7 @@ interface ToNumberOutputs {
   isValid: unknown;
 }
 
-export const ToNumberNode: NodeDefinition<ToNumberInputs, ToNumberOutputs, ToNumberParams> = {
+export const DataConvertToNumberNode: NodeDefinition<ToNumberInputs, ToNumberOutputs, ToNumberParams> = {
   id: 'Data::ToNumber',
   category: 'Data',
   label: 'ToNumber',

@@ -12,7 +12,7 @@ interface VarianceOutputs {
   variance: unknown;
 }
 
-export const VarianceNode: NodeDefinition<VarianceInputs, VarianceOutputs, VarianceParams> = {
+export const MathStatisticsVarianceNode: NodeDefinition<VarianceInputs, VarianceOutputs, VarianceParams> = {
   id: 'Math::Variance',
   category: 'Math',
   label: 'Variance',

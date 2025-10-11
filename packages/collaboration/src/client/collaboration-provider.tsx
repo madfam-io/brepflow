@@ -26,7 +26,7 @@ import {
   type EdgeId,
 } from '@brepflow/types';
 
-interface CollaborationContextValue {
+export interface CollaborationContextValue {
   client: CollaborationClient | null;
   document: Document | null;
   presence: Presence[];

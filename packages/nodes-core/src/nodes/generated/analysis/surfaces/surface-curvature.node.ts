@@ -18,7 +18,7 @@ interface SurfaceCurvatureOutputs {
   averageCurvature: unknown;
 }
 
-export const SurfaceCurvatureNode: NodeDefinition<SurfaceCurvatureInputs, SurfaceCurvatureOutputs, SurfaceCurvatureParams> = {
+export const AnalysisSurfacesSurfaceCurvatureNode: NodeDefinition<SurfaceCurvatureInputs, SurfaceCurvatureOutputs, SurfaceCurvatureParams> = {
   id: 'Analysis::SurfaceCurvature',
   category: 'Analysis',
   label: 'SurfaceCurvature',

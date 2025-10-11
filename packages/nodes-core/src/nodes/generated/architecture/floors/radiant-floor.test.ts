@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RadiantFloorNode } from './radiant-floor.node';
+import { ArchitectureFloorsRadiantFloorNode } from './radiant-floor.node';
 import { createTestContext } from '../test-utils';
 
-describe('RadiantFloorNode', () => {
+describe('ArchitectureFloorsRadiantFloorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('RadiantFloorNode', () => {
       zoneCount: 1
     } as any;
 
-    const result = await RadiantFloorNode.evaluate(context, inputs, params);
+    const result = await ArchitectureFloorsRadiantFloorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

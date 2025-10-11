@@ -13,7 +13,7 @@ interface HistoricWallRestorationOutputs {
   restoredWall: unknown;
 }
 
-export const HistoricWallRestorationNode: NodeDefinition<HistoricWallRestorationInputs, HistoricWallRestorationOutputs, HistoricWallRestorationParams> = {
+export const ArchitectureWallsHistoricWallRestorationNode: NodeDefinition<HistoricWallRestorationInputs, HistoricWallRestorationOutputs, HistoricWallRestorationParams> = {
   id: 'Architecture::HistoricWallRestoration',
   category: 'Architecture',
   label: 'HistoricWallRestoration',

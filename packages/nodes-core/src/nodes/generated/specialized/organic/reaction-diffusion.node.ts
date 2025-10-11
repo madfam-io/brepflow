@@ -14,7 +14,7 @@ interface ReactionDiffusionOutputs {
   pattern: unknown;
 }
 
-export const ReactionDiffusionNode: NodeDefinition<ReactionDiffusionInputs, ReactionDiffusionOutputs, ReactionDiffusionParams> = {
+export const SpecializedOrganicReactionDiffusionNode: NodeDefinition<ReactionDiffusionInputs, ReactionDiffusionOutputs, ReactionDiffusionParams> = {
   id: 'Specialized::ReactionDiffusion',
   category: 'Specialized',
   label: 'ReactionDiffusion',

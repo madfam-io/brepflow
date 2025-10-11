@@ -13,7 +13,7 @@ interface FoldingDoorOutputs {
   foldingDoor: unknown;
 }
 
-export const FoldingDoorNode: NodeDefinition<FoldingDoorInputs, FoldingDoorOutputs, FoldingDoorParams> = {
+export const ArchitectureDoorsFoldingDoorNode: NodeDefinition<FoldingDoorInputs, FoldingDoorOutputs, FoldingDoorParams> = {
   id: 'Architecture::FoldingDoor',
   category: 'Architecture',
   label: 'FoldingDoor',

@@ -13,7 +13,7 @@ interface HighSpeedMachiningOutputs {
   hsmPath: unknown;
 }
 
-export const HighSpeedMachiningNode: NodeDefinition<HighSpeedMachiningInputs, HighSpeedMachiningOutputs, HighSpeedMachiningParams> = {
+export const FabricationCNCHighSpeedMachiningNode: NodeDefinition<HighSpeedMachiningInputs, HighSpeedMachiningOutputs, HighSpeedMachiningParams> = {
   id: 'Fabrication::HighSpeedMachining',
   category: 'Fabrication',
   label: 'HighSpeedMachining',

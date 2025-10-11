@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TrochoidalMillingNode } from './trochoidal-milling.node';
+import { FabricationCNCTrochoidalMillingNode } from './trochoidal-milling.node';
 import { createTestContext } from '../test-utils';
 
-describe('TrochoidalMillingNode', () => {
+describe('FabricationCNCTrochoidalMillingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('TrochoidalMillingNode', () => {
       stepover: 0.3
     } as any;
 
-    const result = await TrochoidalMillingNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCTrochoidalMillingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

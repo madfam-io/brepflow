@@ -13,7 +13,7 @@ interface CurbRampOutputs {
   curbRamp: unknown;
 }
 
-export const CurbRampNode: NodeDefinition<CurbRampInputs, CurbRampOutputs, CurbRampParams> = {
+export const ArchitectureRampsCurbRampNode: NodeDefinition<CurbRampInputs, CurbRampOutputs, CurbRampParams> = {
   id: 'Architecture::CurbRamp',
   category: 'Architecture',
   label: 'CurbRamp',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GCodePostProcessorNode } from './gcode-post-processor.node';
+import { Fabrication3DPrintingGCodePostProcessorNode } from './gcode-post-processor.node';
 import { createTestContext } from '../test-utils';
 
-describe('GCodePostProcessorNode', () => {
+describe('Fabrication3DPrintingGCodePostProcessorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('GCodePostProcessorNode', () => {
       optimize: true
     } as any;
 
-    const result = await GCodePostProcessorNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingGCodePostProcessorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

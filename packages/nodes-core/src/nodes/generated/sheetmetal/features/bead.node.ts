@@ -15,7 +15,7 @@ interface BeadOutputs {
   result: unknown;
 }
 
-export const BeadNode: NodeDefinition<BeadInputs, BeadOutputs, BeadParams> = {
+export const SheetMetalFeaturesBeadNode: NodeDefinition<BeadInputs, BeadOutputs, BeadParams> = {
   id: 'SheetMetal::Bead',
   category: 'SheetMetal',
   label: 'Bead',

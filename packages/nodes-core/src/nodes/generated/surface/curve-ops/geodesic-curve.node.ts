@@ -12,7 +12,7 @@ interface GeodesicCurveOutputs {
   geodesic: unknown;
 }
 
-export const GeodesicCurveNode: NodeDefinition<GeodesicCurveInputs, GeodesicCurveOutputs, GeodesicCurveParams> = {
+export const SurfaceCurveOpsGeodesicCurveNode: NodeDefinition<GeodesicCurveInputs, GeodesicCurveOutputs, GeodesicCurveParams> = {
   id: 'Surface::GeodesicCurve',
   category: 'Surface',
   label: 'GeodesicCurve',

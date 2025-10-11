@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VoronoiGrowthNode } from './voronoi-growth.node';
+import { PatternsVoronoiVoronoiGrowthNode } from './voronoi-growth.node';
 import { createTestContext } from '../test-utils';
 
-describe('VoronoiGrowthNode', () => {
+describe('PatternsVoronoiVoronoiGrowthNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('VoronoiGrowthNode', () => {
       growthRate: 1.5
     } as any;
 
-    const result = await VoronoiGrowthNode.evaluate(context, inputs, params);
+    const result = await PatternsVoronoiVoronoiGrowthNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -17,7 +17,7 @@ interface BronzeBushingOutputs {
   grooves: unknown;
 }
 
-export const BronzeBushingNode: NodeDefinition<BronzeBushingInputs, BronzeBushingOutputs, BronzeBushingParams> = {
+export const MechanicalEngineeringBearingsBronzeBushingNode: NodeDefinition<BronzeBushingInputs, BronzeBushingOutputs, BronzeBushingParams> = {
   id: 'MechanicalEngineering::BronzeBushing',
   category: 'MechanicalEngineering',
   label: 'BronzeBushing',

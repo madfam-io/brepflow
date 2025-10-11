@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringReplaceNode } from './string-replace.node';
+import { DataStringStringReplaceNode } from './string-replace.node';
 import { createTestContext } from '../test-utils';
 
-describe('StringReplaceNode', () => {
+describe('DataStringStringReplaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('StringReplaceNode', () => {
       global: true
     } as any;
 
-    const result = await StringReplaceNode.evaluate(context, inputs, params);
+    const result = await DataStringStringReplaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

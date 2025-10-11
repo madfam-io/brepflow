@@ -17,7 +17,7 @@ interface RectangularPocketOutputs {
   shape: unknown;
 }
 
-export const RectangularPocketNode: NodeDefinition<RectangularPocketInputs, RectangularPocketOutputs, RectangularPocketParams> = {
+export const FeaturesPocketsRectangularPocketNode: NodeDefinition<RectangularPocketInputs, RectangularPocketOutputs, RectangularPocketParams> = {
   id: 'Features::RectangularPocket',
   category: 'Features',
   label: 'RectangularPocket',

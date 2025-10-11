@@ -13,7 +13,7 @@ interface IroningPassOutputs {
   ironingPaths: unknown;
 }
 
-export const IroningPassNode: NodeDefinition<IroningPassInputs, IroningPassOutputs, IroningPassParams> = {
+export const Fabrication3DPrintingIroningPassNode: NodeDefinition<IroningPassInputs, IroningPassOutputs, IroningPassParams> = {
   id: 'Fabrication::IroningPass',
   category: 'Fabrication',
   label: 'IroningPass',

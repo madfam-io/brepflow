@@ -13,7 +13,7 @@ interface OffsetOutputs {
   offset: unknown;
 }
 
-export const OffsetNode: NodeDefinition<OffsetInputs, OffsetOutputs, OffsetParams> = {
+export const SketchCurvesOffsetNode: NodeDefinition<OffsetInputs, OffsetOutputs, OffsetParams> = {
   id: 'Sketch::Offset',
   category: 'Sketch',
   label: 'Offset',

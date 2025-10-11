@@ -12,7 +12,7 @@ interface ArcSineOutputs {
   angle: unknown;
 }
 
-export const ArcSineNode: NodeDefinition<ArcSineInputs, ArcSineOutputs, ArcSineParams> = {
+export const MathTrigonometryArcSineNode: NodeDefinition<ArcSineInputs, ArcSineOutputs, ArcSineParams> = {
   id: 'Math::ArcSine',
   category: 'Math',
   label: 'ArcSine',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TuringPatternNode } from './turing-pattern.node';
+import { PatternsProceduralTuringPatternNode } from './turing-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('TuringPatternNode', () => {
+describe('PatternsProceduralTuringPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('TuringPatternNode', () => {
       resolution: 100
     } as any;
 
-    const result = await TuringPatternNode.evaluate(context, inputs, params);
+    const result = await PatternsProceduralTuringPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

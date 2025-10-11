@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AirBearingNode } from './air-bearing.node';
+import { MechanicalEngineeringBearingsAirBearingNode } from './air-bearing.node';
 import { createTestContext } from '../test-utils';
 
-describe('AirBearingNode', () => {
+describe('MechanicalEngineeringBearingsAirBearingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('AirBearingNode', () => {
       restrictorType: "orifice"
     } as any;
 
-    const result = await AirBearingNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringBearingsAirBearingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

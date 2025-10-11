@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { KnitSurfacesNode } from './knit-surfaces.node';
+import { AdvancedSurfaceKnitSurfacesNode } from './knit-surfaces.node';
 import { createTestContext } from '../test-utils';
 
-describe('KnitSurfacesNode', () => {
+describe('AdvancedSurfaceKnitSurfacesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('KnitSurfacesNode', () => {
       createSolid: false
     } as any;
 
-    const result = await KnitSurfacesNode.evaluate(context, inputs, params);
+    const result = await AdvancedSurfaceKnitSurfacesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

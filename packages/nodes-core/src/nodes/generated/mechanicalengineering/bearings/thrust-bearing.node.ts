@@ -16,7 +16,7 @@ interface ThrustBearingOutputs {
   raceways: unknown;
 }
 
-export const ThrustBearingNode: NodeDefinition<ThrustBearingInputs, ThrustBearingOutputs, ThrustBearingParams> = {
+export const MechanicalEngineeringBearingsThrustBearingNode: NodeDefinition<ThrustBearingInputs, ThrustBearingOutputs, ThrustBearingParams> = {
   id: 'MechanicalEngineering::ThrustBearing',
   category: 'MechanicalEngineering',
   label: 'ThrustBearing',

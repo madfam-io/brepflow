@@ -13,7 +13,7 @@ interface RandomRangeOutputs {
   value: unknown;
 }
 
-export const RandomRangeNode: NodeDefinition<RandomRangeInputs, RandomRangeOutputs, RandomRangeParams> = {
+export const MathRandomRandomRangeNode: NodeDefinition<RandomRangeInputs, RandomRangeOutputs, RandomRangeParams> = {
   id: 'Math::RandomRange',
   category: 'Math',
   label: 'RandomRange',

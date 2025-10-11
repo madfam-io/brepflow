@@ -17,7 +17,7 @@ interface UniversalJointOutputs {
   cross: unknown;
 }
 
-export const UniversalJointNode: NodeDefinition<UniversalJointInputs, UniversalJointOutputs, UniversalJointParams> = {
+export const MechanicalEngineeringMechanismsUniversalJointNode: NodeDefinition<UniversalJointInputs, UniversalJointOutputs, UniversalJointParams> = {
   id: 'MechanicalEngineering::UniversalJoint',
   category: 'MechanicalEngineering',
   label: 'UniversalJoint',

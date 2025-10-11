@@ -14,7 +14,7 @@ interface RollupDoorOutputs {
   guides: unknown;
 }
 
-export const RollupDoorNode: NodeDefinition<RollupDoorInputs, RollupDoorOutputs, RollupDoorParams> = {
+export const ArchitectureDoorsRollupDoorNode: NodeDefinition<RollupDoorInputs, RollupDoorOutputs, RollupDoorParams> = {
   id: 'Architecture::RollupDoor',
   category: 'Architecture',
   label: 'RollupDoor',

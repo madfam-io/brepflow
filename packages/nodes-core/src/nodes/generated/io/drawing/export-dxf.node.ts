@@ -15,7 +15,7 @@ interface ExportDXFOutputs {
   dxfData: unknown;
 }
 
-export const ExportDXFNode: NodeDefinition<ExportDXFInputs, ExportDXFOutputs, ExportDXFParams> = {
+export const IODrawingExportDXFNode: NodeDefinition<ExportDXFInputs, ExportDXFOutputs, ExportDXFParams> = {
   id: 'IO::ExportDXF',
   category: 'IO',
   label: 'ExportDXF',

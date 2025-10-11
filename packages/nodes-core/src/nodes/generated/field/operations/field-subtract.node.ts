@@ -11,7 +11,7 @@ interface FieldSubtractOutputs {
   field: unknown;
 }
 
-export const FieldSubtractNode: NodeDefinition<FieldSubtractInputs, FieldSubtractOutputs, FieldSubtractParams> = {
+export const FieldOperationsFieldSubtractNode: NodeDefinition<FieldSubtractInputs, FieldSubtractOutputs, FieldSubtractParams> = {
   id: 'Field::FieldSubtract',
   category: 'Field',
   label: 'FieldSubtract',

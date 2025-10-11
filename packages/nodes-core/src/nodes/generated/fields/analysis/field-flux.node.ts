@@ -11,7 +11,7 @@ interface FieldFluxOutputs {
   flux: number;
 }
 
-export const FieldFluxNode: NodeDefinition<FieldFluxInputs, FieldFluxOutputs, FieldFluxParams> = {
+export const FieldsAnalysisFieldFluxNode: NodeDefinition<FieldFluxInputs, FieldFluxOutputs, FieldFluxParams> = {
   id: 'Fields::FieldFlux',
   category: 'Fields',
   label: 'FieldFlux',

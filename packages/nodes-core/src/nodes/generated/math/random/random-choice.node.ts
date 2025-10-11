@@ -12,7 +12,7 @@ interface RandomChoiceOutputs {
   choice: unknown;
 }
 
-export const RandomChoiceNode: NodeDefinition<RandomChoiceInputs, RandomChoiceOutputs, RandomChoiceParams> = {
+export const MathRandomRandomChoiceNode: NodeDefinition<RandomChoiceInputs, RandomChoiceOutputs, RandomChoiceParams> = {
   id: 'Math::RandomChoice',
   category: 'Math',
   label: 'RandomChoice',

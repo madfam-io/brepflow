@@ -16,7 +16,7 @@ interface ShapeDescriptorOutputs {
   similarity: unknown;
 }
 
-export const ShapeDescriptorNode: NodeDefinition<ShapeDescriptorInputs, ShapeDescriptorOutputs, ShapeDescriptorParams> = {
+export const AlgorithmicGeometryShapeDescriptorNode: NodeDefinition<ShapeDescriptorInputs, ShapeDescriptorOutputs, ShapeDescriptorParams> = {
   id: 'Algorithmic::ShapeDescriptor',
   category: 'Algorithmic',
   label: 'ShapeDescriptor',

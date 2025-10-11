@@ -14,7 +14,7 @@ interface GirihTilingOutputs {
   pattern: unknown;
 }
 
-export const GirihTilingNode: NodeDefinition<GirihTilingInputs, GirihTilingOutputs, GirihTilingParams> = {
+export const PatternsIslamicGirihTilingNode: NodeDefinition<GirihTilingInputs, GirihTilingOutputs, GirihTilingParams> = {
   id: 'Patterns::GirihTiling',
   category: 'Patterns',
   label: 'GirihTiling',

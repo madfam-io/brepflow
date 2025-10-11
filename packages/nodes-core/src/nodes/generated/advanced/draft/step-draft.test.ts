@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StepDraftNode } from './step-draft.node';
+import { AdvancedDraftStepDraftNode } from './step-draft.node';
 import { createTestContext } from '../test-utils';
 
-describe('StepDraftNode', () => {
+describe('AdvancedDraftStepDraftNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('StepDraftNode', () => {
       steps: 2
     } as any;
 
-    const result = await StepDraftNode.evaluate(context, inputs, params);
+    const result = await AdvancedDraftStepDraftNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

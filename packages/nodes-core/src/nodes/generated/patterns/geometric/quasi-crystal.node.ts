@@ -13,7 +13,7 @@ interface QuasiCrystalOutputs {
   pattern: unknown;
 }
 
-export const QuasiCrystalNode: NodeDefinition<QuasiCrystalInputs, QuasiCrystalOutputs, QuasiCrystalParams> = {
+export const PatternsGeometricQuasiCrystalNode: NodeDefinition<QuasiCrystalInputs, QuasiCrystalOutputs, QuasiCrystalParams> = {
   id: 'Patterns::QuasiCrystal',
   category: 'Patterns',
   label: 'QuasiCrystal',

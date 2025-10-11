@@ -16,7 +16,7 @@ interface FluidPropertiesOutputs {
   fluidData: unknown;
 }
 
-export const FluidPropertiesNode: NodeDefinition<FluidPropertiesInputs, FluidPropertiesOutputs, FluidPropertiesParams> = {
+export const SimulationCFDFluidPropertiesNode: NodeDefinition<FluidPropertiesInputs, FluidPropertiesOutputs, FluidPropertiesParams> = {
   id: 'Simulation::FluidProperties',
   category: 'Simulation',
   label: 'FluidProperties',

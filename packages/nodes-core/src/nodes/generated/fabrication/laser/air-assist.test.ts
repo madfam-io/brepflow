@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AirAssistNode } from './air-assist.node';
+import { FabricationLaserAirAssistNode } from './air-assist.node';
 import { createTestContext } from '../test-utils';
 
-describe('AirAssistNode', () => {
+describe('FabricationLaserAirAssistNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('AirAssistNode', () => {
       nozzleType: "standard"
     } as any;
 
-    const result = await AirAssistNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserAirAssistNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -16,7 +16,7 @@ interface PointCloudProcessingOutputs {
   indices: unknown;
 }
 
-export const PointCloudProcessingNode: NodeDefinition<PointCloudProcessingInputs, PointCloudProcessingOutputs, PointCloudProcessingParams> = {
+export const AlgorithmicGeometryPointCloudProcessingNode: NodeDefinition<PointCloudProcessingInputs, PointCloudProcessingOutputs, PointCloudProcessingParams> = {
   id: 'Algorithmic::PointCloudProcessing',
   category: 'Algorithmic',
   label: 'PointCloudProcessing',

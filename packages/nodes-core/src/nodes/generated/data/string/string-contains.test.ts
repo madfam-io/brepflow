@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringContainsNode } from './string-contains.node';
+import { DataStringStringContainsNode } from './string-contains.node';
 import { createTestContext } from '../test-utils';
 
-describe('StringContainsNode', () => {
+describe('DataStringStringContainsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('StringContainsNode', () => {
       caseSensitive: true
     } as any;
 
-    const result = await StringContainsNode.evaluate(context, inputs, params);
+    const result = await DataStringStringContainsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -14,7 +14,7 @@ interface VectorFieldOutputs {
   field: unknown;
 }
 
-export const VectorFieldNode: NodeDefinition<VectorFieldInputs, VectorFieldOutputs, VectorFieldParams> = {
+export const FieldGenerateVectorFieldNode: NodeDefinition<VectorFieldInputs, VectorFieldOutputs, VectorFieldParams> = {
   id: 'Field::VectorField',
   category: 'Field',
   label: 'VectorField',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RemeshUniformNode } from './remesh-uniform.node';
+import { MeshTessellationRemeshUniformNode } from './remesh-uniform.node';
 import { createTestContext } from '../test-utils';
 
-describe('RemeshUniformNode', () => {
+describe('MeshTessellationRemeshUniformNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('RemeshUniformNode', () => {
       preserveFeatures: true
     } as any;
 
-    const result = await RemeshUniformNode.evaluate(context, inputs, params);
+    const result = await MeshTessellationRemeshUniformNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

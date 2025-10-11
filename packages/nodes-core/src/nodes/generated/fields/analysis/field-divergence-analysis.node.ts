@@ -10,7 +10,7 @@ interface FieldDivergenceAnalysisOutputs {
   divergenceField: unknown;
 }
 
-export const FieldDivergenceAnalysisNode: NodeDefinition<FieldDivergenceAnalysisInputs, FieldDivergenceAnalysisOutputs, FieldDivergenceAnalysisParams> = {
+export const FieldsAnalysisFieldDivergenceAnalysisNode: NodeDefinition<FieldDivergenceAnalysisInputs, FieldDivergenceAnalysisOutputs, FieldDivergenceAnalysisParams> = {
   id: 'Fields::FieldDivergenceAnalysis',
   category: 'Fields',
   label: 'FieldDivergenceAnalysis',

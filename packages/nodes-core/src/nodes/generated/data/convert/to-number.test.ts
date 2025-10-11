@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToNumberNode } from './to-number.node';
+import { DataConvertToNumberNode } from './to-number.node';
 import { createTestContext } from '../test-utils';
 
-describe('ToNumberNode', () => {
+describe('DataConvertToNumberNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('ToNumberNode', () => {
 
     } as any;
 
-    const result = await ToNumberNode.evaluate(context, inputs, params);
+    const result = await DataConvertToNumberNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

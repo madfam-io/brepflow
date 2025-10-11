@@ -12,7 +12,7 @@ interface StandardDeviationOutputs {
   stddev: unknown;
 }
 
-export const StandardDeviationNode: NodeDefinition<StandardDeviationInputs, StandardDeviationOutputs, StandardDeviationParams> = {
+export const MathStatisticsStandardDeviationNode: NodeDefinition<StandardDeviationInputs, StandardDeviationOutputs, StandardDeviationParams> = {
   id: 'Math::StandardDeviation',
   category: 'Math',
   label: 'StandardDeviation',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GeodesicPatternNode } from './geodesic-pattern.node';
+import { PatternsGeometricGeodesicPatternNode } from './geodesic-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('GeodesicPatternNode', () => {
+describe('PatternsGeometricGeodesicPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('GeodesicPatternNode', () => {
       class: "I"
     } as any;
 
-    const result = await GeodesicPatternNode.evaluate(context, inputs, params);
+    const result = await PatternsGeometricGeodesicPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

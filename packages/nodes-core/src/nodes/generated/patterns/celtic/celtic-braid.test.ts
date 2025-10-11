@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CelticBraidNode } from './celtic-braid.node';
+import { PatternsCelticCelticBraidNode } from './celtic-braid.node';
 import { createTestContext } from '../test-utils';
 
-describe('CelticBraidNode', () => {
+describe('PatternsCelticCelticBraidNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CelticBraidNode', () => {
       crossings: 5
     } as any;
 
-    const result = await CelticBraidNode.evaluate(context, inputs, params);
+    const result = await PatternsCelticCelticBraidNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

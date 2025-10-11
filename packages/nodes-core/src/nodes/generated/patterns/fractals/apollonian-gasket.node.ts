@@ -13,7 +13,7 @@ interface ApollonianGasketOutputs {
   circles: unknown;
 }
 
-export const ApollonianGasketNode: NodeDefinition<ApollonianGasketInputs, ApollonianGasketOutputs, ApollonianGasketParams> = {
+export const PatternsFractalsApollonianGasketNode: NodeDefinition<ApollonianGasketInputs, ApollonianGasketOutputs, ApollonianGasketParams> = {
   id: 'Patterns::ApollonianGasket',
   category: 'Patterns',
   label: 'ApollonianGasket',

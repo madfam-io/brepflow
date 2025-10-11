@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ComplexMultiplyNode } from './complex-multiply.node';
+import { MathComplexComplexMultiplyNode } from './complex-multiply.node';
 import { createTestContext } from '../test-utils';
 
-describe('ComplexMultiplyNode', () => {
+describe('MathComplexComplexMultiplyNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ComplexMultiplyNode', () => {
 
     } as any;
 
-    const result = await ComplexMultiplyNode.evaluate(context, inputs, params);
+    const result = await MathComplexComplexMultiplyNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

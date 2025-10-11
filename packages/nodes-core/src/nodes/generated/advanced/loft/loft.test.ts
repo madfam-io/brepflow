@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LoftNode } from './loft.node';
+import { AdvancedLoftLoftNode } from './loft.node';
 import { createTestContext } from '../test-utils';
 
-describe('LoftNode', () => {
+describe('AdvancedLoftLoftNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('LoftNode', () => {
       maxDegree: 3
     } as any;
 
-    const result = await LoftNode.evaluate(context, inputs, params);
+    const result = await AdvancedLoftLoftNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

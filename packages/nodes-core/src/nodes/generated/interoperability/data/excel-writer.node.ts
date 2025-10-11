@@ -16,7 +16,7 @@ interface ExcelWriterOutputs {
   cellsWritten: unknown;
 }
 
-export const ExcelWriterNode: NodeDefinition<ExcelWriterInputs, ExcelWriterOutputs, ExcelWriterParams> = {
+export const InteroperabilityDataExcelWriterNode: NodeDefinition<ExcelWriterInputs, ExcelWriterOutputs, ExcelWriterParams> = {
   id: 'Interoperability::ExcelWriter',
   category: 'Interoperability',
   label: 'ExcelWriter',

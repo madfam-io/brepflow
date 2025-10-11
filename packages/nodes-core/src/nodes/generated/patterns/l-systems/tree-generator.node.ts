@@ -16,7 +16,7 @@ interface TreeGeneratorOutputs {
   leaves: Array<[number, number, number]>;
 }
 
-export const TreeGeneratorNode: NodeDefinition<TreeGeneratorInputs, TreeGeneratorOutputs, TreeGeneratorParams> = {
+export const PatternsLSystemsTreeGeneratorNode: NodeDefinition<TreeGeneratorInputs, TreeGeneratorOutputs, TreeGeneratorParams> = {
   id: 'Patterns::TreeGenerator',
   category: 'Patterns',
   label: 'TreeGenerator',

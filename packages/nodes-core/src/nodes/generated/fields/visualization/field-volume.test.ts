@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldVolumeNode } from './field-volume.node';
+import { FieldsVisualizationFieldVolumeNode } from './field-volume.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldVolumeNode', () => {
+describe('FieldsVisualizationFieldVolumeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('FieldVolumeNode', () => {
       opacity: 0.8
     } as any;
 
-    const result = await FieldVolumeNode.evaluate(context, inputs, params);
+    const result = await FieldsVisualizationFieldVolumeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

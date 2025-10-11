@@ -13,7 +13,7 @@ interface IsoContourOutputs {
   contours: unknown;
 }
 
-export const IsoContourNode: NodeDefinition<IsoContourInputs, IsoContourOutputs, IsoContourParams> = {
+export const FieldSampleIsoContourNode: NodeDefinition<IsoContourInputs, IsoContourOutputs, IsoContourParams> = {
   id: 'Field::IsoContour',
   category: 'Field',
   label: 'IsoContour',

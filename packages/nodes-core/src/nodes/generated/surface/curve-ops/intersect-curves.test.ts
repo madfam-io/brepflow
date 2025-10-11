@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { IntersectCurvesNode } from './intersect-curves.node';
+import { SurfaceCurveOpsIntersectCurvesNode } from './intersect-curves.node';
 import { createTestContext } from '../test-utils';
 
-describe('IntersectCurvesNode', () => {
+describe('SurfaceCurveOpsIntersectCurvesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('IntersectCurvesNode', () => {
       extend: false
     } as any;
 
-    const result = await IntersectCurvesNode.evaluate(context, inputs, params);
+    const result = await SurfaceCurveOpsIntersectCurvesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

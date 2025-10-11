@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldMinMaxNode } from './field-min-max.node';
+import { FieldsAnalysisFieldMinMaxNode } from './field-min-max.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldMinMaxNode', () => {
+describe('FieldsAnalysisFieldMinMaxNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FieldMinMaxNode', () => {
 
     } as any;
 
-    const result = await FieldMinMaxNode.evaluate(context, inputs, params);
+    const result = await FieldsAnalysisFieldMinMaxNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

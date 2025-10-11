@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HollowShaftNode } from './hollow-shaft.node';
+import { MechanicalEngineeringShaftsHollowShaftNode } from './hollow-shaft.node';
 import { createTestContext } from '../test-utils';
 
-describe('HollowShaftNode', () => {
+describe('MechanicalEngineeringShaftsHollowShaftNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('HollowShaftNode', () => {
       endMachining: "none"
     } as any;
 
-    const result = await HollowShaftNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringShaftsHollowShaftNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

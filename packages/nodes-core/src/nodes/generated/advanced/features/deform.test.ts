@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DeformNode } from './deform.node';
+import { AdvancedFeaturesDeformNode } from './deform.node';
 import { createTestContext } from '../test-utils';
 
-describe('DeformNode', () => {
+describe('AdvancedFeaturesDeformNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('DeformNode', () => {
       stiffness: 0.5
     } as any;
 
-    const result = await DeformNode.evaluate(context, inputs, params);
+    const result = await AdvancedFeaturesDeformNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

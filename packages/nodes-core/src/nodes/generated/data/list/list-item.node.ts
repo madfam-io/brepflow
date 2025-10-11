@@ -13,7 +13,7 @@ interface ListItemOutputs {
   item: unknown;
 }
 
-export const ListItemNode: NodeDefinition<ListItemInputs, ListItemOutputs, ListItemParams> = {
+export const DataListListItemNode: NodeDefinition<ListItemInputs, ListItemOutputs, ListItemParams> = {
   id: 'Data::ListItem',
   category: 'Data',
   label: 'ListItem',

@@ -16,7 +16,7 @@ interface MQTTPublisherOutputs {
   messageId: unknown;
 }
 
-export const MQTTPublisherNode: NodeDefinition<MQTTPublisherInputs, MQTTPublisherOutputs, MQTTPublisherParams> = {
+export const InteroperabilityStreamingMQTTPublisherNode: NodeDefinition<MQTTPublisherInputs, MQTTPublisherOutputs, MQTTPublisherParams> = {
   id: 'Interoperability::MQTTPublisher',
   category: 'Interoperability',
   label: 'MQTTPublisher',

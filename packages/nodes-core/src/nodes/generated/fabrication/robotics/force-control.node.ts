@@ -13,7 +13,7 @@ interface ForceControlOutputs {
   forceProfile: unknown;
 }
 
-export const ForceControlNode: NodeDefinition<ForceControlInputs, ForceControlOutputs, ForceControlParams> = {
+export const FabricationRoboticsForceControlNode: NodeDefinition<ForceControlInputs, ForceControlOutputs, ForceControlParams> = {
   id: 'Fabrication::ForceControl',
   category: 'Fabrication',
   label: 'ForceControl',

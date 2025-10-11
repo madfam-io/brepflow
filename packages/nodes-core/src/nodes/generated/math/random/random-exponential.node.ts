@@ -11,7 +11,7 @@ interface RandomExponentialOutputs {
   value: unknown;
 }
 
-export const RandomExponentialNode: NodeDefinition<RandomExponentialInputs, RandomExponentialOutputs, RandomExponentialParams> = {
+export const MathRandomRandomExponentialNode: NodeDefinition<RandomExponentialInputs, RandomExponentialOutputs, RandomExponentialParams> = {
   id: 'Math::RandomExponential',
   category: 'Math',
   label: 'RandomExponential',

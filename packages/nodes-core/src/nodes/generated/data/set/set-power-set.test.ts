@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SetPowerSetNode } from './set-power-set.node';
+import { DataSetSetPowerSetNode } from './set-power-set.node';
 import { createTestContext } from '../test-utils';
 
-describe('SetPowerSetNode', () => {
+describe('DataSetSetPowerSetNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('SetPowerSetNode', () => {
 
     } as any;
 
-    const result = await SetPowerSetNode.evaluate(context, inputs, params);
+    const result = await DataSetSetPowerSetNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

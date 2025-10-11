@@ -19,7 +19,7 @@ interface LinearRegressionOutputs {
   predictions: unknown;
 }
 
-export const LinearRegressionNode: NodeDefinition<LinearRegressionInputs, LinearRegressionOutputs, LinearRegressionParams> = {
+export const AlgorithmicMachineLearningLinearRegressionNode: NodeDefinition<LinearRegressionInputs, LinearRegressionOutputs, LinearRegressionParams> = {
   id: 'Algorithmic::LinearRegression',
   category: 'Algorithmic',
   label: 'LinearRegression',

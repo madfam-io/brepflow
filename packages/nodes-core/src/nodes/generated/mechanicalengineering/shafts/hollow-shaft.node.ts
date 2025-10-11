@@ -17,7 +17,7 @@ interface HollowShaftOutputs {
   bore: unknown;
 }
 
-export const HollowShaftNode: NodeDefinition<HollowShaftInputs, HollowShaftOutputs, HollowShaftParams> = {
+export const MechanicalEngineeringShaftsHollowShaftNode: NodeDefinition<HollowShaftInputs, HollowShaftOutputs, HollowShaftParams> = {
   id: 'MechanicalEngineering::HollowShaft',
   category: 'MechanicalEngineering',
   label: 'HollowShaft',

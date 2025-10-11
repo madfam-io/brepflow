@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LivingHingeNode } from './living-hinge.node';
+import { FabricationLaserLivingHingeNode } from './living-hinge.node';
 import { createTestContext } from '../test-utils';
 
-describe('LivingHingeNode', () => {
+describe('FabricationLaserLivingHingeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('LivingHingeNode', () => {
       cutLength: 10
     } as any;
 
-    const result = await LivingHingeNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserLivingHingeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

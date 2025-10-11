@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ConvexHull3DNode } from './convex-hull3-d.node';
+import { AlgorithmicGeometryConvexHull3DNode } from './convex-hull3-d.node';
 import { createTestContext } from '../test-utils';
 
-describe('ConvexHull3DNode', () => {
+describe('AlgorithmicGeometryConvexHull3DNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ConvexHull3DNode', () => {
       includeInterior: false
     } as any;
 
-    const result = await ConvexHull3DNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicGeometryConvexHull3DNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

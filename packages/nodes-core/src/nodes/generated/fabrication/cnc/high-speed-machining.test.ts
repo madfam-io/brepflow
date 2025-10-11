@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HighSpeedMachiningNode } from './high-speed-machining.node';
+import { FabricationCNCHighSpeedMachiningNode } from './high-speed-machining.node';
 import { createTestContext } from '../test-utils';
 
-describe('HighSpeedMachiningNode', () => {
+describe('FabricationCNCHighSpeedMachiningNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('HighSpeedMachiningNode', () => {
       entrySpeed: 0.5
     } as any;
 
-    const result = await HighSpeedMachiningNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCHighSpeedMachiningNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

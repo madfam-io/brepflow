@@ -13,7 +13,7 @@ interface ConfigurationOutputs {
   configuration: unknown;
 }
 
-export const ConfigurationNode: NodeDefinition<ConfigurationInputs, ConfigurationOutputs, ConfigurationParams> = {
+export const AssemblyPatternsConfigurationNode: NodeDefinition<ConfigurationInputs, ConfigurationOutputs, ConfigurationParams> = {
   id: 'Assembly::Configuration',
   category: 'Assembly',
   label: 'Configuration',

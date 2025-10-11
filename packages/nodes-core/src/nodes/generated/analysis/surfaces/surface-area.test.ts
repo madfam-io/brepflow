@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceAreaNode } from './surface-area.node';
+import { AnalysisSurfacesSurfaceAreaNode } from './surface-area.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceAreaNode', () => {
+describe('AnalysisSurfacesSurfaceAreaNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SurfaceAreaNode', () => {
       showCentroid: true
     } as any;
 
-    const result = await SurfaceAreaNode.evaluate(context, inputs, params);
+    const result = await AnalysisSurfacesSurfaceAreaNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

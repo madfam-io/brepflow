@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { QuasiCrystalNode } from './quasi-crystal.node';
+import { PatternsGeometricQuasiCrystalNode } from './quasi-crystal.node';
 import { createTestContext } from '../test-utils';
 
-describe('QuasiCrystalNode', () => {
+describe('PatternsGeometricQuasiCrystalNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('QuasiCrystalNode', () => {
       waves: 4
     } as any;
 
-    const result = await QuasiCrystalNode.evaluate(context, inputs, params);
+    const result = await PatternsGeometricQuasiCrystalNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

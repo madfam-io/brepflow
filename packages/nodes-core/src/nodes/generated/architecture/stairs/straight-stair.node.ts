@@ -17,7 +17,7 @@ interface StraightStairOutputs {
   risers: unknown;
 }
 
-export const StraightStairNode: NodeDefinition<StraightStairInputs, StraightStairOutputs, StraightStairParams> = {
+export const ArchitectureStairsStraightStairNode: NodeDefinition<StraightStairInputs, StraightStairOutputs, StraightStairParams> = {
   id: 'Architecture::StraightStair',
   category: 'Architecture',
   label: 'StraightStair',

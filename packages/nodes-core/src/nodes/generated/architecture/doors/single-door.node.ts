@@ -18,7 +18,7 @@ interface SingleDoorOutputs {
   frame: unknown;
 }
 
-export const SingleDoorNode: NodeDefinition<SingleDoorInputs, SingleDoorOutputs, SingleDoorParams> = {
+export const ArchitectureDoorsSingleDoorNode: NodeDefinition<SingleDoorInputs, SingleDoorOutputs, SingleDoorParams> = {
   id: 'Architecture::SingleDoor',
   category: 'Architecture',
   label: 'SingleDoor',

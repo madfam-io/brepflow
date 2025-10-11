@@ -14,7 +14,7 @@ interface EdgeToEdgeOutputs {
   mate: unknown;
 }
 
-export const EdgeToEdgeNode: NodeDefinition<EdgeToEdgeInputs, EdgeToEdgeOutputs, EdgeToEdgeParams> = {
+export const AssemblyMatesEdgeToEdgeNode: NodeDefinition<EdgeToEdgeInputs, EdgeToEdgeOutputs, EdgeToEdgeParams> = {
   id: 'Assembly::EdgeToEdge',
   category: 'Assembly',
   label: 'EdgeToEdge',

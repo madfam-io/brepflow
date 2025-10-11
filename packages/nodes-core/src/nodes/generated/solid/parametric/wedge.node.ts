@@ -15,7 +15,7 @@ interface WedgeOutputs {
   solid: unknown;
 }
 
-export const WedgeNode: NodeDefinition<WedgeInputs, WedgeOutputs, WedgeParams> = {
+export const SolidParametricWedgeNode: NodeDefinition<WedgeInputs, WedgeOutputs, WedgeParams> = {
   id: 'Solid::Wedge',
   category: 'Solid',
   label: 'Wedge',

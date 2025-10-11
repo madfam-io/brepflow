@@ -12,7 +12,7 @@ interface CamOutputs {
   mate: unknown;
 }
 
-export const CamNode: NodeDefinition<CamInputs, CamOutputs, CamParams> = {
+export const AssemblyMatesCamNode: NodeDefinition<CamInputs, CamOutputs, CamParams> = {
   id: 'Assembly::Cam',
   category: 'Assembly',
   label: 'Cam',

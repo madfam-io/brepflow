@@ -16,7 +16,7 @@ interface OBJImportOutputs {
   groups: unknown;
 }
 
-export const OBJImportNode: NodeDefinition<OBJImportInputs, OBJImportOutputs, OBJImportParams> = {
+export const InteroperabilityImportOBJImportNode: NodeDefinition<OBJImportInputs, OBJImportOutputs, OBJImportParams> = {
   id: 'Interoperability::OBJImport',
   category: 'Interoperability',
   label: 'OBJImport',

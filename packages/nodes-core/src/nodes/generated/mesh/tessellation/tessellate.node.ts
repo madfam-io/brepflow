@@ -17,7 +17,7 @@ interface TessellateOutputs {
   vertexCount: unknown;
 }
 
-export const TessellateNode: NodeDefinition<TessellateInputs, TessellateOutputs, TessellateParams> = {
+export const MeshTessellationTessellateNode: NodeDefinition<TessellateInputs, TessellateOutputs, TessellateParams> = {
   id: 'Mesh::Tessellate',
   category: 'Mesh',
   label: 'Tessellate',

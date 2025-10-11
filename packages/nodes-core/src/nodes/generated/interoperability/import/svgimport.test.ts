@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SVGImportNode } from './svgimport.node';
+import { InteroperabilityImportSVGImportNode } from './svgimport.node';
 import { createTestContext } from '../test-utils';
 
-describe('SVGImportNode', () => {
+describe('InteroperabilityImportSVGImportNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SVGImportNode', () => {
       flatten: true
     } as any;
 
-    const result = await SVGImportNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityImportSVGImportNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

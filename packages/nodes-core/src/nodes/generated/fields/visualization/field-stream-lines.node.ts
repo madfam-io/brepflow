@@ -15,7 +15,7 @@ interface FieldStreamLinesOutputs {
   streamlines: unknown;
 }
 
-export const FieldStreamLinesNode: NodeDefinition<FieldStreamLinesInputs, FieldStreamLinesOutputs, FieldStreamLinesParams> = {
+export const FieldsVisualizationFieldStreamLinesNode: NodeDefinition<FieldStreamLinesInputs, FieldStreamLinesOutputs, FieldStreamLinesParams> = {
   id: 'Fields::FieldStreamLines',
   category: 'Fields',
   label: 'FieldStreamLines',

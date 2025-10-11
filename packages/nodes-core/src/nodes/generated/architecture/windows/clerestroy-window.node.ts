@@ -13,7 +13,7 @@ interface ClerestroyWindowOutputs {
   clerestory: unknown;
 }
 
-export const ClerestroyWindowNode: NodeDefinition<ClerestroyWindowInputs, ClerestroyWindowOutputs, ClerestroyWindowParams> = {
+export const ArchitectureWindowsClerestroyWindowNode: NodeDefinition<ClerestroyWindowInputs, ClerestroyWindowOutputs, ClerestroyWindowParams> = {
   id: 'Architecture::ClerestroyWindow',
   category: 'Architecture',
   label: 'ClerestroyWindow',

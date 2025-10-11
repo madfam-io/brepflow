@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DelaunayMeshNode } from './delaunay-mesh.node';
+import { PatternsDelaunayDelaunayMeshNode } from './delaunay-mesh.node';
 import { createTestContext } from '../test-utils';
 
-describe('DelaunayMeshNode', () => {
+describe('PatternsDelaunayDelaunayMeshNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('DelaunayMeshNode', () => {
       minAngle: 20
     } as any;
 
-    const result = await DelaunayMeshNode.evaluate(context, inputs, params);
+    const result = await PatternsDelaunayDelaunayMeshNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

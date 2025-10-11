@@ -13,7 +13,7 @@ interface AirAssistOutputs {
   airSettings: unknown;
 }
 
-export const AirAssistNode: NodeDefinition<AirAssistInputs, AirAssistOutputs, AirAssistParams> = {
+export const FabricationLaserAirAssistNode: NodeDefinition<AirAssistInputs, AirAssistOutputs, AirAssistParams> = {
   id: 'Fabrication::AirAssist',
   category: 'Fabrication',
   label: 'AirAssist',

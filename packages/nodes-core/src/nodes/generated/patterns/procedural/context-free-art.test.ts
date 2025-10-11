@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ContextFreeArtNode } from './context-free-art.node';
+import { PatternsProceduralContextFreeArtNode } from './context-free-art.node';
 import { createTestContext } from '../test-utils';
 
-describe('ContextFreeArtNode', () => {
+describe('PatternsProceduralContextFreeArtNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ContextFreeArtNode', () => {
       depth: 10
     } as any;
 
-    const result = await ContextFreeArtNode.evaluate(context, inputs, params);
+    const result = await PatternsProceduralContextFreeArtNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

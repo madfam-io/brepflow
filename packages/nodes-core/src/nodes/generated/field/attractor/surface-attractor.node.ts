@@ -14,7 +14,7 @@ interface SurfaceAttractorOutputs {
   field: unknown;
 }
 
-export const SurfaceAttractorNode: NodeDefinition<SurfaceAttractorInputs, SurfaceAttractorOutputs, SurfaceAttractorParams> = {
+export const FieldAttractorSurfaceAttractorNode: NodeDefinition<SurfaceAttractorInputs, SurfaceAttractorOutputs, SurfaceAttractorParams> = {
   id: 'Field::SurfaceAttractor',
   category: 'Field',
   label: 'SurfaceAttractor',

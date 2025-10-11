@@ -14,7 +14,7 @@ interface SineFieldOutputs {
   field: unknown;
 }
 
-export const SineFieldNode: NodeDefinition<SineFieldInputs, SineFieldOutputs, SineFieldParams> = {
+export const FieldGenerateSineFieldNode: NodeDefinition<SineFieldInputs, SineFieldOutputs, SineFieldParams> = {
   id: 'Field::SineField',
   category: 'Field',
   label: 'SineField',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FluidDomainNode } from './fluid-domain.node';
+import { SimulationCFDFluidDomainNode } from './fluid-domain.node';
 import { createTestContext } from '../test-utils';
 
-describe('FluidDomainNode', () => {
+describe('SimulationCFDFluidDomainNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('FluidDomainNode', () => {
       refinementDistance: 10
     } as any;
 
-    const result = await FluidDomainNode.evaluate(context, inputs, params);
+    const result = await SimulationCFDFluidDomainNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

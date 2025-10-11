@@ -14,7 +14,7 @@ interface BoundaryOutputs {
   shape: unknown;
 }
 
-export const BoundaryNode: NodeDefinition<BoundaryInputs, BoundaryOutputs, BoundaryParams> = {
+export const AdvancedBoundaryBoundaryNode: NodeDefinition<BoundaryInputs, BoundaryOutputs, BoundaryParams> = {
   id: 'Advanced::Boundary',
   category: 'Advanced',
   label: 'Boundary',

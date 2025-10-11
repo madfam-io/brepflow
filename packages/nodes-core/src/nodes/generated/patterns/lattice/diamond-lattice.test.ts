@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DiamondLatticeNode } from './diamond-lattice.node';
+import { PatternsLatticeDiamondLatticeNode } from './diamond-lattice.node';
 import { createTestContext } from '../test-utils';
 
-describe('DiamondLatticeNode', () => {
+describe('PatternsLatticeDiamondLatticeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('DiamondLatticeNode', () => {
       strutDiameter: 1
     } as any;
 
-    const result = await DiamondLatticeNode.evaluate(context, inputs, params);
+    const result = await PatternsLatticeDiamondLatticeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

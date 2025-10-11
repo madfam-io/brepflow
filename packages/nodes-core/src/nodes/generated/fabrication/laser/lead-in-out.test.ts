@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LeadInOutNode } from './lead-in-out.node';
+import { FabricationLaserLeadInOutNode } from './lead-in-out.node';
 import { createTestContext } from '../test-utils';
 
-describe('LeadInOutNode', () => {
+describe('FabricationLaserLeadInOutNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('LeadInOutNode', () => {
       leadType: "line"
     } as any;
 
-    const result = await LeadInOutNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserLeadInOutNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

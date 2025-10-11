@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { InletOutletNode } from './inlet-outlet.node';
+import { SimulationCFDInletOutletNode } from './inlet-outlet.node';
 import { createTestContext } from '../test-utils';
 
-describe('InletOutletNode', () => {
+describe('SimulationCFDInletOutletNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('InletOutletNode', () => {
       temperature: 293
     } as any;
 
-    const result = await InletOutletNode.evaluate(context, inputs, params);
+    const result = await SimulationCFDInletOutletNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

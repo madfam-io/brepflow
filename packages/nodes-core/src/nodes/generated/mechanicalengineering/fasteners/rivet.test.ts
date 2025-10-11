@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RivetNode } from './rivet.node';
+import { MechanicalEngineeringFastenersRivetNode } from './rivet.node';
 import { createTestContext } from '../test-utils';
 
-describe('RivetNode', () => {
+describe('MechanicalEngineeringFastenersRivetNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('RivetNode', () => {
       material: "aluminum"
     } as any;
 
-    const result = await RivetNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringFastenersRivetNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

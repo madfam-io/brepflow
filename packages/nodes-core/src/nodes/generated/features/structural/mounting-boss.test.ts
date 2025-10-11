@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MountingBossNode } from './mounting-boss.node';
+import { FeaturesStructuralMountingBossNode } from './mounting-boss.node';
 import { createTestContext } from '../test-utils';
 
-describe('MountingBossNode', () => {
+describe('FeaturesStructuralMountingBossNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('MountingBossNode', () => {
       draftAngle: 1
     } as any;
 
-    const result = await MountingBossNode.evaluate(context, inputs, params);
+    const result = await FeaturesStructuralMountingBossNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

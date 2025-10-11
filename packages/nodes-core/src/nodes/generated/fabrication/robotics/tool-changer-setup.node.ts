@@ -12,7 +12,7 @@ interface ToolChangerSetupOutputs {
   toolChangeSequence: unknown;
 }
 
-export const ToolChangerSetupNode: NodeDefinition<ToolChangerSetupInputs, ToolChangerSetupOutputs, ToolChangerSetupParams> = {
+export const FabricationRoboticsToolChangerSetupNode: NodeDefinition<ToolChangerSetupInputs, ToolChangerSetupOutputs, ToolChangerSetupParams> = {
   id: 'Fabrication::ToolChangerSetup',
   category: 'Fabrication',
   label: 'ToolChangerSetup',

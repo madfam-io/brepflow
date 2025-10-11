@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WasherNode } from './washer.node';
+import { MechanicalEngineeringFastenersWasherNode } from './washer.node';
 import { createTestContext } from '../test-utils';
 
-describe('WasherNode', () => {
+describe('MechanicalEngineeringFastenersWasherNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('WasherNode', () => {
       type: "flat"
     } as any;
 
-    const result = await WasherNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringFastenersWasherNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

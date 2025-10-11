@@ -13,7 +13,7 @@ interface GeodesicPatternOutputs {
   geodesic: unknown;
 }
 
-export const GeodesicPatternNode: NodeDefinition<GeodesicPatternInputs, GeodesicPatternOutputs, GeodesicPatternParams> = {
+export const PatternsGeometricGeodesicPatternNode: NodeDefinition<GeodesicPatternInputs, GeodesicPatternOutputs, GeodesicPatternParams> = {
   id: 'Patterns::GeodesicPattern',
   category: 'Patterns',
   label: 'GeodesicPattern',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ArcSineNode } from './arc-sine.node';
+import { MathTrigonometryArcSineNode } from './arc-sine.node';
 import { createTestContext } from '../test-utils';
 
-describe('ArcSineNode', () => {
+describe('MathTrigonometryArcSineNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('ArcSineNode', () => {
       angleUnit: "radians"
     } as any;
 
-    const result = await ArcSineNode.evaluate(context, inputs, params);
+    const result = await MathTrigonometryArcSineNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

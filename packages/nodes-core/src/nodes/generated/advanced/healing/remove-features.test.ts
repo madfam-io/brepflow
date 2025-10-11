@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RemoveFeaturesNode } from './remove-features.node';
+import { AdvancedHealingRemoveFeaturesNode } from './remove-features.node';
 import { createTestContext } from '../test-utils';
 
-describe('RemoveFeaturesNode', () => {
+describe('AdvancedHealingRemoveFeaturesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('RemoveFeaturesNode', () => {
       removeChamfers: false
     } as any;
 
-    const result = await RemoveFeaturesNode.evaluate(context, inputs, params);
+    const result = await AdvancedHealingRemoveFeaturesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

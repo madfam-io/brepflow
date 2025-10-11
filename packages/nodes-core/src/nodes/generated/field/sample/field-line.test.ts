@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldLineNode } from './field-line.node';
+import { FieldSampleFieldLineNode } from './field-line.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldLineNode', () => {
+describe('FieldSampleFieldLineNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('FieldLineNode', () => {
       direction: "forward"
     } as any;
 
-    const result = await FieldLineNode.evaluate(context, inputs, params);
+    const result = await FieldSampleFieldLineNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

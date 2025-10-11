@@ -13,7 +13,7 @@ interface BrimGenerationOutputs {
   brim: unknown;
 }
 
-export const BrimGenerationNode: NodeDefinition<BrimGenerationInputs, BrimGenerationOutputs, BrimGenerationParams> = {
+export const Fabrication3DPrintingBrimGenerationNode: NodeDefinition<BrimGenerationInputs, BrimGenerationOutputs, BrimGenerationParams> = {
   id: 'Fabrication::BrimGeneration',
   category: 'Fabrication',
   label: 'BrimGeneration',

@@ -16,7 +16,7 @@ interface SpiralStairOutputs {
   centerPole: unknown;
 }
 
-export const SpiralStairNode: NodeDefinition<SpiralStairInputs, SpiralStairOutputs, SpiralStairParams> = {
+export const ArchitectureStairsSpiralStairNode: NodeDefinition<SpiralStairInputs, SpiralStairOutputs, SpiralStairParams> = {
   id: 'Architecture::SpiralStair',
   category: 'Architecture',
   label: 'SpiralStair',

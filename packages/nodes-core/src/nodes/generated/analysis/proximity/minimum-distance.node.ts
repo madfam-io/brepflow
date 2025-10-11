@@ -17,7 +17,7 @@ interface MinimumDistanceOutputs {
   connectionLine: unknown;
 }
 
-export const MinimumDistanceNode: NodeDefinition<MinimumDistanceInputs, MinimumDistanceOutputs, MinimumDistanceParams> = {
+export const AnalysisProximityMinimumDistanceNode: NodeDefinition<MinimumDistanceInputs, MinimumDistanceOutputs, MinimumDistanceParams> = {
   id: 'Analysis::MinimumDistance',
   category: 'Analysis',
   label: 'MinimumDistance',

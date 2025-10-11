@@ -10,7 +10,7 @@ interface FragmentOutputs {
   fragments: unknown;
 }
 
-export const FragmentNode: NodeDefinition<FragmentInputs, FragmentOutputs, FragmentParams> = {
+export const BooleanFragmentNode: NodeDefinition<FragmentInputs, FragmentOutputs, FragmentParams> = {
   id: 'Boolean::Fragment',
   category: 'Boolean',
   label: 'Fragment',

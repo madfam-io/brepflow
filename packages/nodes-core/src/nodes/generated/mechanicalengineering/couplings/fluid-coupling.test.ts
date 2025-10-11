@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FluidCouplingNode } from './fluid-coupling.node';
+import { MechanicalEngineeringCouplingsFluidCouplingNode } from './fluid-coupling.node';
 import { createTestContext } from '../test-utils';
 
-describe('FluidCouplingNode', () => {
+describe('MechanicalEngineeringCouplingsFluidCouplingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('FluidCouplingNode', () => {
       fluidCapacity: 2
     } as any;
 
-    const result = await FluidCouplingNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringCouplingsFluidCouplingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

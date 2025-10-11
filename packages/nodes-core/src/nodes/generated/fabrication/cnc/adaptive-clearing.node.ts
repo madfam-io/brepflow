@@ -14,7 +14,7 @@ interface AdaptiveClearingOutputs {
   adaptivePath: unknown;
 }
 
-export const AdaptiveClearingNode: NodeDefinition<AdaptiveClearingInputs, AdaptiveClearingOutputs, AdaptiveClearingParams> = {
+export const FabricationCNCAdaptiveClearingNode: NodeDefinition<AdaptiveClearingInputs, AdaptiveClearingOutputs, AdaptiveClearingParams> = {
   id: 'Fabrication::AdaptiveClearing',
   category: 'Fabrication',
   label: 'AdaptiveClearing',

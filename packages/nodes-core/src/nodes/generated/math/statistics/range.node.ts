@@ -12,7 +12,7 @@ interface RangeOutputs {
   range: unknown;
 }
 
-export const RangeNode: NodeDefinition<RangeInputs, RangeOutputs, RangeParams> = {
+export const MathStatisticsRangeNode: NodeDefinition<RangeInputs, RangeOutputs, RangeParams> = {
   id: 'Math::Range',
   category: 'Math',
   label: 'Range',

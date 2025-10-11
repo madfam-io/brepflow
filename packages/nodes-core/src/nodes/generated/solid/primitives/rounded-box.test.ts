@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RoundedBoxNode } from './rounded-box.node';
+import { SolidPrimitivesRoundedBoxNode } from './rounded-box.node';
 import { createTestContext } from '../test-utils';
 
-describe('RoundedBoxNode', () => {
+describe('SolidPrimitivesRoundedBoxNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('RoundedBoxNode', () => {
       radius: 10
     } as any;
 
-    const result = await RoundedBoxNode.evaluate(context, inputs, params);
+    const result = await SolidPrimitivesRoundedBoxNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

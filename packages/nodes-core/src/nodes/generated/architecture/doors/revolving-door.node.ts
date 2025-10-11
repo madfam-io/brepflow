@@ -14,7 +14,7 @@ interface RevolvingDoorOutputs {
   revolvingDoor: unknown;
 }
 
-export const RevolvingDoorNode: NodeDefinition<RevolvingDoorInputs, RevolvingDoorOutputs, RevolvingDoorParams> = {
+export const ArchitectureDoorsRevolvingDoorNode: NodeDefinition<RevolvingDoorInputs, RevolvingDoorOutputs, RevolvingDoorParams> = {
   id: 'Architecture::RevolvingDoor',
   category: 'Architecture',
   label: 'RevolvingDoor',

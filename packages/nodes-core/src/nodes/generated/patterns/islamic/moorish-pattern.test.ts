@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MoorishPatternNode } from './moorish-pattern.node';
+import { PatternsIslamicMoorishPatternNode } from './moorish-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('MoorishPatternNode', () => {
+describe('PatternsIslamicMoorishPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('MoorishPatternNode', () => {
       scale: 10
     } as any;
 
-    const result = await MoorishPatternNode.evaluate(context, inputs, params);
+    const result = await PatternsIslamicMoorishPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

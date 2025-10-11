@@ -13,7 +13,7 @@ interface CurveConvexHullOutputs {
   hullPoints: Array<[number, number, number]>;
 }
 
-export const CurveConvexHullNode: NodeDefinition<CurveConvexHullInputs, CurveConvexHullOutputs, CurveConvexHullParams> = {
+export const AnalysisCurvesCurveConvexHullNode: NodeDefinition<CurveConvexHullInputs, CurveConvexHullOutputs, CurveConvexHullParams> = {
   id: 'Analysis::CurveConvexHull',
   category: 'Analysis',
   label: 'CurveConvexHull',

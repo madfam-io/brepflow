@@ -12,7 +12,7 @@ interface VariableShellOutputs {
   shell: unknown;
 }
 
-export const VariableShellNode: NodeDefinition<VariableShellInputs, VariableShellOutputs, VariableShellParams> = {
+export const AdvancedShellVariableShellNode: NodeDefinition<VariableShellInputs, VariableShellOutputs, VariableShellParams> = {
   id: 'Advanced::VariableShell',
   category: 'Advanced',
   label: 'VariableShell',

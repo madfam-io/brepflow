@@ -13,7 +13,7 @@ interface ParquetDeformationOutputs {
   deformation: unknown;
 }
 
-export const ParquetDeformationNode: NodeDefinition<ParquetDeformationInputs, ParquetDeformationOutputs, ParquetDeformationParams> = {
+export const PatternsGeometricParquetDeformationNode: NodeDefinition<ParquetDeformationInputs, ParquetDeformationOutputs, ParquetDeformationParams> = {
   id: 'Patterns::ParquetDeformation',
   category: 'Patterns',
   label: 'ParquetDeformation',

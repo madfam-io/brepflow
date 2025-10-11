@@ -14,7 +14,7 @@ interface PalletizingPatternOutputs {
   placementPoints: unknown;
 }
 
-export const PalletizingPatternNode: NodeDefinition<PalletizingPatternInputs, PalletizingPatternOutputs, PalletizingPatternParams> = {
+export const FabricationRoboticsPalletizingPatternNode: NodeDefinition<PalletizingPatternInputs, PalletizingPatternOutputs, PalletizingPatternParams> = {
   id: 'Fabrication::PalletizingPattern',
   category: 'Fabrication',
   label: 'PalletizingPattern',

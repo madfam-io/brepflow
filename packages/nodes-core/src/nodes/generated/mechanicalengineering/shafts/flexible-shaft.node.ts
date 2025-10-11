@@ -16,7 +16,7 @@ interface FlexibleShaftOutputs {
   centerline: unknown;
 }
 
-export const FlexibleShaftNode: NodeDefinition<FlexibleShaftInputs, FlexibleShaftOutputs, FlexibleShaftParams> = {
+export const MechanicalEngineeringShaftsFlexibleShaftNode: NodeDefinition<FlexibleShaftInputs, FlexibleShaftOutputs, FlexibleShaftParams> = {
   id: 'MechanicalEngineering::FlexibleShaft',
   category: 'MechanicalEngineering',
   label: 'FlexibleShaft',

@@ -14,7 +14,7 @@ interface JSONGeneratorOutputs {
   size: unknown;
 }
 
-export const JSONGeneratorNode: NodeDefinition<JSONGeneratorInputs, JSONGeneratorOutputs, JSONGeneratorParams> = {
+export const InteroperabilityAPIJSONGeneratorNode: NodeDefinition<JSONGeneratorInputs, JSONGeneratorOutputs, JSONGeneratorParams> = {
   id: 'Interoperability::JSONGenerator',
   category: 'Interoperability',
   label: 'JSONGenerator',

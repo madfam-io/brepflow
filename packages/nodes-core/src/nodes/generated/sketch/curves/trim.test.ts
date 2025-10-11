@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TrimNode } from './trim.node';
+import { SketchCurvesTrimNode } from './trim.node';
 import { createTestContext } from '../test-utils';
 
-describe('TrimNode', () => {
+describe('SketchCurvesTrimNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('TrimNode', () => {
       endParameter: 1
     } as any;
 
-    const result = await TrimNode.evaluate(context, inputs, params);
+    const result = await SketchCurvesTrimNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldDivergenceNode } from './field-divergence.node';
+import { FieldOperationsFieldDivergenceNode } from './field-divergence.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldDivergenceNode', () => {
+describe('FieldOperationsFieldDivergenceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FieldDivergenceNode', () => {
 
     } as any;
 
-    const result = await FieldDivergenceNode.evaluate(context, inputs, params);
+    const result = await FieldOperationsFieldDivergenceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

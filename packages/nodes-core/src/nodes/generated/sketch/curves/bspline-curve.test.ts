@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BSplineCurveNode } from './bspline-curve.node';
+import { SketchCurvesBSplineCurveNode } from './bspline-curve.node';
 import { createTestContext } from '../test-utils';
 
-describe('BSplineCurveNode', () => {
+describe('SketchCurvesBSplineCurveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BSplineCurveNode', () => {
       periodic: false
     } as any;
 
-    const result = await BSplineCurveNode.evaluate(context, inputs, params);
+    const result = await SketchCurvesBSplineCurveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

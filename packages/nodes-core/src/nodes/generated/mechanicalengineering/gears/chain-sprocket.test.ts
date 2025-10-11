@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ChainSprocketNode } from './chain-sprocket.node';
+import { MechanicalEngineeringGearsChainSprocketNode } from './chain-sprocket.node';
 import { createTestContext } from '../test-utils';
 
-describe('ChainSprocketNode', () => {
+describe('MechanicalEngineeringGearsChainSprocketNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('ChainSprocketNode', () => {
       width: 7.85
     } as any;
 
-    const result = await ChainSprocketNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringGearsChainSprocketNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

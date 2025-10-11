@@ -16,7 +16,7 @@ interface WebSocketClientOutputs {
   lastMessage: unknown;
 }
 
-export const WebSocketClientNode: NodeDefinition<WebSocketClientInputs, WebSocketClientOutputs, WebSocketClientParams> = {
+export const InteroperabilityStreamingWebSocketClientNode: NodeDefinition<WebSocketClientInputs, WebSocketClientOutputs, WebSocketClientParams> = {
   id: 'Interoperability::WebSocketClient',
   category: 'Interoperability',
   label: 'WebSocketClient',

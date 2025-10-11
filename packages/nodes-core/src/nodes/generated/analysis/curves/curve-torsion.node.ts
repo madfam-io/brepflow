@@ -16,7 +16,7 @@ interface CurveTorsionOutputs {
   torsionGraph: unknown;
 }
 
-export const CurveTorsionNode: NodeDefinition<CurveTorsionInputs, CurveTorsionOutputs, CurveTorsionParams> = {
+export const AnalysisCurvesCurveTorsionNode: NodeDefinition<CurveTorsionInputs, CurveTorsionOutputs, CurveTorsionParams> = {
   id: 'Analysis::CurveTorsion',
   category: 'Analysis',
   label: 'CurveTorsion',

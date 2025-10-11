@@ -13,7 +13,7 @@ interface ExportSTLOutputs {
   stlData: unknown;
 }
 
-export const ExportSTLNode: NodeDefinition<ExportSTLInputs, ExportSTLOutputs, ExportSTLParams> = {
+export const MeshFilesExportSTLNode: NodeDefinition<ExportSTLInputs, ExportSTLOutputs, ExportSTLParams> = {
   id: 'Mesh::ExportSTL',
   category: 'Mesh',
   label: 'ExportSTL',

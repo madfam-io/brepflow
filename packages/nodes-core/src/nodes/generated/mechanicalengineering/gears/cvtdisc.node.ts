@@ -16,7 +16,7 @@ interface CVTDiscOutputs {
   contactSurface: unknown;
 }
 
-export const CVTDiscNode: NodeDefinition<CVTDiscInputs, CVTDiscOutputs, CVTDiscParams> = {
+export const MechanicalEngineeringGearsCVTDiscNode: NodeDefinition<CVTDiscInputs, CVTDiscOutputs, CVTDiscParams> = {
   id: 'MechanicalEngineering::CVTDisc',
   category: 'MechanicalEngineering',
   label: 'CVTDisc',

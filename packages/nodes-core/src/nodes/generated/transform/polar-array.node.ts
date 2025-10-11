@@ -22,7 +22,7 @@ interface PolarArrayOutputs {
   merged: unknown;
 }
 
-export const PolarArrayNode: NodeDefinition<PolarArrayInputs, PolarArrayOutputs, PolarArrayParams> = {
+export const TransformPolarArrayNode: NodeDefinition<PolarArrayInputs, PolarArrayOutputs, PolarArrayParams> = {
   id: 'Transform::PolarArray',
   category: 'Transform',
   label: 'PolarArray',

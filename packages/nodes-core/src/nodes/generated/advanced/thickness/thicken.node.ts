@@ -14,7 +14,7 @@ interface ThickenOutputs {
   solid: unknown;
 }
 
-export const ThickenNode: NodeDefinition<ThickenInputs, ThickenOutputs, ThickenParams> = {
+export const AdvancedThicknessThickenNode: NodeDefinition<ThickenInputs, ThickenOutputs, ThickenParams> = {
   id: 'Advanced::Thicken',
   category: 'Advanced',
   label: 'Thicken',

@@ -14,7 +14,7 @@ interface IndentOutputs {
   indented: unknown;
 }
 
-export const IndentNode: NodeDefinition<IndentInputs, IndentOutputs, IndentParams> = {
+export const AdvancedFeaturesIndentNode: NodeDefinition<IndentInputs, IndentOutputs, IndentParams> = {
   id: 'Advanced::Indent',
   category: 'Advanced',
   label: 'Indent',

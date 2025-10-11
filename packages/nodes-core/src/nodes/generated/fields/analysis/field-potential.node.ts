@@ -13,7 +13,7 @@ interface FieldPotentialOutputs {
   isConservative: boolean;
 }
 
-export const FieldPotentialNode: NodeDefinition<FieldPotentialInputs, FieldPotentialOutputs, FieldPotentialParams> = {
+export const FieldsAnalysisFieldPotentialNode: NodeDefinition<FieldPotentialInputs, FieldPotentialOutputs, FieldPotentialParams> = {
   id: 'Fields::FieldPotential',
   category: 'Fields',
   label: 'FieldPotential',

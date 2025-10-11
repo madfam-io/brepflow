@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StressReliefNode } from './stress-relief.node';
+import { SpecializedOptimizationStressReliefNode } from './stress-relief.node';
 import { createTestContext } from '../test-utils';
 
-describe('StressReliefNode', () => {
+describe('SpecializedOptimizationStressReliefNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('StressReliefNode', () => {
       reliefRadius: 2
     } as any;
 
-    const result = await StressReliefNode.evaluate(context, inputs, params);
+    const result = await SpecializedOptimizationStressReliefNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

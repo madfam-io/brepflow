@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ArcNode } from './arc.node';
+import { SketchBasicArcNode } from './arc.node';
 import { createTestContext } from '../test-utils';
 
-describe('ArcNode', () => {
+describe('SketchBasicArcNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('ArcNode', () => {
       endAngle: 90
     } as any;
 
-    const result = await ArcNode.evaluate(context, inputs, params);
+    const result = await SketchBasicArcNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

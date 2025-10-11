@@ -16,7 +16,7 @@ interface ClutchMechanismOutputs {
   plates: unknown;
 }
 
-export const ClutchMechanismNode: NodeDefinition<ClutchMechanismInputs, ClutchMechanismOutputs, ClutchMechanismParams> = {
+export const MechanicalEngineeringMechanismsClutchMechanismNode: NodeDefinition<ClutchMechanismInputs, ClutchMechanismOutputs, ClutchMechanismParams> = {
   id: 'MechanicalEngineering::ClutchMechanism',
   category: 'MechanicalEngineering',
   label: 'ClutchMechanism',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ContinuityCheckNode } from './continuity-check.node';
+import { SurfaceAnalysisContinuityCheckNode } from './continuity-check.node';
 import { createTestContext } from '../test-utils';
 
-describe('ContinuityCheckNode', () => {
+describe('SurfaceAnalysisContinuityCheckNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ContinuityCheckNode', () => {
       tolerance: 0.01
     } as any;
 
-    const result = await ContinuityCheckNode.evaluate(context, inputs, params);
+    const result = await SurfaceAnalysisContinuityCheckNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

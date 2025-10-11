@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PlaneIntersectionNode } from './plane-intersection.node';
+import { AnalysisIntersectionPlaneIntersectionNode } from './plane-intersection.node';
 import { createTestContext } from '../test-utils';
 
-describe('PlaneIntersectionNode', () => {
+describe('AnalysisIntersectionPlaneIntersectionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('PlaneIntersectionNode', () => {
       tolerance: 0.01
     } as any;
 
-    const result = await PlaneIntersectionNode.evaluate(context, inputs, params);
+    const result = await AnalysisIntersectionPlaneIntersectionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -16,7 +16,7 @@ interface ConeOutputs {
   solid: unknown;
 }
 
-export const ConeNode: NodeDefinition<ConeInputs, ConeOutputs, ConeParams> = {
+export const SolidPrimitivesConeNode: NodeDefinition<ConeInputs, ConeOutputs, ConeParams> = {
   id: 'Solid::Cone',
   category: 'Solid',
   label: 'Cone',

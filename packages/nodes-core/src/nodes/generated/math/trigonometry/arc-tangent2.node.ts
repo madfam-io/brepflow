@@ -13,7 +13,7 @@ interface ArcTangent2Outputs {
   angle: unknown;
 }
 
-export const ArcTangent2Node: NodeDefinition<ArcTangent2Inputs, ArcTangent2Outputs, ArcTangent2Params> = {
+export const MathTrigonometryArcTangent2Node: NodeDefinition<ArcTangent2Inputs, ArcTangent2Outputs, ArcTangent2Params> = {
   id: 'Math::ArcTangent2',
   category: 'Math',
   label: 'ArcTangent2',

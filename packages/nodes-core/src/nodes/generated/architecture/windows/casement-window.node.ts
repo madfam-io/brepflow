@@ -17,7 +17,7 @@ interface CasementWindowOutputs {
   glass: unknown;
 }
 
-export const CasementWindowNode: NodeDefinition<CasementWindowInputs, CasementWindowOutputs, CasementWindowParams> = {
+export const ArchitectureWindowsCasementWindowNode: NodeDefinition<CasementWindowInputs, CasementWindowOutputs, CasementWindowParams> = {
   id: 'Architecture::CasementWindow',
   category: 'Architecture',
   label: 'CasementWindow',

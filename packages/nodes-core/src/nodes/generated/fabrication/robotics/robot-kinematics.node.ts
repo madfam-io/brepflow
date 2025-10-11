@@ -15,7 +15,7 @@ interface RobotKinematicsOutputs {
   reachable: boolean;
 }
 
-export const RobotKinematicsNode: NodeDefinition<RobotKinematicsInputs, RobotKinematicsOutputs, RobotKinematicsParams> = {
+export const FabricationRoboticsRobotKinematicsNode: NodeDefinition<RobotKinematicsInputs, RobotKinematicsOutputs, RobotKinematicsParams> = {
   id: 'Fabrication::RobotKinematics',
   category: 'Fabrication',
   label: 'RobotKinematics',

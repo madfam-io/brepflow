@@ -14,7 +14,7 @@ interface CirclePackingOutputs {
   circles: unknown;
 }
 
-export const CirclePackingNode: NodeDefinition<CirclePackingInputs, CirclePackingOutputs, CirclePackingParams> = {
+export const PatternsGeometricCirclePackingNode: NodeDefinition<CirclePackingInputs, CirclePackingOutputs, CirclePackingParams> = {
   id: 'Patterns::CirclePacking',
   category: 'Patterns',
   label: 'CirclePacking',

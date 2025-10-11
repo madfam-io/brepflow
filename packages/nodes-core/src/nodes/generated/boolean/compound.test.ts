@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CompoundNode } from './compound.node';
+import { BooleanCompoundNode } from './compound.node';
 import { createTestContext } from '../test-utils';
 
-describe('CompoundNode', () => {
+describe('BooleanCompoundNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('CompoundNode', () => {
 
     } as any;
 
-    const result = await CompoundNode.evaluate(context, inputs, params);
+    const result = await BooleanCompoundNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

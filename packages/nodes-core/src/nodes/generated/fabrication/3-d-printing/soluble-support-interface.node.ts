@@ -13,7 +13,7 @@ interface SolubleSupportInterfaceOutputs {
   interface: unknown;
 }
 
-export const SolubleSupportInterfaceNode: NodeDefinition<SolubleSupportInterfaceInputs, SolubleSupportInterfaceOutputs, SolubleSupportInterfaceParams> = {
+export const Fabrication3DPrintingSolubleSupportInterfaceNode: NodeDefinition<SolubleSupportInterfaceInputs, SolubleSupportInterfaceOutputs, SolubleSupportInterfaceParams> = {
   id: 'Fabrication::SolubleSupportInterface',
   category: 'Fabrication',
   label: 'SolubleSupportInterface',

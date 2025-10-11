@@ -14,7 +14,7 @@ interface FieldMorphingOutputs {
   morphedField: unknown;
 }
 
-export const FieldMorphingNode: NodeDefinition<FieldMorphingInputs, FieldMorphingOutputs, FieldMorphingParams> = {
+export const FieldsAdvancedFieldMorphingNode: NodeDefinition<FieldMorphingInputs, FieldMorphingOutputs, FieldMorphingParams> = {
   id: 'Fields::FieldMorphing',
   category: 'Fields',
   label: 'FieldMorphing',

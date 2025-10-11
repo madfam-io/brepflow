@@ -16,7 +16,7 @@ interface StraightRampOutputs {
   handrails: unknown;
 }
 
-export const StraightRampNode: NodeDefinition<StraightRampInputs, StraightRampOutputs, StraightRampParams> = {
+export const ArchitectureRampsStraightRampNode: NodeDefinition<StraightRampInputs, StraightRampOutputs, StraightRampParams> = {
   id: 'Architecture::StraightRamp',
   category: 'Architecture',
   label: 'StraightRamp',

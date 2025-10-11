@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FragmentNode } from './fragment.node';
+import { BooleanFragmentNode } from './fragment.node';
 import { createTestContext } from '../test-utils';
 
-describe('FragmentNode', () => {
+describe('BooleanFragmentNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FragmentNode', () => {
 
     } as any;
 
-    const result = await FragmentNode.evaluate(context, inputs, params);
+    const result = await BooleanFragmentNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

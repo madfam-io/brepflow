@@ -14,7 +14,7 @@ interface FieldAverageOutputs {
   standardDeviation: number;
 }
 
-export const FieldAverageNode: NodeDefinition<FieldAverageInputs, FieldAverageOutputs, FieldAverageParams> = {
+export const FieldsAnalysisFieldAverageNode: NodeDefinition<FieldAverageInputs, FieldAverageOutputs, FieldAverageParams> = {
   id: 'Fields::FieldAverage',
   category: 'Fields',
   label: 'FieldAverage',

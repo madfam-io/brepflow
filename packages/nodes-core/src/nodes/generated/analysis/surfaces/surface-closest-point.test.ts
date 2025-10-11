@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceClosestPointNode } from './surface-closest-point.node';
+import { AnalysisSurfacesSurfaceClosestPointNode } from './surface-closest-point.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceClosestPointNode', () => {
+describe('AnalysisSurfacesSurfaceClosestPointNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SurfaceClosestPointNode', () => {
       showConnection: true
     } as any;
 
-    const result = await SurfaceClosestPointNode.evaluate(context, inputs, params);
+    const result = await AnalysisSurfacesSurfaceClosestPointNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

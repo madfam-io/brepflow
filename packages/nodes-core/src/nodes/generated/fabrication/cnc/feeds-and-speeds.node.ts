@@ -14,7 +14,7 @@ interface FeedsAndSpeedsOutputs {
   chipLoad: number;
 }
 
-export const FeedsAndSpeedsNode: NodeDefinition<FeedsAndSpeedsInputs, FeedsAndSpeedsOutputs, FeedsAndSpeedsParams> = {
+export const FabricationCNCFeedsAndSpeedsNode: NodeDefinition<FeedsAndSpeedsInputs, FeedsAndSpeedsOutputs, FeedsAndSpeedsParams> = {
   id: 'Fabrication::FeedsAndSpeeds',
   category: 'Fabrication',
   label: 'FeedsAndSpeeds',

@@ -14,7 +14,7 @@ interface BridgeDetectionOutputs {
   overhangs: unknown;
 }
 
-export const BridgeDetectionNode: NodeDefinition<BridgeDetectionInputs, BridgeDetectionOutputs, BridgeDetectionParams> = {
+export const Fabrication3DPrintingBridgeDetectionNode: NodeDefinition<BridgeDetectionInputs, BridgeDetectionOutputs, BridgeDetectionParams> = {
   id: 'Fabrication::BridgeDetection',
   category: 'Fabrication',
   label: 'BridgeDetection',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PolarArrayNode } from './polar-array.node';
+import { TransformPolarArrayNode } from './polar-array.node';
 import { createTestContext } from '../test-utils';
 
-describe('PolarArrayNode', () => {
+describe('TransformPolarArrayNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -22,7 +22,7 @@ describe('PolarArrayNode', () => {
       merge: false
     } as any;
 
-    const result = await PolarArrayNode.evaluate(context, inputs, params);
+    const result = await TransformPolarArrayNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

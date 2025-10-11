@@ -12,7 +12,7 @@ interface CosineOutputs {
   result: unknown;
 }
 
-export const CosineNode: NodeDefinition<CosineInputs, CosineOutputs, CosineParams> = {
+export const MathTrigonometryCosineNode: NodeDefinition<CosineInputs, CosineOutputs, CosineParams> = {
   id: 'Math::Cosine',
   category: 'Math',
   label: 'Cosine',

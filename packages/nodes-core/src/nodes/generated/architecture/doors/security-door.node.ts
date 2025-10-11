@@ -13,7 +13,7 @@ interface SecurityDoorOutputs {
   securityDoor: unknown;
 }
 
-export const SecurityDoorNode: NodeDefinition<SecurityDoorInputs, SecurityDoorOutputs, SecurityDoorParams> = {
+export const ArchitectureDoorsSecurityDoorNode: NodeDefinition<SecurityDoorInputs, SecurityDoorOutputs, SecurityDoorParams> = {
   id: 'Architecture::SecurityDoor',
   category: 'Architecture',
   label: 'SecurityDoor',

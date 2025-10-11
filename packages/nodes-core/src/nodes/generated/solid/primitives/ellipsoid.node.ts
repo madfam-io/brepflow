@@ -15,7 +15,7 @@ interface EllipsoidOutputs {
   solid: unknown;
 }
 
-export const EllipsoidNode: NodeDefinition<EllipsoidInputs, EllipsoidOutputs, EllipsoidParams> = {
+export const SolidPrimitivesEllipsoidNode: NodeDefinition<EllipsoidInputs, EllipsoidOutputs, EllipsoidParams> = {
   id: 'Solid::Ellipsoid',
   category: 'Solid',
   label: 'Ellipsoid',

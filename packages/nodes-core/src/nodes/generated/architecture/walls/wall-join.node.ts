@@ -13,7 +13,7 @@ interface WallJoinOutputs {
   joinedWalls: unknown;
 }
 
-export const WallJoinNode: NodeDefinition<WallJoinInputs, WallJoinOutputs, WallJoinParams> = {
+export const ArchitectureWallsWallJoinNode: NodeDefinition<WallJoinInputs, WallJoinOutputs, WallJoinParams> = {
   id: 'Architecture::WallJoin',
   category: 'Architecture',
   label: 'WallJoin',

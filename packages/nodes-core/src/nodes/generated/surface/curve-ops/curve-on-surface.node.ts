@@ -11,7 +11,7 @@ interface CurveOnSurfaceOutputs {
   curve: unknown;
 }
 
-export const CurveOnSurfaceNode: NodeDefinition<CurveOnSurfaceInputs, CurveOnSurfaceOutputs, CurveOnSurfaceParams> = {
+export const SurfaceCurveOpsCurveOnSurfaceNode: NodeDefinition<CurveOnSurfaceInputs, CurveOnSurfaceOutputs, CurveOnSurfaceParams> = {
   id: 'Surface::CurveOnSurface',
   category: 'Surface',
   label: 'CurveOnSurface',

@@ -13,7 +13,7 @@ interface WorkCoordinateOutputs {
   coordinate: unknown;
 }
 
-export const WorkCoordinateNode: NodeDefinition<WorkCoordinateInputs, WorkCoordinateOutputs, WorkCoordinateParams> = {
+export const FabricationCNCWorkCoordinateNode: NodeDefinition<WorkCoordinateInputs, WorkCoordinateOutputs, WorkCoordinateParams> = {
   id: 'Fabrication::WorkCoordinate',
   category: 'Fabrication',
   label: 'WorkCoordinate',

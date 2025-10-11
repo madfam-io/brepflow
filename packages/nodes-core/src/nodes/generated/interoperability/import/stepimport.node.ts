@@ -17,7 +17,7 @@ interface STEPImportOutputs {
   units: unknown;
 }
 
-export const STEPImportNode: NodeDefinition<STEPImportInputs, STEPImportOutputs, STEPImportParams> = {
+export const InteroperabilityImportSTEPImportNode: NodeDefinition<STEPImportInputs, STEPImportOutputs, STEPImportParams> = {
   id: 'Interoperability::STEPImport',
   category: 'Interoperability',
   label: 'STEPImport',

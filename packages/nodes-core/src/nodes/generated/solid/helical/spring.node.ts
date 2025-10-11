@@ -14,7 +14,7 @@ interface SpringOutputs {
   spring: unknown;
 }
 
-export const SpringNode: NodeDefinition<SpringInputs, SpringOutputs, SpringParams> = {
+export const SolidHelicalSpringNode: NodeDefinition<SpringInputs, SpringOutputs, SpringParams> = {
   id: 'Solid::Spring',
   category: 'Solid',
   label: 'Spring',

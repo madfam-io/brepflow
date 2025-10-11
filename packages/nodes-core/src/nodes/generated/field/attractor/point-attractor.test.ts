@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PointAttractorNode } from './point-attractor.node';
+import { FieldAttractorPointAttractorNode } from './point-attractor.node';
 import { createTestContext } from '../test-utils';
 
-describe('PointAttractorNode', () => {
+describe('FieldAttractorPointAttractorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('PointAttractorNode', () => {
       falloff: "quadratic"
     } as any;
 
-    const result = await PointAttractorNode.evaluate(context, inputs, params);
+    const result = await FieldAttractorPointAttractorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

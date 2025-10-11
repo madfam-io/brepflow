@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { Voronoi2DNode } from './voronoi2-d.node';
+import { PatternsVoronoiVoronoi2DNode } from './voronoi2-d.node';
 import { createTestContext } from '../test-utils';
 
-describe('Voronoi2DNode', () => {
+describe('PatternsVoronoiVoronoi2DNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('Voronoi2DNode', () => {
       clipToBoundary: true
     } as any;
 
-    const result = await Voronoi2DNode.evaluate(context, inputs, params);
+    const result = await PatternsVoronoiVoronoi2DNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

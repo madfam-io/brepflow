@@ -11,7 +11,7 @@ interface MultiplyOutputs {
   result: unknown;
 }
 
-export const MultiplyNode: NodeDefinition<MultiplyInputs, MultiplyOutputs, MultiplyParams> = {
+export const MathOperatorsMultiplyNode: NodeDefinition<MultiplyInputs, MultiplyOutputs, MultiplyParams> = {
   id: 'Math::Multiply',
   category: 'Math',
   label: 'Multiply',

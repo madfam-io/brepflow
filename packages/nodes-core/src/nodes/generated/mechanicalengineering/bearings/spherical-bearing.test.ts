@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SphericalBearingNode } from './spherical-bearing.node';
+import { MechanicalEngineeringBearingsSphericalBearingNode } from './spherical-bearing.node';
 import { createTestContext } from '../test-utils';
 
-describe('SphericalBearingNode', () => {
+describe('MechanicalEngineeringBearingsSphericalBearingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('SphericalBearingNode', () => {
       misalignmentAngle: 15
     } as any;
 
-    const result = await SphericalBearingNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringBearingsSphericalBearingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

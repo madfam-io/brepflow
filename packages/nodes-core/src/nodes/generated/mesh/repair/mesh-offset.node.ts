@@ -13,7 +13,7 @@ interface MeshOffsetOutputs {
   offset: unknown;
 }
 
-export const MeshOffsetNode: NodeDefinition<MeshOffsetInputs, MeshOffsetOutputs, MeshOffsetParams> = {
+export const MeshRepairMeshOffsetNode: NodeDefinition<MeshOffsetInputs, MeshOffsetOutputs, MeshOffsetParams> = {
   id: 'Mesh::MeshOffset',
   category: 'Mesh',
   label: 'MeshOffset',

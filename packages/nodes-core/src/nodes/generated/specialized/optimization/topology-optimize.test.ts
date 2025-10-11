@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TopologyOptimizeNode } from './topology-optimize.node';
+import { SpecializedOptimizationTopologyOptimizeNode } from './topology-optimize.node';
 import { createTestContext } from '../test-utils';
 
-describe('TopologyOptimizeNode', () => {
+describe('SpecializedOptimizationTopologyOptimizeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('TopologyOptimizeNode', () => {
       iterations: 100
     } as any;
 
-    const result = await TopologyOptimizeNode.evaluate(context, inputs, params);
+    const result = await SpecializedOptimizationTopologyOptimizeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

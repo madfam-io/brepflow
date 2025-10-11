@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FloatingStairNode } from './floating-stair.node';
+import { ArchitectureStairsFloatingStairNode } from './floating-stair.node';
 import { createTestContext } from '../test-utils';
 
-describe('FloatingStairNode', () => {
+describe('ArchitectureStairsFloatingStairNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('FloatingStairNode', () => {
       treadThickness: 60
     } as any;
 
-    const result = await FloatingStairNode.evaluate(context, inputs, params);
+    const result = await ArchitectureStairsFloatingStairNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

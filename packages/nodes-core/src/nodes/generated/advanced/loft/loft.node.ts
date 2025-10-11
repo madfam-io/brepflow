@@ -17,7 +17,7 @@ interface LoftOutputs {
   shape: unknown;
 }
 
-export const LoftNode: NodeDefinition<LoftInputs, LoftOutputs, LoftParams> = {
+export const AdvancedLoftLoftNode: NodeDefinition<LoftInputs, LoftOutputs, LoftParams> = {
   id: 'Advanced::Loft',
   category: 'Advanced',
   label: 'Loft',

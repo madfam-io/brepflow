@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DistanceFieldNode } from './distance-field.node';
+import { AlgorithmicGeometryDistanceFieldNode } from './distance-field.node';
 import { createTestContext } from '../test-utils';
 
-describe('DistanceFieldNode', () => {
+describe('AlgorithmicGeometryDistanceFieldNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('DistanceFieldNode', () => {
       signed: true
     } as any;
 
-    const result = await DistanceFieldNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicGeometryDistanceFieldNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

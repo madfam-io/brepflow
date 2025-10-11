@@ -14,7 +14,7 @@ interface SpherePackingOutputs {
   spheres: unknown;
 }
 
-export const SpherePackingNode: NodeDefinition<SpherePackingInputs, SpherePackingOutputs, SpherePackingParams> = {
+export const PatternsPackingSpherePackingNode: NodeDefinition<SpherePackingInputs, SpherePackingOutputs, SpherePackingParams> = {
   id: 'Patterns::SpherePacking',
   category: 'Patterns',
   label: 'SpherePacking',

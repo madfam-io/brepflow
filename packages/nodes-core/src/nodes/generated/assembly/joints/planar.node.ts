@@ -12,7 +12,7 @@ interface PlanarOutputs {
   joint: unknown;
 }
 
-export const PlanarNode: NodeDefinition<PlanarInputs, PlanarOutputs, PlanarParams> = {
+export const AssemblyJointsPlanarNode: NodeDefinition<PlanarInputs, PlanarOutputs, PlanarParams> = {
   id: 'Assembly::Planar',
   category: 'Assembly',
   label: 'Planar',

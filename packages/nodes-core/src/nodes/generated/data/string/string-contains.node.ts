@@ -14,7 +14,7 @@ interface StringContainsOutputs {
   index: unknown;
 }
 
-export const StringContainsNode: NodeDefinition<StringContainsInputs, StringContainsOutputs, StringContainsParams> = {
+export const DataStringStringContainsNode: NodeDefinition<StringContainsInputs, StringContainsOutputs, StringContainsParams> = {
   id: 'Data::StringContains',
   category: 'Data',
   label: 'StringContains',

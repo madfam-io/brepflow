@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { NurbsSurfaceNode } from './nurbs-surface.node';
+import { SurfaceNURBSNurbsSurfaceNode } from './nurbs-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('NurbsSurfaceNode', () => {
+describe('SurfaceNURBSNurbsSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('NurbsSurfaceNode', () => {
       periodicV: false
     } as any;
 
-    const result = await NurbsSurfaceNode.evaluate(context, inputs, params);
+    const result = await SurfaceNURBSNurbsSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

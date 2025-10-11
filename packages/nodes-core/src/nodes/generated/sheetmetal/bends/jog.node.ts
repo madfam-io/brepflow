@@ -15,7 +15,7 @@ interface JogOutputs {
   result: unknown;
 }
 
-export const JogNode: NodeDefinition<JogInputs, JogOutputs, JogParams> = {
+export const SheetMetalBendsJogNode: NodeDefinition<JogInputs, JogOutputs, JogParams> = {
   id: 'SheetMetal::Jog',
   category: 'SheetMetal',
   label: 'Jog',

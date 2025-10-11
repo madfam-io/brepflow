@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MatrixMultiplyNode } from './matrix-multiply.node';
+import { MathMatrixMatrixMultiplyNode } from './matrix-multiply.node';
 import { createTestContext } from '../test-utils';
 
-describe('MatrixMultiplyNode', () => {
+describe('MathMatrixMatrixMultiplyNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('MatrixMultiplyNode', () => {
 
     } as any;
 
-    const result = await MatrixMultiplyNode.evaluate(context, inputs, params);
+    const result = await MathMatrixMatrixMultiplyNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

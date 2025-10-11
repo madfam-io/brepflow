@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CellularAutomataNode } from './cellular-automata.node';
+import { PatternsCellularCellularAutomataNode } from './cellular-automata.node';
 import { createTestContext } from '../test-utils';
 
-describe('CellularAutomataNode', () => {
+describe('PatternsCellularCellularAutomataNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CellularAutomataNode', () => {
       cellSize: 1
     } as any;
 
-    const result = await CellularAutomataNode.evaluate(context, inputs, params);
+    const result = await PatternsCellularCellularAutomataNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

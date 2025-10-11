@@ -15,7 +15,7 @@ interface CompositeFloorOutputs {
   deck: unknown;
 }
 
-export const CompositeFloorNode: NodeDefinition<CompositeFloorInputs, CompositeFloorOutputs, CompositeFloorParams> = {
+export const ArchitectureFloorsCompositeFloorNode: NodeDefinition<CompositeFloorInputs, CompositeFloorOutputs, CompositeFloorParams> = {
   id: 'Architecture::CompositeFloor',
   category: 'Architecture',
   label: 'CompositeFloor',

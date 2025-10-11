@@ -14,7 +14,7 @@ interface HyperbolicTilingOutputs {
   tiling: unknown;
 }
 
-export const HyperbolicTilingNode: NodeDefinition<HyperbolicTilingInputs, HyperbolicTilingOutputs, HyperbolicTilingParams> = {
+export const PatternsGeometricHyperbolicTilingNode: NodeDefinition<HyperbolicTilingInputs, HyperbolicTilingOutputs, HyperbolicTilingParams> = {
   id: 'Patterns::HyperbolicTiling',
   category: 'Patterns',
   label: 'HyperbolicTiling',

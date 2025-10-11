@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SetPermutationsNode } from './set-permutations.node';
+import { DataSetSetPermutationsNode } from './set-permutations.node';
 import { createTestContext } from '../test-utils';
 
-describe('SetPermutationsNode', () => {
+describe('DataSetSetPermutationsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('SetPermutationsNode', () => {
       k: -1
     } as any;
 
-    const result = await SetPermutationsNode.evaluate(context, inputs, params);
+    const result = await DataSetSetPermutationsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

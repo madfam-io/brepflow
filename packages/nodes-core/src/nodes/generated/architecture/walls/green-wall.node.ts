@@ -14,7 +14,7 @@ interface GreenWallOutputs {
   modules: unknown;
 }
 
-export const GreenWallNode: NodeDefinition<GreenWallInputs, GreenWallOutputs, GreenWallParams> = {
+export const ArchitectureWallsGreenWallNode: NodeDefinition<GreenWallInputs, GreenWallOutputs, GreenWallParams> = {
   id: 'Architecture::GreenWall',
   category: 'Architecture',
   label: 'GreenWall',

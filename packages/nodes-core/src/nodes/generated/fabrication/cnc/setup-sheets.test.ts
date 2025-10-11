@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SetupSheetsNode } from './setup-sheets.node';
+import { FabricationCNCSetupSheetsNode } from './setup-sheets.node';
 import { createTestContext } from '../test-utils';
 
-describe('SetupSheetsNode', () => {
+describe('FabricationCNCSetupSheetsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SetupSheetsNode', () => {
       includeFixtures: true
     } as any;
 
-    const result = await SetupSheetsNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCSetupSheetsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

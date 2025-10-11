@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HoneycombStructureNode } from './honeycomb-structure.node';
+import { SpecializedLatticeHoneycombStructureNode } from './honeycomb-structure.node';
 import { createTestContext } from '../test-utils';
 
-describe('HoneycombStructureNode', () => {
+describe('SpecializedLatticeHoneycombStructureNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('HoneycombStructureNode', () => {
       fillDensity: 0.3
     } as any;
 
-    const result = await HoneycombStructureNode.evaluate(context, inputs, params);
+    const result = await SpecializedLatticeHoneycombStructureNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

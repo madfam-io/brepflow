@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SliceModelNode } from './slice-model.node';
+import { Fabrication3DPrintingSliceModelNode } from './slice-model.node';
 import { createTestContext } from '../test-utils';
 
-describe('SliceModelNode', () => {
+describe('Fabrication3DPrintingSliceModelNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SliceModelNode', () => {
       infillPattern: "grid"
     } as any;
 
-    const result = await SliceModelNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingSliceModelNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

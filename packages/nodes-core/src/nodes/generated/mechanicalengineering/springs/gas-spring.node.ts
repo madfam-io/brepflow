@@ -17,7 +17,7 @@ interface GasSpringOutputs {
   rod: unknown;
 }
 
-export const GasSpringNode: NodeDefinition<GasSpringInputs, GasSpringOutputs, GasSpringParams> = {
+export const MechanicalEngineeringSpringsGasSpringNode: NodeDefinition<GasSpringInputs, GasSpringOutputs, GasSpringParams> = {
   id: 'MechanicalEngineering::GasSpring',
   category: 'MechanicalEngineering',
   label: 'GasSpring',

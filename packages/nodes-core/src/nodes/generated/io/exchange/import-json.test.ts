@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImportJSONNode } from './import-json.node';
+import { IOExchangeImportJSONNode } from './import-json.node';
 import { createTestContext } from '../test-utils';
 
-describe('ImportJSONNode', () => {
+describe('IOExchangeImportJSONNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('ImportJSONNode', () => {
       format: "brepflow"
     } as any;
 
-    const result = await ImportJSONNode.evaluate(context, inputs, params);
+    const result = await IOExchangeImportJSONNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

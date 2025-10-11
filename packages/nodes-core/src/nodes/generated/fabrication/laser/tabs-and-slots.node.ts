@@ -14,7 +14,7 @@ interface TabsAndSlotsOutputs {
   tabbedEdges: unknown;
 }
 
-export const TabsAndSlotsNode: NodeDefinition<TabsAndSlotsInputs, TabsAndSlotsOutputs, TabsAndSlotsParams> = {
+export const FabricationLaserTabsAndSlotsNode: NodeDefinition<TabsAndSlotsInputs, TabsAndSlotsOutputs, TabsAndSlotsParams> = {
   id: 'Fabrication::TabsAndSlots',
   category: 'Fabrication',
   label: 'TabsAndSlots',

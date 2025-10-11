@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CleanupPathsNode } from './cleanup-paths.node';
+import { FabricationLaserCleanupPathsNode } from './cleanup-paths.node';
 import { createTestContext } from '../test-utils';
 
-describe('CleanupPathsNode', () => {
+describe('FabricationLaserCleanupPathsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CleanupPathsNode', () => {
       removeDoubles: true
     } as any;
 
-    const result = await CleanupPathsNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserCleanupPathsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

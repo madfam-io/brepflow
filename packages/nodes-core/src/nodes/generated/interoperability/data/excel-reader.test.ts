@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExcelReaderNode } from './excel-reader.node';
+import { InteroperabilityDataExcelReaderNode } from './excel-reader.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExcelReaderNode', () => {
+describe('InteroperabilityDataExcelReaderNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ExcelReaderNode', () => {
       range: ""
     } as any;
 
-    const result = await ExcelReaderNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityDataExcelReaderNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

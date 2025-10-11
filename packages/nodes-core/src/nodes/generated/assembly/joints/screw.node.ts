@@ -14,7 +14,7 @@ interface ScrewOutputs {
   joint: unknown;
 }
 
-export const ScrewNode: NodeDefinition<ScrewInputs, ScrewOutputs, ScrewParams> = {
+export const AssemblyJointsScrewNode: NodeDefinition<ScrewInputs, ScrewOutputs, ScrewParams> = {
   id: 'Assembly::Screw',
   category: 'Assembly',
   label: 'Screw',

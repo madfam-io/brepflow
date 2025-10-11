@@ -14,7 +14,7 @@ interface TuringPatternOutputs {
   pattern: unknown;
 }
 
-export const TuringPatternNode: NodeDefinition<TuringPatternInputs, TuringPatternOutputs, TuringPatternParams> = {
+export const PatternsProceduralTuringPatternNode: NodeDefinition<TuringPatternInputs, TuringPatternOutputs, TuringPatternParams> = {
   id: 'Patterns::TuringPattern',
   category: 'Patterns',
   label: 'TuringPattern',

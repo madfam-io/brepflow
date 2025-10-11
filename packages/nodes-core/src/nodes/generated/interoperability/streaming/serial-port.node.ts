@@ -17,7 +17,7 @@ interface SerialPortOutputs {
   buffer: unknown;
 }
 
-export const SerialPortNode: NodeDefinition<SerialPortInputs, SerialPortOutputs, SerialPortParams> = {
+export const InteroperabilityStreamingSerialPortNode: NodeDefinition<SerialPortInputs, SerialPortOutputs, SerialPortParams> = {
   id: 'Interoperability::SerialPort',
   category: 'Interoperability',
   label: 'SerialPort',

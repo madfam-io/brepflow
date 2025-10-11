@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MQTTSubscriberNode } from './mqttsubscriber.node';
+import { InteroperabilityStreamingMQTTSubscriberNode } from './mqttsubscriber.node';
 import { createTestContext } from '../test-utils';
 
-describe('MQTTSubscriberNode', () => {
+describe('InteroperabilityStreamingMQTTSubscriberNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('MQTTSubscriberNode', () => {
       qos: "0"
     } as any;
 
-    const result = await MQTTSubscriberNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityStreamingMQTTSubscriberNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

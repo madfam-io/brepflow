@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TPMSNode } from './tpms.node';
+import { SpecializedLatticeTPMSNode } from './tpms.node';
 import { createTestContext } from '../test-utils';
 
-describe('TPMSNode', () => {
+describe('SpecializedLatticeTPMSNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('TPMSNode', () => {
       level: 0
     } as any;
 
-    const result = await TPMSNode.evaluate(context, inputs, params);
+    const result = await SpecializedLatticeTPMSNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

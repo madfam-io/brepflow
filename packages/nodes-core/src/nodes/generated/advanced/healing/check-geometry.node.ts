@@ -13,7 +13,7 @@ interface CheckGeometryOutputs {
   errors: unknown;
 }
 
-export const CheckGeometryNode: NodeDefinition<CheckGeometryInputs, CheckGeometryOutputs, CheckGeometryParams> = {
+export const AdvancedHealingCheckGeometryNode: NodeDefinition<CheckGeometryInputs, CheckGeometryOutputs, CheckGeometryParams> = {
   id: 'Advanced::CheckGeometry',
   category: 'Advanced',
   label: 'CheckGeometry',

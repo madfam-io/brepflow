@@ -14,7 +14,7 @@ interface PowerMappingOutputs {
   powerSettings: unknown;
 }
 
-export const PowerMappingNode: NodeDefinition<PowerMappingInputs, PowerMappingOutputs, PowerMappingParams> = {
+export const FabricationLaserPowerMappingNode: NodeDefinition<PowerMappingInputs, PowerMappingOutputs, PowerMappingParams> = {
   id: 'Fabrication::PowerMapping',
   category: 'Fabrication',
   label: 'PowerMapping',

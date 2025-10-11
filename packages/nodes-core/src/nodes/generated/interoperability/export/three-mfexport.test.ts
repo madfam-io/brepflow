@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ThreeMFExportNode } from './three-mfexport.node';
+import { InteroperabilityExportThreeMFExportNode } from './three-mfexport.node';
 import { createTestContext } from '../test-utils';
 
-describe('ThreeMFExportNode', () => {
+describe('InteroperabilityExportThreeMFExportNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('ThreeMFExportNode', () => {
       compression: true
     } as any;
 
-    const result = await ThreeMFExportNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityExportThreeMFExportNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

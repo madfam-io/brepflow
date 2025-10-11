@@ -14,7 +14,7 @@ interface ParabolaOutputs {
   curve: unknown;
 }
 
-export const ParabolaNode: NodeDefinition<ParabolaInputs, ParabolaOutputs, ParabolaParams> = {
+export const SketchCurvesParabolaNode: NodeDefinition<ParabolaInputs, ParabolaOutputs, ParabolaParams> = {
   id: 'Sketch::Parabola',
   category: 'Sketch',
   label: 'Parabola',

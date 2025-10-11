@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ReactionDiffusionNode } from './reaction-diffusion.node';
+import { PatternsGeometricReactionDiffusionNode } from './reaction-diffusion.node';
 import { createTestContext } from '../test-utils';
 
-describe('ReactionDiffusionNode', () => {
+describe('PatternsGeometricReactionDiffusionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ReactionDiffusionNode', () => {
       iterations: 100
     } as any;
 
-    const result = await ReactionDiffusionNode.evaluate(context, inputs, params);
+    const result = await PatternsGeometricReactionDiffusionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

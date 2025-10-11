@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DeleteFaceNode } from './delete-face.node';
+import { AdvancedHealingDeleteFaceNode } from './delete-face.node';
 import { createTestContext } from '../test-utils';
 
-describe('DeleteFaceNode', () => {
+describe('AdvancedHealingDeleteFaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('DeleteFaceNode', () => {
       healingType: "extend"
     } as any;
 
-    const result = await DeleteFaceNode.evaluate(context, inputs, params);
+    const result = await AdvancedHealingDeleteFaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

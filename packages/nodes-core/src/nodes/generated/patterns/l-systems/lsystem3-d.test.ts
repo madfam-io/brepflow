@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LSystem3DNode } from './lsystem3-d.node';
+import { PatternsLSystemsLSystem3DNode } from './lsystem3-d.node';
 import { createTestContext } from '../test-utils';
 
-describe('LSystem3DNode', () => {
+describe('PatternsLSystemsLSystem3DNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('LSystem3DNode', () => {
       iterations: 4
     } as any;
 
-    const result = await LSystem3DNode.evaluate(context, inputs, params);
+    const result = await PatternsLSystemsLSystem3DNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

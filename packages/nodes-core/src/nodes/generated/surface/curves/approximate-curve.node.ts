@@ -14,7 +14,7 @@ interface ApproximateCurveOutputs {
   curve: unknown;
 }
 
-export const ApproximateCurveNode: NodeDefinition<ApproximateCurveInputs, ApproximateCurveOutputs, ApproximateCurveParams> = {
+export const SurfaceCurvesApproximateCurveNode: NodeDefinition<ApproximateCurveInputs, ApproximateCurveOutputs, ApproximateCurveParams> = {
   id: 'Surface::ApproximateCurve',
   category: 'Surface',
   label: 'ApproximateCurve',

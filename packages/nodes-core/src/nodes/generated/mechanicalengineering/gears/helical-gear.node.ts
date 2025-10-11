@@ -17,7 +17,7 @@ interface HelicalGearOutputs {
   profile: unknown;
 }
 
-export const HelicalGearNode: NodeDefinition<HelicalGearInputs, HelicalGearOutputs, HelicalGearParams> = {
+export const MechanicalEngineeringGearsHelicalGearNode: NodeDefinition<HelicalGearInputs, HelicalGearOutputs, HelicalGearParams> = {
   id: 'MechanicalEngineering::HelicalGear',
   category: 'MechanicalEngineering',
   label: 'HelicalGear',

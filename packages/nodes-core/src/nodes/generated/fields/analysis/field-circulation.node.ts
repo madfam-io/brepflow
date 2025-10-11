@@ -11,7 +11,7 @@ interface FieldCirculationOutputs {
   circulation: number;
 }
 
-export const FieldCirculationNode: NodeDefinition<FieldCirculationInputs, FieldCirculationOutputs, FieldCirculationParams> = {
+export const FieldsAnalysisFieldCirculationNode: NodeDefinition<FieldCirculationInputs, FieldCirculationOutputs, FieldCirculationParams> = {
   id: 'Fields::FieldCirculation',
   category: 'Fields',
   label: 'FieldCirculation',

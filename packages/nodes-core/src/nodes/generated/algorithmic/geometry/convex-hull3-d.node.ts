@@ -16,7 +16,7 @@ interface ConvexHull3DOutputs {
   volume: unknown;
 }
 
-export const ConvexHull3DNode: NodeDefinition<ConvexHull3DInputs, ConvexHull3DOutputs, ConvexHull3DParams> = {
+export const AlgorithmicGeometryConvexHull3DNode: NodeDefinition<ConvexHull3DInputs, ConvexHull3DOutputs, ConvexHull3DParams> = {
   id: 'Algorithmic::ConvexHull3D',
   category: 'Algorithmic',
   label: 'ConvexHull3D',

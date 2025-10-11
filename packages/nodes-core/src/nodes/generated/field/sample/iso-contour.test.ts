@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { IsoContourNode } from './iso-contour.node';
+import { FieldSampleIsoContourNode } from './iso-contour.node';
 import { createTestContext } from '../test-utils';
 
-describe('IsoContourNode', () => {
+describe('FieldSampleIsoContourNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('IsoContourNode', () => {
       smooth: true
     } as any;
 
-    const result = await IsoContourNode.evaluate(context, inputs, params);
+    const result = await FieldSampleIsoContourNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

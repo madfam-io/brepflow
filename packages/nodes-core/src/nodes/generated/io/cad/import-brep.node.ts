@@ -12,7 +12,7 @@ interface ImportBREPOutputs {
   shape: unknown;
 }
 
-export const ImportBREPNode: NodeDefinition<ImportBREPInputs, ImportBREPOutputs, ImportBREPParams> = {
+export const IOCADImportBREPNode: NodeDefinition<ImportBREPInputs, ImportBREPOutputs, ImportBREPParams> = {
   id: 'IO::ImportBREP',
   category: 'IO',
   label: 'ImportBREP',

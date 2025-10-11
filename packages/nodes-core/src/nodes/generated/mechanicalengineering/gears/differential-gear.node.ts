@@ -17,7 +17,7 @@ interface DifferentialGearOutputs {
   gears: unknown;
 }
 
-export const DifferentialGearNode: NodeDefinition<DifferentialGearInputs, DifferentialGearOutputs, DifferentialGearParams> = {
+export const MechanicalEngineeringGearsDifferentialGearNode: NodeDefinition<DifferentialGearInputs, DifferentialGearOutputs, DifferentialGearParams> = {
   id: 'MechanicalEngineering::DifferentialGear',
   category: 'MechanicalEngineering',
   label: 'DifferentialGear',

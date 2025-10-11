@@ -17,7 +17,7 @@ interface RatchetMechanismOutputs {
   pawl: unknown;
 }
 
-export const RatchetMechanismNode: NodeDefinition<RatchetMechanismInputs, RatchetMechanismOutputs, RatchetMechanismParams> = {
+export const MechanicalEngineeringMechanismsRatchetMechanismNode: NodeDefinition<RatchetMechanismInputs, RatchetMechanismOutputs, RatchetMechanismParams> = {
   id: 'MechanicalEngineering::RatchetMechanism',
   category: 'MechanicalEngineering',
   label: 'RatchetMechanism',

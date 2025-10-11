@@ -15,7 +15,7 @@ interface FloorDrainageOutputs {
   drains: unknown;
 }
 
-export const FloorDrainageNode: NodeDefinition<FloorDrainageInputs, FloorDrainageOutputs, FloorDrainageParams> = {
+export const ArchitectureFloorsFloorDrainageNode: NodeDefinition<FloorDrainageInputs, FloorDrainageOutputs, FloorDrainageParams> = {
   id: 'Architecture::FloorDrainage',
   category: 'Architecture',
   label: 'FloorDrainage',

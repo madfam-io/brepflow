@@ -10,7 +10,7 @@ interface ExponentialOutputs {
   result: unknown;
 }
 
-export const ExponentialNode: NodeDefinition<ExponentialInputs, ExponentialOutputs, ExponentialParams> = {
+export const MathLogarithmicExponentialNode: NodeDefinition<ExponentialInputs, ExponentialOutputs, ExponentialParams> = {
   id: 'Math::Exponential',
   category: 'Math',
   label: 'Exponential',

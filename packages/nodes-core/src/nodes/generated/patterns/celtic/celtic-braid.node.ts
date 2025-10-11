@@ -13,7 +13,7 @@ interface CelticBraidOutputs {
   braid: unknown;
 }
 
-export const CelticBraidNode: NodeDefinition<CelticBraidInputs, CelticBraidOutputs, CelticBraidParams> = {
+export const PatternsCelticCelticBraidNode: NodeDefinition<CelticBraidInputs, CelticBraidOutputs, CelticBraidParams> = {
   id: 'Patterns::CelticBraid',
   category: 'Patterns',
   label: 'CelticBraid',

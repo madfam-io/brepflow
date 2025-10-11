@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GearNode } from './gear.node';
+import { SketchPatternsGearNode } from './gear.node';
 import { createTestContext } from '../test-utils';
 
-describe('GearNode', () => {
+describe('SketchPatternsGearNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('GearNode', () => {
       dedendum: 1.25
     } as any;
 
-    const result = await GearNode.evaluate(context, inputs, params);
+    const result = await SketchPatternsGearNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

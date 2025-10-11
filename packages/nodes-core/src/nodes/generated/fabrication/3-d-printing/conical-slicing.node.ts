@@ -12,7 +12,7 @@ interface ConicalSlicingOutputs {
   conicalSlices: unknown;
 }
 
-export const ConicalSlicingNode: NodeDefinition<ConicalSlicingInputs, ConicalSlicingOutputs, ConicalSlicingParams> = {
+export const Fabrication3DPrintingConicalSlicingNode: NodeDefinition<ConicalSlicingInputs, ConicalSlicingOutputs, ConicalSlicingParams> = {
   id: 'Fabrication::ConicalSlicing',
   category: 'Fabrication',
   label: 'ConicalSlicing',

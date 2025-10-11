@@ -15,7 +15,7 @@ interface DraftAnalysisOutputs {
   problematicFaces: unknown;
 }
 
-export const DraftAnalysisNode: NodeDefinition<DraftAnalysisInputs, DraftAnalysisOutputs, DraftAnalysisParams> = {
+export const SurfaceAnalysisDraftAnalysisNode: NodeDefinition<DraftAnalysisInputs, DraftAnalysisOutputs, DraftAnalysisParams> = {
   id: 'Surface::DraftAnalysis',
   category: 'Surface',
   label: 'DraftAnalysis',

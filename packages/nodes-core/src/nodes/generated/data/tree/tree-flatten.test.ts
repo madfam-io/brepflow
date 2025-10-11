@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TreeFlattenNode } from './tree-flatten.node';
+import { DataTreeTreeFlattenNode } from './tree-flatten.node';
 import { createTestContext } from '../test-utils';
 
-describe('TreeFlattenNode', () => {
+describe('DataTreeTreeFlattenNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('TreeFlattenNode', () => {
       depth: 1
     } as any;
 
-    const result = await TreeFlattenNode.evaluate(context, inputs, params);
+    const result = await DataTreeTreeFlattenNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MinimumSpanningTreeNode } from './minimum-spanning-tree.node';
+import { PatternsNetworkMinimumSpanningTreeNode } from './minimum-spanning-tree.node';
 import { createTestContext } from '../test-utils';
 
-describe('MinimumSpanningTreeNode', () => {
+describe('PatternsNetworkMinimumSpanningTreeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('MinimumSpanningTreeNode', () => {
 
     } as any;
 
-    const result = await MinimumSpanningTreeNode.evaluate(context, inputs, params);
+    const result = await PatternsNetworkMinimumSpanningTreeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

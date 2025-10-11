@@ -14,7 +14,7 @@ interface VehicleRampOutputs {
   vehicleRamp: unknown;
 }
 
-export const VehicleRampNode: NodeDefinition<VehicleRampInputs, VehicleRampOutputs, VehicleRampParams> = {
+export const ArchitectureRampsVehicleRampNode: NodeDefinition<VehicleRampInputs, VehicleRampOutputs, VehicleRampParams> = {
   id: 'Architecture::VehicleRamp',
   category: 'Architecture',
   label: 'VehicleRamp',

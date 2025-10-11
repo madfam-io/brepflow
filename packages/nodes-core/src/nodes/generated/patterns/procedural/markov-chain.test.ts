@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MarkovChainNode } from './markov-chain.node';
+import { PatternsProceduralMarkovChainNode } from './markov-chain.node';
 import { createTestContext } from '../test-utils';
 
-describe('MarkovChainNode', () => {
+describe('PatternsProceduralMarkovChainNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('MarkovChainNode', () => {
       seed: 0
     } as any;
 
-    const result = await MarkovChainNode.evaluate(context, inputs, params);
+    const result = await PatternsProceduralMarkovChainNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

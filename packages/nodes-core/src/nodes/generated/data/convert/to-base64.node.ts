@@ -10,7 +10,7 @@ interface ToBase64Outputs {
   base64: unknown;
 }
 
-export const ToBase64Node: NodeDefinition<ToBase64Inputs, ToBase64Outputs, ToBase64Params> = {
+export const DataConvertToBase64Node: NodeDefinition<ToBase64Inputs, ToBase64Outputs, ToBase64Params> = {
   id: 'Data::ToBase64',
   category: 'Data',
   label: 'ToBase64',

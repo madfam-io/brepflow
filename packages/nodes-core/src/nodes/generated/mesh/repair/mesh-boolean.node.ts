@@ -14,7 +14,7 @@ interface MeshBooleanOutputs {
   result: unknown;
 }
 
-export const MeshBooleanNode: NodeDefinition<MeshBooleanInputs, MeshBooleanOutputs, MeshBooleanParams> = {
+export const MeshRepairMeshBooleanNode: NodeDefinition<MeshBooleanInputs, MeshBooleanOutputs, MeshBooleanParams> = {
   id: 'Mesh::MeshBoolean',
   category: 'Mesh',
   label: 'MeshBoolean',

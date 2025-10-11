@@ -15,7 +15,7 @@ interface DutchDoorOutputs {
   bottomDoor: unknown;
 }
 
-export const DutchDoorNode: NodeDefinition<DutchDoorInputs, DutchDoorOutputs, DutchDoorParams> = {
+export const ArchitectureDoorsDutchDoorNode: NodeDefinition<DutchDoorInputs, DutchDoorOutputs, DutchDoorParams> = {
   id: 'Architecture::DutchDoor',
   category: 'Architecture',
   label: 'DutchDoor',

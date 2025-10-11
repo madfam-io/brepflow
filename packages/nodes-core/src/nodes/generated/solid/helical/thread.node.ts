@@ -14,7 +14,7 @@ interface ThreadOutputs {
   thread: unknown;
 }
 
-export const ThreadNode: NodeDefinition<ThreadInputs, ThreadOutputs, ThreadParams> = {
+export const SolidHelicalThreadNode: NodeDefinition<ThreadInputs, ThreadOutputs, ThreadParams> = {
   id: 'Solid::Thread',
   category: 'Solid',
   label: 'Thread',

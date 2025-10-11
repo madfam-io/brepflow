@@ -16,7 +16,7 @@ interface CSVReaderOutputs {
   rowCount: unknown;
 }
 
-export const CSVReaderNode: NodeDefinition<CSVReaderInputs, CSVReaderOutputs, CSVReaderParams> = {
+export const InteroperabilityDataCSVReaderNode: NodeDefinition<CSVReaderInputs, CSVReaderOutputs, CSVReaderParams> = {
   id: 'Interoperability::CSVReader',
   category: 'Interoperability',
   label: 'CSVReader',

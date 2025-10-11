@@ -16,7 +16,7 @@ interface STLImportOutputs {
   vertexCount: unknown;
 }
 
-export const STLImportNode: NodeDefinition<STLImportInputs, STLImportOutputs, STLImportParams> = {
+export const InteroperabilityImportSTLImportNode: NodeDefinition<STLImportInputs, STLImportOutputs, STLImportParams> = {
   id: 'Interoperability::STLImport',
   category: 'Interoperability',
   label: 'STLImport',

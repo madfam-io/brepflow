@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DoubleHungWindowNode } from './double-hung-window.node';
+import { ArchitectureWindowsDoubleHungWindowNode } from './double-hung-window.node';
 import { createTestContext } from '../test-utils';
 
-describe('DoubleHungWindowNode', () => {
+describe('ArchitectureWindowsDoubleHungWindowNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('DoubleHungWindowNode', () => {
       sashPosition: 0.5
     } as any;
 
-    const result = await DoubleHungWindowNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWindowsDoubleHungWindowNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

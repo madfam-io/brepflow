@@ -10,7 +10,7 @@ interface RelativeNeighborhoodOutputs {
   network: unknown;
 }
 
-export const RelativeNeighborhoodNode: NodeDefinition<RelativeNeighborhoodInputs, RelativeNeighborhoodOutputs, RelativeNeighborhoodParams> = {
+export const PatternsNetworkRelativeNeighborhoodNode: NodeDefinition<RelativeNeighborhoodInputs, RelativeNeighborhoodOutputs, RelativeNeighborhoodParams> = {
   id: 'Patterns::RelativeNeighborhood',
   category: 'Patterns',
   label: 'RelativeNeighborhood',

@@ -15,7 +15,7 @@ interface FieldRemapOutputs {
   remapped: unknown;
 }
 
-export const FieldRemapNode: NodeDefinition<FieldRemapInputs, FieldRemapOutputs, FieldRemapParams> = {
+export const FieldOperationsFieldRemapNode: NodeDefinition<FieldRemapInputs, FieldRemapOutputs, FieldRemapParams> = {
   id: 'Field::FieldRemap',
   category: 'Field',
   label: 'FieldRemap',

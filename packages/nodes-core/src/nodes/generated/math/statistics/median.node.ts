@@ -10,7 +10,7 @@ interface MedianOutputs {
   median: unknown;
 }
 
-export const MedianNode: NodeDefinition<MedianInputs, MedianOutputs, MedianParams> = {
+export const MathStatisticsMedianNode: NodeDefinition<MedianInputs, MedianOutputs, MedianParams> = {
   id: 'Math::Median',
   category: 'Math',
   label: 'Median',

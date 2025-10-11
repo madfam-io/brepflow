@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VehicleRampNode } from './vehicle-ramp.node';
+import { ArchitectureRampsVehicleRampNode } from './vehicle-ramp.node';
 import { createTestContext } from '../test-utils';
 
-describe('VehicleRampNode', () => {
+describe('ArchitectureRampsVehicleRampNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('VehicleRampNode', () => {
       transitionLength: 3000
     } as any;
 
-    const result = await VehicleRampNode.evaluate(context, inputs, params);
+    const result = await ArchitectureRampsVehicleRampNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

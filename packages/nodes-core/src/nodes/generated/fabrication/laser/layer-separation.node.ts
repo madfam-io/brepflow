@@ -12,7 +12,7 @@ interface LayerSeparationOutputs {
   layers: unknown;
 }
 
-export const LayerSeparationNode: NodeDefinition<LayerSeparationInputs, LayerSeparationOutputs, LayerSeparationParams> = {
+export const FabricationLaserLayerSeparationNode: NodeDefinition<LayerSeparationInputs, LayerSeparationOutputs, LayerSeparationParams> = {
   id: 'Fabrication::LayerSeparation',
   category: 'Fabrication',
   label: 'LayerSeparation',

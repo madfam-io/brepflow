@@ -13,7 +13,7 @@ interface IsoSurfaceOutputs {
   surface: unknown;
 }
 
-export const IsoSurfaceNode: NodeDefinition<IsoSurfaceInputs, IsoSurfaceOutputs, IsoSurfaceParams> = {
+export const FieldSampleIsoSurfaceNode: NodeDefinition<IsoSurfaceInputs, IsoSurfaceOutputs, IsoSurfaceParams> = {
   id: 'Field::IsoSurface',
   category: 'Field',
   label: 'IsoSurface',

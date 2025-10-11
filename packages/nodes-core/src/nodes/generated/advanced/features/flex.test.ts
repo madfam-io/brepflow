@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FlexNode } from './flex.node';
+import { AdvancedFeaturesFlexNode } from './flex.node';
 import { createTestContext } from '../test-utils';
 
-describe('FlexNode', () => {
+describe('AdvancedFeaturesFlexNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('FlexNode', () => {
       accuracy: 1
     } as any;
 
-    const result = await FlexNode.evaluate(context, inputs, params);
+    const result = await AdvancedFeaturesFlexNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

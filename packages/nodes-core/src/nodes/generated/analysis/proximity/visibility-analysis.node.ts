@@ -17,7 +17,7 @@ interface VisibilityAnalysisOutputs {
   sightLines: unknown;
 }
 
-export const VisibilityAnalysisNode: NodeDefinition<VisibilityAnalysisInputs, VisibilityAnalysisOutputs, VisibilityAnalysisParams> = {
+export const AnalysisProximityVisibilityAnalysisNode: NodeDefinition<VisibilityAnalysisInputs, VisibilityAnalysisOutputs, VisibilityAnalysisParams> = {
   id: 'Analysis::VisibilityAnalysis',
   category: 'Analysis',
   label: 'VisibilityAnalysis',

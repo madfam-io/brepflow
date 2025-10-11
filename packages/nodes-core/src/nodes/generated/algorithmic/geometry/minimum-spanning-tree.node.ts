@@ -15,7 +15,7 @@ interface MinimumSpanningTreeOutputs {
   edges: unknown;
 }
 
-export const MinimumSpanningTreeNode: NodeDefinition<MinimumSpanningTreeInputs, MinimumSpanningTreeOutputs, MinimumSpanningTreeParams> = {
+export const AlgorithmicGeometryMinimumSpanningTreeNode: NodeDefinition<MinimumSpanningTreeInputs, MinimumSpanningTreeOutputs, MinimumSpanningTreeParams> = {
   id: 'Algorithmic::MinimumSpanningTree',
   category: 'Algorithmic',
   label: 'MinimumSpanningTree',

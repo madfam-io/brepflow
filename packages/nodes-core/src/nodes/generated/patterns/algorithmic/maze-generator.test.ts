@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MazeGeneratorNode } from './maze-generator.node';
+import { PatternsAlgorithmicMazeGeneratorNode } from './maze-generator.node';
 import { createTestContext } from '../test-utils';
 
-describe('MazeGeneratorNode', () => {
+describe('PatternsAlgorithmicMazeGeneratorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('MazeGeneratorNode', () => {
       height: 20
     } as any;
 
-    const result = await MazeGeneratorNode.evaluate(context, inputs, params);
+    const result = await PatternsAlgorithmicMazeGeneratorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

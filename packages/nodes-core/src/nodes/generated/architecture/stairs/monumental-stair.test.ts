@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MonumentalStairNode } from './monumental-stair.node';
+import { ArchitectureStairsMonumentalStairNode } from './monumental-stair.node';
 import { createTestContext } from '../test-utils';
 
-describe('MonumentalStairNode', () => {
+describe('ArchitectureStairsMonumentalStairNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('MonumentalStairNode', () => {
       width: 3000
     } as any;
 
-    const result = await MonumentalStairNode.evaluate(context, inputs, params);
+    const result = await ArchitectureStairsMonumentalStairNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

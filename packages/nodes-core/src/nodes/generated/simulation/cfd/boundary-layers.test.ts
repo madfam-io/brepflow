@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BoundaryLayersNode } from './boundary-layers.node';
+import { SimulationCFDBoundaryLayersNode } from './boundary-layers.node';
 import { createTestContext } from '../test-utils';
 
-describe('BoundaryLayersNode', () => {
+describe('SimulationCFDBoundaryLayersNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('BoundaryLayersNode', () => {
       transitionRatio: 0.5
     } as any;
 
-    const result = await BoundaryLayersNode.evaluate(context, inputs, params);
+    const result = await SimulationCFDBoundaryLayersNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

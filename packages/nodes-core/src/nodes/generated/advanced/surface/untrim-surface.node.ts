@@ -12,7 +12,7 @@ interface UntrimSurfaceOutputs {
   untrimmedSurface: unknown;
 }
 
-export const UntrimSurfaceNode: NodeDefinition<UntrimSurfaceInputs, UntrimSurfaceOutputs, UntrimSurfaceParams> = {
+export const AdvancedSurfaceUntrimSurfaceNode: NodeDefinition<UntrimSurfaceInputs, UntrimSurfaceOutputs, UntrimSurfaceParams> = {
   id: 'Advanced::UntrimSurface',
   category: 'Advanced',
   label: 'UntrimSurface',

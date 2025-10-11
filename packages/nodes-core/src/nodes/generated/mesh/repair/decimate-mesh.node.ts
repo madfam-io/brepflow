@@ -14,7 +14,7 @@ interface DecimateMeshOutputs {
   decimated: unknown;
 }
 
-export const DecimateMeshNode: NodeDefinition<DecimateMeshInputs, DecimateMeshOutputs, DecimateMeshParams> = {
+export const MeshRepairDecimateMeshNode: NodeDefinition<DecimateMeshInputs, DecimateMeshOutputs, DecimateMeshParams> = {
   id: 'Mesh::DecimateMesh',
   category: 'Mesh',
   label: 'DecimateMesh',

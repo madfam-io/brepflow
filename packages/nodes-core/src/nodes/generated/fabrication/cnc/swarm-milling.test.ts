@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SwarmMillingNode } from './swarm-milling.node';
+import { FabricationCNCSwarmMillingNode } from './swarm-milling.node';
 import { createTestContext } from '../test-utils';
 
-describe('SwarmMillingNode', () => {
+describe('FabricationCNCSwarmMillingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SwarmMillingNode', () => {
       overlap: 0.1
     } as any;
 
-    const result = await SwarmMillingNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCSwarmMillingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

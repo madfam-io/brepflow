@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ContouringToolpathNode } from './contouring-toolpath.node';
+import { FabricationCNCContouringToolpathNode } from './contouring-toolpath.node';
 import { createTestContext } from '../test-utils';
 
-describe('ContouringToolpathNode', () => {
+describe('FabricationCNCContouringToolpathNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ContouringToolpathNode', () => {
       compensation: "right"
     } as any;
 
-    const result = await ContouringToolpathNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCContouringToolpathNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

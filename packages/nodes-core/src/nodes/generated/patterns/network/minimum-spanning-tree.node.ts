@@ -10,7 +10,7 @@ interface MinimumSpanningTreeOutputs {
   tree: unknown;
 }
 
-export const MinimumSpanningTreeNode: NodeDefinition<MinimumSpanningTreeInputs, MinimumSpanningTreeOutputs, MinimumSpanningTreeParams> = {
+export const PatternsNetworkMinimumSpanningTreeNode: NodeDefinition<MinimumSpanningTreeInputs, MinimumSpanningTreeOutputs, MinimumSpanningTreeParams> = {
   id: 'Patterns::MinimumSpanningTree',
   category: 'Patterns',
   label: 'MinimumSpanningTree',

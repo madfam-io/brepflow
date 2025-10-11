@@ -11,7 +11,7 @@ interface AddOutputs {
   result: unknown;
 }
 
-export const AddNode: NodeDefinition<AddInputs, AddOutputs, AddParams> = {
+export const MathOperatorsAddNode: NodeDefinition<AddInputs, AddOutputs, AddParams> = {
   id: 'Math::Add',
   category: 'Math',
   label: 'Add',

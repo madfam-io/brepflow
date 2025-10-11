@@ -12,7 +12,7 @@ interface TreeFlattenOutputs {
   flattened: unknown;
 }
 
-export const TreeFlattenNode: NodeDefinition<TreeFlattenInputs, TreeFlattenOutputs, TreeFlattenParams> = {
+export const DataTreeTreeFlattenNode: NodeDefinition<TreeFlattenInputs, TreeFlattenOutputs, TreeFlattenParams> = {
   id: 'Data::TreeFlatten',
   category: 'Data',
   label: 'TreeFlatten',

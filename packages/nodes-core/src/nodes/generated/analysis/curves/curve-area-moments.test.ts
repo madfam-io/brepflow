@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveAreaMomentsNode } from './curve-area-moments.node';
+import { AnalysisCurvesCurveAreaMomentsNode } from './curve-area-moments.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurveAreaMomentsNode', () => {
+describe('AnalysisCurvesCurveAreaMomentsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CurveAreaMomentsNode', () => {
       showCentroid: true
     } as any;
 
-    const result = await CurveAreaMomentsNode.evaluate(context, inputs, params);
+    const result = await AnalysisCurvesCurveAreaMomentsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -10,7 +10,7 @@ interface MatrixInverseOutputs {
   inverse: unknown;
 }
 
-export const MatrixInverseNode: NodeDefinition<MatrixInverseInputs, MatrixInverseOutputs, MatrixInverseParams> = {
+export const MathMatrixMatrixInverseNode: NodeDefinition<MatrixInverseInputs, MatrixInverseOutputs, MatrixInverseParams> = {
   id: 'Math::MatrixInverse',
   category: 'Math',
   label: 'MatrixInverse',

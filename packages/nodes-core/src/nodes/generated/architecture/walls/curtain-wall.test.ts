@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurtainWallNode } from './curtain-wall.node';
+import { ArchitectureWallsCurtainWallNode } from './curtain-wall.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurtainWallNode', () => {
+describe('ArchitectureWallsCurtainWallNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('CurtainWallNode', () => {
       mullionDepth: 100
     } as any;
 
-    const result = await CurtainWallNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsCurtainWallNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

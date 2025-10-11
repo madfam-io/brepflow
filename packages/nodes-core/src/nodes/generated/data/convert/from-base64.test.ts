@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FromBase64Node } from './from-base64.node';
+import { DataConvertFromBase64Node } from './from-base64.node';
 import { createTestContext } from '../test-utils';
 
-describe('FromBase64Node', () => {
+describe('DataConvertFromBase64Node', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FromBase64Node', () => {
 
     } as any;
 
-    const result = await FromBase64Node.evaluate(context, inputs, params);
+    const result = await DataConvertFromBase64Node.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

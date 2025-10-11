@@ -11,7 +11,7 @@ interface FixedOutputs {
   constraint: unknown;
 }
 
-export const FixedNode: NodeDefinition<FixedInputs, FixedOutputs, FixedParams> = {
+export const AssemblyConstraintsFixedNode: NodeDefinition<FixedInputs, FixedOutputs, FixedParams> = {
   id: 'Assembly::Fixed',
   category: 'Assembly',
   label: 'Fixed',

@@ -16,7 +16,7 @@ interface MarchingCubesOutputs {
   normals: Array<[number, number, number]>;
 }
 
-export const MarchingCubesNode: NodeDefinition<MarchingCubesInputs, MarchingCubesOutputs, MarchingCubesParams> = {
+export const AlgorithmicGeometryMarchingCubesNode: NodeDefinition<MarchingCubesInputs, MarchingCubesOutputs, MarchingCubesParams> = {
   id: 'Algorithmic::MarchingCubes',
   category: 'Algorithmic',
   label: 'MarchingCubes',

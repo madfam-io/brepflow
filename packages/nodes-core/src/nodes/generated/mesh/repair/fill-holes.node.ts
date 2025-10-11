@@ -14,7 +14,7 @@ interface FillHolesOutputs {
   holesCount: unknown;
 }
 
-export const FillHolesNode: NodeDefinition<FillHolesInputs, FillHolesOutputs, FillHolesParams> = {
+export const MeshRepairFillHolesNode: NodeDefinition<FillHolesInputs, FillHolesOutputs, FillHolesParams> = {
   id: 'Mesh::FillHoles',
   category: 'Mesh',
   label: 'FillHoles',

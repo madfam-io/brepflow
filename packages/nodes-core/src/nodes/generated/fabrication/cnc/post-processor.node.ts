@@ -13,7 +13,7 @@ interface PostProcessorOutputs {
   ncCode: unknown;
 }
 
-export const PostProcessorNode: NodeDefinition<PostProcessorInputs, PostProcessorOutputs, PostProcessorParams> = {
+export const FabricationCNCPostProcessorNode: NodeDefinition<PostProcessorInputs, PostProcessorOutputs, PostProcessorParams> = {
   id: 'Fabrication::PostProcessor',
   category: 'Fabrication',
   label: 'PostProcessor',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MengerSpongeNode } from './menger-sponge.node';
+import { PatternsFractalsMengerSpongeNode } from './menger-sponge.node';
 import { createTestContext } from '../test-utils';
 
-describe('MengerSpongeNode', () => {
+describe('PatternsFractalsMengerSpongeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('MengerSpongeNode', () => {
       iterations: 3
     } as any;
 
-    const result = await MengerSpongeNode.evaluate(context, inputs, params);
+    const result = await PatternsFractalsMengerSpongeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

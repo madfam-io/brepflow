@@ -13,7 +13,7 @@ interface SafetyZoneSetupOutputs {
   safetyConfiguration: unknown;
 }
 
-export const SafetyZoneSetupNode: NodeDefinition<SafetyZoneSetupInputs, SafetyZoneSetupOutputs, SafetyZoneSetupParams> = {
+export const FabricationRoboticsSafetyZoneSetupNode: NodeDefinition<SafetyZoneSetupInputs, SafetyZoneSetupOutputs, SafetyZoneSetupParams> = {
   id: 'Fabrication::SafetyZoneSetup',
   category: 'Fabrication',
   label: 'SafetyZoneSetup',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SupportVectorMachineNode } from './support-vector-machine.node';
+import { AlgorithmicMachineLearningSupportVectorMachineNode } from './support-vector-machine.node';
 import { createTestContext } from '../test-utils';
 
-describe('SupportVectorMachineNode', () => {
+describe('AlgorithmicMachineLearningSupportVectorMachineNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('SupportVectorMachineNode', () => {
       gamma: "scale"
     } as any;
 
-    const result = await SupportVectorMachineNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicMachineLearningSupportVectorMachineNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface BridgeGenerationOutputs {
   bridgedPath: unknown;
 }
 
-export const BridgeGenerationNode: NodeDefinition<BridgeGenerationInputs, BridgeGenerationOutputs, BridgeGenerationParams> = {
+export const FabricationLaserBridgeGenerationNode: NodeDefinition<BridgeGenerationInputs, BridgeGenerationOutputs, BridgeGenerationParams> = {
   id: 'Fabrication::BridgeGeneration',
   category: 'Fabrication',
   label: 'BridgeGeneration',

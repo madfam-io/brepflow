@@ -16,7 +16,7 @@ interface FlexibleCouplingOutputs {
   element: unknown;
 }
 
-export const FlexibleCouplingNode: NodeDefinition<FlexibleCouplingInputs, FlexibleCouplingOutputs, FlexibleCouplingParams> = {
+export const MechanicalEngineeringCouplingsFlexibleCouplingNode: NodeDefinition<FlexibleCouplingInputs, FlexibleCouplingOutputs, FlexibleCouplingParams> = {
   id: 'MechanicalEngineering::FlexibleCoupling',
   category: 'MechanicalEngineering',
   label: 'FlexibleCoupling',

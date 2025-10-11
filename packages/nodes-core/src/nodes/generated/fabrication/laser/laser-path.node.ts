@@ -13,7 +13,7 @@ interface LaserPathOutputs {
   cuttingPath: unknown;
 }
 
-export const LaserPathNode: NodeDefinition<LaserPathInputs, LaserPathOutputs, LaserPathParams> = {
+export const FabricationLaserLaserPathNode: NodeDefinition<LaserPathInputs, LaserPathOutputs, LaserPathParams> = {
   id: 'Fabrication::LaserPath',
   category: 'Fabrication',
   label: 'LaserPath',

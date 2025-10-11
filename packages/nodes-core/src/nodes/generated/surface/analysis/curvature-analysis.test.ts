@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurvatureAnalysisNode } from './curvature-analysis.node';
+import { SurfaceAnalysisCurvatureAnalysisNode } from './curvature-analysis.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurvatureAnalysisNode', () => {
+describe('SurfaceAnalysisCurvatureAnalysisNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CurvatureAnalysisNode', () => {
       sampleDensity: 50
     } as any;
 
-    const result = await CurvatureAnalysisNode.evaluate(context, inputs, params);
+    const result = await SurfaceAnalysisCurvatureAnalysisNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -18,7 +18,7 @@ interface KMeansClusteringOutputs {
   inertia: unknown;
 }
 
-export const KMeansClusteringNode: NodeDefinition<KMeansClusteringInputs, KMeansClusteringOutputs, KMeansClusteringParams> = {
+export const AlgorithmicMachineLearningKMeansClusteringNode: NodeDefinition<KMeansClusteringInputs, KMeansClusteringOutputs, KMeansClusteringParams> = {
   id: 'Algorithmic::KMeansClustering',
   category: 'Algorithmic',
   label: 'KMeansClustering',

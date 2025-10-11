@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FlowAttractorNode } from './flow-attractor.node';
+import { FieldAttractorFlowAttractorNode } from './flow-attractor.node';
 import { createTestContext } from '../test-utils';
 
-describe('FlowAttractorNode', () => {
+describe('FieldAttractorFlowAttractorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('FlowAttractorNode', () => {
       viscosity: 0.1
     } as any;
 
-    const result = await FlowAttractorNode.evaluate(context, inputs, params);
+    const result = await FieldAttractorFlowAttractorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

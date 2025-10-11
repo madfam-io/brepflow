@@ -16,7 +16,7 @@ interface FlockingPatternOutputs {
   trails: unknown;
 }
 
-export const FlockingPatternNode: NodeDefinition<FlockingPatternInputs, FlockingPatternOutputs, FlockingPatternParams> = {
+export const PatternsAlgorithmicFlockingPatternNode: NodeDefinition<FlockingPatternInputs, FlockingPatternOutputs, FlockingPatternParams> = {
   id: 'Patterns::FlockingPattern',
   category: 'Patterns',
   label: 'FlockingPattern',

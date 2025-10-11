@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TreeSupportsNode } from './tree-supports.node';
+import { Fabrication3DPrintingTreeSupportsNode } from './tree-supports.node';
 import { createTestContext } from '../test-utils';
 
-describe('TreeSupportsNode', () => {
+describe('Fabrication3DPrintingTreeSupportsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('TreeSupportsNode', () => {
       branchDiameter: 2
     } as any;
 
-    const result = await TreeSupportsNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingTreeSupportsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

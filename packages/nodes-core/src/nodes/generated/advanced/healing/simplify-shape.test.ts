@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SimplifyShapeNode } from './simplify-shape.node';
+import { AdvancedHealingSimplifyShapeNode } from './simplify-shape.node';
 import { createTestContext } from '../test-utils';
 
-describe('SimplifyShapeNode', () => {
+describe('AdvancedHealingSimplifyShapeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SimplifyShapeNode', () => {
       preserveTopology: true
     } as any;
 
-    const result = await SimplifyShapeNode.evaluate(context, inputs, params);
+    const result = await AdvancedHealingSimplifyShapeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

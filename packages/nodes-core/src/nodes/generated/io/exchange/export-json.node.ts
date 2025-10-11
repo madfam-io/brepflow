@@ -15,7 +15,7 @@ interface ExportJSONOutputs {
   jsonData: unknown;
 }
 
-export const ExportJSONNode: NodeDefinition<ExportJSONInputs, ExportJSONOutputs, ExportJSONParams> = {
+export const IOExchangeExportJSONNode: NodeDefinition<ExportJSONInputs, ExportJSONOutputs, ExportJSONParams> = {
   id: 'IO::ExportJSON',
   category: 'IO',
   label: 'ExportJSON',

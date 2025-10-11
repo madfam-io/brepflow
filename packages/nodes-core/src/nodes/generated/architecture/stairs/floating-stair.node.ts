@@ -15,7 +15,7 @@ interface FloatingStairOutputs {
   anchors: Array<[number, number, number]>;
 }
 
-export const FloatingStairNode: NodeDefinition<FloatingStairInputs, FloatingStairOutputs, FloatingStairParams> = {
+export const ArchitectureStairsFloatingStairNode: NodeDefinition<FloatingStairInputs, FloatingStairOutputs, FloatingStairParams> = {
   id: 'Architecture::FloatingStair',
   category: 'Architecture',
   label: 'FloatingStair',

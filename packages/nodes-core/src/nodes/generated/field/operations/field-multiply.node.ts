@@ -11,7 +11,7 @@ interface FieldMultiplyOutputs {
   field: unknown;
 }
 
-export const FieldMultiplyNode: NodeDefinition<FieldMultiplyInputs, FieldMultiplyOutputs, FieldMultiplyParams> = {
+export const FieldOperationsFieldMultiplyNode: NodeDefinition<FieldMultiplyInputs, FieldMultiplyOutputs, FieldMultiplyParams> = {
   id: 'Field::FieldMultiply',
   category: 'Field',
   label: 'FieldMultiply',

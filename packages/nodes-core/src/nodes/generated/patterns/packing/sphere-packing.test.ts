@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpherePackingNode } from './sphere-packing.node';
+import { PatternsPackingSpherePackingNode } from './sphere-packing.node';
 import { createTestContext } from '../test-utils';
 
-describe('SpherePackingNode', () => {
+describe('PatternsPackingSpherePackingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SpherePackingNode', () => {
       packingType: "hexagonal"
     } as any;
 
-    const result = await SpherePackingNode.evaluate(context, inputs, params);
+    const result = await PatternsPackingSpherePackingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

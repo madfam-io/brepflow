@@ -13,7 +13,7 @@ interface NeuralPatternOutputs {
   network: unknown;
 }
 
-export const NeuralPatternNode: NodeDefinition<NeuralPatternInputs, NeuralPatternOutputs, NeuralPatternParams> = {
+export const PatternsProceduralNeuralPatternNode: NodeDefinition<NeuralPatternInputs, NeuralPatternOutputs, NeuralPatternParams> = {
   id: 'Patterns::NeuralPattern',
   category: 'Patterns',
   label: 'NeuralPattern',

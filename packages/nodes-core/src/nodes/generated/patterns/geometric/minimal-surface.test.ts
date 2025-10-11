@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MinimalSurfaceNode } from './minimal-surface.node';
+import { PatternsGeometricMinimalSurfaceNode } from './minimal-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('MinimalSurfaceNode', () => {
+describe('PatternsGeometricMinimalSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('MinimalSurfaceNode', () => {
       period: 10
     } as any;
 
-    const result = await MinimalSurfaceNode.evaluate(context, inputs, params);
+    const result = await PatternsGeometricMinimalSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

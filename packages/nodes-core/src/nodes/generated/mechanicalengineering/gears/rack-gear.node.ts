@@ -16,7 +16,7 @@ interface RackGearOutputs {
   pitchLine: unknown;
 }
 
-export const RackGearNode: NodeDefinition<RackGearInputs, RackGearOutputs, RackGearParams> = {
+export const MechanicalEngineeringGearsRackGearNode: NodeDefinition<RackGearInputs, RackGearOutputs, RackGearParams> = {
   id: 'MechanicalEngineering::RackGear',
   category: 'MechanicalEngineering',
   label: 'RackGear',

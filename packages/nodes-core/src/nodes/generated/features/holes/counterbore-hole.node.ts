@@ -16,7 +16,7 @@ interface CounterboreHoleOutputs {
   shape: unknown;
 }
 
-export const CounterboreHoleNode: NodeDefinition<CounterboreHoleInputs, CounterboreHoleOutputs, CounterboreHoleParams> = {
+export const FeaturesHolesCounterboreHoleNode: NodeDefinition<CounterboreHoleInputs, CounterboreHoleOutputs, CounterboreHoleParams> = {
   id: 'Features::CounterboreHole',
   category: 'Features',
   label: 'CounterboreHole',

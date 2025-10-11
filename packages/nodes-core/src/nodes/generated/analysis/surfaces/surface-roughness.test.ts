@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceRoughnessNode } from './surface-roughness.node';
+import { AnalysisSurfacesSurfaceRoughnessNode } from './surface-roughness.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceRoughnessNode', () => {
+describe('AnalysisSurfacesSurfaceRoughnessNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SurfaceRoughnessNode', () => {
       analysisType: "all"
     } as any;
 
-    const result = await SurfaceRoughnessNode.evaluate(context, inputs, params);
+    const result = await AnalysisSurfacesSurfaceRoughnessNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

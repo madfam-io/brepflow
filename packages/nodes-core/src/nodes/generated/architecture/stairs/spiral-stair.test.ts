@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpiralStairNode } from './spiral-stair.node';
+import { ArchitectureStairsSpiralStairNode } from './spiral-stair.node';
 import { createTestContext } from '../test-utils';
 
-describe('SpiralStairNode', () => {
+describe('ArchitectureStairsSpiralStairNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('SpiralStairNode', () => {
       centerPole: true
     } as any;
 
-    const result = await SpiralStairNode.evaluate(context, inputs, params);
+    const result = await ArchitectureStairsSpiralStairNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

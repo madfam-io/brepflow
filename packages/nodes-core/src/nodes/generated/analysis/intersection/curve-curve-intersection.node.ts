@@ -16,7 +16,7 @@ interface CurveCurveIntersectionOutputs {
   parameters2: unknown;
 }
 
-export const CurveCurveIntersectionNode: NodeDefinition<CurveCurveIntersectionInputs, CurveCurveIntersectionOutputs, CurveCurveIntersectionParams> = {
+export const AnalysisIntersectionCurveCurveIntersectionNode: NodeDefinition<CurveCurveIntersectionInputs, CurveCurveIntersectionOutputs, CurveCurveIntersectionParams> = {
   id: 'Analysis::CurveCurveIntersection',
   category: 'Analysis',
   label: 'CurveCurveIntersection',

@@ -16,7 +16,7 @@ interface IGESExportOutputs {
   entityCount: unknown;
 }
 
-export const IGESExportNode: NodeDefinition<IGESExportInputs, IGESExportOutputs, IGESExportParams> = {
+export const InteroperabilityExportIGESExportNode: NodeDefinition<IGESExportInputs, IGESExportOutputs, IGESExportParams> = {
   id: 'Interoperability::IGESExport',
   category: 'Interoperability',
   label: 'IGESExport',

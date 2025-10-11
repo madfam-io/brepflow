@@ -11,7 +11,7 @@ interface TreeShiftOutputs {
   shifted: unknown;
 }
 
-export const TreeShiftNode: NodeDefinition<TreeShiftInputs, TreeShiftOutputs, TreeShiftParams> = {
+export const DataTreeTreeShiftNode: NodeDefinition<TreeShiftInputs, TreeShiftOutputs, TreeShiftParams> = {
   id: 'Data::TreeShift',
   category: 'Data',
   label: 'TreeShift',

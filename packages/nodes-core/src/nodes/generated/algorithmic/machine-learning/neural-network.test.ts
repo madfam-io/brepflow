@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { NeuralNetworkNode } from './neural-network.node';
+import { AlgorithmicMachineLearningNeuralNetworkNode } from './neural-network.node';
 import { createTestContext } from '../test-utils';
 
-describe('NeuralNetworkNode', () => {
+describe('AlgorithmicMachineLearningNeuralNetworkNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('NeuralNetworkNode', () => {
       epochs: 100
     } as any;
 
-    const result = await NeuralNetworkNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicMachineLearningNeuralNetworkNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

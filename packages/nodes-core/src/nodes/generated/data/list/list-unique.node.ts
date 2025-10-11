@@ -10,7 +10,7 @@ interface ListUniqueOutputs {
   unique: unknown;
 }
 
-export const ListUniqueNode: NodeDefinition<ListUniqueInputs, ListUniqueOutputs, ListUniqueParams> = {
+export const DataListListUniqueNode: NodeDefinition<ListUniqueInputs, ListUniqueOutputs, ListUniqueParams> = {
   id: 'Data::ListUnique',
   category: 'Data',
   label: 'ListUnique',

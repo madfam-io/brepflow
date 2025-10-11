@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GasSpringNode } from './gas-spring.node';
+import { MechanicalEngineeringSpringsGasSpringNode } from './gas-spring.node';
 import { createTestContext } from '../test-utils';
 
-describe('GasSpringNode', () => {
+describe('MechanicalEngineeringSpringsGasSpringNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('GasSpringNode', () => {
       rodDiameter: 8
     } as any;
 
-    const result = await GasSpringNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringSpringsGasSpringNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

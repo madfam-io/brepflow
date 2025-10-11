@@ -13,7 +13,7 @@ interface RetractionOptimizationOutputs {
   retractionPoints: Array<[number, number, number]>;
 }
 
-export const RetractionOptimizationNode: NodeDefinition<RetractionOptimizationInputs, RetractionOptimizationOutputs, RetractionOptimizationParams> = {
+export const Fabrication3DPrintingRetractionOptimizationNode: NodeDefinition<RetractionOptimizationInputs, RetractionOptimizationOutputs, RetractionOptimizationParams> = {
   id: 'Fabrication::RetractionOptimization',
   category: 'Fabrication',
   label: 'RetractionOptimization',

@@ -13,7 +13,7 @@ interface SubdivisionSurfaceOutputs {
   subdivided: unknown;
 }
 
-export const SubdivisionSurfaceNode: NodeDefinition<SubdivisionSurfaceInputs, SubdivisionSurfaceOutputs, SubdivisionSurfaceParams> = {
+export const SpecializedOrganicSubdivisionSurfaceNode: NodeDefinition<SubdivisionSurfaceInputs, SubdivisionSurfaceOutputs, SubdivisionSurfaceParams> = {
   id: 'Specialized::SubdivisionSurface',
   category: 'Specialized',
   label: 'SubdivisionSurface',

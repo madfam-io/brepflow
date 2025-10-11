@@ -16,7 +16,7 @@ interface MiterFlangeOutputs {
   result: unknown;
 }
 
-export const MiterFlangeNode: NodeDefinition<MiterFlangeInputs, MiterFlangeOutputs, MiterFlangeParams> = {
+export const SheetMetalFlangesMiterFlangeNode: NodeDefinition<MiterFlangeInputs, MiterFlangeOutputs, MiterFlangeParams> = {
   id: 'SheetMetal::MiterFlange',
   category: 'SheetMetal',
   label: 'MiterFlange',

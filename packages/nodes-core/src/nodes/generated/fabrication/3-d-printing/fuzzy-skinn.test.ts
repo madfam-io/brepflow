@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FuzzySkinnNode } from './fuzzy-skinn.node';
+import { Fabrication3DPrintingFuzzySkinnNode } from './fuzzy-skinn.node';
 import { createTestContext } from '../test-utils';
 
-describe('FuzzySkinnNode', () => {
+describe('Fabrication3DPrintingFuzzySkinnNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FuzzySkinnNode', () => {
       pointDistance: 0.75
     } as any;
 
-    const result = await FuzzySkinnNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingFuzzySkinnNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

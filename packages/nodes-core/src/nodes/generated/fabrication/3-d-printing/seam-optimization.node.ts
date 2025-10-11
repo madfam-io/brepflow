@@ -13,7 +13,7 @@ interface SeamOptimizationOutputs {
   seamPoints: Array<[number, number, number]>;
 }
 
-export const SeamOptimizationNode: NodeDefinition<SeamOptimizationInputs, SeamOptimizationOutputs, SeamOptimizationParams> = {
+export const Fabrication3DPrintingSeamOptimizationNode: NodeDefinition<SeamOptimizationInputs, SeamOptimizationOutputs, SeamOptimizationParams> = {
   id: 'Fabrication::SeamOptimization',
   category: 'Fabrication',
   label: 'SeamOptimization',

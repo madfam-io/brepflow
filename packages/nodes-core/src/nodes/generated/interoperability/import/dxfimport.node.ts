@@ -17,7 +17,7 @@ interface DXFImportOutputs {
   layers: unknown;
 }
 
-export const DXFImportNode: NodeDefinition<DXFImportInputs, DXFImportOutputs, DXFImportParams> = {
+export const InteroperabilityImportDXFImportNode: NodeDefinition<DXFImportInputs, DXFImportOutputs, DXFImportParams> = {
   id: 'Interoperability::DXFImport',
   category: 'Interoperability',
   label: 'DXFImport',

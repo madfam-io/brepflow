@@ -11,7 +11,7 @@ interface ListFilterOutputs {
   filtered: unknown;
 }
 
-export const ListFilterNode: NodeDefinition<ListFilterInputs, ListFilterOutputs, ListFilterParams> = {
+export const DataListListFilterNode: NodeDefinition<ListFilterInputs, ListFilterOutputs, ListFilterParams> = {
   id: 'Data::ListFilter',
   category: 'Data',
   label: 'ListFilter',

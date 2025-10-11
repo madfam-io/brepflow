@@ -16,7 +16,7 @@ interface CurveAreaMomentsOutputs {
   momentY: unknown;
 }
 
-export const CurveAreaMomentsNode: NodeDefinition<CurveAreaMomentsInputs, CurveAreaMomentsOutputs, CurveAreaMomentsParams> = {
+export const AnalysisCurvesCurveAreaMomentsNode: NodeDefinition<CurveAreaMomentsInputs, CurveAreaMomentsOutputs, CurveAreaMomentsParams> = {
   id: 'Analysis::CurveAreaMoments',
   category: 'Analysis',
   label: 'CurveAreaMoments',

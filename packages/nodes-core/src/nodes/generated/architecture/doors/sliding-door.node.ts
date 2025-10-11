@@ -15,7 +15,7 @@ interface SlidingDoorOutputs {
   track: unknown;
 }
 
-export const SlidingDoorNode: NodeDefinition<SlidingDoorInputs, SlidingDoorOutputs, SlidingDoorParams> = {
+export const ArchitectureDoorsSlidingDoorNode: NodeDefinition<SlidingDoorInputs, SlidingDoorOutputs, SlidingDoorParams> = {
   id: 'Architecture::SlidingDoor',
   category: 'Architecture',
   label: 'SlidingDoor',

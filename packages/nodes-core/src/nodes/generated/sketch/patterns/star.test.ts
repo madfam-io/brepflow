@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StarNode } from './star.node';
+import { SketchPatternsStarNode } from './star.node';
 import { createTestContext } from '../test-utils';
 
-describe('StarNode', () => {
+describe('SketchPatternsStarNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('StarNode', () => {
       innerRadius: 40
     } as any;
 
-    const result = await StarNode.evaluate(context, inputs, params);
+    const result = await SketchPatternsStarNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

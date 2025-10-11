@@ -15,7 +15,7 @@ interface MQTTSubscriberOutputs {
   lastMessage: unknown;
 }
 
-export const MQTTSubscriberNode: NodeDefinition<MQTTSubscriberInputs, MQTTSubscriberOutputs, MQTTSubscriberParams> = {
+export const InteroperabilityStreamingMQTTSubscriberNode: NodeDefinition<MQTTSubscriberInputs, MQTTSubscriberOutputs, MQTTSubscriberParams> = {
   id: 'Interoperability::MQTTSubscriber',
   category: 'Interoperability',
   label: 'MQTTSubscriber',

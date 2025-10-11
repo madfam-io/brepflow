@@ -14,7 +14,7 @@ interface ExportGLTFOutputs {
   gltfData: unknown;
 }
 
-export const ExportGLTFNode: NodeDefinition<ExportGLTFInputs, ExportGLTFOutputs, ExportGLTFParams> = {
+export const IOExchangeExportGLTFNode: NodeDefinition<ExportGLTFInputs, ExportGLTFOutputs, ExportGLTFParams> = {
   id: 'IO::ExportGLTF',
   category: 'IO',
   label: 'ExportGLTF',

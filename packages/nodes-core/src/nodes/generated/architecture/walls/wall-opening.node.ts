@@ -16,7 +16,7 @@ interface WallOpeningOutputs {
   opening: unknown;
 }
 
-export const WallOpeningNode: NodeDefinition<WallOpeningInputs, WallOpeningOutputs, WallOpeningParams> = {
+export const ArchitectureWallsWallOpeningNode: NodeDefinition<WallOpeningInputs, WallOpeningOutputs, WallOpeningParams> = {
   id: 'Architecture::WallOpening',
   category: 'Architecture',
   label: 'WallOpening',

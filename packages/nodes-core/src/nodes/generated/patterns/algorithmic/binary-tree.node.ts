@@ -14,7 +14,7 @@ interface BinaryTreeOutputs {
   tree: unknown;
 }
 
-export const BinaryTreeNode: NodeDefinition<BinaryTreeInputs, BinaryTreeOutputs, BinaryTreeParams> = {
+export const PatternsAlgorithmicBinaryTreeNode: NodeDefinition<BinaryTreeInputs, BinaryTreeOutputs, BinaryTreeParams> = {
   id: 'Patterns::BinaryTree',
   category: 'Patterns',
   label: 'BinaryTree',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VisibilityAnalysisNode } from './visibility-analysis.node';
+import { AnalysisProximityVisibilityAnalysisNode } from './visibility-analysis.node';
 import { createTestContext } from '../test-utils';
 
-describe('VisibilityAnalysisNode', () => {
+describe('AnalysisProximityVisibilityAnalysisNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('VisibilityAnalysisNode', () => {
       maxDistance: 100
     } as any;
 
-    const result = await VisibilityAnalysisNode.evaluate(context, inputs, params);
+    const result = await AnalysisProximityVisibilityAnalysisNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

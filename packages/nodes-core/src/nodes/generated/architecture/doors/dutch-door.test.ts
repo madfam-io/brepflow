@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DutchDoorNode } from './dutch-door.node';
+import { ArchitectureDoorsDutchDoorNode } from './dutch-door.node';
 import { createTestContext } from '../test-utils';
 
-describe('DutchDoorNode', () => {
+describe('ArchitectureDoorsDutchDoorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('DutchDoorNode', () => {
       bottomOpen: false
     } as any;
 
-    const result = await DutchDoorNode.evaluate(context, inputs, params);
+    const result = await ArchitectureDoorsDutchDoorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface HelixOutputs {
   helix: unknown;
 }
 
-export const HelixNode: NodeDefinition<HelixInputs, HelixOutputs, HelixParams> = {
+export const SolidHelicalHelixNode: NodeDefinition<HelixInputs, HelixOutputs, HelixParams> = {
   id: 'Solid::Helix',
   category: 'Solid',
   label: 'Helix',

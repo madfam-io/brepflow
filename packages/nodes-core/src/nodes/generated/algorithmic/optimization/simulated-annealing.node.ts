@@ -19,7 +19,7 @@ interface SimulatedAnnealingOutputs {
   values: unknown;
 }
 
-export const SimulatedAnnealingNode: NodeDefinition<SimulatedAnnealingInputs, SimulatedAnnealingOutputs, SimulatedAnnealingParams> = {
+export const AlgorithmicOptimizationSimulatedAnnealingNode: NodeDefinition<SimulatedAnnealingInputs, SimulatedAnnealingOutputs, SimulatedAnnealingParams> = {
   id: 'Algorithmic::SimulatedAnnealing',
   category: 'Algorithmic',
   label: 'SimulatedAnnealing',

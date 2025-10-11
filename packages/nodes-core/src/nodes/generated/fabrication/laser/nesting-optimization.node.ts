@@ -16,7 +16,7 @@ interface NestingOptimizationOutputs {
   utilization: number;
 }
 
-export const NestingOptimizationNode: NodeDefinition<NestingOptimizationInputs, NestingOptimizationOutputs, NestingOptimizationParams> = {
+export const FabricationLaserNestingOptimizationNode: NodeDefinition<NestingOptimizationInputs, NestingOptimizationOutputs, NestingOptimizationParams> = {
   id: 'Fabrication::NestingOptimization',
   category: 'Fabrication',
   label: 'NestingOptimization',

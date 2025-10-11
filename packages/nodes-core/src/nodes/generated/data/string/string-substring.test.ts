@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringSubstringNode } from './string-substring.node';
+import { DataStringStringSubstringNode } from './string-substring.node';
 import { createTestContext } from '../test-utils';
 
-describe('StringSubstringNode', () => {
+describe('DataStringStringSubstringNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('StringSubstringNode', () => {
 
     } as any;
 
-    const result = await StringSubstringNode.evaluate(context, inputs, params);
+    const result = await DataStringStringSubstringNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

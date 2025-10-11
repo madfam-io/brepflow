@@ -16,7 +16,7 @@ interface DXFExportOutputs {
   entityCount: unknown;
 }
 
-export const DXFExportNode: NodeDefinition<DXFExportInputs, DXFExportOutputs, DXFExportParams> = {
+export const InteroperabilityExportDXFExportNode: NodeDefinition<DXFExportInputs, DXFExportOutputs, DXFExportParams> = {
   id: 'Interoperability::DXFExport',
   category: 'Interoperability',
   label: 'DXFExport',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CompositeCurveNode } from './composite-curve.node';
+import { SurfaceCurvesCompositeCurveNode } from './composite-curve.node';
 import { createTestContext } from '../test-utils';
 
-describe('CompositeCurveNode', () => {
+describe('SurfaceCurvesCompositeCurveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CompositeCurveNode', () => {
       mergeTolerance: 0.01
     } as any;
 
-    const result = await CompositeCurveNode.evaluate(context, inputs, params);
+    const result = await SurfaceCurvesCompositeCurveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

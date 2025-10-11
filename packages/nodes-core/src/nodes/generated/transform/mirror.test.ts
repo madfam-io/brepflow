@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MirrorNode } from './mirror.node';
+import { TransformMirrorNode } from './mirror.node';
 import { createTestContext } from '../test-utils';
 
-describe('MirrorNode', () => {
+describe('TransformMirrorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -19,7 +19,7 @@ describe('MirrorNode', () => {
       copy: true
     } as any;
 
-    const result = await MirrorNode.evaluate(context, inputs, params);
+    const result = await TransformMirrorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

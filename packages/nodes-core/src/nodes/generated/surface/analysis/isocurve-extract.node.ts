@@ -13,7 +13,7 @@ interface IsocurveExtractOutputs {
   isocurves: unknown;
 }
 
-export const IsocurveExtractNode: NodeDefinition<IsocurveExtractInputs, IsocurveExtractOutputs, IsocurveExtractParams> = {
+export const SurfaceAnalysisIsocurveExtractNode: NodeDefinition<IsocurveExtractInputs, IsocurveExtractOutputs, IsocurveExtractParams> = {
   id: 'Surface::IsocurveExtract',
   category: 'Surface',
   label: 'IsocurveExtract',

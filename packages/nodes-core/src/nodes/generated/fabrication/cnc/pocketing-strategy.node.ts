@@ -16,7 +16,7 @@ interface PocketingStrategyOutputs {
   finishing: unknown;
 }
 
-export const PocketingStrategyNode: NodeDefinition<PocketingStrategyInputs, PocketingStrategyOutputs, PocketingStrategyParams> = {
+export const FabricationCNCPocketingStrategyNode: NodeDefinition<PocketingStrategyInputs, PocketingStrategyOutputs, PocketingStrategyParams> = {
   id: 'Fabrication::PocketingStrategy',
   category: 'Fabrication',
   label: 'PocketingStrategy',

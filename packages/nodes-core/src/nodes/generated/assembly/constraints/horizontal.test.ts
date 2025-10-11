@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HorizontalNode } from './horizontal.node';
+import { AssemblyConstraintsHorizontalNode } from './horizontal.node';
 import { createTestContext } from '../test-utils';
 
-describe('HorizontalNode', () => {
+describe('AssemblyConstraintsHorizontalNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('HorizontalNode', () => {
 
     } as any;
 
-    const result = await HorizontalNode.evaluate(context, inputs, params);
+    const result = await AssemblyConstraintsHorizontalNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

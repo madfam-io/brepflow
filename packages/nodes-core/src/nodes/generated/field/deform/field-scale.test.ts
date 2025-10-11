@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldScaleNode } from './field-scale.node';
+import { FieldDeformFieldScaleNode } from './field-scale.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldScaleNode', () => {
+describe('FieldDeformFieldScaleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('FieldScaleNode', () => {
       maxScale: 2
     } as any;
 
-    const result = await FieldScaleNode.evaluate(context, inputs, params);
+    const result = await FieldDeformFieldScaleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

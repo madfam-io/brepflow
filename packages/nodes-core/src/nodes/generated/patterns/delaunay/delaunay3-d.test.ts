@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { Delaunay3DNode } from './delaunay3-d.node';
+import { PatternsDelaunayDelaunay3DNode } from './delaunay3-d.node';
 import { createTestContext } from '../test-utils';
 
-describe('Delaunay3DNode', () => {
+describe('PatternsDelaunayDelaunay3DNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('Delaunay3DNode', () => {
 
     } as any;
 
-    const result = await Delaunay3DNode.evaluate(context, inputs, params);
+    const result = await PatternsDelaunayDelaunay3DNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

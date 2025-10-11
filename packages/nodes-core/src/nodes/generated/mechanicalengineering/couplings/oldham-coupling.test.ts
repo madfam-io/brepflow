@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { OldhamCouplingNode } from './oldham-coupling.node';
+import { MechanicalEngineeringCouplingsOldhamCouplingNode } from './oldham-coupling.node';
 import { createTestContext } from '../test-utils';
 
-describe('OldhamCouplingNode', () => {
+describe('MechanicalEngineeringCouplingsOldhamCouplingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('OldhamCouplingNode', () => {
       totalLength: 40
     } as any;
 
-    const result = await OldhamCouplingNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringCouplingsOldhamCouplingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

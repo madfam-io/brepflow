@@ -17,7 +17,7 @@ interface FieldGridOutputs {
   values: unknown;
 }
 
-export const FieldGridNode: NodeDefinition<FieldGridInputs, FieldGridOutputs, FieldGridParams> = {
+export const FieldSampleFieldGridNode: NodeDefinition<FieldGridInputs, FieldGridOutputs, FieldGridParams> = {
   id: 'Field::FieldGrid',
   category: 'Field',
   label: 'FieldGrid',

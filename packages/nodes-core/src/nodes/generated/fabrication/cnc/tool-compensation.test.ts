@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToolCompensationNode } from './tool-compensation.node';
+import { FabricationCNCToolCompensationNode } from './tool-compensation.node';
 import { createTestContext } from '../test-utils';
 
-describe('ToolCompensationNode', () => {
+describe('FabricationCNCToolCompensationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ToolCompensationNode', () => {
       wearOffset: 0
     } as any;
 
-    const result = await ToolCompensationNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCToolCompensationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

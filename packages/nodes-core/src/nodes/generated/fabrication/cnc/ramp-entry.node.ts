@@ -14,7 +14,7 @@ interface RampEntryOutputs {
   rampPath: unknown;
 }
 
-export const RampEntryNode: NodeDefinition<RampEntryInputs, RampEntryOutputs, RampEntryParams> = {
+export const FabricationCNCRampEntryNode: NodeDefinition<RampEntryInputs, RampEntryOutputs, RampEntryParams> = {
   id: 'Fabrication::RampEntry',
   category: 'Fabrication',
   label: 'RampEntry',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ComplexPhaseNode } from './complex-phase.node';
+import { MathComplexComplexPhaseNode } from './complex-phase.node';
 import { createTestContext } from '../test-utils';
 
-describe('ComplexPhaseNode', () => {
+describe('MathComplexComplexPhaseNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('ComplexPhaseNode', () => {
 
     } as any;
 
-    const result = await ComplexPhaseNode.evaluate(context, inputs, params);
+    const result = await MathComplexComplexPhaseNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

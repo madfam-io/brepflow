@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HyperbolicTilingNode } from './hyperbolic-tiling.node';
+import { PatternsGeometricHyperbolicTilingNode } from './hyperbolic-tiling.node';
 import { createTestContext } from '../test-utils';
 
-describe('HyperbolicTilingNode', () => {
+describe('PatternsGeometricHyperbolicTilingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('HyperbolicTilingNode', () => {
       iterations: 3
     } as any;
 
-    const result = await HyperbolicTilingNode.evaluate(context, inputs, params);
+    const result = await PatternsGeometricHyperbolicTilingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

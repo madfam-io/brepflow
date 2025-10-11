@@ -16,7 +16,7 @@ interface ThreadedHoleOutputs {
   shape: unknown;
 }
 
-export const ThreadedHoleNode: NodeDefinition<ThreadedHoleInputs, ThreadedHoleOutputs, ThreadedHoleParams> = {
+export const FeaturesHolesThreadedHoleNode: NodeDefinition<ThreadedHoleInputs, ThreadedHoleOutputs, ThreadedHoleParams> = {
   id: 'Features::ThreadedHole',
   category: 'Features',
   label: 'ThreadedHole',

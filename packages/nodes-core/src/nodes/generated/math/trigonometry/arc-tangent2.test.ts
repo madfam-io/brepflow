@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ArcTangent2Node } from './arc-tangent2.node';
+import { MathTrigonometryArcTangent2Node } from './arc-tangent2.node';
 import { createTestContext } from '../test-utils';
 
-describe('ArcTangent2Node', () => {
+describe('MathTrigonometryArcTangent2Node', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ArcTangent2Node', () => {
       angleUnit: "radians"
     } as any;
 
-    const result = await ArcTangent2Node.evaluate(context, inputs, params);
+    const result = await MathTrigonometryArcTangent2Node.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

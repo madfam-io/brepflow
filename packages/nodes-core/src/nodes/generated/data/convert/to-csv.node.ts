@@ -13,7 +13,7 @@ interface ToCSVOutputs {
   csv: unknown;
 }
 
-export const ToCSVNode: NodeDefinition<ToCSVInputs, ToCSVOutputs, ToCSVParams> = {
+export const DataConvertToCSVNode: NodeDefinition<ToCSVInputs, ToCSVOutputs, ToCSVParams> = {
   id: 'Data::ToCSV',
   category: 'Data',
   label: 'ToCSV',

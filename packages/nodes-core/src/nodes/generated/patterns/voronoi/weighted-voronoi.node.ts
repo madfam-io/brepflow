@@ -13,7 +13,7 @@ interface WeightedVoronoiOutputs {
   cells: unknown;
 }
 
-export const WeightedVoronoiNode: NodeDefinition<WeightedVoronoiInputs, WeightedVoronoiOutputs, WeightedVoronoiParams> = {
+export const PatternsVoronoiWeightedVoronoiNode: NodeDefinition<WeightedVoronoiInputs, WeightedVoronoiOutputs, WeightedVoronoiParams> = {
   id: 'Patterns::WeightedVoronoi',
   category: 'Patterns',
   label: 'WeightedVoronoi',

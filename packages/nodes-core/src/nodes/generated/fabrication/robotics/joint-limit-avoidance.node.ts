@@ -12,7 +12,7 @@ interface JointLimitAvoidanceOutputs {
   safeTrajectory: unknown;
 }
 
-export const JointLimitAvoidanceNode: NodeDefinition<JointLimitAvoidanceInputs, JointLimitAvoidanceOutputs, JointLimitAvoidanceParams> = {
+export const FabricationRoboticsJointLimitAvoidanceNode: NodeDefinition<JointLimitAvoidanceInputs, JointLimitAvoidanceOutputs, JointLimitAvoidanceParams> = {
   id: 'Fabrication::JointLimitAvoidance',
   category: 'Fabrication',
   label: 'JointLimitAvoidance',

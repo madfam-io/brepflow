@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ThreeMFImportNode } from './three-mfimport.node';
+import { InteroperabilityImportThreeMFImportNode } from './three-mfimport.node';
 import { createTestContext } from '../test-utils';
 
-describe('ThreeMFImportNode', () => {
+describe('InteroperabilityImportThreeMFImportNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ThreeMFImportNode', () => {
       units: "auto"
     } as any;
 
-    const result = await ThreeMFImportNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityImportThreeMFImportNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

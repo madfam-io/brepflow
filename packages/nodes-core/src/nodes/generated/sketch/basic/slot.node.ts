@@ -14,7 +14,7 @@ interface SlotOutputs {
   face: unknown;
 }
 
-export const SlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
+export const SketchBasicSlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
   id: 'Sketch::Slot',
   category: 'Sketch',
   label: 'Slot',

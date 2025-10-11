@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CutQualityNode } from './cut-quality.node';
+import { FabricationLaserCutQualityNode } from './cut-quality.node';
 import { createTestContext } from '../test-utils';
 
-describe('CutQualityNode', () => {
+describe('FabricationLaserCutQualityNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CutQualityNode', () => {
       power: 80
     } as any;
 
-    const result = await CutQualityNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserCutQualityNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -11,7 +11,7 @@ interface BezierInterpOutputs {
   result: unknown;
 }
 
-export const BezierInterpNode: NodeDefinition<BezierInterpInputs, BezierInterpOutputs, BezierInterpParams> = {
+export const MathInterpolationBezierInterpNode: NodeDefinition<BezierInterpInputs, BezierInterpOutputs, BezierInterpParams> = {
   id: 'Math::BezierInterp',
   category: 'Math',
   label: 'BezierInterp',

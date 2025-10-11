@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CoolingAnalysisNode } from './cooling-analysis.node';
+import { Fabrication3DPrintingCoolingAnalysisNode } from './cooling-analysis.node';
 import { createTestContext } from '../test-utils';
 
-describe('CoolingAnalysisNode', () => {
+describe('Fabrication3DPrintingCoolingAnalysisNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CoolingAnalysisNode', () => {
       layerTime: 10
     } as any;
 
-    const result = await CoolingAnalysisNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingCoolingAnalysisNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

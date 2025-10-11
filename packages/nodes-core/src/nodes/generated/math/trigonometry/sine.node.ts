@@ -12,7 +12,7 @@ interface SineOutputs {
   result: unknown;
 }
 
-export const SineNode: NodeDefinition<SineInputs, SineOutputs, SineParams> = {
+export const MathTrigonometrySineNode: NodeDefinition<SineInputs, SineOutputs, SineParams> = {
   id: 'Math::Sine',
   category: 'Math',
   label: 'Sine',

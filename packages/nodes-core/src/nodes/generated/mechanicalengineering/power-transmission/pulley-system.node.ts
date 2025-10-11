@@ -18,7 +18,7 @@ interface PulleySystemOutputs {
   belt: unknown;
 }
 
-export const PulleySystemNode: NodeDefinition<PulleySystemInputs, PulleySystemOutputs, PulleySystemParams> = {
+export const MechanicalEngineeringPowerTransmissionPulleySystemNode: NodeDefinition<PulleySystemInputs, PulleySystemOutputs, PulleySystemParams> = {
   id: 'MechanicalEngineering::PulleySystem',
   category: 'MechanicalEngineering',
   label: 'PulleySystem',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StraightRampNode } from './straight-ramp.node';
+import { ArchitectureRampsStraightRampNode } from './straight-ramp.node';
 import { createTestContext } from '../test-utils';
 
-describe('StraightRampNode', () => {
+describe('ArchitectureRampsStraightRampNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('StraightRampNode', () => {
       handrails: true
     } as any;
 
-    const result = await StraightRampNode.evaluate(context, inputs, params);
+    const result = await ArchitectureRampsStraightRampNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

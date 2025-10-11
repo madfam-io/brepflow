@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AdaptiveClearingNode } from './adaptive-clearing.node';
+import { FabricationCNCAdaptiveClearingNode } from './adaptive-clearing.node';
 import { createTestContext } from '../test-utils';
 
-describe('AdaptiveClearingNode', () => {
+describe('FabricationCNCAdaptiveClearingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('AdaptiveClearingNode', () => {
       helixAngle: 3
     } as any;
 
-    const result = await AdaptiveClearingNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCAdaptiveClearingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

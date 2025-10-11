@@ -15,7 +15,7 @@ interface DrillingOperationOutputs {
   drillCycles: unknown;
 }
 
-export const DrillingOperationNode: NodeDefinition<DrillingOperationInputs, DrillingOperationOutputs, DrillingOperationParams> = {
+export const FabricationCNCDrillingOperationNode: NodeDefinition<DrillingOperationInputs, DrillingOperationOutputs, DrillingOperationParams> = {
   id: 'Fabrication::DrillingOperation',
   category: 'Fabrication',
   label: 'DrillingOperation',

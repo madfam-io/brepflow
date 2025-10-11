@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { JuliaSetNode } from './julia-set.node';
+import { PatternsFractalsJuliaSetNode } from './julia-set.node';
 import { createTestContext } from '../test-utils';
 
-describe('JuliaSetNode', () => {
+describe('PatternsFractalsJuliaSetNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('JuliaSetNode', () => {
       resolution: 100
     } as any;
 
-    const result = await JuliaSetNode.evaluate(context, inputs, params);
+    const result = await PatternsFractalsJuliaSetNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

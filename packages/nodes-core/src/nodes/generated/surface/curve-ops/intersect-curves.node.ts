@@ -14,7 +14,7 @@ interface IntersectCurvesOutputs {
   intersectionPoints: Array<[number, number, number]>;
 }
 
-export const IntersectCurvesNode: NodeDefinition<IntersectCurvesInputs, IntersectCurvesOutputs, IntersectCurvesParams> = {
+export const SurfaceCurveOpsIntersectCurvesNode: NodeDefinition<IntersectCurvesInputs, IntersectCurvesOutputs, IntersectCurvesParams> = {
   id: 'Surface::IntersectCurves',
   category: 'Surface',
   label: 'IntersectCurves',

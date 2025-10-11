@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BezierInterpNode } from './bezier-interp.node';
+import { MathInterpolationBezierInterpNode } from './bezier-interp.node';
 import { createTestContext } from '../test-utils';
 
-describe('BezierInterpNode', () => {
+describe('MathInterpolationBezierInterpNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BezierInterpNode', () => {
 
     } as any;
 
-    const result = await BezierInterpNode.evaluate(context, inputs, params);
+    const result = await MathInterpolationBezierInterpNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -17,7 +17,7 @@ interface CurveClosestPointOutputs {
   connectionLine: unknown;
 }
 
-export const CurveClosestPointNode: NodeDefinition<CurveClosestPointInputs, CurveClosestPointOutputs, CurveClosestPointParams> = {
+export const AnalysisCurvesCurveClosestPointNode: NodeDefinition<CurveClosestPointInputs, CurveClosestPointOutputs, CurveClosestPointParams> = {
   id: 'Analysis::CurveClosestPoint',
   category: 'Analysis',
   label: 'CurveClosestPoint',

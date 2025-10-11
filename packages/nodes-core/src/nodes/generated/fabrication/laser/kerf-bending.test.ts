@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { KerfBendingNode } from './kerf-bending.node';
+import { FabricationLaserKerfBendingNode } from './kerf-bending.node';
 import { createTestContext } from '../test-utils';
 
-describe('KerfBendingNode', () => {
+describe('FabricationLaserKerfBendingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('KerfBendingNode', () => {
       kerfWidth: 0.15
     } as any;
 
-    const result = await KerfBendingNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserKerfBendingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

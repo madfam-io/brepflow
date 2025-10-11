@@ -15,7 +15,7 @@ interface SpiralOutputs {
   spiral: unknown;
 }
 
-export const SpiralNode: NodeDefinition<SpiralInputs, SpiralOutputs, SpiralParams> = {
+export const SketchCurvesSpiralNode: NodeDefinition<SpiralInputs, SpiralOutputs, SpiralParams> = {
   id: 'Sketch::Spiral',
   category: 'Sketch',
   label: 'Spiral',

@@ -17,7 +17,7 @@ interface RepairMeshOutputs {
   report: unknown;
 }
 
-export const RepairMeshNode: NodeDefinition<RepairMeshInputs, RepairMeshOutputs, RepairMeshParams> = {
+export const MeshRepairRepairMeshNode: NodeDefinition<RepairMeshInputs, RepairMeshOutputs, RepairMeshParams> = {
   id: 'Mesh::RepairMesh',
   category: 'Mesh',
   label: 'RepairMesh',

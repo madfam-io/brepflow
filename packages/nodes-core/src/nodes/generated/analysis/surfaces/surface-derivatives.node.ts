@@ -18,7 +18,7 @@ interface SurfaceDerivativesOutputs {
   normal: [number, number, number];
 }
 
-export const SurfaceDerivativesNode: NodeDefinition<SurfaceDerivativesInputs, SurfaceDerivativesOutputs, SurfaceDerivativesParams> = {
+export const AnalysisSurfacesSurfaceDerivativesNode: NodeDefinition<SurfaceDerivativesInputs, SurfaceDerivativesOutputs, SurfaceDerivativesParams> = {
   id: 'Analysis::SurfaceDerivatives',
   category: 'Analysis',
   label: 'SurfaceDerivatives',

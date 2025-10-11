@@ -12,7 +12,7 @@ interface RandomNormalOutputs {
   value: unknown;
 }
 
-export const RandomNormalNode: NodeDefinition<RandomNormalInputs, RandomNormalOutputs, RandomNormalParams> = {
+export const MathRandomRandomNormalNode: NodeDefinition<RandomNormalInputs, RandomNormalOutputs, RandomNormalParams> = {
   id: 'Math::RandomNormal',
   category: 'Math',
   label: 'RandomNormal',

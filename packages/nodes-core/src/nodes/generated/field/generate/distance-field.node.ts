@@ -14,7 +14,7 @@ interface DistanceFieldOutputs {
   field: unknown;
 }
 
-export const DistanceFieldNode: NodeDefinition<DistanceFieldInputs, DistanceFieldOutputs, DistanceFieldParams> = {
+export const FieldGenerateDistanceFieldNode: NodeDefinition<DistanceFieldInputs, DistanceFieldOutputs, DistanceFieldParams> = {
   id: 'Field::DistanceField',
   category: 'Field',
   label: 'DistanceField',

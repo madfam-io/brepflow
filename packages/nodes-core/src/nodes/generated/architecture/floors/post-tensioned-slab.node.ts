@@ -15,7 +15,7 @@ interface PostTensionedSlabOutputs {
   tendons: unknown;
 }
 
-export const PostTensionedSlabNode: NodeDefinition<PostTensionedSlabInputs, PostTensionedSlabOutputs, PostTensionedSlabParams> = {
+export const ArchitectureFloorsPostTensionedSlabNode: NodeDefinition<PostTensionedSlabInputs, PostTensionedSlabOutputs, PostTensionedSlabParams> = {
   id: 'Architecture::PostTensionedSlab',
   category: 'Architecture',
   label: 'PostTensionedSlab',

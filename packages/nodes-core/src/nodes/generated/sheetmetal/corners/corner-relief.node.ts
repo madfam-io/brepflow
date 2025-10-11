@@ -15,7 +15,7 @@ interface CornerReliefOutputs {
   result: unknown;
 }
 
-export const CornerReliefNode: NodeDefinition<CornerReliefInputs, CornerReliefOutputs, CornerReliefParams> = {
+export const SheetMetalCornersCornerReliefNode: NodeDefinition<CornerReliefInputs, CornerReliefOutputs, CornerReliefParams> = {
   id: 'SheetMetal::CornerRelief',
   category: 'SheetMetal',
   label: 'CornerRelief',

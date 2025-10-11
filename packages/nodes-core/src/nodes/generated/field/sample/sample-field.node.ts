@@ -11,7 +11,7 @@ interface SampleFieldOutputs {
   values: unknown;
 }
 
-export const SampleFieldNode: NodeDefinition<SampleFieldInputs, SampleFieldOutputs, SampleFieldParams> = {
+export const FieldSampleSampleFieldNode: NodeDefinition<SampleFieldInputs, SampleFieldOutputs, SampleFieldParams> = {
   id: 'Field::SampleField',
   category: 'Field',
   label: 'SampleField',

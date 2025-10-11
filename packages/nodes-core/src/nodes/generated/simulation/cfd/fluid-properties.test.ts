@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FluidPropertiesNode } from './fluid-properties.node';
+import { SimulationCFDFluidPropertiesNode } from './fluid-properties.node';
 import { createTestContext } from '../test-utils';
 
-describe('FluidPropertiesNode', () => {
+describe('SimulationCFDFluidPropertiesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('FluidPropertiesNode', () => {
       compressible: false
     } as any;
 
-    const result = await FluidPropertiesNode.evaluate(context, inputs, params);
+    const result = await SimulationCFDFluidPropertiesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

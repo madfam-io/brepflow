@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ConcentricNode } from './concentric.node';
+import { AssemblyConstraintsConcentricNode } from './concentric.node';
 import { createTestContext } from '../test-utils';
 
-describe('ConcentricNode', () => {
+describe('AssemblyConstraintsConcentricNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ConcentricNode', () => {
 
     } as any;
 
-    const result = await ConcentricNode.evaluate(context, inputs, params);
+    const result = await AssemblyConstraintsConcentricNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

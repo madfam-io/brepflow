@@ -12,7 +12,7 @@ interface ExportBREPOutputs {
   brepData: unknown;
 }
 
-export const ExportBREPNode: NodeDefinition<ExportBREPInputs, ExportBREPOutputs, ExportBREPParams> = {
+export const IOCADExportBREPNode: NodeDefinition<ExportBREPInputs, ExportBREPOutputs, ExportBREPParams> = {
   id: 'IO::ExportBREP',
   category: 'IO',
   label: 'ExportBREP',

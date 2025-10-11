@@ -14,7 +14,7 @@ interface CurvatureAnalysisOutputs {
   visualization: unknown;
 }
 
-export const CurvatureAnalysisNode: NodeDefinition<CurvatureAnalysisInputs, CurvatureAnalysisOutputs, CurvatureAnalysisParams> = {
+export const SurfaceAnalysisCurvatureAnalysisNode: NodeDefinition<CurvatureAnalysisInputs, CurvatureAnalysisOutputs, CurvatureAnalysisParams> = {
   id: 'Surface::CurvatureAnalysis',
   category: 'Surface',
   label: 'CurvatureAnalysis',

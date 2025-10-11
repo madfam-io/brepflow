@@ -13,7 +13,7 @@ interface CantorSetOutputs {
   segments: unknown;
 }
 
-export const CantorSetNode: NodeDefinition<CantorSetInputs, CantorSetOutputs, CantorSetParams> = {
+export const PatternsFractalsCantorSetNode: NodeDefinition<CantorSetInputs, CantorSetOutputs, CantorSetParams> = {
   id: 'Patterns::CantorSet',
   category: 'Patterns',
   label: 'CantorSet',

@@ -14,7 +14,7 @@ interface ProjectCurveOutputs {
   projectedCurve: unknown;
 }
 
-export const ProjectCurveNode: NodeDefinition<ProjectCurveInputs, ProjectCurveOutputs, ProjectCurveParams> = {
+export const SurfaceCurveOpsProjectCurveNode: NodeDefinition<ProjectCurveInputs, ProjectCurveOutputs, ProjectCurveParams> = {
   id: 'Surface::ProjectCurve',
   category: 'Surface',
   label: 'ProjectCurve',

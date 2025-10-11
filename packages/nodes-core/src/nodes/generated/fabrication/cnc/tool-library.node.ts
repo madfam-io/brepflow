@@ -11,7 +11,7 @@ interface ToolLibraryOutputs {
   toolData: unknown;
 }
 
-export const ToolLibraryNode: NodeDefinition<ToolLibraryInputs, ToolLibraryOutputs, ToolLibraryParams> = {
+export const FabricationCNCToolLibraryNode: NodeDefinition<ToolLibraryInputs, ToolLibraryOutputs, ToolLibraryParams> = {
   id: 'Fabrication::ToolLibrary',
   category: 'Fabrication',
   label: 'ToolLibrary',

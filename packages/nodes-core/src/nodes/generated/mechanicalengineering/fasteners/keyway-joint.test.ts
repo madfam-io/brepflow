@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { KeywayJointNode } from './keyway-joint.node';
+import { MechanicalEngineeringFastenersKeywayJointNode } from './keyway-joint.node';
 import { createTestContext } from '../test-utils';
 
-describe('KeywayJointNode', () => {
+describe('MechanicalEngineeringFastenersKeywayJointNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('KeywayJointNode', () => {
       keyLength: 25
     } as any;
 
-    const result = await KeywayJointNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringFastenersKeywayJointNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

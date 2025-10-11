@@ -12,7 +12,7 @@ interface VaseModeOutputs {
   spiralPath: unknown;
 }
 
-export const VaseModeNode: NodeDefinition<VaseModeInputs, VaseModeOutputs, VaseModeParams> = {
+export const Fabrication3DPrintingVaseModeNode: NodeDefinition<VaseModeInputs, VaseModeOutputs, VaseModeParams> = {
   id: 'Fabrication::VaseMode',
   category: 'Fabrication',
   label: 'VaseMode',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpinAttractorNode } from './spin-attractor.node';
+import { FieldAttractorSpinAttractorNode } from './spin-attractor.node';
 import { createTestContext } from '../test-utils';
 
-describe('SpinAttractorNode', () => {
+describe('FieldAttractorSpinAttractorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('SpinAttractorNode', () => {
       decay: 0.5
     } as any;
 
-    const result = await SpinAttractorNode.evaluate(context, inputs, params);
+    const result = await FieldAttractorSpinAttractorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

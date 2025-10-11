@@ -16,7 +16,7 @@ interface TextOutputs {
   shape: unknown;
 }
 
-export const TextNode: NodeDefinition<TextInputs, TextOutputs, TextParams> = {
+export const SketchBasicTextNode: NodeDefinition<TextInputs, TextOutputs, TextParams> = {
   id: 'Sketch::Text',
   category: 'Sketch',
   label: 'Text',

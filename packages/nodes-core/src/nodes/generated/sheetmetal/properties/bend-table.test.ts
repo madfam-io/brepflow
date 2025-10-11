@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BendTableNode } from './bend-table.node';
+import { SheetMetalPropertiesBendTableNode } from './bend-table.node';
 import { createTestContext } from '../test-utils';
 
-describe('BendTableNode', () => {
+describe('SheetMetalPropertiesBendTableNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('BendTableNode', () => {
       tableType: "k-factor"
     } as any;
 
-    const result = await BendTableNode.evaluate(context, inputs, params);
+    const result = await SheetMetalPropertiesBendTableNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

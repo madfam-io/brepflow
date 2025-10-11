@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { IsoparametricCurveNode } from './isoparametric-curve.node';
+import { SurfaceCurveOpsIsoparametricCurveNode } from './isoparametric-curve.node';
 import { createTestContext } from '../test-utils';
 
-describe('IsoparametricCurveNode', () => {
+describe('SurfaceCurveOpsIsoparametricCurveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('IsoparametricCurveNode', () => {
       parameter: 0.5
     } as any;
 
-    const result = await IsoparametricCurveNode.evaluate(context, inputs, params);
+    const result = await SurfaceCurveOpsIsoparametricCurveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

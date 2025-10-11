@@ -15,7 +15,7 @@ interface PartingLineDraftOutputs {
   drafted: unknown;
 }
 
-export const PartingLineDraftNode: NodeDefinition<PartingLineDraftInputs, PartingLineDraftOutputs, PartingLineDraftParams> = {
+export const AdvancedDraftPartingLineDraftNode: NodeDefinition<PartingLineDraftInputs, PartingLineDraftOutputs, PartingLineDraftParams> = {
   id: 'Advanced::PartingLineDraft',
   category: 'Advanced',
   label: 'PartingLineDraft',

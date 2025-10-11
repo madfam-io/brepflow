@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { EpoxyFloorNode } from './epoxy-floor.node';
+import { ArchitectureFloorsEpoxyFloorNode } from './epoxy-floor.node';
 import { createTestContext } from '../test-utils';
 
-describe('EpoxyFloorNode', () => {
+describe('ArchitectureFloorsEpoxyFloorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('EpoxyFloorNode', () => {
       texture: "smooth"
     } as any;
 
-    const result = await EpoxyFloorNode.evaluate(context, inputs, params);
+    const result = await ArchitectureFloorsEpoxyFloorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

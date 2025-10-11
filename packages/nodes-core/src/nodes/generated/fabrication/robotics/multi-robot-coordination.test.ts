@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MultiRobotCoordinationNode } from './multi-robot-coordination.node';
+import { FabricationRoboticsMultiRobotCoordinationNode } from './multi-robot-coordination.node';
 import { createTestContext } from '../test-utils';
 
-describe('MultiRobotCoordinationNode', () => {
+describe('FabricationRoboticsMultiRobotCoordinationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('MultiRobotCoordinationNode', () => {
       syncMethod: "position"
     } as any;
 
-    const result = await MultiRobotCoordinationNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsMultiRobotCoordinationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

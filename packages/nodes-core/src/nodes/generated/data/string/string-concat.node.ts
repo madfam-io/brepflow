@@ -12,7 +12,7 @@ interface StringConcatOutputs {
   result: unknown;
 }
 
-export const StringConcatNode: NodeDefinition<StringConcatInputs, StringConcatOutputs, StringConcatParams> = {
+export const DataStringStringConcatNode: NodeDefinition<StringConcatInputs, StringConcatOutputs, StringConcatParams> = {
   id: 'Data::StringConcat',
   category: 'Data',
   label: 'StringConcat',

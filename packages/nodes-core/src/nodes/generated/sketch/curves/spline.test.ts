@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SplineNode } from './spline.node';
+import { SketchCurvesSplineNode } from './spline.node';
 import { createTestContext } from '../test-utils';
 
-describe('SplineNode', () => {
+describe('SketchCurvesSplineNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SplineNode', () => {
       smooth: true
     } as any;
 
-    const result = await SplineNode.evaluate(context, inputs, params);
+    const result = await SketchCurvesSplineNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

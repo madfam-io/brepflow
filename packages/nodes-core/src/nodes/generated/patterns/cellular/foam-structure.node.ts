@@ -13,7 +13,7 @@ interface FoamStructureOutputs {
   foam: unknown;
 }
 
-export const FoamStructureNode: NodeDefinition<FoamStructureInputs, FoamStructureOutputs, FoamStructureParams> = {
+export const PatternsCellularFoamStructureNode: NodeDefinition<FoamStructureInputs, FoamStructureOutputs, FoamStructureParams> = {
   id: 'Patterns::FoamStructure',
   category: 'Patterns',
   label: 'FoamStructure',

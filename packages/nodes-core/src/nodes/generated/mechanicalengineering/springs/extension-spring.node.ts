@@ -17,7 +17,7 @@ interface ExtensionSpringOutputs {
   hooks: unknown;
 }
 
-export const ExtensionSpringNode: NodeDefinition<ExtensionSpringInputs, ExtensionSpringOutputs, ExtensionSpringParams> = {
+export const MechanicalEngineeringSpringsExtensionSpringNode: NodeDefinition<ExtensionSpringInputs, ExtensionSpringOutputs, ExtensionSpringParams> = {
   id: 'MechanicalEngineering::ExtensionSpring',
   category: 'MechanicalEngineering',
   label: 'ExtensionSpring',

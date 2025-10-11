@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceAttractorNode } from './surface-attractor.node';
+import { FieldAttractorSurfaceAttractorNode } from './surface-attractor.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceAttractorNode', () => {
+describe('FieldAttractorSurfaceAttractorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SurfaceAttractorNode', () => {
       falloff: "smooth"
     } as any;
 
-    const result = await SurfaceAttractorNode.evaluate(context, inputs, params);
+    const result = await FieldAttractorSurfaceAttractorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

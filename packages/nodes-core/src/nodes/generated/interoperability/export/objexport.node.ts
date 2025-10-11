@@ -17,7 +17,7 @@ interface OBJExportOutputs {
   faceCount: unknown;
 }
 
-export const OBJExportNode: NodeDefinition<OBJExportInputs, OBJExportOutputs, OBJExportParams> = {
+export const InteroperabilityExportOBJExportNode: NodeDefinition<OBJExportInputs, OBJExportOutputs, OBJExportParams> = {
   id: 'Interoperability::OBJExport',
   category: 'Interoperability',
   label: 'OBJExport',

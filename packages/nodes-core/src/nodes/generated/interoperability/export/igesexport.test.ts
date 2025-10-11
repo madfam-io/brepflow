@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { IGESExportNode } from './igesexport.node';
+import { InteroperabilityExportIGESExportNode } from './igesexport.node';
 import { createTestContext } from '../test-utils';
 
-describe('IGESExportNode', () => {
+describe('InteroperabilityExportIGESExportNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('IGESExportNode', () => {
       writeMode: "brep"
     } as any;
 
-    const result = await IGESExportNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityExportIGESExportNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

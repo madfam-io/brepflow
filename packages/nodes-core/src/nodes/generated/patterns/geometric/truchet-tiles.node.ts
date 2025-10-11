@@ -13,7 +13,7 @@ interface TruchetTilesOutputs {
   pattern: unknown;
 }
 
-export const TruchetTilesNode: NodeDefinition<TruchetTilesInputs, TruchetTilesOutputs, TruchetTilesParams> = {
+export const PatternsGeometricTruchetTilesNode: NodeDefinition<TruchetTilesInputs, TruchetTilesOutputs, TruchetTilesParams> = {
   id: 'Patterns::TruchetTiles',
   category: 'Patterns',
   label: 'TruchetTiles',

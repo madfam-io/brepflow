@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SocketHeadCapScrewNode } from './socket-head-cap-screw.node';
+import { MechanicalEngineeringFastenersSocketHeadCapScrewNode } from './socket-head-cap-screw.node';
 import { createTestContext } from '../test-utils';
 
-describe('SocketHeadCapScrewNode', () => {
+describe('MechanicalEngineeringFastenersSocketHeadCapScrewNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('SocketHeadCapScrewNode', () => {
       headDiameter: 8.5
     } as any;
 
-    const result = await SocketHeadCapScrewNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringFastenersSocketHeadCapScrewNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

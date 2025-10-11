@@ -16,7 +16,7 @@ interface ContourFlangeOutputs {
   result: unknown;
 }
 
-export const ContourFlangeNode: NodeDefinition<ContourFlangeInputs, ContourFlangeOutputs, ContourFlangeParams> = {
+export const SheetMetalFlangesContourFlangeNode: NodeDefinition<ContourFlangeInputs, ContourFlangeOutputs, ContourFlangeParams> = {
   id: 'SheetMetal::ContourFlange',
   category: 'SheetMetal',
   label: 'ContourFlange',

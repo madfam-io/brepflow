@@ -15,7 +15,7 @@ interface WeldingPathOutputs {
   weldParameters: unknown;
 }
 
-export const WeldingPathNode: NodeDefinition<WeldingPathInputs, WeldingPathOutputs, WeldingPathParams> = {
+export const FabricationRoboticsWeldingPathNode: NodeDefinition<WeldingPathInputs, WeldingPathOutputs, WeldingPathParams> = {
   id: 'Fabrication::WeldingPath',
   category: 'Fabrication',
   label: 'WeldingPath',

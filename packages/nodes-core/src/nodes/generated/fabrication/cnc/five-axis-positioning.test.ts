@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FiveAxisPositioningNode } from './five-axis-positioning.node';
+import { FabricationCNCFiveAxisPositioningNode } from './five-axis-positioning.node';
 import { createTestContext } from '../test-utils';
 
-describe('FiveAxisPositioningNode', () => {
+describe('FabricationCNCFiveAxisPositioningNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FiveAxisPositioningNode', () => {
       tiltAngle: 0
     } as any;
 
-    const result = await FiveAxisPositioningNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCFiveAxisPositioningNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

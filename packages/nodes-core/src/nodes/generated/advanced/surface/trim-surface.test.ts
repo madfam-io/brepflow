@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TrimSurfaceNode } from './trim-surface.node';
+import { AdvancedSurfaceTrimSurfaceNode } from './trim-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('TrimSurfaceNode', () => {
+describe('AdvancedSurfaceTrimSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('TrimSurfaceNode', () => {
       projectCurves: true
     } as any;
 
-    const result = await TrimSurfaceNode.evaluate(context, inputs, params);
+    const result = await AdvancedSurfaceTrimSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

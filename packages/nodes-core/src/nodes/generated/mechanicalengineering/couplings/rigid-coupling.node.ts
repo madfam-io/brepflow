@@ -16,7 +16,7 @@ interface RigidCouplingOutputs {
   bores: unknown;
 }
 
-export const RigidCouplingNode: NodeDefinition<RigidCouplingInputs, RigidCouplingOutputs, RigidCouplingParams> = {
+export const MechanicalEngineeringCouplingsRigidCouplingNode: NodeDefinition<RigidCouplingInputs, RigidCouplingOutputs, RigidCouplingParams> = {
   id: 'MechanicalEngineering::RigidCoupling',
   category: 'MechanicalEngineering',
   label: 'RigidCoupling',

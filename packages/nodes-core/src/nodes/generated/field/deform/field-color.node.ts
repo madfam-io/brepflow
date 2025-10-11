@@ -13,7 +13,7 @@ interface FieldColorOutputs {
   coloredMesh: unknown;
 }
 
-export const FieldColorNode: NodeDefinition<FieldColorInputs, FieldColorOutputs, FieldColorParams> = {
+export const FieldDeformFieldColorNode: NodeDefinition<FieldColorInputs, FieldColorOutputs, FieldColorParams> = {
   id: 'Field::FieldColor',
   category: 'Field',
   label: 'FieldColor',

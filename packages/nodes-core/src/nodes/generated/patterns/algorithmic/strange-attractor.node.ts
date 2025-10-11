@@ -15,7 +15,7 @@ interface StrangeAttractorOutputs {
   trajectory: unknown;
 }
 
-export const StrangeAttractorNode: NodeDefinition<StrangeAttractorInputs, StrangeAttractorOutputs, StrangeAttractorParams> = {
+export const PatternsAlgorithmicStrangeAttractorNode: NodeDefinition<StrangeAttractorInputs, StrangeAttractorOutputs, StrangeAttractorParams> = {
   id: 'Patterns::StrangeAttractor',
   category: 'Patterns',
   label: 'StrangeAttractor',

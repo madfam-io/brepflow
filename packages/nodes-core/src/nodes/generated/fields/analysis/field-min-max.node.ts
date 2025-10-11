@@ -14,7 +14,7 @@ interface FieldMinMaxOutputs {
   maxPoint: [number, number, number];
 }
 
-export const FieldMinMaxNode: NodeDefinition<FieldMinMaxInputs, FieldMinMaxOutputs, FieldMinMaxParams> = {
+export const FieldsAnalysisFieldMinMaxNode: NodeDefinition<FieldMinMaxInputs, FieldMinMaxOutputs, FieldMinMaxParams> = {
   id: 'Fields::FieldMinMax',
   category: 'Fields',
   label: 'FieldMinMax',

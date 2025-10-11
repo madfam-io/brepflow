@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { JointLimitAvoidanceNode } from './joint-limit-avoidance.node';
+import { FabricationRoboticsJointLimitAvoidanceNode } from './joint-limit-avoidance.node';
 import { createTestContext } from '../test-utils';
 
-describe('JointLimitAvoidanceNode', () => {
+describe('FabricationRoboticsJointLimitAvoidanceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('JointLimitAvoidanceNode', () => {
       margin: 5
     } as any;
 
-    const result = await JointLimitAvoidanceNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsJointLimitAvoidanceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

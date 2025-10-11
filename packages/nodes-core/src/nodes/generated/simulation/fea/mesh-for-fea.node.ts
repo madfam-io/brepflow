@@ -17,7 +17,7 @@ interface MeshForFEAOutputs {
   qualityReport: unknown;
 }
 
-export const MeshForFEANode: NodeDefinition<MeshForFEAInputs, MeshForFEAOutputs, MeshForFEAParams> = {
+export const SimulationFEAMeshForFEANode: NodeDefinition<MeshForFEAInputs, MeshForFEAOutputs, MeshForFEAParams> = {
   id: 'Simulation::MeshForFEA',
   category: 'Simulation',
   label: 'MeshForFEA',

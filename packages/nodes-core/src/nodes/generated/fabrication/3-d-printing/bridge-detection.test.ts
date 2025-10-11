@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BridgeDetectionNode } from './bridge-detection.node';
+import { Fabrication3DPrintingBridgeDetectionNode } from './bridge-detection.node';
 import { createTestContext } from '../test-utils';
 
-describe('BridgeDetectionNode', () => {
+describe('Fabrication3DPrintingBridgeDetectionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BridgeDetectionNode', () => {
       overhangAngle: 45
     } as any;
 
-    const result = await BridgeDetectionNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingBridgeDetectionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

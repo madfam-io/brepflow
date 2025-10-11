@@ -14,7 +14,7 @@ interface RobotSimulationOutputs {
   cycleTime: number;
 }
 
-export const RobotSimulationNode: NodeDefinition<RobotSimulationInputs, RobotSimulationOutputs, RobotSimulationParams> = {
+export const FabricationRoboticsRobotSimulationNode: NodeDefinition<RobotSimulationInputs, RobotSimulationOutputs, RobotSimulationParams> = {
   id: 'Fabrication::RobotSimulation',
   category: 'Fabrication',
   label: 'RobotSimulation',

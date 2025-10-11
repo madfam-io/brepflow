@@ -15,7 +15,7 @@ interface GradedLatticeOutputs {
   gradedLattice: unknown;
 }
 
-export const GradedLatticeNode: NodeDefinition<GradedLatticeInputs, GradedLatticeOutputs, GradedLatticeParams> = {
+export const SpecializedLatticeGradedLatticeNode: NodeDefinition<GradedLatticeInputs, GradedLatticeOutputs, GradedLatticeParams> = {
   id: 'Specialized::GradedLattice',
   category: 'Specialized',
   label: 'GradedLattice',

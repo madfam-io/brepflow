@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpiralNode } from './spiral.node';
+import { SketchCurvesSpiralNode } from './spiral.node';
 import { createTestContext } from '../test-utils';
 
-describe('SpiralNode', () => {
+describe('SketchCurvesSpiralNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('SpiralNode', () => {
       type: "archimedean"
     } as any;
 
-    const result = await SpiralNode.evaluate(context, inputs, params);
+    const result = await SketchCurvesSpiralNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

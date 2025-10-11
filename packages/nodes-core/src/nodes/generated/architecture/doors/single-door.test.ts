@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SingleDoorNode } from './single-door.node';
+import { ArchitectureDoorsSingleDoorNode } from './single-door.node';
 import { createTestContext } from '../test-utils';
 
-describe('SingleDoorNode', () => {
+describe('ArchitectureDoorsSingleDoorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('SingleDoorNode', () => {
       opening: 0
     } as any;
 
-    const result = await SingleDoorNode.evaluate(context, inputs, params);
+    const result = await ArchitectureDoorsSingleDoorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

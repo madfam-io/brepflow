@@ -15,7 +15,7 @@ interface ImportGLTFOutputs {
   animations: unknown;
 }
 
-export const ImportGLTFNode: NodeDefinition<ImportGLTFInputs, ImportGLTFOutputs, ImportGLTFParams> = {
+export const IOExchangeImportGLTFNode: NodeDefinition<ImportGLTFInputs, ImportGLTFOutputs, ImportGLTFParams> = {
   id: 'IO::ImportGLTF',
   category: 'IO',
   label: 'ImportGLTF',

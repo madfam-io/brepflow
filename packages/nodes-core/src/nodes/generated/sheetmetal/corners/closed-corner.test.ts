@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ClosedCornerNode } from './closed-corner.node';
+import { SheetMetalCornersClosedCornerNode } from './closed-corner.node';
 import { createTestContext } from '../test-utils';
 
-describe('ClosedCornerNode', () => {
+describe('SheetMetalCornersClosedCornerNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('ClosedCornerNode', () => {
       overlapRatio: 0.5
     } as any;
 
-    const result = await ClosedCornerNode.evaluate(context, inputs, params);
+    const result = await SheetMetalCornersClosedCornerNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

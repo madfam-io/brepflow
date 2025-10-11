@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImportGLTFNode } from './import-gltf.node';
+import { IOExchangeImportGLTFNode } from './import-gltf.node';
 import { createTestContext } from '../test-utils';
 
-describe('ImportGLTFNode', () => {
+describe('IOExchangeImportGLTFNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ImportGLTFNode', () => {
       importMaterials: true
     } as any;
 
-    const result = await ImportGLTFNode.evaluate(context, inputs, params);
+    const result = await IOExchangeImportGLTFNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

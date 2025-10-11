@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FastenedNode } from './fastened.node';
+import { AssemblyMatesFastenedNode } from './fastened.node';
 import { createTestContext } from '../test-utils';
 
-describe('FastenedNode', () => {
+describe('AssemblyMatesFastenedNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FastenedNode', () => {
 
     } as any;
 
-    const result = await FastenedNode.evaluate(context, inputs, params);
+    const result = await AssemblyMatesFastenedNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

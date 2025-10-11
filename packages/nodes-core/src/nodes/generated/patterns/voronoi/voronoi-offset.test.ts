@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VoronoiOffsetNode } from './voronoi-offset.node';
+import { PatternsVoronoiVoronoiOffsetNode } from './voronoi-offset.node';
 import { createTestContext } from '../test-utils';
 
-describe('VoronoiOffsetNode', () => {
+describe('PatternsVoronoiVoronoiOffsetNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('VoronoiOffsetNode', () => {
       roundCorners: false
     } as any;
 
-    const result = await VoronoiOffsetNode.evaluate(context, inputs, params);
+    const result = await PatternsVoronoiVoronoiOffsetNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -15,7 +15,7 @@ interface ExportOBJOutputs {
   mtlData: unknown;
 }
 
-export const ExportOBJNode: NodeDefinition<ExportOBJInputs, ExportOBJOutputs, ExportOBJParams> = {
+export const MeshFilesExportOBJNode: NodeDefinition<ExportOBJInputs, ExportOBJOutputs, ExportOBJParams> = {
   id: 'Mesh::ExportOBJ',
   category: 'Mesh',
   label: 'ExportOBJ',

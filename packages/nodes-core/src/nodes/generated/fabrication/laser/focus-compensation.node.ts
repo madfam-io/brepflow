@@ -13,7 +13,7 @@ interface FocusCompensationOutputs {
   focusMap: unknown;
 }
 
-export const FocusCompensationNode: NodeDefinition<FocusCompensationInputs, FocusCompensationOutputs, FocusCompensationParams> = {
+export const FabricationLaserFocusCompensationNode: NodeDefinition<FocusCompensationInputs, FocusCompensationOutputs, FocusCompensationParams> = {
   id: 'Fabrication::FocusCompensation',
   category: 'Fabrication',
   label: 'FocusCompensation',

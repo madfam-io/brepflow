@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SkyLightNode } from './sky-light.node';
+import { ArchitectureCeilingsSkyLightNode } from './sky-light.node';
 import { createTestContext } from '../test-utils';
 
-describe('SkyLightNode', () => {
+describe('ArchitectureCeilingsSkyLightNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SkyLightNode', () => {
       glazingType: "double"
     } as any;
 
-    const result = await SkyLightNode.evaluate(context, inputs, params);
+    const result = await ArchitectureCeilingsSkyLightNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

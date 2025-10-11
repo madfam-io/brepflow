@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VectorFieldNode } from './vector-field.node';
+import { FieldGenerateVectorFieldNode } from './vector-field.node';
 import { createTestContext } from '../test-utils';
 
-describe('VectorFieldNode', () => {
+describe('FieldGenerateVectorFieldNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('VectorFieldNode', () => {
       expressionZ: "0"
     } as any;
 
-    const result = await VectorFieldNode.evaluate(context, inputs, params);
+    const result = await FieldGenerateVectorFieldNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

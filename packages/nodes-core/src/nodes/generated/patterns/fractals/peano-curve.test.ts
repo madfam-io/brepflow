@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PeanoCurveNode } from './peano-curve.node';
+import { PatternsFractalsPeanoCurveNode } from './peano-curve.node';
 import { createTestContext } from '../test-utils';
 
-describe('PeanoCurveNode', () => {
+describe('PatternsFractalsPeanoCurveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('PeanoCurveNode', () => {
       order: 3
     } as any;
 
-    const result = await PeanoCurveNode.evaluate(context, inputs, params);
+    const result = await PatternsFractalsPeanoCurveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

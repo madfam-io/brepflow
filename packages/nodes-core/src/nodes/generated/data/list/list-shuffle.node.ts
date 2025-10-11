@@ -12,7 +12,7 @@ interface ListShuffleOutputs {
   shuffled: unknown;
 }
 
-export const ListShuffleNode: NodeDefinition<ListShuffleInputs, ListShuffleOutputs, ListShuffleParams> = {
+export const DataListListShuffleNode: NodeDefinition<ListShuffleInputs, ListShuffleOutputs, ListShuffleParams> = {
   id: 'Data::ListShuffle',
   category: 'Data',
   label: 'ListShuffle',

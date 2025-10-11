@@ -11,7 +11,7 @@ interface ListAppendOutputs {
   result: unknown;
 }
 
-export const ListAppendNode: NodeDefinition<ListAppendInputs, ListAppendOutputs, ListAppendParams> = {
+export const DataListListAppendNode: NodeDefinition<ListAppendInputs, ListAppendOutputs, ListAppendParams> = {
   id: 'Data::ListAppend',
   category: 'Data',
   label: 'ListAppend',

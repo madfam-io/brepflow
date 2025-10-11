@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CamProfileNode } from './cam-profile.node';
+import { MechanicalEngineeringMechanismsCamProfileNode } from './cam-profile.node';
 import { createTestContext } from '../test-utils';
 
-describe('CamProfileNode', () => {
+describe('MechanicalEngineeringMechanismsCamProfileNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('CamProfileNode', () => {
       dwellAngle: 60
     } as any;
 
-    const result = await CamProfileNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringMechanismsCamProfileNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

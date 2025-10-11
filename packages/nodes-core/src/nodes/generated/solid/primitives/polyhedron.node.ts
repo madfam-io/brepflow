@@ -11,7 +11,7 @@ interface PolyhedronOutputs {
   solid: unknown;
 }
 
-export const PolyhedronNode: NodeDefinition<PolyhedronInputs, PolyhedronOutputs, PolyhedronParams> = {
+export const SolidPrimitivesPolyhedronNode: NodeDefinition<PolyhedronInputs, PolyhedronOutputs, PolyhedronParams> = {
   id: 'Solid::Polyhedron',
   category: 'Solid',
   label: 'Polyhedron',

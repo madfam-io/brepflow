@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CollisionDetectionNode } from './collision-detection.node';
+import { AnalysisProximityCollisionDetectionNode } from './collision-detection.node';
 import { createTestContext } from '../test-utils';
 
-describe('CollisionDetectionNode', () => {
+describe('AnalysisProximityCollisionDetectionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CollisionDetectionNode', () => {
       showCollisions: true
     } as any;
 
-    const result = await CollisionDetectionNode.evaluate(context, inputs, params);
+    const result = await AnalysisProximityCollisionDetectionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

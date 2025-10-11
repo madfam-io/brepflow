@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ModuloNode } from './modulo.node';
+import { MathOperatorsModuloNode } from './modulo.node';
 import { createTestContext } from '../test-utils';
 
-describe('ModuloNode', () => {
+describe('MathOperatorsModuloNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ModuloNode', () => {
 
     } as any;
 
-    const result = await ModuloNode.evaluate(context, inputs, params);
+    const result = await MathOperatorsModuloNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

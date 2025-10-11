@@ -14,7 +14,7 @@ interface CoincidentOutputs {
   constraint: unknown;
 }
 
-export const CoincidentNode: NodeDefinition<CoincidentInputs, CoincidentOutputs, CoincidentParams> = {
+export const AssemblyConstraintsCoincidentNode: NodeDefinition<CoincidentInputs, CoincidentOutputs, CoincidentParams> = {
   id: 'Assembly::Coincident',
   category: 'Assembly',
   label: 'Coincident',

@@ -17,7 +17,7 @@ interface SurfaceContinuityOutputs {
   analysisLines: unknown;
 }
 
-export const SurfaceContinuityNode: NodeDefinition<SurfaceContinuityInputs, SurfaceContinuityOutputs, SurfaceContinuityParams> = {
+export const AnalysisSurfacesSurfaceContinuityNode: NodeDefinition<SurfaceContinuityInputs, SurfaceContinuityOutputs, SurfaceContinuityParams> = {
   id: 'Analysis::SurfaceContinuity',
   category: 'Analysis',
   label: 'SurfaceContinuity',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListJoinNode } from './list-join.node';
+import { DataListListJoinNode } from './list-join.node';
 import { createTestContext } from '../test-utils';
 
-describe('ListJoinNode', () => {
+describe('DataListListJoinNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('ListJoinNode', () => {
 
     } as any;
 
-    const result = await ListJoinNode.evaluate(context, inputs, params);
+    const result = await DataListListJoinNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

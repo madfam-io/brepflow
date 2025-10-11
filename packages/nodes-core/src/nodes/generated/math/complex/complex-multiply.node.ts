@@ -11,7 +11,7 @@ interface ComplexMultiplyOutputs {
   result: unknown;
 }
 
-export const ComplexMultiplyNode: NodeDefinition<ComplexMultiplyInputs, ComplexMultiplyOutputs, ComplexMultiplyParams> = {
+export const MathComplexComplexMultiplyNode: NodeDefinition<ComplexMultiplyInputs, ComplexMultiplyOutputs, ComplexMultiplyParams> = {
   id: 'Math::ComplexMultiply',
   category: 'Math',
   label: 'ComplexMultiply',

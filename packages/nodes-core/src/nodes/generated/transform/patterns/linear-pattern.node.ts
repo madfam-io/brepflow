@@ -16,7 +16,7 @@ interface LinearPatternOutputs {
   compound: unknown;
 }
 
-export const LinearPatternNode: NodeDefinition<LinearPatternInputs, LinearPatternOutputs, LinearPatternParams> = {
+export const TransformPatternsLinearPatternNode: NodeDefinition<LinearPatternInputs, LinearPatternOutputs, LinearPatternParams> = {
   id: 'Transform::LinearPattern',
   category: 'Transform',
   label: 'LinearPattern',

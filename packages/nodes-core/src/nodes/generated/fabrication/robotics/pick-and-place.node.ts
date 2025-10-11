@@ -14,7 +14,7 @@ interface PickAndPlaceOutputs {
   pickPlaceSequence: unknown;
 }
 
-export const PickAndPlaceNode: NodeDefinition<PickAndPlaceInputs, PickAndPlaceOutputs, PickAndPlaceParams> = {
+export const FabricationRoboticsPickAndPlaceNode: NodeDefinition<PickAndPlaceInputs, PickAndPlaceOutputs, PickAndPlaceParams> = {
   id: 'Fabrication::PickAndPlace',
   category: 'Fabrication',
   label: 'PickAndPlace',

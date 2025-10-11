@@ -10,7 +10,7 @@ interface TreeExplodeOutputs {
   branches: unknown;
 }
 
-export const TreeExplodeNode: NodeDefinition<TreeExplodeInputs, TreeExplodeOutputs, TreeExplodeParams> = {
+export const DataTreeTreeExplodeNode: NodeDefinition<TreeExplodeInputs, TreeExplodeOutputs, TreeExplodeParams> = {
   id: 'Data::TreeExplode',
   category: 'Data',
   label: 'TreeExplode',

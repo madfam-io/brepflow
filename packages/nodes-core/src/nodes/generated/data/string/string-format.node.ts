@@ -11,7 +11,7 @@ interface StringFormatOutputs {
   formatted: unknown;
 }
 
-export const StringFormatNode: NodeDefinition<StringFormatInputs, StringFormatOutputs, StringFormatParams> = {
+export const DataStringStringFormatNode: NodeDefinition<StringFormatInputs, StringFormatOutputs, StringFormatParams> = {
   id: 'Data::StringFormat',
   category: 'Data',
   label: 'StringFormat',

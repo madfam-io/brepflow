@@ -14,7 +14,7 @@ interface ImportSTLOutputs {
   isValid: unknown;
 }
 
-export const ImportSTLNode: NodeDefinition<ImportSTLInputs, ImportSTLOutputs, ImportSTLParams> = {
+export const MeshFilesImportSTLNode: NodeDefinition<ImportSTLInputs, ImportSTLOutputs, ImportSTLParams> = {
   id: 'Mesh::ImportSTL',
   category: 'Mesh',
   label: 'ImportSTL',

@@ -14,7 +14,7 @@ interface WeavePatternOutputs {
   weave: unknown;
 }
 
-export const WeavePatternNode: NodeDefinition<WeavePatternInputs, WeavePatternOutputs, WeavePatternParams> = {
+export const PatternsTilingWeavePatternNode: NodeDefinition<WeavePatternInputs, WeavePatternOutputs, WeavePatternParams> = {
   id: 'Patterns::WeavePattern',
   category: 'Patterns',
   label: 'WeavePattern',

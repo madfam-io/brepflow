@@ -16,7 +16,7 @@ interface RetainingRingOutputs {
   groove: unknown;
 }
 
-export const RetainingRingNode: NodeDefinition<RetainingRingInputs, RetainingRingOutputs, RetainingRingParams> = {
+export const MechanicalEngineeringFastenersRetainingRingNode: NodeDefinition<RetainingRingInputs, RetainingRingOutputs, RetainingRingParams> = {
   id: 'MechanicalEngineering::RetainingRing',
   category: 'MechanicalEngineering',
   label: 'RetainingRing',

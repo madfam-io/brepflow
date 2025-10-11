@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FloorExpansionJointNode } from './floor-expansion-joint.node';
+import { ArchitectureFloorsFloorExpansionJointNode } from './floor-expansion-joint.node';
 import { createTestContext } from '../test-utils';
 
-describe('FloorExpansionJointNode', () => {
+describe('ArchitectureFloorsFloorExpansionJointNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FloorExpansionJointNode', () => {
       sealantDepth: 10
     } as any;
 
-    const result = await FloorExpansionJointNode.evaluate(context, inputs, params);
+    const result = await ArchitectureFloorsFloorExpansionJointNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

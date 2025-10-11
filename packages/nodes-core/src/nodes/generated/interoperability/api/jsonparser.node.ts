@@ -15,7 +15,7 @@ interface JSONParserOutputs {
   values: unknown;
 }
 
-export const JSONParserNode: NodeDefinition<JSONParserInputs, JSONParserOutputs, JSONParserParams> = {
+export const InteroperabilityAPIJSONParserNode: NodeDefinition<JSONParserInputs, JSONParserOutputs, JSONParserParams> = {
   id: 'Interoperability::JSONParser',
   category: 'Interoperability',
   label: 'JSONParser',

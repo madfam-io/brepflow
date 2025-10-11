@@ -12,7 +12,7 @@ interface MengerSpongeOutputs {
   fractal: unknown;
 }
 
-export const MengerSpongeNode: NodeDefinition<MengerSpongeInputs, MengerSpongeOutputs, MengerSpongeParams> = {
+export const PatternsFractalsMengerSpongeNode: NodeDefinition<MengerSpongeInputs, MengerSpongeOutputs, MengerSpongeParams> = {
   id: 'Patterns::MengerSponge',
   category: 'Patterns',
   label: 'MengerSponge',

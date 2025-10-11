@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SubdivisionSurfaceNode } from './subdivision-surface.node';
+import { SpecializedOrganicSubdivisionSurfaceNode } from './subdivision-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('SubdivisionSurfaceNode', () => {
+describe('SpecializedOrganicSubdivisionSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SubdivisionSurfaceNode', () => {
       levels: 2
     } as any;
 
-    const result = await SubdivisionSurfaceNode.evaluate(context, inputs, params);
+    const result = await SpecializedOrganicSubdivisionSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

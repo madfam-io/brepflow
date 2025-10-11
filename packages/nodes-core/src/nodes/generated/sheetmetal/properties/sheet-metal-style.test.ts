@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SheetMetalStyleNode } from './sheet-metal-style.node';
+import { SheetMetalPropertiesSheetMetalStyleNode } from './sheet-metal-style.node';
 import { createTestContext } from '../test-utils';
 
-describe('SheetMetalStyleNode', () => {
+describe('SheetMetalPropertiesSheetMetalStyleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('SheetMetalStyleNode', () => {
       reliefType: "rectangular"
     } as any;
 
-    const result = await SheetMetalStyleNode.evaluate(context, inputs, params);
+    const result = await SheetMetalPropertiesSheetMetalStyleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

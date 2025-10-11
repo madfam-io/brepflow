@@ -16,7 +16,7 @@ interface RaisedFloorOutputs {
   panels: unknown;
 }
 
-export const RaisedFloorNode: NodeDefinition<RaisedFloorInputs, RaisedFloorOutputs, RaisedFloorParams> = {
+export const ArchitectureFloorsRaisedFloorNode: NodeDefinition<RaisedFloorInputs, RaisedFloorOutputs, RaisedFloorParams> = {
   id: 'Architecture::RaisedFloor',
   category: 'Architecture',
   label: 'RaisedFloor',

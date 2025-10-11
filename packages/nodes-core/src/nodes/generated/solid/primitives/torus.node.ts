@@ -17,7 +17,7 @@ interface TorusOutputs {
   solid: unknown;
 }
 
-export const TorusNode: NodeDefinition<TorusInputs, TorusOutputs, TorusParams> = {
+export const SolidPrimitivesTorusNode: NodeDefinition<TorusInputs, TorusOutputs, TorusParams> = {
   id: 'Solid::Torus',
   category: 'Solid',
   label: 'Torus',

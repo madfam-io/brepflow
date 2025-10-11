@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PostProcessorNode } from './post-processor.node';
+import { FabricationCNCPostProcessorNode } from './post-processor.node';
 import { createTestContext } from '../test-utils';
 
-describe('PostProcessorNode', () => {
+describe('FabricationCNCPostProcessorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('PostProcessorNode', () => {
       axes: "3-axis"
     } as any;
 
-    const result = await PostProcessorNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCPostProcessorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

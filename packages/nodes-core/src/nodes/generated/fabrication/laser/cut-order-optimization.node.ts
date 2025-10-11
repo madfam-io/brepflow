@@ -14,7 +14,7 @@ interface CutOrderOptimizationOutputs {
   travelPath: unknown;
 }
 
-export const CutOrderOptimizationNode: NodeDefinition<CutOrderOptimizationInputs, CutOrderOptimizationOutputs, CutOrderOptimizationParams> = {
+export const FabricationLaserCutOrderOptimizationNode: NodeDefinition<CutOrderOptimizationInputs, CutOrderOptimizationOutputs, CutOrderOptimizationParams> = {
   id: 'Fabrication::CutOrderOptimization',
   category: 'Fabrication',
   label: 'CutOrderOptimization',

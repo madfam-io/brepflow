@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShuffleNode } from './shuffle.node';
+import { MathRandomShuffleNode } from './shuffle.node';
 import { createTestContext } from '../test-utils';
 
-describe('ShuffleNode', () => {
+describe('MathRandomShuffleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('ShuffleNode', () => {
       seed: -1
     } as any;
 
-    const result = await ShuffleNode.evaluate(context, inputs, params);
+    const result = await MathRandomShuffleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

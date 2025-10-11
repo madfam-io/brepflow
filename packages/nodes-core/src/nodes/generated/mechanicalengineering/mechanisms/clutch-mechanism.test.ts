@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ClutchMechanismNode } from './clutch-mechanism.node';
+import { MechanicalEngineeringMechanismsClutchMechanismNode } from './clutch-mechanism.node';
 import { createTestContext } from '../test-utils';
 
-describe('ClutchMechanismNode', () => {
+describe('MechanicalEngineeringMechanismsClutchMechanismNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('ClutchMechanismNode', () => {
       plateCount: 3
     } as any;
 
-    const result = await ClutchMechanismNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringMechanismsClutchMechanismNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SierpinskiTriangleNode } from './sierpinski-triangle.node';
+import { PatternsFractalsSierpinskiTriangleNode } from './sierpinski-triangle.node';
 import { createTestContext } from '../test-utils';
 
-describe('SierpinskiTriangleNode', () => {
+describe('PatternsFractalsSierpinskiTriangleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SierpinskiTriangleNode', () => {
       filled: true
     } as any;
 
-    const result = await SierpinskiTriangleNode.evaluate(context, inputs, params);
+    const result = await PatternsFractalsSierpinskiTriangleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

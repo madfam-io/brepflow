@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinearPatternNode } from './linear-pattern.node';
+import { TransformPatternsLinearPatternNode } from './linear-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('LinearPatternNode', () => {
+describe('TransformPatternsLinearPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('LinearPatternNode', () => {
       centered: false
     } as any;
 
-    const result = await LinearPatternNode.evaluate(context, inputs, params);
+    const result = await TransformPatternsLinearPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

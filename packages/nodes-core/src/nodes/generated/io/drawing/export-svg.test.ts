@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportSVGNode } from './export-svg.node';
+import { IODrawingExportSVGNode } from './export-svg.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExportSVGNode', () => {
+describe('IODrawingExportSVGNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('ExportSVGNode', () => {
       fillOpacity: 0.3
     } as any;
 
-    const result = await ExportSVGNode.evaluate(context, inputs, params);
+    const result = await IODrawingExportSVGNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

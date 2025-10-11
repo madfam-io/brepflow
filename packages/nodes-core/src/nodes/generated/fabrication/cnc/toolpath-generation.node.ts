@@ -16,7 +16,7 @@ interface ToolpathGenerationOutputs {
   rapids: unknown;
 }
 
-export const ToolpathGenerationNode: NodeDefinition<ToolpathGenerationInputs, ToolpathGenerationOutputs, ToolpathGenerationParams> = {
+export const FabricationCNCToolpathGenerationNode: NodeDefinition<ToolpathGenerationInputs, ToolpathGenerationOutputs, ToolpathGenerationParams> = {
   id: 'Fabrication::ToolpathGeneration',
   category: 'Fabrication',
   label: 'ToolpathGeneration',

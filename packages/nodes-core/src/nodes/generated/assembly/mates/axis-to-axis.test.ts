@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AxisToAxisNode } from './axis-to-axis.node';
+import { AssemblyMatesAxisToAxisNode } from './axis-to-axis.node';
 import { createTestContext } from '../test-utils';
 
-describe('AxisToAxisNode', () => {
+describe('AssemblyMatesAxisToAxisNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('AxisToAxisNode', () => {
       offset: 0
     } as any;
 
-    const result = await AxisToAxisNode.evaluate(context, inputs, params);
+    const result = await AssemblyMatesAxisToAxisNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface FieldDisplaceOutputs {
   displaced: unknown;
 }
 
-export const FieldDisplaceNode: NodeDefinition<FieldDisplaceInputs, FieldDisplaceOutputs, FieldDisplaceParams> = {
+export const FieldDeformFieldDisplaceNode: NodeDefinition<FieldDisplaceInputs, FieldDisplaceOutputs, FieldDisplaceParams> = {
   id: 'Field::FieldDisplace',
   category: 'Field',
   label: 'FieldDisplace',

@@ -14,7 +14,7 @@ interface HelicalEntryOutputs {
   helixPath: unknown;
 }
 
-export const HelicalEntryNode: NodeDefinition<HelicalEntryInputs, HelicalEntryOutputs, HelicalEntryParams> = {
+export const FabricationCNCHelicalEntryNode: NodeDefinition<HelicalEntryInputs, HelicalEntryOutputs, HelicalEntryParams> = {
   id: 'Fabrication::HelicalEntry',
   category: 'Fabrication',
   label: 'HelicalEntry',

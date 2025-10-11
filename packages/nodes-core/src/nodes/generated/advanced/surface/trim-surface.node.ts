@@ -14,7 +14,7 @@ interface TrimSurfaceOutputs {
   trimmedSurface: unknown;
 }
 
-export const TrimSurfaceNode: NodeDefinition<TrimSurfaceInputs, TrimSurfaceOutputs, TrimSurfaceParams> = {
+export const AdvancedSurfaceTrimSurfaceNode: NodeDefinition<TrimSurfaceInputs, TrimSurfaceOutputs, TrimSurfaceParams> = {
   id: 'Advanced::TrimSurface',
   category: 'Advanced',
   label: 'TrimSurface',

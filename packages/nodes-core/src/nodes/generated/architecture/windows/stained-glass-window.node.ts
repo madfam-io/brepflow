@@ -15,7 +15,7 @@ interface StainedGlassWindowOutputs {
   leadCame: unknown;
 }
 
-export const StainedGlassWindowNode: NodeDefinition<StainedGlassWindowInputs, StainedGlassWindowOutputs, StainedGlassWindowParams> = {
+export const ArchitectureWindowsStainedGlassWindowNode: NodeDefinition<StainedGlassWindowInputs, StainedGlassWindowOutputs, StainedGlassWindowParams> = {
   id: 'Architecture::StainedGlassWindow',
   category: 'Architecture',
   label: 'StainedGlassWindow',

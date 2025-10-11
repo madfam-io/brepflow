@@ -13,7 +13,7 @@ interface MonumentalStairOutputs {
   monumentalStair: unknown;
 }
 
-export const MonumentalStairNode: NodeDefinition<MonumentalStairInputs, MonumentalStairOutputs, MonumentalStairParams> = {
+export const ArchitectureStairsMonumentalStairNode: NodeDefinition<MonumentalStairInputs, MonumentalStairOutputs, MonumentalStairParams> = {
   id: 'Architecture::MonumentalStair',
   category: 'Architecture',
   label: 'MonumentalStair',

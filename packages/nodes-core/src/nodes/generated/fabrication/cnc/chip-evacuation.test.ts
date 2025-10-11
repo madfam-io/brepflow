@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ChipEvacuationNode } from './chip-evacuation.node';
+import { FabricationCNCChipEvacuationNode } from './chip-evacuation.node';
 import { createTestContext } from '../test-utils';
 
-describe('ChipEvacuationNode', () => {
+describe('FabricationCNCChipEvacuationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ChipEvacuationNode', () => {
       helixAngle: 30
     } as any;
 
-    const result = await ChipEvacuationNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCChipEvacuationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

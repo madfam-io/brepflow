@@ -12,7 +12,7 @@ interface FastenedOutputs {
   mate: unknown;
 }
 
-export const FastenedNode: NodeDefinition<FastenedInputs, FastenedOutputs, FastenedParams> = {
+export const AssemblyMatesFastenedNode: NodeDefinition<FastenedInputs, FastenedOutputs, FastenedParams> = {
   id: 'Assembly::Fastened',
   category: 'Assembly',
   label: 'Fastened',

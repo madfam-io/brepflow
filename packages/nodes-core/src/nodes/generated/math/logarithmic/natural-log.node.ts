@@ -10,7 +10,7 @@ interface NaturalLogOutputs {
   result: unknown;
 }
 
-export const NaturalLogNode: NodeDefinition<NaturalLogInputs, NaturalLogOutputs, NaturalLogParams> = {
+export const MathLogarithmicNaturalLogNode: NodeDefinition<NaturalLogInputs, NaturalLogOutputs, NaturalLogParams> = {
   id: 'Math::NaturalLog',
   category: 'Math',
   label: 'NaturalLog',

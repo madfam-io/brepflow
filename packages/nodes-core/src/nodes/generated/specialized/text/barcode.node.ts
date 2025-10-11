@@ -13,7 +13,7 @@ interface BarcodeOutputs {
   barcode: unknown;
 }
 
-export const BarcodeNode: NodeDefinition<BarcodeInputs, BarcodeOutputs, BarcodeParams> = {
+export const SpecializedTextBarcodeNode: NodeDefinition<BarcodeInputs, BarcodeOutputs, BarcodeParams> = {
   id: 'Specialized::Barcode',
   category: 'Specialized',
   label: 'Barcode',

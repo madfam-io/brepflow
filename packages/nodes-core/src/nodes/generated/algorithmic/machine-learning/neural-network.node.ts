@@ -20,7 +20,7 @@ interface NeuralNetworkOutputs {
   predictions: unknown;
 }
 
-export const NeuralNetworkNode: NodeDefinition<NeuralNetworkInputs, NeuralNetworkOutputs, NeuralNetworkParams> = {
+export const AlgorithmicMachineLearningNeuralNetworkNode: NodeDefinition<NeuralNetworkInputs, NeuralNetworkOutputs, NeuralNetworkParams> = {
   id: 'Algorithmic::NeuralNetwork',
   category: 'Algorithmic',
   label: 'NeuralNetwork',

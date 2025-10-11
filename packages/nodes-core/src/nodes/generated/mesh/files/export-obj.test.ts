@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportOBJNode } from './export-obj.node';
+import { MeshFilesExportOBJNode } from './export-obj.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExportOBJNode', () => {
+describe('MeshFilesExportOBJNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ExportOBJNode', () => {
       exportUVs: false
     } as any;
 
-    const result = await ExportOBJNode.evaluate(context, inputs, params);
+    const result = await MeshFilesExportOBJNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

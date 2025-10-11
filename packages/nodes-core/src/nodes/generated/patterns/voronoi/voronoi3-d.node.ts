@@ -14,7 +14,7 @@ interface Voronoi3DOutputs {
   faces: unknown;
 }
 
-export const Voronoi3DNode: NodeDefinition<Voronoi3DInputs, Voronoi3DOutputs, Voronoi3DParams> = {
+export const PatternsVoronoiVoronoi3DNode: NodeDefinition<Voronoi3DInputs, Voronoi3DOutputs, Voronoi3DParams> = {
   id: 'Patterns::Voronoi3D',
   category: 'Patterns',
   label: 'Voronoi3D',

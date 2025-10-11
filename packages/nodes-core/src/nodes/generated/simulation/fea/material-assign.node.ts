@@ -18,7 +18,7 @@ interface MaterialAssignOutputs {
   materialData: unknown;
 }
 
-export const MaterialAssignNode: NodeDefinition<MaterialAssignInputs, MaterialAssignOutputs, MaterialAssignParams> = {
+export const SimulationFEAMaterialAssignNode: NodeDefinition<MaterialAssignInputs, MaterialAssignOutputs, MaterialAssignParams> = {
   id: 'Simulation::MaterialAssign',
   category: 'Simulation',
   label: 'MaterialAssign',

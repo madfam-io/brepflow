@@ -15,7 +15,7 @@ interface PathPlanningOutputs {
   jointTrajectory: unknown;
 }
 
-export const PathPlanningNode: NodeDefinition<PathPlanningInputs, PathPlanningOutputs, PathPlanningParams> = {
+export const FabricationRoboticsPathPlanningNode: NodeDefinition<PathPlanningInputs, PathPlanningOutputs, PathPlanningParams> = {
   id: 'Fabrication::PathPlanning',
   category: 'Fabrication',
   label: 'PathPlanning',

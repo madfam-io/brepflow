@@ -10,7 +10,7 @@ interface HyperbolicCosineOutputs {
   result: unknown;
 }
 
-export const HyperbolicCosineNode: NodeDefinition<HyperbolicCosineInputs, HyperbolicCosineOutputs, HyperbolicCosineParams> = {
+export const MathTrigonometryHyperbolicCosineNode: NodeDefinition<HyperbolicCosineInputs, HyperbolicCosineOutputs, HyperbolicCosineParams> = {
   id: 'Math::HyperbolicCosine',
   category: 'Math',
   label: 'HyperbolicCosine',

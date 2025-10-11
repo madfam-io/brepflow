@@ -16,7 +16,7 @@ interface ClampingCollarOutputs {
   bore: unknown;
 }
 
-export const ClampingCollarNode: NodeDefinition<ClampingCollarInputs, ClampingCollarOutputs, ClampingCollarParams> = {
+export const MechanicalEngineeringFastenersClampingCollarNode: NodeDefinition<ClampingCollarInputs, ClampingCollarOutputs, ClampingCollarParams> = {
   id: 'MechanicalEngineering::ClampingCollar',
   category: 'MechanicalEngineering',
   label: 'ClampingCollar',

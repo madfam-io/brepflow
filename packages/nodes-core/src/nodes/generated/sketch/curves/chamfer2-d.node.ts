@@ -13,7 +13,7 @@ interface Chamfer2DOutputs {
   chamfered: unknown;
 }
 
-export const Chamfer2DNode: NodeDefinition<Chamfer2DInputs, Chamfer2DOutputs, Chamfer2DParams> = {
+export const SketchCurvesChamfer2DNode: NodeDefinition<Chamfer2DInputs, Chamfer2DOutputs, Chamfer2DParams> = {
   id: 'Sketch::Chamfer2D',
   category: 'Sketch',
   label: 'Chamfer2D',

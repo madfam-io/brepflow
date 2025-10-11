@@ -12,7 +12,7 @@ interface LerpOutputs {
   result: unknown;
 }
 
-export const LerpNode: NodeDefinition<LerpInputs, LerpOutputs, LerpParams> = {
+export const MathInterpolationLerpNode: NodeDefinition<LerpInputs, LerpOutputs, LerpParams> = {
   id: 'Math::Lerp',
   category: 'Math',
   label: 'Lerp',

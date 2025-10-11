@@ -16,7 +16,7 @@ interface LinearRibOutputs {
   shape: unknown;
 }
 
-export const LinearRibNode: NodeDefinition<LinearRibInputs, LinearRibOutputs, LinearRibParams> = {
+export const FeaturesStructuralLinearRibNode: NodeDefinition<LinearRibInputs, LinearRibOutputs, LinearRibParams> = {
   id: 'Features::LinearRib',
   category: 'Features',
   label: 'LinearRib',

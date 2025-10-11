@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RestMachiningNode } from './rest-machining.node';
+import { FabricationCNCRestMachiningNode } from './rest-machining.node';
 import { createTestContext } from '../test-utils';
 
-describe('RestMachiningNode', () => {
+describe('FabricationCNCRestMachiningNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('RestMachiningNode', () => {
       currentTool: 3
     } as any;
 
-    const result = await RestMachiningNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCRestMachiningNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -15,7 +15,7 @@ interface AxisToAxisOutputs {
   mate: unknown;
 }
 
-export const AxisToAxisNode: NodeDefinition<AxisToAxisInputs, AxisToAxisOutputs, AxisToAxisParams> = {
+export const AssemblyMatesAxisToAxisNode: NodeDefinition<AxisToAxisInputs, AxisToAxisOutputs, AxisToAxisParams> = {
   id: 'Assembly::AxisToAxis',
   category: 'Assembly',
   label: 'AxisToAxis',

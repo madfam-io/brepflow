@@ -13,7 +13,7 @@ interface RainScreenOutputs {
   rainScreen: unknown;
 }
 
-export const RainScreenNode: NodeDefinition<RainScreenInputs, RainScreenOutputs, RainScreenParams> = {
+export const ArchitectureWallsRainScreenNode: NodeDefinition<RainScreenInputs, RainScreenOutputs, RainScreenParams> = {
   id: 'Architecture::RainScreen',
   category: 'Architecture',
   label: 'RainScreen',

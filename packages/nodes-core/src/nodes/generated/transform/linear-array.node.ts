@@ -17,7 +17,7 @@ interface LinearArrayOutputs {
   merged: unknown;
 }
 
-export const LinearArrayNode: NodeDefinition<LinearArrayInputs, LinearArrayOutputs, LinearArrayParams> = {
+export const TransformLinearArrayNode: NodeDefinition<LinearArrayInputs, LinearArrayOutputs, LinearArrayParams> = {
   id: 'Transform::LinearArray',
   category: 'Transform',
   label: 'LinearArray',

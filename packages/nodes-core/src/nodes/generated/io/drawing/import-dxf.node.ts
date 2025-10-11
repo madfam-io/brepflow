@@ -15,7 +15,7 @@ interface ImportDXFOutputs {
   layers: unknown;
 }
 
-export const ImportDXFNode: NodeDefinition<ImportDXFInputs, ImportDXFOutputs, ImportDXFParams> = {
+export const IODrawingImportDXFNode: NodeDefinition<ImportDXFInputs, ImportDXFOutputs, ImportDXFParams> = {
   id: 'IO::ImportDXF',
   category: 'IO',
   label: 'ImportDXF',

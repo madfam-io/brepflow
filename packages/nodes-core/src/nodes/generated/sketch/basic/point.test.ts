@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PointNode } from './point.node';
+import { SketchBasicPointNode } from './point.node';
 import { createTestContext } from '../test-utils';
 
-describe('PointNode', () => {
+describe('SketchBasicPointNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('PointNode', () => {
       z: 0
     } as any;
 
-    const result = await PointNode.evaluate(context, inputs, params);
+    const result = await SketchBasicPointNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

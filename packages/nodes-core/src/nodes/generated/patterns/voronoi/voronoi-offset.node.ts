@@ -13,7 +13,7 @@ interface VoronoiOffsetOutputs {
   offsetCells: unknown;
 }
 
-export const VoronoiOffsetNode: NodeDefinition<VoronoiOffsetInputs, VoronoiOffsetOutputs, VoronoiOffsetParams> = {
+export const PatternsVoronoiVoronoiOffsetNode: NodeDefinition<VoronoiOffsetInputs, VoronoiOffsetOutputs, VoronoiOffsetParams> = {
   id: 'Patterns::VoronoiOffset',
   category: 'Patterns',
   label: 'VoronoiOffset',

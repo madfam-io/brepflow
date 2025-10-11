@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { EndEffectorSetupNode } from './end-effector-setup.node';
+import { FabricationRoboticsEndEffectorSetupNode } from './end-effector-setup.node';
 import { createTestContext } from '../test-utils';
 
-describe('EndEffectorSetupNode', () => {
+describe('FabricationRoboticsEndEffectorSetupNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('EndEffectorSetupNode', () => {
       tcpOffset: "[0, 0, 100]"
     } as any;
 
-    const result = await EndEffectorSetupNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsEndEffectorSetupNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

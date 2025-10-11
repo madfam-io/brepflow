@@ -14,7 +14,7 @@ interface ParquetPatternOutputs {
   planks: unknown;
 }
 
-export const ParquetPatternNode: NodeDefinition<ParquetPatternInputs, ParquetPatternOutputs, ParquetPatternParams> = {
+export const PatternsTilingParquetPatternNode: NodeDefinition<ParquetPatternInputs, ParquetPatternOutputs, ParquetPatternParams> = {
   id: 'Patterns::ParquetPattern',
   category: 'Patterns',
   label: 'ParquetPattern',

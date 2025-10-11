@@ -17,7 +17,7 @@ interface ShortestPathOutputs {
   nodes: Array<[number, number, number]>;
 }
 
-export const ShortestPathNode: NodeDefinition<ShortestPathInputs, ShortestPathOutputs, ShortestPathParams> = {
+export const AlgorithmicGeometryShortestPathNode: NodeDefinition<ShortestPathInputs, ShortestPathOutputs, ShortestPathParams> = {
   id: 'Algorithmic::ShortestPath',
   category: 'Algorithmic',
   label: 'ShortestPath',

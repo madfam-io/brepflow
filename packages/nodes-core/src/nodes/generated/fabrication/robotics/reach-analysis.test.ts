@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ReachAnalysisNode } from './reach-analysis.node';
+import { FabricationRoboticsReachAnalysisNode } from './reach-analysis.node';
 import { createTestContext } from '../test-utils';
 
-describe('ReachAnalysisNode', () => {
+describe('FabricationRoboticsReachAnalysisNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ReachAnalysisNode', () => {
       resolution: 50
     } as any;
 
-    const result = await ReachAnalysisNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsReachAnalysisNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

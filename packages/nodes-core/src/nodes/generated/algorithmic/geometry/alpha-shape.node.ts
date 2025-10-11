@@ -15,7 +15,7 @@ interface AlphaShapeOutputs {
   simplices: unknown;
 }
 
-export const AlphaShapeNode: NodeDefinition<AlphaShapeInputs, AlphaShapeOutputs, AlphaShapeParams> = {
+export const AlgorithmicGeometryAlphaShapeNode: NodeDefinition<AlphaShapeInputs, AlphaShapeOutputs, AlphaShapeParams> = {
   id: 'Algorithmic::AlphaShape',
   category: 'Algorithmic',
   label: 'AlphaShape',

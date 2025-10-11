@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { InterferenceCheckNode } from './interference-check.node';
+import { AssemblyPatternsInterferenceCheckNode } from './interference-check.node';
 import { createTestContext } from '../test-utils';
 
-describe('InterferenceCheckNode', () => {
+describe('AssemblyPatternsInterferenceCheckNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('InterferenceCheckNode', () => {
       clearance: 0
     } as any;
 
-    const result = await InterferenceCheckNode.evaluate(context, inputs, params);
+    const result = await AssemblyPatternsInterferenceCheckNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

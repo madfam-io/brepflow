@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TreeGraftNode } from './tree-graft.node';
+import { DataTreeTreeGraftNode } from './tree-graft.node';
 import { createTestContext } from '../test-utils';
 
-describe('TreeGraftNode', () => {
+describe('DataTreeTreeGraftNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('TreeGraftNode', () => {
 
     } as any;
 
-    const result = await TreeGraftNode.evaluate(context, inputs, params);
+    const result = await DataTreeTreeGraftNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

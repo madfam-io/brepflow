@@ -10,7 +10,7 @@ interface ListReverseOutputs {
   reversed: unknown;
 }
 
-export const ListReverseNode: NodeDefinition<ListReverseInputs, ListReverseOutputs, ListReverseParams> = {
+export const DataListListReverseNode: NodeDefinition<ListReverseInputs, ListReverseOutputs, ListReverseParams> = {
   id: 'Data::ListReverse',
   category: 'Data',
   label: 'ListReverse',

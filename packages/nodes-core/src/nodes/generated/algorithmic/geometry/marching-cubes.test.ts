@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MarchingCubesNode } from './marching-cubes.node';
+import { AlgorithmicGeometryMarchingCubesNode } from './marching-cubes.node';
 import { createTestContext } from '../test-utils';
 
-describe('MarchingCubesNode', () => {
+describe('AlgorithmicGeometryMarchingCubesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('MarchingCubesNode', () => {
       smooth: true
     } as any;
 
-    const result = await MarchingCubesNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicGeometryMarchingCubesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

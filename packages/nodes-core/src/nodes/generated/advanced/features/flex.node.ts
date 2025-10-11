@@ -16,7 +16,7 @@ interface FlexOutputs {
   flexed: unknown;
 }
 
-export const FlexNode: NodeDefinition<FlexInputs, FlexOutputs, FlexParams> = {
+export const AdvancedFeaturesFlexNode: NodeDefinition<FlexInputs, FlexOutputs, FlexParams> = {
   id: 'Advanced::Flex',
   category: 'Advanced',
   label: 'Flex',

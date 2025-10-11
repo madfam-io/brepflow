@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ParapetWallNode } from './parapet-wall.node';
+import { ArchitectureWallsParapetWallNode } from './parapet-wall.node';
 import { createTestContext } from '../test-utils';
 
-describe('ParapetWallNode', () => {
+describe('ArchitectureWallsParapetWallNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ParapetWallNode', () => {
       copingOverhang: 50
     } as any;
 
-    const result = await ParapetWallNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsParapetWallNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

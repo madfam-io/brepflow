@@ -15,7 +15,7 @@ interface DoubleSkinnedFacadeOutputs {
   cavity: unknown;
 }
 
-export const DoubleSkinnedFacadeNode: NodeDefinition<DoubleSkinnedFacadeInputs, DoubleSkinnedFacadeOutputs, DoubleSkinnedFacadeParams> = {
+export const ArchitectureWallsDoubleSkinnedFacadeNode: NodeDefinition<DoubleSkinnedFacadeInputs, DoubleSkinnedFacadeOutputs, DoubleSkinnedFacadeParams> = {
   id: 'Architecture::DoubleSkinnedFacade',
   category: 'Architecture',
   label: 'DoubleSkinnedFacade',

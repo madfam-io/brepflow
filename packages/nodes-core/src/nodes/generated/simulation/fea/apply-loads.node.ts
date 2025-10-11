@@ -17,7 +17,7 @@ interface ApplyLoadsOutputs {
   loadData: unknown;
 }
 
-export const ApplyLoadsNode: NodeDefinition<ApplyLoadsInputs, ApplyLoadsOutputs, ApplyLoadsParams> = {
+export const SimulationFEAApplyLoadsNode: NodeDefinition<ApplyLoadsInputs, ApplyLoadsOutputs, ApplyLoadsParams> = {
   id: 'Simulation::ApplyLoads',
   category: 'Simulation',
   label: 'ApplyLoads',

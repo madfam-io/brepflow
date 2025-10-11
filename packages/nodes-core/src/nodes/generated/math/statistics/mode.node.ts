@@ -10,7 +10,7 @@ interface ModeOutputs {
   mode: unknown;
 }
 
-export const ModeNode: NodeDefinition<ModeInputs, ModeOutputs, ModeParams> = {
+export const MathStatisticsModeNode: NodeDefinition<ModeInputs, ModeOutputs, ModeParams> = {
   id: 'Math::Mode',
   category: 'Math',
   label: 'Mode',

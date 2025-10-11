@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TorusNode } from './torus.node';
+import { SolidPrimitivesTorusNode } from './torus.node';
 import { createTestContext } from '../test-utils';
 
-describe('TorusNode', () => {
+describe('SolidPrimitivesTorusNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -20,7 +20,7 @@ describe('TorusNode', () => {
       angle: 360
     } as any;
 
-    const result = await TorusNode.evaluate(context, inputs, params);
+    const result = await SolidPrimitivesTorusNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

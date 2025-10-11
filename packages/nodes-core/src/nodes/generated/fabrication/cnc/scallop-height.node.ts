@@ -14,7 +14,7 @@ interface ScallopHeightOutputs {
   maxScallop: number;
 }
 
-export const ScallopHeightNode: NodeDefinition<ScallopHeightInputs, ScallopHeightOutputs, ScallopHeightParams> = {
+export const FabricationCNCScallopHeightNode: NodeDefinition<ScallopHeightInputs, ScallopHeightOutputs, ScallopHeightParams> = {
   id: 'Fabrication::ScallopHeight',
   category: 'Fabrication',
   label: 'ScallopHeight',

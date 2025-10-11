@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MaxNode } from './max.node';
+import { MathComparisonMaxNode } from './max.node';
 import { createTestContext } from '../test-utils';
 
-describe('MaxNode', () => {
+describe('MathComparisonMaxNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('MaxNode', () => {
 
     } as any;
 
-    const result = await MaxNode.evaluate(context, inputs, params);
+    const result = await MathComparisonMaxNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

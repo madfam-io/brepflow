@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PolygonalTessellationNode } from './polygonal-tessellation.node';
+import { PatternsGeometricPolygonalTessellationNode } from './polygonal-tessellation.node';
 import { createTestContext } from '../test-utils';
 
-describe('PolygonalTessellationNode', () => {
+describe('PatternsGeometricPolygonalTessellationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('PolygonalTessellationNode', () => {
       size: 10
     } as any;
 
-    const result = await PolygonalTessellationNode.evaluate(context, inputs, params);
+    const result = await PatternsGeometricPolygonalTessellationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

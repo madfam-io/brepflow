@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VisibilityGraphNode } from './visibility-graph.node';
+import { AlgorithmicGeometryVisibilityGraphNode } from './visibility-graph.node';
 import { createTestContext } from '../test-utils';
 
-describe('VisibilityGraphNode', () => {
+describe('AlgorithmicGeometryVisibilityGraphNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('VisibilityGraphNode', () => {
       includeInterior: false
     } as any;
 
-    const result = await VisibilityGraphNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicGeometryVisibilityGraphNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

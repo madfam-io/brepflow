@@ -17,7 +17,7 @@ interface CircularPatternOutputs {
   compound: unknown;
 }
 
-export const CircularPatternNode: NodeDefinition<CircularPatternInputs, CircularPatternOutputs, CircularPatternParams> = {
+export const TransformPatternsCircularPatternNode: NodeDefinition<CircularPatternInputs, CircularPatternOutputs, CircularPatternParams> = {
   id: 'Transform::CircularPattern',
   category: 'Transform',
   label: 'CircularPattern',

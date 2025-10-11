@@ -15,7 +15,7 @@ interface FieldLineOutputs {
   lines: unknown;
 }
 
-export const FieldLineNode: NodeDefinition<FieldLineInputs, FieldLineOutputs, FieldLineParams> = {
+export const FieldSampleFieldLineNode: NodeDefinition<FieldLineInputs, FieldLineOutputs, FieldLineParams> = {
   id: 'Field::FieldLine',
   category: 'Field',
   label: 'FieldLine',

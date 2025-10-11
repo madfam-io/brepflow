@@ -13,7 +13,7 @@ interface ConwayLifeOutputs {
   liveCells: unknown;
 }
 
-export const ConwayLifeNode: NodeDefinition<ConwayLifeInputs, ConwayLifeOutputs, ConwayLifeParams> = {
+export const PatternsCellularConwayLifeNode: NodeDefinition<ConwayLifeInputs, ConwayLifeOutputs, ConwayLifeParams> = {
   id: 'Patterns::ConwayLife',
   category: 'Patterns',
   label: 'ConwayLife',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GradientDescentNode } from './gradient-descent.node';
+import { AlgorithmicOptimizationGradientDescentNode } from './gradient-descent.node';
 import { createTestContext } from '../test-utils';
 
-describe('GradientDescentNode', () => {
+describe('AlgorithmicOptimizationGradientDescentNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('GradientDescentNode', () => {
       momentum: 0.9
     } as any;
 
-    const result = await GradientDescentNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicOptimizationGradientDescentNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

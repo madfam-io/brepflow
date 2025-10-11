@@ -15,7 +15,7 @@ interface HelicalRampOutputs {
   helicalRamp: unknown;
 }
 
-export const HelicalRampNode: NodeDefinition<HelicalRampInputs, HelicalRampOutputs, HelicalRampParams> = {
+export const ArchitectureRampsHelicalRampNode: NodeDefinition<HelicalRampInputs, HelicalRampOutputs, HelicalRampParams> = {
   id: 'Architecture::HelicalRamp',
   category: 'Architecture',
   label: 'HelicalRamp',

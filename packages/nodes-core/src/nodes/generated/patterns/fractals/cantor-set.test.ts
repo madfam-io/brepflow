@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CantorSetNode } from './cantor-set.node';
+import { PatternsFractalsCantorSetNode } from './cantor-set.node';
 import { createTestContext } from '../test-utils';
 
-describe('CantorSetNode', () => {
+describe('PatternsFractalsCantorSetNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CantorSetNode', () => {
       ratio: 0.333
     } as any;
 
-    const result = await CantorSetNode.evaluate(context, inputs, params);
+    const result = await PatternsFractalsCantorSetNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

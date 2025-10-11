@@ -11,7 +11,7 @@ interface SetSubsetOutputs {
   isSubset: unknown;
 }
 
-export const SetSubsetNode: NodeDefinition<SetSubsetInputs, SetSubsetOutputs, SetSubsetParams> = {
+export const DataSetSetSubsetNode: NodeDefinition<SetSubsetInputs, SetSubsetOutputs, SetSubsetParams> = {
   id: 'Data::SetSubset',
   category: 'Data',
   label: 'SetSubset',

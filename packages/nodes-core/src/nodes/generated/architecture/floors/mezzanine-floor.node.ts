@@ -14,7 +14,7 @@ interface MezzanineFloorOutputs {
   structure: unknown;
 }
 
-export const MezzanineFloorNode: NodeDefinition<MezzanineFloorInputs, MezzanineFloorOutputs, MezzanineFloorParams> = {
+export const ArchitectureFloorsMezzanineFloorNode: NodeDefinition<MezzanineFloorInputs, MezzanineFloorOutputs, MezzanineFloorParams> = {
   id: 'Architecture::MezzanineFloor',
   category: 'Architecture',
   label: 'MezzanineFloor',

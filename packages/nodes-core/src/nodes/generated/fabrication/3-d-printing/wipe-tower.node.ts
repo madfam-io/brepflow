@@ -13,7 +13,7 @@ interface WipeTowerOutputs {
   tower: unknown;
 }
 
-export const WipeTowerNode: NodeDefinition<WipeTowerInputs, WipeTowerOutputs, WipeTowerParams> = {
+export const Fabrication3DPrintingWipeTowerNode: NodeDefinition<WipeTowerInputs, WipeTowerOutputs, WipeTowerParams> = {
   id: 'Fabrication::WipeTower',
   category: 'Fabrication',
   label: 'WipeTower',

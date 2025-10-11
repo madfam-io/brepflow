@@ -10,7 +10,7 @@ interface SumOutputs {
   sum: unknown;
 }
 
-export const SumNode: NodeDefinition<SumInputs, SumOutputs, SumParams> = {
+export const MathStatisticsSumNode: NodeDefinition<SumInputs, SumOutputs, SumParams> = {
   id: 'Math::Sum',
   category: 'Math',
   label: 'Sum',

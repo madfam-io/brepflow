@@ -16,7 +16,7 @@ interface PLYImportOutputs {
   normals: Array<[number, number, number]>;
 }
 
-export const PLYImportNode: NodeDefinition<PLYImportInputs, PLYImportOutputs, PLYImportParams> = {
+export const InteroperabilityImportPLYImportNode: NodeDefinition<PLYImportInputs, PLYImportOutputs, PLYImportParams> = {
   id: 'Interoperability::PLYImport',
   category: 'Interoperability',
   label: 'PLYImport',

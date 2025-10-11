@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CounterboreHoleNode } from './counterbore-hole.node';
+import { FeaturesHolesCounterboreHoleNode } from './counterbore-hole.node';
 import { createTestContext } from '../test-utils';
 
-describe('CounterboreHoleNode', () => {
+describe('FeaturesHolesCounterboreHoleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('CounterboreHoleNode', () => {
       holeDepth: -1
     } as any;
 
-    const result = await CounterboreHoleNode.evaluate(context, inputs, params);
+    const result = await FeaturesHolesCounterboreHoleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

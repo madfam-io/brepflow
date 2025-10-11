@@ -16,7 +16,7 @@ interface FieldCriticalPointsOutputs {
   values: unknown;
 }
 
-export const FieldCriticalPointsNode: NodeDefinition<FieldCriticalPointsInputs, FieldCriticalPointsOutputs, FieldCriticalPointsParams> = {
+export const FieldsAnalysisFieldCriticalPointsNode: NodeDefinition<FieldCriticalPointsInputs, FieldCriticalPointsOutputs, FieldCriticalPointsParams> = {
   id: 'Fields::FieldCriticalPoints',
   category: 'Fields',
   label: 'FieldCriticalPoints',

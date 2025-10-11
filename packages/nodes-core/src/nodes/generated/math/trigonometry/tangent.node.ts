@@ -12,7 +12,7 @@ interface TangentOutputs {
   result: unknown;
 }
 
-export const TangentNode: NodeDefinition<TangentInputs, TangentOutputs, TangentParams> = {
+export const MathTrigonometryTangentNode: NodeDefinition<TangentInputs, TangentOutputs, TangentParams> = {
   id: 'Math::Tangent',
   category: 'Math',
   label: 'Tangent',

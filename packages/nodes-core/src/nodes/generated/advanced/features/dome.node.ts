@@ -13,7 +13,7 @@ interface DomeOutputs {
   dome: unknown;
 }
 
-export const DomeNode: NodeDefinition<DomeInputs, DomeOutputs, DomeParams> = {
+export const AdvancedFeaturesDomeNode: NodeDefinition<DomeInputs, DomeOutputs, DomeParams> = {
   id: 'Advanced::Dome',
   category: 'Advanced',
   label: 'Dome',

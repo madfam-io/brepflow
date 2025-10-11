@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExtendSurfaceNode } from './extend-surface.node';
+import { AdvancedSurfaceExtendSurfaceNode } from './extend-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExtendSurfaceNode', () => {
+describe('AdvancedSurfaceExtendSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ExtendSurfaceNode', () => {
       extensionType: "natural"
     } as any;
 
-    const result = await ExtendSurfaceNode.evaluate(context, inputs, params);
+    const result = await AdvancedSurfaceExtendSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

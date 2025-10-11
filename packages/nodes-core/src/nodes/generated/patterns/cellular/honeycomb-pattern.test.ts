@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HoneycombPatternNode } from './honeycomb-pattern.node';
+import { PatternsCellularHoneycombPatternNode } from './honeycomb-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('HoneycombPatternNode', () => {
+describe('PatternsCellularHoneycombPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('HoneycombPatternNode', () => {
       wallThickness: 1
     } as any;
 
-    const result = await HoneycombPatternNode.evaluate(context, inputs, params);
+    const result = await PatternsCellularHoneycombPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -18,7 +18,7 @@ interface Text3DOutputs {
   text: unknown;
 }
 
-export const Text3DNode: NodeDefinition<Text3DInputs, Text3DOutputs, Text3DParams> = {
+export const SpecializedTextText3DNode: NodeDefinition<Text3DInputs, Text3DOutputs, Text3DParams> = {
   id: 'Specialized::Text3D',
   category: 'Specialized',
   label: 'Text3D',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MotionDriverNode } from './motion-driver.node';
+import { SimulationKinematicsMotionDriverNode } from './motion-driver.node';
 import { createTestContext } from '../test-utils';
 
-describe('MotionDriverNode', () => {
+describe('SimulationKinematicsMotionDriverNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('MotionDriverNode', () => {
       period: 1
     } as any;
 
-    const result = await MotionDriverNode.evaluate(context, inputs, params);
+    const result = await SimulationKinematicsMotionDriverNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -16,7 +16,7 @@ interface ExcelReaderOutputs {
   dimensions: unknown;
 }
 
-export const ExcelReaderNode: NodeDefinition<ExcelReaderInputs, ExcelReaderOutputs, ExcelReaderParams> = {
+export const InteroperabilityDataExcelReaderNode: NodeDefinition<ExcelReaderInputs, ExcelReaderOutputs, ExcelReaderParams> = {
   id: 'Interoperability::ExcelReader',
   category: 'Interoperability',
   label: 'ExcelReader',

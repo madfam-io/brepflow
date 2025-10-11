@@ -15,7 +15,7 @@ interface TrajectoryOptimizationOutputs {
   velocityProfile: unknown;
 }
 
-export const TrajectoryOptimizationNode: NodeDefinition<TrajectoryOptimizationInputs, TrajectoryOptimizationOutputs, TrajectoryOptimizationParams> = {
+export const FabricationRoboticsTrajectoryOptimizationNode: NodeDefinition<TrajectoryOptimizationInputs, TrajectoryOptimizationOutputs, TrajectoryOptimizationParams> = {
   id: 'Fabrication::TrajectoryOptimization',
   category: 'Fabrication',
   label: 'TrajectoryOptimization',

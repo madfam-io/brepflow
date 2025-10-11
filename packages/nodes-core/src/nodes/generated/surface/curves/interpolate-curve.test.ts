@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { InterpolateCurveNode } from './interpolate-curve.node';
+import { SurfaceCurvesInterpolateCurveNode } from './interpolate-curve.node';
 import { createTestContext } from '../test-utils';
 
-describe('InterpolateCurveNode', () => {
+describe('SurfaceCurvesInterpolateCurveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('InterpolateCurveNode', () => {
       tangentEnd: null
     } as any;
 
-    const result = await InterpolateCurveNode.evaluate(context, inputs, params);
+    const result = await SurfaceCurvesInterpolateCurveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

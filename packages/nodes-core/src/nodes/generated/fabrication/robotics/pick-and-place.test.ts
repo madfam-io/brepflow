@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PickAndPlaceNode } from './pick-and-place.node';
+import { FabricationRoboticsPickAndPlaceNode } from './pick-and-place.node';
 import { createTestContext } from '../test-utils';
 
-describe('PickAndPlaceNode', () => {
+describe('FabricationRoboticsPickAndPlaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('PickAndPlaceNode', () => {
       approachAngle: 0
     } as any;
 
-    const result = await PickAndPlaceNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsPickAndPlaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

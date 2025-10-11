@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RetractionOptimizationNode } from './retraction-optimization.node';
+import { Fabrication3DPrintingRetractionOptimizationNode } from './retraction-optimization.node';
 import { createTestContext } from '../test-utils';
 
-describe('RetractionOptimizationNode', () => {
+describe('Fabrication3DPrintingRetractionOptimizationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('RetractionOptimizationNode', () => {
       minTravelDistance: 2
     } as any;
 
-    const result = await RetractionOptimizationNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingRetractionOptimizationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

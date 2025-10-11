@@ -13,7 +13,7 @@ interface PoissonDiskOutputs {
   points: Array<[number, number, number]>;
 }
 
-export const PoissonDiskNode: NodeDefinition<PoissonDiskInputs, PoissonDiskOutputs, PoissonDiskParams> = {
+export const PatternsStochasticPoissonDiskNode: NodeDefinition<PoissonDiskInputs, PoissonDiskOutputs, PoissonDiskParams> = {
   id: 'Patterns::PoissonDisk',
   category: 'Patterns',
   label: 'PoissonDisk',

@@ -16,7 +16,7 @@ interface CountersinkHoleOutputs {
   shape: unknown;
 }
 
-export const CountersinkHoleNode: NodeDefinition<CountersinkHoleInputs, CountersinkHoleOutputs, CountersinkHoleParams> = {
+export const FeaturesHolesCountersinkHoleNode: NodeDefinition<CountersinkHoleInputs, CountersinkHoleOutputs, CountersinkHoleParams> = {
   id: 'Features::CountersinkHole',
   category: 'Features',
   label: 'CountersinkHole',

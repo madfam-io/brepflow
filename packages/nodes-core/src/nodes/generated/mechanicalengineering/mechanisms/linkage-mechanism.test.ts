@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinkageMechanismNode } from './linkage-mechanism.node';
+import { MechanicalEngineeringMechanismsLinkageMechanismNode } from './linkage-mechanism.node';
 import { createTestContext } from '../test-utils';
 
-describe('LinkageMechanismNode', () => {
+describe('MechanicalEngineeringMechanismsLinkageMechanismNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('LinkageMechanismNode', () => {
       angle: 0
     } as any;
 
-    const result = await LinkageMechanismNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringMechanismsLinkageMechanismNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

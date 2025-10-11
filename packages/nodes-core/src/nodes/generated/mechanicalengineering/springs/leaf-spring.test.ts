@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LeafSpringNode } from './leaf-spring.node';
+import { MechanicalEngineeringSpringsLeafSpringNode } from './leaf-spring.node';
 import { createTestContext } from '../test-utils';
 
-describe('LeafSpringNode', () => {
+describe('MechanicalEngineeringSpringsLeafSpringNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('LeafSpringNode', () => {
       camber: 50
     } as any;
 
-    const result = await LeafSpringNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringSpringsLeafSpringNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -14,7 +14,7 @@ interface SlotOutputs {
   mate: unknown;
 }
 
-export const SlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
+export const AssemblyMatesSlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
   id: 'Assembly::Slot',
   category: 'Assembly',
   label: 'Slot',

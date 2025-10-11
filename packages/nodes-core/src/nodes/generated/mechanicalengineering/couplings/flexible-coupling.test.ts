@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FlexibleCouplingNode } from './flexible-coupling.node';
+import { MechanicalEngineeringCouplingsFlexibleCouplingNode } from './flexible-coupling.node';
 import { createTestContext } from '../test-utils';
 
-describe('FlexibleCouplingNode', () => {
+describe('MechanicalEngineeringCouplingsFlexibleCouplingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('FlexibleCouplingNode', () => {
       outerDiameter: 30
     } as any;
 
-    const result = await FlexibleCouplingNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringCouplingsFlexibleCouplingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

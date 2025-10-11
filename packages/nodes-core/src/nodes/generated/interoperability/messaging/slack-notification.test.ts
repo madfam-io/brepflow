@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SlackNotificationNode } from './slack-notification.node';
+import { InteroperabilityMessagingSlackNotificationNode } from './slack-notification.node';
 import { createTestContext } from '../test-utils';
 
-describe('SlackNotificationNode', () => {
+describe('InteroperabilityMessagingSlackNotificationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SlackNotificationNode', () => {
       username: "BrepFlow"
     } as any;
 
-    const result = await SlackNotificationNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityMessagingSlackNotificationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

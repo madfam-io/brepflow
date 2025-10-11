@@ -11,7 +11,7 @@ interface LogBaseOutputs {
   result: unknown;
 }
 
-export const LogBaseNode: NodeDefinition<LogBaseInputs, LogBaseOutputs, LogBaseParams> = {
+export const MathLogarithmicLogBaseNode: NodeDefinition<LogBaseInputs, LogBaseOutputs, LogBaseParams> = {
   id: 'Math::LogBase',
   category: 'Math',
   label: 'LogBase',

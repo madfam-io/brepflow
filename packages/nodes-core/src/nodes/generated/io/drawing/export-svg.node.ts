@@ -16,7 +16,7 @@ interface ExportSVGOutputs {
   svgData: unknown;
 }
 
-export const ExportSVGNode: NodeDefinition<ExportSVGInputs, ExportSVGOutputs, ExportSVGParams> = {
+export const IODrawingExportSVGNode: NodeDefinition<ExportSVGInputs, ExportSVGOutputs, ExportSVGParams> = {
   id: 'IO::ExportSVG',
   category: 'IO',
   label: 'ExportSVG',

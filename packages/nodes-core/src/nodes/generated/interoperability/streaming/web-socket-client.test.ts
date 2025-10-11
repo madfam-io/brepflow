@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WebSocketClientNode } from './web-socket-client.node';
+import { InteroperabilityStreamingWebSocketClientNode } from './web-socket-client.node';
 import { createTestContext } from '../test-utils';
 
-describe('WebSocketClientNode', () => {
+describe('InteroperabilityStreamingWebSocketClientNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('WebSocketClientNode', () => {
       heartbeat: 30
     } as any;
 
-    const result = await WebSocketClientNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityStreamingWebSocketClientNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

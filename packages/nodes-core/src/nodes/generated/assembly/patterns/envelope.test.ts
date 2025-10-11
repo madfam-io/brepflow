@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { EnvelopeNode } from './envelope.node';
+import { AssemblyPatternsEnvelopeNode } from './envelope.node';
 import { createTestContext } from '../test-utils';
 
-describe('EnvelopeNode', () => {
+describe('AssemblyPatternsEnvelopeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('EnvelopeNode', () => {
       type: "bounding"
     } as any;
 
-    const result = await EnvelopeNode.evaluate(context, inputs, params);
+    const result = await AssemblyPatternsEnvelopeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TruncateNode } from './truncate.node';
+import { MathRoundingTruncateNode } from './truncate.node';
 import { createTestContext } from '../test-utils';
 
-describe('TruncateNode', () => {
+describe('MathRoundingTruncateNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('TruncateNode', () => {
 
     } as any;
 
-    const result = await TruncateNode.evaluate(context, inputs, params);
+    const result = await MathRoundingTruncateNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

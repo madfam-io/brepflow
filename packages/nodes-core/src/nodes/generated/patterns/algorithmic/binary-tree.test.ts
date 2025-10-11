@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BinaryTreeNode } from './binary-tree.node';
+import { PatternsAlgorithmicBinaryTreeNode } from './binary-tree.node';
 import { createTestContext } from '../test-utils';
 
-describe('BinaryTreeNode', () => {
+describe('PatternsAlgorithmicBinaryTreeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('BinaryTreeNode', () => {
       lengthRatio: 0.7
     } as any;
 
-    const result = await BinaryTreeNode.evaluate(context, inputs, params);
+    const result = await PatternsAlgorithmicBinaryTreeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

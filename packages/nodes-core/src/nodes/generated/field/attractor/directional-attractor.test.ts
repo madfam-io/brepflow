@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DirectionalAttractorNode } from './directional-attractor.node';
+import { FieldAttractorDirectionalAttractorNode } from './directional-attractor.node';
 import { createTestContext } from '../test-utils';
 
-describe('DirectionalAttractorNode', () => {
+describe('FieldAttractorDirectionalAttractorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('DirectionalAttractorNode', () => {
       spread: 45
     } as any;
 
-    const result = await DirectionalAttractorNode.evaluate(context, inputs, params);
+    const result = await FieldAttractorDirectionalAttractorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

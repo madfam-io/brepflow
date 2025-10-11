@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { UnfoldNode } from './unfold.node';
+import { SheetMetalUnfoldUnfoldNode } from './unfold.node';
 import { createTestContext } from '../test-utils';
 
-describe('UnfoldNode', () => {
+describe('SheetMetalUnfoldUnfoldNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('UnfoldNode', () => {
       autoRelief: true
     } as any;
 
-    const result = await UnfoldNode.evaluate(context, inputs, params);
+    const result = await SheetMetalUnfoldUnfoldNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

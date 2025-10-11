@@ -15,7 +15,7 @@ interface SimpleHoleOutputs {
   shape: unknown;
 }
 
-export const SimpleHoleNode: NodeDefinition<SimpleHoleInputs, SimpleHoleOutputs, SimpleHoleParams> = {
+export const FeaturesHolesSimpleHoleNode: NodeDefinition<SimpleHoleInputs, SimpleHoleOutputs, SimpleHoleParams> = {
   id: 'Features::SimpleHole',
   category: 'Features',
   label: 'SimpleHole',

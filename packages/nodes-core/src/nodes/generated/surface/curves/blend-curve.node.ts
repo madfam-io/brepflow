@@ -17,7 +17,7 @@ interface BlendCurveOutputs {
   blendCurve: unknown;
 }
 
-export const BlendCurveNode: NodeDefinition<BlendCurveInputs, BlendCurveOutputs, BlendCurveParams> = {
+export const SurfaceCurvesBlendCurveNode: NodeDefinition<BlendCurveInputs, BlendCurveOutputs, BlendCurveParams> = {
   id: 'Surface::BlendCurve',
   category: 'Surface',
   label: 'BlendCurve',

@@ -13,7 +13,7 @@ interface XOROutputs {
   result: unknown;
 }
 
-export const XORNode: NodeDefinition<XORInputs, XOROutputs, XORParams> = {
+export const BooleanXORNode: NodeDefinition<XORInputs, XOROutputs, XORParams> = {
   id: 'Boolean::XOR',
   category: 'Boolean',
   label: 'XOR',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SwitchbackRampNode } from './switchback-ramp.node';
+import { ArchitectureRampsSwitchbackRampNode } from './switchback-ramp.node';
 import { createTestContext } from '../test-utils';
 
-describe('SwitchbackRampNode', () => {
+describe('ArchitectureRampsSwitchbackRampNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SwitchbackRampNode', () => {
       landingSize: 1500
     } as any;
 
-    const result = await SwitchbackRampNode.evaluate(context, inputs, params);
+    const result = await ArchitectureRampsSwitchbackRampNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

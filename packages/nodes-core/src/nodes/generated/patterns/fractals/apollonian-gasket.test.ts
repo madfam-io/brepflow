@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ApollonianGasketNode } from './apollonian-gasket.node';
+import { PatternsFractalsApollonianGasketNode } from './apollonian-gasket.node';
 import { createTestContext } from '../test-utils';
 
-describe('ApollonianGasketNode', () => {
+describe('PatternsFractalsApollonianGasketNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ApollonianGasketNode', () => {
       minRadius: 0.1
     } as any;
 
-    const result = await ApollonianGasketNode.evaluate(context, inputs, params);
+    const result = await PatternsFractalsApollonianGasketNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

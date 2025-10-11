@@ -15,7 +15,7 @@ interface LightweightStructureOutputs {
   weightReduction: unknown;
 }
 
-export const LightweightStructureNode: NodeDefinition<LightweightStructureInputs, LightweightStructureOutputs, LightweightStructureParams> = {
+export const SpecializedOptimizationLightweightStructureNode: NodeDefinition<LightweightStructureInputs, LightweightStructureOutputs, LightweightStructureParams> = {
   id: 'Specialized::LightweightStructure',
   category: 'Specialized',
   label: 'LightweightStructure',

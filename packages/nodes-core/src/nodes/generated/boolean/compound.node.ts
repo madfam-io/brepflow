@@ -10,7 +10,7 @@ interface CompoundOutputs {
   compound: unknown;
 }
 
-export const CompoundNode: NodeDefinition<CompoundInputs, CompoundOutputs, CompoundParams> = {
+export const BooleanCompoundNode: NodeDefinition<CompoundInputs, CompoundOutputs, CompoundParams> = {
   id: 'Boolean::Compound',
   category: 'Boolean',
   label: 'Compound',

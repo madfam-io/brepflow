@@ -15,7 +15,7 @@ interface SurfaceAreaOutputs {
   boundaryLength: unknown;
 }
 
-export const SurfaceAreaNode: NodeDefinition<SurfaceAreaInputs, SurfaceAreaOutputs, SurfaceAreaParams> = {
+export const AnalysisSurfacesSurfaceAreaNode: NodeDefinition<SurfaceAreaInputs, SurfaceAreaOutputs, SurfaceAreaParams> = {
   id: 'Analysis::SurfaceArea',
   category: 'Analysis',
   label: 'SurfaceArea',

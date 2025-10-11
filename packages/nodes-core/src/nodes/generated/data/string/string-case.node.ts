@@ -12,7 +12,7 @@ interface StringCaseOutputs {
   result: unknown;
 }
 
-export const StringCaseNode: NodeDefinition<StringCaseInputs, StringCaseOutputs, StringCaseParams> = {
+export const DataStringStringCaseNode: NodeDefinition<StringCaseInputs, StringCaseOutputs, StringCaseParams> = {
   id: 'Data::StringCase',
   category: 'Data',
   label: 'StringCase',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldSmoothNode } from './field-smooth.node';
+import { FieldOperationsFieldSmoothNode } from './field-smooth.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldSmoothNode', () => {
+describe('FieldOperationsFieldSmoothNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FieldSmoothNode', () => {
       factor: 0.5
     } as any;
 
-    const result = await FieldSmoothNode.evaluate(context, inputs, params);
+    const result = await FieldOperationsFieldSmoothNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

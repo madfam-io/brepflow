@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FactorialNode } from './factorial.node';
+import { MathOperatorsFactorialNode } from './factorial.node';
 import { createTestContext } from '../test-utils';
 
-describe('FactorialNode', () => {
+describe('MathOperatorsFactorialNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FactorialNode', () => {
 
     } as any;
 
-    const result = await FactorialNode.evaluate(context, inputs, params);
+    const result = await MathOperatorsFactorialNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

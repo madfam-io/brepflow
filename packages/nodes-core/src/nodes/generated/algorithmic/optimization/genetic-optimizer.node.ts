@@ -21,7 +21,7 @@ interface GeneticOptimizerOutputs {
   convergence: unknown;
 }
 
-export const GeneticOptimizerNode: NodeDefinition<GeneticOptimizerInputs, GeneticOptimizerOutputs, GeneticOptimizerParams> = {
+export const AlgorithmicOptimizationGeneticOptimizerNode: NodeDefinition<GeneticOptimizerInputs, GeneticOptimizerOutputs, GeneticOptimizerParams> = {
   id: 'Algorithmic::GeneticOptimizer',
   category: 'Algorithmic',
   label: 'GeneticOptimizer',

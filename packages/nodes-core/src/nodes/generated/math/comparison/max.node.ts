@@ -10,7 +10,7 @@ interface MaxOutputs {
   max: unknown;
 }
 
-export const MaxNode: NodeDefinition<MaxInputs, MaxOutputs, MaxParams> = {
+export const MathComparisonMaxNode: NodeDefinition<MaxInputs, MaxOutputs, MaxParams> = {
   id: 'Math::Max',
   category: 'Math',
   label: 'Max',

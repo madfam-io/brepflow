@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FractalGeometryNode } from './fractal-geometry.node';
+import { SpecializedOrganicFractalGeometryNode } from './fractal-geometry.node';
 import { createTestContext } from '../test-utils';
 
-describe('FractalGeometryNode', () => {
+describe('SpecializedOrganicFractalGeometryNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('FractalGeometryNode', () => {
       scale: 100
     } as any;
 
-    const result = await FractalGeometryNode.evaluate(context, inputs, params);
+    const result = await SpecializedOrganicFractalGeometryNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

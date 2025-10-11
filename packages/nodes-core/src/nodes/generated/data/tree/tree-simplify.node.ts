@@ -10,7 +10,7 @@ interface TreeSimplifyOutputs {
   simplified: unknown;
 }
 
-export const TreeSimplifyNode: NodeDefinition<TreeSimplifyInputs, TreeSimplifyOutputs, TreeSimplifyParams> = {
+export const DataTreeTreeSimplifyNode: NodeDefinition<TreeSimplifyInputs, TreeSimplifyOutputs, TreeSimplifyParams> = {
   id: 'Data::TreeSimplify',
   category: 'Data',
   label: 'TreeSimplify',

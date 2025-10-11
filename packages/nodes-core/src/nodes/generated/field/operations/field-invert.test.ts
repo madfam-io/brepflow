@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldInvertNode } from './field-invert.node';
+import { FieldOperationsFieldInvertNode } from './field-invert.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldInvertNode', () => {
+describe('FieldOperationsFieldInvertNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FieldInvertNode', () => {
 
     } as any;
 
-    const result = await FieldInvertNode.evaluate(context, inputs, params);
+    const result = await FieldOperationsFieldInvertNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

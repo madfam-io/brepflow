@@ -17,7 +17,7 @@ interface SurfaceReconstructionOutputs {
   quality: unknown;
 }
 
-export const SurfaceReconstructionNode: NodeDefinition<SurfaceReconstructionInputs, SurfaceReconstructionOutputs, SurfaceReconstructionParams> = {
+export const AlgorithmicGeometrySurfaceReconstructionNode: NodeDefinition<SurfaceReconstructionInputs, SurfaceReconstructionOutputs, SurfaceReconstructionParams> = {
   id: 'Algorithmic::SurfaceReconstruction',
   category: 'Algorithmic',
   label: 'SurfaceReconstruction',

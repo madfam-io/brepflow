@@ -15,7 +15,7 @@ interface NoisePatternOutputs {
   noiseField: unknown;
 }
 
-export const NoisePatternNode: NodeDefinition<NoisePatternInputs, NoisePatternOutputs, NoisePatternParams> = {
+export const PatternsProceduralNoisePatternNode: NodeDefinition<NoisePatternInputs, NoisePatternOutputs, NoisePatternParams> = {
   id: 'Patterns::NoisePattern',
   category: 'Patterns',
   label: 'NoisePattern',

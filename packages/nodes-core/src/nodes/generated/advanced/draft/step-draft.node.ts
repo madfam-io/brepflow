@@ -13,7 +13,7 @@ interface StepDraftOutputs {
   drafted: unknown;
 }
 
-export const StepDraftNode: NodeDefinition<StepDraftInputs, StepDraftOutputs, StepDraftParams> = {
+export const AdvancedDraftStepDraftNode: NodeDefinition<StepDraftInputs, StepDraftOutputs, StepDraftParams> = {
   id: 'Advanced::StepDraft',
   category: 'Advanced',
   label: 'StepDraft',

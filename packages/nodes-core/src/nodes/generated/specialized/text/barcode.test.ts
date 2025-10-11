@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BarcodeNode } from './barcode.node';
+import { SpecializedTextBarcodeNode } from './barcode.node';
 import { createTestContext } from '../test-utils';
 
-describe('BarcodeNode', () => {
+describe('SpecializedTextBarcodeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('BarcodeNode', () => {
       height: 0.5
     } as any;
 
-    const result = await BarcodeNode.evaluate(context, inputs, params);
+    const result = await SpecializedTextBarcodeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MicroJointsNode } from './micro-joints.node';
+import { FabricationLaserMicroJointsNode } from './micro-joints.node';
 import { createTestContext } from '../test-utils';
 
-describe('MicroJointsNode', () => {
+describe('FabricationLaserMicroJointsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('MicroJointsNode', () => {
       jointSpacing: 30
     } as any;
 
-    const result = await MicroJointsNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserMicroJointsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -14,7 +14,7 @@ interface PrintOrientationOutputs {
   orientedModel: unknown;
 }
 
-export const PrintOrientationNode: NodeDefinition<PrintOrientationInputs, PrintOrientationOutputs, PrintOrientationParams> = {
+export const Fabrication3DPrintingPrintOrientationNode: NodeDefinition<PrintOrientationInputs, PrintOrientationOutputs, PrintOrientationParams> = {
   id: 'Fabrication::PrintOrientation',
   category: 'Fabrication',
   label: 'PrintOrientation',

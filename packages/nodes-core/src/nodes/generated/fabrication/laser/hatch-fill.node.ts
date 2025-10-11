@@ -14,7 +14,7 @@ interface HatchFillOutputs {
   hatchLines: unknown;
 }
 
-export const HatchFillNode: NodeDefinition<HatchFillInputs, HatchFillOutputs, HatchFillParams> = {
+export const FabricationLaserHatchFillNode: NodeDefinition<HatchFillInputs, HatchFillOutputs, HatchFillParams> = {
   id: 'Fabrication::HatchFill',
   category: 'Fabrication',
   label: 'HatchFill',

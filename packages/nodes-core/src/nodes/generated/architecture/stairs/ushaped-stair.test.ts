@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { UShapedStairNode } from './ushaped-stair.node';
+import { ArchitectureStairsUShapedStairNode } from './ushaped-stair.node';
 import { createTestContext } from '../test-utils';
 
-describe('UShapedStairNode', () => {
+describe('ArchitectureStairsUShapedStairNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('UShapedStairNode', () => {
       clearance: 100
     } as any;
 
-    const result = await UShapedStairNode.evaluate(context, inputs, params);
+    const result = await ArchitectureStairsUShapedStairNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

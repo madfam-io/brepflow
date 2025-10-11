@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceNormalsNode } from './surface-normals.node';
+import { AnalysisSurfacesSurfaceNormalsNode } from './surface-normals.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceNormalsNode', () => {
+describe('AnalysisSurfacesSurfaceNormalsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SurfaceNormalsNode', () => {
       showVectors: true
     } as any;
 
-    const result = await SurfaceNormalsNode.evaluate(context, inputs, params);
+    const result = await AnalysisSurfacesSurfaceNormalsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

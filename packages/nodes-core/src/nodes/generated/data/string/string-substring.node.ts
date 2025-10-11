@@ -12,7 +12,7 @@ interface StringSubstringOutputs {
   substring: unknown;
 }
 
-export const StringSubstringNode: NodeDefinition<StringSubstringInputs, StringSubstringOutputs, StringSubstringParams> = {
+export const DataStringStringSubstringNode: NodeDefinition<StringSubstringInputs, StringSubstringOutputs, StringSubstringParams> = {
   id: 'Data::StringSubstring',
   category: 'Data',
   label: 'StringSubstring',

@@ -15,7 +15,7 @@ interface BendReliefOutputs {
   result: unknown;
 }
 
-export const BendReliefNode: NodeDefinition<BendReliefInputs, BendReliefOutputs, BendReliefParams> = {
+export const SheetMetalCornersBendReliefNode: NodeDefinition<BendReliefInputs, BendReliefOutputs, BendReliefParams> = {
   id: 'SheetMetal::BendRelief',
   category: 'SheetMetal',
   label: 'BendRelief',

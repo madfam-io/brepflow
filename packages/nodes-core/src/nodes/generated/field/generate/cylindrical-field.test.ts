@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CylindricalFieldNode } from './cylindrical-field.node';
+import { FieldGenerateCylindricalFieldNode } from './cylindrical-field.node';
 import { createTestContext } from '../test-utils';
 
-describe('CylindricalFieldNode', () => {
+describe('FieldGenerateCylindricalFieldNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CylindricalFieldNode', () => {
       falloff: "smooth"
     } as any;
 
-    const result = await CylindricalFieldNode.evaluate(context, inputs, params);
+    const result = await FieldGenerateCylindricalFieldNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

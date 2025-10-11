@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldDeformNode } from './field-deform.node';
+import { FieldDeformFieldDeformNode } from './field-deform.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldDeformNode', () => {
+describe('FieldDeformFieldDeformNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FieldDeformNode', () => {
       strength: 10
     } as any;
 
-    const result = await FieldDeformNode.evaluate(context, inputs, params);
+    const result = await FieldDeformFieldDeformNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

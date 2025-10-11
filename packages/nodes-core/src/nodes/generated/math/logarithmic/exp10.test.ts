@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { Exp10Node } from './exp10.node';
+import { MathLogarithmicExp10Node } from './exp10.node';
 import { createTestContext } from '../test-utils';
 
-describe('Exp10Node', () => {
+describe('MathLogarithmicExp10Node', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('Exp10Node', () => {
 
     } as any;
 
-    const result = await Exp10Node.evaluate(context, inputs, params);
+    const result = await MathLogarithmicExp10Node.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

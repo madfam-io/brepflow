@@ -10,7 +10,7 @@ interface TreePruneOutputs {
   pruned: unknown;
 }
 
-export const TreePruneNode: NodeDefinition<TreePruneInputs, TreePruneOutputs, TreePruneParams> = {
+export const DataTreeTreePruneNode: NodeDefinition<TreePruneInputs, TreePruneOutputs, TreePruneParams> = {
   id: 'Data::TreePrune',
   category: 'Data',
   label: 'TreePrune',

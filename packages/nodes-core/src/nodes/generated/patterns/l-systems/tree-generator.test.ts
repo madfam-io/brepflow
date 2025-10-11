@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TreeGeneratorNode } from './tree-generator.node';
+import { PatternsLSystemsTreeGeneratorNode } from './tree-generator.node';
 import { createTestContext } from '../test-utils';
 
-describe('TreeGeneratorNode', () => {
+describe('PatternsLSystemsTreeGeneratorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('TreeGeneratorNode', () => {
       seed: 0
     } as any;
 
-    const result = await TreeGeneratorNode.evaluate(context, inputs, params);
+    const result = await PatternsLSystemsTreeGeneratorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface IsoparametricCurveOutputs {
   isoCurve: unknown;
 }
 
-export const IsoparametricCurveNode: NodeDefinition<IsoparametricCurveInputs, IsoparametricCurveOutputs, IsoparametricCurveParams> = {
+export const SurfaceCurveOpsIsoparametricCurveNode: NodeDefinition<IsoparametricCurveInputs, IsoparametricCurveOutputs, IsoparametricCurveParams> = {
   id: 'Surface::IsoparametricCurve',
   category: 'Surface',
   label: 'IsoparametricCurve',

@@ -10,7 +10,7 @@ interface ProductOutputs {
   product: unknown;
 }
 
-export const ProductNode: NodeDefinition<ProductInputs, ProductOutputs, ProductParams> = {
+export const MathStatisticsProductNode: NodeDefinition<ProductInputs, ProductOutputs, ProductParams> = {
   id: 'Math::Product',
   category: 'Math',
   label: 'Product',

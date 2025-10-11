@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpringNode } from './spring.node';
+import { SolidHelicalSpringNode } from './spring.node';
 import { createTestContext } from '../test-utils';
 
-describe('SpringNode', () => {
+describe('SolidHelicalSpringNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('SpringNode', () => {
       leftHanded: false
     } as any;
 
-    const result = await SpringNode.evaluate(context, inputs, params);
+    const result = await SolidHelicalSpringNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

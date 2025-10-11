@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SimpleHoleNode } from './simple-hole.node';
+import { FeaturesHolesSimpleHoleNode } from './simple-hole.node';
 import { createTestContext } from '../test-utils';
 
-describe('SimpleHoleNode', () => {
+describe('FeaturesHolesSimpleHoleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SimpleHoleNode', () => {
       depth: -1
     } as any;
 
-    const result = await SimpleHoleNode.evaluate(context, inputs, params);
+    const result = await FeaturesHolesSimpleHoleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

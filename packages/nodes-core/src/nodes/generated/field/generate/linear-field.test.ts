@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinearFieldNode } from './linear-field.node';
+import { FieldGenerateLinearFieldNode } from './linear-field.node';
 import { createTestContext } from '../test-utils';
 
-describe('LinearFieldNode', () => {
+describe('FieldGenerateLinearFieldNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('LinearFieldNode', () => {
       max: 1
     } as any;
 
-    const result = await LinearFieldNode.evaluate(context, inputs, params);
+    const result = await FieldGenerateLinearFieldNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

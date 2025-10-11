@@ -15,7 +15,7 @@ interface PathOutputs {
   mate: unknown;
 }
 
-export const PathNode: NodeDefinition<PathInputs, PathOutputs, PathParams> = {
+export const AssemblyMatesPathNode: NodeDefinition<PathInputs, PathOutputs, PathParams> = {
   id: 'Assembly::Path',
   category: 'Assembly',
   label: 'Path',

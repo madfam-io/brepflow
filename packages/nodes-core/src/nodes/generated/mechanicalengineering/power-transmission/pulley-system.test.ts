@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PulleySystemNode } from './pulley-system.node';
+import { MechanicalEngineeringPowerTransmissionPulleySystemNode } from './pulley-system.node';
 import { createTestContext } from '../test-utils';
 
-describe('PulleySystemNode', () => {
+describe('MechanicalEngineeringPowerTransmissionPulleySystemNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('PulleySystemNode', () => {
       centerDistance: 300
     } as any;
 
-    const result = await PulleySystemNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringPowerTransmissionPulleySystemNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

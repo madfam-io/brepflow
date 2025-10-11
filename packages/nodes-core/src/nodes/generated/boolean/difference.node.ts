@@ -14,7 +14,7 @@ interface DifferenceOutputs {
   result: unknown;
 }
 
-export const DifferenceNode: NodeDefinition<DifferenceInputs, DifferenceOutputs, DifferenceParams> = {
+export const BooleanDifferenceNode: NodeDefinition<DifferenceInputs, DifferenceOutputs, DifferenceParams> = {
   id: 'Boolean::Difference',
   category: 'Boolean',
   label: 'Difference',

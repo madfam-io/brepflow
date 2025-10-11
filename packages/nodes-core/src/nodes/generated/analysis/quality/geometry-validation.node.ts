@@ -17,7 +17,7 @@ interface GeometryValidationOutputs {
   problemAreas: unknown;
 }
 
-export const GeometryValidationNode: NodeDefinition<GeometryValidationInputs, GeometryValidationOutputs, GeometryValidationParams> = {
+export const AnalysisQualityGeometryValidationNode: NodeDefinition<GeometryValidationInputs, GeometryValidationOutputs, GeometryValidationParams> = {
   id: 'Analysis::GeometryValidation',
   category: 'Analysis',
   label: 'GeometryValidation',

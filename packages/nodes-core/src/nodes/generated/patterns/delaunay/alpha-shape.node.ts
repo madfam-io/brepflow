@@ -13,7 +13,7 @@ interface AlphaShapeOutputs {
   mesh: unknown;
 }
 
-export const AlphaShapeNode: NodeDefinition<AlphaShapeInputs, AlphaShapeOutputs, AlphaShapeParams> = {
+export const PatternsDelaunayAlphaShapeNode: NodeDefinition<AlphaShapeInputs, AlphaShapeOutputs, AlphaShapeParams> = {
   id: 'Patterns::AlphaShape',
   category: 'Patterns',
   label: 'AlphaShape',

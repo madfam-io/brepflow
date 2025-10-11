@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StraightStairNode } from './straight-stair.node';
+import { ArchitectureStairsStraightStairNode } from './straight-stair.node';
 import { createTestContext } from '../test-utils';
 
-describe('StraightStairNode', () => {
+describe('ArchitectureStairsStraightStairNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('StraightStairNode', () => {
       width: 1200
     } as any;
 
-    const result = await StraightStairNode.evaluate(context, inputs, params);
+    const result = await ArchitectureStairsStraightStairNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

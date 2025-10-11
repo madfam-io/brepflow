@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BarnsleyFernNode } from './barnsley-fern.node';
+import { PatternsFractalsBarnsleyFernNode } from './barnsley-fern.node';
 import { createTestContext } from '../test-utils';
 
-describe('BarnsleyFernNode', () => {
+describe('PatternsFractalsBarnsleyFernNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BarnsleyFernNode', () => {
       variation: "classic"
     } as any;
 
-    const result = await BarnsleyFernNode.evaluate(context, inputs, params);
+    const result = await PatternsFractalsBarnsleyFernNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

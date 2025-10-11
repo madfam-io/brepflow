@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RectanglePackingNode } from './rectangle-packing.node';
+import { PatternsPackingRectanglePackingNode } from './rectangle-packing.node';
 import { createTestContext } from '../test-utils';
 
-describe('RectanglePackingNode', () => {
+describe('PatternsPackingRectanglePackingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('RectanglePackingNode', () => {
       algorithm: "maxrects"
     } as any;
 
-    const result = await RectanglePackingNode.evaluate(context, inputs, params);
+    const result = await PatternsPackingRectanglePackingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

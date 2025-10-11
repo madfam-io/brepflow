@@ -14,7 +14,7 @@ interface GreenRoofOutputs {
   layers: unknown;
 }
 
-export const GreenRoofNode: NodeDefinition<GreenRoofInputs, GreenRoofOutputs, GreenRoofParams> = {
+export const ArchitectureFloorsGreenRoofNode: NodeDefinition<GreenRoofInputs, GreenRoofOutputs, GreenRoofParams> = {
   id: 'Architecture::GreenRoof',
   category: 'Architecture',
   label: 'GreenRoof',

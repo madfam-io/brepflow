@@ -16,7 +16,7 @@ interface CurveSpiralOutputs {
   turns: unknown;
 }
 
-export const CurveSpiralNode: NodeDefinition<CurveSpiralInputs, CurveSpiralOutputs, CurveSpiralParams> = {
+export const AnalysisCurvesCurveSpiralNode: NodeDefinition<CurveSpiralInputs, CurveSpiralOutputs, CurveSpiralParams> = {
   id: 'Analysis::CurveSpiral',
   category: 'Analysis',
   label: 'CurveSpiral',

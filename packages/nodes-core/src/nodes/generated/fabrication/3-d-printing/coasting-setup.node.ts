@@ -13,7 +13,7 @@ interface CoastingSetupOutputs {
   coastingPoints: Array<[number, number, number]>;
 }
 
-export const CoastingSetupNode: NodeDefinition<CoastingSetupInputs, CoastingSetupOutputs, CoastingSetupParams> = {
+export const Fabrication3DPrintingCoastingSetupNode: NodeDefinition<CoastingSetupInputs, CoastingSetupOutputs, CoastingSetupParams> = {
   id: 'Fabrication::CoastingSetup',
   category: 'Fabrication',
   label: 'CoastingSetup',

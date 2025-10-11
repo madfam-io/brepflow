@@ -17,7 +17,7 @@ interface CurveDerivativesOutputs {
   thirdDerivative: [number, number, number];
 }
 
-export const CurveDerivativesNode: NodeDefinition<CurveDerivativesInputs, CurveDerivativesOutputs, CurveDerivativesParams> = {
+export const AnalysisCurvesCurveDerivativesNode: NodeDefinition<CurveDerivativesInputs, CurveDerivativesOutputs, CurveDerivativesParams> = {
   id: 'Analysis::CurveDerivatives',
   category: 'Analysis',
   label: 'CurveDerivatives',

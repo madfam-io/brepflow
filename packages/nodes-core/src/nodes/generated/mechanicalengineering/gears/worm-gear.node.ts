@@ -16,7 +16,7 @@ interface WormGearOutputs {
   throat: unknown;
 }
 
-export const WormGearNode: NodeDefinition<WormGearInputs, WormGearOutputs, WormGearParams> = {
+export const MechanicalEngineeringGearsWormGearNode: NodeDefinition<WormGearInputs, WormGearOutputs, WormGearParams> = {
   id: 'MechanicalEngineering::WormGear',
   category: 'MechanicalEngineering',
   label: 'WormGear',

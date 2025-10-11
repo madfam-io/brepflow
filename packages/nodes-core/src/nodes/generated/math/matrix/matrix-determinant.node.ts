@@ -10,7 +10,7 @@ interface MatrixDeterminantOutputs {
   determinant: unknown;
 }
 
-export const MatrixDeterminantNode: NodeDefinition<MatrixDeterminantInputs, MatrixDeterminantOutputs, MatrixDeterminantParams> = {
+export const MathMatrixMatrixDeterminantNode: NodeDefinition<MatrixDeterminantInputs, MatrixDeterminantOutputs, MatrixDeterminantParams> = {
   id: 'Math::MatrixDeterminant',
   category: 'Math',
   label: 'MatrixDeterminant',

@@ -11,7 +11,7 @@ interface MatrixTransformOutputs {
   transformed: unknown;
 }
 
-export const MatrixTransformNode: NodeDefinition<MatrixTransformInputs, MatrixTransformOutputs, MatrixTransformParams> = {
+export const TransformMatrixTransformNode: NodeDefinition<MatrixTransformInputs, MatrixTransformOutputs, MatrixTransformParams> = {
   id: 'Transform::MatrixTransform',
   category: 'Transform',
   label: 'MatrixTransform',

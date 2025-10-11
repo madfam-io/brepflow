@@ -11,7 +11,7 @@ interface FromJSONOutputs {
   isValid: unknown;
 }
 
-export const FromJSONNode: NodeDefinition<FromJSONInputs, FromJSONOutputs, FromJSONParams> = {
+export const DataConvertFromJSONNode: NodeDefinition<FromJSONInputs, FromJSONOutputs, FromJSONParams> = {
   id: 'Data::FromJSON',
   category: 'Data',
   label: 'FromJSON',

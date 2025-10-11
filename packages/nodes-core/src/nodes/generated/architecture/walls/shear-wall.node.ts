@@ -14,7 +14,7 @@ interface ShearWallOutputs {
   reinforcement: unknown;
 }
 
-export const ShearWallNode: NodeDefinition<ShearWallInputs, ShearWallOutputs, ShearWallParams> = {
+export const ArchitectureWallsShearWallNode: NodeDefinition<ShearWallInputs, ShearWallOutputs, ShearWallParams> = {
   id: 'Architecture::ShearWall',
   category: 'Architecture',
   label: 'ShearWall',

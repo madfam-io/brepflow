@@ -13,7 +13,7 @@ interface ReflectionLinesOutputs {
   reflectionLines: unknown;
 }
 
-export const ReflectionLinesNode: NodeDefinition<ReflectionLinesInputs, ReflectionLinesOutputs, ReflectionLinesParams> = {
+export const SurfaceAnalysisReflectionLinesNode: NodeDefinition<ReflectionLinesInputs, ReflectionLinesOutputs, ReflectionLinesParams> = {
   id: 'Surface::ReflectionLines',
   category: 'Surface',
   label: 'ReflectionLines',

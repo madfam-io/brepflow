@@ -18,7 +18,7 @@ interface JointDefinitionOutputs {
   assembly: unknown;
 }
 
-export const JointDefinitionNode: NodeDefinition<JointDefinitionInputs, JointDefinitionOutputs, JointDefinitionParams> = {
+export const SimulationKinematicsJointDefinitionNode: NodeDefinition<JointDefinitionInputs, JointDefinitionOutputs, JointDefinitionParams> = {
   id: 'Simulation::JointDefinition',
   category: 'Simulation',
   label: 'JointDefinition',

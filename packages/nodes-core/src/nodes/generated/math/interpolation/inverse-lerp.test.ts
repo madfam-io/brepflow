@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { InverseLerpNode } from './inverse-lerp.node';
+import { MathInterpolationInverseLerpNode } from './inverse-lerp.node';
 import { createTestContext } from '../test-utils';
 
-describe('InverseLerpNode', () => {
+describe('MathInterpolationInverseLerpNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('InverseLerpNode', () => {
 
     } as any;
 
-    const result = await InverseLerpNode.evaluate(context, inputs, params);
+    const result = await MathInterpolationInverseLerpNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

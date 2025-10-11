@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RayIntersectionNode } from './ray-intersection.node';
+import { AnalysisIntersectionRayIntersectionNode } from './ray-intersection.node';
 import { createTestContext } from '../test-utils';
 
-describe('RayIntersectionNode', () => {
+describe('AnalysisIntersectionRayIntersectionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('RayIntersectionNode', () => {
       maxDistance: 1000
     } as any;
 
-    const result = await RayIntersectionNode.evaluate(context, inputs, params);
+    const result = await AnalysisIntersectionRayIntersectionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

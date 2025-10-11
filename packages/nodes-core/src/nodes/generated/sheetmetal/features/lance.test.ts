@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LanceNode } from './lance.node';
+import { SheetMetalFeaturesLanceNode } from './lance.node';
 import { createTestContext } from '../test-utils';
 
-describe('LanceNode', () => {
+describe('SheetMetalFeaturesLanceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('LanceNode', () => {
       lanceAngle: 30
     } as any;
 
-    const result = await LanceNode.evaluate(context, inputs, params);
+    const result = await SheetMetalFeaturesLanceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

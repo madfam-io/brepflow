@@ -13,7 +13,7 @@ interface SingularityAvoidanceOutputs {
   singularityPoints: number[];
 }
 
-export const SingularityAvoidanceNode: NodeDefinition<SingularityAvoidanceInputs, SingularityAvoidanceOutputs, SingularityAvoidanceParams> = {
+export const FabricationRoboticsSingularityAvoidanceNode: NodeDefinition<SingularityAvoidanceInputs, SingularityAvoidanceOutputs, SingularityAvoidanceParams> = {
   id: 'Fabrication::SingularityAvoidance',
   category: 'Fabrication',
   label: 'SingularityAvoidance',

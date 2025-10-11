@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MotionStudyNode } from './motion-study.node';
+import { AssemblyPatternsMotionStudyNode } from './motion-study.node';
 import { createTestContext } from '../test-utils';
 
-describe('MotionStudyNode', () => {
+describe('AssemblyPatternsMotionStudyNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('MotionStudyNode', () => {
       duration: 1
     } as any;
 
-    const result = await MotionStudyNode.evaluate(context, inputs, params);
+    const result = await AssemblyPatternsMotionStudyNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

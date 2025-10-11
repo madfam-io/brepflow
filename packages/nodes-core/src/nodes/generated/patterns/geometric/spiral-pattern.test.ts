@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpiralPatternNode } from './spiral-pattern.node';
+import { PatternsGeometricSpiralPatternNode } from './spiral-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('SpiralPatternNode', () => {
+describe('PatternsGeometricSpiralPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SpiralPatternNode', () => {
       growth: 1.2
     } as any;
 
-    const result = await SpiralPatternNode.evaluate(context, inputs, params);
+    const result = await PatternsGeometricSpiralPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

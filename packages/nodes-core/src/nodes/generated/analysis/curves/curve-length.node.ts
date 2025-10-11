@@ -15,7 +15,7 @@ interface CurveLengthOutputs {
   arcLength: unknown;
 }
 
-export const CurveLengthNode: NodeDefinition<CurveLengthInputs, CurveLengthOutputs, CurveLengthParams> = {
+export const AnalysisCurvesCurveLengthNode: NodeDefinition<CurveLengthInputs, CurveLengthOutputs, CurveLengthParams> = {
   id: 'Analysis::CurveLength',
   category: 'Analysis',
   label: 'CurveLength',

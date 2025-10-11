@@ -13,7 +13,7 @@ interface FieldDeformOutputs {
   deformed: unknown;
 }
 
-export const FieldDeformNode: NodeDefinition<FieldDeformInputs, FieldDeformOutputs, FieldDeformParams> = {
+export const FieldDeformFieldDeformNode: NodeDefinition<FieldDeformInputs, FieldDeformOutputs, FieldDeformParams> = {
   id: 'Field::FieldDeform',
   category: 'Field',
   label: 'FieldDeform',

@@ -16,7 +16,7 @@ interface ContinuityCheckOutputs {
   deviations: unknown;
 }
 
-export const ContinuityCheckNode: NodeDefinition<ContinuityCheckInputs, ContinuityCheckOutputs, ContinuityCheckParams> = {
+export const SurfaceAnalysisContinuityCheckNode: NodeDefinition<ContinuityCheckInputs, ContinuityCheckOutputs, ContinuityCheckParams> = {
   id: 'Surface::ContinuityCheck',
   category: 'Surface',
   label: 'ContinuityCheck',

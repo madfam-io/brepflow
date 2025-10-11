@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceParametrizationNode } from './surface-parametrization.node';
+import { AnalysisSurfacesSurfaceParametrizationNode } from './surface-parametrization.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceParametrizationNode', () => {
+describe('AnalysisSurfacesSurfaceParametrizationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SurfaceParametrizationNode', () => {
       gridDensity: 20
     } as any;
 
-    const result = await SurfaceParametrizationNode.evaluate(context, inputs, params);
+    const result = await AnalysisSurfacesSurfaceParametrizationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

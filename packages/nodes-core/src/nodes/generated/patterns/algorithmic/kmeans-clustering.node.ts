@@ -14,7 +14,7 @@ interface KMeansClusteringOutputs {
   centroids: Array<[number, number, number]>;
 }
 
-export const KMeansClusteringNode: NodeDefinition<KMeansClusteringInputs, KMeansClusteringOutputs, KMeansClusteringParams> = {
+export const PatternsAlgorithmicKMeansClusteringNode: NodeDefinition<KMeansClusteringInputs, KMeansClusteringOutputs, KMeansClusteringParams> = {
   id: 'Patterns::KMeansClustering',
   category: 'Patterns',
   label: 'KMeansClustering',

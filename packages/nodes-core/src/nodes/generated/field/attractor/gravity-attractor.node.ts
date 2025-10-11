@@ -14,7 +14,7 @@ interface GravityAttractorOutputs {
   field: unknown;
 }
 
-export const GravityAttractorNode: NodeDefinition<GravityAttractorInputs, GravityAttractorOutputs, GravityAttractorParams> = {
+export const FieldAttractorGravityAttractorNode: NodeDefinition<GravityAttractorInputs, GravityAttractorOutputs, GravityAttractorParams> = {
   id: 'Field::GravityAttractor',
   category: 'Field',
   label: 'GravityAttractor',

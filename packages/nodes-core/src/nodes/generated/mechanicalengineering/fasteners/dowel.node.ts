@@ -16,7 +16,7 @@ interface DowelOutputs {
   dowel: unknown;
 }
 
-export const DowelNode: NodeDefinition<DowelInputs, DowelOutputs, DowelParams> = {
+export const MechanicalEngineeringFastenersDowelNode: NodeDefinition<DowelInputs, DowelOutputs, DowelParams> = {
   id: 'MechanicalEngineering::Dowel',
   category: 'MechanicalEngineering',
   label: 'Dowel',

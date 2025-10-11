@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TwistAttractorNode } from './twist-attractor.node';
+import { FieldAttractorTwistAttractorNode } from './twist-attractor.node';
 import { createTestContext } from '../test-utils';
 
-describe('TwistAttractorNode', () => {
+describe('FieldAttractorTwistAttractorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('TwistAttractorNode', () => {
       falloff: "smooth"
     } as any;
 
-    const result = await TwistAttractorNode.evaluate(context, inputs, params);
+    const result = await FieldAttractorTwistAttractorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

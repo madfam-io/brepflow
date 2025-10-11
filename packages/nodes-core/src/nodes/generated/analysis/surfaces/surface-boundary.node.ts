@@ -15,7 +15,7 @@ interface SurfaceBoundaryOutputs {
   allBoundaries: unknown;
 }
 
-export const SurfaceBoundaryNode: NodeDefinition<SurfaceBoundaryInputs, SurfaceBoundaryOutputs, SurfaceBoundaryParams> = {
+export const AnalysisSurfacesSurfaceBoundaryNode: NodeDefinition<SurfaceBoundaryInputs, SurfaceBoundaryOutputs, SurfaceBoundaryParams> = {
   id: 'Analysis::SurfaceBoundary',
   category: 'Analysis',
   label: 'SurfaceBoundary',

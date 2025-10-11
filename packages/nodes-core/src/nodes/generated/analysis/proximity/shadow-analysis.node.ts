@@ -18,7 +18,7 @@ interface ShadowAnalysisOutputs {
   illuminatedAreas: unknown;
 }
 
-export const ShadowAnalysisNode: NodeDefinition<ShadowAnalysisInputs, ShadowAnalysisOutputs, ShadowAnalysisParams> = {
+export const AnalysisProximityShadowAnalysisNode: NodeDefinition<ShadowAnalysisInputs, ShadowAnalysisOutputs, ShadowAnalysisParams> = {
   id: 'Analysis::ShadowAnalysis',
   category: 'Analysis',
   label: 'ShadowAnalysis',

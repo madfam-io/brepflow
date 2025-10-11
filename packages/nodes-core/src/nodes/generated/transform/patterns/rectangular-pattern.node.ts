@@ -17,7 +17,7 @@ interface RectangularPatternOutputs {
   compound: unknown;
 }
 
-export const RectangularPatternNode: NodeDefinition<RectangularPatternInputs, RectangularPatternOutputs, RectangularPatternParams> = {
+export const TransformPatternsRectangularPatternNode: NodeDefinition<RectangularPatternInputs, RectangularPatternOutputs, RectangularPatternParams> = {
   id: 'Transform::RectangularPattern',
   category: 'Transform',
   label: 'RectangularPattern',

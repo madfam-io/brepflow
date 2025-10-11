@@ -16,7 +16,7 @@ interface SpacePartitioningOutputs {
   visualization: unknown;
 }
 
-export const SpacePartitioningNode: NodeDefinition<SpacePartitioningInputs, SpacePartitioningOutputs, SpacePartitioningParams> = {
+export const AlgorithmicGeometrySpacePartitioningNode: NodeDefinition<SpacePartitioningInputs, SpacePartitioningOutputs, SpacePartitioningParams> = {
   id: 'Algorithmic::SpacePartitioning',
   category: 'Algorithmic',
   label: 'SpacePartitioning',

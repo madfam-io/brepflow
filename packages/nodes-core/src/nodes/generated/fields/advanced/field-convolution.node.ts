@@ -13,7 +13,7 @@ interface FieldConvolutionOutputs {
   convolvedField: unknown;
 }
 
-export const FieldConvolutionNode: NodeDefinition<FieldConvolutionInputs, FieldConvolutionOutputs, FieldConvolutionParams> = {
+export const FieldsAdvancedFieldConvolutionNode: NodeDefinition<FieldConvolutionInputs, FieldConvolutionOutputs, FieldConvolutionParams> = {
   id: 'Fields::FieldConvolution',
   category: 'Fields',
   label: 'FieldConvolution',

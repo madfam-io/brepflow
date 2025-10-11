@@ -12,7 +12,7 @@ interface ConcentricOutputs {
   constraint: unknown;
 }
 
-export const ConcentricNode: NodeDefinition<ConcentricInputs, ConcentricOutputs, ConcentricParams> = {
+export const AssemblyConstraintsConcentricNode: NodeDefinition<ConcentricInputs, ConcentricOutputs, ConcentricParams> = {
   id: 'Assembly::Concentric',
   category: 'Assembly',
   label: 'Concentric',

@@ -13,7 +13,7 @@ interface StairBalustradeOutputs {
   balustrade: unknown;
 }
 
-export const StairBalustradeNode: NodeDefinition<StairBalustradeInputs, StairBalustradeOutputs, StairBalustradeParams> = {
+export const ArchitectureStairsStairBalustradeNode: NodeDefinition<StairBalustradeInputs, StairBalustradeOutputs, StairBalustradeParams> = {
   id: 'Architecture::StairBalustrade',
   category: 'Architecture',
   label: 'StairBalustrade',

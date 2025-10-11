@@ -13,7 +13,7 @@ interface GCodePostProcessorOutputs {
   gcode: unknown;
 }
 
-export const GCodePostProcessorNode: NodeDefinition<GCodePostProcessorInputs, GCodePostProcessorOutputs, GCodePostProcessorParams> = {
+export const Fabrication3DPrintingGCodePostProcessorNode: NodeDefinition<GCodePostProcessorInputs, GCodePostProcessorOutputs, GCodePostProcessorParams> = {
   id: 'Fabrication::GCodePostProcessor',
   category: 'Fabrication',
   label: 'GCodePostProcessor',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceIsoCurvesNode } from './surface-iso-curves.node';
+import { AnalysisSurfacesSurfaceIsoCurvesNode } from './surface-iso-curves.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceIsoCurvesNode', () => {
+describe('AnalysisSurfacesSurfaceIsoCurvesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SurfaceIsoCurvesNode', () => {
       direction: "both"
     } as any;
 
-    const result = await SurfaceIsoCurvesNode.evaluate(context, inputs, params);
+    const result = await AnalysisSurfacesSurfaceIsoCurvesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

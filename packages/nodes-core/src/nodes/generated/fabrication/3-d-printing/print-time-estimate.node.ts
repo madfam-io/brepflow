@@ -15,7 +15,7 @@ interface PrintTimeEstimateOutputs {
   filamentMeters: number;
 }
 
-export const PrintTimeEstimateNode: NodeDefinition<PrintTimeEstimateInputs, PrintTimeEstimateOutputs, PrintTimeEstimateParams> = {
+export const Fabrication3DPrintingPrintTimeEstimateNode: NodeDefinition<PrintTimeEstimateInputs, PrintTimeEstimateOutputs, PrintTimeEstimateParams> = {
   id: 'Fabrication::PrintTimeEstimate',
   category: 'Fabrication',
   label: 'PrintTimeEstimate',

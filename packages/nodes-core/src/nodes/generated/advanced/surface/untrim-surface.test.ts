@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { UntrimSurfaceNode } from './untrim-surface.node';
+import { AdvancedSurfaceUntrimSurfaceNode } from './untrim-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('UntrimSurfaceNode', () => {
+describe('AdvancedSurfaceUntrimSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('UntrimSurfaceNode', () => {
       keepHoles: false
     } as any;
 
-    const result = await UntrimSurfaceNode.evaluate(context, inputs, params);
+    const result = await AdvancedSurfaceUntrimSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

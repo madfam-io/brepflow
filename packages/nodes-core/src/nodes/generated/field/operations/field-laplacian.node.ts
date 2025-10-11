@@ -10,7 +10,7 @@ interface FieldLaplacianOutputs {
   laplacian: unknown;
 }
 
-export const FieldLaplacianNode: NodeDefinition<FieldLaplacianInputs, FieldLaplacianOutputs, FieldLaplacianParams> = {
+export const FieldOperationsFieldLaplacianNode: NodeDefinition<FieldLaplacianInputs, FieldLaplacianOutputs, FieldLaplacianParams> = {
   id: 'Field::FieldLaplacian',
   category: 'Field',
   label: 'FieldLaplacian',

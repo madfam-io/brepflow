@@ -18,7 +18,7 @@ interface PLYExportOutputs {
   pointCount: unknown;
 }
 
-export const PLYExportNode: NodeDefinition<PLYExportInputs, PLYExportOutputs, PLYExportParams> = {
+export const InteroperabilityExportPLYExportNode: NodeDefinition<PLYExportInputs, PLYExportOutputs, PLYExportParams> = {
   id: 'Interoperability::PLYExport',
   category: 'Interoperability',
   label: 'PLYExport',

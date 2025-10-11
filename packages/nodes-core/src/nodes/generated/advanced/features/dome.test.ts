@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DomeNode } from './dome.node';
+import { AdvancedFeaturesDomeNode } from './dome.node';
 import { createTestContext } from '../test-utils';
 
-describe('DomeNode', () => {
+describe('AdvancedFeaturesDomeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('DomeNode', () => {
       constraintType: "tangent"
     } as any;
 
-    const result = await DomeNode.evaluate(context, inputs, params);
+    const result = await AdvancedFeaturesDomeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

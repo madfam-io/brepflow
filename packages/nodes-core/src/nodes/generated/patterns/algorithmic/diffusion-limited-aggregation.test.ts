@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DiffusionLimitedAggregationNode } from './diffusion-limited-aggregation.node';
+import { PatternsAlgorithmicDiffusionLimitedAggregationNode } from './diffusion-limited-aggregation.node';
 import { createTestContext } from '../test-utils';
 
-describe('DiffusionLimitedAggregationNode', () => {
+describe('PatternsAlgorithmicDiffusionLimitedAggregationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('DiffusionLimitedAggregationNode', () => {
       stickiness: 1
     } as any;
 
-    const result = await DiffusionLimitedAggregationNode.evaluate(context, inputs, params);
+    const result = await PatternsAlgorithmicDiffusionLimitedAggregationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

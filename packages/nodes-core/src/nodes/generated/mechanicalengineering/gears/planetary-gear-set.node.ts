@@ -18,7 +18,7 @@ interface PlanetaryGearSetOutputs {
   ringGear: unknown;
 }
 
-export const PlanetaryGearSetNode: NodeDefinition<PlanetaryGearSetInputs, PlanetaryGearSetOutputs, PlanetaryGearSetParams> = {
+export const MechanicalEngineeringGearsPlanetaryGearSetNode: NodeDefinition<PlanetaryGearSetInputs, PlanetaryGearSetOutputs, PlanetaryGearSetParams> = {
   id: 'MechanicalEngineering::PlanetaryGearSet',
   category: 'MechanicalEngineering',
   label: 'PlanetaryGearSet',

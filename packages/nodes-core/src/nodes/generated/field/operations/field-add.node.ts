@@ -11,7 +11,7 @@ interface FieldAddOutputs {
   field: unknown;
 }
 
-export const FieldAddNode: NodeDefinition<FieldAddInputs, FieldAddOutputs, FieldAddParams> = {
+export const FieldOperationsFieldAddNode: NodeDefinition<FieldAddInputs, FieldAddOutputs, FieldAddParams> = {
   id: 'Field::FieldAdd',
   category: 'Field',
   label: 'FieldAdd',

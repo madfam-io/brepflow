@@ -14,7 +14,7 @@ interface ExportIGESOutputs {
   igesData: unknown;
 }
 
-export const ExportIGESNode: NodeDefinition<ExportIGESInputs, ExportIGESOutputs, ExportIGESParams> = {
+export const IOCADExportIGESNode: NodeDefinition<ExportIGESInputs, ExportIGESOutputs, ExportIGESParams> = {
   id: 'IO::ExportIGES',
   category: 'IO',
   label: 'ExportIGES',

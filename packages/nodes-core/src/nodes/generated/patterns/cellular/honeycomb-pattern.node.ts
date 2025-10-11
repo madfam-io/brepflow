@@ -13,7 +13,7 @@ interface HoneycombPatternOutputs {
   honeycomb: unknown;
 }
 
-export const HoneycombPatternNode: NodeDefinition<HoneycombPatternInputs, HoneycombPatternOutputs, HoneycombPatternParams> = {
+export const PatternsCellularHoneycombPatternNode: NodeDefinition<HoneycombPatternInputs, HoneycombPatternOutputs, HoneycombPatternParams> = {
   id: 'Patterns::HoneycombPattern',
   category: 'Patterns',
   label: 'HoneycombPattern',

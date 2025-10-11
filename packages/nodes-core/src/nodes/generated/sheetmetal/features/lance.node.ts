@@ -16,7 +16,7 @@ interface LanceOutputs {
   result: unknown;
 }
 
-export const LanceNode: NodeDefinition<LanceInputs, LanceOutputs, LanceParams> = {
+export const SheetMetalFeaturesLanceNode: NodeDefinition<LanceInputs, LanceOutputs, LanceParams> = {
   id: 'SheetMetal::Lance',
   category: 'SheetMetal',
   label: 'Lance',

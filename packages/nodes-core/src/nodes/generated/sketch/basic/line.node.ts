@@ -15,7 +15,7 @@ interface LineOutputs {
   edge: unknown;
 }
 
-export const LineNode: NodeDefinition<LineInputs, LineOutputs, LineParams> = {
+export const SketchBasicLineNode: NodeDefinition<LineInputs, LineOutputs, LineParams> = {
   id: 'Sketch::Line',
   category: 'Sketch',
   label: 'Line',

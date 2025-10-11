@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { IntersectionNode } from './intersection.node';
+import { BooleanIntersectionNode } from './intersection.node';
 import { createTestContext } from '../test-utils';
 
-describe('IntersectionNode', () => {
+describe('BooleanIntersectionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('IntersectionNode', () => {
       fuzzyValue: 1e-7
     } as any;
 
-    const result = await IntersectionNode.evaluate(context, inputs, params);
+    const result = await BooleanIntersectionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -15,7 +15,7 @@ interface CollisionDetectionOutputs {
   collisionRegions: unknown;
 }
 
-export const CollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, CollisionDetectionOutputs, CollisionDetectionParams> = {
+export const AnalysisProximityCollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, CollisionDetectionOutputs, CollisionDetectionParams> = {
   id: 'Analysis::CollisionDetection',
   category: 'Analysis',
   label: 'CollisionDetection',

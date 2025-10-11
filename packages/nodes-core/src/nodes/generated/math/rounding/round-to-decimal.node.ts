@@ -12,7 +12,7 @@ interface RoundToDecimalOutputs {
   result: unknown;
 }
 
-export const RoundToDecimalNode: NodeDefinition<RoundToDecimalInputs, RoundToDecimalOutputs, RoundToDecimalParams> = {
+export const MathRoundingRoundToDecimalNode: NodeDefinition<RoundToDecimalInputs, RoundToDecimalOutputs, RoundToDecimalParams> = {
   id: 'Math::RoundToDecimal',
   category: 'Math',
   label: 'RoundToDecimal',

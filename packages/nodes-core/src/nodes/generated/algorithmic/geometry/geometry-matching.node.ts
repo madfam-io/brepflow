@@ -18,7 +18,7 @@ interface GeometryMatchingOutputs {
   correspondences: unknown;
 }
 
-export const GeometryMatchingNode: NodeDefinition<GeometryMatchingInputs, GeometryMatchingOutputs, GeometryMatchingParams> = {
+export const AlgorithmicGeometryGeometryMatchingNode: NodeDefinition<GeometryMatchingInputs, GeometryMatchingOutputs, GeometryMatchingParams> = {
   id: 'Algorithmic::GeometryMatching',
   category: 'Algorithmic',
   label: 'GeometryMatching',

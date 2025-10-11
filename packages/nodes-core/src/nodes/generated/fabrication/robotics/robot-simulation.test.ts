@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RobotSimulationNode } from './robot-simulation.node';
+import { FabricationRoboticsRobotSimulationNode } from './robot-simulation.node';
 import { createTestContext } from '../test-utils';
 
-describe('RobotSimulationNode', () => {
+describe('FabricationRoboticsRobotSimulationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('RobotSimulationNode', () => {
       dynamics: false
     } as any;
 
-    const result = await RobotSimulationNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsRobotSimulationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

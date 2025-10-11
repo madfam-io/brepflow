@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RobotKinematicsNode } from './robot-kinematics.node';
+import { FabricationRoboticsRobotKinematicsNode } from './robot-kinematics.node';
 import { createTestContext } from '../test-utils';
 
-describe('RobotKinematicsNode', () => {
+describe('FabricationRoboticsRobotKinematicsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('RobotKinematicsNode', () => {
       solver: "inverse"
     } as any;
 
-    const result = await RobotKinematicsNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsRobotKinematicsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

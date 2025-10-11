@@ -16,7 +16,7 @@ interface TimingPulleyOutputs {
   pitchCircle: unknown;
 }
 
-export const TimingPulleyNode: NodeDefinition<TimingPulleyInputs, TimingPulleyOutputs, TimingPulleyParams> = {
+export const MechanicalEngineeringGearsTimingPulleyNode: NodeDefinition<TimingPulleyInputs, TimingPulleyOutputs, TimingPulleyParams> = {
   id: 'MechanicalEngineering::TimingPulley',
   category: 'MechanicalEngineering',
   label: 'TimingPulley',

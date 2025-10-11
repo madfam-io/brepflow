@@ -13,7 +13,7 @@ interface WinderStairOutputs {
   winderStair: unknown;
 }
 
-export const WinderStairNode: NodeDefinition<WinderStairInputs, WinderStairOutputs, WinderStairParams> = {
+export const ArchitectureStairsWinderStairNode: NodeDefinition<WinderStairInputs, WinderStairOutputs, WinderStairParams> = {
   id: 'Architecture::WinderStair',
   category: 'Architecture',
   label: 'WinderStair',

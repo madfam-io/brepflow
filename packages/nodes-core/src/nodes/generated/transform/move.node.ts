@@ -15,7 +15,7 @@ interface MoveOutputs {
   moved: unknown;
 }
 
-export const MoveNode: NodeDefinition<MoveInputs, MoveOutputs, MoveParams> = {
+export const TransformMoveNode: NodeDefinition<MoveInputs, MoveOutputs, MoveParams> = {
   id: 'Transform::Move',
   category: 'Transform',
   label: 'Move',

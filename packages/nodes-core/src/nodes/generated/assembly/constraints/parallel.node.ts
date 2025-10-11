@@ -15,7 +15,7 @@ interface ParallelOutputs {
   constraint: unknown;
 }
 
-export const ParallelNode: NodeDefinition<ParallelInputs, ParallelOutputs, ParallelParams> = {
+export const AssemblyConstraintsParallelNode: NodeDefinition<ParallelInputs, ParallelOutputs, ParallelParams> = {
   id: 'Assembly::Parallel',
   category: 'Assembly',
   label: 'Parallel',

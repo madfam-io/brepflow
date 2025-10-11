@@ -19,7 +19,7 @@ interface SpurGearOutputs {
   properties: unknown;
 }
 
-export const SpurGearNode: NodeDefinition<SpurGearInputs, SpurGearOutputs, SpurGearParams> = {
+export const MechanicalEngineeringGearsSpurGearNode: NodeDefinition<SpurGearInputs, SpurGearOutputs, SpurGearParams> = {
   id: 'MechanicalEngineering::SpurGear',
   category: 'MechanicalEngineering',
   label: 'SpurGear',

@@ -13,7 +13,7 @@ interface ImportJSONOutputs {
   metadata: unknown;
 }
 
-export const ImportJSONNode: NodeDefinition<ImportJSONInputs, ImportJSONOutputs, ImportJSONParams> = {
+export const IOExchangeImportJSONNode: NodeDefinition<ImportJSONInputs, ImportJSONOutputs, ImportJSONParams> = {
   id: 'IO::ImportJSON',
   category: 'IO',
   label: 'ImportJSON',

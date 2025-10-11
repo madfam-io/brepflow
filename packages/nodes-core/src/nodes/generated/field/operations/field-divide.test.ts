@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldDivideNode } from './field-divide.node';
+import { FieldOperationsFieldDivideNode } from './field-divide.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldDivideNode', () => {
+describe('FieldOperationsFieldDivideNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FieldDivideNode', () => {
       epsilon: 0.001
     } as any;
 
-    const result = await FieldDivideNode.evaluate(context, inputs, params);
+    const result = await FieldOperationsFieldDivideNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

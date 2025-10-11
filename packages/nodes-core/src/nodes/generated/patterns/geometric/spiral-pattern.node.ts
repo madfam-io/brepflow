@@ -14,7 +14,7 @@ interface SpiralPatternOutputs {
   spiral: unknown;
 }
 
-export const SpiralPatternNode: NodeDefinition<SpiralPatternInputs, SpiralPatternOutputs, SpiralPatternParams> = {
+export const PatternsGeometricSpiralPatternNode: NodeDefinition<SpiralPatternInputs, SpiralPatternOutputs, SpiralPatternParams> = {
   id: 'Patterns::SpiralPattern',
   category: 'Patterns',
   label: 'SpiralPattern',

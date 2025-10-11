@@ -10,7 +10,7 @@ interface HyperbolicTangentOutputs {
   result: unknown;
 }
 
-export const HyperbolicTangentNode: NodeDefinition<HyperbolicTangentInputs, HyperbolicTangentOutputs, HyperbolicTangentParams> = {
+export const MathTrigonometryHyperbolicTangentNode: NodeDefinition<HyperbolicTangentInputs, HyperbolicTangentOutputs, HyperbolicTangentParams> = {
   id: 'Math::HyperbolicTangent',
   category: 'Math',
   label: 'HyperbolicTangent',

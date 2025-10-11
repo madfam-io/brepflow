@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringFormatNode } from './string-format.node';
+import { DataStringStringFormatNode } from './string-format.node';
 import { createTestContext } from '../test-utils';
 
-describe('StringFormatNode', () => {
+describe('DataStringStringFormatNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('StringFormatNode', () => {
 
     } as any;
 
-    const result = await StringFormatNode.evaluate(context, inputs, params);
+    const result = await DataStringStringFormatNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

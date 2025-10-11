@@ -13,7 +13,7 @@ interface SafetyZonesOutputs {
   noGoZones: unknown;
 }
 
-export const SafetyZonesNode: NodeDefinition<SafetyZonesInputs, SafetyZonesOutputs, SafetyZonesParams> = {
+export const FabricationLaserSafetyZonesNode: NodeDefinition<SafetyZonesInputs, SafetyZonesOutputs, SafetyZonesParams> = {
   id: 'Fabrication::SafetyZones',
   category: 'Fabrication',
   label: 'SafetyZones',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WorkCoordinateNode } from './work-coordinate.node';
+import { FabricationCNCWorkCoordinateNode } from './work-coordinate.node';
 import { createTestContext } from '../test-utils';
 
-describe('WorkCoordinateNode', () => {
+describe('FabricationCNCWorkCoordinateNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('WorkCoordinateNode', () => {
       wcs: "G54"
     } as any;
 
-    const result = await WorkCoordinateNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCWorkCoordinateNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

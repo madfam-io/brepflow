@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SuspendedCeilingNode } from './suspended-ceiling.node';
+import { ArchitectureCeilingsSuspendedCeilingNode } from './suspended-ceiling.node';
 import { createTestContext } from '../test-utils';
 
-describe('SuspendedCeilingNode', () => {
+describe('ArchitectureCeilingsSuspendedCeilingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SuspendedCeilingNode', () => {
       suspensionHeight: 300
     } as any;
 
-    const result = await SuspendedCeilingNode.evaluate(context, inputs, params);
+    const result = await ArchitectureCeilingsSuspendedCeilingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

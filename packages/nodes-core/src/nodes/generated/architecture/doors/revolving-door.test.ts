@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RevolvingDoorNode } from './revolving-door.node';
+import { ArchitectureDoorsRevolvingDoorNode } from './revolving-door.node';
 import { createTestContext } from '../test-utils';
 
-describe('RevolvingDoorNode', () => {
+describe('ArchitectureDoorsRevolvingDoorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('RevolvingDoorNode', () => {
       rotation: 0
     } as any;
 
-    const result = await RevolvingDoorNode.evaluate(context, inputs, params);
+    const result = await ArchitectureDoorsRevolvingDoorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

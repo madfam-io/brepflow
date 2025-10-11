@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SquareRootNode } from './square-root.node';
+import { MathOperatorsSquareRootNode } from './square-root.node';
 import { createTestContext } from '../test-utils';
 
-describe('SquareRootNode', () => {
+describe('MathOperatorsSquareRootNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('SquareRootNode', () => {
 
     } as any;
 
-    const result = await SquareRootNode.evaluate(context, inputs, params);
+    const result = await MathOperatorsSquareRootNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

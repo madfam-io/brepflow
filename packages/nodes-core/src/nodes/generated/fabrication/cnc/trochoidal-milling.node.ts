@@ -13,7 +13,7 @@ interface TrochoidalMillingOutputs {
   trochoidalPath: unknown;
 }
 
-export const TrochoidalMillingNode: NodeDefinition<TrochoidalMillingInputs, TrochoidalMillingOutputs, TrochoidalMillingParams> = {
+export const FabricationCNCTrochoidalMillingNode: NodeDefinition<TrochoidalMillingInputs, TrochoidalMillingOutputs, TrochoidalMillingParams> = {
   id: 'Fabrication::TrochoidalMilling',
   category: 'Fabrication',
   label: 'TrochoidalMilling',

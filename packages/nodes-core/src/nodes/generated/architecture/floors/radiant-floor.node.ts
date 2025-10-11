@@ -15,7 +15,7 @@ interface RadiantFloorOutputs {
   manifold: [number, number, number];
 }
 
-export const RadiantFloorNode: NodeDefinition<RadiantFloorInputs, RadiantFloorOutputs, RadiantFloorParams> = {
+export const ArchitectureFloorsRadiantFloorNode: NodeDefinition<RadiantFloorInputs, RadiantFloorOutputs, RadiantFloorParams> = {
   id: 'Architecture::RadiantFloor',
   category: 'Architecture',
   label: 'RadiantFloor',

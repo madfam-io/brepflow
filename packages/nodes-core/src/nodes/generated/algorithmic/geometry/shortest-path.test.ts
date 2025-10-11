@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShortestPathNode } from './shortest-path.node';
+import { AlgorithmicGeometryShortestPathNode } from './shortest-path.node';
 import { createTestContext } from '../test-utils';
 
-describe('ShortestPathNode', () => {
+describe('AlgorithmicGeometryShortestPathNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('ShortestPathNode', () => {
       heuristic: "euclidean"
     } as any;
 
-    const result = await ShortestPathNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicGeometryShortestPathNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

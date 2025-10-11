@@ -13,7 +13,7 @@ interface ProbeRoutineOutputs {
   probeCycle: unknown;
 }
 
-export const ProbeRoutineNode: NodeDefinition<ProbeRoutineInputs, ProbeRoutineOutputs, ProbeRoutineParams> = {
+export const FabricationCNCProbeRoutineNode: NodeDefinition<ProbeRoutineInputs, ProbeRoutineOutputs, ProbeRoutineParams> = {
   id: 'Fabrication::ProbeRoutine',
   category: 'Fabrication',
   label: 'ProbeRoutine',

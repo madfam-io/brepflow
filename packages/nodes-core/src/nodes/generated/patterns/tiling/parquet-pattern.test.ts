@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ParquetPatternNode } from './parquet-pattern.node';
+import { PatternsTilingParquetPatternNode } from './parquet-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('ParquetPatternNode', () => {
+describe('PatternsTilingParquetPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ParquetPatternNode', () => {
       plankWidth: 5
     } as any;
 
-    const result = await ParquetPatternNode.evaluate(context, inputs, params);
+    const result = await PatternsTilingParquetPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

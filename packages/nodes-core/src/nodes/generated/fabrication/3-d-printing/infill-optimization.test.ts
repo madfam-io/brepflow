@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { InfillOptimizationNode } from './infill-optimization.node';
+import { Fabrication3DPrintingInfillOptimizationNode } from './infill-optimization.node';
 import { createTestContext } from '../test-utils';
 
-describe('InfillOptimizationNode', () => {
+describe('Fabrication3DPrintingInfillOptimizationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('InfillOptimizationNode', () => {
       gradientDistance: 5
     } as any;
 
-    const result = await InfillOptimizationNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingInfillOptimizationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

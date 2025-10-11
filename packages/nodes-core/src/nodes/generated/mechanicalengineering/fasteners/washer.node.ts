@@ -15,7 +15,7 @@ interface WasherOutputs {
   washer: unknown;
 }
 
-export const WasherNode: NodeDefinition<WasherInputs, WasherOutputs, WasherParams> = {
+export const MechanicalEngineeringFastenersWasherNode: NodeDefinition<WasherInputs, WasherOutputs, WasherParams> = {
   id: 'MechanicalEngineering::Washer',
   category: 'MechanicalEngineering',
   label: 'Washer',

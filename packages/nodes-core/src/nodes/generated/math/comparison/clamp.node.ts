@@ -12,7 +12,7 @@ interface ClampOutputs {
   result: unknown;
 }
 
-export const ClampNode: NodeDefinition<ClampInputs, ClampOutputs, ClampParams> = {
+export const MathComparisonClampNode: NodeDefinition<ClampInputs, ClampOutputs, ClampParams> = {
   id: 'Math::Clamp',
   category: 'Math',
   label: 'Clamp',

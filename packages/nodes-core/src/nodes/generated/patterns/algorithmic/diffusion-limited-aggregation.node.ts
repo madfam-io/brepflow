@@ -13,7 +13,7 @@ interface DiffusionLimitedAggregationOutputs {
   aggregate: Array<[number, number, number]>;
 }
 
-export const DiffusionLimitedAggregationNode: NodeDefinition<DiffusionLimitedAggregationInputs, DiffusionLimitedAggregationOutputs, DiffusionLimitedAggregationParams> = {
+export const PatternsAlgorithmicDiffusionLimitedAggregationNode: NodeDefinition<DiffusionLimitedAggregationInputs, DiffusionLimitedAggregationOutputs, DiffusionLimitedAggregationParams> = {
   id: 'Patterns::DiffusionLimitedAggregation',
   category: 'Patterns',
   label: 'DiffusionLimitedAggregation',

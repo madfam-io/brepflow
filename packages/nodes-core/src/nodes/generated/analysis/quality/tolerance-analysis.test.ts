@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToleranceAnalysisNode } from './tolerance-analysis.node';
+import { AnalysisQualityToleranceAnalysisNode } from './tolerance-analysis.node';
 import { createTestContext } from '../test-utils';
 
-describe('ToleranceAnalysisNode', () => {
+describe('AnalysisQualityToleranceAnalysisNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ToleranceAnalysisNode', () => {
       showDeviations: true
     } as any;
 
-    const result = await ToleranceAnalysisNode.evaluate(context, inputs, params);
+    const result = await AnalysisQualityToleranceAnalysisNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

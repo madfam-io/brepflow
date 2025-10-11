@@ -17,7 +17,7 @@ interface SurfaceClosestPointOutputs {
   vParameter: unknown;
 }
 
-export const SurfaceClosestPointNode: NodeDefinition<SurfaceClosestPointInputs, SurfaceClosestPointOutputs, SurfaceClosestPointParams> = {
+export const AnalysisSurfacesSurfaceClosestPointNode: NodeDefinition<SurfaceClosestPointInputs, SurfaceClosestPointOutputs, SurfaceClosestPointParams> = {
   id: 'Analysis::SurfaceClosestPoint',
   category: 'Analysis',
   label: 'SurfaceClosestPoint',

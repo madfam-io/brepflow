@@ -10,7 +10,7 @@ interface ToBooleanOutputs {
   boolean: unknown;
 }
 
-export const ToBooleanNode: NodeDefinition<ToBooleanInputs, ToBooleanOutputs, ToBooleanParams> = {
+export const DataConvertToBooleanNode: NodeDefinition<ToBooleanInputs, ToBooleanOutputs, ToBooleanParams> = {
   id: 'Data::ToBoolean',
   category: 'Data',
   label: 'ToBoolean',

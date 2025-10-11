@@ -10,7 +10,7 @@ interface TruncateOutputs {
   result: unknown;
 }
 
-export const TruncateNode: NodeDefinition<TruncateInputs, TruncateOutputs, TruncateParams> = {
+export const MathRoundingTruncateNode: NodeDefinition<TruncateInputs, TruncateOutputs, TruncateParams> = {
   id: 'Math::Truncate',
   category: 'Math',
   label: 'Truncate',

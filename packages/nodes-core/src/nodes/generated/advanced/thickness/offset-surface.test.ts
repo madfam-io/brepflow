@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { OffsetSurfaceNode } from './offset-surface.node';
+import { AdvancedThicknessOffsetSurfaceNode } from './offset-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('OffsetSurfaceNode', () => {
+describe('AdvancedThicknessOffsetSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('OffsetSurfaceNode', () => {
       extend: false
     } as any;
 
-    const result = await OffsetSurfaceNode.evaluate(context, inputs, params);
+    const result = await AdvancedThicknessOffsetSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

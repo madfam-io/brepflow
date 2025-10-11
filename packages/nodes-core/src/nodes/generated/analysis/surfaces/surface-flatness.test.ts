@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceFlatnessNode } from './surface-flatness.node';
+import { AnalysisSurfacesSurfaceFlatnessNode } from './surface-flatness.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceFlatnessNode', () => {
+describe('AnalysisSurfacesSurfaceFlatnessNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SurfaceFlatnessNode', () => {
       showBestFitPlane: true
     } as any;
 
-    const result = await SurfaceFlatnessNode.evaluate(context, inputs, params);
+    const result = await AnalysisSurfacesSurfaceFlatnessNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

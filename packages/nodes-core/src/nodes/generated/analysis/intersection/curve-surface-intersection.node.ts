@@ -16,7 +16,7 @@ interface CurveSurfaceIntersectionOutputs {
   surfaceParameters: Array<[number, number, number]>;
 }
 
-export const CurveSurfaceIntersectionNode: NodeDefinition<CurveSurfaceIntersectionInputs, CurveSurfaceIntersectionOutputs, CurveSurfaceIntersectionParams> = {
+export const AnalysisIntersectionCurveSurfaceIntersectionNode: NodeDefinition<CurveSurfaceIntersectionInputs, CurveSurfaceIntersectionOutputs, CurveSurfaceIntersectionParams> = {
   id: 'Analysis::CurveSurfaceIntersection',
   category: 'Analysis',
   label: 'CurveSurfaceIntersection',

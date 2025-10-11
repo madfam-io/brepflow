@@ -11,7 +11,7 @@ interface ComplexAddOutputs {
   result: unknown;
 }
 
-export const ComplexAddNode: NodeDefinition<ComplexAddInputs, ComplexAddOutputs, ComplexAddParams> = {
+export const MathComplexComplexAddNode: NodeDefinition<ComplexAddInputs, ComplexAddOutputs, ComplexAddParams> = {
   id: 'Math::ComplexAdd',
   category: 'Math',
   label: 'ComplexAdd',

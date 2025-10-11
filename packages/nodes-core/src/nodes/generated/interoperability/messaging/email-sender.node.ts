@@ -19,7 +19,7 @@ interface EmailSenderOutputs {
   messageId: unknown;
 }
 
-export const EmailSenderNode: NodeDefinition<EmailSenderInputs, EmailSenderOutputs, EmailSenderParams> = {
+export const InteroperabilityMessagingEmailSenderNode: NodeDefinition<EmailSenderInputs, EmailSenderOutputs, EmailSenderParams> = {
   id: 'Interoperability::EmailSender',
   category: 'Interoperability',
   label: 'EmailSender',

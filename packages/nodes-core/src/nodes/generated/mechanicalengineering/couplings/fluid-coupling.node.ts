@@ -17,7 +17,7 @@ interface FluidCouplingOutputs {
   turbine: unknown;
 }
 
-export const FluidCouplingNode: NodeDefinition<FluidCouplingInputs, FluidCouplingOutputs, FluidCouplingParams> = {
+export const MechanicalEngineeringCouplingsFluidCouplingNode: NodeDefinition<FluidCouplingInputs, FluidCouplingOutputs, FluidCouplingParams> = {
   id: 'MechanicalEngineering::FluidCoupling',
   category: 'MechanicalEngineering',
   label: 'FluidCoupling',

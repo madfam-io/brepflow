@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { IslamicGridNode } from './islamic-grid.node';
+import { PatternsIslamicIslamicGridNode } from './islamic-grid.node';
 import { createTestContext } from '../test-utils';
 
-describe('IslamicGridNode', () => {
+describe('PatternsIslamicIslamicGridNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('IslamicGridNode', () => {
       spacing: 10
     } as any;
 
-    const result = await IslamicGridNode.evaluate(context, inputs, params);
+    const result = await PatternsIslamicIslamicGridNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { NoisePatternNode } from './noise-pattern.node';
+import { PatternsProceduralNoisePatternNode } from './noise-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('NoisePatternNode', () => {
+describe('PatternsProceduralNoisePatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('NoisePatternNode', () => {
       amplitude: 1
     } as any;
 
-    const result = await NoisePatternNode.evaluate(context, inputs, params);
+    const result = await PatternsProceduralNoisePatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

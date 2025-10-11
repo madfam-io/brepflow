@@ -11,7 +11,7 @@ interface RuledSurfaceOutputs {
   surface: unknown;
 }
 
-export const RuledSurfaceNode: NodeDefinition<RuledSurfaceInputs, RuledSurfaceOutputs, RuledSurfaceParams> = {
+export const SolidSurfaceRuledSurfaceNode: NodeDefinition<RuledSurfaceInputs, RuledSurfaceOutputs, RuledSurfaceParams> = {
   id: 'Solid::RuledSurface',
   category: 'Solid',
   label: 'RuledSurface',

@@ -14,7 +14,7 @@ interface PrismOutputs {
   solid: unknown;
 }
 
-export const PrismNode: NodeDefinition<PrismInputs, PrismOutputs, PrismParams> = {
+export const SolidParametricPrismNode: NodeDefinition<PrismInputs, PrismOutputs, PrismParams> = {
   id: 'Solid::Prism',
   category: 'Solid',
   label: 'Prism',

@@ -13,7 +13,7 @@ interface MicroJointsOutputs {
   jointedPath: unknown;
 }
 
-export const MicroJointsNode: NodeDefinition<MicroJointsInputs, MicroJointsOutputs, MicroJointsParams> = {
+export const FabricationLaserMicroJointsNode: NodeDefinition<MicroJointsInputs, MicroJointsOutputs, MicroJointsParams> = {
   id: 'Fabrication::MicroJoints',
   category: 'Fabrication',
   label: 'MicroJoints',

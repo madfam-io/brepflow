@@ -15,7 +15,7 @@ interface SuspendedCeilingOutputs {
   tiles: unknown;
 }
 
-export const SuspendedCeilingNode: NodeDefinition<SuspendedCeilingInputs, SuspendedCeilingOutputs, SuspendedCeilingParams> = {
+export const ArchitectureCeilingsSuspendedCeilingNode: NodeDefinition<SuspendedCeilingInputs, SuspendedCeilingOutputs, SuspendedCeilingParams> = {
   id: 'Architecture::SuspendedCeiling',
   category: 'Architecture',
   label: 'SuspendedCeiling',

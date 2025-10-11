@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GeneticAlgorithmNode } from './genetic-algorithm.node';
+import { PatternsProceduralGeneticAlgorithmNode } from './genetic-algorithm.node';
 import { createTestContext } from '../test-utils';
 
-describe('GeneticAlgorithmNode', () => {
+describe('PatternsProceduralGeneticAlgorithmNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('GeneticAlgorithmNode', () => {
       mutationRate: 0.1
     } as any;
 
-    const result = await GeneticAlgorithmNode.evaluate(context, inputs, params);
+    const result = await PatternsProceduralGeneticAlgorithmNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

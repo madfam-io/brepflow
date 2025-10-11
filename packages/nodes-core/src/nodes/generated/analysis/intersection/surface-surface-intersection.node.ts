@@ -15,7 +15,7 @@ interface SurfaceSurfaceIntersectionOutputs {
   intersectionPoints: Array<[number, number, number]>;
 }
 
-export const SurfaceSurfaceIntersectionNode: NodeDefinition<SurfaceSurfaceIntersectionInputs, SurfaceSurfaceIntersectionOutputs, SurfaceSurfaceIntersectionParams> = {
+export const AnalysisIntersectionSurfaceSurfaceIntersectionNode: NodeDefinition<SurfaceSurfaceIntersectionInputs, SurfaceSurfaceIntersectionOutputs, SurfaceSurfaceIntersectionParams> = {
   id: 'Analysis::SurfaceSurfaceIntersection',
   category: 'Analysis',
   label: 'SurfaceSurfaceIntersection',

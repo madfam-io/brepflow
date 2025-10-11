@@ -10,7 +10,7 @@ interface RoundOutputs {
   result: unknown;
 }
 
-export const RoundNode: NodeDefinition<RoundInputs, RoundOutputs, RoundParams> = {
+export const MathRoundingRoundNode: NodeDefinition<RoundInputs, RoundOutputs, RoundParams> = {
   id: 'Math::Round',
   category: 'Math',
   label: 'Round',

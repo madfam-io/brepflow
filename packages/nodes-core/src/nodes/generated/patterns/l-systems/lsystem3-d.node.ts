@@ -15,7 +15,7 @@ interface LSystem3DOutputs {
   branches: unknown;
 }
 
-export const LSystem3DNode: NodeDefinition<LSystem3DInputs, LSystem3DOutputs, LSystem3DParams> = {
+export const PatternsLSystemsLSystem3DNode: NodeDefinition<LSystem3DInputs, LSystem3DOutputs, LSystem3DParams> = {
   id: 'Patterns::LSystem3D',
   category: 'Patterns',
   label: 'LSystem3D',

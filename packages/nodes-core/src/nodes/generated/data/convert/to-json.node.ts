@@ -12,7 +12,7 @@ interface ToJSONOutputs {
   json: unknown;
 }
 
-export const ToJSONNode: NodeDefinition<ToJSONInputs, ToJSONOutputs, ToJSONParams> = {
+export const DataConvertToJSONNode: NodeDefinition<ToJSONInputs, ToJSONOutputs, ToJSONParams> = {
   id: 'Data::ToJSON',
   category: 'Data',
   label: 'ToJSON',

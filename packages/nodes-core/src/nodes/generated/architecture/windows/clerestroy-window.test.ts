@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ClerestroyWindowNode } from './clerestroy-window.node';
+import { ArchitectureWindowsClerestroyWindowNode } from './clerestroy-window.node';
 import { createTestContext } from '../test-utils';
 
-describe('ClerestroyWindowNode', () => {
+describe('ArchitectureWindowsClerestroyWindowNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ClerestroyWindowNode', () => {
       continuous: true
     } as any;
 
-    const result = await ClerestroyWindowNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWindowsClerestroyWindowNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

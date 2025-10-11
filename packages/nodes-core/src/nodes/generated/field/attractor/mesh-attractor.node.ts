@@ -14,7 +14,7 @@ interface MeshAttractorOutputs {
   field: unknown;
 }
 
-export const MeshAttractorNode: NodeDefinition<MeshAttractorInputs, MeshAttractorOutputs, MeshAttractorParams> = {
+export const FieldAttractorMeshAttractorNode: NodeDefinition<MeshAttractorInputs, MeshAttractorOutputs, MeshAttractorParams> = {
   id: 'Field::MeshAttractor',
   category: 'Field',
   label: 'MeshAttractor',

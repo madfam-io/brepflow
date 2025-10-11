@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FloorFinishNode } from './floor-finish.node';
+import { ArchitectureFloorsFloorFinishNode } from './floor-finish.node';
 import { createTestContext } from '../test-utils';
 
-describe('FloorFinishNode', () => {
+describe('ArchitectureFloorsFloorFinishNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FloorFinishNode', () => {
       pattern: "straight"
     } as any;
 
-    const result = await FloorFinishNode.evaluate(context, inputs, params);
+    const result = await ArchitectureFloorsFloorFinishNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

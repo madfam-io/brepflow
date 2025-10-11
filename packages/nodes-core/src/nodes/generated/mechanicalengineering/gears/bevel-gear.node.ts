@@ -16,7 +16,7 @@ interface BevelGearOutputs {
   pitchCone: unknown;
 }
 
-export const BevelGearNode: NodeDefinition<BevelGearInputs, BevelGearOutputs, BevelGearParams> = {
+export const MechanicalEngineeringGearsBevelGearNode: NodeDefinition<BevelGearInputs, BevelGearOutputs, BevelGearParams> = {
   id: 'MechanicalEngineering::BevelGear',
   category: 'MechanicalEngineering',
   label: 'BevelGear',

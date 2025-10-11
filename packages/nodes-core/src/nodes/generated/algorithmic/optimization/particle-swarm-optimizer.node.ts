@@ -19,7 +19,7 @@ interface ParticleSwarmOptimizerOutputs {
   swarmHistory: unknown;
 }
 
-export const ParticleSwarmOptimizerNode: NodeDefinition<ParticleSwarmOptimizerInputs, ParticleSwarmOptimizerOutputs, ParticleSwarmOptimizerParams> = {
+export const AlgorithmicOptimizationParticleSwarmOptimizerNode: NodeDefinition<ParticleSwarmOptimizerInputs, ParticleSwarmOptimizerOutputs, ParticleSwarmOptimizerParams> = {
   id: 'Algorithmic::ParticleSwarmOptimizer',
   category: 'Algorithmic',
   label: 'ParticleSwarmOptimizer',

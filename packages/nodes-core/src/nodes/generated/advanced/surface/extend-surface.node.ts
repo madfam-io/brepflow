@@ -14,7 +14,7 @@ interface ExtendSurfaceOutputs {
   extendedSurface: unknown;
 }
 
-export const ExtendSurfaceNode: NodeDefinition<ExtendSurfaceInputs, ExtendSurfaceOutputs, ExtendSurfaceParams> = {
+export const AdvancedSurfaceExtendSurfaceNode: NodeDefinition<ExtendSurfaceInputs, ExtendSurfaceOutputs, ExtendSurfaceParams> = {
   id: 'Advanced::ExtendSurface',
   category: 'Advanced',
   label: 'ExtendSurface',

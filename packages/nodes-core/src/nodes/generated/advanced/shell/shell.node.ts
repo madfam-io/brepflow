@@ -15,7 +15,7 @@ interface ShellOutputs {
   shell: unknown;
 }
 
-export const ShellNode: NodeDefinition<ShellInputs, ShellOutputs, ShellParams> = {
+export const AdvancedShellShellNode: NodeDefinition<ShellInputs, ShellOutputs, ShellParams> = {
   id: 'Advanced::Shell',
   category: 'Advanced',
   label: 'Shell',

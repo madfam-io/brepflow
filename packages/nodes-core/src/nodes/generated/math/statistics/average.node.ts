@@ -10,7 +10,7 @@ interface AverageOutputs {
   average: unknown;
 }
 
-export const AverageNode: NodeDefinition<AverageInputs, AverageOutputs, AverageParams> = {
+export const MathStatisticsAverageNode: NodeDefinition<AverageInputs, AverageOutputs, AverageParams> = {
   id: 'Math::Average',
   category: 'Math',
   label: 'Average',

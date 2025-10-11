@@ -14,7 +14,7 @@ interface ImportIGESOutputs {
   shape: unknown;
 }
 
-export const ImportIGESNode: NodeDefinition<ImportIGESInputs, ImportIGESOutputs, ImportIGESParams> = {
+export const IOCADImportIGESNode: NodeDefinition<ImportIGESInputs, ImportIGESOutputs, ImportIGESParams> = {
   id: 'IO::ImportIGES',
   category: 'IO',
   label: 'ImportIGES',

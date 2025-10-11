@@ -10,7 +10,7 @@ interface MatrixTransposeOutputs {
   transpose: unknown;
 }
 
-export const MatrixTransposeNode: NodeDefinition<MatrixTransposeInputs, MatrixTransposeOutputs, MatrixTransposeParams> = {
+export const MathMatrixMatrixTransposeNode: NodeDefinition<MatrixTransposeInputs, MatrixTransposeOutputs, MatrixTransposeParams> = {
   id: 'Math::MatrixTranspose',
   category: 'Math',
   label: 'MatrixTranspose',

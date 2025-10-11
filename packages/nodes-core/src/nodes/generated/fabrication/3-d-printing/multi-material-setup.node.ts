@@ -14,7 +14,7 @@ interface MultiMaterialSetupOutputs {
   purgeBlock: unknown;
 }
 
-export const MultiMaterialSetupNode: NodeDefinition<MultiMaterialSetupInputs, MultiMaterialSetupOutputs, MultiMaterialSetupParams> = {
+export const Fabrication3DPrintingMultiMaterialSetupNode: NodeDefinition<MultiMaterialSetupInputs, MultiMaterialSetupOutputs, MultiMaterialSetupParams> = {
   id: 'Fabrication::MultiMaterialSetup',
   category: 'Fabrication',
   label: 'MultiMaterialSetup',

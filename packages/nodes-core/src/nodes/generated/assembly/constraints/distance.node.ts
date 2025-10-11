@@ -15,7 +15,7 @@ interface DistanceOutputs {
   constraint: unknown;
 }
 
-export const DistanceNode: NodeDefinition<DistanceInputs, DistanceOutputs, DistanceParams> = {
+export const AssemblyConstraintsDistanceNode: NodeDefinition<DistanceInputs, DistanceOutputs, DistanceParams> = {
   id: 'Assembly::Distance',
   category: 'Assembly',
   label: 'Distance',

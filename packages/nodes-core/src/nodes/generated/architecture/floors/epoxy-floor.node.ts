@@ -13,7 +13,7 @@ interface EpoxyFloorOutputs {
   epoxyFloor: unknown;
 }
 
-export const EpoxyFloorNode: NodeDefinition<EpoxyFloorInputs, EpoxyFloorOutputs, EpoxyFloorParams> = {
+export const ArchitectureFloorsEpoxyFloorNode: NodeDefinition<EpoxyFloorInputs, EpoxyFloorOutputs, EpoxyFloorParams> = {
   id: 'Architecture::EpoxyFloor',
   category: 'Architecture',
   label: 'EpoxyFloor',

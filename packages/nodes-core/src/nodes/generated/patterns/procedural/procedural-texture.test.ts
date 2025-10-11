@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ProceduralTextureNode } from './procedural-texture.node';
+import { PatternsProceduralProceduralTextureNode } from './procedural-texture.node';
 import { createTestContext } from '../test-utils';
 
-describe('ProceduralTextureNode', () => {
+describe('PatternsProceduralProceduralTextureNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ProceduralTextureNode', () => {
       seed: 0
     } as any;
 
-    const result = await ProceduralTextureNode.evaluate(context, inputs, params);
+    const result = await PatternsProceduralProceduralTextureNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

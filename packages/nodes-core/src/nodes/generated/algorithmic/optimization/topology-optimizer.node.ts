@@ -19,7 +19,7 @@ interface TopologyOptimizerOutputs {
   compliance: unknown;
 }
 
-export const TopologyOptimizerNode: NodeDefinition<TopologyOptimizerInputs, TopologyOptimizerOutputs, TopologyOptimizerParams> = {
+export const AlgorithmicOptimizationTopologyOptimizerNode: NodeDefinition<TopologyOptimizerInputs, TopologyOptimizerOutputs, TopologyOptimizerParams> = {
   id: 'Algorithmic::TopologyOptimizer',
   category: 'Algorithmic',
   label: 'TopologyOptimizer',

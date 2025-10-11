@@ -15,7 +15,7 @@ interface DoubleDoorOutputs {
   frame: unknown;
 }
 
-export const DoubleDoorNode: NodeDefinition<DoubleDoorInputs, DoubleDoorOutputs, DoubleDoorParams> = {
+export const ArchitectureDoorsDoubleDoorNode: NodeDefinition<DoubleDoorInputs, DoubleDoorOutputs, DoubleDoorParams> = {
   id: 'Architecture::DoubleDoor',
   category: 'Architecture',
   label: 'DoubleDoor',

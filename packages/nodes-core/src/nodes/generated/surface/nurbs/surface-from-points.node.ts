@@ -16,7 +16,7 @@ interface SurfaceFromPointsOutputs {
   surface: unknown;
 }
 
-export const SurfaceFromPointsNode: NodeDefinition<SurfaceFromPointsInputs, SurfaceFromPointsOutputs, SurfaceFromPointsParams> = {
+export const SurfaceNURBSSurfaceFromPointsNode: NodeDefinition<SurfaceFromPointsInputs, SurfaceFromPointsOutputs, SurfaceFromPointsParams> = {
   id: 'Surface::SurfaceFromPoints',
   category: 'Surface',
   label: 'SurfaceFromPoints',

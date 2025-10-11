@@ -14,7 +14,7 @@ interface FireDoorOutputs {
   fireDoor: unknown;
 }
 
-export const FireDoorNode: NodeDefinition<FireDoorInputs, FireDoorOutputs, FireDoorParams> = {
+export const ArchitectureDoorsFireDoorNode: NodeDefinition<FireDoorInputs, FireDoorOutputs, FireDoorParams> = {
   id: 'Architecture::FireDoor',
   category: 'Architecture',
   label: 'FireDoor',

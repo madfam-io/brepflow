@@ -13,7 +13,7 @@ interface UShapedStairOutputs {
   staircase: unknown;
 }
 
-export const UShapedStairNode: NodeDefinition<UShapedStairInputs, UShapedStairOutputs, UShapedStairParams> = {
+export const ArchitectureStairsUShapedStairNode: NodeDefinition<UShapedStairInputs, UShapedStairOutputs, UShapedStairParams> = {
   id: 'Architecture::UShapedStair',
   category: 'Architecture',
   label: 'UShapedStair',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MandelbrotSetNode } from './mandelbrot-set.node';
+import { PatternsFractalsMandelbrotSetNode } from './mandelbrot-set.node';
 import { createTestContext } from '../test-utils';
 
-describe('MandelbrotSetNode', () => {
+describe('PatternsFractalsMandelbrotSetNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('MandelbrotSetNode', () => {
       zoom: 1
     } as any;
 
-    const result = await MandelbrotSetNode.evaluate(context, inputs, params);
+    const result = await PatternsFractalsMandelbrotSetNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

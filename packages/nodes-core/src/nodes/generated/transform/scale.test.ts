@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ScaleNode } from './scale.node';
+import { TransformScaleNode } from './scale.node';
 import { createTestContext } from '../test-utils';
 
-describe('ScaleNode', () => {
+describe('TransformScaleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -20,7 +20,7 @@ describe('ScaleNode', () => {
       copy: true
     } as any;
 
-    const result = await ScaleNode.evaluate(context, inputs, params);
+    const result = await TransformScaleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

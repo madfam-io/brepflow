@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImportParasolidNode } from './import-parasolid.node';
+import { IOCADImportParasolidNode } from './import-parasolid.node';
 import { createTestContext } from '../test-utils';
 
-describe('ImportParasolidNode', () => {
+describe('IOCADImportParasolidNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ImportParasolidNode', () => {
       simplifyGeometry: false
     } as any;
 
-    const result = await ImportParasolidNode.evaluate(context, inputs, params);
+    const result = await IOCADImportParasolidNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

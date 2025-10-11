@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { IsocurveExtractNode } from './isocurve-extract.node';
+import { SurfaceAnalysisIsocurveExtractNode } from './isocurve-extract.node';
 import { createTestContext } from '../test-utils';
 
-describe('IsocurveExtractNode', () => {
+describe('SurfaceAnalysisIsocurveExtractNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('IsocurveExtractNode', () => {
       count: 10
     } as any;
 
-    const result = await IsocurveExtractNode.evaluate(context, inputs, params);
+    const result = await SurfaceAnalysisIsocurveExtractNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

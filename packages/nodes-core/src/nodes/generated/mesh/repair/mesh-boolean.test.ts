@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MeshBooleanNode } from './mesh-boolean.node';
+import { MeshRepairMeshBooleanNode } from './mesh-boolean.node';
 import { createTestContext } from '../test-utils';
 
-describe('MeshBooleanNode', () => {
+describe('MeshRepairMeshBooleanNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('MeshBooleanNode', () => {
       tolerance: 0.01
     } as any;
 
-    const result = await MeshBooleanNode.evaluate(context, inputs, params);
+    const result = await MeshRepairMeshBooleanNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

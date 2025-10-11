@@ -17,7 +17,7 @@ interface TabOutputs {
   result: unknown;
 }
 
-export const TabNode: NodeDefinition<TabInputs, TabOutputs, TabParams> = {
+export const SheetMetalFeaturesTabNode: NodeDefinition<TabInputs, TabOutputs, TabParams> = {
   id: 'SheetMetal::Tab',
   category: 'SheetMetal',
   label: 'Tab',

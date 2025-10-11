@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpringInterpNode } from './spring-interp.node';
+import { MathInterpolationSpringInterpNode } from './spring-interp.node';
 import { createTestContext } from '../test-utils';
 
-describe('SpringInterpNode', () => {
+describe('MathInterpolationSpringInterpNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('SpringInterpNode', () => {
       damping: 10
     } as any;
 
-    const result = await SpringInterpNode.evaluate(context, inputs, params);
+    const result = await MathInterpolationSpringInterpNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

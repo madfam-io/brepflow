@@ -17,7 +17,7 @@ interface EdgeFlangeOutputs {
   result: unknown;
 }
 
-export const EdgeFlangeNode: NodeDefinition<EdgeFlangeInputs, EdgeFlangeOutputs, EdgeFlangeParams> = {
+export const SheetMetalFlangesEdgeFlangeNode: NodeDefinition<EdgeFlangeInputs, EdgeFlangeOutputs, EdgeFlangeParams> = {
   id: 'SheetMetal::EdgeFlange',
   category: 'SheetMetal',
   label: 'EdgeFlange',

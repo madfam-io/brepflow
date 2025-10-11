@@ -16,7 +16,7 @@ interface MountingBossOutputs {
   shape: unknown;
 }
 
-export const MountingBossNode: NodeDefinition<MountingBossInputs, MountingBossOutputs, MountingBossParams> = {
+export const FeaturesStructuralMountingBossNode: NodeDefinition<MountingBossInputs, MountingBossOutputs, MountingBossParams> = {
   id: 'Features::MountingBoss',
   category: 'Features',
   label: 'MountingBoss',

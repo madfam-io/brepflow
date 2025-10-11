@@ -12,7 +12,7 @@ interface PeanoCurveOutputs {
   curve: unknown;
 }
 
-export const PeanoCurveNode: NodeDefinition<PeanoCurveInputs, PeanoCurveOutputs, PeanoCurveParams> = {
+export const PatternsFractalsPeanoCurveNode: NodeDefinition<PeanoCurveInputs, PeanoCurveOutputs, PeanoCurveParams> = {
   id: 'Patterns::PeanoCurve',
   category: 'Patterns',
   label: 'PeanoCurve',

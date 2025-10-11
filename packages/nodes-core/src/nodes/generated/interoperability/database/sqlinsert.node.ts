@@ -16,7 +16,7 @@ interface SQLInsertOutputs {
   errors: unknown;
 }
 
-export const SQLInsertNode: NodeDefinition<SQLInsertInputs, SQLInsertOutputs, SQLInsertParams> = {
+export const InteroperabilityDatabaseSQLInsertNode: NodeDefinition<SQLInsertInputs, SQLInsertOutputs, SQLInsertParams> = {
   id: 'Interoperability::SQLInsert',
   category: 'Interoperability',
   label: 'SQLInsert',

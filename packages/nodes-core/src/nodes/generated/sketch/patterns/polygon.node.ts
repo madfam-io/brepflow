@@ -14,7 +14,7 @@ interface PolygonOutputs {
   polygon: unknown;
 }
 
-export const PolygonNode: NodeDefinition<PolygonInputs, PolygonOutputs, PolygonParams> = {
+export const SketchPatternsPolygonNode: NodeDefinition<PolygonInputs, PolygonOutputs, PolygonParams> = {
   id: 'Sketch::Polygon',
   category: 'Sketch',
   label: 'Polygon',

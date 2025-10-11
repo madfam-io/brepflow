@@ -12,7 +12,7 @@ interface PointToPointOutputs {
   mate: unknown;
 }
 
-export const PointToPointNode: NodeDefinition<PointToPointInputs, PointToPointOutputs, PointToPointParams> = {
+export const AssemblyMatesPointToPointNode: NodeDefinition<PointToPointInputs, PointToPointOutputs, PointToPointParams> = {
   id: 'Assembly::PointToPoint',
   category: 'Assembly',
   label: 'PointToPoint',

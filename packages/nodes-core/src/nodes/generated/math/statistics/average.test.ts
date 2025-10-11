@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AverageNode } from './average.node';
+import { MathStatisticsAverageNode } from './average.node';
 import { createTestContext } from '../test-utils';
 
-describe('AverageNode', () => {
+describe('MathStatisticsAverageNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('AverageNode', () => {
 
     } as any;
 
-    const result = await AverageNode.evaluate(context, inputs, params);
+    const result = await MathStatisticsAverageNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

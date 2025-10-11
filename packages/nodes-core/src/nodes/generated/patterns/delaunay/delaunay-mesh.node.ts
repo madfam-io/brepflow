@@ -13,7 +13,7 @@ interface DelaunayMeshOutputs {
   mesh: unknown;
 }
 
-export const DelaunayMeshNode: NodeDefinition<DelaunayMeshInputs, DelaunayMeshOutputs, DelaunayMeshParams> = {
+export const PatternsDelaunayDelaunayMeshNode: NodeDefinition<DelaunayMeshInputs, DelaunayMeshOutputs, DelaunayMeshParams> = {
   id: 'Patterns::DelaunayMesh',
   category: 'Patterns',
   label: 'DelaunayMesh',

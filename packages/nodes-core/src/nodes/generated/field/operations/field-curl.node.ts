@@ -10,7 +10,7 @@ interface FieldCurlOutputs {
   curl: unknown;
 }
 
-export const FieldCurlNode: NodeDefinition<FieldCurlInputs, FieldCurlOutputs, FieldCurlParams> = {
+export const FieldOperationsFieldCurlNode: NodeDefinition<FieldCurlInputs, FieldCurlOutputs, FieldCurlParams> = {
   id: 'Field::FieldCurl',
   category: 'Field',
   label: 'FieldCurl',

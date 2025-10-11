@@ -11,7 +11,7 @@ interface RandomPoissonOutputs {
   value: unknown;
 }
 
-export const RandomPoissonNode: NodeDefinition<RandomPoissonInputs, RandomPoissonOutputs, RandomPoissonParams> = {
+export const MathRandomRandomPoissonNode: NodeDefinition<RandomPoissonInputs, RandomPoissonOutputs, RandomPoissonParams> = {
   id: 'Math::RandomPoisson',
   category: 'Math',
   label: 'RandomPoisson',

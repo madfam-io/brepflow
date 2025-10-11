@@ -15,7 +15,7 @@ interface ApplyConstraintsOutputs {
   constraintData: unknown;
 }
 
-export const ApplyConstraintsNode: NodeDefinition<ApplyConstraintsInputs, ApplyConstraintsOutputs, ApplyConstraintsParams> = {
+export const SimulationFEAApplyConstraintsNode: NodeDefinition<ApplyConstraintsInputs, ApplyConstraintsOutputs, ApplyConstraintsParams> = {
   id: 'Simulation::ApplyConstraints',
   category: 'Simulation',
   label: 'ApplyConstraints',

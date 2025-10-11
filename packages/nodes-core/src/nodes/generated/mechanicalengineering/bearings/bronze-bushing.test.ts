@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BronzeBushingNode } from './bronze-bushing.node';
+import { MechanicalEngineeringBearingsBronzeBushingNode } from './bronze-bushing.node';
 import { createTestContext } from '../test-utils';
 
-describe('BronzeBushingNode', () => {
+describe('MechanicalEngineeringBearingsBronzeBushingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('BronzeBushingNode', () => {
       flanged: false
     } as any;
 
-    const result = await BronzeBushingNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringBearingsBronzeBushingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

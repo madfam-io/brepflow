@@ -12,7 +12,7 @@ interface ArcTangentOutputs {
   angle: unknown;
 }
 
-export const ArcTangentNode: NodeDefinition<ArcTangentInputs, ArcTangentOutputs, ArcTangentParams> = {
+export const MathTrigonometryArcTangentNode: NodeDefinition<ArcTangentInputs, ArcTangentOutputs, ArcTangentParams> = {
   id: 'Math::ArcTangent',
   category: 'Math',
   label: 'ArcTangent',

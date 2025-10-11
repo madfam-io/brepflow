@@ -11,7 +11,7 @@ interface CommonEdgesOutputs {
   edges: unknown;
 }
 
-export const CommonEdgesNode: NodeDefinition<CommonEdgesInputs, CommonEdgesOutputs, CommonEdgesParams> = {
+export const BooleanCommonEdgesNode: NodeDefinition<CommonEdgesInputs, CommonEdgesOutputs, CommonEdgesParams> = {
   id: 'Boolean::CommonEdges',
   category: 'Boolean',
   label: 'CommonEdges',

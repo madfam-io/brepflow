@@ -13,7 +13,7 @@ interface CutterEngagementOutputs {
   engagementAngle: number[];
 }
 
-export const CutterEngagementNode: NodeDefinition<CutterEngagementInputs, CutterEngagementOutputs, CutterEngagementParams> = {
+export const FabricationCNCCutterEngagementNode: NodeDefinition<CutterEngagementInputs, CutterEngagementOutputs, CutterEngagementParams> = {
   id: 'Fabrication::CutterEngagement',
   category: 'Fabrication',
   label: 'CutterEngagement',

@@ -15,7 +15,7 @@ interface NurbsCurveOutputs {
   curve: unknown;
 }
 
-export const NurbsCurveNode: NodeDefinition<NurbsCurveInputs, NurbsCurveOutputs, NurbsCurveParams> = {
+export const SurfaceCurvesNurbsCurveNode: NodeDefinition<NurbsCurveInputs, NurbsCurveOutputs, NurbsCurveParams> = {
   id: 'Surface::NurbsCurve',
   category: 'Surface',
   label: 'NurbsCurve',

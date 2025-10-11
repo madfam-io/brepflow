@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CommonEdgesNode } from './common-edges.node';
+import { BooleanCommonEdgesNode } from './common-edges.node';
 import { createTestContext } from '../test-utils';
 
-describe('CommonEdgesNode', () => {
+describe('BooleanCommonEdgesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CommonEdgesNode', () => {
 
     } as any;
 
-    const result = await CommonEdgesNode.evaluate(context, inputs, params);
+    const result = await BooleanCommonEdgesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

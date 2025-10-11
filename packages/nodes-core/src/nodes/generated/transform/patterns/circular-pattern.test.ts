@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CircularPatternNode } from './circular-pattern.node';
+import { TransformPatternsCircularPatternNode } from './circular-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('CircularPatternNode', () => {
+describe('TransformPatternsCircularPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('CircularPatternNode', () => {
       rotateInstances: true
     } as any;
 
-    const result = await CircularPatternNode.evaluate(context, inputs, params);
+    const result = await TransformPatternsCircularPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RetainingRingNode } from './retaining-ring.node';
+import { MechanicalEngineeringFastenersRetainingRingNode } from './retaining-ring.node';
 import { createTestContext } from '../test-utils';
 
-describe('RetainingRingNode', () => {
+describe('MechanicalEngineeringFastenersRetainingRingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('RetainingRingNode', () => {
       grooveWidth: 1.2
     } as any;
 
-    const result = await RetainingRingNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringFastenersRetainingRingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

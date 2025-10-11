@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VarianceNode } from './variance.node';
+import { MathStatisticsVarianceNode } from './variance.node';
 import { createTestContext } from '../test-utils';
 
-describe('VarianceNode', () => {
+describe('MathStatisticsVarianceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('VarianceNode', () => {
       sample: false
     } as any;
 
-    const result = await VarianceNode.evaluate(context, inputs, params);
+    const result = await MathStatisticsVarianceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface CompositeCurveOutputs {
   composite: unknown;
 }
 
-export const CompositeCurveNode: NodeDefinition<CompositeCurveInputs, CompositeCurveOutputs, CompositeCurveParams> = {
+export const SurfaceCurvesCompositeCurveNode: NodeDefinition<CompositeCurveInputs, CompositeCurveOutputs, CompositeCurveParams> = {
   id: 'Surface::CompositeCurve',
   category: 'Surface',
   label: 'CompositeCurve',

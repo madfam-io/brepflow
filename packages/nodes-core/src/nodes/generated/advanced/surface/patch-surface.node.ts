@@ -14,7 +14,7 @@ interface PatchSurfaceOutputs {
   patch: unknown;
 }
 
-export const PatchSurfaceNode: NodeDefinition<PatchSurfaceInputs, PatchSurfaceOutputs, PatchSurfaceParams> = {
+export const AdvancedSurfacePatchSurfaceNode: NodeDefinition<PatchSurfaceInputs, PatchSurfaceOutputs, PatchSurfaceParams> = {
   id: 'Advanced::PatchSurface',
   category: 'Advanced',
   label: 'PatchSurface',

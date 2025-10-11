@@ -16,7 +16,7 @@ interface DeformOutputs {
   deformed: unknown;
 }
 
-export const DeformNode: NodeDefinition<DeformInputs, DeformOutputs, DeformParams> = {
+export const AdvancedFeaturesDeformNode: NodeDefinition<DeformInputs, DeformOutputs, DeformParams> = {
   id: 'Advanced::Deform',
   category: 'Advanced',
   label: 'Deform',

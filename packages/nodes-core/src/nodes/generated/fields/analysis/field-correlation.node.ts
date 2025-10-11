@@ -15,7 +15,7 @@ interface FieldCorrelationOutputs {
   covariance: number;
 }
 
-export const FieldCorrelationNode: NodeDefinition<FieldCorrelationInputs, FieldCorrelationOutputs, FieldCorrelationParams> = {
+export const FieldsAnalysisFieldCorrelationNode: NodeDefinition<FieldCorrelationInputs, FieldCorrelationOutputs, FieldCorrelationParams> = {
   id: 'Fields::FieldCorrelation',
   category: 'Fields',
   label: 'FieldCorrelation',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CentroidalVoronoiNode } from './centroidal-voronoi.node';
+import { PatternsVoronoiCentroidalVoronoiNode } from './centroidal-voronoi.node';
 import { createTestContext } from '../test-utils';
 
-describe('CentroidalVoronoiNode', () => {
+describe('PatternsVoronoiCentroidalVoronoiNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CentroidalVoronoiNode', () => {
       convergence: 0.001
     } as any;
 
-    const result = await CentroidalVoronoiNode.evaluate(context, inputs, params);
+    const result = await PatternsVoronoiCentroidalVoronoiNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

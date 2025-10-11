@@ -15,7 +15,7 @@ interface AlignOutputs {
   aligned: unknown;
 }
 
-export const AlignNode: NodeDefinition<AlignInputs, AlignOutputs, AlignParams> = {
+export const TransformAlignNode: NodeDefinition<AlignInputs, AlignOutputs, AlignParams> = {
   id: 'Transform::Align',
   category: 'Transform',
   label: 'Align',

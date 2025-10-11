@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldCirculationNode } from './field-circulation.node';
+import { FieldsAnalysisFieldCirculationNode } from './field-circulation.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldCirculationNode', () => {
+describe('FieldsAnalysisFieldCirculationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FieldCirculationNode', () => {
 
     } as any;
 
-    const result = await FieldCirculationNode.evaluate(context, inputs, params);
+    const result = await FieldsAnalysisFieldCirculationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

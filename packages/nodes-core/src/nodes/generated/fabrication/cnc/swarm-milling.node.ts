@@ -13,7 +13,7 @@ interface SwarmMillingOutputs {
   swarmPaths: unknown;
 }
 
-export const SwarmMillingNode: NodeDefinition<SwarmMillingInputs, SwarmMillingOutputs, SwarmMillingParams> = {
+export const FabricationCNCSwarmMillingNode: NodeDefinition<SwarmMillingInputs, SwarmMillingOutputs, SwarmMillingParams> = {
   id: 'Fabrication::SwarmMilling',
   category: 'Fabrication',
   label: 'SwarmMilling',

@@ -1,5 +1,5 @@
 import { createNodeId, createEdgeId } from '@brepflow/types';
-import type { Operation, Conflict } from '../types';
+import type { Operation, Conflict, Node } from '../types';
 
 export class OperationalTransform {
   /**
@@ -124,9 +124,9 @@ export class OperationalTransform {
         return op1;
       } else {
         // op2 is newer, merge non-conflicting fields
-        const mergedUpdates = { ...op2.updates } as Partial<typeof op1.node>;
+        const mergedUpdates: Partial<Node> = { ...op2.updates };
         for (const [key, value] of Object.entries(op1.updates)) {
-          const typedKey = key as keyof typeof op1.node;
+          const typedKey = key as keyof Node;
           if (!Object.prototype.hasOwnProperty.call(op2.updates, typedKey)) {
             (mergedUpdates as Record<string, unknown>)[typedKey as string] = value;
           }

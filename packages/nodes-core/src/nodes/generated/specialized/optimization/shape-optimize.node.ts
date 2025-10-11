@@ -15,7 +15,7 @@ interface ShapeOptimizeOutputs {
   optimized: unknown;
 }
 
-export const ShapeOptimizeNode: NodeDefinition<ShapeOptimizeInputs, ShapeOptimizeOutputs, ShapeOptimizeParams> = {
+export const SpecializedOptimizationShapeOptimizeNode: NodeDefinition<ShapeOptimizeInputs, ShapeOptimizeOutputs, ShapeOptimizeParams> = {
   id: 'Specialized::ShapeOptimize',
   category: 'Specialized',
   label: 'ShapeOptimize',

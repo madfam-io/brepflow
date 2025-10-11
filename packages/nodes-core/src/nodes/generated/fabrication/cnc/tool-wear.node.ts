@@ -14,7 +14,7 @@ interface ToolWearOutputs {
   toolLife: number;
 }
 
-export const ToolWearNode: NodeDefinition<ToolWearInputs, ToolWearOutputs, ToolWearParams> = {
+export const FabricationCNCToolWearNode: NodeDefinition<ToolWearInputs, ToolWearOutputs, ToolWearParams> = {
   id: 'Fabrication::ToolWear',
   category: 'Fabrication',
   label: 'ToolWear',

@@ -16,7 +16,7 @@ interface BoundaryLayersOutputs {
   layeredMesh: unknown;
 }
 
-export const BoundaryLayersNode: NodeDefinition<BoundaryLayersInputs, BoundaryLayersOutputs, BoundaryLayersParams> = {
+export const SimulationCFDBoundaryLayersNode: NodeDefinition<BoundaryLayersInputs, BoundaryLayersOutputs, BoundaryLayersParams> = {
   id: 'Simulation::BoundaryLayers',
   category: 'Simulation',
   label: 'BoundaryLayers',

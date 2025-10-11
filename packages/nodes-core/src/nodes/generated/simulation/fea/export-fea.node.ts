@@ -16,7 +16,7 @@ interface ExportFEAOutputs {
   feaFile: unknown;
 }
 
-export const ExportFEANode: NodeDefinition<ExportFEAInputs, ExportFEAOutputs, ExportFEAParams> = {
+export const SimulationFEAExportFEANode: NodeDefinition<ExportFEAInputs, ExportFEAOutputs, ExportFEAParams> = {
   id: 'Simulation::ExportFEA',
   category: 'Simulation',
   label: 'ExportFEA',

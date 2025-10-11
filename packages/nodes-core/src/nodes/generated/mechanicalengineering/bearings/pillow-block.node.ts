@@ -17,7 +17,7 @@ interface PillowBlockOutputs {
   mountingPoints: Array<[number, number, number]>;
 }
 
-export const PillowBlockNode: NodeDefinition<PillowBlockInputs, PillowBlockOutputs, PillowBlockParams> = {
+export const MechanicalEngineeringBearingsPillowBlockNode: NodeDefinition<PillowBlockInputs, PillowBlockOutputs, PillowBlockParams> = {
   id: 'MechanicalEngineering::PillowBlock',
   category: 'MechanicalEngineering',
   label: 'PillowBlock',

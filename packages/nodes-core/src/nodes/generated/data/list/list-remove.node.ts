@@ -12,7 +12,7 @@ interface ListRemoveOutputs {
   removed: unknown;
 }
 
-export const ListRemoveNode: NodeDefinition<ListRemoveInputs, ListRemoveOutputs, ListRemoveParams> = {
+export const DataListListRemoveNode: NodeDefinition<ListRemoveInputs, ListRemoveOutputs, ListRemoveParams> = {
   id: 'Data::ListRemove',
   category: 'Data',
   label: 'ListRemove',

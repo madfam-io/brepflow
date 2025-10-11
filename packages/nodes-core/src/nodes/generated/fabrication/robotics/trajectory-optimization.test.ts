@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TrajectoryOptimizationNode } from './trajectory-optimization.node';
+import { FabricationRoboticsTrajectoryOptimizationNode } from './trajectory-optimization.node';
 import { createTestContext } from '../test-utils';
 
-describe('TrajectoryOptimizationNode', () => {
+describe('FabricationRoboticsTrajectoryOptimizationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('TrajectoryOptimizationNode', () => {
       maxAcceleration: 5000
     } as any;
 
-    const result = await TrajectoryOptimizationNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsTrajectoryOptimizationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

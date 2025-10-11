@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { S3UploadNode } from './s3-upload.node';
+import { InteroperabilityCloudS3UploadNode } from './s3-upload.node';
 import { createTestContext } from '../test-utils';
 
-describe('S3UploadNode', () => {
+describe('InteroperabilityCloudS3UploadNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('S3UploadNode', () => {
       region: "us-east-1"
     } as any;
 
-    const result = await S3UploadNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityCloudS3UploadNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

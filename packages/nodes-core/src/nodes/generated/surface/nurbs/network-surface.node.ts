@@ -14,7 +14,7 @@ interface NetworkSurfaceOutputs {
   surface: unknown;
 }
 
-export const NetworkSurfaceNode: NodeDefinition<NetworkSurfaceInputs, NetworkSurfaceOutputs, NetworkSurfaceParams> = {
+export const SurfaceNURBSNetworkSurfaceNode: NodeDefinition<NetworkSurfaceInputs, NetworkSurfaceOutputs, NetworkSurfaceParams> = {
   id: 'Surface::NetworkSurface',
   category: 'Surface',
   label: 'NetworkSurface',

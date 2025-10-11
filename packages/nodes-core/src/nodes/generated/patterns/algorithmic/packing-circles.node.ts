@@ -14,7 +14,7 @@ interface PackingCirclesOutputs {
   centers: Array<[number, number, number]>;
 }
 
-export const PackingCirclesNode: NodeDefinition<PackingCirclesInputs, PackingCirclesOutputs, PackingCirclesParams> = {
+export const PatternsAlgorithmicPackingCirclesNode: NodeDefinition<PackingCirclesInputs, PackingCirclesOutputs, PackingCirclesParams> = {
   id: 'Patterns::PackingCircles',
   category: 'Patterns',
   label: 'PackingCircles',

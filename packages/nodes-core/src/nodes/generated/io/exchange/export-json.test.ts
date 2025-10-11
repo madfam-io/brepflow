@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportJSONNode } from './export-json.node';
+import { IOExchangeExportJSONNode } from './export-json.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExportJSONNode', () => {
+describe('IOExchangeExportJSONNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ExportJSONNode', () => {
       includeTopology: true
     } as any;
 
-    const result = await ExportJSONNode.evaluate(context, inputs, params);
+    const result = await IOExchangeExportJSONNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -15,7 +15,7 @@ interface PlaneToPlaneOutputs {
   mate: unknown;
 }
 
-export const PlaneToPlaneNode: NodeDefinition<PlaneToPlaneInputs, PlaneToPlaneOutputs, PlaneToPlaneParams> = {
+export const AssemblyMatesPlaneToPlaneNode: NodeDefinition<PlaneToPlaneInputs, PlaneToPlaneOutputs, PlaneToPlaneParams> = {
   id: 'Assembly::PlaneToPlane',
   category: 'Assembly',
   label: 'PlaneToPlane',

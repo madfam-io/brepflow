@@ -15,7 +15,7 @@ interface VoronoiLatticeOutputs {
   voronoi: unknown;
 }
 
-export const VoronoiLatticeNode: NodeDefinition<VoronoiLatticeInputs, VoronoiLatticeOutputs, VoronoiLatticeParams> = {
+export const SpecializedLatticeVoronoiLatticeNode: NodeDefinition<VoronoiLatticeInputs, VoronoiLatticeOutputs, VoronoiLatticeParams> = {
   id: 'Specialized::VoronoiLattice',
   category: 'Specialized',
   label: 'VoronoiLattice',

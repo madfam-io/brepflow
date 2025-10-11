@@ -18,7 +18,7 @@ interface HTTPRequestOutputs {
   headers: unknown;
 }
 
-export const HTTPRequestNode: NodeDefinition<HTTPRequestInputs, HTTPRequestOutputs, HTTPRequestParams> = {
+export const InteroperabilityAPIHTTPRequestNode: NodeDefinition<HTTPRequestInputs, HTTPRequestOutputs, HTTPRequestParams> = {
   id: 'Interoperability::HTTPRequest',
   category: 'Interoperability',
   label: 'HTTPRequest',

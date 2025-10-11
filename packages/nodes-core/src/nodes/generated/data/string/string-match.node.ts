@@ -13,7 +13,7 @@ interface StringMatchOutputs {
   matches: unknown;
 }
 
-export const StringMatchNode: NodeDefinition<StringMatchInputs, StringMatchOutputs, StringMatchParams> = {
+export const DataStringStringMatchNode: NodeDefinition<StringMatchInputs, StringMatchOutputs, StringMatchParams> = {
   id: 'Data::StringMatch',
   category: 'Data',
   label: 'StringMatch',

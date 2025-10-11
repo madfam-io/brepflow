@@ -14,7 +14,7 @@ interface WaveFunctionCollapseOutputs {
   pattern: unknown;
 }
 
-export const WaveFunctionCollapseNode: NodeDefinition<WaveFunctionCollapseInputs, WaveFunctionCollapseOutputs, WaveFunctionCollapseParams> = {
+export const PatternsProceduralWaveFunctionCollapseNode: NodeDefinition<WaveFunctionCollapseInputs, WaveFunctionCollapseOutputs, WaveFunctionCollapseParams> = {
   id: 'Patterns::WaveFunctionCollapse',
   category: 'Patterns',
   label: 'WaveFunctionCollapse',

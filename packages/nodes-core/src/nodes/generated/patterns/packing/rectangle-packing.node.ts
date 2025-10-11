@@ -14,7 +14,7 @@ interface RectanglePackingOutputs {
   transforms: unknown;
 }
 
-export const RectanglePackingNode: NodeDefinition<RectanglePackingInputs, RectanglePackingOutputs, RectanglePackingParams> = {
+export const PatternsPackingRectanglePackingNode: NodeDefinition<RectanglePackingInputs, RectanglePackingOutputs, RectanglePackingParams> = {
   id: 'Patterns::RectanglePacking',
   category: 'Patterns',
   label: 'RectanglePacking',

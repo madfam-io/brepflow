@@ -14,7 +14,7 @@ interface OverheadDoorOutputs {
   tracks: unknown;
 }
 
-export const OverheadDoorNode: NodeDefinition<OverheadDoorInputs, OverheadDoorOutputs, OverheadDoorParams> = {
+export const ArchitectureDoorsOverheadDoorNode: NodeDefinition<OverheadDoorInputs, OverheadDoorOutputs, OverheadDoorParams> = {
   id: 'Architecture::OverheadDoor',
   category: 'Architecture',
   label: 'OverheadDoor',

@@ -14,7 +14,7 @@ interface ParapetWallOutputs {
   parapet: unknown;
 }
 
-export const ParapetWallNode: NodeDefinition<ParapetWallInputs, ParapetWallOutputs, ParapetWallParams> = {
+export const ArchitectureWallsParapetWallNode: NodeDefinition<ParapetWallInputs, ParapetWallOutputs, ParapetWallParams> = {
   id: 'Architecture::ParapetWall',
   category: 'Architecture',
   label: 'ParapetWall',

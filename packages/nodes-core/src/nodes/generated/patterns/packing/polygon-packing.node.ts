@@ -15,7 +15,7 @@ interface PolygonPackingOutputs {
   utilization: number;
 }
 
-export const PolygonPackingNode: NodeDefinition<PolygonPackingInputs, PolygonPackingOutputs, PolygonPackingParams> = {
+export const PatternsPackingPolygonPackingNode: NodeDefinition<PolygonPackingInputs, PolygonPackingOutputs, PolygonPackingParams> = {
   id: 'Patterns::PolygonPacking',
   category: 'Patterns',
   label: 'PolygonPacking',

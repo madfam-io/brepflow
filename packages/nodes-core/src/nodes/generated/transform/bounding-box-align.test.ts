@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BoundingBoxAlignNode } from './bounding-box-align.node';
+import { TransformBoundingBoxAlignNode } from './bounding-box-align.node';
 import { createTestContext } from '../test-utils';
 
-describe('BoundingBoxAlignNode', () => {
+describe('TransformBoundingBoxAlignNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BoundingBoxAlignNode', () => {
       alignCorner: "min"
     } as any;
 
-    const result = await BoundingBoxAlignNode.evaluate(context, inputs, params);
+    const result = await TransformBoundingBoxAlignNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

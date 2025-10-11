@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SetIntersectionNode } from './set-intersection.node';
+import { DataSetSetIntersectionNode } from './set-intersection.node';
 import { createTestContext } from '../test-utils';
 
-describe('SetIntersectionNode', () => {
+describe('DataSetSetIntersectionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SetIntersectionNode', () => {
 
     } as any;
 
-    const result = await SetIntersectionNode.evaluate(context, inputs, params);
+    const result = await DataSetSetIntersectionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

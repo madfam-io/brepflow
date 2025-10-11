@@ -12,7 +12,7 @@ interface StringSplitOutputs {
   parts: unknown;
 }
 
-export const StringSplitNode: NodeDefinition<StringSplitInputs, StringSplitOutputs, StringSplitParams> = {
+export const DataStringStringSplitNode: NodeDefinition<StringSplitInputs, StringSplitOutputs, StringSplitParams> = {
   id: 'Data::StringSplit',
   category: 'Data',
   label: 'StringSplit',

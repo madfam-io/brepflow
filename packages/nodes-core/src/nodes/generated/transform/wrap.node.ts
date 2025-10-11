@@ -14,7 +14,7 @@ interface WrapOutputs {
   wrapped: unknown;
 }
 
-export const WrapNode: NodeDefinition<WrapInputs, WrapOutputs, WrapParams> = {
+export const TransformWrapNode: NodeDefinition<WrapInputs, WrapOutputs, WrapParams> = {
   id: 'Transform::Wrap',
   category: 'Transform',
   label: 'Wrap',

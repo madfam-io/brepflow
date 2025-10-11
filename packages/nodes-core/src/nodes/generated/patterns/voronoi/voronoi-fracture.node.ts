@@ -13,7 +13,7 @@ interface VoronoiFractureOutputs {
   fragments: unknown;
 }
 
-export const VoronoiFractureNode: NodeDefinition<VoronoiFractureInputs, VoronoiFractureOutputs, VoronoiFractureParams> = {
+export const PatternsVoronoiVoronoiFractureNode: NodeDefinition<VoronoiFractureInputs, VoronoiFractureOutputs, VoronoiFractureParams> = {
   id: 'Patterns::VoronoiFracture',
   category: 'Patterns',
   label: 'VoronoiFracture',

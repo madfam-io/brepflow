@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HyperbolicCosineNode } from './hyperbolic-cosine.node';
+import { MathTrigonometryHyperbolicCosineNode } from './hyperbolic-cosine.node';
 import { createTestContext } from '../test-utils';
 
-describe('HyperbolicCosineNode', () => {
+describe('MathTrigonometryHyperbolicCosineNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('HyperbolicCosineNode', () => {
 
     } as any;
 
-    const result = await HyperbolicCosineNode.evaluate(context, inputs, params);
+    const result = await MathTrigonometryHyperbolicCosineNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

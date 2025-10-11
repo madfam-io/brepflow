@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RainScreenNode } from './rain-screen.node';
+import { ArchitectureWallsRainScreenNode } from './rain-screen.node';
 import { createTestContext } from '../test-utils';
 
-describe('RainScreenNode', () => {
+describe('ArchitectureWallsRainScreenNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('RainScreenNode', () => {
       ventGap: 25
     } as any;
 
-    const result = await RainScreenNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsRainScreenNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

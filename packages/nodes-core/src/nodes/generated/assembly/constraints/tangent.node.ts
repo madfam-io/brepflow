@@ -14,7 +14,7 @@ interface TangentOutputs {
   constraint: unknown;
 }
 
-export const TangentNode: NodeDefinition<TangentInputs, TangentOutputs, TangentParams> = {
+export const AssemblyConstraintsTangentNode: NodeDefinition<TangentInputs, TangentOutputs, TangentParams> = {
   id: 'Assembly::Tangent',
   category: 'Assembly',
   label: 'Tangent',

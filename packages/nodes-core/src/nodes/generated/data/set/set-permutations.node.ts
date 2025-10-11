@@ -12,7 +12,7 @@ interface SetPermutationsOutputs {
   permutations: unknown;
 }
 
-export const SetPermutationsNode: NodeDefinition<SetPermutationsInputs, SetPermutationsOutputs, SetPermutationsParams> = {
+export const DataSetSetPermutationsNode: NodeDefinition<SetPermutationsInputs, SetPermutationsOutputs, SetPermutationsParams> = {
   id: 'Data::SetPermutations',
   category: 'Data',
   label: 'SetPermutations',

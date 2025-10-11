@@ -13,7 +13,7 @@ interface FieldSmoothOutputs {
   smoothed: unknown;
 }
 
-export const FieldSmoothNode: NodeDefinition<FieldSmoothInputs, FieldSmoothOutputs, FieldSmoothParams> = {
+export const FieldOperationsFieldSmoothNode: NodeDefinition<FieldSmoothInputs, FieldSmoothOutputs, FieldSmoothParams> = {
   id: 'Field::FieldSmooth',
   category: 'Field',
   label: 'FieldSmooth',

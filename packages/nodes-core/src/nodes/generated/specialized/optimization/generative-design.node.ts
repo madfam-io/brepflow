@@ -16,7 +16,7 @@ interface GenerativeDesignOutputs {
   paretoFront: unknown;
 }
 
-export const GenerativeDesignNode: NodeDefinition<GenerativeDesignInputs, GenerativeDesignOutputs, GenerativeDesignParams> = {
+export const SpecializedOptimizationGenerativeDesignNode: NodeDefinition<GenerativeDesignInputs, GenerativeDesignOutputs, GenerativeDesignParams> = {
   id: 'Specialized::GenerativeDesign',
   category: 'Specialized',
   label: 'GenerativeDesign',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GothicWindowNode } from './gothic-window.node';
+import { ArchitectureWindowsGothicWindowNode } from './gothic-window.node';
 import { createTestContext } from '../test-utils';
 
-describe('GothicWindowNode', () => {
+describe('ArchitectureWindowsGothicWindowNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('GothicWindowNode', () => {
       tracery: true
     } as any;
 
-    const result = await GothicWindowNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWindowsGothicWindowNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

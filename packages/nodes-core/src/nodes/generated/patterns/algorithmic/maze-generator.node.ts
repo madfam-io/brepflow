@@ -15,7 +15,7 @@ interface MazeGeneratorOutputs {
   path: unknown;
 }
 
-export const MazeGeneratorNode: NodeDefinition<MazeGeneratorInputs, MazeGeneratorOutputs, MazeGeneratorParams> = {
+export const PatternsAlgorithmicMazeGeneratorNode: NodeDefinition<MazeGeneratorInputs, MazeGeneratorOutputs, MazeGeneratorParams> = {
   id: 'Patterns::MazeGenerator',
   category: 'Patterns',
   label: 'MazeGenerator',

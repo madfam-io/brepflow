@@ -13,7 +13,7 @@ interface ContextFreeArtOutputs {
   art: unknown;
 }
 
-export const ContextFreeArtNode: NodeDefinition<ContextFreeArtInputs, ContextFreeArtOutputs, ContextFreeArtParams> = {
+export const PatternsProceduralContextFreeArtNode: NodeDefinition<ContextFreeArtInputs, ContextFreeArtOutputs, ContextFreeArtParams> = {
   id: 'Patterns::ContextFreeArt',
   category: 'Patterns',
   label: 'ContextFreeArt',

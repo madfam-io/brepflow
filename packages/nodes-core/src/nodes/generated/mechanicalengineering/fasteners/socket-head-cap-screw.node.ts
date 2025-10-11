@@ -16,7 +16,7 @@ interface SocketHeadCapScrewOutputs {
   socket: unknown;
 }
 
-export const SocketHeadCapScrewNode: NodeDefinition<SocketHeadCapScrewInputs, SocketHeadCapScrewOutputs, SocketHeadCapScrewParams> = {
+export const MechanicalEngineeringFastenersSocketHeadCapScrewNode: NodeDefinition<SocketHeadCapScrewInputs, SocketHeadCapScrewOutputs, SocketHeadCapScrewParams> = {
   id: 'MechanicalEngineering::SocketHeadCapScrew',
   category: 'MechanicalEngineering',
   label: 'SocketHeadCapScrew',

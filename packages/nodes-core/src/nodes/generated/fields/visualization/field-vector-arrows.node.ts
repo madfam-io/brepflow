@@ -14,7 +14,7 @@ interface FieldVectorArrowsOutputs {
   arrows: unknown;
 }
 
-export const FieldVectorArrowsNode: NodeDefinition<FieldVectorArrowsInputs, FieldVectorArrowsOutputs, FieldVectorArrowsParams> = {
+export const FieldsVisualizationFieldVectorArrowsNode: NodeDefinition<FieldVectorArrowsInputs, FieldVectorArrowsOutputs, FieldVectorArrowsParams> = {
   id: 'Fields::FieldVectorArrows',
   category: 'Fields',
   label: 'FieldVectorArrows',

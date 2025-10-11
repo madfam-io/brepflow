@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { JalousieWindowNode } from './jalousie-window.node';
+import { ArchitectureWindowsJalousieWindowNode } from './jalousie-window.node';
 import { createTestContext } from '../test-utils';
 
-describe('JalousieWindowNode', () => {
+describe('ArchitectureWindowsJalousieWindowNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('JalousieWindowNode', () => {
       angle: 0
     } as any;
 
-    const result = await JalousieWindowNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWindowsJalousieWindowNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

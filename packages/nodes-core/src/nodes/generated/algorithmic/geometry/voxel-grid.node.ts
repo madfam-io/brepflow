@@ -16,7 +16,7 @@ interface VoxelGridOutputs {
   bounds: unknown;
 }
 
-export const VoxelGridNode: NodeDefinition<VoxelGridInputs, VoxelGridOutputs, VoxelGridParams> = {
+export const AlgorithmicGeometryVoxelGridNode: NodeDefinition<VoxelGridInputs, VoxelGridOutputs, VoxelGridParams> = {
   id: 'Algorithmic::VoxelGrid',
   category: 'Algorithmic',
   label: 'VoxelGrid',

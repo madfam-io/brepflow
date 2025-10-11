@@ -18,7 +18,7 @@ interface CurvatureCombOutputs {
   curvatureValues: unknown;
 }
 
-export const CurvatureCombNode: NodeDefinition<CurvatureCombInputs, CurvatureCombOutputs, CurvatureCombParams> = {
+export const AnalysisCurvesCurvatureCombNode: NodeDefinition<CurvatureCombInputs, CurvatureCombOutputs, CurvatureCombParams> = {
   id: 'Analysis::CurvatureComb',
   category: 'Analysis',
   label: 'CurvatureComb',

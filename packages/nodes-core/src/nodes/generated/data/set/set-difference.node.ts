@@ -11,7 +11,7 @@ interface SetDifferenceOutputs {
   difference: unknown;
 }
 
-export const SetDifferenceNode: NodeDefinition<SetDifferenceInputs, SetDifferenceOutputs, SetDifferenceParams> = {
+export const DataSetSetDifferenceNode: NodeDefinition<SetDifferenceInputs, SetDifferenceOutputs, SetDifferenceParams> = {
   id: 'Data::SetDifference',
   category: 'Data',
   label: 'SetDifference',

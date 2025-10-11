@@ -15,7 +15,7 @@ interface ProximityAnalysisOutputs {
   connections: unknown;
 }
 
-export const ProximityAnalysisNode: NodeDefinition<ProximityAnalysisInputs, ProximityAnalysisOutputs, ProximityAnalysisParams> = {
+export const AnalysisProximityProximityAnalysisNode: NodeDefinition<ProximityAnalysisInputs, ProximityAnalysisOutputs, ProximityAnalysisParams> = {
   id: 'Analysis::ProximityAnalysis',
   category: 'Analysis',
   label: 'ProximityAnalysis',

@@ -13,7 +13,7 @@ interface PierceOptimizationOutputs {
   piercePoints: Array<[number, number, number]>;
 }
 
-export const PierceOptimizationNode: NodeDefinition<PierceOptimizationInputs, PierceOptimizationOutputs, PierceOptimizationParams> = {
+export const FabricationLaserPierceOptimizationNode: NodeDefinition<PierceOptimizationInputs, PierceOptimizationOutputs, PierceOptimizationParams> = {
   id: 'Fabrication::PierceOptimization',
   category: 'Fabrication',
   label: 'PierceOptimization',

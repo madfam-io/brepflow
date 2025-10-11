@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RepairMeshNode } from './repair-mesh.node';
+import { MeshRepairRepairMeshNode } from './repair-mesh.node';
 import { createTestContext } from '../test-utils';
 
-describe('RepairMeshNode', () => {
+describe('MeshRepairRepairMeshNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('RepairMeshNode', () => {
       makeManifold: false
     } as any;
 
-    const result = await RepairMeshNode.evaluate(context, inputs, params);
+    const result = await MeshRepairRepairMeshNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -11,7 +11,7 @@ interface PowerOutputs {
   result: unknown;
 }
 
-export const PowerNode: NodeDefinition<PowerInputs, PowerOutputs, PowerParams> = {
+export const MathOperatorsPowerNode: NodeDefinition<PowerInputs, PowerOutputs, PowerParams> = {
   id: 'Math::Power',
   category: 'Math',
   label: 'Power',

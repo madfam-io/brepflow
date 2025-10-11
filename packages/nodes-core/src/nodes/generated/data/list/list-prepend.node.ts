@@ -11,7 +11,7 @@ interface ListPrependOutputs {
   result: unknown;
 }
 
-export const ListPrependNode: NodeDefinition<ListPrependInputs, ListPrependOutputs, ListPrependParams> = {
+export const DataListListPrependNode: NodeDefinition<ListPrependInputs, ListPrependOutputs, ListPrependParams> = {
   id: 'Data::ListPrepend',
   category: 'Data',
   label: 'ListPrepend',

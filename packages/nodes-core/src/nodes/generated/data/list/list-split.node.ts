@@ -12,7 +12,7 @@ interface ListSplitOutputs {
   after: unknown;
 }
 
-export const ListSplitNode: NodeDefinition<ListSplitInputs, ListSplitOutputs, ListSplitParams> = {
+export const DataListListSplitNode: NodeDefinition<ListSplitInputs, ListSplitOutputs, ListSplitParams> = {
   id: 'Data::ListSplit',
   category: 'Data',
   label: 'ListSplit',

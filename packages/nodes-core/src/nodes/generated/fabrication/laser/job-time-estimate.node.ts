@@ -15,7 +15,7 @@ interface JobTimeEstimateOutputs {
   engravingTime: number;
 }
 
-export const JobTimeEstimateNode: NodeDefinition<JobTimeEstimateInputs, JobTimeEstimateOutputs, JobTimeEstimateParams> = {
+export const FabricationLaserJobTimeEstimateNode: NodeDefinition<JobTimeEstimateInputs, JobTimeEstimateOutputs, JobTimeEstimateParams> = {
   id: 'Fabrication::JobTimeEstimate',
   category: 'Fabrication',
   label: 'JobTimeEstimate',

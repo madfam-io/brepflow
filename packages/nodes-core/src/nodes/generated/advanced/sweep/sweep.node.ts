@@ -17,7 +17,7 @@ interface SweepOutputs {
   shape: unknown;
 }
 
-export const SweepNode: NodeDefinition<SweepInputs, SweepOutputs, SweepParams> = {
+export const AdvancedSweepSweepNode: NodeDefinition<SweepInputs, SweepOutputs, SweepParams> = {
   id: 'Advanced::Sweep',
   category: 'Advanced',
   label: 'Sweep',

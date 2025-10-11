@@ -12,7 +12,7 @@ interface PipeOutputs {
   solid: unknown;
 }
 
-export const PipeNode: NodeDefinition<PipeInputs, PipeOutputs, PipeParams> = {
+export const SolidPrimitivesPipeNode: NodeDefinition<PipeInputs, PipeOutputs, PipeParams> = {
   id: 'Solid::Pipe',
   category: 'Solid',
   label: 'Pipe',

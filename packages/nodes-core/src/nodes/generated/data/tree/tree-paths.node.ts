@@ -10,7 +10,7 @@ interface TreePathsOutputs {
   paths: unknown;
 }
 
-export const TreePathsNode: NodeDefinition<TreePathsInputs, TreePathsOutputs, TreePathsParams> = {
+export const DataTreeTreePathsNode: NodeDefinition<TreePathsInputs, TreePathsOutputs, TreePathsParams> = {
   id: 'Data::TreePaths',
   category: 'Data',
   label: 'TreePaths',

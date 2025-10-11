@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BoundaryNode } from './boundary.node';
+import { AdvancedBoundaryBoundaryNode } from './boundary.node';
 import { createTestContext } from '../test-utils';
 
-describe('BoundaryNode', () => {
+describe('AdvancedBoundaryBoundaryNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BoundaryNode', () => {
       tangencyType: "none"
     } as any;
 
-    const result = await BoundaryNode.evaluate(context, inputs, params);
+    const result = await AdvancedBoundaryBoundaryNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

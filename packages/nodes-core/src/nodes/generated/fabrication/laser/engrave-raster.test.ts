@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { EngraveRasterNode } from './engrave-raster.node';
+import { FabricationLaserEngraveRasterNode } from './engrave-raster.node';
 import { createTestContext } from '../test-utils';
 
-describe('EngraveRasterNode', () => {
+describe('FabricationLaserEngraveRasterNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('EngraveRasterNode', () => {
       dithering: "floyd-steinberg"
     } as any;
 
-    const result = await EngraveRasterNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserEngraveRasterNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

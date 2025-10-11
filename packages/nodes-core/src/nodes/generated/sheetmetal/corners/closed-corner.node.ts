@@ -15,7 +15,7 @@ interface ClosedCornerOutputs {
   result: unknown;
 }
 
-export const ClosedCornerNode: NodeDefinition<ClosedCornerInputs, ClosedCornerOutputs, ClosedCornerParams> = {
+export const SheetMetalCornersClosedCornerNode: NodeDefinition<ClosedCornerInputs, ClosedCornerOutputs, ClosedCornerParams> = {
   id: 'SheetMetal::ClosedCorner',
   category: 'SheetMetal',
   label: 'ClosedCorner',

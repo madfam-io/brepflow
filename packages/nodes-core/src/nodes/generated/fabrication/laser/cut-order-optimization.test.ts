@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CutOrderOptimizationNode } from './cut-order-optimization.node';
+import { FabricationLaserCutOrderOptimizationNode } from './cut-order-optimization.node';
 import { createTestContext } from '../test-utils';
 
-describe('CutOrderOptimizationNode', () => {
+describe('FabricationLaserCutOrderOptimizationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CutOrderOptimizationNode', () => {
       minimizeTravel: true
     } as any;
 
-    const result = await CutOrderOptimizationNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserCutOrderOptimizationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

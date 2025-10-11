@@ -10,7 +10,7 @@ interface TreeGraftOutputs {
   grafted: unknown;
 }
 
-export const TreeGraftNode: NodeDefinition<TreeGraftInputs, TreeGraftOutputs, TreeGraftParams> = {
+export const DataTreeTreeGraftNode: NodeDefinition<TreeGraftInputs, TreeGraftOutputs, TreeGraftParams> = {
   id: 'Data::TreeGraft',
   category: 'Data',
   label: 'TreeGraft',

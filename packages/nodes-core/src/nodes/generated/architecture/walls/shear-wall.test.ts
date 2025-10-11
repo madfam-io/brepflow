@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShearWallNode } from './shear-wall.node';
+import { ArchitectureWallsShearWallNode } from './shear-wall.node';
 import { createTestContext } from '../test-utils';
 
-describe('ShearWallNode', () => {
+describe('ArchitectureWallsShearWallNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ShearWallNode', () => {
       reinforcementRatio: 0.025
     } as any;
 
-    const result = await ShearWallNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsShearWallNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

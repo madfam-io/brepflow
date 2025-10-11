@@ -17,7 +17,7 @@ interface LeafSpringOutputs {
   leaves: unknown;
 }
 
-export const LeafSpringNode: NodeDefinition<LeafSpringInputs, LeafSpringOutputs, LeafSpringParams> = {
+export const MechanicalEngineeringSpringsLeafSpringNode: NodeDefinition<LeafSpringInputs, LeafSpringOutputs, LeafSpringParams> = {
   id: 'MechanicalEngineering::LeafSpring',
   category: 'MechanicalEngineering',
   label: 'LeafSpring',

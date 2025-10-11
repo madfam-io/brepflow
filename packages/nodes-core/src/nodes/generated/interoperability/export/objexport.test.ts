@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { OBJExportNode } from './objexport.node';
+import { InteroperabilityExportOBJExportNode } from './objexport.node';
 import { createTestContext } from '../test-utils';
 
-describe('OBJExportNode', () => {
+describe('InteroperabilityExportOBJExportNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('OBJExportNode', () => {
       smoothing: true
     } as any;
 
-    const result = await OBJExportNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityExportOBJExportNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

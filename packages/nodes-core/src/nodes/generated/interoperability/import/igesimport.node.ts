@@ -17,7 +17,7 @@ interface IGESImportOutputs {
   metadata: unknown;
 }
 
-export const IGESImportNode: NodeDefinition<IGESImportInputs, IGESImportOutputs, IGESImportParams> = {
+export const InteroperabilityImportIGESImportNode: NodeDefinition<IGESImportInputs, IGESImportOutputs, IGESImportParams> = {
   id: 'Interoperability::IGESImport',
   category: 'Interoperability',
   label: 'IGESImport',

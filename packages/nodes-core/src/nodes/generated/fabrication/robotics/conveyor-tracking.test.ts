@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ConveyorTrackingNode } from './conveyor-tracking.node';
+import { FabricationRoboticsConveyorTrackingNode } from './conveyor-tracking.node';
 import { createTestContext } from '../test-utils';
 
-describe('ConveyorTrackingNode', () => {
+describe('FabricationRoboticsConveyorTrackingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ConveyorTrackingNode', () => {
       trackingWindow: 500
     } as any;
 
-    const result = await ConveyorTrackingNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsConveyorTrackingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

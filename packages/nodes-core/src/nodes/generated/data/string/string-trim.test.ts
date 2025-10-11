@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringTrimNode } from './string-trim.node';
+import { DataStringStringTrimNode } from './string-trim.node';
 import { createTestContext } from '../test-utils';
 
-describe('StringTrimNode', () => {
+describe('DataStringStringTrimNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('StringTrimNode', () => {
       mode: "both"
     } as any;
 
-    const result = await StringTrimNode.evaluate(context, inputs, params);
+    const result = await DataStringStringTrimNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

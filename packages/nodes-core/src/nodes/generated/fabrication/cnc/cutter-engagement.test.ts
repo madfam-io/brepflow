@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CutterEngagementNode } from './cutter-engagement.node';
+import { FabricationCNCCutterEngagementNode } from './cutter-engagement.node';
 import { createTestContext } from '../test-utils';
 
-describe('CutterEngagementNode', () => {
+describe('FabricationCNCCutterEngagementNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CutterEngagementNode', () => {
       toolDiameter: 10
     } as any;
 
-    const result = await CutterEngagementNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCCutterEngagementNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

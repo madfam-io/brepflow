@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RadialFieldNode } from './radial-field.node';
+import { FieldGenerateRadialFieldNode } from './radial-field.node';
 import { createTestContext } from '../test-utils';
 
-describe('RadialFieldNode', () => {
+describe('FieldGenerateRadialFieldNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('RadialFieldNode', () => {
       strength: 1
     } as any;
 
-    const result = await RadialFieldNode.evaluate(context, inputs, params);
+    const result = await FieldGenerateRadialFieldNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

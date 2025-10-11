@@ -13,7 +13,7 @@ interface VaultedCeilingOutputs {
   vaultedCeiling: unknown;
 }
 
-export const VaultedCeilingNode: NodeDefinition<VaultedCeilingInputs, VaultedCeilingOutputs, VaultedCeilingParams> = {
+export const ArchitectureCeilingsVaultedCeilingNode: NodeDefinition<VaultedCeilingInputs, VaultedCeilingOutputs, VaultedCeilingParams> = {
   id: 'Architecture::VaultedCeiling',
   category: 'Architecture',
   label: 'VaultedCeiling',

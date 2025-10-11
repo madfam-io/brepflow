@@ -14,7 +14,7 @@ interface FloorFinishOutputs {
   pattern: unknown;
 }
 
-export const FloorFinishNode: NodeDefinition<FloorFinishInputs, FloorFinishOutputs, FloorFinishParams> = {
+export const ArchitectureFloorsFloorFinishNode: NodeDefinition<FloorFinishInputs, FloorFinishOutputs, FloorFinishParams> = {
   id: 'Architecture::FloorFinish',
   category: 'Architecture',
   label: 'FloorFinish',

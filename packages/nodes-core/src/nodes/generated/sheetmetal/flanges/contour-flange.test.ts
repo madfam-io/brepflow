@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ContourFlangeNode } from './contour-flange.node';
+import { SheetMetalFlangesContourFlangeNode } from './contour-flange.node';
 import { createTestContext } from '../test-utils';
 
-describe('ContourFlangeNode', () => {
+describe('SheetMetalFlangesContourFlangeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('ContourFlangeNode', () => {
       flangePosition: "material-inside"
     } as any;
 
-    const result = await ContourFlangeNode.evaluate(context, inputs, params);
+    const result = await SheetMetalFlangesContourFlangeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BoxNode } from './box.node';
+import { SolidPrimitivesBoxNode } from './box.node';
 import { createTestContext } from '../test-utils';
 
-describe('BoxNode', () => {
+describe('SolidPrimitivesBoxNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('BoxNode', () => {
       centerZ: 0
     } as any;
 
-    const result = await BoxNode.evaluate(context, inputs, params);
+    const result = await SolidPrimitivesBoxNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

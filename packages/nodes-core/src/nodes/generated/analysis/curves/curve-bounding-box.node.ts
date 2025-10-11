@@ -16,7 +16,7 @@ interface CurveBoundingBoxOutputs {
   dimensions: [number, number, number];
 }
 
-export const CurveBoundingBoxNode: NodeDefinition<CurveBoundingBoxInputs, CurveBoundingBoxOutputs, CurveBoundingBoxParams> = {
+export const AnalysisCurvesCurveBoundingBoxNode: NodeDefinition<CurveBoundingBoxInputs, CurveBoundingBoxOutputs, CurveBoundingBoxParams> = {
   id: 'Analysis::CurveBoundingBox',
   category: 'Analysis',
   label: 'CurveBoundingBox',

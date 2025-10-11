@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ClearanceCheckNode } from './clearance-check.node';
+import { AnalysisProximityClearanceCheckNode } from './clearance-check.node';
 import { createTestContext } from '../test-utils';
 
-describe('ClearanceCheckNode', () => {
+describe('AnalysisProximityClearanceCheckNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ClearanceCheckNode', () => {
       highlightViolations: true
     } as any;
 
-    const result = await ClearanceCheckNode.evaluate(context, inputs, params);
+    const result = await AnalysisProximityClearanceCheckNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

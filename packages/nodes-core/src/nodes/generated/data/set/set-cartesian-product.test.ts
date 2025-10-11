@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SetCartesianProductNode } from './set-cartesian-product.node';
+import { DataSetSetCartesianProductNode } from './set-cartesian-product.node';
 import { createTestContext } from '../test-utils';
 
-describe('SetCartesianProductNode', () => {
+describe('DataSetSetCartesianProductNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SetCartesianProductNode', () => {
 
     } as any;
 
-    const result = await SetCartesianProductNode.evaluate(context, inputs, params);
+    const result = await DataSetSetCartesianProductNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

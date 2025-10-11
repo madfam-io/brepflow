@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringCaseNode } from './string-case.node';
+import { DataStringStringCaseNode } from './string-case.node';
 import { createTestContext } from '../test-utils';
 
-describe('StringCaseNode', () => {
+describe('DataStringStringCaseNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('StringCaseNode', () => {
       case: "lower"
     } as any;
 
-    const result = await StringCaseNode.evaluate(context, inputs, params);
+    const result = await DataStringStringCaseNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

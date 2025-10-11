@@ -11,7 +11,7 @@ interface SetUnionOutputs {
   union: unknown;
 }
 
-export const SetUnionNode: NodeDefinition<SetUnionInputs, SetUnionOutputs, SetUnionParams> = {
+export const DataSetSetUnionNode: NodeDefinition<SetUnionInputs, SetUnionOutputs, SetUnionParams> = {
   id: 'Data::SetUnion',
   category: 'Data',
   label: 'SetUnion',

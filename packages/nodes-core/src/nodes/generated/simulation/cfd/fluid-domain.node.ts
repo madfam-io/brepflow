@@ -15,7 +15,7 @@ interface FluidDomainOutputs {
   walls: unknown;
 }
 
-export const FluidDomainNode: NodeDefinition<FluidDomainInputs, FluidDomainOutputs, FluidDomainParams> = {
+export const SimulationCFDFluidDomainNode: NodeDefinition<FluidDomainInputs, FluidDomainOutputs, FluidDomainParams> = {
   id: 'Simulation::FluidDomain',
   category: 'Simulation',
   label: 'FluidDomain',

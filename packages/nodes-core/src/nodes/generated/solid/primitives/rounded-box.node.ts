@@ -13,7 +13,7 @@ interface RoundedBoxOutputs {
   solid: unknown;
 }
 
-export const RoundedBoxNode: NodeDefinition<RoundedBoxInputs, RoundedBoxOutputs, RoundedBoxParams> = {
+export const SolidPrimitivesRoundedBoxNode: NodeDefinition<RoundedBoxInputs, RoundedBoxOutputs, RoundedBoxParams> = {
   id: 'Solid::RoundedBox',
   category: 'Solid',
   label: 'RoundedBox',

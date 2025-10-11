@@ -12,7 +12,7 @@ interface ListInsertOutputs {
   result: unknown;
 }
 
-export const ListInsertNode: NodeDefinition<ListInsertInputs, ListInsertOutputs, ListInsertParams> = {
+export const DataListListInsertNode: NodeDefinition<ListInsertInputs, ListInsertOutputs, ListInsertParams> = {
   id: 'Data::ListInsert',
   category: 'Data',
   label: 'ListInsert',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldFourierNode } from './field-fourier.node';
+import { FieldsAdvancedFieldFourierNode } from './field-fourier.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldFourierNode', () => {
+describe('FieldsAdvancedFieldFourierNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FieldFourierNode', () => {
       direction: "\"forward\""
     } as any;
 
-    const result = await FieldFourierNode.evaluate(context, inputs, params);
+    const result = await FieldsAdvancedFieldFourierNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

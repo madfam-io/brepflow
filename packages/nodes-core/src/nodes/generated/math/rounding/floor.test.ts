@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FloorNode } from './floor.node';
+import { MathRoundingFloorNode } from './floor.node';
 import { createTestContext } from '../test-utils';
 
-describe('FloorNode', () => {
+describe('MathRoundingFloorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FloorNode', () => {
 
     } as any;
 
-    const result = await FloorNode.evaluate(context, inputs, params);
+    const result = await MathRoundingFloorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

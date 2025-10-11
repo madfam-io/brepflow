@@ -15,7 +15,7 @@ interface ConstrainedDelaunayOutputs {
   triangulation: unknown;
 }
 
-export const ConstrainedDelaunayNode: NodeDefinition<ConstrainedDelaunayInputs, ConstrainedDelaunayOutputs, ConstrainedDelaunayParams> = {
+export const PatternsDelaunayConstrainedDelaunayNode: NodeDefinition<ConstrainedDelaunayInputs, ConstrainedDelaunayOutputs, ConstrainedDelaunayParams> = {
   id: 'Patterns::ConstrainedDelaunay',
   category: 'Patterns',
   label: 'ConstrainedDelaunay',

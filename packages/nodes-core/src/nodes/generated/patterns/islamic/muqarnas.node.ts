@@ -13,7 +13,7 @@ interface MuqarnasOutputs {
   muqarnas: unknown;
 }
 
-export const MuqarnasNode: NodeDefinition<MuqarnasInputs, MuqarnasOutputs, MuqarnasParams> = {
+export const PatternsIslamicMuqarnasNode: NodeDefinition<MuqarnasInputs, MuqarnasOutputs, MuqarnasParams> = {
   id: 'Patterns::Muqarnas',
   category: 'Patterns',
   label: 'Muqarnas',

@@ -16,7 +16,7 @@ interface DistanceFieldOutputs {
   gradient: Array<[number, number, number]>;
 }
 
-export const DistanceFieldNode: NodeDefinition<DistanceFieldInputs, DistanceFieldOutputs, DistanceFieldParams> = {
+export const AlgorithmicGeometryDistanceFieldNode: NodeDefinition<DistanceFieldInputs, DistanceFieldOutputs, DistanceFieldParams> = {
   id: 'Algorithmic::DistanceField',
   category: 'Algorithmic',
   label: 'DistanceField',

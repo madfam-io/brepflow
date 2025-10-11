@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ProjectCurveNode } from './project-curve.node';
+import { SurfaceCurveOpsProjectCurveNode } from './project-curve.node';
 import { createTestContext } from '../test-utils';
 
-describe('ProjectCurveNode', () => {
+describe('SurfaceCurveOpsProjectCurveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ProjectCurveNode', () => {
       projectBoth: false
     } as any;
 
-    const result = await ProjectCurveNode.evaluate(context, inputs, params);
+    const result = await SurfaceCurveOpsProjectCurveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

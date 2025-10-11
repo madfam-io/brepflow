@@ -16,7 +16,7 @@ interface CurveSmoothnessAnalysisOutputs {
   continuityReport: unknown;
 }
 
-export const CurveSmoothnessAnalysisNode: NodeDefinition<CurveSmoothnessAnalysisInputs, CurveSmoothnessAnalysisOutputs, CurveSmoothnessAnalysisParams> = {
+export const AnalysisCurvesCurveSmoothnessAnalysisNode: NodeDefinition<CurveSmoothnessAnalysisInputs, CurveSmoothnessAnalysisOutputs, CurveSmoothnessAnalysisParams> = {
   id: 'Analysis::CurveSmoothnessAnalysis',
   category: 'Analysis',
   label: 'CurveSmoothnessAnalysis',

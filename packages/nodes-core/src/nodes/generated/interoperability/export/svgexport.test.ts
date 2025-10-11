@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SVGExportNode } from './svgexport.node';
+import { InteroperabilityExportSVGExportNode } from './svgexport.node';
 import { createTestContext } from '../test-utils';
 
-describe('SVGExportNode', () => {
+describe('InteroperabilityExportSVGExportNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('SVGExportNode', () => {
       viewBox: true
     } as any;
 
-    const result = await SVGExportNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityExportSVGExportNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

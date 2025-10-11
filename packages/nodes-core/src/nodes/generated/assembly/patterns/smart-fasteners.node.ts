@@ -14,7 +14,7 @@ interface SmartFastenersOutputs {
   fasteners: unknown;
 }
 
-export const SmartFastenersNode: NodeDefinition<SmartFastenersInputs, SmartFastenersOutputs, SmartFastenersParams> = {
+export const AssemblyPatternsSmartFastenersNode: NodeDefinition<SmartFastenersInputs, SmartFastenersOutputs, SmartFastenersParams> = {
   id: 'Assembly::SmartFasteners',
   category: 'Assembly',
   label: 'SmartFasteners',

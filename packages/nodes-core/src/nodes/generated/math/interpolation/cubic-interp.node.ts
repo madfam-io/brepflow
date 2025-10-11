@@ -14,7 +14,7 @@ interface CubicInterpOutputs {
   result: unknown;
 }
 
-export const CubicInterpNode: NodeDefinition<CubicInterpInputs, CubicInterpOutputs, CubicInterpParams> = {
+export const MathInterpolationCubicInterpNode: NodeDefinition<CubicInterpInputs, CubicInterpOutputs, CubicInterpParams> = {
   id: 'Math::CubicInterp',
   category: 'Math',
   label: 'CubicInterp',

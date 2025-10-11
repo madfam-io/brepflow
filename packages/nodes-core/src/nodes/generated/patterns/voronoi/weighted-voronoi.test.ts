@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WeightedVoronoiNode } from './weighted-voronoi.node';
+import { PatternsVoronoiWeightedVoronoiNode } from './weighted-voronoi.node';
 import { createTestContext } from '../test-utils';
 
-describe('WeightedVoronoiNode', () => {
+describe('PatternsVoronoiWeightedVoronoiNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('WeightedVoronoiNode', () => {
       powerExponent: 2
     } as any;
 
-    const result = await WeightedVoronoiNode.evaluate(context, inputs, params);
+    const result = await PatternsVoronoiWeightedVoronoiNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

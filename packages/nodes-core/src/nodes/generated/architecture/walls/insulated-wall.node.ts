@@ -13,7 +13,7 @@ interface InsulatedWallOutputs {
   insulatedWall: unknown;
 }
 
-export const InsulatedWallNode: NodeDefinition<InsulatedWallInputs, InsulatedWallOutputs, InsulatedWallParams> = {
+export const ArchitectureWallsInsulatedWallNode: NodeDefinition<InsulatedWallInputs, InsulatedWallOutputs, InsulatedWallParams> = {
   id: 'Architecture::InsulatedWall',
   category: 'Architecture',
   label: 'InsulatedWall',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LShapedStairNode } from './lshaped-stair.node';
+import { ArchitectureStairsLShapedStairNode } from './lshaped-stair.node';
 import { createTestContext } from '../test-utils';
 
-describe('LShapedStairNode', () => {
+describe('ArchitectureStairsLShapedStairNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('LShapedStairNode', () => {
       turnDirection: "right"
     } as any;
 
-    const result = await LShapedStairNode.evaluate(context, inputs, params);
+    const result = await ArchitectureStairsLShapedStairNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

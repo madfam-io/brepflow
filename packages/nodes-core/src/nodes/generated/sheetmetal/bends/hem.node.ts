@@ -16,7 +16,7 @@ interface HemOutputs {
   result: unknown;
 }
 
-export const HemNode: NodeDefinition<HemInputs, HemOutputs, HemParams> = {
+export const SheetMetalBendsHemNode: NodeDefinition<HemInputs, HemOutputs, HemParams> = {
   id: 'SheetMetal::Hem',
   category: 'SheetMetal',
   label: 'Hem',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HermiteInterpNode } from './hermite-interp.node';
+import { MathInterpolationHermiteInterpNode } from './hermite-interp.node';
 import { createTestContext } from '../test-utils';
 
-describe('HermiteInterpNode', () => {
+describe('MathInterpolationHermiteInterpNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('HermiteInterpNode', () => {
 
     } as any;
 
-    const result = await HermiteInterpNode.evaluate(context, inputs, params);
+    const result = await MathInterpolationHermiteInterpNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

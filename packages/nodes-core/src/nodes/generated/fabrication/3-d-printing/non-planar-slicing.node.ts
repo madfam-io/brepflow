@@ -12,7 +12,7 @@ interface NonPlanarSlicingOutputs {
   nonPlanarSlices: unknown;
 }
 
-export const NonPlanarSlicingNode: NodeDefinition<NonPlanarSlicingInputs, NonPlanarSlicingOutputs, NonPlanarSlicingParams> = {
+export const Fabrication3DPrintingNonPlanarSlicingNode: NodeDefinition<NonPlanarSlicingInputs, NonPlanarSlicingOutputs, NonPlanarSlicingParams> = {
   id: 'Fabrication::NonPlanarSlicing',
   category: 'Fabrication',
   label: 'NonPlanarSlicing',

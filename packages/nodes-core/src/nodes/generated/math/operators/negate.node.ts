@@ -10,7 +10,7 @@ interface NegateOutputs {
   result: unknown;
 }
 
-export const NegateNode: NodeDefinition<NegateInputs, NegateOutputs, NegateParams> = {
+export const MathOperatorsNegateNode: NodeDefinition<NegateInputs, NegateOutputs, NegateParams> = {
   id: 'Math::Negate',
   category: 'Math',
   label: 'Negate',

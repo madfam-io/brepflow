@@ -10,7 +10,7 @@ interface ComplexPhaseOutputs {
   phase: unknown;
 }
 
-export const ComplexPhaseNode: NodeDefinition<ComplexPhaseInputs, ComplexPhaseOutputs, ComplexPhaseParams> = {
+export const MathComplexComplexPhaseNode: NodeDefinition<ComplexPhaseInputs, ComplexPhaseOutputs, ComplexPhaseParams> = {
   id: 'Math::ComplexPhase',
   category: 'Math',
   label: 'ComplexPhase',

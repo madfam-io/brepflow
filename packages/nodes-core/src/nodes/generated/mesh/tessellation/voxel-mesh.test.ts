@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VoxelMeshNode } from './voxel-mesh.node';
+import { MeshTessellationVoxelMeshNode } from './voxel-mesh.node';
 import { createTestContext } from '../test-utils';
 
-describe('VoxelMeshNode', () => {
+describe('MeshTessellationVoxelMeshNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('VoxelMeshNode', () => {
       fillInterior: false
     } as any;
 
-    const result = await VoxelMeshNode.evaluate(context, inputs, params);
+    const result = await MeshTessellationVoxelMeshNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

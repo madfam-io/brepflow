@@ -12,7 +12,7 @@ interface GlueOutputs {
   result: unknown;
 }
 
-export const GlueNode: NodeDefinition<GlueInputs, GlueOutputs, GlueParams> = {
+export const BooleanGlueNode: NodeDefinition<GlueInputs, GlueOutputs, GlueParams> = {
   id: 'Boolean::Glue',
   category: 'Boolean',
   label: 'Glue',

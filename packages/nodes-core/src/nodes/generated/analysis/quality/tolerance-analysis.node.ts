@@ -16,7 +16,7 @@ interface ToleranceAnalysisOutputs {
   deviationMap: unknown;
 }
 
-export const ToleranceAnalysisNode: NodeDefinition<ToleranceAnalysisInputs, ToleranceAnalysisOutputs, ToleranceAnalysisParams> = {
+export const AnalysisQualityToleranceAnalysisNode: NodeDefinition<ToleranceAnalysisInputs, ToleranceAnalysisOutputs, ToleranceAnalysisParams> = {
   id: 'Analysis::ToleranceAnalysis',
   category: 'Analysis',
   label: 'ToleranceAnalysis',

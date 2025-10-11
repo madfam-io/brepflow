@@ -17,7 +17,7 @@ interface InletOutletOutputs {
   boundaryData: unknown;
 }
 
-export const InletOutletNode: NodeDefinition<InletOutletInputs, InletOutletOutputs, InletOutletParams> = {
+export const SimulationCFDInletOutletNode: NodeDefinition<InletOutletInputs, InletOutletOutputs, InletOutletParams> = {
   id: 'Simulation::InletOutlet',
   category: 'Simulation',
   label: 'InletOutlet',

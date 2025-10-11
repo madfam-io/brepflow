@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { IsoSurfaceNode } from './iso-surface.node';
+import { FieldSampleIsoSurfaceNode } from './iso-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('IsoSurfaceNode', () => {
+describe('FieldSampleIsoSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('IsoSurfaceNode', () => {
       resolution: 50
     } as any;
 
-    const result = await IsoSurfaceNode.evaluate(context, inputs, params);
+    const result = await FieldSampleIsoSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

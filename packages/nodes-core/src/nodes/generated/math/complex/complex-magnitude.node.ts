@@ -10,7 +10,7 @@ interface ComplexMagnitudeOutputs {
   magnitude: unknown;
 }
 
-export const ComplexMagnitudeNode: NodeDefinition<ComplexMagnitudeInputs, ComplexMagnitudeOutputs, ComplexMagnitudeParams> = {
+export const MathComplexComplexMagnitudeNode: NodeDefinition<ComplexMagnitudeInputs, ComplexMagnitudeOutputs, ComplexMagnitudeParams> = {
   id: 'Math::ComplexMagnitude',
   category: 'Math',
   label: 'ComplexMagnitude',

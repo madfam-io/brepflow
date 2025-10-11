@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FlexibleShaftNode } from './flexible-shaft.node';
+import { MechanicalEngineeringShaftsFlexibleShaftNode } from './flexible-shaft.node';
 import { createTestContext } from '../test-utils';
 
-describe('FlexibleShaftNode', () => {
+describe('MechanicalEngineeringShaftsFlexibleShaftNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('FlexibleShaftNode', () => {
       windingAngle: 45
     } as any;
 
-    const result = await FlexibleShaftNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringShaftsFlexibleShaftNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

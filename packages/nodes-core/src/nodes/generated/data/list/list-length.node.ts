@@ -10,7 +10,7 @@ interface ListLengthOutputs {
   length: unknown;
 }
 
-export const ListLengthNode: NodeDefinition<ListLengthInputs, ListLengthOutputs, ListLengthParams> = {
+export const DataListListLengthNode: NodeDefinition<ListLengthInputs, ListLengthOutputs, ListLengthParams> = {
   id: 'Data::ListLength',
   category: 'Data',
   label: 'ListLength',

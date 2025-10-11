@@ -11,7 +11,7 @@ interface ListPartitionOutputs {
   partitions: unknown;
 }
 
-export const ListPartitionNode: NodeDefinition<ListPartitionInputs, ListPartitionOutputs, ListPartitionParams> = {
+export const DataListListPartitionNode: NodeDefinition<ListPartitionInputs, ListPartitionOutputs, ListPartitionParams> = {
   id: 'Data::ListPartition',
   category: 'Data',
   label: 'ListPartition',

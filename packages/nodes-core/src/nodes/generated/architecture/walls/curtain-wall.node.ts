@@ -17,7 +17,7 @@ interface CurtainWallOutputs {
   panels: unknown;
 }
 
-export const CurtainWallNode: NodeDefinition<CurtainWallInputs, CurtainWallOutputs, CurtainWallParams> = {
+export const ArchitectureWallsCurtainWallNode: NodeDefinition<CurtainWallInputs, CurtainWallOutputs, CurtainWallParams> = {
   id: 'Architecture::CurtainWall',
   category: 'Architecture',
   label: 'CurtainWall',

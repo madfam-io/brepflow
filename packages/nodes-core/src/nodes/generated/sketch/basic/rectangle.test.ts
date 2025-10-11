@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RectangleNode } from './rectangle.node';
+import { SketchBasicRectangleNode } from './rectangle.node';
 import { createTestContext } from '../test-utils';
 
-describe('RectangleNode', () => {
+describe('SketchBasicRectangleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('RectangleNode', () => {
       cornerRadius: 0
     } as any;
 
-    const result = await RectangleNode.evaluate(context, inputs, params);
+    const result = await SketchBasicRectangleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

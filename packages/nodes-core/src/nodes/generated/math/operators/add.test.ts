@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AddNode } from './add.node';
+import { MathOperatorsAddNode } from './add.node';
 import { createTestContext } from '../test-utils';
 
-describe('AddNode', () => {
+describe('MathOperatorsAddNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('AddNode', () => {
 
     } as any;
 
-    const result = await AddNode.evaluate(context, inputs, params);
+    const result = await MathOperatorsAddNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -18,7 +18,7 @@ interface CylinderOutputs {
   solid: unknown;
 }
 
-export const CylinderNode: NodeDefinition<CylinderInputs, CylinderOutputs, CylinderParams> = {
+export const SolidPrimitivesCylinderNode: NodeDefinition<CylinderInputs, CylinderOutputs, CylinderParams> = {
   id: 'Solid::Cylinder',
   category: 'Solid',
   label: 'Cylinder',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShapeOptimizeNode } from './shape-optimize.node';
+import { SpecializedOptimizationShapeOptimizeNode } from './shape-optimize.node';
 import { createTestContext } from '../test-utils';
 
-describe('ShapeOptimizeNode', () => {
+describe('SpecializedOptimizationShapeOptimizeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('ShapeOptimizeNode', () => {
       iterations: 50
     } as any;
 
-    const result = await ShapeOptimizeNode.evaluate(context, inputs, params);
+    const result = await SpecializedOptimizationShapeOptimizeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

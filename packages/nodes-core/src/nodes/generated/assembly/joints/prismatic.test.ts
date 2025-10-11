@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PrismaticNode } from './prismatic.node';
+import { AssemblyJointsPrismaticNode } from './prismatic.node';
 import { createTestContext } from '../test-utils';
 
-describe('PrismaticNode', () => {
+describe('AssemblyJointsPrismaticNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('PrismaticNode', () => {
       maxDistance: 100
     } as any;
 
-    const result = await PrismaticNode.evaluate(context, inputs, params);
+    const result = await AssemblyJointsPrismaticNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

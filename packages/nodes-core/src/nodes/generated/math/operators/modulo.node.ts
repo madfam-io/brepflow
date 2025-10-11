@@ -11,7 +11,7 @@ interface ModuloOutputs {
   result: unknown;
 }
 
-export const ModuloNode: NodeDefinition<ModuloInputs, ModuloOutputs, ModuloParams> = {
+export const MathOperatorsModuloNode: NodeDefinition<ModuloInputs, ModuloOutputs, ModuloParams> = {
   id: 'Math::Modulo',
   category: 'Math',
   label: 'Modulo',

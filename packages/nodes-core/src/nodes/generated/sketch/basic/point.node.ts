@@ -12,7 +12,7 @@ interface PointOutputs {
   point: [number, number, number];
 }
 
-export const PointNode: NodeDefinition<PointInputs, PointOutputs, PointParams> = {
+export const SketchBasicPointNode: NodeDefinition<PointInputs, PointOutputs, PointParams> = {
   id: 'Sketch::Point',
   category: 'Sketch',
   label: 'Point',

@@ -17,7 +17,7 @@ interface AngleMeasurementOutputs {
   angleBisector: [number, number, number];
 }
 
-export const AngleMeasurementNode: NodeDefinition<AngleMeasurementInputs, AngleMeasurementOutputs, AngleMeasurementParams> = {
+export const AnalysisMeasurementAngleMeasurementNode: NodeDefinition<AngleMeasurementInputs, AngleMeasurementOutputs, AngleMeasurementParams> = {
   id: 'Analysis::AngleMeasurement',
   category: 'Analysis',
   label: 'AngleMeasurement',

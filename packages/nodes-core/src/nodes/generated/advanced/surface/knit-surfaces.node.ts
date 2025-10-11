@@ -13,7 +13,7 @@ interface KnitSurfacesOutputs {
   knittedShape: unknown;
 }
 
-export const KnitSurfacesNode: NodeDefinition<KnitSurfacesInputs, KnitSurfacesOutputs, KnitSurfacesParams> = {
+export const AdvancedSurfaceKnitSurfacesNode: NodeDefinition<KnitSurfacesInputs, KnitSurfacesOutputs, KnitSurfacesParams> = {
   id: 'Advanced::KnitSurfaces',
   category: 'Advanced',
   label: 'KnitSurfaces',

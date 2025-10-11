@@ -16,7 +16,7 @@ interface InternalGearOutputs {
   innerProfile: unknown;
 }
 
-export const InternalGearNode: NodeDefinition<InternalGearInputs, InternalGearOutputs, InternalGearParams> = {
+export const MechanicalEngineeringGearsInternalGearNode: NodeDefinition<InternalGearInputs, InternalGearOutputs, InternalGearParams> = {
   id: 'MechanicalEngineering::InternalGear',
   category: 'MechanicalEngineering',
   label: 'InternalGear',

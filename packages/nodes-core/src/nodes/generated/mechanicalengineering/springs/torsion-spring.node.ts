@@ -17,7 +17,7 @@ interface TorsionSpringOutputs {
   legs: unknown;
 }
 
-export const TorsionSpringNode: NodeDefinition<TorsionSpringInputs, TorsionSpringOutputs, TorsionSpringParams> = {
+export const MechanicalEngineeringSpringsTorsionSpringNode: NodeDefinition<TorsionSpringInputs, TorsionSpringOutputs, TorsionSpringParams> = {
   id: 'MechanicalEngineering::TorsionSpring',
   category: 'MechanicalEngineering',
   label: 'TorsionSpring',

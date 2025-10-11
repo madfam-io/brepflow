@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DXFExportNode } from './dxfexport.node';
+import { InteroperabilityExportDXFExportNode } from './dxfexport.node';
 import { createTestContext } from '../test-utils';
 
-describe('DXFExportNode', () => {
+describe('InteroperabilityExportDXFExportNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('DXFExportNode', () => {
       layerName: "BrepFlow"
     } as any;
 
-    const result = await DXFExportNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityExportDXFExportNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

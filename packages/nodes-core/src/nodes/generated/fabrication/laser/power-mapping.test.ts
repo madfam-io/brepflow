@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PowerMappingNode } from './power-mapping.node';
+import { FabricationLaserPowerMappingNode } from './power-mapping.node';
 import { createTestContext } from '../test-utils';
 
-describe('PowerMappingNode', () => {
+describe('FabricationLaserPowerMappingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('PowerMappingNode', () => {
       wattage: 60
     } as any;
 
-    const result = await PowerMappingNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserPowerMappingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

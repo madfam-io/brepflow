@@ -13,7 +13,7 @@ interface ImportACISOutputs {
   shape: unknown;
 }
 
-export const ImportACISNode: NodeDefinition<ImportACISInputs, ImportACISOutputs, ImportACISParams> = {
+export const IOCADImportACISNode: NodeDefinition<ImportACISInputs, ImportACISOutputs, ImportACISParams> = {
   id: 'IO::ImportACIS',
   category: 'IO',
   label: 'ImportACIS',

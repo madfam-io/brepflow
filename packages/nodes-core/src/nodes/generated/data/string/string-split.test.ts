@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StringSplitNode } from './string-split.node';
+import { DataStringStringSplitNode } from './string-split.node';
 import { createTestContext } from '../test-utils';
 
-describe('StringSplitNode', () => {
+describe('DataStringStringSplitNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('StringSplitNode', () => {
       delimiter: ","
     } as any;
 
-    const result = await StringSplitNode.evaluate(context, inputs, params);
+    const result = await DataStringStringSplitNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

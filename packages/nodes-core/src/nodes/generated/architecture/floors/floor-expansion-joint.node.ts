@@ -13,7 +13,7 @@ interface FloorExpansionJointOutputs {
   expansionJoint: unknown;
 }
 
-export const FloorExpansionJointNode: NodeDefinition<FloorExpansionJointInputs, FloorExpansionJointOutputs, FloorExpansionJointParams> = {
+export const ArchitectureFloorsFloorExpansionJointNode: NodeDefinition<FloorExpansionJointInputs, FloorExpansionJointOutputs, FloorExpansionJointParams> = {
   id: 'Architecture::FloorExpansionJoint',
   category: 'Architecture',
   label: 'FloorExpansionJoint',

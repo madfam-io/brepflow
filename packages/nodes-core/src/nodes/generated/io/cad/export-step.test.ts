@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportSTEPNode } from './export-step.node';
+import { IOCADExportSTEPNode } from './export-step.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExportSTEPNode', () => {
+describe('IOCADExportSTEPNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('ExportSTEPNode', () => {
       units: "mm"
     } as any;
 
-    const result = await ExportSTEPNode.evaluate(context, inputs, params);
+    const result = await IOCADExportSTEPNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

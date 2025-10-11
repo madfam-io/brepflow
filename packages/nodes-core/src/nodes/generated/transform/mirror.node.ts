@@ -18,7 +18,7 @@ interface MirrorOutputs {
   mirrored: unknown;
 }
 
-export const MirrorNode: NodeDefinition<MirrorInputs, MirrorOutputs, MirrorParams> = {
+export const TransformMirrorNode: NodeDefinition<MirrorInputs, MirrorOutputs, MirrorParams> = {
   id: 'Transform::Mirror',
   category: 'Transform',
   label: 'Mirror',

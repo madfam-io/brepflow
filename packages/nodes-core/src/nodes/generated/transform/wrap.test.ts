@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WrapNode } from './wrap.node';
+import { TransformWrapNode } from './wrap.node';
 import { createTestContext } from '../test-utils';
 
-describe('WrapNode', () => {
+describe('TransformWrapNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('WrapNode', () => {
       angle: 360
     } as any;
 
-    const result = await WrapNode.evaluate(context, inputs, params);
+    const result = await TransformWrapNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CostEstimateNode } from './cost-estimate.node';
+import { SheetMetalPropertiesCostEstimateNode } from './cost-estimate.node';
 import { createTestContext } from '../test-utils';
 
-describe('CostEstimateNode', () => {
+describe('SheetMetalPropertiesCostEstimateNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('CostEstimateNode', () => {
       cutCostPerMeter: 1
     } as any;
 
-    const result = await CostEstimateNode.evaluate(context, inputs, params);
+    const result = await SheetMetalPropertiesCostEstimateNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

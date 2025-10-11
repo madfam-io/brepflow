@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RandomPoissonNode } from './random-poisson.node';
+import { MathRandomRandomPoissonNode } from './random-poisson.node';
 import { createTestContext } from '../test-utils';
 
-describe('RandomPoissonNode', () => {
+describe('MathRandomRandomPoissonNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('RandomPoissonNode', () => {
       seed: -1
     } as any;
 
-    const result = await RandomPoissonNode.evaluate(context, inputs, params);
+    const result = await MathRandomRandomPoissonNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

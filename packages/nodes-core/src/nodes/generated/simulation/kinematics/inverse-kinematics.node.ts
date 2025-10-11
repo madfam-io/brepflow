@@ -16,7 +16,7 @@ interface InverseKinematicsOutputs {
   reachable: unknown;
 }
 
-export const InverseKinematicsNode: NodeDefinition<InverseKinematicsInputs, InverseKinematicsOutputs, InverseKinematicsParams> = {
+export const SimulationKinematicsInverseKinematicsNode: NodeDefinition<InverseKinematicsInputs, InverseKinematicsOutputs, InverseKinematicsParams> = {
   id: 'Simulation::InverseKinematics',
   category: 'Simulation',
   label: 'InverseKinematics',

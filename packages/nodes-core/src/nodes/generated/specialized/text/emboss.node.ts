@@ -15,7 +15,7 @@ interface EmbossOutputs {
   embossed: unknown;
 }
 
-export const EmbossNode: NodeDefinition<EmbossInputs, EmbossOutputs, EmbossParams> = {
+export const SpecializedTextEmbossNode: NodeDefinition<EmbossInputs, EmbossOutputs, EmbossParams> = {
   id: 'Specialized::Emboss',
   category: 'Specialized',
   label: 'Emboss',

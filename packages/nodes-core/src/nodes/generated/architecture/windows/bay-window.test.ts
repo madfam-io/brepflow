@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BayWindowNode } from './bay-window.node';
+import { ArchitectureWindowsBayWindowNode } from './bay-window.node';
 import { createTestContext } from '../test-utils';
 
-describe('BayWindowNode', () => {
+describe('ArchitectureWindowsBayWindowNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('BayWindowNode', () => {
       centerAngle: 135
     } as any;
 
-    const result = await BayWindowNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWindowsBayWindowNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

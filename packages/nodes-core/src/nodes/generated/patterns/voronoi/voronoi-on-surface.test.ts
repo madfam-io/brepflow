@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VoronoiOnSurfaceNode } from './voronoi-on-surface.node';
+import { PatternsVoronoiVoronoiOnSurfaceNode } from './voronoi-on-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('VoronoiOnSurfaceNode', () => {
+describe('PatternsVoronoiVoronoiOnSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('VoronoiOnSurfaceNode', () => {
       geodesic: true
     } as any;
 
-    const result = await VoronoiOnSurfaceNode.evaluate(context, inputs, params);
+    const result = await PatternsVoronoiVoronoiOnSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -16,7 +16,7 @@ interface PerlinNoiseOutputs {
   noise: unknown;
 }
 
-export const PerlinNoiseNode: NodeDefinition<PerlinNoiseInputs, PerlinNoiseOutputs, PerlinNoiseParams> = {
+export const MathRandomPerlinNoiseNode: NodeDefinition<PerlinNoiseInputs, PerlinNoiseOutputs, PerlinNoiseParams> = {
   id: 'Math::PerlinNoise',
   category: 'Math',
   label: 'PerlinNoise',

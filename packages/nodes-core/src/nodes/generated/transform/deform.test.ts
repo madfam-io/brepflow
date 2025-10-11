@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DeformNode } from './deform.node';
+import { TransformDeformNode } from './deform.node';
 import { createTestContext } from '../test-utils';
 
-describe('DeformNode', () => {
+describe('TransformDeformNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('DeformNode', () => {
       amount: 1
     } as any;
 
-    const result = await DeformNode.evaluate(context, inputs, params);
+    const result = await TransformDeformNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

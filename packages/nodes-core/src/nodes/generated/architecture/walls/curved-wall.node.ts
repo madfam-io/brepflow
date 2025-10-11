@@ -14,7 +14,7 @@ interface CurvedWallOutputs {
   wall: unknown;
 }
 
-export const CurvedWallNode: NodeDefinition<CurvedWallInputs, CurvedWallOutputs, CurvedWallParams> = {
+export const ArchitectureWallsCurvedWallNode: NodeDefinition<CurvedWallInputs, CurvedWallOutputs, CurvedWallParams> = {
   id: 'Architecture::CurvedWall',
   category: 'Architecture',
   label: 'CurvedWall',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PillowBlockNode } from './pillow-block.node';
+import { MechanicalEngineeringBearingsPillowBlockNode } from './pillow-block.node';
 import { createTestContext } from '../test-utils';
 
-describe('PillowBlockNode', () => {
+describe('MechanicalEngineeringBearingsPillowBlockNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('PillowBlockNode', () => {
       height: 50
     } as any;
 
-    const result = await PillowBlockNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringBearingsPillowBlockNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

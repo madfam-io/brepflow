@@ -14,7 +14,7 @@ interface PlaneIntersectionOutputs {
   sectionProfiles: unknown;
 }
 
-export const PlaneIntersectionNode: NodeDefinition<PlaneIntersectionInputs, PlaneIntersectionOutputs, PlaneIntersectionParams> = {
+export const AnalysisIntersectionPlaneIntersectionNode: NodeDefinition<PlaneIntersectionInputs, PlaneIntersectionOutputs, PlaneIntersectionParams> = {
   id: 'Analysis::PlaneIntersection',
   category: 'Analysis',
   label: 'PlaneIntersection',

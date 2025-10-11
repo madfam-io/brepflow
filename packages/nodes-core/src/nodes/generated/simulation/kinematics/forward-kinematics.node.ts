@@ -15,7 +15,7 @@ interface ForwardKinematicsOutputs {
   trajectory: unknown;
 }
 
-export const ForwardKinematicsNode: NodeDefinition<ForwardKinematicsInputs, ForwardKinematicsOutputs, ForwardKinematicsParams> = {
+export const SimulationKinematicsForwardKinematicsNode: NodeDefinition<ForwardKinematicsInputs, ForwardKinematicsOutputs, ForwardKinematicsParams> = {
   id: 'Simulation::ForwardKinematics',
   category: 'Simulation',
   label: 'ForwardKinematics',

@@ -15,7 +15,7 @@ interface CentroidalVoronoiOutputs {
   centroids: Array<[number, number, number]>;
 }
 
-export const CentroidalVoronoiNode: NodeDefinition<CentroidalVoronoiInputs, CentroidalVoronoiOutputs, CentroidalVoronoiParams> = {
+export const PatternsVoronoiCentroidalVoronoiNode: NodeDefinition<CentroidalVoronoiInputs, CentroidalVoronoiOutputs, CentroidalVoronoiParams> = {
   id: 'Patterns::CentroidalVoronoi',
   category: 'Patterns',
   label: 'CentroidalVoronoi',

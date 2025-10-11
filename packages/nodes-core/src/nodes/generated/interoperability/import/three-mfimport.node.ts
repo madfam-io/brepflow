@@ -16,7 +16,7 @@ interface ThreeMFImportOutputs {
   build: unknown;
 }
 
-export const ThreeMFImportNode: NodeDefinition<ThreeMFImportInputs, ThreeMFImportOutputs, ThreeMFImportParams> = {
+export const InteroperabilityImportThreeMFImportNode: NodeDefinition<ThreeMFImportInputs, ThreeMFImportOutputs, ThreeMFImportParams> = {
   id: 'Interoperability::ThreeMFImport',
   category: 'Interoperability',
   label: 'ThreeMFImport',

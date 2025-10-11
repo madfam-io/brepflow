@@ -11,7 +11,7 @@ interface VerticalOutputs {
   constraint: unknown;
 }
 
-export const VerticalNode: NodeDefinition<VerticalInputs, VerticalOutputs, VerticalParams> = {
+export const AssemblyConstraintsVerticalNode: NodeDefinition<VerticalInputs, VerticalOutputs, VerticalParams> = {
   id: 'Assembly::Vertical',
   category: 'Assembly',
   label: 'Vertical',

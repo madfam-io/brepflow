@@ -14,7 +14,7 @@ interface ListSortOutputs {
   indices: unknown;
 }
 
-export const ListSortNode: NodeDefinition<ListSortInputs, ListSortOutputs, ListSortParams> = {
+export const DataListListSortNode: NodeDefinition<ListSortInputs, ListSortOutputs, ListSortParams> = {
   id: 'Data::ListSort',
   category: 'Data',
   label: 'ListSort',

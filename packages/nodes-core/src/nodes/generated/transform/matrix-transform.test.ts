@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MatrixTransformNode } from './matrix-transform.node';
+import { TransformMatrixTransformNode } from './matrix-transform.node';
 import { createTestContext } from '../test-utils';
 
-describe('MatrixTransformNode', () => {
+describe('TransformMatrixTransformNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('MatrixTransformNode', () => {
 
     } as any;
 
-    const result = await MatrixTransformNode.evaluate(context, inputs, params);
+    const result = await TransformMatrixTransformNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MandalaPatternNode } from './mandala-pattern.node';
+import { PatternsGeometricMandalaPatternNode } from './mandala-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('MandalaPatternNode', () => {
+describe('PatternsGeometricMandalaPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('MandalaPatternNode', () => {
       complexity: 3
     } as any;
 
-    const result = await MandalaPatternNode.evaluate(context, inputs, params);
+    const result = await PatternsGeometricMandalaPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface EndEffectorSetupOutputs {
   toolConfiguration: unknown;
 }
 
-export const EndEffectorSetupNode: NodeDefinition<EndEffectorSetupInputs, EndEffectorSetupOutputs, EndEffectorSetupParams> = {
+export const FabricationRoboticsEndEffectorSetupNode: NodeDefinition<EndEffectorSetupInputs, EndEffectorSetupOutputs, EndEffectorSetupParams> = {
   id: 'Fabrication::EndEffectorSetup',
   category: 'Fabrication',
   label: 'EndEffectorSetup',

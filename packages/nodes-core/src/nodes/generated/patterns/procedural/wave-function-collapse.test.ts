@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WaveFunctionCollapseNode } from './wave-function-collapse.node';
+import { PatternsProceduralWaveFunctionCollapseNode } from './wave-function-collapse.node';
 import { createTestContext } from '../test-utils';
 
-describe('WaveFunctionCollapseNode', () => {
+describe('PatternsProceduralWaveFunctionCollapseNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('WaveFunctionCollapseNode', () => {
       gridHeight: 20
     } as any;
 
-    const result = await WaveFunctionCollapseNode.evaluate(context, inputs, params);
+    const result = await PatternsProceduralWaveFunctionCollapseNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

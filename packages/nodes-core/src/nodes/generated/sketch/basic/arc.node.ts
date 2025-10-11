@@ -15,7 +15,7 @@ interface ArcOutputs {
   edge: unknown;
 }
 
-export const ArcNode: NodeDefinition<ArcInputs, ArcOutputs, ArcParams> = {
+export const SketchBasicArcNode: NodeDefinition<ArcInputs, ArcOutputs, ArcParams> = {
   id: 'Sketch::Arc',
   category: 'Sketch',
   label: 'Arc',

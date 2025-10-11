@@ -17,7 +17,7 @@ interface UnfoldOutputs {
   bendTable: unknown;
 }
 
-export const UnfoldNode: NodeDefinition<UnfoldInputs, UnfoldOutputs, UnfoldParams> = {
+export const SheetMetalUnfoldUnfoldNode: NodeDefinition<UnfoldInputs, UnfoldOutputs, UnfoldParams> = {
   id: 'SheetMetal::Unfold',
   category: 'SheetMetal',
   label: 'Unfold',

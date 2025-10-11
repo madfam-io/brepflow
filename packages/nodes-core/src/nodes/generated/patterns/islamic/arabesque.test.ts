@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ArabesqueNode } from './arabesque.node';
+import { PatternsIslamicArabesqueNode } from './arabesque.node';
 import { createTestContext } from '../test-utils';
 
-describe('ArabesqueNode', () => {
+describe('PatternsIslamicArabesqueNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ArabesqueNode', () => {
       symmetry: 6
     } as any;
 
-    const result = await ArabesqueNode.evaluate(context, inputs, params);
+    const result = await PatternsIslamicArabesqueNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

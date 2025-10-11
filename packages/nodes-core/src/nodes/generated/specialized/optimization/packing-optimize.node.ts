@@ -15,7 +15,7 @@ interface PackingOptimizeOutputs {
   efficiency: unknown;
 }
 
-export const PackingOptimizeNode: NodeDefinition<PackingOptimizeInputs, PackingOptimizeOutputs, PackingOptimizeParams> = {
+export const SpecializedOptimizationPackingOptimizeNode: NodeDefinition<PackingOptimizeInputs, PackingOptimizeOutputs, PackingOptimizeParams> = {
   id: 'Specialized::PackingOptimize',
   category: 'Specialized',
   label: 'PackingOptimize',

@@ -10,7 +10,7 @@ interface FieldInvertOutputs {
   inverted: unknown;
 }
 
-export const FieldInvertNode: NodeDefinition<FieldInvertInputs, FieldInvertOutputs, FieldInvertParams> = {
+export const FieldOperationsFieldInvertNode: NodeDefinition<FieldInvertInputs, FieldInvertOutputs, FieldInvertParams> = {
   id: 'Field::FieldInvert',
   category: 'Field',
   label: 'FieldInvert',

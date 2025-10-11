@@ -15,7 +15,7 @@ interface PrismaticOutputs {
   joint: unknown;
 }
 
-export const PrismaticNode: NodeDefinition<PrismaticInputs, PrismaticOutputs, PrismaticParams> = {
+export const AssemblyJointsPrismaticNode: NodeDefinition<PrismaticInputs, PrismaticOutputs, PrismaticParams> = {
   id: 'Assembly::Prismatic',
   category: 'Assembly',
   label: 'Prismatic',

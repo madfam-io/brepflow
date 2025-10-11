@@ -18,7 +18,7 @@ interface S3UploadOutputs {
   etag: unknown;
 }
 
-export const S3UploadNode: NodeDefinition<S3UploadInputs, S3UploadOutputs, S3UploadParams> = {
+export const InteroperabilityCloudS3UploadNode: NodeDefinition<S3UploadInputs, S3UploadOutputs, S3UploadParams> = {
   id: 'Interoperability::S3Upload',
   category: 'Interoperability',
   label: 'S3Upload',

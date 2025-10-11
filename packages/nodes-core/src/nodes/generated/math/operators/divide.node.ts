@@ -11,7 +11,7 @@ interface DivideOutputs {
   result: unknown;
 }
 
-export const DivideNode: NodeDefinition<DivideInputs, DivideOutputs, DivideParams> = {
+export const MathOperatorsDivideNode: NodeDefinition<DivideInputs, DivideOutputs, DivideParams> = {
   id: 'Math::Divide',
   category: 'Math',
   label: 'Divide',

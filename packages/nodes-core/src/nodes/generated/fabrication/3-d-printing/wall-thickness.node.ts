@@ -14,7 +14,7 @@ interface WallThicknessOutputs {
   thinAreas: unknown;
 }
 
-export const WallThicknessNode: NodeDefinition<WallThicknessInputs, WallThicknessOutputs, WallThicknessParams> = {
+export const Fabrication3DPrintingWallThicknessNode: NodeDefinition<WallThicknessInputs, WallThicknessOutputs, WallThicknessParams> = {
   id: 'Fabrication::WallThickness',
   category: 'Fabrication',
   label: 'WallThickness',

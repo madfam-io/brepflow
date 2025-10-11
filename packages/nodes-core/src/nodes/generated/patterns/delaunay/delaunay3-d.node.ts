@@ -11,7 +11,7 @@ interface Delaunay3DOutputs {
   mesh: unknown;
 }
 
-export const Delaunay3DNode: NodeDefinition<Delaunay3DInputs, Delaunay3DOutputs, Delaunay3DParams> = {
+export const PatternsDelaunayDelaunay3DNode: NodeDefinition<Delaunay3DInputs, Delaunay3DOutputs, Delaunay3DParams> = {
   id: 'Patterns::Delaunay3D',
   category: 'Patterns',
   label: 'Delaunay3D',

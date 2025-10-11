@@ -14,7 +14,7 @@ interface LoadingDockOutputs {
   leveller: unknown;
 }
 
-export const LoadingDockNode: NodeDefinition<LoadingDockInputs, LoadingDockOutputs, LoadingDockParams> = {
+export const ArchitectureRampsLoadingDockNode: NodeDefinition<LoadingDockInputs, LoadingDockOutputs, LoadingDockParams> = {
   id: 'Architecture::LoadingDock',
   category: 'Architecture',
   label: 'LoadingDock',

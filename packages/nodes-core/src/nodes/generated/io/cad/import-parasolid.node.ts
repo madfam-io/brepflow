@@ -13,7 +13,7 @@ interface ImportParasolidOutputs {
   shape: unknown;
 }
 
-export const ImportParasolidNode: NodeDefinition<ImportParasolidInputs, ImportParasolidOutputs, ImportParasolidParams> = {
+export const IOCADImportParasolidNode: NodeDefinition<ImportParasolidInputs, ImportParasolidOutputs, ImportParasolidParams> = {
   id: 'IO::ImportParasolid',
   category: 'IO',
   label: 'ImportParasolid',

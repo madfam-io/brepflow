@@ -14,7 +14,7 @@ interface FieldFourierOutputs {
   magnitude: unknown;
 }
 
-export const FieldFourierNode: NodeDefinition<FieldFourierInputs, FieldFourierOutputs, FieldFourierParams> = {
+export const FieldsAdvancedFieldFourierNode: NodeDefinition<FieldFourierInputs, FieldFourierOutputs, FieldFourierParams> = {
   id: 'Fields::FieldFourier',
   category: 'Fields',
   label: 'FieldFourier',

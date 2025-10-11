@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FoamStructureNode } from './foam-structure.node';
+import { PatternsCellularFoamStructureNode } from './foam-structure.node';
 import { createTestContext } from '../test-utils';
 
-describe('FoamStructureNode', () => {
+describe('PatternsCellularFoamStructureNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FoamStructureNode', () => {
       sizeVariation: 0.5
     } as any;
 
-    const result = await FoamStructureNode.evaluate(context, inputs, params);
+    const result = await PatternsCellularFoamStructureNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

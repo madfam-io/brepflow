@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { InternalGearNode } from './internal-gear.node';
+import { MechanicalEngineeringGearsInternalGearNode } from './internal-gear.node';
 import { createTestContext } from '../test-utils';
 
-describe('InternalGearNode', () => {
+describe('MechanicalEngineeringGearsInternalGearNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('InternalGearNode', () => {
       width: 20
     } as any;
 
-    const result = await InternalGearNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringGearsInternalGearNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

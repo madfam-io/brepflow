@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ProductNode } from './product.node';
+import { MathStatisticsProductNode } from './product.node';
 import { createTestContext } from '../test-utils';
 
-describe('ProductNode', () => {
+describe('MathStatisticsProductNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('ProductNode', () => {
 
     } as any;
 
-    const result = await ProductNode.evaluate(context, inputs, params);
+    const result = await MathStatisticsProductNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

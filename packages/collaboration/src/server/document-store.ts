@@ -117,6 +117,9 @@ export class DocumentStore {
 
   private createEmptyGraph(): Graph {
     return {
+      version: '0.1.0',
+      units: 'mm',
+      tolerance: 0.001,
       nodes: [],
       edges: [],
       metadata: {

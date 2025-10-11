@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AcousticCeilingNode } from './acoustic-ceiling.node';
+import { ArchitectureCeilingsAcousticCeilingNode } from './acoustic-ceiling.node';
 import { createTestContext } from '../test-utils';
 
-describe('AcousticCeilingNode', () => {
+describe('ArchitectureCeilingsAcousticCeilingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('AcousticCeilingNode', () => {
       panelType: "tiles"
     } as any;
 
-    const result = await AcousticCeilingNode.evaluate(context, inputs, params);
+    const result = await ArchitectureCeilingsAcousticCeilingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

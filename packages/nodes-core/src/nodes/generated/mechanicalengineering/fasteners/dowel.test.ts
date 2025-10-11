@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DowelNode } from './dowel.node';
+import { MechanicalEngineeringFastenersDowelNode } from './dowel.node';
 import { createTestContext } from '../test-utils';
 
-describe('DowelNode', () => {
+describe('MechanicalEngineeringFastenersDowelNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('DowelNode', () => {
       chamfered: true
     } as any;
 
-    const result = await DowelNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringFastenersDowelNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

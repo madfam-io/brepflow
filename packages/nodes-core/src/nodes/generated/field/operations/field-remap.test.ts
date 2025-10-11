@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldRemapNode } from './field-remap.node';
+import { FieldOperationsFieldRemapNode } from './field-remap.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldRemapNode', () => {
+describe('FieldOperationsFieldRemapNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('FieldRemapNode', () => {
       toMax: 100
     } as any;
 
-    const result = await FieldRemapNode.evaluate(context, inputs, params);
+    const result = await FieldOperationsFieldRemapNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

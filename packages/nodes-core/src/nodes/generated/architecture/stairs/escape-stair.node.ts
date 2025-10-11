@@ -14,7 +14,7 @@ interface EscapeStairOutputs {
   escapeStair: unknown;
 }
 
-export const EscapeStairNode: NodeDefinition<EscapeStairInputs, EscapeStairOutputs, EscapeStairParams> = {
+export const ArchitectureStairsEscapeStairNode: NodeDefinition<EscapeStairInputs, EscapeStairOutputs, EscapeStairParams> = {
   id: 'Architecture::EscapeStair',
   category: 'Architecture',
   label: 'EscapeStair',

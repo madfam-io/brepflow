@@ -13,7 +13,7 @@ interface SetupSheetsOutputs {
   setupDocument: unknown;
 }
 
-export const SetupSheetsNode: NodeDefinition<SetupSheetsInputs, SetupSheetsOutputs, SetupSheetsParams> = {
+export const FabricationCNCSetupSheetsNode: NodeDefinition<SetupSheetsInputs, SetupSheetsOutputs, SetupSheetsParams> = {
   id: 'Fabrication::SetupSheets',
   category: 'Fabrication',
   label: 'SetupSheets',

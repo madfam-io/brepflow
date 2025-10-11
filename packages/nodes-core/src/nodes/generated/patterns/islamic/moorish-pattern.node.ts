@@ -13,7 +13,7 @@ interface MoorishPatternOutputs {
   pattern: unknown;
 }
 
-export const MoorishPatternNode: NodeDefinition<MoorishPatternInputs, MoorishPatternOutputs, MoorishPatternParams> = {
+export const PatternsIslamicMoorishPatternNode: NodeDefinition<MoorishPatternInputs, MoorishPatternOutputs, MoorishPatternParams> = {
   id: 'Patterns::MoorishPattern',
   category: 'Patterns',
   label: 'MoorishPattern',

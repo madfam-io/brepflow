@@ -10,7 +10,7 @@ interface SignOutputs {
   sign: unknown;
 }
 
-export const SignNode: NodeDefinition<SignInputs, SignOutputs, SignParams> = {
+export const MathComparisonSignNode: NodeDefinition<SignInputs, SignOutputs, SignParams> = {
   id: 'Math::Sign',
   category: 'Math',
   label: 'Sign',

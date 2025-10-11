@@ -16,7 +16,7 @@ interface STLExportOutputs {
   triangleCount: unknown;
 }
 
-export const STLExportNode: NodeDefinition<STLExportInputs, STLExportOutputs, STLExportParams> = {
+export const InteroperabilityExportSTLExportNode: NodeDefinition<STLExportInputs, STLExportOutputs, STLExportParams> = {
   id: 'Interoperability::STLExport',
   category: 'Interoperability',
   label: 'STLExport',

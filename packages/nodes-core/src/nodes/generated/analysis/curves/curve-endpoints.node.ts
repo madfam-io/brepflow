@@ -16,7 +16,7 @@ interface CurveEndpointsOutputs {
   endTangent: [number, number, number];
 }
 
-export const CurveEndpointsNode: NodeDefinition<CurveEndpointsInputs, CurveEndpointsOutputs, CurveEndpointsParams> = {
+export const AnalysisCurvesCurveEndpointsNode: NodeDefinition<CurveEndpointsInputs, CurveEndpointsOutputs, CurveEndpointsParams> = {
   id: 'Analysis::CurveEndpoints',
   category: 'Analysis',
   label: 'CurveEndpoints',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BowWindowNode } from './bow-window.node';
+import { ArchitectureWindowsBowWindowNode } from './bow-window.node';
 import { createTestContext } from '../test-utils';
 
-describe('BowWindowNode', () => {
+describe('ArchitectureWindowsBowWindowNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BowWindowNode', () => {
       segments: 5
     } as any;
 
-    const result = await BowWindowNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWindowsBowWindowNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

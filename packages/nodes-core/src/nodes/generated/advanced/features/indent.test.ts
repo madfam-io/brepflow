@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { IndentNode } from './indent.node';
+import { AdvancedFeaturesIndentNode } from './indent.node';
 import { createTestContext } from '../test-utils';
 
-describe('IndentNode', () => {
+describe('AdvancedFeaturesIndentNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('IndentNode', () => {
       flipDirection: false
     } as any;
 
-    const result = await IndentNode.evaluate(context, inputs, params);
+    const result = await AdvancedFeaturesIndentNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

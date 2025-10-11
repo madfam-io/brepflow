@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { Text3DNode } from './text3-d.node';
+import { SpecializedTextText3DNode } from './text3-d.node';
 import { createTestContext } from '../test-utils';
 
-describe('Text3DNode', () => {
+describe('SpecializedTextText3DNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('Text3DNode', () => {
       italic: false
     } as any;
 
-    const result = await Text3DNode.evaluate(context, inputs, params);
+    const result = await SpecializedTextText3DNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -14,7 +14,7 @@ interface HelicalStairOutputs {
   helicalStair: unknown;
 }
 
-export const HelicalStairNode: NodeDefinition<HelicalStairInputs, HelicalStairOutputs, HelicalStairParams> = {
+export const ArchitectureStairsHelicalStairNode: NodeDefinition<HelicalStairInputs, HelicalStairOutputs, HelicalStairParams> = {
   id: 'Architecture::HelicalStair',
   category: 'Architecture',
   label: 'HelicalStair',

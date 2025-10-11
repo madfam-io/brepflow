@@ -17,7 +17,7 @@ interface FlangeBearingOutputs {
   holes: unknown;
 }
 
-export const FlangeBearingNode: NodeDefinition<FlangeBearingInputs, FlangeBearingOutputs, FlangeBearingParams> = {
+export const MechanicalEngineeringBearingsFlangeBearingNode: NodeDefinition<FlangeBearingInputs, FlangeBearingOutputs, FlangeBearingParams> = {
   id: 'MechanicalEngineering::FlangeBearing',
   category: 'MechanicalEngineering',
   label: 'FlangeBearing',

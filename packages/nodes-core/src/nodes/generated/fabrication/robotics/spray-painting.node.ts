@@ -14,7 +14,7 @@ interface SprayPaintingOutputs {
   sprayPath: unknown;
 }
 
-export const SprayPaintingNode: NodeDefinition<SprayPaintingInputs, SprayPaintingOutputs, SprayPaintingParams> = {
+export const FabricationRoboticsSprayPaintingNode: NodeDefinition<SprayPaintingInputs, SprayPaintingOutputs, SprayPaintingParams> = {
   id: 'Fabrication::SprayPainting',
   category: 'Fabrication',
   label: 'SprayPainting',

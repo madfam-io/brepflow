@@ -15,7 +15,7 @@ interface Export3MFOutputs {
   file3MF: unknown;
 }
 
-export const Export3MFNode: NodeDefinition<Export3MFInputs, Export3MFOutputs, Export3MFParams> = {
+export const MeshFilesExport3MFNode: NodeDefinition<Export3MFInputs, Export3MFOutputs, Export3MFParams> = {
   id: 'Mesh::Export3MF',
   category: 'Mesh',
   label: 'Export3MF',

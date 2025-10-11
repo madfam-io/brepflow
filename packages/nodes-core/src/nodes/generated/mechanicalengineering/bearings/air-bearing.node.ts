@@ -17,7 +17,7 @@ interface AirBearingOutputs {
   restrictors: unknown;
 }
 
-export const AirBearingNode: NodeDefinition<AirBearingInputs, AirBearingOutputs, AirBearingParams> = {
+export const MechanicalEngineeringBearingsAirBearingNode: NodeDefinition<AirBearingInputs, AirBearingOutputs, AirBearingParams> = {
   id: 'MechanicalEngineering::AirBearing',
   category: 'MechanicalEngineering',
   label: 'AirBearing',

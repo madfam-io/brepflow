@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CubicInterpNode } from './cubic-interp.node';
+import { MathInterpolationCubicInterpNode } from './cubic-interp.node';
 import { createTestContext } from '../test-utils';
 
-describe('CubicInterpNode', () => {
+describe('MathInterpolationCubicInterpNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('CubicInterpNode', () => {
 
     } as any;
 
-    const result = await CubicInterpNode.evaluate(context, inputs, params);
+    const result = await MathInterpolationCubicInterpNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

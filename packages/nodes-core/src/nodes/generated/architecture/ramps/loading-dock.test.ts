@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LoadingDockNode } from './loading-dock.node';
+import { ArchitectureRampsLoadingDockNode } from './loading-dock.node';
 import { createTestContext } from '../test-utils';
 
-describe('LoadingDockNode', () => {
+describe('ArchitectureRampsLoadingDockNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('LoadingDockNode', () => {
       levellerType: "hydraulic"
     } as any;
 
-    const result = await LoadingDockNode.evaluate(context, inputs, params);
+    const result = await ArchitectureRampsLoadingDockNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -12,7 +12,7 @@ interface EnvelopeOutputs {
   envelope: unknown;
 }
 
-export const EnvelopeNode: NodeDefinition<EnvelopeInputs, EnvelopeOutputs, EnvelopeParams> = {
+export const AssemblyPatternsEnvelopeNode: NodeDefinition<EnvelopeInputs, EnvelopeOutputs, EnvelopeParams> = {
   id: 'Assembly::Envelope',
   category: 'Assembly',
   label: 'Envelope',

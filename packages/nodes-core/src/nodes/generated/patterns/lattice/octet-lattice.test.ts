@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { OctetLatticeNode } from './octet-lattice.node';
+import { PatternsLatticeOctetLatticeNode } from './octet-lattice.node';
 import { createTestContext } from '../test-utils';
 
-describe('OctetLatticeNode', () => {
+describe('PatternsLatticeOctetLatticeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('OctetLatticeNode', () => {
       strutDiameter: 1
     } as any;
 
-    const result = await OctetLatticeNode.evaluate(context, inputs, params);
+    const result = await PatternsLatticeOctetLatticeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -12,7 +12,7 @@ interface StringTrimOutputs {
   trimmed: unknown;
 }
 
-export const StringTrimNode: NodeDefinition<StringTrimInputs, StringTrimOutputs, StringTrimParams> = {
+export const DataStringStringTrimNode: NodeDefinition<StringTrimInputs, StringTrimOutputs, StringTrimParams> = {
   id: 'Data::StringTrim',
   category: 'Data',
   label: 'StringTrim',

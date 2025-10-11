@@ -14,7 +14,7 @@ interface AlternatingTreadStairOutputs {
   alternatingStair: unknown;
 }
 
-export const AlternatingTreadStairNode: NodeDefinition<AlternatingTreadStairInputs, AlternatingTreadStairOutputs, AlternatingTreadStairParams> = {
+export const ArchitectureStairsAlternatingTreadStairNode: NodeDefinition<AlternatingTreadStairInputs, AlternatingTreadStairOutputs, AlternatingTreadStairParams> = {
   id: 'Architecture::AlternatingTreadStair',
   category: 'Architecture',
   label: 'AlternatingTreadStair',

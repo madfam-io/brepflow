@@ -13,7 +13,7 @@ interface ArabesqueOutputs {
   pattern: unknown;
 }
 
-export const ArabesqueNode: NodeDefinition<ArabesqueInputs, ArabesqueOutputs, ArabesqueParams> = {
+export const PatternsIslamicArabesqueNode: NodeDefinition<ArabesqueInputs, ArabesqueOutputs, ArabesqueParams> = {
   id: 'Patterns::Arabesque',
   category: 'Patterns',
   label: 'Arabesque',

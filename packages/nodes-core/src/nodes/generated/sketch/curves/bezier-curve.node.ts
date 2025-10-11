@@ -10,7 +10,7 @@ interface BezierCurveOutputs {
   curve: unknown;
 }
 
-export const BezierCurveNode: NodeDefinition<BezierCurveInputs, BezierCurveOutputs, BezierCurveParams> = {
+export const SketchCurvesBezierCurveNode: NodeDefinition<BezierCurveInputs, BezierCurveOutputs, BezierCurveParams> = {
   id: 'Sketch::BezierCurve',
   category: 'Sketch',
   label: 'BezierCurve',

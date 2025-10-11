@@ -13,7 +13,7 @@ interface JitteredGridOutputs {
   points: Array<[number, number, number]>;
 }
 
-export const JitteredGridNode: NodeDefinition<JitteredGridInputs, JitteredGridOutputs, JitteredGridParams> = {
+export const PatternsStochasticJitteredGridNode: NodeDefinition<JitteredGridInputs, JitteredGridOutputs, JitteredGridParams> = {
   id: 'Patterns::JitteredGrid',
   category: 'Patterns',
   label: 'JitteredGrid',

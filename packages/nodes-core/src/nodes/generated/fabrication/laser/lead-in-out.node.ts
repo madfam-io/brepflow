@@ -13,7 +13,7 @@ interface LeadInOutOutputs {
   pathsWithLeads: unknown;
 }
 
-export const LeadInOutNode: NodeDefinition<LeadInOutInputs, LeadInOutOutputs, LeadInOutParams> = {
+export const FabricationLaserLeadInOutNode: NodeDefinition<LeadInOutInputs, LeadInOutOutputs, LeadInOutParams> = {
   id: 'Fabrication::LeadInOut',
   category: 'Fabrication',
   label: 'LeadInOut',

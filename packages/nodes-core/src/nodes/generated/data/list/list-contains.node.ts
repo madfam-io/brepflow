@@ -12,7 +12,7 @@ interface ListContainsOutputs {
   index: unknown;
 }
 
-export const ListContainsNode: NodeDefinition<ListContainsInputs, ListContainsOutputs, ListContainsParams> = {
+export const DataListListContainsNode: NodeDefinition<ListContainsInputs, ListContainsOutputs, ListContainsParams> = {
   id: 'Data::ListContains',
   category: 'Data',
   label: 'ListContains',

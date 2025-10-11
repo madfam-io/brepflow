@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CompoundWallNode } from './compound-wall.node';
+import { ArchitectureWallsCompoundWallNode } from './compound-wall.node';
 import { createTestContext } from '../test-utils';
 
-describe('CompoundWallNode', () => {
+describe('ArchitectureWallsCompoundWallNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CompoundWallNode', () => {
       layerMaterials: "brick,insulation,drywall"
     } as any;
 
-    const result = await CompoundWallNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsCompoundWallNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

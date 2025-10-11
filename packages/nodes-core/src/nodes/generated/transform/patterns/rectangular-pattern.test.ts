@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RectangularPatternNode } from './rectangular-pattern.node';
+import { TransformPatternsRectangularPatternNode } from './rectangular-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('RectangularPatternNode', () => {
+describe('TransformPatternsRectangularPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('RectangularPatternNode', () => {
       staggered: false
     } as any;
 
-    const result = await RectangularPatternNode.evaluate(context, inputs, params);
+    const result = await TransformPatternsRectangularPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

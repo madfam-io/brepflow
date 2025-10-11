@@ -10,7 +10,7 @@ interface MinOutputs {
   min: unknown;
 }
 
-export const MinNode: NodeDefinition<MinInputs, MinOutputs, MinParams> = {
+export const MathComparisonMinNode: NodeDefinition<MinInputs, MinOutputs, MinParams> = {
   id: 'Math::Min',
   category: 'Math',
   label: 'Min',

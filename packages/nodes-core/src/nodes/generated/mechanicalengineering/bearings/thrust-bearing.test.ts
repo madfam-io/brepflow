@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ThrustBearingNode } from './thrust-bearing.node';
+import { MechanicalEngineeringBearingsThrustBearingNode } from './thrust-bearing.node';
 import { createTestContext } from '../test-utils';
 
-describe('ThrustBearingNode', () => {
+describe('MechanicalEngineeringBearingsThrustBearingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('ThrustBearingNode', () => {
       type: "ball"
     } as any;
 
-    const result = await ThrustBearingNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringBearingsThrustBearingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

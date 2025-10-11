@@ -15,7 +15,7 @@ interface BayWindowOutputs {
   windows: unknown;
 }
 
-export const BayWindowNode: NodeDefinition<BayWindowInputs, BayWindowOutputs, BayWindowParams> = {
+export const ArchitectureWindowsBayWindowNode: NodeDefinition<BayWindowInputs, BayWindowOutputs, BayWindowParams> = {
   id: 'Architecture::BayWindow',
   category: 'Architecture',
   label: 'BayWindow',

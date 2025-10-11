@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListPartitionNode } from './list-partition.node';
+import { DataListListPartitionNode } from './list-partition.node';
 import { createTestContext } from '../test-utils';
 
-describe('ListPartitionNode', () => {
+describe('DataListListPartitionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ListPartitionNode', () => {
 
     } as any;
 
-    const result = await ListPartitionNode.evaluate(context, inputs, params);
+    const result = await DataListListPartitionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

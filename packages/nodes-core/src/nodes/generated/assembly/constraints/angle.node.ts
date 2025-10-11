@@ -14,7 +14,7 @@ interface AngleOutputs {
   constraint: unknown;
 }
 
-export const AngleNode: NodeDefinition<AngleInputs, AngleOutputs, AngleParams> = {
+export const AssemblyConstraintsAngleNode: NodeDefinition<AngleInputs, AngleOutputs, AngleParams> = {
   id: 'Assembly::Angle',
   category: 'Assembly',
   label: 'Angle',

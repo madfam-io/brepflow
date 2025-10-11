@@ -12,7 +12,7 @@ interface ListFlattenOutputs {
   flattened: unknown;
 }
 
-export const ListFlattenNode: NodeDefinition<ListFlattenInputs, ListFlattenOutputs, ListFlattenParams> = {
+export const DataListListFlattenNode: NodeDefinition<ListFlattenInputs, ListFlattenOutputs, ListFlattenParams> = {
   id: 'Data::ListFlatten',
   category: 'Data',
   label: 'ListFlatten',

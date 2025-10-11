@@ -16,7 +16,7 @@ interface SphereOutputs {
   solid: unknown;
 }
 
-export const SphereNode: NodeDefinition<SphereInputs, SphereOutputs, SphereParams> = {
+export const SolidPrimitivesSphereNode: NodeDefinition<SphereInputs, SphereOutputs, SphereParams> = {
   id: 'Solid::Sphere',
   category: 'Solid',
   label: 'Sphere',

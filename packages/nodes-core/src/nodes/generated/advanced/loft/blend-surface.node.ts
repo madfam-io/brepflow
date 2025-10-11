@@ -16,7 +16,7 @@ interface BlendSurfaceOutputs {
   blendSurface: unknown;
 }
 
-export const BlendSurfaceNode: NodeDefinition<BlendSurfaceInputs, BlendSurfaceOutputs, BlendSurfaceParams> = {
+export const AdvancedLoftBlendSurfaceNode: NodeDefinition<BlendSurfaceInputs, BlendSurfaceOutputs, BlendSurfaceParams> = {
   id: 'Advanced::BlendSurface',
   category: 'Advanced',
   label: 'BlendSurface',

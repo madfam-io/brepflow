@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PyramidNode } from './pyramid.node';
+import { SolidParametricPyramidNode } from './pyramid.node';
 import { createTestContext } from '../test-utils';
 
-describe('PyramidNode', () => {
+describe('SolidParametricPyramidNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('PyramidNode', () => {
       topDepth: 0
     } as any;
 
-    const result = await PyramidNode.evaluate(context, inputs, params);
+    const result = await SolidParametricPyramidNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

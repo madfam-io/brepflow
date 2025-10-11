@@ -11,7 +11,7 @@ interface SetIntersectionOutputs {
   intersection: unknown;
 }
 
-export const SetIntersectionNode: NodeDefinition<SetIntersectionInputs, SetIntersectionOutputs, SetIntersectionParams> = {
+export const DataSetSetIntersectionNode: NodeDefinition<SetIntersectionInputs, SetIntersectionOutputs, SetIntersectionParams> = {
   id: 'Data::SetIntersection',
   category: 'Data',
   label: 'SetIntersection',

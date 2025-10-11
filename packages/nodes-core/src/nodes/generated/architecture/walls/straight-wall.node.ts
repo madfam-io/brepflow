@@ -15,7 +15,7 @@ interface StraightWallOutputs {
   centerline: unknown;
 }
 
-export const StraightWallNode: NodeDefinition<StraightWallInputs, StraightWallOutputs, StraightWallParams> = {
+export const ArchitectureWallsStraightWallNode: NodeDefinition<StraightWallInputs, StraightWallOutputs, StraightWallParams> = {
   id: 'Architecture::StraightWall',
   category: 'Architecture',
   label: 'StraightWall',

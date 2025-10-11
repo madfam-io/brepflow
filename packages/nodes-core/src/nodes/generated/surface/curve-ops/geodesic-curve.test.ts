@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GeodesicCurveNode } from './geodesic-curve.node';
+import { SurfaceCurveOpsGeodesicCurveNode } from './geodesic-curve.node';
 import { createTestContext } from '../test-utils';
 
-describe('GeodesicCurveNode', () => {
+describe('SurfaceCurveOpsGeodesicCurveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('GeodesicCurveNode', () => {
 
     } as any;
 
-    const result = await GeodesicCurveNode.evaluate(context, inputs, params);
+    const result = await SurfaceCurveOpsGeodesicCurveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

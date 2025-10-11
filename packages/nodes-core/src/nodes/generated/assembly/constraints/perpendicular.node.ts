@@ -12,7 +12,7 @@ interface PerpendicularOutputs {
   constraint: unknown;
 }
 
-export const PerpendicularNode: NodeDefinition<PerpendicularInputs, PerpendicularOutputs, PerpendicularParams> = {
+export const AssemblyConstraintsPerpendicularNode: NodeDefinition<PerpendicularInputs, PerpendicularOutputs, PerpendicularParams> = {
   id: 'Assembly::Perpendicular',
   category: 'Assembly',
   label: 'Perpendicular',

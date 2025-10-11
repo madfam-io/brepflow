@@ -11,7 +11,7 @@ interface TreeMergeOutputs {
   merged: unknown;
 }
 
-export const TreeMergeNode: NodeDefinition<TreeMergeInputs, TreeMergeOutputs, TreeMergeParams> = {
+export const DataTreeTreeMergeNode: NodeDefinition<TreeMergeInputs, TreeMergeOutputs, TreeMergeParams> = {
   id: 'Data::TreeMerge',
   category: 'Data',
   label: 'TreeMerge',

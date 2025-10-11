@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TypeOfNode } from './type-of.node';
+import { DataConvertTypeOfNode } from './type-of.node';
 import { createTestContext } from '../test-utils';
 
-describe('TypeOfNode', () => {
+describe('DataConvertTypeOfNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('TypeOfNode', () => {
 
     } as any;
 
-    const result = await TypeOfNode.evaluate(context, inputs, params);
+    const result = await DataConvertTypeOfNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

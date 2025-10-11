@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PlanarNode } from './planar.node';
+import { AssemblyJointsPlanarNode } from './planar.node';
 import { createTestContext } from '../test-utils';
 
-describe('PlanarNode', () => {
+describe('AssemblyJointsPlanarNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('PlanarNode', () => {
 
     } as any;
 
-    const result = await PlanarNode.evaluate(context, inputs, params);
+    const result = await AssemblyJointsPlanarNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

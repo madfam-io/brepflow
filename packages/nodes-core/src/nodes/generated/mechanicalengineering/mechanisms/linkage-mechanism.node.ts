@@ -18,7 +18,7 @@ interface LinkageMechanismOutputs {
   joints: Array<[number, number, number]>;
 }
 
-export const LinkageMechanismNode: NodeDefinition<LinkageMechanismInputs, LinkageMechanismOutputs, LinkageMechanismParams> = {
+export const MechanicalEngineeringMechanismsLinkageMechanismNode: NodeDefinition<LinkageMechanismInputs, LinkageMechanismOutputs, LinkageMechanismParams> = {
   id: 'MechanicalEngineering::LinkageMechanism',
   category: 'MechanicalEngineering',
   label: 'LinkageMechanism',

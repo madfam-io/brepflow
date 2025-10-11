@@ -10,7 +10,7 @@ interface RandomOutputs {
   value: unknown;
 }
 
-export const RandomNode: NodeDefinition<RandomInputs, RandomOutputs, RandomParams> = {
+export const MathRandomRandomNode: NodeDefinition<RandomInputs, RandomOutputs, RandomParams> = {
   id: 'Math::Random',
   category: 'Math',
   label: 'Random',

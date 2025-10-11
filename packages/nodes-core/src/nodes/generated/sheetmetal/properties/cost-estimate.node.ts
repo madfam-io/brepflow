@@ -17,7 +17,7 @@ interface CostEstimateOutputs {
   breakdown: unknown;
 }
 
-export const CostEstimateNode: NodeDefinition<CostEstimateInputs, CostEstimateOutputs, CostEstimateParams> = {
+export const SheetMetalPropertiesCostEstimateNode: NodeDefinition<CostEstimateInputs, CostEstimateOutputs, CostEstimateParams> = {
   id: 'SheetMetal::CostEstimate',
   category: 'SheetMetal',
   label: 'CostEstimate',

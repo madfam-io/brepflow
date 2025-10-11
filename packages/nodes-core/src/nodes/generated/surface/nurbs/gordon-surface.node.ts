@@ -12,7 +12,7 @@ interface GordonSurfaceOutputs {
   surface: unknown;
 }
 
-export const GordonSurfaceNode: NodeDefinition<GordonSurfaceInputs, GordonSurfaceOutputs, GordonSurfaceParams> = {
+export const SurfaceNURBSGordonSurfaceNode: NodeDefinition<GordonSurfaceInputs, GordonSurfaceOutputs, GordonSurfaceParams> = {
   id: 'Surface::GordonSurface',
   category: 'Surface',
   label: 'GordonSurface',

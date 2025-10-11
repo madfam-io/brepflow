@@ -12,7 +12,7 @@ interface SetPartitionsOutputs {
   partitions: unknown;
 }
 
-export const SetPartitionsNode: NodeDefinition<SetPartitionsInputs, SetPartitionsOutputs, SetPartitionsParams> = {
+export const DataSetSetPartitionsNode: NodeDefinition<SetPartitionsInputs, SetPartitionsOutputs, SetPartitionsParams> = {
   id: 'Data::SetPartitions',
   category: 'Data',
   label: 'SetPartitions',

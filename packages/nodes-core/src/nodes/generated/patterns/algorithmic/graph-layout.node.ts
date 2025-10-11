@@ -15,7 +15,7 @@ interface GraphLayoutOutputs {
   graph: unknown;
 }
 
-export const GraphLayoutNode: NodeDefinition<GraphLayoutInputs, GraphLayoutOutputs, GraphLayoutParams> = {
+export const PatternsAlgorithmicGraphLayoutNode: NodeDefinition<GraphLayoutInputs, GraphLayoutOutputs, GraphLayoutParams> = {
   id: 'Patterns::GraphLayout',
   category: 'Patterns',
   label: 'GraphLayout',

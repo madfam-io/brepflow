@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldCriticalPointsNode } from './field-critical-points.node';
+import { FieldsAnalysisFieldCriticalPointsNode } from './field-critical-points.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldCriticalPointsNode', () => {
+describe('FieldsAnalysisFieldCriticalPointsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FieldCriticalPointsNode', () => {
       type: "\"all\""
     } as any;
 
-    const result = await FieldCriticalPointsNode.evaluate(context, inputs, params);
+    const result = await FieldsAnalysisFieldCriticalPointsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -16,7 +16,7 @@ interface DoubleHungWindowOutputs {
   lowerSash: unknown;
 }
 
-export const DoubleHungWindowNode: NodeDefinition<DoubleHungWindowInputs, DoubleHungWindowOutputs, DoubleHungWindowParams> = {
+export const ArchitectureWindowsDoubleHungWindowNode: NodeDefinition<DoubleHungWindowInputs, DoubleHungWindowOutputs, DoubleHungWindowParams> = {
   id: 'Architecture::DoubleHungWindow',
   category: 'Architecture',
   label: 'DoubleHungWindow',

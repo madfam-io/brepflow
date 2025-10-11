@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SpacePartitioningNode } from './space-partitioning.node';
+import { AlgorithmicGeometrySpacePartitioningNode } from './space-partitioning.node';
 import { createTestContext } from '../test-utils';
 
-describe('SpacePartitioningNode', () => {
+describe('AlgorithmicGeometrySpacePartitioningNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SpacePartitioningNode', () => {
       leafSize: 10
     } as any;
 
-    const result = await SpacePartitioningNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicGeometrySpacePartitioningNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceFromPointsNode } from './surface-from-points.node';
+import { SurfaceNURBSSurfaceFromPointsNode } from './surface-from-points.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceFromPointsNode', () => {
+describe('SurfaceNURBSSurfaceFromPointsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('SurfaceFromPointsNode', () => {
       smoothness: 0.5
     } as any;
 
-    const result = await SurfaceFromPointsNode.evaluate(context, inputs, params);
+    const result = await SurfaceNURBSSurfaceFromPointsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

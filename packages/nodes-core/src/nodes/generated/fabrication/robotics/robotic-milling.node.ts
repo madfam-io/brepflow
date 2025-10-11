@@ -14,7 +14,7 @@ interface RoboticMillingOutputs {
   robotProgram: unknown;
 }
 
-export const RoboticMillingNode: NodeDefinition<RoboticMillingInputs, RoboticMillingOutputs, RoboticMillingParams> = {
+export const FabricationRoboticsRoboticMillingNode: NodeDefinition<RoboticMillingInputs, RoboticMillingOutputs, RoboticMillingParams> = {
   id: 'Fabrication::RoboticMilling',
   category: 'Fabrication',
   label: 'RoboticMilling',

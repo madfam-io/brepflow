@@ -18,7 +18,7 @@ interface ChainDriveOutputs {
   chain: unknown;
 }
 
-export const ChainDriveNode: NodeDefinition<ChainDriveInputs, ChainDriveOutputs, ChainDriveParams> = {
+export const MechanicalEngineeringPowerTransmissionChainDriveNode: NodeDefinition<ChainDriveInputs, ChainDriveOutputs, ChainDriveParams> = {
   id: 'MechanicalEngineering::ChainDrive',
   category: 'MechanicalEngineering',
   label: 'ChainDrive',

@@ -10,7 +10,7 @@ interface SetPowerSetOutputs {
   powerSet: unknown;
 }
 
-export const SetPowerSetNode: NodeDefinition<SetPowerSetInputs, SetPowerSetOutputs, SetPowerSetParams> = {
+export const DataSetSetPowerSetNode: NodeDefinition<SetPowerSetInputs, SetPowerSetOutputs, SetPowerSetParams> = {
   id: 'Data::SetPowerSet',
   category: 'Data',
   label: 'SetPowerSet',

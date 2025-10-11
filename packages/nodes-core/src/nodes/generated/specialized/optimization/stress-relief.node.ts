@@ -14,7 +14,7 @@ interface StressReliefOutputs {
   relieved: unknown;
 }
 
-export const StressReliefNode: NodeDefinition<StressReliefInputs, StressReliefOutputs, StressReliefParams> = {
+export const SpecializedOptimizationStressReliefNode: NodeDefinition<StressReliefInputs, StressReliefOutputs, StressReliefParams> = {
   id: 'Specialized::StressRelief',
   category: 'Specialized',
   label: 'StressRelief',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { KelvinLatticeNode } from './kelvin-lattice.node';
+import { PatternsLatticeKelvinLatticeNode } from './kelvin-lattice.node';
 import { createTestContext } from '../test-utils';
 
-describe('KelvinLatticeNode', () => {
+describe('PatternsLatticeKelvinLatticeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('KelvinLatticeNode', () => {
       wallThickness: 0.5
     } as any;
 
-    const result = await KelvinLatticeNode.evaluate(context, inputs, params);
+    const result = await PatternsLatticeKelvinLatticeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

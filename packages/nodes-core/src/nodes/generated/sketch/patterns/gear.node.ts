@@ -16,7 +16,7 @@ interface GearOutputs {
   gear: unknown;
 }
 
-export const GearNode: NodeDefinition<GearInputs, GearOutputs, GearParams> = {
+export const SketchPatternsGearNode: NodeDefinition<GearInputs, GearOutputs, GearParams> = {
   id: 'Sketch::Gear',
   category: 'Sketch',
   label: 'Gear',

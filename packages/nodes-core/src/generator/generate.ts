@@ -7,7 +7,7 @@
 
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { generateNodeImplementation, generateNodeTest, generateNodeDocumentation, NodeTemplate, toKebabCase, toPascalCase } from './node-template';
+import { generateNodeImplementation, generateNodeTest, generateNodeDocumentation, NodeTemplate, toKebabCase, toPascalCase, getExportIdentifier } from './node-template';
 
 // Phase 1 - Manufacturing & Analysis
 import {
@@ -213,16 +213,17 @@ async function generateIndex(templates: NodeTemplate[], outputDir: string): Prom
   }, {} as Record<string, NodeTemplate[]>);
 
   Object.entries(byCategory).forEach(([category, categoryTemplates]) => {
-    categoryTemplates.forEach(template => {
-      const pascalName = toPascalCase(template.name);
-      const kebabName = toKebabCase(template.name);
-      const importPath = template.subcategory
-        ? `./${category.toLowerCase()}/${toKebabCase(template.subcategory)}/${kebabName}.node`
-        : `./${category.toLowerCase()}/${kebabName}.node`;
+  categoryTemplates.forEach(template => {
+    const exportIdentifier = getExportIdentifier(template);
+    const constantName = `${exportIdentifier}Node`;
+    const kebabName = toKebabCase(template.name);
+    const importPath = template.subcategory
+      ? `./${category.toLowerCase()}/${toKebabCase(template.subcategory)}/${kebabName}.node`
+      : `./${category.toLowerCase()}/${kebabName}.node`;
 
-      imports.push(`import { ${pascalName}Node } from '${importPath}';`);
-      exports.push(`  ${pascalName}Node,`);
-      registryEntries.push(`  '${template.category}::${template.name}': ${pascalName}Node,`);
+      imports.push(`import { ${constantName} } from '${importPath}';`);
+      exports.push(`  ${constantName},`);
+      registryEntries.push(`  '${template.category}::${template.name}': ${constantName},`);
     });
   });
 

@@ -19,7 +19,7 @@ interface BallBearingOutputs {
   outerRace: unknown;
 }
 
-export const BallBearingNode: NodeDefinition<BallBearingInputs, BallBearingOutputs, BallBearingParams> = {
+export const MechanicalEngineeringBearingsBallBearingNode: NodeDefinition<BallBearingInputs, BallBearingOutputs, BallBearingParams> = {
   id: 'MechanicalEngineering::BallBearing',
   category: 'MechanicalEngineering',
   label: 'BallBearing',

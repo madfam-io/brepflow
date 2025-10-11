@@ -10,7 +10,7 @@ interface TypeOfOutputs {
   type: unknown;
 }
 
-export const TypeOfNode: NodeDefinition<TypeOfInputs, TypeOfOutputs, TypeOfParams> = {
+export const DataConvertTypeOfNode: NodeDefinition<TypeOfInputs, TypeOfOutputs, TypeOfParams> = {
   id: 'Data::TypeOf',
   category: 'Data',
   label: 'TypeOf',

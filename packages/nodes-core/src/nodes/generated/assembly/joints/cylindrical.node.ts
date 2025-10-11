@@ -17,7 +17,7 @@ interface CylindricalOutputs {
   joint: unknown;
 }
 
-export const CylindricalNode: NodeDefinition<CylindricalInputs, CylindricalOutputs, CylindricalParams> = {
+export const AssemblyJointsCylindricalNode: NodeDefinition<CylindricalInputs, CylindricalOutputs, CylindricalParams> = {
   id: 'Assembly::Cylindrical',
   category: 'Assembly',
   label: 'Cylindrical',

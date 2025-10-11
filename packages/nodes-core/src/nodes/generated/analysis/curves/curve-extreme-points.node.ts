@@ -15,7 +15,7 @@ interface CurveExtremePointsOutputs {
   extremeValues: unknown;
 }
 
-export const CurveExtremePointsNode: NodeDefinition<CurveExtremePointsInputs, CurveExtremePointsOutputs, CurveExtremePointsParams> = {
+export const AnalysisCurvesCurveExtremePointsNode: NodeDefinition<CurveExtremePointsInputs, CurveExtremePointsOutputs, CurveExtremePointsParams> = {
   id: 'Analysis::CurveExtremePoints',
   category: 'Analysis',
   label: 'CurveExtremePoints',

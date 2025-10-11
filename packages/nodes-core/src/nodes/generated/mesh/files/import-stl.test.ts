@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImportSTLNode } from './import-stl.node';
+import { MeshFilesImportSTLNode } from './import-stl.node';
 import { createTestContext } from '../test-utils';
 
-describe('ImportSTLNode', () => {
+describe('MeshFilesImportSTLNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ImportSTLNode', () => {
       validate: true
     } as any;
 
-    const result = await ImportSTLNode.evaluate(context, inputs, params);
+    const result = await MeshFilesImportSTLNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -11,7 +11,7 @@ interface SetCartesianProductOutputs {
   product: unknown;
 }
 
-export const SetCartesianProductNode: NodeDefinition<SetCartesianProductInputs, SetCartesianProductOutputs, SetCartesianProductParams> = {
+export const DataSetSetCartesianProductNode: NodeDefinition<SetCartesianProductInputs, SetCartesianProductOutputs, SetCartesianProductParams> = {
   id: 'Data::SetCartesianProduct',
   category: 'Data',
   label: 'SetCartesianProduct',

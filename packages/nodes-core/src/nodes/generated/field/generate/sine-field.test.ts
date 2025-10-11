@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SineFieldNode } from './sine-field.node';
+import { FieldGenerateSineFieldNode } from './sine-field.node';
 import { createTestContext } from '../test-utils';
 
-describe('SineFieldNode', () => {
+describe('FieldGenerateSineFieldNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SineFieldNode', () => {
       phase: [0,0,0]
     } as any;
 
-    const result = await SineFieldNode.evaluate(context, inputs, params);
+    const result = await FieldGenerateSineFieldNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

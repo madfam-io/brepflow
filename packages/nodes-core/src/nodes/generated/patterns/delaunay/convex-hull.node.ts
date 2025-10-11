@@ -11,7 +11,7 @@ interface ConvexHullOutputs {
   vertices: Array<[number, number, number]>;
 }
 
-export const ConvexHullNode: NodeDefinition<ConvexHullInputs, ConvexHullOutputs, ConvexHullParams> = {
+export const PatternsDelaunayConvexHullNode: NodeDefinition<ConvexHullInputs, ConvexHullOutputs, ConvexHullParams> = {
   id: 'Patterns::ConvexHull',
   category: 'Patterns',
   label: 'ConvexHull',

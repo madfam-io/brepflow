@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SerialNumberNode } from './serial-number.node';
+import { SpecializedTextSerialNumberNode } from './serial-number.node';
 import { createTestContext } from '../test-utils';
 
-describe('SerialNumberNode', () => {
+describe('SpecializedTextSerialNumberNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('SerialNumberNode', () => {
       increment: 1
     } as any;
 
-    const result = await SerialNumberNode.evaluate(context, inputs, params);
+    const result = await SpecializedTextSerialNumberNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

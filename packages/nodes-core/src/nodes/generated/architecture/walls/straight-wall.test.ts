@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StraightWallNode } from './straight-wall.node';
+import { ArchitectureWallsStraightWallNode } from './straight-wall.node';
 import { createTestContext } from '../test-utils';
 
-describe('StraightWallNode', () => {
+describe('ArchitectureWallsStraightWallNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('StraightWallNode', () => {
       justification: "center"
     } as any;
 
-    const result = await StraightWallNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsStraightWallNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

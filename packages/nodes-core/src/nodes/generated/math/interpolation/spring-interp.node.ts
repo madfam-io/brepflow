@@ -17,7 +17,7 @@ interface SpringInterpOutputs {
   velocity: unknown;
 }
 
-export const SpringInterpNode: NodeDefinition<SpringInterpInputs, SpringInterpOutputs, SpringInterpParams> = {
+export const MathInterpolationSpringInterpNode: NodeDefinition<SpringInterpInputs, SpringInterpOutputs, SpringInterpParams> = {
   id: 'Math::SpringInterp',
   category: 'Math',
   label: 'SpringInterp',

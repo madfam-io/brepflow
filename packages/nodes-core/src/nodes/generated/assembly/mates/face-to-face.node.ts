@@ -15,7 +15,7 @@ interface FaceToFaceOutputs {
   mate: unknown;
 }
 
-export const FaceToFaceNode: NodeDefinition<FaceToFaceInputs, FaceToFaceOutputs, FaceToFaceParams> = {
+export const AssemblyMatesFaceToFaceNode: NodeDefinition<FaceToFaceInputs, FaceToFaceOutputs, FaceToFaceParams> = {
   id: 'Assembly::FaceToFace',
   category: 'Assembly',
   label: 'FaceToFace',

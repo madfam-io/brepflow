@@ -13,7 +13,7 @@ interface SplitOutputs {
   fragments: unknown;
 }
 
-export const SplitNode: NodeDefinition<SplitInputs, SplitOutputs, SplitParams> = {
+export const BooleanSplitNode: NodeDefinition<SplitInputs, SplitOutputs, SplitParams> = {
   id: 'Boolean::Split',
   category: 'Boolean',
   label: 'Split',

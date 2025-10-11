@@ -13,7 +13,7 @@ interface FieldClampOutputs {
   clamped: unknown;
 }
 
-export const FieldClampNode: NodeDefinition<FieldClampInputs, FieldClampOutputs, FieldClampParams> = {
+export const FieldOperationsFieldClampNode: NodeDefinition<FieldClampInputs, FieldClampOutputs, FieldClampParams> = {
   id: 'Field::FieldClamp',
   category: 'Field',
   label: 'FieldClamp',

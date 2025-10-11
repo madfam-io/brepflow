@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportDXFNode } from './export-dxf.node';
+import { SheetMetalUnfoldExportDXFNode } from './export-dxf.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExportDXFNode', () => {
+describe('SheetMetalUnfoldExportDXFNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ExportDXFNode', () => {
       layerMapping: "by-type"
     } as any;
 
-    const result = await ExportDXFNode.evaluate(context, inputs, params);
+    const result = await SheetMetalUnfoldExportDXFNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

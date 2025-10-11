@@ -12,7 +12,7 @@ interface InverseLerpOutputs {
   t: unknown;
 }
 
-export const InverseLerpNode: NodeDefinition<InverseLerpInputs, InverseLerpOutputs, InverseLerpParams> = {
+export const MathInterpolationInverseLerpNode: NodeDefinition<InverseLerpInputs, InverseLerpOutputs, InverseLerpParams> = {
   id: 'Math::InverseLerp',
   category: 'Math',
   label: 'InverseLerp',

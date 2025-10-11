@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { NetworkSurfaceNode } from './network-surface.node';
+import { SurfaceNURBSNetworkSurfaceNode } from './network-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('NetworkSurfaceNode', () => {
+describe('SurfaceNURBSNetworkSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('NetworkSurfaceNode', () => {
       tolerance: 0.01
     } as any;
 
-    const result = await NetworkSurfaceNode.evaluate(context, inputs, params);
+    const result = await SurfaceNURBSNetworkSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

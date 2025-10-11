@@ -15,7 +15,7 @@ interface FieldColorMapOutputs {
   coloredMesh: unknown;
 }
 
-export const FieldColorMapNode: NodeDefinition<FieldColorMapInputs, FieldColorMapOutputs, FieldColorMapParams> = {
+export const FieldsVisualizationFieldColorMapNode: NodeDefinition<FieldColorMapInputs, FieldColorMapOutputs, FieldColorMapParams> = {
   id: 'Fields::FieldColorMap',
   category: 'Fields',
   label: 'FieldColorMap',

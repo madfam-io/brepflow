@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BrimGenerationNode } from './brim-generation.node';
+import { Fabrication3DPrintingBrimGenerationNode } from './brim-generation.node';
 import { createTestContext } from '../test-utils';
 
-describe('BrimGenerationNode', () => {
+describe('Fabrication3DPrintingBrimGenerationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BrimGenerationNode', () => {
       brimLines: 20
     } as any;
 
-    const result = await BrimGenerationNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingBrimGenerationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

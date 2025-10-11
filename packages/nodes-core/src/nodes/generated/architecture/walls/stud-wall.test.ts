@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StudWallNode } from './stud-wall.node';
+import { ArchitectureWallsStudWallNode } from './stud-wall.node';
 import { createTestContext } from '../test-utils';
 
-describe('StudWallNode', () => {
+describe('ArchitectureWallsStudWallNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('StudWallNode', () => {
       studDepth: 45
     } as any;
 
-    const result = await StudWallNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsStudWallNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

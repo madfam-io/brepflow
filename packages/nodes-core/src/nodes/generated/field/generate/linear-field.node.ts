@@ -14,7 +14,7 @@ interface LinearFieldOutputs {
   field: unknown;
 }
 
-export const LinearFieldNode: NodeDefinition<LinearFieldInputs, LinearFieldOutputs, LinearFieldParams> = {
+export const FieldGenerateLinearFieldNode: NodeDefinition<LinearFieldInputs, LinearFieldOutputs, LinearFieldParams> = {
   id: 'Field::LinearField',
   category: 'Field',
   label: 'LinearField',

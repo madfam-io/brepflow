@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SimplifyMeshNode } from './simplify-mesh.node';
+import { MeshRepairSimplifyMeshNode } from './simplify-mesh.node';
 import { createTestContext } from '../test-utils';
 
-describe('SimplifyMeshNode', () => {
+describe('MeshRepairSimplifyMeshNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('SimplifyMeshNode', () => {
       maxError: 0.1
     } as any;
 
-    const result = await SimplifyMeshNode.evaluate(context, inputs, params);
+    const result = await MeshRepairSimplifyMeshNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

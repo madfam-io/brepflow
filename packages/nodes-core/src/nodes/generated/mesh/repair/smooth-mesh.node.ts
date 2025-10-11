@@ -14,7 +14,7 @@ interface SmoothMeshOutputs {
   smoothed: unknown;
 }
 
-export const SmoothMeshNode: NodeDefinition<SmoothMeshInputs, SmoothMeshOutputs, SmoothMeshParams> = {
+export const MeshRepairSmoothMeshNode: NodeDefinition<SmoothMeshInputs, SmoothMeshOutputs, SmoothMeshParams> = {
   id: 'Mesh::SmoothMesh',
   category: 'Mesh',
   label: 'SmoothMesh',

@@ -15,7 +15,7 @@ interface WrapOutputs {
   wrappedShape: unknown;
 }
 
-export const WrapNode: NodeDefinition<WrapInputs, WrapOutputs, WrapParams> = {
+export const AdvancedFeaturesWrapNode: NodeDefinition<WrapInputs, WrapOutputs, WrapParams> = {
   id: 'Advanced::Wrap',
   category: 'Advanced',
   label: 'Wrap',

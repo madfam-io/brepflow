@@ -15,7 +15,7 @@ interface FieldVolumeOutputs {
   volume: unknown;
 }
 
-export const FieldVolumeNode: NodeDefinition<FieldVolumeInputs, FieldVolumeOutputs, FieldVolumeParams> = {
+export const FieldsVisualizationFieldVolumeNode: NodeDefinition<FieldVolumeInputs, FieldVolumeOutputs, FieldVolumeParams> = {
   id: 'Fields::FieldVolume',
   category: 'Fields',
   label: 'FieldVolume',

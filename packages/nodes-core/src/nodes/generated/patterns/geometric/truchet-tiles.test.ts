@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TruchetTilesNode } from './truchet-tiles.node';
+import { PatternsGeometricTruchetTilesNode } from './truchet-tiles.node';
 import { createTestContext } from '../test-utils';
 
-describe('TruchetTilesNode', () => {
+describe('PatternsGeometricTruchetTilesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('TruchetTilesNode', () => {
       randomSeed: 0
     } as any;
 
-    const result = await TruchetTilesNode.evaluate(context, inputs, params);
+    const result = await PatternsGeometricTruchetTilesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

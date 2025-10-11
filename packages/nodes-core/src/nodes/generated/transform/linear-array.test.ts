@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinearArrayNode } from './linear-array.node';
+import { TransformLinearArrayNode } from './linear-array.node';
 import { createTestContext } from '../test-utils';
 
-describe('LinearArrayNode', () => {
+describe('TransformLinearArrayNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('LinearArrayNode', () => {
       merge: false
     } as any;
 
-    const result = await LinearArrayNode.evaluate(context, inputs, params);
+    const result = await TransformLinearArrayNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface SubdivisionSurfaceOutputs {
   subdivided: unknown;
 }
 
-export const SubdivisionSurfaceNode: NodeDefinition<SubdivisionSurfaceInputs, SubdivisionSurfaceOutputs, SubdivisionSurfaceParams> = {
+export const PatternsAlgorithmicSubdivisionSurfaceNode: NodeDefinition<SubdivisionSurfaceInputs, SubdivisionSurfaceOutputs, SubdivisionSurfaceParams> = {
   id: 'Patterns::SubdivisionSurface',
   category: 'Patterns',
   label: 'SubdivisionSurface',

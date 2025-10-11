@@ -14,7 +14,7 @@ interface TiltUpPanelOutputs {
   liftingPoints: Array<[number, number, number]>;
 }
 
-export const TiltUpPanelNode: NodeDefinition<TiltUpPanelInputs, TiltUpPanelOutputs, TiltUpPanelParams> = {
+export const ArchitectureWallsTiltUpPanelNode: NodeDefinition<TiltUpPanelInputs, TiltUpPanelOutputs, TiltUpPanelParams> = {
   id: 'Architecture::TiltUpPanel',
   category: 'Architecture',
   label: 'TiltUpPanel',

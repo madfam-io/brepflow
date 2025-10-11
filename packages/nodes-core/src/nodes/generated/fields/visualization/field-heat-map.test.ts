@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldHeatMapNode } from './field-heat-map.node';
+import { FieldsVisualizationFieldHeatMapNode } from './field-heat-map.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldHeatMapNode', () => {
+describe('FieldsVisualizationFieldHeatMapNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FieldHeatMapNode', () => {
       interpolation: "\"bilinear\""
     } as any;
 
-    const result = await FieldHeatMapNode.evaluate(context, inputs, params);
+    const result = await FieldsVisualizationFieldHeatMapNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

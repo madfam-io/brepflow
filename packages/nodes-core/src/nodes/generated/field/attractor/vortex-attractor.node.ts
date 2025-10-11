@@ -15,7 +15,7 @@ interface VortexAttractorOutputs {
   field: unknown;
 }
 
-export const VortexAttractorNode: NodeDefinition<VortexAttractorInputs, VortexAttractorOutputs, VortexAttractorParams> = {
+export const FieldAttractorVortexAttractorNode: NodeDefinition<VortexAttractorInputs, VortexAttractorOutputs, VortexAttractorParams> = {
   id: 'Field::VortexAttractor',
   category: 'Field',
   label: 'VortexAttractor',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveTorsionNode } from './curve-torsion.node';
+import { AnalysisCurvesCurveTorsionNode } from './curve-torsion.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurveTorsionNode', () => {
+describe('AnalysisCurvesCurveTorsionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CurveTorsionNode', () => {
       showGraph: true
     } as any;
 
-    const result = await CurveTorsionNode.evaluate(context, inputs, params);
+    const result = await AnalysisCurvesCurveTorsionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -13,7 +13,7 @@ interface PenroseTilingOutputs {
   tiles: unknown;
 }
 
-export const PenroseTilingNode: NodeDefinition<PenroseTilingInputs, PenroseTilingOutputs, PenroseTilingParams> = {
+export const PatternsGeometricPenroseTilingNode: NodeDefinition<PenroseTilingInputs, PenroseTilingOutputs, PenroseTilingParams> = {
   id: 'Patterns::PenroseTiling',
   category: 'Patterns',
   label: 'PenroseTiling',

@@ -15,7 +15,7 @@ interface RevoluteOutputs {
   joint: unknown;
 }
 
-export const RevoluteNode: NodeDefinition<RevoluteInputs, RevoluteOutputs, RevoluteParams> = {
+export const AssemblyJointsRevoluteNode: NodeDefinition<RevoluteInputs, RevoluteOutputs, RevoluteParams> = {
   id: 'Assembly::Revolute',
   category: 'Assembly',
   label: 'Revolute',

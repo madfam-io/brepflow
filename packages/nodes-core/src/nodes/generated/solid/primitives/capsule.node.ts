@@ -11,7 +11,7 @@ interface CapsuleOutputs {
   solid: unknown;
 }
 
-export const CapsuleNode: NodeDefinition<CapsuleInputs, CapsuleOutputs, CapsuleParams> = {
+export const SolidPrimitivesCapsuleNode: NodeDefinition<CapsuleInputs, CapsuleOutputs, CapsuleParams> = {
   id: 'Solid::Capsule',
   category: 'Solid',
   label: 'Capsule',

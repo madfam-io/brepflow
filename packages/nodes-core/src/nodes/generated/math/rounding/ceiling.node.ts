@@ -10,7 +10,7 @@ interface CeilingOutputs {
   result: unknown;
 }
 
-export const CeilingNode: NodeDefinition<CeilingInputs, CeilingOutputs, CeilingParams> = {
+export const MathRoundingCeilingNode: NodeDefinition<CeilingInputs, CeilingOutputs, CeilingParams> = {
   id: 'Math::Ceiling',
   category: 'Math',
   label: 'Ceiling',

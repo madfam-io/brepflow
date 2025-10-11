@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldPotentialNode } from './field-potential.node';
+import { FieldsAnalysisFieldPotentialNode } from './field-potential.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldPotentialNode', () => {
+describe('FieldsAnalysisFieldPotentialNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FieldPotentialNode', () => {
       referencePoint: "[0, 0, 0]"
     } as any;
 
-    const result = await FieldPotentialNode.evaluate(context, inputs, params);
+    const result = await FieldsAnalysisFieldPotentialNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

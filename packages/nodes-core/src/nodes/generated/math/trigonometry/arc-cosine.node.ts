@@ -12,7 +12,7 @@ interface ArcCosineOutputs {
   angle: unknown;
 }
 
-export const ArcCosineNode: NodeDefinition<ArcCosineInputs, ArcCosineOutputs, ArcCosineParams> = {
+export const MathTrigonometryArcCosineNode: NodeDefinition<ArcCosineInputs, ArcCosineOutputs, ArcCosineParams> = {
   id: 'Math::ArcCosine',
   category: 'Math',
   label: 'ArcCosine',

@@ -12,7 +12,7 @@ interface TreeStatisticsOutputs {
   depth: unknown;
 }
 
-export const TreeStatisticsNode: NodeDefinition<TreeStatisticsInputs, TreeStatisticsOutputs, TreeStatisticsParams> = {
+export const DataTreeTreeStatisticsNode: NodeDefinition<TreeStatisticsInputs, TreeStatisticsOutputs, TreeStatisticsParams> = {
   id: 'Data::TreeStatistics',
   category: 'Data',
   label: 'TreeStatistics',

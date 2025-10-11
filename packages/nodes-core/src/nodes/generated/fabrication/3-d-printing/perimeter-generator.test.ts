@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PerimeterGeneratorNode } from './perimeter-generator.node';
+import { Fabrication3DPrintingPerimeterGeneratorNode } from './perimeter-generator.node';
 import { createTestContext } from '../test-utils';
 
-describe('PerimeterGeneratorNode', () => {
+describe('Fabrication3DPrintingPerimeterGeneratorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('PerimeterGeneratorNode', () => {
       extrusionWidth: 0.4
     } as any;
 
-    const result = await PerimeterGeneratorNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingPerimeterGeneratorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

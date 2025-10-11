@@ -13,7 +13,7 @@ interface AcousticCeilingOutputs {
   acousticCeiling: unknown;
 }
 
-export const AcousticCeilingNode: NodeDefinition<AcousticCeilingInputs, AcousticCeilingOutputs, AcousticCeilingParams> = {
+export const ArchitectureCeilingsAcousticCeilingNode: NodeDefinition<AcousticCeilingInputs, AcousticCeilingOutputs, AcousticCeilingParams> = {
   id: 'Architecture::AcousticCeiling',
   category: 'Architecture',
   label: 'AcousticCeiling',

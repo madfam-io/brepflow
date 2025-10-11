@@ -14,7 +14,7 @@ interface Fillet2DOutputs {
   filleted: unknown;
 }
 
-export const Fillet2DNode: NodeDefinition<Fillet2DInputs, Fillet2DOutputs, Fillet2DParams> = {
+export const SketchCurvesFillet2DNode: NodeDefinition<Fillet2DInputs, Fillet2DOutputs, Fillet2DParams> = {
   id: 'Sketch::Fillet2D',
   category: 'Sketch',
   label: 'Fillet2D',

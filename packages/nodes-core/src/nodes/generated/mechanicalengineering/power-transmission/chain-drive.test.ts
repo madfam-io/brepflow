@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ChainDriveNode } from './chain-drive.node';
+import { MechanicalEngineeringPowerTransmissionChainDriveNode } from './chain-drive.node';
 import { createTestContext } from '../test-utils';
 
-describe('ChainDriveNode', () => {
+describe('MechanicalEngineeringPowerTransmissionChainDriveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('ChainDriveNode', () => {
       chainRows: 1
     } as any;
 
-    const result = await ChainDriveNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringPowerTransmissionChainDriveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

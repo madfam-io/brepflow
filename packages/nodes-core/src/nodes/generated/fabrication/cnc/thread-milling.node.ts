@@ -14,7 +14,7 @@ interface ThreadMillingOutputs {
   threadPaths: unknown;
 }
 
-export const ThreadMillingNode: NodeDefinition<ThreadMillingInputs, ThreadMillingOutputs, ThreadMillingParams> = {
+export const FabricationCNCThreadMillingNode: NodeDefinition<ThreadMillingInputs, ThreadMillingOutputs, ThreadMillingParams> = {
   id: 'Fabrication::ThreadMilling',
   category: 'Fabrication',
   label: 'ThreadMilling',

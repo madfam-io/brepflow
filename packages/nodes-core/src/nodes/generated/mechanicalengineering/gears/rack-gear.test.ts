@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RackGearNode } from './rack-gear.node';
+import { MechanicalEngineeringGearsRackGearNode } from './rack-gear.node';
 import { createTestContext } from '../test-utils';
 
-describe('RackGearNode', () => {
+describe('MechanicalEngineeringGearsRackGearNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('RackGearNode', () => {
       height: 15
     } as any;
 
-    const result = await RackGearNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringGearsRackGearNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

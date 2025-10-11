@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RectangularPocketNode } from './rectangular-pocket.node';
+import { FeaturesPocketsRectangularPocketNode } from './rectangular-pocket.node';
 import { createTestContext } from '../test-utils';
 
-describe('RectangularPocketNode', () => {
+describe('FeaturesPocketsRectangularPocketNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('RectangularPocketNode', () => {
       draftAngle: 0
     } as any;
 
-    const result = await RectangularPocketNode.evaluate(context, inputs, params);
+    const result = await FeaturesPocketsRectangularPocketNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

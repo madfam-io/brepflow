@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SeamOptimizationNode } from './seam-optimization.node';
+import { Fabrication3DPrintingSeamOptimizationNode } from './seam-optimization.node';
 import { createTestContext } from '../test-utils';
 
-describe('SeamOptimizationNode', () => {
+describe('Fabrication3DPrintingSeamOptimizationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('SeamOptimizationNode', () => {
       strategy: "hidden"
     } as any;
 
-    const result = await SeamOptimizationNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingSeamOptimizationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

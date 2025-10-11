@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { OffsetNode } from './offset.node';
+import { SketchCurvesOffsetNode } from './offset.node';
 import { createTestContext } from '../test-utils';
 
-describe('OffsetNode', () => {
+describe('SketchCurvesOffsetNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('OffsetNode', () => {
       side: "right"
     } as any;
 
-    const result = await OffsetNode.evaluate(context, inputs, params);
+    const result = await SketchCurvesOffsetNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

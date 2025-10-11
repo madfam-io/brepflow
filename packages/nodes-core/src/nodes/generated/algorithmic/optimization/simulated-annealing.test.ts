@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SimulatedAnnealingNode } from './simulated-annealing.node';
+import { AlgorithmicOptimizationSimulatedAnnealingNode } from './simulated-annealing.node';
 import { createTestContext } from '../test-utils';
 
-describe('SimulatedAnnealingNode', () => {
+describe('AlgorithmicOptimizationSimulatedAnnealingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('SimulatedAnnealingNode', () => {
       maxIterations: 1000
     } as any;
 
-    const result = await SimulatedAnnealingNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicOptimizationSimulatedAnnealingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

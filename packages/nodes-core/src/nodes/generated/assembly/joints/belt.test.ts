@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BeltNode } from './belt.node';
+import { AssemblyJointsBeltNode } from './belt.node';
 import { createTestContext } from '../test-utils';
 
-describe('BeltNode', () => {
+describe('AssemblyJointsBeltNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BeltNode', () => {
       ratio: 1
     } as any;
 
-    const result = await BeltNode.evaluate(context, inputs, params);
+    const result = await AssemblyJointsBeltNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

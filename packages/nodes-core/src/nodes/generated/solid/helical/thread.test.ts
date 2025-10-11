@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ThreadNode } from './thread.node';
+import { SolidHelicalThreadNode } from './thread.node';
 import { createTestContext } from '../test-utils';
 
-describe('ThreadNode', () => {
+describe('SolidHelicalThreadNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('ThreadNode', () => {
       internal: false
     } as any;
 
-    const result = await ThreadNode.evaluate(context, inputs, params);
+    const result = await SolidHelicalThreadNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

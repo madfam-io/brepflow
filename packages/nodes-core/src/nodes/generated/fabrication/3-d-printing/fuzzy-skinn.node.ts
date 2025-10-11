@@ -13,7 +13,7 @@ interface FuzzySkinnOutputs {
   fuzzyPerimeters: unknown;
 }
 
-export const FuzzySkinnNode: NodeDefinition<FuzzySkinnInputs, FuzzySkinnOutputs, FuzzySkinnParams> = {
+export const Fabrication3DPrintingFuzzySkinnNode: NodeDefinition<FuzzySkinnInputs, FuzzySkinnOutputs, FuzzySkinnParams> = {
   id: 'Fabrication::FuzzySkinn',
   category: 'Fabrication',
   label: 'FuzzySkinn',

@@ -16,7 +16,7 @@ interface ImportSTEPOutputs {
   metadata: unknown;
 }
 
-export const ImportSTEPNode: NodeDefinition<ImportSTEPInputs, ImportSTEPOutputs, ImportSTEPParams> = {
+export const IOCADImportSTEPNode: NodeDefinition<ImportSTEPInputs, ImportSTEPOutputs, ImportSTEPParams> = {
   id: 'IO::ImportSTEP',
   category: 'IO',
   label: 'ImportSTEP',

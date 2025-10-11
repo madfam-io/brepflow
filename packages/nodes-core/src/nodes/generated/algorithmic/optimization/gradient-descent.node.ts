@@ -19,7 +19,7 @@ interface GradientDescentOutputs {
   convergence: unknown;
 }
 
-export const GradientDescentNode: NodeDefinition<GradientDescentInputs, GradientDescentOutputs, GradientDescentParams> = {
+export const AlgorithmicOptimizationGradientDescentNode: NodeDefinition<GradientDescentInputs, GradientDescentOutputs, GradientDescentParams> = {
   id: 'Algorithmic::GradientDescent',
   category: 'Algorithmic',
   label: 'GradientDescent',

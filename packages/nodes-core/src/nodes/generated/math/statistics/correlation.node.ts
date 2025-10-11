@@ -11,7 +11,7 @@ interface CorrelationOutputs {
   correlation: unknown;
 }
 
-export const CorrelationNode: NodeDefinition<CorrelationInputs, CorrelationOutputs, CorrelationParams> = {
+export const MathStatisticsCorrelationNode: NodeDefinition<CorrelationInputs, CorrelationOutputs, CorrelationParams> = {
   id: 'Math::Correlation',
   category: 'Math',
   label: 'Correlation',

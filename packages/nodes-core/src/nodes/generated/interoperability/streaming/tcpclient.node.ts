@@ -16,7 +16,7 @@ interface TCPClientOutputs {
   error: unknown;
 }
 
-export const TCPClientNode: NodeDefinition<TCPClientInputs, TCPClientOutputs, TCPClientParams> = {
+export const InteroperabilityStreamingTCPClientNode: NodeDefinition<TCPClientInputs, TCPClientOutputs, TCPClientParams> = {
   id: 'Interoperability::TCPClient',
   category: 'Interoperability',
   label: 'TCPClient',

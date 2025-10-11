@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TessellateNode } from './tessellate.node';
+import { MeshTessellationTessellateNode } from './tessellate.node';
 import { createTestContext } from '../test-utils';
 
-describe('TessellateNode', () => {
+describe('MeshTessellationTessellateNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('TessellateNode', () => {
       qualityNormals: true
     } as any;
 
-    const result = await TessellateNode.evaluate(context, inputs, params);
+    const result = await MeshTessellationTessellateNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

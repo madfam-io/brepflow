@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GreenRoofNode } from './green-roof.node';
+import { ArchitectureFloorsGreenRoofNode } from './green-roof.node';
 import { createTestContext } from '../test-utils';
 
-describe('GreenRoofNode', () => {
+describe('ArchitectureFloorsGreenRoofNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('GreenRoofNode', () => {
       soilDepth: 100
     } as any;
 
-    const result = await GreenRoofNode.evaluate(context, inputs, params);
+    const result = await ArchitectureFloorsGreenRoofNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

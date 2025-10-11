@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SetSubsetNode } from './set-subset.node';
+import { DataSetSetSubsetNode } from './set-subset.node';
 import { createTestContext } from '../test-utils';
 
-describe('SetSubsetNode', () => {
+describe('DataSetSetSubsetNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SetSubsetNode', () => {
 
     } as any;
 
-    const result = await SetSubsetNode.evaluate(context, inputs, params);
+    const result = await DataSetSetSubsetNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -15,7 +15,7 @@ interface GrammarShapesOutputs {
   result: unknown;
 }
 
-export const GrammarShapesNode: NodeDefinition<GrammarShapesInputs, GrammarShapesOutputs, GrammarShapesParams> = {
+export const PatternsProceduralGrammarShapesNode: NodeDefinition<GrammarShapesInputs, GrammarShapesOutputs, GrammarShapesParams> = {
   id: 'Patterns::GrammarShapes',
   category: 'Patterns',
   label: 'GrammarShapes',

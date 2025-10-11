@@ -14,7 +14,7 @@ interface GothicWindowOutputs {
   tracery: unknown;
 }
 
-export const GothicWindowNode: NodeDefinition<GothicWindowInputs, GothicWindowOutputs, GothicWindowParams> = {
+export const ArchitectureWindowsGothicWindowNode: NodeDefinition<GothicWindowInputs, GothicWindowOutputs, GothicWindowParams> = {
   id: 'Architecture::GothicWindow',
   category: 'Architecture',
   label: 'GothicWindow',

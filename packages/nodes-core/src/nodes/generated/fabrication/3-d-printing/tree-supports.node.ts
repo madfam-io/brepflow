@@ -14,7 +14,7 @@ interface TreeSupportsOutputs {
   treeSupports: unknown;
 }
 
-export const TreeSupportsNode: NodeDefinition<TreeSupportsInputs, TreeSupportsOutputs, TreeSupportsParams> = {
+export const Fabrication3DPrintingTreeSupportsNode: NodeDefinition<TreeSupportsInputs, TreeSupportsOutputs, TreeSupportsParams> = {
   id: 'Fabrication::TreeSupports',
   category: 'Fabrication',
   label: 'TreeSupports',

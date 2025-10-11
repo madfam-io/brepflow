@@ -12,7 +12,7 @@ interface ListReplaceOutputs {
   result: unknown;
 }
 
-export const ListReplaceNode: NodeDefinition<ListReplaceInputs, ListReplaceOutputs, ListReplaceParams> = {
+export const DataListListReplaceNode: NodeDefinition<ListReplaceInputs, ListReplaceOutputs, ListReplaceParams> = {
   id: 'Data::ListReplace',
   category: 'Data',
   label: 'ListReplace',

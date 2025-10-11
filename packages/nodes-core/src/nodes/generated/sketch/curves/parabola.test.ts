@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ParabolaNode } from './parabola.node';
+import { SketchCurvesParabolaNode } from './parabola.node';
 import { createTestContext } from '../test-utils';
 
-describe('ParabolaNode', () => {
+describe('SketchCurvesParabolaNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ParabolaNode', () => {
       endParam: 100
     } as any;
 
-    const result = await ParabolaNode.evaluate(context, inputs, params);
+    const result = await SketchCurvesParabolaNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -14,7 +14,7 @@ interface VoronoiGrowthOutputs {
   pattern: unknown;
 }
 
-export const VoronoiGrowthNode: NodeDefinition<VoronoiGrowthInputs, VoronoiGrowthOutputs, VoronoiGrowthParams> = {
+export const PatternsVoronoiVoronoiGrowthNode: NodeDefinition<VoronoiGrowthInputs, VoronoiGrowthOutputs, VoronoiGrowthParams> = {
   id: 'Patterns::VoronoiGrowth',
   category: 'Patterns',
   label: 'VoronoiGrowth',

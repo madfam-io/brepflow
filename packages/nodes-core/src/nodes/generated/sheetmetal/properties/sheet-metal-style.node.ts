@@ -14,7 +14,7 @@ interface SheetMetalStyleOutputs {
   style: unknown;
 }
 
-export const SheetMetalStyleNode: NodeDefinition<SheetMetalStyleInputs, SheetMetalStyleOutputs, SheetMetalStyleParams> = {
+export const SheetMetalPropertiesSheetMetalStyleNode: NodeDefinition<SheetMetalStyleInputs, SheetMetalStyleOutputs, SheetMetalStyleParams> = {
   id: 'SheetMetal::SheetMetalStyle',
   category: 'SheetMetal',
   label: 'SheetMetalStyle',

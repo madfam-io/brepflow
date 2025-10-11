@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { JointDefinitionNode } from './joint-definition.node';
+import { SimulationKinematicsJointDefinitionNode } from './joint-definition.node';
 import { createTestContext } from '../test-utils';
 
-describe('JointDefinitionNode', () => {
+describe('SimulationKinematicsJointDefinitionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('JointDefinitionNode', () => {
       maxLimit: 180
     } as any;
 
-    const result = await JointDefinitionNode.evaluate(context, inputs, params);
+    const result = await SimulationKinematicsJointDefinitionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

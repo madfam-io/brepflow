@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FromJSONNode } from './from-json.node';
+import { DataConvertFromJSONNode } from './from-json.node';
 import { createTestContext } from '../test-utils';
 
-describe('FromJSONNode', () => {
+describe('DataConvertFromJSONNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FromJSONNode', () => {
 
     } as any;
 
-    const result = await FromJSONNode.evaluate(context, inputs, params);
+    const result = await DataConvertFromJSONNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -18,7 +18,7 @@ interface HelicalSweepOutputs {
   shape: unknown;
 }
 
-export const HelicalSweepNode: NodeDefinition<HelicalSweepInputs, HelicalSweepOutputs, HelicalSweepParams> = {
+export const AdvancedSweepHelicalSweepNode: NodeDefinition<HelicalSweepInputs, HelicalSweepOutputs, HelicalSweepParams> = {
   id: 'Advanced::HelicalSweep',
   category: 'Advanced',
   label: 'HelicalSweep',

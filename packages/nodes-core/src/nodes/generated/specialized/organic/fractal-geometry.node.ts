@@ -14,7 +14,7 @@ interface FractalGeometryOutputs {
   fractal: unknown;
 }
 
-export const FractalGeometryNode: NodeDefinition<FractalGeometryInputs, FractalGeometryOutputs, FractalGeometryParams> = {
+export const SpecializedOrganicFractalGeometryNode: NodeDefinition<FractalGeometryInputs, FractalGeometryOutputs, FractalGeometryParams> = {
   id: 'Specialized::FractalGeometry',
   category: 'Specialized',
   label: 'FractalGeometry',

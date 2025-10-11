@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BrickPatternNode } from './brick-pattern.node';
+import { PatternsTilingBrickPatternNode } from './brick-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('BrickPatternNode', () => {
+describe('PatternsTilingBrickPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('BrickPatternNode', () => {
       mortarGap: 1
     } as any;
 
-    const result = await BrickPatternNode.evaluate(context, inputs, params);
+    const result = await PatternsTilingBrickPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

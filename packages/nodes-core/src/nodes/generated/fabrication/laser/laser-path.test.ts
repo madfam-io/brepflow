@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LaserPathNode } from './laser-path.node';
+import { FabricationLaserLaserPathNode } from './laser-path.node';
 import { createTestContext } from '../test-utils';
 
-describe('LaserPathNode', () => {
+describe('FabricationLaserLaserPathNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('LaserPathNode', () => {
       cornerRadius: 0
     } as any;
 
-    const result = await LaserPathNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserLaserPathNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

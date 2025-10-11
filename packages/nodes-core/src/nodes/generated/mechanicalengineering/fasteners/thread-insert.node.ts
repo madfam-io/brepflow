@@ -15,7 +15,7 @@ interface ThreadInsertOutputs {
   installation_hole: unknown;
 }
 
-export const ThreadInsertNode: NodeDefinition<ThreadInsertInputs, ThreadInsertOutputs, ThreadInsertParams> = {
+export const MechanicalEngineeringFastenersThreadInsertNode: NodeDefinition<ThreadInsertInputs, ThreadInsertOutputs, ThreadInsertParams> = {
   id: 'MechanicalEngineering::ThreadInsert',
   category: 'MechanicalEngineering',
   label: 'ThreadInsert',

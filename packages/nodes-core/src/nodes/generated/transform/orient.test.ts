@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { OrientNode } from './orient.node';
+import { TransformOrientNode } from './orient.node';
 import { createTestContext } from '../test-utils';
 
-describe('OrientNode', () => {
+describe('TransformOrientNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('OrientNode', () => {
 
     } as any;
 
-    const result = await OrientNode.evaluate(context, inputs, params);
+    const result = await TransformOrientNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

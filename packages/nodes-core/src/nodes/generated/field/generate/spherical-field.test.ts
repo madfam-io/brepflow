@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SphericalFieldNode } from './spherical-field.node';
+import { FieldGenerateSphericalFieldNode } from './spherical-field.node';
 import { createTestContext } from '../test-utils';
 
-describe('SphericalFieldNode', () => {
+describe('FieldGenerateSphericalFieldNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SphericalFieldNode', () => {
       falloff: "smooth"
     } as any;
 
-    const result = await SphericalFieldNode.evaluate(context, inputs, params);
+    const result = await FieldGenerateSphericalFieldNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

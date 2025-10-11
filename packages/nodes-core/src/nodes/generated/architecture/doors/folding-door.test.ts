@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FoldingDoorNode } from './folding-door.node';
+import { ArchitectureDoorsFoldingDoorNode } from './folding-door.node';
 import { createTestContext } from '../test-utils';
 
-describe('FoldingDoorNode', () => {
+describe('ArchitectureDoorsFoldingDoorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FoldingDoorNode', () => {
       foldDirection: "left"
     } as any;
 
-    const result = await FoldingDoorNode.evaluate(context, inputs, params);
+    const result = await ArchitectureDoorsFoldingDoorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

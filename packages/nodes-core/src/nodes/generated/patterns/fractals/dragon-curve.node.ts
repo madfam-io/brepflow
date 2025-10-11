@@ -13,7 +13,7 @@ interface DragonCurveOutputs {
   curve: unknown;
 }
 
-export const DragonCurveNode: NodeDefinition<DragonCurveInputs, DragonCurveOutputs, DragonCurveParams> = {
+export const PatternsFractalsDragonCurveNode: NodeDefinition<DragonCurveInputs, DragonCurveOutputs, DragonCurveParams> = {
   id: 'Patterns::DragonCurve',
   category: 'Patterns',
   label: 'DragonCurve',

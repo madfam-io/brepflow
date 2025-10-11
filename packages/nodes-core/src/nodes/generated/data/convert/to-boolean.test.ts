@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ToBooleanNode } from './to-boolean.node';
+import { DataConvertToBooleanNode } from './to-boolean.node';
 import { createTestContext } from '../test-utils';
 
-describe('ToBooleanNode', () => {
+describe('DataConvertToBooleanNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('ToBooleanNode', () => {
 
     } as any;
 
-    const result = await ToBooleanNode.evaluate(context, inputs, params);
+    const result = await DataConvertToBooleanNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

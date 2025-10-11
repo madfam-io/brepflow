@@ -14,7 +14,7 @@ interface IslamicStarOutputs {
   pattern: unknown;
 }
 
-export const IslamicStarNode: NodeDefinition<IslamicStarInputs, IslamicStarOutputs, IslamicStarParams> = {
+export const PatternsIslamicIslamicStarNode: NodeDefinition<IslamicStarInputs, IslamicStarOutputs, IslamicStarParams> = {
   id: 'Patterns::IslamicStar',
   category: 'Patterns',
   label: 'IslamicStar',

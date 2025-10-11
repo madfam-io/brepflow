@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { RoboticMillingNode } from './robotic-milling.node';
+import { FabricationRoboticsRoboticMillingNode } from './robotic-milling.node';
 import { createTestContext } from '../test-utils';
 
-describe('RoboticMillingNode', () => {
+describe('FabricationRoboticsRoboticMillingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('RoboticMillingNode', () => {
       feedRate: 1000
     } as any;
 
-    const result = await RoboticMillingNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsRoboticMillingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

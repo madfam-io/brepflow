@@ -19,7 +19,7 @@ interface ScaleOutputs {
   scaled: unknown;
 }
 
-export const ScaleNode: NodeDefinition<ScaleInputs, ScaleOutputs, ScaleParams> = {
+export const TransformScaleNode: NodeDefinition<ScaleInputs, ScaleOutputs, ScaleParams> = {
   id: 'Transform::Scale',
   category: 'Transform',
   label: 'Scale',

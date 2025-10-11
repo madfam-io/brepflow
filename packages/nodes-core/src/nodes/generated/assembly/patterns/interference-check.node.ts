@@ -13,7 +13,7 @@ interface InterferenceCheckOutputs {
   hasInterference: unknown;
 }
 
-export const InterferenceCheckNode: NodeDefinition<InterferenceCheckInputs, InterferenceCheckOutputs, InterferenceCheckParams> = {
+export const AssemblyPatternsInterferenceCheckNode: NodeDefinition<InterferenceCheckInputs, InterferenceCheckOutputs, InterferenceCheckParams> = {
   id: 'Assembly::InterferenceCheck',
   category: 'Assembly',
   label: 'InterferenceCheck',

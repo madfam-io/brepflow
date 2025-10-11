@@ -15,7 +15,7 @@ interface SupportGenerationOutputs {
   supportedModel: unknown;
 }
 
-export const SupportGenerationNode: NodeDefinition<SupportGenerationInputs, SupportGenerationOutputs, SupportGenerationParams> = {
+export const Fabrication3DPrintingSupportGenerationNode: NodeDefinition<SupportGenerationInputs, SupportGenerationOutputs, SupportGenerationParams> = {
   id: 'Fabrication::SupportGeneration',
   category: 'Fabrication',
   label: 'SupportGeneration',

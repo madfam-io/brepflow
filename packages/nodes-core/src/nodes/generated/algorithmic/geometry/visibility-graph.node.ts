@@ -17,7 +17,7 @@ interface VisibilityGraphOutputs {
   edges: unknown;
 }
 
-export const VisibilityGraphNode: NodeDefinition<VisibilityGraphInputs, VisibilityGraphOutputs, VisibilityGraphParams> = {
+export const AlgorithmicGeometryVisibilityGraphNode: NodeDefinition<VisibilityGraphInputs, VisibilityGraphOutputs, VisibilityGraphParams> = {
   id: 'Algorithmic::VisibilityGraph',
   category: 'Algorithmic',
   label: 'VisibilityGraph',

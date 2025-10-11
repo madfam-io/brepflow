@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PrintOrientationNode } from './print-orientation.node';
+import { Fabrication3DPrintingPrintOrientationNode } from './print-orientation.node';
 import { createTestContext } from '../test-utils';
 
-describe('PrintOrientationNode', () => {
+describe('Fabrication3DPrintingPrintOrientationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('PrintOrientationNode', () => {
       constraints: false
     } as any;
 
-    const result = await PrintOrientationNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingPrintOrientationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

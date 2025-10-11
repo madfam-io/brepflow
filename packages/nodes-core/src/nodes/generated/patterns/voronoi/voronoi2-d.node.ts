@@ -15,7 +15,7 @@ interface Voronoi2DOutputs {
   edges: unknown;
 }
 
-export const Voronoi2DNode: NodeDefinition<Voronoi2DInputs, Voronoi2DOutputs, Voronoi2DParams> = {
+export const PatternsVoronoiVoronoi2DNode: NodeDefinition<Voronoi2DInputs, Voronoi2DOutputs, Voronoi2DParams> = {
   id: 'Patterns::Voronoi2D',
   category: 'Patterns',
   label: 'Voronoi2D',

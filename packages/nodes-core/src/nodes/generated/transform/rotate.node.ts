@@ -19,7 +19,7 @@ interface RotateOutputs {
   rotated: unknown;
 }
 
-export const RotateNode: NodeDefinition<RotateInputs, RotateOutputs, RotateParams> = {
+export const TransformRotateNode: NodeDefinition<RotateInputs, RotateOutputs, RotateParams> = {
   id: 'Transform::Rotate',
   category: 'Transform',
   label: 'Rotate',

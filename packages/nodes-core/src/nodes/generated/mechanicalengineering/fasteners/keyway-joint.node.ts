@@ -17,7 +17,7 @@ interface KeywayJointOutputs {
   keyway: unknown;
 }
 
-export const KeywayJointNode: NodeDefinition<KeywayJointInputs, KeywayJointOutputs, KeywayJointParams> = {
+export const MechanicalEngineeringFastenersKeywayJointNode: NodeDefinition<KeywayJointInputs, KeywayJointOutputs, KeywayJointParams> = {
   id: 'MechanicalEngineering::KeywayJoint',
   category: 'MechanicalEngineering',
   label: 'KeywayJoint',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CeilingBeamNode } from './ceiling-beam.node';
+import { ArchitectureCeilingsCeilingBeamNode } from './ceiling-beam.node';
 import { createTestContext } from '../test-utils';
 
-describe('CeilingBeamNode', () => {
+describe('ArchitectureCeilingsCeilingBeamNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CeilingBeamNode', () => {
       spacing: 1200
     } as any;
 
-    const result = await CeilingBeamNode.evaluate(context, inputs, params);
+    const result = await ArchitectureCeilingsCeilingBeamNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

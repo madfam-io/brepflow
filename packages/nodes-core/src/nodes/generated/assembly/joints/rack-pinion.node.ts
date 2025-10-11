@@ -13,7 +13,7 @@ interface RackPinionOutputs {
   joint: unknown;
 }
 
-export const RackPinionNode: NodeDefinition<RackPinionInputs, RackPinionOutputs, RackPinionParams> = {
+export const AssemblyJointsRackPinionNode: NodeDefinition<RackPinionInputs, RackPinionOutputs, RackPinionParams> = {
   id: 'Assembly::RackPinion',
   category: 'Assembly',
   label: 'RackPinion',

@@ -13,7 +13,7 @@ interface FireWallOutputs {
   fireWall: unknown;
 }
 
-export const FireWallNode: NodeDefinition<FireWallInputs, FireWallOutputs, FireWallParams> = {
+export const ArchitectureWallsFireWallNode: NodeDefinition<FireWallInputs, FireWallOutputs, FireWallParams> = {
   id: 'Architecture::FireWall',
   category: 'Architecture',
   label: 'FireWall',

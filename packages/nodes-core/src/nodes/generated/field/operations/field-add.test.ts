@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldAddNode } from './field-add.node';
+import { FieldOperationsFieldAddNode } from './field-add.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldAddNode', () => {
+describe('FieldOperationsFieldAddNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FieldAddNode', () => {
 
     } as any;
 
-    const result = await FieldAddNode.evaluate(context, inputs, params);
+    const result = await FieldOperationsFieldAddNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

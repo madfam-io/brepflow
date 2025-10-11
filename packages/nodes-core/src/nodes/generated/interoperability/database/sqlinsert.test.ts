@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SQLInsertNode } from './sqlinsert.node';
+import { InteroperabilityDatabaseSQLInsertNode } from './sqlinsert.node';
 import { createTestContext } from '../test-utils';
 
-describe('SQLInsertNode', () => {
+describe('InteroperabilityDatabaseSQLInsertNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SQLInsertNode', () => {
       batchSize: 100
     } as any;
 
-    const result = await SQLInsertNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityDatabaseSQLInsertNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

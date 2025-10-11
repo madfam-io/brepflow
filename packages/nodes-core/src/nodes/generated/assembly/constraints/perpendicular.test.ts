@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PerpendicularNode } from './perpendicular.node';
+import { AssemblyConstraintsPerpendicularNode } from './perpendicular.node';
 import { createTestContext } from '../test-utils';
 
-describe('PerpendicularNode', () => {
+describe('AssemblyConstraintsPerpendicularNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('PerpendicularNode', () => {
 
     } as any;
 
-    const result = await PerpendicularNode.evaluate(context, inputs, params);
+    const result = await AssemblyConstraintsPerpendicularNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

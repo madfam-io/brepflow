@@ -15,7 +15,7 @@ interface RestMachiningOutputs {
   restPaths: unknown;
 }
 
-export const RestMachiningNode: NodeDefinition<RestMachiningInputs, RestMachiningOutputs, RestMachiningParams> = {
+export const FabricationCNCRestMachiningNode: NodeDefinition<RestMachiningInputs, RestMachiningOutputs, RestMachiningParams> = {
   id: 'Fabrication::RestMachining',
   category: 'Fabrication',
   label: 'RestMachining',

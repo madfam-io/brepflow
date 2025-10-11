@@ -14,7 +14,7 @@ interface ExplodedViewOutputs {
   paths: unknown;
 }
 
-export const ExplodedViewNode: NodeDefinition<ExplodedViewInputs, ExplodedViewOutputs, ExplodedViewParams> = {
+export const AssemblyPatternsExplodedViewNode: NodeDefinition<ExplodedViewInputs, ExplodedViewOutputs, ExplodedViewParams> = {
   id: 'Assembly::ExplodedView',
   category: 'Assembly',
   label: 'ExplodedView',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { UnionNode } from './union.node';
+import { BooleanUnionNode } from './union.node';
 import { createTestContext } from '../test-utils';
 
-describe('UnionNode', () => {
+describe('BooleanUnionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('UnionNode', () => {
       fuzzyValue: 1e-7
     } as any;
 
-    const result = await UnionNode.evaluate(context, inputs, params);
+    const result = await BooleanUnionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

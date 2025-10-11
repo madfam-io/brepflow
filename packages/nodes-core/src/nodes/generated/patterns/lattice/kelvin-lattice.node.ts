@@ -13,7 +13,7 @@ interface KelvinLatticeOutputs {
   foam: unknown;
 }
 
-export const KelvinLatticeNode: NodeDefinition<KelvinLatticeInputs, KelvinLatticeOutputs, KelvinLatticeParams> = {
+export const PatternsLatticeKelvinLatticeNode: NodeDefinition<KelvinLatticeInputs, KelvinLatticeOutputs, KelvinLatticeParams> = {
   id: 'Patterns::KelvinLattice',
   category: 'Patterns',
   label: 'KelvinLattice',

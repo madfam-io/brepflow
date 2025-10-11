@@ -13,7 +13,7 @@ interface MaterialDatabaseOutputs {
   frequency: number;
 }
 
-export const MaterialDatabaseNode: NodeDefinition<MaterialDatabaseInputs, MaterialDatabaseOutputs, MaterialDatabaseParams> = {
+export const FabricationLaserMaterialDatabaseNode: NodeDefinition<MaterialDatabaseInputs, MaterialDatabaseOutputs, MaterialDatabaseParams> = {
   id: 'Fabrication::MaterialDatabase',
   category: 'Fabrication',
   label: 'MaterialDatabase',

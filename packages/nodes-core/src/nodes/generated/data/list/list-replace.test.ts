@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListReplaceNode } from './list-replace.node';
+import { DataListListReplaceNode } from './list-replace.node';
 import { createTestContext } from '../test-utils';
 
-describe('ListReplaceNode', () => {
+describe('DataListListReplaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ListReplaceNode', () => {
 
     } as any;
 
-    const result = await ListReplaceNode.evaluate(context, inputs, params);
+    const result = await DataListListReplaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

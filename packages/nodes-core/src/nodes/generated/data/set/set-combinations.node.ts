@@ -12,7 +12,7 @@ interface SetCombinationsOutputs {
   combinations: unknown;
 }
 
-export const SetCombinationsNode: NodeDefinition<SetCombinationsInputs, SetCombinationsOutputs, SetCombinationsParams> = {
+export const DataSetSetCombinationsNode: NodeDefinition<SetCombinationsInputs, SetCombinationsOutputs, SetCombinationsParams> = {
   id: 'Data::SetCombinations',
   category: 'Data',
   label: 'SetCombinations',

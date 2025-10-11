@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VectorEngraveNode } from './vector-engrave.node';
+import { FabricationLaserVectorEngraveNode } from './vector-engrave.node';
 import { createTestContext } from '../test-utils';
 
-describe('VectorEngraveNode', () => {
+describe('FabricationLaserVectorEngraveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('VectorEngraveNode', () => {
       passes: 1
     } as any;
 
-    const result = await VectorEngraveNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserVectorEngraveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

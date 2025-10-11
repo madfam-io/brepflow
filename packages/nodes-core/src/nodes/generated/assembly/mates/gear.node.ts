@@ -15,7 +15,7 @@ interface GearOutputs {
   mate: unknown;
 }
 
-export const GearNode: NodeDefinition<GearInputs, GearOutputs, GearParams> = {
+export const AssemblyMatesGearNode: NodeDefinition<GearInputs, GearOutputs, GearParams> = {
   id: 'Assembly::Gear',
   category: 'Assembly',
   label: 'Gear',

@@ -12,7 +12,7 @@ interface ListSliceOutputs {
   sublist: unknown;
 }
 
-export const ListSliceNode: NodeDefinition<ListSliceInputs, ListSliceOutputs, ListSliceParams> = {
+export const DataListListSliceNode: NodeDefinition<ListSliceInputs, ListSliceOutputs, ListSliceParams> = {
   id: 'Data::ListSlice',
   category: 'Data',
   label: 'ListSlice',

@@ -15,7 +15,7 @@ interface TPMSOutputs {
   tpms: unknown;
 }
 
-export const TPMSNode: NodeDefinition<TPMSInputs, TPMSOutputs, TPMSParams> = {
+export const SpecializedLatticeTPMSNode: NodeDefinition<TPMSInputs, TPMSOutputs, TPMSParams> = {
   id: 'Specialized::TPMS',
   category: 'Specialized',
   label: 'TPMS',

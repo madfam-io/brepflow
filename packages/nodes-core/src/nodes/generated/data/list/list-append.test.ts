@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ListAppendNode } from './list-append.node';
+import { DataListListAppendNode } from './list-append.node';
 import { createTestContext } from '../test-utils';
 
-describe('ListAppendNode', () => {
+describe('DataListListAppendNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ListAppendNode', () => {
 
     } as any;
 
-    const result = await ListAppendNode.evaluate(context, inputs, params);
+    const result = await DataListListAppendNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

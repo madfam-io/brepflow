@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { Voronoi3DNode } from './voronoi3-d.node';
+import { PatternsVoronoiVoronoi3DNode } from './voronoi3-d.node';
 import { createTestContext } from '../test-utils';
 
-describe('Voronoi3DNode', () => {
+describe('PatternsVoronoiVoronoi3DNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('Voronoi3DNode', () => {
       clipToBox: true
     } as any;
 
-    const result = await Voronoi3DNode.evaluate(context, inputs, params);
+    const result = await PatternsVoronoiVoronoi3DNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

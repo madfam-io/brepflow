@@ -14,7 +14,7 @@ interface RadialFieldOutputs {
   field: unknown;
 }
 
-export const RadialFieldNode: NodeDefinition<RadialFieldInputs, RadialFieldOutputs, RadialFieldParams> = {
+export const FieldGenerateRadialFieldNode: NodeDefinition<RadialFieldInputs, RadialFieldOutputs, RadialFieldParams> = {
   id: 'Field::RadialField',
   category: 'Field',
   label: 'RadialField',

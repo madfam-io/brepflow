@@ -18,7 +18,7 @@ interface CompressionSpringOutputs {
   helix: unknown;
 }
 
-export const CompressionSpringNode: NodeDefinition<CompressionSpringInputs, CompressionSpringOutputs, CompressionSpringParams> = {
+export const MechanicalEngineeringSpringsCompressionSpringNode: NodeDefinition<CompressionSpringInputs, CompressionSpringOutputs, CompressionSpringParams> = {
   id: 'MechanicalEngineering::CompressionSpring',
   category: 'MechanicalEngineering',
   label: 'CompressionSpring',

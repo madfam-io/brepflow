@@ -12,7 +12,7 @@ interface AwningWindowOutputs {
   window: unknown;
 }
 
-export const AwningWindowNode: NodeDefinition<AwningWindowInputs, AwningWindowOutputs, AwningWindowParams> = {
+export const ArchitectureWindowsAwningWindowNode: NodeDefinition<AwningWindowInputs, AwningWindowOutputs, AwningWindowParams> = {
   id: 'Architecture::AwningWindow',
   category: 'Architecture',
   label: 'AwningWindow',

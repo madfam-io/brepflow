@@ -13,7 +13,7 @@ interface BlueNoiseOutputs {
   points: Array<[number, number, number]>;
 }
 
-export const BlueNoiseNode: NodeDefinition<BlueNoiseInputs, BlueNoiseOutputs, BlueNoiseParams> = {
+export const PatternsStochasticBlueNoiseNode: NodeDefinition<BlueNoiseInputs, BlueNoiseOutputs, BlueNoiseParams> = {
   id: 'Patterns::BlueNoise',
   category: 'Patterns',
   label: 'BlueNoise',

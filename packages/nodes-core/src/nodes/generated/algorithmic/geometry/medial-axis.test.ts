@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MedialAxisNode } from './medial-axis.node';
+import { AlgorithmicGeometryMedialAxisNode } from './medial-axis.node';
 import { createTestContext } from '../test-utils';
 
-describe('MedialAxisNode', () => {
+describe('AlgorithmicGeometryMedialAxisNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('MedialAxisNode', () => {
       simplify: true
     } as any;
 
-    const result = await MedialAxisNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicGeometryMedialAxisNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

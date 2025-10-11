@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldMinNode } from './field-min.node';
+import { FieldOperationsFieldMinNode } from './field-min.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldMinNode', () => {
+describe('FieldOperationsFieldMinNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FieldMinNode', () => {
 
     } as any;
 
-    const result = await FieldMinNode.evaluate(context, inputs, params);
+    const result = await FieldOperationsFieldMinNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

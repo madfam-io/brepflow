@@ -13,7 +13,7 @@ interface FlexibleSubAssemblyOutputs {
   subAssembly: unknown;
 }
 
-export const FlexibleSubAssemblyNode: NodeDefinition<FlexibleSubAssemblyInputs, FlexibleSubAssemblyOutputs, FlexibleSubAssemblyParams> = {
+export const AssemblyPatternsFlexibleSubAssemblyNode: NodeDefinition<FlexibleSubAssemblyInputs, FlexibleSubAssemblyOutputs, FlexibleSubAssemblyParams> = {
   id: 'Assembly::FlexibleSubAssembly',
   category: 'Assembly',
   label: 'FlexibleSubAssembly',

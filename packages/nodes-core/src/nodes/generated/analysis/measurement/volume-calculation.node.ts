@@ -16,7 +16,7 @@ interface VolumeCalculationOutputs {
   inertiaMatrix: unknown;
 }
 
-export const VolumeCalculationNode: NodeDefinition<VolumeCalculationInputs, VolumeCalculationOutputs, VolumeCalculationParams> = {
+export const AnalysisMeasurementVolumeCalculationNode: NodeDefinition<VolumeCalculationInputs, VolumeCalculationOutputs, VolumeCalculationParams> = {
   id: 'Analysis::VolumeCalculation',
   category: 'Analysis',
   label: 'VolumeCalculation',

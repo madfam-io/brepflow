@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ThreadMillingNode } from './thread-milling.node';
+import { FabricationCNCThreadMillingNode } from './thread-milling.node';
 import { createTestContext } from '../test-utils';
 
-describe('ThreadMillingNode', () => {
+describe('FabricationCNCThreadMillingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ThreadMillingNode', () => {
       passes: 3
     } as any;
 
-    const result = await ThreadMillingNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCThreadMillingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

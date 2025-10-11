@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { NestingOptimizationNode } from './nesting-optimization.node';
+import { FabricationLaserNestingOptimizationNode } from './nesting-optimization.node';
 import { createTestContext } from '../test-utils';
 
-describe('NestingOptimizationNode', () => {
+describe('FabricationLaserNestingOptimizationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('NestingOptimizationNode', () => {
       grainDirection: false
     } as any;
 
-    const result = await NestingOptimizationNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserNestingOptimizationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

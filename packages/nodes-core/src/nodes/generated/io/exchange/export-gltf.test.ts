@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportGLTFNode } from './export-gltf.node';
+import { IOExchangeExportGLTFNode } from './export-gltf.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExportGLTFNode', () => {
+describe('IOExchangeExportGLTFNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ExportGLTFNode', () => {
       draco: false
     } as any;
 
-    const result = await ExportGLTFNode.evaluate(context, inputs, params);
+    const result = await IOExchangeExportGLTFNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

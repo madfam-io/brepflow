@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SlabOnGradeNode } from './slab-on-grade.node';
+import { ArchitectureFloorsSlabOnGradeNode } from './slab-on-grade.node';
 import { createTestContext } from '../test-utils';
 
-describe('SlabOnGradeNode', () => {
+describe('ArchitectureFloorsSlabOnGradeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SlabOnGradeNode', () => {
       insulation: true
     } as any;
 
-    const result = await SlabOnGradeNode.evaluate(context, inputs, params);
+    const result = await ArchitectureFloorsSlabOnGradeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

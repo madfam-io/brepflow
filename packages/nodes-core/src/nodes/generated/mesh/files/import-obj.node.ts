@@ -14,7 +14,7 @@ interface ImportOBJOutputs {
   materials: unknown;
 }
 
-export const ImportOBJNode: NodeDefinition<ImportOBJInputs, ImportOBJOutputs, ImportOBJParams> = {
+export const MeshFilesImportOBJNode: NodeDefinition<ImportOBJInputs, ImportOBJOutputs, ImportOBJParams> = {
   id: 'Mesh::ImportOBJ',
   category: 'Mesh',
   label: 'ImportOBJ',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SlidingWindowNode } from './sliding-window.node';
+import { ArchitectureWindowsSlidingWindowNode } from './sliding-window.node';
 import { createTestContext } from '../test-utils';
 
-describe('SlidingWindowNode', () => {
+describe('ArchitectureWindowsSlidingWindowNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SlidingWindowNode', () => {
       operablePanel: "left"
     } as any;
 
-    const result = await SlidingWindowNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWindowsSlidingWindowNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

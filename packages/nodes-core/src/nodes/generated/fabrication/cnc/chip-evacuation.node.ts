@@ -13,7 +13,7 @@ interface ChipEvacuationOutputs {
   evacuationScore: number;
 }
 
-export const ChipEvacuationNode: NodeDefinition<ChipEvacuationInputs, ChipEvacuationOutputs, ChipEvacuationParams> = {
+export const FabricationCNCChipEvacuationNode: NodeDefinition<ChipEvacuationInputs, ChipEvacuationOutputs, ChipEvacuationParams> = {
   id: 'Fabrication::ChipEvacuation',
   category: 'Fabrication',
   label: 'ChipEvacuation',

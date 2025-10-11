@@ -15,7 +15,7 @@ interface CurveParameterOutputs {
   parameterValues: unknown;
 }
 
-export const CurveParameterNode: NodeDefinition<CurveParameterInputs, CurveParameterOutputs, CurveParameterParams> = {
+export const AnalysisCurvesCurveParameterNode: NodeDefinition<CurveParameterInputs, CurveParameterOutputs, CurveParameterParams> = {
   id: 'Analysis::CurveParameter',
   category: 'Analysis',
   label: 'CurveParameter',

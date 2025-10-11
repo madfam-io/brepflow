@@ -16,7 +16,7 @@ interface SVGExportOutputs {
   dimensions: [number, number, number];
 }
 
-export const SVGExportNode: NodeDefinition<SVGExportInputs, SVGExportOutputs, SVGExportParams> = {
+export const InteroperabilityExportSVGExportNode: NodeDefinition<SVGExportInputs, SVGExportOutputs, SVGExportParams> = {
   id: 'Interoperability::SVGExport',
   category: 'Interoperability',
   label: 'SVGExport',

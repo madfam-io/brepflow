@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TorsionSpringNode } from './torsion-spring.node';
+import { MechanicalEngineeringSpringsTorsionSpringNode } from './torsion-spring.node';
 import { createTestContext } from '../test-utils';
 
-describe('TorsionSpringNode', () => {
+describe('MechanicalEngineeringSpringsTorsionSpringNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('TorsionSpringNode', () => {
       legAngle: 90
     } as any;
 
-    const result = await TorsionSpringNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringSpringsTorsionSpringNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

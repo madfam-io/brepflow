@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GreenWallNode } from './green-wall.node';
+import { ArchitectureWallsGreenWallNode } from './green-wall.node';
 import { createTestContext } from '../test-utils';
 
-describe('GreenWallNode', () => {
+describe('ArchitectureWallsGreenWallNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('GreenWallNode', () => {
       irrigationType: "drip"
     } as any;
 
-    const result = await GreenWallNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsGreenWallNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

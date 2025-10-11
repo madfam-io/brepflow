@@ -13,7 +13,7 @@ interface BowWindowOutputs {
   bowWindow: unknown;
 }
 
-export const BowWindowNode: NodeDefinition<BowWindowInputs, BowWindowOutputs, BowWindowParams> = {
+export const ArchitectureWindowsBowWindowNode: NodeDefinition<BowWindowInputs, BowWindowOutputs, BowWindowParams> = {
   id: 'Architecture::BowWindow',
   category: 'Architecture',
   label: 'BowWindow',

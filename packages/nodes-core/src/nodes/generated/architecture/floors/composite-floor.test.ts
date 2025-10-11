@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CompositeFloorNode } from './composite-floor.node';
+import { ArchitectureFloorsCompositeFloorNode } from './composite-floor.node';
 import { createTestContext } from '../test-utils';
 
-describe('CompositeFloorNode', () => {
+describe('ArchitectureFloorsCompositeFloorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CompositeFloorNode', () => {
       concreteThickness: 100
     } as any;
 
-    const result = await CompositeFloorNode.evaluate(context, inputs, params);
+    const result = await ArchitectureFloorsCompositeFloorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -16,7 +16,7 @@ interface ClearanceCheckOutputs {
   clearanceValues: unknown;
 }
 
-export const ClearanceCheckNode: NodeDefinition<ClearanceCheckInputs, ClearanceCheckOutputs, ClearanceCheckParams> = {
+export const AnalysisProximityClearanceCheckNode: NodeDefinition<ClearanceCheckInputs, ClearanceCheckOutputs, ClearanceCheckParams> = {
   id: 'Analysis::ClearanceCheck',
   category: 'Analysis',
   label: 'ClearanceCheck',

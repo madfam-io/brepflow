@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ForceControlNode } from './force-control.node';
+import { FabricationRoboticsForceControlNode } from './force-control.node';
 import { createTestContext } from '../test-utils';
 
-describe('ForceControlNode', () => {
+describe('FabricationRoboticsForceControlNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ForceControlNode', () => {
       compliance: 0.5
     } as any;
 
-    const result = await ForceControlNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsForceControlNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

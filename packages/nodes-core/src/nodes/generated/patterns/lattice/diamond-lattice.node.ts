@@ -13,7 +13,7 @@ interface DiamondLatticeOutputs {
   lattice: unknown;
 }
 
-export const DiamondLatticeNode: NodeDefinition<DiamondLatticeInputs, DiamondLatticeOutputs, DiamondLatticeParams> = {
+export const PatternsLatticeDiamondLatticeNode: NodeDefinition<DiamondLatticeInputs, DiamondLatticeOutputs, DiamondLatticeParams> = {
   id: 'Patterns::DiamondLattice',
   category: 'Patterns',
   label: 'DiamondLattice',

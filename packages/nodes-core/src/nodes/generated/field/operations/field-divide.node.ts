@@ -13,7 +13,7 @@ interface FieldDivideOutputs {
   field: unknown;
 }
 
-export const FieldDivideNode: NodeDefinition<FieldDivideInputs, FieldDivideOutputs, FieldDivideParams> = {
+export const FieldOperationsFieldDivideNode: NodeDefinition<FieldDivideInputs, FieldDivideOutputs, FieldDivideParams> = {
   id: 'Field::FieldDivide',
   category: 'Field',
   label: 'FieldDivide',

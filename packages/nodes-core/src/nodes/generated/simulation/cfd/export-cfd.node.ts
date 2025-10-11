@@ -14,7 +14,7 @@ interface ExportCFDOutputs {
   cfdFiles: unknown;
 }
 
-export const ExportCFDNode: NodeDefinition<ExportCFDInputs, ExportCFDOutputs, ExportCFDParams> = {
+export const SimulationCFDExportCFDNode: NodeDefinition<ExportCFDInputs, ExportCFDOutputs, ExportCFDParams> = {
   id: 'Simulation::ExportCFD',
   category: 'Simulation',
   label: 'ExportCFD',

@@ -15,7 +15,7 @@ interface HyperbolaOutputs {
   curve: unknown;
 }
 
-export const HyperbolaNode: NodeDefinition<HyperbolaInputs, HyperbolaOutputs, HyperbolaParams> = {
+export const SketchCurvesHyperbolaNode: NodeDefinition<HyperbolaInputs, HyperbolaOutputs, HyperbolaParams> = {
   id: 'Sketch::Hyperbola',
   category: 'Sketch',
   label: 'Hyperbola',

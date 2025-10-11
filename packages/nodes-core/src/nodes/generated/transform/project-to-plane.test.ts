@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ProjectToPlaneNode } from './project-to-plane.node';
+import { TransformProjectToPlaneNode } from './project-to-plane.node';
 import { createTestContext } from '../test-utils';
 
-describe('ProjectToPlaneNode', () => {
+describe('TransformProjectToPlaneNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('ProjectToPlaneNode', () => {
       planeNormalZ: 1
     } as any;
 
-    const result = await ProjectToPlaneNode.evaluate(context, inputs, params);
+    const result = await TransformProjectToPlaneNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

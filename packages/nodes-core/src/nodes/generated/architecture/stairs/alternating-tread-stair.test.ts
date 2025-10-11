@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AlternatingTreadStairNode } from './alternating-tread-stair.node';
+import { ArchitectureStairsAlternatingTreadStairNode } from './alternating-tread-stair.node';
 import { createTestContext } from '../test-utils';
 
-describe('AlternatingTreadStairNode', () => {
+describe('ArchitectureStairsAlternatingTreadStairNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('AlternatingTreadStairNode', () => {
       treadWidth: 600
     } as any;
 
-    const result = await AlternatingTreadStairNode.evaluate(context, inputs, params);
+    const result = await ArchitectureStairsAlternatingTreadStairNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

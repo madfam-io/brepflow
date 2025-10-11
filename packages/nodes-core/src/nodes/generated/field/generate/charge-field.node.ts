@@ -13,7 +13,7 @@ interface ChargeFieldOutputs {
   field: unknown;
 }
 
-export const ChargeFieldNode: NodeDefinition<ChargeFieldInputs, ChargeFieldOutputs, ChargeFieldParams> = {
+export const FieldGenerateChargeFieldNode: NodeDefinition<ChargeFieldInputs, ChargeFieldOutputs, ChargeFieldParams> = {
   id: 'Field::ChargeField',
   category: 'Field',
   label: 'ChargeField',

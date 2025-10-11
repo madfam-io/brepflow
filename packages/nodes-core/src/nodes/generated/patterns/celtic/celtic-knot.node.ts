@@ -13,7 +13,7 @@ interface CelticKnotOutputs {
   knot: unknown;
 }
 
-export const CelticKnotNode: NodeDefinition<CelticKnotInputs, CelticKnotOutputs, CelticKnotParams> = {
+export const PatternsCelticCelticKnotNode: NodeDefinition<CelticKnotInputs, CelticKnotOutputs, CelticKnotParams> = {
   id: 'Patterns::CelticKnot',
   category: 'Patterns',
   label: 'CelticKnot',

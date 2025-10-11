@@ -13,7 +13,7 @@ interface VectorEngraveOutputs {
   engravePaths: unknown;
 }
 
-export const VectorEngraveNode: NodeDefinition<VectorEngraveInputs, VectorEngraveOutputs, VectorEngraveParams> = {
+export const FabricationLaserVectorEngraveNode: NodeDefinition<VectorEngraveInputs, VectorEngraveOutputs, VectorEngraveParams> = {
   id: 'Fabrication::VectorEngrave',
   category: 'Fabrication',
   label: 'VectorEngrave',

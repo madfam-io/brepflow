@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveSmoothnessAnalysisNode } from './curve-smoothness-analysis.node';
+import { AnalysisCurvesCurveSmoothnessAnalysisNode } from './curve-smoothness-analysis.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurveSmoothnessAnalysisNode', () => {
+describe('AnalysisCurvesCurveSmoothnessAnalysisNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CurveSmoothnessAnalysisNode', () => {
       showBreaks: true
     } as any;
 
-    const result = await CurveSmoothnessAnalysisNode.evaluate(context, inputs, params);
+    const result = await AnalysisCurvesCurveSmoothnessAnalysisNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

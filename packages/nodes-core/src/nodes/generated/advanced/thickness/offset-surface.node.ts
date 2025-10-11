@@ -14,7 +14,7 @@ interface OffsetSurfaceOutputs {
   offsetShape: unknown;
 }
 
-export const OffsetSurfaceNode: NodeDefinition<OffsetSurfaceInputs, OffsetSurfaceOutputs, OffsetSurfaceParams> = {
+export const AdvancedThicknessOffsetSurfaceNode: NodeDefinition<OffsetSurfaceInputs, OffsetSurfaceOutputs, OffsetSurfaceParams> = {
   id: 'Advanced::OffsetSurface',
   category: 'Advanced',
   label: 'OffsetSurface',

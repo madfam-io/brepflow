@@ -15,7 +15,7 @@ interface LatticeStructureOutputs {
   lattice: unknown;
 }
 
-export const LatticeStructureNode: NodeDefinition<LatticeStructureInputs, LatticeStructureOutputs, LatticeStructureParams> = {
+export const SpecializedLatticeLatticeStructureNode: NodeDefinition<LatticeStructureInputs, LatticeStructureOutputs, LatticeStructureParams> = {
   id: 'Specialized::LatticeStructure',
   category: 'Specialized',
   label: 'LatticeStructure',

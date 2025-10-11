@@ -16,7 +16,7 @@ interface SurfaceNormalsOutputs {
   samplePoints: Array<[number, number, number]>;
 }
 
-export const SurfaceNormalsNode: NodeDefinition<SurfaceNormalsInputs, SurfaceNormalsOutputs, SurfaceNormalsParams> = {
+export const AnalysisSurfacesSurfaceNormalsNode: NodeDefinition<SurfaceNormalsInputs, SurfaceNormalsOutputs, SurfaceNormalsParams> = {
   id: 'Analysis::SurfaceNormals',
   category: 'Analysis',
   label: 'SurfaceNormals',

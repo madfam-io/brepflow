@@ -13,7 +13,7 @@ interface SierpinskiTriangleOutputs {
   fractal: unknown;
 }
 
-export const SierpinskiTriangleNode: NodeDefinition<SierpinskiTriangleInputs, SierpinskiTriangleOutputs, SierpinskiTriangleParams> = {
+export const PatternsFractalsSierpinskiTriangleNode: NodeDefinition<SierpinskiTriangleInputs, SierpinskiTriangleOutputs, SierpinskiTriangleParams> = {
   id: 'Patterns::SierpinskiTriangle',
   category: 'Patterns',
   label: 'SierpinskiTriangle',

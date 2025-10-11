@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldConvolutionNode } from './field-convolution.node';
+import { FieldsAdvancedFieldConvolutionNode } from './field-convolution.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldConvolutionNode', () => {
+describe('FieldsAdvancedFieldConvolutionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FieldConvolutionNode', () => {
       kernelSize: 3
     } as any;
 
-    const result = await FieldConvolutionNode.evaluate(context, inputs, params);
+    const result = await FieldsAdvancedFieldConvolutionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

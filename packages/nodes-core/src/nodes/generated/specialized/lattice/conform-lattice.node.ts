@@ -14,7 +14,7 @@ interface ConformLatticeOutputs {
   conformed: unknown;
 }
 
-export const ConformLatticeNode: NodeDefinition<ConformLatticeInputs, ConformLatticeOutputs, ConformLatticeParams> = {
+export const SpecializedLatticeConformLatticeNode: NodeDefinition<ConformLatticeInputs, ConformLatticeOutputs, ConformLatticeParams> = {
   id: 'Specialized::ConformLattice',
   category: 'Specialized',
   label: 'ConformLattice',

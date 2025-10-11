@@ -19,7 +19,7 @@ interface GridArrayOutputs {
   merged: unknown;
 }
 
-export const GridArrayNode: NodeDefinition<GridArrayInputs, GridArrayOutputs, GridArrayParams> = {
+export const TransformGridArrayNode: NodeDefinition<GridArrayInputs, GridArrayOutputs, GridArrayParams> = {
   id: 'Transform::GridArray',
   category: 'Transform',
   label: 'GridArray',

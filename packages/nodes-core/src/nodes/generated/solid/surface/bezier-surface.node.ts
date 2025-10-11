@@ -13,7 +13,7 @@ interface BezierSurfaceOutputs {
   surface: unknown;
 }
 
-export const BezierSurfaceNode: NodeDefinition<BezierSurfaceInputs, BezierSurfaceOutputs, BezierSurfaceParams> = {
+export const SolidSurfaceBezierSurfaceNode: NodeDefinition<BezierSurfaceInputs, BezierSurfaceOutputs, BezierSurfaceParams> = {
   id: 'Solid::BezierSurface',
   category: 'Solid',
   label: 'BezierSurface',

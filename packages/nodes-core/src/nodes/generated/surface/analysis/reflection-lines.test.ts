@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ReflectionLinesNode } from './reflection-lines.node';
+import { SurfaceAnalysisReflectionLinesNode } from './reflection-lines.node';
 import { createTestContext } from '../test-utils';
 
-describe('ReflectionLinesNode', () => {
+describe('SurfaceAnalysisReflectionLinesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ReflectionLinesNode', () => {
       viewDirection: [0,0,1]
     } as any;
 
-    const result = await ReflectionLinesNode.evaluate(context, inputs, params);
+    const result = await SurfaceAnalysisReflectionLinesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

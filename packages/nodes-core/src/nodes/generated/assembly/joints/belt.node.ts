@@ -13,7 +13,7 @@ interface BeltOutputs {
   joint: unknown;
 }
 
-export const BeltNode: NodeDefinition<BeltInputs, BeltOutputs, BeltParams> = {
+export const AssemblyJointsBeltNode: NodeDefinition<BeltInputs, BeltOutputs, BeltParams> = {
   id: 'Assembly::Belt',
   category: 'Assembly',
   label: 'Belt',

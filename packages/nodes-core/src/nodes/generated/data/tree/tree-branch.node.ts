@@ -11,7 +11,7 @@ interface TreeBranchOutputs {
   branch: unknown;
 }
 
-export const TreeBranchNode: NodeDefinition<TreeBranchInputs, TreeBranchOutputs, TreeBranchParams> = {
+export const DataTreeTreeBranchNode: NodeDefinition<TreeBranchInputs, TreeBranchOutputs, TreeBranchParams> = {
   id: 'Data::TreeBranch',
   category: 'Data',
   label: 'TreeBranch',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WeavePatternNode } from './weave-pattern.node';
+import { PatternsTilingWeavePatternNode } from './weave-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('WeavePatternNode', () => {
+describe('PatternsTilingWeavePatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('WeavePatternNode', () => {
       weftCount: 10
     } as any;
 
-    const result = await WeavePatternNode.evaluate(context, inputs, params);
+    const result = await PatternsTilingWeavePatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

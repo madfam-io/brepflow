@@ -13,7 +13,7 @@ interface IslamicGridOutputs {
   grid: unknown;
 }
 
-export const IslamicGridNode: NodeDefinition<IslamicGridInputs, IslamicGridOutputs, IslamicGridParams> = {
+export const PatternsIslamicIslamicGridNode: NodeDefinition<IslamicGridInputs, IslamicGridOutputs, IslamicGridParams> = {
   id: 'Patterns::IslamicGrid',
   category: 'Patterns',
   label: 'IslamicGrid',

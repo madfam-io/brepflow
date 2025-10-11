@@ -16,7 +16,7 @@ interface GeometrySimplificationOutputs {
   error: unknown;
 }
 
-export const GeometrySimplificationNode: NodeDefinition<GeometrySimplificationInputs, GeometrySimplificationOutputs, GeometrySimplificationParams> = {
+export const AlgorithmicGeometryGeometrySimplificationNode: NodeDefinition<GeometrySimplificationInputs, GeometrySimplificationOutputs, GeometrySimplificationParams> = {
   id: 'Algorithmic::GeometrySimplification',
   category: 'Algorithmic',
   label: 'GeometrySimplification',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { EaseInOutNode } from './ease-in-out.node';
+import { MathInterpolationEaseInOutNode } from './ease-in-out.node';
 import { createTestContext } from '../test-utils';
 
-describe('EaseInOutNode', () => {
+describe('MathInterpolationEaseInOutNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('EaseInOutNode', () => {
       power: 2
     } as any;
 
-    const result = await EaseInOutNode.evaluate(context, inputs, params);
+    const result = await MathInterpolationEaseInOutNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

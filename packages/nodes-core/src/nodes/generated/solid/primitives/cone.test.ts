@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ConeNode } from './cone.node';
+import { SolidPrimitivesConeNode } from './cone.node';
 import { createTestContext } from '../test-utils';
 
-describe('ConeNode', () => {
+describe('SolidPrimitivesConeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -19,7 +19,7 @@ describe('ConeNode', () => {
       angle: 360
     } as any;
 
-    const result = await ConeNode.evaluate(context, inputs, params);
+    const result = await SolidPrimitivesConeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

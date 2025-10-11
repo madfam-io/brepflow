@@ -18,7 +18,7 @@ interface PathArrayOutputs {
   merged: unknown;
 }
 
-export const PathArrayNode: NodeDefinition<PathArrayInputs, PathArrayOutputs, PathArrayParams> = {
+export const TransformPathArrayNode: NodeDefinition<PathArrayInputs, PathArrayOutputs, PathArrayParams> = {
   id: 'Transform::PathArray',
   category: 'Transform',
   label: 'PathArray',

@@ -18,7 +18,7 @@ interface SupportVectorMachineOutputs {
   accuracy: unknown;
 }
 
-export const SupportVectorMachineNode: NodeDefinition<SupportVectorMachineInputs, SupportVectorMachineOutputs, SupportVectorMachineParams> = {
+export const AlgorithmicMachineLearningSupportVectorMachineNode: NodeDefinition<SupportVectorMachineInputs, SupportVectorMachineOutputs, SupportVectorMachineParams> = {
   id: 'Algorithmic::SupportVectorMachine',
   category: 'Algorithmic',
   label: 'SupportVectorMachine',

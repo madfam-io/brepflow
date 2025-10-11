@@ -12,7 +12,7 @@ interface ListFindOutputs {
   indices: unknown;
 }
 
-export const ListFindNode: NodeDefinition<ListFindInputs, ListFindOutputs, ListFindParams> = {
+export const DataListListFindNode: NodeDefinition<ListFindInputs, ListFindOutputs, ListFindParams> = {
   id: 'Data::ListFind',
   category: 'Data',
   label: 'ListFind',

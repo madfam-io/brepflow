@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PolylineNode } from './polyline.node';
+import { SketchBasicPolylineNode } from './polyline.node';
 import { createTestContext } from '../test-utils';
 
-describe('PolylineNode', () => {
+describe('SketchBasicPolylineNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('PolylineNode', () => {
       closed: false
     } as any;
 
-    const result = await PolylineNode.evaluate(context, inputs, params);
+    const result = await SketchBasicPolylineNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

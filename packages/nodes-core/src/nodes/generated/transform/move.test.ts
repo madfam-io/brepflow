@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MoveNode } from './move.node';
+import { TransformMoveNode } from './move.node';
 import { createTestContext } from '../test-utils';
 
-describe('MoveNode', () => {
+describe('TransformMoveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('MoveNode', () => {
       copy: true
     } as any;
 
-    const result = await MoveNode.evaluate(context, inputs, params);
+    const result = await TransformMoveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

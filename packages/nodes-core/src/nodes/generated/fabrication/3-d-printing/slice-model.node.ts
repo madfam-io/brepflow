@@ -15,7 +15,7 @@ interface SliceModelOutputs {
   infill: unknown;
 }
 
-export const SliceModelNode: NodeDefinition<SliceModelInputs, SliceModelOutputs, SliceModelParams> = {
+export const Fabrication3DPrintingSliceModelNode: NodeDefinition<SliceModelInputs, SliceModelOutputs, SliceModelParams> = {
   id: 'Fabrication::SliceModel',
   category: 'Fabrication',
   label: 'SliceModel',

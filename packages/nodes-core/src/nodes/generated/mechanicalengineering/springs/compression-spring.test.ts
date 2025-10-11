@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CompressionSpringNode } from './compression-spring.node';
+import { MechanicalEngineeringSpringsCompressionSpringNode } from './compression-spring.node';
 import { createTestContext } from '../test-utils';
 
-describe('CompressionSpringNode', () => {
+describe('MechanicalEngineeringSpringsCompressionSpringNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('CompressionSpringNode', () => {
       endType: "closed"
     } as any;
 
-    const result = await CompressionSpringNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringSpringsCompressionSpringNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

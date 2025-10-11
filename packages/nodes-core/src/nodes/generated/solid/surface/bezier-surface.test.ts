@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BezierSurfaceNode } from './bezier-surface.node';
+import { SolidSurfaceBezierSurfaceNode } from './bezier-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('BezierSurfaceNode', () => {
+describe('SolidSurfaceBezierSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BezierSurfaceNode', () => {
       vDegree: 3
     } as any;
 
-    const result = await BezierSurfaceNode.evaluate(context, inputs, params);
+    const result = await SolidSurfaceBezierSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

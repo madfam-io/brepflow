@@ -15,7 +15,7 @@ interface SurfaceParametrizationOutputs {
   parameterGrid: unknown;
 }
 
-export const SurfaceParametrizationNode: NodeDefinition<SurfaceParametrizationInputs, SurfaceParametrizationOutputs, SurfaceParametrizationParams> = {
+export const AnalysisSurfacesSurfaceParametrizationNode: NodeDefinition<SurfaceParametrizationInputs, SurfaceParametrizationOutputs, SurfaceParametrizationParams> = {
   id: 'Analysis::SurfaceParametrization',
   category: 'Analysis',
   label: 'SurfaceParametrization',

@@ -13,7 +13,7 @@ interface OctetLatticeOutputs {
   lattice: unknown;
 }
 
-export const OctetLatticeNode: NodeDefinition<OctetLatticeInputs, OctetLatticeOutputs, OctetLatticeParams> = {
+export const PatternsLatticeOctetLatticeNode: NodeDefinition<OctetLatticeInputs, OctetLatticeOutputs, OctetLatticeParams> = {
   id: 'Patterns::OctetLattice',
   category: 'Patterns',
   label: 'OctetLattice',

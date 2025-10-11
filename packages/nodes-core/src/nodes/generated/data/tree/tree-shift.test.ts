@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TreeShiftNode } from './tree-shift.node';
+import { DataTreeTreeShiftNode } from './tree-shift.node';
 import { createTestContext } from '../test-utils';
 
-describe('TreeShiftNode', () => {
+describe('DataTreeTreeShiftNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('TreeShiftNode', () => {
 
     } as any;
 
-    const result = await TreeShiftNode.evaluate(context, inputs, params);
+    const result = await DataTreeTreeShiftNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

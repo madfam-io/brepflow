@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PhyllotaxisPatternNode } from './phyllotaxis-pattern.node';
+import { PatternsAlgorithmicPhyllotaxisPatternNode } from './phyllotaxis-pattern.node';
 import { createTestContext } from '../test-utils';
 
-describe('PhyllotaxisPatternNode', () => {
+describe('PatternsAlgorithmicPhyllotaxisPatternNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('PhyllotaxisPatternNode', () => {
       c: 1
     } as any;
 
-    const result = await PhyllotaxisPatternNode.evaluate(context, inputs, params);
+    const result = await PatternsAlgorithmicPhyllotaxisPatternNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

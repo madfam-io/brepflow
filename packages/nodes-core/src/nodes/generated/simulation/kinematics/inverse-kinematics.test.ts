@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { InverseKinematicsNode } from './inverse-kinematics.node';
+import { SimulationKinematicsInverseKinematicsNode } from './inverse-kinematics.node';
 import { createTestContext } from '../test-utils';
 
-describe('InverseKinematicsNode', () => {
+describe('SimulationKinematicsInverseKinematicsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('InverseKinematicsNode', () => {
       tolerance: 0.001
     } as any;
 
-    const result = await InverseKinematicsNode.evaluate(context, inputs, params);
+    const result = await SimulationKinematicsInverseKinematicsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

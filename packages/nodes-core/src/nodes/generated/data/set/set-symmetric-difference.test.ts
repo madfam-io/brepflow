@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SetSymmetricDifferenceNode } from './set-symmetric-difference.node';
+import { DataSetSetSymmetricDifferenceNode } from './set-symmetric-difference.node';
 import { createTestContext } from '../test-utils';
 
-describe('SetSymmetricDifferenceNode', () => {
+describe('DataSetSetSymmetricDifferenceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SetSymmetricDifferenceNode', () => {
 
     } as any;
 
-    const result = await SetSymmetricDifferenceNode.evaluate(context, inputs, params);
+    const result = await DataSetSetSymmetricDifferenceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

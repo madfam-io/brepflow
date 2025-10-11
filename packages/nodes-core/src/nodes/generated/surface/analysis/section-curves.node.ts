@@ -14,7 +14,7 @@ interface SectionCurvesOutputs {
   sections: unknown;
 }
 
-export const SectionCurvesNode: NodeDefinition<SectionCurvesInputs, SectionCurvesOutputs, SectionCurvesParams> = {
+export const SurfaceAnalysisSectionCurvesNode: NodeDefinition<SectionCurvesInputs, SectionCurvesOutputs, SectionCurvesParams> = {
   id: 'Surface::SectionCurves',
   category: 'Surface',
   label: 'SectionCurves',

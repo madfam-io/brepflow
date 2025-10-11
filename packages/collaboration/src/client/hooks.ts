@@ -48,10 +48,6 @@ function derivePresence(
   };
 }
 
-export function useCollaboration() {
-  return useCollaborationContext();
-}
-
 /**
  * Hook to get and update cursor position
  */
@@ -69,12 +65,17 @@ export function useCursor() {
 
   const otherCursors = presence
     .filter((p) => p.user.id !== currentUser.id && p.cursor)
-    .map((p) => ({
-      userId: p.user.id,
-      userName: p.user.name,
-      userColor: p.user.color,
-      ...p.cursor!,
-    }));
+    .map((p) => {
+      const { user } = p;
+      const cursor = p.cursor!;
+      const { userId: _ignoredUserId, ...cursorPosition } = cursor;
+      return {
+        userId: user.id,
+        userName: user.name,
+        userColor: user.color,
+        ...cursorPosition,
+      };
+    });
 
   return {
     cursor: localCursor,
@@ -103,12 +104,17 @@ export function useSelection() {
 
   const otherSelections = presence
     .filter((p) => p.user.id !== currentUser.id && p.selection)
-    .map((p) => ({
-      userId: p.user.id,
-      userName: p.user.name,
-      userColor: p.user.color,
-      ...p.selection!,
-    }));
+    .map((p) => {
+      const { user } = p;
+      const selection = p.selection!;
+      const { userId: _ignoredUserId, ...selectionData } = selection;
+      return {
+        userId: user.id,
+        userName: user.name,
+        userColor: user.color,
+        ...selectionData,
+      };
+    });
 
   return {
     selection: localSelection,
@@ -138,12 +144,17 @@ export function useViewport() {
 
   const otherViewports = presence
     .filter((p) => p.user.id !== currentUser.id && p.viewport)
-    .map((p) => ({
-      userId: p.user.id,
-      userName: p.user.name,
-      userColor: p.user.color,
-      ...p.viewport!,
-    }));
+    .map((p) => {
+      const { user } = p;
+      const viewport = p.viewport!;
+      const { userId: _ignoredUserId, ...viewportData } = viewport;
+      return {
+        userId: user.id,
+        userName: user.name,
+        userColor: user.color,
+        ...viewportData,
+      };
+    });
 
   return {
     viewport: localViewport,

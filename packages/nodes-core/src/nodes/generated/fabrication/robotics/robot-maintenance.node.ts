@@ -12,7 +12,7 @@ interface RobotMaintenanceOutputs {
   maintenanceSchedule: unknown;
 }
 
-export const RobotMaintenanceNode: NodeDefinition<RobotMaintenanceInputs, RobotMaintenanceOutputs, RobotMaintenanceParams> = {
+export const FabricationRoboticsRobotMaintenanceNode: NodeDefinition<RobotMaintenanceInputs, RobotMaintenanceOutputs, RobotMaintenanceParams> = {
   id: 'Fabrication::RobotMaintenance',
   category: 'Fabrication',
   label: 'RobotMaintenance',

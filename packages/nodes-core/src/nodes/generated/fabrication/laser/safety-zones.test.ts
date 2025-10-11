@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SafetyZonesNode } from './safety-zones.node';
+import { FabricationLaserSafetyZonesNode } from './safety-zones.node';
 import { createTestContext } from '../test-utils';
 
-describe('SafetyZonesNode', () => {
+describe('FabricationLaserSafetyZonesNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('SafetyZonesNode', () => {
       margin: 5
     } as any;
 
-    const result = await SafetyZonesNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserSafetyZonesNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

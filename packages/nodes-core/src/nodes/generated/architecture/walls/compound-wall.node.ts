@@ -15,7 +15,7 @@ interface CompoundWallOutputs {
   layers: unknown;
 }
 
-export const CompoundWallNode: NodeDefinition<CompoundWallInputs, CompoundWallOutputs, CompoundWallParams> = {
+export const ArchitectureWallsCompoundWallNode: NodeDefinition<CompoundWallInputs, CompoundWallOutputs, CompoundWallParams> = {
   id: 'Architecture::CompoundWall',
   category: 'Architecture',
   label: 'CompoundWall',

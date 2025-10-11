@@ -18,7 +18,7 @@ interface S3DownloadOutputs {
   metadata: unknown;
 }
 
-export const S3DownloadNode: NodeDefinition<S3DownloadInputs, S3DownloadOutputs, S3DownloadParams> = {
+export const InteroperabilityCloudS3DownloadNode: NodeDefinition<S3DownloadInputs, S3DownloadOutputs, S3DownloadParams> = {
   id: 'Interoperability::S3Download',
   category: 'Interoperability',
   label: 'S3Download',

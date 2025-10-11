@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportCFDNode } from './export-cfd.node';
+import { SimulationCFDExportCFDNode } from './export-cfd.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExportCFDNode', () => {
+describe('SimulationCFDExportCFDNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ExportCFDNode', () => {
       meshFormat: "polyhedral"
     } as any;
 
-    const result = await ExportCFDNode.evaluate(context, inputs, params);
+    const result = await SimulationCFDExportCFDNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

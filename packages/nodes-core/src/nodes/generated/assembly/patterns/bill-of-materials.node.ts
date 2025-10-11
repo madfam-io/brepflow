@@ -13,7 +13,7 @@ interface BillOfMaterialsOutputs {
   bom: unknown;
 }
 
-export const BillOfMaterialsNode: NodeDefinition<BillOfMaterialsInputs, BillOfMaterialsOutputs, BillOfMaterialsParams> = {
+export const AssemblyPatternsBillOfMaterialsNode: NodeDefinition<BillOfMaterialsInputs, BillOfMaterialsOutputs, BillOfMaterialsParams> = {
   id: 'Assembly::BillOfMaterials',
   category: 'Assembly',
   label: 'BillOfMaterials',

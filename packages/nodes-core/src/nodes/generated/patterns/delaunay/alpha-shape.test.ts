@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { AlphaShapeNode } from './alpha-shape.node';
+import { PatternsDelaunayAlphaShapeNode } from './alpha-shape.node';
 import { createTestContext } from '../test-utils';
 
-describe('AlphaShapeNode', () => {
+describe('PatternsDelaunayAlphaShapeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('AlphaShapeNode', () => {
       alpha: 1
     } as any;
 
-    const result = await AlphaShapeNode.evaluate(context, inputs, params);
+    const result = await PatternsDelaunayAlphaShapeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

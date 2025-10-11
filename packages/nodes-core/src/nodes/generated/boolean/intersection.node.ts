@@ -13,7 +13,7 @@ interface IntersectionOutputs {
   result: unknown;
 }
 
-export const IntersectionNode: NodeDefinition<IntersectionInputs, IntersectionOutputs, IntersectionParams> = {
+export const BooleanIntersectionNode: NodeDefinition<IntersectionInputs, IntersectionOutputs, IntersectionParams> = {
   id: 'Boolean::Intersection',
   category: 'Boolean',
   label: 'Intersection',

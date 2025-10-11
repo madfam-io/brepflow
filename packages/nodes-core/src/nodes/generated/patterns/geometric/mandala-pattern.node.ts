@@ -14,7 +14,7 @@ interface MandalaPatternOutputs {
   mandala: unknown;
 }
 
-export const MandalaPatternNode: NodeDefinition<MandalaPatternInputs, MandalaPatternOutputs, MandalaPatternParams> = {
+export const PatternsGeometricMandalaPatternNode: NodeDefinition<MandalaPatternInputs, MandalaPatternOutputs, MandalaPatternParams> = {
   id: 'Patterns::MandalaPattern',
   category: 'Patterns',
   label: 'MandalaPattern',

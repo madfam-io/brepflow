@@ -16,7 +16,7 @@ interface MotionDriverOutputs {
   drivenJoint: unknown;
 }
 
-export const MotionDriverNode: NodeDefinition<MotionDriverInputs, MotionDriverOutputs, MotionDriverParams> = {
+export const SimulationKinematicsMotionDriverNode: NodeDefinition<MotionDriverInputs, MotionDriverOutputs, MotionDriverParams> = {
   id: 'Simulation::MotionDriver',
   category: 'Simulation',
   label: 'MotionDriver',

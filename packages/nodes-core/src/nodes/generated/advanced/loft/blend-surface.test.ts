@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BlendSurfaceNode } from './blend-surface.node';
+import { AdvancedLoftBlendSurfaceNode } from './blend-surface.node';
 import { createTestContext } from '../test-utils';
 
-describe('BlendSurfaceNode', () => {
+describe('AdvancedLoftBlendSurfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('BlendSurfaceNode', () => {
       blendFactor: 0.5
     } as any;
 
-    const result = await BlendSurfaceNode.evaluate(context, inputs, params);
+    const result = await AdvancedLoftBlendSurfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

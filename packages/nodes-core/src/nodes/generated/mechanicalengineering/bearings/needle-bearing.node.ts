@@ -16,7 +16,7 @@ interface NeedleBearingOutputs {
   needles: unknown;
 }
 
-export const NeedleBearingNode: NodeDefinition<NeedleBearingInputs, NeedleBearingOutputs, NeedleBearingParams> = {
+export const MechanicalEngineeringBearingsNeedleBearingNode: NodeDefinition<NeedleBearingInputs, NeedleBearingOutputs, NeedleBearingParams> = {
   id: 'MechanicalEngineering::NeedleBearing',
   category: 'MechanicalEngineering',
   label: 'NeedleBearing',

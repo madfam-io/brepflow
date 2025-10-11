@@ -10,7 +10,7 @@ interface ToStringOutputs {
   string: unknown;
 }
 
-export const ToStringNode: NodeDefinition<ToStringInputs, ToStringOutputs, ToStringParams> = {
+export const DataConvertToStringNode: NodeDefinition<ToStringInputs, ToStringOutputs, ToStringParams> = {
   id: 'Data::ToString',
   category: 'Data',
   label: 'ToString',

@@ -18,7 +18,7 @@ interface DecisionTreeOutputs {
   featureImportance: unknown;
 }
 
-export const DecisionTreeNode: NodeDefinition<DecisionTreeInputs, DecisionTreeOutputs, DecisionTreeParams> = {
+export const AlgorithmicMachineLearningDecisionTreeNode: NodeDefinition<DecisionTreeInputs, DecisionTreeOutputs, DecisionTreeParams> = {
   id: 'Algorithmic::DecisionTree',
   category: 'Algorithmic',
   label: 'DecisionTree',

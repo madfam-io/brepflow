@@ -13,7 +13,7 @@ interface PolygonalTessellationOutputs {
   tiles: unknown;
 }
 
-export const PolygonalTessellationNode: NodeDefinition<PolygonalTessellationInputs, PolygonalTessellationOutputs, PolygonalTessellationParams> = {
+export const PatternsGeometricPolygonalTessellationNode: NodeDefinition<PolygonalTessellationInputs, PolygonalTessellationOutputs, PolygonalTessellationParams> = {
   id: 'Patterns::PolygonalTessellation',
   category: 'Patterns',
   label: 'PolygonalTessellation',

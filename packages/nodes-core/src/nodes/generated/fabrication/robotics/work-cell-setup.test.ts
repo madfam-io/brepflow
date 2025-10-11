@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WorkCellSetupNode } from './work-cell-setup.node';
+import { FabricationRoboticsWorkCellSetupNode } from './work-cell-setup.node';
 import { createTestContext } from '../test-utils';
 
-describe('WorkCellSetupNode', () => {
+describe('FabricationRoboticsWorkCellSetupNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('WorkCellSetupNode', () => {
       robotCount: 1
     } as any;
 
-    const result = await WorkCellSetupNode.evaluate(context, inputs, params);
+    const result = await FabricationRoboticsWorkCellSetupNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

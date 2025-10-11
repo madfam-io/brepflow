@@ -18,7 +18,7 @@ interface SurfaceDeviationOutputs {
   deviationPoints: Array<[number, number, number]>;
 }
 
-export const SurfaceDeviationNode: NodeDefinition<SurfaceDeviationInputs, SurfaceDeviationOutputs, SurfaceDeviationParams> = {
+export const AnalysisSurfacesSurfaceDeviationNode: NodeDefinition<SurfaceDeviationInputs, SurfaceDeviationOutputs, SurfaceDeviationParams> = {
   id: 'Analysis::SurfaceDeviation',
   category: 'Analysis',
   label: 'SurfaceDeviation',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DistanceMeasurementNode } from './distance-measurement.node';
+import { AnalysisMeasurementDistanceMeasurementNode } from './distance-measurement.node';
 import { createTestContext } from '../test-utils';
 
-describe('DistanceMeasurementNode', () => {
+describe('AnalysisMeasurementDistanceMeasurementNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('DistanceMeasurementNode', () => {
       showDimension: true
     } as any;
 
-    const result = await DistanceMeasurementNode.evaluate(context, inputs, params);
+    const result = await AnalysisMeasurementDistanceMeasurementNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -15,7 +15,7 @@ interface FoldOutputs {
   foldedShape: unknown;
 }
 
-export const FoldNode: NodeDefinition<FoldInputs, FoldOutputs, FoldParams> = {
+export const SheetMetalUnfoldFoldNode: NodeDefinition<FoldInputs, FoldOutputs, FoldParams> = {
   id: 'SheetMetal::Fold',
   category: 'SheetMetal',
   label: 'Fold',

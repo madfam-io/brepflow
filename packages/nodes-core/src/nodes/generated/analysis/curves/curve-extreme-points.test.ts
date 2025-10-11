@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveExtremePointsNode } from './curve-extreme-points.node';
+import { AnalysisCurvesCurveExtremePointsNode } from './curve-extreme-points.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurveExtremePointsNode', () => {
+describe('AnalysisCurvesCurveExtremePointsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CurveExtremePointsNode', () => {
       markPoints: true
     } as any;
 
-    const result = await CurveExtremePointsNode.evaluate(context, inputs, params);
+    const result = await AnalysisCurvesCurveExtremePointsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

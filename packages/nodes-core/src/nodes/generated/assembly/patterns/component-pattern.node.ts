@@ -15,7 +15,7 @@ interface ComponentPatternOutputs {
   pattern: unknown;
 }
 
-export const ComponentPatternNode: NodeDefinition<ComponentPatternInputs, ComponentPatternOutputs, ComponentPatternParams> = {
+export const AssemblyPatternsComponentPatternNode: NodeDefinition<ComponentPatternInputs, ComponentPatternOutputs, ComponentPatternParams> = {
   id: 'Assembly::ComponentPattern',
   category: 'Assembly',
   label: 'ComponentPattern',

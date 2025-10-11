@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GeometryMatchingNode } from './geometry-matching.node';
+import { AlgorithmicGeometryGeometryMatchingNode } from './geometry-matching.node';
 import { createTestContext } from '../test-utils';
 
-describe('GeometryMatchingNode', () => {
+describe('AlgorithmicGeometryGeometryMatchingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('GeometryMatchingNode', () => {
       iterations: 50
     } as any;
 
-    const result = await GeometryMatchingNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicGeometryGeometryMatchingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

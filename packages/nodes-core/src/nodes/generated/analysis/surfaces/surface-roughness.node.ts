@@ -16,7 +16,7 @@ interface SurfaceRoughnessOutputs {
   roughnessMap: unknown;
 }
 
-export const SurfaceRoughnessNode: NodeDefinition<SurfaceRoughnessInputs, SurfaceRoughnessOutputs, SurfaceRoughnessParams> = {
+export const AnalysisSurfacesSurfaceRoughnessNode: NodeDefinition<SurfaceRoughnessInputs, SurfaceRoughnessOutputs, SurfaceRoughnessParams> = {
   id: 'Analysis::SurfaceRoughness',
   category: 'Analysis',
   label: 'SurfaceRoughness',

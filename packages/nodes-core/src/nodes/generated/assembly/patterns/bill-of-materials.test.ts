@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BillOfMaterialsNode } from './bill-of-materials.node';
+import { AssemblyPatternsBillOfMaterialsNode } from './bill-of-materials.node';
 import { createTestContext } from '../test-utils';
 
-describe('BillOfMaterialsNode', () => {
+describe('AssemblyPatternsBillOfMaterialsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BillOfMaterialsNode', () => {
       groupIdentical: true
     } as any;
 
-    const result = await BillOfMaterialsNode.evaluate(context, inputs, params);
+    const result = await AssemblyPatternsBillOfMaterialsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FocusCompensationNode } from './focus-compensation.node';
+import { FabricationLaserFocusCompensationNode } from './focus-compensation.node';
 import { createTestContext } from '../test-utils';
 
-describe('FocusCompensationNode', () => {
+describe('FabricationLaserFocusCompensationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FocusCompensationNode', () => {
       beamDivergence: 2
     } as any;
 
-    const result = await FocusCompensationNode.evaluate(context, inputs, params);
+    const result = await FabricationLaserFocusCompensationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

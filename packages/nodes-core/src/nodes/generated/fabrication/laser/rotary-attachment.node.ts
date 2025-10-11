@@ -13,7 +13,7 @@ interface RotaryAttachmentOutputs {
   unwrappedPattern: unknown;
 }
 
-export const RotaryAttachmentNode: NodeDefinition<RotaryAttachmentInputs, RotaryAttachmentOutputs, RotaryAttachmentParams> = {
+export const FabricationLaserRotaryAttachmentNode: NodeDefinition<RotaryAttachmentInputs, RotaryAttachmentOutputs, RotaryAttachmentParams> = {
   id: 'Fabrication::RotaryAttachment',
   category: 'Fabrication',
   label: 'RotaryAttachment',

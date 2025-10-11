@@ -10,7 +10,7 @@ interface ListJoinOutputs {
   joined: unknown;
 }
 
-export const ListJoinNode: NodeDefinition<ListJoinInputs, ListJoinOutputs, ListJoinParams> = {
+export const DataListListJoinNode: NodeDefinition<ListJoinInputs, ListJoinOutputs, ListJoinParams> = {
   id: 'Data::ListJoin',
   category: 'Data',
   label: 'ListJoin',

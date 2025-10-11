@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExplodedViewNode } from './exploded-view.node';
+import { AssemblyPatternsExplodedViewNode } from './exploded-view.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExplodedViewNode', () => {
+describe('AssemblyPatternsExplodedViewNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ExplodedViewNode', () => {
       autoSpace: true
     } as any;
 
-    const result = await ExplodedViewNode.evaluate(context, inputs, params);
+    const result = await AssemblyPatternsExplodedViewNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

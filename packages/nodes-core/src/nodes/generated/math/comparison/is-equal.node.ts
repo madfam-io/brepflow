@@ -13,7 +13,7 @@ interface IsEqualOutputs {
   equal: unknown;
 }
 
-export const IsEqualNode: NodeDefinition<IsEqualInputs, IsEqualOutputs, IsEqualParams> = {
+export const MathComparisonIsEqualNode: NodeDefinition<IsEqualInputs, IsEqualOutputs, IsEqualParams> = {
   id: 'Math::IsEqual',
   category: 'Math',
   label: 'IsEqual',

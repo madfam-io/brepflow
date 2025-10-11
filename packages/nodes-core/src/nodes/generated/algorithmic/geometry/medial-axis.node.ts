@@ -16,7 +16,7 @@ interface MedialAxisOutputs {
   endpoints: Array<[number, number, number]>;
 }
 
-export const MedialAxisNode: NodeDefinition<MedialAxisInputs, MedialAxisOutputs, MedialAxisParams> = {
+export const AlgorithmicGeometryMedialAxisNode: NodeDefinition<MedialAxisInputs, MedialAxisOutputs, MedialAxisParams> = {
   id: 'Algorithmic::MedialAxis',
   category: 'Algorithmic',
   label: 'MedialAxis',

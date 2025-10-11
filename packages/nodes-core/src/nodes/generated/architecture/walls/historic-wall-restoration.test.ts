@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HistoricWallRestorationNode } from './historic-wall-restoration.node';
+import { ArchitectureWallsHistoricWallRestorationNode } from './historic-wall-restoration.node';
 import { createTestContext } from '../test-utils';
 
-describe('HistoricWallRestorationNode', () => {
+describe('ArchitectureWallsHistoricWallRestorationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('HistoricWallRestorationNode', () => {
       preservationLevel: "preserve"
     } as any;
 
-    const result = await HistoricWallRestorationNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsHistoricWallRestorationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -11,7 +11,7 @@ interface ComplexNumberOutputs {
   complex: unknown;
 }
 
-export const ComplexNumberNode: NodeDefinition<ComplexNumberInputs, ComplexNumberOutputs, ComplexNumberParams> = {
+export const MathComplexComplexNumberNode: NodeDefinition<ComplexNumberInputs, ComplexNumberOutputs, ComplexNumberParams> = {
   id: 'Math::ComplexNumber',
   category: 'Math',
   label: 'ComplexNumber',

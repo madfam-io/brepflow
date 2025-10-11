@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CSVReaderNode } from './csvreader.node';
+import { InteroperabilityDataCSVReaderNode } from './csvreader.node';
 import { createTestContext } from '../test-utils';
 
-describe('CSVReaderNode', () => {
+describe('InteroperabilityDataCSVReaderNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CSVReaderNode', () => {
       encoding: "utf-8"
     } as any;
 
-    const result = await CSVReaderNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityDataCSVReaderNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

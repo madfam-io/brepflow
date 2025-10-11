@@ -14,7 +14,7 @@ interface StudWallOutputs {
   studFrame: unknown;
 }
 
-export const StudWallNode: NodeDefinition<StudWallInputs, StudWallOutputs, StudWallParams> = {
+export const ArchitectureWallsStudWallNode: NodeDefinition<StudWallInputs, StudWallOutputs, StudWallParams> = {
   id: 'Architecture::StudWall',
   category: 'Architecture',
   label: 'StudWall',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SmootherStepNode } from './smoother-step.node';
+import { MathInterpolationSmootherStepNode } from './smoother-step.node';
 import { createTestContext } from '../test-utils';
 
-describe('SmootherStepNode', () => {
+describe('MathInterpolationSmootherStepNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SmootherStepNode', () => {
 
     } as any;
 
-    const result = await SmootherStepNode.evaluate(context, inputs, params);
+    const result = await MathInterpolationSmootherStepNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CountersinkHoleNode } from './countersink-hole.node';
+import { FeaturesHolesCountersinkHoleNode } from './countersink-hole.node';
 import { createTestContext } from '../test-utils';
 
-describe('CountersinkHoleNode', () => {
+describe('FeaturesHolesCountersinkHoleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('CountersinkHoleNode', () => {
       depth: -1
     } as any;
 
-    const result = await CountersinkHoleNode.evaluate(context, inputs, params);
+    const result = await FeaturesHolesCountersinkHoleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

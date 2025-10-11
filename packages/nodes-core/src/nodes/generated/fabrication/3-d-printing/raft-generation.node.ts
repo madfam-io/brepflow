@@ -13,7 +13,7 @@ interface RaftGenerationOutputs {
   raft: unknown;
 }
 
-export const RaftGenerationNode: NodeDefinition<RaftGenerationInputs, RaftGenerationOutputs, RaftGenerationParams> = {
+export const Fabrication3DPrintingRaftGenerationNode: NodeDefinition<RaftGenerationInputs, RaftGenerationOutputs, RaftGenerationParams> = {
   id: 'Fabrication::RaftGeneration',
   category: 'Fabrication',
   label: 'RaftGeneration',

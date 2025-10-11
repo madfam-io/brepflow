@@ -15,7 +15,7 @@ interface MotionStudyOutputs {
   collisions: unknown;
 }
 
-export const MotionStudyNode: NodeDefinition<MotionStudyInputs, MotionStudyOutputs, MotionStudyParams> = {
+export const AssemblyPatternsMotionStudyNode: NodeDefinition<MotionStudyInputs, MotionStudyOutputs, MotionStudyParams> = {
   id: 'Assembly::MotionStudy',
   category: 'Assembly',
   label: 'MotionStudy',

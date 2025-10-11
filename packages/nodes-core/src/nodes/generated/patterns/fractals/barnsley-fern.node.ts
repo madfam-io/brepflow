@@ -13,7 +13,7 @@ interface BarnsleyFernOutputs {
   fern: Array<[number, number, number]>;
 }
 
-export const BarnsleyFernNode: NodeDefinition<BarnsleyFernInputs, BarnsleyFernOutputs, BarnsleyFernParams> = {
+export const PatternsFractalsBarnsleyFernNode: NodeDefinition<BarnsleyFernInputs, BarnsleyFernOutputs, BarnsleyFernParams> = {
   id: 'Patterns::BarnsleyFern',
   category: 'Patterns',
   label: 'BarnsleyFern',

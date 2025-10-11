@@ -14,7 +14,7 @@ interface HoneycombStructureOutputs {
   honeycomb: unknown;
 }
 
-export const HoneycombStructureNode: NodeDefinition<HoneycombStructureInputs, HoneycombStructureOutputs, HoneycombStructureParams> = {
+export const SpecializedLatticeHoneycombStructureNode: NodeDefinition<HoneycombStructureInputs, HoneycombStructureOutputs, HoneycombStructureParams> = {
   id: 'Specialized::HoneycombStructure',
   category: 'Specialized',
   label: 'HoneycombStructure',

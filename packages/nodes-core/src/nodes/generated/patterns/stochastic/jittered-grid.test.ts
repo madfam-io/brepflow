@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { JitteredGridNode } from './jittered-grid.node';
+import { PatternsStochasticJitteredGridNode } from './jittered-grid.node';
 import { createTestContext } from '../test-utils';
 
-describe('JitteredGridNode', () => {
+describe('PatternsStochasticJitteredGridNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('JitteredGridNode', () => {
       jitter: 0.5
     } as any;
 
-    const result = await JitteredGridNode.evaluate(context, inputs, params);
+    const result = await PatternsStochasticJitteredGridNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -10,7 +10,7 @@ interface FieldCurlAnalysisOutputs {
   curlField: unknown;
 }
 
-export const FieldCurlAnalysisNode: NodeDefinition<FieldCurlAnalysisInputs, FieldCurlAnalysisOutputs, FieldCurlAnalysisParams> = {
+export const FieldsAnalysisFieldCurlAnalysisNode: NodeDefinition<FieldCurlAnalysisInputs, FieldCurlAnalysisOutputs, FieldCurlAnalysisParams> = {
   id: 'Fields::FieldCurlAnalysis',
   category: 'Fields',
   label: 'FieldCurlAnalysis',

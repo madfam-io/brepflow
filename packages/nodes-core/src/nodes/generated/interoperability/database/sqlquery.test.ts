@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SQLQueryNode } from './sqlquery.node';
+import { InteroperabilityDatabaseSQLQueryNode } from './sqlquery.node';
 import { createTestContext } from '../test-utils';
 
-describe('SQLQueryNode', () => {
+describe('InteroperabilityDatabaseSQLQueryNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SQLQueryNode', () => {
       timeout: 30
     } as any;
 
-    const result = await SQLQueryNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityDatabaseSQLQueryNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

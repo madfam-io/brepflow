@@ -13,7 +13,7 @@ interface VoxelMeshOutputs {
   voxels: unknown;
 }
 
-export const VoxelMeshNode: NodeDefinition<VoxelMeshInputs, VoxelMeshOutputs, VoxelMeshParams> = {
+export const MeshTessellationVoxelMeshNode: NodeDefinition<VoxelMeshInputs, VoxelMeshOutputs, VoxelMeshParams> = {
   id: 'Mesh::VoxelMesh',
   category: 'Mesh',
   label: 'VoxelMesh',

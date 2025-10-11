@@ -12,7 +12,7 @@ interface PostProcessorRobotOutputs {
   robotCode: unknown;
 }
 
-export const PostProcessorRobotNode: NodeDefinition<PostProcessorRobotInputs, PostProcessorRobotOutputs, PostProcessorRobotParams> = {
+export const FabricationRoboticsPostProcessorRobotNode: NodeDefinition<PostProcessorRobotInputs, PostProcessorRobotOutputs, PostProcessorRobotParams> = {
   id: 'Fabrication::PostProcessorRobot',
   category: 'Fabrication',
   label: 'PostProcessorRobot',

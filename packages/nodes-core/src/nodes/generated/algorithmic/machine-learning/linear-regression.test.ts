@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { LinearRegressionNode } from './linear-regression.node';
+import { AlgorithmicMachineLearningLinearRegressionNode } from './linear-regression.node';
 import { createTestContext } from '../test-utils';
 
-describe('LinearRegressionNode', () => {
+describe('AlgorithmicMachineLearningLinearRegressionNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -17,7 +17,7 @@ describe('LinearRegressionNode', () => {
       normalize: true
     } as any;
 
-    const result = await LinearRegressionNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicMachineLearningLinearRegressionNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CubicLatticeNode } from './cubic-lattice.node';
+import { PatternsLatticeCubicLatticeNode } from './cubic-lattice.node';
 import { createTestContext } from '../test-utils';
 
-describe('CubicLatticeNode', () => {
+describe('PatternsLatticeCubicLatticeNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CubicLatticeNode', () => {
       strutDiameter: 1
     } as any;
 
-    const result = await CubicLatticeNode.evaluate(context, inputs, params);
+    const result = await PatternsLatticeCubicLatticeNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

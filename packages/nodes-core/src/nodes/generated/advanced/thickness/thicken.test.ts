@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ThickenNode } from './thicken.node';
+import { AdvancedThicknessThickenNode } from './thicken.node';
 import { createTestContext } from '../test-utils';
 
-describe('ThickenNode', () => {
+describe('AdvancedThicknessThickenNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ThickenNode', () => {
       autoClose: true
     } as any;
 
-    const result = await ThickenNode.evaluate(context, inputs, params);
+    const result = await AdvancedThicknessThickenNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

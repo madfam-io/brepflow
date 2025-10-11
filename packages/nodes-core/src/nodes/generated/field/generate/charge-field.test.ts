@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ChargeFieldNode } from './charge-field.node';
+import { FieldGenerateChargeFieldNode } from './charge-field.node';
 import { createTestContext } from '../test-utils';
 
-describe('ChargeFieldNode', () => {
+describe('FieldGenerateChargeFieldNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ChargeFieldNode', () => {
       falloff: "inverse-square"
     } as any;
 
-    const result = await ChargeFieldNode.evaluate(context, inputs, params);
+    const result = await FieldGenerateChargeFieldNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

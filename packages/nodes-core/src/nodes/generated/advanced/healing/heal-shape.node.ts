@@ -17,7 +17,7 @@ interface HealShapeOutputs {
   report: unknown;
 }
 
-export const HealShapeNode: NodeDefinition<HealShapeInputs, HealShapeOutputs, HealShapeParams> = {
+export const AdvancedHealingHealShapeNode: NodeDefinition<HealShapeInputs, HealShapeOutputs, HealShapeParams> = {
   id: 'Advanced::HealShape',
   category: 'Advanced',
   label: 'HealShape',

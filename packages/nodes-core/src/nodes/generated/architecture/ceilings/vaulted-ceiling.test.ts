@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VaultedCeilingNode } from './vaulted-ceiling.node';
+import { ArchitectureCeilingsVaultedCeilingNode } from './vaulted-ceiling.node';
 import { createTestContext } from '../test-utils';
 
-describe('VaultedCeilingNode', () => {
+describe('ArchitectureCeilingsVaultedCeilingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('VaultedCeilingNode', () => {
       rise: 1000
     } as any;
 
-    const result = await VaultedCeilingNode.evaluate(context, inputs, params);
+    const result = await ArchitectureCeilingsVaultedCeilingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

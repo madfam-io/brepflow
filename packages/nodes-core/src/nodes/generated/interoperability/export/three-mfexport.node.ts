@@ -16,7 +16,7 @@ interface ThreeMFExportOutputs {
   modelCount: unknown;
 }
 
-export const ThreeMFExportNode: NodeDefinition<ThreeMFExportInputs, ThreeMFExportOutputs, ThreeMFExportParams> = {
+export const InteroperabilityExportThreeMFExportNode: NodeDefinition<ThreeMFExportInputs, ThreeMFExportOutputs, ThreeMFExportParams> = {
   id: 'Interoperability::ThreeMFExport',
   category: 'Interoperability',
   label: 'ThreeMFExport',

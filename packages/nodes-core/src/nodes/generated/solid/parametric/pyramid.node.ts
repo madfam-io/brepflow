@@ -14,7 +14,7 @@ interface PyramidOutputs {
   solid: unknown;
 }
 
-export const PyramidNode: NodeDefinition<PyramidInputs, PyramidOutputs, PyramidParams> = {
+export const SolidParametricPyramidNode: NodeDefinition<PyramidInputs, PyramidOutputs, PyramidParams> = {
   id: 'Solid::Pyramid',
   category: 'Solid',
   label: 'Pyramid',

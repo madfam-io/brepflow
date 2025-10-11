@@ -15,7 +15,7 @@ interface MarkovChainOutputs {
   pattern: unknown;
 }
 
-export const MarkovChainNode: NodeDefinition<MarkovChainInputs, MarkovChainOutputs, MarkovChainParams> = {
+export const PatternsProceduralMarkovChainNode: NodeDefinition<MarkovChainInputs, MarkovChainOutputs, MarkovChainParams> = {
   id: 'Patterns::MarkovChain',
   category: 'Patterns',
   label: 'MarkovChain',

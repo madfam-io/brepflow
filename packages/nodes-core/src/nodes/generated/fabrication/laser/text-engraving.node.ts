@@ -14,7 +14,7 @@ interface TextEngravingOutputs {
   textPaths: unknown;
 }
 
-export const TextEngravingNode: NodeDefinition<TextEngravingInputs, TextEngravingOutputs, TextEngravingParams> = {
+export const FabricationLaserTextEngravingNode: NodeDefinition<TextEngravingInputs, TextEngravingOutputs, TextEngravingParams> = {
   id: 'Fabrication::TextEngraving',
   category: 'Fabrication',
   label: 'TextEngraving',

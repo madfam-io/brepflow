@@ -11,7 +11,7 @@ interface SubtractOutputs {
   result: unknown;
 }
 
-export const SubtractNode: NodeDefinition<SubtractInputs, SubtractOutputs, SubtractParams> = {
+export const MathOperatorsSubtractNode: NodeDefinition<SubtractInputs, SubtractOutputs, SubtractParams> = {
   id: 'Math::Subtract',
   category: 'Math',
   label: 'Subtract',

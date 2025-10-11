@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SmartFastenersNode } from './smart-fasteners.node';
+import { AssemblyPatternsSmartFastenersNode } from './smart-fasteners.node';
 import { createTestContext } from '../test-utils';
 
-describe('SmartFastenersNode', () => {
+describe('AssemblyPatternsSmartFastenersNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('SmartFastenersNode', () => {
       autoSize: true
     } as any;
 
-    const result = await SmartFastenersNode.evaluate(context, inputs, params);
+    const result = await AssemblyPatternsSmartFastenersNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

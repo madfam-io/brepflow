@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CapsuleNode } from './capsule.node';
+import { SolidPrimitivesCapsuleNode } from './capsule.node';
 import { createTestContext } from '../test-utils';
 
-describe('CapsuleNode', () => {
+describe('SolidPrimitivesCapsuleNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('CapsuleNode', () => {
       height: 100
     } as any;
 
-    const result = await CapsuleNode.evaluate(context, inputs, params);
+    const result = await SolidPrimitivesCapsuleNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

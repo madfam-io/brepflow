@@ -13,7 +13,7 @@ interface PlantGrowthOutputs {
   plant: unknown;
 }
 
-export const PlantGrowthNode: NodeDefinition<PlantGrowthInputs, PlantGrowthOutputs, PlantGrowthParams> = {
+export const PatternsLSystemsPlantGrowthNode: NodeDefinition<PlantGrowthInputs, PlantGrowthOutputs, PlantGrowthParams> = {
   id: 'Patterns::PlantGrowth',
   category: 'Patterns',
   label: 'PlantGrowth',

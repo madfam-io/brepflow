@@ -13,7 +13,7 @@ interface PerimeterGeneratorOutputs {
   perimeters: unknown;
 }
 
-export const PerimeterGeneratorNode: NodeDefinition<PerimeterGeneratorInputs, PerimeterGeneratorOutputs, PerimeterGeneratorParams> = {
+export const Fabrication3DPrintingPerimeterGeneratorNode: NodeDefinition<PerimeterGeneratorInputs, PerimeterGeneratorOutputs, PerimeterGeneratorParams> = {
   id: 'Fabrication::PerimeterGenerator',
   category: 'Fabrication',
   label: 'PerimeterGenerator',

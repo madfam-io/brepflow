@@ -16,7 +16,7 @@ interface WormShaftOutputs {
   helix: unknown;
 }
 
-export const WormShaftNode: NodeDefinition<WormShaftInputs, WormShaftOutputs, WormShaftParams> = {
+export const MechanicalEngineeringGearsWormShaftNode: NodeDefinition<WormShaftInputs, WormShaftOutputs, WormShaftParams> = {
   id: 'MechanicalEngineering::WormShaft',
   category: 'MechanicalEngineering',
   label: 'WormShaft',

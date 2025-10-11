@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { VolumeCalculationNode } from './volume-calculation.node';
+import { AnalysisMeasurementVolumeCalculationNode } from './volume-calculation.node';
 import { createTestContext } from '../test-utils';
 
-describe('VolumeCalculationNode', () => {
+describe('AnalysisMeasurementVolumeCalculationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('VolumeCalculationNode', () => {
       density: 1
     } as any;
 
-    const result = await VolumeCalculationNode.evaluate(context, inputs, params);
+    const result = await AnalysisMeasurementVolumeCalculationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

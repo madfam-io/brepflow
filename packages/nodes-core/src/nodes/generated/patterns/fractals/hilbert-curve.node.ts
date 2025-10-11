@@ -13,7 +13,7 @@ interface HilbertCurveOutputs {
   curve: unknown;
 }
 
-export const HilbertCurveNode: NodeDefinition<HilbertCurveInputs, HilbertCurveOutputs, HilbertCurveParams> = {
+export const PatternsFractalsHilbertCurveNode: NodeDefinition<HilbertCurveInputs, HilbertCurveOutputs, HilbertCurveParams> = {
   id: 'Patterns::HilbertCurve',
   category: 'Patterns',
   label: 'HilbertCurve',

@@ -13,7 +13,7 @@ interface QuadMeshOutputs {
   quadMesh: unknown;
 }
 
-export const QuadMeshNode: NodeDefinition<QuadMeshInputs, QuadMeshOutputs, QuadMeshParams> = {
+export const MeshTessellationQuadMeshNode: NodeDefinition<QuadMeshInputs, QuadMeshOutputs, QuadMeshParams> = {
   id: 'Mesh::QuadMesh',
   category: 'Mesh',
   label: 'QuadMesh',

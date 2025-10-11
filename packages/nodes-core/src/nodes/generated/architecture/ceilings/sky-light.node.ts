@@ -14,7 +14,7 @@ interface SkyLightOutputs {
   frame: unknown;
 }
 
-export const SkyLightNode: NodeDefinition<SkyLightInputs, SkyLightOutputs, SkyLightParams> = {
+export const ArchitectureCeilingsSkyLightNode: NodeDefinition<SkyLightInputs, SkyLightOutputs, SkyLightParams> = {
   id: 'Architecture::SkyLight',
   category: 'Architecture',
   label: 'SkyLight',

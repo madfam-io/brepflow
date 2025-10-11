@@ -16,7 +16,7 @@ interface NoiseFieldOutputs {
   field: unknown;
 }
 
-export const NoiseFieldNode: NodeDefinition<NoiseFieldInputs, NoiseFieldOutputs, NoiseFieldParams> = {
+export const FieldGenerateNoiseFieldNode: NodeDefinition<NoiseFieldInputs, NoiseFieldOutputs, NoiseFieldParams> = {
   id: 'Field::NoiseField',
   category: 'Field',
   label: 'NoiseField',

@@ -14,7 +14,7 @@ interface JalousieWindowOutputs {
   slats: unknown;
 }
 
-export const JalousieWindowNode: NodeDefinition<JalousieWindowInputs, JalousieWindowOutputs, JalousieWindowParams> = {
+export const ArchitectureWindowsJalousieWindowNode: NodeDefinition<JalousieWindowInputs, JalousieWindowOutputs, JalousieWindowParams> = {
   id: 'Architecture::JalousieWindow',
   category: 'Architecture',
   label: 'JalousieWindow',

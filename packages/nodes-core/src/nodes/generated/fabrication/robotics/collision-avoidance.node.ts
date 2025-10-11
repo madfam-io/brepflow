@@ -14,7 +14,7 @@ interface CollisionAvoidanceOutputs {
   collisionPoints: Array<[number, number, number]>;
 }
 
-export const CollisionAvoidanceNode: NodeDefinition<CollisionAvoidanceInputs, CollisionAvoidanceOutputs, CollisionAvoidanceParams> = {
+export const FabricationRoboticsCollisionAvoidanceNode: NodeDefinition<CollisionAvoidanceInputs, CollisionAvoidanceOutputs, CollisionAvoidanceParams> = {
   id: 'Fabrication::CollisionAvoidance',
   category: 'Fabrication',
   label: 'CollisionAvoidance',

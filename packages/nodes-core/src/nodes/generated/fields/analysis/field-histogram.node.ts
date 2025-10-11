@@ -15,7 +15,7 @@ interface FieldHistogramOutputs {
   binEdges: unknown;
 }
 
-export const FieldHistogramNode: NodeDefinition<FieldHistogramInputs, FieldHistogramOutputs, FieldHistogramParams> = {
+export const FieldsAnalysisFieldHistogramNode: NodeDefinition<FieldHistogramInputs, FieldHistogramOutputs, FieldHistogramParams> = {
   id: 'Fields::FieldHistogram',
   category: 'Fields',
   label: 'FieldHistogram',

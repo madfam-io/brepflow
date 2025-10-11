@@ -17,7 +17,7 @@ interface ProjectToPlaneOutputs {
   projected: unknown;
 }
 
-export const ProjectToPlaneNode: NodeDefinition<ProjectToPlaneInputs, ProjectToPlaneOutputs, ProjectToPlaneParams> = {
+export const TransformProjectToPlaneNode: NodeDefinition<ProjectToPlaneInputs, ProjectToPlaneOutputs, ProjectToPlaneParams> = {
   id: 'Transform::ProjectToPlane',
   category: 'Transform',
   label: 'ProjectToPlane',

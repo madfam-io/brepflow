@@ -13,7 +13,7 @@ interface ListShiftOutputs {
   shifted: unknown;
 }
 
-export const ListShiftNode: NodeDefinition<ListShiftInputs, ListShiftOutputs, ListShiftParams> = {
+export const DataListListShiftNode: NodeDefinition<ListShiftInputs, ListShiftOutputs, ListShiftParams> = {
   id: 'Data::ListShift',
   category: 'Data',
   label: 'ListShift',

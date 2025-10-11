@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CVTDiscNode } from './cvtdisc.node';
+import { MechanicalEngineeringGearsCVTDiscNode } from './cvtdisc.node';
 import { createTestContext } from '../test-utils';
 
-describe('CVTDiscNode', () => {
+describe('MechanicalEngineeringGearsCVTDiscNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('CVTDiscNode', () => {
       shaftDiameter: 20
     } as any;
 
-    const result = await CVTDiscNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringGearsCVTDiscNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

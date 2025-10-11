@@ -12,7 +12,7 @@ interface UniversalOutputs {
   joint: unknown;
 }
 
-export const UniversalNode: NodeDefinition<UniversalInputs, UniversalOutputs, UniversalParams> = {
+export const AssemblyJointsUniversalNode: NodeDefinition<UniversalInputs, UniversalOutputs, UniversalParams> = {
   id: 'Assembly::Universal',
   category: 'Assembly',
   label: 'Universal',

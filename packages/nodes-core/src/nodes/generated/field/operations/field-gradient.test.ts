@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FieldGradientNode } from './field-gradient.node';
+import { FieldOperationsFieldGradientNode } from './field-gradient.node';
 import { createTestContext } from '../test-utils';
 
-describe('FieldGradientNode', () => {
+describe('FieldOperationsFieldGradientNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('FieldGradientNode', () => {
 
     } as any;
 
-    const result = await FieldGradientNode.evaluate(context, inputs, params);
+    const result = await FieldOperationsFieldGradientNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

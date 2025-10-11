@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SurfaceDeviationNode } from './surface-deviation.node';
+import { SurfaceAnalysisSurfaceDeviationNode } from './surface-deviation.node';
 import { createTestContext } from '../test-utils';
 
-describe('SurfaceDeviationNode', () => {
+describe('SurfaceAnalysisSurfaceDeviationNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SurfaceDeviationNode', () => {
       sampleCount: 1000
     } as any;
 
-    const result = await SurfaceDeviationNode.evaluate(context, inputs, params);
+    const result = await SurfaceAnalysisSurfaceDeviationNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

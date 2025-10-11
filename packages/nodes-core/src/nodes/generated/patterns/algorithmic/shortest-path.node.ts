@@ -15,7 +15,7 @@ interface ShortestPathOutputs {
   distance: number;
 }
 
-export const ShortestPathNode: NodeDefinition<ShortestPathInputs, ShortestPathOutputs, ShortestPathParams> = {
+export const PatternsAlgorithmicShortestPathNode: NodeDefinition<ShortestPathInputs, ShortestPathOutputs, ShortestPathParams> = {
   id: 'Patterns::ShortestPath',
   category: 'Patterns',
   label: 'ShortestPath',

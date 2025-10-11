@@ -17,7 +17,7 @@ interface LinearBearingOutputs {
   bore: unknown;
 }
 
-export const LinearBearingNode: NodeDefinition<LinearBearingInputs, LinearBearingOutputs, LinearBearingParams> = {
+export const MechanicalEngineeringBearingsLinearBearingNode: NodeDefinition<LinearBearingInputs, LinearBearingOutputs, LinearBearingParams> = {
   id: 'MechanicalEngineering::LinearBearing',
   category: 'MechanicalEngineering',
   label: 'LinearBearing',

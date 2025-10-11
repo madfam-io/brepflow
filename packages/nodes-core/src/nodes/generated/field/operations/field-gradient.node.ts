@@ -10,7 +10,7 @@ interface FieldGradientOutputs {
   gradient: unknown;
 }
 
-export const FieldGradientNode: NodeDefinition<FieldGradientInputs, FieldGradientOutputs, FieldGradientParams> = {
+export const FieldOperationsFieldGradientNode: NodeDefinition<FieldGradientInputs, FieldGradientOutputs, FieldGradientParams> = {
   id: 'Field::FieldGradient',
   category: 'Field',
   label: 'FieldGradient',

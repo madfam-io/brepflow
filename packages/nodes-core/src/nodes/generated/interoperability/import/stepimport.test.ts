@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { STEPImportNode } from './stepimport.node';
+import { InteroperabilityImportSTEPImportNode } from './stepimport.node';
 import { createTestContext } from '../test-utils';
 
-describe('STEPImportNode', () => {
+describe('InteroperabilityImportSTEPImportNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('STEPImportNode', () => {
       mergeSurfaces: false
     } as any;
 
-    const result = await STEPImportNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityImportSTEPImportNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

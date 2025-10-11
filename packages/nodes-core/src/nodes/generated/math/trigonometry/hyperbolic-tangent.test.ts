@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HyperbolicTangentNode } from './hyperbolic-tangent.node';
+import { MathTrigonometryHyperbolicTangentNode } from './hyperbolic-tangent.node';
 import { createTestContext } from '../test-utils';
 
-describe('HyperbolicTangentNode', () => {
+describe('MathTrigonometryHyperbolicTangentNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('HyperbolicTangentNode', () => {
 
     } as any;
 
-    const result = await HyperbolicTangentNode.evaluate(context, inputs, params);
+    const result = await MathTrigonometryHyperbolicTangentNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

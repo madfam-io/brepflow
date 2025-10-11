@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ProximityAnalysisNode } from './proximity-analysis.node';
+import { AnalysisProximityProximityAnalysisNode } from './proximity-analysis.node';
 import { createTestContext } from '../test-utils';
 
-describe('ProximityAnalysisNode', () => {
+describe('AnalysisProximityProximityAnalysisNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('ProximityAnalysisNode', () => {
       showConnections: true
     } as any;
 
-    const result = await ProximityAnalysisNode.evaluate(context, inputs, params);
+    const result = await AnalysisProximityProximityAnalysisNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

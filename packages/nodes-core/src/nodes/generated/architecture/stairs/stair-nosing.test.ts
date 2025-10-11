@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StairNosingNode } from './stair-nosing.node';
+import { ArchitectureStairsStairNosingNode } from './stair-nosing.node';
 import { createTestContext } from '../test-utils';
 
-describe('StairNosingNode', () => {
+describe('ArchitectureStairsStairNosingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('StairNosingNode', () => {
       material: "aluminum"
     } as any;
 
-    const result = await StairNosingNode.evaluate(context, inputs, params);
+    const result = await ArchitectureStairsStairNosingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

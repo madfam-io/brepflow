@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PocketingStrategyNode } from './pocketing-strategy.node';
+import { FabricationCNCPocketingStrategyNode } from './pocketing-strategy.node';
 import { createTestContext } from '../test-utils';
 
-describe('PocketingStrategyNode', () => {
+describe('FabricationCNCPocketingStrategyNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('PocketingStrategyNode', () => {
       finishPass: true
     } as any;
 
-    const result = await PocketingStrategyNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCPocketingStrategyNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

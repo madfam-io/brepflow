@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ExportDXFNode } from './export-dxf.node';
+import { IODrawingExportDXFNode } from './export-dxf.node';
 import { createTestContext } from '../test-utils';
 
-describe('ExportDXFNode', () => {
+describe('IODrawingExportDXFNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ExportDXFNode', () => {
       hiddenLines: false
     } as any;
 
-    const result = await ExportDXFNode.evaluate(context, inputs, params);
+    const result = await IODrawingExportDXFNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

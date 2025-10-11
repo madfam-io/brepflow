@@ -13,7 +13,7 @@ interface FieldWarpOutputs {
   warpedField: unknown;
 }
 
-export const FieldWarpNode: NodeDefinition<FieldWarpInputs, FieldWarpOutputs, FieldWarpParams> = {
+export const FieldsAdvancedFieldWarpNode: NodeDefinition<FieldWarpInputs, FieldWarpOutputs, FieldWarpParams> = {
   id: 'Fields::FieldWarp',
   category: 'Fields',
   label: 'FieldWarp',

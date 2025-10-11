@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SignNode } from './sign.node';
+import { MathComparisonSignNode } from './sign.node';
 import { createTestContext } from '../test-utils';
 
-describe('SignNode', () => {
+describe('MathComparisonSignNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('SignNode', () => {
 
     } as any;
 
-    const result = await SignNode.evaluate(context, inputs, params);
+    const result = await MathComparisonSignNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

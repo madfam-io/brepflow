@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DifferentialGearNode } from './differential-gear.node';
+import { MechanicalEngineeringGearsDifferentialGearNode } from './differential-gear.node';
 import { createTestContext } from '../test-utils';
 
-describe('DifferentialGearNode', () => {
+describe('MechanicalEngineeringGearsDifferentialGearNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('DifferentialGearNode', () => {
       module: 3
     } as any;
 
-    const result = await DifferentialGearNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringGearsDifferentialGearNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

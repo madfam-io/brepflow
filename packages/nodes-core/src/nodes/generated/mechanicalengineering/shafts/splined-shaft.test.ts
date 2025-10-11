@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SplinedShaftNode } from './splined-shaft.node';
+import { MechanicalEngineeringShaftsSplinedShaftNode } from './splined-shaft.node';
 import { createTestContext } from '../test-utils';
 
-describe('SplinedShaftNode', () => {
+describe('MechanicalEngineeringShaftsSplinedShaftNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('SplinedShaftNode', () => {
       length: 50
     } as any;
 
-    const result = await SplinedShaftNode.evaluate(context, inputs, params);
+    const result = await MechanicalEngineeringShaftsSplinedShaftNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

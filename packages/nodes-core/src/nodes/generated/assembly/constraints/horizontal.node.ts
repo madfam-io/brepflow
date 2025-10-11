@@ -11,7 +11,7 @@ interface HorizontalOutputs {
   constraint: unknown;
 }
 
-export const HorizontalNode: NodeDefinition<HorizontalInputs, HorizontalOutputs, HorizontalParams> = {
+export const AssemblyConstraintsHorizontalNode: NodeDefinition<HorizontalInputs, HorizontalOutputs, HorizontalParams> = {
   id: 'Assembly::Horizontal',
   category: 'Assembly',
   label: 'Horizontal',

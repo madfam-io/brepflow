@@ -15,7 +15,7 @@ interface SwitchbackRampOutputs {
   landings: unknown;
 }
 
-export const SwitchbackRampNode: NodeDefinition<SwitchbackRampInputs, SwitchbackRampOutputs, SwitchbackRampParams> = {
+export const ArchitectureRampsSwitchbackRampNode: NodeDefinition<SwitchbackRampInputs, SwitchbackRampOutputs, SwitchbackRampParams> = {
   id: 'Architecture::SwitchbackRamp',
   category: 'Architecture',
   label: 'SwitchbackRamp',

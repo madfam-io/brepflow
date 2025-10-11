@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FeedsAndSpeedsNode } from './feeds-and-speeds.node';
+import { FabricationCNCFeedsAndSpeedsNode } from './feeds-and-speeds.node';
 import { createTestContext } from '../test-utils';
 
-describe('FeedsAndSpeedsNode', () => {
+describe('FabricationCNCFeedsAndSpeedsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('FeedsAndSpeedsNode', () => {
       toolDiameter: 6
     } as any;
 
-    const result = await FeedsAndSpeedsNode.evaluate(context, inputs, params);
+    const result = await FabricationCNCFeedsAndSpeedsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

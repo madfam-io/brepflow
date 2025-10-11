@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { CurveClosestPointNode } from './curve-closest-point.node';
+import { AnalysisCurvesCurveClosestPointNode } from './curve-closest-point.node';
 import { createTestContext } from '../test-utils';
 
-describe('CurveClosestPointNode', () => {
+describe('AnalysisCurvesCurveClosestPointNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('CurveClosestPointNode', () => {
       showConnection: true
     } as any;
 
-    const result = await CurveClosestPointNode.evaluate(context, inputs, params);
+    const result = await AnalysisCurvesCurveClosestPointNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

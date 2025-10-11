@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GlueNode } from './glue.node';
+import { BooleanGlueNode } from './glue.node';
 import { createTestContext } from '../test-utils';
 
-describe('GlueNode', () => {
+describe('BooleanGlueNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('GlueNode', () => {
       tolerance: 1e-7
     } as any;
 
-    const result = await GlueNode.evaluate(context, inputs, params);
+    const result = await BooleanGlueNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -16,7 +16,7 @@ interface DistanceMeasurementOutputs {
   midpoint: [number, number, number];
 }
 
-export const DistanceMeasurementNode: NodeDefinition<DistanceMeasurementInputs, DistanceMeasurementOutputs, DistanceMeasurementParams> = {
+export const AnalysisMeasurementDistanceMeasurementNode: NodeDefinition<DistanceMeasurementInputs, DistanceMeasurementOutputs, DistanceMeasurementParams> = {
   id: 'Analysis::DistanceMeasurement',
   category: 'Analysis',
   label: 'DistanceMeasurement',

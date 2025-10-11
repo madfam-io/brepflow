@@ -14,7 +14,7 @@ interface MetaBallsOutputs {
   metaball: unknown;
 }
 
-export const MetaBallsNode: NodeDefinition<MetaBallsInputs, MetaBallsOutputs, MetaBallsParams> = {
+export const SpecializedOrganicMetaBallsNode: NodeDefinition<MetaBallsInputs, MetaBallsOutputs, MetaBallsParams> = {
   id: 'Specialized::MetaBalls',
   category: 'Specialized',
   label: 'MetaBalls',

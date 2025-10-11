@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MetaBallsNode } from './meta-balls.node';
+import { SpecializedOrganicMetaBallsNode } from './meta-balls.node';
 import { createTestContext } from '../test-utils';
 
-describe('MetaBallsNode', () => {
+describe('SpecializedOrganicMetaBallsNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('MetaBallsNode', () => {
       resolution: 50
     } as any;
 
-    const result = await MetaBallsNode.evaluate(context, inputs, params);
+    const result = await SpecializedOrganicMetaBallsNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

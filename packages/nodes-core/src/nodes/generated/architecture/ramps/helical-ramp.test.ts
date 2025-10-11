@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { HelicalRampNode } from './helical-ramp.node';
+import { ArchitectureRampsHelicalRampNode } from './helical-ramp.node';
 import { createTestContext } from '../test-utils';
 
-describe('HelicalRampNode', () => {
+describe('ArchitectureRampsHelicalRampNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('HelicalRampNode', () => {
       width: 7000
     } as any;
 
-    const result = await HelicalRampNode.evaluate(context, inputs, params);
+    const result = await ArchitectureRampsHelicalRampNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

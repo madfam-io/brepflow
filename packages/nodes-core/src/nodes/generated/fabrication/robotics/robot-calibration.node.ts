@@ -13,7 +13,7 @@ interface RobotCalibrationOutputs {
   accuracy: number;
 }
 
-export const RobotCalibrationNode: NodeDefinition<RobotCalibrationInputs, RobotCalibrationOutputs, RobotCalibrationParams> = {
+export const FabricationRoboticsRobotCalibrationNode: NodeDefinition<RobotCalibrationInputs, RobotCalibrationOutputs, RobotCalibrationParams> = {
   id: 'Fabrication::RobotCalibration',
   category: 'Fabrication',
   label: 'RobotCalibration',

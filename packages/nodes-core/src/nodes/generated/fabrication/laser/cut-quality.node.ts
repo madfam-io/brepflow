@@ -14,7 +14,7 @@ interface CutQualityOutputs {
   heatAffectedZone: number;
 }
 
-export const CutQualityNode: NodeDefinition<CutQualityInputs, CutQualityOutputs, CutQualityParams> = {
+export const FabricationLaserCutQualityNode: NodeDefinition<CutQualityInputs, CutQualityOutputs, CutQualityParams> = {
   id: 'Fabrication::CutQuality',
   category: 'Fabrication',
   label: 'CutQuality',

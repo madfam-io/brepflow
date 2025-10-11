@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FireWallNode } from './fire-wall.node';
+import { ArchitectureWallsFireWallNode } from './fire-wall.node';
 import { createTestContext } from '../test-utils';
 
-describe('FireWallNode', () => {
+describe('ArchitectureWallsFireWallNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('FireWallNode', () => {
       thickness: 250
     } as any;
 
-    const result = await FireWallNode.evaluate(context, inputs, params);
+    const result = await ArchitectureWallsFireWallNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

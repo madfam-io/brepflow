@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { EngraveNode } from './engrave.node';
+import { SpecializedTextEngraveNode } from './engrave.node';
 import { createTestContext } from '../test-utils';
 
-describe('EngraveNode', () => {
+describe('SpecializedTextEngraveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('EngraveNode', () => {
       roundCorners: true
     } as any;
 
-    const result = await EngraveNode.evaluate(context, inputs, params);
+    const result = await SpecializedTextEngraveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -18,7 +18,7 @@ interface TopologyOptimizeOutputs {
   convergence: unknown;
 }
 
-export const TopologyOptimizeNode: NodeDefinition<TopologyOptimizeInputs, TopologyOptimizeOutputs, TopologyOptimizeParams> = {
+export const SpecializedOptimizationTopologyOptimizeNode: NodeDefinition<TopologyOptimizeInputs, TopologyOptimizeOutputs, TopologyOptimizeParams> = {
   id: 'Specialized::TopologyOptimize',
   category: 'Specialized',
   label: 'TopologyOptimize',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PerlinNoiseNode } from './perlin-noise.node';
+import { MathRandomPerlinNoiseNode } from './perlin-noise.node';
 import { createTestContext } from '../test-utils';
 
-describe('PerlinNoiseNode', () => {
+describe('MathRandomPerlinNoiseNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('PerlinNoiseNode', () => {
       seed: -1
     } as any;
 
-    const result = await PerlinNoiseNode.evaluate(context, inputs, params);
+    const result = await MathRandomPerlinNoiseNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

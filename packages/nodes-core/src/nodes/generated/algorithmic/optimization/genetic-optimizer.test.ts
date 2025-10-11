@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { GeneticOptimizerNode } from './genetic-optimizer.node';
+import { AlgorithmicOptimizationGeneticOptimizerNode } from './genetic-optimizer.node';
 import { createTestContext } from '../test-utils';
 
-describe('GeneticOptimizerNode', () => {
+describe('AlgorithmicOptimizationGeneticOptimizerNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -18,7 +18,7 @@ describe('GeneticOptimizerNode', () => {
       elitism: 0.1
     } as any;
 
-    const result = await GeneticOptimizerNode.evaluate(context, inputs, params);
+    const result = await AlgorithmicOptimizationGeneticOptimizerNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

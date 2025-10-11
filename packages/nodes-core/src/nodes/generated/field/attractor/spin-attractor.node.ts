@@ -15,7 +15,7 @@ interface SpinAttractorOutputs {
   field: unknown;
 }
 
-export const SpinAttractorNode: NodeDefinition<SpinAttractorInputs, SpinAttractorOutputs, SpinAttractorParams> = {
+export const FieldAttractorSpinAttractorNode: NodeDefinition<SpinAttractorInputs, SpinAttractorOutputs, SpinAttractorParams> = {
   id: 'Field::SpinAttractor',
   category: 'Field',
   label: 'SpinAttractor',

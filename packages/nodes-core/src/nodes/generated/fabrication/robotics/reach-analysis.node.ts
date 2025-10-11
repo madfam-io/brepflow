@@ -14,7 +14,7 @@ interface ReachAnalysisOutputs {
   coverage: number;
 }
 
-export const ReachAnalysisNode: NodeDefinition<ReachAnalysisInputs, ReachAnalysisOutputs, ReachAnalysisParams> = {
+export const FabricationRoboticsReachAnalysisNode: NodeDefinition<ReachAnalysisInputs, ReachAnalysisOutputs, ReachAnalysisParams> = {
   id: 'Fabrication::ReachAnalysis',
   category: 'Fabrication',
   label: 'ReachAnalysis',

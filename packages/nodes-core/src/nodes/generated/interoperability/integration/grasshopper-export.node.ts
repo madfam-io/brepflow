@@ -15,7 +15,7 @@ interface GrasshopperExportOutputs {
   componentCount: unknown;
 }
 
-export const GrasshopperExportNode: NodeDefinition<GrasshopperExportInputs, GrasshopperExportOutputs, GrasshopperExportParams> = {
+export const InteroperabilityIntegrationGrasshopperExportNode: NodeDefinition<GrasshopperExportInputs, GrasshopperExportOutputs, GrasshopperExportParams> = {
   id: 'Interoperability::GrasshopperExport',
   category: 'Interoperability',
   label: 'GrasshopperExport',

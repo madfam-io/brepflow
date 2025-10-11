@@ -18,7 +18,7 @@ interface STEPExportOutputs {
   exportLog: unknown;
 }
 
-export const STEPExportNode: NodeDefinition<STEPExportInputs, STEPExportOutputs, STEPExportParams> = {
+export const InteroperabilityExportSTEPExportNode: NodeDefinition<STEPExportInputs, STEPExportOutputs, STEPExportParams> = {
   id: 'Interoperability::STEPExport',
   category: 'Interoperability',
   label: 'STEPExport',

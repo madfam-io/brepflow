@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { TextNode } from './text.node';
+import { SketchBasicTextNode } from './text.node';
 import { createTestContext } from '../test-utils';
 
-describe('TextNode', () => {
+describe('SketchBasicTextNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -19,7 +19,7 @@ describe('TextNode', () => {
       y: 0
     } as any;
 
-    const result = await TextNode.evaluate(context, inputs, params);
+    const result = await SketchBasicTextNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -12,7 +12,7 @@ interface VoronoiSkeletonOutputs {
   skeleton: unknown;
 }
 
-export const VoronoiSkeletonNode: NodeDefinition<VoronoiSkeletonInputs, VoronoiSkeletonOutputs, VoronoiSkeletonParams> = {
+export const PatternsVoronoiVoronoiSkeletonNode: NodeDefinition<VoronoiSkeletonInputs, VoronoiSkeletonOutputs, VoronoiSkeletonParams> = {
   id: 'Patterns::VoronoiSkeleton',
   category: 'Patterns',
   label: 'VoronoiSkeleton',

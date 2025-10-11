@@ -13,7 +13,7 @@ interface UnionOutputs {
   result: unknown;
 }
 
-export const UnionNode: NodeDefinition<UnionInputs, UnionOutputs, UnionParams> = {
+export const BooleanUnionNode: NodeDefinition<UnionInputs, UnionOutputs, UnionParams> = {
   id: 'Boolean::Union',
   category: 'Boolean',
   label: 'Union',

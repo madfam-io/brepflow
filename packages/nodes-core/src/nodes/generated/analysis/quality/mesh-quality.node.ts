@@ -16,7 +16,7 @@ interface MeshQualityOutputs {
   qualityReport: unknown;
 }
 
-export const MeshQualityNode: NodeDefinition<MeshQualityInputs, MeshQualityOutputs, MeshQualityParams> = {
+export const AnalysisQualityMeshQualityNode: NodeDefinition<MeshQualityInputs, MeshQualityOutputs, MeshQualityParams> = {
   id: 'Analysis::MeshQuality',
   category: 'Analysis',
   label: 'MeshQuality',

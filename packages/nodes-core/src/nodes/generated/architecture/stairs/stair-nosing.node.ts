@@ -13,7 +13,7 @@ interface StairNosingOutputs {
   nosing: unknown;
 }
 
-export const StairNosingNode: NodeDefinition<StairNosingInputs, StairNosingOutputs, StairNosingParams> = {
+export const ArchitectureStairsStairNosingNode: NodeDefinition<StairNosingInputs, StairNosingOutputs, StairNosingParams> = {
   id: 'Architecture::StairNosing',
   category: 'Architecture',
   label: 'StairNosing',

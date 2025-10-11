@@ -13,7 +13,7 @@ interface SoundproofWallOutputs {
   acousticWall: unknown;
 }
 
-export const SoundproofWallNode: NodeDefinition<SoundproofWallInputs, SoundproofWallOutputs, SoundproofWallParams> = {
+export const ArchitectureWallsSoundproofWallNode: NodeDefinition<SoundproofWallInputs, SoundproofWallOutputs, SoundproofWallParams> = {
   id: 'Architecture::SoundproofWall',
   category: 'Architecture',
   label: 'SoundproofWall',

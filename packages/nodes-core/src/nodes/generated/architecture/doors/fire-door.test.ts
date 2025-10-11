@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { FireDoorNode } from './fire-door.node';
+import { ArchitectureDoorsFireDoorNode } from './fire-door.node';
 import { createTestContext } from '../test-utils';
 
-describe('FireDoorNode', () => {
+describe('ArchitectureDoorsFireDoorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('FireDoorNode', () => {
       panic: true
     } as any;
 
-    const result = await FireDoorNode.evaluate(context, inputs, params);
+    const result = await ArchitectureDoorsFireDoorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ImportDXFNode } from './import-dxf.node';
+import { IODrawingImportDXFNode } from './import-dxf.node';
 import { createTestContext } from '../test-utils';
 
-describe('ImportDXFNode', () => {
+describe('IODrawingImportDXFNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('ImportDXFNode', () => {
       units: "mm"
     } as any;
 
-    const result = await ImportDXFNode.evaluate(context, inputs, params);
+    const result = await IODrawingImportDXFNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -14,7 +14,7 @@ interface DirectionalAttractorOutputs {
   field: unknown;
 }
 
-export const DirectionalAttractorNode: NodeDefinition<DirectionalAttractorInputs, DirectionalAttractorOutputs, DirectionalAttractorParams> = {
+export const FieldAttractorDirectionalAttractorNode: NodeDefinition<DirectionalAttractorInputs, DirectionalAttractorOutputs, DirectionalAttractorParams> = {
   id: 'Field::DirectionalAttractor',
   category: 'Field',
   label: 'DirectionalAttractor',

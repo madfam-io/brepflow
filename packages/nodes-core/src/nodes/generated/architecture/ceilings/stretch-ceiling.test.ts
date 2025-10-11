@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { StretchCeilingNode } from './stretch-ceiling.node';
+import { ArchitectureCeilingsStretchCeilingNode } from './stretch-ceiling.node';
 import { createTestContext } from '../test-utils';
 
-describe('StretchCeilingNode', () => {
+describe('ArchitectureCeilingsStretchCeilingNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('StretchCeilingNode', () => {
       backlighting: false
     } as any;
 
-    const result = await StretchCeilingNode.evaluate(context, inputs, params);
+    const result = await ArchitectureCeilingsStretchCeilingNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

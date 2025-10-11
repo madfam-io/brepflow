@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { WipeTowerNode } from './wipe-tower.node';
+import { Fabrication3DPrintingWipeTowerNode } from './wipe-tower.node';
 import { createTestContext } from '../test-utils';
 
-describe('WipeTowerNode', () => {
+describe('Fabrication3DPrintingWipeTowerNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('WipeTowerNode', () => {
       wipeVolume: 15
     } as any;
 
-    const result = await WipeTowerNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingWipeTowerNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SubtractNode } from './subtract.node';
+import { MathOperatorsSubtractNode } from './subtract.node';
 import { createTestContext } from '../test-utils';
 
-describe('SubtractNode', () => {
+describe('MathOperatorsSubtractNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SubtractNode', () => {
 
     } as any;
 
-    const result = await SubtractNode.evaluate(context, inputs, params);
+    const result = await MathOperatorsSubtractNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

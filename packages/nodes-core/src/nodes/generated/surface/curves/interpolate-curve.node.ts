@@ -15,7 +15,7 @@ interface InterpolateCurveOutputs {
   curve: unknown;
 }
 
-export const InterpolateCurveNode: NodeDefinition<InterpolateCurveInputs, InterpolateCurveOutputs, InterpolateCurveParams> = {
+export const SurfaceCurvesInterpolateCurveNode: NodeDefinition<InterpolateCurveInputs, InterpolateCurveOutputs, InterpolateCurveParams> = {
   id: 'Surface::InterpolateCurve',
   category: 'Surface',
   label: 'InterpolateCurve',

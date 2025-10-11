@@ -17,7 +17,7 @@ interface SphericalBearingOutputs {
   housing: unknown;
 }
 
-export const SphericalBearingNode: NodeDefinition<SphericalBearingInputs, SphericalBearingOutputs, SphericalBearingParams> = {
+export const MechanicalEngineeringBearingsSphericalBearingNode: NodeDefinition<SphericalBearingInputs, SphericalBearingOutputs, SphericalBearingParams> = {
   id: 'MechanicalEngineering::SphericalBearing',
   category: 'MechanicalEngineering',
   label: 'SphericalBearing',

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { SolubleSupportInterfaceNode } from './soluble-support-interface.node';
+import { Fabrication3DPrintingSolubleSupportInterfaceNode } from './soluble-support-interface.node';
 import { createTestContext } from '../test-utils';
 
-describe('SolubleSupportInterfaceNode', () => {
+describe('Fabrication3DPrintingSolubleSupportInterfaceNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('SolubleSupportInterfaceNode', () => {
       interfaceDensity: 0.9
     } as any;
 
-    const result = await SolubleSupportInterfaceNode.evaluate(context, inputs, params);
+    const result = await Fabrication3DPrintingSolubleSupportInterfaceNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

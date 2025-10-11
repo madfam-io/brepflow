@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MeshOffsetNode } from './mesh-offset.node';
+import { MeshRepairMeshOffsetNode } from './mesh-offset.node';
 import { createTestContext } from '../test-utils';
 
-describe('MeshOffsetNode', () => {
+describe('MeshRepairMeshOffsetNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('MeshOffsetNode', () => {
       solidify: false
     } as any;
 
-    const result = await MeshOffsetNode.evaluate(context, inputs, params);
+    const result = await MeshRepairMeshOffsetNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

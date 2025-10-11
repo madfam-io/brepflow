@@ -12,7 +12,7 @@ interface EaseOutOutputs {
   result: unknown;
 }
 
-export const EaseOutNode: NodeDefinition<EaseOutInputs, EaseOutOutputs, EaseOutParams> = {
+export const MathInterpolationEaseOutNode: NodeDefinition<EaseOutInputs, EaseOutOutputs, EaseOutParams> = {
   id: 'Math::EaseOut',
   category: 'Math',
   label: 'EaseOut',

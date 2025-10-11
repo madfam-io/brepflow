@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { MatrixDeterminantNode } from './matrix-determinant.node';
+import { MathMatrixMatrixDeterminantNode } from './matrix-determinant.node';
 import { createTestContext } from '../test-utils';
 
-describe('MatrixDeterminantNode', () => {
+describe('MathMatrixMatrixDeterminantNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -13,7 +13,7 @@ describe('MatrixDeterminantNode', () => {
 
     } as any;
 
-    const result = await MatrixDeterminantNode.evaluate(context, inputs, params);
+    const result = await MathMatrixMatrixDeterminantNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { JSONGeneratorNode } from './jsongenerator.node';
+import { InteroperabilityAPIJSONGeneratorNode } from './jsongenerator.node';
 import { createTestContext } from '../test-utils';
 
-describe('JSONGeneratorNode', () => {
+describe('InteroperabilityAPIJSONGeneratorNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('JSONGeneratorNode', () => {
       compact: false
     } as any;
 
-    const result = await JSONGeneratorNode.evaluate(context, inputs, params);
+    const result = await InteroperabilityAPIJSONGeneratorNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

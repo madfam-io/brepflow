@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { PrismNode } from './prism.node';
+import { SolidParametricPrismNode } from './prism.node';
 import { createTestContext } from '../test-utils';
 
-describe('PrismNode', () => {
+describe('SolidParametricPrismNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -15,7 +15,7 @@ describe('PrismNode', () => {
       taper: 1
     } as any;
 
-    const result = await PrismNode.evaluate(context, inputs, params);
+    const result = await SolidParametricPrismNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

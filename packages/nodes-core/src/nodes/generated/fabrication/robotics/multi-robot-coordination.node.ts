@@ -12,7 +12,7 @@ interface MultiRobotCoordinationOutputs {
   synchronizedPaths: unknown;
 }
 
-export const MultiRobotCoordinationNode: NodeDefinition<MultiRobotCoordinationInputs, MultiRobotCoordinationOutputs, MultiRobotCoordinationParams> = {
+export const FabricationRoboticsMultiRobotCoordinationNode: NodeDefinition<MultiRobotCoordinationInputs, MultiRobotCoordinationOutputs, MultiRobotCoordinationParams> = {
   id: 'Fabrication::MultiRobotCoordination',
   category: 'Fabrication',
   label: 'MultiRobotCoordination',

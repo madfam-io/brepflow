@@ -13,7 +13,7 @@ interface SubdivideMeshOutputs {
   subdivided: unknown;
 }
 
-export const SubdivideMeshNode: NodeDefinition<SubdivideMeshInputs, SubdivideMeshOutputs, SubdivideMeshParams> = {
+export const MeshRepairSubdivideMeshNode: NodeDefinition<SubdivideMeshInputs, SubdivideMeshOutputs, SubdivideMeshParams> = {
   id: 'Mesh::SubdivideMesh',
   category: 'Mesh',
   label: 'SubdivideMesh',

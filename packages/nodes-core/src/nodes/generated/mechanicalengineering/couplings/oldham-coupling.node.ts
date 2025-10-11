@@ -17,7 +17,7 @@ interface OldhamCouplingOutputs {
   disc: unknown;
 }
 
-export const OldhamCouplingNode: NodeDefinition<OldhamCouplingInputs, OldhamCouplingOutputs, OldhamCouplingParams> = {
+export const MechanicalEngineeringCouplingsOldhamCouplingNode: NodeDefinition<OldhamCouplingInputs, OldhamCouplingOutputs, OldhamCouplingParams> = {
   id: 'MechanicalEngineering::OldhamCoupling',
   category: 'MechanicalEngineering',
   label: 'OldhamCoupling',

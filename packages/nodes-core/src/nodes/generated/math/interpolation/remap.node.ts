@@ -14,7 +14,7 @@ interface RemapOutputs {
   remapped: unknown;
 }
 
-export const RemapNode: NodeDefinition<RemapInputs, RemapOutputs, RemapParams> = {
+export const MathInterpolationRemapNode: NodeDefinition<RemapInputs, RemapOutputs, RemapParams> = {
   id: 'Math::Remap',
   category: 'Math',
   label: 'Remap',

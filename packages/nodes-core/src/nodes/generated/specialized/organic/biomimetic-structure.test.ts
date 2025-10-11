@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { BiomimeticStructureNode } from './biomimetic-structure.node';
+import { SpecializedOrganicBiomimeticStructureNode } from './biomimetic-structure.node';
 import { createTestContext } from '../test-utils';
 
-describe('BiomimeticStructureNode', () => {
+describe('SpecializedOrganicBiomimeticStructureNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('BiomimeticStructureNode', () => {
       density: 0.5
     } as any;
 
-    const result = await BiomimeticStructureNode.evaluate(context, inputs, params);
+    const result = await SpecializedOrganicBiomimeticStructureNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

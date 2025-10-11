@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { DragonCurveNode } from './dragon-curve.node';
+import { PatternsFractalsDragonCurveNode } from './dragon-curve.node';
 import { createTestContext } from '../test-utils';
 
-describe('DragonCurveNode', () => {
+describe('PatternsFractalsDragonCurveNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -14,7 +14,7 @@ describe('DragonCurveNode', () => {
       angle: 90
     } as any;
 
-    const result = await DragonCurveNode.evaluate(context, inputs, params);
+    const result = await PatternsFractalsDragonCurveNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

@@ -15,7 +15,7 @@ interface BoxOutputs {
   solid: unknown;
 }
 
-export const BoxNode: NodeDefinition<BoxInputs, BoxOutputs, BoxParams> = {
+export const SolidPrimitivesBoxNode: NodeDefinition<BoxInputs, BoxOutputs, BoxParams> = {
   id: 'Solid::Box',
   category: 'Solid',
   label: 'Box',

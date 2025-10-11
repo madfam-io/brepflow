@@ -16,7 +16,7 @@ interface SurfaceFlatnessOutputs {
   maxDeviation: unknown;
 }
 
-export const SurfaceFlatnessNode: NodeDefinition<SurfaceFlatnessInputs, SurfaceFlatnessOutputs, SurfaceFlatnessParams> = {
+export const AnalysisSurfacesSurfaceFlatnessNode: NodeDefinition<SurfaceFlatnessInputs, SurfaceFlatnessOutputs, SurfaceFlatnessParams> = {
   id: 'Analysis::SurfaceFlatness',
   category: 'Analysis',
   label: 'SurfaceFlatness',

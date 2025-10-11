@@ -16,7 +16,7 @@ interface GeneticAlgorithmOutputs {
   population: unknown;
 }
 
-export const GeneticAlgorithmNode: NodeDefinition<GeneticAlgorithmInputs, GeneticAlgorithmOutputs, GeneticAlgorithmParams> = {
+export const PatternsProceduralGeneticAlgorithmNode: NodeDefinition<GeneticAlgorithmInputs, GeneticAlgorithmOutputs, GeneticAlgorithmParams> = {
   id: 'Patterns::GeneticAlgorithm',
   category: 'Patterns',
   label: 'GeneticAlgorithm',

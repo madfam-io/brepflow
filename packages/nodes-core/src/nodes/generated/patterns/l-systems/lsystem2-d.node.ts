@@ -15,7 +15,7 @@ interface LSystem2DOutputs {
   pattern: unknown;
 }
 
-export const LSystem2DNode: NodeDefinition<LSystem2DInputs, LSystem2DOutputs, LSystem2DParams> = {
+export const PatternsLSystemsLSystem2DNode: NodeDefinition<LSystem2DInputs, LSystem2DOutputs, LSystem2DParams> = {
   id: 'Patterns::LSystem2D',
   category: 'Patterns',
   label: 'LSystem2D',

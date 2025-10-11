@@ -13,7 +13,7 @@ interface TrimOutputs {
   trimmed: unknown;
 }
 
-export const TrimNode: NodeDefinition<TrimInputs, TrimOutputs, TrimParams> = {
+export const SketchCurvesTrimNode: NodeDefinition<TrimInputs, TrimOutputs, TrimParams> = {
   id: 'Sketch::Trim',
   category: 'Sketch',
   label: 'Trim',

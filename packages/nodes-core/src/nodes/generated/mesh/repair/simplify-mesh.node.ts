@@ -16,7 +16,7 @@ interface SimplifyMeshOutputs {
   triangleCount: unknown;
 }
 
-export const SimplifyMeshNode: NodeDefinition<SimplifyMeshInputs, SimplifyMeshOutputs, SimplifyMeshParams> = {
+export const MeshRepairSimplifyMeshNode: NodeDefinition<SimplifyMeshInputs, SimplifyMeshOutputs, SimplifyMeshParams> = {
   id: 'Mesh::SimplifyMesh',
   category: 'Mesh',
   label: 'SimplifyMesh',

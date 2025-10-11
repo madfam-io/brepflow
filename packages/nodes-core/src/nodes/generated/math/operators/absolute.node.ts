@@ -10,7 +10,7 @@ interface AbsoluteOutputs {
   result: unknown;
 }
 
-export const AbsoluteNode: NodeDefinition<AbsoluteInputs, AbsoluteOutputs, AbsoluteParams> = {
+export const MathOperatorsAbsoluteNode: NodeDefinition<AbsoluteInputs, AbsoluteOutputs, AbsoluteParams> = {
   id: 'Math::Absolute',
   category: 'Math',
   label: 'Absolute',

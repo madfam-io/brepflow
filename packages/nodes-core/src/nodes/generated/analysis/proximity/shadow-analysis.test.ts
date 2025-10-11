@@ -1,9 +1,9 @@
 
 import { describe, it, expect } from 'vitest';
-import { ShadowAnalysisNode } from './shadow-analysis.node';
+import { AnalysisProximityShadowAnalysisNode } from './shadow-analysis.node';
 import { createTestContext } from '../test-utils';
 
-describe('ShadowAnalysisNode', () => {
+describe('AnalysisProximityShadowAnalysisNode', () => {
   it('should evaluate without throwing', async () => {
     const context = createTestContext();
     const inputs = {
@@ -16,7 +16,7 @@ describe('ShadowAnalysisNode', () => {
       intensity: 1
     } as any;
 
-    const result = await ShadowAnalysisNode.evaluate(context, inputs, params);
+    const result = await AnalysisProximityShadowAnalysisNode.evaluate(context, inputs, params);
     expect(result).toBeDefined();
   });
 });

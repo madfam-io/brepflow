@@ -15,7 +15,7 @@ interface RivetOutputs {
   rivet: unknown;
 }
 
-export const RivetNode: NodeDefinition<RivetInputs, RivetOutputs, RivetParams> = {
+export const MechanicalEngineeringFastenersRivetNode: NodeDefinition<RivetInputs, RivetOutputs, RivetParams> = {
   id: 'MechanicalEngineering::Rivet',
   category: 'MechanicalEngineering',
   label: 'Rivet',
