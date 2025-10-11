@@ -2,6 +2,8 @@
 
 Interactive web-based parametric CAD application with node-based visual programming.
 
+> Studio now talks to the real OCCT.wasm backend. Ensure you run `pnpm run build:wasm` before starting the dev server.
+
 ## Overview
 
 BrepFlow Studio is the main user interface for BrepFlow, providing:
@@ -68,8 +70,8 @@ open http://localhost:5173
 2. **Set Parameters**: Select the box and edit width/height/depth in inspector
 3. **Add Fillet**: Drag "Features::Fillet" and connect box output to fillet input
 4. **Adjust Radius**: Set fillet radius to 5mm
-5. **View Result**: The 3D viewport shows the filleted box
-6. **Export**: Use File > Export > STEP to save the model
+5. **View Result**: The 3D viewport renders real OCCT tessellation
+6. **Export**: File > Export > STEP/IGES/STL now produces genuine OCCT output
 
 ## User Interface
 

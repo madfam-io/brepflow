@@ -48,7 +48,7 @@ export function PresenceList({
           </div>
         )}
       </div>
-      <style jsx>{`
+      <style>{`
         .presence-list {
           display: flex;
           align-items: center;

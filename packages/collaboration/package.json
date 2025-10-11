@@ -35,7 +35,9 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.5",
+    "@types/react": "^18.2.0",
     "@types/uuid": "^9.0.0",
+    "@types/ws": "^8.5.10",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "vitest": "^1.2.1"

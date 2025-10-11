@@ -1,4 +1,10 @@
-import { NodeId, EdgeId, SocketId, GraphInstance, NodeInstance, Edge as EdgeType } from '@brepflow/types';
+import type {
+  NodeId,
+  EdgeId,
+  GraphInstance,
+  NodeInstance,
+  Edge as EdgeType,
+} from '@brepflow/types';
 
 // Re-export types for convenience
 export type Graph = GraphInstance;
@@ -48,7 +54,7 @@ export interface Presence {
   selection?: Selection;
   viewport?: Viewport;
   user: User;
-  isEditing?: string; // Node ID being edited
+  isEditing?: string | null;
 }
 
 // Operation Types for Operational Transformation
@@ -75,12 +81,12 @@ export interface AddNodeOperation extends BaseOperation {
 
 export interface DeleteNodeOperation extends BaseOperation {
   type: 'DELETE_NODE';
-  nodeId: string;
+  nodeId: NodeId;
 }
 
 export interface UpdateNodeOperation extends BaseOperation {
   type: 'UPDATE_NODE';
-  nodeId: string;
+  nodeId: NodeId;
   updates: Partial<Node>;
 }
 
@@ -91,7 +97,7 @@ export interface AddEdgeOperation extends BaseOperation {
 
 export interface DeleteEdgeOperation extends BaseOperation {
   type: 'DELETE_EDGE';
-  edgeId: string;
+  edgeId: EdgeId;
 }
 
 export interface UpdateGraphMetadataOperation extends BaseOperation {
@@ -106,6 +112,15 @@ export type Operation =
   | AddEdgeOperation
   | DeleteEdgeOperation
   | UpdateGraphMetadataOperation;
+
+// Operation payload accepted from clients before enrichment with metadata
+export type OperationInput =
+  | { type: 'ADD_NODE'; node: Node }
+  | { type: 'DELETE_NODE'; nodeId: NodeId | string }
+  | { type: 'UPDATE_NODE'; nodeId: NodeId | string; updates: Partial<Node> }
+  | { type: 'ADD_EDGE'; edge: Edge }
+  | { type: 'DELETE_EDGE'; edgeId: EdgeId | string }
+  | { type: 'UPDATE_GRAPH_METADATA'; metadata: Partial<Graph['metadata']> };
 
 // Conflict Resolution
 export interface Conflict {

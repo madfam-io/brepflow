@@ -1,5 +1,4 @@
-import type { Point2D, Constraint2D, Variable, SolveResult } from '@brepflow/types';
-import * as numeric from 'numeric';
+import type { Point2D, Constraint2D, Variable, SolveResult } from './types';
 
 export class Solver2D {
   private constraints: Constraint2D[] = [];
@@ -71,7 +70,7 @@ export class Solver2D {
       return {
         success: true,
         iterations: 0,
-        error: 0,
+        residual: 0,
         variables: this.getVariableValues()
       };
     }
@@ -80,7 +79,7 @@ export class Solver2D {
       return {
         success: true,
         iterations: 0,
-        error: 0,
+        residual: 0,
         variables: {}
       };
     }
@@ -97,7 +96,8 @@ export class Solver2D {
 
       // Apply damped update
       for (let i = 0; i < this.parameters.length; i++) {
-        this.parameters[i] += this.DAMPING_FACTOR * delta[i];
+        const update = delta[i] ?? 0;
+        this.parameters[i] += this.DAMPING_FACTOR * update;
       }
 
       // Update entities with new parameters
@@ -138,7 +138,8 @@ export class Solver2D {
             const p1 = constraint.entities[0] as Point2D;
             const p2 = constraint.entities[1] as Point2D;
             const dist = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
-            residuals.push(dist - (constraint.targetValue || 0));
+            const target = typeof constraint.targetValue === 'number' ? constraint.targetValue : 0;
+            residuals.push(dist - target);
           }
           break;
 
@@ -170,8 +171,10 @@ export class Solver2D {
         case 'fixed':
           if (constraint.entities.length >= 1) {
             const p = constraint.entities[0] as Point2D;
-            const target = constraint.targetValue || { x: p.x, y: p.y };
-            if (typeof target === 'object' && 'x' in target && 'y' in target) {
+            const target = (constraint.targetValue && typeof constraint.targetValue === 'object')
+              ? constraint.targetValue as { x: number; y: number }
+              : { x: p.x, y: p.y };
+            if (typeof target.x === 'number' && typeof target.y === 'number') {
               residuals.push(p.x - target.x);
               residuals.push(p.y - target.y);
             }
@@ -223,7 +226,9 @@ export class Solver2D {
         this.updateEntities();
 
         // Central difference
-        const derivative = (residualsPlus[i] - residualsMinus[i]) / (2 * epsilon);
+        const forward = Number(residualsPlus[i] ?? 0);
+        const backward = Number(residualsMinus[i] ?? 0);
+        const derivative = (forward - backward) / (2 * epsilon);
         jacobian[i][j] = derivative;
       }
     }
@@ -252,7 +257,10 @@ export class Solver2D {
     }
 
     // Standard Gaussian elimination for square or underdetermined systems
-    const augmented = A.map((row, i) => [...row, -b[i]]);
+    const augmented = A.map((row, i) => {
+      const rhs = -(b[i] ?? 0);
+      return [...row, rhs];
+    });
 
     // Forward elimination
     for (let i = 0; i < Math.min(n, m); i++) {
@@ -305,13 +313,29 @@ export class Solver2D {
     try {
       // Use numeric.js for least squares solution
       // Solve A^T * A * x = A^T * b
-      const AT = numeric.transpose(A);
-      const ATA = numeric.dot(AT, A);
-      const ATb = numeric.dot(AT, b);
+      const rows = A.length;
+      const cols = A[0]?.length ?? 0;
+      if (!rows || !cols) {
+        return [];
+      }
 
-      return numeric.solve(ATA, ATb);
+      const ATA: number[][] = Array.from({ length: cols }, () => Array(cols).fill(0));
+      const ATb: number[] = Array(cols).fill(0);
+
+      for (let i = 0; i < rows; i++) {
+        const row = A[i] ?? [];
+        const bi = b[i] ?? 0;
+        for (let j = 0; j < cols; j++) {
+          const aij = row[j] ?? 0;
+          ATb[j] += aij * bi;
+          for (let k = 0; k < cols; k++) {
+            ATA[j][k] += aij * (row[k] ?? 0);
+          }
+        }
+      }
+
+      return this.solveLinearSystem(ATA, ATb);
     } catch (e) {
-      // Fallback to simple solution if numeric.js fails
       console.warn('Least squares failed, using fallback:', e);
       return new Array(A[0]?.length || 0).fill(0);
     }

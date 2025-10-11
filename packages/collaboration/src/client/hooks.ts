@@ -1,20 +1,62 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { useAwareness, useDoc } from './collaboration-provider';
-import type { 
-  CollaborationContext,
-  Presence,
-  SelectionState,
-  EditingState,
-  CursorPosition,
-  ViewportState,
-  Operation
-} from '../types';
+import { useState, useMemo, useCallback } from 'react';
+import {
+  createNodeId,
+  createEdgeId,
+  type NodeId,
+  type EdgeId,
+} from '@brepflow/types';
+import type { Node, Edge } from '../types';
+import {
+  useCollaboration as useCollaborationContext,
+  type CollaborationContextValue,
+} from './collaboration-provider';
+
+type NodeIdLike = string | NodeId;
+type EdgeIdLike = string | EdgeId;
+
+const toNodeId = (value: NodeIdLike): NodeId =>
+  typeof value === 'string' ? createNodeId(value) : value;
+
+const toEdgeId = (value: EdgeIdLike): EdgeId =>
+  typeof value === 'string' ? createEdgeId(value) : value;
+
+function derivePresence(
+  context: CollaborationContextValue
+): {
+  activeUsers: Array<{
+    id: string;
+    name: string;
+    color: string;
+    avatar?: string;
+    isCurrentUser: boolean;
+  }>;
+  userCount: number;
+  presence: CollaborationContextValue['presence'];
+} {
+  const { presence, currentUser } = context;
+  const activeUsers = presence.map((p) => ({
+    id: p.user.id,
+    name: p.user.name,
+    color: p.user.color,
+    avatar: p.user.avatar,
+    isCurrentUser: p.user.id === currentUser.id,
+  }));
+  return {
+    activeUsers,
+    userCount: activeUsers.length,
+    presence,
+  };
+}
+
+export function useCollaboration() {
+  return useCollaborationContext();
+}
 
 /**
  * Hook to get and update cursor position
  */
 export function useCursor() {
-  const { updateCursor, presence, currentUser } = useCollaboration();
+  const { updateCursor, presence, currentUser } = useCollaborationContext();
   const [localCursor, setLocalCursor] = useState({ x: 0, y: 0 });
 
   const setCursor = useCallback(
@@ -45,7 +87,7 @@ export function useCursor() {
  * Hook to get and update selection
  */
 export function useSelection() {
-  const { updateSelection, presence, currentUser } = useCollaboration();
+  const { updateSelection, presence, currentUser } = useCollaborationContext();
   const [localSelection, setLocalSelection] = useState<{
     nodeIds: string[];
     edgeIds: string[];
@@ -79,7 +121,7 @@ export function useSelection() {
  * Hook to get and update viewport
  */
 export function useViewport() {
-  const { updateViewport, presence, currentUser } = useCollaboration();
+  const { updateViewport, presence, currentUser } = useCollaborationContext();
   const [localViewport, setLocalViewport] = useState({
     x: 0,
     y: 0,
@@ -114,7 +156,7 @@ export function useViewport() {
  * Hook to track who is editing what
  */
 export function useEditingStatus() {
-  const { setEditing, presence, currentUser } = useCollaboration();
+  const { setEditing, presence, currentUser } = useCollaborationContext();
   const [editingNodeId, setEditingNodeId] = useState<string | null>(null);
 
   const startEditing = useCallback(
@@ -130,9 +172,8 @@ export function useEditingStatus() {
     setEditing(null);
   }, [setEditing]);
 
-  const editingUsers = presence
-    .filter((p) => p.isEditing)
-    .reduce((acc, p) => {
+  const editingUsers = presence.reduce<Record<string, { userId: string; userName: string; userColor: string }>>(
+    (acc, p) => {
       if (p.isEditing) {
         acc[p.isEditing] = {
           userId: p.user.id,
@@ -141,7 +182,9 @@ export function useEditingStatus() {
         };
       }
       return acc;
-    }, {} as Record<string, { userId: string; userName: string; userColor: string }>);
+    },
+    {}
+  );
 
   return {
     editingNodeId,
@@ -151,66 +194,25 @@ export function useEditingStatus() {
   };
 }
 
-export function useCollaboration() {
-  const awareness = useAwareness();
-  const doc = useDoc();
-  const [presence, setPresence] = useState<Map<number, Presence>>(new Map());
-
-  useEffect(() => {
-    const handleChange = () => {
-      const states = awareness.getStates();
-      const presenceMap = new Map<number, Presence>();
-      states.forEach((state, clientId) => {
-        if (state.user) {
-          presenceMap.set(clientId, state as Presence);
-        }
-      });
-      setPresence(presenceMap);
-    };
-
-    awareness.on('change', handleChange);
-    handleChange(); // Initial state
-
-    return () => awareness.off('change', handleChange);
-  }, [awareness]);
-  
-  return {
-    awareness,
-    doc,
-    presence,
-    connected: awareness.getStates().size > 0,
-    currentUser: { id: 'current', name: 'Current User', color: '#000000', avatar: '' },
-    updateCursor: (position: CursorPosition) => {
-      awareness.setLocalStateField('cursor', position);
-    },
-    updateSelection: (selection: SelectionState) => {
-      awareness.setLocalStateField('selection', selection);
-    },
-    updateViewport: (viewport: ViewportState) => {
-      awareness.setLocalStateField('viewport', viewport);
-    },
-    setEditing: (editing: EditingState) => {
-      awareness.setLocalStateField('editing', editing);
-    },
-    submitOperation: (operation: Operation) => {
-      doc.transact(() => {
-        // Apply operation to doc
-      });
-    },
-    document: doc
-  };
-}
-
+/**
+ * Collaboration presence utilities
+ */
 export function usePresence() {
-  const { presence } = useCollaboration();
-  return presence;
+  const context = useCollaborationContext();
+  const presenceData = useMemo(() => derivePresence(context), [context.presence, context.currentUser]);
+
+  return {
+    ...presenceData,
+    isConnected: context.isConnected,
+    currentUser: context.currentUser,
+  };
 }
 
 /**
  * Hook to handle node operations
  */
 export function useNodeOperations() {
-  const { submitOperation } = useCollaboration();
+  const { submitOperation } = useCollaborationContext();
 
   const addNode = useCallback(
     (node: Node) => {
@@ -223,10 +225,10 @@ export function useNodeOperations() {
   );
 
   const updateNode = useCallback(
-    (nodeId: string, updates: Partial<Node>) => {
+    (nodeId: NodeIdLike, updates: Partial<Node>) => {
       submitOperation({
         type: 'UPDATE_NODE',
-        nodeId,
+        nodeId: toNodeId(nodeId),
         updates,
       });
     },
@@ -234,10 +236,10 @@ export function useNodeOperations() {
   );
 
   const deleteNode = useCallback(
-    (nodeId: string) => {
+    (nodeId: NodeIdLike) => {
       submitOperation({
         type: 'DELETE_NODE',
-        nodeId,
+        nodeId: toNodeId(nodeId),
       });
     },
     [submitOperation]
@@ -254,7 +256,7 @@ export function useNodeOperations() {
  * Hook to handle edge operations
  */
 export function useEdgeOperations() {
-  const { submitOperation } = useCollaboration();
+  const { submitOperation } = useCollaborationContext();
 
   const addEdge = useCallback(
     (edge: Edge) => {
@@ -267,10 +269,10 @@ export function useEdgeOperations() {
   );
 
   const deleteEdge = useCallback(
-    (edgeId: string) => {
+    (edgeId: EdgeIdLike) => {
       submitOperation({
         type: 'DELETE_EDGE',
-        edgeId,
+        edgeId: toEdgeId(edgeId),
       });
     },
     [submitOperation]

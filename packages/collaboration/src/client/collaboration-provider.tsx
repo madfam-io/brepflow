@@ -11,6 +11,7 @@ import type {
   CollaborationOptions,
   Document,
   Operation,
+  OperationInput,
   Presence,
   User,
   Cursor,
@@ -18,6 +19,12 @@ import type {
   Viewport,
   Conflict,
 } from '../types';
+import {
+  createNodeId,
+  createEdgeId,
+  type NodeId,
+  type EdgeId,
+} from '@brepflow/types';
 
 interface CollaborationContextValue {
   client: CollaborationClient | null;
@@ -25,7 +32,7 @@ interface CollaborationContextValue {
   presence: Presence[];
   isConnected: boolean;
   currentUser: User;
-  submitOperation: (operation: Omit<Operation, 'id' | 'userId' | 'timestamp' | 'documentId'>) => void;
+  submitOperation: (operation: OperationInput) => void;
   updateCursor: (x: number, y: number) => void;
   updateSelection: (nodeIds: string[], edgeIds: string[]) => void;
   updateViewport: (x: number, y: number, zoom: number) => void;
@@ -43,6 +50,76 @@ export interface CollaborationProviderProps {
   onOperation?: (operation: Operation) => void;
   onConflict?: (conflict: Conflict) => void;
   onError?: (error: Error) => void;
+}
+
+const normaliseNodeId = (value: NodeId | string): NodeId =>
+  typeof value === 'string' ? createNodeId(value) : value;
+
+const normaliseEdgeId = (value: EdgeId | string): EdgeId =>
+  typeof value === 'string' ? createEdgeId(value) : value;
+
+function normaliseOperation(
+  input: OperationInput,
+  userId: string,
+  documentId: string
+): Operation {
+  const base = {
+    id: generateOperationId(),
+    userId,
+    documentId,
+    timestamp: Date.now(),
+  };
+
+  switch (input.type) {
+    case 'ADD_NODE':
+      return {
+        ...base,
+        type: 'ADD_NODE',
+        node: {
+          ...input.node,
+          id: normaliseNodeId(input.node.id as NodeId | string),
+        },
+      };
+
+    case 'DELETE_NODE':
+      return {
+        ...base,
+        type: 'DELETE_NODE',
+        nodeId: normaliseNodeId(input.nodeId),
+      };
+
+    case 'UPDATE_NODE':
+      return {
+        ...base,
+        type: 'UPDATE_NODE',
+        nodeId: normaliseNodeId(input.nodeId),
+        updates: input.updates,
+      };
+
+    case 'ADD_EDGE':
+      return {
+        ...base,
+        type: 'ADD_EDGE',
+        edge: {
+          ...input.edge,
+          id: normaliseEdgeId(input.edge.id as EdgeId | string),
+        },
+      };
+
+    case 'DELETE_EDGE':
+      return {
+        ...base,
+        type: 'DELETE_EDGE',
+        edgeId: normaliseEdgeId(input.edgeId),
+      };
+
+    case 'UPDATE_GRAPH_METADATA':
+      return {
+        ...base,
+        type: 'UPDATE_GRAPH_METADATA',
+        metadata: input.metadata,
+      };
+  }
 }
 
 export function CollaborationProvider({
@@ -101,16 +178,14 @@ export function CollaborationProvider({
   }, [options.serverUrl, options.documentId, options.user.id]);
 
   const submitOperation = useCallback(
-    (op: Omit<Operation, 'id' | 'userId' | 'timestamp' | 'documentId'>) => {
+    (input: OperationInput) => {
       if (!clientRef.current) return;
 
-      const operation: Operation = {
-        ...op,
-        id: generateOperationId(),
-        userId: options.user.id,
-        timestamp: Date.now(),
-        documentId: options.documentId,
-      } as Operation;
+      const operation = normaliseOperation(
+        input,
+        options.user.id,
+        options.documentId
+      );
 
       clientRef.current.submitOperation(operation);
     },

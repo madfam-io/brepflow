@@ -1,11 +1,11 @@
 # BrepFlow
 
-**Web‑first, node‑based parametric CAD on exact B‑Rep/NURBS**
+**Web-first, node-based parametric CAD (alpha)**
 by **Aureo Labs** — a **MADFAM** company
 
-[![CI](https://img.shields.io/badge/ci-passing-brightgreen)](#) [![License: MPL‑2.0](https://img.shields.io/badge/license-MPL--2.0-blue.svg)](#license) [![Made for Web](https://img.shields.io/badge/platform-web-%2300bcd4)](#) [![Chat](https://img.shields.io/badge/community-Discord-informational)](#community)
+[![CI](https://img.shields.io/badge/ci-alpha-orange)](#) [![License: MPL‑2.0](https://img.shields.io/badge/license-MPL--2.0-blue.svg)](#license)
 
-> Build precise parts and assemblies in your browser with a Grasshopper‑style node editor. Export **STEP/STL** for manufacturing, and automate variants with a **headless CLI**.
+> BrepFlow now speaks directly to **OCCT.wasm**. You must build the OCCT artefacts before running Studio or the CLI. Expect rough edges while we finish polishing the SDK, node catalogue, and collaboration layers.
 
 * **Site**: [https://brepflow.com](https://brepflow.com)
 * **Studio (app)**: `/apps/studio`
@@ -15,54 +15,50 @@ by **Aureo Labs** — a **MADFAM** company
 
 ## Why BrepFlow?
 
-* **Exact geometry** — OCCT‑class B‑Rep/NURBS. Real fillets, shells, drafts. Clean **STEP AP242**.
-* **Web‑native** — no installs. WASM workers, multi‑threaded where supported (COOP/COEP).
-* **Visual + Scriptable** — node graphs for designers, **CLI/SDK** for automation and CI.
-* **Interoperable** — STEP/IGES import/export; 3DM/USD/glTF planned.
+- **Vision:** a web-first, node-based CAD environment backed by OCCT so designers and automation pipelines share the same geometry kernel.
+- **Reality today:** an interactive graph editor, CLI scaffolding, and a comprehensive type system running on a mocked geometry backend.
+- **Roadmap:** see [docs/project/ROADMAP.md](docs/project/ROADMAP.md) for the honest plan to bring real OCCT geometry, STEP I/O, and collaboration online.
 
-> If you know OpenSCAD: BrepFlow adds exact B‑Reps, fillets, and STEP while keeping deterministic, batchable workflows. If you know Grasshopper: BrepFlow brings a similar node experience, focused on manufacturable solids in the browser.
+If you come from OpenSCAD or Grasshopper, think of BrepFlow as an experiment toward that fusion rather than a finished replacement.
 
 ---
 
 ## Status
 
-**MVP v0.2 — Production Ready**
+**Alpha · real OCCT backend · breaking changes expected**
 
-✅ **Fully Working:**
-- Complete node-based editor with 30+ geometry nodes
-- Real-time graph evaluation with dirty propagation
-- OCCT.wasm integration for exact B-Rep/NURBS geometry
-- Real-time collaboration engine
-- Version control system for graphs
-- CLI tools for batch processing (render, validate, sweep, info)
-- Import/Export system with .bflow.json persistence
-- 3D viewport with Three.js/WebGL2 rendering
-- Cloud API integration
-- Constraint solver for parametric modeling
+What works:
+- Studio launches, supports undo/redo, and every primitive/boolean/fillet call routes through the OCCT WASM module.
+- CLI commands (`render`, `sweep`, `validate`, `info`) share the same OCCT-backed evaluation engine.
+- STEP/STL/IGES export uses OCCT translators; tessellation feeds the viewport via real mesh data.
 
-🚀 **Ready for Production:**
-- Full geometry engine with OCCT WebAssembly
-- Manufacturing-grade STEP/IGES export
-- Collaborative editing support
-- Cloud services integration
+Still in flux:
+- Generated node catalogue (`packages/nodes-core/src/nodes/generated`) is not yet validated and remains disabled in the palette.
+- Collaboration, plugin marketplace, monitoring dashboards, and advanced diagnostics are scaffolding only.
+- `pnpm typecheck` still reports errors in the collaboration package while we migrate its OT/types.
 
-**Current Status**: The application is fully functional with real CAD operations. Access at http://localhost:5173 after setup!
-
-Stable API from v0.2 onwards.
+See the [roadmap](docs/project/ROADMAP.md) for the remaining clean-up and ecosystem work before a broader release.
 
 ---
 
 ## Quick Start
 
 ```bash
-# Install and run
+# Install dependencies
 pnpm install
-pnpm run dev      # Studio at http://localhost:5173
 
-# Build everything
+# Build OCCT.wasm artefacts (required for Studio & CLI)
+pnpm run build:wasm
+
+# Start the Studio dev server (real OCCT backend)
+pnpm run dev      # http://localhost:5173
+
+# Build and run tests
 pnpm run build
-pnpm run test     # Run tests
+pnpm run test
 ```
+
+> ⚠️ `pnpm typecheck` currently fails inside the collaboration package while we migrate its OT operations. Geometry-related packages now pass.
 
 For detailed setup instructions, see [docs/development/SETUP.md](./docs/development/SETUP.md).
 
@@ -92,35 +88,26 @@ pnpm i
 ### Build packages and run Studio
 
 ```bash
-# Build all packages
+# Build all packages (uses mock geometry today)
 pnpm run build
 
-# Start the development server
+# Start the development server (mock OCCT backend)
 pnpm run dev
-# Opens http://localhost:5173 with full node editor functionality
+# Opens http://localhost:5173 with node editor + placeholder geometry
 ```
 
-**Note**: OCCT.wasm is now required for both development and production. The Studio and CLI use the real OCCT runtime exclusively so missing WASM artifacts will cause startup to fail fast.
+**Note**: OCCT.wasm builds are optional today. Studio and CLI still route through the mock geometry adapter until the real bindings are finished.
 
-### Optional: Build the geometry core (WASM) for real CAD operations
+### Experimental OCCT build scripts
 
-```bash
-# Install Emscripten SDK first
-git clone https://github.com/emscripten-core/emsdk.git
-cd emsdk && ./emsdk install latest && ./emsdk activate latest
-source ./emsdk_env.sh && cd ../
+Scripts such as `pnpm run build:wasm` exist for developers experimenting with OCCT.wasm locally. They produce artefacts, but the runtime still returns mock results until Horizon A is delivered.
 
-# Then build OCCT.wasm (requires OCCT source)
-pnpm run build:wasm
-```
-
-### Render a graph headlessly (CLI)
+### CLI smoke test (mock output)
 
 ```bash
 pnpm -w --filter @brepflow/cli run build
-node packages/cli/dist/index.js render examples/enclosure.bflow.json \
-  --set L=120 --set W=80 --set H=35 \
-  --export step,stl --out out/
+node packages/cli/dist/index.js render examples/enclosure.bflow.json --out out/
+# STEP/STL files are placeholders for now.
 ```
 
 ---
@@ -149,50 +136,44 @@ node packages/cli/dist/index.js render examples/enclosure.bflow.json \
 
 ## Try It Now
 
-After setup, you can immediately:
+After setup you can:
 
-1. **Explore the Node Editor**: Drag nodes from the palette, connect them with edges
-2. **Create Parametric Models**: Use Box, Extrude, Boolean, Fillet nodes
-3. **Edit Parameters**: Select nodes and modify parameters in the Inspector
-4. **Save/Load Graphs**: Export your models as .bflow.json files
-5. **Use the CLI**: Render graphs headlessly with parameter overrides
-
-**Example workflow:**
-1. Start with a Box node (width: 100, height: 60, depth: 40)
-2. Add a Fillet node and connect the box output to fillet input
-3. Set fillet radius to 5mm
-4. Watch the graph evaluate in real-time
-5. Export as STEP file (mock output for now)
+1. **Explore the node editor** — drag nodes, connect edges, and watch dirty propagation feed the real OCCT evaluation engine.
+2. **Inspect real geometry** — every node evaluation yields OCCT shape handles with bounding boxes, volume, and area metadata.
+3. **Save and reload graphs** — `.bflow.json` persistence remains compatible with the OCCT-backed runtime.
+4. **Render via CLI** — export STEP/STL/IGES directly from the command line for automated flows.
 
 ---
 
-## Features (MVP)
+## Feature snapshot
 
-* **Node editor:** search palette, groups, undo/redo, inspector, console.
-* **Modeling:** Sketch/curve nodes (Line/Circle/Arc/NURBS), Surfacing (NURBS surface/Loft/Sweep/Revolve), Solids (Extrude), Booleans, Fillet/Chamfer/Shell/Draft, Transforms, Arrays.
-* **I/O:** Import **STEP/IGES**, Export **STEP/STL**.
-* **Viewport:** Section planes, isolate/hide, edge display.
-* **Automation:** Headless CLI, parameter sweeps, deterministic hashes.
-* **SDK:** TypeScript node API; sandboxed worker execution.
+**Available (alpha quality):**
+- Node editor with search palette, undo/redo, inspector, and console logging.
+- Real OCCT primitives, booleans, fillets/chamfers, tessellation, and STEP/STL/IGES export.
+- `.bflow.json` persistence and manifest tooling.
+- CLI commands (`render`, `sweep`, `validate`, `info`) sharing the same OCCT-backed engine.
 
-Planned (v0.5): **3DM (openNURBS)**, **USD/glTF**, node subgraphs, constraint snippets, plugin registry.
+**Still under active development:**
+- Generated node catalogue (currently fails type checking and is disabled).
+- Collaboration, marketplace, monitoring dashboards, and plugin SDK.
+- Comprehensive E2E test rewrites to replace legacy mock-heavy suites.
 
 ---
 
 ## Architecture (at a glance)
 
 * **React app** (Studio) with **React Flow** canvas + inspector.
-* **Engine** (TypeScript) orchestrates the DAG; geometry runs in **WASM workers**.
-* **OCCT.wasm** handles B‑Rep/NURBS, Booleans, fillets; **tessellation worker** streams meshes back as transferables.
-* **Renderer**: Three.js (WebGL2), **WebGPU** optional behind flag.
-* **Persistence**: `.bflow.json` (versioned), IndexedDB mesh cache.
-* **CLI** reuses the same WASM builds for deterministic outputs.
+* **Engine** (TypeScript) orchestrates the DAG and forwards every evaluation to the OCCT wrapper.
+* **OCCT.wasm** provides primitives, booleans, fillets, tessellation, and STEP/STL/IGES I/O via compiled bindings.
+* **Renderer**: Three.js (WebGL2) renders tessellated meshes produced by OCCT.
+* **Persistence**: `.bflow.json` (versioned) and manifest plumbing are stable.
+* **CLI** runs in Node.js with the same OCCT-backed evaluation pipeline.
 
 ---
 
 ## Building `occt.wasm`
 
-We compile OCCT with Emscripten (pthreads) and selected modules: ModelingData/Algorithms, BRep, STEP/IGES, Mesh.
+You must compile OCCT with Emscripten (pthreads) before running Studio or the CLI. The scripts in `scripts/` automate the process and place artefacts under `packages/engine-occt/wasm`.
 
 ```bash
 # scripts/build-occt.sh (simplified)

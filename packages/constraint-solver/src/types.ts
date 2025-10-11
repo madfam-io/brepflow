@@ -1,5 +1,47 @@
 import type { Vec3 } from '@brepflow/types';
 
+// 2D solver primitives
+export interface Point2D {
+  id?: string;
+  x: number;
+  y: number;
+  fixed?: boolean;
+}
+
+export interface Variable {
+  id: string;
+  value: number;
+  type: 'x' | 'y' | 'angle' | 'distance' | 'parameter';
+}
+
+export type Constraint2DType =
+  | 'distance'
+  | 'horizontal'
+  | 'vertical'
+  | 'parallel'
+  | 'perpendicular'
+  | 'coincident'
+  | 'tangent'
+  | 'concentric'
+  | 'angle'
+  | 'fixed';
+
+export interface Constraint2D {
+  id: string;
+  type: Constraint2DType;
+  entities: Array<Point2D | Variable | unknown>;
+  targetValue?: number | { x: number; y: number };
+  enabled?: boolean;
+}
+
+export interface SolveResult {
+  success: boolean;
+  iterations: number;
+  residual: number;
+  variables: Record<string, number>;
+  error?: string;
+}
+
 export type ConstraintType =
   | 'coincident'
   | 'parallel'

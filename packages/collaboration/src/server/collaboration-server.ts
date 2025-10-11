@@ -76,7 +76,7 @@ export class CollaborationServer {
       });
 
       socket.on('presence:editing', async (nodeId) => {
-        await this.handlePresenceUpdate(socket, 'editing', nodeId);
+        await this.handlePresenceUpdate(socket, 'isEditing', nodeId);
       });
 
       socket.on('document:request-sync', async () => {
@@ -116,6 +116,7 @@ export class CollaborationServer {
       cursor: undefined,
       selection: undefined,
       viewport: undefined,
+      isEditing: null,
     };
     this.presenceManager.addPresence(documentId, user.id, presence);
 

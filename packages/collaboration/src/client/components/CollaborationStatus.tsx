@@ -57,7 +57,7 @@ export function CollaborationStatus({
         </>
       )}
 
-      <style jsx>{`
+      <style>{`
         .collaboration-status {
           display: flex;
           flex-direction: column;

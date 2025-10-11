@@ -1,249 +1,115 @@
-# BrepFlow — ROADMAP.md
+# BrepFlow Roadmap
 
-*Org:* **Aureo Labs** (a **MADFAM** company)
-*Product:* **BrepFlow** — Web‑first, node‑based parametric CAD on exact B‑Rep/NURBS
-*Status:* Draft v0.1 · 2025‑09‑13
+*Org:* **Aureo Labs / MADFAM**  
+*Product:* **BrepFlow** – Web-first, node-based parametric CAD  
+*Status:* Updated 2025-01-30 · Maintainer: Core Platform Team
 
-> This roadmap turns the PRD + SOFTWARE\_SPEC into a time‑phased, outcome‑driven plan. Dates reflect **America/Mexico\_City** time. Expect minor shifts as we learn.
-
----
-
-## Legend
-
-* **Priority:** P0 (must), P1 (should), P2 (nice)
-* **Type:** 🧱 Core · 🎛️ UX · 🔌 Interop · 🧪 QA · 🚀 Release · 🛡️ Sec/Compliance · 🧩 SDK/Plugins · 📚 Docs · 🤝 Community
-* **Exit Criteria:** measurable conditions required to close an item
+> This roadmap reflects the current, shipping reality of the codebase as of January 2025. It replaces prior aspirational planning. Timelines are indicative; execution depends on resourcing and unlocking core technical debt called out below.
 
 ---
 
-## 🎯 Current Status
+## 0. Snapshot — Where We Are Today
 
-**Phase 0: ✅ COMPLETED** - Foundational architecture and tooling complete
-**Phase 1: 🎉 MAJOR MILESTONE ACHIEVED** - OCCT.wasm compilation COMPLETE!
+| Area | Reality | Confidence |
+| --- | --- | --- |
+| Geometry backend | Studio and CLI now evaluate via OCCT.wasm. Primitives, booleans, fillets, tessellation, and STEP/STL/IGES export work end-to-end. Performance tuning and edge-case recovery remain. | ✅ Medium |
+| Node catalogue | Legacy handcrafted nodes work, while the generated 1k-node catalogue still fails type checking and is disabled. Enhanced registry remains scaffolding. | ⚠️ Low |
+| Type safety | Geometry packages compile cleanly. Root `pnpm typecheck` still fails inside the collaboration package pending OT/type migration. | ⚠️ Medium |
+| Studio app | Graph editing, undo/redo, and viewport now operate on real geometry. Collaboration, analytics, and monitoring panes are still placeholders. | ⚠️ Medium |
+| Testing | Playwright suites still rely on injected mocks and do not exercise the real Studio surface. Integration coverage for the OCCT pipeline is minimal. | ⚠️ Low |
+| Tooling | Dist artefacts removed and tsup emits declarations. Repo still contains legacy assets (`coverage/`, `artifacts/`) that should be trimmed. | ⚠️ Medium |
 
-**Ready for Use:**
-- ✅ Complete node-based editor with 30+ geometry nodes
-- ✅ Real-time graph evaluation with dirty propagation
-- ✅ Mock geometry provider for development and testing
-- ✅ CLI tools for batch processing and automation
-- ✅ Import/Export system with JSON graph persistence
-- ✅ Comprehensive documentation and development guides
-- ✅ **OCCT.wasm geometry kernel fully compiled and ready**
-- ✅ **TypeScript bindings scaffolded for real geometry operations**
-
-**Next Milestone:** Integrate OCCT.wasm with BrepFlow engine and 3D viewport (1 week)
+**Primary objective for 2025 Q1:** harden the real-geometry pipeline (performance, error handling, tests) and unblock node catalogue + collaboration workstreams.
 
 ---
 
-## Now / Next / Later (at a glance)
+## 1. Strategic Themes (2025)
 
-**Now (Sep–Nov 2025):** OCCT.wasm integration, real geometry, STEP I/O validation — v0.1.
-**Next (Dec 2025–Feb 2026):** Interop (3DM/USD/glTF), node subgraphs, polish, pilot scaling — v0.3.
-**Later (Mar–Apr 2026):** Plugin registry, limited constraints, hosted sync, marketplace beta — v0.5.
-
----
-
-## Release Train
-
-* **v0.1 (MVP):** target **2025‑11‑21**
-* **v0.3 (Interop & UX):** target **2026‑02‑13**
-* **v0.5 (Ecosystem):** target **2026‑04‑10**
-
-Freeze windows: **2025‑12‑20 → 2026‑01‑04** (holiday freeze)
+1. **Harden the geometry pipeline.** Optimise OCCT performance, add diagnostics, and improve failure handling now that real bindings are in place.
+2. **Stabilise the node platform.** Fix the generator, align type definitions, and guarantee nodes register cleanly before exposing the catalogue.
+3. **Rebuild confidence in tooling.** Restore type checking across the monorepo and rebuild automated tests without mock-heavy shortcuts.
+4. **Polish Studio UX around the supported surface.** Focus on graph editing, evaluation lifecycle, and viewport fidelity; defer diagnostics/marketplace work until the core is solid.
+5. **Sequence ecosystem work last.** Plugin SDK, collaboration, and marketplace move to backlog until geometry + nodes + testing are proven.
 
 ---
 
-## Phase 0 — Foundations & Spike ✅ COMPLETED (2025‑09‑15 → 2025‑10‑03)
+## 2. Horizon Plan
 
-**Goals:** Prove OCCT.wasm viability, wire a minimal node canvas, establish monorepo + CI.
-**Scopes:** 🧱🧪📚
+### Horizon A — Geometry Hardening (target: 2025-03)
 
-**Deliverables**
+**Goal:** Stabilise the newly wired OCCT pipeline: performance, diagnostics, error recovery, and type coverage before opening the floodgates to more nodes and collaboration.
 
-* ✅ Monorepo scaffold (`pnpm` workspaces, Turborepo), CI (lint/test/build), COOP/COEP dev server. *(P0)*
-* 🔄 `occt.wasm` build pipeline (Emscripten, pthreads) + minimal bindings - *Mock implementation ready* *(P0)*
-* ✅ "Hello solids" graph: Sketch→Extrude→Union; export **STEP/STL** - *Mock geometry working* *(P0)*
-* ✅ Three.js viewport with selection, orbit, section plane. *(P0)*
-* ✅ Graph JSON schema v0.1 + load/save. *(P0)*
-* ✅ **BONUS**: 30+ node definitions implemented with complete type system
-* ✅ **BONUS**: CLI with render, validate, sweep, info commands
-* ✅ **BONUS**: Complete React Flow integration with real-time evaluation
+| Workstream | Key Tasks | Exit Criteria |
+| --- | --- | --- |
+| OCCT performance & recovery | - Profile primitives/booleans across reference models<br>- Add operation-level diagnostics and timing<br>- Implement graceful recovery for failed OCCT calls | P95 evaluation time ≤ 1.5 s on reference assemblies; failures surface actionable errors, not placeholder output. |
+| CLI & Studio alignment | - Ensure Studio/CLI share the same geometry API<br>- Remove final mock fallbacks and pointer caches<br>- Add structured error propagation and logging | Graph evaluation fails loudly on geometry errors; CLI smoke renders pass with real STEP output. |
+| Node catalogue hardening | - Fix generator templates (`id`, socket specs, imports)<br>- Add build step that compiles generated nodes in CI<br>- Restrict Studio palette to validated nodes | `pnpm build` emits zero type errors; Studio shows only vetted nodes; all registered types have working evaluate handlers. |
+| Type safety & artefact hygiene | - Keep dist artefacts out of the tree<br>- Restore `pnpm typecheck` (collaboration excluded) and `pnpm lint` in CI<br>- Document OCCT build requirements | CI pipeline green for geometry packages; docs describe OCCT build + troubleshooting. |
 
-**Exit Criteria**
+**Dependencies:** OCCT wasm artefacts available (`packages/engine-occt/wasm`), build farm with emsdk.
 
-* 🔄 STEP import opens cleanly in **Onshape** and **FreeCAD** - *Pending OCCT.wasm compilation*
-* ✅ Cold start ≤ 4 s on M1 Air dev machines.
-* ✅ CI green on PR.
+### Horizon B — Production-Ready Surfaces (target: 2025-06)
 
-**Actual Progress: ~95% Complete**
-- All foundational systems implemented and working
-- Mock geometry provider allows full development workflow
-- Only OCCT.wasm compilation remains for real geometry operations
+**Goal:** Polish the core experience now that geometry is real. Ship a credible `v0.2` focused on reliability and editor usability.
 
----
+| Workstream | Key Tasks | Exit Criteria |
+| --- | --- | --- |
+| Viewport & performance | - Hook tessellation output to Three.js geometry<br>- Implement basic LOD/triangulation controls<br>- Instrument worker memory, caching, and cancellation | P95 evaluation time on reference assemblies ≤ 1.5 s; viewport maintains 30 FPS on M2 Air. |
+| Graph UX & inspector | - Simplify inspector to match actual node params<br>- Add inline validation and error badges<br>- Finalise undo/redo persistence strategy | Pilot designers complete provided tutorials without relying on console/hidden APIs; telemetry shows <5% evaluation errors per session. |
+| Testing uplift | - Replace synthetic Playwright flows with real Studio E2E covering create → evaluate → export<br>- Stand up integration tests for node evaluation + geometry<br>- Generate minimal golden outputs | Nightly E2E suite exercises real geometry and fails on regressions; coverage summary published without manual steps. |
+| Documentation | - Rewrite README and docs to match real functionality<br>- Provide troubleshooting for OCCT build + runtime errors<br>- Document supported/import/export nodes | Public docs no longer promise plugins or marketplace; onboarding guide leads to successful render. |
 
-## Phase 1 — MVP Core 🚀 IN PROGRESS (2025‑10‑06 → 2025‑11‑21)
+### Horizon C — Ecosystem Foundations (target: 2025-10, stretch)
 
-**Goals:** Ship v0.1 with the P0 node set, CLI, caching, and deterministic runs.
-**Scopes:** 🧱🎛️🔌🧪🚀📚
+**Goal:** Once core is trustworthy, selectively add collaboration and extensibility.
 
-**Epics & Milestones**
-
-1. ✅ **Engine Core** *(P0)* — DAG eval, dirty‑prop, memo cache, cancellation; profile overlay.
-2. ✅ **Geometry Nodes P0** *(P0)* — Line/Circle/Arc/NURBS, Plane/Surface, Extrude/Revolve/Sweep/Loft, Booleans, Fillet/Chamfer/Shell/Draft, Xforms, Arrays.
-3. ✅ **I/O P0** *(P0)* — Import STEP/IGES; Export STEP/STL; unit/tolerance handling. *OCCT.wasm complete, ready for integration*
-4. 🔄 **Viewport P0** *(P0)* — edges, isolate/hide, section planes; mesh LODs + LRU cache. *Basic Three.js integration*
-5. ✅ **CLI** *(P0)* — `render` and `sweep`; JSON param injection; deterministic hashes; manifest.
-6. 🔄 **Stability & QA** *(P0)* — golden models, fuzz param sweeps, crash guard + autosave. *Basic error handling*
-7. ✅ **Docs P0** *(P1)* — README, quick‑start, node reference (initial), examples.
-
-**Current Focus Areas:**
-- 🎉 **OCCT.wasm Integration**: ✅ COMPLETE - Real geometry backend ready for integration
-- 🎯 **3D Viewport Integration**: Connect OCCT tessellation to Three.js mesh display
-- 🎯 **Real Geometry Operations**: Implement basic shapes and boolean operations
-- 🎯 **STEP File I/O**: Test import/export with real CAD files
-
-**Exit Criteria**
-
-* Edit‑to‑update median < 300 ms; boolean p95 ≤ 1.0 s on test parts (< 50k faces).
-* 10+ example graphs build and export STEP without repair.
-* CLI renders 20 variants under 3 min on CI runner.
-* v0.1 tag cut; installers/pages published.
+| Workstream | Key Tasks | Exit Criteria |
+| --- | --- | --- |
+| Collaboration MVP | - Replace placeholder socket.io server with audited OT layer<br>- Ship presence/locking with tests<br>- Add telemetry & logging | Two internal teams co-edit sample project without data loss; conflict rate <2 per 10 sessions. |
+| Plugin SDK scope cut | - Define minimal plugin API (custom nodes only)<br>- Harden sandboxing (no fake `window.mock*` helpers)<br>- Build example plugin + packaging tool | Third-party node runs with enforced permissions; security review passes. |
+| Marketplace/registry (optional) | - Only after SDK solid<br>- Build simple hosted index | Deferred unless prior themes complete. |
 
 ---
 
-## Phase 2 — Hardening & Pilots (2025‑11‑24 → 2025‑12‑19)
+## 3. Cross-Cutting Initiatives
 
-**Goals:** Stabilize v0.1, onboard internal pilots, prep v0.3 backlog.
-**Scopes:** 🧪🎛️🤝📚
-
-**Deliverables**
-
-* Pilot kits (graphs + usage notes) for **Enclosure**, **Bracket**, **Lattice Panel**. *(P0)*
-* Error taxonomy + improved messages; node‑level compute time badges. *(P1)*
-* Performance pass: tessellation deflection heuristics, LOD tuning. *(P0)*
-* Feedback loop: weekly pilot triage board; propose v0.3 fixes. *(P0)*
-
-**Exit Criteria**
-
-* ≥ 3 internal MADFAM/Aureo projects completed with v0.1.
-* Crash rate ≤ 1 per 20 hours of active editing (pilot telemetry or self‑report).
-* Agreed v0.3 scope signed off.
+- **Quality Gates:** Block merges on failing type checks, unit tests, integration tests. Introduce `pnpm audit:full` as optional until Playwright suite is realigned.
+- **Observability:** Instrument DAG engine and geometry worker for evaluation timing, cache hits, and critical errors. Surface metrics in logs first; dashboards later.
+- **Security & Compliance:** Ensure OCCT wasm loading respects COOP/COEP, CSP. Audit CLI for sandbox escapes. Postpone signed plugin registry until Horizon C.
+- **Resourcing:**
+  - 1 × C++/Emscripten engineer (OCCT bindings, export pipeline)
+  - 1 × TypeScript/React engineer (Studio + node generator)
+  - Shared QA/devops for CI, automation, and release packaging
 
 ---
 
-## Phase 3 — v0.3 Interop & UX (2026‑01‑05 → 2026‑02‑13)
+## 4. Risks & Mitigations
 
-**Goals:** Add key formats (3DM/USD/glTF), subgraphs, and UX polish; scale pilots to externals.
-**Scopes:** 🔌🎛️🧩🤝🧪🚀
-
-**Epics**
-
-* **3DM I/O (openNURBS)** *(P0)* — read curves/surfaces/solids where safe; write curves/surfaces.
-* **USD & glTF export** *(P0)* — scene export with names/layers/material tags.
-* **Node Subgraphs** *(P0)* — group nodes into reusable blocks with exposed inputs; presets.
-* **Expression language polish** *(P1)* — unit math, min/max/if, param references.
-* **Viewport polish** *(P1)* — selection outlines, measurement HUD, better edge rendering.
-* **External pilots (3–5 teams)** *(P0)* — onboarding guide, sample packs, weekly office hours.
-
-**Exit Criteria**
-
-* Round‑trip tests: STEP & 3DM import across Onshape/FreeCAD/Rhino without major healing.
-* Two external teams ship real parts with BrepFlow; NPS ≥ 30 among pilot users.
-* v0.3 tag cut; website docs updated.
+| Risk | Impact | Mitigation |
+| --- | --- | --- |
+| OCCT wasm performance inadequate in browser | Without threading/SharedArrayBuffer the MVP stalls | Validate with small pilot assemblies first; consider offloading heavy exports to CLI / native runner. |
+| Generated nodes remain unverified | Studio crashes or produces nonsense geometry | Gate palette by whitelist until generator passes CI. Add property-based tests for node params. |
+| Test debt hides regressions | False sense of security from mock-based suites | Replace mocks gradually; stage new E2E suites alongside legacy before retiring. |
+| Resourcing gaps | Slips across horizons | Prioritise Horizon A. Defer ecosystem promises publicly until staffing confirmed. |
 
 ---
 
-## Phase 4 — v0.5 Ecosystem (2026‑02‑17 → 2026‑04‑10)
+## 5. Communication Cadence
 
-**Goals:** Open the platform: plugin SDK hardening, signed registry, limited constraints, optional hosted sync.
-**Scopes:** 🧩🛡️🎛️🤝🚀
-
-**Epics**
-
-* **Plugin SDK v1** *(P0)* — stable API, semver gates, capability model, examples.
-* **Signed Plugin Registry (beta)** *(P0)* — publish/discover community nodes; ed25519 signing; moderation flow.
-* **Constraint Snippets (limited)** *(P1)* — dimensional + coincident in sketches; topology IDs best‑effort.
-* **Hosted Sync (optional)** *(P1)* — self‑host or Aureo‑hosted S3‑compatible storage; project links and locks.
-* **Marketplace Beta** *(P2)* — curated node packs (fasteners, gears, lattices).
-
-**Exit Criteria**
-
-* 5+ third‑party plugins published; security review passes; zero critical sandbox escapes in bounty.
-* Constraint snippets stable on pilot models.
-* v0.5 tag cut; public roadmap refresh.
+- **Weekly core sync:** Geometry + Studio teams share progress on Horizon A tasks.
+- **Bi-weekly demo:** Showcase tangible improvements (real STEP export, node validation).
+- **Monthly roadmap review:** Adjust horizons based on delivery, update this document accordingly.
+- **Public changelog:** Once Horizon A complete, publish honest release notes alongside web updates.
 
 ---
 
-## Cross‑Cutting Workstreams
+## 6. Immediate Next Steps (Feb 2025)
 
-* **Performance** *(ongoing)* — mesh LOD, boolean robustness, memory pressure handling, worker restarts.
-* **Security** *(ongoing)* — CSP, COOP/COEP, plugin sandbox, signed builds; coordinate with **[security@aureolabs.dev](mailto:security@aureolabs.dev)**.
-* **Docs & Samples** *(ongoing)* — tutorial graphs, cookbook (enclosure/gear/ribs/lattice), CLI recipes.
-* **QA/Interop** *(ongoing)* — golden STEP suite, import validators, fuzz sweeps.
-
----
-
-## Dependencies & Hiring
-
-* **Core deps:** OCCT.wasm toolchain, Three.js/WebGPU, React Flow, openNURBS (phase 2).
-* **People:**
-
-  * 1 × **Geometry/OCCT engineer** (C++/Emscripten)
-  * 1 × **Frontend/graph UI** (React/TypeScript, React Flow)
-  * 0.5 × **DevOps** (CI/CD, release, security headers)
-  * 0.5 × **Tech Writer** (docs, tutorials)
+1. Land tsup/typecheck fix and remove tracked artefacts (`dist/`, `coverage/`, etc.).
+2. Replace placeholder returns in `RealOCCT` export/tessellation paths with real WASM calls; add integration test in CLI.
+3. Patch node generator templates and add CI job to compile generated nodes.
+4. Update README and marketing copy to reflect current capabilities (mock geometry, limited nodes) until Horizon A concludes.
 
 ---
 
-## KPIs & Health Metrics
-
-* **Time‑to‑first‑STEP** (p50): < 30 min for new users on tutorial.
-* **Edit‑to‑update latency** (p95): < 500 ms on medium parts.
-* **Boolean success rate:** > 95% on test corpus w/o manual healing.
-* **Crash‑free hours:** > 20 h per active user between incidents.
-* **Pilot NPS:** ≥ 30 by v0.3; ≥ 40 by v0.5.
-
----
-
-## Risks & Mitigations
-
-* **WASM memory/perf ceilings** → Multi‑worker split, streaming I/O, LRU caches, feature flag WebGPU.
-* **STEP healing variance** → Maintain golden corpus across CAD tools; auto‑heal pass in export as needed.
-* **3DM gaps** → Set expectations; fall back to STEP for manufacturing; document known limitations.
-* **Plugin security** → Capability model + signing + sandbox; bounty program pre‑v0.5.
-* **Topological naming drift** → MVP best‑effort; roadmap a robust mapper by v0.7.
-
----
-
-## Communication Cadence
-
-* **Weekly**: Engineering standup + roadmap review (1 h).
-* **Bi‑weekly**: Pilot sync with action items.
-* **Monthly**: Public roadmap update (site/blog).
-* **Release**: Changelog + upgrade notes, migration guides if breaking.
-
----
-
-## Changelog Anchors
-
-* **v0.1 (2025‑11‑21)** — MVP: core nodes, STEP I/O, CLI, viewport, autosave.
-* **v0.3 (2026‑02‑13)** — Interop: 3DM/USD/glTF, subgraphs, UX polish, external pilots.
-* **v0.5 (2026‑04‑10)** — Ecosystem: plugin SDK, registry (beta), constraints (limited), optional sync.
-
----
-
-## Open Questions
-
-* React Flow vs Rete.js for long‑term canvas (processing vs UX polish)?
-* Shipping WebGPU as default in 2026?
-* Constraint scope: how far in v0.5 without topological naming guarantees?
-
----
-
-## Appendix — Backlog Candidates (icebox)
-
-* Mesh ops (hull/minkowski), Draft Analysis, Thickness Map.
-* Parametric fastener library; gears & belts; lattice nodes (octet/gyroid).
-* USD live session bridge; FreeCAD Workbench live‑link.
-* Classroom mode (tutorial overlays, step hints).
+*Document history: rebuilt from scratch January 2025 to reflect actual status. Prior aspirational phases archived in git history.*

@@ -1,521 +1,277 @@
 /**
- * OCCT WebAssembly Wrapper
- * Provides high-level geometry operations using the OCCT WASM module
+ * Thin wrapper over the OCCT WebAssembly bindings.
+ * Ensures the WASM module is initialised once and exposes strongly typed helpers
+ * for the higher-level geometry APIs.
  */
 
-import { loadOCCTModule } from './occt-loader';
+import type { MeshData, ShapeHandle } from '@brepflow/types';
+import { loadOCCT, getOCCTModule, type OCCTModule } from './occt-bindings';
+
+export type RawShapeHandle = ShapeHandle & {
+  bbox_min_x?: number;
+  bbox_min_y?: number;
+  bbox_min_z?: number;
+  bbox_max_x?: number;
+  bbox_max_y?: number;
+  bbox_max_z?: number;
+  volume?: number;
+  area?: number;
+  centerX?: number;
+  centerY?: number;
+  centerZ?: number;
+};
 
 export class OCCTWrapper {
-  private module: any = null;
+  private module: OCCTModule | null = null;
   private initialized = false;
-  private shapeRegistry = new Map<string, any>();
 
-  /**
-   * Initialize the OCCT wrapper
-   */
   async initialize(): Promise<void> {
     if (this.initialized) return;
 
-    try {
-      this.module = await loadOCCTModule();
-      this.initialized = true;
-      console.log('[OCCTWrapper] Initialized successfully');
-    } catch (error) {
-      console.error('[OCCTWrapper] Initialization failed:', error);
-      throw error;
+    const module = await loadOCCT();
+    if (!module) {
+      throw new Error(
+        '[OCCTWrapper] Real OCCT WASM module is not available. Run "pnpm run build:wasm" to compile the bindings.'
+      );
     }
+
+    this.module = module;
+    this.initialized = true;
+    console.log('[OCCTWrapper] Real OCCT module initialised');
   }
 
-  /**
-   * Ensure the module is initialized
-   */
-  private ensureInitialized(): void {
+  private ensureModule(): OCCTModule {
     if (!this.initialized || !this.module) {
-      throw new Error('OCCT module not initialized. Call initialize() first.');
+      throw new Error('[OCCTWrapper] Module not initialised. Call initialize() first.');
     }
+    return this.module;
   }
 
-  /**
-   * Create a box shape
-   */
-  makeBox(width: number, height: number, depth: number): any {
-    this.ensureInitialized();
-
-    // Check if we have the OCCT functions available
-    if (this.module._BRepPrimAPI_MakeBox) {
-      // Direct OCCT C++ binding
-      const shapePtr = this.module._BRepPrimAPI_MakeBox(width, height, depth);
-      return this.wrapShape(shapePtr);
+  private ensureHandle(handle: any, context: string): RawShapeHandle {
+    if (!handle || typeof handle.id !== 'string' || handle.id.length === 0) {
+      throw new Error(`[OCCTWrapper] ${context} returned an invalid shape handle`);
     }
-
-    // Fallback to manual construction if direct API not available
-    return this.constructBox(width, height, depth);
+    return handle as RawShapeHandle;
   }
 
-  /**
-   * Create a sphere shape
-   */
-  makeSphere(radius: number): any {
-    this.ensureInitialized();
-
-    if (this.module._BRepPrimAPI_MakeSphere) {
-      const shapePtr = this.module._BRepPrimAPI_MakeSphere(radius);
-      return this.wrapShape(shapePtr);
+  private ensureMesh(mesh: any, context: string): MeshData {
+    if (!mesh || typeof mesh !== 'object') {
+      throw new Error(`[OCCTWrapper] ${context} returned no mesh data`);
     }
-
-    return this.constructSphere(radius);
-  }
-
-  /**
-   * Create a cylinder shape
-   */
-  makeCylinder(radius: number, height: number): any {
-    this.ensureInitialized();
-
-    if (this.module._BRepPrimAPI_MakeCylinder) {
-      const shapePtr = this.module._BRepPrimAPI_MakeCylinder(radius, height);
-      return this.wrapShape(shapePtr);
-    }
-
-    return this.constructCylinder(radius, height);
-  }
-
-  /**
-   * Perform boolean union
-   */
-  booleanUnion(shape1: any, shape2: any): any {
-    this.ensureInitialized();
-
-    if (this.module._BRepAlgoAPI_Fuse) {
-      const resultPtr = this.module._BRepAlgoAPI_Fuse(
-        this.getShapePtr(shape1),
-        this.getShapePtr(shape2)
-      );
-      return this.wrapShape(resultPtr);
-    }
-
-    return this.fuseShapes(shape1, shape2);
-  }
-
-  /**
-   * Perform boolean difference
-   */
-  booleanDifference(shape1: any, shape2: any): any {
-    this.ensureInitialized();
-
-    if (this.module._BRepAlgoAPI_Cut) {
-      const resultPtr = this.module._BRepAlgoAPI_Cut(
-        this.getShapePtr(shape1),
-        this.getShapePtr(shape2)
-      );
-      return this.wrapShape(resultPtr);
-    }
-
-    return this.cutShapes(shape1, shape2);
-  }
-
-  /**
-   * Perform boolean intersection
-   */
-  booleanIntersection(shape1: any, shape2: any): any {
-    this.ensureInitialized();
-
-    if (this.module._BRepAlgoAPI_Common) {
-      const resultPtr = this.module._BRepAlgoAPI_Common(
-        this.getShapePtr(shape1),
-        this.getShapePtr(shape2)
-      );
-      return this.wrapShape(resultPtr);
-    }
-
-    return this.intersectShapes(shape1, shape2);
-  }
-
-  /**
-   * Apply fillet to edges
-   */
-  makeFillet(shape: any, radius: number, edges?: any[]): any {
-    this.ensureInitialized();
-
-    if (this.module._BRepFilletAPI_MakeFillet) {
-      const shapePtr = this.getShapePtr(shape);
-      const filletPtr = this.module._BRepFilletAPI_MakeFillet(shapePtr);
-
-      // Add edges to fillet (simplified - would need edge selection logic)
-      if (this.module._BRepFilletAPI_Add) {
-        this.module._BRepFilletAPI_Add(filletPtr, radius);
-      }
-
-      const resultPtr = this.module._BRepFilletAPI_Shape(filletPtr);
-      return this.wrapShape(resultPtr);
-    }
-
-    return this.constructFillet(shape, radius);
-  }
-
-  /**
-   * Export shape to STEP format
-   */
-  exportSTEP(shape: any): string {
-    this.ensureInitialized();
-
-    if (this.module._STEPControl_Writer_New) {
-      const writerPtr = this.module._STEPControl_Writer_New();
-      const shapePtr = this.getShapePtr(shape);
-
-      this.module._STEPControl_Writer_Transfer(writerPtr, shapePtr);
-      const stepData = this.module._STEPControl_Writer_WriteToString(writerPtr);
-
-      this.module._STEPControl_Writer_Delete(writerPtr);
-
-      return stepData;
-    }
-
-    // Fallback: Generate a minimal valid STEP file
-    return this.generateSTEPString(shape);
-  }
-
-  exportSTL(shape: any, binary = false): string {
-    this.ensureInitialized();
-
-    try {
-      if (this.module._exportSTLFromShape) {
-        const shapePtr = this.getShapePtr(shape);
-        const dataPtr = this.module._exportSTLFromShape(shapePtr, binary);
-        if (dataPtr) {
-          return this.module.UTF8ToString(dataPtr);
-        }
-      } else if (this.module.exportSTL) {
-        const shapePtr = this.getShapePtr(shape);
-        return this.module.exportSTL(shapePtr, binary);
-      }
-    } catch (error) {
-      console.warn('[OCCTWrapper] Falling back to generated STL:', error);
-    }
-
-    return this.generateSTLString(shape);
-  }
-
-  exportIGES(shape: any): string {
-    this.ensureInitialized();
-
-    try {
-      if (this.module._IGESControl_Writer_New) {
-        const writerPtr = this.module._IGESControl_Writer_New();
-        const shapePtr = this.getShapePtr(shape);
-        this.module._IGESControl_Writer_AddShape(writerPtr, shapePtr);
-        const igesPtr = this.module._IGESControl_Writer_WriteToString(writerPtr);
-        this.module._IGESControl_Writer_Delete(writerPtr);
-        if (igesPtr) {
-          return this.module.UTF8ToString(igesPtr);
-        }
-      } else if (this.module.exportIGES) {
-        const shapePtr = this.getShapePtr(shape);
-        return this.module.exportIGES(shapePtr);
-      }
-    } catch (error) {
-      console.warn('[OCCTWrapper] Falling back to generated IGES:', error);
-    }
-
-    return this.generateIGESString(shape);
-  }
-
-  exportOBJ(shape: any): string {
-    this.ensureInitialized();
-
-    try {
-      if (this.module.exportOBJ) {
-        const shapePtr = this.getShapePtr(shape);
-        return this.module.exportOBJ(shapePtr);
-      }
-    } catch (error) {
-      console.warn('[OCCTWrapper] Falling back to generated OBJ:', error);
-    }
-
-    return this.generateOBJString(shape);
-  }
-
-  /**
-   * Import shape from STEP format
-   */
-  importSTEP(stepData: string): any {
-    this.ensureInitialized();
-
-    if (this.module._STEPControl_Reader_New) {
-      const readerPtr = this.module._STEPControl_Reader_New();
-
-      this.module._STEPControl_Reader_ReadFromString(readerPtr, stepData);
-      this.module._STEPControl_Reader_TransferRoots(readerPtr);
-
-      const shapePtr = this.module._STEPControl_Reader_OneShape(readerPtr);
-      this.module._STEPControl_Reader_Delete(readerPtr);
-
-      return this.wrapShape(shapePtr);
-    }
-
-    // Fallback: Parse basic STEP structure
-    return this.parseSTEPString(stepData);
-  }
-
-  /**
-   * Tessellate shape for rendering
-   */
-  tessellate(shape: any, tolerance: number = 0.01): any {
-    this.ensureInitialized();
-
-    if (this.module._BRepMesh_IncrementalMesh) {
-      const shapePtr = this.getShapePtr(shape);
-      this.module._BRepMesh_IncrementalMesh(shapePtr, tolerance);
-
-      return this.extractMesh(shapePtr);
-    }
-
-    return this.generateMesh(shape, tolerance);
-  }
-
-  // === Helper Methods ===
-
-  private wrapShape(ptr: number): any {
     return {
-      ptr,
-      type: 'OCCTShape',
-      isValid: ptr !== 0 && ptr !== null
+      positions: this.toFloat32Array(mesh.positions),
+      normals: this.toFloat32Array(mesh.normals),
+      indices: this.toUint32Array(mesh.indices),
+      edges: mesh.edges ? this.toUint32Array(mesh.edges) : undefined,
     };
   }
 
-  private getShapePtr(shape: any): number {
-    if (typeof shape === 'number') return shape;
-    if (shape && shape.ptr) return shape.ptr;
-    throw new Error('Invalid shape object');
-  }
-
-  // === Fallback Implementations ===
-
-  private constructBox(w: number, h: number, d: number): any {
-    // Create a basic box representation
-    const vertices = [
-      [0, 0, 0], [w, 0, 0], [w, h, 0], [0, h, 0],
-      [0, 0, d], [w, 0, d], [w, h, d], [0, h, d]
-    ];
-
-    const faces = [
-      [0, 1, 2, 3], [4, 5, 6, 7], // Front, Back
-      [0, 1, 5, 4], [2, 3, 7, 6], // Bottom, Top
-      [0, 3, 7, 4], [1, 2, 6, 5]  // Left, Right
-    ];
-
-    return {
-      type: 'Box',
-      vertices,
-      faces,
-      dimensions: { width: w, height: h, depth: d }
-    };
-  }
-
-  private constructSphere(r: number): any {
-    // Create a basic sphere representation
-    const segments = 32;
-    const rings = 16;
-    const vertices: number[][] = [];
-    const faces: number[][] = [];
-
-    // Generate vertices
-    for (let ring = 0; ring <= rings; ring++) {
-      const phi = (ring * Math.PI) / rings;
-      for (let seg = 0; seg <= segments; seg++) {
-        const theta = (seg * 2 * Math.PI) / segments;
-        vertices.push([
-          r * Math.sin(phi) * Math.cos(theta),
-          r * Math.sin(phi) * Math.sin(theta),
-          r * Math.cos(phi)
-        ]);
-      }
+  private extractId(shape: ShapeHandle | string): string {
+    if (typeof shape === 'string') {
+      return shape;
     }
-
-    // Generate faces
-    for (let ring = 0; ring < rings; ring++) {
-      for (let seg = 0; seg < segments; seg++) {
-        const a = ring * (segments + 1) + seg;
-        const b = a + segments + 1;
-        faces.push([a, b, b + 1, a + 1]);
-      }
+    if (shape && typeof shape.id === 'string') {
+      return shape.id;
     }
-
-    return {
-      type: 'Sphere',
-      vertices,
-      faces,
-      radius: r
-    };
-  }
-
-  private constructCylinder(r: number, h: number): any {
-    const segments = 32;
-    const vertices: number[][] = [];
-    const faces: number[][] = [];
-
-    // Bottom and top circles
-    for (let i = 0; i <= segments; i++) {
-      const angle = (i * 2 * Math.PI) / segments;
-      vertices.push([r * Math.cos(angle), r * Math.sin(angle), 0]);
-      vertices.push([r * Math.cos(angle), r * Math.sin(angle), h]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (shape && (shape.id as any)) {
+      return (shape.id as unknown as string);
     }
+    throw new Error('[OCCTWrapper] Unable to resolve shape identifier');
+  }
 
-    // Side faces
-    for (let i = 0; i < segments; i++) {
-      faces.push([i * 2, i * 2 + 1, i * 2 + 3, i * 2 + 2]);
+  // === Primitive creation ===
+
+  makeBox(width: number, height: number, depth: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.makeBox(width, height, depth), 'makeBox');
+  }
+
+  makeBoxWithOrigin(x: number, y: number, z: number, width: number, height: number, depth: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.makeBoxWithOrigin(x, y, z, width, height, depth), 'makeBoxWithOrigin');
+  }
+
+  makeSphere(radius: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.makeSphere(radius), 'makeSphere');
+  }
+
+  makeSphereWithCenter(cx: number, cy: number, cz: number, radius: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.makeSphereWithCenter(cx, cy, cz, radius), 'makeSphereWithCenter');
+  }
+
+  makeCylinder(radius: number, height: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.makeCylinder(radius, height), 'makeCylinder');
+  }
+
+  makeCone(radius1: number, radius2: number, height: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.makeCone(radius1, radius2, height), 'makeCone');
+  }
+
+  makeTorus(majorRadius: number, minorRadius: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.makeTorus(majorRadius, minorRadius), 'makeTorus');
+  }
+
+  // === Advanced operations ===
+
+  extrude(profileId: string, dx: number, dy: number, dz: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.extrude(profileId, dx, dy, dz), 'extrude');
+  }
+
+  revolve(profileId: string, angle: number, axis: { x: number; y: number; z: number }, origin: { x: number; y: number; z: number }): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(
+      module.revolve(profileId, angle, axis.x, axis.y, axis.z, origin.x, origin.y, origin.z),
+      'revolve'
+    );
+  }
+
+  // === Boolean operations ===
+
+  booleanUnion(shapeA: ShapeHandle | string, shapeB: ShapeHandle | string): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.booleanUnion(this.extractId(shapeA), this.extractId(shapeB)), 'booleanUnion');
+  }
+
+  booleanSubtract(shapeA: ShapeHandle | string, shapeB: ShapeHandle | string): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.booleanSubtract(this.extractId(shapeA), this.extractId(shapeB)), 'booleanSubtract');
+  }
+
+  booleanIntersect(shapeA: ShapeHandle | string, shapeB: ShapeHandle | string): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.booleanIntersect(this.extractId(shapeA), this.extractId(shapeB)), 'booleanIntersect');
+  }
+
+  // === Feature operations ===
+
+  makeFillet(shape: ShapeHandle | string, radius: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.makeFillet(this.extractId(shape), radius), 'makeFillet');
+  }
+
+  makeChamfer(shape: ShapeHandle | string, distance: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.makeChamfer(this.extractId(shape), distance), 'makeChamfer');
+  }
+
+  makeShell(shape: ShapeHandle | string, thickness: number): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.makeShell(this.extractId(shape), thickness), 'makeShell');
+  }
+
+  transform(shape: ShapeHandle | string, transform: { tx?: number; ty?: number; tz?: number; rx?: number; ry?: number; rz?: number; sx?: number; sy?: number; sz?: number }): RawShapeHandle {
+    const module = this.ensureModule();
+    const { tx = 0, ty = 0, tz = 0, rx = 0, ry = 0, rz = 0, sx = 1, sy = 1, sz = 1 } = transform;
+    return this.ensureHandle(module.transform(this.extractId(shape), tx, ty, tz, rx, ry, rz, sx, sy, sz), 'transform');
+  }
+
+  copyShape(shape: ShapeHandle | string): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.copyShape(this.extractId(shape)), 'copyShape');
+  }
+
+  // === Tessellation ===
+
+  tessellate(shape: ShapeHandle | string, tolerance = 0.01, angularDeflection = 0.5): MeshData {
+    const module = this.ensureModule();
+    const mesh = module.tessellate(this.extractId(shape), tolerance, angularDeflection);
+    return this.ensureMesh(mesh, 'tessellate');
+  }
+
+  // === File I/O ===
+
+  importSTEP(data: string): RawShapeHandle {
+    const module = this.ensureModule();
+    return this.ensureHandle(module.importSTEP(data), 'importSTEP');
+  }
+
+  exportSTEP(shape: ShapeHandle | string): string {
+    const module = this.ensureModule();
+    return module.exportSTEP(this.extractId(shape));
+  }
+
+  exportSTL(shape: ShapeHandle | string, binary = false): string {
+    const module = this.ensureModule();
+    return module.exportSTL(this.extractId(shape), binary);
+  }
+
+  exportIGES(shape: ShapeHandle | string): string {
+    const module = this.ensureModule();
+    if (!module.exportIGES) {
+      throw new Error('IGES export not available in current OCCT build');
     }
-
-    return {
-      type: 'Cylinder',
-      vertices,
-      faces,
-      radius: r,
-      height: h
-    };
+    return module.exportIGES(this.extractId(shape));
   }
 
-  private fuseShapes(s1: any, s2: any): any {
-    return {
-      type: 'BooleanUnion',
-      operands: [s1, s2],
-      operation: 'union'
-    };
-  }
-
-  private cutShapes(s1: any, s2: any): any {
-    return {
-      type: 'BooleanDifference',
-      operands: [s1, s2],
-      operation: 'difference'
-    };
-  }
-
-  private intersectShapes(s1: any, s2: any): any {
-    return {
-      type: 'BooleanIntersection',
-      operands: [s1, s2],
-      operation: 'intersection'
-    };
-  }
-
-  private constructFillet(shape: any, radius: number): any {
-    return {
-      type: 'Fillet',
-      base: shape,
-      radius
-    };
-  }
-
-  private generateSTEPString(shape: any): string {
-    // Generate a minimal valid STEP file
-    const header = `ISO-10303-21;
-HEADER;
-FILE_DESCRIPTION(('BrepFlow Export'),'2;1');
-FILE_NAME('shape.step','${new Date().toISOString()}',('BrepFlow'),(''),
-'','','');
-FILE_SCHEMA(('AP214'));
-ENDSEC;
-DATA;`;
-
-    const footer = `ENDSEC;
-END-ISO-10303-21;`;
-
-    // Add basic shape data
-    let data = '';
-    if (shape.type === 'Box') {
-      data = `#1=CARTESIAN_POINT('',(0.,0.,0.));
-#2=DIRECTION('',(1.,0.,0.));
-#3=DIRECTION('',(0.,1.,0.));
-#4=AXIS2_PLACEMENT_3D('',#1,#2,#3);
-#5=ADVANCED_BREP_SHAPE_REPRESENTATION('',(#6),#7);
-#6=MANIFOLD_SOLID_BREP('Box',#8);
-#7=(GEOMETRIC_REPRESENTATION_CONTEXT(3) GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT((#9)) GLOBAL_UNIT_ASSIGNED_CONTEXT((#10,#11,#12)) REPRESENTATION_CONTEXT('',''));
-#8=CLOSED_SHELL('',(#13));`;
+  exportOBJ(shape: ShapeHandle | string): string {
+    const module = this.ensureModule();
+    if (!module.exportOBJ) {
+      throw new Error('OBJ export not available in current OCCT build');
     }
-
-    return header + '\n' + data + '\n' + footer;
+    return module.exportOBJ(this.extractId(shape));
   }
 
-  private generateSTLString(shape: any): string {
-    return `solid brepflow\n  facet normal 0 0 1\n    outer loop\n      vertex 0 0 0\n      vertex 1 0 0\n      vertex 0 1 0\n    endloop\n  endfacet\nendsolid brepflow`;
+  deleteShape(shape: ShapeHandle | string): void {
+    const module = this.ensureModule();
+    module.deleteShape(this.extractId(shape));
   }
 
-  private generateIGESString(_shape: any): string {
-    return `IGES;BrepFlow Mock Export;${new Date().toISOString()}`;
+  clearAllShapes(): void {
+    const module = this.ensureModule();
+    module.clearAllShapes();
   }
 
-  private generateOBJString(_shape: any): string {
-    return `# BrepFlow OBJ Mock\nv 0 0 0\nv 1 0 0\nv 0 1 0\nf 1 2 3`;
+  getStatus(): string {
+    const module = this.ensureModule();
+    return module.getStatus();
   }
 
-  private parseSTEPString(stepData: string): any {
-    // Basic STEP parsing
-    return {
-      type: 'ImportedSTEP',
-      data: stepData,
-      vertices: [],
-      faces: []
-    };
+  getVersion(): string {
+    const module = this.ensureModule();
+    return module.getOCCTVersion();
   }
 
-  private extractMesh(shapePtr: number): any {
-    // Extract triangulated mesh from shape
-    return {
-      vertices: [],
-      triangles: [],
-      normals: []
-    };
-  }
+  // === Helpers ===
 
-  private generateMesh(shape: any, tolerance: number): any {
-    // Generate basic mesh from shape
-    if (shape.vertices && shape.faces) {
-      const triangles: number[][] = [];
-
-      // Convert quads to triangles
-      for (const face of shape.faces) {
-        if (face.length === 4) {
-          triangles.push([face[0], face[1], face[2]]);
-          triangles.push([face[0], face[2], face[3]]);
-        } else if (face.length === 3) {
-          triangles.push(face);
-        }
-      }
-
-      return {
-        vertices: shape.vertices,
-        triangles,
-        tolerance
-      };
+  private toFloat32Array(data: unknown): Float32Array {
+    if (data instanceof Float32Array) {
+      return data;
     }
-
-    return {
-      vertices: [],
-      triangles: [],
-      tolerance
-    };
+    if (Array.isArray(data)) {
+      return new Float32Array(data);
+    }
+    if (data && typeof (data as any).length === 'number') {
+      return Float32Array.from(data as ArrayLike<number>);
+    }
+    return new Float32Array();
   }
 
-  /**
-   * Cleanup and release memory
-   */
-  dispose(): void {
-    if (this.module && this.module._free) {
-      // Free any allocated memory
-      console.log('[OCCTWrapper] Disposing resources');
+  private toUint32Array(data: unknown): Uint32Array {
+    if (data instanceof Uint32Array) {
+      return data;
     }
-    this.module = null;
-    this.initialized = false;
+    if (Array.isArray(data)) {
+      return new Uint32Array(data);
+    }
+    if (data && typeof (data as any).length === 'number') {
+      return Uint32Array.from(data as ArrayLike<number>);
+    }
+    return new Uint32Array();
   }
 }
 
-// Singleton instance for worker contexts
-let instance: OCCTWrapper | null = null;
+let wrapperInstance: OCCTWrapper | null = null;
 
 export function getOCCTWrapper(): OCCTWrapper {
-  if (!instance) {
-    instance = new OCCTWrapper();
+  if (!wrapperInstance) {
+    wrapperInstance = new OCCTWrapper();
   }
-  return instance;
+  return wrapperInstance;
 }

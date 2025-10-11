@@ -62,7 +62,7 @@ export function SelectionHighlight({
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         @keyframes selection-pulse {
           0%,
           100% {
