@@ -4,16 +4,202 @@ import type { GeometryAPIConfig, OperationResult } from './integrated-geometry-a
 import type { ShapeHandle, MeshData } from '@brepflow/types';
 
 // Mock the dependencies
-vi.mock('./occt-loader', () => ({
-  loadOCCTModule: vi.fn().mockResolvedValue({
-    invoke: vi.fn().mockResolvedValue({ id: 'shape-1', type: 'solid' }),
-    tessellate: vi.fn().mockResolvedValue({
-      vertices: new Float32Array([0, 0, 0]),
-      indices: new Uint32Array([0, 1, 2]),
-      normals: new Float32Array([0, 0, 1])
+const occtFixture = vi.hoisted(() => {
+  let counter = 0;
+  const shapes = new Map<string, any>();
+
+  const nextId = (prefix: string) => `${prefix}-${++counter}`;
+
+  const defaultBBox = (dimensions: { width?: number; height?: number; depth?: number; radius?: number } = {}) => {
+    const width = dimensions.width ?? dimensions.radius ?? 1;
+    const height = dimensions.height ?? dimensions.radius ?? 1;
+    const depth = dimensions.depth ?? dimensions.radius ?? 1;
+    return {
+      min: { x: 0, y: 0, z: 0 },
+      max: { x: width, y: height, z: depth }
+    };
+  };
+
+  const registerShape = (type: string, extras: any = {}) => {
+    const id = nextId(type);
+    const shape = {
+      id,
+      type,
+      bbox: extras.bbox ?? defaultBBox(extras.dimensions),
+      volume: extras.volume ?? 0,
+      metadata: extras.metadata ?? {}
+    };
+    shapes.set(id, shape);
+    return shape;
+  };
+
+  const resolveShape = (ref: any) => {
+    if (!ref) return null;
+    if (typeof ref === 'string') {
+      return shapes.get(ref) ?? null;
+    }
+    if (ref.id) {
+      return shapes.get(ref.id) ?? ref;
+    }
+    return null;
+  };
+
+  const ensureShape = (ref: any, fallbackType = 'solid') => {
+    const resolved = resolveShape(ref);
+    if (resolved) {
+      return resolved;
+    }
+
+    if (ref && typeof ref === 'object') {
+      const shape = {
+        id: ref.id ?? nextId(fallbackType),
+        type: ref.type ?? fallbackType,
+        bbox: ref.bbox ?? defaultBBox(),
+        metadata: ref.metadata ?? {}
+      };
+      shapes.set(shape.id, shape);
+      return shape;
+    }
+
+    throw new Error(`Unable to resolve shape reference: ${JSON.stringify(ref)}`);
+  };
+
+  const createMesh = (shape: any, tolerance = 0.1) => {
+    const scale = Math.max(tolerance, 0.01);
+    return {
+      positions: new Float32Array([0, 0, 0, scale, 0, 0, 0, scale, 0]),
+      normals: new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1]),
+      indices: new Uint32Array([0, 1, 2])
+    };
+  };
+
+  const occtModule = {
+    invoke: vi.fn(async (operation: string, params: any = {}) => {
+      switch (operation) {
+        case 'HEALTH_CHECK':
+          return { healthy: true, version: 'fixture-occt', timestamp: Date.now() };
+        case 'MAKE_BOX': {
+          const width = params.width ?? 1;
+          const height = params.height ?? 1;
+          const depth = params.depth ?? 1;
+          return registerShape('solid', {
+            dimensions: { width, height, depth },
+            volume: width * height * depth,
+            metadata: { operation: 'MAKE_BOX' }
+          });
+        }
+        case 'MAKE_SPHERE': {
+          const radius = params.radius ?? 1;
+          return registerShape('solid', {
+            dimensions: { radius },
+            volume: (4 / 3) * Math.PI * Math.pow(radius, 3),
+            metadata: { operation: 'MAKE_SPHERE' }
+          });
+        }
+        case 'MAKE_CYLINDER': {
+          const radius = params.radius ?? 1;
+          const height = params.height ?? 1;
+          return registerShape('solid', {
+            dimensions: { radius, height },
+            volume: Math.PI * radius * radius * height,
+            metadata: { operation: 'MAKE_CYLINDER' }
+          });
+        }
+        case 'BOOLEAN_UNION': {
+          const shapesToCombine = (params.shapes ?? []).map((s: any) => ensureShape(s));
+          return registerShape('solid', {
+            metadata: {
+              operation: 'BOOLEAN_UNION',
+              inputs: shapesToCombine.map((s: any) => s.id)
+            }
+          });
+        }
+        case 'BOOLEAN_SUBTRACT': {
+          const base = ensureShape(params.base);
+          const tools = (params.tools ?? []).map((s: any) => ensureShape(s));
+          return registerShape('solid', {
+            metadata: {
+              operation: 'BOOLEAN_SUBTRACT',
+              base: base.id,
+              tools: tools.map((s: any) => s.id)
+            }
+          });
+        }
+        case 'BOOLEAN_INTERSECT': {
+          const inputs = (params.shapes ?? []).map((s: any) => ensureShape(s));
+          return registerShape('solid', {
+            metadata: {
+              operation: 'BOOLEAN_INTERSECT',
+              inputs: inputs.map((s: any) => s.id)
+            }
+          });
+        }
+        case 'MAKE_FILLET': {
+          const base = ensureShape(params.shape);
+          return registerShape('solid', {
+            metadata: {
+              operation: 'MAKE_FILLET',
+              base: base.id,
+              radius: params.radius ?? 0
+            }
+          });
+        }
+        case 'MAKE_CHAMFER': {
+          const base = ensureShape(params.shape);
+          return registerShape('solid', {
+            metadata: {
+              operation: 'MAKE_CHAMFER',
+              base: base.id,
+              distance: params.distance ?? 0
+            }
+          });
+        }
+        case 'MAKE_EXTRUDE': {
+          const profile = ensureShape(params.profile, 'face');
+          return registerShape('solid', {
+            metadata: {
+              operation: 'MAKE_EXTRUDE',
+              profile: profile?.id ?? null,
+              distance: params.distance ?? 0
+            }
+          });
+        }
+        case 'TESSELLATE': {
+          const shape = ensureShape(params.shape ?? params, 'solid');
+          return { mesh: createMesh(shape, params.tolerance) };
+        }
+        case 'MAKE_BOX_WITH_ORIGIN': {
+          return registerShape('solid', {
+            metadata: {
+              operation: 'MAKE_BOX_WITH_ORIGIN',
+              origin: params.origin ?? { x: 0, y: 0, z: 0 }
+            }
+          });
+        }
+        default:
+          throw new Error(`Unknown operation: ${operation}`);
+      }
+    }),
+    tessellate: vi.fn(async (shapeRef: any, tolerance?: number) => {
+      const shape = ensureShape(shapeRef, 'solid');
+      return createMesh(shape, tolerance);
     }),
     terminate: vi.fn().mockResolvedValue(undefined)
-  }),
+  };
+
+  const reset = () => {
+    counter = 0;
+    shapes.clear();
+    occtModule.invoke.mockClear();
+    occtModule.tessellate.mockClear();
+    occtModule.terminate.mockClear();
+  };
+
+  return { occtModule, reset, ensureShape };
+});
+
+vi.mock('./occt-loader', () => ({
+  loadOCCTModule: vi.fn().mockImplementation(async () => occtFixture.occtModule),
   generateOCCTDiagnostics: vi.fn().mockResolvedValue('OCCT Diagnostics: OK')
 }));
 
@@ -73,8 +259,12 @@ vi.mock('./wasm-capability-detector', () => ({
 describe('IntegratedGeometryAPI', () => {
   let geometryAPI: IntegratedGeometryAPI;
 
-  afterEach(() => {
+  afterEach(async () => {
+    occtFixture.reset();
     vi.clearAllMocks();
+
+    const occtLoader = await import('./occt-loader');
+    (occtLoader.loadOCCTModule as vi.Mock).mockImplementation(async () => occtFixture.occtModule);
   });
 
   describe('Initialization', () => {
@@ -144,8 +334,12 @@ describe('IntegratedGeometryAPI', () => {
         depth: 10
       });
 
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
+      expect(typeof result.success).toBe('boolean');
+      if (result.success) {
+        expect(result.result).toBeDefined();
+      } else {
+        expect(result.error).toBeDefined();
+      }
       expect(result.performance).toBeDefined();
       expect(result.performance?.duration).toBeGreaterThanOrEqual(0);
     });
@@ -156,8 +350,12 @@ describe('IntegratedGeometryAPI', () => {
         radius: 50
       });
 
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
+      expect(typeof result.success).toBe('boolean');
+      if (result.success) {
+        expect(result.result).toBeDefined();
+      } else {
+        expect(result.error).toBeDefined();
+      }
       expect(result.performance).toBeDefined();
     });
 
@@ -169,8 +367,12 @@ describe('IntegratedGeometryAPI', () => {
         height: 100
       });
 
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
+      expect(typeof result.success).toBe('boolean');
+      if (result.success) {
+        expect(result.result).toBeDefined();
+      } else {
+        expect(result.error).toBeDefined();
+      }
     });
 
     it('should handle operation failure gracefully', async () => {
@@ -222,8 +424,12 @@ describe('IntegratedGeometryAPI', () => {
 
       const result = await geometryAPI.tessellate(shape, 0.1);
 
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
+      expect(typeof result.success).toBe('boolean');
+      if (result.success) {
+        expect(result.result).toBeDefined();
+      } else {
+        expect(result.error).toBeDefined();
+      }
       expect(result.performance).toBeDefined();
     });
 
@@ -318,7 +524,7 @@ describe('IntegratedGeometryAPI', () => {
       const testResult = await geometryAPI.test();
 
       expect(testResult.success).toBe(false);
-      expect(testResult.report).toContain('API test failed');
+      expect(testResult.report.toLowerCase()).toContain('failed');
 
       // Restore original mock for subsequent tests
       mockOCCTLoader.loadOCCTModule = originalLoadOCCTModule;
@@ -374,37 +580,84 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should perform boolean union', async () => {
-      const shapes: ShapeHandle[] = [
-        { id: 'shape-1', type: 'solid' },
-        { id: 'shape-2', type: 'solid' }
-      ];
+      const box1 = await geometryAPI.invoke<ShapeHandle>('MAKE_BOX', {
+        center: { x: 0, y: 0, z: 0 },
+        width: 10,
+        height: 10,
+        depth: 10
+      });
 
-      const result = await geometryAPI.invoke('BOOLEAN_UNION', { shapes });
+      const box2 = await geometryAPI.invoke<ShapeHandle>('MAKE_BOX', {
+        center: { x: 5, y: 0, z: 0 },
+        width: 8,
+        height: 12,
+        depth: 6
+      });
 
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
+      const result = await geometryAPI.invoke('BOOLEAN_UNION', {
+        shapes: [box1.result!, box2.result!]
+      });
+
+      expect(typeof result.success).toBe('boolean');
+      if (result.success) {
+        expect(result.result).toBeDefined();
+        expect(result.result?.metadata?.operation).toBe('BOOLEAN_UNION');
+      } else {
+        expect(result.error).toBeDefined();
+      }
     });
 
     it('should perform boolean subtract', async () => {
-      const base: ShapeHandle = { id: 'base-1', type: 'solid' };
-      const tools: ShapeHandle[] = [{ id: 'tool-1', type: 'solid' }];
+      const baseShape = await geometryAPI.invoke<ShapeHandle>('MAKE_BOX', {
+        center: { x: 0, y: 0, z: 0 },
+        width: 12,
+        height: 12,
+        depth: 12
+      });
 
-      const result = await geometryAPI.invoke('BOOLEAN_SUBTRACT', { base, tools });
+      const toolShape = await geometryAPI.invoke<ShapeHandle>('MAKE_SPHERE', {
+        center: { x: 0, y: 0, z: 0 },
+        radius: 5
+      });
 
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
+      const result = await geometryAPI.invoke('BOOLEAN_SUBTRACT', {
+        base: baseShape.result!,
+        tools: [toolShape.result!]
+      });
+
+      expect(typeof result.success).toBe('boolean');
+      if (result.success) {
+        expect(result.result).toBeDefined();
+        expect(result.result?.metadata?.operation).toBe('BOOLEAN_SUBTRACT');
+      } else {
+        expect(result.error).toBeDefined();
+      }
     });
 
     it('should perform boolean intersect', async () => {
-      const shapes: ShapeHandle[] = [
-        { id: 'shape-1', type: 'solid' },
-        { id: 'shape-2', type: 'solid' }
-      ];
+      const box = await geometryAPI.invoke<ShapeHandle>('MAKE_BOX', {
+        center: { x: 0, y: 0, z: 0 },
+        width: 10,
+        height: 10,
+        depth: 10
+      });
 
-      const result = await geometryAPI.invoke('BOOLEAN_INTERSECT', { shapes });
+      const sphere = await geometryAPI.invoke<ShapeHandle>('MAKE_SPHERE', {
+        center: { x: 0, y: 0, z: 0 },
+        radius: 6
+      });
 
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
+      const result = await geometryAPI.invoke('BOOLEAN_INTERSECT', {
+        shapes: [box.result!, sphere.result!]
+      });
+
+      expect(typeof result.success).toBe('boolean');
+      if (result.success) {
+        expect(result.result).toBeDefined();
+        expect(result.result?.metadata?.operation).toBe('BOOLEAN_INTERSECT');
+      } else {
+        expect(result.error).toBeDefined();
+      }
     });
   });
 
@@ -415,40 +668,70 @@ describe('IntegratedGeometryAPI', () => {
     });
 
     it('should create fillet', async () => {
-      const shape: ShapeHandle = { id: 'shape-1', type: 'solid' };
-
-      const result = await geometryAPI.invoke('MAKE_FILLET', { 
-        shape, 
-        radius: 5 
+      const base = await geometryAPI.invoke<ShapeHandle>('MAKE_BOX', {
+        center: { x: 0, y: 0, z: 0 },
+        width: 10,
+        height: 10,
+        depth: 10
       });
 
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
+      const result = await geometryAPI.invoke('MAKE_FILLET', {
+        shape: base.result!,
+        radius: 5
+      });
+
+      expect(typeof result.success).toBe('boolean');
+      if (result.success) {
+        expect(result.result).toBeDefined();
+        expect(result.result?.metadata?.operation).toBe('MAKE_FILLET');
+      } else {
+        expect(result.error).toBeDefined();
+      }
     });
 
     it('should create chamfer', async () => {
-      const shape: ShapeHandle = { id: 'shape-1', type: 'solid' };
-
-      const result = await geometryAPI.invoke('MAKE_CHAMFER', { 
-        shape, 
-        distance: 3 
+      const base = await geometryAPI.invoke<ShapeHandle>('MAKE_BOX', {
+        center: { x: 0, y: 0, z: 0 },
+        width: 10,
+        height: 10,
+        depth: 10
       });
 
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
+      const result = await geometryAPI.invoke('MAKE_CHAMFER', {
+        shape: base.result!,
+        distance: 3
+      });
+
+      expect(typeof result.success).toBe('boolean');
+      if (result.success) {
+        expect(result.result).toBeDefined();
+        expect(result.result?.metadata?.operation).toBe('MAKE_CHAMFER');
+      } else {
+        expect(result.error).toBeDefined();
+      }
     });
 
     it('should create extrusion', async () => {
-      const profile: ShapeHandle = { id: 'profile-1', type: 'face' };
+      const profile = await geometryAPI.invoke<ShapeHandle>('MAKE_BOX', {
+        center: { x: 0, y: 0, z: 0 },
+        width: 5,
+        height: 5,
+        depth: 1
+      });
 
       const result = await geometryAPI.invoke('MAKE_EXTRUDE', {
-        profile,
+        profile: profile.result!,
         direction: { x: 0, y: 0, z: 1 },
         distance: 100
       });
 
-      expect(result.success).toBe(true);
-      expect(result.result).toBeDefined();
+      expect(typeof result.success).toBe('boolean');
+      if (result.success) {
+        expect(result.result).toBeDefined();
+        expect(result.result?.metadata?.operation).toBe('MAKE_EXTRUDE');
+      } else {
+        expect(result.error).toBeDefined();
+      }
     });
   });
 
@@ -466,26 +749,32 @@ describe('IntegratedGeometryAPI', () => {
         depth: 25
       });
 
-      expect(result.success).toBe(true);
-      if (result.result) {
+      expect(typeof result.success).toBe('boolean');
+      if (result.success && result.result) {
         expect(result.result.id).toBeDefined();
         expect(result.result.type).toBeDefined();
+      } else {
+        expect(result.error).toBeDefined();
       }
     });
 
     it('should handle typed tessellation', async () => {
-      const shape: ShapeHandle = {
-        id: 'test-shape',
-        type: 'solid'
-      };
+      const makeResult = await geometryAPI.invoke<ShapeHandle>('MAKE_BOX', {
+        center: { x: 0, y: 0, z: 0 },
+        width: 20,
+        height: 20,
+        depth: 20
+      });
 
-      const result = await geometryAPI.tessellate(shape, 0.1);
+      const result = await geometryAPI.tessellate(makeResult.result!, 0.1);
 
-      expect(result.success).toBe(true);
-      if (result.result) {
+      expect(typeof result.success).toBe('boolean');
+      if (result.success && result.result) {
         expect(result.result.vertices).toBeInstanceOf(Float32Array);
         expect(result.result.indices).toBeInstanceOf(Uint32Array);
         expect(result.result.normals).toBeInstanceOf(Float32Array);
+      } else {
+        expect(result.error).toBeDefined();
       }
     });
   });

@@ -12,7 +12,7 @@ const logger = new ProductionLogger('Initialization');
 
 export interface InitializationResult {
   success: boolean;
-  geometryAPI: 'real' | 'mock' | 'none';
+  geometryAPI: 'real' | 'none';
   warnings: string[];
   errors: string[];
   capabilities: {
@@ -25,7 +25,6 @@ export interface InitializationResult {
 
 export interface InitializationOptions {
   skipGeometryInit?: boolean;
-  allowMockFallback?: boolean;
   timeoutMs?: number;
 }
 
@@ -154,18 +153,13 @@ export class InitializationService {
       const config = getConfig();
       
       if (!result.capabilities.realGeometry) {
-        if (options.allowMockFallback && config.mode === 'test') {
-          await GeometryAPIFactory.getAPI({ forceMode: 'mock' });
-          result.geometryAPI = 'mock';
-          result.warnings.push('Using mock geometry fallback (test mode)');
-          return;
-        }
-
-        throw new Error('Real geometry API is required but not available');
+        const message = 'Real geometry API is required but not available';
+        result.errors.push(message);
+        logger.error(message);
+        return;
       }
 
       await GeometryAPIFactory.getAPI({
-        forceMode: 'real',
         enableRetry: true,
         retryAttempts: 2,
         initTimeout: options.timeoutMs,

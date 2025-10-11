@@ -79,7 +79,7 @@ async function testNodeEvaluation() {
 
   try {
     // Get real or mock geometry API
-    const api = await GeometryAPIFactory.getAPI({ forceMode: 'mock' });
+    const api = await GeometryAPIFactory.getAPI({ enableRetry: true, retryAttempts: 1 });
 
     // Create DAG engine with the API
     const dagEngine = new DAGEngine({ worker: api });

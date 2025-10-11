@@ -225,7 +225,6 @@ async function renderVariant(
 
   // Initialize geometry
   const geometryAPI = await GeometryAPIFactory.getAPI({
-    forceMode: 'real',
     enableRetry: true,
     retryAttempts: 2,
     validateOutput: true,

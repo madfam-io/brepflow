@@ -22,7 +22,6 @@ export async function getGeometryAPI(): Promise<WorkerAPI> {
   }
 
   initializationPromise = GeometryAPIFactory.getAPI({
-    forceMode: 'real',
     enableRetry: true,
     retryAttempts: 2,
   }).then(api => {

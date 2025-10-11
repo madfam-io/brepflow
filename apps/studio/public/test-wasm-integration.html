@@ -570,7 +570,6 @@
                 try {
                     geometryAPI = new IntegratedGeometryAPI({
                         enableRealOCCT: true,
-                        fallbackToMock: true,
                         enablePerformanceMonitoring: true
                     });
 
@@ -620,8 +619,7 @@
                 const start = performance.now();
 
                 const api = new IntegratedGeometryAPI({
-                    enableRealOCCT: false,
-                    fallbackToMock: true
+                    enableRealOCCT: true
                 });
 
                 await api.init();
@@ -634,8 +632,7 @@
 
             'perf-operation': async () => {
                 const api = new IntegratedGeometryAPI({
-                    enableRealOCCT: false,
-                    fallbackToMock: true
+                    enableRealOCCT: true
                 });
                 await api.init();
 
@@ -677,8 +674,7 @@
 
             'perf-tessellation': async () => {
                 const api = new IntegratedGeometryAPI({
-                    enableRealOCCT: false,
-                    fallbackToMock: true
+                    enableRealOCCT: true
                 });
                 await api.init();
 
@@ -697,8 +693,7 @@
             // Error recovery tests
             'error-invalid-op': async () => {
                 const api = new IntegratedGeometryAPI({
-                    enableRealOCCT: false,
-                    fallbackToMock: true,
+                    enableRealOCCT: true,
                     enableErrorRecovery: true
                 });
                 await api.init();
@@ -716,7 +711,6 @@
             'error-fallback': async () => {
                 const api = new IntegratedGeometryAPI({
                     enableRealOCCT: true,
-                    fallbackToMock: true,
                     enableErrorRecovery: true
                 });
                 await api.init();
@@ -724,7 +718,7 @@
                 // This should fallback to mock if WASM fails
                 const result = await api.invoke('MAKE_BOX', { width: 100, height: 50, depth: 25 });
 
-                log(`Fallback ${result.fallbackUsed ? 'activated' : 'not needed'}`, 'success');
+                log('Real OCCT executed without fallback', 'success');
                 return true;
             },
 

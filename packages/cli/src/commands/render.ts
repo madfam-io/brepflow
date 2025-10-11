@@ -62,7 +62,6 @@ export const renderCommand = new Command('render')
       // Initialize geometry API
       spinner.start('Initializing geometry engine...');
       const geometryAPI = await GeometryAPIFactory.getAPI({
-        forceMode: 'real',
         enableRetry: true,
         retryAttempts: 2,
         validateOutput: true,

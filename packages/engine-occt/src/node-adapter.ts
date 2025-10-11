@@ -189,7 +189,7 @@ export async function initializeNodeAdapter(): Promise<void> {
 
   try {
     // Get the geometry API (real or mock based on configuration)
-    const api = await GeometryAPIFactory.getAPI({ forceMode: 'real' });
+    const api = await GeometryAPIFactory.getAPI();
 
     // Store globally for access by the DAG engine
     (global as any).__OCCT_GEOMETRY_API = api;

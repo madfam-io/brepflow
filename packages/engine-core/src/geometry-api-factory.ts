@@ -76,7 +76,6 @@ const getLogger = (): LoggerLike => {
 };
 
 export interface GeometryAPIConfig {
-  forceMode?: 'real' | 'mock';
   initTimeout?: number;
   validateOutput?: boolean;
   enableRetry?: boolean;
@@ -85,7 +84,6 @@ export interface GeometryAPIConfig {
 
 export class GeometryAPIFactory {
   private static realAPI: WorkerAPI | null = null;
-  private static mockAPI: WorkerAPI | null = null;
   private static initializationPromise: Promise<WorkerAPI> | null = null;
   private static wasmAssetCheck: Promise<void> | null = null;
   private static wasmAssetsVerified = false;
@@ -95,28 +93,11 @@ export class GeometryAPIFactory {
    */
   static async getAPI(options: GeometryAPIConfig = {}): Promise<WorkerAPI> {
     const config = getConfig();
-    
-    // Determine which API to use
-    // FORCE real WASM in development unless explicitly mocked
     const wasmConfig = getWASMConfig();
-    const requestMock = options.forceMode === 'mock';
-    const isTestEnvironment = config.mode === 'test';
-
-    if (requestMock && !isTestEnvironment) {
-      throw new Error('Mock geometry API is only available when NODE_ENV is set to test');
-    }
-
-    const useReal = options.forceMode === 'real' || !requestMock;
 
     getLogger().info('Creating geometry API', {
-      useReal,
       environment: config.mode,
-      forceMode: options.forceMode ?? 'auto',
     });
-
-    if (!useReal) {
-      return this.getMockAPI();
-    }
 
     if (!wasmConfig.forceRealWASM && !shouldUseRealWASM()) {
       getLogger().warn('WASM configuration does not force real OCCT - overriding to ensure real geometry usage');
@@ -129,13 +110,6 @@ export class GeometryAPIFactory {
    * Get real OCCT-based geometry API
    */
   private static async getRealAPI(options: GeometryAPIConfig): Promise<WorkerAPI> {
-    const config = getConfig();
-
-    // In production, fail fast if mock is requested
-    if (config.mode !== 'test' && options.forceMode === 'mock') {
-      throw new Error('Mock geometry cannot be used outside of test mode');
-    }
-
     // Return cached instance if available
     if (this.realAPI) {
       getLogger().debug('Returning cached real geometry API');
@@ -224,35 +198,6 @@ export class GeometryAPIFactory {
         // Wait before retry
         await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
       }
-    }
-  }
-
-  /**
-   * Get mock geometry API for development/testing
-   */
-  private static async getMockAPI(): Promise<WorkerAPI> {
-    const config = getConfig();
-    if (config.mode !== 'test') {
-      throw new Error('Mock geometry API is only available in test mode');
-    }
-
-    if (this.mockAPI) {
-      getLogger().debug('Returning cached mock geometry API');
-      return this.mockAPI;
-    }
-
-    getLogger().info('Initializing mock geometry API');
-
-    try {
-      const { MockGeometry } = await importEngineOCCTSafely();
-      this.mockAPI = new MockGeometry();
-      await this.mockAPI.init();
-
-      getLogger().info('Mock geometry API initialized successfully');
-      return this.mockAPI;
-    } catch (error) {
-      getLogger().error('Failed to initialize mock geometry API', error);
-      throw new Error('Failed to initialize fallback mock geometry API');
     }
   }
 
@@ -361,7 +306,6 @@ export class GeometryAPIFactory {
    */
   static reset(): void {
     this.realAPI = null;
-    this.mockAPI = null;
     this.initializationPromise = null;
     getLogger().debug('Geometry API factory reset');
   }
@@ -371,12 +315,10 @@ export class GeometryAPIFactory {
    */
   static getStatus(): {
     hasRealAPI: boolean;
-    hasMockAPI: boolean;
     isInitializing: boolean;
   } {
     return {
       hasRealAPI: !!this.realAPI,
-      hasMockAPI: !!this.mockAPI,
       isInitializing: !!this.initializationPromise,
     };
   }
@@ -386,7 +328,6 @@ export class GeometryAPIFactory {
    */
   static async getProductionAPI(config?: any): Promise<WorkerAPI> {
     return this.getAPI({
-      forceMode: 'real',
       validateOutput: true,
       enableRetry: false,
       ...config
@@ -406,13 +347,13 @@ export class GeometryAPIFactory {
       
       case 'testing':
         return this.getAPI({ 
-          forceMode: 'mock',
           validateOutput: false,
+          enableRetry: true,
+          retryAttempts: 1
         });
       
       case 'production':
         return this.getAPI({ 
-          forceMode: 'real',
           validateOutput: true,
           enableRetry: false,
         });
@@ -424,14 +365,13 @@ export class GeometryAPIFactory {
 }
 
 // Convenience exports
-export const getGeometryAPI = (forceMock = false) =>
-  GeometryAPIFactory.getAPI({ forceMode: forceMock ? 'mock' : undefined });
+export const getGeometryAPI = () => GeometryAPIFactory.getAPI();
 
 export const getRealGeometryAPI = () =>
-  GeometryAPIFactory.getAPI({ forceMode: 'real' });
+  GeometryAPIFactory.getAPI();
 
 export const getProductionAPI = (config?: any) =>
-  GeometryAPIFactory.getAPI({ forceMode: 'real', ...config });
+  GeometryAPIFactory.getAPI({ ...config, validateOutput: true, enableRetry: false });
 
 export const isRealGeometryAvailable = () =>
   GeometryAPIFactory.isRealAPIAvailable();

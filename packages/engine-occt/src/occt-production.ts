@@ -404,7 +404,7 @@ export class OCCTProductionAPI {
     return {
       healthy: !!this.module,
       usingRealOCCT: this.usingRealOCCT,
-      backend: this.usingRealOCCT ? 'occt-wasm' : 'mock',
+      backend: 'occt-wasm',
       version: this.module?.getOCCTVersion?.(),
       status: this.module?.getStatus?.(),
       shapeCount: this.module?.getShapeCount?.() ?? 0,
