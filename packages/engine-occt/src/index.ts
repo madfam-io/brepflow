@@ -7,8 +7,8 @@ export * from './real-occt-bindings';
 export * from './occt-bindings'; // WASM loader functions for testing
 // Note: occt-worker.ts is not exported here - it's loaded as a Web Worker
 // export * from './production-worker'; // Worker only - don't export in main thread
-export * from './production-api';
-export * from './production-logger';
+// export * from './production-api'; // Node.js only - uses node:path and node:url
+// export * from './production-logger'; // Node.js only - used by production-api
 export * from './geometry-validator';
 export * from './node-adapter'; // OCCT node adapter for real geometry
 export * from './occt-operation-router'; // Operation routing for OCCT
