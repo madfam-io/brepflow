@@ -10,7 +10,6 @@ export interface EnvironmentConfig {
   isDevelopment: boolean;
 
   // Geometry Engine
-  enableMockGeometry: boolean;
   requireRealOCCT: boolean;
   occtWasmPath: string;
   occtInitTimeout: number;
@@ -66,7 +65,6 @@ class EnvironmentManager {
       isDevelopment,
 
       // Geometry Engine - ALWAYS USE REAL OCCT NOW
-      enableMockGeometry: false, // Mock geometry is deprecated - always use real OCCT
       requireRealOCCT: true, // Always require real OCCT
       occtWasmPath: processEnv.OCCT_WASM_PATH || '/assets/wasm',
       occtInitTimeout: this.parseNumber(processEnv.OCCT_INIT_TIMEOUT, 30000),
@@ -143,9 +141,6 @@ class EnvironmentManager {
   private validateConfig(config: EnvironmentConfig): void {
     // Production validations
     if (config.isProduction) {
-      if (config.enableMockGeometry) {
-        throw new Error('Production mode cannot use mock geometry');
-      }
       if (!config.requireRealOCCT) {
         throw new Error('Production mode must require real OCCT');
       }
@@ -155,10 +150,6 @@ class EnvironmentManager {
     }
 
     // Development validations
-    if (config.isDevelopment && config.requireRealOCCT && config.enableMockGeometry) {
-      console.warn('⚠️ Both mock and real OCCT enabled, will prefer real OCCT');
-    }
-
     // Memory validations
     if (config.workerRestartThresholdMB > config.maxWorkerMemoryMB) {
       throw new Error('Worker restart threshold cannot exceed max worker memory');
@@ -195,7 +186,3 @@ export const Environment = new EnvironmentManager();
 export const getConfig = () => Environment.getConfig();
 export const isProduction = () => Environment.getConfig().isProduction;
 export const isDevelopment = () => Environment.getConfig().isDevelopment;
-export const shouldUseMockGeometry = () => {
-  const config = Environment.getConfig();
-  return config.enableMockGeometry && !config.requireRealOCCT;
-};

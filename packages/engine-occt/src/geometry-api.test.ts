@@ -22,21 +22,33 @@ const stubMesh = (): MeshData => ({
 const wrapperStub = {
   initialize: vi.fn().mockResolvedValue(undefined),
   makeBox: vi.fn(() => stubShape('box')),
+  makeBoxWithOrigin: vi.fn(() => stubShape('box-origin')),
   makeSphere: vi.fn(() => stubShape('sphere')),
+  makeSphereWithCenter: vi.fn(() => stubShape('sphere-center')),
   makeCylinder: vi.fn(() => stubShape('cylinder')),
   makeCone: vi.fn(() => stubShape('cone')),
   makeTorus: vi.fn(() => stubShape('torus')),
+  makeShell: vi.fn(() => stubShape('shell')),
   booleanUnion: vi.fn(() => stubShape('union')),
   booleanSubtract: vi.fn(() => stubShape('subtract')),
   booleanIntersect: vi.fn(() => stubShape('intersect')),
   makeFillet: vi.fn(() => stubShape('fillet')),
   makeChamfer: vi.fn(() => stubShape('chamfer')),
+  transform: vi.fn(() => stubShape('transform')),
+  copyShape: vi.fn(() => stubShape('copy')),
   tessellate: vi.fn(() => stubMesh()),
+  tessellateWithParams: vi.fn(() => stubMesh()),
+  extrude: vi.fn(() => stubShape('extrude')),
+  revolve: vi.fn(() => stubShape('revolve')),
   exportSTEP: vi.fn(() => 'STEP DATA'),
   exportIGES: vi.fn(() => 'IGES DATA'),
   exportOBJ: vi.fn(() => 'OBJ DATA'),
   exportSTL: vi.fn(() => new ArrayBuffer(8)),
-  importSTEP: vi.fn(() => stubShape('imported'))
+  importSTEP: vi.fn(() => stubShape('imported')),
+  deleteShape: vi.fn(),
+  clearAllShapes: vi.fn(),
+  getShapeCount: vi.fn(() => 0),
+  getOCCTVersion: vi.fn(() => 'stub-occt')
 };
 
 vi.mock('./occt-wrapper', () => ({

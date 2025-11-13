@@ -12,10 +12,10 @@ describe('Advanced Operations', () => {
   let geometryAPI: GeometryAPI;
   let cleanup: () => void;
 
-  beforeEach(() => {
-    const { mockOCCT, cleanup: cleanupFn } = setupWASMTestEnvironment();
+  beforeEach(async () => {
+    const { cleanup: cleanupFn } = await setupWASMTestEnvironment();
     cleanup = cleanupFn;
-    geometryAPI = new GeometryAPI(true); // Use mock for tests
+    geometryAPI = new GeometryAPI();
   });
 
   afterEach(() => {
@@ -307,7 +307,7 @@ describe('Advanced Operations', () => {
         radius: 50
       });
 
-      const mesh = await geometryAPI.invoke('TESSELLATE', {
+      const { mesh } = await geometryAPI.invoke('TESSELLATE', {
         shape: sphere
       });
 
@@ -326,20 +326,20 @@ describe('Advanced Operations', () => {
         width: 100, height: 100, depth: 100
       });
 
-      const coarseMesh = await geometryAPI.invoke('TESSELLATE_WITH_PARAMS', {
+      const coarse = await geometryAPI.invoke('TESSELLATE_WITH_PARAMS', {
         shape: box,
         precision: 1.0,
         angle: 0.5
       });
 
-      const fineMesh = await geometryAPI.invoke('TESSELLATE_WITH_PARAMS', {
+      const fine = await geometryAPI.invoke('TESSELLATE_WITH_PARAMS', {
         shape: box,
         precision: 0.1,
         angle: 0.1
       });
 
-      expect(fineMesh.vertexCount).toBeGreaterThan(coarseMesh.vertexCount);
-      expect(fineMesh.triangleCount).toBeGreaterThan(coarseMesh.triangleCount);
+      expect(fine.mesh.vertexCount).toBeGreaterThan(coarse.mesh.vertexCount);
+      expect(fine.mesh.triangleCount).toBeGreaterThan(coarse.mesh.triangleCount);
     });
 
     it('should validate tessellation parameters', async () => {
@@ -568,16 +568,16 @@ END-ISO-10303-21;`;
       });
 
       // Fine tessellation should still complete within memory limits
-      const fineMesh = await geometryAPI.invoke('TESSELLATE_WITH_PARAMS', {
+      const fine = await geometryAPI.invoke('TESSELLATE_WITH_PARAMS', {
         shape: torus,
         precision: 0.1,
         angle: 0.05
       });
 
-      expect(fineMesh.vertexCount).toBeGreaterThan(1000);
-      expect(fineMesh.triangleCount).toBeGreaterThan(500);
-      expect(fineMesh.positions.length).toBe(fineMesh.vertexCount * 3);
-      expect(fineMesh.indices.length).toBe(fineMesh.triangleCount * 3);
+      expect(fine.mesh.vertexCount).toBeGreaterThan(1000);
+      expect(fine.mesh.triangleCount).toBeGreaterThan(500);
+      expect(fine.mesh.positions.length).toBe(fine.mesh.vertexCount * 3);
+      expect(fine.mesh.indices.length).toBe(fine.mesh.triangleCount * 3);
     });
   });
 });

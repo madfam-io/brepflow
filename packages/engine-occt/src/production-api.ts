@@ -50,10 +50,6 @@ export class ProductionWorkerAPI implements WorkerAPI {
 
     // Check environment
     const envConfig = getConfig();
-    if (envConfig.isProduction && envConfig.enableMockGeometry) {
-      throw new Error('Cannot initialize production worker with mock geometry enabled');
-    }
-
     // Create worker
     try {
       // Use public directory path for worker - this works reliably across environments

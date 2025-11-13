@@ -4,17 +4,17 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { MockGeometry } from '@brepflow/engine-occt';
+import { GeometryAPI } from '@brepflow/engine-occt';
 import { setupWASMTestEnvironment } from '../wasm-test-setup';
 
 describe('Geometry Operations Smoke Test', () => {
-  let geometryAPI: MockGeometry;
+  let geometryAPI: GeometryAPI;
   let cleanup: () => void;
 
-  beforeEach(() => {
-    const { mockOCCT, cleanup: cleanupFn } = setupWASMTestEnvironment();
+  beforeEach(async () => {
+    const { cleanup: cleanupFn } = await setupWASMTestEnvironment();
     cleanup = cleanupFn;
-    geometryAPI = new MockGeometry(); // Use mock for tests
+    geometryAPI = new GeometryAPI();
   });
 
   afterEach(() => {
@@ -30,7 +30,6 @@ describe('Geometry Operations Smoke Test', () => {
     await geometryAPI.init();
 
     const box = await geometryAPI.invoke('MAKE_BOX', {
-      center: { x: 0, y: 0, z: 0 },
       width: 100,
       height: 50,
       depth: 25
@@ -40,15 +39,15 @@ describe('Geometry Operations Smoke Test', () => {
     expect(box.id).toBeDefined();
     expect(box.type).toBe('solid');
     expect(box.bbox).toBeDefined();
-    expect(box.bbox.min.x).toBe(-50); // center - width/2
-    expect(box.bbox.max.x).toBe(50);  // center + width/2
+    expect(box.bbox.max.x - box.bbox.min.x).toBeCloseTo(100);
+    expect(box.bbox.max.y - box.bbox.min.y).toBeCloseTo(50);
+    expect(box.bbox.max.z - box.bbox.min.z).toBeCloseTo(25);
   });
 
   it('should handle sphere creation', async () => {
     await geometryAPI.init();
 
     const sphere = await geometryAPI.invoke('MAKE_SPHERE', {
-      center: { x: 0, y: 0, z: 0 },
       radius: 25
     });
 
@@ -62,13 +61,15 @@ describe('Geometry Operations Smoke Test', () => {
     await geometryAPI.init();
 
     const box = await geometryAPI.invoke('MAKE_BOX', {
-      center: { x: 0, y: 0, z: 0 },
       width: 50,
       height: 50,
       depth: 50
     });
 
-    const mesh = await geometryAPI.tessellate(box, 0.1);
+    const { mesh } = await geometryAPI.invoke('TESSELLATE', {
+      shape: box,
+      tolerance: 0.1
+    });
 
     expect(mesh).toBeDefined();
     expect(mesh.positions).toBeInstanceOf(Float32Array);

@@ -395,13 +395,23 @@ export class GeometryTestDataGenerator {
 /**
  * Optimized setup function for WASM tests with dependency bundling optimization
  */
-export function setupWASMTestEnvironment(): {
+export async function setupWASMTestEnvironment(): Promise<{
   mockOCCT: OCCTModule;
   cleanup: () => void;
   config: typeof WASM_OPTIMIZATION_CONFIG;
-} {
+}> {
   // Pre-warm critical dependencies
   const mockOCCT = createMockOCCTModule();
+  // Import OCCT bindings for mocking WASM loader functions
+    const occtBindings = await import('@brepflow/engine-occt');
+
+  // Ensure a clean loader state before wiring spies
+  occtBindings.resetWASMLoader();
+
+  const loadOCCTSpy = vi.spyOn(occtBindings, 'loadOCCT').mockImplementation(async () => mockOCCT);
+  const getModuleSpy = vi.spyOn(occtBindings, 'getOCCTModule').mockReturnValue(mockOCCT);
+  const isLoadedSpy = vi.spyOn(occtBindings, 'isWASMLoaded').mockReturnValue(true);
+  const getLoadErrorSpy = vi.spyOn(occtBindings, 'getWASMLoadError').mockReturnValue(null);
 
   // Apply performance optimizations for test environment
   if (WASM_OPTIMIZATION_CONFIG.useCompactMode) {
@@ -428,6 +438,11 @@ export function setupWASMTestEnvironment(): {
     mockShapeRegistry.clear();
     mockShapeCounter = 0;
     GeometryPerformanceTracker.clearMeasurements();
+    loadOCCTSpy.mockRestore();
+    getModuleSpy.mockRestore();
+    isLoadedSpy.mockRestore();
+    getLoadErrorSpy.mockRestore();
+    occtBindings.resetWASMLoader();
 
     // Force garbage collection in test environment
     if (global.gc) {

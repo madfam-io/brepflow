@@ -48,7 +48,7 @@ try {
   GeometryProxy = occtModule.GeometryProxy;
 } catch (error) {
   // Fallback for test environments or when OCCT is not available
-  GeometryProxy = class MockGeometryProxy {
+  GeometryProxy = class FallbackGeometryProxy {
     constructor(worker: WorkerAPI) {
       this.worker = worker;
     }

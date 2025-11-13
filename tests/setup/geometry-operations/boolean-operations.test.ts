@@ -12,10 +12,10 @@ describe('Boolean Operations', () => {
   let geometryAPI: GeometryAPI;
   let cleanup: () => void;
 
-  beforeEach(() => {
-    const { mockOCCT, cleanup: cleanupFn } = setupWASMTestEnvironment();
+  beforeEach(async () => {
+    const { cleanup: cleanupFn } = await setupWASMTestEnvironment();
     cleanup = cleanupFn;
-    geometryAPI = new GeometryAPI(true); // Use mock for tests
+    geometryAPI = new GeometryAPI();
   });
 
   afterEach(() => {

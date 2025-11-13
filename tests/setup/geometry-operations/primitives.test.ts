@@ -6,16 +6,15 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { GeometryAPI } from '@brepflow/engine-occt';
 import { setupWASMTestEnvironment, GeometryPerformanceTracker, GeometryTestDataGenerator } from '../wasm-test-setup';
-import type { ShapeHandle } from '@brepflow/engine-occt/src/occt-bindings';
 
 describe('Primitive Geometry Operations', () => {
   let geometryAPI: GeometryAPI;
   let cleanup: () => void;
 
-  beforeEach(() => {
-    const { mockOCCT, cleanup: cleanupFn } = setupWASMTestEnvironment();
+  beforeEach(async () => {
+    const { cleanup: cleanupFn } = await setupWASMTestEnvironment();
     cleanup = cleanupFn;
-    geometryAPI = new GeometryAPI(true); // Use mock for tests
+    geometryAPI = new GeometryAPI();
   });
 
   afterEach(() => {
