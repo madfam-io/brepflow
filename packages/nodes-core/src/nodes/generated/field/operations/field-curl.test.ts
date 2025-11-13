@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldOperationsFieldCurlNode } from './field-curl.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FieldOperationsFieldCurlNode', () => {
   it('should evaluate without throwing', async () => {

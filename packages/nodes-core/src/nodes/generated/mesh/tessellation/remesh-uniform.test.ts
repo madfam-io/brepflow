@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MeshTessellationRemeshUniformNode } from './remesh-uniform.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MeshTessellationRemeshUniformNode', () => {
   it('should evaluate without throwing', async () => {

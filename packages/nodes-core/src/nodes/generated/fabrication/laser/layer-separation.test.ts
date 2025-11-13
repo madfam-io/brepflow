@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationLaserLayerSeparationNode } from './layer-separation.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FabricationLaserLayerSeparationNode', () => {
   it('should evaluate without throwing', async () => {

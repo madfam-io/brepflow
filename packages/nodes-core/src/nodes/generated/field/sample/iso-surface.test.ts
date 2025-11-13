@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldSampleIsoSurfaceNode } from './iso-surface.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FieldSampleIsoSurfaceNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityStreamingMQTTPublisherNode } from './mqttpublisher.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('InteroperabilityStreamingMQTTPublisherNode', () => {
   it('should evaluate without throwing', async () => {

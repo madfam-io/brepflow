@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldDeformFieldDeformNode } from './field-deform.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FieldDeformFieldDeformNode', () => {
   it('should evaluate without throwing', async () => {

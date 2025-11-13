@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AlgorithmicGeometryVoxelGridNode } from './voxel-grid.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AlgorithmicGeometryVoxelGridNode', () => {
   it('should evaluate without throwing', async () => {

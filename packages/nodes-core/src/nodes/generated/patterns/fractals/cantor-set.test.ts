@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsFractalsCantorSetNode } from './cantor-set.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsFractalsCantorSetNode', () => {
   it('should evaluate without throwing', async () => {

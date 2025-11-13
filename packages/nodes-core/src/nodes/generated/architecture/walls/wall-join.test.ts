@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ArchitectureWallsWallJoinNode } from './wall-join.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('ArchitectureWallsWallJoinNode', () => {
   it('should evaluate without throwing', async () => {

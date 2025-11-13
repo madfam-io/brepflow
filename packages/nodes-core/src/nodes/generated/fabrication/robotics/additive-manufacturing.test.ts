@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationRoboticsAdditiveManufacturingNode } from './additive-manufacturing.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FabricationRoboticsAdditiveManufacturingNode', () => {
   it('should evaluate without throwing', async () => {

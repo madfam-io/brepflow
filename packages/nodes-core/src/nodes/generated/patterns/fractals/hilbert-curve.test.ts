@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsFractalsHilbertCurveNode } from './hilbert-curve.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsFractalsHilbertCurveNode', () => {
   it('should evaluate without throwing', async () => {

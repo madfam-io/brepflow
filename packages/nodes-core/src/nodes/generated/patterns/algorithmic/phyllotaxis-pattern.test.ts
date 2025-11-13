@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsAlgorithmicPhyllotaxisPatternNode } from './phyllotaxis-pattern.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsAlgorithmicPhyllotaxisPatternNode', () => {
   it('should evaluate without throwing', async () => {

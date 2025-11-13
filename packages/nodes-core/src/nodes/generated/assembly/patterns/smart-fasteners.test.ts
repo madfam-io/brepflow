@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AssemblyPatternsSmartFastenersNode } from './smart-fasteners.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AssemblyPatternsSmartFastenersNode', () => {
   it('should evaluate without throwing', async () => {

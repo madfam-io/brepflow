@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityIntegrationGrasshopperExportNode } from './grasshopper-export.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('InteroperabilityIntegrationGrasshopperExportNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationCNCThreadMillingNode } from './thread-milling.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FabricationCNCThreadMillingNode', () => {
   it('should evaluate without throwing', async () => {

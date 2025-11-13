@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AlgorithmicGeometryShortestPathNode } from './shortest-path.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AlgorithmicGeometryShortestPathNode', () => {
   it('should evaluate without throwing', async () => {

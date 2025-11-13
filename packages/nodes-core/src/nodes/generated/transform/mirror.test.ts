@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { TransformMirrorNode } from './mirror.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../test-utils';
 
 describe('TransformMirrorNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ArchitectureRampsSwitchbackRampNode } from './switchback-ramp.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('ArchitectureRampsSwitchbackRampNode', () => {
   it('should evaluate without throwing', async () => {

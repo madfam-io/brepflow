@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SolidPrimitivesEllipsoidNode } from './ellipsoid.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SolidPrimitivesEllipsoidNode', () => {
   it('should evaluate without throwing', async () => {

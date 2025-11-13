@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { IOExchangeImportGLTFNode } from './import-gltf.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('IOExchangeImportGLTFNode', () => {
   it('should evaluate without throwing', async () => {

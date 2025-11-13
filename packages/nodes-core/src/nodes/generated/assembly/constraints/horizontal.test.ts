@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AssemblyConstraintsHorizontalNode } from './horizontal.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AssemblyConstraintsHorizontalNode', () => {
   it('should evaluate without throwing', async () => {

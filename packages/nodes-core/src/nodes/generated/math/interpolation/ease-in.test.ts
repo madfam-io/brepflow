@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathInterpolationEaseInNode } from './ease-in.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MathInterpolationEaseInNode', () => {
   it('should evaluate without throwing', async () => {

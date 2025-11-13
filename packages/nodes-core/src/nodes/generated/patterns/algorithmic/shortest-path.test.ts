@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsAlgorithmicShortestPathNode } from './shortest-path.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsAlgorithmicShortestPathNode', () => {
   it('should evaluate without throwing', async () => {

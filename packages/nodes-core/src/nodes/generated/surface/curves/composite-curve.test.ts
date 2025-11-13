@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SurfaceCurvesCompositeCurveNode } from './composite-curve.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SurfaceCurvesCompositeCurveNode', () => {
   it('should evaluate without throwing', async () => {

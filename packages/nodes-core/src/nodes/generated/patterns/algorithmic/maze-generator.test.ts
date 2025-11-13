@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsAlgorithmicMazeGeneratorNode } from './maze-generator.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsAlgorithmicMazeGeneratorNode', () => {
   it('should evaluate without throwing', async () => {

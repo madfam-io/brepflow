@@ -8,10 +8,16 @@ import { createLibraryConfig } from '../../config/tsup.base.config';
 const nodeExtensionResolver: Plugin = {
   name: 'generated-node-extension-resolver',
   setup(build) {
-    build.onResolve({ filter: /\.node$/ }, (args) => ({
-      path: `${args.path}.ts`,
-      namespace: 'file',
-    }));
+    build.onResolve({ filter: /\.node$/ }, (args) => {
+      // Resolve the path relative to the importing file
+      const path = require('path');
+      const resolvedPath = path.resolve(args.resolveDir, `${args.path}.ts`);
+      
+      return {
+        path: resolvedPath,
+        namespace: 'file',
+      };
+    });
   },
 };
 
@@ -22,6 +28,8 @@ export default createLibraryConfig({
   shims: false, // Disable ESM shims to avoid Node.js module imports
   platform: 'neutral',
   esbuildPlugins: [nodeExtensionResolver],
+  // Skip the native .node module plugin that tsup adds by default
+  skipNodeModulesBundle: true,
   // Additional node categories can be added as entry points
   // entry: ['src/index.ts', 'src/geometry/index.ts', 'src/math/index.ts'],
 });

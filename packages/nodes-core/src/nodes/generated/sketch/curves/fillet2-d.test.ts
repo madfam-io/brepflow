@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SketchCurvesFillet2DNode } from './fillet2-d.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SketchCurvesFillet2DNode', () => {
   it('should evaluate without throwing', async () => {

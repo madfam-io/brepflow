@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathStatisticsRangeNode } from './range.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MathStatisticsRangeNode', () => {
   it('should evaluate without throwing', async () => {

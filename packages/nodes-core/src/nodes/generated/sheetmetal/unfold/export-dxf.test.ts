@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SheetMetalUnfoldExportDXFNode } from './export-dxf.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SheetMetalUnfoldExportDXFNode', () => {
   it('should evaluate without throwing', async () => {

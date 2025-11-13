@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AlgorithmicOptimizationGradientDescentNode } from './gradient-descent.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AlgorithmicOptimizationGradientDescentNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathTrigonometryTangentNode } from './tangent.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MathTrigonometryTangentNode', () => {
   it('should evaluate without throwing', async () => {

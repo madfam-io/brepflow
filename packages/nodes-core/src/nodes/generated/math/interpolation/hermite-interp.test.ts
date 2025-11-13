@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathInterpolationHermiteInterpNode } from './hermite-interp.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MathInterpolationHermiteInterpNode', () => {
   it('should evaluate without throwing', async () => {

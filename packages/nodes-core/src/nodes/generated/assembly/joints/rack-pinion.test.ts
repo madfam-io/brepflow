@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AssemblyJointsRackPinionNode } from './rack-pinion.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AssemblyJointsRackPinionNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { IODrawingExportDXFNode } from './export-dxf.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('IODrawingExportDXFNode', () => {
   it('should evaluate without throwing', async () => {

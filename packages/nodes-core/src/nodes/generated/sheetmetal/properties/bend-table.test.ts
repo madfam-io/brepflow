@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SheetMetalPropertiesBendTableNode } from './bend-table.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SheetMetalPropertiesBendTableNode', () => {
   it('should evaluate without throwing', async () => {

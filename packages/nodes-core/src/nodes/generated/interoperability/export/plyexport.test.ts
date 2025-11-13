@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityExportPLYExportNode } from './plyexport.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('InteroperabilityExportPLYExportNode', () => {
   it('should evaluate without throwing', async () => {

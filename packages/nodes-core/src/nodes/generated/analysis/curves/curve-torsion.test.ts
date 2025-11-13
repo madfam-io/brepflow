@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AnalysisCurvesCurveTorsionNode } from './curve-torsion.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AnalysisCurvesCurveTorsionNode', () => {
   it('should evaluate without throwing', async () => {

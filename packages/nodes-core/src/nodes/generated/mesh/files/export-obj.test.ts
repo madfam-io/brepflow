@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MeshFilesExportOBJNode } from './export-obj.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MeshFilesExportOBJNode', () => {
   it('should evaluate without throwing', async () => {

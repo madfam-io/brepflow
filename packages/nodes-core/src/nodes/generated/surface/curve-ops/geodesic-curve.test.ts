@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SurfaceCurveOpsGeodesicCurveNode } from './geodesic-curve.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SurfaceCurveOpsGeodesicCurveNode', () => {
   it('should evaluate without throwing', async () => {

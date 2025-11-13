@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SimulationCFDFluidPropertiesNode } from './fluid-properties.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SimulationCFDFluidPropertiesNode', () => {
   it('should evaluate without throwing', async () => {

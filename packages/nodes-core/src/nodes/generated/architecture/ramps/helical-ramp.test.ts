@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ArchitectureRampsHelicalRampNode } from './helical-ramp.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('ArchitectureRampsHelicalRampNode', () => {
   it('should evaluate without throwing', async () => {

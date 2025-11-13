@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldAttractorVortexAttractorNode } from './vortex-attractor.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FieldAttractorVortexAttractorNode', () => {
   it('should evaluate without throwing', async () => {

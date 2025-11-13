@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldOperationsFieldClampNode } from './field-clamp.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FieldOperationsFieldClampNode', () => {
   it('should evaluate without throwing', async () => {

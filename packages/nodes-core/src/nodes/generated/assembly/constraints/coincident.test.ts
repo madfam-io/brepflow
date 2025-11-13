@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AssemblyConstraintsCoincidentNode } from './coincident.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AssemblyConstraintsCoincidentNode', () => {
   it('should evaluate without throwing', async () => {

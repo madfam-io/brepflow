@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataSetSetPermutationsNode } from './set-permutations.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('DataSetSetPermutationsNode', () => {
   it('should evaluate without throwing', async () => {

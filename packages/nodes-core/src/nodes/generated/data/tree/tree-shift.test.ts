@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataTreeTreeShiftNode } from './tree-shift.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('DataTreeTreeShiftNode', () => {
   it('should evaluate without throwing', async () => {

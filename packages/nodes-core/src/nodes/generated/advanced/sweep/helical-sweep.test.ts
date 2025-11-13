@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AdvancedSweepHelicalSweepNode } from './helical-sweep.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AdvancedSweepHelicalSweepNode', () => {
   it('should evaluate without throwing', async () => {

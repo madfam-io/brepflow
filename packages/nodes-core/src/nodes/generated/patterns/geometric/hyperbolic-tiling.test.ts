@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsGeometricHyperbolicTilingNode } from './hyperbolic-tiling.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsGeometricHyperbolicTilingNode', () => {
   it('should evaluate without throwing', async () => {

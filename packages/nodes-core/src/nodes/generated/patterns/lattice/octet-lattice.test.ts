@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsLatticeOctetLatticeNode } from './octet-lattice.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsLatticeOctetLatticeNode', () => {
   it('should evaluate without throwing', async () => {

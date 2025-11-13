@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldOperationsFieldBlendNode } from './field-blend.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FieldOperationsFieldBlendNode', () => {
   it('should evaluate without throwing', async () => {

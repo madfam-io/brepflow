@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MechanicalEngineeringCouplingsRigidCouplingNode } from './rigid-coupling.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MechanicalEngineeringCouplingsRigidCouplingNode', () => {
   it('should evaluate without throwing', async () => {

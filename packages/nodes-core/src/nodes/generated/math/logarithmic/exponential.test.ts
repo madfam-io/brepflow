@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathLogarithmicExponentialNode } from './exponential.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MathLogarithmicExponentialNode', () => {
   it('should evaluate without throwing', async () => {

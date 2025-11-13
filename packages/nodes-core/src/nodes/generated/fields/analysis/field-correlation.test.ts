@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldsAnalysisFieldCorrelationNode } from './field-correlation.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FieldsAnalysisFieldCorrelationNode', () => {
   it('should evaluate without throwing', async () => {

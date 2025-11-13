@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AnalysisProximityVisibilityAnalysisNode } from './visibility-analysis.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AnalysisProximityVisibilityAnalysisNode', () => {
   it('should evaluate without throwing', async () => {

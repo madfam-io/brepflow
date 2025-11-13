@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ArchitectureWindowsBowWindowNode } from './bow-window.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('ArchitectureWindowsBowWindowNode', () => {
   it('should evaluate without throwing', async () => {

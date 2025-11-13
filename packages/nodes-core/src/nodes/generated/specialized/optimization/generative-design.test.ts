@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SpecializedOptimizationGenerativeDesignNode } from './generative-design.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SpecializedOptimizationGenerativeDesignNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationCNCScallopHeightNode } from './scallop-height.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FabricationCNCScallopHeightNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationLaserPowerMappingNode } from './power-mapping.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FabricationLaserPowerMappingNode', () => {
   it('should evaluate without throwing', async () => {

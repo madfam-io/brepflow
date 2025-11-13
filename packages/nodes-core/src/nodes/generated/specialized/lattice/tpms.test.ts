@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SpecializedLatticeTPMSNode } from './tpms.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SpecializedLatticeTPMSNode', () => {
   it('should evaluate without throwing', async () => {

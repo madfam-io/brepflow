@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SpecializedOrganicSubdivisionSurfaceNode } from './subdivision-surface.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SpecializedOrganicSubdivisionSurfaceNode', () => {
   it('should evaluate without throwing', async () => {

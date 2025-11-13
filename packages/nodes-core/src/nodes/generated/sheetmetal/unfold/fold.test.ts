@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SheetMetalUnfoldFoldNode } from './fold.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SheetMetalUnfoldFoldNode', () => {
   it('should evaluate without throwing', async () => {

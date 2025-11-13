@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsProceduralNeuralPatternNode } from './neural-pattern.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsProceduralNeuralPatternNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MechanicalEngineeringFastenersKeywayJointNode } from './keyway-joint.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MechanicalEngineeringFastenersKeywayJointNode', () => {
   it('should evaluate without throwing', async () => {

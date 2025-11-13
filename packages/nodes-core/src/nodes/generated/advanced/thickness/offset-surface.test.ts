@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AdvancedThicknessOffsetSurfaceNode } from './offset-surface.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AdvancedThicknessOffsetSurfaceNode', () => {
   it('should evaluate without throwing', async () => {

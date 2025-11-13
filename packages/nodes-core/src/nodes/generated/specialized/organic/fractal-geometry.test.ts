@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SpecializedOrganicFractalGeometryNode } from './fractal-geometry.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SpecializedOrganicFractalGeometryNode', () => {
   it('should evaluate without throwing', async () => {

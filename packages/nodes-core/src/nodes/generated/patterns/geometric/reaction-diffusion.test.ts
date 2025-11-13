@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsGeometricReactionDiffusionNode } from './reaction-diffusion.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsGeometricReactionDiffusionNode', () => {
   it('should evaluate without throwing', async () => {

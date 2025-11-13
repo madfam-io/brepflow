@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsFractalsJuliaSetNode } from './julia-set.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsFractalsJuliaSetNode', () => {
   it('should evaluate without throwing', async () => {

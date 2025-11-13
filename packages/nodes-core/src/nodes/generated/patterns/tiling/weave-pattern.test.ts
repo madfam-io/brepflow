@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsTilingWeavePatternNode } from './weave-pattern.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsTilingWeavePatternNode', () => {
   it('should evaluate without throwing', async () => {

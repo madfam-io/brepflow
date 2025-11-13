@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SpecializedLatticeConformLatticeNode } from './conform-lattice.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SpecializedLatticeConformLatticeNode', () => {
   it('should evaluate without throwing', async () => {

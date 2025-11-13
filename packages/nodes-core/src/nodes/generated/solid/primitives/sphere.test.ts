@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SolidPrimitivesSphereNode } from './sphere.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SolidPrimitivesSphereNode', () => {
   it('should evaluate without throwing', async () => {

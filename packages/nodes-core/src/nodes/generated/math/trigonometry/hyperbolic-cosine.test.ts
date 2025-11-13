@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathTrigonometryHyperbolicCosineNode } from './hyperbolic-cosine.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MathTrigonometryHyperbolicCosineNode', () => {
   it('should evaluate without throwing', async () => {

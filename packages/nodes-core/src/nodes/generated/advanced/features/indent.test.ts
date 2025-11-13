@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AdvancedFeaturesIndentNode } from './indent.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AdvancedFeaturesIndentNode', () => {
   it('should evaluate without throwing', async () => {

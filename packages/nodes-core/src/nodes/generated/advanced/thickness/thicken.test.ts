@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AdvancedThicknessThickenNode } from './thicken.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('AdvancedThicknessThickenNode', () => {
   it('should evaluate without throwing', async () => {

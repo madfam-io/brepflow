@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataStringStringMatchNode } from './string-match.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('DataStringStringMatchNode', () => {
   it('should evaluate without throwing', async () => {

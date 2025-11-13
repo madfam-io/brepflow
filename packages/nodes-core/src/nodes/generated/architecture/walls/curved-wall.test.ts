@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ArchitectureWallsCurvedWallNode } from './curved-wall.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('ArchitectureWallsCurvedWallNode', () => {
   it('should evaluate without throwing', async () => {

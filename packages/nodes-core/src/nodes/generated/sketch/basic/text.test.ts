@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SketchBasicTextNode } from './text.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SketchBasicTextNode', () => {
   it('should evaluate without throwing', async () => {

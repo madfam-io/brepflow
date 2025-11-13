@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathOperatorsFactorialNode } from './factorial.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MathOperatorsFactorialNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsLSystemsTreeGeneratorNode } from './tree-generator.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsLSystemsTreeGeneratorNode', () => {
   it('should evaluate without throwing', async () => {

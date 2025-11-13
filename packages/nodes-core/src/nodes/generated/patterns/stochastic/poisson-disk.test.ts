@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsStochasticPoissonDiskNode } from './poisson-disk.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsStochasticPoissonDiskNode', () => {
   it('should evaluate without throwing', async () => {

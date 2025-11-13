@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathOperatorsPowerNode } from './power.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MathOperatorsPowerNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SimulationKinematicsInverseKinematicsNode } from './inverse-kinematics.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SimulationKinematicsInverseKinematicsNode', () => {
   it('should evaluate without throwing', async () => {

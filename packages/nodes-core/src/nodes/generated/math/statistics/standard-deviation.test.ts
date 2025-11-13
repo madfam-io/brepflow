@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathStatisticsStandardDeviationNode } from './standard-deviation.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MathStatisticsStandardDeviationNode', () => {
   it('should evaluate without throwing', async () => {

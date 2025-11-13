@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsDelaunayDelaunayMeshNode } from './delaunay-mesh.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('PatternsDelaunayDelaunayMeshNode', () => {
   it('should evaluate without throwing', async () => {

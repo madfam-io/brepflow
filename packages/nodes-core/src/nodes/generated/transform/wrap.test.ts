@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { TransformWrapNode } from './wrap.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../test-utils';
 
 describe('TransformWrapNode', () => {
   it('should evaluate without throwing', async () => {

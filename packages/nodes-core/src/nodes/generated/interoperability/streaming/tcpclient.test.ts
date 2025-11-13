@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityStreamingTCPClientNode } from './tcpclient.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('InteroperabilityStreamingTCPClientNode', () => {
   it('should evaluate without throwing', async () => {

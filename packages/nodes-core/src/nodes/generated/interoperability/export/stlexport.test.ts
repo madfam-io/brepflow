@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityExportSTLExportNode } from './stlexport.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('InteroperabilityExportSTLExportNode', () => {
   it('should evaluate without throwing', async () => {

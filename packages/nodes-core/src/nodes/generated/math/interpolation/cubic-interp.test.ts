@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathInterpolationCubicInterpNode } from './cubic-interp.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('MathInterpolationCubicInterpNode', () => {
   it('should evaluate without throwing', async () => {

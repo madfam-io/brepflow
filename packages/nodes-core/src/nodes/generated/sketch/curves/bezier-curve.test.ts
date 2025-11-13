@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SketchCurvesBezierCurveNode } from './bezier-curve.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SketchCurvesBezierCurveNode', () => {
   it('should evaluate without throwing', async () => {

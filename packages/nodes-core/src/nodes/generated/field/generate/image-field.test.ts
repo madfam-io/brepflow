@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldGenerateImageFieldNode } from './image-field.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('FieldGenerateImageFieldNode', () => {
   it('should evaluate without throwing', async () => {

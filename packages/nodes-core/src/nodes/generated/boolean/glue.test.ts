@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { BooleanGlueNode } from './glue.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../test-utils';
 
 describe('BooleanGlueNode', () => {
   it('should evaluate without throwing', async () => {

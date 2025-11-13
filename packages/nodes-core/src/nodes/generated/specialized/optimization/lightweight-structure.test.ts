@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SpecializedOptimizationLightweightStructureNode } from './lightweight-structure.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('SpecializedOptimizationLightweightStructureNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataConvertToJSONNode } from './to-json.node';
-import { createTestContext } from '../test-utils';
+import { createTestContext } from '../../../test-utils';
 
 describe('DataConvertToJSONNode', () => {
   it('should evaluate without throwing', async () => {
