@@ -1,0 +1,29 @@
+FROM node:20.11.1-bullseye
+
+# Install pnpm
+ENV PNPM_HOME=/root/.local/share/pnpm
+ENV PATH=$PNPM_HOME:$PATH
+RUN corepack enable && corepack prepare pnpm@8.6.7 --activate
+
+WORKDIR /app
+
+# Copy workspace configuration
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json ./
+COPY turbo.json tsconfig*.json ./
+
+# Copy collaboration package and dependencies
+COPY packages/collaboration ./packages/collaboration
+COPY packages/types ./packages/types
+COPY config ./config
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Build packages
+RUN pnpm --filter @brepflow/types run build
+RUN pnpm --filter @brepflow/collaboration run build
+
+EXPOSE 8080
+
+# Run collaboration server
+CMD ["node", "packages/collaboration/dist/server/index.js"]

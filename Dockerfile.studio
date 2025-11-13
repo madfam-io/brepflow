@@ -1,0 +1,34 @@
+FROM node:20.11.1-bullseye
+
+# Install pnpm
+ENV PNPM_HOME=/root/.local/share/pnpm
+ENV PATH=$PNPM_HOME:$PATH
+RUN corepack enable && corepack prepare pnpm@8.6.7 --activate
+
+WORKDIR /app
+
+# Copy workspace configuration
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json ./
+COPY turbo.json tsconfig*.json ./
+
+# Copy all packages for workspace resolution
+COPY packages ./packages
+COPY apps/studio ./apps/studio
+COPY config ./config
+COPY scripts ./scripts
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Build dependencies (types, engine-core, etc.)
+RUN pnpm --filter @brepflow/types run build
+RUN pnpm --filter @brepflow/schemas run build
+RUN pnpm --filter @brepflow/engine-core run build
+RUN pnpm --filter @brepflow/engine-occt run build
+RUN pnpm --filter @brepflow/nodes-core run build
+RUN pnpm --filter @brepflow/viewport run build
+
+EXPOSE 5173
+
+# Development server with hot reload
+CMD ["pnpm", "--filter", "@brepflow/studio", "run", "dev", "--host", "0.0.0.0"]

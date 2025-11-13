@@ -1,0 +1,28 @@
+FROM node:20.11.1-bullseye
+
+# Install pnpm
+ENV PNPM_HOME=/root/.local/share/pnpm
+ENV PATH=$PNPM_HOME:$PATH
+RUN corepack enable && corepack prepare pnpm@8.6.7 --activate
+
+WORKDIR /app
+
+# Copy workspace configuration
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json ./
+COPY turbo.json tsconfig*.json ./
+
+# Copy packages needed by marketing
+COPY packages ./packages
+COPY apps/marketing ./apps/marketing
+COPY config ./config
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Build shared packages
+RUN pnpm --filter @brepflow/types run build
+
+EXPOSE 3000
+
+# Development server
+CMD ["pnpm", "--filter", "@brepflow/marketing", "run", "dev", "--host", "0.0.0.0"]

@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  # Studio - Main React CAD application
+  studio:
+    build:
+      context: .
+      dockerfile: Dockerfile.studio
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./apps/studio:/app/apps/studio
+      - ./packages:/app/packages
+      - /app/node_modules
+      - /app/apps/studio/node_modules
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BASE_URL=http://localhost:3001
+      - VITE_COLLAB_WS_URL=ws://localhost:8080
+      - ENABLE_MOCK_GEOMETRY=false
+      - REQUIRE_REAL_OCCT=true
+    networks:
+      - brepflow
+    depends_on:
+      - collaboration
+    command: pnpm --filter @brepflow/studio run dev --host 0.0.0.0
+
+  # Marketing - Landing page
+  marketing:
+    build:
+      context: .
+      dockerfile: Dockerfile.marketing
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/marketing:/app/apps/marketing
+      - ./packages:/app/packages
+      - /app/node_modules
+      - /app/apps/marketing/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - brepflow
+    command: pnpm --filter @brepflow/marketing run dev --host 0.0.0.0
+
+  # Collaboration WebSocket Server
+  collaboration:
+    build:
+      context: .
+      dockerfile: Dockerfile.collaboration
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./packages/collaboration:/app/packages/collaboration
+      - /app/node_modules
+      - /app/packages/collaboration/node_modules
+    environment:
+      - NODE_ENV=development
+      - COLLAB_PORT=8080
+      - HEARTBEAT_INTERVAL=30000
+      - LOCK_TIMEOUT=60000
+    networks:
+      - brepflow
+    command: node packages/collaboration/dist/server/index.js
+
+  # Redis - Session storage and pub/sub for collaboration
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - brepflow
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # PostgreSQL - Optional persistence for collaboration sessions
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=brepflow
+      - POSTGRES_USER=brepflow
+      - POSTGRES_PASSWORD=brepflow_dev_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - brepflow
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U brepflow"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+networks:
+  brepflow:
+    driver: bridge
+
+volumes:
+  redis_data:
+  postgres_data:

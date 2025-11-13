@@ -1,0 +1,62 @@
+# Dependencies
+node_modules
+.pnpm-store
+**/node_modules
+
+# Build outputs
+dist
+build
+.turbo
+**/dist
+**/build
+
+# Development
+.vite
+.cache
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Testing
+coverage
+test-results
+playwright-report
+audit-results
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary
+tmp
+temp
+*.tmp
+
+# Documentation (keep only essentials)
+docs/**/*.png
+docs/**/*.jpg
+claudedocs
+
+# Third party (except OCCT WASM assets)
+third_party
+!third_party/occt
+
+# CI/CD
+.github
+.circleci
