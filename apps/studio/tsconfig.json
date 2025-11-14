@@ -9,6 +9,7 @@
     "checkJs": false,
     "jsx": "react-jsx",
     "strict": false,
+    "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
