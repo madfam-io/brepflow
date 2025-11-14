@@ -93,12 +93,11 @@ export class InitializationService {
 
       this.initResult = result;
       return result;
-
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       result.errors.push(errorMessage);
       logger.error('Initialization failed', error);
-      
+
       this.initResult = result;
       return result;
     }
@@ -106,7 +105,7 @@ export class InitializationService {
 
   private async validateEnvironment(result: InitializationResult): Promise<void> {
     const config = getConfig();
-    
+
     logger.debug('Validating environment configuration');
 
     // Check for production configuration issues
@@ -147,15 +146,19 @@ export class InitializationService {
     }
   }
 
-  private async initializeGeometryAPI(result: InitializationResult, options: InitializationOptions): Promise<void> {
+  private async initializeGeometryAPI(
+    result: InitializationResult,
+    options: InitializationOptions
+  ): Promise<void> {
     logger.debug('Initializing geometry API');
 
     try {
       // IntegratedGeometryAPI always aims for real geometry
       result.capabilities.realGeometry = true;
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const _config = getConfig(); // Available for future use
-      
+
       if (!result.capabilities.realGeometry) {
         const message = 'Real geometry API is required but not available';
         result.errors.push(message);
@@ -171,13 +174,13 @@ export class InitializationService {
       });
 
       // Initialize the API
-      await api.initialize();
+      await api.init();
 
       result.geometryAPI = 'real';
       logger.info('Initialized with real geometry API');
-
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Geometry API initialization failed';
+      const errorMessage =
+        error instanceof Error ? error.message : 'Geometry API initialization failed';
       result.errors.push(errorMessage);
       logger.error('Geometry API initialization failed', error);
     }
@@ -188,7 +191,7 @@ export class InitializationService {
 
     try {
       const healthStatus = await healthCheckService.checkHealth();
-      
+
       if (healthStatus.status === 'unhealthy') {
         result.errors.push('Application health check failed');
       } else if (healthStatus.status === 'degraded') {
@@ -203,7 +206,6 @@ export class InitializationService {
           result.warnings.push(`Health check warning: ${check.name} - ${check.message}`);
         }
       }
-
     } catch (error) {
       result.warnings.push('Health checks could not be completed');
       logger.warn('Health checks failed', error);
@@ -256,11 +258,10 @@ export class InitializationService {
 }
 
 // Convenience functions
-export const initializeApp = (options?: InitializationOptions) => 
+export const initializeApp = (options?: InitializationOptions) =>
   InitializationService.getInstance().initialize(options);
 
-export const getInitializationStatus = () => 
+export const getInitializationStatus = () =>
   InitializationService.getInstance().getInitializationResult();
 
-export const isAppReady = () => 
-  InitializationService.getInstance().isReady();
+export const isAppReady = () => InitializationService.getInstance().isReady();

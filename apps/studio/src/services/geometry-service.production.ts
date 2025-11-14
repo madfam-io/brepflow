@@ -18,6 +18,7 @@ export class ProductionGeometryService {
 
   private getLogger() {
     if (!this.logger) {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
       const { ProductionLogger } = require('@brepflow/engine-occt');
       this.logger = new ProductionLogger('GeometryService');
     }
@@ -62,7 +63,7 @@ export class ProductionGeometryService {
       });
 
       // Initialize the API
-      await this.api.initialize();
+      await this.api.init();
 
       // Start health monitoring
       this.startHealthMonitoring();
@@ -118,6 +119,7 @@ export class ProductionGeometryService {
     }
 
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const result = await this.api.invoke('HEALTH_CHECK', {});
       const memoryUsage = await this.api.invoke('GET_MEMORY_USAGE', {});
 
@@ -151,9 +153,9 @@ export class ProductionGeometryService {
       // Clear current API
       if (this.api) {
         try {
-          await this.api.terminate();
+          await this.api.shutdown();
         } catch (e) {
-          // Ignore termination errors
+          // Ignore shutdown errors
         }
         this.api = null;
       }
@@ -193,10 +195,10 @@ export class ProductionGeometryService {
       });
 
       // Execute operation with timeout
-      const result = await Promise.race([
+      const result = (await Promise.race([
         this.api.invoke(operation, params),
         timeoutPromise,
-      ]) as T;
+      ])) as T;
 
       // Validate if required
       if (validate && this.shouldValidate(operation)) {
@@ -251,20 +253,21 @@ export class ProductionGeometryService {
 
     // Always validate exports in production
     const exportOperation = `EXPORT_${format}`;
-    const result = await this.execute(exportOperation, {
-      shape,
-      ...options,
-    }, {
-      validate: true,
-      timeout: 60000, // Longer timeout for exports
-    });
+    const result = await this.execute(
+      exportOperation,
+      {
+        shape,
+        ...options,
+      },
+      {
+        validate: true,
+        timeout: 60000, // Longer timeout for exports
+      }
+    );
 
     // Additional export validation
     if (format === 'STEP' || format === 'IGES') {
-      const exportValidation = await this.validator.validateExport(
-        result as string,
-        format
-      );
+      const exportValidation = await this.validator.validateExport(result as string, format);
       if (!exportValidation.valid) {
         throw new Error(`Export validation failed: ${exportValidation.message}`);
       }
@@ -281,7 +284,7 @@ export class ProductionGeometryService {
 
     if (this.api) {
       try {
-        await this.api.terminate();
+        await this.api.shutdown();
       } catch (error: unknown) {
         this.getLogger().error('Error during disposal', error);
       }
@@ -301,7 +304,7 @@ export class ProductionGeometryService {
     memoryUsage: any;
   }> {
     const health = await this.checkHealth();
-    
+
     return {
       operations: 0, // Would be tracked in production
       errors: 0, // Would be tracked in production

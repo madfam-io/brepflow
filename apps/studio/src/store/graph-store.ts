@@ -1,16 +1,13 @@
 import { create } from 'zustand';
 import { devtools, subscribeWithSelector } from 'zustand/middleware';
-import type {
-  GraphInstance,
-  NodeInstance,
-  Edge,
-  NodeId,
-} from '@brepflow/types';
+import type { GraphInstance, NodeInstance, Edge, NodeId } from '@brepflow/types';
 import { createNodeId } from '@brepflow/types';
 import {
   GraphManager,
   DAGEngine,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   NodeRegistry,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ComputeCache,
 } from '@brepflow/engine-core';
 import { getGeometryAPI } from '../services/geometry-api';
@@ -34,7 +31,7 @@ async function ensureCoreNodesRegistered(): Promise<void> {
   }
 
   registerNodesPromise = import('@brepflow/nodes-core')
-    .then(module => {
+    .then((module) => {
       const registerCoreNodes = module.registerCoreNodes as (() => void) | undefined;
 
       if (!registerCoreNodes) {
@@ -43,7 +40,7 @@ async function ensureCoreNodesRegistered(): Promise<void> {
 
       registerCoreNodes();
     })
-    .catch(error => {
+    .catch((error) => {
       registerNodesPromise = null;
       throw error;
     });
@@ -122,13 +119,20 @@ export const useGraphStore = create<GraphState>()(
           // Record successful initialization
           try {
             const metricsCollector = MetricsCollector.getInstance();
-            metricsCollector.incrementCounter('geometry_api_initializations', { status: 'success' });
+            metricsCollector.incrementCounter('geometry_api_initializations', {
+              status: 'success',
+            });
           } catch (e) {
             // Metrics collector might not be ready yet
           }
 
           set({ initializationError: null });
-          return new DAGEngine({ worker: geometryAPI });
+          // Adapt IntegratedGeometryAPI to WorkerAPI interface (shutdown → dispose)
+          const workerAPI = {
+            ...geometryAPI,
+            dispose: () => geometryAPI.shutdown(),
+          };
+          return new DAGEngine({ worker: workerAPI as any });
         } catch (error) {
           console.error('❌ Failed to initialize geometry API:', error);
 
@@ -141,8 +145,8 @@ export const useGraphStore = create<GraphState>()(
               {
                 context: {
                   wasmSupport: crossOriginIsolated,
-                  initializationAttempt: 1
-                }
+                  initializationAttempt: 1,
+                },
               }
             );
 
@@ -160,11 +164,11 @@ export const useGraphStore = create<GraphState>()(
       // Initialize engine asynchronously
       let dagEngine: DAGEngine | null = null;
       initEngine()
-        .then(engine => {
+        .then((engine) => {
           dagEngine = engine;
           set({ dagEngine: engine, initializationError: null });
         })
-        .catch(error => {
+        .catch((error) => {
           dagEngine = null;
           const message = error instanceof Error ? error.message : String(error);
           set({ dagEngine: null, initializationError: message });
@@ -212,7 +216,7 @@ export const useGraphStore = create<GraphState>()(
 
         removeNode: (nodeId) => {
           const { selectedNodes } = get();
-          const nodeToRemove = graphManager.getGraph().nodes.find(n => n.id === nodeId);
+          const nodeToRemove = graphManager.getGraph().nodes.find((n) => n.id === nodeId);
 
           if (nodeToRemove) {
             // Create undo command
@@ -229,7 +233,7 @@ export const useGraphStore = create<GraphState>()(
                 updatedSelectedNodes.delete(createNodeId(id));
                 set({
                   graph: graphManager.getGraph(),
-                  selectedNodes: updatedSelectedNodes
+                  selectedNodes: updatedSelectedNodes,
                 });
               }
             );
@@ -244,20 +248,15 @@ export const useGraphStore = create<GraphState>()(
         },
 
         updateNode: (nodeId, updates) => {
-          const node = graphManager.getGraph().nodes.find(n => n.id === nodeId);
+          const node = graphManager.getGraph().nodes.find((n) => n.id === nodeId);
           if (node) {
             const oldState = { ...node };
 
             // Create undo command
-            const command = new UpdateNodeCommand(
-              nodeId,
-              oldState,
-              updates,
-              (id, upd) => {
-                graphManager.updateNode(createNodeId(id), upd);
-                set({ graph: graphManager.getGraph() });
-              }
-            );
+            const command = new UpdateNodeCommand(nodeId, oldState, updates, (id, upd) => {
+              graphManager.updateNode(createNodeId(id), upd);
+              set({ graph: graphManager.getGraph() });
+            });
             undoRedoManager.execute(command);
           }
 
@@ -287,7 +286,7 @@ export const useGraphStore = create<GraphState>()(
         },
 
         removeEdge: (edgeId) => {
-          const edgeToRemove = graphManager.getGraph().edges.find(e => e.id === edgeId);
+          const edgeToRemove = graphManager.getGraph().edges.find((e) => e.id === edgeId);
 
           if (edgeToRemove) {
             // Create undo command
@@ -349,7 +348,7 @@ export const useGraphStore = create<GraphState>()(
                 ErrorCode.GEOMETRY_ENGINE_NOT_INITIALIZED,
                 'DAG engine not initialized',
                 {
-                  userMessage: 'Geometry engine is not ready. Please wait a moment and try again.'
+                  userMessage: 'Geometry engine is not ready. Please wait a moment and try again.',
                 }
               );
             } catch (e) {
@@ -370,7 +369,7 @@ export const useGraphStore = create<GraphState>()(
             try {
               const metricsCollector = MetricsCollector.getInstance();
               metricsCollector.incrementCounter('graph_evaluations_started', {
-                dirtyNodeCount: dirtyNodes.size.toString()
+                dirtyNodeCount: dirtyNodes.size.toString(),
               });
             } catch (e) {
               // Metrics collector not ready
@@ -385,7 +384,9 @@ export const useGraphStore = create<GraphState>()(
             try {
               const metricsCollector = MetricsCollector.getInstance();
               metricsCollector.recordTiming('graph_evaluation_duration_ms', duration);
-              metricsCollector.incrementCounter('graph_evaluations_completed', { status: 'success' });
+              metricsCollector.incrementCounter('graph_evaluations_completed', {
+                status: 'success',
+              });
             } catch (e) {
               // Metrics collector not ready
             }
@@ -410,14 +411,18 @@ export const useGraphStore = create<GraphState>()(
                   context: {
                     evaluationDuration: duration,
                     nodeCount: graphManager.getGraph().nodes.length,
-                    edgeCount: graphManager.getGraph().edges.length
-                  }
+                    edgeCount: graphManager.getGraph().edges.length,
+                  },
                 }
               );
 
               const metricsCollector = MetricsCollector.getInstance();
-              metricsCollector.recordTiming('graph_evaluation_duration_ms', duration, { status: 'failed' });
-              metricsCollector.incrementCounter('graph_evaluations_completed', { status: 'failed' });
+              metricsCollector.recordTiming('graph_evaluation_duration_ms', duration, {
+                status: 'failed',
+              });
+              metricsCollector.incrementCounter('graph_evaluations_completed', {
+                status: 'failed',
+              });
             } catch (e) {
               // Monitoring system not ready
             }
