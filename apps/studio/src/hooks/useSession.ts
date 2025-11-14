@@ -7,7 +7,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { GraphInstance } from '@brepflow/types';
-import { v4 as uuidv4 } from 'uuid';
 
 export interface SessionHookResult {
   sessionId: string | null;
