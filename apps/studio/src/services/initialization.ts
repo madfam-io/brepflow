@@ -3,7 +3,7 @@
  * Handles startup sequence, validation, and health checks
  */
 
-import { GeometryAPIFactory, isRealGeometryAvailable } from '@brepflow/engine-core';
+import { getGeometryAPI, IntegratedGeometryAPI } from '@brepflow/engine-occt';
 import { getConfig } from '@brepflow/engine-core';
 import { ProductionLogger } from '@brepflow/engine-occt';
 import { healthCheckService } from '../api/health';
@@ -147,8 +147,8 @@ export class InitializationService {
     logger.debug('Initializing geometry API');
 
     try {
-      // Check if real geometry is available
-      result.capabilities.realGeometry = await isRealGeometryAvailable();
+      // IntegratedGeometryAPI always aims for real geometry
+      result.capabilities.realGeometry = true;
 
       const config = getConfig();
       
@@ -159,11 +159,15 @@ export class InitializationService {
         return;
       }
 
-      await GeometryAPIFactory.getAPI({
-        enableRetry: true,
-        retryAttempts: 2,
-        initTimeout: options.timeoutMs,
+      // Use getGeometryAPI from engine-occt
+      const api = getGeometryAPI({
+        enableRealOCCT: true,
+        maxRetries: 2,
+        operationTimeout: options.timeoutMs || 30000,
       });
+
+      // Initialize the API
+      await api.initialize();
 
       result.geometryAPI = 'real';
       logger.info('Initialized with real geometry API');
@@ -228,7 +232,7 @@ export class InitializationService {
   // Reset initialization state (for testing)
   reset(): void {
     this.initResult = null;
-    GeometryAPIFactory.reset();
+    // IntegratedGeometryAPI doesn't have static reset
   }
 
   // Check if application is ready

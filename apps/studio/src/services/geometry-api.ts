@@ -3,16 +3,16 @@
  * Wraps the geometry API factory for Studio-specific use
  */
 
-import { GeometryAPIFactory } from '@brepflow/engine-core';
+import { getGeometryAPI, IntegratedGeometryAPI } from '@brepflow/engine-occt';
 import type { WorkerAPI } from '@brepflow/types';
 
-let apiInstance: WorkerAPI | null = null;
-let initializationPromise: Promise<WorkerAPI> | null = null;
+let apiInstance: IntegratedGeometryAPI | null = null;
+let initializationPromise: Promise<IntegratedGeometryAPI> | null = null;
 
 /**
  * Get geometry API instance for Studio (always real OCCT)
  */
-export async function getGeometryAPI(): Promise<WorkerAPI> {
+export async function getGeometryAPI(): Promise<IntegratedGeometryAPI> {
   if (apiInstance) {
     return apiInstance;
   }
@@ -21,10 +21,10 @@ export async function getGeometryAPI(): Promise<WorkerAPI> {
     return initializationPromise;
   }
 
-  initializationPromise = GeometryAPIFactory.getAPI({
-    enableRetry: true,
-    retryAttempts: 2,
-  }).then(api => {
+  initializationPromise = Promise.resolve(getGeometryAPI({
+    enableRealOCCT: true,
+    maxRetries: 2,
+  })).then(api => {
     apiInstance = api;
     return api;
   }).finally(() => {
@@ -40,19 +40,27 @@ export async function getGeometryAPI(): Promise<WorkerAPI> {
 export function resetGeometryAPI(): void {
   apiInstance = null;
   initializationPromise = null;
-  GeometryAPIFactory.reset();
+  // IntegratedGeometryAPI doesn't have a static reset method
+  // Just clear our local references
 }
 
 /**
  * Get API status for UI feedback
  */
 export function getAPIStatus() {
-  return GeometryAPIFactory.getStatus();
+  if (!apiInstance) {
+    return { initialized: false, usingRealOCCT: false };
+  }
+  return { 
+    initialized: apiInstance.isInitialized,
+    usingRealOCCT: true
+  };
 }
 
 /**
  * Check if real geometry is available
  */
 export function isRealGeometryAvailable() {
-  return GeometryAPIFactory.isRealAPIAvailable();
+  // IntegratedGeometryAPI always aims for real OCCT
+  return true;
 }

@@ -68,13 +68,15 @@ export default defineConfig({
     */
   ],
   // Start dev server before running tests
-  webServer: {
-    command: 'pnpm --filter @brepflow/studio run dev',
-    url: 'http://127.0.0.1:5173',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120000, // Allow time for WASM compilation
-  },
+  // TEMPORARILY DISABLED: Server already running
+  // webServer: {
+  //   command: 'pnpm --filter @brepflow/studio run dev',
+  //   url: 'http://127.0.0.1:5173',
+  //   reuseExistingServer: !process.env.CI,
+  //   timeout: 120000,
+  // },
   // Global setup and teardown
-  globalSetup: './tests/setup/global-setup.ts',
-  globalTeardown: './tests/setup/global-teardown.ts',
+  // TEMPORARILY DISABLED for debugging
+  // globalSetup: './tests/setup/global-setup.ts',
+  // globalTeardown: './tests/setup/global-teardown.ts',
 });

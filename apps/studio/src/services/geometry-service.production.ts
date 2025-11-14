@@ -3,13 +3,12 @@
  * Handles all geometry operations with real OCCT implementation
  */
 
-import { WorkerAPI } from '@brepflow/engine-occt';
-import { GeometryAPIFactory } from '@brepflow/engine-core';
+import { IntegratedGeometryAPI, getGeometryAPI } from '@brepflow/engine-occt';
 import { GeometryValidator } from '@brepflow/engine-occt';
 
 export class ProductionGeometryService {
   private static instance: ProductionGeometryService;
-  private api: WorkerAPI | null = null;
+  private api: IntegratedGeometryAPI | null = null;
   private logger: any = null;
   private validator = new GeometryValidator();
   private initializationPromise: Promise<void> | null = null;
@@ -53,14 +52,17 @@ export class ProductionGeometryService {
       this.getLogger().info('Initializing production geometry service');
 
       // Get production API - no mocks allowed
-      this.api = await GeometryAPIFactory.getProductionAPI({
-        enableMock: false,
-        requireRealOCCT: true,
-        validateOutput: true,
-        initTimeout: 30000,
-        enableRetry: true,
-        retryAttempts: 3,
+      this.api = getGeometryAPI({
+        enableRealOCCT: true,
+        enablePerformanceMonitoring: true,
+        enableMemoryManagement: true,
+        enableErrorRecovery: true,
+        maxRetries: 3,
+        operationTimeout: 30000,
       });
+
+      // Initialize the API
+      await this.api.initialize();
 
       // Start health monitoring
       this.startHealthMonitoring();

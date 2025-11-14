@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback } from 'react';
-import { Panel } from '../ResponsiveLayoutManager';
+import { Panel } from '../types';
 import './TabletLayout.css';
 
 interface TabletLayoutProps {

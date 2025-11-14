@@ -2,7 +2,7 @@ export * from './worker-client';
 export * from './worker-types';
 export * from './integrated-geometry-api';
 export * from './occt-wrapper';
-export * from './occt-loader';
+// export * from './occt-loader'; // Node.js only - uses node:url for pathToFileURL
 export * from './real-occt-bindings';
 export * from './occt-bindings'; // WASM loader functions for testing
 // Note: occt-worker.ts is not exported here - it's loaded as a Web Worker
@@ -10,8 +10,8 @@ export * from './occt-bindings'; // WASM loader functions for testing
 // export * from './production-api'; // Node.js only - uses node:path and node:url
 // export * from './production-logger'; // Node.js only - used by production-api
 export * from './geometry-validator';
-export * from './node-adapter'; // OCCT node adapter for real geometry
-export * from './occt-operation-router'; // Operation routing for OCCT
+// export * from './node-adapter'; // Node.js only - imports GeometryAPIFactory from engine-core
+// export * from './occt-operation-router'; // Node.js only - imports GeometryAPIFactory from engine-core
 export * from './production-safety'; // CRITICAL: Production safety utilities
 
 // Re-export WorkerAPI type from types package

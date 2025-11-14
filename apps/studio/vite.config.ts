@@ -240,10 +240,15 @@ export default defineConfig({
             return 'reactflow-vendor';
           }
 
-          // Three.js and related 3D libraries
-          if (id.includes('node_modules/three/') ||
-              id.includes('node_modules/three-stdlib/')) {
-            return 'three-vendor';
+          // Three.js and related 3D libraries - comprehensive matching
+          // Match: node_modules/three/, /node_modules/three-stdlib/, or package name 'three'
+          if (id.includes('node_modules')) {
+            if (id.match(/[\\/]three[\\/]/) || 
+                id.match(/[\\/]three-stdlib[\\/]/) ||
+                id.endsWith('/three') ||
+                id.endsWith('\\three')) {
+              return 'three-vendor';
+            }
           }
 
           // UI libraries

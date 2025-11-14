@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel } from '../ResponsiveLayoutManager';
+import { Panel } from '../types';
 import './MobileTabBar.css';
 
 interface MobileTabBarProps {

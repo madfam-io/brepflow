@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Panel } from '../ResponsiveLayoutManager';
+import { Panel } from '../types';
 import './DesktopLayout.css';
 
 interface DesktopLayoutProps {

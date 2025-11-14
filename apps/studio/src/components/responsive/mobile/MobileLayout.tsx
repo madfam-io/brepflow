@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Panel } from '../ResponsiveLayoutManager';
+import { Panel } from '../types';
 import { BottomSheet } from './BottomSheet';
 import { MobileTabBar } from './MobileTabBar';
 import { FloatingActionButton } from './FloatingActionButton';
