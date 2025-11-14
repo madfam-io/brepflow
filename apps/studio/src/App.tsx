@@ -47,6 +47,7 @@ import { NodeParameterDialog } from './components/dialogs/NodeParameterDialog';
 import { ViewportLayoutManager } from './components/viewport/ViewportLayoutManager';
 import './App.css';
 import { BrowserWASMTestSuite } from './test-browser-wasm';
+import { SessionControls } from './components/SessionControls';
 
 const debugLog = (...args: unknown[]) => {
   if (import.meta.env.DEV) {
@@ -446,26 +447,9 @@ function AppContent() {
                       )}
                     </div>
                   </Panel>
-                  <Panel position="bottom-right">
-                    <button
-                      onClick={() => setShowMonitoringDashboard(true)}
-                      className="monitoring-toggle"
-                      title="Open Monitoring Dashboard (Ctrl+Shift+M)"
-                      style={{
-                        background: 'rgba(255, 255, 255, 0.9)',
-                        border: '1px solid #d1d5db',
-                        borderRadius: 'var(--radius-md)',
-                        padding: '0.5rem',
-                        cursor: 'pointer',
-                        fontSize: '0.75rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.25rem'
-                      }}
-                    >
-                      <Icon name="monitor" size={14} />
-                      Monitor
-                    </button>
+                  $1
+                  <Panel position="top-right">
+                    <SessionControls />
                   </Panel>
                 </ReactFlow>
               </ErrorBoundary>
@@ -559,10 +543,8 @@ function AppContent() {
       />
 
       {/* Monitoring Dashboard */}
-      <MonitoringDashboard
-        isVisible={showMonitoringDashboard}
-        onClose={() => setShowMonitoringDashboard(false)}
-      />
+      $1
+      <SessionControls />
 
       {/* Node Parameter Dialog */}
       <NodeParameterDialog

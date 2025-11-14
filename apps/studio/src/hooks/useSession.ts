@@ -1,0 +1,194 @@
+/**
+ * Session Management Hook
+ * 
+ * Manages session lifecycle: create, load, save, share
+ */
+
+import { useEffect, useState, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import type { GraphInstance } from '@brepflow/types';
+import { v7 as uuidv7 } from 'uuid';
+
+export interface SessionHookResult {
+  sessionId: string | null;
+  graph: GraphInstance | null;
+  loading: boolean;
+  error: Error | null;
+  createNewSession: () => Promise<void>;
+  updateSession: (graph: GraphInstance) => Promise<void>;
+  getShareUrl: () => string | null;
+  deleteSession: () => Promise<void>;
+}
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+
+/**
+ * Create empty graph template
+ */
+function createEmptyGraph(): GraphInstance {
+  return {
+    id: uuidv7(),
+    nodes: [],
+    edges: [],
+    version: '0.1.0',
+    units: 'millimeters',
+    tolerance: 0.01,
+    dirty: false,
+  };
+}
+
+/**
+ * Session management hook
+ */
+export function useSession(): SessionHookResult {
+  const { sessionId } = useParams<{ sessionId?: string }>();
+  const navigate = useNavigate();
+  
+  const [graph, setGraph] = useState<GraphInstance | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  /**
+   * Load session from server
+   */
+  const loadSession = useCallback(async (id: string) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch(`${API_BASE_URL}/api/sessions/${id}`);
+      
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('Session not found or expired');
+        }
+        throw new Error(`Failed to load session: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setGraph(data.graph);
+    } catch (err) {
+      console.error('[useSession] Error loading session:', err);
+      setError(err instanceof Error ? err : new Error('Unknown error'));
+      // Redirect to home on error
+      navigate('/', { replace: true });
+    } finally {
+      setLoading(false);
+    }
+  }, [navigate]);
+
+  /**
+   * Create new session
+   */
+  const createNewSession = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const emptyGraph = createEmptyGraph();
+      const response = await fetch(`${API_BASE_URL}/api/sessions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ graph: emptyGraph }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to create session: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      navigate(`/session/${data.sessionId}`, { replace: true });
+    } catch (err) {
+      console.error('[useSession] Error creating session:', err);
+      setError(err instanceof Error ? err : new Error('Unknown error'));
+    } finally {
+      setLoading(false);
+    }
+  }, [navigate]);
+
+  /**
+   * Update session graph
+   */
+  const updateSession = useCallback(async (updatedGraph: GraphInstance) => {
+    if (!sessionId) {
+      console.warn('[useSession] Cannot update session: no session ID');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/sessions/${sessionId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ graph: updatedGraph }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update session: ${response.statusText}`);
+      }
+
+      setGraph(updatedGraph);
+    } catch (err) {
+      console.error('[useSession] Error updating session:', err);
+      setError(err instanceof Error ? err : new Error('Unknown error'));
+    }
+  }, [sessionId]);
+
+  /**
+   * Delete session
+   */
+  const deleteSession = useCallback(async () => {
+    if (!sessionId) {
+      console.warn('[useSession] Cannot delete session: no session ID');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/sessions/${sessionId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to delete session: ${response.statusText}`);
+      }
+
+      navigate('/', { replace: true });
+    } catch (err) {
+      console.error('[useSession] Error deleting session:', err);
+      setError(err instanceof Error ? err : new Error('Unknown error'));
+    }
+  }, [sessionId, navigate]);
+
+  /**
+   * Get shareable URL
+   */
+  const getShareUrl = useCallback((): string | null => {
+    if (!sessionId) {
+      return null;
+    }
+    return `${window.location.origin}/session/${sessionId}`;
+  }, [sessionId]);
+
+  /**
+   * Effect: Load or create session on mount
+   */
+  useEffect(() => {
+    if (sessionId) {
+      // Load existing session
+      loadSession(sessionId);
+    } else {
+      // Create new session
+      createNewSession();
+    }
+  }, [sessionId, loadSession, createNewSession]);
+
+  return {
+    sessionId: sessionId || null,
+    graph,
+    loading,
+    error,
+    createNewSession,
+    updateSession,
+    getShareUrl,
+    deleteSession,
+  };
+}
