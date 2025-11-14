@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataStringStringReplaceNode } from './string-replace.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataStringStringReplaceNode', () => {
   it('should evaluate without throwing', async () => {

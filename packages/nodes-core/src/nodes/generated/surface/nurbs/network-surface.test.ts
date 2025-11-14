@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SurfaceNURBSNetworkSurfaceNode } from './network-surface.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SurfaceNURBSNetworkSurfaceNode', () => {
   it('should evaluate without throwing', async () => {

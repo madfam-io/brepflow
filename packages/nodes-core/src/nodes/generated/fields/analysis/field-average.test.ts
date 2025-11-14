@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldsAnalysisFieldAverageNode } from './field-average.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FieldsAnalysisFieldAverageNode', () => {
   it('should evaluate without throwing', async () => {

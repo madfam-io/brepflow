@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SimulationFEAExportFEANode } from './export-fea.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SimulationFEAExportFEANode', () => {
   it('should evaluate without throwing', async () => {

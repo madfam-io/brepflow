@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsFractalsDragonCurveNode } from './dragon-curve.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsFractalsDragonCurveNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsFractalsKochSnowflakeNode } from './koch-snowflake.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsFractalsKochSnowflakeNode', () => {
   it('should evaluate without throwing', async () => {

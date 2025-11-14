@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsGeometricTruchetTilesNode } from './truchet-tiles.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsGeometricTruchetTilesNode', () => {
   it('should evaluate without throwing', async () => {

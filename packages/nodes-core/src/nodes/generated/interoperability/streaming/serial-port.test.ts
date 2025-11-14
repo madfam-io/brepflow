@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityStreamingSerialPortNode } from './serial-port.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('InteroperabilityStreamingSerialPortNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { TransformPatternsLinearPatternNode } from './linear-pattern.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('TransformPatternsLinearPatternNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathMatrixMatrixMultiplyNode } from './matrix-multiply.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathMatrixMatrixMultiplyNode', () => {
   it('should evaluate without throwing', async () => {

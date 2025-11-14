@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SimulationFEAApplyConstraintsNode } from './apply-constraints.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SimulationFEAApplyConstraintsNode', () => {
   it('should evaluate without throwing', async () => {

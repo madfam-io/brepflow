@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationCNCAdaptiveClearingNode } from './adaptive-clearing.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FabricationCNCAdaptiveClearingNode', () => {
   it('should evaluate without throwing', async () => {

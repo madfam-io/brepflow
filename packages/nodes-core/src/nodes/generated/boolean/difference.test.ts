@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { BooleanDifferenceNode } from './difference.node';
-import { createTestContext } from '../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('BooleanDifferenceNode', () => {
   it('should evaluate without throwing', async () => {

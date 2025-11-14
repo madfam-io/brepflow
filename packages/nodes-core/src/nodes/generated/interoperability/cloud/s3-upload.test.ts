@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityCloudS3UploadNode } from './s3-upload.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('InteroperabilityCloudS3UploadNode', () => {
   it('should evaluate without throwing', async () => {

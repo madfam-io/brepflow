@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AnalysisQualityToleranceAnalysisNode } from './tolerance-analysis.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AnalysisQualityToleranceAnalysisNode', () => {
   it('should evaluate without throwing', async () => {

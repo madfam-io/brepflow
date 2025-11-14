@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldOperationsFieldRemapNode } from './field-remap.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FieldOperationsFieldRemapNode', () => {
   it('should evaluate without throwing', async () => {

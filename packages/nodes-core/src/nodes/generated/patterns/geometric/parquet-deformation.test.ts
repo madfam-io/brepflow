@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsGeometricParquetDeformationNode } from './parquet-deformation.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsGeometricParquetDeformationNode', () => {
   it('should evaluate without throwing', async () => {

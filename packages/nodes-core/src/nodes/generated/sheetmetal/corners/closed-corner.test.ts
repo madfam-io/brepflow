@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SheetMetalCornersClosedCornerNode } from './closed-corner.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SheetMetalCornersClosedCornerNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AdvancedFeaturesDomeNode } from './dome.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AdvancedFeaturesDomeNode', () => {
   it('should evaluate without throwing', async () => {

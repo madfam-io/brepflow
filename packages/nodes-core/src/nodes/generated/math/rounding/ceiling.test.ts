@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathRoundingCeilingNode } from './ceiling.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathRoundingCeilingNode', () => {
   it('should evaluate without throwing', async () => {

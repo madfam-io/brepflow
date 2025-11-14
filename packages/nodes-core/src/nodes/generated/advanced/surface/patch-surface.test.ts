@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AdvancedSurfacePatchSurfaceNode } from './patch-surface.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AdvancedSurfacePatchSurfaceNode', () => {
   it('should evaluate without throwing', async () => {

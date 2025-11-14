@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityDataExcelWriterNode } from './excel-writer.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('InteroperabilityDataExcelWriterNode', () => {
   it('should evaluate without throwing', async () => {

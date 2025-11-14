@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsProceduralNoisePatternNode } from './noise-pattern.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsProceduralNoisePatternNode', () => {
   it('should evaluate without throwing', async () => {

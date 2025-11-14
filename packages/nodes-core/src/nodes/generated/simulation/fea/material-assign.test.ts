@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SimulationFEAMaterialAssignNode } from './material-assign.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SimulationFEAMaterialAssignNode', () => {
   it('should evaluate without throwing', async () => {

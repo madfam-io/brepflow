@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathInterpolationInverseLerpNode } from './inverse-lerp.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathInterpolationInverseLerpNode', () => {
   it('should evaluate without throwing', async () => {

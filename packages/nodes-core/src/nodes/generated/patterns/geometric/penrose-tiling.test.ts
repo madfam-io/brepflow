@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsGeometricPenroseTilingNode } from './penrose-tiling.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsGeometricPenroseTilingNode', () => {
   it('should evaluate without throwing', async () => {

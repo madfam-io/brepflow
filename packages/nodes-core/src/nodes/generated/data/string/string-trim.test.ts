@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataStringStringTrimNode } from './string-trim.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataStringStringTrimNode', () => {
   it('should evaluate without throwing', async () => {

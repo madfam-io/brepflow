@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SolidHelicalThreadNode } from './thread.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SolidHelicalThreadNode', () => {
   it('should evaluate without throwing', async () => {

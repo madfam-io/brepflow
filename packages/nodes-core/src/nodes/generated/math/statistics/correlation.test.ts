@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathStatisticsCorrelationNode } from './correlation.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathStatisticsCorrelationNode', () => {
   it('should evaluate without throwing', async () => {

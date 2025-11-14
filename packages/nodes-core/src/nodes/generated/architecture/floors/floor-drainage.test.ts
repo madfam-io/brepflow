@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ArchitectureFloorsFloorDrainageNode } from './floor-drainage.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('ArchitectureFloorsFloorDrainageNode', () => {
   it('should evaluate without throwing', async () => {

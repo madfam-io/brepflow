@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SolidParametricPyramidNode } from './pyramid.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SolidParametricPyramidNode', () => {
   it('should evaluate without throwing', async () => {

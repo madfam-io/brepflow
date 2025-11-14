@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AssemblyMatesSlotNode } from './slot.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AssemblyMatesSlotNode', () => {
   it('should evaluate without throwing', async () => {

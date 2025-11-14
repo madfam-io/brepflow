@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AlgorithmicMachineLearningDecisionTreeNode } from './decision-tree.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AlgorithmicMachineLearningDecisionTreeNode', () => {
   it('should evaluate without throwing', async () => {

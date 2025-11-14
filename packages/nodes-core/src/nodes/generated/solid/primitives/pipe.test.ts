@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SolidPrimitivesPipeNode } from './pipe.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SolidPrimitivesPipeNode', () => {
   it('should evaluate without throwing', async () => {

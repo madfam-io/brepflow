@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathMatrixMatrixInverseNode } from './matrix-inverse.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathMatrixMatrixInverseNode', () => {
   it('should evaluate without throwing', async () => {

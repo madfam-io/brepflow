@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AssemblyPatternsInterferenceCheckNode } from './interference-check.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AssemblyPatternsInterferenceCheckNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ArchitectureRampsLoadingDockNode } from './loading-dock.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('ArchitectureRampsLoadingDockNode', () => {
   it('should evaluate without throwing', async () => {

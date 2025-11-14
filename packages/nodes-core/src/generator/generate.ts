@@ -178,7 +178,7 @@ async function generateNode(template: NodeTemplate, outputDir: string): Promise<
     ? path.join(nodeDir, toKebabCase(template.subcategory))
     : nodeDir;
 
-  const implementationPath = path.join(targetDir, `${fileBaseName}.node.ts`);
+  const implementationPath = path.join(targetDir, `${fileBaseName}.ts`);
   const testPath = path.join(targetDir, `${fileBaseName}.test.ts`);
   const docPath = path.join(targetDir, `${fileBaseName}.md`);
 
@@ -218,8 +218,8 @@ async function generateIndex(templates: NodeTemplate[], outputDir: string): Prom
     const constantName = `${exportIdentifier}Node`;
     const kebabName = toKebabCase(template.name);
     const importPath = template.subcategory
-      ? `./${category.toLowerCase()}/${toKebabCase(template.subcategory)}/${kebabName}.node`
-      : `./${category.toLowerCase()}/${kebabName}.node`;
+      ? `./${category.toLowerCase()}/${toKebabCase(template.subcategory)}/${kebabName}`
+      : `./${category.toLowerCase()}/${kebabName}`;
 
       imports.push(`import { ${constantName} } from '${importPath}';`);
       exports.push(`  ${constantName},`);

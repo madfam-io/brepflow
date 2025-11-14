@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SpecializedTextBarcodeNode } from './barcode.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SpecializedTextBarcodeNode', () => {
   it('should evaluate without throwing', async () => {

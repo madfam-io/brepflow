@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathOperatorsMultiplyNode } from './multiply.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathOperatorsMultiplyNode', () => {
   it('should evaluate without throwing', async () => {

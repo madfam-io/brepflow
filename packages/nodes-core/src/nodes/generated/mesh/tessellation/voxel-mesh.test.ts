@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MeshTessellationVoxelMeshNode } from './voxel-mesh.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MeshTessellationVoxelMeshNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathTrigonometryArcSineNode } from './arc-sine.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathTrigonometryArcSineNode', () => {
   it('should evaluate without throwing', async () => {

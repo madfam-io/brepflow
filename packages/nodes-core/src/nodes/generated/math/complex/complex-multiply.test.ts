@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathComplexComplexMultiplyNode } from './complex-multiply.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathComplexComplexMultiplyNode', () => {
   it('should evaluate without throwing', async () => {

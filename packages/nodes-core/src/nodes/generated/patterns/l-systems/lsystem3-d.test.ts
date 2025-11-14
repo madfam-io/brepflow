@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsLSystemsLSystem3DNode } from './lsystem3-d.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsLSystemsLSystem3DNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ArchitectureCeilingsSuspendedCeilingNode } from './suspended-ceiling.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('ArchitectureCeilingsSuspendedCeilingNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsLatticeDiamondLatticeNode } from './diamond-lattice.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsLatticeDiamondLatticeNode', () => {
   it('should evaluate without throwing', async () => {

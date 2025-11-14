@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AdvancedHealingCheckGeometryNode } from './check-geometry.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AdvancedHealingCheckGeometryNode', () => {
   it('should evaluate without throwing', async () => {

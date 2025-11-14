@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationCNCChipEvacuationNode } from './chip-evacuation.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FabricationCNCChipEvacuationNode', () => {
   it('should evaluate without throwing', async () => {

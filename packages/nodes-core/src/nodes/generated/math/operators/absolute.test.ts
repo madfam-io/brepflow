@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathOperatorsAbsoluteNode } from './absolute.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathOperatorsAbsoluteNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SketchBasicArcNode } from './arc.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SketchBasicArcNode', () => {
   it('should evaluate without throwing', async () => {

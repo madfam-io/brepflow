@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsDelaunayConvexHullNode } from './convex-hull.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsDelaunayConvexHullNode', () => {
   it('should evaluate without throwing', async () => {

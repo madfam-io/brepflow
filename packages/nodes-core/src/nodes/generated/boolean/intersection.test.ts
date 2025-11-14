@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { BooleanIntersectionNode } from './intersection.node';
-import { createTestContext } from '../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('BooleanIntersectionNode', () => {
   it('should evaluate without throwing', async () => {

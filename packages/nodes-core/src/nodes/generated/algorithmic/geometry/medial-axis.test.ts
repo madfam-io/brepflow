@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AlgorithmicGeometryMedialAxisNode } from './medial-axis.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AlgorithmicGeometryMedialAxisNode', () => {
   it('should evaluate without throwing', async () => {

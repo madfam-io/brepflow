@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SolidPrimitivesRoundedBoxNode } from './rounded-box.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SolidPrimitivesRoundedBoxNode', () => {
   it('should evaluate without throwing', async () => {

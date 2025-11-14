@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AlgorithmicGeometryShapeDescriptorNode } from './shape-descriptor.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AlgorithmicGeometryShapeDescriptorNode', () => {
   it('should evaluate without throwing', async () => {

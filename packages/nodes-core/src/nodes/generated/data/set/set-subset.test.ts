@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataSetSetSubsetNode } from './set-subset.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataSetSetSubsetNode', () => {
   it('should evaluate without throwing', async () => {

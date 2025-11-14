@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataTreeTreeExplodeNode } from './tree-explode.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataTreeTreeExplodeNode', () => {
   it('should evaluate without throwing', async () => {

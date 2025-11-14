@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataConvertToCSVNode } from './to-csv.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataConvertToCSVNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { IOCADExportSTEPNode } from './export-step.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('IOCADExportSTEPNode', () => {
   it('should evaluate without throwing', async () => {

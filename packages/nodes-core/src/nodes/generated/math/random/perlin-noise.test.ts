@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathRandomPerlinNoiseNode } from './perlin-noise.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathRandomPerlinNoiseNode', () => {
   it('should evaluate without throwing', async () => {

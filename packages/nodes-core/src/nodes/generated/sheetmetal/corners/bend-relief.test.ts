@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SheetMetalCornersBendReliefNode } from './bend-relief.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SheetMetalCornersBendReliefNode', () => {
   it('should evaluate without throwing', async () => {

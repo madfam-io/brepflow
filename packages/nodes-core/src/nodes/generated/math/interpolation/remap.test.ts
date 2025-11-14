@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathInterpolationRemapNode } from './remap.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathInterpolationRemapNode', () => {
   it('should evaluate without throwing', async () => {

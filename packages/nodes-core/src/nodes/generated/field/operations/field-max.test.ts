@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldOperationsFieldMaxNode } from './field-max.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FieldOperationsFieldMaxNode', () => {
   it('should evaluate without throwing', async () => {

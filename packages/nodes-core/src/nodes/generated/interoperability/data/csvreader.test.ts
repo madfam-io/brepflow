@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityDataCSVReaderNode } from './csvreader.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('InteroperabilityDataCSVReaderNode', () => {
   it('should evaluate without throwing', async () => {

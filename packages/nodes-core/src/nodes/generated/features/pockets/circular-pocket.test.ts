@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FeaturesPocketsCircularPocketNode } from './circular-pocket.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FeaturesPocketsCircularPocketNode', () => {
   it('should evaluate without throwing', async () => {

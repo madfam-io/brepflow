@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataConvertToBooleanNode } from './to-boolean.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataConvertToBooleanNode', () => {
   it('should evaluate without throwing', async () => {

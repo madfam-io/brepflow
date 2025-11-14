@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AssemblyPatternsContactSetNode } from './contact-set.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AssemblyPatternsContactSetNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityExportSVGExportNode } from './svgexport.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('InteroperabilityExportSVGExportNode', () => {
   it('should evaluate without throwing', async () => {

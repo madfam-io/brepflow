@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsCellularHoneycombPatternNode } from './honeycomb-pattern.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsCellularHoneycombPatternNode', () => {
   it('should evaluate without throwing', async () => {

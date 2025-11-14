@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MechanicalEngineeringBearingsPillowBlockNode } from './pillow-block.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MechanicalEngineeringBearingsPillowBlockNode', () => {
   it('should evaluate without throwing', async () => {

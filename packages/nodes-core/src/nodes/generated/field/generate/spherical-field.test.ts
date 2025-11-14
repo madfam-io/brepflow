@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldGenerateSphericalFieldNode } from './spherical-field.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FieldGenerateSphericalFieldNode', () => {
   it('should evaluate without throwing', async () => {

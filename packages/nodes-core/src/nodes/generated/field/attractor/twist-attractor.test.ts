@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldAttractorTwistAttractorNode } from './twist-attractor.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FieldAttractorTwistAttractorNode', () => {
   it('should evaluate without throwing', async () => {

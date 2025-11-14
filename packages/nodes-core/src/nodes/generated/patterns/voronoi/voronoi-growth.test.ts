@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsVoronoiVoronoiGrowthNode } from './voronoi-growth.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsVoronoiVoronoiGrowthNode', () => {
   it('should evaluate without throwing', async () => {

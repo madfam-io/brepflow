@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { IOCADImportParasolidNode } from './import-parasolid.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('IOCADImportParasolidNode', () => {
   it('should evaluate without throwing', async () => {

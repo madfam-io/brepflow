@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SurfaceCurvesApproximateCurveNode } from './approximate-curve.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SurfaceCurvesApproximateCurveNode', () => {
   it('should evaluate without throwing', async () => {

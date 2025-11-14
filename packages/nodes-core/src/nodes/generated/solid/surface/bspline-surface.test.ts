@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SolidSurfaceBSplineSurfaceNode } from './bspline-surface.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SolidSurfaceBSplineSurfaceNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsPackingSpherePackingNode } from './sphere-packing.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsPackingSpherePackingNode', () => {
   it('should evaluate without throwing', async () => {

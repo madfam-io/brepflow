@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SheetMetalFlangesEdgeFlangeNode } from './edge-flange.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SheetMetalFlangesEdgeFlangeNode', () => {
   it('should evaluate without throwing', async () => {

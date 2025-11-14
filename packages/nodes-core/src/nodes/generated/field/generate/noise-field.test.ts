@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldGenerateNoiseFieldNode } from './noise-field.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FieldGenerateNoiseFieldNode', () => {
   it('should evaluate without throwing', async () => {

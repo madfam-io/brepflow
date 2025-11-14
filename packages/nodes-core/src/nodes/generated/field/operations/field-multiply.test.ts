@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldOperationsFieldMultiplyNode } from './field-multiply.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FieldOperationsFieldMultiplyNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AdvancedFeaturesDeformNode } from './deform.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AdvancedFeaturesDeformNode', () => {
   it('should evaluate without throwing', async () => {

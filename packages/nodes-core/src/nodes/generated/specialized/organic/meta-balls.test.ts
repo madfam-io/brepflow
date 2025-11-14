@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SpecializedOrganicMetaBallsNode } from './meta-balls.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SpecializedOrganicMetaBallsNode', () => {
   it('should evaluate without throwing', async () => {

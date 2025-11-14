@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { TransformPathArrayNode } from './path-array.node';
-import { createTestContext } from '../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('TransformPathArrayNode', () => {
   it('should evaluate without throwing', async () => {

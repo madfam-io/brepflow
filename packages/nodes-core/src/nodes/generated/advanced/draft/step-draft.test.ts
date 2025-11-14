@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AdvancedDraftStepDraftNode } from './step-draft.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AdvancedDraftStepDraftNode', () => {
   it('should evaluate without throwing', async () => {

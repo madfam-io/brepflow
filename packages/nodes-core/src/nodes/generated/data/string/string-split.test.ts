@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataStringStringSplitNode } from './string-split.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataStringStringSplitNode', () => {
   it('should evaluate without throwing', async () => {

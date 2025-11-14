@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { Fabrication3DPrintingWipeTowerNode } from './wipe-tower.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('Fabrication3DPrintingWipeTowerNode', () => {
   it('should evaluate without throwing', async () => {

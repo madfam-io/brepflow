@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AlgorithmicGeometryGeometryMatchingNode } from './geometry-matching.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AlgorithmicGeometryGeometryMatchingNode', () => {
   it('should evaluate without throwing', async () => {

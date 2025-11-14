@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { InteroperabilityImportIGESImportNode } from './igesimport.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('InteroperabilityImportIGESImportNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationRoboticsRobotMaintenanceNode } from './robot-maintenance.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FabricationRoboticsRobotMaintenanceNode', () => {
   it('should evaluate without throwing', async () => {

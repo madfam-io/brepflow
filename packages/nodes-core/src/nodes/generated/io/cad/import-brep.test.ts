@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { IOCADImportBREPNode } from './import-brep.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('IOCADImportBREPNode', () => {
   it('should evaluate without throwing', async () => {

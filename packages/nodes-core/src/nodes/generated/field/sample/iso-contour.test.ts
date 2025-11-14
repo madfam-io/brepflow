@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldSampleIsoContourNode } from './iso-contour.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FieldSampleIsoContourNode', () => {
   it('should evaluate without throwing', async () => {

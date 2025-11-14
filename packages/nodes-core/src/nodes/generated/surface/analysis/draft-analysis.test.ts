@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SurfaceAnalysisDraftAnalysisNode } from './draft-analysis.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SurfaceAnalysisDraftAnalysisNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { BooleanXORNode } from './xor.node';
-import { createTestContext } from '../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('BooleanXORNode', () => {
   it('should evaluate without throwing', async () => {

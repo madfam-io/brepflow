@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsFractalsSierpinskiTriangleNode } from './sierpinski-triangle.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsFractalsSierpinskiTriangleNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataSetSetIntersectionNode } from './set-intersection.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataSetSetIntersectionNode', () => {
   it('should evaluate without throwing', async () => {

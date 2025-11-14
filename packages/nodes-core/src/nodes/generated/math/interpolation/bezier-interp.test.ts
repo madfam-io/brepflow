@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathInterpolationBezierInterpNode } from './bezier-interp.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathInterpolationBezierInterpNode', () => {
   it('should evaluate without throwing', async () => {

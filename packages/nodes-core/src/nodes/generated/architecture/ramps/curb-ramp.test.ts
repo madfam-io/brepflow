@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { ArchitectureRampsCurbRampNode } from './curb-ramp.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('ArchitectureRampsCurbRampNode', () => {
   it('should evaluate without throwing', async () => {

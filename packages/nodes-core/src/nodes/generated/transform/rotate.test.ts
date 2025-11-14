@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { TransformRotateNode } from './rotate.node';
-import { createTestContext } from '../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('TransformRotateNode', () => {
   it('should evaluate without throwing', async () => {

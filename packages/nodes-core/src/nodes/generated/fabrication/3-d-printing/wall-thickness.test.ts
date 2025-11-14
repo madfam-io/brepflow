@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { Fabrication3DPrintingWallThicknessNode } from './wall-thickness.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('Fabrication3DPrintingWallThicknessNode', () => {
   it('should evaluate without throwing', async () => {

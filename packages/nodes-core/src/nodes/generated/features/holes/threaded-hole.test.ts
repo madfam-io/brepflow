@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FeaturesHolesThreadedHoleNode } from './threaded-hole.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FeaturesHolesThreadedHoleNode', () => {
   it('should evaluate without throwing', async () => {

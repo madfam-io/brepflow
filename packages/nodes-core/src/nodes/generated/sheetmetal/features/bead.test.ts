@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SheetMetalFeaturesBeadNode } from './bead.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SheetMetalFeaturesBeadNode', () => {
   it('should evaluate without throwing', async () => {

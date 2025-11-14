@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MechanicalEngineeringMechanismsUniversalJointNode } from './universal-joint.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MechanicalEngineeringMechanismsUniversalJointNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsTilingBrickPatternNode } from './brick-pattern.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsTilingBrickPatternNode', () => {
   it('should evaluate without throwing', async () => {

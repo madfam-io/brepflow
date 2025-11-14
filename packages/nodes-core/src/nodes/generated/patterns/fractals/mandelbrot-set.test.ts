@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsFractalsMandelbrotSetNode } from './mandelbrot-set.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsFractalsMandelbrotSetNode', () => {
   it('should evaluate without throwing', async () => {

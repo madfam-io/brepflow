@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataStringStringFormatNode } from './string-format.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataStringStringFormatNode', () => {
   it('should evaluate without throwing', async () => {

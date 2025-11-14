@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { IOCADImportACISNode } from './import-acis.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('IOCADImportACISNode', () => {
   it('should evaluate without throwing', async () => {

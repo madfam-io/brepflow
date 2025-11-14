@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SketchCurvesBSplineCurveNode } from './bspline-curve.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SketchCurvesBSplineCurveNode', () => {
   it('should evaluate without throwing', async () => {

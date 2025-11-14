@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SolidHelicalSpringNode } from './spring.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SolidHelicalSpringNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MeshRepairSimplifyMeshNode } from './simplify-mesh.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MeshRepairSimplifyMeshNode', () => {
   it('should evaluate without throwing', async () => {

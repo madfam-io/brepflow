@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { SurfaceNURBSCoonsPatchNode } from './coons-patch.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('SurfaceNURBSCoonsPatchNode', () => {
   it('should evaluate without throwing', async () => {

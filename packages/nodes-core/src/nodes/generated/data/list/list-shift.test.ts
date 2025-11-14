@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataListListShiftNode } from './list-shift.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataListListShiftNode', () => {
   it('should evaluate without throwing', async () => {

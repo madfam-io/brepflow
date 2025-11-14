@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataConvertToBase64Node } from './to-base64.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataConvertToBase64Node', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AlgorithmicGeometryDistanceFieldNode } from './distance-field.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AlgorithmicGeometryDistanceFieldNode', () => {
   it('should evaluate without throwing', async () => {

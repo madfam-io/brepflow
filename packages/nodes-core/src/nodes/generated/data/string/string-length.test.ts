@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataStringStringLengthNode } from './string-length.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataStringStringLengthNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { DataListListItemNode } from './list-item.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('DataListListItemNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FieldSampleFieldLineNode } from './field-line.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FieldSampleFieldLineNode', () => {
   it('should evaluate without throwing', async () => {

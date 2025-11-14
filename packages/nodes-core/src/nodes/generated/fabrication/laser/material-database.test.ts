@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationLaserMaterialDatabaseNode } from './material-database.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FabricationLaserMaterialDatabaseNode', () => {
   it('should evaluate without throwing', async () => {

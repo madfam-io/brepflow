@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { PatternsDelaunayDelaunay3DNode } from './delaunay3-d.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('PatternsDelaunayDelaunay3DNode', () => {
   it('should evaluate without throwing', async () => {

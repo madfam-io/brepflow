@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationLaserRotaryAttachmentNode } from './rotary-attachment.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FabricationLaserRotaryAttachmentNode', () => {
   it('should evaluate without throwing', async () => {

@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AssemblyJointsBeltNode } from './belt.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AssemblyJointsBeltNode', () => {
   it('should evaluate without throwing', async () => {

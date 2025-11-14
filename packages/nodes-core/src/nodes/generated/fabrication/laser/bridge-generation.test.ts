@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { FabricationLaserBridgeGenerationNode } from './bridge-generation.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('FabricationLaserBridgeGenerationNode', () => {
   it('should evaluate without throwing', async () => {

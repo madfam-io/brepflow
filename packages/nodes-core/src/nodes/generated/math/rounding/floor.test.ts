@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { MathRoundingFloorNode } from './floor.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('MathRoundingFloorNode', () => {
   it('should evaluate without throwing', async () => {

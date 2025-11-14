@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { AnalysisCurvesCurveSpiralNode } from './curve-spiral.node';
-import { createTestContext } from '../../../test-utils';
+import { createTestContext } from '../test-utils';
 
 describe('AnalysisCurvesCurveSpiralNode', () => {
   it('should evaluate without throwing', async () => {
