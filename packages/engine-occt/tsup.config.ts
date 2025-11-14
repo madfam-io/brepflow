@@ -11,17 +11,9 @@ export default defineConfig([
     ...createLibraryConfig({
       entry: ['src/index.ts'],
       format: ['esm', 'cjs'], // Provide both module formats for Node + bundlers
-      dts: false, // TODO: Re-enable after fixing branded type issues
+      dts: true, // Generate TypeScript declaration files
       shims: false, // Disable ESM shims to avoid Node.js module imports
-      external: [
-        'fs',
-        'path',
-        'url',
-        'node:fs',
-        'node:path',
-        'node:url',
-        /^@brepflow\//,
-      ],
+      external: ['fs', 'path', 'url', 'node:fs', 'node:path', 'node:url', /^@brepflow\//],
     }),
   },
   {
@@ -32,16 +24,8 @@ export default defineConfig([
       shims: false, // Disable ESM shims to avoid Node.js module imports
       skipNodeModulesBundle: false, // Bundle all dependencies for worker
       noExternal: ['uuid'], // Ensure uuid is bundled
-      external: [
-        'fs',
-        'path',
-        'url',
-        'node:fs',
-        'node:path',
-        'node:url',
-        'node:worker_threads',
-      ],
+      external: ['fs', 'path', 'url', 'node:fs', 'node:path', 'node:url', 'node:worker_threads'],
     }),
     clean: false, // Don't clean since we run after main build
-  }
+  },
 ]);

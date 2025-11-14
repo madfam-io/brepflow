@@ -1,4 +1,6 @@
 import type { Plugin } from 'esbuild';
+import path from 'path';
+import fs from 'fs';
 import { createLibraryConfig } from '../../config/tsup.base.config';
 
 /**
@@ -16,8 +18,6 @@ const nodeExtensionResolver: Plugin = {
       }
 
       // Resolve the path relative to the importing file
-      const path = require('path');
-      const fs = require('fs');
       const resolvedPath = path.resolve(args.resolveDir, `${args.path}.ts`);
 
       // Verify the file exists
@@ -37,7 +37,7 @@ const nodeExtensionResolver: Plugin = {
 export default createLibraryConfig({
   entry: ['src/index.ts'],
   format: ['esm'], // ESM only for import.meta.url support
-  dts: false, // TODO: Re-enable after fixing branded type issues
+  dts: true, // Generate TypeScript declaration files
   shims: false, // Disable ESM shims to avoid Node.js module imports
   platform: 'neutral',
   esbuildPlugins: [nodeExtensionResolver],

@@ -10,13 +10,8 @@ export default createLibraryConfig({
     'src/geometry-api-factory.ts', // Node.js only - separate entry for server-side use
   ],
   format: ['esm'], // ESM only for import.meta.url support
-  dts: false, // TODO: Re-enable after fixing branded type issues
+  dts: true, // Generate TypeScript declaration files
   shims: false, // Disable ESM shims to avoid Node.js module imports
   // Engine-specific externals
-  external: [
-    'react',
-    'react-dom',
-    /^@brepflow\//,
-    'vitest',
-  ],
+  external: ['react', 'react-dom', /^@brepflow\//, 'vitest'],
 });

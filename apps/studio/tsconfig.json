@@ -10,12 +10,12 @@
     "jsx": "react-jsx",
     "strict": false,
     "strictNullChecks": true,
-    // Note: Full strict mode blocked by missing declaration files in @brepflow packages
-    // Packages need to enable `dts: true` in tsup configs (currently disabled due to branded type issues)
-    // See: packages/engine-core/tsup.config.ts line 13
+    // Phase 2 Progress: Reduced from 120 to ~90 errors by generating DTS files
+    // Remaining: Missing exports from collaboration/scripting modules in DTS
+    // Solution: Improve tsup DTS bundling or use TypeScript project references
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true, // Skip .d.ts checking for faster builds and DTS generation quirks
     "forceConsistentCasingInFileNames": true,
     "declaration": false,
     "sourceMap": true,

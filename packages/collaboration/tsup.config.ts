@@ -7,11 +7,20 @@ export default defineConfig({
     'client/index': 'src/client/index.ts',
   },
   format: ['cjs', 'esm'],
-  dts: false, // Temporarily disabled due to tsconfig issue
+  dts: false, // Temporarily disabled - rollup-plugin-dts build error with noExternal config
   splitting: false,
   sourcemap: true,
   clean: true,
-  external: ['react', 'react-dom', 'ws', 'y-websocket', 'yjs', 'uuid', 'socket.io', 'socket.io-client'],
+  external: [
+    'react',
+    'react-dom',
+    'ws',
+    'y-websocket',
+    'yjs',
+    'uuid',
+    'socket.io',
+    'socket.io-client',
+  ],
   noExternal: [/^@brepflow\//], // Bundle workspace packages
   tsconfig: 'tsconfig.json',
 });
