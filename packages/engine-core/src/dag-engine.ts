@@ -106,7 +106,13 @@ export class DAGEngine {
     // Evaluate affected nodes in order
     for (const nodeId of evalOrder) {
       if (!affected.has(nodeId)) continue;
-      await this.evaluateNode(graph, nodeId);
+      try {
+        await this.evaluateNode(graph, nodeId);
+      } catch (error) {
+        // Error is already logged and stored in node.state by evaluateNode()
+        // Continue evaluation of other nodes
+        console.error(`Failed to evaluate node ${nodeId}:`, error);
+      }
     }
 
     this.emitEvaluationSummary();
