@@ -73,7 +73,7 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
     }
 
     cursorUpdateTimeoutRef.current = window.setTimeout(() => {
-      collaborationEngine.broadcastCursor(sessionId, currentUserId, cursor);
+      collaborationEngine.broadcastCursor(sessionId as SessionId, currentUserId as UserId, cursor);
     }, 50); // 50ms throttle
   }, [sessionId, currentUserId, containerRef, isTrackingCursor]);
 
@@ -93,7 +93,7 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
     }
 
     selectionUpdateTimeoutRef.current = window.setTimeout(() => {
-      collaborationEngine.broadcastSelection(sessionId, currentUserId, selection);
+      collaborationEngine.broadcastSelection(sessionId as SessionId, currentUserId as UserId, selection);
     }, 200); // 200ms throttle
   }, [sessionId, currentUserId, isTrackingCursor]);
 
@@ -211,7 +211,7 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
   useEffect(() => {
     const loadPresence = async () => {
       try {
-        const presenceData = await collaborationEngine.getPresenceState(sessionId);
+        const presenceData = await collaborationEngine.getPresenceState(sessionId as SessionId);
 
         // Convert cursor and selection data from PresenceData map
         const userCursors = new Map<UserId, UserCursor>();

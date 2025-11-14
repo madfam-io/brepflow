@@ -99,7 +99,7 @@ export function useCollaboration(
         // Ensure WebSocket is connected before creating session
         await ensureWebSocketConnected();
 
-        const sessionId = await collaborationEngine.createSession(projectId, user.id);
+        const sessionId = await collaborationEngine.createSession(projectId, user.id as UserId);
         await collaborationEngine.joinSession(sessionId, user);
 
         setState(prev => ({
@@ -138,7 +138,7 @@ export function useCollaboration(
     leaveSession: useCallback(async (): Promise<void> => {
       if (state.sessionId && state.currentUser) {
         try {
-          await collaborationEngine.leaveSession(state.sessionId, state.currentUser.id);
+          await collaborationEngine.leaveSession(state.sessionId as SessionId, state.currentUser.id);
 
           setState(prev => ({
             ...prev,
@@ -228,7 +228,7 @@ export function useCollaboration(
       if (!state.sessionId) return;
 
       try {
-        await collaborationEngine.applyOperation(state.sessionId, operation);
+        await collaborationEngine.applyOperation(state.sessionId as SessionId, operation);
 
         setState(prev => ({
           ...prev,
@@ -335,7 +335,7 @@ export function useCollaboration(
     if (state.sessionId) {
       const loadPresence = async () => {
         try {
-          const presenceData = await collaborationEngine.getPresenceState(state.sessionId!);
+          const presenceData = await collaborationEngine.getPresenceState(state.sessionId! as SessionId);
 
           // Extract users, cursors, and selections from PresenceData map
           const users = new Map();

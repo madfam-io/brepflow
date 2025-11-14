@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
-import type { NodeInstance } from '@brepflow/types';
+import type { NodeInstance, NodeId } from '@brepflow/types';
 import { StatusIcon } from './icons/IconSystem';
 import { Icon } from './icons/IconSystem';
 import { Button } from './ui/Button';
@@ -11,7 +11,7 @@ import './Inspector.css';
 
 interface InspectorProps {
   selectedNode: NodeInstance | null;
-  onParamChange: (nodeId: string, updates: Partial<NodeInstance>) => void;
+  onParamChange: (nodeId: NodeId, updates: Partial<NodeInstance>) => void;
 }
 
 interface ParamConfig {
