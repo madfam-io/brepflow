@@ -8,6 +8,7 @@ const logger = {
   info: (msg: string, ...args: unknown[]) => console.info('[HealthCheck]', msg, ...args),
   error: (msg: string, ...args: unknown[]) => console.error('[HealthCheck]', msg, ...args),
   warn: (msg: string, ...args: unknown[]) => console.warn('[HealthCheck]', msg, ...args),
+  debug: (msg: string, ...args: unknown[]) => console.debug('[HealthCheck]', msg, ...args),
 };
 
 export interface HealthStatus {

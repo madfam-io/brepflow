@@ -3,7 +3,7 @@
  * Handles startup sequence, validation, and health checks
  */
 
-import { getGeometryAPI, IntegratedGeometryAPI } from '@brepflow/engine-occt';
+import { getGeometryAPI } from '@brepflow/engine-occt';
 import { getConfig } from '@brepflow/engine-core';
 import { healthCheckService } from '../api/health';
 
@@ -11,6 +11,7 @@ const logger = {
   info: (msg: string, ...args: unknown[]) => console.info('[Initialization]', msg, ...args),
   error: (msg: string, ...args: unknown[]) => console.error('[Initialization]', msg, ...args),
   warn: (msg: string, ...args: unknown[]) => console.warn('[Initialization]', msg, ...args),
+  debug: (msg: string, ...args: unknown[]) => console.debug('[Initialization]', msg, ...args),
 };
 
 export interface InitializationResult {
@@ -153,7 +154,7 @@ export class InitializationService {
       // IntegratedGeometryAPI always aims for real geometry
       result.capabilities.realGeometry = true;
 
-      const config = getConfig();
+      const _config = getConfig(); // Available for future use
       
       if (!result.capabilities.realGeometry) {
         const message = 'Real geometry API is required but not available';

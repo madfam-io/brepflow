@@ -171,19 +171,19 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
     };
 
     // Add event listeners
-    collaborationEngine.addEventListener('user-joined', handleUserJoined);
-    collaborationEngine.addEventListener('user-left', handleUserLeft);
-    collaborationEngine.addEventListener('cursor-updated', handleCursorUpdated);
-    collaborationEngine.addEventListener('selection-updated', handleSelectionUpdated);
-    collaborationEngine.addEventListener('user-updated', handleUserUpdated);
+    collaborationEngine.on('session-joined', handleUserJoined);
+    collaborationEngine.on('session-left', handleUserLeft);
+    collaborationEngine.on('presence-updated', handleCursorUpdated);
+    collaborationEngine.on('presence-updated', handleSelectionUpdated);
+    collaborationEngine.on('presence-updated', handleUserUpdated);
 
     return () => {
       // Remove event listeners
-      collaborationEngine.removeEventListener('user-joined', handleUserJoined);
-      collaborationEngine.removeEventListener('user-left', handleUserLeft);
-      collaborationEngine.removeEventListener('cursor-updated', handleCursorUpdated);
-      collaborationEngine.removeEventListener('selection-updated', handleSelectionUpdated);
-      collaborationEngine.removeEventListener('user-updated', handleUserUpdated);
+      collaborationEngine.off('session-joined', handleUserJoined);
+      collaborationEngine.off('session-left', handleUserLeft);
+      collaborationEngine.off('presence-updated', handleCursorUpdated);
+      collaborationEngine.off('presence-updated', handleSelectionUpdated);
+      collaborationEngine.off('presence-updated', handleUserUpdated);
     };
   }, [sessionId, currentUserId, users]);
 
@@ -211,34 +211,31 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
   useEffect(() => {
     const loadPresence = async () => {
       try {
-        const presence = await collaborationEngine.getPresence(sessionId);
-        setUsers(presence.users);
+        const presenceData = await collaborationEngine.getPresenceState(sessionId);
 
-        // Convert cursor and selection data
+        // Convert cursor and selection data from PresenceData map
         const userCursors = new Map<UserId, UserCursor>();
         const userSelections = new Map<UserId, UserSelection>();
 
-        for (const [userId, cursor] of presence.cursors) {
-          const user = presence.users.get(userId);
-          if (user && userId !== currentUserId) {
-            userCursors.set(userId, {
-              userId,
-              user,
-              position: cursor,
-              visible: true,
-            });
-          }
-        }
-
-        for (const [userId, selection] of presence.selections) {
-          const user = presence.users.get(userId);
-          if (user && userId !== currentUserId) {
-            userSelections.set(userId, {
-              userId,
-              user,
-              selection,
-              visible: true,
-            });
+        for (const [userId, presence] of presenceData) {
+          if (userId !== currentUserId) {
+            const user = users.get(userId);
+            if (user && presence.cursor) {
+              userCursors.set(userId, {
+                userId,
+                user,
+                position: presence.cursor,
+                visible: true,
+              });
+            }
+            if (user && presence.selection) {
+              userSelections.set(userId, {
+                userId,
+                user,
+                selection: presence.selection,
+                visible: true,
+              });
+            }
           }
         }
 

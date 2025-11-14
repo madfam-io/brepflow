@@ -152,7 +152,7 @@ vi.mock('@brepflow/engine-occt', () => ({
 // Mock @brepflow/engine-core
 vi.mock('@brepflow/engine-core', () => {
   // Store instances to allow reset between tests
-  let graphManagerInstances: any[] = [];
+  const graphManagerInstances: any[] = [];
 
   class MockGraphManager {
     graph: any;

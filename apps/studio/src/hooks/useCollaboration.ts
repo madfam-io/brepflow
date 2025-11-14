@@ -314,19 +314,19 @@ export function useCollaboration(
     };
 
     // Add event listeners
-    collaborationEngine.addEventListener('user-joined', handleUserJoined);
-    collaborationEngine.addEventListener('user-left', handleUserLeft);
-    collaborationEngine.addEventListener('cursor-updated', handleCursorUpdated);
-    collaborationEngine.addEventListener('selection-updated', handleSelectionUpdated);
-    collaborationEngine.addEventListener('user-updated', handleUserUpdated);
+    collaborationEngine.on('session-joined', handleUserJoined);
+    collaborationEngine.on('session-left', handleUserLeft);
+    collaborationEngine.on('presence-updated', handleCursorUpdated);
+    collaborationEngine.on('presence-updated', handleSelectionUpdated);
+    collaborationEngine.on('presence-updated', handleUserUpdated);
 
     return () => {
       // Remove event listeners
-      collaborationEngine.removeEventListener('user-joined', handleUserJoined);
-      collaborationEngine.removeEventListener('user-left', handleUserLeft);
-      collaborationEngine.removeEventListener('cursor-updated', handleCursorUpdated);
-      collaborationEngine.removeEventListener('selection-updated', handleSelectionUpdated);
-      collaborationEngine.removeEventListener('user-updated', handleUserUpdated);
+      collaborationEngine.off('session-joined', handleUserJoined);
+      collaborationEngine.off('session-left', handleUserLeft);
+      collaborationEngine.off('presence-updated', handleCursorUpdated);
+      collaborationEngine.off('presence-updated', handleSelectionUpdated);
+      collaborationEngine.off('presence-updated', handleUserUpdated);
     };
   }, [state.sessionId, state.currentUser?.id]);
 
@@ -335,13 +335,27 @@ export function useCollaboration(
     if (state.sessionId) {
       const loadPresence = async () => {
         try {
-          const presence = await collaborationEngine.getPresence(state.sessionId!);
+          const presenceData = await collaborationEngine.getPresenceState(state.sessionId!);
+
+          // Extract users, cursors, and selections from PresenceData map
+          const users = new Map();
+          const cursors = new Map();
+          const selections = new Map();
+
+          for (const [userId, presence] of presenceData) {
+            if (presence.cursor) {
+              cursors.set(userId, presence.cursor);
+            }
+            if (presence.selection) {
+              selections.set(userId, presence.selection);
+            }
+          }
 
           setState(prev => ({
             ...prev,
-            users: presence.users,
-            cursors: presence.cursors,
-            selections: presence.selections,
+            users,
+            cursors,
+            selections,
           }));
         } catch (error) {
           console.error('Failed to load presence:', error);
