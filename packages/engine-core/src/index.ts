@@ -4,7 +4,7 @@ export * from './node-registry';
 export * from './cache';
 export * from './hash';
 export * from './config/environment';
-// export * from './geometry-api-factory'; // Node.js only - uses node:path and node:url
+export * from './geometry-api-factory'; // Node.js only - uses node:path and node:url
 export * from './constraints';
 export * from './errors';
 export * from './diagnostics/evaluation-profiler';

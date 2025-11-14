@@ -146,21 +146,50 @@ export class GeometryAPIFactory {
 
     try {
       // Dynamic import to avoid loading in environments where it's not available
-      const { createProductionAPI } = await importEngineOCCTSafely();
+      const { createGeometryAPI } = await importEngineOCCTSafely();
 
-      const api = createProductionAPI({
-        wasmPath: config.occtWasmPath,
-        initTimeout: options.initTimeout || config.occtInitTimeout,
-        validateOutput: options.validateOutput ?? config.validateGeometryOutput,
-        memoryThreshold: config.workerRestartThresholdMB,
+      const integratedAPI = createGeometryAPI({
+        enableRealOCCT: true,
+        enablePerformanceMonitoring: options.validateOutput ?? config.validateGeometryOutput,
+        enableMemoryManagement: true,
+        enableErrorRecovery: options.enableRetry ?? false,
+        maxRetries: options.retryAttempts || 3,
+        operationTimeout: options.initTimeout || config.occtInitTimeout,
       });
 
-      // Initialize with retry logic if enabled
-      if (options.enableRetry) {
-        await this.initializeWithRetry(api, options.retryAttempts || 3);
-      } else {
-        await api.init();
-      }
+      // Initialize the API
+      await integratedAPI.init();
+
+      // Create adapter to match WorkerAPI interface
+      // IntegratedGeometryAPI.invoke returns OperationResult<T>, but WorkerAPI expects T
+      const api: WorkerAPI = {
+        init: async () => {
+          await integratedAPI.init();
+        },
+        invoke: async <T = any>(operation: string, params: any): Promise<T> => {
+          const result = await integratedAPI.invoke<T>(operation, params);
+          if (!result.success) {
+            throw new Error(result.error || `Operation ${operation} failed`);
+          }
+          return result.result as T;
+        },
+        tessellate: async (shapeId: string, deflection: number) => {
+          const result = await integratedAPI.invoke('TESSELLATE', { shapeId, deflection });
+          if (!result.success) {
+            throw new Error(result.error || 'Tessellation failed');
+          }
+          return result.result;
+        },
+        dispose: async (handleId: string) => {
+          const result = await integratedAPI.invoke('DISPOSE', { handleId });
+          if (!result.success) {
+            throw new Error(result.error || 'Dispose failed');
+          }
+        },
+        terminate: async () => {
+          await integratedAPI.shutdown();
+        }
+      };
 
       // Verify initialization
       const health = await api.invoke('HEALTH_CHECK', {});

@@ -5,7 +5,7 @@
  * Sessions are temporary (24h lifetime) and stored in-memory
  */
 
-import { v7 as uuidv7 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import type { GraphInstance } from '@brepflow/types';
 
 export interface Session {
@@ -42,7 +42,7 @@ export class SimpleSessionManager {
    * Create new session with empty or provided graph
    */
   createSession(graph?: GraphInstance): Session {
-    const sessionId = uuidv7();
+    const sessionId = uuidv4();
     const now = Date.now();
     
     const session: Session = {

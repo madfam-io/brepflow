@@ -14,13 +14,17 @@ COPY turbo.json tsconfig*.json ./
 # Copy collaboration package and dependencies
 COPY packages/collaboration ./packages/collaboration
 COPY packages/types ./packages/types
+COPY packages/engine-core ./packages/engine-core
+COPY packages/schemas ./packages/schemas
 COPY config ./config
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Build packages
+# Build packages in dependency order
 RUN pnpm --filter @brepflow/types run build
+RUN pnpm --filter @brepflow/schemas run build || true
+RUN pnpm --filter @brepflow/engine-core run build
 RUN pnpm --filter @brepflow/collaboration run build
 
 EXPOSE 8080

@@ -158,6 +158,18 @@ async function attemptWASMLoad(): Promise<any> {
   // For now, we use a dynamic import approach that won't break Vite
 
   try {
+    // Check if we're in Node.js environment (Vitest tests)
+    const isNode = typeof process !== 'undefined' && process.versions && process.versions.node;
+    const isBrowser = typeof window !== 'undefined';
+    const isWorker = typeof self !== 'undefined' && typeof importScripts === 'function';
+
+    if (isNode && !isBrowser && !isWorker) {
+      console.log('[OCCT] Node.js environment detected, loading Node.js WASM module');
+      // Delegate to occt-loader.ts which has Node.js support
+      const { loadOCCTModule } = await import('./occt-loader');
+      return await loadOCCTModule();
+    }
+
     // Check if we're in a browser/worker environment
     // In workers, 'self' is the global scope; in browser, it's 'window'
     const globalScope: any = typeof self !== 'undefined' ? self : (typeof window !== 'undefined' ? window : null);
@@ -220,6 +232,28 @@ async function attemptWASMLoad(): Promise<any> {
 }
 
 /**
+ * Flatten nested bbox structure from WASM to flat properties expected by GeometryAPI
+ */
+function flattenBoundingBox(shape: any): any {
+  if (!shape) return flattenBoundingBox(shape);
+
+  // If bbox is nested (new WASM format), flatten it
+  if (shape.bbox && typeof shape.bbox === 'object' && shape.bbox.min && shape.bbox.max) {
+    return {
+      ...shape,
+      bbox_min_x: shape.bbox.min.x,
+      bbox_min_y: shape.bbox.min.y,
+      bbox_min_z: shape.bbox.min.z,
+      bbox_max_x: shape.bbox.max.x,
+      bbox_max_y: shape.bbox.max.y,
+      bbox_max_z: shape.bbox.max.z,
+    };
+  }
+
+  return flattenBoundingBox(shape);
+}
+
+/**
  * Creates the real OCCT module implementation with error boundaries
  */
 function createRealOCCTModule(wasm: any): OCCTModule {
@@ -231,7 +265,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
         throw new Error('Invalid shape returned from WASM');
       }
       OCCTMemoryManager.trackShape(shape.id);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     makeBoxWithOrigin: createErrorBoundaryWrapper('makeBoxWithOrigin',
@@ -242,7 +276,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
           throw new Error('Invalid shape returned from WASM');
         }
         OCCTMemoryManager.trackShape(shape.id);
-        return shape;
+        return flattenBoundingBox(shape);
     }),
 
     makeSphere: createErrorBoundaryWrapper('makeSphere', (radius: number) => {
@@ -252,7 +286,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
         throw new Error('Invalid shape returned from WASM');
       }
       OCCTMemoryManager.trackShape(shape.id);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     makeSphereWithCenter: createErrorBoundaryWrapper('makeSphereWithCenter',
@@ -263,7 +297,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
           throw new Error('Invalid shape returned from WASM');
         }
         OCCTMemoryManager.trackShape(shape.id);
-        return shape;
+        return flattenBoundingBox(shape);
     }),
 
     makeCylinder: createErrorBoundaryWrapper('makeCylinder', (radius: number, height: number) => {
@@ -273,7 +307,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
         throw new Error('Invalid shape returned from WASM');
       }
       OCCTMemoryManager.trackShape(shape.id);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     makeCone: createErrorBoundaryWrapper('makeCone', (radius1: number, radius2: number, height: number) => {
@@ -283,7 +317,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
         throw new Error('Invalid shape returned from WASM');
       }
       OCCTMemoryManager.trackShape(shape.id);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     makeTorus: createErrorBoundaryWrapper('makeTorus', (majorRadius: number, minorRadius: number) => {
@@ -293,7 +327,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
         throw new Error('Invalid shape returned from WASM');
       }
       OCCTMemoryManager.trackShape(shape.id);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     // Advanced operations
@@ -305,7 +339,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
           throw new Error('Invalid shape returned from WASM');
         }
         OCCTMemoryManager.trackShape(shape.id);
-        return shape;
+        return flattenBoundingBox(shape);
     }),
 
     revolve: createErrorBoundaryWrapper('revolve',
@@ -317,7 +351,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
           throw new Error('Invalid shape returned from WASM');
         }
         OCCTMemoryManager.trackShape(shape.id);
-        return shape;
+        return flattenBoundingBox(shape);
     }),
 
     // Boolean operations
@@ -330,7 +364,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
       OCCTMemoryManager.trackShape(shape.id);
       OCCTMemoryManager.untrackShape(shape1Id);
       OCCTMemoryManager.untrackShape(shape2Id);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     booleanSubtract: createErrorBoundaryWrapper('booleanSubtract', (shape1Id: string, shape2Id: string) => {
@@ -342,7 +376,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
       OCCTMemoryManager.trackShape(shape.id);
       OCCTMemoryManager.untrackShape(shape1Id);
       OCCTMemoryManager.untrackShape(shape2Id);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     booleanIntersect: createErrorBoundaryWrapper('booleanIntersect', (shape1Id: string, shape2Id: string) => {
@@ -354,7 +388,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
       OCCTMemoryManager.trackShape(shape.id);
       OCCTMemoryManager.untrackShape(shape1Id);
       OCCTMemoryManager.untrackShape(shape2Id);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     // Feature operations
@@ -366,7 +400,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
       }
       OCCTMemoryManager.trackShape(shape.id);
       OCCTMemoryManager.untrackShape(shapeId);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     makeChamfer: createErrorBoundaryWrapper('makeChamfer', (shapeId: string, distance: number) => {
@@ -377,7 +411,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
       }
       OCCTMemoryManager.trackShape(shape.id);
       OCCTMemoryManager.untrackShape(shapeId);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     makeShell: createErrorBoundaryWrapper('makeShell', (shapeId: string, thickness: number) => {
@@ -388,7 +422,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
       }
       OCCTMemoryManager.trackShape(shape.id);
       OCCTMemoryManager.untrackShape(shapeId);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     // Transformation operations
@@ -403,7 +437,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
         }
         OCCTMemoryManager.trackShape(shape.id);
         OCCTMemoryManager.untrackShape(shapeId);
-        return shape;
+        return flattenBoundingBox(shape);
     }),
 
     copyShape: createErrorBoundaryWrapper('copyShape', (shapeId: string) => {
@@ -413,7 +447,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
         throw new Error('Invalid shape returned from WASM');
       }
       OCCTMemoryManager.trackShape(shape.id);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     // Tessellation
@@ -437,7 +471,7 @@ function createRealOCCTModule(wasm: any): OCCTModule {
         throw new Error('Invalid shape returned from WASM');
       }
       OCCTMemoryManager.trackShape(shape.id);
-      return shape;
+      return flattenBoundingBox(shape);
     }),
 
     exportSTEP: createErrorBoundaryWrapper('exportSTEP', (shapeId: string) => {

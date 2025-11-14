@@ -13,6 +13,15 @@ export default defineConfig([
       format: ['esm', 'cjs'], // Provide both module formats for Node + bundlers
       dts: false, // TODO: Re-enable after fixing branded type issues
       shims: false, // Disable ESM shims to avoid Node.js module imports
+      external: [
+        'fs',
+        'path',
+        'url',
+        'node:fs',
+        'node:path',
+        'node:url',
+        /^@brepflow\//,
+      ],
     }),
   },
   {
@@ -23,6 +32,15 @@ export default defineConfig([
       shims: false, // Disable ESM shims to avoid Node.js module imports
       skipNodeModulesBundle: false, // Bundle all dependencies for worker
       noExternal: ['uuid'], // Ensure uuid is bundled
+      external: [
+        'fs',
+        'path',
+        'url',
+        'node:fs',
+        'node:path',
+        'node:url',
+        'node:worker_threads',
+      ],
     }),
     clean: false, // Don't clean since we run after main build
   }
