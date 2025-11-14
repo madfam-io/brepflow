@@ -50,6 +50,7 @@ export class ProductionSafetyError extends Error {
  * Validate that ONLY real OCCT geometry is being used
  */
 export function validateProductionSafety(usingRealOCCT: boolean, environment?: EnvironmentConfig): void {
+  console.log('[ProductionSafety] DEBUG: validateProductionSafety called with:', usingRealOCCT, 'type:', typeof usingRealOCCT);
   if (!usingRealOCCT) {
     const env = environment || detectEnvironment();
     throw new ProductionSafetyError(

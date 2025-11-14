@@ -216,7 +216,10 @@ main() {
     -s EXPORT_NAME='createOCCTModule' \
     -s ENVIRONMENT='web,worker' \
     -s INITIAL_MEMORY=${INITIAL_MEMORY_MB}MB \
-    -s MAXIMUM_MEMORY=${MAX_MEMORY_MB}MB
+    -s MAXIMUM_MEMORY=${MAX_MEMORY_MB}MB \
+    -s EXPORTED_RUNTIME_METHODS='["addFunction","removeFunction","UTF8ToString","stringToUTF8","lengthBytesUTF8"]' \
+    -s DEFAULT_LIBRARY_FUNCS_TO_INCLUDE='["$Browser","$GL","$FS"]' \
+    -s ALLOW_TABLE_GROWTH=1
 
   compile_variant \
     "optimized web OCCT" \
@@ -239,7 +242,10 @@ main() {
     -s EXPORT_NAME='createOCCTNodeModule' \
     -s ENVIRONMENT='node,worker' \
     -s INITIAL_MEMORY=${NODE_INITIAL_MEMORY_MB}MB \
-    -s MAXIMUM_MEMORY=${MAX_MEMORY_MB}MB
+    -s MAXIMUM_MEMORY=${MAX_MEMORY_MB}MB \
+    -s EXPORTED_RUNTIME_METHODS='["addFunction","removeFunction","UTF8ToString","stringToUTF8","lengthBytesUTF8"]' \
+    -s DEFAULT_LIBRARY_FUNCS_TO_INCLUDE='["$Browser","$GL","$FS"]' \
+    -s ALLOW_TABLE_GROWTH=1
 
   run_node_smoke_tests
   post_build_summary

@@ -213,91 +213,68 @@ async function loadFullOCCTModule(config: OCCTConfig, options: LoaderOptions): P
     throw new Error(`WASM file not accessible: ${wasmUrl}`);
   }
 
-  // Load the JavaScript glue code if it exists
-  let Module: any = {};
-
+  // Load the JavaScript glue code - REQUIRED for pthread support
   try {
-    // Try to load the JS glue code
-    const jsUrl = new URL(/* @vite-ignore */ '../wasm/occt.js', import.meta.url).href; // Full OCCT uses occt.js
+    const jsUrl = new URL(/* @vite-ignore */ '../wasm/occt.js', import.meta.url).href;
     const jsModule = await import(jsUrl);
-
-    if (jsModule.default || jsModule.Module) {
-      Module = jsModule.default || jsModule.Module;
+    
+    // Get the factory function from the module
+    const factory = jsModule.default || jsModule.createOCCTModule;
+    
+    if (typeof factory !== 'function') {
+      throw new Error('OCCT JS glue code does not export a factory function');
     }
-  } catch (jsError) {
-    console.warn('[OCCT] No JS glue code found, using direct WASM instantiation');
-  }
 
-  // Configure the module with capability-aware settings
-  const moduleConfig = {
-    locateFile: (path: string) => {
-      if (path.endsWith('.wasm')) {
-        return wasmUrl;
+    // Configure the module with capability-aware settings
+    const moduleConfig = {
+      locateFile: (path: string) => {
+        if (path.endsWith('.wasm')) {
+          return wasmUrl;
+        }
+        if (path.endsWith('.js') || path.endsWith('.worker.js')) {
+          return new URL(/* @vite-ignore */ `../wasm/${path}`, import.meta.url).href;
+        }
+        return path;
+      },
+
+      // Memory configuration based on detected capabilities
+      INITIAL_MEMORY: parseInt(config.memory.replace(/GB|MB/, '')) * (config.memory.includes('GB') ? 1024 * 1024 * 1024 : 1024 * 1024),
+      MAXIMUM_MEMORY: 4 * 1024 * 1024 * 1024, // 4GB max
+      ALLOW_MEMORY_GROWTH: true,
+
+      // Threading support (requires COOP/COEP headers)
+      USE_PTHREADS: config.useThreads,
+      PTHREAD_POOL_SIZE: config.workers,
+
+      // Runtime callbacks
+      onRuntimeInitialized: function() {
+        console.log('[OCCT] Full runtime initialized successfully');
+
+        // Validate that we have the expected OCCT functions
+        if (this._BRepPrimAPI_MakeBox) {
+          console.log('[OCCT] BRepPrimAPI_MakeBox available ✓');
+        }
+        if (this._BRepPrimAPI_MakeSphere) {
+          console.log('[OCCT] BRepPrimAPI_MakeSphere available ✓');
+        }
+        if (this._BRepPrimAPI_MakeCylinder) {
+          console.log('[OCCT] BRepPrimAPI_MakeCylinder available ✓');
+        }
+      },
+
+      print: (text: string) => {
+        console.log('[OCCT Output]', text);
+      },
+
+      printErr: (text: string) => {
+        console.error('[OCCT Error]', text);
       }
-      if (path.endsWith('.js')) {
-        return new URL(/* @vite-ignore */ `../wasm/${path}`, import.meta.url).href;
-      }
-      return path;
-    },
+    };
 
-    // Memory configuration based on detected capabilities
-    INITIAL_MEMORY: parseInt(config.memory.replace(/GB|MB/, '')) * (config.memory.includes('GB') ? 1024 * 1024 * 1024 : 1024 * 1024),
-    MAXIMUM_MEMORY: 4 * 1024 * 1024 * 1024, // 4GB max
-    ALLOW_MEMORY_GROWTH: true,
-
-    // Threading support (requires COOP/COEP headers)
-    USE_PTHREADS: config.useThreads,
-    PTHREAD_POOL_SIZE: config.workers,
-
-    // Runtime callbacks
-    onRuntimeInitialized: function() {
-      console.log('[OCCT] Full runtime initialized successfully');
-
-      // Validate that we have the expected OCCT functions
-      if (this._BRepPrimAPI_MakeBox) {
-        console.log('[OCCT] BRepPrimAPI_MakeBox available ✓');
-      }
-      if (this._BRepPrimAPI_MakeSphere) {
-        console.log('[OCCT] BRepPrimAPI_MakeSphere available ✓');
-      }
-      if (this._BRepPrimAPI_MakeCylinder) {
-        console.log('[OCCT] BRepPrimAPI_MakeCylinder available ✓');
-      }
-    },
-
-    print: (text: string) => {
-      console.log('[OCCT Output]', text);
-    },
-
-    printErr: (text: string) => {
-      console.error('[OCCT Error]', text);
-    }
-  };
-
-  // Initialize the module
-  let occtModule: any;
-
-  if (typeof Module === 'function') {
-    // Module is a factory function
-    occtModule = await Module(moduleConfig);
-  } else if (Module && typeof Module === 'object') {
-    // Module is an object, merge config
-    Object.assign(Module, moduleConfig);
-
-    // If Module has an initialization function
-    if (Module.then) {
-      occtModule = await Module;
-    } else if (Module.ready) {
-      await Module.ready;
-      occtModule = Module;
-    } else {
-      occtModule = await instantiateWASMDirect(wasmUrl, Module);
-    }
-  } else {
-    occtModule = await instantiateWASMDirect(wasmUrl);
-  }
-
-  console.log('[OCCT] Full module loaded successfully', {
+    // Call the Emscripten factory function with our config
+    const occtModule = await factory(moduleConfig);
+    
+    console.log('[OCCT] Full module loaded successfully', {
     hasExports: !!occtModule,
     exportCount: occtModule ? Object.keys(occtModule).length : 0
   });
@@ -308,6 +285,10 @@ async function loadFullOCCTModule(config: OCCTConfig, options: LoaderOptions): P
   const occtAdapter = new OCCTAdapter(occtModule);
   await occtAdapter.init();
   return occtAdapter;
+  } catch (error) {
+    console.error('[OCCT] Failed to load full OCCT module:', error);
+    throw error;
+  }
 }
 
 async function loadOptimizedOCCTModule(config: OCCTConfig, options: LoaderOptions): Promise<any> {
@@ -320,77 +301,67 @@ async function loadOptimizedOCCTModule(config: OCCTConfig, options: LoaderOption
     throw new Error(`WASM file not accessible: ${wasmUrl}`);
   }
 
-  // Load the JavaScript glue code if it exists
-  let Module: any = {};
-
+  // Load the JavaScript glue code
   try {
-    // Try to load the JS glue code for optimized version
     const jsUrl = new URL(/* @vite-ignore */ '../wasm/occt-core.js', import.meta.url).href;
     const jsModule = await import(jsUrl);
-
-    if (jsModule.default || jsModule.Module) {
-      Module = jsModule.default || jsModule.Module;
+    
+    // Get the factory function from the module
+    const factory = jsModule.default || jsModule.createOCCTCoreModule;
+    
+    if (typeof factory !== 'function') {
+      throw new Error('OCCT Core JS glue code does not export a factory function');
     }
-  } catch (jsError) {
-    console.warn('[OCCT] No JS glue code found, using direct WASM instantiation');
-  }
 
-  // Configure the module with optimized settings
-  const moduleConfig = {
-    locateFile: (path: string) => {
-      if (path.endsWith('.wasm')) {
-        return wasmUrl;
+    // Configure the module with optimized settings
+    const moduleConfig = {
+      locateFile: (path: string) => {
+        if (path.endsWith('.wasm')) {
+          return wasmUrl;
+        }
+        if (path.endsWith('.js')) {
+          return new URL(/* @vite-ignore */ `../wasm/${path}`, import.meta.url).href;
+        }
+        return path;
+      },
+
+      // Optimized memory configuration
+      INITIAL_MEMORY: parseInt(config.memory.replace(/GB|MB/, '')) * (config.memory.includes('GB') ? 1024 * 1024 * 1024 : 1024 * 1024),
+      MAXIMUM_MEMORY: 2 * 1024 * 1024 * 1024, // 2GB max for optimized
+      ALLOW_MEMORY_GROWTH: true,
+
+      // No threading for optimized version
+      USE_PTHREADS: false,
+
+      // Runtime callbacks
+      onRuntimeInitialized: function() {
+        console.log('[OCCT] Optimized runtime initialized successfully');
+      },
+
+      print: (text: string) => {
+        console.log('[OCCT Output]', text);
+      },
+
+      printErr: (text: string) => {
+        console.error('[OCCT Error]', text);
       }
-      if (path.endsWith('.js')) {
-        return new URL(/* @vite-ignore */ `../wasm/${path}`, import.meta.url).href;
-      }
-      return path;
-    },
+    };
 
-    // Optimized memory configuration
-    INITIAL_MEMORY: parseInt(config.memory.replace(/GB|MB/, '')) * (config.memory.includes('GB') ? 1024 * 1024 * 1024 : 1024 * 1024),
-    MAXIMUM_MEMORY: 2 * 1024 * 1024 * 1024, // 2GB max for optimized
-    ALLOW_MEMORY_GROWTH: true,
+    // Call the Emscripten factory function with our config
+    const occtModule = await factory(moduleConfig);
+    
+    console.log('[OCCT] Optimized module loaded successfully');
+    
+    (globalThis as any).Module = occtModule;
 
-    // No threading for optimized version
-    USE_PTHREADS: false,
-
-    // Runtime callbacks
-    onRuntimeInitialized: function() {
-      console.log('[OCCT] Optimized runtime initialized successfully');
-    },
-
-    print: (text: string) => {
-      console.log('[OCCT Output]', text);
-    },
-
-    printErr: (text: string) => {
-      console.error('[OCCT Error]', text);
-    }
-  };
-
-  // Initialize the module
-  let occtModule: any;
-
-  if (typeof Module === 'function') {
-    occtModule = await Module(moduleConfig);
-  } else if (Module && typeof Module === 'object') {
-    Object.assign(Module, moduleConfig);
-
-    if (Module.then) {
-      occtModule = await Module;
-    } else if (Module.ready) {
-      await Module.ready;
-      occtModule = Module;
-    } else {
-      occtModule = await instantiateWASMDirect(wasmUrl, Module);
-    }
-  } else {
-    occtModule = await instantiateWASMDirect(wasmUrl);
+    // Wrap the raw OCCT module with an invoke interface
+    const occtAdapter = new OCCTAdapter(occtModule);
+    await occtAdapter.init();
+    return occtAdapter;
+  } catch (error) {
+    console.error('[OCCT] Failed to load optimized OCCT module:', error);
+    throw error;
   }
-
-  console.log('[OCCT] Optimized module loaded successfully');
-  return occtModule;
 }
 
 async function instantiateWASMDirect(wasmUrl: string, Module?: any): Promise<any> {
@@ -398,7 +369,9 @@ async function instantiateWASMDirect(wasmUrl: string, Module?: any): Promise<any
   const wasmBuffer = await response.arrayBuffer();
 
   const wasmModule = await WebAssembly.compile(wasmBuffer);
-  const memory = new WebAssembly.Memory({ initial: 256, maximum: 16384 });
+  // OCCT requires 512MB minimum (8192 pages × 64KB/page = 512MB)
+  // Using shared memory for potential threading support
+  const memory = new WebAssembly.Memory({ initial: 8192, maximum: 32768, shared: true });
 
   const instance = await WebAssembly.instantiate(wasmModule, {
     env: {
