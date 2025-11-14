@@ -4,11 +4,11 @@
  */
 
 import { getGeometryAPI, isRealGeometryAvailable } from './geometry-api';
-import type { WorkerAPI } from '@brepflow/types';
+// Removed unused WorkerAPI import
 
 export interface ExportOptions {
   format: 'step' | 'stl' | 'iges';
-  binary?: boolean;  // For STL
+  binary?: boolean; // For STL
   precision?: number; // For tessellation
 }
 
@@ -45,30 +45,45 @@ export async function exportGeometry(
     }
 
     switch (options.format) {
-      case 'step':
+      case 'step': {
         // Export to STEP format
-        exportData = await api.invoke('EXPORT_STEP', {
+        const stepResult = await api.invoke('EXPORT_STEP', {
           shapeId: primaryShape.id,
-          includeMetadata: true
+          includeMetadata: true,
         });
+        if (!stepResult.success || !stepResult.result) {
+          throw new Error(stepResult.error || 'STEP export failed');
+        }
+        exportData = stepResult.result as string | ArrayBuffer;
         break;
+      }
 
-      case 'stl':
+      case 'stl': {
         // Export to STL format
-        exportData = await api.invoke('EXPORT_STL', {
+        const stlResult = await api.invoke('EXPORT_STL', {
           shapeId: primaryShape.id,
           binary: options.binary ?? true,
-          precision: options.precision ?? 0.1
+          precision: options.precision ?? 0.1,
         });
+        if (!stlResult.success || !stlResult.result) {
+          throw new Error(stlResult.error || 'STL export failed');
+        }
+        exportData = stlResult.result as string | ArrayBuffer;
         break;
+      }
 
-      case 'iges':
+      case 'iges': {
         // Export to IGES format
-        exportData = await api.invoke('EXPORT_IGES', {
+        const igesResult = await api.invoke('EXPORT_IGES', {
           shapeId: primaryShape.id,
-          version: 5.3
+          version: 5.3,
         });
+        if (!igesResult.success || !igesResult.result) {
+          throw new Error(igesResult.error || 'IGES export failed');
+        }
+        exportData = igesResult.result as string | ArrayBuffer;
         break;
+      }
 
       default:
         throw new Error(`Unsupported export format: ${options.format}`);
@@ -82,13 +97,14 @@ export async function exportGeometry(
     } else {
       return new Blob([exportData], { type: mimeType });
     }
-
   } catch (error: unknown) {
     console.error(`Export to ${options.format} failed:`, error);
 
     // Provide helpful error message
     if (error instanceof Error ? error.message : String(error)?.includes('not implemented')) {
-      throw new Error(`${options.format.toUpperCase()} export is not yet implemented in the geometry engine`);
+      throw new Error(
+        `${options.format.toUpperCase()} export is not yet implemented in the geometry engine`
+      );
     }
 
     throw error;

@@ -30,8 +30,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a rectangular box with specified dimensions',
       category: 'Solid',
       tags: ['primitive', 'box', 'rectangle', 'cube'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Solid::Sphere',
@@ -46,8 +46,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a sphere with specified radius',
       category: 'Solid',
       tags: ['primitive', 'sphere', 'ball', 'round'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Solid::Cylinder',
@@ -60,8 +60,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a cylinder with specified radius and height',
       category: 'Solid',
       tags: ['primitive', 'cylinder', 'tube', 'pipe'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Solid::Cone',
@@ -74,8 +74,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a cone with specified base radius and height',
       category: 'Solid',
       tags: ['primitive', 'cone', 'tapered'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Solid::Torus',
@@ -88,8 +88,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a torus (donut shape) with major and minor radii',
       category: 'Solid',
       tags: ['primitive', 'torus', 'donut', 'ring'],
-      complexity: 'intermediate'
-    }
+      complexity: 'intermediate',
+    },
   },
 
   // Boolean Operations
@@ -104,8 +104,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Combine two shapes into one by addition',
       category: 'Boolean',
       tags: ['boolean', 'union', 'add', 'combine'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Boolean::Difference',
@@ -118,8 +118,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Subtract one shape from another',
       category: 'Boolean',
       tags: ['boolean', 'difference', 'subtract', 'cut'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Boolean::Intersection',
@@ -132,8 +132,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Keep only the overlapping parts of two shapes',
       category: 'Boolean',
       tags: ['boolean', 'intersection', 'overlap', 'common'],
-      complexity: 'intermediate'
-    }
+      complexity: 'intermediate',
+    },
   },
 
   // Transform Operations
@@ -148,8 +148,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Translate a shape by specified distances',
       category: 'Transform',
       tags: ['transform', 'move', 'translate', 'position'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Transform::Rotate',
@@ -162,8 +162,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Rotate a shape around an axis by specified angle',
       category: 'Transform',
       tags: ['transform', 'rotate', 'turn', 'angle'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Transform::Scale',
@@ -176,8 +176,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Scale a shape by a uniform factor',
       category: 'Transform',
       tags: ['transform', 'scale', 'resize', 'size'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Transform::Mirror',
@@ -190,8 +190,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Mirror a shape across a plane',
       category: 'Transform',
       tags: ['transform', 'mirror', 'reflect', 'flip'],
-      complexity: 'intermediate'
-    }
+      complexity: 'intermediate',
+    },
   },
 
   // Sketch Operations
@@ -206,8 +206,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a straight line between two points',
       category: 'Sketch',
       tags: ['sketch', 'line', 'straight', 'segment'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Sketch::Circle',
@@ -220,8 +220,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a circle with specified center and radius',
       category: 'Sketch',
       tags: ['sketch', 'circle', 'round', 'arc'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Sketch::Rectangle',
@@ -234,8 +234,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a rectangle with specified dimensions',
       category: 'Sketch',
       tags: ['sketch', 'rectangle', 'square', 'box'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Sketch::Arc',
@@ -248,8 +248,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create an arc with specified center, radius and angles',
       category: 'Sketch',
       tags: ['sketch', 'arc', 'curve', 'partial'],
-      complexity: 'intermediate'
-    }
+      complexity: 'intermediate',
+    },
   },
 
   // Features
@@ -264,8 +264,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Extrude a 2D profile into a 3D shape',
       category: 'Features',
       tags: ['features', 'extrude', 'extend', 'push'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Features::Revolve',
@@ -278,8 +278,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Revolve a 2D profile around an axis',
       category: 'Features',
       tags: ['features', 'revolve', 'rotate', 'lathe'],
-      complexity: 'intermediate'
-    }
+      complexity: 'intermediate',
+    },
   },
   {
     type: 'Features::Loft',
@@ -292,8 +292,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a shape by lofting between multiple profiles',
       category: 'Features',
       tags: ['features', 'loft', 'blend', 'transition'],
-      complexity: 'advanced'
-    }
+      complexity: 'advanced',
+    },
   },
   {
     type: 'Features::Sweep',
@@ -306,8 +306,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Sweep a profile along a path to create a shape',
       category: 'Features',
       tags: ['features', 'sweep', 'follow', 'path'],
-      complexity: 'advanced'
-    }
+      complexity: 'advanced',
+    },
   },
 
   // Fillets and Chamfers
@@ -322,8 +322,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Add rounded fillets to selected edges',
       category: 'Features',
       tags: ['features', 'fillet', 'round', 'smooth'],
-      complexity: 'intermediate'
-    }
+      complexity: 'intermediate',
+    },
   },
   {
     type: 'Features::Chamfer',
@@ -336,8 +336,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Add chamfers (beveled edges) to selected edges',
       category: 'Features',
       tags: ['features', 'chamfer', 'bevel', 'edge'],
-      complexity: 'intermediate'
-    }
+      complexity: 'intermediate',
+    },
   },
 
   // Analysis
@@ -352,8 +352,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Calculate the volume of a 3D shape',
       category: 'Analysis',
       tags: ['analysis', 'volume', 'measure', 'calculate'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Analysis::Area',
@@ -366,8 +366,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Calculate the surface area of a shape',
       category: 'Analysis',
       tags: ['analysis', 'area', 'surface', 'measure'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Analysis::BoundingBox',
@@ -380,8 +380,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Calculate the axis-aligned bounding box of a shape',
       category: 'Analysis',
       tags: ['analysis', 'bounding', 'box', 'bounds'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
 
   // Data and Utilities
@@ -396,8 +396,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a 3D point with specified coordinates',
       category: 'Data',
       tags: ['data', 'point', 'coordinate', 'position'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Data::Vector',
@@ -410,8 +410,8 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a 3D vector with specified components',
       category: 'Data',
       tags: ['data', 'vector', 'direction', 'normal'],
-      complexity: 'beginner'
-    }
+      complexity: 'beginner',
+    },
   },
   {
     type: 'Data::Plane',
@@ -424,15 +424,19 @@ const ENHANCED_FALLBACK_NODES = [
       description: 'Create a plane with specified origin and normal vector',
       category: 'Data',
       tags: ['data', 'plane', 'surface', 'flat'],
-      complexity: 'intermediate'
-    }
-  }
+      complexity: 'intermediate',
+    },
+  },
 ] as unknown as Array<NodeDefinition & { metadata: NodeMetadata }>;
 
 // Node discovery with graceful fallback and error handling
 export function useResilientNodeDiscovery() {
-  const [discoveredNodes, setDiscoveredNodes] = useState<Array<NodeDefinition & { metadata: NodeMetadata }>>([]);
-  const [discoveryStatus, setDiscoveryStatus] = useState<'discovering' | 'fallback' | 'complete'>('discovering');
+  const [discoveredNodes, setDiscoveredNodes] = useState<
+    Array<NodeDefinition & { metadata: NodeMetadata }>
+  >([]);
+  const [discoveryStatus, setDiscoveryStatus] = useState<'discovering' | 'fallback' | 'complete'>(
+    'discovering'
+  );
   const [errors, setErrors] = useState<string[]>([]);
 
   useEffect(() => {
@@ -466,35 +470,48 @@ export function useResilientNodeDiscovery() {
             const dynamicNodes = registry.getAllNodes();
             console.log(`🔍 DEBUG: Registry retrieved, found ${dynamicNodes?.length || 0} nodes`);
 
-          if (dynamicNodes && dynamicNodes.length > 0) {
-            // Success: use dynamic registry
-            console.log(`✅ Successfully discovered ${dynamicNodes.length} nodes from enhanced registry`);
-            setDiscoveredNodes(dynamicNodes.map(node => ({
-              ...node,
-              metadata: {
-                label: node.name || node.type.split('::')[1] || 'Unknown',
-                description: node.description || 'No description available',
-                category: node.category || 'Uncategorized',
-                tags: node.metadata?.tags || [],
-                complexity: (node.metadata?.complexity as 'beginner' | 'intermediate' | 'advanced') || 'intermediate'
-              }
-            })));
-            setDiscoveryStatus('complete');
-            return;
-          } else {
-            discoveryErrors.push('Registry returned empty node list after initialization');
-          }
+            if (dynamicNodes && dynamicNodes.length > 0) {
+              // Success: use dynamic registry
+              console.log(
+                `✅ Successfully discovered ${dynamicNodes.length} nodes from enhanced registry`
+              );
+              setDiscoveredNodes(
+                dynamicNodes.map((node) => ({
+                  ...node,
+                  metadata: {
+                    label: node.label || node.type.split('::')[1] || 'Unknown',
+                    description: node.description || 'No description available',
+                    category: node.category || 'Uncategorized',
+                    tags: [], // NodeDefinition doesn't have metadata.tags
+                    complexity: 'intermediate' as const, // NodeDefinition doesn't have metadata.complexity
+                  },
+                }))
+              );
+              setDiscoveryStatus('complete');
+              return;
+            } else {
+              discoveryErrors.push('Registry returned empty node list after initialization');
+            }
           } catch (registryError) {
             console.error('🔍 DEBUG: registerAllNodes threw error:', registryError);
-            discoveryErrors.push(`Registry initialization failed: ${registryError instanceof Error ? registryError.message : String(registryError)}`);
+            discoveryErrors.push(
+              `Registry initialization failed: ${registryError instanceof Error ? registryError.message : String(registryError)}`
+            );
           }
         } else {
-          console.log('🔍 DEBUG: Missing functions - registerAllNodes:', !!registerAllNodes, 'getEnhancedRegistry:', !!getEnhancedRegistry);
+          console.log(
+            '🔍 DEBUG: Missing functions - registerAllNodes:',
+            !!registerAllNodes,
+            'getEnhancedRegistry:',
+            !!getEnhancedRegistry
+          );
           discoveryErrors.push('registerAllNodes or getEnhancedRegistry not available');
         }
       } catch (error) {
         console.error('🔍 DEBUG: Dynamic import failed:', error);
-        discoveryErrors.push(`Failed to import nodes-core: ${error instanceof Error ? error.message : String(error)}`);
+        discoveryErrors.push(
+          `Failed to import nodes-core: ${error instanceof Error ? error.message : String(error)}`
+        );
       }
 
       // Fallback: use enhanced static nodes
@@ -511,9 +528,9 @@ export function useResilientNodeDiscovery() {
 
   // Build category tree from discovered nodes
   const categoryTree = useMemo(() => {
-    const tree: Record<string, { nodes: any[], subcategories: Record<string, any[]> }> = {};
+    const tree: Record<string, { nodes: any[]; subcategories: Record<string, any[]> }> = {};
 
-    discoveredNodes.forEach(node => {
+    discoveredNodes.forEach((node) => {
       const category = node.metadata?.category || node.category || 'Other';
 
       if (!tree[category]) {
@@ -533,7 +550,7 @@ export function useResilientNodeDiscovery() {
 
       const lowerQuery = query.toLowerCase();
 
-      return discoveredNodes.filter(node => {
+      return discoveredNodes.filter((node) => {
         const metadata = node.metadata;
         const nodeType = node.type.toLowerCase();
         const label = metadata?.label?.toLowerCase() || '';
@@ -541,11 +558,13 @@ export function useResilientNodeDiscovery() {
         const tags = metadata?.tags?.join(' ').toLowerCase() || '';
         const category = metadata?.category?.toLowerCase() || node.category.toLowerCase();
 
-        return nodeType.includes(lowerQuery) ||
-               label.includes(lowerQuery) ||
-               description.includes(lowerQuery) ||
-               tags.includes(lowerQuery) ||
-               category.includes(lowerQuery);
+        return (
+          nodeType.includes(lowerQuery) ||
+          label.includes(lowerQuery) ||
+          description.includes(lowerQuery) ||
+          tags.includes(lowerQuery) ||
+          category.includes(lowerQuery)
+        );
       });
     };
   }, [discoveredNodes]);
@@ -557,6 +576,6 @@ export function useResilientNodeDiscovery() {
     discoveryStatus,
     errors,
     isReady: discoveryStatus !== 'discovering',
-    nodeCount: discoveredNodes.length
+    nodeCount: discoveredNodes.length,
   };
 }

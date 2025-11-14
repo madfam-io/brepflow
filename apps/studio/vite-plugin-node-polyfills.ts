@@ -7,11 +7,11 @@ import { resolve } from 'path';
 import type { Plugin } from 'vite';
 
 const NODE_MODULES_MAP = {
-  'path': './src/polyfills/path-mock.ts',
-  'url': './src/polyfills/url-mock.ts',
-  'fs': './src/polyfills/fs-mock.ts',
-  'crypto': './src/polyfills/crypto-mock.ts',
-  'uuid': './src/polyfills/uuid-mock.ts',
+  path: './src/polyfills/path-mock.ts',
+  url: './src/polyfills/url-mock.ts',
+  fs: './src/polyfills/fs-mock.ts',
+  crypto: './src/polyfills/crypto-mock.ts',
+  uuid: './src/polyfills/uuid-mock.ts',
   'xxhash-wasm': './src/polyfills/xxhash-mock.ts',
 };
 
@@ -25,7 +25,7 @@ export function nodePolyfillsPlugin(): Plugin {
       }
       return null;
     },
-    load(id) {
+    load(_id) {
       // Additional processing if needed
       return null;
     },
@@ -38,11 +38,14 @@ export function nodePolyfillsPlugin(): Plugin {
       if (config.build.rollupOptions.external) {
         const external = config.build.rollupOptions.external;
         if (Array.isArray(external)) {
-          config.build.rollupOptions.external = external.filter(
-            (dep: string) => !Object.keys(NODE_MODULES_MAP).includes(dep)
-          );
+          config.build.rollupOptions.external = external.filter((dep: string | RegExp) => {
+            if (typeof dep === 'string') {
+              return !Object.keys(NODE_MODULES_MAP).includes(dep);
+            }
+            return true; // Keep RegExp entries
+          });
         }
       }
-    }
+    },
   };
 }
