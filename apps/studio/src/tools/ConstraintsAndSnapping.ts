@@ -624,8 +624,8 @@ function createDistanceConstraintVisual(constraint: ConstraintType, scene: THREE
 
   // Create dimension line
   const geometry = new THREE.BufferGeometry().setFromPoints([
-    obj1.position,
-    obj2.position,
+    (obj1 as THREE.Object3D).position,
+    (obj2 as THREE.Object3D).position,
   ]);
 
   const material = new THREE.LineBasicMaterial({

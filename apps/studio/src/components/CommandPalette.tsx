@@ -204,6 +204,7 @@ export function CommandPalette({ isOpen, onClose, position }: CommandPaletteProp
       addNode({
         type: result.id,
         position: nodePosition,
+        inputs: {},
         params: {},
       });
     }

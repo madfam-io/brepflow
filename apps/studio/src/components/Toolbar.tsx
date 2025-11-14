@@ -185,13 +185,13 @@ export function Toolbar() {
       // Ctrl/Cmd + Z: Undo
       if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
         e.preventDefault();
-        if (canUndo) undo();
+        if (canUndo()) undo();
       }
       // Ctrl/Cmd + Shift + Z or Ctrl/Cmd + Y: Redo
       if (((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'z') ||
           ((e.ctrlKey || e.metaKey) && e.key === 'y')) {
         e.preventDefault();
-        if (canRedo) redo();
+        if (canRedo()) redo();
       }
       // Ctrl/Cmd + S: Save
       if ((e.ctrlKey || e.metaKey) && e.key === 's') {

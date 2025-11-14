@@ -41,7 +41,7 @@ export function CustomNode({ id, data, selected }: CustomNodeProps) {
   const handleDoubleClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     // Open parameter dialog for node editing
-    if (data.onOpenParameterDialog) {
+    if (data.onOpenParameterDialog && data.nodeType) {
       data.onOpenParameterDialog(data.nodeType, { x: e.clientX, y: e.clientY });
     }
   }, [data]);

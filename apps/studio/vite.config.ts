@@ -189,6 +189,7 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true,
     chunkSizeWarningLimit: 600, // Increase warning limit for necessary large chunks
+    // @ts-expect-error - onLog is valid Vite config but not in BuildOptions type
     onLog(level, log, handler) {
       if (level === 'warn') {
         const text = typeof log === 'string' ? log : log?.message ?? '';

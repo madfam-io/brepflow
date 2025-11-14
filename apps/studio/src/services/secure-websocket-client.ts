@@ -3,6 +3,7 @@
  * Handles WebSocket connections with CSRF token authentication and automatic reconnection
  */
 
+// @ts-expect-error - socket.io-client is an optional dependency for collaboration features
 import { io, Socket } from 'socket.io-client';
 import { collaborationAPI } from '../api/collaboration';
 

@@ -27,13 +27,11 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080
  */
 function createEmptyGraph(): GraphInstance {
   return {
-    id: uuidv4(),
     nodes: [],
     edges: [],
     version: '0.1.0',
     units: 'mm',
     tolerance: 0.01,
-    dirty: false,
   };
 }
 

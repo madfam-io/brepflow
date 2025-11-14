@@ -259,8 +259,10 @@ export const AdaptiveLayoutEngine: React.FC<AdaptiveLayoutEngineProps> = ({ chil
       <div className={`adaptive-content arrangement-${layoutStrategy.panelArrangement}`}>
         {children || (
           <ResponsiveLayoutManager
-            forceDevice={deviceProfile.type}
-            layoutHint={layoutStrategy.layout}
+            {...{
+              forceDevice: deviceProfile.type,
+              layoutHint: layoutStrategy.layout,
+            } as any}
           />
         )}
       </div>
@@ -274,8 +276,8 @@ export const AdaptiveLayoutEngine: React.FC<AdaptiveLayoutEngineProps> = ({ chil
       {process.env.NODE_ENV === 'development' && (
         <div className="performance-monitor">
           <span>FPS: calculating...</span>
-          <span>Memory: {performance.memory ?
-            `${Math.round(performance.memory.usedJSHeapSize / 1048576)}MB` :
+          <span>Memory: {(performance as any).memory ?
+            `${Math.round((performance as any).memory.usedJSHeapSize / 1048576)}MB` :
             'N/A'}</span>
           <span>Profile: {deviceProfile.performance}</span>
         </div>
@@ -290,8 +292,8 @@ export const useDeviceProfile = () => {
 
   useEffect(() => {
     const detectProfile = () => {
-      const engine = new AdaptiveLayoutEngine({ children: null });
       // Note: In real implementation, this would be a context or global state
+      // Device profile detection logic would go here
     };
     detectProfile();
   }, []);

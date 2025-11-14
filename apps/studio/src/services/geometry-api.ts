@@ -3,7 +3,7 @@
  * Wraps the geometry API factory for Studio-specific use
  */
 
-import { getGeometryAPI, IntegratedGeometryAPI } from '@brepflow/engine-occt';
+import { getGeometryAPI as getGeometryAPIBase, IntegratedGeometryAPI } from '@brepflow/engine-occt';
 import type { WorkerAPI } from '@brepflow/types';
 
 let apiInstance: IntegratedGeometryAPI | null = null;
@@ -21,7 +21,7 @@ export async function getGeometryAPI(): Promise<IntegratedGeometryAPI> {
     return initializationPromise;
   }
 
-  initializationPromise = Promise.resolve(getGeometryAPI({
+  initializationPromise = Promise.resolve(getGeometryAPIBase({
     enableRealOCCT: true,
     maxRetries: 2,
   })).then(api => {

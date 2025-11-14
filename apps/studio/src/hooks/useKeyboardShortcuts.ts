@@ -149,7 +149,7 @@ class KeyboardShortcutManager {
   }
 
   private getEventKey(event: KeyboardEvent): string {
-    const modifiers = [];
+    const modifiers: string[] = [];
     if (event.ctrlKey || event.metaKey) modifiers.push('ctrl');
     if (event.shiftKey) modifiers.push('shift');
     if (event.altKey) modifiers.push('alt');
@@ -158,7 +158,7 @@ class KeyboardShortcutManager {
   }
 
   private getShortcutKey(shortcut: KeyboardShortcut): string {
-    const modifiers = [];
+    const modifiers: string[] = [];
     if (shortcut.ctrl || shortcut.meta) modifiers.push('ctrl');
     if (shortcut.shift) modifiers.push('shift');
     if (shortcut.alt) modifiers.push('alt');

@@ -7,6 +7,7 @@ interface ToolbarAction {
   label: string;
   active?: boolean;
   badge?: number;
+  disabled?: boolean;
   onClick?: () => void;  // Changed from 'action' to 'onClick'
 }
 
@@ -15,6 +16,7 @@ interface PersistentToolbarProps {
   secondaryActions?: ToolbarAction[];
   onModeChange?: (mode: string) => void;
   className?: string;
+  compact?: boolean;
 }
 
 export const PersistentToolbar: React.FC<PersistentToolbarProps> = ({
