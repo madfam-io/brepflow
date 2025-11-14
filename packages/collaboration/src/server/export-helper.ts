@@ -6,7 +6,8 @@
  */
 
 import type { GraphInstance, ExportFormat } from '@brepflow/types';
-import { GraphManager, DAGEngine, GeometryAPIFactory } from '@brepflow/engine-core';
+import { GraphManager, DAGEngine } from '@brepflow/engine-core';
+import { GeometryAPIFactory } from '@brepflow/engine-core/geometry-api-factory';
 
 export interface ExportResult {
   content: string | Buffer;

@@ -7,7 +7,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { GraphInstance } from '@brepflow/types';
-import { v7 as uuidv7 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface SessionHookResult {
   sessionId: string | null;
@@ -27,7 +27,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080
  */
 function createEmptyGraph(): GraphInstance {
   return {
-    id: uuidv7(),
+    id: uuidv4(),
     nodes: [],
     edges: [],
     version: '0.1.0',
