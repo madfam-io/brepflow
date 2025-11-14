@@ -4,13 +4,14 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import type {
-  CollaborationUser,
-  CursorPosition,
-  SelectionState,
-  SessionId,
-  UserId,
-} from '@brepflow/engine-core';
+import type { CollaborationUser, CursorPosition, SelectionState } from '@brepflow/engine-core';
+import { SessionId, UserId, NodeId } from '@brepflow/types';
+
+// Selection type from collaboration engine
+type Selection = {
+  nodeIds: NodeId[];
+  edgeIds: string[];
+};
 import './UserPresenceOverlay.css';
 
 // Import the actual collaboration engine
@@ -40,11 +41,14 @@ interface UserSelection {
 }
 
 export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
-  sessionId,
-  currentUserId,
+  sessionId: sessionIdProp,
+  currentUserId: currentUserIdProp,
   containerRef,
   children,
 }) => {
+  // Ensure branded types are preserved using helper functions
+  const sessionId = SessionId(sessionIdProp as string);
+  const currentUserId = UserId(currentUserIdProp as string);
   const [users, setUsers] = useState<Map<UserId, CollaborationUser>>(new Map());
   const [cursors, setCursors] = useState<Map<UserId, UserCursor>>(new Map());
   const [selections, setSelections] = useState<Map<UserId, UserSelection>>(new Map());
@@ -55,69 +59,75 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
   const selectionUpdateTimeoutRef = useRef<number>();
 
   // Get current user's cursor position
-  const updateCursorPosition = useCallback((event: MouseEvent) => {
-    if (!containerRef.current || !isTrackingCursor) return;
+  const updateCursorPosition = useCallback(
+    (event: MouseEvent) => {
+      if (!containerRef.current || !isTrackingCursor) return;
 
-    const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
+      const container = containerRef.current;
+      const rect = container.getBoundingClientRect();
 
-    const cursor: CursorPosition = {
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-      timestamp: Date.now(),
-    };
+      const cursor: CursorPosition = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+        timestamp: Date.now(),
+      };
 
-    // Throttle cursor updates
-    if (cursorUpdateTimeoutRef.current) {
-      clearTimeout(cursorUpdateTimeoutRef.current);
-    }
+      // Throttle cursor updates
+      if (cursorUpdateTimeoutRef.current) {
+        clearTimeout(cursorUpdateTimeoutRef.current);
+      }
 
-    cursorUpdateTimeoutRef.current = window.setTimeout(() => {
-      collaborationEngine.broadcastCursor(sessionId as SessionId, currentUserId as UserId, cursor);
-    }, 50); // 50ms throttle
-  }, [sessionId, currentUserId, containerRef, isTrackingCursor]);
+      cursorUpdateTimeoutRef.current = window.setTimeout(() => {
+        collaborationEngine.broadcastCursor(sessionId, currentUserId, cursor);
+      }, 50); // 50ms throttle
+    },
+    [sessionId, currentUserId, containerRef, isTrackingCursor]
+  );
 
   // Update selection when user selects nodes
-  const updateSelection = useCallback((selectedNodes: string[], selectedEdges: string[]) => {
-    if (!isTrackingCursor) return;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const updateSelection = useCallback(
+    (selectedNodes: string[], selectedEdges: string[]) => {
+      if (!isTrackingCursor) return;
 
-    const selection: SelectionState = {
-      selectedNodes: selectedNodes as any[],
-      selectedEdges: selectedEdges as any[],
-      timestamp: Date.now(),
-    };
+      const selection: Selection = {
+        nodeIds: selectedNodes.map((id) => NodeId(id)),
+        edgeIds: selectedEdges,
+      };
 
-    // Throttle selection updates
-    if (selectionUpdateTimeoutRef.current) {
-      clearTimeout(selectionUpdateTimeoutRef.current);
-    }
+      // Throttle selection updates
+      if (selectionUpdateTimeoutRef.current) {
+        clearTimeout(selectionUpdateTimeoutRef.current);
+      }
 
-    selectionUpdateTimeoutRef.current = window.setTimeout(() => {
-      collaborationEngine.broadcastSelection(sessionId as SessionId, currentUserId as UserId, selection);
-    }, 200); // 200ms throttle
-  }, [sessionId, currentUserId, isTrackingCursor]);
+      selectionUpdateTimeoutRef.current = window.setTimeout(() => {
+        collaborationEngine.broadcastSelection(sessionId, currentUserId, selection);
+      }, 200); // 200ms throttle
+    },
+    [sessionId, currentUserId, isTrackingCursor]
+  );
 
   // Setup collaboration event listeners
   useEffect(() => {
     const handleUserJoined = (event: any) => {
       if (event.sessionId === sessionId && event.userId !== currentUserId) {
-        setUsers(prev => new Map(prev.set(event.userId, event.data.user)));
+        setUsers((prev) => new Map(prev.set(event.userId, event.data.user)));
       }
     };
 
     const handleUserLeft = (event: any) => {
       if (event.sessionId === sessionId) {
-        setUsers(prev => {
+        setUsers((prev) => {
           const newUsers = new Map(prev);
           newUsers.delete(event.userId);
           return newUsers;
         });
-        setCursors(prev => {
+        setCursors((prev) => {
           const newCursors = new Map(prev);
           newCursors.delete(event.userId);
           return newCursors;
         });
-        setSelections(prev => {
+        setSelections((prev) => {
           const newSelections = new Map(prev);
           newSelections.delete(event.userId);
           return newSelections;
@@ -129,16 +139,21 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
       if (event.sessionId === sessionId && event.userId !== currentUserId) {
         const user = users.get(event.userId);
         if (user) {
-          setCursors(prev => new Map(prev.set(event.userId, {
-            userId: event.userId,
-            user,
-            position: event.data,
-            visible: true,
-          })));
+          setCursors(
+            (prev) =>
+              new Map(
+                prev.set(event.userId, {
+                  userId: event.userId,
+                  user,
+                  position: event.data,
+                  visible: true,
+                })
+              )
+          );
 
           // Auto-hide cursor after inactivity
           setTimeout(() => {
-            setCursors(prev => {
+            setCursors((prev) => {
               const cursor = prev.get(event.userId);
               if (cursor && cursor.position.timestamp === event.data.timestamp) {
                 return new Map(prev.set(event.userId, { ...cursor, visible: false }));
@@ -154,19 +169,24 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
       if (event.sessionId === sessionId && event.userId !== currentUserId) {
         const user = users.get(event.userId);
         if (user) {
-          setSelections(prev => new Map(prev.set(event.userId, {
-            userId: event.userId,
-            user,
-            selection: event.data,
-            visible: true,
-          })));
+          setSelections(
+            (prev) =>
+              new Map(
+                prev.set(event.userId, {
+                  userId: event.userId,
+                  user,
+                  selection: event.data,
+                  visible: true,
+                })
+              )
+          );
         }
       }
     };
 
     const handleUserUpdated = (event: any) => {
       if (event.sessionId === sessionId) {
-        setUsers(prev => new Map(prev.set(event.userId, event.data.user)));
+        setUsers((prev) => new Map(prev.set(event.userId, event.data.user)));
       }
     };
 
@@ -211,7 +231,7 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
   useEffect(() => {
     const loadPresence = async () => {
       try {
-        const presenceData = await collaborationEngine.getPresenceState(sessionId as SessionId);
+        const presenceData = await collaborationEngine.getPresenceState(sessionId);
 
         // Convert cursor and selection data from PresenceData map
         const userCursors = new Map<UserId, UserCursor>();
@@ -252,25 +272,15 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
   // Render user cursors
   const renderCursors = useMemo(() => {
     return Array.from(cursors.values())
-      .filter(cursor => cursor.visible && cursor.userId !== currentUserId)
-      .map(cursor => (
-        <UserCursorComponent
-          key={cursor.userId}
-          cursor={cursor}
-        />
-      ));
+      .filter((cursor) => cursor.visible && cursor.userId !== currentUserId)
+      .map((cursor) => <UserCursorComponent key={cursor.userId} cursor={cursor} />);
   }, [cursors, currentUserId]);
 
   // Render user selections
   const renderSelections = useMemo(() => {
     return Array.from(selections.values())
-      .filter(selection => selection.visible && selection.userId !== currentUserId)
-      .map(selection => (
-        <UserSelectionComponent
-          key={selection.userId}
-          selection={selection}
-        />
-      ));
+      .filter((selection) => selection.visible && selection.userId !== currentUserId)
+      .map((selection) => <UserSelectionComponent key={selection.userId} selection={selection} />);
   }, [selections, currentUserId]);
 
   return (
@@ -278,18 +288,14 @@ export const UserPresenceOverlay: React.FC<UserPresenceOverlayProps> = ({
       {children}
 
       {/* User cursors */}
-      <div className="presence-cursors">
-        {renderCursors}
-      </div>
+      <div className="presence-cursors">{renderCursors}</div>
 
       {/* User selections */}
-      <div className="presence-selections">
-        {renderSelections}
-      </div>
+      <div className="presence-selections">{renderSelections}</div>
 
       {/* User list panel */}
       <UserListPanel
-        users={Array.from(users.values()).filter(user => user.id !== currentUserId)}
+        users={Array.from(users.values()).filter((user) => user.id !== currentUserId)}
         onUserClick={(userId) => {
           // Focus on user's cursor
           const cursor = cursors.get(userId);
@@ -327,19 +333,18 @@ const UserCursorComponent: React.FC<UserCursorComponentProps> = ({ cursor }) => 
   return (
     <div
       className="user-cursor"
-      style={{
-        left: cursor.position.x,
-        top: cursor.position.y,
-        transform: 'translate(-2px, -2px)',
-        '--user-color': cursor.user.color,
-      } as React.CSSProperties}
+      style={
+        {
+          left: cursor.position.x,
+          top: cursor.position.y,
+          transform: 'translate(-2px, -2px)',
+          '--user-color': cursor.user.color,
+        } as React.CSSProperties
+      }
     >
       <div className="cursor-pointer">
         <svg width="16" height="16" viewBox="0 0 16 16">
-          <path
-            d="M0 0L0 10L3 7L5 11L7 10L5 6L8 6L0 0Z"
-            fill="currentColor"
-          />
+          <path d="M0 0L0 10L3 7L5 11L7 10L5 6L8 6L0 0Z" fill="currentColor" />
           <path
             d="M0 0L0 10L3 7L5 11L7 10L5 6L8 6L0 0Z"
             fill="white"
@@ -367,12 +372,8 @@ const UserSelectionComponent: React.FC<UserSelectionComponentProps> = ({ selecti
 
   return (
     <div className="user-selection">
-      {selection.selection.selectedNodes.map(nodeId => (
-        <NodeSelectionHighlight
-          key={nodeId}
-          nodeId={nodeId}
-          user={selection.user}
-        />
+      {selection.selection.selectedNodes.map((nodeId) => (
+        <NodeSelectionHighlight key={nodeId} nodeId={nodeId} user={selection.user} />
       ))}
     </div>
   );
@@ -402,13 +403,15 @@ const NodeSelectionHighlight: React.FC<NodeSelectionHighlightProps> = ({ nodeId,
   return (
     <div
       className="node-selection-highlight"
-      style={{
-        left: rect.left,
-        top: rect.top,
-        width: rect.width,
-        height: rect.height,
-        '--user-color': user.color,
-      } as React.CSSProperties}
+      style={
+        {
+          left: rect.left,
+          top: rect.top,
+          width: rect.width,
+          height: rect.height,
+          '--user-color': user.color,
+        } as React.CSSProperties
+      }
     >
       <div className="selection-border" />
       <div className="selection-label">
@@ -433,31 +436,23 @@ const UserListPanel: React.FC<UserListPanelProps> = ({ users, onUserClick }) => 
 
   return (
     <div className={`user-list-panel ${isExpanded ? 'expanded' : ''}`}>
-      <div
-        className="panel-header"
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
+      <div className="panel-header" onClick={() => setIsExpanded(!isExpanded)}>
         <div className="panel-title">
           <span className="user-count">{users.length}</span>
           <span>user{users.length !== 1 ? 's' : ''} online</span>
         </div>
-        <div className="panel-toggle">
-          {isExpanded ? '▼' : '▲'}
-        </div>
+        <div className="panel-toggle">{isExpanded ? '▼' : '▲'}</div>
       </div>
 
       {isExpanded && (
         <div className="panel-content">
-          {users.map(user => (
+          {users.map((user) => (
             <div
               key={user.id}
               className={`user-item ${user.isOnline ? 'online' : 'offline'}`}
-              onClick={() => onUserClick(user.id)}
+              onClick={() => onUserClick(UserId(user.id as string))}
             >
-              <div
-                className="user-avatar"
-                style={{ backgroundColor: user.color }}
-              >
+              <div className="user-avatar" style={{ backgroundColor: user.color }}>
                 {user.avatar ? (
                   <img src={user.avatar} alt={user.name} />
                 ) : (
@@ -489,12 +484,15 @@ function formatLastSeen(timestamp: number): string {
   const now = Date.now();
   const diff = now - timestamp;
 
-  if (diff < 60000) { // Less than 1 minute
+  if (diff < 60000) {
+    // Less than 1 minute
     return 'just now';
-  } else if (diff < 3600000) { // Less than 1 hour
+  } else if (diff < 3600000) {
+    // Less than 1 hour
     const minutes = Math.floor(diff / 60000);
     return `${minutes}m ago`;
-  } else if (diff < 86400000) { // Less than 1 day
+  } else if (diff < 86400000) {
+    // Less than 1 day
     const hours = Math.floor(diff / 3600000);
     return `${hours}h ago`;
   } else {

@@ -13,13 +13,18 @@ const secureWebSocketClient = new SecureWebSocketClient();
 // Create collaboration engine with secure WebSocket
 const collaborationEngine = new BrepFlowCollaborationEngine(secureWebSocketClient as any);
 import type {
-  SessionId,
-  UserId,
   CollaborationUser,
   CursorPosition,
   SelectionState,
   Operation,
 } from '@brepflow/engine-core';
+import { SessionId, UserId, NodeId } from '@brepflow/types';
+
+// Selection type from collaboration engine
+type Selection = {
+  nodeIds: NodeId[];
+  edgeIds: string[];
+};
 
 export interface CollaborationState {
   isConnected: boolean;
@@ -56,7 +61,7 @@ export function useCollaboration(
   options: UseCollaborationOptions = {}
 ): [CollaborationState, CollaborationActions] {
   const {
-    autoConnect = false,
+    autoConnect = false, // eslint-disable-line @typescript-eslint/no-unused-vars
     throttleCursor = 50,
     throttleSelection = 200,
   } = options;
@@ -94,53 +99,65 @@ export function useCollaboration(
 
   // Actions
   const actions: CollaborationActions = {
-    createSession: useCallback(async (projectId: string, user: CollaborationUser): Promise<SessionId> => {
-      try {
-        // Ensure WebSocket is connected before creating session
-        await ensureWebSocketConnected();
+    createSession: useCallback(
+      async (projectId: string, user: CollaborationUser): Promise<SessionId> => {
+        try {
+          // Ensure WebSocket is connected before creating session
+          await ensureWebSocketConnected();
 
-        const sessionId = await collaborationEngine.createSession(projectId, user.id as UserId);
-        await collaborationEngine.joinSession(sessionId, user);
+          const sessionId = await collaborationEngine.createSession(
+            projectId,
+            UserId(user.id as string)
+          );
+          await collaborationEngine.joinSession(sessionId, user);
 
-        setState(prev => ({
-          ...prev,
-          isConnected: true,
-          sessionId,
-          currentUser: user,
-        }));
+          setState((prev) => ({
+            ...prev,
+            isConnected: true,
+            sessionId,
+            currentUser: user,
+          }));
 
-        return sessionId;
-      } catch (error) {
-        console.error('Failed to create session:', error);
-        throw error;
-      }
-    }, [ensureWebSocketConnected]),
+          return sessionId;
+        } catch (error) {
+          console.error('Failed to create session:', error);
+          throw error;
+        }
+      },
+      [ensureWebSocketConnected]
+    ),
 
-    joinSession: useCallback(async (sessionId: SessionId, user: CollaborationUser): Promise<void> => {
-      try {
-        // Ensure WebSocket is connected before joining session
-        await ensureWebSocketConnected();
+    joinSession: useCallback(
+      async (sessionId: SessionId, user: CollaborationUser): Promise<void> => {
+        try {
+          // Ensure WebSocket is connected before joining session
+          await ensureWebSocketConnected();
 
-        await collaborationEngine.joinSession(sessionId, user);
+          await collaborationEngine.joinSession(sessionId, user);
 
-        setState(prev => ({
-          ...prev,
-          isConnected: true,
-          sessionId,
-          currentUser: user,
-        }));
-      } catch (error) {
-        console.error('Failed to join session:', error);
-        throw error;
-      }
-    }, [ensureWebSocketConnected]),
+          setState((prev) => ({
+            ...prev,
+            isConnected: true,
+            sessionId,
+            currentUser: user,
+          }));
+        } catch (error) {
+          console.error('Failed to join session:', error);
+          throw error;
+        }
+      },
+      [ensureWebSocketConnected]
+    ),
 
     leaveSession: useCallback(async (): Promise<void> => {
-      if (state.sessionId && state.currentUser) {
-        try {
-          await collaborationEngine.leaveSession(state.sessionId as SessionId, state.currentUser.id);
+      const sessionId = state.sessionId ? SessionId(state.sessionId as string) : null;
+      const currentUser = state.currentUser;
 
-          setState(prev => ({
+      if (sessionId && currentUser) {
+        try {
+          await collaborationEngine.leaveSession(sessionId, UserId(currentUser.id as string));
+
+          setState((prev) => ({
             ...prev,
             isConnected: false,
             sessionId: null,
@@ -156,96 +173,118 @@ export function useCollaboration(
       }
     }, [state.sessionId, state.currentUser]),
 
-    updateCursor: useCallback(async (cursor: CursorPosition): Promise<void> => {
-      if (!state.sessionId || !state.currentUser) return;
+    updateCursor: useCallback(
+      async (cursor: CursorPosition): Promise<void> => {
+        const sessionId = state.sessionId ? SessionId(state.sessionId as string) : null;
+        const currentUser = state.currentUser;
 
-      // Throttle cursor updates
-      if (cursorThrottleRef.current) {
-        clearTimeout(cursorThrottleRef.current);
-      }
+        if (!sessionId || !currentUser) return;
 
-      cursorThrottleRef.current = window.setTimeout(async () => {
-        try {
-          await collaborationEngine.broadcastCursor(
-            state.sessionId!,
-            state.currentUser!.id,
-            cursor
-          );
-        } catch (error) {
-          console.error('Failed to broadcast cursor:', error);
+        // Throttle cursor updates
+        if (cursorThrottleRef.current) {
+          clearTimeout(cursorThrottleRef.current);
         }
-      }, throttleCursor);
-    }, [state.sessionId, state.currentUser, throttleCursor]),
 
-    updateSelection: useCallback(async (selectedNodes: string[], selectedEdges: string[]): Promise<void> => {
-      if (!state.sessionId || !state.currentUser) return;
+        cursorThrottleRef.current = window.setTimeout(async () => {
+          try {
+            await collaborationEngine.broadcastCursor(
+              sessionId,
+              UserId(currentUser.id as string),
+              cursor
+            );
+          } catch (error) {
+            console.error('Failed to broadcast cursor:', error);
+          }
+        }, throttleCursor);
+      },
+      [state.sessionId, state.currentUser, throttleCursor]
+    ),
 
-      const selection: SelectionState = {
-        selectedNodes: selectedNodes as any[],
-        selectedEdges: selectedEdges as any[],
-        timestamp: Date.now(),
-      };
+    updateSelection: useCallback(
+      async (selectedNodes: string[], selectedEdges: string[]): Promise<void> => {
+        const sessionId = state.sessionId ? SessionId(state.sessionId as string) : null;
+        const currentUser = state.currentUser;
 
-      // Throttle selection updates
-      if (selectionThrottleRef.current) {
-        clearTimeout(selectionThrottleRef.current);
-      }
+        if (!sessionId || !currentUser) return;
 
-      selectionThrottleRef.current = window.setTimeout(async () => {
-        try {
-          await collaborationEngine.broadcastSelection(
-            state.sessionId!,
-            state.currentUser!.id,
-            selection
-          );
-        } catch (error) {
-          console.error('Failed to broadcast selection:', error);
+        const selection: Selection = {
+          nodeIds: selectedNodes.map((id) => NodeId(id)),
+          edgeIds: selectedEdges,
+        };
+
+        // Throttle selection updates
+        if (selectionThrottleRef.current) {
+          clearTimeout(selectionThrottleRef.current);
         }
-      }, throttleSelection);
-    }, [state.sessionId, state.currentUser, throttleSelection]),
 
-    updateUser: useCallback(async (updates: Partial<CollaborationUser>): Promise<void> => {
-      if (!state.sessionId || !state.currentUser) return;
+        selectionThrottleRef.current = window.setTimeout(async () => {
+          try {
+            await collaborationEngine.broadcastSelection(
+              sessionId,
+              UserId(currentUser.id as string),
+              selection
+            );
+          } catch (error) {
+            console.error('Failed to broadcast selection:', error);
+          }
+        }, throttleSelection);
+      },
+      [state.sessionId, state.currentUser, throttleSelection]
+    ),
 
-      try {
-        await collaborationEngine.updatePresence(
-          state.sessionId,
-          state.currentUser.id,
-          updates
-        );
+    updateUser: useCallback(
+      async (updates: Partial<CollaborationUser>): Promise<void> => {
+        const sessionId = state.sessionId ? SessionId(state.sessionId as string) : null;
+        const currentUser = state.currentUser;
 
-        // Update local state
-        setState(prev => ({
-          ...prev,
-          currentUser: prev.currentUser ? { ...prev.currentUser, ...updates } : null,
-        }));
-      } catch (error) {
-        console.error('Failed to update user:', error);
-      }
-    }, [state.sessionId, state.currentUser]),
+        if (!sessionId || !currentUser) return;
 
-    applyOperation: useCallback(async (operation: Operation): Promise<void> => {
-      if (!state.sessionId) return;
+        try {
+          await collaborationEngine.updatePresence(
+            sessionId,
+            UserId(currentUser.id as string),
+            updates
+          );
 
-      try {
-        await collaborationEngine.applyOperation(state.sessionId as SessionId, operation);
+          // Update local state
+          setState((prev) => ({
+            ...prev,
+            currentUser: prev.currentUser ? { ...prev.currentUser, ...updates } : null,
+          }));
+        } catch (error) {
+          console.error('Failed to update user:', error);
+        }
+      },
+      [state.sessionId, state.currentUser]
+    ),
 
-        setState(prev => ({
-          ...prev,
-          operationCount: prev.operationCount + 1,
-        }));
-      } catch (error) {
-        console.error('Failed to apply operation:', error);
-        throw error;
-      }
-    }, [state.sessionId]),
+    applyOperation: useCallback(
+      async (operation: Operation): Promise<void> => {
+        const sessionId = state.sessionId ? SessionId(state.sessionId as string) : null;
+
+        if (!sessionId) return;
+
+        try {
+          await collaborationEngine.applyOperation(sessionId, operation);
+
+          setState((prev) => ({
+            ...prev,
+            operationCount: prev.operationCount + 1,
+          }));
+        } catch (error) {
+          console.error('Failed to apply operation:', error);
+          throw error;
+        }
+      },
+      [state.sessionId]
+    ),
   };
 
   // Set up event listeners
   useEffect(() => {
     const handleUserJoined = (event: any) => {
       if (event.sessionId === state.sessionId && event.userId !== state.currentUser?.id) {
-        setState(prev => {
+        setState((prev) => {
           const newUsers = new Map(prev.users);
           newUsers.set(event.userId, event.data.user);
           return { ...prev, users: newUsers };
@@ -255,7 +294,7 @@ export function useCollaboration(
 
     const handleUserLeft = (event: any) => {
       if (event.sessionId === state.sessionId) {
-        setState(prev => {
+        setState((prev) => {
           const newUsers = new Map(prev.users);
           const newCursors = new Map(prev.cursors);
           const newSelections = new Map(prev.selections);
@@ -276,7 +315,7 @@ export function useCollaboration(
 
     const handleCursorUpdated = (event: any) => {
       if (event.sessionId === state.sessionId && event.userId !== state.currentUser?.id) {
-        setState(prev => {
+        setState((prev) => {
           const newCursors = new Map(prev.cursors);
           newCursors.set(event.userId, event.data);
           return { ...prev, cursors: newCursors };
@@ -286,7 +325,7 @@ export function useCollaboration(
 
     const handleSelectionUpdated = (event: any) => {
       if (event.sessionId === state.sessionId && event.userId !== state.currentUser?.id) {
-        setState(prev => {
+        setState((prev) => {
           const newSelections = new Map(prev.selections);
           newSelections.set(event.userId, event.data);
           return { ...prev, selections: newSelections };
@@ -296,7 +335,7 @@ export function useCollaboration(
 
     const handleUserUpdated = (event: any) => {
       if (event.sessionId === state.sessionId) {
-        setState(prev => {
+        setState((prev) => {
           const newUsers = new Map(prev.users);
           if (event.userId === state.currentUser?.id) {
             // Update current user
@@ -332,10 +371,12 @@ export function useCollaboration(
 
   // Load initial presence data when session changes
   useEffect(() => {
-    if (state.sessionId) {
+    const sessionId = state.sessionId ? SessionId(state.sessionId as string) : null;
+
+    if (sessionId) {
       const loadPresence = async () => {
         try {
-          const presenceData = await collaborationEngine.getPresenceState(state.sessionId! as SessionId);
+          const presenceData = await collaborationEngine.getPresenceState(sessionId);
 
           // Extract users, cursors, and selections from PresenceData map
           const users = new Map();
@@ -351,7 +392,7 @@ export function useCollaboration(
             }
           }
 
-          setState(prev => ({
+          setState((prev) => ({
             ...prev,
             users,
             cursors,
