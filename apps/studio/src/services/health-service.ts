@@ -101,10 +101,10 @@ export class HealthService {
         message: 'Geometry service is operational',
         details: health.details,
       };
-    } catch (error) {
+    } catch (error: unknown) {
       return {
         status: 'fail',
-        message: `Geometry service error: ${error.message}`,
+        message: `Geometry service error: ${error instanceof Error ? error.message : String(error)}`,
       };
     }
   }
@@ -171,10 +171,10 @@ export class HealthService {
           threads: 'crossOriginIsolated' in window && window.crossOriginIsolated,
         },
       };
-    } catch (error) {
+    } catch (error: unknown) {
       return {
         status: 'fail',
-        message: `WebAssembly compilation failed: ${error.message}`,
+        message: `WebAssembly compilation failed: ${error instanceof Error ? error.message : String(error)}`,
       };
     }
   }
@@ -232,14 +232,14 @@ export class HealthService {
           URL.revokeObjectURL(workerUrl);
           resolve({
             status: 'fail',
-            message: `Worker error: ${error.message}`,
+            message: `Worker error: ${error instanceof Error ? error.message : String(error)}`,
           });
         };
       });
-    } catch (error) {
+    } catch (error: unknown) {
       return {
         status: 'fail',
-        message: `Worker creation failed: ${error.message}`,
+        message: `Worker creation failed: ${error instanceof Error ? error.message : String(error)}`,
       };
     }
   }
@@ -344,10 +344,10 @@ export class HealthService {
         ready,
         message: ready ? 'Ready to serve' : 'Service not ready',
       };
-    } catch (error) {
+    } catch (error: unknown) {
       return {
         ready: false,
-        message: `Readiness check failed: ${error.message}`,
+        message: `Readiness check failed: ${error instanceof Error ? error.message : String(error)}`,
       };
     }
   }

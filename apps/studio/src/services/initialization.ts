@@ -5,10 +5,13 @@
 
 import { getGeometryAPI, IntegratedGeometryAPI } from '@brepflow/engine-occt';
 import { getConfig } from '@brepflow/engine-core';
-import { ProductionLogger } from '@brepflow/engine-occt';
 import { healthCheckService } from '../api/health';
 
-const logger = new ProductionLogger('Initialization');
+const logger = {
+  info: (msg: string, ...args: unknown[]) => console.info('[Initialization]', msg, ...args),
+  error: (msg: string, ...args: unknown[]) => console.error('[Initialization]', msg, ...args),
+  warn: (msg: string, ...args: unknown[]) => console.warn('[Initialization]', msg, ...args),
+};
 
 export interface InitializationResult {
   success: boolean;

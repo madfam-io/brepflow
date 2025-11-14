@@ -162,13 +162,13 @@ export class SecureWebSocketClient {
       console.log('[SecureWebSocket] Connected');
     });
 
-    this.socket.on('disconnect', (reason) => {
+    this.socket.on('disconnect', (reason: string) => {
       this.connected = false;
       console.log('[SecureWebSocket] Disconnected:', reason);
     });
 
     // Handle reconnection
-    this.socket.on('reconnect', async (attemptNumber) => {
+    this.socket.on('reconnect', async (attemptNumber: number) => {
       console.log(`[SecureWebSocket] Reconnected after ${attemptNumber} attempts`);
 
       // Get fresh CSRF token on reconnect
@@ -185,7 +185,7 @@ export class SecureWebSocketClient {
       }
     });
 
-    this.socket.on('reconnect_attempt', (attemptNumber) => {
+    this.socket.on('reconnect_attempt', (attemptNumber: number) => {
       console.log(`[SecureWebSocket] Reconnection attempt ${attemptNumber}`);
     });
 
@@ -194,7 +194,7 @@ export class SecureWebSocketClient {
     });
 
     // Handle CSRF token errors
-    this.socket.on('connect_error', async (error) => {
+    this.socket.on('connect_error', async (error: Error) => {
       console.error('[SecureWebSocket] Connection error:', error.message);
 
       // If CSRF token is invalid, try to get a new one and reconnect
@@ -216,7 +216,7 @@ export class SecureWebSocketClient {
     });
 
     // Forward all messages to callbacks
-    this.socket.onAny((event, data) => {
+    this.socket.onAny((event: string, data: any) => {
       this.messageCallbacks.forEach((callback) => {
         callback({ event, data });
       });
@@ -242,7 +242,7 @@ export class SecureWebSocketClient {
         resolve();
       });
 
-      this.socket.once('connect_error', (error) => {
+      this.socket.once('connect_error', (error: Error) => {
         clearTimeout(timeout);
         reject(error);
       });

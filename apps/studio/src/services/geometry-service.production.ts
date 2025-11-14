@@ -68,9 +68,10 @@ export class ProductionGeometryService {
       this.startHealthMonitoring();
 
       this.getLogger().info('Production geometry service initialized successfully');
-    } catch (error) {
+    } catch (error: unknown) {
       this.getLogger().error('Failed to initialize production geometry service', error);
-      throw new Error(`Production geometry initialization failed: ${error.message}`);
+      const message = error instanceof Error ? error.message : String(error);
+      throw new Error(`Production geometry initialization failed: ${message}`);
     }
   }
 
@@ -86,7 +87,7 @@ export class ProductionGeometryService {
           // Attempt recovery
           await this.recover();
         }
-      } catch (error) {
+      } catch (error: unknown) {
         this.getLogger().error('Health check error', error);
       }
     }, 30000); // Check every 30 seconds
@@ -128,10 +129,11 @@ export class ProductionGeometryService {
           timestamp: new Date().toISOString(),
         },
       };
-    } catch (error) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
       return {
         healthy: false,
-        details: { error: error.message },
+        details: { error: message },
       };
     }
   }
@@ -161,7 +163,7 @@ export class ProductionGeometryService {
       await this.initialize();
 
       this.getLogger().info('Geometry service recovered successfully');
-    } catch (error) {
+    } catch (error: unknown) {
       this.getLogger().error('Failed to recover geometry service', error);
       throw error;
     }
@@ -205,7 +207,7 @@ export class ProductionGeometryService {
       }
 
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
       this.getLogger().error(`Geometry operation failed: ${operation}`, { params, error });
       throw error;
     }
@@ -280,7 +282,7 @@ export class ProductionGeometryService {
     if (this.api) {
       try {
         await this.api.terminate();
-      } catch (error) {
+      } catch (error: unknown) {
         this.getLogger().error('Error during disposal', error);
       }
       this.api = null;

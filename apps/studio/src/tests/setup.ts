@@ -172,11 +172,11 @@ vi.mock('@brepflow/engine-core', () => {
       return this.graph;
     }
 
-    setGraph(graph) {
+    setGraph(graph: any) {
       this.graph = graph;
     }
 
-    addNode(node) {
+    addNode(node: any) {
       const newNode = {
         ...node,
         id: Math.random().toString(36).substr(2, 9),
@@ -186,22 +186,22 @@ vi.mock('@brepflow/engine-core', () => {
       return newNode;
     }
 
-    removeNode(nodeId) {
-      this.graph.nodes = this.graph.nodes.filter(n => n.id !== nodeId);
+    removeNode(nodeId: any) {
+      this.graph.nodes = this.graph.nodes.filter((n: any) => n.id !== nodeId);
       this.graph.edges = this.graph.edges.filter(
-        e => e.source !== nodeId && e.target !== nodeId
+        (e: any) => e.source !== nodeId && e.target !== nodeId
       );
     }
 
-    updateNode(nodeId, updates) {
-      const node = this.graph.nodes.find(n => n.id === nodeId);
+    updateNode(nodeId: any, updates: any) {
+      const node = this.graph.nodes.find((n: any) => n.id === nodeId);
       if (node) {
         Object.assign(node, updates);
         node.dirty = true;
       }
     }
 
-    addEdge(edge) {
+    addEdge(edge: any) {
       const newEdge = {
         ...edge,
         id: Math.random().toString(36).substr(2, 9),
@@ -210,8 +210,8 @@ vi.mock('@brepflow/engine-core', () => {
       return newEdge;
     }
 
-    removeEdge(edgeId) {
-      this.graph.edges = this.graph.edges.filter(e => e.id !== edgeId);
+    removeEdge(edgeId: any) {
+      this.graph.edges = this.graph.edges.filter((e: any) => e.id !== edgeId);
     }
 
     clearGraph() {
@@ -223,8 +223,8 @@ vi.mock('@brepflow/engine-core', () => {
         edges: [],
       };
     }
-    
-    fromJSON(json) {
+
+    fromJSON(json: any) {
       try {
         const parsed = JSON.parse(json);
         this.graph = parsed;
@@ -232,7 +232,7 @@ vi.mock('@brepflow/engine-core', () => {
         console.error('Failed to parse JSON:', error);
       }
     }
-    
+
     toJSON() {
       return JSON.stringify(this.graph);
     }
@@ -241,15 +241,15 @@ vi.mock('@brepflow/engine-core', () => {
       return { valid: true, errors: [] };
     }
 
-    getNodesByType(type) {
-      return this.graph.nodes.filter(n => n.type === type);
+    getNodesByType(type: any) {
+      return this.graph.nodes.filter((n: any) => n.type === type);
     }
 
-    getConnectedNodes(nodeId) {
+    getConnectedNodes(nodeId: any) {
       return [];
     }
 
-    markDownstreamDirty(nodeId) {
+    markDownstreamDirty(nodeId: any) {
       // Mock implementation
     }
 
@@ -271,8 +271,8 @@ vi.mock('@brepflow/engine-core', () => {
   }
 
   class MockNodeRegistry {
-    static register(node) {}
-    static get(type) {
+    static register(node: any) {}
+    static get(type: any) {
       return { type, evaluate: vi.fn() };
     }
     static getAll() {
@@ -281,10 +281,10 @@ vi.mock('@brepflow/engine-core', () => {
   }
 
   class MockComputeCache {
-    get(key) {
+    get(key: any) {
       return null;
     }
-    set(key, value) {}
+    set(key: any, value: any) {}
     clear() {}
   }
 
@@ -308,7 +308,7 @@ vi.mock('../lib/undo-redo', () => {
     redoStack: any[] = [];
     maxHistorySize = 100;
 
-    execute(command) {
+    execute(command: any) {
       command.execute();
       this.undoStack.push(command);
       this.redoStack = [];
@@ -358,7 +358,7 @@ vi.mock('../lib/undo-redo', () => {
     executeFunc: any;
     undoFunc: any;
     
-    constructor(node, execute, undo) {
+    constructor(node: any, execute: any, undo: any) {
       this.node = node;
       this.executeFunc = execute;
       this.undoFunc = undo;
@@ -386,8 +386,8 @@ vi.mock('../lib/undo-redo', () => {
     node: any;
     executeFunc: any;
     undoFunc: any;
-    
-    constructor(node, execute, undo) {
+
+    constructor(node: any, execute: any, undo: any) {
       this.node = node;
       this.executeFunc = execute;
       this.undoFunc = undo;
@@ -416,8 +416,8 @@ vi.mock('../lib/undo-redo', () => {
     oldState: any;
     updates: any;
     apply: any;
-    
-    constructor(nodeId, oldState, updates, apply) {
+
+    constructor(nodeId: any, oldState: any, updates: any, apply: any) {
       this.nodeId = nodeId;
       this.oldState = oldState;
       this.updates = updates;
@@ -446,8 +446,8 @@ vi.mock('../lib/undo-redo', () => {
     edge: any;
     executeFunc: any;
     undoFunc: any;
-    
-    constructor(edge, execute, undo) {
+
+    constructor(edge: any, execute: any, undo: any) {
       this.edge = edge;
       this.executeFunc = execute;
       this.undoFunc = undo;
@@ -475,8 +475,8 @@ vi.mock('../lib/undo-redo', () => {
     edge: any;
     executeFunc: any;
     undoFunc: any;
-    
-    constructor(edge, execute, undo) {
+
+    constructor(edge: any, execute: any, undo: any) {
       this.edge = edge;
       this.executeFunc = execute;
       this.undoFunc = undo;

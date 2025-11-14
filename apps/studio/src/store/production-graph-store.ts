@@ -294,9 +294,9 @@ export const useProductionGraphStore = create<GraphState>()(
 
         deleteNode: (nodeId) => {
           set((state) => {
-            state.nodes = state.nodes.filter((node) => node.id !== nodeId);
+            state.nodes = state.nodes.filter((node: any) => node.id !== nodeId);
             state.edges = state.edges.filter(
-              (edge) => edge.source !== nodeId && edge.target !== nodeId
+              (edge: any) => edge.source !== nodeId && edge.target !== nodeId
             );
             syncGraph(state);
           });
@@ -306,11 +306,11 @@ export const useProductionGraphStore = create<GraphState>()(
 
         removeNode: (nodeId) => {
           set((state) => {
-            state.nodes = state.nodes.filter((node) => node.id !== nodeId);
+            state.nodes = state.nodes.filter((node: any) => node.id !== nodeId);
             state.edges = state.edges.filter(
-              (edge) => edge.source !== nodeId && edge.target !== nodeId
+              (edge: any) => edge.source !== nodeId && edge.target !== nodeId
             );
-            state.selectedNodes = state.selectedNodes.filter(id => id !== nodeId);
+            state.selectedNodes = state.selectedNodes.filter((id: any) => id !== nodeId);
             syncGraph(state);
           });
           getLogger().debug('Node removed', { nodeId });
@@ -318,7 +318,7 @@ export const useProductionGraphStore = create<GraphState>()(
 
         updateNode: (nodeId, data) => {
           set((state) => {
-            const node = state.nodes.find((n) => n.id === nodeId);
+            const node = state.nodes.find((n: any) => n.id === nodeId);
             if (node) {
               Object.assign(node.data, data);
               syncGraph(state);
@@ -328,7 +328,7 @@ export const useProductionGraphStore = create<GraphState>()(
 
         updateNodeParam: (nodeId, paramName, value) => {
           set((state) => {
-            const node = state.nodes.find((n) => n.id === nodeId);
+            const node = state.nodes.find((n: any) => n.id === nodeId);
             if (node) {
               node.data.params[paramName] = value;
               syncGraph(state);
@@ -354,7 +354,7 @@ export const useProductionGraphStore = create<GraphState>()(
 
         removeEdge: (edgeId) => {
           set((state) => {
-            state.edges = state.edges.filter((edge) => edge.id !== edgeId);
+            state.edges = state.edges.filter((edge: any) => edge.id !== edgeId);
             syncGraph(state);
           });
           getLogger().debug('Edge removed', { edgeId });
@@ -381,7 +381,7 @@ export const useProductionGraphStore = create<GraphState>()(
           try {
             // Mark all nodes as evaluating
             set((state) => {
-              state.nodes.forEach((node) => {
+              state.nodes.forEach((node: any) => {
                 node.data.status = 'evaluating';
                 node.data.error = undefined;
               });
@@ -389,7 +389,7 @@ export const useProductionGraphStore = create<GraphState>()(
 
             // Build graph instance for engine
             const graphInstance = {
-              nodes: state.nodes.map((node) => ({
+              nodes: state.nodes.map((node: any) => ({
                 id: node.id,
                 type: node.data.type,
                 params: node.data.params,
@@ -397,7 +397,7 @@ export const useProductionGraphStore = create<GraphState>()(
                 outputs: node.data.outputs,
                 position: node.position,
               })),
-              edges: state.edges.map((edge) => ({
+              edges: state.edges.map((edge: any) => ({
                 id: edge.id!,
                 source: edge.source,
                 target: edge.target,
@@ -412,7 +412,7 @@ export const useProductionGraphStore = create<GraphState>()(
 
             // Update node statuses
             set((state) => {
-              state.nodes.forEach((node) => {
+              state.nodes.forEach((node: any) => {
                 node.data.status = 'success';
               });
             });
@@ -423,7 +423,7 @@ export const useProductionGraphStore = create<GraphState>()(
             getLogger().error('Graph evaluation failed', error);
             
             set((state) => {
-              state.nodes.forEach((node) => {
+              state.nodes.forEach((node: any) => {
                 node.data.status = 'error';
                 node.data.error = error instanceof Error ? error.message : 'Evaluation failed';
               });

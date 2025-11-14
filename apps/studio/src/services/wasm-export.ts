@@ -83,11 +83,11 @@ export async function exportGeometry(
       return new Blob([exportData], { type: mimeType });
     }
 
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(`Export to ${options.format} failed:`, error);
 
     // Provide helpful error message
-    if (error.message?.includes('not implemented')) {
+    if (error instanceof Error ? error.message : String(error)?.includes('not implemented')) {
       throw new Error(`${options.format.toUpperCase()} export is not yet implemented in the geometry engine`);
     }
 

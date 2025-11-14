@@ -92,23 +92,25 @@ export function Toolbar() {
         toast.style.background = 'var(--color-success)';
         setTimeout(() => toast.remove(), 3000);
 
-      } catch (exportError) {
+      } catch (exportError: unknown) {
         toast.remove();
         console.error(`Export to ${format} failed:`, exportError);
-        
+
         // Provide helpful error message
-        if (exportError.message?.includes('not yet implemented')) {
+        const errorMessage = exportError instanceof Error ? exportError.message : String(exportError);
+        if (errorMessage?.includes('not yet implemented')) {
           alert(`${format.toUpperCase()} export is coming soon!\n\nThe geometry engine is loaded but this specific format is still being implemented.`);
-        } else if (exportError.message?.includes('not initialized')) {
+        } else if (errorMessage?.includes('not initialized')) {
           alert(`The geometry engine is still initializing. Please wait a moment and try again.`);
         } else {
-          alert(`Export failed: ${exportError.message}`);
+          alert(`Export failed: ${errorMessage}`);
         }
       }
 
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(`Export to ${format} failed:`, err);
-      alert(`Export failed: ${err.message}`);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      alert(`Export failed: ${errorMessage}`);
     }
   };;
 

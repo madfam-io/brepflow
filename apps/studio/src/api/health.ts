@@ -3,9 +3,12 @@
  */
 
 import { getConfig } from '@brepflow/engine-core';
-import { ProductionLogger } from '@brepflow/engine-occt';
 
-const logger = new ProductionLogger('HealthCheck');
+const logger = {
+  info: (msg: string, ...args: unknown[]) => console.info('[HealthCheck]', msg, ...args),
+  error: (msg: string, ...args: unknown[]) => console.error('[HealthCheck]', msg, ...args),
+  warn: (msg: string, ...args: unknown[]) => console.warn('[HealthCheck]', msg, ...args),
+};
 
 export interface HealthStatus {
   status: 'healthy' | 'degraded' | 'unhealthy';
