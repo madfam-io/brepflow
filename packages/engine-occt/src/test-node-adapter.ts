@@ -78,7 +78,7 @@ async function testNodeEvaluation() {
   log('\n📋 Testing Node Evaluation with Adapter...', colors.cyan);
 
   try {
-    // Get real or mock geometry API
+    // Get real geometry API
     const api = await GeometryAPIFactory.getAPI({ enableRetry: true, retryAttempts: 1 });
 
     // Create DAG engine with the API

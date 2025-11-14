@@ -460,24 +460,7 @@ export class ErrorRecoverySystem {
       }
     });
 
-    // Fallback to mock geometry
-    this.addRecoveryStrategy({
-      name: 'fallback-to-mock',
-      maxRetries: 1,
-      backoffMs: 0,
-      canRecover: (error) => error.severity === ErrorSeverity.HIGH || error.severity === ErrorSeverity.CRITICAL,
-      recover: async (error, context) => {
-        console.log('[ErrorRecovery] Falling back to mock geometry');
-
-        // Return mock result based on operation type
-        const mockResult = this.generateMockResult(context.operation, context.params);
-        if (!mockResult) {
-          // If no mock can be generated, recovery fails
-          throw new Error(`Cannot generate mock for operation: ${context.operation}`);
-        }
-        return mockResult;
-      }
-    });
+    // Note: Mock geometry fallback has been removed - only real OCCT geometry is supported
 
     // Parameter simplification retry
     this.addRecoveryStrategy({
@@ -526,48 +509,6 @@ export class ErrorRecoverySystem {
     return simplified;
   }
 
-  /**
-   * Generate mock results for fallback recovery
-   */
-  private generateMockResult(operation: string, params: any): any {
-    console.log(`[ErrorRecovery] Generating mock result for ${operation}`);
-
-    switch (operation) {
-      case 'MAKE_BOX':
-        return {
-          id: `mock_box_${Date.now()}`,
-          type: 'solid',
-          bbox: {
-            min: { x: -params.width/2, y: -params.height/2, z: -params.depth/2 },
-            max: { x: params.width/2, y: params.height/2, z: params.depth/2 }
-          }
-        };
-
-      case 'MAKE_SPHERE':
-        return {
-          id: `mock_sphere_${Date.now()}`,
-          type: 'solid',
-          bbox: {
-            min: { x: -params.radius, y: -params.radius, z: -params.radius },
-            max: { x: params.radius, y: params.radius, z: params.radius }
-          }
-        };
-
-      case 'TESSELLATE':
-        return {
-          positions: new Float32Array([0, 0, 0, 1, 0, 0, 0, 1, 0]),
-          normals: new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1]),
-          indices: new Uint32Array([0, 1, 2]),
-          vertexCount: 3,
-          triangleCount: 1
-        };
-
-      default:
-        // For unknown operations, return null to indicate failure
-        console.warn(`[ErrorRecovery] Cannot generate mock for unknown operation: ${operation}`);
-        return null;
-    }
-  }
 
   /**
    * Retry operation (placeholder for integration with actual operation system)

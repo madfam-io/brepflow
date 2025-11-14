@@ -1,8 +1,7 @@
 /**
  * OCCT.wasm worker for real geometry operations
  *
- * CRITICAL: This worker MUST use real OCCT geometry in production and development.
- * Mock geometry is ONLY allowed when explicitly in test mode.
+ * CRITICAL: This worker uses ONLY real OCCT geometry. No mock geometry support.
  */
 
 import { loadOCCT } from './occt-bindings';

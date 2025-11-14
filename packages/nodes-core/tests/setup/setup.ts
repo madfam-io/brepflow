@@ -45,13 +45,4 @@ if (typeof global.SharedArrayBuffer === 'undefined') {
   global.SharedArrayBuffer = ArrayBuffer;
 }
 
-// Mock geometry context for nodes
-global.mockGeometryContext = {
-  invoke: vi.fn().mockResolvedValue({}),
-  createShape: vi.fn().mockReturnValue({ id: 'mock-shape' }),
-  createMesh: vi.fn().mockReturnValue({ id: 'mock-mesh' }),
-  createCurve: vi.fn().mockReturnValue({ id: 'mock-curve' }),
-  createSurface: vi.fn().mockReturnValue({ id: 'mock-surface' }),
-};
-
 export {};

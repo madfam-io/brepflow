@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// MockGeometry removed - using real OCCT geometry only
 import type { ShapeHandle, Vec3, MeshData } from '@brepflow/types';
 
 interface TestResult {
@@ -27,15 +26,6 @@ export function BrowserWASMTestSuite() {
       ],
     },
     {
-      name: '🎭 Mock Geometry Operations',
-      tests: [
-        { name: 'Mock Geometry Initialization', status: 'pending' },
-        { name: 'Create Primitives (Box, Sphere, Cylinder)', status: 'pending' },
-        { name: 'Boolean Operations (Union, Subtract, Intersect)', status: 'pending' },
-        { name: 'Tessellation & Mesh Generation', status: 'pending' },
-      ],
-    },
-    {
       name: '⚙️ OCCT WASM Integration',
       tests: [
         { name: 'Load OCCT WASM Module (32MB)', status: 'pending' },
@@ -57,7 +47,7 @@ export function BrowserWASMTestSuite() {
       name: '🛡️ Error Recovery & Resilience',
       tests: [
         { name: 'Handle Invalid Operations', status: 'pending' },
-        { name: 'Mock Fallback on WASM Failure', status: 'pending' },
+        { name: 'Real Geometry Error Recovery', status: 'pending' },
         { name: 'Memory Cleanup & GC', status: 'pending' },
         { name: 'Worker Crash Recovery', status: 'pending' },
       ],
@@ -179,123 +169,15 @@ export function BrowserWASMTestSuite() {
     }
   };
 
-  // MockGeometry tests disabled - using real OCCT only
-  const runMockGeometryTests = async () => {
-    const suiteName = '🎭 Mock Geometry Operations';
-    log('Mock Geometry tests skipped - using real OCCT geometry');
-
-    // Mark all mock geometry tests as skipped
-    ['Mock Geometry Initialization', 'Create Primitives (Box, Sphere, Cylinder)',
-     'Boolean Operations (Union, Subtract, Intersect)', 'Tessellation & Mesh Generation'].forEach(test => {
-      updateTest(suiteName, test, { status: 'passed', duration: 0 });
-    });
-
-    /* REMOVED - MockGeometry no longer available
-    const initStart = performance.now();
-
-    try {
-      const mock = new MockGeometry();
-      await mock.init();
-      log('Mock geometry initialized');
-      updateTest(suiteName, 'Mock Geometry Initialization', { 
-        status: 'passed', 
-        duration: performance.now() - initStart 
-      });
-
-      // Create Primitives
-      updateTest(suiteName, 'Create Primitives (Box, Sphere, Cylinder)', { status: 'running' });
-      const primStart = performance.now();
-      
-      const center: Vec3 = { x: 0, y: 0, z: 0 };
-      const box = await mock.invoke<ShapeHandle>('MAKE_BOX', { 
-        center, width: 100, height: 50, depth: 25 
-      });
-      const sphere = await mock.invoke<ShapeHandle>('MAKE_SPHERE', { 
-        center, radius: 30 
-      });
-      const cylinder = await mock.invoke<ShapeHandle>('MAKE_CYLINDER', { 
-        center, axis: { x: 0, y: 0, z: 1 }, radius: 20, height: 60 
-      });
-      
-      if (box && sphere && cylinder) {
-        log(`Created: Box ${box.id}, Sphere ${sphere.id}, Cylinder ${cylinder.id}`);
-        updateTest(suiteName, 'Create Primitives (Box, Sphere, Cylinder)', { 
-          status: 'passed', 
-          duration: performance.now() - primStart,
-          details: { box, sphere, cylinder } 
-        });
-      } else {
-        throw new Error('Failed to create primitives');
-      }
-
-      // Boolean Operations
-      updateTest(suiteName, 'Boolean Operations (Union, Subtract, Intersect)', { status: 'running' });
-      const boolStart = performance.now();
-      
-      const union = await mock.invoke<ShapeHandle>('BOOLEAN_UNION', { 
-        shapes: [box, sphere] 
-      });
-      const subtract = await mock.invoke<ShapeHandle>('BOOLEAN_SUBTRACT', { 
-        base: box, tools: [sphere] 
-      });
-      const intersect = await mock.invoke<ShapeHandle>('BOOLEAN_INTERSECT', { 
-        shapes: [box, sphere] 
-      });
-      
-      if (union && subtract && intersect) {
-        log(`Boolean ops: Union ${union.id}, Subtract ${subtract.id}, Intersect ${intersect.id}`);
-        updateTest(suiteName, 'Boolean Operations (Union, Subtract, Intersect)', { 
-          status: 'passed', 
-          duration: performance.now() - boolStart 
-        });
-      } else {
-        throw new Error('Boolean operations failed');
-      }
-
-      // Tessellation
-      updateTest(suiteName, 'Tessellation & Mesh Generation', { status: 'running' });
-      const tessStart = performance.now();
-      
-      const mesh = await mock.invoke<MeshData>('TESSELLATE', { 
-        shape: box, deflection: 0.1 
-      });
-      
-      if (mesh && mesh.positions && mesh.normals && mesh.indices) {
-        const vertCount = mesh.positions.length / 3;
-        const faceCount = mesh.indices.length / 3;
-        log(`Tessellation: ${vertCount} vertices, ${faceCount} faces`);
-        updateTest(suiteName, 'Tessellation & Mesh Generation', { 
-          status: 'passed', 
-          duration: performance.now() - tessStart,
-          details: { vertices: vertCount, faces: faceCount } 
-        });
-      } else {
-        throw new Error('Tessellation failed');
-      }
-
-    } catch (error) {
-      log(`Mock geometry error: ${error}`);
-      // Mark remaining tests as failed
-      ['Mock Geometry Initialization', 'Create Primitives (Box, Sphere, Cylinder)',
-       'Boolean Operations (Union, Subtract, Intersect)', 'Tessellation & Mesh Generation'].forEach(test => {
-        updateTest(suiteName, test, {
-          status: 'failed',
-          error: String(error)
-        });
-      });
-    }
-    */
-  };
 
   const runAllTests = async () => {
     setIsRunning(true);
     setConsoleOutput([]);
     log('Starting comprehensive WASM integration tests...');
-    
+
     // Run test suites
     await runEnvironmentTests();
-    await runMockGeometryTests();
-    
+
     // Mark remaining tests as skipped for now
     ['⚙️ OCCT WASM Integration', '🚀 Performance & Memory', '🛡️ Error Recovery & Resilience'].forEach(suiteName => {
       setSuites(prev => prev.map(suite => {
@@ -312,7 +194,7 @@ export function BrowserWASMTestSuite() {
         return suite;
       }));
     });
-    
+
     log('Test suite completed!');
     setIsRunning(false);
   };

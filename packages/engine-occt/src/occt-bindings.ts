@@ -529,7 +529,7 @@ export async function loadOCCT(): Promise<OCCTModule | null> {
   // Prevent multiple load attempts
   if (wasmLoadAttempted) {
     if (wasmLoadError) {
-      console.log('[OCCT] Previous WASM load failed, using mock geometry');
+      console.log('[OCCT] Previous WASM load failed - only real OCCT geometry is supported');
       return null;
     }
     return occtModule;

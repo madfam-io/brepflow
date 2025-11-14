@@ -353,36 +353,7 @@ export function waitFor(
   });
 }
 
-export function createMockGeometryContext() {
-  return {
-    geom: {
-      invoke: async (operation: string, params: any) => {
-        // Mock geometry operations
-        switch (operation) {
-          case 'MAKE_BOX':
-            return { type: 'solid', id: 'box-1' };
-          case 'MAKE_SPHERE':
-            return { type: 'solid', id: 'sphere-1' };
-          case 'BOOLEAN_UNION':
-            return { type: 'solid', id: 'union-1' };
-          default:
-            return { type: 'unknown', id: 'mock-1' };
-        }
-      },
-    },
-    cache: {
-      get: async (key: string) => undefined,
-      set: async (key: string, value: any) => {},
-      delete: async (key: string) => {},
-      clear: async () => {},
-    },
-    logger: {
-      info: (message: string) => console.log(`[INFO] ${message}`),
-      warn: (message: string) => console.warn(`[WARN] ${message}`),
-      error: (message: string) => console.error(`[ERROR] ${message}`),
-    },
-  };
-}
+// Removed: createMockGeometryContext - mock geometry no longer exists
 
 export function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
