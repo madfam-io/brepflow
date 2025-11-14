@@ -1,13 +1,17 @@
 /**
  * React Hook for Collaboration Features
- * Manages real-time collaboration, presence, and synchronization
+ * Manages real-time collaboration, presence, and synchronization with CSRF protection
  */
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { BrepFlowCollaborationEngine } from '@brepflow/engine-core';
+import { SecureWebSocketClient } from '../services/secure-websocket-client';
 
-// Create a singleton instance of the collaboration engine
-const collaborationEngine = new BrepFlowCollaborationEngine();
+// Create secure WebSocket client
+const secureWebSocketClient = new SecureWebSocketClient();
+
+// Create collaboration engine with secure WebSocket
+const collaborationEngine = new BrepFlowCollaborationEngine(secureWebSocketClient as any);
 import type {
   SessionId,
   UserId,
@@ -72,10 +76,29 @@ export function useCollaboration(
   const cursorThrottleRef = useRef<number>();
   const selectionThrottleRef = useRef<number>();
 
+  // WebSocket connection ref
+  const wsConnectedRef = useRef(false);
+
+  // Ensure WebSocket is connected before any collaboration operations
+  const ensureWebSocketConnected = useCallback(async () => {
+    if (!wsConnectedRef.current) {
+      try {
+        await secureWebSocketClient.connect();
+        wsConnectedRef.current = true;
+      } catch (error) {
+        console.error('Failed to connect WebSocket:', error);
+        throw error;
+      }
+    }
+  }, []);
+
   // Actions
   const actions: CollaborationActions = {
     createSession: useCallback(async (projectId: string, user: CollaborationUser): Promise<SessionId> => {
       try {
+        // Ensure WebSocket is connected before creating session
+        await ensureWebSocketConnected();
+
         const sessionId = await collaborationEngine.createSession(projectId, user.id);
         await collaborationEngine.joinSession(sessionId, user);
 
@@ -91,10 +114,13 @@ export function useCollaboration(
         console.error('Failed to create session:', error);
         throw error;
       }
-    }, []),
+    }, [ensureWebSocketConnected]),
 
     joinSession: useCallback(async (sessionId: SessionId, user: CollaborationUser): Promise<void> => {
       try {
+        // Ensure WebSocket is connected before joining session
+        await ensureWebSocketConnected();
+
         await collaborationEngine.joinSession(sessionId, user);
 
         setState(prev => ({
@@ -107,7 +133,7 @@ export function useCollaboration(
         console.error('Failed to join session:', error);
         throw error;
       }
-    }, []),
+    }, [ensureWebSocketConnected]),
 
     leaveSession: useCallback(async (): Promise<void> => {
       if (state.sessionId && state.currentUser) {
