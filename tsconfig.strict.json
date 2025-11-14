@@ -34,7 +34,7 @@
     "sourceMap": true,
     "removeComments": false,
     "importHelpers": true,
-    "importsNotUsedAsValues": "error",
+    "preserveValueImports": true,
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

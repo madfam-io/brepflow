@@ -34,11 +34,13 @@ interface HintCardProps {
   onToggleHints: () => void;
 }
 
-const HintCard: React.FC<HintCardProps> = ({ hint, onDismiss, onToggleHints }) => {
+const HintCard = React.forwardRef<HTMLDivElement, HintCardProps>(
+  ({ hint, onDismiss, onToggleHints }, ref) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <motion.div
+      ref={ref}
       className={`hint-card hint-${hint.priority || 'medium'}`}
       style={HINT_POSITIONS[hint.position]}
       initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -100,7 +102,9 @@ const HintCard: React.FC<HintCardProps> = ({ hint, onDismiss, onToggleHints }) =
 
     </motion.div>
   );
-};
+});
+
+HintCard.displayName = 'HintCard';
 
 export const HintSystem: React.FC<HintSystemProps> = ({ hints, enabled = true }) => {
   const { state, toggleHints, trackEvent } = useOnboardingStore();
