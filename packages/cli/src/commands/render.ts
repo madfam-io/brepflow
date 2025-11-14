@@ -5,7 +5,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import type { GraphInstance, ExportFormat, WorkerAPI } from '@brepflow/types';
 import { GraphManager, DAGEngine, GeometryEvaluationError } from '@brepflow/engine-core';
-import { GeometryAPIFactory } from '@brepflow/engine-core/src/geometry-api-factory';
+import { GeometryAPIFactory } from '@brepflow/engine-core/geometry-api-factory';
 import { registerCoreNodes } from '@brepflow/nodes-core';
 
 export const SUPPORTED_FORMATS: ExportFormat[] = ['step', 'iges', 'stl', 'obj', '3dm', 'gltf', 'usd'];

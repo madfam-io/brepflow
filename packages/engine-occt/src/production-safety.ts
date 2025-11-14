@@ -1,18 +1,17 @@
 /**
  * Production Safety Utilities
- * Critical: Prevents mock geometry from being used in production environments
+ * Critical: Ensures ONLY real OCCT geometry is used - NO MOCK GEOMETRY ALLOWED
  */
 
 export interface EnvironmentConfig {
   isProduction: boolean;
   isDevelopment: boolean;
   isTest: boolean;
-  allowMockGeometry: boolean;
   nodeEnv: string;
 }
 
 /**
- * Detect current environment and production safety requirements
+ * Detect current environment
  */
 export function detectEnvironment(): EnvironmentConfig {
   // Check Node.js environment
@@ -29,20 +28,16 @@ export function detectEnvironment(): EnvironmentConfig {
   const isDevelopment = nodeEnv === 'development' || isLocalhost;
   const isTest = nodeEnv === 'test' || (typeof global !== 'undefined' && global.__vitest__);
 
-  // CRITICAL: Mock geometry is ONLY allowed in development/test
-  const allowMockGeometry = isTest;
-
   return {
     isProduction,
     isDevelopment,
     isTest,
-    allowMockGeometry,
     nodeEnv
   };
 }
 
 /**
- * Production Safety Error - thrown when mock geometry is attempted in production
+ * Production Safety Error - thrown when real OCCT is not available
  */
 export class ProductionSafetyError extends Error {
   constructor(message: string, public context?: any) {
@@ -52,29 +47,18 @@ export class ProductionSafetyError extends Error {
 }
 
 /**
- * Validate that mock geometry is not being used in production
+ * Validate that ONLY real OCCT geometry is being used
  */
-export function validateProductionSafety(usingMockGeometry: boolean, environment?: EnvironmentConfig): void {
-  const env = environment || detectEnvironment();
-
-  if (usingMockGeometry && env.isProduction) {
+export function validateProductionSafety(usingRealOCCT: boolean, environment?: EnvironmentConfig): void {
+  if (!usingRealOCCT) {
+    const env = environment || detectEnvironment();
     throw new ProductionSafetyError(
-      'Mock geometry detected in production environment. This could lead to incorrect CAD operations and manufacturing errors.',
+      'ONLY real OCCT geometry is allowed. Mock geometry has been eliminated from this codebase.',
       {
         environment: env,
         timestamp: new Date().toISOString(),
-        severity: 'CRITICAL'
-      }
-    );
-  }
-
-  if (usingMockGeometry && !env.allowMockGeometry) {
-    throw new ProductionSafetyError(
-      'Mock geometry is not allowed in this environment configuration.',
-      {
-        environment: env,
-        timestamp: new Date().toISOString(),
-        severity: 'HIGH'
+        severity: 'CRITICAL',
+        recommendation: 'Ensure OCCT WASM is properly loaded and initialized'
       }
     );
   }
@@ -86,20 +70,21 @@ export function validateProductionSafety(usingMockGeometry: boolean, environment
 export function createProductionSafeConfig(overrides: any = {}): any {
   const env = detectEnvironment();
 
-  // Base configuration - production safe by default
+  // Real OCCT ONLY - no fallbacks
   const safeConfig = {
-    enableRealOCCT: true,
+    enableRealOCCT: true, // ALWAYS true - no exceptions
     enablePerformanceMonitoring: true,
     enableMemoryManagement: true,
     enableErrorRecovery: true,
-    maxRetries: env.isProduction ? 1 : 3, // Fewer retries in production for faster failure
-    operationTimeout: env.isProduction ? 15000 : 30000, // Shorter timeout in production
+    maxRetries: env.isProduction ? 1 : 3,
+    operationTimeout: env.isProduction ? 15000 : 30000,
     ...overrides
   };
 
-  if (env.isProduction && safeConfig.enableRealOCCT !== true) {
+  // Enforce real OCCT requirement
+  if (safeConfig.enableRealOCCT !== true) {
     throw new ProductionSafetyError(
-      'Real OCCT cannot be disabled in production environments.',
+      'Real OCCT cannot be disabled. Mock geometry is not supported.',
       {
         environment: env,
         config: safeConfig,
@@ -117,19 +102,15 @@ export function createProductionSafeConfig(overrides: any = {}): any {
 export function createProductionErrorBoundary(operation: string, env?: EnvironmentConfig): Error {
   const environment = env || detectEnvironment();
 
-  if (environment.isProduction) {
-    return new ProductionSafetyError(
-      `Real OCCT geometry system failed and mock fallback is disabled in production. Operation: ${operation}`,
-      {
-        operation,
-        environment,
-        severity: 'CRITICAL',
-        recommendation: 'Check WASM availability, browser compatibility, and OCCT module loading'
-      }
-    );
-  } else {
-    return new Error(`OCCT operation failed: ${operation}. Mock geometry may be used in development.`);
-  }
+  return new ProductionSafetyError(
+    `Real OCCT geometry system failed. Operation: ${operation}`,
+    {
+      operation,
+      environment,
+      severity: 'CRITICAL',
+      recommendation: 'Check WASM availability, browser compatibility, and OCCT module loading'
+    }
+  );
 }
 
 /**
@@ -142,19 +123,13 @@ export function logProductionSafetyStatus(usingRealOCCT: boolean, environment?: 
     environment: env.nodeEnv,
     isProduction: env.isProduction,
     usingRealOCCT,
-    usingMockGeometry: !usingRealOCCT,
-    allowMockGeometry: env.allowMockGeometry,
     timestamp: new Date().toISOString()
   };
 
-  if (env.isProduction) {
-    if (usingRealOCCT) {
-      console.log('✅ PRODUCTION SAFE: Using real OCCT geometry operations', status);
-    } else {
-      console.error('🚨 PRODUCTION SAFETY VIOLATION: Not using real OCCT geometry', status);
-      throw new ProductionSafetyError('Production geometry validation failed', status);
-    }
+  if (usingRealOCCT) {
+    console.log('✅ PRODUCTION SAFE: Using real OCCT geometry operations', status);
   } else {
-    console.log(`🛠️ ${env.isTest ? 'TEST' : 'DEVELOPMENT'} MODE: Geometry system status`, status);
+    console.error('🚨 PRODUCTION SAFETY VIOLATION: Real OCCT geometry not available', status);
+    throw new ProductionSafetyError('Real OCCT geometry validation failed - mock geometry is not supported', status);
   }
 }

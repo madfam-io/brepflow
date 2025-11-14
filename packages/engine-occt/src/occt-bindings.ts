@@ -189,9 +189,9 @@ async function attemptWASMLoad(): Promise<any> {
     }
 
     if (!wasmPath) {
-      console.log('[OCCT] WASM files not found in /wasm directory');
-      console.log('[OCCT] Run "pnpm run build:wasm" to compile OCCT.');
-      return null;
+      console.error('[OCCT] CRITICAL: WASM files not found. ONLY real geometry is supported.');
+      console.error('[OCCT] Geometry operations will fail. Check /wasm directory.');
+      return null; // Fail on use, not on load
     }
 
     console.log('[OCCT] Loading WASM module from:', wasmPath);
@@ -211,14 +211,11 @@ async function attemptWASMLoad(): Promise<any> {
     console.log('[OCCT] WASM module loaded successfully');
     return wasmInstance;
   } catch (error) {
-    // This is not a failure - it's expected when WASM isn't compiled yet
-    if (error.message?.includes('Failed to resolve import')) {
-      console.log('[OCCT] WASM not yet compiled. Run "pnpm run build:wasm" to enable real geometry.');
-    } else {
-      console.log('[OCCT] WASM loading error:', error.message);
-      console.log('[OCCT] Falling back to mock geometry.');
-    }
-    return null;
+    // WASM loading failed - allow app to start but geometry will fail on use
+    console.error('[OCCT] CRITICAL: WASM loading failed. ONLY real geometry is supported.');
+    console.error('[OCCT] Error:', error.message);
+    console.error('[OCCT] Geometry operations will fail when attempted.');
+    return null; // Fail on use, not on load
   }
 }
 
@@ -527,18 +524,17 @@ export async function loadOCCT(): Promise<OCCTModule | null> {
 
       return occtModule;
     } else {
-      // WASM not available yet - this is expected before compilation
-      console.log('[OCCT] Real WASM not available. Using mock geometry.');
-      console.log('[OCCT] To enable real geometry:');
-      console.log('[OCCT]   1. Run: pnpm run build:wasm');
-      console.log('[OCCT]   2. Ensure server has COOP/COEP headers for SharedArrayBuffer');
-      return null;
+      // WASM not available - fail on use, not on load
+      console.error('[OCCT] CRITICAL: Real OCCT WASM not available. ONLY real geometry is supported.');
+      console.error('[OCCT] Expected WASM files at: ' + wasmPath);
+      console.error('[OCCT] Geometry operations will fail when attempted.');
+      return null; // Fail on use, not on load
     }
   } catch (error) {
-    // Error loading WASM - log and fall back to mock
+    // Error loading WASM - FAIL HARD, NO MOCK FALLBACK
     wasmLoadError = error as Error;
-    console.log('[OCCT] Could not load WASM module, using mock geometry');
-    console.log('[OCCT] This is expected if WASM hasn\'t been compiled yet');
+    console.error('[OCCT] CRITICAL: Failed to load WASM module. ONLY real geometry is supported.');
+    console.error('[OCCT] Error details:', error);
 
     // Return null to trigger mock fallback
     return null;

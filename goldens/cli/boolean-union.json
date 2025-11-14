@@ -1,5 +1,4 @@
 {
   "graph": "boolean-union.bflow.json",
-  "exports": ["step", "stl"],
-  "allowMock": false
+  "exports": ["step", "stl"]
 }

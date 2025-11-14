@@ -314,12 +314,12 @@ export class CollaborationServer {
       socket.on('document:join', async (documentId: string, user: User) => {
         // Validate documentId format
         if (!this.isValidDocumentId(documentId)) {
-          socket.emit('error', { message: 'Invalid document ID' });
+          socket.emit('error', new Error('Invalid document ID'));
           return;
         }
         // Validate user object
         if (!this.isValidUser(user)) {
-          socket.emit('error', { message: 'Invalid user data' });
+          socket.emit('error', new Error('Invalid user data'));
           return;
         }
         await this.handleJoinDocument(socket, documentId, user);
@@ -332,7 +332,7 @@ export class CollaborationServer {
       socket.on('operation:submit', async (operation: Operation) => {
         // SECURITY: Validate operation before processing
         if (!this.isValidOperation(operation)) {
-          socket.emit('error', { message: 'Invalid operation' });
+          socket.emit('error', new Error('Invalid operation'));
           return;
         }
         await this.handleOperation(socket, operation);

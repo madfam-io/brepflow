@@ -14,7 +14,7 @@
 import { describe, test, expect, beforeAll, afterAll } from 'vitest';
 import { GeometryAPI } from '@brepflow/engine-occt';
 import { NodeRegistry, GraphEvaluator } from '@brepflow/engine-core';
-import { registerCoreNodes } from '../../src/index';
+import { registerCoreNodes } from '@brepflow/nodes-core';
 import type { GraphDefinition, NodeInstance } from '@brepflow/types';
 import fs from 'fs/promises';
 import path from 'path';

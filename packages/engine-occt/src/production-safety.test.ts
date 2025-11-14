@@ -11,7 +11,6 @@ import {
 describe('Production Safety', () => {
   beforeEach(() => {
     vi.resetModules();
-    // Reset any environment variable mocks
     delete process.env.NODE_ENV;
   });
 
@@ -21,7 +20,6 @@ describe('Production Safety', () => {
       const env = detectEnvironment();
 
       expect(env.isProduction).toBe(true);
-      expect(env.allowMockGeometry).toBe(false);
       expect(env.nodeEnv).toBe('production');
     });
 
@@ -31,7 +29,6 @@ describe('Production Safety', () => {
 
       expect(env.isProduction).toBe(false);
       expect(env.isDevelopment).toBe(true);
-      expect(env.allowMockGeometry).toBe(false);
     });
 
     it('should detect test environment', () => {
@@ -39,7 +36,6 @@ describe('Production Safety', () => {
       const env = detectEnvironment();
 
       expect(env.isTest).toBe(true);
-      expect(env.allowMockGeometry).toBe(true);
     });
 
     it('should default to development when NODE_ENV is undefined', () => {
@@ -47,41 +43,51 @@ describe('Production Safety', () => {
       const env = detectEnvironment();
 
       expect(env.isDevelopment).toBe(true);
-      expect(env.allowMockGeometry).toBe(false);
     });
   });
 
   describe('Production Safety Validation', () => {
-    it('should throw error when mock geometry is used in production', () => {
+    it('should throw error when NOT using real OCCT geometry', () => {
       const productionEnv: EnvironmentConfig = {
         isProduction: true,
         isDevelopment: false,
         isTest: false,
-        allowMockGeometry: false,
         nodeEnv: 'production'
       };
 
       expect(() => {
-        validateProductionSafety(true, productionEnv);
+        validateProductionSafety(false, productionEnv); // false = NOT using real OCCT
       }).toThrow(ProductionSafetyError);
 
       expect(() => {
-        validateProductionSafety(true, productionEnv);
-      }).toThrow('Mock geometry detected in production environment');
+        validateProductionSafety(false, productionEnv);
+      }).toThrow('ONLY real OCCT geometry is allowed');
     });
 
-    it('should allow real geometry in production', () => {
+    it('should allow real OCCT geometry in production', () => {
       const productionEnv: EnvironmentConfig = {
         isProduction: true,
         isDevelopment: false,
         isTest: false,
-        allowMockGeometry: false,
         nodeEnv: 'production'
       };
 
       expect(() => {
-        validateProductionSafety(false, productionEnv);
+        validateProductionSafety(true, productionEnv); // true = using real OCCT
       }).not.toThrow();
+    });
+
+    it('should enforce real OCCT in development too', () => {
+      const devEnv: EnvironmentConfig = {
+        isProduction: false,
+        isDevelopment: true,
+        isTest: false,
+        nodeEnv: 'development'
+      };
+
+      expect(() => {
+        validateProductionSafety(false, devEnv); // false = NOT using real OCCT
+      }).toThrow(ProductionSafetyError);
     });
   });
 
@@ -106,23 +112,25 @@ describe('Production Safety', () => {
       expect(config.operationTimeout).toBe(30000);
     });
 
-    it('should reject unsafe production config', () => {
+    it('should reject disabling real OCCT', () => {
       process.env.NODE_ENV = 'production';
 
       expect(() => {
         createProductionSafeConfig({ enableRealOCCT: false });
       }).toThrow(ProductionSafetyError);
+      
+      expect(() => {
+        createProductionSafeConfig({ enableRealOCCT: false });
+      }).toThrow('Real OCCT cannot be disabled');
     });
-
   });
 
   describe('Production Error Boundaries', () => {
-    it('should create production-specific error in production', () => {
+    it('should create production-specific error', () => {
       const productionEnv: EnvironmentConfig = {
         isProduction: true,
         isDevelopment: false,
         isTest: false,
-        allowMockGeometry: false,
         nodeEnv: 'production'
       };
 
@@ -130,23 +138,7 @@ describe('Production Safety', () => {
 
       expect(error).toBeInstanceOf(ProductionSafetyError);
       expect(error.message).toContain('Real OCCT geometry system failed');
-      expect(error.message).toContain('mock fallback is disabled in production');
-    });
-
-    it('should create development error in development', () => {
-      const devEnv: EnvironmentConfig = {
-        isProduction: false,
-        isDevelopment: true,
-        isTest: false,
-        allowMockGeometry: true,
-        nodeEnv: 'development'
-      };
-
-      const error = createProductionErrorBoundary('TEST_OPERATION', devEnv);
-
-      expect(error).toBeInstanceOf(Error);
-      expect(error).not.toBeInstanceOf(ProductionSafetyError);
-      expect(error.message).toContain('Mock geometry may be used in development');
+      expect(error.message).toContain('TEST_OPERATION');
     });
   });
 
@@ -171,11 +163,9 @@ describe('Production Safety', () => {
 
   describe('Browser Environment Detection', () => {
     it('should handle browser environment without Node.js process', () => {
-      // Mock browser environment
       const originalProcess = global.process;
       delete (global as any).process;
 
-      // Mock window object
       Object.defineProperty(window, 'location', {
         value: { hostname: 'localhost' },
         writable: true
@@ -184,18 +174,14 @@ describe('Production Safety', () => {
       const env = detectEnvironment();
 
       expect(env.isDevelopment).toBe(true);
-      expect(env.allowMockGeometry).toBe(true);
 
-      // Restore
       global.process = originalProcess;
     });
 
     it('should detect production domain', () => {
-      // Mock browser environment
       const originalProcess = global.process;
       delete (global as any).process;
 
-      // Mock production domain
       Object.defineProperty(window, 'location', {
         value: { hostname: 'app.example.com' },
         writable: true
@@ -204,9 +190,7 @@ describe('Production Safety', () => {
       const env = detectEnvironment();
 
       expect(env.isProduction).toBe(true);
-      expect(env.allowMockGeometry).toBe(false);
 
-      // Restore
       global.process = originalProcess;
     });
   });

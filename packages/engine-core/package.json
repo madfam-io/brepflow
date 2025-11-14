@@ -10,6 +10,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
+    },
+    "./geometry-api-factory": {
+      "types": "./dist/geometry-api-factory.d.ts",
+      "import": "./dist/geometry-api-factory.mjs",
+      "require": "./dist/geometry-api-factory.js"
     }
   },
   "scripts": {

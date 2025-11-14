@@ -178,13 +178,11 @@ export class SimpleSessionManager {
    */
   private createEmptyGraph(): GraphInstance {
     return {
-      id: uuidv7(),
+      version: '0.1.0',
+      units: 'mm',
+      tolerance: 0.01,
       nodes: [],
       edges: [],
-      version: '0.1.0',
-      units: 'millimeters',
-      tolerance: 0.01,
-      dirty: false,
     };
   }
 }

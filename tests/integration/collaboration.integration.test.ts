@@ -39,6 +39,7 @@ describe('Collaboration server/client integration', () => {
       maxConnectionsPerDocument: 8,
       operationHistoryLimit: 256,
       presenceTimeout: 2000,
+      corsOrigin: 'http://127.0.0.1', // Required for security validation
     });
 
     try {

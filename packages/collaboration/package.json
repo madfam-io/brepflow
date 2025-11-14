@@ -28,12 +28,14 @@
     "@brepflow/types": "workspace:*",
     "socket.io": "^4.7.0",
     "socket.io-client": "^4.7.0",
-    "yjs": "^13.6.0",
-    "y-websocket": "^1.5.0",
     "uuid": "^9.0.0",
-    "ws": "^8.16.0"
+    "ws": "^8.16.0",
+    "y-websocket": "^1.5.0",
+    "yjs": "^13.6.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.5",
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.0",
     "@types/uuid": "^9.0.0",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi, describe, it, expect } from 'vitest';
+import '@testing-library/jest-dom';
 
 // Import enhanced UI components
 import { Button, IconButton } from '../../components/ui/Button';

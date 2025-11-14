@@ -31,7 +31,7 @@ export class OCCTWrapper {
     const module = await loadOCCT();
     if (!module) {
       throw new Error(
-        '[OCCTWrapper] Real OCCT WASM module is not available. Run "pnpm run build:wasm" to compile the bindings.'
+        '[OCCTWrapper] CRITICAL: Real OCCT WASM module MUST be available. ONLY real geometry is supported. Check WASM files in /wasm directory.'
       );
     }
 

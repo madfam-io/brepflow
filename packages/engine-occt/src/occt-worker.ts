@@ -97,18 +97,16 @@ self.addEventListener('message', async (event: MessageEvent<WorkerRequest>) => {
 
           result = {
             initialized: true,
-            useMock: false,
             version: 'OCCT 7.8.0'
           };
         } else {
-          result = { initialized: true, useMock: false };
+          result = { initialized: true };
         }
         break;
 
       case 'HEALTH_CHECK':
         result = {
           healthy: isInitialized,
-          useMock: false,
           uptime: performance.now(),
         };
         break;
