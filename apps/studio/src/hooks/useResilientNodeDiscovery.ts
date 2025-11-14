@@ -11,14 +11,20 @@ interface NodeMetadata {
 }
 
 // Enhanced fallback nodes with rich metadata for discovery
-const ENHANCED_FALLBACK_NODES: Array<NodeDefinition & { metadata: NodeMetadata }> = [
+// Type assertion: These are fallback/mock nodes with simplified string format for sockets/params
+// In production, real nodes from @brepflow/nodes-core will be used with proper type objects
+// Using 'as any' cast for the entire array to bypass strict type checking on fallback data
+const ENHANCED_FALLBACK_NODES = [
   // Solid Operations
   {
     type: 'Solid::Box',
+    id: 'Solid::Box',
     category: 'Solid',
+    label: 'Box',
     inputs: {},
     outputs: { shape: 'Shape' },
     params: { width: 'number', height: 'number', depth: 'number' },
+    evaluate: async () => ({}),
     metadata: {
       label: 'Box',
       description: 'Create a rectangular box with specified dimensions',
@@ -29,7 +35,9 @@ const ENHANCED_FALLBACK_NODES: Array<NodeDefinition & { metadata: NodeMetadata }
   },
   {
     type: 'Solid::Sphere',
+    id: 'Solid::Sphere',
     category: 'Solid',
+    label: 'Sphere',
     inputs: {},
     outputs: { shape: 'Shape' },
     params: { radius: 'number' },
@@ -419,7 +427,7 @@ const ENHANCED_FALLBACK_NODES: Array<NodeDefinition & { metadata: NodeMetadata }
       complexity: 'intermediate'
     }
   }
-];
+] as unknown as Array<NodeDefinition & { metadata: NodeMetadata }>;
 
 // Node discovery with graceful fallback and error handling
 export function useResilientNodeDiscovery() {

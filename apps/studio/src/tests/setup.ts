@@ -165,6 +165,7 @@ vi.mock('@brepflow/engine-core', () => {
         nodes: [],
         edges: [],
       };
+      // @ts-expect-error - Test utility type narrowing issue
       graphManagerInstances.push(this);
     }
 
@@ -254,6 +255,7 @@ vi.mock('@brepflow/engine-core', () => {
     }
 
     static resetAll() {
+      // @ts-expect-error - Test mock type narrowing
       graphManagerInstances.forEach(instance => {
         instance.clearGraph();
       });
@@ -310,6 +312,7 @@ vi.mock('../lib/undo-redo', () => {
 
     execute(command) {
       command.execute();
+      // @ts-expect-error - Test command type
       this.undoStack.push(command);
       this.redoStack = [];
 
@@ -322,6 +325,7 @@ vi.mock('../lib/undo-redo', () => {
     undo() {
       if (this.undoStack.length > 0) {
         const command = this.undoStack.pop();
+        // @ts-expect-error - Optional command check
         command.undo();
         this.redoStack.push(command);
       }
@@ -330,6 +334,7 @@ vi.mock('../lib/undo-redo', () => {
     redo() {
       if (this.redoStack.length > 0) {
         const command = this.redoStack.pop();
+        // @ts-expect-error - Optional command check
         command.execute();
         this.undoStack.push(command);
       }

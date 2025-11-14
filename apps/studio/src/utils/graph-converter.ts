@@ -22,13 +22,12 @@ export function convertToReactFlow(
     position: node.position || { x: 0, y: 0 },
     data: {
       label: getNodeLabel(node),
-      type: node.type,
+      nodeType: node.type,
       nodeData: node,
       isSelected: selectedNodes?.has(node.id) || false,
       hasError: errors?.has(node.id) || false,
       isExecuting: (node.state as unknown as string) === 'executing' || false,
       onOpenParameterDialog,
-      nodeType: node.type,
       ...node,
     },
   }));

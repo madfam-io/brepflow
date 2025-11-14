@@ -31,7 +31,7 @@ function createEmptyGraph(): GraphInstance {
     nodes: [],
     edges: [],
     version: '0.1.0',
-    units: 'millimeters',
+    units: 'mm',
     tolerance: 0.01,
     dirty: false,
   };
