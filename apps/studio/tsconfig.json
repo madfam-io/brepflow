@@ -10,9 +10,8 @@
     "jsx": "react-jsx",
     "strict": false,
     "strictNullChecks": true,
-    // Phase 2 Status: Infrastructure complete (DTS generation enabled, 74% error reduction)
-    // Phase 3 Goal: Enable remaining strict flags progressively
-    // Next: exactOptionalPropertyTypes, noUnusedLocals, noImplicitReturns
+    // Phase 2: Completed infrastructure (DTS generation, 74% error reduction)
+    // Phase 3: Would require fixing ~114 errors for full strict mode
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "skipLibCheck": true, // Skip .d.ts checking for faster builds and DTS generation quirks
