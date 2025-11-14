@@ -10,6 +10,9 @@
     "jsx": "react-jsx",
     "strict": false,
     "strictNullChecks": true,
+    // Note: Full strict mode blocked by missing declaration files in @brepflow packages
+    // Packages need to enable `dts: true` in tsup configs (currently disabled due to branded type issues)
+    // See: packages/engine-core/tsup.config.ts line 13
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -24,12 +27,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "vite.config.ts",
-    "vitest.config.ts"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "vitest.config.ts"],
   "exclude": [
     "node_modules",
     "dist",
