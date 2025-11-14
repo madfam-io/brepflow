@@ -15,6 +15,7 @@ interface BrimGenerationOutputs {
 
 export const Fabrication3DPrintingBrimGenerationNode: NodeDefinition<BrimGenerationInputs, BrimGenerationOutputs, BrimGenerationParams> = {
   id: 'Fabrication::BrimGeneration',
+  type: 'Fabrication::BrimGeneration',
   category: 'Fabrication',
   label: 'BrimGeneration',
   description: 'Generate brim for adhesion',

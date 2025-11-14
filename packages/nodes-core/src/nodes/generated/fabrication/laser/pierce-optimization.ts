@@ -15,6 +15,7 @@ interface PierceOptimizationOutputs {
 
 export const FabricationLaserPierceOptimizationNode: NodeDefinition<PierceOptimizationInputs, PierceOptimizationOutputs, PierceOptimizationParams> = {
   id: 'Fabrication::PierceOptimization',
+  type: 'Fabrication::PierceOptimization',
   category: 'Fabrication',
   label: 'PierceOptimization',
   description: 'Optimize pierce points',

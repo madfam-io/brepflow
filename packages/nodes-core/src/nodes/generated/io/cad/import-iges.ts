@@ -16,6 +16,7 @@ interface ImportIGESOutputs {
 
 export const IOCADImportIGESNode: NodeDefinition<ImportIGESInputs, ImportIGESOutputs, ImportIGESParams> = {
   id: 'IO::ImportIGES',
+  type: 'IO::ImportIGES',
   category: 'IO',
   label: 'ImportIGES',
   description: 'Import IGES file',

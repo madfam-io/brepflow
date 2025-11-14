@@ -17,6 +17,7 @@ interface RadiantFloorOutputs {
 
 export const ArchitectureFloorsRadiantFloorNode: NodeDefinition<RadiantFloorInputs, RadiantFloorOutputs, RadiantFloorParams> = {
   id: 'Architecture::RadiantFloor',
+  type: 'Architecture::RadiantFloor',
   category: 'Architecture',
   label: 'RadiantFloor',
   description: 'In-floor radiant heating',

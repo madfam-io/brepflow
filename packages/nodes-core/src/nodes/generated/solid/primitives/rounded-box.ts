@@ -15,6 +15,7 @@ interface RoundedBoxOutputs {
 
 export const SolidPrimitivesRoundedBoxNode: NodeDefinition<RoundedBoxInputs, RoundedBoxOutputs, RoundedBoxParams> = {
   id: 'Solid::RoundedBox',
+  type: 'Solid::RoundedBox',
   category: 'Solid',
   label: 'RoundedBox',
   description: 'Create a box with rounded edges',

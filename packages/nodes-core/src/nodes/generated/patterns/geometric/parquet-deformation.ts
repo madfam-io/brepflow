@@ -15,6 +15,7 @@ interface ParquetDeformationOutputs {
 
 export const PatternsGeometricParquetDeformationNode: NodeDefinition<ParquetDeformationInputs, ParquetDeformationOutputs, ParquetDeformationParams> = {
   id: 'Patterns::ParquetDeformation',
+  type: 'Patterns::ParquetDeformation',
   category: 'Patterns',
   label: 'ParquetDeformation',
   description: 'M.C. Escher deformation',

@@ -12,6 +12,7 @@ interface ListJoinOutputs {
 
 export const DataListListJoinNode: NodeDefinition<ListJoinInputs, ListJoinOutputs, ListJoinParams> = {
   id: 'Data::ListJoin',
+  type: 'Data::ListJoin',
   category: 'Data',
   label: 'ListJoin',
   description: 'Join multiple lists',

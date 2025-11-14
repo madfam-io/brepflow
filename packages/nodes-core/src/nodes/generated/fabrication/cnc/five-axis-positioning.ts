@@ -16,6 +16,7 @@ interface FiveAxisPositioningOutputs {
 
 export const FabricationCNCFiveAxisPositioningNode: NodeDefinition<FiveAxisPositioningInputs, FiveAxisPositioningOutputs, FiveAxisPositioningParams> = {
   id: 'Fabrication::FiveAxisPositioning',
+  type: 'Fabrication::FiveAxisPositioning',
   category: 'Fabrication',
   label: 'FiveAxisPositioning',
   description: '5-axis positioning strategy',

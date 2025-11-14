@@ -16,6 +16,7 @@ interface RoboticMillingOutputs {
 
 export const FabricationRoboticsRoboticMillingNode: NodeDefinition<RoboticMillingInputs, RoboticMillingOutputs, RoboticMillingParams> = {
   id: 'Fabrication::RoboticMilling',
+  type: 'Fabrication::RoboticMilling',
   category: 'Fabrication',
   label: 'RoboticMilling',
   description: 'Robotic milling paths',

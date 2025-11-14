@@ -17,6 +17,7 @@ interface SurfaceParametrizationOutputs {
 
 export const AnalysisSurfacesSurfaceParametrizationNode: NodeDefinition<SurfaceParametrizationInputs, SurfaceParametrizationOutputs, SurfaceParametrizationParams> = {
   id: 'Analysis::SurfaceParametrization',
+  type: 'Analysis::SurfaceParametrization',
   category: 'Analysis',
   label: 'SurfaceParametrization',
   description: 'Analyze surface parametrization',

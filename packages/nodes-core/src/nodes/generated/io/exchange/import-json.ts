@@ -15,6 +15,7 @@ interface ImportJSONOutputs {
 
 export const IOExchangeImportJSONNode: NodeDefinition<ImportJSONInputs, ImportJSONOutputs, ImportJSONParams> = {
   id: 'IO::ImportJSON',
+  type: 'IO::ImportJSON',
   category: 'IO',
   label: 'ImportJSON',
   description: 'Import geometry from JSON',

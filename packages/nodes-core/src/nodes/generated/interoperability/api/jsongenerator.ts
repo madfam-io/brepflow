@@ -16,6 +16,7 @@ interface JSONGeneratorOutputs {
 
 export const InteroperabilityAPIJSONGeneratorNode: NodeDefinition<JSONGeneratorInputs, JSONGeneratorOutputs, JSONGeneratorParams> = {
   id: 'Interoperability::JSONGenerator',
+  type: 'Interoperability::JSONGenerator',
   category: 'Interoperability',
   label: 'JSONGenerator',
   description: 'Generate JSON from data',

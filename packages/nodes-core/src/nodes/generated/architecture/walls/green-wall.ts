@@ -16,6 +16,7 @@ interface GreenWallOutputs {
 
 export const ArchitectureWallsGreenWallNode: NodeDefinition<GreenWallInputs, GreenWallOutputs, GreenWallParams> = {
   id: 'Architecture::GreenWall',
+  type: 'Architecture::GreenWall',
   category: 'Architecture',
   label: 'GreenWall',
   description: 'Living green wall system',

@@ -14,6 +14,7 @@ interface PerpendicularOutputs {
 
 export const AssemblyConstraintsPerpendicularNode: NodeDefinition<PerpendicularInputs, PerpendicularOutputs, PerpendicularParams> = {
   id: 'Assembly::Perpendicular',
+  type: 'Assembly::Perpendicular',
   category: 'Assembly',
   label: 'Perpendicular',
   description: 'Make two entities perpendicular',

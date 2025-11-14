@@ -14,6 +14,7 @@ interface TreeFlattenOutputs {
 
 export const DataTreeTreeFlattenNode: NodeDefinition<TreeFlattenInputs, TreeFlattenOutputs, TreeFlattenParams> = {
   id: 'Data::TreeFlatten',
+  type: 'Data::TreeFlatten',
   category: 'Data',
   label: 'TreeFlatten',
   description: 'Flatten tree',

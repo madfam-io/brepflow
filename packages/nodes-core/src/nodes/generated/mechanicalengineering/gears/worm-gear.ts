@@ -18,6 +18,7 @@ interface WormGearOutputs {
 
 export const MechanicalEngineeringGearsWormGearNode: NodeDefinition<WormGearInputs, WormGearOutputs, WormGearParams> = {
   id: 'MechanicalEngineering::WormGear',
+  type: 'MechanicalEngineering::WormGear',
   category: 'MechanicalEngineering',
   label: 'WormGear',
   description: 'Create worm gear for high reduction',

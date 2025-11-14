@@ -16,6 +16,7 @@ interface GirihTilingOutputs {
 
 export const PatternsIslamicGirihTilingNode: NodeDefinition<GirihTilingInputs, GirihTilingOutputs, GirihTilingParams> = {
   id: 'Patterns::GirihTiling',
+  type: 'Patterns::GirihTiling',
   category: 'Patterns',
   label: 'GirihTiling',
   description: 'Girih pentagonal tiling',

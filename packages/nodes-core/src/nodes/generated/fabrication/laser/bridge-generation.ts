@@ -15,6 +15,7 @@ interface BridgeGenerationOutputs {
 
 export const FabricationLaserBridgeGenerationNode: NodeDefinition<BridgeGenerationInputs, BridgeGenerationOutputs, BridgeGenerationParams> = {
   id: 'Fabrication::BridgeGeneration',
+  type: 'Fabrication::BridgeGeneration',
   category: 'Fabrication',
   label: 'BridgeGeneration',
   description: 'Add holding bridges',

@@ -14,6 +14,7 @@ interface SetCombinationsOutputs {
 
 export const DataSetSetCombinationsNode: NodeDefinition<SetCombinationsInputs, SetCombinationsOutputs, SetCombinationsParams> = {
   id: 'Data::SetCombinations',
+  type: 'Data::SetCombinations',
   category: 'Data',
   label: 'SetCombinations',
   description: 'Combinations of set',

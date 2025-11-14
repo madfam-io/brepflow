@@ -16,6 +16,7 @@ interface SmartFastenersOutputs {
 
 export const AssemblyPatternsSmartFastenersNode: NodeDefinition<SmartFastenersInputs, SmartFastenersOutputs, SmartFastenersParams> = {
   id: 'Assembly::SmartFasteners',
+  type: 'Assembly::SmartFasteners',
   category: 'Assembly',
   label: 'SmartFasteners',
   description: 'Add smart fasteners',

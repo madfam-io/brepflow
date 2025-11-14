@@ -16,6 +16,7 @@ interface FieldHeatMapOutputs {
 
 export const FieldsVisualizationFieldHeatMapNode: NodeDefinition<FieldHeatMapInputs, FieldHeatMapOutputs, FieldHeatMapParams> = {
   id: 'Fields::FieldHeatMap',
+  type: 'Fields::FieldHeatMap',
   category: 'Fields',
   label: 'FieldHeatMap',
   description: 'Generate heat map visualization',

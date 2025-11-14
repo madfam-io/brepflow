@@ -17,6 +17,7 @@ interface TPMSOutputs {
 
 export const SpecializedLatticeTPMSNode: NodeDefinition<TPMSInputs, TPMSOutputs, TPMSParams> = {
   id: 'Specialized::TPMS',
+  type: 'Specialized::TPMS',
   category: 'Specialized',
   label: 'TPMS',
   description: 'Triply periodic minimal surface',

@@ -17,6 +17,7 @@ interface StainedGlassWindowOutputs {
 
 export const ArchitectureWindowsStainedGlassWindowNode: NodeDefinition<StainedGlassWindowInputs, StainedGlassWindowOutputs, StainedGlassWindowParams> = {
   id: 'Architecture::StainedGlassWindow',
+  type: 'Architecture::StainedGlassWindow',
   category: 'Architecture',
   label: 'StainedGlassWindow',
   description: 'Stained glass window',

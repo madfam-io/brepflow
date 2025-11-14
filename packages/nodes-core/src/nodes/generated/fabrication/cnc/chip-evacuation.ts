@@ -15,6 +15,7 @@ interface ChipEvacuationOutputs {
 
 export const FabricationCNCChipEvacuationNode: NodeDefinition<ChipEvacuationInputs, ChipEvacuationOutputs, ChipEvacuationParams> = {
   id: 'Fabrication::ChipEvacuation',
+  type: 'Fabrication::ChipEvacuation',
   category: 'Fabrication',
   label: 'ChipEvacuation',
   description: 'Chip evacuation analysis',

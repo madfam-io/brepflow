@@ -16,6 +16,7 @@ interface TiltUpPanelOutputs {
 
 export const ArchitectureWallsTiltUpPanelNode: NodeDefinition<TiltUpPanelInputs, TiltUpPanelOutputs, TiltUpPanelParams> = {
   id: 'Architecture::TiltUpPanel',
+  type: 'Architecture::TiltUpPanel',
   category: 'Architecture',
   label: 'TiltUpPanel',
   description: 'Tilt-up concrete panel',

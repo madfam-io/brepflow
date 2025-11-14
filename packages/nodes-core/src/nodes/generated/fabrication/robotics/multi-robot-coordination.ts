@@ -14,6 +14,7 @@ interface MultiRobotCoordinationOutputs {
 
 export const FabricationRoboticsMultiRobotCoordinationNode: NodeDefinition<MultiRobotCoordinationInputs, MultiRobotCoordinationOutputs, MultiRobotCoordinationParams> = {
   id: 'Fabrication::MultiRobotCoordination',
+  type: 'Fabrication::MultiRobotCoordination',
   category: 'Fabrication',
   label: 'MultiRobotCoordination',
   description: 'Coordinate multiple robots',

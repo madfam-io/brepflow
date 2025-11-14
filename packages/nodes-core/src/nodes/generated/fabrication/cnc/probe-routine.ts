@@ -15,6 +15,7 @@ interface ProbeRoutineOutputs {
 
 export const FabricationCNCProbeRoutineNode: NodeDefinition<ProbeRoutineInputs, ProbeRoutineOutputs, ProbeRoutineParams> = {
   id: 'Fabrication::ProbeRoutine',
+  type: 'Fabrication::ProbeRoutine',
   category: 'Fabrication',
   label: 'ProbeRoutine',
   description: 'Probing cycle generation',

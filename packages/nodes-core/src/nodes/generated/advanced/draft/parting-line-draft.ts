@@ -17,6 +17,7 @@ interface PartingLineDraftOutputs {
 
 export const AdvancedDraftPartingLineDraftNode: NodeDefinition<PartingLineDraftInputs, PartingLineDraftOutputs, PartingLineDraftParams> = {
   id: 'Advanced::PartingLineDraft',
+  type: 'Advanced::PartingLineDraft',
   category: 'Advanced',
   label: 'PartingLineDraft',
   description: 'Draft from parting line',

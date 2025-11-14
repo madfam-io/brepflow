@@ -17,6 +17,7 @@ interface RemoveFeaturesOutputs {
 
 export const AdvancedHealingRemoveFeaturesNode: NodeDefinition<RemoveFeaturesInputs, RemoveFeaturesOutputs, RemoveFeaturesParams> = {
   id: 'Advanced::RemoveFeatures',
+  type: 'Advanced::RemoveFeatures',
   category: 'Advanced',
   label: 'RemoveFeatures',
   description: 'Remove small features',

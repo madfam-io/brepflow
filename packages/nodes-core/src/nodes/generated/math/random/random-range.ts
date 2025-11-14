@@ -15,6 +15,7 @@ interface RandomRangeOutputs {
 
 export const MathRandomRandomRangeNode: NodeDefinition<RandomRangeInputs, RandomRangeOutputs, RandomRangeParams> = {
   id: 'Math::RandomRange',
+  type: 'Math::RandomRange',
   category: 'Math',
   label: 'RandomRange',
   description: 'Random in range',

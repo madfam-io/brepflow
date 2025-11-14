@@ -14,6 +14,7 @@ interface LayerSeparationOutputs {
 
 export const FabricationLaserLayerSeparationNode: NodeDefinition<LayerSeparationInputs, LayerSeparationOutputs, LayerSeparationParams> = {
   id: 'Fabrication::LayerSeparation',
+  type: 'Fabrication::LayerSeparation',
   category: 'Fabrication',
   label: 'LayerSeparation',
   description: 'Separate by layer/color',

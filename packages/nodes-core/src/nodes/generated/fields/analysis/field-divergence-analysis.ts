@@ -12,6 +12,7 @@ interface FieldDivergenceAnalysisOutputs {
 
 export const FieldsAnalysisFieldDivergenceAnalysisNode: NodeDefinition<FieldDivergenceAnalysisInputs, FieldDivergenceAnalysisOutputs, FieldDivergenceAnalysisParams> = {
   id: 'Fields::FieldDivergenceAnalysis',
+  type: 'Fields::FieldDivergenceAnalysis',
   category: 'Fields',
   label: 'FieldDivergenceAnalysis',
   description: 'Calculate divergence of vector field',

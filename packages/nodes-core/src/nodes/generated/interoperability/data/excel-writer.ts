@@ -18,6 +18,7 @@ interface ExcelWriterOutputs {
 
 export const InteroperabilityDataExcelWriterNode: NodeDefinition<ExcelWriterInputs, ExcelWriterOutputs, ExcelWriterParams> = {
   id: 'Interoperability::ExcelWriter',
+  type: 'Interoperability::ExcelWriter',
   category: 'Interoperability',
   label: 'ExcelWriter',
   description: 'Write data to Excel files',

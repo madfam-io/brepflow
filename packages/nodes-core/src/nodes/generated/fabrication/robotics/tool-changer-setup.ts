@@ -14,6 +14,7 @@ interface ToolChangerSetupOutputs {
 
 export const FabricationRoboticsToolChangerSetupNode: NodeDefinition<ToolChangerSetupInputs, ToolChangerSetupOutputs, ToolChangerSetupParams> = {
   id: 'Fabrication::ToolChangerSetup',
+  type: 'Fabrication::ToolChangerSetup',
   category: 'Fabrication',
   label: 'ToolChangerSetup',
   description: 'Automatic tool changer',

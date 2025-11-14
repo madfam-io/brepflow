@@ -19,6 +19,7 @@ interface SurfaceContinuityOutputs {
 
 export const AnalysisSurfacesSurfaceContinuityNode: NodeDefinition<SurfaceContinuityInputs, SurfaceContinuityOutputs, SurfaceContinuityParams> = {
   id: 'Analysis::SurfaceContinuity',
+  type: 'Analysis::SurfaceContinuity',
   category: 'Analysis',
   label: 'SurfaceContinuity',
   description: 'Analyze surface continuity across edges',

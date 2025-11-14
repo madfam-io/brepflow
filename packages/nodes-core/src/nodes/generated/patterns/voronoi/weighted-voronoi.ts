@@ -15,6 +15,7 @@ interface WeightedVoronoiOutputs {
 
 export const PatternsVoronoiWeightedVoronoiNode: NodeDefinition<WeightedVoronoiInputs, WeightedVoronoiOutputs, WeightedVoronoiParams> = {
   id: 'Patterns::WeightedVoronoi',
+  type: 'Patterns::WeightedVoronoi',
   category: 'Patterns',
   label: 'WeightedVoronoi',
   description: 'Weighted Voronoi diagram',

@@ -15,6 +15,7 @@ interface FlexibleSubAssemblyOutputs {
 
 export const AssemblyPatternsFlexibleSubAssemblyNode: NodeDefinition<FlexibleSubAssemblyInputs, FlexibleSubAssemblyOutputs, FlexibleSubAssemblyParams> = {
   id: 'Assembly::FlexibleSubAssembly',
+  type: 'Assembly::FlexibleSubAssembly',
   category: 'Assembly',
   label: 'FlexibleSubAssembly',
   description: 'Create flexible sub-assembly',

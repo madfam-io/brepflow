@@ -15,6 +15,7 @@ interface ConwayLifeOutputs {
 
 export const PatternsCellularConwayLifeNode: NodeDefinition<ConwayLifeInputs, ConwayLifeOutputs, ConwayLifeParams> = {
   id: 'Patterns::ConwayLife',
+  type: 'Patterns::ConwayLife',
   category: 'Patterns',
   label: 'ConwayLife',
   description: 'Conway Game of Life',

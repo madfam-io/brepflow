@@ -14,6 +14,7 @@ interface PipeOutputs {
 
 export const SolidPrimitivesPipeNode: NodeDefinition<PipeInputs, PipeOutputs, PipeParams> = {
   id: 'Solid::Pipe',
+  type: 'Solid::Pipe',
   category: 'Solid',
   label: 'Pipe',
   description: 'Create a pipe (hollow cylinder)',

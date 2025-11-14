@@ -13,6 +13,7 @@ interface FieldFluxOutputs {
 
 export const FieldsAnalysisFieldFluxNode: NodeDefinition<FieldFluxInputs, FieldFluxOutputs, FieldFluxParams> = {
   id: 'Fields::FieldFlux',
+  type: 'Fields::FieldFlux',
   category: 'Fields',
   label: 'FieldFlux',
   description: 'Calculate flux through surface',

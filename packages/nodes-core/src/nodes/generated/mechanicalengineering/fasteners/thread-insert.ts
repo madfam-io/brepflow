@@ -17,6 +17,7 @@ interface ThreadInsertOutputs {
 
 export const MechanicalEngineeringFastenersThreadInsertNode: NodeDefinition<ThreadInsertInputs, ThreadInsertOutputs, ThreadInsertParams> = {
   id: 'MechanicalEngineering::ThreadInsert',
+  type: 'MechanicalEngineering::ThreadInsert',
   category: 'MechanicalEngineering',
   label: 'ThreadInsert',
   description: 'Create threaded insert',

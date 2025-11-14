@@ -16,6 +16,7 @@ interface IndentOutputs {
 
 export const AdvancedFeaturesIndentNode: NodeDefinition<IndentInputs, IndentOutputs, IndentParams> = {
   id: 'Advanced::Indent',
+  type: 'Advanced::Indent',
   category: 'Advanced',
   label: 'Indent',
   description: 'Create indent from tool body',

@@ -18,6 +18,7 @@ interface ExportFEAOutputs {
 
 export const SimulationFEAExportFEANode: NodeDefinition<ExportFEAInputs, ExportFEAOutputs, ExportFEAParams> = {
   id: 'Simulation::ExportFEA',
+  type: 'Simulation::ExportFEA',
   category: 'Simulation',
   label: 'ExportFEA',
   description: 'Export for FEA software',

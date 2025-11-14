@@ -14,6 +14,7 @@ interface ListSplitOutputs {
 
 export const DataListListSplitNode: NodeDefinition<ListSplitInputs, ListSplitOutputs, ListSplitParams> = {
   id: 'Data::ListSplit',
+  type: 'Data::ListSplit',
   category: 'Data',
   label: 'ListSplit',
   description: 'Split list',

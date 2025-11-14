@@ -22,6 +22,7 @@ interface NeuralNetworkOutputs {
 
 export const AlgorithmicMachineLearningNeuralNetworkNode: NodeDefinition<NeuralNetworkInputs, NeuralNetworkOutputs, NeuralNetworkParams> = {
   id: 'Algorithmic::NeuralNetwork',
+  type: 'Algorithmic::NeuralNetwork',
   category: 'Algorithmic',
   label: 'NeuralNetwork',
   description: 'Multi-layer perceptron neural network',

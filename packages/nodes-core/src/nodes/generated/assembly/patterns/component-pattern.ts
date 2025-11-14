@@ -17,6 +17,7 @@ interface ComponentPatternOutputs {
 
 export const AssemblyPatternsComponentPatternNode: NodeDefinition<ComponentPatternInputs, ComponentPatternOutputs, ComponentPatternParams> = {
   id: 'Assembly::ComponentPattern',
+  type: 'Assembly::ComponentPattern',
   category: 'Assembly',
   label: 'ComponentPattern',
   description: 'Pattern components in assembly',

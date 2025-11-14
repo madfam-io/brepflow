@@ -20,6 +20,7 @@ interface S3DownloadOutputs {
 
 export const InteroperabilityCloudS3DownloadNode: NodeDefinition<S3DownloadInputs, S3DownloadOutputs, S3DownloadParams> = {
   id: 'Interoperability::S3Download',
+  type: 'Interoperability::S3Download',
   category: 'Interoperability',
   label: 'S3Download',
   description: 'Download files from AWS S3',

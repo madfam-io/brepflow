@@ -16,6 +16,7 @@ interface SprayPaintingOutputs {
 
 export const FabricationRoboticsSprayPaintingNode: NodeDefinition<SprayPaintingInputs, SprayPaintingOutputs, SprayPaintingParams> = {
   id: 'Fabrication::SprayPainting',
+  type: 'Fabrication::SprayPainting',
   category: 'Fabrication',
   label: 'SprayPainting',
   description: 'Robotic spray painting',

@@ -20,6 +20,7 @@ interface PLYExportOutputs {
 
 export const InteroperabilityExportPLYExportNode: NodeDefinition<PLYExportInputs, PLYExportOutputs, PLYExportParams> = {
   id: 'Interoperability::PLYExport',
+  type: 'Interoperability::PLYExport',
   category: 'Interoperability',
   label: 'PLYExport',
   description: 'Export point cloud to PLY format',

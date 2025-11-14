@@ -16,6 +16,7 @@ interface ScallopHeightOutputs {
 
 export const FabricationCNCScallopHeightNode: NodeDefinition<ScallopHeightInputs, ScallopHeightOutputs, ScallopHeightParams> = {
   id: 'Fabrication::ScallopHeight',
+  type: 'Fabrication::ScallopHeight',
   category: 'Fabrication',
   label: 'ScallopHeight',
   description: 'Calculate scallop height',

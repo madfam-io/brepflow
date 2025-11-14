@@ -19,6 +19,7 @@ interface GasSpringOutputs {
 
 export const MechanicalEngineeringSpringsGasSpringNode: NodeDefinition<GasSpringInputs, GasSpringOutputs, GasSpringParams> = {
   id: 'MechanicalEngineering::GasSpring',
+  type: 'MechanicalEngineering::GasSpring',
   category: 'MechanicalEngineering',
   label: 'GasSpring',
   description: 'Create gas spring/damper',

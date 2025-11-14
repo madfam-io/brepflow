@@ -14,6 +14,7 @@ interface SmoothStepOutputs {
 
 export const MathInterpolationSmoothStepNode: NodeDefinition<SmoothStepInputs, SmoothStepOutputs, SmoothStepParams> = {
   id: 'Math::SmoothStep',
+  type: 'Math::SmoothStep',
   category: 'Math',
   label: 'SmoothStep',
   description: 'Smooth step interpolation',

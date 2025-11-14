@@ -13,6 +13,7 @@ interface SetSubsetOutputs {
 
 export const DataSetSetSubsetNode: NodeDefinition<SetSubsetInputs, SetSubsetOutputs, SetSubsetParams> = {
   id: 'Data::SetSubset',
+  type: 'Data::SetSubset',
   category: 'Data',
   label: 'SetSubset',
   description: 'Check if subset',

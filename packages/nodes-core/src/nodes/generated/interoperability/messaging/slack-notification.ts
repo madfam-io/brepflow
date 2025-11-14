@@ -18,6 +18,7 @@ interface SlackNotificationOutputs {
 
 export const InteroperabilityMessagingSlackNotificationNode: NodeDefinition<SlackNotificationInputs, SlackNotificationOutputs, SlackNotificationParams> = {
   id: 'Interoperability::SlackNotification',
+  type: 'Interoperability::SlackNotification',
   category: 'Interoperability',
   label: 'SlackNotification',
   description: 'Send Slack notifications',

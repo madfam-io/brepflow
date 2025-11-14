@@ -15,6 +15,7 @@ interface CoonsPatchOutputs {
 
 export const SurfaceNURBSCoonsPatchNode: NodeDefinition<CoonsPatchInputs, CoonsPatchOutputs, CoonsPatchParams> = {
   id: 'Surface::CoonsPatch',
+  type: 'Surface::CoonsPatch',
   category: 'Surface',
   label: 'CoonsPatch',
   description: 'Create Coons patch surface',

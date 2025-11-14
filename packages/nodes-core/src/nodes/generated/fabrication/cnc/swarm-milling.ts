@@ -15,6 +15,7 @@ interface SwarmMillingOutputs {
 
 export const FabricationCNCSwarmMillingNode: NodeDefinition<SwarmMillingInputs, SwarmMillingOutputs, SwarmMillingParams> = {
   id: 'Fabrication::SwarmMilling',
+  type: 'Fabrication::SwarmMilling',
   category: 'Fabrication',
   label: 'SwarmMilling',
   description: 'Swarm/parallel finishing',

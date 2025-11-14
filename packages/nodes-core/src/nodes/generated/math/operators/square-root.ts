@@ -12,6 +12,7 @@ interface SquareRootOutputs {
 
 export const MathOperatorsSquareRootNode: NodeDefinition<SquareRootInputs, SquareRootOutputs, SquareRootParams> = {
   id: 'Math::SquareRoot',
+  type: 'Math::SquareRoot',
   category: 'Math',
   label: 'SquareRoot',
   description: 'Square root',

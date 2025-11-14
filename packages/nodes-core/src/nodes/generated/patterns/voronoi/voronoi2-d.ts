@@ -17,6 +17,7 @@ interface Voronoi2DOutputs {
 
 export const PatternsVoronoiVoronoi2DNode: NodeDefinition<Voronoi2DInputs, Voronoi2DOutputs, Voronoi2DParams> = {
   id: 'Patterns::Voronoi2D',
+  type: 'Patterns::Voronoi2D',
   category: 'Patterns',
   label: 'Voronoi2D',
   description: 'Create 2D Voronoi diagram',

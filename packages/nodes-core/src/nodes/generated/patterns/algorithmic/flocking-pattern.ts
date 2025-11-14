@@ -18,6 +18,7 @@ interface FlockingPatternOutputs {
 
 export const PatternsAlgorithmicFlockingPatternNode: NodeDefinition<FlockingPatternInputs, FlockingPatternOutputs, FlockingPatternParams> = {
   id: 'Patterns::FlockingPattern',
+  type: 'Patterns::FlockingPattern',
   category: 'Patterns',
   label: 'FlockingPattern',
   description: 'Flocking behavior simulation',

@@ -16,6 +16,7 @@ interface ZebraAnalysisOutputs {
 
 export const SurfaceAnalysisZebraAnalysisNode: NodeDefinition<ZebraAnalysisInputs, ZebraAnalysisOutputs, ZebraAnalysisParams> = {
   id: 'Surface::ZebraAnalysis',
+  type: 'Surface::ZebraAnalysis',
   category: 'Surface',
   label: 'ZebraAnalysis',
   description: 'Zebra stripe analysis',

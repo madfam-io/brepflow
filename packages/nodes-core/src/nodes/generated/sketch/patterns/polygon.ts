@@ -16,6 +16,7 @@ interface PolygonOutputs {
 
 export const SketchPatternsPolygonNode: NodeDefinition<PolygonInputs, PolygonOutputs, PolygonParams> = {
   id: 'Sketch::Polygon',
+  type: 'Sketch::Polygon',
   category: 'Sketch',
   label: 'Polygon',
   description: 'Create a regular polygon',

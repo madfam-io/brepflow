@@ -17,6 +17,7 @@ interface ImportGLTFOutputs {
 
 export const IOExchangeImportGLTFNode: NodeDefinition<ImportGLTFInputs, ImportGLTFOutputs, ImportGLTFParams> = {
   id: 'IO::ImportGLTF',
+  type: 'IO::ImportGLTF',
   category: 'IO',
   label: 'ImportGLTF',
   description: 'Import GLTF/GLB model',

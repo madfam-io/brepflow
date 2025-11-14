@@ -18,6 +18,7 @@ interface SimplifyMeshOutputs {
 
 export const MeshRepairSimplifyMeshNode: NodeDefinition<SimplifyMeshInputs, SimplifyMeshOutputs, SimplifyMeshParams> = {
   id: 'Mesh::SimplifyMesh',
+  type: 'Mesh::SimplifyMesh',
   category: 'Mesh',
   label: 'SimplifyMesh',
   description: 'Reduce mesh complexity',

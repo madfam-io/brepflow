@@ -13,6 +13,7 @@ interface ModuloOutputs {
 
 export const MathOperatorsModuloNode: NodeDefinition<ModuloInputs, ModuloOutputs, ModuloParams> = {
   id: 'Math::Modulo',
+  type: 'Math::Modulo',
   category: 'Math',
   label: 'Modulo',
   description: 'Modulo operation',

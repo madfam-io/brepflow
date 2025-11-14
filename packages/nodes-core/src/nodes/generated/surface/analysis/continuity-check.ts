@@ -18,6 +18,7 @@ interface ContinuityCheckOutputs {
 
 export const SurfaceAnalysisContinuityCheckNode: NodeDefinition<ContinuityCheckInputs, ContinuityCheckOutputs, ContinuityCheckParams> = {
   id: 'Surface::ContinuityCheck',
+  type: 'Surface::ContinuityCheck',
   category: 'Surface',
   label: 'ContinuityCheck',
   description: 'Check surface continuity',

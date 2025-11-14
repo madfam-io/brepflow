@@ -16,6 +16,7 @@ interface HoneycombStructureOutputs {
 
 export const SpecializedLatticeHoneycombStructureNode: NodeDefinition<HoneycombStructureInputs, HoneycombStructureOutputs, HoneycombStructureParams> = {
   id: 'Specialized::HoneycombStructure',
+  type: 'Specialized::HoneycombStructure',
   category: 'Specialized',
   label: 'HoneycombStructure',
   description: 'Honeycomb infill structure',

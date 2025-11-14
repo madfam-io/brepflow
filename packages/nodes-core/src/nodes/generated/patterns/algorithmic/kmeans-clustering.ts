@@ -16,6 +16,7 @@ interface KMeansClusteringOutputs {
 
 export const PatternsAlgorithmicKMeansClusteringNode: NodeDefinition<KMeansClusteringInputs, KMeansClusteringOutputs, KMeansClusteringParams> = {
   id: 'Patterns::KMeansClustering',
+  type: 'Patterns::KMeansClustering',
   category: 'Patterns',
   label: 'KMeansClustering',
   description: 'K-means point clustering',

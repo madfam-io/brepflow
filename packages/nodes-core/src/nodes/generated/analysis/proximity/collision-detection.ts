@@ -17,6 +17,7 @@ interface CollisionDetectionOutputs {
 
 export const AnalysisProximityCollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, CollisionDetectionOutputs, CollisionDetectionParams> = {
   id: 'Analysis::CollisionDetection',
+  type: 'Analysis::CollisionDetection',
   category: 'Analysis',
   label: 'CollisionDetection',
   description: 'Detect collisions between objects',

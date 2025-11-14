@@ -16,6 +16,7 @@ interface ApproximateCurveOutputs {
 
 export const SurfaceCurvesApproximateCurveNode: NodeDefinition<ApproximateCurveInputs, ApproximateCurveOutputs, ApproximateCurveParams> = {
   id: 'Surface::ApproximateCurve',
+  type: 'Surface::ApproximateCurve',
   category: 'Surface',
   label: 'ApproximateCurve',
   description: 'Approximate points with curve',

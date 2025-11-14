@@ -18,6 +18,7 @@ interface MedialAxisOutputs {
 
 export const AlgorithmicGeometryMedialAxisNode: NodeDefinition<MedialAxisInputs, MedialAxisOutputs, MedialAxisParams> = {
   id: 'Algorithmic::MedialAxis',
+  type: 'Algorithmic::MedialAxis',
   category: 'Algorithmic',
   label: 'MedialAxis',
   description: 'Compute medial axis/skeleton',

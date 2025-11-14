@@ -13,6 +13,7 @@ interface TreeMergeOutputs {
 
 export const DataTreeTreeMergeNode: NodeDefinition<TreeMergeInputs, TreeMergeOutputs, TreeMergeParams> = {
   id: 'Data::TreeMerge',
+  type: 'Data::TreeMerge',
   category: 'Data',
   label: 'TreeMerge',
   description: 'Merge trees',

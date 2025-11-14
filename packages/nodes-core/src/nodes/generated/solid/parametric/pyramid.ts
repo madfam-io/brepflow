@@ -16,6 +16,7 @@ interface PyramidOutputs {
 
 export const SolidParametricPyramidNode: NodeDefinition<PyramidInputs, PyramidOutputs, PyramidParams> = {
   id: 'Solid::Pyramid',
+  type: 'Solid::Pyramid',
   category: 'Solid',
   label: 'Pyramid',
   description: 'Create a pyramid or truncated pyramid',

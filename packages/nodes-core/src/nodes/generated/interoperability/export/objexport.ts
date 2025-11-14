@@ -19,6 +19,7 @@ interface OBJExportOutputs {
 
 export const InteroperabilityExportOBJExportNode: NodeDefinition<OBJExportInputs, OBJExportOutputs, OBJExportParams> = {
   id: 'Interoperability::OBJExport',
+  type: 'Interoperability::OBJExport',
   category: 'Interoperability',
   label: 'OBJExport',
   description: 'Export mesh to OBJ format',

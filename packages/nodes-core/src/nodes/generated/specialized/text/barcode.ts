@@ -15,6 +15,7 @@ interface BarcodeOutputs {
 
 export const SpecializedTextBarcodeNode: NodeDefinition<BarcodeInputs, BarcodeOutputs, BarcodeParams> = {
   id: 'Specialized::Barcode',
+  type: 'Specialized::Barcode',
   category: 'Specialized',
   label: 'Barcode',
   description: 'Generate barcode geometry',

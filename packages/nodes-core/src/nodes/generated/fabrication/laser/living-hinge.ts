@@ -16,6 +16,7 @@ interface LivingHingeOutputs {
 
 export const FabricationLaserLivingHingeNode: NodeDefinition<LivingHingeInputs, LivingHingeOutputs, LivingHingeParams> = {
   id: 'Fabrication::LivingHinge',
+  type: 'Fabrication::LivingHinge',
   category: 'Fabrication',
   label: 'LivingHinge',
   description: 'Generate living hinge pattern',

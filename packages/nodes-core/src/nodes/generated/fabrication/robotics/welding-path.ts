@@ -17,6 +17,7 @@ interface WeldingPathOutputs {
 
 export const FabricationRoboticsWeldingPathNode: NodeDefinition<WeldingPathInputs, WeldingPathOutputs, WeldingPathParams> = {
   id: 'Fabrication::WeldingPath',
+  type: 'Fabrication::WeldingPath',
   category: 'Fabrication',
   label: 'WeldingPath',
   description: 'Robotic welding path',

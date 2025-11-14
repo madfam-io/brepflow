@@ -18,6 +18,7 @@ interface TextOutputs {
 
 export const SketchBasicTextNode: NodeDefinition<TextInputs, TextOutputs, TextParams> = {
   id: 'Sketch::Text',
+  type: 'Sketch::Text',
   category: 'Sketch',
   label: 'Text',
   description: 'Create text as geometry',

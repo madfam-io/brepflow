@@ -15,6 +15,7 @@ interface OffsetOutputs {
 
 export const SketchCurvesOffsetNode: NodeDefinition<OffsetInputs, OffsetOutputs, OffsetParams> = {
   id: 'Sketch::Offset',
+  type: 'Sketch::Offset',
   category: 'Sketch',
   label: 'Offset',
   description: 'Offset a curve',

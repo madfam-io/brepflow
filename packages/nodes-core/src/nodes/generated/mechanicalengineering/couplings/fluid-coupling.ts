@@ -19,6 +19,7 @@ interface FluidCouplingOutputs {
 
 export const MechanicalEngineeringCouplingsFluidCouplingNode: NodeDefinition<FluidCouplingInputs, FluidCouplingOutputs, FluidCouplingParams> = {
   id: 'MechanicalEngineering::FluidCoupling',
+  type: 'MechanicalEngineering::FluidCoupling',
   category: 'MechanicalEngineering',
   label: 'FluidCoupling',
   description: 'Create fluid coupling design',

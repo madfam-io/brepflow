@@ -18,6 +18,7 @@ interface SVGExportOutputs {
 
 export const InteroperabilityExportSVGExportNode: NodeDefinition<SVGExportInputs, SVGExportOutputs, SVGExportParams> = {
   id: 'Interoperability::SVGExport',
+  type: 'Interoperability::SVGExport',
   category: 'Interoperability',
   label: 'SVGExport',
   description: 'Export 2D curves to SVG format',

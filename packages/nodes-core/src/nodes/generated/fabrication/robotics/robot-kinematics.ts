@@ -17,6 +17,7 @@ interface RobotKinematicsOutputs {
 
 export const FabricationRoboticsRobotKinematicsNode: NodeDefinition<RobotKinematicsInputs, RobotKinematicsOutputs, RobotKinematicsParams> = {
   id: 'Fabrication::RobotKinematics',
+  type: 'Fabrication::RobotKinematics',
   category: 'Fabrication',
   label: 'RobotKinematics',
   description: 'Robot kinematics solver',

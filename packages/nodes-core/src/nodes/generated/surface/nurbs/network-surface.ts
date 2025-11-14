@@ -16,6 +16,7 @@ interface NetworkSurfaceOutputs {
 
 export const SurfaceNURBSNetworkSurfaceNode: NodeDefinition<NetworkSurfaceInputs, NetworkSurfaceOutputs, NetworkSurfaceParams> = {
   id: 'Surface::NetworkSurface',
+  type: 'Surface::NetworkSurface',
   category: 'Surface',
   label: 'NetworkSurface',
   description: 'Create surface from curve network',

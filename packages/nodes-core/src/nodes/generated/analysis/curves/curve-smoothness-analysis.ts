@@ -18,6 +18,7 @@ interface CurveSmoothnessAnalysisOutputs {
 
 export const AnalysisCurvesCurveSmoothnessAnalysisNode: NodeDefinition<CurveSmoothnessAnalysisInputs, CurveSmoothnessAnalysisOutputs, CurveSmoothnessAnalysisParams> = {
   id: 'Analysis::CurveSmoothnessAnalysis',
+  type: 'Analysis::CurveSmoothnessAnalysis',
   category: 'Analysis',
   label: 'CurveSmoothnessAnalysis',
   description: 'Analyze curve continuity and smoothness',

@@ -14,6 +14,7 @@ interface ListRemoveOutputs {
 
 export const DataListListRemoveNode: NodeDefinition<ListRemoveInputs, ListRemoveOutputs, ListRemoveParams> = {
   id: 'Data::ListRemove',
+  type: 'Data::ListRemove',
   category: 'Data',
   label: 'ListRemove',
   description: 'Remove item from list',

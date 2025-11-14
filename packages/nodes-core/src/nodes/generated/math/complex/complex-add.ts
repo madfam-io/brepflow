@@ -13,6 +13,7 @@ interface ComplexAddOutputs {
 
 export const MathComplexComplexAddNode: NodeDefinition<ComplexAddInputs, ComplexAddOutputs, ComplexAddParams> = {
   id: 'Math::ComplexAdd',
+  type: 'Math::ComplexAdd',
   category: 'Math',
   label: 'ComplexAdd',
   description: 'Add complex numbers',

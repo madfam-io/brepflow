@@ -15,6 +15,7 @@ interface VoronoiOnSurfaceOutputs {
 
 export const PatternsVoronoiVoronoiOnSurfaceNode: NodeDefinition<VoronoiOnSurfaceInputs, VoronoiOnSurfaceOutputs, VoronoiOnSurfaceParams> = {
   id: 'Patterns::VoronoiOnSurface',
+  type: 'Patterns::VoronoiOnSurface',
   category: 'Patterns',
   label: 'VoronoiOnSurface',
   description: 'Voronoi on curved surface',

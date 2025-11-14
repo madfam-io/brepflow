@@ -17,6 +17,7 @@ interface ImportDXFOutputs {
 
 export const IODrawingImportDXFNode: NodeDefinition<ImportDXFInputs, ImportDXFOutputs, ImportDXFParams> = {
   id: 'IO::ImportDXF',
+  type: 'IO::ImportDXF',
   category: 'IO',
   label: 'ImportDXF',
   description: 'Import DXF drawing',

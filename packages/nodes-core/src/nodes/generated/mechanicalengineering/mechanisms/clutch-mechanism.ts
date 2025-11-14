@@ -18,6 +18,7 @@ interface ClutchMechanismOutputs {
 
 export const MechanicalEngineeringMechanismsClutchMechanismNode: NodeDefinition<ClutchMechanismInputs, ClutchMechanismOutputs, ClutchMechanismParams> = {
   id: 'MechanicalEngineering::ClutchMechanism',
+  type: 'MechanicalEngineering::ClutchMechanism',
   category: 'MechanicalEngineering',
   label: 'ClutchMechanism',
   description: 'Create clutch assembly',

@@ -15,6 +15,7 @@ interface FocusCompensationOutputs {
 
 export const FabricationLaserFocusCompensationNode: NodeDefinition<FocusCompensationInputs, FocusCompensationOutputs, FocusCompensationParams> = {
   id: 'Fabrication::FocusCompensation',
+  type: 'Fabrication::FocusCompensation',
   category: 'Fabrication',
   label: 'FocusCompensation',
   description: 'Focus height compensation',

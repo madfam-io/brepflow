@@ -16,6 +16,7 @@ interface TangentOutputs {
 
 export const AssemblyConstraintsTangentNode: NodeDefinition<TangentInputs, TangentOutputs, TangentParams> = {
   id: 'Assembly::Tangent',
+  type: 'Assembly::Tangent',
   category: 'Assembly',
   label: 'Tangent',
   description: 'Make two entities tangent',

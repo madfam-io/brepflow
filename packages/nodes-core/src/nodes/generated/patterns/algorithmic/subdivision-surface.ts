@@ -15,6 +15,7 @@ interface SubdivisionSurfaceOutputs {
 
 export const PatternsAlgorithmicSubdivisionSurfaceNode: NodeDefinition<SubdivisionSurfaceInputs, SubdivisionSurfaceOutputs, SubdivisionSurfaceParams> = {
   id: 'Patterns::SubdivisionSurface',
+  type: 'Patterns::SubdivisionSurface',
   category: 'Patterns',
   label: 'SubdivisionSurface',
   description: 'Subdivision surface algorithms',

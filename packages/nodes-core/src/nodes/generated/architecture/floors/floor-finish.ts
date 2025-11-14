@@ -16,6 +16,7 @@ interface FloorFinishOutputs {
 
 export const ArchitectureFloorsFloorFinishNode: NodeDefinition<FloorFinishInputs, FloorFinishOutputs, FloorFinishParams> = {
   id: 'Architecture::FloorFinish',
+  type: 'Architecture::FloorFinish',
   category: 'Architecture',
   label: 'FloorFinish',
   description: 'Floor finish materials',

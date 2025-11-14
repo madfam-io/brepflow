@@ -19,6 +19,7 @@ interface IGESImportOutputs {
 
 export const InteroperabilityImportIGESImportNode: NodeDefinition<IGESImportInputs, IGESImportOutputs, IGESImportParams> = {
   id: 'Interoperability::IGESImport',
+  type: 'Interoperability::IGESImport',
   category: 'Interoperability',
   label: 'IGESImport',
   description: 'Import IGES (.igs) CAD files',

@@ -14,6 +14,7 @@ interface SetPartitionsOutputs {
 
 export const DataSetSetPartitionsNode: NodeDefinition<SetPartitionsInputs, SetPartitionsOutputs, SetPartitionsParams> = {
   id: 'Data::SetPartitions',
+  type: 'Data::SetPartitions',
   category: 'Data',
   label: 'SetPartitions',
   description: 'Set partitions',

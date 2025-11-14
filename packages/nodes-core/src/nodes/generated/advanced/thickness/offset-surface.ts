@@ -16,6 +16,7 @@ interface OffsetSurfaceOutputs {
 
 export const AdvancedThicknessOffsetSurfaceNode: NodeDefinition<OffsetSurfaceInputs, OffsetSurfaceOutputs, OffsetSurfaceParams> = {
   id: 'Advanced::OffsetSurface',
+  type: 'Advanced::OffsetSurface',
   category: 'Advanced',
   label: 'OffsetSurface',
   description: 'Offset surface or solid',

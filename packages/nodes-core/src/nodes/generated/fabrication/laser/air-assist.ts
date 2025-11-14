@@ -15,6 +15,7 @@ interface AirAssistOutputs {
 
 export const FabricationLaserAirAssistNode: NodeDefinition<AirAssistInputs, AirAssistOutputs, AirAssistParams> = {
   id: 'Fabrication::AirAssist',
+  type: 'Fabrication::AirAssist',
   category: 'Fabrication',
   label: 'AirAssist',
   description: 'Air assist optimization',

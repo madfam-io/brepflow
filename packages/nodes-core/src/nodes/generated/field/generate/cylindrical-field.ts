@@ -16,6 +16,7 @@ interface CylindricalFieldOutputs {
 
 export const FieldGenerateCylindricalFieldNode: NodeDefinition<CylindricalFieldInputs, CylindricalFieldOutputs, CylindricalFieldParams> = {
   id: 'Field::CylindricalField',
+  type: 'Field::CylindricalField',
   category: 'Field',
   label: 'CylindricalField',
   description: 'Cylindrical field',

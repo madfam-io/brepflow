@@ -21,6 +21,7 @@ interface TopologyOptimizerOutputs {
 
 export const AlgorithmicOptimizationTopologyOptimizerNode: NodeDefinition<TopologyOptimizerInputs, TopologyOptimizerOutputs, TopologyOptimizerParams> = {
   id: 'Algorithmic::TopologyOptimizer',
+  type: 'Algorithmic::TopologyOptimizer',
   category: 'Algorithmic',
   label: 'TopologyOptimizer',
   description: 'Topology optimization for structures',

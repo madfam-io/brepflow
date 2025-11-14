@@ -16,6 +16,7 @@ interface CollisionDetectionOutputs {
 
 export const SimulationKinematicsCollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, CollisionDetectionOutputs, CollisionDetectionParams> = {
   id: 'Simulation::CollisionDetection',
+  type: 'Simulation::CollisionDetection',
   category: 'Simulation',
   label: 'CollisionDetection',
   description: 'Setup collision detection',

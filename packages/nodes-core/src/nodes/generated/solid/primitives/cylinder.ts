@@ -20,6 +20,7 @@ interface CylinderOutputs {
 
 export const SolidPrimitivesCylinderNode: NodeDefinition<CylinderInputs, CylinderOutputs, CylinderParams> = {
   id: 'Solid::Cylinder',
+  type: 'Solid::Cylinder',
   category: 'Solid',
   label: 'Cylinder',
   description: 'Create a parametric cylinder',

@@ -18,6 +18,7 @@ interface DXFExportOutputs {
 
 export const InteroperabilityExportDXFExportNode: NodeDefinition<DXFExportInputs, DXFExportOutputs, DXFExportParams> = {
   id: 'Interoperability::DXFExport',
+  type: 'Interoperability::DXFExport',
   category: 'Interoperability',
   label: 'DXFExport',
   description: 'Export 2D geometry to DXF format',

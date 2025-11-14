@@ -23,6 +23,7 @@ interface GeneticOptimizerOutputs {
 
 export const AlgorithmicOptimizationGeneticOptimizerNode: NodeDefinition<GeneticOptimizerInputs, GeneticOptimizerOutputs, GeneticOptimizerParams> = {
   id: 'Algorithmic::GeneticOptimizer',
+  type: 'Algorithmic::GeneticOptimizer',
   category: 'Algorithmic',
   label: 'GeneticOptimizer',
   description: 'Genetic algorithm optimization',

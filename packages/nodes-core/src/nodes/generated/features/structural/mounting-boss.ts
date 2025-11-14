@@ -18,6 +18,7 @@ interface MountingBossOutputs {
 
 export const FeaturesStructuralMountingBossNode: NodeDefinition<MountingBossInputs, MountingBossOutputs, MountingBossParams> = {
   id: 'Features::MountingBoss',
+  type: 'Features::MountingBoss',
   category: 'Features',
   label: 'MountingBoss',
   description: 'Creates a mounting boss for screws',

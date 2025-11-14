@@ -15,6 +15,7 @@ interface VoronoiFractureOutputs {
 
 export const PatternsVoronoiVoronoiFractureNode: NodeDefinition<VoronoiFractureInputs, VoronoiFractureOutputs, VoronoiFractureParams> = {
   id: 'Patterns::VoronoiFracture',
+  type: 'Patterns::VoronoiFracture',
   category: 'Patterns',
   label: 'VoronoiFracture',
   description: 'Fracture pattern generation',

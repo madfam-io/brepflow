@@ -15,6 +15,7 @@ interface SolubleSupportInterfaceOutputs {
 
 export const Fabrication3DPrintingSolubleSupportInterfaceNode: NodeDefinition<SolubleSupportInterfaceInputs, SolubleSupportInterfaceOutputs, SolubleSupportInterfaceParams> = {
   id: 'Fabrication::SolubleSupportInterface',
+  type: 'Fabrication::SolubleSupportInterface',
   category: 'Fabrication',
   label: 'SolubleSupportInterface',
   description: 'Soluble support interface',

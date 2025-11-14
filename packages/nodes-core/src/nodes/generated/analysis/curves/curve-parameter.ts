@@ -17,6 +17,7 @@ interface CurveParameterOutputs {
 
 export const AnalysisCurvesCurveParameterNode: NodeDefinition<CurveParameterInputs, CurveParameterOutputs, CurveParameterParams> = {
   id: 'Analysis::CurveParameter',
+  type: 'Analysis::CurveParameter',
   category: 'Analysis',
   label: 'CurveParameter',
   description: 'Analyze curve parameterization',

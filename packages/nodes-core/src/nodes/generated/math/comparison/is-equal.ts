@@ -15,6 +15,7 @@ interface IsEqualOutputs {
 
 export const MathComparisonIsEqualNode: NodeDefinition<IsEqualInputs, IsEqualOutputs, IsEqualParams> = {
   id: 'Math::IsEqual',
+  type: 'Math::IsEqual',
   category: 'Math',
   label: 'IsEqual',
   description: 'Check equality with tolerance',

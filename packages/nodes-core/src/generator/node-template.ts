@@ -169,6 +169,7 @@ export function generateNodeImplementation(template: NodeTemplate): string {
     '',
     `export const ${constantName}: NodeDefinition<${inputTypeName}, ${outputTypeName}, ${paramsTypeName}> = {`,
     `  id: '${template.category}::${template.name}',`,
+    `  type: '${template.category}::${template.name}',`,
     `  category: '${template.category}',`,
     `  label: '${escapeSingleQuotes(template.name)}',`,
     `  description: '${escapeSingleQuotes(template.description)}',`,

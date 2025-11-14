@@ -15,6 +15,7 @@ interface SeamOptimizationOutputs {
 
 export const Fabrication3DPrintingSeamOptimizationNode: NodeDefinition<SeamOptimizationInputs, SeamOptimizationOutputs, SeamOptimizationParams> = {
   id: 'Fabrication::SeamOptimization',
+  type: 'Fabrication::SeamOptimization',
   category: 'Fabrication',
   label: 'SeamOptimization',
   description: 'Optimize seam placement',

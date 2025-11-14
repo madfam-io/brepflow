@@ -18,6 +18,7 @@ interface WebSocketClientOutputs {
 
 export const InteroperabilityStreamingWebSocketClientNode: NodeDefinition<WebSocketClientInputs, WebSocketClientOutputs, WebSocketClientParams> = {
   id: 'Interoperability::WebSocketClient',
+  type: 'Interoperability::WebSocketClient',
   category: 'Interoperability',
   label: 'WebSocketClient',
   description: 'Connect to WebSocket data streams',

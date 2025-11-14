@@ -16,6 +16,7 @@ interface CeilingBeamOutputs {
 
 export const ArchitectureCeilingsCeilingBeamNode: NodeDefinition<CeilingBeamInputs, CeilingBeamOutputs, CeilingBeamParams> = {
   id: 'Architecture::CeilingBeam',
+  type: 'Architecture::CeilingBeam',
   category: 'Architecture',
   label: 'CeilingBeam',
   description: 'Exposed ceiling beams',

@@ -15,6 +15,7 @@ interface IntersectionOutputs {
 
 export const BooleanIntersectionNode: NodeDefinition<IntersectionInputs, IntersectionOutputs, IntersectionParams> = {
   id: 'Boolean::Intersection',
+  type: 'Boolean::Intersection',
   category: 'Boolean',
   label: 'Intersection',
   description: 'Keep only overlapping regions',

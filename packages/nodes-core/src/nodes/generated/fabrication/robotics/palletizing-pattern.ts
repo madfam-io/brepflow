@@ -16,6 +16,7 @@ interface PalletizingPatternOutputs {
 
 export const FabricationRoboticsPalletizingPatternNode: NodeDefinition<PalletizingPatternInputs, PalletizingPatternOutputs, PalletizingPatternParams> = {
   id: 'Fabrication::PalletizingPattern',
+  type: 'Fabrication::PalletizingPattern',
   category: 'Fabrication',
   label: 'PalletizingPattern',
   description: 'Palletizing patterns',

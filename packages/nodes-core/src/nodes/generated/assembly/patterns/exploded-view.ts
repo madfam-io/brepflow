@@ -16,6 +16,7 @@ interface ExplodedViewOutputs {
 
 export const AssemblyPatternsExplodedViewNode: NodeDefinition<ExplodedViewInputs, ExplodedViewOutputs, ExplodedViewParams> = {
   id: 'Assembly::ExplodedView',
+  type: 'Assembly::ExplodedView',
   category: 'Assembly',
   label: 'ExplodedView',
   description: 'Create exploded view',

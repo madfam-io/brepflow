@@ -17,6 +17,7 @@ interface BoxOutputs {
 
 export const SolidPrimitivesBoxNode: NodeDefinition<BoxInputs, BoxOutputs, BoxParams> = {
   id: 'Solid::Box',
+  type: 'Solid::Box',
   category: 'Solid',
   label: 'Box',
   description: 'Create a parametric box/cuboid',

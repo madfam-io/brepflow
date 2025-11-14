@@ -16,6 +16,7 @@ interface CofferedCeilingOutputs {
 
 export const ArchitectureCeilingsCofferedCeilingNode: NodeDefinition<CofferedCeilingInputs, CofferedCeilingOutputs, CofferedCeilingParams> = {
   id: 'Architecture::CofferedCeiling',
+  type: 'Architecture::CofferedCeiling',
   category: 'Architecture',
   label: 'CofferedCeiling',
   description: 'Coffered ceiling pattern',

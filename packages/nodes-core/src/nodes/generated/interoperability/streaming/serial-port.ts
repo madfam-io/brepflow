@@ -19,6 +19,7 @@ interface SerialPortOutputs {
 
 export const InteroperabilityStreamingSerialPortNode: NodeDefinition<SerialPortInputs, SerialPortOutputs, SerialPortParams> = {
   id: 'Interoperability::SerialPort',
+  type: 'Interoperability::SerialPort',
   category: 'Interoperability',
   label: 'SerialPort',
   description: 'Communicate with serial devices',

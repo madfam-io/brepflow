@@ -16,6 +16,7 @@ interface StairStringerOutputs {
 
 export const ArchitectureStairsStairStringerNode: NodeDefinition<StairStringerInputs, StairStringerOutputs, StairStringerParams> = {
   id: 'Architecture::StairStringer',
+  type: 'Architecture::StairStringer',
   category: 'Architecture',
   label: 'StairStringer',
   description: 'Stair stringer structure',

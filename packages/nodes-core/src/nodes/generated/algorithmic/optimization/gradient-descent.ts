@@ -21,6 +21,7 @@ interface GradientDescentOutputs {
 
 export const AlgorithmicOptimizationGradientDescentNode: NodeDefinition<GradientDescentInputs, GradientDescentOutputs, GradientDescentParams> = {
   id: 'Algorithmic::GradientDescent',
+  type: 'Algorithmic::GradientDescent',
   category: 'Algorithmic',
   label: 'GradientDescent',
   description: 'Gradient descent optimization',

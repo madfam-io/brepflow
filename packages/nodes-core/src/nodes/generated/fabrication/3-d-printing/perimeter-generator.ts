@@ -15,6 +15,7 @@ interface PerimeterGeneratorOutputs {
 
 export const Fabrication3DPrintingPerimeterGeneratorNode: NodeDefinition<PerimeterGeneratorInputs, PerimeterGeneratorOutputs, PerimeterGeneratorParams> = {
   id: 'Fabrication::PerimeterGenerator',
+  type: 'Fabrication::PerimeterGenerator',
   category: 'Fabrication',
   label: 'PerimeterGenerator',
   description: 'Generate perimeter paths',

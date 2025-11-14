@@ -14,6 +14,7 @@ interface FastenedOutputs {
 
 export const AssemblyMatesFastenedNode: NodeDefinition<FastenedInputs, FastenedOutputs, FastenedParams> = {
   id: 'Assembly::Fastened',
+  type: 'Assembly::Fastened',
   category: 'Assembly',
   label: 'Fastened',
   description: 'Fasten components together rigidly',

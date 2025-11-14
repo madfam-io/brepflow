@@ -17,6 +17,7 @@ interface RivetOutputs {
 
 export const MechanicalEngineeringFastenersRivetNode: NodeDefinition<RivetInputs, RivetOutputs, RivetParams> = {
   id: 'MechanicalEngineering::Rivet',
+  type: 'MechanicalEngineering::Rivet',
   category: 'MechanicalEngineering',
   label: 'Rivet',
   description: 'Create rivet fastener',

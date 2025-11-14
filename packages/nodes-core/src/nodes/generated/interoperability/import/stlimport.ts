@@ -18,6 +18,7 @@ interface STLImportOutputs {
 
 export const InteroperabilityImportSTLImportNode: NodeDefinition<STLImportInputs, STLImportOutputs, STLImportParams> = {
   id: 'Interoperability::STLImport',
+  type: 'Interoperability::STLImport',
   category: 'Interoperability',
   label: 'STLImport',
   description: 'Import STL mesh files',

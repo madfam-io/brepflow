@@ -17,6 +17,7 @@ interface RestMachiningOutputs {
 
 export const FabricationCNCRestMachiningNode: NodeDefinition<RestMachiningInputs, RestMachiningOutputs, RestMachiningParams> = {
   id: 'Fabrication::RestMachining',
+  type: 'Fabrication::RestMachining',
   category: 'Fabrication',
   label: 'RestMachining',
   description: 'Rest material machining',

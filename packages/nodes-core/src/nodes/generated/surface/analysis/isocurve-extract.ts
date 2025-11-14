@@ -15,6 +15,7 @@ interface IsocurveExtractOutputs {
 
 export const SurfaceAnalysisIsocurveExtractNode: NodeDefinition<IsocurveExtractInputs, IsocurveExtractOutputs, IsocurveExtractParams> = {
   id: 'Surface::IsocurveExtract',
+  type: 'Surface::IsocurveExtract',
   category: 'Surface',
   label: 'IsocurveExtract',
   description: 'Extract isocurves',

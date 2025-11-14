@@ -13,6 +13,7 @@ interface LogBaseOutputs {
 
 export const MathLogarithmicLogBaseNode: NodeDefinition<LogBaseInputs, LogBaseOutputs, LogBaseParams> = {
   id: 'Math::LogBase',
+  type: 'Math::LogBase',
   category: 'Math',
   label: 'LogBase',
   description: 'Logarithm with custom base',

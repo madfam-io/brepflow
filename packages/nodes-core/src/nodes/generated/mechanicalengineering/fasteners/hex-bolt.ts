@@ -19,6 +19,7 @@ interface HexBoltOutputs {
 
 export const MechanicalEngineeringFastenersHexBoltNode: NodeDefinition<HexBoltInputs, HexBoltOutputs, HexBoltParams> = {
   id: 'MechanicalEngineering::HexBolt',
+  type: 'MechanicalEngineering::HexBolt',
   category: 'MechanicalEngineering',
   label: 'HexBolt',
   description: 'Create hex head bolt',

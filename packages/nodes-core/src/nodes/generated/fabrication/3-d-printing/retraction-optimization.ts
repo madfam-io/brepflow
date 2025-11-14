@@ -15,6 +15,7 @@ interface RetractionOptimizationOutputs {
 
 export const Fabrication3DPrintingRetractionOptimizationNode: NodeDefinition<RetractionOptimizationInputs, RetractionOptimizationOutputs, RetractionOptimizationParams> = {
   id: 'Fabrication::RetractionOptimization',
+  type: 'Fabrication::RetractionOptimization',
   category: 'Fabrication',
   label: 'RetractionOptimization',
   description: 'Optimize retraction points',

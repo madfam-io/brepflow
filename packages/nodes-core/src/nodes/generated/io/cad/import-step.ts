@@ -18,6 +18,7 @@ interface ImportSTEPOutputs {
 
 export const IOCADImportSTEPNode: NodeDefinition<ImportSTEPInputs, ImportSTEPOutputs, ImportSTEPParams> = {
   id: 'IO::ImportSTEP',
+  type: 'IO::ImportSTEP',
   category: 'IO',
   label: 'ImportSTEP',
   description: 'Import STEP file',

@@ -16,6 +16,7 @@ interface ExportIGESOutputs {
 
 export const IOCADExportIGESNode: NodeDefinition<ExportIGESInputs, ExportIGESOutputs, ExportIGESParams> = {
   id: 'IO::ExportIGES',
+  type: 'IO::ExportIGES',
   category: 'IO',
   label: 'ExportIGES',
   description: 'Export to IGES format',

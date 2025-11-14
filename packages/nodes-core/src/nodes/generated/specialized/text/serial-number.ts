@@ -17,6 +17,7 @@ interface SerialNumberOutputs {
 
 export const SpecializedTextSerialNumberNode: NodeDefinition<SerialNumberInputs, SerialNumberOutputs, SerialNumberParams> = {
   id: 'Specialized::SerialNumber',
+  type: 'Specialized::SerialNumber',
   category: 'Specialized',
   label: 'SerialNumber',
   description: 'Generate serial numbers',

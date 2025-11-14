@@ -15,6 +15,7 @@ interface CoastingSetupOutputs {
 
 export const Fabrication3DPrintingCoastingSetupNode: NodeDefinition<CoastingSetupInputs, CoastingSetupOutputs, CoastingSetupParams> = {
   id: 'Fabrication::CoastingSetup',
+  type: 'Fabrication::CoastingSetup',
   category: 'Fabrication',
   label: 'CoastingSetup',
   description: 'Setup coasting parameters',

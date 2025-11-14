@@ -17,6 +17,7 @@ interface PostTensionedSlabOutputs {
 
 export const ArchitectureFloorsPostTensionedSlabNode: NodeDefinition<PostTensionedSlabInputs, PostTensionedSlabOutputs, PostTensionedSlabParams> = {
   id: 'Architecture::PostTensionedSlab',
+  type: 'Architecture::PostTensionedSlab',
   category: 'Architecture',
   label: 'PostTensionedSlab',
   description: 'Post-tensioned concrete slab',

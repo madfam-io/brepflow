@@ -15,6 +15,7 @@ interface SafetyZonesOutputs {
 
 export const FabricationLaserSafetyZonesNode: NodeDefinition<SafetyZonesInputs, SafetyZonesOutputs, SafetyZonesParams> = {
   id: 'Fabrication::SafetyZones',
+  type: 'Fabrication::SafetyZones',
   category: 'Fabrication',
   label: 'SafetyZones',
   description: 'Define safety zones',

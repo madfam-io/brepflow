@@ -18,6 +18,7 @@ interface CurveAreaMomentsOutputs {
 
 export const AnalysisCurvesCurveAreaMomentsNode: NodeDefinition<CurveAreaMomentsInputs, CurveAreaMomentsOutputs, CurveAreaMomentsParams> = {
   id: 'Analysis::CurveAreaMoments',
+  type: 'Analysis::CurveAreaMoments',
   category: 'Analysis',
   label: 'CurveAreaMoments',
   description: 'Calculate area moments for closed curves',

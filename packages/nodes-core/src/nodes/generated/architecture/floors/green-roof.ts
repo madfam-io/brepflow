@@ -16,6 +16,7 @@ interface GreenRoofOutputs {
 
 export const ArchitectureFloorsGreenRoofNode: NodeDefinition<GreenRoofInputs, GreenRoofOutputs, GreenRoofParams> = {
   id: 'Architecture::GreenRoof',
+  type: 'Architecture::GreenRoof',
   category: 'Architecture',
   label: 'GreenRoof',
   description: 'Green roof system',

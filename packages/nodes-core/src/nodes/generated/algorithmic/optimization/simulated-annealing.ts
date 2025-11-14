@@ -21,6 +21,7 @@ interface SimulatedAnnealingOutputs {
 
 export const AlgorithmicOptimizationSimulatedAnnealingNode: NodeDefinition<SimulatedAnnealingInputs, SimulatedAnnealingOutputs, SimulatedAnnealingParams> = {
   id: 'Algorithmic::SimulatedAnnealing',
+  type: 'Algorithmic::SimulatedAnnealing',
   category: 'Algorithmic',
   label: 'SimulatedAnnealing',
   description: 'Simulated annealing optimization',

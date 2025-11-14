@@ -16,6 +16,7 @@ interface SphericalOutputs {
 
 export const AssemblyJointsSphericalNode: NodeDefinition<SphericalInputs, SphericalOutputs, SphericalParams> = {
   id: 'Assembly::Spherical',
+  type: 'Assembly::Spherical',
   category: 'Assembly',
   label: 'Spherical',
   description: 'Create spherical (ball) joint',

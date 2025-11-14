@@ -14,6 +14,7 @@ interface ListFindOutputs {
 
 export const DataListListFindNode: NodeDefinition<ListFindInputs, ListFindOutputs, ListFindParams> = {
   id: 'Data::ListFind',
+  type: 'Data::ListFind',
   category: 'Data',
   label: 'ListFind',
   description: 'Find items matching condition',

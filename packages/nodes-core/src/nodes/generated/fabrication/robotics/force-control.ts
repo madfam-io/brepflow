@@ -15,6 +15,7 @@ interface ForceControlOutputs {
 
 export const FabricationRoboticsForceControlNode: NodeDefinition<ForceControlInputs, ForceControlOutputs, ForceControlParams> = {
   id: 'Fabrication::ForceControl',
+  type: 'Fabrication::ForceControl',
   category: 'Fabrication',
   label: 'ForceControl',
   description: 'Force/torque control',

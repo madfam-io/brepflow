@@ -15,6 +15,7 @@ interface MonumentalStairOutputs {
 
 export const ArchitectureStairsMonumentalStairNode: NodeDefinition<MonumentalStairInputs, MonumentalStairOutputs, MonumentalStairParams> = {
   id: 'Architecture::MonumentalStair',
+  type: 'Architecture::MonumentalStair',
   category: 'Architecture',
   label: 'MonumentalStair',
   description: 'Grand monumental staircase',

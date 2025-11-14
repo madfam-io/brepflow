@@ -16,6 +16,7 @@ interface SineFieldOutputs {
 
 export const FieldGenerateSineFieldNode: NodeDefinition<SineFieldInputs, SineFieldOutputs, SineFieldParams> = {
   id: 'Field::SineField',
+  type: 'Field::SineField',
   category: 'Field',
   label: 'SineField',
   description: 'Sinusoidal wave field',

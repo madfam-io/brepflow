@@ -16,6 +16,7 @@ interface Fillet2DOutputs {
 
 export const SketchCurvesFillet2DNode: NodeDefinition<Fillet2DInputs, Fillet2DOutputs, Fillet2DParams> = {
   id: 'Sketch::Fillet2D',
+  type: 'Sketch::Fillet2D',
   category: 'Sketch',
   label: 'Fillet2D',
   description: 'Fillet corners of a 2D shape',

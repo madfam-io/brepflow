@@ -19,6 +19,7 @@ interface KeywayJointOutputs {
 
 export const MechanicalEngineeringFastenersKeywayJointNode: NodeDefinition<KeywayJointInputs, KeywayJointOutputs, KeywayJointParams> = {
   id: 'MechanicalEngineering::KeywayJoint',
+  type: 'MechanicalEngineering::KeywayJoint',
   category: 'MechanicalEngineering',
   label: 'KeywayJoint',
   description: 'Create keyway and key',

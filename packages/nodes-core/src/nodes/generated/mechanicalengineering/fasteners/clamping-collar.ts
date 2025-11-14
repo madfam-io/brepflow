@@ -18,6 +18,7 @@ interface ClampingCollarOutputs {
 
 export const MechanicalEngineeringFastenersClampingCollarNode: NodeDefinition<ClampingCollarInputs, ClampingCollarOutputs, ClampingCollarParams> = {
   id: 'MechanicalEngineering::ClampingCollar',
+  type: 'MechanicalEngineering::ClampingCollar',
   category: 'MechanicalEngineering',
   label: 'ClampingCollar',
   description: 'Create shaft collar/clamp',

@@ -13,6 +13,7 @@ interface ToolLibraryOutputs {
 
 export const FabricationCNCToolLibraryNode: NodeDefinition<ToolLibraryInputs, ToolLibraryOutputs, ToolLibraryParams> = {
   id: 'Fabrication::ToolLibrary',
+  type: 'Fabrication::ToolLibrary',
   category: 'Fabrication',
   label: 'ToolLibrary',
   description: 'Tool library management',

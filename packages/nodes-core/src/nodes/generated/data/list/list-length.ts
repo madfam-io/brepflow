@@ -12,6 +12,7 @@ interface ListLengthOutputs {
 
 export const DataListListLengthNode: NodeDefinition<ListLengthInputs, ListLengthOutputs, ListLengthParams> = {
   id: 'Data::ListLength',
+  type: 'Data::ListLength',
   category: 'Data',
   label: 'ListLength',
   description: 'Get list length',

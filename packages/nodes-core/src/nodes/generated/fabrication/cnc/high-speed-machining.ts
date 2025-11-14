@@ -15,6 +15,7 @@ interface HighSpeedMachiningOutputs {
 
 export const FabricationCNCHighSpeedMachiningNode: NodeDefinition<HighSpeedMachiningInputs, HighSpeedMachiningOutputs, HighSpeedMachiningParams> = {
   id: 'Fabrication::HighSpeedMachining',
+  type: 'Fabrication::HighSpeedMachining',
   category: 'Fabrication',
   label: 'HighSpeedMachining',
   description: 'HSM toolpath optimization',

@@ -15,6 +15,7 @@ interface MoorishPatternOutputs {
 
 export const PatternsIslamicMoorishPatternNode: NodeDefinition<MoorishPatternInputs, MoorishPatternOutputs, MoorishPatternParams> = {
   id: 'Patterns::MoorishPattern',
+  type: 'Patterns::MoorishPattern',
   category: 'Patterns',
   label: 'MoorishPattern',
   description: 'Moorish geometric pattern',

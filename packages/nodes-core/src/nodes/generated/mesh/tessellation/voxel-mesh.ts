@@ -15,6 +15,7 @@ interface VoxelMeshOutputs {
 
 export const MeshTessellationVoxelMeshNode: NodeDefinition<VoxelMeshInputs, VoxelMeshOutputs, VoxelMeshParams> = {
   id: 'Mesh::VoxelMesh',
+  type: 'Mesh::VoxelMesh',
   category: 'Mesh',
   label: 'VoxelMesh',
   description: 'Create voxel mesh',

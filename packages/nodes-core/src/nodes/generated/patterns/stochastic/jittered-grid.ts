@@ -15,6 +15,7 @@ interface JitteredGridOutputs {
 
 export const PatternsStochasticJitteredGridNode: NodeDefinition<JitteredGridInputs, JitteredGridOutputs, JitteredGridParams> = {
   id: 'Patterns::JitteredGrid',
+  type: 'Patterns::JitteredGrid',
   category: 'Patterns',
   label: 'JitteredGrid',
   description: 'Jittered grid sampling',

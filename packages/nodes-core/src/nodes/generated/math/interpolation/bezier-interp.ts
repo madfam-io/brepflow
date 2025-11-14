@@ -13,6 +13,7 @@ interface BezierInterpOutputs {
 
 export const MathInterpolationBezierInterpNode: NodeDefinition<BezierInterpInputs, BezierInterpOutputs, BezierInterpParams> = {
   id: 'Math::BezierInterp',
+  type: 'Math::BezierInterp',
   category: 'Math',
   label: 'BezierInterp',
   description: 'Bezier interpolation',

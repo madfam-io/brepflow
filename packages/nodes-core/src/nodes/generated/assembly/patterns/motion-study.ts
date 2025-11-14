@@ -17,6 +17,7 @@ interface MotionStudyOutputs {
 
 export const AssemblyPatternsMotionStudyNode: NodeDefinition<MotionStudyInputs, MotionStudyOutputs, MotionStudyParams> = {
   id: 'Assembly::MotionStudy',
+  type: 'Assembly::MotionStudy',
   category: 'Assembly',
   label: 'MotionStudy',
   description: 'Analyze assembly motion',

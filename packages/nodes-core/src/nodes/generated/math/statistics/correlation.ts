@@ -13,6 +13,7 @@ interface CorrelationOutputs {
 
 export const MathStatisticsCorrelationNode: NodeDefinition<CorrelationInputs, CorrelationOutputs, CorrelationParams> = {
   id: 'Math::Correlation',
+  type: 'Math::Correlation',
   category: 'Math',
   label: 'Correlation',
   description: 'Correlation coefficient',

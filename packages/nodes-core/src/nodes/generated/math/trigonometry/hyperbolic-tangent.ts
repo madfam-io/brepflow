@@ -12,6 +12,7 @@ interface HyperbolicTangentOutputs {
 
 export const MathTrigonometryHyperbolicTangentNode: NodeDefinition<HyperbolicTangentInputs, HyperbolicTangentOutputs, HyperbolicTangentParams> = {
   id: 'Math::HyperbolicTangent',
+  type: 'Math::HyperbolicTangent',
   category: 'Math',
   label: 'HyperbolicTangent',
   description: 'Hyperbolic tangent',

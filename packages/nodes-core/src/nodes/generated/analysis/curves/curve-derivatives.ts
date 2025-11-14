@@ -19,6 +19,7 @@ interface CurveDerivativesOutputs {
 
 export const AnalysisCurvesCurveDerivativesNode: NodeDefinition<CurveDerivativesInputs, CurveDerivativesOutputs, CurveDerivativesParams> = {
   id: 'Analysis::CurveDerivatives',
+  type: 'Analysis::CurveDerivatives',
   category: 'Analysis',
   label: 'CurveDerivatives',
   description: 'Calculate curve derivatives',

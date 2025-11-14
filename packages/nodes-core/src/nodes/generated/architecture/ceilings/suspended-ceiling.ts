@@ -17,6 +17,7 @@ interface SuspendedCeilingOutputs {
 
 export const ArchitectureCeilingsSuspendedCeilingNode: NodeDefinition<SuspendedCeilingInputs, SuspendedCeilingOutputs, SuspendedCeilingParams> = {
   id: 'Architecture::SuspendedCeiling',
+  type: 'Architecture::SuspendedCeiling',
   category: 'Architecture',
   label: 'SuspendedCeiling',
   description: 'Suspended ceiling grid',

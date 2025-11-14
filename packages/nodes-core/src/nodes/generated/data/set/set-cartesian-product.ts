@@ -13,6 +13,7 @@ interface SetCartesianProductOutputs {
 
 export const DataSetSetCartesianProductNode: NodeDefinition<SetCartesianProductInputs, SetCartesianProductOutputs, SetCartesianProductParams> = {
   id: 'Data::SetCartesianProduct',
+  type: 'Data::SetCartesianProduct',
   category: 'Data',
   label: 'SetCartesianProduct',
   description: 'Cartesian product',

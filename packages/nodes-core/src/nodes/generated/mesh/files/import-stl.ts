@@ -16,6 +16,7 @@ interface ImportSTLOutputs {
 
 export const MeshFilesImportSTLNode: NodeDefinition<ImportSTLInputs, ImportSTLOutputs, ImportSTLParams> = {
   id: 'Mesh::ImportSTL',
+  type: 'Mesh::ImportSTL',
   category: 'Mesh',
   label: 'ImportSTL',
   description: 'Import STL mesh',

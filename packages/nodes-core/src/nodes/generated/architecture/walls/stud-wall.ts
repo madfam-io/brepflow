@@ -16,6 +16,7 @@ interface StudWallOutputs {
 
 export const ArchitectureWallsStudWallNode: NodeDefinition<StudWallInputs, StudWallOutputs, StudWallParams> = {
   id: 'Architecture::StudWall',
+  type: 'Architecture::StudWall',
   category: 'Architecture',
   label: 'StudWall',
   description: 'Framed stud wall',

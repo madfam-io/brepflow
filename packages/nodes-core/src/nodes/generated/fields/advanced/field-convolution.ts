@@ -15,6 +15,7 @@ interface FieldConvolutionOutputs {
 
 export const FieldsAdvancedFieldConvolutionNode: NodeDefinition<FieldConvolutionInputs, FieldConvolutionOutputs, FieldConvolutionParams> = {
   id: 'Fields::FieldConvolution',
+  type: 'Fields::FieldConvolution',
   category: 'Fields',
   label: 'FieldConvolution',
   description: 'Convolve field with kernel',

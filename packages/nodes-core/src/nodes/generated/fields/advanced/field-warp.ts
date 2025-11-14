@@ -15,6 +15,7 @@ interface FieldWarpOutputs {
 
 export const FieldsAdvancedFieldWarpNode: NodeDefinition<FieldWarpInputs, FieldWarpOutputs, FieldWarpParams> = {
   id: 'Fields::FieldWarp',
+  type: 'Fields::FieldWarp',
   category: 'Fields',
   label: 'FieldWarp',
   description: 'Warp field with deformation',

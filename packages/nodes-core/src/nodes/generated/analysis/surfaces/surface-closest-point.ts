@@ -19,6 +19,7 @@ interface SurfaceClosestPointOutputs {
 
 export const AnalysisSurfacesSurfaceClosestPointNode: NodeDefinition<SurfaceClosestPointInputs, SurfaceClosestPointOutputs, SurfaceClosestPointParams> = {
   id: 'Analysis::SurfaceClosestPoint',
+  type: 'Analysis::SurfaceClosestPoint',
   category: 'Analysis',
   label: 'SurfaceClosestPoint',
   description: 'Find closest point on surface',

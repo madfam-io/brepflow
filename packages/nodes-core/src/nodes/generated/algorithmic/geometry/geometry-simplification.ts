@@ -18,6 +18,7 @@ interface GeometrySimplificationOutputs {
 
 export const AlgorithmicGeometryGeometrySimplificationNode: NodeDefinition<GeometrySimplificationInputs, GeometrySimplificationOutputs, GeometrySimplificationParams> = {
   id: 'Algorithmic::GeometrySimplification',
+  type: 'Algorithmic::GeometrySimplification',
   category: 'Algorithmic',
   label: 'GeometrySimplification',
   description: 'Simplify complex geometry',

@@ -17,6 +17,7 @@ interface FoldOutputs {
 
 export const SheetMetalUnfoldFoldNode: NodeDefinition<FoldInputs, FoldOutputs, FoldParams> = {
   id: 'SheetMetal::Fold',
+  type: 'SheetMetal::Fold',
   category: 'SheetMetal',
   label: 'Fold',
   description: 'Fold flat pattern to 3D',

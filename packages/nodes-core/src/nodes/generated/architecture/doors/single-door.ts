@@ -20,6 +20,7 @@ interface SingleDoorOutputs {
 
 export const ArchitectureDoorsSingleDoorNode: NodeDefinition<SingleDoorInputs, SingleDoorOutputs, SingleDoorParams> = {
   id: 'Architecture::SingleDoor',
+  type: 'Architecture::SingleDoor',
   category: 'Architecture',
   label: 'SingleDoor',
   description: 'Single swing door',

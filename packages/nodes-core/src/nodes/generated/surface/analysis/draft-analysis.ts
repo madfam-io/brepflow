@@ -17,6 +17,7 @@ interface DraftAnalysisOutputs {
 
 export const SurfaceAnalysisDraftAnalysisNode: NodeDefinition<DraftAnalysisInputs, DraftAnalysisOutputs, DraftAnalysisParams> = {
   id: 'Surface::DraftAnalysis',
+  type: 'Surface::DraftAnalysis',
   category: 'Surface',
   label: 'DraftAnalysis',
   description: 'Analyze draft angles',

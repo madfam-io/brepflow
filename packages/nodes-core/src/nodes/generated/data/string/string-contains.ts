@@ -16,6 +16,7 @@ interface StringContainsOutputs {
 
 export const DataStringStringContainsNode: NodeDefinition<StringContainsInputs, StringContainsOutputs, StringContainsParams> = {
   id: 'Data::StringContains',
+  type: 'Data::StringContains',
   category: 'Data',
   label: 'StringContains',
   description: 'Check if contains',

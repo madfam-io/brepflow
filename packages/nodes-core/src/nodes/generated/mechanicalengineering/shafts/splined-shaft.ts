@@ -18,6 +18,7 @@ interface SplinedShaftOutputs {
 
 export const MechanicalEngineeringShaftsSplinedShaftNode: NodeDefinition<SplinedShaftInputs, SplinedShaftOutputs, SplinedShaftParams> = {
   id: 'MechanicalEngineering::SplinedShaft',
+  type: 'MechanicalEngineering::SplinedShaft',
   category: 'MechanicalEngineering',
   label: 'SplinedShaft',
   description: 'Create splined shaft',

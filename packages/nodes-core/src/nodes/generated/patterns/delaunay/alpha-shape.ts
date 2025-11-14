@@ -15,6 +15,7 @@ interface AlphaShapeOutputs {
 
 export const PatternsDelaunayAlphaShapeNode: NodeDefinition<AlphaShapeInputs, AlphaShapeOutputs, AlphaShapeParams> = {
   id: 'Patterns::AlphaShape',
+  type: 'Patterns::AlphaShape',
   category: 'Patterns',
   label: 'AlphaShape',
   description: 'Alpha shape from points',

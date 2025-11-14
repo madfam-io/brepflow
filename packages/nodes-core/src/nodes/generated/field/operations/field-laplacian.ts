@@ -12,6 +12,7 @@ interface FieldLaplacianOutputs {
 
 export const FieldOperationsFieldLaplacianNode: NodeDefinition<FieldLaplacianInputs, FieldLaplacianOutputs, FieldLaplacianParams> = {
   id: 'Field::FieldLaplacian',
+  type: 'Field::FieldLaplacian',
   category: 'Field',
   label: 'FieldLaplacian',
   description: 'Compute Laplacian',

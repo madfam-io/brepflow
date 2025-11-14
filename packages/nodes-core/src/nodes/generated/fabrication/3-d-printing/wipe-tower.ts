@@ -15,6 +15,7 @@ interface WipeTowerOutputs {
 
 export const Fabrication3DPrintingWipeTowerNode: NodeDefinition<WipeTowerInputs, WipeTowerOutputs, WipeTowerParams> = {
   id: 'Fabrication::WipeTower',
+  type: 'Fabrication::WipeTower',
   category: 'Fabrication',
   label: 'WipeTower',
   description: 'Generate wipe tower',

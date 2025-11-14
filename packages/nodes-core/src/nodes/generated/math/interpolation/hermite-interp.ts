@@ -16,6 +16,7 @@ interface HermiteInterpOutputs {
 
 export const MathInterpolationHermiteInterpNode: NodeDefinition<HermiteInterpInputs, HermiteInterpOutputs, HermiteInterpParams> = {
   id: 'Math::HermiteInterp',
+  type: 'Math::HermiteInterp',
   category: 'Math',
   label: 'HermiteInterp',
   description: 'Hermite interpolation',

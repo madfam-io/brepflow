@@ -15,6 +15,7 @@ interface CleanupPathsOutputs {
 
 export const FabricationLaserCleanupPathsNode: NodeDefinition<CleanupPathsInputs, CleanupPathsOutputs, CleanupPathsParams> = {
   id: 'Fabrication::CleanupPaths',
+  type: 'Fabrication::CleanupPaths',
   category: 'Fabrication',
   label: 'CleanupPaths',
   description: 'Clean and optimize paths',

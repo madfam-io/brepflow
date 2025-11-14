@@ -18,6 +18,7 @@ interface InternalGearOutputs {
 
 export const MechanicalEngineeringGearsInternalGearNode: NodeDefinition<InternalGearInputs, InternalGearOutputs, InternalGearParams> = {
   id: 'MechanicalEngineering::InternalGear',
+  type: 'MechanicalEngineering::InternalGear',
   category: 'MechanicalEngineering',
   label: 'InternalGear',
   description: 'Create internal/ring gear',

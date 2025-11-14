@@ -16,6 +16,7 @@ interface MandalaPatternOutputs {
 
 export const PatternsGeometricMandalaPatternNode: NodeDefinition<MandalaPatternInputs, MandalaPatternOutputs, MandalaPatternParams> = {
   id: 'Patterns::MandalaPattern',
+  type: 'Patterns::MandalaPattern',
   category: 'Patterns',
   label: 'MandalaPattern',
   description: 'Mandala circular pattern',

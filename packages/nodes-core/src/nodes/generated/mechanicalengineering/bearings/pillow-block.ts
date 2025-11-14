@@ -19,6 +19,7 @@ interface PillowBlockOutputs {
 
 export const MechanicalEngineeringBearingsPillowBlockNode: NodeDefinition<PillowBlockInputs, PillowBlockOutputs, PillowBlockParams> = {
   id: 'MechanicalEngineering::PillowBlock',
+  type: 'MechanicalEngineering::PillowBlock',
   category: 'MechanicalEngineering',
   label: 'PillowBlock',
   description: 'Create pillow block bearing housing',

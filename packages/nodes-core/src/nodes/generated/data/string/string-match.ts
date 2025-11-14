@@ -15,6 +15,7 @@ interface StringMatchOutputs {
 
 export const DataStringStringMatchNode: NodeDefinition<StringMatchInputs, StringMatchOutputs, StringMatchParams> = {
   id: 'Data::StringMatch',
+  type: 'Data::StringMatch',
   category: 'Data',
   label: 'StringMatch',
   description: 'Match with regex',

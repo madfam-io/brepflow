@@ -18,6 +18,7 @@ interface HemOutputs {
 
 export const SheetMetalBendsHemNode: NodeDefinition<HemInputs, HemOutputs, HemParams> = {
   id: 'SheetMetal::Hem',
+  type: 'SheetMetal::Hem',
   category: 'SheetMetal',
   label: 'Hem',
   description: 'Create hemmed edge',

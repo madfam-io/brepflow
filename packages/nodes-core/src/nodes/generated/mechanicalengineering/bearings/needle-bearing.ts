@@ -18,6 +18,7 @@ interface NeedleBearingOutputs {
 
 export const MechanicalEngineeringBearingsNeedleBearingNode: NodeDefinition<NeedleBearingInputs, NeedleBearingOutputs, NeedleBearingParams> = {
   id: 'MechanicalEngineering::NeedleBearing',
+  type: 'MechanicalEngineering::NeedleBearing',
   category: 'MechanicalEngineering',
   label: 'NeedleBearing',
   description: 'Create needle bearing',

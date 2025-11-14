@@ -18,6 +18,7 @@ interface ConvexHull3DOutputs {
 
 export const AlgorithmicGeometryConvexHull3DNode: NodeDefinition<ConvexHull3DInputs, ConvexHull3DOutputs, ConvexHull3DParams> = {
   id: 'Algorithmic::ConvexHull3D',
+  type: 'Algorithmic::ConvexHull3D',
   category: 'Algorithmic',
   label: 'ConvexHull3D',
   description: 'Compute 3D convex hull',

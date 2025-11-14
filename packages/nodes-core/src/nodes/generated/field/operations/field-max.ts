@@ -12,6 +12,7 @@ interface FieldMaxOutputs {
 
 export const FieldOperationsFieldMaxNode: NodeDefinition<FieldMaxInputs, FieldMaxOutputs, FieldMaxParams> = {
   id: 'Field::FieldMax',
+  type: 'Field::FieldMax',
   category: 'Field',
   label: 'FieldMax',
   description: 'Maximum of fields',

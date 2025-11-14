@@ -15,6 +15,7 @@ interface TrimOutputs {
 
 export const SketchCurvesTrimNode: NodeDefinition<TrimInputs, TrimOutputs, TrimParams> = {
   id: 'Sketch::Trim',
+  type: 'Sketch::Trim',
   category: 'Sketch',
   label: 'Trim',
   description: 'Trim a curve',

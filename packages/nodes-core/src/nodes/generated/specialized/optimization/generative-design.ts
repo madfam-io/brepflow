@@ -18,6 +18,7 @@ interface GenerativeDesignOutputs {
 
 export const SpecializedOptimizationGenerativeDesignNode: NodeDefinition<GenerativeDesignInputs, GenerativeDesignOutputs, GenerativeDesignParams> = {
   id: 'Specialized::GenerativeDesign',
+  type: 'Specialized::GenerativeDesign',
   category: 'Specialized',
   label: 'GenerativeDesign',
   description: 'AI-driven generative design',

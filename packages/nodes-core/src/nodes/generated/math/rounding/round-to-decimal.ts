@@ -14,6 +14,7 @@ interface RoundToDecimalOutputs {
 
 export const MathRoundingRoundToDecimalNode: NodeDefinition<RoundToDecimalInputs, RoundToDecimalOutputs, RoundToDecimalParams> = {
   id: 'Math::RoundToDecimal',
+  type: 'Math::RoundToDecimal',
   category: 'Math',
   label: 'RoundToDecimal',
   description: 'Round to decimal places',

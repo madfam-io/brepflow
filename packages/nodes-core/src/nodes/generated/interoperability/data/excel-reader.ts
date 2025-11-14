@@ -18,6 +18,7 @@ interface ExcelReaderOutputs {
 
 export const InteroperabilityDataExcelReaderNode: NodeDefinition<ExcelReaderInputs, ExcelReaderOutputs, ExcelReaderParams> = {
   id: 'Interoperability::ExcelReader',
+  type: 'Interoperability::ExcelReader',
   category: 'Interoperability',
   label: 'ExcelReader',
   description: 'Read Excel spreadsheet files',

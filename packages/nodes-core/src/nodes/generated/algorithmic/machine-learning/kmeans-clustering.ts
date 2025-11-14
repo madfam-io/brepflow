@@ -20,6 +20,7 @@ interface KMeansClusteringOutputs {
 
 export const AlgorithmicMachineLearningKMeansClusteringNode: NodeDefinition<KMeansClusteringInputs, KMeansClusteringOutputs, KMeansClusteringParams> = {
   id: 'Algorithmic::KMeansClustering',
+  type: 'Algorithmic::KMeansClustering',
   category: 'Algorithmic',
   label: 'KMeansClustering',
   description: 'K-means clustering algorithm',

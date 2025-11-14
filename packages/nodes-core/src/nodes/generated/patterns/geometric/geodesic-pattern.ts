@@ -15,6 +15,7 @@ interface GeodesicPatternOutputs {
 
 export const PatternsGeometricGeodesicPatternNode: NodeDefinition<GeodesicPatternInputs, GeodesicPatternOutputs, GeodesicPatternParams> = {
   id: 'Patterns::GeodesicPattern',
+  type: 'Patterns::GeodesicPattern',
   category: 'Patterns',
   label: 'GeodesicPattern',
   description: 'Geodesic dome pattern',

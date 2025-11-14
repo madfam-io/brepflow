@@ -13,6 +13,7 @@ interface RandomExponentialOutputs {
 
 export const MathRandomRandomExponentialNode: NodeDefinition<RandomExponentialInputs, RandomExponentialOutputs, RandomExponentialParams> = {
   id: 'Math::RandomExponential',
+  type: 'Math::RandomExponential',
   category: 'Math',
   label: 'RandomExponential',
   description: 'Exponential distribution',

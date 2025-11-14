@@ -13,6 +13,7 @@ interface CurveOnSurfaceOutputs {
 
 export const SurfaceCurveOpsCurveOnSurfaceNode: NodeDefinition<CurveOnSurfaceInputs, CurveOnSurfaceOutputs, CurveOnSurfaceParams> = {
   id: 'Surface::CurveOnSurface',
+  type: 'Surface::CurveOnSurface',
   category: 'Surface',
   label: 'CurveOnSurface',
   description: 'Create curve on surface',

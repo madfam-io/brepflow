@@ -14,6 +14,7 @@ interface ShuffleOutputs {
 
 export const MathRandomShuffleNode: NodeDefinition<ShuffleInputs, ShuffleOutputs, ShuffleParams> = {
   id: 'Math::Shuffle',
+  type: 'Math::Shuffle',
   category: 'Math',
   label: 'Shuffle',
   description: 'Shuffle list randomly',

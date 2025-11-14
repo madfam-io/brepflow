@@ -16,6 +16,7 @@ interface OverheadDoorOutputs {
 
 export const ArchitectureDoorsOverheadDoorNode: NodeDefinition<OverheadDoorInputs, OverheadDoorOutputs, OverheadDoorParams> = {
   id: 'Architecture::OverheadDoor',
+  type: 'Architecture::OverheadDoor',
   category: 'Architecture',
   label: 'OverheadDoor',
   description: 'Overhead sectional door',

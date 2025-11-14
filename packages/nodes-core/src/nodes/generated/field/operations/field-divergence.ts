@@ -12,6 +12,7 @@ interface FieldDivergenceOutputs {
 
 export const FieldOperationsFieldDivergenceNode: NodeDefinition<FieldDivergenceInputs, FieldDivergenceOutputs, FieldDivergenceParams> = {
   id: 'Field::FieldDivergence',
+  type: 'Field::FieldDivergence',
   category: 'Field',
   label: 'FieldDivergence',
   description: 'Compute divergence',

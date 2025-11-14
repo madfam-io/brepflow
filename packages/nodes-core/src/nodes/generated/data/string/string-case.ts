@@ -14,6 +14,7 @@ interface StringCaseOutputs {
 
 export const DataStringStringCaseNode: NodeDefinition<StringCaseInputs, StringCaseOutputs, StringCaseParams> = {
   id: 'Data::StringCase',
+  type: 'Data::StringCase',
   category: 'Data',
   label: 'StringCase',
   description: 'Change string case',

@@ -14,6 +14,7 @@ interface StringSplitOutputs {
 
 export const DataStringStringSplitNode: NodeDefinition<StringSplitInputs, StringSplitOutputs, StringSplitParams> = {
   id: 'Data::StringSplit',
+  type: 'Data::StringSplit',
   category: 'Data',
   label: 'StringSplit',
   description: 'Split string',

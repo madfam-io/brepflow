@@ -17,6 +17,7 @@ interface ExportJSONOutputs {
 
 export const IOExchangeExportJSONNode: NodeDefinition<ExportJSONInputs, ExportJSONOutputs, ExportJSONParams> = {
   id: 'IO::ExportJSON',
+  type: 'IO::ExportJSON',
   category: 'IO',
   label: 'ExportJSON',
   description: 'Export geometry to JSON',

@@ -18,6 +18,7 @@ interface CVTDiscOutputs {
 
 export const MechanicalEngineeringGearsCVTDiscNode: NodeDefinition<CVTDiscInputs, CVTDiscOutputs, CVTDiscParams> = {
   id: 'MechanicalEngineering::CVTDisc',
+  type: 'MechanicalEngineering::CVTDisc',
   category: 'MechanicalEngineering',
   label: 'CVTDisc',
   description: 'Create CVT transmission disc',

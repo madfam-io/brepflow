@@ -15,6 +15,7 @@ interface InsulatedWallOutputs {
 
 export const ArchitectureWallsInsulatedWallNode: NodeDefinition<InsulatedWallInputs, InsulatedWallOutputs, InsulatedWallParams> = {
   id: 'Architecture::InsulatedWall',
+  type: 'Architecture::InsulatedWall',
   category: 'Architecture',
   label: 'InsulatedWall',
   description: 'Wall with insulation layers',

@@ -13,6 +13,7 @@ interface PowerOutputs {
 
 export const MathOperatorsPowerNode: NodeDefinition<PowerInputs, PowerOutputs, PowerParams> = {
   id: 'Math::Power',
+  type: 'Math::Power',
   category: 'Math',
   label: 'Power',
   description: 'Raise to power',

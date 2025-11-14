@@ -15,6 +15,7 @@ interface SetupSheetsOutputs {
 
 export const FabricationCNCSetupSheetsNode: NodeDefinition<SetupSheetsInputs, SetupSheetsOutputs, SetupSheetsParams> = {
   id: 'Fabrication::SetupSheets',
+  type: 'Fabrication::SetupSheets',
   category: 'Fabrication',
   label: 'SetupSheets',
   description: 'Generate setup documentation',

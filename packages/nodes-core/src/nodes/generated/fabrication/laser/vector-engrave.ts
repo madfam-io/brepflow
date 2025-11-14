@@ -15,6 +15,7 @@ interface VectorEngraveOutputs {
 
 export const FabricationLaserVectorEngraveNode: NodeDefinition<VectorEngraveInputs, VectorEngraveOutputs, VectorEngraveParams> = {
   id: 'Fabrication::VectorEngrave',
+  type: 'Fabrication::VectorEngrave',
   category: 'Fabrication',
   label: 'VectorEngrave',
   description: 'Vector engraving paths',

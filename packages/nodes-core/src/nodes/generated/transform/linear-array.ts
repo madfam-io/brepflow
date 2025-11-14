@@ -19,6 +19,7 @@ interface LinearArrayOutputs {
 
 export const TransformLinearArrayNode: NodeDefinition<LinearArrayInputs, LinearArrayOutputs, LinearArrayParams> = {
   id: 'Transform::LinearArray',
+  type: 'Transform::LinearArray',
   category: 'Transform',
   label: 'LinearArray',
   description: 'Create linear array of shapes',

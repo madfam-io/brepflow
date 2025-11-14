@@ -13,6 +13,7 @@ interface VerticalOutputs {
 
 export const AssemblyConstraintsVerticalNode: NodeDefinition<VerticalInputs, VerticalOutputs, VerticalParams> = {
   id: 'Assembly::Vertical',
+  type: 'Assembly::Vertical',
   category: 'Assembly',
   label: 'Vertical',
   description: 'Make entity vertical',

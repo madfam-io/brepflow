@@ -15,6 +15,7 @@ interface ApollonianGasketOutputs {
 
 export const PatternsFractalsApollonianGasketNode: NodeDefinition<ApollonianGasketInputs, ApollonianGasketOutputs, ApollonianGasketParams> = {
   id: 'Patterns::ApollonianGasket',
+  type: 'Patterns::ApollonianGasket',
   category: 'Patterns',
   label: 'ApollonianGasket',
   description: 'Apollonian gasket circles',

@@ -15,6 +15,7 @@ interface DiffusionLimitedAggregationOutputs {
 
 export const PatternsAlgorithmicDiffusionLimitedAggregationNode: NodeDefinition<DiffusionLimitedAggregationInputs, DiffusionLimitedAggregationOutputs, DiffusionLimitedAggregationParams> = {
   id: 'Patterns::DiffusionLimitedAggregation',
+  type: 'Patterns::DiffusionLimitedAggregation',
   category: 'Patterns',
   label: 'DiffusionLimitedAggregation',
   description: 'DLA growth pattern',

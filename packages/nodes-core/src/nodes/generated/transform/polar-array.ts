@@ -24,6 +24,7 @@ interface PolarArrayOutputs {
 
 export const TransformPolarArrayNode: NodeDefinition<PolarArrayInputs, PolarArrayOutputs, PolarArrayParams> = {
   id: 'Transform::PolarArray',
+  type: 'Transform::PolarArray',
   category: 'Transform',
   label: 'PolarArray',
   description: 'Create circular/polar array',

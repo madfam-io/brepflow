@@ -19,6 +19,7 @@ interface SweepOutputs {
 
 export const AdvancedSweepSweepNode: NodeDefinition<SweepInputs, SweepOutputs, SweepParams> = {
   id: 'Advanced::Sweep',
+  type: 'Advanced::Sweep',
   category: 'Advanced',
   label: 'Sweep',
   description: 'Sweep profile along path',

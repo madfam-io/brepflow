@@ -17,6 +17,7 @@ interface SurfaceSurfaceIntersectionOutputs {
 
 export const AnalysisIntersectionSurfaceSurfaceIntersectionNode: NodeDefinition<SurfaceSurfaceIntersectionInputs, SurfaceSurfaceIntersectionOutputs, SurfaceSurfaceIntersectionParams> = {
   id: 'Analysis::SurfaceSurfaceIntersection',
+  type: 'Analysis::SurfaceSurfaceIntersection',
   category: 'Analysis',
   label: 'SurfaceSurfaceIntersection',
   description: 'Find surface-surface intersection curves',

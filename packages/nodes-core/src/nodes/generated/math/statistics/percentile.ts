@@ -14,6 +14,7 @@ interface PercentileOutputs {
 
 export const MathStatisticsPercentileNode: NodeDefinition<PercentileInputs, PercentileOutputs, PercentileParams> = {
   id: 'Math::Percentile',
+  type: 'Math::Percentile',
   category: 'Math',
   label: 'Percentile',
   description: 'Calculate percentile',

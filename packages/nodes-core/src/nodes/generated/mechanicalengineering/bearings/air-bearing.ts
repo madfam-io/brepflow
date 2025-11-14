@@ -19,6 +19,7 @@ interface AirBearingOutputs {
 
 export const MechanicalEngineeringBearingsAirBearingNode: NodeDefinition<AirBearingInputs, AirBearingOutputs, AirBearingParams> = {
   id: 'MechanicalEngineering::AirBearing',
+  type: 'MechanicalEngineering::AirBearing',
   category: 'MechanicalEngineering',
   label: 'AirBearing',
   description: 'Create air bearing design',

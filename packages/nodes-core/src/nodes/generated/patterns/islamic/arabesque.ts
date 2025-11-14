@@ -15,6 +15,7 @@ interface ArabesqueOutputs {
 
 export const PatternsIslamicArabesqueNode: NodeDefinition<ArabesqueInputs, ArabesqueOutputs, ArabesqueParams> = {
   id: 'Patterns::Arabesque',
+  type: 'Patterns::Arabesque',
   category: 'Patterns',
   label: 'Arabesque',
   description: 'Arabesque pattern',

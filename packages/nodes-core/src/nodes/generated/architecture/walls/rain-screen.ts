@@ -15,6 +15,7 @@ interface RainScreenOutputs {
 
 export const ArchitectureWallsRainScreenNode: NodeDefinition<RainScreenInputs, RainScreenOutputs, RainScreenParams> = {
   id: 'Architecture::RainScreen',
+  type: 'Architecture::RainScreen',
   category: 'Architecture',
   label: 'RainScreen',
   description: 'Rainscreen cladding system',

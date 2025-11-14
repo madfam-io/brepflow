@@ -12,6 +12,7 @@ interface ComplexPhaseOutputs {
 
 export const MathComplexComplexPhaseNode: NodeDefinition<ComplexPhaseInputs, ComplexPhaseOutputs, ComplexPhaseParams> = {
   id: 'Math::ComplexPhase',
+  type: 'Math::ComplexPhase',
   category: 'Math',
   label: 'ComplexPhase',
   description: 'Complex phase angle',

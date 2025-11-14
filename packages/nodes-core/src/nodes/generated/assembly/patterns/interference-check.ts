@@ -15,6 +15,7 @@ interface InterferenceCheckOutputs {
 
 export const AssemblyPatternsInterferenceCheckNode: NodeDefinition<InterferenceCheckInputs, InterferenceCheckOutputs, InterferenceCheckParams> = {
   id: 'Assembly::InterferenceCheck',
+  type: 'Assembly::InterferenceCheck',
   category: 'Assembly',
   label: 'InterferenceCheck',
   description: 'Check for interferences',

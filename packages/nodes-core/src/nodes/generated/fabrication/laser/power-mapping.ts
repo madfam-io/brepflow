@@ -16,6 +16,7 @@ interface PowerMappingOutputs {
 
 export const FabricationLaserPowerMappingNode: NodeDefinition<PowerMappingInputs, PowerMappingOutputs, PowerMappingParams> = {
   id: 'Fabrication::PowerMapping',
+  type: 'Fabrication::PowerMapping',
   category: 'Fabrication',
   label: 'PowerMapping',
   description: 'Map laser power settings',

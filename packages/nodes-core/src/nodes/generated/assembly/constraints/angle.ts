@@ -16,6 +16,7 @@ interface AngleOutputs {
 
 export const AssemblyConstraintsAngleNode: NodeDefinition<AngleInputs, AngleOutputs, AngleParams> = {
   id: 'Assembly::Angle',
+  type: 'Assembly::Angle',
   category: 'Assembly',
   label: 'Angle',
   description: 'Set angle between entities',

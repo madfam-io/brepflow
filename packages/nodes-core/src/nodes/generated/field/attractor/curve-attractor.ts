@@ -16,6 +16,7 @@ interface CurveAttractorOutputs {
 
 export const FieldAttractorCurveAttractorNode: NodeDefinition<CurveAttractorInputs, CurveAttractorOutputs, CurveAttractorParams> = {
   id: 'Field::CurveAttractor',
+  type: 'Field::CurveAttractor',
   category: 'Field',
   label: 'CurveAttractor',
   description: 'Curve attractor field',

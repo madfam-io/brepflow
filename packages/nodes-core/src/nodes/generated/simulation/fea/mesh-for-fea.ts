@@ -19,6 +19,7 @@ interface MeshForFEAOutputs {
 
 export const SimulationFEAMeshForFEANode: NodeDefinition<MeshForFEAInputs, MeshForFEAOutputs, MeshForFEAParams> = {
   id: 'Simulation::MeshForFEA',
+  type: 'Simulation::MeshForFEA',
   category: 'Simulation',
   label: 'MeshForFEA',
   description: 'Generate FEA-ready mesh',

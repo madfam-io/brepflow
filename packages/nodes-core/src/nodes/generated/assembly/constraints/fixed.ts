@@ -13,6 +13,7 @@ interface FixedOutputs {
 
 export const AssemblyConstraintsFixedNode: NodeDefinition<FixedInputs, FixedOutputs, FixedParams> = {
   id: 'Assembly::Fixed',
+  type: 'Assembly::Fixed',
   category: 'Assembly',
   label: 'Fixed',
   description: 'Fix entity in space',

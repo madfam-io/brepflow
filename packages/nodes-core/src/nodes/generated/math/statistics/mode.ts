@@ -12,6 +12,7 @@ interface ModeOutputs {
 
 export const MathStatisticsModeNode: NodeDefinition<ModeInputs, ModeOutputs, ModeParams> = {
   id: 'Math::Mode',
+  type: 'Math::Mode',
   category: 'Math',
   label: 'Mode',
   description: 'Calculate mode',

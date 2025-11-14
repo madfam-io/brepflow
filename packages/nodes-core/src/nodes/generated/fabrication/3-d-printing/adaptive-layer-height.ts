@@ -16,6 +16,7 @@ interface AdaptiveLayerHeightOutputs {
 
 export const Fabrication3DPrintingAdaptiveLayerHeightNode: NodeDefinition<AdaptiveLayerHeightInputs, AdaptiveLayerHeightOutputs, AdaptiveLayerHeightParams> = {
   id: 'Fabrication::AdaptiveLayerHeight',
+  type: 'Fabrication::AdaptiveLayerHeight',
   category: 'Fabrication',
   label: 'AdaptiveLayerHeight',
   description: 'Adaptive layer height calculation',

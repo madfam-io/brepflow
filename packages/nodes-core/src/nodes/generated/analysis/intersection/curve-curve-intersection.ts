@@ -18,6 +18,7 @@ interface CurveCurveIntersectionOutputs {
 
 export const AnalysisIntersectionCurveCurveIntersectionNode: NodeDefinition<CurveCurveIntersectionInputs, CurveCurveIntersectionOutputs, CurveCurveIntersectionParams> = {
   id: 'Analysis::CurveCurveIntersection',
+  type: 'Analysis::CurveCurveIntersection',
   category: 'Analysis',
   label: 'CurveCurveIntersection',
   description: 'Find curve-curve intersections',

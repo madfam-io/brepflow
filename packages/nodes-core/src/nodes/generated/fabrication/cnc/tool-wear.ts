@@ -16,6 +16,7 @@ interface ToolWearOutputs {
 
 export const FabricationCNCToolWearNode: NodeDefinition<ToolWearInputs, ToolWearOutputs, ToolWearParams> = {
   id: 'Fabrication::ToolWear',
+  type: 'Fabrication::ToolWear',
   category: 'Fabrication',
   label: 'ToolWear',
   description: 'Predict tool wear',

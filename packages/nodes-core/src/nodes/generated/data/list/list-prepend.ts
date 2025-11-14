@@ -13,6 +13,7 @@ interface ListPrependOutputs {
 
 export const DataListListPrependNode: NodeDefinition<ListPrependInputs, ListPrependOutputs, ListPrependParams> = {
   id: 'Data::ListPrepend',
+  type: 'Data::ListPrepend',
   category: 'Data',
   label: 'ListPrepend',
   description: 'Prepend to list',

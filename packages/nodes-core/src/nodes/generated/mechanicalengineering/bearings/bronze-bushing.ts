@@ -19,6 +19,7 @@ interface BronzeBushingOutputs {
 
 export const MechanicalEngineeringBearingsBronzeBushingNode: NodeDefinition<BronzeBushingInputs, BronzeBushingOutputs, BronzeBushingParams> = {
   id: 'MechanicalEngineering::BronzeBushing',
+  type: 'MechanicalEngineering::BronzeBushing',
   category: 'MechanicalEngineering',
   label: 'BronzeBushing',
   description: 'Create bronze bushing',

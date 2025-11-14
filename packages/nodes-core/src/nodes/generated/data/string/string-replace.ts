@@ -16,6 +16,7 @@ interface StringReplaceOutputs {
 
 export const DataStringStringReplaceNode: NodeDefinition<StringReplaceInputs, StringReplaceOutputs, StringReplaceParams> = {
   id: 'Data::StringReplace',
+  type: 'Data::StringReplace',
   category: 'Data',
   label: 'StringReplace',
   description: 'Replace in string',

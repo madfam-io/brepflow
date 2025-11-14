@@ -13,6 +13,7 @@ interface SubtractOutputs {
 
 export const MathOperatorsSubtractNode: NodeDefinition<SubtractInputs, SubtractOutputs, SubtractParams> = {
   id: 'Math::Subtract',
+  type: 'Math::Subtract',
   category: 'Math',
   label: 'Subtract',
   description: 'Subtract numbers',

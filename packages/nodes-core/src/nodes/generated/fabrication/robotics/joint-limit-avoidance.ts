@@ -14,6 +14,7 @@ interface JointLimitAvoidanceOutputs {
 
 export const FabricationRoboticsJointLimitAvoidanceNode: NodeDefinition<JointLimitAvoidanceInputs, JointLimitAvoidanceOutputs, JointLimitAvoidanceParams> = {
   id: 'Fabrication::JointLimitAvoidance',
+  type: 'Fabrication::JointLimitAvoidance',
   category: 'Fabrication',
   label: 'JointLimitAvoidance',
   description: 'Avoid joint limits',

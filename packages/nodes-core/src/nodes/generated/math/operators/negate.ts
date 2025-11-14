@@ -12,6 +12,7 @@ interface NegateOutputs {
 
 export const MathOperatorsNegateNode: NodeDefinition<NegateInputs, NegateOutputs, NegateParams> = {
   id: 'Math::Negate',
+  type: 'Math::Negate',
   category: 'Math',
   label: 'Negate',
   description: 'Negate value',

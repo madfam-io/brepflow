@@ -13,6 +13,7 @@ interface MatrixTransformOutputs {
 
 export const TransformMatrixTransformNode: NodeDefinition<MatrixTransformInputs, MatrixTransformOutputs, MatrixTransformParams> = {
   id: 'Transform::MatrixTransform',
+  type: 'Transform::MatrixTransform',
   category: 'Transform',
   label: 'MatrixTransform',
   description: 'Apply transformation matrix',

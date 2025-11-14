@@ -16,6 +16,7 @@ interface FillHolesOutputs {
 
 export const MeshRepairFillHolesNode: NodeDefinition<FillHolesInputs, FillHolesOutputs, FillHolesParams> = {
   id: 'Mesh::FillHoles',
+  type: 'Mesh::FillHoles',
   category: 'Mesh',
   label: 'FillHoles',
   description: 'Fill mesh holes',

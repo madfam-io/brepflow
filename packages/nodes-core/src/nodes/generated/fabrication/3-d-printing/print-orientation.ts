@@ -16,6 +16,7 @@ interface PrintOrientationOutputs {
 
 export const Fabrication3DPrintingPrintOrientationNode: NodeDefinition<PrintOrientationInputs, PrintOrientationOutputs, PrintOrientationParams> = {
   id: 'Fabrication::PrintOrientation',
+  type: 'Fabrication::PrintOrientation',
   category: 'Fabrication',
   label: 'PrintOrientation',
   description: 'Optimize print orientation',

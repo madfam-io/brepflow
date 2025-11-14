@@ -12,6 +12,7 @@ interface TypeOfOutputs {
 
 export const DataConvertTypeOfNode: NodeDefinition<TypeOfInputs, TypeOfOutputs, TypeOfParams> = {
   id: 'Data::TypeOf',
+  type: 'Data::TypeOf',
   category: 'Data',
   label: 'TypeOf',
   description: 'Get data type',

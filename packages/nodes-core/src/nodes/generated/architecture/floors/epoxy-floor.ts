@@ -15,6 +15,7 @@ interface EpoxyFloorOutputs {
 
 export const ArchitectureFloorsEpoxyFloorNode: NodeDefinition<EpoxyFloorInputs, EpoxyFloorOutputs, EpoxyFloorParams> = {
   id: 'Architecture::EpoxyFloor',
+  type: 'Architecture::EpoxyFloor',
   category: 'Architecture',
   label: 'EpoxyFloor',
   description: 'Epoxy floor coating system',

@@ -17,6 +17,7 @@ interface DoubleSkinnedFacadeOutputs {
 
 export const ArchitectureWallsDoubleSkinnedFacadeNode: NodeDefinition<DoubleSkinnedFacadeInputs, DoubleSkinnedFacadeOutputs, DoubleSkinnedFacadeParams> = {
   id: 'Architecture::DoubleSkinnedFacade',
+  type: 'Architecture::DoubleSkinnedFacade',
   category: 'Architecture',
   label: 'DoubleSkinnedFacade',
   description: 'Double-skin facade system',

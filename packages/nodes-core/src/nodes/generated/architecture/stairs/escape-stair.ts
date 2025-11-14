@@ -16,6 +16,7 @@ interface EscapeStairOutputs {
 
 export const ArchitectureStairsEscapeStairNode: NodeDefinition<EscapeStairInputs, EscapeStairOutputs, EscapeStairParams> = {
   id: 'Architecture::EscapeStair',
+  type: 'Architecture::EscapeStair',
   category: 'Architecture',
   label: 'EscapeStair',
   description: 'Fire escape staircase',

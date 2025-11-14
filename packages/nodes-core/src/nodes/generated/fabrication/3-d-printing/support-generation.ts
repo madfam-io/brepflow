@@ -17,6 +17,7 @@ interface SupportGenerationOutputs {
 
 export const Fabrication3DPrintingSupportGenerationNode: NodeDefinition<SupportGenerationInputs, SupportGenerationOutputs, SupportGenerationParams> = {
   id: 'Fabrication::SupportGeneration',
+  type: 'Fabrication::SupportGeneration',
   category: 'Fabrication',
   label: 'SupportGeneration',
   description: 'Generate support structures',

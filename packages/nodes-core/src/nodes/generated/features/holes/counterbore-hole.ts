@@ -18,6 +18,7 @@ interface CounterboreHoleOutputs {
 
 export const FeaturesHolesCounterboreHoleNode: NodeDefinition<CounterboreHoleInputs, CounterboreHoleOutputs, CounterboreHoleParams> = {
   id: 'Features::CounterboreHole',
+  type: 'Features::CounterboreHole',
   category: 'Features',
   label: 'CounterboreHole',
   description: 'Creates a counterbore hole for socket head cap screws',

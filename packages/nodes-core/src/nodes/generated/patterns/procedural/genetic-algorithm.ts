@@ -18,6 +18,7 @@ interface GeneticAlgorithmOutputs {
 
 export const PatternsProceduralGeneticAlgorithmNode: NodeDefinition<GeneticAlgorithmInputs, GeneticAlgorithmOutputs, GeneticAlgorithmParams> = {
   id: 'Patterns::GeneticAlgorithm',
+  type: 'Patterns::GeneticAlgorithm',
   category: 'Patterns',
   label: 'GeneticAlgorithm',
   description: 'GA-based pattern optimization',

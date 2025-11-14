@@ -19,6 +19,7 @@ interface UniversalJointOutputs {
 
 export const MechanicalEngineeringMechanismsUniversalJointNode: NodeDefinition<UniversalJointInputs, UniversalJointOutputs, UniversalJointParams> = {
   id: 'MechanicalEngineering::UniversalJoint',
+  type: 'MechanicalEngineering::UniversalJoint',
   category: 'MechanicalEngineering',
   label: 'UniversalJoint',
   description: 'Create universal joint',

@@ -12,6 +12,7 @@ interface MinOutputs {
 
 export const MathComparisonMinNode: NodeDefinition<MinInputs, MinOutputs, MinParams> = {
   id: 'Math::Min',
+  type: 'Math::Min',
   category: 'Math',
   label: 'Min',
   description: 'Minimum value',

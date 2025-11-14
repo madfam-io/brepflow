@@ -17,6 +17,7 @@ interface CompoundWallOutputs {
 
 export const ArchitectureWallsCompoundWallNode: NodeDefinition<CompoundWallInputs, CompoundWallOutputs, CompoundWallParams> = {
   id: 'Architecture::CompoundWall',
+  type: 'Architecture::CompoundWall',
   category: 'Architecture',
   label: 'CompoundWall',
   description: 'Multi-layer wall assembly',

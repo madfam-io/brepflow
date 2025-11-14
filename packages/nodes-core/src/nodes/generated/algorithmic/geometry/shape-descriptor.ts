@@ -18,6 +18,7 @@ interface ShapeDescriptorOutputs {
 
 export const AlgorithmicGeometryShapeDescriptorNode: NodeDefinition<ShapeDescriptorInputs, ShapeDescriptorOutputs, ShapeDescriptorParams> = {
   id: 'Algorithmic::ShapeDescriptor',
+  type: 'Algorithmic::ShapeDescriptor',
   category: 'Algorithmic',
   label: 'ShapeDescriptor',
   description: 'Compute geometric shape descriptors',

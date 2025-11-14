@@ -15,6 +15,7 @@ interface KelvinLatticeOutputs {
 
 export const PatternsLatticeKelvinLatticeNode: NodeDefinition<KelvinLatticeInputs, KelvinLatticeOutputs, KelvinLatticeParams> = {
   id: 'Patterns::KelvinLattice',
+  type: 'Patterns::KelvinLattice',
   category: 'Patterns',
   label: 'KelvinLattice',
   description: 'Kelvin foam structure',

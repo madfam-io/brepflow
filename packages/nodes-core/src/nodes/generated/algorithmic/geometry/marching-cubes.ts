@@ -18,6 +18,7 @@ interface MarchingCubesOutputs {
 
 export const AlgorithmicGeometryMarchingCubesNode: NodeDefinition<MarchingCubesInputs, MarchingCubesOutputs, MarchingCubesParams> = {
   id: 'Algorithmic::MarchingCubes',
+  type: 'Algorithmic::MarchingCubes',
   category: 'Algorithmic',
   label: 'MarchingCubes',
   description: 'Extract isosurface using marching cubes',

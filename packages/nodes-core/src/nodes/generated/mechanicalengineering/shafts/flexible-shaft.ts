@@ -18,6 +18,7 @@ interface FlexibleShaftOutputs {
 
 export const MechanicalEngineeringShaftsFlexibleShaftNode: NodeDefinition<FlexibleShaftInputs, FlexibleShaftOutputs, FlexibleShaftParams> = {
   id: 'MechanicalEngineering::FlexibleShaft',
+  type: 'MechanicalEngineering::FlexibleShaft',
   category: 'MechanicalEngineering',
   label: 'FlexibleShaft',
   description: 'Create flexible shaft design',

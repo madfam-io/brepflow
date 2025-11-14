@@ -15,6 +15,7 @@ interface XOROutputs {
 
 export const BooleanXORNode: NodeDefinition<XORInputs, XOROutputs, XORParams> = {
   id: 'Boolean::XOR',
+  type: 'Boolean::XOR',
   category: 'Boolean',
   label: 'XOR',
   description: 'Exclusive OR - keep non-overlapping regions',

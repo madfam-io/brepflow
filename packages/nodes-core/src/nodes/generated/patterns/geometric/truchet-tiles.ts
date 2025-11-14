@@ -15,6 +15,7 @@ interface TruchetTilesOutputs {
 
 export const PatternsGeometricTruchetTilesNode: NodeDefinition<TruchetTilesInputs, TruchetTilesOutputs, TruchetTilesParams> = {
   id: 'Patterns::TruchetTiles',
+  type: 'Patterns::TruchetTiles',
   category: 'Patterns',
   label: 'TruchetTiles',
   description: 'Truchet tile pattern',

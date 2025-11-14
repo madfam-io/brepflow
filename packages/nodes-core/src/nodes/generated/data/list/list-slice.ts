@@ -14,6 +14,7 @@ interface ListSliceOutputs {
 
 export const DataListListSliceNode: NodeDefinition<ListSliceInputs, ListSliceOutputs, ListSliceParams> = {
   id: 'Data::ListSlice',
+  type: 'Data::ListSlice',
   category: 'Data',
   label: 'ListSlice',
   description: 'Extract sublist',

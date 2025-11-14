@@ -16,6 +16,7 @@ interface SlidingWindowOutputs {
 
 export const ArchitectureWindowsSlidingWindowNode: NodeDefinition<SlidingWindowInputs, SlidingWindowOutputs, SlidingWindowParams> = {
   id: 'Architecture::SlidingWindow',
+  type: 'Architecture::SlidingWindow',
   category: 'Architecture',
   label: 'SlidingWindow',
   description: 'Horizontal sliding window',

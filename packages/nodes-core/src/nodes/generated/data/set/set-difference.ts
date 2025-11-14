@@ -13,6 +13,7 @@ interface SetDifferenceOutputs {
 
 export const DataSetSetDifferenceNode: NodeDefinition<SetDifferenceInputs, SetDifferenceOutputs, SetDifferenceParams> = {
   id: 'Data::SetDifference',
+  type: 'Data::SetDifference',
   category: 'Data',
   label: 'SetDifference',
   description: 'Difference of sets',

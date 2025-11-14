@@ -19,6 +19,7 @@ interface InletOutletOutputs {
 
 export const SimulationCFDInletOutletNode: NodeDefinition<InletOutletInputs, InletOutletOutputs, InletOutletParams> = {
   id: 'Simulation::InletOutlet',
+  type: 'Simulation::InletOutlet',
   category: 'Simulation',
   label: 'InletOutlet',
   description: 'Define inlet/outlet conditions',

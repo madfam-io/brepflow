@@ -16,6 +16,7 @@ interface JalousieWindowOutputs {
 
 export const ArchitectureWindowsJalousieWindowNode: NodeDefinition<JalousieWindowInputs, JalousieWindowOutputs, JalousieWindowParams> = {
   id: 'Architecture::JalousieWindow',
+  type: 'Architecture::JalousieWindow',
   category: 'Architecture',
   label: 'JalousieWindow',
   description: 'Jalousie louvre window',

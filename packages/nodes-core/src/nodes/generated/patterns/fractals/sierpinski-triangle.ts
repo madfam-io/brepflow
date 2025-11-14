@@ -15,6 +15,7 @@ interface SierpinskiTriangleOutputs {
 
 export const PatternsFractalsSierpinskiTriangleNode: NodeDefinition<SierpinskiTriangleInputs, SierpinskiTriangleOutputs, SierpinskiTriangleParams> = {
   id: 'Patterns::SierpinskiTriangle',
+  type: 'Patterns::SierpinskiTriangle',
   category: 'Patterns',
   label: 'SierpinskiTriangle',
   description: 'Sierpinski triangle',

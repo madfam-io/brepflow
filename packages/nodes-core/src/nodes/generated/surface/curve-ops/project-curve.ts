@@ -16,6 +16,7 @@ interface ProjectCurveOutputs {
 
 export const SurfaceCurveOpsProjectCurveNode: NodeDefinition<ProjectCurveInputs, ProjectCurveOutputs, ProjectCurveParams> = {
   id: 'Surface::ProjectCurve',
+  type: 'Surface::ProjectCurve',
   category: 'Surface',
   label: 'ProjectCurve',
   description: 'Project curve onto surface',

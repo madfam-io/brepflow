@@ -16,6 +16,7 @@ interface CellularAutomataOutputs {
 
 export const PatternsCellularCellularAutomataNode: NodeDefinition<CellularAutomataInputs, CellularAutomataOutputs, CellularAutomataParams> = {
   id: 'Patterns::CellularAutomata',
+  type: 'Patterns::CellularAutomata',
   category: 'Patterns',
   label: 'CellularAutomata',
   description: 'Cellular automaton pattern',

@@ -16,6 +16,7 @@ interface TPMSLatticeOutputs {
 
 export const PatternsLatticeTPMSLatticeNode: NodeDefinition<TPMSLatticeInputs, TPMSLatticeOutputs, TPMSLatticeParams> = {
   id: 'Patterns::TPMSLattice',
+  type: 'Patterns::TPMSLattice',
   category: 'Patterns',
   label: 'TPMSLattice',
   description: 'TPMS lattice structures',

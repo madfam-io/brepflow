@@ -17,6 +17,7 @@ interface JobTimeEstimateOutputs {
 
 export const FabricationLaserJobTimeEstimateNode: NodeDefinition<JobTimeEstimateInputs, JobTimeEstimateOutputs, JobTimeEstimateParams> = {
   id: 'Fabrication::JobTimeEstimate',
+  type: 'Fabrication::JobTimeEstimate',
   category: 'Fabrication',
   label: 'JobTimeEstimate',
   description: 'Estimate job time',

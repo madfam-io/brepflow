@@ -16,6 +16,7 @@ interface PlaneIntersectionOutputs {
 
 export const AnalysisIntersectionPlaneIntersectionNode: NodeDefinition<PlaneIntersectionInputs, PlaneIntersectionOutputs, PlaneIntersectionParams> = {
   id: 'Analysis::PlaneIntersection',
+  type: 'Analysis::PlaneIntersection',
   category: 'Analysis',
   label: 'PlaneIntersection',
   description: 'Intersect geometry with plane',

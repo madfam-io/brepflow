@@ -17,6 +17,7 @@ interface DoubleDoorOutputs {
 
 export const ArchitectureDoorsDoubleDoorNode: NodeDefinition<DoubleDoorInputs, DoubleDoorOutputs, DoubleDoorParams> = {
   id: 'Architecture::DoubleDoor',
+  type: 'Architecture::DoubleDoor',
   category: 'Architecture',
   label: 'DoubleDoor',
   description: 'Double swing door',

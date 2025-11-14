@@ -17,6 +17,7 @@ interface RevoluteOutputs {
 
 export const AssemblyJointsRevoluteNode: NodeDefinition<RevoluteInputs, RevoluteOutputs, RevoluteParams> = {
   id: 'Assembly::Revolute',
+  type: 'Assembly::Revolute',
   category: 'Assembly',
   label: 'Revolute',
   description: 'Create revolute (hinge) joint',

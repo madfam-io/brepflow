@@ -15,6 +15,7 @@ interface PostProcessorOutputs {
 
 export const FabricationCNCPostProcessorNode: NodeDefinition<PostProcessorInputs, PostProcessorOutputs, PostProcessorParams> = {
   id: 'Fabrication::PostProcessor',
+  type: 'Fabrication::PostProcessor',
   category: 'Fabrication',
   label: 'PostProcessor',
   description: 'CNC post-processor',

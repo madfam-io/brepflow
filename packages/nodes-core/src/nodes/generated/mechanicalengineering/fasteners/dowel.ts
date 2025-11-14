@@ -18,6 +18,7 @@ interface DowelOutputs {
 
 export const MechanicalEngineeringFastenersDowelNode: NodeDefinition<DowelInputs, DowelOutputs, DowelParams> = {
   id: 'MechanicalEngineering::Dowel',
+  type: 'MechanicalEngineering::Dowel',
   category: 'MechanicalEngineering',
   label: 'Dowel',
   description: 'Create dowel pin',

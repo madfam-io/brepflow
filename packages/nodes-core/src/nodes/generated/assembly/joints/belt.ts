@@ -15,6 +15,7 @@ interface BeltOutputs {
 
 export const AssemblyJointsBeltNode: NodeDefinition<BeltInputs, BeltOutputs, BeltParams> = {
   id: 'Assembly::Belt',
+  type: 'Assembly::Belt',
   category: 'Assembly',
   label: 'Belt',
   description: 'Create belt/chain constraint',

@@ -20,6 +20,7 @@ interface CompressionSpringOutputs {
 
 export const MechanicalEngineeringSpringsCompressionSpringNode: NodeDefinition<CompressionSpringInputs, CompressionSpringOutputs, CompressionSpringParams> = {
   id: 'MechanicalEngineering::CompressionSpring',
+  type: 'MechanicalEngineering::CompressionSpring',
   category: 'MechanicalEngineering',
   label: 'CompressionSpring',
   description: 'Create compression coil spring',

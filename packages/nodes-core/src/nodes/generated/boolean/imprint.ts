@@ -15,6 +15,7 @@ interface ImprintOutputs {
 
 export const BooleanImprintNode: NodeDefinition<ImprintInputs, ImprintOutputs, ImprintParams> = {
   id: 'Boolean::Imprint',
+  type: 'Boolean::Imprint',
   category: 'Boolean',
   label: 'Imprint',
   description: 'Imprint one shape onto another',

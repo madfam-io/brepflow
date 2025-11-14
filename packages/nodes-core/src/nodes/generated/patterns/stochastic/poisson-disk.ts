@@ -15,6 +15,7 @@ interface PoissonDiskOutputs {
 
 export const PatternsStochasticPoissonDiskNode: NodeDefinition<PoissonDiskInputs, PoissonDiskOutputs, PoissonDiskParams> = {
   id: 'Patterns::PoissonDisk',
+  type: 'Patterns::PoissonDisk',
   category: 'Patterns',
   label: 'PoissonDisk',
   description: 'Poisson disk sampling',

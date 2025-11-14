@@ -16,6 +16,7 @@ interface RetainingWallOutputs {
 
 export const ArchitectureWallsRetainingWallNode: NodeDefinition<RetainingWallInputs, RetainingWallOutputs, RetainingWallParams> = {
   id: 'Architecture::RetainingWall',
+  type: 'Architecture::RetainingWall',
   category: 'Architecture',
   label: 'RetainingWall',
   description: 'Retaining wall with batter',

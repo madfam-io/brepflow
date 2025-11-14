@@ -15,6 +15,7 @@ interface HoneycombPatternOutputs {
 
 export const PatternsCellularHoneycombPatternNode: NodeDefinition<HoneycombPatternInputs, HoneycombPatternOutputs, HoneycombPatternParams> = {
   id: 'Patterns::HoneycombPattern',
+  type: 'Patterns::HoneycombPattern',
   category: 'Patterns',
   label: 'HoneycombPattern',
   description: 'Honeycomb hexagonal pattern',

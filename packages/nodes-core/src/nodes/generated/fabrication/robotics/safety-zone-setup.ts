@@ -15,6 +15,7 @@ interface SafetyZoneSetupOutputs {
 
 export const FabricationRoboticsSafetyZoneSetupNode: NodeDefinition<SafetyZoneSetupInputs, SafetyZoneSetupOutputs, SafetyZoneSetupParams> = {
   id: 'Fabrication::SafetyZoneSetup',
+  type: 'Fabrication::SafetyZoneSetup',
   category: 'Fabrication',
   label: 'SafetyZoneSetup',
   description: 'Define robot safety zones',

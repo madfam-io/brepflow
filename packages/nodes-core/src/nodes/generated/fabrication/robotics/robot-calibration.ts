@@ -15,6 +15,7 @@ interface RobotCalibrationOutputs {
 
 export const FabricationRoboticsRobotCalibrationNode: NodeDefinition<RobotCalibrationInputs, RobotCalibrationOutputs, RobotCalibrationParams> = {
   id: 'Fabrication::RobotCalibration',
+  type: 'Fabrication::RobotCalibration',
   category: 'Fabrication',
   label: 'RobotCalibration',
   description: 'Robot calibration routine',

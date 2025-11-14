@@ -15,6 +15,7 @@ interface OctetLatticeOutputs {
 
 export const PatternsLatticeOctetLatticeNode: NodeDefinition<OctetLatticeInputs, OctetLatticeOutputs, OctetLatticeParams> = {
   id: 'Patterns::OctetLattice',
+  type: 'Patterns::OctetLattice',
   category: 'Patterns',
   label: 'OctetLattice',
   description: 'Octet truss lattice',

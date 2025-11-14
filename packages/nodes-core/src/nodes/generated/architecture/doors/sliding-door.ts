@@ -17,6 +17,7 @@ interface SlidingDoorOutputs {
 
 export const ArchitectureDoorsSlidingDoorNode: NodeDefinition<SlidingDoorInputs, SlidingDoorOutputs, SlidingDoorParams> = {
   id: 'Architecture::SlidingDoor',
+  type: 'Architecture::SlidingDoor',
   category: 'Architecture',
   label: 'SlidingDoor',
   description: 'Sliding door system',

@@ -17,6 +17,7 @@ interface PhyllotaxisPatternOutputs {
 
 export const PatternsAlgorithmicPhyllotaxisPatternNode: NodeDefinition<PhyllotaxisPatternInputs, PhyllotaxisPatternOutputs, PhyllotaxisPatternParams> = {
   id: 'Patterns::PhyllotaxisPattern',
+  type: 'Patterns::PhyllotaxisPattern',
   category: 'Patterns',
   label: 'PhyllotaxisPattern',
   description: 'Phyllotaxis spiral pattern',

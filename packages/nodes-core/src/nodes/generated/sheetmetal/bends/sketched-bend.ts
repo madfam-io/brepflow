@@ -18,6 +18,7 @@ interface SketchedBendOutputs {
 
 export const SheetMetalBendsSketchedBendNode: NodeDefinition<SketchedBendInputs, SketchedBendOutputs, SketchedBendParams> = {
   id: 'SheetMetal::SketchedBend',
+  type: 'SheetMetal::SketchedBend',
   category: 'SheetMetal',
   label: 'SketchedBend',
   description: 'Create bend from sketch line',

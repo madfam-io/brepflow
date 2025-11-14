@@ -16,6 +16,7 @@ interface AdaptiveTessellationOutputs {
 
 export const MeshTessellationAdaptiveTessellationNode: NodeDefinition<AdaptiveTessellationInputs, AdaptiveTessellationOutputs, AdaptiveTessellationParams> = {
   id: 'Mesh::AdaptiveTessellation',
+  type: 'Mesh::AdaptiveTessellation',
   category: 'Mesh',
   label: 'AdaptiveTessellation',
   description: 'Adaptive mesh generation',

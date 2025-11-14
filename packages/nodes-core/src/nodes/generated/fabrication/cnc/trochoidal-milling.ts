@@ -15,6 +15,7 @@ interface TrochoidalMillingOutputs {
 
 export const FabricationCNCTrochoidalMillingNode: NodeDefinition<TrochoidalMillingInputs, TrochoidalMillingOutputs, TrochoidalMillingParams> = {
   id: 'Fabrication::TrochoidalMilling',
+  type: 'Fabrication::TrochoidalMilling',
   category: 'Fabrication',
   label: 'TrochoidalMilling',
   description: 'Trochoidal milling paths',

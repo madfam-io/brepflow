@@ -17,6 +17,7 @@ interface TwistAttractorOutputs {
 
 export const FieldAttractorTwistAttractorNode: NodeDefinition<TwistAttractorInputs, TwistAttractorOutputs, TwistAttractorParams> = {
   id: 'Field::TwistAttractor',
+  type: 'Field::TwistAttractor',
   category: 'Field',
   label: 'TwistAttractor',
   description: 'Twist attractor field',

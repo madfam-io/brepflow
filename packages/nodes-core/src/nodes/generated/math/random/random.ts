@@ -12,6 +12,7 @@ interface RandomOutputs {
 
 export const MathRandomRandomNode: NodeDefinition<RandomInputs, RandomOutputs, RandomParams> = {
   id: 'Math::Random',
+  type: 'Math::Random',
   category: 'Math',
   label: 'Random',
   description: 'Random number 0-1',

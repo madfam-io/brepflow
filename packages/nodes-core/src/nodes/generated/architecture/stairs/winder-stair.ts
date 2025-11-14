@@ -15,6 +15,7 @@ interface WinderStairOutputs {
 
 export const ArchitectureStairsWinderStairNode: NodeDefinition<WinderStairInputs, WinderStairOutputs, WinderStairParams> = {
   id: 'Architecture::WinderStair',
+  type: 'Architecture::WinderStair',
   category: 'Architecture',
   label: 'WinderStair',
   description: 'Winder staircase',

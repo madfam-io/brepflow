@@ -20,6 +20,7 @@ interface SupportVectorMachineOutputs {
 
 export const AlgorithmicMachineLearningSupportVectorMachineNode: NodeDefinition<SupportVectorMachineInputs, SupportVectorMachineOutputs, SupportVectorMachineParams> = {
   id: 'Algorithmic::SupportVectorMachine',
+  type: 'Algorithmic::SupportVectorMachine',
   category: 'Algorithmic',
   label: 'SupportVectorMachine',
   description: 'Support Vector Machine classifier',

@@ -17,6 +17,7 @@ interface MazeGeneratorOutputs {
 
 export const PatternsAlgorithmicMazeGeneratorNode: NodeDefinition<MazeGeneratorInputs, MazeGeneratorOutputs, MazeGeneratorParams> = {
   id: 'Patterns::MazeGenerator',
+  type: 'Patterns::MazeGenerator',
   category: 'Patterns',
   label: 'MazeGenerator',
   description: 'Maze generation algorithms',

@@ -12,6 +12,7 @@ interface CeilingOutputs {
 
 export const MathRoundingCeilingNode: NodeDefinition<CeilingInputs, CeilingOutputs, CeilingParams> = {
   id: 'Math::Ceiling',
+  type: 'Math::Ceiling',
   category: 'Math',
   label: 'Ceiling',
   description: 'Round up',

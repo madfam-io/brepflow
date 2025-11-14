@@ -17,6 +17,7 @@ interface EngraveOutputs {
 
 export const SpecializedTextEngraveNode: NodeDefinition<EngraveInputs, EngraveOutputs, EngraveParams> = {
   id: 'Specialized::Engrave',
+  type: 'Specialized::Engrave',
   category: 'Specialized',
   label: 'Engrave',
   description: 'Engrave text or pattern',

@@ -20,6 +20,7 @@ interface NurbsSurfaceOutputs {
 
 export const SurfaceNURBSNurbsSurfaceNode: NodeDefinition<NurbsSurfaceInputs, NurbsSurfaceOutputs, NurbsSurfaceParams> = {
   id: 'Surface::NurbsSurface',
+  type: 'Surface::NurbsSurface',
   category: 'Surface',
   label: 'NurbsSurface',
   description: 'Create NURBS surface from control points',

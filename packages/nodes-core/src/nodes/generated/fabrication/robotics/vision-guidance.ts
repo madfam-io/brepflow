@@ -15,6 +15,7 @@ interface VisionGuidanceOutputs {
 
 export const FabricationRoboticsVisionGuidanceNode: NodeDefinition<VisionGuidanceInputs, VisionGuidanceOutputs, VisionGuidanceParams> = {
   id: 'Fabrication::VisionGuidance',
+  type: 'Fabrication::VisionGuidance',
   category: 'Fabrication',
   label: 'VisionGuidance',
   description: 'Vision-guided robotics',

@@ -13,6 +13,7 @@ interface ConvexHullOutputs {
 
 export const PatternsDelaunayConvexHullNode: NodeDefinition<ConvexHullInputs, ConvexHullOutputs, ConvexHullParams> = {
   id: 'Patterns::ConvexHull',
+  type: 'Patterns::ConvexHull',
   category: 'Patterns',
   label: 'ConvexHull',
   description: 'Convex hull of points',

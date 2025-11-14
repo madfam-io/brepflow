@@ -16,6 +16,7 @@ interface AdaptiveClearingOutputs {
 
 export const FabricationCNCAdaptiveClearingNode: NodeDefinition<AdaptiveClearingInputs, AdaptiveClearingOutputs, AdaptiveClearingParams> = {
   id: 'Fabrication::AdaptiveClearing',
+  type: 'Fabrication::AdaptiveClearing',
   category: 'Fabrication',
   label: 'AdaptiveClearing',
   description: 'Adaptive clearing strategy',

@@ -15,6 +15,7 @@ interface SecurityDoorOutputs {
 
 export const ArchitectureDoorsSecurityDoorNode: NodeDefinition<SecurityDoorInputs, SecurityDoorOutputs, SecurityDoorParams> = {
   id: 'Architecture::SecurityDoor',
+  type: 'Architecture::SecurityDoor',
   category: 'Architecture',
   label: 'SecurityDoor',
   description: 'Security door system',

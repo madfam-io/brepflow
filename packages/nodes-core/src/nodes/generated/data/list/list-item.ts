@@ -15,6 +15,7 @@ interface ListItemOutputs {
 
 export const DataListListItemNode: NodeDefinition<ListItemInputs, ListItemOutputs, ListItemParams> = {
   id: 'Data::ListItem',
+  type: 'Data::ListItem',
   category: 'Data',
   label: 'ListItem',
   description: 'Get item at index',

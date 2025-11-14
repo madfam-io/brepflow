@@ -12,6 +12,7 @@ interface ToStringOutputs {
 
 export const DataConvertToStringNode: NodeDefinition<ToStringInputs, ToStringOutputs, ToStringParams> = {
   id: 'Data::ToString',
+  type: 'Data::ToString',
   category: 'Data',
   label: 'ToString',
   description: 'Convert to string',

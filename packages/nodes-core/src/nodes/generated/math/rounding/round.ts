@@ -12,6 +12,7 @@ interface RoundOutputs {
 
 export const MathRoundingRoundNode: NodeDefinition<RoundInputs, RoundOutputs, RoundParams> = {
   id: 'Math::Round',
+  type: 'Math::Round',
   category: 'Math',
   label: 'Round',
   description: 'Round to nearest integer',

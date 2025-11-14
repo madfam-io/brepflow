@@ -19,6 +19,7 @@ interface OldhamCouplingOutputs {
 
 export const MechanicalEngineeringCouplingsOldhamCouplingNode: NodeDefinition<OldhamCouplingInputs, OldhamCouplingOutputs, OldhamCouplingParams> = {
   id: 'MechanicalEngineering::OldhamCoupling',
+  type: 'MechanicalEngineering::OldhamCoupling',
   category: 'MechanicalEngineering',
   label: 'OldhamCoupling',
   description: 'Create Oldham coupling',

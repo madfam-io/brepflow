@@ -12,6 +12,7 @@ interface RelativeNeighborhoodOutputs {
 
 export const PatternsNetworkRelativeNeighborhoodNode: NodeDefinition<RelativeNeighborhoodInputs, RelativeNeighborhoodOutputs, RelativeNeighborhoodParams> = {
   id: 'Patterns::RelativeNeighborhood',
+  type: 'Patterns::RelativeNeighborhood',
   category: 'Patterns',
   label: 'RelativeNeighborhood',
   description: 'RNG network pattern',

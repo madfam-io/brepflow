@@ -18,6 +18,7 @@ interface CountersinkHoleOutputs {
 
 export const FeaturesHolesCountersinkHoleNode: NodeDefinition<CountersinkHoleInputs, CountersinkHoleOutputs, CountersinkHoleParams> = {
   id: 'Features::CountersinkHole',
+  type: 'Features::CountersinkHole',
   category: 'Features',
   label: 'CountersinkHole',
   description: 'Creates a countersink hole for flat head screws',

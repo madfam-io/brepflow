@@ -17,6 +17,7 @@ interface LightweightStructureOutputs {
 
 export const SpecializedOptimizationLightweightStructureNode: NodeDefinition<LightweightStructureInputs, LightweightStructureOutputs, LightweightStructureParams> = {
   id: 'Specialized::LightweightStructure',
+  type: 'Specialized::LightweightStructure',
   category: 'Specialized',
   label: 'LightweightStructure',
   description: 'Create lightweight structure',

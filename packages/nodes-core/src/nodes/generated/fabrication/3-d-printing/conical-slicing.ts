@@ -14,6 +14,7 @@ interface ConicalSlicingOutputs {
 
 export const Fabrication3DPrintingConicalSlicingNode: NodeDefinition<ConicalSlicingInputs, ConicalSlicingOutputs, ConicalSlicingParams> = {
   id: 'Fabrication::ConicalSlicing',
+  type: 'Fabrication::ConicalSlicing',
   category: 'Fabrication',
   label: 'ConicalSlicing',
   description: 'Conical/cylindrical slicing',

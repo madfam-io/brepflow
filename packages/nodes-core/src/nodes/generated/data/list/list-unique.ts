@@ -12,6 +12,7 @@ interface ListUniqueOutputs {
 
 export const DataListListUniqueNode: NodeDefinition<ListUniqueInputs, ListUniqueOutputs, ListUniqueParams> = {
   id: 'Data::ListUnique',
+  type: 'Data::ListUnique',
   category: 'Data',
   label: 'ListUnique',
   description: 'Remove duplicates',

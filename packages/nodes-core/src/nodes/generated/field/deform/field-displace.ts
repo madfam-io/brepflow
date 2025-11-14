@@ -15,6 +15,7 @@ interface FieldDisplaceOutputs {
 
 export const FieldDeformFieldDisplaceNode: NodeDefinition<FieldDisplaceInputs, FieldDisplaceOutputs, FieldDisplaceParams> = {
   id: 'Field::FieldDisplace',
+  type: 'Field::FieldDisplace',
   category: 'Field',
   label: 'FieldDisplace',
   description: 'Displace along normals',

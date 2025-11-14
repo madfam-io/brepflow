@@ -16,6 +16,7 @@ interface ThreadOutputs {
 
 export const SolidHelicalThreadNode: NodeDefinition<ThreadInputs, ThreadOutputs, ThreadParams> = {
   id: 'Solid::Thread',
+  type: 'Solid::Thread',
   category: 'Solid',
   label: 'Thread',
   description: 'Create threaded geometry',

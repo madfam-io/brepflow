@@ -18,6 +18,7 @@ interface CurveSpiralOutputs {
 
 export const AnalysisCurvesCurveSpiralNode: NodeDefinition<CurveSpiralInputs, CurveSpiralOutputs, CurveSpiralParams> = {
   id: 'Analysis::CurveSpiral',
+  type: 'Analysis::CurveSpiral',
   category: 'Analysis',
   label: 'CurveSpiral',
   description: 'Analyze spiral properties',

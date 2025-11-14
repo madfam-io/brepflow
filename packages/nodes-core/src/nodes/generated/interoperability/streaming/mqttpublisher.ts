@@ -18,6 +18,7 @@ interface MQTTPublisherOutputs {
 
 export const InteroperabilityStreamingMQTTPublisherNode: NodeDefinition<MQTTPublisherInputs, MQTTPublisherOutputs, MQTTPublisherParams> = {
   id: 'Interoperability::MQTTPublisher',
+  type: 'Interoperability::MQTTPublisher',
   category: 'Interoperability',
   label: 'MQTTPublisher',
   description: 'Publish MQTT messages',

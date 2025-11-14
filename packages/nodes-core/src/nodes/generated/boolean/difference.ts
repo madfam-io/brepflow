@@ -16,6 +16,7 @@ interface DifferenceOutputs {
 
 export const BooleanDifferenceNode: NodeDefinition<DifferenceInputs, DifferenceOutputs, DifferenceParams> = {
   id: 'Boolean::Difference',
+  type: 'Boolean::Difference',
   category: 'Boolean',
   label: 'Difference',
   description: 'Subtract tool shapes from base shape',

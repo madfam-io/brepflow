@@ -16,6 +16,7 @@ interface SkyLightOutputs {
 
 export const ArchitectureCeilingsSkyLightNode: NodeDefinition<SkyLightInputs, SkyLightOutputs, SkyLightParams> = {
   id: 'Architecture::SkyLight',
+  type: 'Architecture::SkyLight',
   category: 'Architecture',
   label: 'SkyLight',
   description: 'Skylight opening',

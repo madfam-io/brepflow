@@ -19,6 +19,7 @@ interface FlangeBearingOutputs {
 
 export const MechanicalEngineeringBearingsFlangeBearingNode: NodeDefinition<FlangeBearingInputs, FlangeBearingOutputs, FlangeBearingParams> = {
   id: 'MechanicalEngineering::FlangeBearing',
+  type: 'MechanicalEngineering::FlangeBearing',
   category: 'MechanicalEngineering',
   label: 'FlangeBearing',
   description: 'Create flanged bearing unit',

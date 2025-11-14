@@ -15,6 +15,7 @@ interface WorkCellSetupOutputs {
 
 export const FabricationRoboticsWorkCellSetupNode: NodeDefinition<WorkCellSetupInputs, WorkCellSetupOutputs, WorkCellSetupParams> = {
   id: 'Fabrication::WorkCellSetup',
+  type: 'Fabrication::WorkCellSetup',
   category: 'Fabrication',
   label: 'WorkCellSetup',
   description: 'Setup robotic work cell',

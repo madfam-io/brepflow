@@ -1,6 +1,6 @@
 /**
  * Auto-generated Node Index
- * Generated from templates on 2025-11-14T18:30:14.887Z
+ * Generated from templates on 2025-11-14T18:36:23.685Z
  */
 
 import { FeaturesHolesSimpleHoleNode } from './features/holes/simple-hole';

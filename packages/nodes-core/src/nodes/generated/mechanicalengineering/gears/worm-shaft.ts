@@ -18,6 +18,7 @@ interface WormShaftOutputs {
 
 export const MechanicalEngineeringGearsWormShaftNode: NodeDefinition<WormShaftInputs, WormShaftOutputs, WormShaftParams> = {
   id: 'MechanicalEngineering::WormShaft',
+  type: 'MechanicalEngineering::WormShaft',
   category: 'MechanicalEngineering',
   label: 'WormShaft',
   description: 'Create worm shaft for worm gear',

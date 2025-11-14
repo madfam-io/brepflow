@@ -15,6 +15,7 @@ interface StepDraftOutputs {
 
 export const AdvancedDraftStepDraftNode: NodeDefinition<StepDraftInputs, StepDraftOutputs, StepDraftParams> = {
   id: 'Advanced::StepDraft',
+  type: 'Advanced::StepDraft',
   category: 'Advanced',
   label: 'StepDraft',
   description: 'Multi-step draft',

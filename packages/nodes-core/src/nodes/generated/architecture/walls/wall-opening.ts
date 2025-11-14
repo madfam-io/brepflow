@@ -18,6 +18,7 @@ interface WallOpeningOutputs {
 
 export const ArchitectureWallsWallOpeningNode: NodeDefinition<WallOpeningInputs, WallOpeningOutputs, WallOpeningParams> = {
   id: 'Architecture::WallOpening',
+  type: 'Architecture::WallOpening',
   category: 'Architecture',
   label: 'WallOpening',
   description: 'Create opening in wall',

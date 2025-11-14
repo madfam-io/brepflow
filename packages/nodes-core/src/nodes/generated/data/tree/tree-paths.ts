@@ -12,6 +12,7 @@ interface TreePathsOutputs {
 
 export const DataTreeTreePathsNode: NodeDefinition<TreePathsInputs, TreePathsOutputs, TreePathsParams> = {
   id: 'Data::TreePaths',
+  type: 'Data::TreePaths',
   category: 'Data',
   label: 'TreePaths',
   description: 'Get all tree paths',

@@ -17,6 +17,7 @@ interface PathPlanningOutputs {
 
 export const FabricationRoboticsPathPlanningNode: NodeDefinition<PathPlanningInputs, PathPlanningOutputs, PathPlanningParams> = {
   id: 'Fabrication::PathPlanning',
+  type: 'Fabrication::PathPlanning',
   category: 'Fabrication',
   label: 'PathPlanning',
   description: 'Robot path planning',

@@ -12,6 +12,7 @@ interface SumOutputs {
 
 export const MathStatisticsSumNode: NodeDefinition<SumInputs, SumOutputs, SumParams> = {
   id: 'Math::Sum',
+  type: 'Math::Sum',
   category: 'Math',
   label: 'Sum',
   description: 'Sum of values',

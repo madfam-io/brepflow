@@ -20,6 +20,7 @@ interface ShadowAnalysisOutputs {
 
 export const AnalysisProximityShadowAnalysisNode: NodeDefinition<ShadowAnalysisInputs, ShadowAnalysisOutputs, ShadowAnalysisParams> = {
   id: 'Analysis::ShadowAnalysis',
+  type: 'Analysis::ShadowAnalysis',
   category: 'Analysis',
   label: 'ShadowAnalysis',
   description: 'Calculate shadow patterns',

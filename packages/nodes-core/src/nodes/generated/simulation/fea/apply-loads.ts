@@ -19,6 +19,7 @@ interface ApplyLoadsOutputs {
 
 export const SimulationFEAApplyLoadsNode: NodeDefinition<ApplyLoadsInputs, ApplyLoadsOutputs, ApplyLoadsParams> = {
   id: 'Simulation::ApplyLoads',
+  type: 'Simulation::ApplyLoads',
   category: 'Simulation',
   label: 'ApplyLoads',
   description: 'Define load conditions',

@@ -18,6 +18,7 @@ interface OBJImportOutputs {
 
 export const InteroperabilityImportOBJImportNode: NodeDefinition<OBJImportInputs, OBJImportOutputs, OBJImportParams> = {
   id: 'Interoperability::OBJImport',
+  type: 'Interoperability::OBJImport',
   category: 'Interoperability',
   label: 'OBJImport',
   description: 'Import Wavefront OBJ files',

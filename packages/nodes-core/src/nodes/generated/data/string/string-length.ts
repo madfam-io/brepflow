@@ -12,6 +12,7 @@ interface StringLengthOutputs {
 
 export const DataStringStringLengthNode: NodeDefinition<StringLengthInputs, StringLengthOutputs, StringLengthParams> = {
   id: 'Data::StringLength',
+  type: 'Data::StringLength',
   category: 'Data',
   label: 'StringLength',
   description: 'String length',

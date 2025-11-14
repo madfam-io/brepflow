@@ -15,6 +15,7 @@ interface CutterEngagementOutputs {
 
 export const FabricationCNCCutterEngagementNode: NodeDefinition<CutterEngagementInputs, CutterEngagementOutputs, CutterEngagementParams> = {
   id: 'Fabrication::CutterEngagement',
+  type: 'Fabrication::CutterEngagement',
   category: 'Fabrication',
   label: 'CutterEngagement',
   description: 'Analyze cutter engagement',

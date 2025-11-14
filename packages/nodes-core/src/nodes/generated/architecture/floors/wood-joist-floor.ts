@@ -17,6 +17,7 @@ interface WoodJoistFloorOutputs {
 
 export const ArchitectureFloorsWoodJoistFloorNode: NodeDefinition<WoodJoistFloorInputs, WoodJoistFloorOutputs, WoodJoistFloorParams> = {
   id: 'Architecture::WoodJoistFloor',
+  type: 'Architecture::WoodJoistFloor',
   category: 'Architecture',
   label: 'WoodJoistFloor',
   description: 'Wood joist floor system',

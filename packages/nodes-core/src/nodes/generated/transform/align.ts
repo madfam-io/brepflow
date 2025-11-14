@@ -17,6 +17,7 @@ interface AlignOutputs {
 
 export const TransformAlignNode: NodeDefinition<AlignInputs, AlignOutputs, AlignParams> = {
   id: 'Transform::Align',
+  type: 'Transform::Align',
   category: 'Transform',
   label: 'Align',
   description: 'Align shapes to each other',

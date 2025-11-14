@@ -16,6 +16,7 @@ interface EdgeToEdgeOutputs {
 
 export const AssemblyMatesEdgeToEdgeNode: NodeDefinition<EdgeToEdgeInputs, EdgeToEdgeOutputs, EdgeToEdgeParams> = {
   id: 'Assembly::EdgeToEdge',
+  type: 'Assembly::EdgeToEdge',
   category: 'Assembly',
   label: 'EdgeToEdge',
   description: 'Mate two edges together',

@@ -17,6 +17,7 @@ interface SurfaceAreaOutputs {
 
 export const AnalysisSurfacesSurfaceAreaNode: NodeDefinition<SurfaceAreaInputs, SurfaceAreaOutputs, SurfaceAreaParams> = {
   id: 'Analysis::SurfaceArea',
+  type: 'Analysis::SurfaceArea',
   category: 'Analysis',
   label: 'SurfaceArea',
   description: 'Calculate surface area and properties',

@@ -18,6 +18,7 @@ interface IGESExportOutputs {
 
 export const InteroperabilityExportIGESExportNode: NodeDefinition<IGESExportInputs, IGESExportOutputs, IGESExportParams> = {
   id: 'Interoperability::IGESExport',
+  type: 'Interoperability::IGESExport',
   category: 'Interoperability',
   label: 'IGESExport',
   description: 'Export geometry to IGES format',

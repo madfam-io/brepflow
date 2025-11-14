@@ -16,6 +16,7 @@ interface ShearWallOutputs {
 
 export const ArchitectureWallsShearWallNode: NodeDefinition<ShearWallInputs, ShearWallOutputs, ShearWallParams> = {
   id: 'Architecture::ShearWall',
+  type: 'Architecture::ShearWall',
   category: 'Architecture',
   label: 'ShearWall',
   description: 'Structural shear wall',

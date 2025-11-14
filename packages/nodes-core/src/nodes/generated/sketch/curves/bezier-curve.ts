@@ -12,6 +12,7 @@ interface BezierCurveOutputs {
 
 export const SketchCurvesBezierCurveNode: NodeDefinition<BezierCurveInputs, BezierCurveOutputs, BezierCurveParams> = {
   id: 'Sketch::BezierCurve',
+  type: 'Sketch::BezierCurve',
   category: 'Sketch',
   label: 'BezierCurve',
   description: 'Create a Bezier curve',

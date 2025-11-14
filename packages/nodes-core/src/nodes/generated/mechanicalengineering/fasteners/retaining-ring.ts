@@ -18,6 +18,7 @@ interface RetainingRingOutputs {
 
 export const MechanicalEngineeringFastenersRetainingRingNode: NodeDefinition<RetainingRingInputs, RetainingRingOutputs, RetainingRingParams> = {
   id: 'MechanicalEngineering::RetainingRing',
+  type: 'MechanicalEngineering::RetainingRing',
   category: 'MechanicalEngineering',
   label: 'RetainingRing',
   description: 'Create retaining ring/circlip',

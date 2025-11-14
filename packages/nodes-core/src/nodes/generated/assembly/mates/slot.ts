@@ -16,6 +16,7 @@ interface SlotOutputs {
 
 export const AssemblyMatesSlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
   id: 'Assembly::Slot',
+  type: 'Assembly::Slot',
   category: 'Assembly',
   label: 'Slot',
   description: 'Create slot constraint',

@@ -12,6 +12,7 @@ interface AbsoluteOutputs {
 
 export const MathOperatorsAbsoluteNode: NodeDefinition<AbsoluteInputs, AbsoluteOutputs, AbsoluteParams> = {
   id: 'Math::Absolute',
+  type: 'Math::Absolute',
   category: 'Math',
   label: 'Absolute',
   description: 'Absolute value',

@@ -19,6 +19,7 @@ interface ShortestPathOutputs {
 
 export const AlgorithmicGeometryShortestPathNode: NodeDefinition<ShortestPathInputs, ShortestPathOutputs, ShortestPathParams> = {
   id: 'Algorithmic::ShortestPath',
+  type: 'Algorithmic::ShortestPath',
   category: 'Algorithmic',
   label: 'ShortestPath',
   description: 'Find shortest path between points',

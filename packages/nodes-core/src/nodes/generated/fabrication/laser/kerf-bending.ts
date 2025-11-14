@@ -16,6 +16,7 @@ interface KerfBendingOutputs {
 
 export const FabricationLaserKerfBendingNode: NodeDefinition<KerfBendingInputs, KerfBendingOutputs, KerfBendingParams> = {
   id: 'Fabrication::KerfBending',
+  type: 'Fabrication::KerfBending',
   category: 'Fabrication',
   label: 'KerfBending',
   description: 'Kerf bending patterns',

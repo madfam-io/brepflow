@@ -13,6 +13,7 @@ interface TreeShiftOutputs {
 
 export const DataTreeTreeShiftNode: NodeDefinition<TreeShiftInputs, TreeShiftOutputs, TreeShiftParams> = {
   id: 'Data::TreeShift',
+  type: 'Data::TreeShift',
   category: 'Data',
   label: 'TreeShift',
   description: 'Shift tree paths',

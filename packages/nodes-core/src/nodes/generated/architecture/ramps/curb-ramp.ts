@@ -15,6 +15,7 @@ interface CurbRampOutputs {
 
 export const ArchitectureRampsCurbRampNode: NodeDefinition<CurbRampInputs, CurbRampOutputs, CurbRampParams> = {
   id: 'Architecture::CurbRamp',
+  type: 'Architecture::CurbRamp',
   category: 'Architecture',
   label: 'CurbRamp',
   description: 'Curb cut ramp',

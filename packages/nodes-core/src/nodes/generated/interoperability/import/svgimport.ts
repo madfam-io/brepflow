@@ -18,6 +18,7 @@ interface SVGImportOutputs {
 
 export const InteroperabilityImportSVGImportNode: NodeDefinition<SVGImportInputs, SVGImportOutputs, SVGImportParams> = {
   id: 'Interoperability::SVGImport',
+  type: 'Interoperability::SVGImport',
   category: 'Interoperability',
   label: 'SVGImport',
   description: 'Import SVG vector graphics',

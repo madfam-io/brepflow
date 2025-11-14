@@ -15,6 +15,7 @@ interface RotaryAttachmentOutputs {
 
 export const FabricationLaserRotaryAttachmentNode: NodeDefinition<RotaryAttachmentInputs, RotaryAttachmentOutputs, RotaryAttachmentParams> = {
   id: 'Fabrication::RotaryAttachment',
+  type: 'Fabrication::RotaryAttachment',
   category: 'Fabrication',
   label: 'RotaryAttachment',
   description: 'Setup rotary cutting',

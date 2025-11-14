@@ -15,6 +15,7 @@ interface DelaunayMeshOutputs {
 
 export const PatternsDelaunayDelaunayMeshNode: NodeDefinition<DelaunayMeshInputs, DelaunayMeshOutputs, DelaunayMeshParams> = {
   id: 'Patterns::DelaunayMesh',
+  type: 'Patterns::DelaunayMesh',
   category: 'Patterns',
   label: 'DelaunayMesh',
   description: 'Quality mesh generation',

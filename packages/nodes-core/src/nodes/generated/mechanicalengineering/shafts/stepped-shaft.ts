@@ -17,6 +17,7 @@ interface SteppedShaftOutputs {
 
 export const MechanicalEngineeringShaftsSteppedShaftNode: NodeDefinition<SteppedShaftInputs, SteppedShaftOutputs, SteppedShaftParams> = {
   id: 'MechanicalEngineering::SteppedShaft',
+  type: 'MechanicalEngineering::SteppedShaft',
   category: 'MechanicalEngineering',
   label: 'SteppedShaft',
   description: 'Create stepped shaft',

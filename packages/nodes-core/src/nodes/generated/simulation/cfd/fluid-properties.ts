@@ -18,6 +18,7 @@ interface FluidPropertiesOutputs {
 
 export const SimulationCFDFluidPropertiesNode: NodeDefinition<FluidPropertiesInputs, FluidPropertiesOutputs, FluidPropertiesParams> = {
   id: 'Simulation::FluidProperties',
+  type: 'Simulation::FluidProperties',
   category: 'Simulation',
   label: 'FluidProperties',
   description: 'Set fluid properties',

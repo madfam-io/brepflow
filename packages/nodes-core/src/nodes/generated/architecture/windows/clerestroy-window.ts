@@ -15,6 +15,7 @@ interface ClerestroyWindowOutputs {
 
 export const ArchitectureWindowsClerestroyWindowNode: NodeDefinition<ClerestroyWindowInputs, ClerestroyWindowOutputs, ClerestroyWindowParams> = {
   id: 'Architecture::ClerestroyWindow',
+  type: 'Architecture::ClerestroyWindow',
   category: 'Architecture',
   label: 'ClerestroyWindow',
   description: 'Clerestory window band',

@@ -19,6 +19,7 @@ interface DifferentialGearOutputs {
 
 export const MechanicalEngineeringGearsDifferentialGearNode: NodeDefinition<DifferentialGearInputs, DifferentialGearOutputs, DifferentialGearParams> = {
   id: 'MechanicalEngineering::DifferentialGear',
+  type: 'MechanicalEngineering::DifferentialGear',
   category: 'MechanicalEngineering',
   label: 'DifferentialGear',
   description: 'Create differential gear assembly',

@@ -16,6 +16,7 @@ interface HelicalStairOutputs {
 
 export const ArchitectureStairsHelicalStairNode: NodeDefinition<HelicalStairInputs, HelicalStairOutputs, HelicalStairParams> = {
   id: 'Architecture::HelicalStair',
+  type: 'Architecture::HelicalStair',
   category: 'Architecture',
   label: 'HelicalStair',
   description: 'Helical staircase',

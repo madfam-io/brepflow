@@ -16,6 +16,7 @@ interface MetaBallsOutputs {
 
 export const SpecializedOrganicMetaBallsNode: NodeDefinition<MetaBallsInputs, MetaBallsOutputs, MetaBallsParams> = {
   id: 'Specialized::MetaBalls',
+  type: 'Specialized::MetaBalls',
   category: 'Specialized',
   label: 'MetaBalls',
   description: 'Create metaball surfaces',

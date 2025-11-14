@@ -15,6 +15,7 @@ interface MicroJointsOutputs {
 
 export const FabricationLaserMicroJointsNode: NodeDefinition<MicroJointsInputs, MicroJointsOutputs, MicroJointsParams> = {
   id: 'Fabrication::MicroJoints',
+  type: 'Fabrication::MicroJoints',
   category: 'Fabrication',
   label: 'MicroJoints',
   description: 'Add micro-joints',

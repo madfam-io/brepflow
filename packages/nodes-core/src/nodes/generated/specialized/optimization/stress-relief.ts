@@ -16,6 +16,7 @@ interface StressReliefOutputs {
 
 export const SpecializedOptimizationStressReliefNode: NodeDefinition<StressReliefInputs, StressReliefOutputs, StressReliefParams> = {
   id: 'Specialized::StressRelief',
+  type: 'Specialized::StressRelief',
   category: 'Specialized',
   label: 'StressRelief',
   description: 'Add stress relief features',

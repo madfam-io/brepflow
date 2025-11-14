@@ -16,6 +16,7 @@ interface MovablePartitionOutputs {
 
 export const ArchitectureWallsMovablePartitionNode: NodeDefinition<MovablePartitionInputs, MovablePartitionOutputs, MovablePartitionParams> = {
   id: 'Architecture::MovablePartition',
+  type: 'Architecture::MovablePartition',
   category: 'Architecture',
   label: 'MovablePartition',
   description: 'Movable partition system',

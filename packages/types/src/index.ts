@@ -379,6 +379,7 @@ export interface NodeInstance<I = any, O = any, P = any> {
 
 export interface NodeDefinition<I = any, O = any, P = any> {
   id: string;
+  type: string;  // Node type identifier (same as id for compatibility)
   category: string;
   label: string;
   description?: string;

@@ -17,6 +17,7 @@ interface MinimumSpanningTreeOutputs {
 
 export const AlgorithmicGeometryMinimumSpanningTreeNode: NodeDefinition<MinimumSpanningTreeInputs, MinimumSpanningTreeOutputs, MinimumSpanningTreeParams> = {
   id: 'Algorithmic::MinimumSpanningTree',
+  type: 'Algorithmic::MinimumSpanningTree',
   category: 'Algorithmic',
   label: 'MinimumSpanningTree',
   description: 'Compute minimum spanning tree of points',

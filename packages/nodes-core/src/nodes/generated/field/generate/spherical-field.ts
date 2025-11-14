@@ -16,6 +16,7 @@ interface SphericalFieldOutputs {
 
 export const FieldGenerateSphericalFieldNode: NodeDefinition<SphericalFieldInputs, SphericalFieldOutputs, SphericalFieldParams> = {
   id: 'Field::SphericalField',
+  type: 'Field::SphericalField',
   category: 'Field',
   label: 'SphericalField',
   description: 'Spherical field',

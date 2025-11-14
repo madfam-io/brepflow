@@ -15,6 +15,7 @@ interface LeadInOutOutputs {
 
 export const FabricationLaserLeadInOutNode: NodeDefinition<LeadInOutInputs, LeadInOutOutputs, LeadInOutParams> = {
   id: 'Fabrication::LeadInOut',
+  type: 'Fabrication::LeadInOut',
   category: 'Fabrication',
   label: 'LeadInOut',
   description: 'Add lead-in/out to paths',

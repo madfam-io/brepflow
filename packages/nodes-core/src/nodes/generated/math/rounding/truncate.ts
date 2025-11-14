@@ -12,6 +12,7 @@ interface TruncateOutputs {
 
 export const MathRoundingTruncateNode: NodeDefinition<TruncateInputs, TruncateOutputs, TruncateParams> = {
   id: 'Math::Truncate',
+  type: 'Math::Truncate',
   category: 'Math',
   label: 'Truncate',
   description: 'Remove decimal part',

@@ -15,6 +15,7 @@ interface DiamondLatticeOutputs {
 
 export const PatternsLatticeDiamondLatticeNode: NodeDefinition<DiamondLatticeInputs, DiamondLatticeOutputs, DiamondLatticeParams> = {
   id: 'Patterns::DiamondLattice',
+  type: 'Patterns::DiamondLattice',
   category: 'Patterns',
   label: 'DiamondLattice',
   description: 'Diamond lattice structure',

@@ -15,6 +15,7 @@ interface IroningPassOutputs {
 
 export const Fabrication3DPrintingIroningPassNode: NodeDefinition<IroningPassInputs, IroningPassOutputs, IroningPassParams> = {
   id: 'Fabrication::IroningPass',
+  type: 'Fabrication::IroningPass',
   category: 'Fabrication',
   label: 'IroningPass',
   description: 'Generate ironing passes',

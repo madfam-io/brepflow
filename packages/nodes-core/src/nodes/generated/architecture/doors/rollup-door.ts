@@ -16,6 +16,7 @@ interface RollupDoorOutputs {
 
 export const ArchitectureDoorsRollupDoorNode: NodeDefinition<RollupDoorInputs, RollupDoorOutputs, RollupDoorParams> = {
   id: 'Architecture::RollupDoor',
+  type: 'Architecture::RollupDoor',
   category: 'Architecture',
   label: 'RollupDoor',
   description: 'Roll-up garage door',

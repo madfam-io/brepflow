@@ -20,6 +20,7 @@ interface PlanetaryGearSetOutputs {
 
 export const MechanicalEngineeringGearsPlanetaryGearSetNode: NodeDefinition<PlanetaryGearSetInputs, PlanetaryGearSetOutputs, PlanetaryGearSetParams> = {
   id: 'MechanicalEngineering::PlanetaryGearSet',
+  type: 'MechanicalEngineering::PlanetaryGearSet',
   category: 'MechanicalEngineering',
   label: 'PlanetaryGearSet',
   description: 'Create planetary gear system',

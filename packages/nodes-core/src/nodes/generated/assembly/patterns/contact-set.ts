@@ -16,6 +16,7 @@ interface ContactSetOutputs {
 
 export const AssemblyPatternsContactSetNode: NodeDefinition<ContactSetInputs, ContactSetOutputs, ContactSetParams> = {
   id: 'Assembly::ContactSet',
+  type: 'Assembly::ContactSet',
   category: 'Assembly',
   label: 'ContactSet',
   description: 'Define contact sets',

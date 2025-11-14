@@ -14,6 +14,7 @@ interface ExportBREPOutputs {
 
 export const IOCADExportBREPNode: NodeDefinition<ExportBREPInputs, ExportBREPOutputs, ExportBREPParams> = {
   id: 'IO::ExportBREP',
+  type: 'IO::ExportBREP',
   category: 'IO',
   label: 'ExportBREP',
   description: 'Export to BREP format',

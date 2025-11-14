@@ -17,6 +17,7 @@ interface CompositeFloorOutputs {
 
 export const ArchitectureFloorsCompositeFloorNode: NodeDefinition<CompositeFloorInputs, CompositeFloorOutputs, CompositeFloorParams> = {
   id: 'Architecture::CompositeFloor',
+  type: 'Architecture::CompositeFloor',
   category: 'Architecture',
   label: 'CompositeFloor',
   description: 'Steel deck composite floor',

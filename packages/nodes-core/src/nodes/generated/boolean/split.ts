@@ -15,6 +15,7 @@ interface SplitOutputs {
 
 export const BooleanSplitNode: NodeDefinition<SplitInputs, SplitOutputs, SplitParams> = {
   id: 'Boolean::Split',
+  type: 'Boolean::Split',
   category: 'Boolean',
   label: 'Split',
   description: 'Split shapes by each other',

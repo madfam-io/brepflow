@@ -18,6 +18,7 @@ interface LanceOutputs {
 
 export const SheetMetalFeaturesLanceNode: NodeDefinition<LanceInputs, LanceOutputs, LanceParams> = {
   id: 'SheetMetal::Lance',
+  type: 'SheetMetal::Lance',
   category: 'SheetMetal',
   label: 'Lance',
   description: 'Create lanced form',

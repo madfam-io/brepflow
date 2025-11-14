@@ -14,6 +14,7 @@ interface LerpOutputs {
 
 export const MathInterpolationLerpNode: NodeDefinition<LerpInputs, LerpOutputs, LerpParams> = {
   id: 'Math::Lerp',
+  type: 'Math::Lerp',
   category: 'Math',
   label: 'Lerp',
   description: 'Linear interpolation',

@@ -18,6 +18,7 @@ interface SphereOutputs {
 
 export const SolidPrimitivesSphereNode: NodeDefinition<SphereInputs, SphereOutputs, SphereParams> = {
   id: 'Solid::Sphere',
+  type: 'Solid::Sphere',
   category: 'Solid',
   label: 'Sphere',
   description: 'Create a parametric sphere',

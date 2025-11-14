@@ -13,6 +13,7 @@ interface FieldSubtractOutputs {
 
 export const FieldOperationsFieldSubtractNode: NodeDefinition<FieldSubtractInputs, FieldSubtractOutputs, FieldSubtractParams> = {
   id: 'Field::FieldSubtract',
+  type: 'Field::FieldSubtract',
   category: 'Field',
   label: 'FieldSubtract',
   description: 'Subtract fields',

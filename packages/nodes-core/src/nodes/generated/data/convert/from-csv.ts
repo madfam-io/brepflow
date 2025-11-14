@@ -16,6 +16,7 @@ interface FromCSVOutputs {
 
 export const DataConvertFromCSVNode: NodeDefinition<FromCSVInputs, FromCSVOutputs, FromCSVParams> = {
   id: 'Data::FromCSV',
+  type: 'Data::FromCSV',
   category: 'Data',
   label: 'FromCSV',
   description: 'Parse CSV',

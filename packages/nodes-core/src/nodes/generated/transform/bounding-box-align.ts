@@ -16,6 +16,7 @@ interface BoundingBoxAlignOutputs {
 
 export const TransformBoundingBoxAlignNode: NodeDefinition<BoundingBoxAlignInputs, BoundingBoxAlignOutputs, BoundingBoxAlignParams> = {
   id: 'Transform::BoundingBoxAlign',
+  type: 'Transform::BoundingBoxAlign',
   category: 'Transform',
   label: 'BoundingBoxAlign',
   description: 'Align shape to its bounding box',

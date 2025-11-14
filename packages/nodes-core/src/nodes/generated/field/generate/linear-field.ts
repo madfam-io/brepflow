@@ -16,6 +16,7 @@ interface LinearFieldOutputs {
 
 export const FieldGenerateLinearFieldNode: NodeDefinition<LinearFieldInputs, LinearFieldOutputs, LinearFieldParams> = {
   id: 'Field::LinearField',
+  type: 'Field::LinearField',
   category: 'Field',
   label: 'LinearField',
   description: 'Linear gradient field',

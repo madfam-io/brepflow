@@ -15,6 +15,7 @@ interface UShapedStairOutputs {
 
 export const ArchitectureStairsUShapedStairNode: NodeDefinition<UShapedStairInputs, UShapedStairOutputs, UShapedStairParams> = {
   id: 'Architecture::UShapedStair',
+  type: 'Architecture::UShapedStair',
   category: 'Architecture',
   label: 'UShapedStair',
   description: 'U-shaped staircase',

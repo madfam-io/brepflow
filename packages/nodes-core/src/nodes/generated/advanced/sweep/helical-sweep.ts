@@ -20,6 +20,7 @@ interface HelicalSweepOutputs {
 
 export const AdvancedSweepHelicalSweepNode: NodeDefinition<HelicalSweepInputs, HelicalSweepOutputs, HelicalSweepParams> = {
   id: 'Advanced::HelicalSweep',
+  type: 'Advanced::HelicalSweep',
   category: 'Advanced',
   label: 'HelicalSweep',
   description: 'Sweep profile along helix',

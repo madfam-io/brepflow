@@ -16,6 +16,7 @@ interface PointAttractorOutputs {
 
 export const FieldAttractorPointAttractorNode: NodeDefinition<PointAttractorInputs, PointAttractorOutputs, PointAttractorParams> = {
   id: 'Field::PointAttractor',
+  type: 'Field::PointAttractor',
   category: 'Field',
   label: 'PointAttractor',
   description: 'Point attractor field',

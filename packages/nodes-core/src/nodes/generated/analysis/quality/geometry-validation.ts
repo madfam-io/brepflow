@@ -19,6 +19,7 @@ interface GeometryValidationOutputs {
 
 export const AnalysisQualityGeometryValidationNode: NodeDefinition<GeometryValidationInputs, GeometryValidationOutputs, GeometryValidationParams> = {
   id: 'Analysis::GeometryValidation',
+  type: 'Analysis::GeometryValidation',
   category: 'Analysis',
   label: 'GeometryValidation',
   description: 'Validate geometry integrity',

@@ -15,6 +15,7 @@ interface SubdivisionSurfaceOutputs {
 
 export const SpecializedOrganicSubdivisionSurfaceNode: NodeDefinition<SubdivisionSurfaceInputs, SubdivisionSurfaceOutputs, SubdivisionSurfaceParams> = {
   id: 'Specialized::SubdivisionSurface',
+  type: 'Specialized::SubdivisionSurface',
   category: 'Specialized',
   label: 'SubdivisionSurface',
   description: 'Subdivision surface modeling',

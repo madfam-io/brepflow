@@ -18,6 +18,7 @@ interface RaisedFloorOutputs {
 
 export const ArchitectureFloorsRaisedFloorNode: NodeDefinition<RaisedFloorInputs, RaisedFloorOutputs, RaisedFloorParams> = {
   id: 'Architecture::RaisedFloor',
+  type: 'Architecture::RaisedFloor',
   category: 'Architecture',
   label: 'RaisedFloor',
   description: 'Raised access floor system',

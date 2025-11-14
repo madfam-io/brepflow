@@ -19,6 +19,7 @@ interface MinimumDistanceOutputs {
 
 export const AnalysisProximityMinimumDistanceNode: NodeDefinition<MinimumDistanceInputs, MinimumDistanceOutputs, MinimumDistanceParams> = {
   id: 'Analysis::MinimumDistance',
+  type: 'Analysis::MinimumDistance',
   category: 'Analysis',
   label: 'MinimumDistance',
   description: 'Find minimum distance between geometries',

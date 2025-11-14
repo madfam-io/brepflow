@@ -19,6 +19,7 @@ interface TabOutputs {
 
 export const SheetMetalFeaturesTabNode: NodeDefinition<TabInputs, TabOutputs, TabParams> = {
   id: 'SheetMetal::Tab',
+  type: 'SheetMetal::Tab',
   category: 'SheetMetal',
   label: 'Tab',
   description: 'Create tab feature',

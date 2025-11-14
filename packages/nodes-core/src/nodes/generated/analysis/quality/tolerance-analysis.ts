@@ -18,6 +18,7 @@ interface ToleranceAnalysisOutputs {
 
 export const AnalysisQualityToleranceAnalysisNode: NodeDefinition<ToleranceAnalysisInputs, ToleranceAnalysisOutputs, ToleranceAnalysisParams> = {
   id: 'Analysis::ToleranceAnalysis',
+  type: 'Analysis::ToleranceAnalysis',
   category: 'Analysis',
   label: 'ToleranceAnalysis',
   description: 'Analyze geometric tolerances',

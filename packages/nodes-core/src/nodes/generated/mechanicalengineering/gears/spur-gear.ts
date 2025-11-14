@@ -21,6 +21,7 @@ interface SpurGearOutputs {
 
 export const MechanicalEngineeringGearsSpurGearNode: NodeDefinition<SpurGearInputs, SpurGearOutputs, SpurGearParams> = {
   id: 'MechanicalEngineering::SpurGear',
+  type: 'MechanicalEngineering::SpurGear',
   category: 'MechanicalEngineering',
   label: 'SpurGear',
   description: 'Create standard spur gear',

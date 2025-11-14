@@ -17,6 +17,7 @@ interface ExportOBJOutputs {
 
 export const MeshFilesExportOBJNode: NodeDefinition<ExportOBJInputs, ExportOBJOutputs, ExportOBJParams> = {
   id: 'Mesh::ExportOBJ',
+  type: 'Mesh::ExportOBJ',
   category: 'Mesh',
   label: 'ExportOBJ',
   description: 'Export mesh to OBJ',

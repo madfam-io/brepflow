@@ -19,6 +19,7 @@ interface LoftOutputs {
 
 export const AdvancedLoftLoftNode: NodeDefinition<LoftInputs, LoftOutputs, LoftParams> = {
   id: 'Advanced::Loft',
+  type: 'Advanced::Loft',
   category: 'Advanced',
   label: 'Loft',
   description: 'Loft between profiles',

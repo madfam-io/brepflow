@@ -18,6 +18,7 @@ interface DistanceMeasurementOutputs {
 
 export const AnalysisMeasurementDistanceMeasurementNode: NodeDefinition<DistanceMeasurementInputs, DistanceMeasurementOutputs, DistanceMeasurementParams> = {
   id: 'Analysis::DistanceMeasurement',
+  type: 'Analysis::DistanceMeasurement',
   category: 'Analysis',
   label: 'DistanceMeasurement',
   description: 'Measure distances with annotations',

@@ -18,6 +18,7 @@ interface GearOutputs {
 
 export const SketchPatternsGearNode: NodeDefinition<GearInputs, GearOutputs, GearParams> = {
   id: 'Sketch::Gear',
+  type: 'Sketch::Gear',
   category: 'Sketch',
   label: 'Gear',
   description: 'Create a gear profile',

@@ -19,6 +19,7 @@ interface AngleMeasurementOutputs {
 
 export const AnalysisMeasurementAngleMeasurementNode: NodeDefinition<AngleMeasurementInputs, AngleMeasurementOutputs, AngleMeasurementParams> = {
   id: 'Analysis::AngleMeasurement',
+  type: 'Analysis::AngleMeasurement',
   category: 'Analysis',
   label: 'AngleMeasurement',
   description: 'Measure angles between vectors/faces',

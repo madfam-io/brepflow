@@ -16,6 +16,7 @@ interface PackingCirclesOutputs {
 
 export const PatternsAlgorithmicPackingCirclesNode: NodeDefinition<PackingCirclesInputs, PackingCirclesOutputs, PackingCirclesParams> = {
   id: 'Patterns::PackingCircles',
+  type: 'Patterns::PackingCircles',
   category: 'Patterns',
   label: 'PackingCircles',
   description: 'Circle packing algorithms',

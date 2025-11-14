@@ -17,6 +17,7 @@ interface AxisToAxisOutputs {
 
 export const AssemblyMatesAxisToAxisNode: NodeDefinition<AxisToAxisInputs, AxisToAxisOutputs, AxisToAxisParams> = {
   id: 'Assembly::AxisToAxis',
+  type: 'Assembly::AxisToAxis',
   category: 'Assembly',
   label: 'AxisToAxis',
   description: 'Align two axes',

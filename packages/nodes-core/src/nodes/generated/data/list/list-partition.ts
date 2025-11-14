@@ -13,6 +13,7 @@ interface ListPartitionOutputs {
 
 export const DataListListPartitionNode: NodeDefinition<ListPartitionInputs, ListPartitionOutputs, ListPartitionParams> = {
   id: 'Data::ListPartition',
+  type: 'Data::ListPartition',
   category: 'Data',
   label: 'ListPartition',
   description: 'Partition list into chunks',

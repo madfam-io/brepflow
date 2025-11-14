@@ -13,6 +13,7 @@ interface RandomPoissonOutputs {
 
 export const MathRandomRandomPoissonNode: NodeDefinition<RandomPoissonInputs, RandomPoissonOutputs, RandomPoissonParams> = {
   id: 'Math::RandomPoisson',
+  type: 'Math::RandomPoisson',
   category: 'Math',
   label: 'RandomPoisson',
   description: 'Poisson distribution',

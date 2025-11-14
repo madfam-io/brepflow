@@ -17,6 +17,7 @@ interface EmbossOutputs {
 
 export const SpecializedTextEmbossNode: NodeDefinition<EmbossInputs, EmbossOutputs, EmbossParams> = {
   id: 'Specialized::Emboss',
+  type: 'Specialized::Emboss',
   category: 'Specialized',
   label: 'Emboss',
   description: 'Emboss text or pattern',

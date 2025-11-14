@@ -15,6 +15,7 @@ interface EndEffectorSetupOutputs {
 
 export const FabricationRoboticsEndEffectorSetupNode: NodeDefinition<EndEffectorSetupInputs, EndEffectorSetupOutputs, EndEffectorSetupParams> = {
   id: 'Fabrication::EndEffectorSetup',
+  type: 'Fabrication::EndEffectorSetup',
   category: 'Fabrication',
   label: 'EndEffectorSetup',
   description: 'Configure end effector',

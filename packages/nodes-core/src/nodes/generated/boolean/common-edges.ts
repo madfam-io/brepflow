@@ -13,6 +13,7 @@ interface CommonEdgesOutputs {
 
 export const BooleanCommonEdgesNode: NodeDefinition<CommonEdgesInputs, CommonEdgesOutputs, CommonEdgesParams> = {
   id: 'Boolean::CommonEdges',
+  type: 'Boolean::CommonEdges',
   category: 'Boolean',
   label: 'CommonEdges',
   description: 'Extract common edges between shapes',

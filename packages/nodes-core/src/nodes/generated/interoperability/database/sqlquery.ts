@@ -18,6 +18,7 @@ interface SQLQueryOutputs {
 
 export const InteroperabilityDatabaseSQLQueryNode: NodeDefinition<SQLQueryInputs, SQLQueryOutputs, SQLQueryParams> = {
   id: 'Interoperability::SQLQuery',
+  type: 'Interoperability::SQLQuery',
   category: 'Interoperability',
   label: 'SQLQuery',
   description: 'Execute SQL database queries',

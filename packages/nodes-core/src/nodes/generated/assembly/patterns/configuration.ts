@@ -15,6 +15,7 @@ interface ConfigurationOutputs {
 
 export const AssemblyPatternsConfigurationNode: NodeDefinition<ConfigurationInputs, ConfigurationOutputs, ConfigurationParams> = {
   id: 'Assembly::Configuration',
+  type: 'Assembly::Configuration',
   category: 'Assembly',
   label: 'Configuration',
   description: 'Create assembly configuration',

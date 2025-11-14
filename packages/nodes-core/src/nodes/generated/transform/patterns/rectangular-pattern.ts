@@ -19,6 +19,7 @@ interface RectangularPatternOutputs {
 
 export const TransformPatternsRectangularPatternNode: NodeDefinition<RectangularPatternInputs, RectangularPatternOutputs, RectangularPatternParams> = {
   id: 'Transform::RectangularPattern',
+  type: 'Transform::RectangularPattern',
   category: 'Transform',
   label: 'RectangularPattern',
   description: 'Creates a 2D rectangular grid pattern',

@@ -15,6 +15,7 @@ interface ChargeFieldOutputs {
 
 export const FieldGenerateChargeFieldNode: NodeDefinition<ChargeFieldInputs, ChargeFieldOutputs, ChargeFieldParams> = {
   id: 'Field::ChargeField',
+  type: 'Field::ChargeField',
   category: 'Field',
   label: 'ChargeField',
   description: 'Electric charge field',

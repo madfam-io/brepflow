@@ -15,6 +15,7 @@ interface FuzzySkinnOutputs {
 
 export const Fabrication3DPrintingFuzzySkinnNode: NodeDefinition<FuzzySkinnInputs, FuzzySkinnOutputs, FuzzySkinnParams> = {
   id: 'Fabrication::FuzzySkinn',
+  type: 'Fabrication::FuzzySkinn',
   category: 'Fabrication',
   label: 'FuzzySkinn',
   description: 'Generate fuzzy skin texture',

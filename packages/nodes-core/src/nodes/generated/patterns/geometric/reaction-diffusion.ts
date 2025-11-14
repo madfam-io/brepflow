@@ -16,6 +16,7 @@ interface ReactionDiffusionOutputs {
 
 export const PatternsGeometricReactionDiffusionNode: NodeDefinition<ReactionDiffusionInputs, ReactionDiffusionOutputs, ReactionDiffusionParams> = {
   id: 'Patterns::ReactionDiffusion',
+  type: 'Patterns::ReactionDiffusion',
   category: 'Patterns',
   label: 'ReactionDiffusion',
   description: 'Reaction-diffusion pattern',

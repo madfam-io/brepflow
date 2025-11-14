@@ -15,6 +15,7 @@ interface FireWallOutputs {
 
 export const ArchitectureWallsFireWallNode: NodeDefinition<FireWallInputs, FireWallOutputs, FireWallParams> = {
   id: 'Architecture::FireWall',
+  type: 'Architecture::FireWall',
   category: 'Architecture',
   label: 'FireWall',
   description: 'Fire-rated wall assembly',

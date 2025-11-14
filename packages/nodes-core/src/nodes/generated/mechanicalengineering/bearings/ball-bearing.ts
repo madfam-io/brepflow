@@ -21,6 +21,7 @@ interface BallBearingOutputs {
 
 export const MechanicalEngineeringBearingsBallBearingNode: NodeDefinition<BallBearingInputs, BallBearingOutputs, BallBearingParams> = {
   id: 'MechanicalEngineering::BallBearing',
+  type: 'MechanicalEngineering::BallBearing',
   category: 'MechanicalEngineering',
   label: 'BallBearing',
   description: 'Create ball bearing assembly',

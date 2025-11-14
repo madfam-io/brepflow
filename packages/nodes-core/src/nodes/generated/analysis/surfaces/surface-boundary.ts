@@ -17,6 +17,7 @@ interface SurfaceBoundaryOutputs {
 
 export const AnalysisSurfacesSurfaceBoundaryNode: NodeDefinition<SurfaceBoundaryInputs, SurfaceBoundaryOutputs, SurfaceBoundaryParams> = {
   id: 'Analysis::SurfaceBoundary',
+  type: 'Analysis::SurfaceBoundary',
   category: 'Analysis',
   label: 'SurfaceBoundary',
   description: 'Extract surface boundary curves',

@@ -14,6 +14,7 @@ interface VaseModeOutputs {
 
 export const Fabrication3DPrintingVaseModeNode: NodeDefinition<VaseModeInputs, VaseModeOutputs, VaseModeParams> = {
   id: 'Fabrication::VaseMode',
+  type: 'Fabrication::VaseMode',
   category: 'Fabrication',
   label: 'VaseMode',
   description: 'Generate vase mode spiral',

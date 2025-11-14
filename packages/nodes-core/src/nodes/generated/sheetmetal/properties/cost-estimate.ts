@@ -19,6 +19,7 @@ interface CostEstimateOutputs {
 
 export const SheetMetalPropertiesCostEstimateNode: NodeDefinition<CostEstimateInputs, CostEstimateOutputs, CostEstimateParams> = {
   id: 'SheetMetal::CostEstimate',
+  type: 'SheetMetal::CostEstimate',
   category: 'SheetMetal',
   label: 'CostEstimate',
   description: 'Estimate manufacturing cost',

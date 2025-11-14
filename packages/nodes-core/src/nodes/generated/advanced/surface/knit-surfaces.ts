@@ -15,6 +15,7 @@ interface KnitSurfacesOutputs {
 
 export const AdvancedSurfaceKnitSurfacesNode: NodeDefinition<KnitSurfacesInputs, KnitSurfacesOutputs, KnitSurfacesParams> = {
   id: 'Advanced::KnitSurfaces',
+  type: 'Advanced::KnitSurfaces',
   category: 'Advanced',
   label: 'KnitSurfaces',
   description: 'Knit surfaces together',

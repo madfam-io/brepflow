@@ -15,6 +15,7 @@ interface BowWindowOutputs {
 
 export const ArchitectureWindowsBowWindowNode: NodeDefinition<BowWindowInputs, BowWindowOutputs, BowWindowParams> = {
   id: 'Architecture::BowWindow',
+  type: 'Architecture::BowWindow',
   category: 'Architecture',
   label: 'BowWindow',
   description: 'Bow window projection',

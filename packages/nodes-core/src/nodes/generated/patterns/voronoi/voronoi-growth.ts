@@ -16,6 +16,7 @@ interface VoronoiGrowthOutputs {
 
 export const PatternsVoronoiVoronoiGrowthNode: NodeDefinition<VoronoiGrowthInputs, VoronoiGrowthOutputs, VoronoiGrowthParams> = {
   id: 'Patterns::VoronoiGrowth',
+  type: 'Patterns::VoronoiGrowth',
   category: 'Patterns',
   label: 'VoronoiGrowth',
   description: 'Organic growth pattern',

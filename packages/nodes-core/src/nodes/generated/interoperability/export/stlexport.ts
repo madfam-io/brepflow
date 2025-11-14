@@ -18,6 +18,7 @@ interface STLExportOutputs {
 
 export const InteroperabilityExportSTLExportNode: NodeDefinition<STLExportInputs, STLExportOutputs, STLExportParams> = {
   id: 'Interoperability::STLExport',
+  type: 'Interoperability::STLExport',
   category: 'Interoperability',
   label: 'STLExport',
   description: 'Export mesh to STL format',

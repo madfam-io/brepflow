@@ -14,6 +14,7 @@ interface StringConcatOutputs {
 
 export const DataStringStringConcatNode: NodeDefinition<StringConcatInputs, StringConcatOutputs, StringConcatParams> = {
   id: 'Data::StringConcat',
+  type: 'Data::StringConcat',
   category: 'Data',
   label: 'StringConcat',
   description: 'Concatenate strings',

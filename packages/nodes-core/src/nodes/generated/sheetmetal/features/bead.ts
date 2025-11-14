@@ -17,6 +17,7 @@ interface BeadOutputs {
 
 export const SheetMetalFeaturesBeadNode: NodeDefinition<BeadInputs, BeadOutputs, BeadParams> = {
   id: 'SheetMetal::Bead',
+  type: 'SheetMetal::Bead',
   category: 'SheetMetal',
   label: 'Bead',
   description: 'Create stiffening bead',

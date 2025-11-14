@@ -15,6 +15,7 @@ interface MuqarnasOutputs {
 
 export const PatternsIslamicMuqarnasNode: NodeDefinition<MuqarnasInputs, MuqarnasOutputs, MuqarnasParams> = {
   id: 'Patterns::Muqarnas',
+  type: 'Patterns::Muqarnas',
   category: 'Patterns',
   label: 'Muqarnas',
   description: 'Muqarnas honeycomb pattern',

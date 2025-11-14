@@ -19,6 +19,7 @@ interface CamProfileOutputs {
 
 export const MechanicalEngineeringMechanismsCamProfileNode: NodeDefinition<CamProfileInputs, CamProfileOutputs, CamProfileParams> = {
   id: 'MechanicalEngineering::CamProfile',
+  type: 'MechanicalEngineering::CamProfile',
   category: 'MechanicalEngineering',
   label: 'CamProfile',
   description: 'Create cam profile',

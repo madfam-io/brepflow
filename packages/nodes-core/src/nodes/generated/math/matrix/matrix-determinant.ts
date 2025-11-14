@@ -12,6 +12,7 @@ interface MatrixDeterminantOutputs {
 
 export const MathMatrixMatrixDeterminantNode: NodeDefinition<MatrixDeterminantInputs, MatrixDeterminantOutputs, MatrixDeterminantParams> = {
   id: 'Math::MatrixDeterminant',
+  type: 'Math::MatrixDeterminant',
   category: 'Math',
   label: 'MatrixDeterminant',
   description: 'Matrix determinant',

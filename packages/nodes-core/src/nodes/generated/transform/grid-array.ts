@@ -21,6 +21,7 @@ interface GridArrayOutputs {
 
 export const TransformGridArrayNode: NodeDefinition<GridArrayInputs, GridArrayOutputs, GridArrayParams> = {
   id: 'Transform::GridArray',
+  type: 'Transform::GridArray',
   category: 'Transform',
   label: 'GridArray',
   description: 'Create 2D or 3D grid array',

@@ -14,6 +14,7 @@ interface SetPermutationsOutputs {
 
 export const DataSetSetPermutationsNode: NodeDefinition<SetPermutationsInputs, SetPermutationsOutputs, SetPermutationsParams> = {
   id: 'Data::SetPermutations',
+  type: 'Data::SetPermutations',
   category: 'Data',
   label: 'SetPermutations',
   description: 'Permutations of set',

@@ -16,6 +16,7 @@ interface LoadingDockOutputs {
 
 export const ArchitectureRampsLoadingDockNode: NodeDefinition<LoadingDockInputs, LoadingDockOutputs, LoadingDockParams> = {
   id: 'Architecture::LoadingDock',
+  type: 'Architecture::LoadingDock',
   category: 'Architecture',
   label: 'LoadingDock',
   description: 'Loading dock ramp',

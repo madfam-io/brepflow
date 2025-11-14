@@ -13,6 +13,7 @@ interface ComplexMultiplyOutputs {
 
 export const MathComplexComplexMultiplyNode: NodeDefinition<ComplexMultiplyInputs, ComplexMultiplyOutputs, ComplexMultiplyParams> = {
   id: 'Math::ComplexMultiply',
+  type: 'Math::ComplexMultiply',
   category: 'Math',
   label: 'ComplexMultiply',
   description: 'Multiply complex numbers',

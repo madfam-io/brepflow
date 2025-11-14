@@ -17,6 +17,7 @@ interface FieldVolumeOutputs {
 
 export const FieldsVisualizationFieldVolumeNode: NodeDefinition<FieldVolumeInputs, FieldVolumeOutputs, FieldVolumeParams> = {
   id: 'Fields::FieldVolume',
+  type: 'Fields::FieldVolume',
   category: 'Fields',
   label: 'FieldVolume',
   description: 'Generate volumetric field visualization',

@@ -15,6 +15,7 @@ interface FieldSmoothOutputs {
 
 export const FieldOperationsFieldSmoothNode: NodeDefinition<FieldSmoothInputs, FieldSmoothOutputs, FieldSmoothParams> = {
   id: 'Field::FieldSmooth',
+  type: 'Field::FieldSmooth',
   category: 'Field',
   label: 'FieldSmooth',
   description: 'Smooth field',

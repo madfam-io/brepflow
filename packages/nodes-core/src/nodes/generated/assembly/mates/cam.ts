@@ -14,6 +14,7 @@ interface CamOutputs {
 
 export const AssemblyMatesCamNode: NodeDefinition<CamInputs, CamOutputs, CamParams> = {
   id: 'Assembly::Cam',
+  type: 'Assembly::Cam',
   category: 'Assembly',
   label: 'Cam',
   description: 'Create cam-follower relationship',

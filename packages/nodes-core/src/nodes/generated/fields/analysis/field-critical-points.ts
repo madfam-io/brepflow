@@ -18,6 +18,7 @@ interface FieldCriticalPointsOutputs {
 
 export const FieldsAnalysisFieldCriticalPointsNode: NodeDefinition<FieldCriticalPointsInputs, FieldCriticalPointsOutputs, FieldCriticalPointsParams> = {
   id: 'Fields::FieldCriticalPoints',
+  type: 'Fields::FieldCriticalPoints',
   category: 'Fields',
   label: 'FieldCriticalPoints',
   description: 'Find critical points in field',

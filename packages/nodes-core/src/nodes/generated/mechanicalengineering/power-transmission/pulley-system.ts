@@ -20,6 +20,7 @@ interface PulleySystemOutputs {
 
 export const MechanicalEngineeringPowerTransmissionPulleySystemNode: NodeDefinition<PulleySystemInputs, PulleySystemOutputs, PulleySystemParams> = {
   id: 'MechanicalEngineering::PulleySystem',
+  type: 'MechanicalEngineering::PulleySystem',
   category: 'MechanicalEngineering',
   label: 'PulleySystem',
   description: 'Create pulley system',

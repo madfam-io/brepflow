@@ -12,6 +12,7 @@ interface MatrixTransposeOutputs {
 
 export const MathMatrixMatrixTransposeNode: NodeDefinition<MatrixTransposeInputs, MatrixTransposeOutputs, MatrixTransposeParams> = {
   id: 'Math::MatrixTranspose',
+  type: 'Math::MatrixTranspose',
   category: 'Math',
   label: 'MatrixTranspose',
   description: 'Matrix transpose',

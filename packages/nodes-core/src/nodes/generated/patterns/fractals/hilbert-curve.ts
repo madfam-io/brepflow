@@ -15,6 +15,7 @@ interface HilbertCurveOutputs {
 
 export const PatternsFractalsHilbertCurveNode: NodeDefinition<HilbertCurveInputs, HilbertCurveOutputs, HilbertCurveParams> = {
   id: 'Patterns::HilbertCurve',
+  type: 'Patterns::HilbertCurve',
   category: 'Patterns',
   label: 'HilbertCurve',
   description: 'Hilbert space-filling curve',

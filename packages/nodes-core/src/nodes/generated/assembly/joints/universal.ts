@@ -14,6 +14,7 @@ interface UniversalOutputs {
 
 export const AssemblyJointsUniversalNode: NodeDefinition<UniversalInputs, UniversalOutputs, UniversalParams> = {
   id: 'Assembly::Universal',
+  type: 'Assembly::Universal',
   category: 'Assembly',
   label: 'Universal',
   description: 'Create universal joint',

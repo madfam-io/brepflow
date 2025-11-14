@@ -17,6 +17,7 @@ interface ApplyConstraintsOutputs {
 
 export const SimulationFEAApplyConstraintsNode: NodeDefinition<ApplyConstraintsInputs, ApplyConstraintsOutputs, ApplyConstraintsParams> = {
   id: 'Simulation::ApplyConstraints',
+  type: 'Simulation::ApplyConstraints',
   category: 'Simulation',
   label: 'ApplyConstraints',
   description: 'Define boundary conditions',

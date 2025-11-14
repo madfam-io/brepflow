@@ -17,6 +17,7 @@ interface WrapOutputs {
 
 export const AdvancedFeaturesWrapNode: NodeDefinition<WrapInputs, WrapOutputs, WrapParams> = {
   id: 'Advanced::Wrap',
+  type: 'Advanced::Wrap',
   category: 'Advanced',
   label: 'Wrap',
   description: 'Wrap geometry onto surface',

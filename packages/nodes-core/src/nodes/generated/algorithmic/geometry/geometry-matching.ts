@@ -20,6 +20,7 @@ interface GeometryMatchingOutputs {
 
 export const AlgorithmicGeometryGeometryMatchingNode: NodeDefinition<GeometryMatchingInputs, GeometryMatchingOutputs, GeometryMatchingParams> = {
   id: 'Algorithmic::GeometryMatching',
+  type: 'Algorithmic::GeometryMatching',
   category: 'Algorithmic',
   label: 'GeometryMatching',
   description: 'Match and align geometries',

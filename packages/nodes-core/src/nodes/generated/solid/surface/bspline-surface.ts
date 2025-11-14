@@ -19,6 +19,7 @@ interface BSplineSurfaceOutputs {
 
 export const SolidSurfaceBSplineSurfaceNode: NodeDefinition<BSplineSurfaceInputs, BSplineSurfaceOutputs, BSplineSurfaceParams> = {
   id: 'Solid::BSplineSurface',
+  type: 'Solid::BSplineSurface',
   category: 'Solid',
   label: 'BSplineSurface',
   description: 'Create a B-Spline surface',

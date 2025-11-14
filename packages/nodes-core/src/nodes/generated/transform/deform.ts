@@ -16,6 +16,7 @@ interface DeformOutputs {
 
 export const TransformDeformNode: NodeDefinition<DeformInputs, DeformOutputs, DeformParams> = {
   id: 'Transform::Deform',
+  type: 'Transform::Deform',
   category: 'Transform',
   label: 'Deform',
   description: 'Deform shape with control points',

@@ -12,6 +12,7 @@ interface FragmentOutputs {
 
 export const BooleanFragmentNode: NodeDefinition<FragmentInputs, FragmentOutputs, FragmentParams> = {
   id: 'Boolean::Fragment',
+  type: 'Boolean::Fragment',
   category: 'Boolean',
   label: 'Fragment',
   description: 'Fragment all shapes by each other',

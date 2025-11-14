@@ -12,6 +12,7 @@ interface FromBase64Outputs {
 
 export const DataConvertFromBase64Node: NodeDefinition<FromBase64Inputs, FromBase64Outputs, FromBase64Params> = {
   id: 'Data::FromBase64',
+  type: 'Data::FromBase64',
   category: 'Data',
   label: 'FromBase64',
   description: 'Decode from Base64',

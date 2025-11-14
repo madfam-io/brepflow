@@ -14,6 +14,7 @@ interface UntrimSurfaceOutputs {
 
 export const AdvancedSurfaceUntrimSurfaceNode: NodeDefinition<UntrimSurfaceInputs, UntrimSurfaceOutputs, UntrimSurfaceParams> = {
   id: 'Advanced::UntrimSurface',
+  type: 'Advanced::UntrimSurface',
   category: 'Advanced',
   label: 'UntrimSurface',
   description: 'Remove trimming from surface',

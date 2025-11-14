@@ -19,6 +19,7 @@ interface RepairMeshOutputs {
 
 export const MeshRepairRepairMeshNode: NodeDefinition<RepairMeshInputs, RepairMeshOutputs, RepairMeshParams> = {
   id: 'Mesh::RepairMesh',
+  type: 'Mesh::RepairMesh',
   category: 'Mesh',
   label: 'RepairMesh',
   description: 'Repair mesh defects',

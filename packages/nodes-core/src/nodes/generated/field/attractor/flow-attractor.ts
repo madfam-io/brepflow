@@ -17,6 +17,7 @@ interface FlowAttractorOutputs {
 
 export const FieldAttractorFlowAttractorNode: NodeDefinition<FlowAttractorInputs, FlowAttractorOutputs, FlowAttractorParams> = {
   id: 'Field::FlowAttractor',
+  type: 'Field::FlowAttractor',
   category: 'Field',
   label: 'FlowAttractor',
   description: 'Flow field attractor',

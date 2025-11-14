@@ -19,6 +19,7 @@ interface LouverOutputs {
 
 export const SheetMetalFeaturesLouverNode: NodeDefinition<LouverInputs, LouverOutputs, LouverParams> = {
   id: 'SheetMetal::Louver',
+  type: 'SheetMetal::Louver',
   category: 'SheetMetal',
   label: 'Louver',
   description: 'Create louver ventilation',

@@ -17,6 +17,7 @@ interface NoisePatternOutputs {
 
 export const PatternsProceduralNoisePatternNode: NodeDefinition<NoisePatternInputs, NoisePatternOutputs, NoisePatternParams> = {
   id: 'Patterns::NoisePattern',
+  type: 'Patterns::NoisePattern',
   category: 'Patterns',
   label: 'NoisePattern',
   description: 'Procedural noise patterns',

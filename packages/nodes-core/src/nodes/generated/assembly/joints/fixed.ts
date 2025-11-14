@@ -13,6 +13,7 @@ interface FixedOutputs {
 
 export const AssemblyJointsFixedNode: NodeDefinition<FixedInputs, FixedOutputs, FixedParams> = {
   id: 'Assembly::Fixed',
+  type: 'Assembly::Fixed',
   category: 'Assembly',
   label: 'Fixed',
   description: 'Create fixed joint',

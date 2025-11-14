@@ -17,6 +17,7 @@ interface FieldCorrelationOutputs {
 
 export const FieldsAnalysisFieldCorrelationNode: NodeDefinition<FieldCorrelationInputs, FieldCorrelationOutputs, FieldCorrelationParams> = {
   id: 'Fields::FieldCorrelation',
+  type: 'Fields::FieldCorrelation',
   category: 'Fields',
   label: 'FieldCorrelation',
   description: 'Calculate correlation between fields',

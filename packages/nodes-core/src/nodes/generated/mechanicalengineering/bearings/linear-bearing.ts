@@ -19,6 +19,7 @@ interface LinearBearingOutputs {
 
 export const MechanicalEngineeringBearingsLinearBearingNode: NodeDefinition<LinearBearingInputs, LinearBearingOutputs, LinearBearingParams> = {
   id: 'MechanicalEngineering::LinearBearing',
+  type: 'MechanicalEngineering::LinearBearing',
   category: 'MechanicalEngineering',
   label: 'LinearBearing',
   description: 'Create linear motion bearing',

@@ -16,6 +16,7 @@ interface ConformLatticeOutputs {
 
 export const SpecializedLatticeConformLatticeNode: NodeDefinition<ConformLatticeInputs, ConformLatticeOutputs, ConformLatticeParams> = {
   id: 'Specialized::ConformLattice',
+  type: 'Specialized::ConformLattice',
   category: 'Specialized',
   label: 'ConformLattice',
   description: 'Conformal lattice mapping',

@@ -18,6 +18,7 @@ interface SocketHeadCapScrewOutputs {
 
 export const MechanicalEngineeringFastenersSocketHeadCapScrewNode: NodeDefinition<SocketHeadCapScrewInputs, SocketHeadCapScrewOutputs, SocketHeadCapScrewParams> = {
   id: 'MechanicalEngineering::SocketHeadCapScrew',
+  type: 'MechanicalEngineering::SocketHeadCapScrew',
   category: 'MechanicalEngineering',
   label: 'SocketHeadCapScrew',
   description: 'Create socket head cap screw',

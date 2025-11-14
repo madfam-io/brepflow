@@ -17,6 +17,7 @@ interface DrillingOperationOutputs {
 
 export const FabricationCNCDrillingOperationNode: NodeDefinition<DrillingOperationInputs, DrillingOperationOutputs, DrillingOperationParams> = {
   id: 'Fabrication::DrillingOperation',
+  type: 'Fabrication::DrillingOperation',
   category: 'Fabrication',
   label: 'DrillingOperation',
   description: 'Drilling operation setup',

@@ -15,6 +15,7 @@ interface CubicLatticeOutputs {
 
 export const PatternsLatticeCubicLatticeNode: NodeDefinition<CubicLatticeInputs, CubicLatticeOutputs, CubicLatticeParams> = {
   id: 'Patterns::CubicLattice',
+  type: 'Patterns::CubicLattice',
   category: 'Patterns',
   label: 'CubicLattice',
   description: 'Cubic lattice structure',

@@ -16,6 +16,7 @@ interface SheetMetalStyleOutputs {
 
 export const SheetMetalPropertiesSheetMetalStyleNode: NodeDefinition<SheetMetalStyleInputs, SheetMetalStyleOutputs, SheetMetalStyleParams> = {
   id: 'SheetMetal::SheetMetalStyle',
+  type: 'SheetMetal::SheetMetalStyle',
   category: 'SheetMetal',
   label: 'SheetMetalStyle',
   description: 'Define sheet metal parameters',

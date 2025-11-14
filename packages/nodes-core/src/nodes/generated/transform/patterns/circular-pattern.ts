@@ -19,6 +19,7 @@ interface CircularPatternOutputs {
 
 export const TransformPatternsCircularPatternNode: NodeDefinition<CircularPatternInputs, CircularPatternOutputs, CircularPatternParams> = {
   id: 'Transform::CircularPattern',
+  type: 'Transform::CircularPattern',
   category: 'Transform',
   label: 'CircularPattern',
   description: 'Creates a circular array of features or shapes',

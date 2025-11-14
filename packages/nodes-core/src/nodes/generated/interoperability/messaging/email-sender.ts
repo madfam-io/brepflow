@@ -21,6 +21,7 @@ interface EmailSenderOutputs {
 
 export const InteroperabilityMessagingEmailSenderNode: NodeDefinition<EmailSenderInputs, EmailSenderOutputs, EmailSenderParams> = {
   id: 'Interoperability::EmailSender',
+  type: 'Interoperability::EmailSender',
   category: 'Interoperability',
   label: 'EmailSender',
   description: 'Send email notifications',

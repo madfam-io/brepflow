@@ -13,6 +13,7 @@ interface CapsuleOutputs {
 
 export const SolidPrimitivesCapsuleNode: NodeDefinition<CapsuleInputs, CapsuleOutputs, CapsuleParams> = {
   id: 'Solid::Capsule',
+  type: 'Solid::Capsule',
   category: 'Solid',
   label: 'Capsule',
   description: 'Create a capsule (cylinder with hemisphere caps)',

@@ -14,6 +14,7 @@ interface ListContainsOutputs {
 
 export const DataListListContainsNode: NodeDefinition<ListContainsInputs, ListContainsOutputs, ListContainsParams> = {
   id: 'Data::ListContains',
+  type: 'Data::ListContains',
   category: 'Data',
   label: 'ListContains',
   description: 'Check if list contains item',

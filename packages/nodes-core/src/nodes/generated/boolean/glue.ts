@@ -14,6 +14,7 @@ interface GlueOutputs {
 
 export const BooleanGlueNode: NodeDefinition<GlueInputs, GlueOutputs, GlueParams> = {
   id: 'Boolean::Glue',
+  type: 'Boolean::Glue',
   category: 'Boolean',
   label: 'Glue',
   description: 'Glue shapes together at common faces',

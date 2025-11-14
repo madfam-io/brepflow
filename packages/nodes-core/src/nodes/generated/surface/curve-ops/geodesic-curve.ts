@@ -14,6 +14,7 @@ interface GeodesicCurveOutputs {
 
 export const SurfaceCurveOpsGeodesicCurveNode: NodeDefinition<GeodesicCurveInputs, GeodesicCurveOutputs, GeodesicCurveParams> = {
   id: 'Surface::GeodesicCurve',
+  type: 'Surface::GeodesicCurve',
   category: 'Surface',
   label: 'GeodesicCurve',
   description: 'Create geodesic curve',

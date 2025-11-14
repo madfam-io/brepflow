@@ -15,6 +15,7 @@ interface ConveyorTrackingOutputs {
 
 export const FabricationRoboticsConveyorTrackingNode: NodeDefinition<ConveyorTrackingInputs, ConveyorTrackingOutputs, ConveyorTrackingParams> = {
   id: 'Fabrication::ConveyorTracking',
+  type: 'Fabrication::ConveyorTracking',
   category: 'Fabrication',
   label: 'ConveyorTracking',
   description: 'Moving conveyor tracking',

@@ -16,6 +16,7 @@ interface FieldVectorArrowsOutputs {
 
 export const FieldsVisualizationFieldVectorArrowsNode: NodeDefinition<FieldVectorArrowsInputs, FieldVectorArrowsOutputs, FieldVectorArrowsParams> = {
   id: 'Fields::FieldVectorArrows',
+  type: 'Fields::FieldVectorArrows',
   category: 'Fields',
   label: 'FieldVectorArrows',
   description: 'Display vector field as arrows',

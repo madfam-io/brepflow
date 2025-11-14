@@ -17,6 +17,7 @@ interface SurfaceDeviationOutputs {
 
 export const SurfaceAnalysisSurfaceDeviationNode: NodeDefinition<SurfaceDeviationInputs, SurfaceDeviationOutputs, SurfaceDeviationParams> = {
   id: 'Surface::SurfaceDeviation',
+  type: 'Surface::SurfaceDeviation',
   category: 'Surface',
   label: 'SurfaceDeviation',
   description: 'Measure surface deviation',

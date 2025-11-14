@@ -18,6 +18,7 @@ interface CurveEndpointsOutputs {
 
 export const AnalysisCurvesCurveEndpointsNode: NodeDefinition<CurveEndpointsInputs, CurveEndpointsOutputs, CurveEndpointsParams> = {
   id: 'Analysis::CurveEndpoints',
+  type: 'Analysis::CurveEndpoints',
   category: 'Analysis',
   label: 'CurveEndpoints',
   description: 'Extract curve endpoints and tangents',

@@ -18,6 +18,7 @@ interface SurfaceRoughnessOutputs {
 
 export const AnalysisSurfacesSurfaceRoughnessNode: NodeDefinition<SurfaceRoughnessInputs, SurfaceRoughnessOutputs, SurfaceRoughnessParams> = {
   id: 'Analysis::SurfaceRoughness',
+  type: 'Analysis::SurfaceRoughness',
   category: 'Analysis',
   label: 'SurfaceRoughness',
   description: 'Calculate surface roughness metrics',

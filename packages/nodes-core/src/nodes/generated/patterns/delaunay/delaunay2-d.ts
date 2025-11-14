@@ -16,6 +16,7 @@ interface Delaunay2DOutputs {
 
 export const PatternsDelaunayDelaunay2DNode: NodeDefinition<Delaunay2DInputs, Delaunay2DOutputs, Delaunay2DParams> = {
   id: 'Patterns::Delaunay2D',
+  type: 'Patterns::Delaunay2D',
   category: 'Patterns',
   label: 'Delaunay2D',
   description: 'Create 2D Delaunay triangulation',

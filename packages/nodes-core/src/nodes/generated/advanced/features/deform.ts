@@ -18,6 +18,7 @@ interface DeformOutputs {
 
 export const AdvancedFeaturesDeformNode: NodeDefinition<DeformInputs, DeformOutputs, DeformParams> = {
   id: 'Advanced::Deform',
+  type: 'Advanced::Deform',
   category: 'Advanced',
   label: 'Deform',
   description: 'Point deformation',

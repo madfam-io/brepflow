@@ -14,6 +14,7 @@ interface OrientOutputs {
 
 export const TransformOrientNode: NodeDefinition<OrientInputs, OrientOutputs, OrientParams> = {
   id: 'Transform::Orient',
+  type: 'Transform::Orient',
   category: 'Transform',
   label: 'Orient',
   description: 'Orient shape to match reference orientation',

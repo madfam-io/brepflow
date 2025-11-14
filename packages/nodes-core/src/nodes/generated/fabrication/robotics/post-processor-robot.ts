@@ -14,6 +14,7 @@ interface PostProcessorRobotOutputs {
 
 export const FabricationRoboticsPostProcessorRobotNode: NodeDefinition<PostProcessorRobotInputs, PostProcessorRobotOutputs, PostProcessorRobotParams> = {
   id: 'Fabrication::PostProcessorRobot',
+  type: 'Fabrication::PostProcessorRobot',
   category: 'Fabrication',
   label: 'PostProcessorRobot',
   description: 'Robot code generation',

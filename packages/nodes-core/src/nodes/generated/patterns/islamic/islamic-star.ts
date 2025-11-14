@@ -16,6 +16,7 @@ interface IslamicStarOutputs {
 
 export const PatternsIslamicIslamicStarNode: NodeDefinition<IslamicStarInputs, IslamicStarOutputs, IslamicStarParams> = {
   id: 'Patterns::IslamicStar',
+  type: 'Patterns::IslamicStar',
   category: 'Patterns',
   label: 'IslamicStar',
   description: 'Islamic star pattern',

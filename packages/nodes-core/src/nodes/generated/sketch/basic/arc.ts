@@ -17,6 +17,7 @@ interface ArcOutputs {
 
 export const SketchBasicArcNode: NodeDefinition<ArcInputs, ArcOutputs, ArcParams> = {
   id: 'Sketch::Arc',
+  type: 'Sketch::Arc',
   category: 'Sketch',
   label: 'Arc',
   description: 'Create a circular arc',

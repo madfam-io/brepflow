@@ -15,6 +15,7 @@ interface FoldingDoorOutputs {
 
 export const ArchitectureDoorsFoldingDoorNode: NodeDefinition<FoldingDoorInputs, FoldingDoorOutputs, FoldingDoorParams> = {
   id: 'Architecture::FoldingDoor',
+  type: 'Architecture::FoldingDoor',
   category: 'Architecture',
   label: 'FoldingDoor',
   description: 'Bi-fold door system',

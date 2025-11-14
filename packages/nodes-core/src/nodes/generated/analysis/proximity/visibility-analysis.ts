@@ -19,6 +19,7 @@ interface VisibilityAnalysisOutputs {
 
 export const AnalysisProximityVisibilityAnalysisNode: NodeDefinition<VisibilityAnalysisInputs, VisibilityAnalysisOutputs, VisibilityAnalysisParams> = {
   id: 'Analysis::VisibilityAnalysis',
+  type: 'Analysis::VisibilityAnalysis',
   category: 'Analysis',
   label: 'VisibilityAnalysis',
   description: 'Analyze line-of-sight visibility',

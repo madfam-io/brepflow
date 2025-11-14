@@ -14,6 +14,7 @@ interface ToJSONOutputs {
 
 export const DataConvertToJSONNode: NodeDefinition<ToJSONInputs, ToJSONOutputs, ToJSONParams> = {
   id: 'Data::ToJSON',
+  type: 'Data::ToJSON',
   category: 'Data',
   label: 'ToJSON',
   description: 'Convert to JSON',

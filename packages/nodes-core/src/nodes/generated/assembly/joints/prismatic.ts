@@ -17,6 +17,7 @@ interface PrismaticOutputs {
 
 export const AssemblyJointsPrismaticNode: NodeDefinition<PrismaticInputs, PrismaticOutputs, PrismaticParams> = {
   id: 'Assembly::Prismatic',
+  type: 'Assembly::Prismatic',
   category: 'Assembly',
   label: 'Prismatic',
   description: 'Create prismatic (sliding) joint',

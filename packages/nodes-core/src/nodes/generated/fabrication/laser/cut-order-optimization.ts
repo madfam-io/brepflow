@@ -16,6 +16,7 @@ interface CutOrderOptimizationOutputs {
 
 export const FabricationLaserCutOrderOptimizationNode: NodeDefinition<CutOrderOptimizationInputs, CutOrderOptimizationOutputs, CutOrderOptimizationParams> = {
   id: 'Fabrication::CutOrderOptimization',
+  type: 'Fabrication::CutOrderOptimization',
   category: 'Fabrication',
   label: 'CutOrderOptimization',
   description: 'Optimize cutting order',

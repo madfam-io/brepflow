@@ -19,6 +19,7 @@ interface UnfoldOutputs {
 
 export const SheetMetalUnfoldUnfoldNode: NodeDefinition<UnfoldInputs, UnfoldOutputs, UnfoldParams> = {
   id: 'SheetMetal::Unfold',
+  type: 'SheetMetal::Unfold',
   category: 'SheetMetal',
   label: 'Unfold',
   description: 'Unfold sheet metal to flat pattern',

@@ -18,6 +18,7 @@ interface BevelGearOutputs {
 
 export const MechanicalEngineeringGearsBevelGearNode: NodeDefinition<BevelGearInputs, BevelGearOutputs, BevelGearParams> = {
   id: 'MechanicalEngineering::BevelGear',
+  type: 'MechanicalEngineering::BevelGear',
   category: 'MechanicalEngineering',
   label: 'BevelGear',
   description: 'Create bevel gear for angle transmission',

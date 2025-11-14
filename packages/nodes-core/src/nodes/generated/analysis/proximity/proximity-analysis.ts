@@ -17,6 +17,7 @@ interface ProximityAnalysisOutputs {
 
 export const AnalysisProximityProximityAnalysisNode: NodeDefinition<ProximityAnalysisInputs, ProximityAnalysisOutputs, ProximityAnalysisParams> = {
   id: 'Analysis::ProximityAnalysis',
+  type: 'Analysis::ProximityAnalysis',
   category: 'Analysis',
   label: 'ProximityAnalysis',
   description: 'Analyze proximity between multiple objects',

@@ -14,6 +14,7 @@ interface VoronoiSkeletonOutputs {
 
 export const PatternsVoronoiVoronoiSkeletonNode: NodeDefinition<VoronoiSkeletonInputs, VoronoiSkeletonOutputs, VoronoiSkeletonParams> = {
   id: 'Patterns::VoronoiSkeleton',
+  type: 'Patterns::VoronoiSkeleton',
   category: 'Patterns',
   label: 'VoronoiSkeleton',
   description: 'Medial axis from Voronoi',

@@ -14,6 +14,7 @@ interface EaseInOutputs {
 
 export const MathInterpolationEaseInNode: NodeDefinition<EaseInInputs, EaseInOutputs, EaseInParams> = {
   id: 'Math::EaseIn',
+  type: 'Math::EaseIn',
   category: 'Math',
   label: 'EaseIn',
   description: 'Ease in curve',

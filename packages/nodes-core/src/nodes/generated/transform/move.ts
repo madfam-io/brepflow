@@ -17,6 +17,7 @@ interface MoveOutputs {
 
 export const TransformMoveNode: NodeDefinition<MoveInputs, MoveOutputs, MoveParams> = {
   id: 'Transform::Move',
+  type: 'Transform::Move',
   category: 'Transform',
   label: 'Move',
   description: 'Translate shape in 3D space',

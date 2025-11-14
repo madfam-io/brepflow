@@ -17,6 +17,7 @@ interface EllipseOutputs {
 
 export const SketchCurvesEllipseNode: NodeDefinition<EllipseInputs, EllipseOutputs, EllipseParams> = {
   id: 'Sketch::Ellipse',
+  type: 'Sketch::Ellipse',
   category: 'Sketch',
   label: 'Ellipse',
   description: 'Create an ellipse',

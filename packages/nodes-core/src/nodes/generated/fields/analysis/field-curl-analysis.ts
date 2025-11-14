@@ -12,6 +12,7 @@ interface FieldCurlAnalysisOutputs {
 
 export const FieldsAnalysisFieldCurlAnalysisNode: NodeDefinition<FieldCurlAnalysisInputs, FieldCurlAnalysisOutputs, FieldCurlAnalysisParams> = {
   id: 'Fields::FieldCurlAnalysis',
+  type: 'Fields::FieldCurlAnalysis',
   category: 'Fields',
   label: 'FieldCurlAnalysis',
   description: 'Calculate curl of vector field',

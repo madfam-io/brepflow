@@ -17,6 +17,7 @@ interface FieldColorMapOutputs {
 
 export const FieldsVisualizationFieldColorMapNode: NodeDefinition<FieldColorMapInputs, FieldColorMapOutputs, FieldColorMapParams> = {
   id: 'Fields::FieldColorMap',
+  type: 'Fields::FieldColorMap',
   category: 'Fields',
   label: 'FieldColorMap',
   description: 'Visualize field values as colors',

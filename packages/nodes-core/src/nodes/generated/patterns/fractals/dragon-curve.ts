@@ -15,6 +15,7 @@ interface DragonCurveOutputs {
 
 export const PatternsFractalsDragonCurveNode: NodeDefinition<DragonCurveInputs, DragonCurveOutputs, DragonCurveParams> = {
   id: 'Patterns::DragonCurve',
+  type: 'Patterns::DragonCurve',
   category: 'Patterns',
   label: 'DragonCurve',
   description: 'Dragon curve fractal',

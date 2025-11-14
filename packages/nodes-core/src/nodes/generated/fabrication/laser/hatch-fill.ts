@@ -16,6 +16,7 @@ interface HatchFillOutputs {
 
 export const FabricationLaserHatchFillNode: NodeDefinition<HatchFillInputs, HatchFillOutputs, HatchFillParams> = {
   id: 'Fabrication::HatchFill',
+  type: 'Fabrication::HatchFill',
   category: 'Fabrication',
   label: 'HatchFill',
   description: 'Generate hatch fill pattern',

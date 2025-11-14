@@ -15,6 +15,7 @@ interface ToolCompensationOutputs {
 
 export const FabricationCNCToolCompensationNode: NodeDefinition<ToolCompensationInputs, ToolCompensationOutputs, ToolCompensationParams> = {
   id: 'Fabrication::ToolCompensation',
+  type: 'Fabrication::ToolCompensation',
   category: 'Fabrication',
   label: 'ToolCompensation',
   description: 'Tool radius compensation',

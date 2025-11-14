@@ -15,6 +15,7 @@ interface AdditiveManufacturingOutputs {
 
 export const FabricationRoboticsAdditiveManufacturingNode: NodeDefinition<AdditiveManufacturingInputs, AdditiveManufacturingOutputs, AdditiveManufacturingParams> = {
   id: 'Fabrication::AdditiveManufacturing',
+  type: 'Fabrication::AdditiveManufacturing',
   category: 'Fabrication',
   label: 'AdditiveManufacturing',
   description: 'Robotic 3D printing',

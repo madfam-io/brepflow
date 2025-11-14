@@ -15,6 +15,7 @@ interface WallJoinOutputs {
 
 export const ArchitectureWallsWallJoinNode: NodeDefinition<WallJoinInputs, WallJoinOutputs, WallJoinParams> = {
   id: 'Architecture::WallJoin',
+  type: 'Architecture::WallJoin',
   category: 'Architecture',
   label: 'WallJoin',
   description: 'Join wall segments',

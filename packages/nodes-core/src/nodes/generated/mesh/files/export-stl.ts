@@ -15,6 +15,7 @@ interface ExportSTLOutputs {
 
 export const MeshFilesExportSTLNode: NodeDefinition<ExportSTLInputs, ExportSTLOutputs, ExportSTLParams> = {
   id: 'Mesh::ExportSTL',
+  type: 'Mesh::ExportSTL',
   category: 'Mesh',
   label: 'ExportSTL',
   description: 'Export mesh to STL',

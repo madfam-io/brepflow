@@ -15,6 +15,7 @@ interface IslamicGridOutputs {
 
 export const PatternsIslamicIslamicGridNode: NodeDefinition<IslamicGridInputs, IslamicGridOutputs, IslamicGridParams> = {
   id: 'Patterns::IslamicGrid',
+  type: 'Patterns::IslamicGrid',
   category: 'Patterns',
   label: 'IslamicGrid',
   description: 'Islamic grid system',

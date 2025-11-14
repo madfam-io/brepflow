@@ -15,6 +15,7 @@ interface SubdivideMeshOutputs {
 
 export const MeshRepairSubdivideMeshNode: NodeDefinition<SubdivideMeshInputs, SubdivideMeshOutputs, SubdivideMeshParams> = {
   id: 'Mesh::SubdivideMesh',
+  type: 'Mesh::SubdivideMesh',
   category: 'Mesh',
   label: 'SubdivideMesh',
   description: 'Subdivide mesh faces',

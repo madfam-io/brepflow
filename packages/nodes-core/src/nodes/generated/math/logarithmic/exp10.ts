@@ -12,6 +12,7 @@ interface Exp10Outputs {
 
 export const MathLogarithmicExp10Node: NodeDefinition<Exp10Inputs, Exp10Outputs, Exp10Params> = {
   id: 'Math::Exp10',
+  type: 'Math::Exp10',
   category: 'Math',
   label: 'Exp10',
   description: '10 raised to power',

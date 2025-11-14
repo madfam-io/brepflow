@@ -16,6 +16,7 @@ interface StretchCeilingOutputs {
 
 export const ArchitectureCeilingsStretchCeilingNode: NodeDefinition<StretchCeilingInputs, StretchCeilingOutputs, StretchCeilingParams> = {
   id: 'Architecture::StretchCeiling',
+  type: 'Architecture::StretchCeiling',
   category: 'Architecture',
   label: 'StretchCeiling',
   description: 'Stretch fabric ceiling',

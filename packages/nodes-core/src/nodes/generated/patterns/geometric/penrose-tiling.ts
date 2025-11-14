@@ -15,6 +15,7 @@ interface PenroseTilingOutputs {
 
 export const PatternsGeometricPenroseTilingNode: NodeDefinition<PenroseTilingInputs, PenroseTilingOutputs, PenroseTilingParams> = {
   id: 'Patterns::PenroseTiling',
+  type: 'Patterns::PenroseTiling',
   category: 'Patterns',
   label: 'PenroseTiling',
   description: 'Penrose aperiodic tiling',

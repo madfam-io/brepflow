@@ -15,6 +15,7 @@ interface CelticKnotOutputs {
 
 export const PatternsCelticCelticKnotNode: NodeDefinition<CelticKnotInputs, CelticKnotOutputs, CelticKnotParams> = {
   id: 'Patterns::CelticKnot',
+  type: 'Patterns::CelticKnot',
   category: 'Patterns',
   label: 'CelticKnot',
   description: 'Celtic knot pattern',

@@ -15,6 +15,7 @@ interface QuadMeshOutputs {
 
 export const MeshTessellationQuadMeshNode: NodeDefinition<QuadMeshInputs, QuadMeshOutputs, QuadMeshParams> = {
   id: 'Mesh::QuadMesh',
+  type: 'Mesh::QuadMesh',
   category: 'Mesh',
   label: 'QuadMesh',
   description: 'Generate quad-dominant mesh',

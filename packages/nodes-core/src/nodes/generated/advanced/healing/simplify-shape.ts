@@ -16,6 +16,7 @@ interface SimplifyShapeOutputs {
 
 export const AdvancedHealingSimplifyShapeNode: NodeDefinition<SimplifyShapeInputs, SimplifyShapeOutputs, SimplifyShapeParams> = {
   id: 'Advanced::SimplifyShape',
+  type: 'Advanced::SimplifyShape',
   category: 'Advanced',
   label: 'SimplifyShape',
   description: 'Simplify complex geometry',

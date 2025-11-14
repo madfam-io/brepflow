@@ -13,6 +13,7 @@ interface HorizontalOutputs {
 
 export const AssemblyConstraintsHorizontalNode: NodeDefinition<HorizontalInputs, HorizontalOutputs, HorizontalParams> = {
   id: 'Assembly::Horizontal',
+  type: 'Assembly::Horizontal',
   category: 'Assembly',
   label: 'Horizontal',
   description: 'Make entity horizontal',

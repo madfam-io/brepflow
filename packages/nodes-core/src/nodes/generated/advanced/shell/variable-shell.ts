@@ -14,6 +14,7 @@ interface VariableShellOutputs {
 
 export const AdvancedShellVariableShellNode: NodeDefinition<VariableShellInputs, VariableShellOutputs, VariableShellParams> = {
   id: 'Advanced::VariableShell',
+  type: 'Advanced::VariableShell',
   category: 'Advanced',
   label: 'VariableShell',
   description: 'Shell with variable thickness',

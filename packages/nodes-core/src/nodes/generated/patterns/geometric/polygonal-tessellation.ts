@@ -15,6 +15,7 @@ interface PolygonalTessellationOutputs {
 
 export const PatternsGeometricPolygonalTessellationNode: NodeDefinition<PolygonalTessellationInputs, PolygonalTessellationOutputs, PolygonalTessellationParams> = {
   id: 'Patterns::PolygonalTessellation',
+  type: 'Patterns::PolygonalTessellation',
   category: 'Patterns',
   label: 'PolygonalTessellation',
   description: 'Regular polygon tessellation',

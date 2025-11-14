@@ -18,6 +18,7 @@ interface ThrustBearingOutputs {
 
 export const MechanicalEngineeringBearingsThrustBearingNode: NodeDefinition<ThrustBearingInputs, ThrustBearingOutputs, ThrustBearingParams> = {
   id: 'MechanicalEngineering::ThrustBearing',
+  type: 'MechanicalEngineering::ThrustBearing',
   category: 'MechanicalEngineering',
   label: 'ThrustBearing',
   description: 'Create thrust bearing for axial loads',

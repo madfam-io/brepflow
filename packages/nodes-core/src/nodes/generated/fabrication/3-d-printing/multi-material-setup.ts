@@ -16,6 +16,7 @@ interface MultiMaterialSetupOutputs {
 
 export const Fabrication3DPrintingMultiMaterialSetupNode: NodeDefinition<MultiMaterialSetupInputs, MultiMaterialSetupOutputs, MultiMaterialSetupParams> = {
   id: 'Fabrication::MultiMaterialSetup',
+  type: 'Fabrication::MultiMaterialSetup',
   category: 'Fabrication',
   label: 'MultiMaterialSetup',
   description: 'Setup multi-material regions',

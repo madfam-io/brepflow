@@ -16,6 +16,7 @@ interface TabsAndSlotsOutputs {
 
 export const FabricationLaserTabsAndSlotsNode: NodeDefinition<TabsAndSlotsInputs, TabsAndSlotsOutputs, TabsAndSlotsParams> = {
   id: 'Fabrication::TabsAndSlots',
+  type: 'Fabrication::TabsAndSlots',
   category: 'Fabrication',
   label: 'TabsAndSlots',
   description: 'Add tabs for assembly',

@@ -14,6 +14,7 @@ interface InverseLerpOutputs {
 
 export const MathInterpolationInverseLerpNode: NodeDefinition<InverseLerpInputs, InverseLerpOutputs, InverseLerpParams> = {
   id: 'Math::InverseLerp',
+  type: 'Math::InverseLerp',
   category: 'Math',
   label: 'InverseLerp',
   description: 'Inverse linear interpolation',

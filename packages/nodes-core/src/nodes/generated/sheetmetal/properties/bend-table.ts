@@ -14,6 +14,7 @@ interface BendTableOutputs {
 
 export const SheetMetalPropertiesBendTableNode: NodeDefinition<BendTableInputs, BendTableOutputs, BendTableParams> = {
   id: 'SheetMetal::BendTable',
+  type: 'SheetMetal::BendTable',
   category: 'SheetMetal',
   label: 'BendTable',
   description: 'Define bend deduction table',

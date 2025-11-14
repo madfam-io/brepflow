@@ -13,6 +13,7 @@ interface SetIntersectionOutputs {
 
 export const DataSetSetIntersectionNode: NodeDefinition<SetIntersectionInputs, SetIntersectionOutputs, SetIntersectionParams> = {
   id: 'Data::SetIntersection',
+  type: 'Data::SetIntersection',
   category: 'Data',
   label: 'SetIntersection',
   description: 'Intersection of sets',

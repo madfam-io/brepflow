@@ -16,6 +16,7 @@ interface ContouringToolpathOutputs {
 
 export const FabricationCNCContouringToolpathNode: NodeDefinition<ContouringToolpathInputs, ContouringToolpathOutputs, ContouringToolpathParams> = {
   id: 'Fabrication::ContouringToolpath',
+  type: 'Fabrication::ContouringToolpath',
   category: 'Fabrication',
   label: 'ContouringToolpath',
   description: 'Contour machining paths',

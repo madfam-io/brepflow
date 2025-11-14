@@ -20,6 +20,7 @@ interface SurfaceDerivativesOutputs {
 
 export const AnalysisSurfacesSurfaceDerivativesNode: NodeDefinition<SurfaceDerivativesInputs, SurfaceDerivativesOutputs, SurfaceDerivativesParams> = {
   id: 'Analysis::SurfaceDerivatives',
+  type: 'Analysis::SurfaceDerivatives',
   category: 'Analysis',
   label: 'SurfaceDerivatives',
   description: 'Calculate surface derivatives',

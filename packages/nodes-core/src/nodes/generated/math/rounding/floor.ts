@@ -12,6 +12,7 @@ interface FloorOutputs {
 
 export const MathRoundingFloorNode: NodeDefinition<FloorInputs, FloorOutputs, FloorParams> = {
   id: 'Math::Floor',
+  type: 'Math::Floor',
   category: 'Math',
   label: 'Floor',
   description: 'Round down',

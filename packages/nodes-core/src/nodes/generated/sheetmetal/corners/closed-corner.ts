@@ -17,6 +17,7 @@ interface ClosedCornerOutputs {
 
 export const SheetMetalCornersClosedCornerNode: NodeDefinition<ClosedCornerInputs, ClosedCornerOutputs, ClosedCornerParams> = {
   id: 'SheetMetal::ClosedCorner',
+  type: 'SheetMetal::ClosedCorner',
   category: 'SheetMetal',
   label: 'ClosedCorner',
   description: 'Create closed corner',

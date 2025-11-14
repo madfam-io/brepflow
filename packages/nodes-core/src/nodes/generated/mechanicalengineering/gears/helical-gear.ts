@@ -19,6 +19,7 @@ interface HelicalGearOutputs {
 
 export const MechanicalEngineeringGearsHelicalGearNode: NodeDefinition<HelicalGearInputs, HelicalGearOutputs, HelicalGearParams> = {
   id: 'MechanicalEngineering::HelicalGear',
+  type: 'MechanicalEngineering::HelicalGear',
   category: 'MechanicalEngineering',
   label: 'HelicalGear',
   description: 'Create helical gear with angle',

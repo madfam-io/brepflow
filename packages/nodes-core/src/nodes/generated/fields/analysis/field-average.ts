@@ -16,6 +16,7 @@ interface FieldAverageOutputs {
 
 export const FieldsAnalysisFieldAverageNode: NodeDefinition<FieldAverageInputs, FieldAverageOutputs, FieldAverageParams> = {
   id: 'Fields::FieldAverage',
+  type: 'Fields::FieldAverage',
   category: 'Fields',
   label: 'FieldAverage',
   description: 'Calculate average field value',

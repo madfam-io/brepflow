@@ -19,6 +19,7 @@ interface TessellateOutputs {
 
 export const MeshTessellationTessellateNode: NodeDefinition<TessellateInputs, TessellateOutputs, TessellateParams> = {
   id: 'Mesh::Tessellate',
+  type: 'Mesh::Tessellate',
   category: 'Mesh',
   label: 'Tessellate',
   description: 'Convert shape to mesh',

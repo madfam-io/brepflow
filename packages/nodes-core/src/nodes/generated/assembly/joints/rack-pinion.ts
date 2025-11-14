@@ -15,6 +15,7 @@ interface RackPinionOutputs {
 
 export const AssemblyJointsRackPinionNode: NodeDefinition<RackPinionInputs, RackPinionOutputs, RackPinionParams> = {
   id: 'Assembly::RackPinion',
+  type: 'Assembly::RackPinion',
   category: 'Assembly',
   label: 'RackPinion',
   description: 'Create rack and pinion joint',

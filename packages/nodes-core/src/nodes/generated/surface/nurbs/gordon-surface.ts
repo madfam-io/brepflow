@@ -14,6 +14,7 @@ interface GordonSurfaceOutputs {
 
 export const SurfaceNURBSGordonSurfaceNode: NodeDefinition<GordonSurfaceInputs, GordonSurfaceOutputs, GordonSurfaceParams> = {
   id: 'Surface::GordonSurface',
+  type: 'Surface::GordonSurface',
   category: 'Surface',
   label: 'GordonSurface',
   description: 'Create Gordon surface',

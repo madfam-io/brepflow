@@ -15,6 +15,7 @@ interface LaserPathOutputs {
 
 export const FabricationLaserLaserPathNode: NodeDefinition<LaserPathInputs, LaserPathOutputs, LaserPathParams> = {
   id: 'Fabrication::LaserPath',
+  type: 'Fabrication::LaserPath',
   category: 'Fabrication',
   label: 'LaserPath',
   description: 'Generate laser cutting path',

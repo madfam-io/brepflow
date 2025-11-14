@@ -16,6 +16,7 @@ interface MeshAttractorOutputs {
 
 export const FieldAttractorMeshAttractorNode: NodeDefinition<MeshAttractorInputs, MeshAttractorOutputs, MeshAttractorParams> = {
   id: 'Field::MeshAttractor',
+  type: 'Field::MeshAttractor',
   category: 'Field',
   label: 'MeshAttractor',
   description: 'Mesh vertex attractor',

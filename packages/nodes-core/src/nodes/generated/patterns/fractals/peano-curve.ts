@@ -14,6 +14,7 @@ interface PeanoCurveOutputs {
 
 export const PatternsFractalsPeanoCurveNode: NodeDefinition<PeanoCurveInputs, PeanoCurveOutputs, PeanoCurveParams> = {
   id: 'Patterns::PeanoCurve',
+  type: 'Patterns::PeanoCurve',
   category: 'Patterns',
   label: 'PeanoCurve',
   description: 'Peano space-filling curve',

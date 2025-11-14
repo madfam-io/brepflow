@@ -20,6 +20,7 @@ interface SurfaceCurvatureOutputs {
 
 export const AnalysisSurfacesSurfaceCurvatureNode: NodeDefinition<SurfaceCurvatureInputs, SurfaceCurvatureOutputs, SurfaceCurvatureParams> = {
   id: 'Analysis::SurfaceCurvature',
+  type: 'Analysis::SurfaceCurvature',
   category: 'Analysis',
   label: 'SurfaceCurvature',
   description: 'Analyze surface curvature (Gaussian and Mean)',

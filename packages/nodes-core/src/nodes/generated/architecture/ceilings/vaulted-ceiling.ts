@@ -15,6 +15,7 @@ interface VaultedCeilingOutputs {
 
 export const ArchitectureCeilingsVaultedCeilingNode: NodeDefinition<VaultedCeilingInputs, VaultedCeilingOutputs, VaultedCeilingParams> = {
   id: 'Architecture::VaultedCeiling',
+  type: 'Architecture::VaultedCeiling',
   category: 'Architecture',
   label: 'VaultedCeiling',
   description: 'Vaulted ceiling geometry',

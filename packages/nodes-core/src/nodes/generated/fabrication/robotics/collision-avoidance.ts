@@ -16,6 +16,7 @@ interface CollisionAvoidanceOutputs {
 
 export const FabricationRoboticsCollisionAvoidanceNode: NodeDefinition<CollisionAvoidanceInputs, CollisionAvoidanceOutputs, CollisionAvoidanceParams> = {
   id: 'Fabrication::CollisionAvoidance',
+  type: 'Fabrication::CollisionAvoidance',
   category: 'Fabrication',
   label: 'CollisionAvoidance',
   description: 'Collision detection and avoidance',

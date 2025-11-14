@@ -16,6 +16,7 @@ interface Voronoi3DOutputs {
 
 export const PatternsVoronoiVoronoi3DNode: NodeDefinition<Voronoi3DInputs, Voronoi3DOutputs, Voronoi3DParams> = {
   id: 'Patterns::Voronoi3D',
+  type: 'Patterns::Voronoi3D',
   category: 'Patterns',
   label: 'Voronoi3D',
   description: 'Create 3D Voronoi cells',

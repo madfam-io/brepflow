@@ -15,6 +15,7 @@ interface AcousticCeilingOutputs {
 
 export const ArchitectureCeilingsAcousticCeilingNode: NodeDefinition<AcousticCeilingInputs, AcousticCeilingOutputs, AcousticCeilingParams> = {
   id: 'Architecture::AcousticCeiling',
+  type: 'Architecture::AcousticCeiling',
   category: 'Architecture',
   label: 'AcousticCeiling',
   description: 'Acoustic ceiling treatment',

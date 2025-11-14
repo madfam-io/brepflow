@@ -14,6 +14,7 @@ interface PointOutputs {
 
 export const SketchBasicPointNode: NodeDefinition<PointInputs, PointOutputs, PointParams> = {
   id: 'Sketch::Point',
+  type: 'Sketch::Point',
   category: 'Sketch',
   label: 'Point',
   description: 'Create a point',

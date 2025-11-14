@@ -16,6 +16,7 @@ interface ScrewOutputs {
 
 export const AssemblyJointsScrewNode: NodeDefinition<ScrewInputs, ScrewOutputs, ScrewParams> = {
   id: 'Assembly::Screw',
+  type: 'Assembly::Screw',
   category: 'Assembly',
   label: 'Screw',
   description: 'Create screw joint',

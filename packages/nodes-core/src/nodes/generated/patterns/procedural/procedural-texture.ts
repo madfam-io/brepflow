@@ -16,6 +16,7 @@ interface ProceduralTextureOutputs {
 
 export const PatternsProceduralProceduralTextureNode: NodeDefinition<ProceduralTextureInputs, ProceduralTextureOutputs, ProceduralTextureParams> = {
   id: 'Patterns::ProceduralTexture',
+  type: 'Patterns::ProceduralTexture',
   category: 'Patterns',
   label: 'ProceduralTexture',
   description: 'Procedural texture generation',

@@ -14,6 +14,7 @@ interface StandardDeviationOutputs {
 
 export const MathStatisticsStandardDeviationNode: NodeDefinition<StandardDeviationInputs, StandardDeviationOutputs, StandardDeviationParams> = {
   id: 'Math::StandardDeviation',
+  type: 'Math::StandardDeviation',
   category: 'Math',
   label: 'StandardDeviation',
   description: 'Calculate standard deviation',

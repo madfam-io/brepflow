@@ -16,6 +16,7 @@ interface MultiplePassesOutputs {
 
 export const FabricationLaserMultiplePassesNode: NodeDefinition<MultiplePassesInputs, MultiplePassesOutputs, MultiplePassesParams> = {
   id: 'Fabrication::MultiplePasses',
+  type: 'Fabrication::MultiplePasses',
   category: 'Fabrication',
   label: 'MultiplePasses',
   description: 'Setup multiple passes',

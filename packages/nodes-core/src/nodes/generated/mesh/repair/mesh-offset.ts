@@ -15,6 +15,7 @@ interface MeshOffsetOutputs {
 
 export const MeshRepairMeshOffsetNode: NodeDefinition<MeshOffsetInputs, MeshOffsetOutputs, MeshOffsetParams> = {
   id: 'Mesh::MeshOffset',
+  type: 'Mesh::MeshOffset',
   category: 'Mesh',
   label: 'MeshOffset',
   description: 'Offset mesh surface',

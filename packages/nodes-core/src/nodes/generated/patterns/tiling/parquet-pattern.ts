@@ -16,6 +16,7 @@ interface ParquetPatternOutputs {
 
 export const PatternsTilingParquetPatternNode: NodeDefinition<ParquetPatternInputs, ParquetPatternOutputs, ParquetPatternParams> = {
   id: 'Patterns::ParquetPattern',
+  type: 'Patterns::ParquetPattern',
   category: 'Patterns',
   label: 'ParquetPattern',
   description: 'Wood parquet patterns',

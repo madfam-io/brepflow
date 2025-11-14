@@ -16,6 +16,7 @@ interface RemapOutputs {
 
 export const MathInterpolationRemapNode: NodeDefinition<RemapInputs, RemapOutputs, RemapParams> = {
   id: 'Math::Remap',
+  type: 'Math::Remap',
   category: 'Math',
   label: 'Remap',
   description: 'Remap value to new range',

@@ -17,6 +17,7 @@ interface CurveExtremePointsOutputs {
 
 export const AnalysisCurvesCurveExtremePointsNode: NodeDefinition<CurveExtremePointsInputs, CurveExtremePointsOutputs, CurveExtremePointsParams> = {
   id: 'Analysis::CurveExtremePoints',
+  type: 'Analysis::CurveExtremePoints',
   category: 'Analysis',
   label: 'CurveExtremePoints',
   description: 'Find extreme points (min/max X,Y,Z)',

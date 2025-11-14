@@ -18,6 +18,7 @@ interface SQLInsertOutputs {
 
 export const InteroperabilityDatabaseSQLInsertNode: NodeDefinition<SQLInsertInputs, SQLInsertOutputs, SQLInsertParams> = {
   id: 'Interoperability::SQLInsert',
+  type: 'Interoperability::SQLInsert',
   category: 'Interoperability',
   label: 'SQLInsert',
   description: 'Insert data into SQL database',

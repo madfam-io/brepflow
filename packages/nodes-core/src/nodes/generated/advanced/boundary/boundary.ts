@@ -16,6 +16,7 @@ interface BoundaryOutputs {
 
 export const AdvancedBoundaryBoundaryNode: NodeDefinition<BoundaryInputs, BoundaryOutputs, BoundaryParams> = {
   id: 'Advanced::Boundary',
+  type: 'Advanced::Boundary',
   category: 'Advanced',
   label: 'Boundary',
   description: 'Create surface from boundary curves',

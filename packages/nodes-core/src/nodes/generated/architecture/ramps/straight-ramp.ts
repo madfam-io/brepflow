@@ -18,6 +18,7 @@ interface StraightRampOutputs {
 
 export const ArchitectureRampsStraightRampNode: NodeDefinition<StraightRampInputs, StraightRampOutputs, StraightRampParams> = {
   id: 'Architecture::StraightRamp',
+  type: 'Architecture::StraightRamp',
   category: 'Architecture',
   label: 'StraightRamp',
   description: 'Straight access ramp',

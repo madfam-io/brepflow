@@ -17,6 +17,7 @@ interface FluidDomainOutputs {
 
 export const SimulationCFDFluidDomainNode: NodeDefinition<FluidDomainInputs, FluidDomainOutputs, FluidDomainParams> = {
   id: 'Simulation::FluidDomain',
+  type: 'Simulation::FluidDomain',
   category: 'Simulation',
   label: 'FluidDomain',
   description: 'Create fluid domain',

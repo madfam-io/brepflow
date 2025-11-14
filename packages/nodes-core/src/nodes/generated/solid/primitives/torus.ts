@@ -19,6 +19,7 @@ interface TorusOutputs {
 
 export const SolidPrimitivesTorusNode: NodeDefinition<TorusInputs, TorusOutputs, TorusParams> = {
   id: 'Solid::Torus',
+  type: 'Solid::Torus',
   category: 'Solid',
   label: 'Torus',
   description: 'Create a parametric torus',

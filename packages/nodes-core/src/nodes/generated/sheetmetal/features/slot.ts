@@ -18,6 +18,7 @@ interface SlotOutputs {
 
 export const SheetMetalFeaturesSlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
   id: 'SheetMetal::Slot',
+  type: 'SheetMetal::Slot',
   category: 'SheetMetal',
   label: 'Slot',
   description: 'Create slot for tab',

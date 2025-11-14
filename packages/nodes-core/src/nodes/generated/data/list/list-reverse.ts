@@ -12,6 +12,7 @@ interface ListReverseOutputs {
 
 export const DataListListReverseNode: NodeDefinition<ListReverseInputs, ListReverseOutputs, ListReverseParams> = {
   id: 'Data::ListReverse',
+  type: 'Data::ListReverse',
   category: 'Data',
   label: 'ListReverse',
   description: 'Reverse list order',

@@ -17,6 +17,7 @@ interface HexNutOutputs {
 
 export const MechanicalEngineeringFastenersHexNutNode: NodeDefinition<HexNutInputs, HexNutOutputs, HexNutParams> = {
   id: 'MechanicalEngineering::HexNut',
+  type: 'MechanicalEngineering::HexNut',
   category: 'MechanicalEngineering',
   label: 'HexNut',
   description: 'Create hexagonal nut',

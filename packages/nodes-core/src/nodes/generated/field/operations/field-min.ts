@@ -12,6 +12,7 @@ interface FieldMinOutputs {
 
 export const FieldOperationsFieldMinNode: NodeDefinition<FieldMinInputs, FieldMinOutputs, FieldMinParams> = {
   id: 'Field::FieldMin',
+  type: 'Field::FieldMin',
   category: 'Field',
   label: 'FieldMin',
   description: 'Minimum of fields',

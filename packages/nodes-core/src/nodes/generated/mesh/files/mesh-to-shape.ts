@@ -15,6 +15,7 @@ interface MeshToShapeOutputs {
 
 export const MeshFilesMeshToShapeNode: NodeDefinition<MeshToShapeInputs, MeshToShapeOutputs, MeshToShapeParams> = {
   id: 'Mesh::MeshToShape',
+  type: 'Mesh::MeshToShape',
   category: 'Mesh',
   label: 'MeshToShape',
   description: 'Convert mesh to B-Rep',

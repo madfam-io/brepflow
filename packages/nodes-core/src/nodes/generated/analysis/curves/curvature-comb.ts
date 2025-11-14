@@ -20,6 +20,7 @@ interface CurvatureCombOutputs {
 
 export const AnalysisCurvesCurvatureCombNode: NodeDefinition<CurvatureCombInputs, CurvatureCombOutputs, CurvatureCombParams> = {
   id: 'Analysis::CurvatureComb',
+  type: 'Analysis::CurvatureComb',
   category: 'Analysis',
   label: 'CurvatureComb',
   description: 'Analyze curve curvature with visual comb',

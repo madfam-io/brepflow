@@ -17,6 +17,7 @@ interface TrajectoryOptimizationOutputs {
 
 export const FabricationRoboticsTrajectoryOptimizationNode: NodeDefinition<TrajectoryOptimizationInputs, TrajectoryOptimizationOutputs, TrajectoryOptimizationParams> = {
   id: 'Fabrication::TrajectoryOptimization',
+  type: 'Fabrication::TrajectoryOptimization',
   category: 'Fabrication',
   label: 'TrajectoryOptimization',
   description: 'Optimize robot trajectory',

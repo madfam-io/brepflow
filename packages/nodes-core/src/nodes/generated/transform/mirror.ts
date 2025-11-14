@@ -20,6 +20,7 @@ interface MirrorOutputs {
 
 export const TransformMirrorNode: NodeDefinition<MirrorInputs, MirrorOutputs, MirrorParams> = {
   id: 'Transform::Mirror',
+  type: 'Transform::Mirror',
   category: 'Transform',
   label: 'Mirror',
   description: 'Mirror shape across a plane',

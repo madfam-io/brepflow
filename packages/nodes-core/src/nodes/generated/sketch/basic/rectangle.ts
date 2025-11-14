@@ -17,6 +17,7 @@ interface RectangleOutputs {
 
 export const SketchBasicRectangleNode: NodeDefinition<RectangleInputs, RectangleOutputs, RectangleParams> = {
   id: 'Sketch::Rectangle',
+  type: 'Sketch::Rectangle',
   category: 'Sketch',
   label: 'Rectangle',
   description: 'Create a rectangle',

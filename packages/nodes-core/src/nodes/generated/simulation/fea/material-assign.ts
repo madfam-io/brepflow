@@ -20,6 +20,7 @@ interface MaterialAssignOutputs {
 
 export const SimulationFEAMaterialAssignNode: NodeDefinition<MaterialAssignInputs, MaterialAssignOutputs, MaterialAssignParams> = {
   id: 'Simulation::MaterialAssign',
+  type: 'Simulation::MaterialAssign',
   category: 'Simulation',
   label: 'MaterialAssign',
   description: 'Assign material properties',

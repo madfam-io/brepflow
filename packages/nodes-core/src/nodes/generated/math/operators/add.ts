@@ -13,6 +13,7 @@ interface AddOutputs {
 
 export const MathOperatorsAddNode: NodeDefinition<AddInputs, AddOutputs, AddParams> = {
   id: 'Math::Add',
+  type: 'Math::Add',
   category: 'Math',
   label: 'Add',
   description: 'Add two numbers',

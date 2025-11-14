@@ -12,6 +12,7 @@ interface MaxOutputs {
 
 export const MathComparisonMaxNode: NodeDefinition<MaxInputs, MaxOutputs, MaxParams> = {
   id: 'Math::Max',
+  type: 'Math::Max',
   category: 'Math',
   label: 'Max',
   description: 'Maximum value',

@@ -21,6 +21,7 @@ interface RotateOutputs {
 
 export const TransformRotateNode: NodeDefinition<RotateInputs, RotateOutputs, RotateParams> = {
   id: 'Transform::Rotate',
+  type: 'Transform::Rotate',
   category: 'Transform',
   label: 'Rotate',
   description: 'Rotate shape around axis',

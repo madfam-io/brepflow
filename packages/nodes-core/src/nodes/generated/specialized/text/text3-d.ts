@@ -20,6 +20,7 @@ interface Text3DOutputs {
 
 export const SpecializedTextText3DNode: NodeDefinition<Text3DInputs, Text3DOutputs, Text3DParams> = {
   id: 'Specialized::Text3D',
+  type: 'Specialized::Text3D',
   category: 'Specialized',
   label: 'Text3D',
   description: 'Create 3D text',

@@ -16,6 +16,7 @@ interface PrismOutputs {
 
 export const SolidParametricPrismNode: NodeDefinition<PrismInputs, PrismOutputs, PrismParams> = {
   id: 'Solid::Prism',
+  type: 'Solid::Prism',
   category: 'Solid',
   label: 'Prism',
   description: 'Create a prism from a profile and height',

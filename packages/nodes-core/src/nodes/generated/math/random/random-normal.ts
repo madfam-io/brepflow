@@ -14,6 +14,7 @@ interface RandomNormalOutputs {
 
 export const MathRandomRandomNormalNode: NodeDefinition<RandomNormalInputs, RandomNormalOutputs, RandomNormalParams> = {
   id: 'Math::RandomNormal',
+  type: 'Math::RandomNormal',
   category: 'Math',
   label: 'RandomNormal',
   description: 'Normal distribution',

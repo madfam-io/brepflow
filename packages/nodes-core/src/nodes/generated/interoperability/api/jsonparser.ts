@@ -17,6 +17,7 @@ interface JSONParserOutputs {
 
 export const InteroperabilityAPIJSONParserNode: NodeDefinition<JSONParserInputs, JSONParserOutputs, JSONParserParams> = {
   id: 'Interoperability::JSONParser',
+  type: 'Interoperability::JSONParser',
   category: 'Interoperability',
   label: 'JSONParser',
   description: 'Parse JSON data structures',

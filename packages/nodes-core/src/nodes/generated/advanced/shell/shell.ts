@@ -17,6 +17,7 @@ interface ShellOutputs {
 
 export const AdvancedShellShellNode: NodeDefinition<ShellInputs, ShellOutputs, ShellParams> = {
   id: 'Advanced::Shell',
+  type: 'Advanced::Shell',
   category: 'Advanced',
   label: 'Shell',
   description: 'Hollow out solid',

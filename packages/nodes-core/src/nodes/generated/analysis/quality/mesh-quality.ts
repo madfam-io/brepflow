@@ -18,6 +18,7 @@ interface MeshQualityOutputs {
 
 export const AnalysisQualityMeshQualityNode: NodeDefinition<MeshQualityInputs, MeshQualityOutputs, MeshQualityParams> = {
   id: 'Analysis::MeshQuality',
+  type: 'Analysis::MeshQuality',
   category: 'Analysis',
   label: 'MeshQuality',
   description: 'Analyze mesh quality metrics',

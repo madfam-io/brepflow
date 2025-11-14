@@ -17,6 +17,7 @@ interface BSplineCurveOutputs {
 
 export const SketchCurvesBSplineCurveNode: NodeDefinition<BSplineCurveInputs, BSplineCurveOutputs, BSplineCurveParams> = {
   id: 'Sketch::BSplineCurve',
+  type: 'Sketch::BSplineCurve',
   category: 'Sketch',
   label: 'BSplineCurve',
   description: 'Create a B-Spline curve',

@@ -19,6 +19,7 @@ interface SphericalBearingOutputs {
 
 export const MechanicalEngineeringBearingsSphericalBearingNode: NodeDefinition<SphericalBearingInputs, SphericalBearingOutputs, SphericalBearingParams> = {
   id: 'MechanicalEngineering::SphericalBearing',
+  type: 'MechanicalEngineering::SphericalBearing',
   category: 'MechanicalEngineering',
   label: 'SphericalBearing',
   description: 'Create spherical bearing for misalignment',

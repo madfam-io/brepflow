@@ -15,6 +15,7 @@ interface FloorExpansionJointOutputs {
 
 export const ArchitectureFloorsFloorExpansionJointNode: NodeDefinition<FloorExpansionJointInputs, FloorExpansionJointOutputs, FloorExpansionJointParams> = {
   id: 'Architecture::FloorExpansionJoint',
+  type: 'Architecture::FloorExpansionJoint',
   category: 'Architecture',
   label: 'FloorExpansionJoint',
   description: 'Expansion joint detail',

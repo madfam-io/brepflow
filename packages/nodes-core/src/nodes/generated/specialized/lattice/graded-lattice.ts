@@ -17,6 +17,7 @@ interface GradedLatticeOutputs {
 
 export const SpecializedLatticeGradedLatticeNode: NodeDefinition<GradedLatticeInputs, GradedLatticeOutputs, GradedLatticeParams> = {
   id: 'Specialized::GradedLattice',
+  type: 'Specialized::GradedLattice',
   category: 'Specialized',
   label: 'GradedLattice',
   description: 'Density-graded lattice',

@@ -15,6 +15,7 @@ interface UnionOutputs {
 
 export const BooleanUnionNode: NodeDefinition<UnionInputs, UnionOutputs, UnionParams> = {
   id: 'Boolean::Union',
+  type: 'Boolean::Union',
   category: 'Boolean',
   label: 'Union',
   description: 'Combine multiple shapes into one',

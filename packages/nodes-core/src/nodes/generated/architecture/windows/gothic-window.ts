@@ -16,6 +16,7 @@ interface GothicWindowOutputs {
 
 export const ArchitectureWindowsGothicWindowNode: NodeDefinition<GothicWindowInputs, GothicWindowOutputs, GothicWindowParams> = {
   id: 'Architecture::GothicWindow',
+  type: 'Architecture::GothicWindow',
   category: 'Architecture',
   label: 'GothicWindow',
   description: 'Gothic arch window',

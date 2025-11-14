@@ -18,6 +18,7 @@ interface FieldOptimizeOutputs {
 
 export const FieldsAdvancedFieldOptimizeNode: NodeDefinition<FieldOptimizeInputs, FieldOptimizeOutputs, FieldOptimizeParams> = {
   id: 'Fields::FieldOptimize',
+  type: 'Fields::FieldOptimize',
   category: 'Fields',
   label: 'FieldOptimize',
   description: 'Optimize field for objective',

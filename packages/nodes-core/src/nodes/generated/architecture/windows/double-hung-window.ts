@@ -18,6 +18,7 @@ interface DoubleHungWindowOutputs {
 
 export const ArchitectureWindowsDoubleHungWindowNode: NodeDefinition<DoubleHungWindowInputs, DoubleHungWindowOutputs, DoubleHungWindowParams> = {
   id: 'Architecture::DoubleHungWindow',
+  type: 'Architecture::DoubleHungWindow',
   category: 'Architecture',
   label: 'DoubleHungWindow',
   description: 'Double hung window',

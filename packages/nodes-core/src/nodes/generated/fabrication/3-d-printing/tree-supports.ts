@@ -16,6 +16,7 @@ interface TreeSupportsOutputs {
 
 export const Fabrication3DPrintingTreeSupportsNode: NodeDefinition<TreeSupportsInputs, TreeSupportsOutputs, TreeSupportsParams> = {
   id: 'Fabrication::TreeSupports',
+  type: 'Fabrication::TreeSupports',
   category: 'Fabrication',
   label: 'TreeSupports',
   description: 'Generate tree-like supports',

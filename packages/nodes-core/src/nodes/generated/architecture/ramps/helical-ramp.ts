@@ -17,6 +17,7 @@ interface HelicalRampOutputs {
 
 export const ArchitectureRampsHelicalRampNode: NodeDefinition<HelicalRampInputs, HelicalRampOutputs, HelicalRampParams> = {
   id: 'Architecture::HelicalRamp',
+  type: 'Architecture::HelicalRamp',
   category: 'Architecture',
   label: 'HelicalRamp',
   description: 'Helical parking ramp',

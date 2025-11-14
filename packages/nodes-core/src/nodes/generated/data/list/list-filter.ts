@@ -13,6 +13,7 @@ interface ListFilterOutputs {
 
 export const DataListListFilterNode: NodeDefinition<ListFilterInputs, ListFilterOutputs, ListFilterParams> = {
   id: 'Data::ListFilter',
+  type: 'Data::ListFilter',
   category: 'Data',
   label: 'ListFilter',
   description: 'Filter list by condition',

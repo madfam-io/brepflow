@@ -17,6 +17,7 @@ interface PackingOptimizeOutputs {
 
 export const SpecializedOptimizationPackingOptimizeNode: NodeDefinition<PackingOptimizeInputs, PackingOptimizeOutputs, PackingOptimizeParams> = {
   id: 'Specialized::PackingOptimize',
+  type: 'Specialized::PackingOptimize',
   category: 'Specialized',
   label: 'PackingOptimize',
   description: 'Optimize part packing',

@@ -16,6 +16,7 @@ interface SlotOutputs {
 
 export const SketchBasicSlotNode: NodeDefinition<SlotInputs, SlotOutputs, SlotParams> = {
   id: 'Sketch::Slot',
+  type: 'Sketch::Slot',
   category: 'Sketch',
   label: 'Slot',
   description: 'Create a slot (rounded rectangle)',

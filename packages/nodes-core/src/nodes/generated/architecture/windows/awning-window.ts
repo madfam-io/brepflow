@@ -14,6 +14,7 @@ interface AwningWindowOutputs {
 
 export const ArchitectureWindowsAwningWindowNode: NodeDefinition<AwningWindowInputs, AwningWindowOutputs, AwningWindowParams> = {
   id: 'Architecture::AwningWindow',
+  type: 'Architecture::AwningWindow',
   category: 'Architecture',
   label: 'AwningWindow',
   description: 'Awning window',

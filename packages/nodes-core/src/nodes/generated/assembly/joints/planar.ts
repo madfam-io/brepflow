@@ -14,6 +14,7 @@ interface PlanarOutputs {
 
 export const AssemblyJointsPlanarNode: NodeDefinition<PlanarInputs, PlanarOutputs, PlanarParams> = {
   id: 'Assembly::Planar',
+  type: 'Assembly::Planar',
   category: 'Assembly',
   label: 'Planar',
   description: 'Create planar joint',

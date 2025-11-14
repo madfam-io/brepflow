@@ -12,6 +12,7 @@ interface SignOutputs {
 
 export const MathComparisonSignNode: NodeDefinition<SignInputs, SignOutputs, SignParams> = {
   id: 'Math::Sign',
+  type: 'Math::Sign',
   category: 'Math',
   label: 'Sign',
   description: 'Sign of number',

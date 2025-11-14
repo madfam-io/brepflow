@@ -17,6 +17,7 @@ interface SimpleHoleOutputs {
 
 export const FeaturesHolesSimpleHoleNode: NodeDefinition<SimpleHoleInputs, SimpleHoleOutputs, SimpleHoleParams> = {
   id: 'Features::SimpleHole',
+  type: 'Features::SimpleHole',
   category: 'Features',
   label: 'SimpleHole',
   description: 'Creates a simple through hole',

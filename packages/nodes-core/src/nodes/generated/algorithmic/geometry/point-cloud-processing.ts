@@ -18,6 +18,7 @@ interface PointCloudProcessingOutputs {
 
 export const AlgorithmicGeometryPointCloudProcessingNode: NodeDefinition<PointCloudProcessingInputs, PointCloudProcessingOutputs, PointCloudProcessingParams> = {
   id: 'Algorithmic::PointCloudProcessing',
+  type: 'Algorithmic::PointCloudProcessing',
   category: 'Algorithmic',
   label: 'PointCloudProcessing',
   description: 'Process and filter point clouds',

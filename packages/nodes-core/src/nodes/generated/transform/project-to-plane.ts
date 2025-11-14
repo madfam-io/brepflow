@@ -19,6 +19,7 @@ interface ProjectToPlaneOutputs {
 
 export const TransformProjectToPlaneNode: NodeDefinition<ProjectToPlaneInputs, ProjectToPlaneOutputs, ProjectToPlaneParams> = {
   id: 'Transform::ProjectToPlane',
+  type: 'Transform::ProjectToPlane',
   category: 'Transform',
   label: 'ProjectToPlane',
   description: 'Project shape onto a plane',

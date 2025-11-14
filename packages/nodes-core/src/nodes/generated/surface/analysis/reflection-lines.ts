@@ -15,6 +15,7 @@ interface ReflectionLinesOutputs {
 
 export const SurfaceAnalysisReflectionLinesNode: NodeDefinition<ReflectionLinesInputs, ReflectionLinesOutputs, ReflectionLinesParams> = {
   id: 'Surface::ReflectionLines',
+  type: 'Surface::ReflectionLines',
   category: 'Surface',
   label: 'ReflectionLines',
   description: 'Reflection line analysis',

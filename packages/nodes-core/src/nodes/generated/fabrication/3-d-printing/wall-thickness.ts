@@ -16,6 +16,7 @@ interface WallThicknessOutputs {
 
 export const Fabrication3DPrintingWallThicknessNode: NodeDefinition<WallThicknessInputs, WallThicknessOutputs, WallThicknessParams> = {
   id: 'Fabrication::WallThickness',
+  type: 'Fabrication::WallThickness',
   category: 'Fabrication',
   label: 'WallThickness',
   description: 'Analyze wall thickness',

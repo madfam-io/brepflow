@@ -12,6 +12,7 @@ interface NaturalLogOutputs {
 
 export const MathLogarithmicNaturalLogNode: NodeDefinition<NaturalLogInputs, NaturalLogOutputs, NaturalLogParams> = {
   id: 'Math::NaturalLog',
+  type: 'Math::NaturalLog',
   category: 'Math',
   label: 'NaturalLog',
   description: 'Natural logarithm',

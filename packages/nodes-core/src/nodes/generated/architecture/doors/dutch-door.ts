@@ -17,6 +17,7 @@ interface DutchDoorOutputs {
 
 export const ArchitectureDoorsDutchDoorNode: NodeDefinition<DutchDoorInputs, DutchDoorOutputs, DutchDoorParams> = {
   id: 'Architecture::DutchDoor',
+  type: 'Architecture::DutchDoor',
   category: 'Architecture',
   label: 'DutchDoor',
   description: 'Dutch split door',

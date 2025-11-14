@@ -16,6 +16,7 @@ interface ParabolaOutputs {
 
 export const SketchCurvesParabolaNode: NodeDefinition<ParabolaInputs, ParabolaOutputs, ParabolaParams> = {
   id: 'Sketch::Parabola',
+  type: 'Sketch::Parabola',
   category: 'Sketch',
   label: 'Parabola',
   description: 'Create a parabolic curve',

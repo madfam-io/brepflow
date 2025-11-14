@@ -12,6 +12,7 @@ interface ProductOutputs {
 
 export const MathStatisticsProductNode: NodeDefinition<ProductInputs, ProductOutputs, ProductParams> = {
   id: 'Math::Product',
+  type: 'Math::Product',
   category: 'Math',
   label: 'Product',
   description: 'Product of values',

@@ -18,6 +18,7 @@ interface SpacePartitioningOutputs {
 
 export const AlgorithmicGeometrySpacePartitioningNode: NodeDefinition<SpacePartitioningInputs, SpacePartitioningOutputs, SpacePartitioningParams> = {
   id: 'Algorithmic::SpacePartitioning',
+  type: 'Algorithmic::SpacePartitioning',
   category: 'Algorithmic',
   label: 'SpacePartitioning',
   description: 'Spatial data structure for fast queries',

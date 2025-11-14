@@ -15,6 +15,7 @@ interface FieldClampOutputs {
 
 export const FieldOperationsFieldClampNode: NodeDefinition<FieldClampInputs, FieldClampOutputs, FieldClampParams> = {
   id: 'Field::FieldClamp',
+  type: 'Field::FieldClamp',
   category: 'Field',
   label: 'FieldClamp',
   description: 'Clamp field values',

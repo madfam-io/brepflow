@@ -17,6 +17,7 @@ interface GraphLayoutOutputs {
 
 export const PatternsAlgorithmicGraphLayoutNode: NodeDefinition<GraphLayoutInputs, GraphLayoutOutputs, GraphLayoutParams> = {
   id: 'Patterns::GraphLayout',
+  type: 'Patterns::GraphLayout',
   category: 'Patterns',
   label: 'GraphLayout',
   description: 'Graph layout algorithms',

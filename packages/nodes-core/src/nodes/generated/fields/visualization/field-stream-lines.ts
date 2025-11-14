@@ -17,6 +17,7 @@ interface FieldStreamLinesOutputs {
 
 export const FieldsVisualizationFieldStreamLinesNode: NodeDefinition<FieldStreamLinesInputs, FieldStreamLinesOutputs, FieldStreamLinesParams> = {
   id: 'Fields::FieldStreamLines',
+  type: 'Fields::FieldStreamLines',
   category: 'Fields',
   label: 'FieldStreamLines',
   description: 'Generate streamlines through vector field',

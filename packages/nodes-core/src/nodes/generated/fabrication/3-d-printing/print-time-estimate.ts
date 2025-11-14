@@ -17,6 +17,7 @@ interface PrintTimeEstimateOutputs {
 
 export const Fabrication3DPrintingPrintTimeEstimateNode: NodeDefinition<PrintTimeEstimateInputs, PrintTimeEstimateOutputs, PrintTimeEstimateParams> = {
   id: 'Fabrication::PrintTimeEstimate',
+  type: 'Fabrication::PrintTimeEstimate',
   category: 'Fabrication',
   label: 'PrintTimeEstimate',
   description: 'Estimate print time',

@@ -14,6 +14,7 @@ interface ListInsertOutputs {
 
 export const DataListListInsertNode: NodeDefinition<ListInsertInputs, ListInsertOutputs, ListInsertParams> = {
   id: 'Data::ListInsert',
+  type: 'Data::ListInsert',
   category: 'Data',
   label: 'ListInsert',
   description: 'Insert item in list',

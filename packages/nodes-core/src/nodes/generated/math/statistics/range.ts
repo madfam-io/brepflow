@@ -14,6 +14,7 @@ interface RangeOutputs {
 
 export const MathStatisticsRangeNode: NodeDefinition<RangeInputs, RangeOutputs, RangeParams> = {
   id: 'Math::Range',
+  type: 'Math::Range',
   category: 'Math',
   label: 'Range',
   description: 'Range of values',

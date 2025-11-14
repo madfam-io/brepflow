@@ -18,6 +18,7 @@ interface ContourFlangeOutputs {
 
 export const SheetMetalFlangesContourFlangeNode: NodeDefinition<ContourFlangeInputs, ContourFlangeOutputs, ContourFlangeParams> = {
   id: 'SheetMetal::ContourFlange',
+  type: 'SheetMetal::ContourFlange',
   category: 'SheetMetal',
   label: 'ContourFlange',
   description: 'Create flange from sketch contour',

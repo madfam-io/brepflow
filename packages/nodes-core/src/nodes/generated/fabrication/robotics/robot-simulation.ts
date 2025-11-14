@@ -16,6 +16,7 @@ interface RobotSimulationOutputs {
 
 export const FabricationRoboticsRobotSimulationNode: NodeDefinition<RobotSimulationInputs, RobotSimulationOutputs, RobotSimulationParams> = {
   id: 'Fabrication::RobotSimulation',
+  type: 'Fabrication::RobotSimulation',
   category: 'Fabrication',
   label: 'RobotSimulation',
   description: 'Simulate robot motion',

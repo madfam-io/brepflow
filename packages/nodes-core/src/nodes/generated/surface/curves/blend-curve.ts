@@ -19,6 +19,7 @@ interface BlendCurveOutputs {
 
 export const SurfaceCurvesBlendCurveNode: NodeDefinition<BlendCurveInputs, BlendCurveOutputs, BlendCurveParams> = {
   id: 'Surface::BlendCurve',
+  type: 'Surface::BlendCurve',
   category: 'Surface',
   label: 'BlendCurve',
   description: 'Blend between two curves',

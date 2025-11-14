@@ -15,6 +15,7 @@ interface StairNosingOutputs {
 
 export const ArchitectureStairsStairNosingNode: NodeDefinition<StairNosingInputs, StairNosingOutputs, StairNosingParams> = {
   id: 'Architecture::StairNosing',
+  type: 'Architecture::StairNosing',
   category: 'Architecture',
   label: 'StairNosing',
   description: 'Stair nosing profile',

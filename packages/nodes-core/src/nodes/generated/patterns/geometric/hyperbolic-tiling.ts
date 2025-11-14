@@ -16,6 +16,7 @@ interface HyperbolicTilingOutputs {
 
 export const PatternsGeometricHyperbolicTilingNode: NodeDefinition<HyperbolicTilingInputs, HyperbolicTilingOutputs, HyperbolicTilingParams> = {
   id: 'Patterns::HyperbolicTiling',
+  type: 'Patterns::HyperbolicTiling',
   category: 'Patterns',
   label: 'HyperbolicTiling',
   description: 'Hyperbolic tessellation',

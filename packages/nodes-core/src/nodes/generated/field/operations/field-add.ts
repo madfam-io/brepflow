@@ -13,6 +13,7 @@ interface FieldAddOutputs {
 
 export const FieldOperationsFieldAddNode: NodeDefinition<FieldAddInputs, FieldAddOutputs, FieldAddParams> = {
   id: 'Field::FieldAdd',
+  type: 'Field::FieldAdd',
   category: 'Field',
   label: 'FieldAdd',
   description: 'Add fields',

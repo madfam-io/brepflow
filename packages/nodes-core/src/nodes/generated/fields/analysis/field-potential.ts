@@ -15,6 +15,7 @@ interface FieldPotentialOutputs {
 
 export const FieldsAnalysisFieldPotentialNode: NodeDefinition<FieldPotentialInputs, FieldPotentialOutputs, FieldPotentialParams> = {
   id: 'Fields::FieldPotential',
+  type: 'Fields::FieldPotential',
   category: 'Fields',
   label: 'FieldPotential',
   description: 'Find potential function for conservative field',

@@ -13,6 +13,7 @@ interface MultiplyOutputs {
 
 export const MathOperatorsMultiplyNode: NodeDefinition<MultiplyInputs, MultiplyOutputs, MultiplyParams> = {
   id: 'Math::Multiply',
+  type: 'Math::Multiply',
   category: 'Math',
   label: 'Multiply',
   description: 'Multiply numbers',

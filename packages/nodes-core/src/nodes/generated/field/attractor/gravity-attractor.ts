@@ -16,6 +16,7 @@ interface GravityAttractorOutputs {
 
 export const FieldAttractorGravityAttractorNode: NodeDefinition<GravityAttractorInputs, GravityAttractorOutputs, GravityAttractorParams> = {
   id: 'Field::GravityAttractor',
+  type: 'Field::GravityAttractor',
   category: 'Field',
   label: 'GravityAttractor',
   description: 'Gravity well attractor',

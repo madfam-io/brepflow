@@ -16,6 +16,7 @@ interface CoolingAnalysisOutputs {
 
 export const Fabrication3DPrintingCoolingAnalysisNode: NodeDefinition<CoolingAnalysisInputs, CoolingAnalysisOutputs, CoolingAnalysisParams> = {
   id: 'Fabrication::CoolingAnalysis',
+  type: 'Fabrication::CoolingAnalysis',
   category: 'Fabrication',
   label: 'CoolingAnalysis',
   description: 'Analyze cooling requirements',

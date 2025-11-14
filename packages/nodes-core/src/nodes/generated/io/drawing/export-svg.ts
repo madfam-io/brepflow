@@ -18,6 +18,7 @@ interface ExportSVGOutputs {
 
 export const IODrawingExportSVGNode: NodeDefinition<ExportSVGInputs, ExportSVGOutputs, ExportSVGParams> = {
   id: 'IO::ExportSVG',
+  type: 'IO::ExportSVG',
   category: 'IO',
   label: 'ExportSVG',
   description: 'Export to SVG format',

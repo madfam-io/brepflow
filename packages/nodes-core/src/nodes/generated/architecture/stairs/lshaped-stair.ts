@@ -17,6 +17,7 @@ interface LShapedStairOutputs {
 
 export const ArchitectureStairsLShapedStairNode: NodeDefinition<LShapedStairInputs, LShapedStairOutputs, LShapedStairParams> = {
   id: 'Architecture::LShapedStair',
+  type: 'Architecture::LShapedStair',
   category: 'Architecture',
   label: 'LShapedStair',
   description: 'L-shaped staircase',

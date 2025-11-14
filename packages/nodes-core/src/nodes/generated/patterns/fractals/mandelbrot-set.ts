@@ -16,6 +16,7 @@ interface MandelbrotSetOutputs {
 
 export const PatternsFractalsMandelbrotSetNode: NodeDefinition<MandelbrotSetInputs, MandelbrotSetOutputs, MandelbrotSetParams> = {
   id: 'Patterns::MandelbrotSet',
+  type: 'Patterns::MandelbrotSet',
   category: 'Patterns',
   label: 'MandelbrotSet',
   description: 'Mandelbrot set',

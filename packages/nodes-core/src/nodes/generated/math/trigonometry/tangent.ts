@@ -14,6 +14,7 @@ interface TangentOutputs {
 
 export const MathTrigonometryTangentNode: NodeDefinition<TangentInputs, TangentOutputs, TangentParams> = {
   id: 'Math::Tangent',
+  type: 'Math::Tangent',
   category: 'Math',
   label: 'Tangent',
   description: 'Tangent function',

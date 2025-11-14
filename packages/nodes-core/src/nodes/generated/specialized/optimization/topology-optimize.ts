@@ -20,6 +20,7 @@ interface TopologyOptimizeOutputs {
 
 export const SpecializedOptimizationTopologyOptimizeNode: NodeDefinition<TopologyOptimizeInputs, TopologyOptimizeOutputs, TopologyOptimizeParams> = {
   id: 'Specialized::TopologyOptimize',
+  type: 'Specialized::TopologyOptimize',
   category: 'Specialized',
   label: 'TopologyOptimize',
   description: 'Topology optimization',

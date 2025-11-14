@@ -12,6 +12,7 @@ interface CompoundOutputs {
 
 export const BooleanCompoundNode: NodeDefinition<CompoundInputs, CompoundOutputs, CompoundParams> = {
   id: 'Boolean::Compound',
+  type: 'Boolean::Compound',
   category: 'Boolean',
   label: 'Compound',
   description: 'Create a compound from multiple shapes',

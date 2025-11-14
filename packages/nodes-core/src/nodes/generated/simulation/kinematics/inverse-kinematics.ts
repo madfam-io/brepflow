@@ -18,6 +18,7 @@ interface InverseKinematicsOutputs {
 
 export const SimulationKinematicsInverseKinematicsNode: NodeDefinition<InverseKinematicsInputs, InverseKinematicsOutputs, InverseKinematicsParams> = {
   id: 'Simulation::InverseKinematics',
+  type: 'Simulation::InverseKinematics',
   category: 'Simulation',
   label: 'InverseKinematics',
   description: 'Calculate inverse kinematics',

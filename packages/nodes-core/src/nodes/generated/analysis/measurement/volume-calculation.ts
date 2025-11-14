@@ -18,6 +18,7 @@ interface VolumeCalculationOutputs {
 
 export const AnalysisMeasurementVolumeCalculationNode: NodeDefinition<VolumeCalculationInputs, VolumeCalculationOutputs, VolumeCalculationParams> = {
   id: 'Analysis::VolumeCalculation',
+  type: 'Analysis::VolumeCalculation',
   category: 'Analysis',
   label: 'VolumeCalculation',
   description: 'Calculate volume and mass properties',

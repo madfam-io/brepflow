@@ -15,6 +15,7 @@ interface SingularityAvoidanceOutputs {
 
 export const FabricationRoboticsSingularityAvoidanceNode: NodeDefinition<SingularityAvoidanceInputs, SingularityAvoidanceOutputs, SingularityAvoidanceParams> = {
   id: 'Fabrication::SingularityAvoidance',
+  type: 'Fabrication::SingularityAvoidance',
   category: 'Fabrication',
   label: 'SingularityAvoidance',
   description: 'Avoid robot singularities',

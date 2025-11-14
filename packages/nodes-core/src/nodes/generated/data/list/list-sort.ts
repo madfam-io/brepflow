@@ -16,6 +16,7 @@ interface ListSortOutputs {
 
 export const DataListListSortNode: NodeDefinition<ListSortInputs, ListSortOutputs, ListSortParams> = {
   id: 'Data::ListSort',
+  type: 'Data::ListSort',
   category: 'Data',
   label: 'ListSort',
   description: 'Sort list',

@@ -16,6 +16,7 @@ interface PedestalPaversOutputs {
 
 export const ArchitectureFloorsPedestalPaversNode: NodeDefinition<PedestalPaversInputs, PedestalPaversOutputs, PedestalPaversParams> = {
   id: 'Architecture::PedestalPavers',
+  type: 'Architecture::PedestalPavers',
   category: 'Architecture',
   label: 'PedestalPavers',
   description: 'Pedestal paver system',

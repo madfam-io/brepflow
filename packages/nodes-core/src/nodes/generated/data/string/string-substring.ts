@@ -14,6 +14,7 @@ interface StringSubstringOutputs {
 
 export const DataStringStringSubstringNode: NodeDefinition<StringSubstringInputs, StringSubstringOutputs, StringSubstringParams> = {
   id: 'Data::StringSubstring',
+  type: 'Data::StringSubstring',
   category: 'Data',
   label: 'StringSubstring',
   description: 'Extract substring',

@@ -18,6 +18,7 @@ interface RigidCouplingOutputs {
 
 export const MechanicalEngineeringCouplingsRigidCouplingNode: NodeDefinition<RigidCouplingInputs, RigidCouplingOutputs, RigidCouplingParams> = {
   id: 'MechanicalEngineering::RigidCoupling',
+  type: 'MechanicalEngineering::RigidCoupling',
   category: 'MechanicalEngineering',
   label: 'RigidCoupling',
   description: 'Create rigid shaft coupling',

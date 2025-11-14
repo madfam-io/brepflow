@@ -15,6 +15,7 @@ interface HelixOutputs {
 
 export const SolidHelicalHelixNode: NodeDefinition<HelixInputs, HelixOutputs, HelixParams> = {
   id: 'Solid::Helix',
+  type: 'Solid::Helix',
   category: 'Solid',
   label: 'Helix',
   description: 'Create a helical curve',

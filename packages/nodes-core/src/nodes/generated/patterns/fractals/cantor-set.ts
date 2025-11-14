@@ -15,6 +15,7 @@ interface CantorSetOutputs {
 
 export const PatternsFractalsCantorSetNode: NodeDefinition<CantorSetInputs, CantorSetOutputs, CantorSetParams> = {
   id: 'Patterns::CantorSet',
+  type: 'Patterns::CantorSet',
   category: 'Patterns',
   label: 'CantorSet',
   description: 'Cantor set fractal',

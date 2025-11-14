@@ -17,6 +17,7 @@ interface BrickPatternOutputs {
 
 export const PatternsTilingBrickPatternNode: NodeDefinition<BrickPatternInputs, BrickPatternOutputs, BrickPatternParams> = {
   id: 'Patterns::BrickPattern',
+  type: 'Patterns::BrickPattern',
   category: 'Patterns',
   label: 'BrickPattern',
   description: 'Brick laying pattern',

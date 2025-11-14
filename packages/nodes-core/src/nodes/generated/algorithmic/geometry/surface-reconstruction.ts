@@ -19,6 +19,7 @@ interface SurfaceReconstructionOutputs {
 
 export const AlgorithmicGeometrySurfaceReconstructionNode: NodeDefinition<SurfaceReconstructionInputs, SurfaceReconstructionOutputs, SurfaceReconstructionParams> = {
   id: 'Algorithmic::SurfaceReconstruction',
+  type: 'Algorithmic::SurfaceReconstruction',
   category: 'Algorithmic',
   label: 'SurfaceReconstruction',
   description: 'Reconstruct surface from point cloud',

@@ -16,6 +16,7 @@ interface CoincidentOutputs {
 
 export const AssemblyConstraintsCoincidentNode: NodeDefinition<CoincidentInputs, CoincidentOutputs, CoincidentParams> = {
   id: 'Assembly::Coincident',
+  type: 'Assembly::Coincident',
   category: 'Assembly',
   label: 'Coincident',
   description: 'Make two entities coincident',

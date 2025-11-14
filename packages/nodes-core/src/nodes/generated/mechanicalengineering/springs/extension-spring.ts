@@ -19,6 +19,7 @@ interface ExtensionSpringOutputs {
 
 export const MechanicalEngineeringSpringsExtensionSpringNode: NodeDefinition<ExtensionSpringInputs, ExtensionSpringOutputs, ExtensionSpringParams> = {
   id: 'MechanicalEngineering::ExtensionSpring',
+  type: 'MechanicalEngineering::ExtensionSpring',
   category: 'MechanicalEngineering',
   label: 'ExtensionSpring',
   description: 'Create extension spring with hooks',

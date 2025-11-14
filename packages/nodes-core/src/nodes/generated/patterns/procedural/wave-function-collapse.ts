@@ -16,6 +16,7 @@ interface WaveFunctionCollapseOutputs {
 
 export const PatternsProceduralWaveFunctionCollapseNode: NodeDefinition<WaveFunctionCollapseInputs, WaveFunctionCollapseOutputs, WaveFunctionCollapseParams> = {
   id: 'Patterns::WaveFunctionCollapse',
+  type: 'Patterns::WaveFunctionCollapse',
   category: 'Patterns',
   label: 'WaveFunctionCollapse',
   description: 'WFC pattern generation',

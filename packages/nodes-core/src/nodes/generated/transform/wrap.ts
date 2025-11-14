@@ -16,6 +16,7 @@ interface WrapOutputs {
 
 export const TransformWrapNode: NodeDefinition<WrapInputs, WrapOutputs, WrapParams> = {
   id: 'Transform::Wrap',
+  type: 'Transform::Wrap',
   category: 'Transform',
   label: 'Wrap',
   description: 'Wrap shape around cylinder or sphere',

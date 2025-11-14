@@ -16,6 +16,7 @@ interface CirclePackingOutputs {
 
 export const PatternsGeometricCirclePackingNode: NodeDefinition<CirclePackingInputs, CirclePackingOutputs, CirclePackingParams> = {
   id: 'Patterns::CirclePacking',
+  type: 'Patterns::CirclePacking',
   category: 'Patterns',
   label: 'CirclePacking',
   description: 'Circle packing pattern',

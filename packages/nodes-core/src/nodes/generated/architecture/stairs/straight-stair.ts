@@ -19,6 +19,7 @@ interface StraightStairOutputs {
 
 export const ArchitectureStairsStraightStairNode: NodeDefinition<StraightStairInputs, StraightStairOutputs, StraightStairParams> = {
   id: 'Architecture::StraightStair',
+  type: 'Architecture::StraightStair',
   category: 'Architecture',
   label: 'StraightStair',
   description: 'Straight run staircase',

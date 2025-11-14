@@ -12,6 +12,7 @@ interface TreeGraftOutputs {
 
 export const DataTreeTreeGraftNode: NodeDefinition<TreeGraftInputs, TreeGraftOutputs, TreeGraftParams> = {
   id: 'Data::TreeGraft',
+  type: 'Data::TreeGraft',
   category: 'Data',
   label: 'TreeGraft',
   description: 'Graft tree',

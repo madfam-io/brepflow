@@ -14,6 +14,7 @@ interface NonPlanarSlicingOutputs {
 
 export const Fabrication3DPrintingNonPlanarSlicingNode: NodeDefinition<NonPlanarSlicingInputs, NonPlanarSlicingOutputs, NonPlanarSlicingParams> = {
   id: 'Fabrication::NonPlanarSlicing',
+  type: 'Fabrication::NonPlanarSlicing',
   category: 'Fabrication',
   label: 'NonPlanarSlicing',
   description: 'Non-planar slicing paths',

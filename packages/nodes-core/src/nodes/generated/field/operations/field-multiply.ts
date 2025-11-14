@@ -13,6 +13,7 @@ interface FieldMultiplyOutputs {
 
 export const FieldOperationsFieldMultiplyNode: NodeDefinition<FieldMultiplyInputs, FieldMultiplyOutputs, FieldMultiplyParams> = {
   id: 'Field::FieldMultiply',
+  type: 'Field::FieldMultiply',
   category: 'Field',
   label: 'FieldMultiply',
   description: 'Multiply fields',

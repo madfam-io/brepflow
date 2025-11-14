@@ -18,6 +18,7 @@ interface LinearPatternOutputs {
 
 export const TransformPatternsLinearPatternNode: NodeDefinition<LinearPatternInputs, LinearPatternOutputs, LinearPatternParams> = {
   id: 'Transform::LinearPattern',
+  type: 'Transform::LinearPattern',
   category: 'Transform',
   label: 'LinearPattern',
   description: 'Creates a linear array of features or shapes',

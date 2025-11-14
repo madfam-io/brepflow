@@ -12,6 +12,7 @@ interface FieldCurlOutputs {
 
 export const FieldOperationsFieldCurlNode: NodeDefinition<FieldCurlInputs, FieldCurlOutputs, FieldCurlParams> = {
   id: 'Field::FieldCurl',
+  type: 'Field::FieldCurl',
   category: 'Field',
   label: 'FieldCurl',
   description: 'Compute curl',

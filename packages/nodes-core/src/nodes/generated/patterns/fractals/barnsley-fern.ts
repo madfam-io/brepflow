@@ -15,6 +15,7 @@ interface BarnsleyFernOutputs {
 
 export const PatternsFractalsBarnsleyFernNode: NodeDefinition<BarnsleyFernInputs, BarnsleyFernOutputs, BarnsleyFernParams> = {
   id: 'Patterns::BarnsleyFern',
+  type: 'Patterns::BarnsleyFern',
   category: 'Patterns',
   label: 'BarnsleyFern',
   description: 'Barnsley fern fractal',

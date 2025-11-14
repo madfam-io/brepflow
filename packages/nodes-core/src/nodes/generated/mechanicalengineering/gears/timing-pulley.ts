@@ -18,6 +18,7 @@ interface TimingPulleyOutputs {
 
 export const MechanicalEngineeringGearsTimingPulleyNode: NodeDefinition<TimingPulleyInputs, TimingPulleyOutputs, TimingPulleyParams> = {
   id: 'MechanicalEngineering::TimingPulley',
+  type: 'MechanicalEngineering::TimingPulley',
   category: 'MechanicalEngineering',
   label: 'TimingPulley',
   description: 'Create timing belt pulley',

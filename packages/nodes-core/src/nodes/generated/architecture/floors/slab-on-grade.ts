@@ -16,6 +16,7 @@ interface SlabOnGradeOutputs {
 
 export const ArchitectureFloorsSlabOnGradeNode: NodeDefinition<SlabOnGradeInputs, SlabOnGradeOutputs, SlabOnGradeParams> = {
   id: 'Architecture::SlabOnGrade',
+  type: 'Architecture::SlabOnGrade',
   category: 'Architecture',
   label: 'SlabOnGrade',
   description: 'Concrete slab on grade',

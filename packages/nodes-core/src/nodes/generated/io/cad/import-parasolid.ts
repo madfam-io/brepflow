@@ -15,6 +15,7 @@ interface ImportParasolidOutputs {
 
 export const IOCADImportParasolidNode: NodeDefinition<ImportParasolidInputs, ImportParasolidOutputs, ImportParasolidParams> = {
   id: 'IO::ImportParasolid',
+  type: 'IO::ImportParasolid',
   category: 'IO',
   label: 'ImportParasolid',
   description: 'Import Parasolid file',

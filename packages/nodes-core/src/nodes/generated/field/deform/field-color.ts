@@ -15,6 +15,7 @@ interface FieldColorOutputs {
 
 export const FieldDeformFieldColorNode: NodeDefinition<FieldColorInputs, FieldColorOutputs, FieldColorParams> = {
   id: 'Field::FieldColor',
+  type: 'Field::FieldColor',
   category: 'Field',
   label: 'FieldColor',
   description: 'Color by field value',

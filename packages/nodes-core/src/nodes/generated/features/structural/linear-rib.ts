@@ -18,6 +18,7 @@ interface LinearRibOutputs {
 
 export const FeaturesStructuralLinearRibNode: NodeDefinition<LinearRibInputs, LinearRibOutputs, LinearRibParams> = {
   id: 'Features::LinearRib',
+  type: 'Features::LinearRib',
   category: 'Features',
   label: 'LinearRib',
   description: 'Creates a reinforcing rib along a path',

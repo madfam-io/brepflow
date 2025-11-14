@@ -20,6 +20,7 @@ interface S3UploadOutputs {
 
 export const InteroperabilityCloudS3UploadNode: NodeDefinition<S3UploadInputs, S3UploadOutputs, S3UploadParams> = {
   id: 'Interoperability::S3Upload',
+  type: 'Interoperability::S3Upload',
   category: 'Interoperability',
   label: 'S3Upload',
   description: 'Upload files to AWS S3',

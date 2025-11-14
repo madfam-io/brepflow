@@ -18,6 +18,7 @@ interface BoundaryLayersOutputs {
 
 export const SimulationCFDBoundaryLayersNode: NodeDefinition<BoundaryLayersInputs, BoundaryLayersOutputs, BoundaryLayersParams> = {
   id: 'Simulation::BoundaryLayers',
+  type: 'Simulation::BoundaryLayers',
   category: 'Simulation',
   label: 'BoundaryLayers',
   description: 'Add boundary layer mesh',

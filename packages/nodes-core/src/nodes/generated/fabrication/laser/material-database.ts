@@ -15,6 +15,7 @@ interface MaterialDatabaseOutputs {
 
 export const FabricationLaserMaterialDatabaseNode: NodeDefinition<MaterialDatabaseInputs, MaterialDatabaseOutputs, MaterialDatabaseParams> = {
   id: 'Fabrication::MaterialDatabase',
+  type: 'Fabrication::MaterialDatabase',
   category: 'Fabrication',
   label: 'MaterialDatabase',
   description: 'Material cutting database',

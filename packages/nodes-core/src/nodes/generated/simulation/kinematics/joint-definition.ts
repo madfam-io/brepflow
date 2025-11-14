@@ -20,6 +20,7 @@ interface JointDefinitionOutputs {
 
 export const SimulationKinematicsJointDefinitionNode: NodeDefinition<JointDefinitionInputs, JointDefinitionOutputs, JointDefinitionParams> = {
   id: 'Simulation::JointDefinition',
+  type: 'Simulation::JointDefinition',
   category: 'Simulation',
   label: 'JointDefinition',
   description: 'Define kinematic joint',

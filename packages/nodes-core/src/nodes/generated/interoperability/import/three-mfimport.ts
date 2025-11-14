@@ -18,6 +18,7 @@ interface ThreeMFImportOutputs {
 
 export const InteroperabilityImportThreeMFImportNode: NodeDefinition<ThreeMFImportInputs, ThreeMFImportOutputs, ThreeMFImportParams> = {
   id: 'Interoperability::ThreeMFImport',
+  type: 'Interoperability::ThreeMFImport',
   category: 'Interoperability',
   label: 'ThreeMFImport',
   description: 'Import 3D Manufacturing Format files',

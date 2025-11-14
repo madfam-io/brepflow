@@ -17,6 +17,7 @@ interface JogOutputs {
 
 export const SheetMetalBendsJogNode: NodeDefinition<JogInputs, JogOutputs, JogParams> = {
   id: 'SheetMetal::Jog',
+  type: 'SheetMetal::Jog',
   category: 'SheetMetal',
   label: 'Jog',
   description: 'Create jog offset in sheet',

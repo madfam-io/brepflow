@@ -14,6 +14,7 @@ interface CosineOutputs {
 
 export const MathTrigonometryCosineNode: NodeDefinition<CosineInputs, CosineOutputs, CosineParams> = {
   id: 'Math::Cosine',
+  type: 'Math::Cosine',
   category: 'Math',
   label: 'Cosine',
   description: 'Cosine function',

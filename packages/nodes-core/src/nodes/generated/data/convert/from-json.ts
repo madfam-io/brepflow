@@ -13,6 +13,7 @@ interface FromJSONOutputs {
 
 export const DataConvertFromJSONNode: NodeDefinition<FromJSONInputs, FromJSONOutputs, FromJSONParams> = {
   id: 'Data::FromJSON',
+  type: 'Data::FromJSON',
   category: 'Data',
   label: 'FromJSON',
   description: 'Parse JSON',

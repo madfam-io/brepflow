@@ -16,6 +16,7 @@ interface RampEntryOutputs {
 
 export const FabricationCNCRampEntryNode: NodeDefinition<RampEntryInputs, RampEntryOutputs, RampEntryParams> = {
   id: 'Fabrication::RampEntry',
+  type: 'Fabrication::RampEntry',
   category: 'Fabrication',
   label: 'RampEntry',
   description: 'Ramped plunge entry',

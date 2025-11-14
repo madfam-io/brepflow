@@ -16,6 +16,7 @@ interface ExtendSurfaceOutputs {
 
 export const AdvancedSurfaceExtendSurfaceNode: NodeDefinition<ExtendSurfaceInputs, ExtendSurfaceOutputs, ExtendSurfaceParams> = {
   id: 'Advanced::ExtendSurface',
+  type: 'Advanced::ExtendSurface',
   category: 'Advanced',
   label: 'ExtendSurface',
   description: 'Extend surface edges',

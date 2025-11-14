@@ -20,6 +20,7 @@ interface STEPExportOutputs {
 
 export const InteroperabilityExportSTEPExportNode: NodeDefinition<STEPExportInputs, STEPExportOutputs, STEPExportParams> = {
   id: 'Interoperability::STEPExport',
+  type: 'Interoperability::STEPExport',
   category: 'Interoperability',
   label: 'STEPExport',
   description: 'Export geometry to STEP format',

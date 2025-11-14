@@ -12,6 +12,7 @@ interface MinimumSpanningTreeOutputs {
 
 export const PatternsNetworkMinimumSpanningTreeNode: NodeDefinition<MinimumSpanningTreeInputs, MinimumSpanningTreeOutputs, MinimumSpanningTreeParams> = {
   id: 'Patterns::MinimumSpanningTree',
+  type: 'Patterns::MinimumSpanningTree',
   category: 'Patterns',
   label: 'MinimumSpanningTree',
   description: 'MST network pattern',

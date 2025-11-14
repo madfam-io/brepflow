@@ -15,6 +15,7 @@ interface GCodePostProcessorOutputs {
 
 export const Fabrication3DPrintingGCodePostProcessorNode: NodeDefinition<GCodePostProcessorInputs, GCodePostProcessorOutputs, GCodePostProcessorParams> = {
   id: 'Fabrication::GCodePostProcessor',
+  type: 'Fabrication::GCodePostProcessor',
   category: 'Fabrication',
   label: 'GCodePostProcessor',
   description: 'Post-process G-code',

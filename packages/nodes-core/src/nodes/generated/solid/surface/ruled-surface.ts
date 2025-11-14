@@ -13,6 +13,7 @@ interface RuledSurfaceOutputs {
 
 export const SolidSurfaceRuledSurfaceNode: NodeDefinition<RuledSurfaceInputs, RuledSurfaceOutputs, RuledSurfaceParams> = {
   id: 'Solid::RuledSurface',
+  type: 'Solid::RuledSurface',
   category: 'Solid',
   label: 'RuledSurface',
   description: 'Create a ruled surface between two curves',

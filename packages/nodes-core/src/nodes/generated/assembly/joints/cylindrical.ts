@@ -19,6 +19,7 @@ interface CylindricalOutputs {
 
 export const AssemblyJointsCylindricalNode: NodeDefinition<CylindricalInputs, CylindricalOutputs, CylindricalParams> = {
   id: 'Assembly::Cylindrical',
+  type: 'Assembly::Cylindrical',
   category: 'Assembly',
   label: 'Cylindrical',
   description: 'Create cylindrical joint',

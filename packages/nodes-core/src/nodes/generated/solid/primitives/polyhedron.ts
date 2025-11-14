@@ -13,6 +13,7 @@ interface PolyhedronOutputs {
 
 export const SolidPrimitivesPolyhedronNode: NodeDefinition<PolyhedronInputs, PolyhedronOutputs, PolyhedronParams> = {
   id: 'Solid::Polyhedron',
+  type: 'Solid::Polyhedron',
   category: 'Solid',
   label: 'Polyhedron',
   description: 'Create a regular polyhedron',

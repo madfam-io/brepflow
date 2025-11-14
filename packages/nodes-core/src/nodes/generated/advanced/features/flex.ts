@@ -18,6 +18,7 @@ interface FlexOutputs {
 
 export const AdvancedFeaturesFlexNode: NodeDefinition<FlexInputs, FlexOutputs, FlexParams> = {
   id: 'Advanced::Flex',
+  type: 'Advanced::Flex',
   category: 'Advanced',
   label: 'Flex',
   description: 'Flex solid for living hinges',

@@ -17,6 +17,7 @@ interface ShortestPathOutputs {
 
 export const PatternsAlgorithmicShortestPathNode: NodeDefinition<ShortestPathInputs, ShortestPathOutputs, ShortestPathParams> = {
   id: 'Patterns::ShortestPath',
+  type: 'Patterns::ShortestPath',
   category: 'Patterns',
   label: 'ShortestPath',
   description: 'Shortest path algorithms',

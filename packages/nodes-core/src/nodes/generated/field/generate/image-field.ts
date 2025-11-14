@@ -16,6 +16,7 @@ interface ImageFieldOutputs {
 
 export const FieldGenerateImageFieldNode: NodeDefinition<ImageFieldInputs, ImageFieldOutputs, ImageFieldParams> = {
   id: 'Field::ImageField',
+  type: 'Field::ImageField',
   category: 'Field',
   label: 'ImageField',
   description: 'Field from image',

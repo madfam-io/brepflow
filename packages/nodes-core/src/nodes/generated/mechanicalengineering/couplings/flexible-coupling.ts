@@ -18,6 +18,7 @@ interface FlexibleCouplingOutputs {
 
 export const MechanicalEngineeringCouplingsFlexibleCouplingNode: NodeDefinition<FlexibleCouplingInputs, FlexibleCouplingOutputs, FlexibleCouplingParams> = {
   id: 'MechanicalEngineering::FlexibleCoupling',
+  type: 'MechanicalEngineering::FlexibleCoupling',
   category: 'MechanicalEngineering',
   label: 'FlexibleCoupling',
   description: 'Create flexible coupling',

@@ -17,6 +17,7 @@ interface DraftOutputs {
 
 export const AdvancedDraftDraftNode: NodeDefinition<DraftInputs, DraftOutputs, DraftParams> = {
   id: 'Advanced::Draft',
+  type: 'Advanced::Draft',
   category: 'Advanced',
   label: 'Draft',
   description: 'Add draft angle to faces',

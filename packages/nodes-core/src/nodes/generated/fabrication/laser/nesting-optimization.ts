@@ -18,6 +18,7 @@ interface NestingOptimizationOutputs {
 
 export const FabricationLaserNestingOptimizationNode: NodeDefinition<NestingOptimizationInputs, NestingOptimizationOutputs, NestingOptimizationParams> = {
   id: 'Fabrication::NestingOptimization',
+  type: 'Fabrication::NestingOptimization',
   category: 'Fabrication',
   label: 'NestingOptimization',
   description: 'Optimize material nesting',

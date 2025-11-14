@@ -12,6 +12,7 @@ interface TreeSimplifyOutputs {
 
 export const DataTreeTreeSimplifyNode: NodeDefinition<TreeSimplifyInputs, TreeSimplifyOutputs, TreeSimplifyParams> = {
   id: 'Data::TreeSimplify',
+  type: 'Data::TreeSimplify',
   category: 'Data',
   label: 'TreeSimplify',
   description: 'Simplify tree paths',

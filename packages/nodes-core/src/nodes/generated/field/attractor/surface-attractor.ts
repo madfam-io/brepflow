@@ -16,6 +16,7 @@ interface SurfaceAttractorOutputs {
 
 export const FieldAttractorSurfaceAttractorNode: NodeDefinition<SurfaceAttractorInputs, SurfaceAttractorOutputs, SurfaceAttractorParams> = {
   id: 'Field::SurfaceAttractor',
+  type: 'Field::SurfaceAttractor',
   category: 'Field',
   label: 'SurfaceAttractor',
   description: 'Surface attractor field',

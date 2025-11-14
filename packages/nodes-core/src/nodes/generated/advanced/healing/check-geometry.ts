@@ -15,6 +15,7 @@ interface CheckGeometryOutputs {
 
 export const AdvancedHealingCheckGeometryNode: NodeDefinition<CheckGeometryInputs, CheckGeometryOutputs, CheckGeometryParams> = {
   id: 'Advanced::CheckGeometry',
+  type: 'Advanced::CheckGeometry',
   category: 'Advanced',
   label: 'CheckGeometry',
   description: 'Validate geometry',

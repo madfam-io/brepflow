@@ -17,6 +17,7 @@ interface ParallelOutputs {
 
 export const AssemblyConstraintsParallelNode: NodeDefinition<ParallelInputs, ParallelOutputs, ParallelParams> = {
   id: 'Assembly::Parallel',
+  type: 'Assembly::Parallel',
   category: 'Assembly',
   label: 'Parallel',
   description: 'Make two entities parallel',

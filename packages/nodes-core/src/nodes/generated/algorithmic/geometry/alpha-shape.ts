@@ -17,6 +17,7 @@ interface AlphaShapeOutputs {
 
 export const AlgorithmicGeometryAlphaShapeNode: NodeDefinition<AlphaShapeInputs, AlphaShapeOutputs, AlphaShapeParams> = {
   id: 'Algorithmic::AlphaShape',
+  type: 'Algorithmic::AlphaShape',
   category: 'Algorithmic',
   label: 'AlphaShape',
   description: 'Generate alpha shape from point cloud',

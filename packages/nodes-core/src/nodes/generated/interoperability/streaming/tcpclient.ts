@@ -18,6 +18,7 @@ interface TCPClientOutputs {
 
 export const InteroperabilityStreamingTCPClientNode: NodeDefinition<TCPClientInputs, TCPClientOutputs, TCPClientParams> = {
   id: 'Interoperability::TCPClient',
+  type: 'Interoperability::TCPClient',
   category: 'Interoperability',
   label: 'TCPClient',
   description: 'TCP socket client connection',

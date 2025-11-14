@@ -16,6 +16,7 @@ interface TuringPatternOutputs {
 
 export const PatternsProceduralTuringPatternNode: NodeDefinition<TuringPatternInputs, TuringPatternOutputs, TuringPatternParams> = {
   id: 'Patterns::TuringPattern',
+  type: 'Patterns::TuringPattern',
   category: 'Patterns',
   label: 'TuringPattern',
   description: 'Turing reaction-diffusion',

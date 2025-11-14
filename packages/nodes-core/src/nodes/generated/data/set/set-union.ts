@@ -13,6 +13,7 @@ interface SetUnionOutputs {
 
 export const DataSetSetUnionNode: NodeDefinition<SetUnionInputs, SetUnionOutputs, SetUnionParams> = {
   id: 'Data::SetUnion',
+  type: 'Data::SetUnion',
   category: 'Data',
   label: 'SetUnion',
   description: 'Union of sets',

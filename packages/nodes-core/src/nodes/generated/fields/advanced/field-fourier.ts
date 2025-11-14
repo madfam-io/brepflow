@@ -16,6 +16,7 @@ interface FieldFourierOutputs {
 
 export const FieldsAdvancedFieldFourierNode: NodeDefinition<FieldFourierInputs, FieldFourierOutputs, FieldFourierParams> = {
   id: 'Fields::FieldFourier',
+  type: 'Fields::FieldFourier',
   category: 'Fields',
   label: 'FieldFourier',
   description: 'Fourier transform of field',

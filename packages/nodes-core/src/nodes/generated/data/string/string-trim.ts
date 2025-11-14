@@ -14,6 +14,7 @@ interface StringTrimOutputs {
 
 export const DataStringStringTrimNode: NodeDefinition<StringTrimInputs, StringTrimOutputs, StringTrimParams> = {
   id: 'Data::StringTrim',
+  type: 'Data::StringTrim',
   category: 'Data',
   label: 'StringTrim',
   description: 'Trim whitespace',

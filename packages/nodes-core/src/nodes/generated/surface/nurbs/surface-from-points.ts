@@ -18,6 +18,7 @@ interface SurfaceFromPointsOutputs {
 
 export const SurfaceNURBSSurfaceFromPointsNode: NodeDefinition<SurfaceFromPointsInputs, SurfaceFromPointsOutputs, SurfaceFromPointsParams> = {
   id: 'Surface::SurfaceFromPoints',
+  type: 'Surface::SurfaceFromPoints',
   category: 'Surface',
   label: 'SurfaceFromPoints',
   description: 'Fit surface through points',

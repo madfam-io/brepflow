@@ -14,6 +14,7 @@ interface MengerSpongeOutputs {
 
 export const PatternsFractalsMengerSpongeNode: NodeDefinition<MengerSpongeInputs, MengerSpongeOutputs, MengerSpongeParams> = {
   id: 'Patterns::MengerSponge',
+  type: 'Patterns::MengerSponge',
   category: 'Patterns',
   label: 'MengerSponge',
   description: 'Menger sponge 3D fractal',

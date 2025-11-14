@@ -15,6 +15,7 @@ interface HistoricWallRestorationOutputs {
 
 export const ArchitectureWallsHistoricWallRestorationNode: NodeDefinition<HistoricWallRestorationInputs, HistoricWallRestorationOutputs, HistoricWallRestorationParams> = {
   id: 'Architecture::HistoricWallRestoration',
+  type: 'Architecture::HistoricWallRestoration',
   category: 'Architecture',
   label: 'HistoricWallRestoration',
   description: 'Historic wall analysis',

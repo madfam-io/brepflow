@@ -19,6 +19,7 @@ interface ExportSTEPOutputs {
 
 export const IOCADExportSTEPNode: NodeDefinition<ExportSTEPInputs, ExportSTEPOutputs, ExportSTEPParams> = {
   id: 'IO::ExportSTEP',
+  type: 'IO::ExportSTEP',
   category: 'IO',
   label: 'ExportSTEP',
   description: 'Export to STEP format',

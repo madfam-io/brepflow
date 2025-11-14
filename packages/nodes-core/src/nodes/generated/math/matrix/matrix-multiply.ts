@@ -13,6 +13,7 @@ interface MatrixMultiplyOutputs {
 
 export const MathMatrixMatrixMultiplyNode: NodeDefinition<MatrixMultiplyInputs, MatrixMultiplyOutputs, MatrixMultiplyParams> = {
   id: 'Math::MatrixMultiply',
+  type: 'Math::MatrixMultiply',
   category: 'Math',
   label: 'MatrixMultiply',
   description: 'Matrix multiplication',

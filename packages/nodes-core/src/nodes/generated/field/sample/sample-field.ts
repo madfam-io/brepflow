@@ -13,6 +13,7 @@ interface SampleFieldOutputs {
 
 export const FieldSampleSampleFieldNode: NodeDefinition<SampleFieldInputs, SampleFieldOutputs, SampleFieldParams> = {
   id: 'Field::SampleField',
+  type: 'Field::SampleField',
   category: 'Field',
   label: 'SampleField',
   description: 'Sample field at points',

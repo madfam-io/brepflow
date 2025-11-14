@@ -17,6 +17,7 @@ interface CentroidalVoronoiOutputs {
 
 export const PatternsVoronoiCentroidalVoronoiNode: NodeDefinition<CentroidalVoronoiInputs, CentroidalVoronoiOutputs, CentroidalVoronoiParams> = {
   id: 'Patterns::CentroidalVoronoi',
+  type: 'Patterns::CentroidalVoronoi',
   category: 'Patterns',
   label: 'CentroidalVoronoi',
   description: 'Lloyd relaxation Voronoi',

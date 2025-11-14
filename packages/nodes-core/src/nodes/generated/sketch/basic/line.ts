@@ -17,6 +17,7 @@ interface LineOutputs {
 
 export const SketchBasicLineNode: NodeDefinition<LineInputs, LineOutputs, LineParams> = {
   id: 'Sketch::Line',
+  type: 'Sketch::Line',
   category: 'Sketch',
   label: 'Line',
   description: 'Create a line segment',

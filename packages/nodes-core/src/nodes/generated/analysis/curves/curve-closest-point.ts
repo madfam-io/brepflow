@@ -19,6 +19,7 @@ interface CurveClosestPointOutputs {
 
 export const AnalysisCurvesCurveClosestPointNode: NodeDefinition<CurveClosestPointInputs, CurveClosestPointOutputs, CurveClosestPointParams> = {
   id: 'Analysis::CurveClosestPoint',
+  type: 'Analysis::CurveClosestPoint',
   category: 'Analysis',
   label: 'CurveClosestPoint',
   description: 'Find closest point on curve to reference',

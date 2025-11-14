@@ -16,6 +16,7 @@ interface IntersectCurvesOutputs {
 
 export const SurfaceCurveOpsIntersectCurvesNode: NodeDefinition<IntersectCurvesInputs, IntersectCurvesOutputs, IntersectCurvesParams> = {
   id: 'Surface::IntersectCurves',
+  type: 'Surface::IntersectCurves',
   category: 'Surface',
   label: 'IntersectCurves',
   description: 'Find curve intersections',

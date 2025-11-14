@@ -18,6 +18,7 @@ interface SurfaceNormalsOutputs {
 
 export const AnalysisSurfacesSurfaceNormalsNode: NodeDefinition<SurfaceNormalsInputs, SurfaceNormalsOutputs, SurfaceNormalsParams> = {
   id: 'Analysis::SurfaceNormals',
+  type: 'Analysis::SurfaceNormals',
   category: 'Analysis',
   label: 'SurfaceNormals',
   description: 'Calculate surface normal vectors',

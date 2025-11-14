@@ -15,6 +15,7 @@ interface IsoContourOutputs {
 
 export const FieldSampleIsoContourNode: NodeDefinition<IsoContourInputs, IsoContourOutputs, IsoContourParams> = {
   id: 'Field::IsoContour',
+  type: 'Field::IsoContour',
   category: 'Field',
   label: 'IsoContour',
   description: 'Extract iso-contours',

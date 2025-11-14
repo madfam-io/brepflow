@@ -17,6 +17,7 @@ interface CornerReliefOutputs {
 
 export const SheetMetalCornersCornerReliefNode: NodeDefinition<CornerReliefInputs, CornerReliefOutputs, CornerReliefParams> = {
   id: 'SheetMetal::CornerRelief',
+  type: 'SheetMetal::CornerRelief',
   category: 'SheetMetal',
   label: 'CornerRelief',
   description: 'Add corner relief cuts',

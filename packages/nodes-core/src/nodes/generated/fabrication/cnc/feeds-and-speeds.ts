@@ -16,6 +16,7 @@ interface FeedsAndSpeedsOutputs {
 
 export const FabricationCNCFeedsAndSpeedsNode: NodeDefinition<FeedsAndSpeedsInputs, FeedsAndSpeedsOutputs, FeedsAndSpeedsParams> = {
   id: 'Fabrication::FeedsAndSpeeds',
+  type: 'Fabrication::FeedsAndSpeeds',
   category: 'Fabrication',
   label: 'FeedsAndSpeeds',
   description: 'Calculate feeds and speeds',

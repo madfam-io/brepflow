@@ -17,6 +17,7 @@ interface BayWindowOutputs {
 
 export const ArchitectureWindowsBayWindowNode: NodeDefinition<BayWindowInputs, BayWindowOutputs, BayWindowParams> = {
   id: 'Architecture::BayWindow',
+  type: 'Architecture::BayWindow',
   category: 'Architecture',
   label: 'BayWindow',
   description: 'Bay window projection',

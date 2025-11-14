@@ -15,6 +15,7 @@ interface WorkCoordinateOutputs {
 
 export const FabricationCNCWorkCoordinateNode: NodeDefinition<WorkCoordinateInputs, WorkCoordinateOutputs, WorkCoordinateParams> = {
   id: 'Fabrication::WorkCoordinate',
+  type: 'Fabrication::WorkCoordinate',
   category: 'Fabrication',
   label: 'WorkCoordinate',
   description: 'Work coordinate system',

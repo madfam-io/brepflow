@@ -17,6 +17,7 @@ interface PathOutputs {
 
 export const AssemblyMatesPathNode: NodeDefinition<PathInputs, PathOutputs, PathParams> = {
   id: 'Assembly::Path',
+  type: 'Assembly::Path',
   category: 'Assembly',
   label: 'Path',
   description: 'Constrain to path',

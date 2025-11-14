@@ -15,6 +15,7 @@ interface DeleteFaceOutputs {
 
 export const AdvancedHealingDeleteFaceNode: NodeDefinition<DeleteFaceInputs, DeleteFaceOutputs, DeleteFaceParams> = {
   id: 'Advanced::DeleteFace',
+  type: 'Advanced::DeleteFace',
   category: 'Advanced',
   label: 'DeleteFace',
   description: 'Delete and heal faces',

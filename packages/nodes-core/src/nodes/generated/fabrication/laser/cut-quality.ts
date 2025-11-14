@@ -16,6 +16,7 @@ interface CutQualityOutputs {
 
 export const FabricationLaserCutQualityNode: NodeDefinition<CutQualityInputs, CutQualityOutputs, CutQualityParams> = {
   id: 'Fabrication::CutQuality',
+  type: 'Fabrication::CutQuality',
   category: 'Fabrication',
   label: 'CutQuality',
   description: 'Predict cut quality',

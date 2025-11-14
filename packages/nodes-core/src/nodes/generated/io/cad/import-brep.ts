@@ -14,6 +14,7 @@ interface ImportBREPOutputs {
 
 export const IOCADImportBREPNode: NodeDefinition<ImportBREPInputs, ImportBREPOutputs, ImportBREPParams> = {
   id: 'IO::ImportBREP',
+  type: 'IO::ImportBREP',
   category: 'IO',
   label: 'ImportBREP',
   description: 'Import OpenCASCADE BREP',

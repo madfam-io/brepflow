@@ -17,6 +17,7 @@ interface BendReliefOutputs {
 
 export const SheetMetalCornersBendReliefNode: NodeDefinition<BendReliefInputs, BendReliefOutputs, BendReliefParams> = {
   id: 'SheetMetal::BendRelief',
+  type: 'SheetMetal::BendRelief',
   category: 'SheetMetal',
   label: 'BendRelief',
   description: 'Add bend relief cuts',

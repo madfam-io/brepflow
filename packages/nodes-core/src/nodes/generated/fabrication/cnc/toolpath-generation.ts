@@ -18,6 +18,7 @@ interface ToolpathGenerationOutputs {
 
 export const FabricationCNCToolpathGenerationNode: NodeDefinition<ToolpathGenerationInputs, ToolpathGenerationOutputs, ToolpathGenerationParams> = {
   id: 'Fabrication::ToolpathGeneration',
+  type: 'Fabrication::ToolpathGeneration',
   category: 'Fabrication',
   label: 'ToolpathGeneration',
   description: 'Generate CNC toolpaths',

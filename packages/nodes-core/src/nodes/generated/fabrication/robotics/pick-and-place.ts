@@ -16,6 +16,7 @@ interface PickAndPlaceOutputs {
 
 export const FabricationRoboticsPickAndPlaceNode: NodeDefinition<PickAndPlaceInputs, PickAndPlaceOutputs, PickAndPlaceParams> = {
   id: 'Fabrication::PickAndPlace',
+  type: 'Fabrication::PickAndPlace',
   category: 'Fabrication',
   label: 'PickAndPlace',
   description: 'Pick and place optimization',

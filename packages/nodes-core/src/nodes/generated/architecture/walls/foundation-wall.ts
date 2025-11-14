@@ -16,6 +16,7 @@ interface FoundationWallOutputs {
 
 export const ArchitectureWallsFoundationWallNode: NodeDefinition<FoundationWallInputs, FoundationWallOutputs, FoundationWallParams> = {
   id: 'Architecture::FoundationWall',
+  type: 'Architecture::FoundationWall',
   category: 'Architecture',
   label: 'FoundationWall',
   description: 'Foundation wall system',

@@ -16,6 +16,7 @@ interface BridgeDetectionOutputs {
 
 export const Fabrication3DPrintingBridgeDetectionNode: NodeDefinition<BridgeDetectionInputs, BridgeDetectionOutputs, BridgeDetectionParams> = {
   id: 'Fabrication::BridgeDetection',
+  type: 'Fabrication::BridgeDetection',
   category: 'Fabrication',
   label: 'BridgeDetection',
   description: 'Detect bridges and overhangs',

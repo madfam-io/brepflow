@@ -20,6 +20,7 @@ interface ChainDriveOutputs {
 
 export const MechanicalEngineeringPowerTransmissionChainDriveNode: NodeDefinition<ChainDriveInputs, ChainDriveOutputs, ChainDriveParams> = {
   id: 'MechanicalEngineering::ChainDrive',
+  type: 'MechanicalEngineering::ChainDrive',
   category: 'MechanicalEngineering',
   label: 'ChainDrive',
   description: 'Create chain drive system',

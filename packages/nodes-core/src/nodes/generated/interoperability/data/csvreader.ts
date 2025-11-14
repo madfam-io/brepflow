@@ -18,6 +18,7 @@ interface CSVReaderOutputs {
 
 export const InteroperabilityDataCSVReaderNode: NodeDefinition<CSVReaderInputs, CSVReaderOutputs, CSVReaderParams> = {
   id: 'Interoperability::CSVReader',
+  type: 'Interoperability::CSVReader',
   category: 'Interoperability',
   label: 'CSVReader',
   description: 'Read CSV data files',

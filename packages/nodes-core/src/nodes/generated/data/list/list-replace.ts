@@ -14,6 +14,7 @@ interface ListReplaceOutputs {
 
 export const DataListListReplaceNode: NodeDefinition<ListReplaceInputs, ListReplaceOutputs, ListReplaceParams> = {
   id: 'Data::ListReplace',
+  type: 'Data::ListReplace',
   category: 'Data',
   label: 'ListReplace',
   description: 'Replace item in list',

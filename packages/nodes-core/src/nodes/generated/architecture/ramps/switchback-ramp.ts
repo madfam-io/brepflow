@@ -17,6 +17,7 @@ interface SwitchbackRampOutputs {
 
 export const ArchitectureRampsSwitchbackRampNode: NodeDefinition<SwitchbackRampInputs, SwitchbackRampOutputs, SwitchbackRampParams> = {
   id: 'Architecture::SwitchbackRamp',
+  type: 'Architecture::SwitchbackRamp',
   category: 'Architecture',
   label: 'SwitchbackRamp',
   description: 'Switchback accessibility ramp',

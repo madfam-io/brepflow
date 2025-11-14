@@ -15,6 +15,7 @@ interface ToCSVOutputs {
 
 export const DataConvertToCSVNode: NodeDefinition<ToCSVInputs, ToCSVOutputs, ToCSVParams> = {
   id: 'Data::ToCSV',
+  type: 'Data::ToCSV',
   category: 'Data',
   label: 'ToCSV',
   description: 'Convert to CSV',

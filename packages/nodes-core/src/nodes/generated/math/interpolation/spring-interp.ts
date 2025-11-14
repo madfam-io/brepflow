@@ -19,6 +19,7 @@ interface SpringInterpOutputs {
 
 export const MathInterpolationSpringInterpNode: NodeDefinition<SpringInterpInputs, SpringInterpOutputs, SpringInterpParams> = {
   id: 'Math::SpringInterp',
+  type: 'Math::SpringInterp',
   category: 'Math',
   label: 'SpringInterp',
   description: 'Spring interpolation',

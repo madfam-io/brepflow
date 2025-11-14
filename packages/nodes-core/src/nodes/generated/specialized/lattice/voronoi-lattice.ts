@@ -17,6 +17,7 @@ interface VoronoiLatticeOutputs {
 
 export const SpecializedLatticeVoronoiLatticeNode: NodeDefinition<VoronoiLatticeInputs, VoronoiLatticeOutputs, VoronoiLatticeParams> = {
   id: 'Specialized::VoronoiLattice',
+  type: 'Specialized::VoronoiLattice',
   category: 'Specialized',
   label: 'VoronoiLattice',
   description: 'Voronoi-based lattice',

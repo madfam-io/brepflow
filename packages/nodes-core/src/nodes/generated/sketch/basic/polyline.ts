@@ -14,6 +14,7 @@ interface PolylineOutputs {
 
 export const SketchBasicPolylineNode: NodeDefinition<PolylineInputs, PolylineOutputs, PolylineParams> = {
   id: 'Sketch::Polyline',
+  type: 'Sketch::Polyline',
   category: 'Sketch',
   label: 'Polyline',
   description: 'Create a polyline from points',

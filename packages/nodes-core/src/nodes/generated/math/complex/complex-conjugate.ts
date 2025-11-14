@@ -12,6 +12,7 @@ interface ComplexConjugateOutputs {
 
 export const MathComplexComplexConjugateNode: NodeDefinition<ComplexConjugateInputs, ComplexConjugateOutputs, ComplexConjugateParams> = {
   id: 'Math::ComplexConjugate',
+  type: 'Math::ComplexConjugate',
   category: 'Math',
   label: 'ComplexConjugate',
   description: 'Complex conjugate',

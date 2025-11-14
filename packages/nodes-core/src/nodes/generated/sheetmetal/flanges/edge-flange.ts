@@ -19,6 +19,7 @@ interface EdgeFlangeOutputs {
 
 export const SheetMetalFlangesEdgeFlangeNode: NodeDefinition<EdgeFlangeInputs, EdgeFlangeOutputs, EdgeFlangeParams> = {
   id: 'SheetMetal::EdgeFlange',
+  type: 'SheetMetal::EdgeFlange',
   category: 'SheetMetal',
   label: 'EdgeFlange',
   description: 'Create flange from edge',

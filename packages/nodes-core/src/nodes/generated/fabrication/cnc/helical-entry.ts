@@ -16,6 +16,7 @@ interface HelicalEntryOutputs {
 
 export const FabricationCNCHelicalEntryNode: NodeDefinition<HelicalEntryInputs, HelicalEntryOutputs, HelicalEntryParams> = {
   id: 'Fabrication::HelicalEntry',
+  type: 'Fabrication::HelicalEntry',
   category: 'Fabrication',
   label: 'HelicalEntry',
   description: 'Helical plunge entry',

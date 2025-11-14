@@ -12,6 +12,7 @@ interface TreePruneOutputs {
 
 export const DataTreeTreePruneNode: NodeDefinition<TreePruneInputs, TreePruneOutputs, TreePruneParams> = {
   id: 'Data::TreePrune',
+  type: 'Data::TreePrune',
   category: 'Data',
   label: 'TreePrune',
   description: 'Remove empty branches',

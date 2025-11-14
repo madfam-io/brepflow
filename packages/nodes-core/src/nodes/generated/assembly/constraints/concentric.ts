@@ -14,6 +14,7 @@ interface ConcentricOutputs {
 
 export const AssemblyConstraintsConcentricNode: NodeDefinition<ConcentricInputs, ConcentricOutputs, ConcentricParams> = {
   id: 'Assembly::Concentric',
+  type: 'Assembly::Concentric',
   category: 'Assembly',
   label: 'Concentric',
   description: 'Make two circular entities concentric',

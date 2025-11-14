@@ -18,6 +18,7 @@ interface ThreadedHoleOutputs {
 
 export const FeaturesHolesThreadedHoleNode: NodeDefinition<ThreadedHoleInputs, ThreadedHoleOutputs, ThreadedHoleParams> = {
   id: 'Features::ThreadedHole',
+  type: 'Features::ThreadedHole',
   category: 'Features',
   label: 'ThreadedHole',
   description: 'Creates a threaded (tapped) hole',

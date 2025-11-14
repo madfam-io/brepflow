@@ -17,6 +17,7 @@ interface StraightWallOutputs {
 
 export const ArchitectureWallsStraightWallNode: NodeDefinition<StraightWallInputs, StraightWallOutputs, StraightWallParams> = {
   id: 'Architecture::StraightWall',
+  type: 'Architecture::StraightWall',
   category: 'Architecture',
   label: 'StraightWall',
   description: 'Create straight wall segment',

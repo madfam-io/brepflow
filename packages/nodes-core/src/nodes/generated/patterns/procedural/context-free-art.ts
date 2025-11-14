@@ -15,6 +15,7 @@ interface ContextFreeArtOutputs {
 
 export const PatternsProceduralContextFreeArtNode: NodeDefinition<ContextFreeArtInputs, ContextFreeArtOutputs, ContextFreeArtParams> = {
   id: 'Patterns::ContextFreeArt',
+  type: 'Patterns::ContextFreeArt',
   category: 'Patterns',
   label: 'ContextFreeArt',
   description: 'Context-free art generation',

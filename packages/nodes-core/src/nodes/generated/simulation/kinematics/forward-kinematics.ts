@@ -17,6 +17,7 @@ interface ForwardKinematicsOutputs {
 
 export const SimulationKinematicsForwardKinematicsNode: NodeDefinition<ForwardKinematicsInputs, ForwardKinematicsOutputs, ForwardKinematicsParams> = {
   id: 'Simulation::ForwardKinematics',
+  type: 'Simulation::ForwardKinematics',
   category: 'Simulation',
   label: 'ForwardKinematics',
   description: 'Calculate forward kinematics',

@@ -14,6 +14,7 @@ interface ArcSineOutputs {
 
 export const MathTrigonometryArcSineNode: NodeDefinition<ArcSineInputs, ArcSineOutputs, ArcSineParams> = {
   id: 'Math::ArcSine',
+  type: 'Math::ArcSine',
   category: 'Math',
   label: 'ArcSine',
   description: 'Arc sine function',

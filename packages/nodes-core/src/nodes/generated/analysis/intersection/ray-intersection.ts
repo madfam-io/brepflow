@@ -19,6 +19,7 @@ interface RayIntersectionOutputs {
 
 export const AnalysisIntersectionRayIntersectionNode: NodeDefinition<RayIntersectionInputs, RayIntersectionOutputs, RayIntersectionParams> = {
   id: 'Analysis::RayIntersection',
+  type: 'Analysis::RayIntersection',
   category: 'Analysis',
   label: 'RayIntersection',
   description: 'Cast ray and find intersections',

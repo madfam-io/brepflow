@@ -14,6 +14,7 @@ interface ListShuffleOutputs {
 
 export const DataListListShuffleNode: NodeDefinition<ListShuffleInputs, ListShuffleOutputs, ListShuffleParams> = {
   id: 'Data::ListShuffle',
+  type: 'Data::ListShuffle',
   category: 'Data',
   label: 'ListShuffle',
   description: 'Randomize list order',

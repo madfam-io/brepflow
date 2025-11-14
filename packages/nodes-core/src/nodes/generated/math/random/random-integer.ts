@@ -15,6 +15,7 @@ interface RandomIntegerOutputs {
 
 export const MathRandomRandomIntegerNode: NodeDefinition<RandomIntegerInputs, RandomIntegerOutputs, RandomIntegerParams> = {
   id: 'Math::RandomInteger',
+  type: 'Math::RandomInteger',
   category: 'Math',
   label: 'RandomInteger',
   description: 'Random integer',

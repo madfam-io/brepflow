@@ -16,6 +16,7 @@ interface StarOutputs {
 
 export const SketchPatternsStarNode: NodeDefinition<StarInputs, StarOutputs, StarParams> = {
   id: 'Sketch::Star',
+  type: 'Sketch::Star',
   category: 'Sketch',
   label: 'Star',
   description: 'Create a star shape',

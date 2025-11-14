@@ -18,6 +18,7 @@ interface DistanceFieldOutputs {
 
 export const AlgorithmicGeometryDistanceFieldNode: NodeDefinition<DistanceFieldInputs, DistanceFieldOutputs, DistanceFieldParams> = {
   id: 'Algorithmic::DistanceField',
+  type: 'Algorithmic::DistanceField',
   category: 'Algorithmic',
   label: 'DistanceField',
   description: 'Compute signed distance field',

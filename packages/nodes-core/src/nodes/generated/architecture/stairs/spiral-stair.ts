@@ -18,6 +18,7 @@ interface SpiralStairOutputs {
 
 export const ArchitectureStairsSpiralStairNode: NodeDefinition<SpiralStairInputs, SpiralStairOutputs, SpiralStairParams> = {
   id: 'Architecture::SpiralStair',
+  type: 'Architecture::SpiralStair',
   category: 'Architecture',
   label: 'SpiralStair',
   description: 'Spiral staircase',

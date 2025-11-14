@@ -20,6 +20,7 @@ interface DecisionTreeOutputs {
 
 export const AlgorithmicMachineLearningDecisionTreeNode: NodeDefinition<DecisionTreeInputs, DecisionTreeOutputs, DecisionTreeParams> = {
   id: 'Algorithmic::DecisionTree',
+  type: 'Algorithmic::DecisionTree',
   category: 'Algorithmic',
   label: 'DecisionTree',
   description: 'Decision tree classifier',

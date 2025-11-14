@@ -19,6 +19,7 @@ interface TorsionSpringOutputs {
 
 export const MechanicalEngineeringSpringsTorsionSpringNode: NodeDefinition<TorsionSpringInputs, TorsionSpringOutputs, TorsionSpringParams> = {
   id: 'MechanicalEngineering::TorsionSpring',
+  type: 'MechanicalEngineering::TorsionSpring',
   category: 'MechanicalEngineering',
   label: 'TorsionSpring',
   description: 'Create torsion spring',

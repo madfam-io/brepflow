@@ -17,6 +17,7 @@ interface SliceModelOutputs {
 
 export const Fabrication3DPrintingSliceModelNode: NodeDefinition<SliceModelInputs, SliceModelOutputs, SliceModelParams> = {
   id: 'Fabrication::SliceModel',
+  type: 'Fabrication::SliceModel',
   category: 'Fabrication',
   label: 'SliceModel',
   description: 'Slice model for printing',

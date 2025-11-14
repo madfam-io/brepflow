@@ -20,6 +20,7 @@ interface PathArrayOutputs {
 
 export const TransformPathArrayNode: NodeDefinition<PathArrayInputs, PathArrayOutputs, PathArrayParams> = {
   id: 'Transform::PathArray',
+  type: 'Transform::PathArray',
   category: 'Transform',
   label: 'PathArray',
   description: 'Array shapes along a path',

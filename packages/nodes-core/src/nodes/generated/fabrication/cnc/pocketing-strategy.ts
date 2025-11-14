@@ -18,6 +18,7 @@ interface PocketingStrategyOutputs {
 
 export const FabricationCNCPocketingStrategyNode: NodeDefinition<PocketingStrategyInputs, PocketingStrategyOutputs, PocketingStrategyParams> = {
   id: 'Fabrication::PocketingStrategy',
+  type: 'Fabrication::PocketingStrategy',
   category: 'Fabrication',
   label: 'PocketingStrategy',
   description: 'Pocket machining strategy',

@@ -16,6 +16,7 @@ interface FieldMorphingOutputs {
 
 export const FieldsAdvancedFieldMorphingNode: NodeDefinition<FieldMorphingInputs, FieldMorphingOutputs, FieldMorphingParams> = {
   id: 'Fields::FieldMorphing',
+  type: 'Fields::FieldMorphing',
   category: 'Fields',
   label: 'FieldMorphing',
   description: 'Morph between two fields',

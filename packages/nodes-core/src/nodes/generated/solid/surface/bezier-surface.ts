@@ -15,6 +15,7 @@ interface BezierSurfaceOutputs {
 
 export const SolidSurfaceBezierSurfaceNode: NodeDefinition<BezierSurfaceInputs, BezierSurfaceOutputs, BezierSurfaceParams> = {
   id: 'Solid::BezierSurface',
+  type: 'Solid::BezierSurface',
   category: 'Solid',
   label: 'BezierSurface',
   description: 'Create a Bezier surface from control points',

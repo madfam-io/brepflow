@@ -17,6 +17,7 @@ interface CollisionDetectionOutputs {
 
 export const FabricationCNCCollisionDetectionNode: NodeDefinition<CollisionDetectionInputs, CollisionDetectionOutputs, CollisionDetectionParams> = {
   id: 'Fabrication::CollisionDetection',
+  type: 'Fabrication::CollisionDetection',
   category: 'Fabrication',
   label: 'CollisionDetection',
   description: 'Tool collision checking',

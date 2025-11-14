@@ -18,6 +18,7 @@ interface MiterFlangeOutputs {
 
 export const SheetMetalFlangesMiterFlangeNode: NodeDefinition<MiterFlangeInputs, MiterFlangeOutputs, MiterFlangeParams> = {
   id: 'SheetMetal::MiterFlange',
+  type: 'SheetMetal::MiterFlange',
   category: 'SheetMetal',
   label: 'MiterFlange',
   description: 'Create mitered flange',

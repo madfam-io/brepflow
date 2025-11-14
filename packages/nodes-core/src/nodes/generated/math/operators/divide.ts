@@ -13,6 +13,7 @@ interface DivideOutputs {
 
 export const MathOperatorsDivideNode: NodeDefinition<DivideInputs, DivideOutputs, DivideParams> = {
   id: 'Math::Divide',
+  type: 'Math::Divide',
   category: 'Math',
   label: 'Divide',
   description: 'Divide numbers',

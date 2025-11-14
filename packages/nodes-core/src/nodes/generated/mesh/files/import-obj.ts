@@ -16,6 +16,7 @@ interface ImportOBJOutputs {
 
 export const MeshFilesImportOBJNode: NodeDefinition<ImportOBJInputs, ImportOBJOutputs, ImportOBJParams> = {
   id: 'Mesh::ImportOBJ',
+  type: 'Mesh::ImportOBJ',
   category: 'Mesh',
   label: 'ImportOBJ',
   description: 'Import OBJ mesh',

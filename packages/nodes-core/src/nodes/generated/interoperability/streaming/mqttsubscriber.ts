@@ -17,6 +17,7 @@ interface MQTTSubscriberOutputs {
 
 export const InteroperabilityStreamingMQTTSubscriberNode: NodeDefinition<MQTTSubscriberInputs, MQTTSubscriberOutputs, MQTTSubscriberParams> = {
   id: 'Interoperability::MQTTSubscriber',
+  type: 'Interoperability::MQTTSubscriber',
   category: 'Interoperability',
   label: 'MQTTSubscriber',
   description: 'Subscribe to MQTT topics',

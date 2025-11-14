@@ -17,6 +17,7 @@ interface SimplexNoiseOutputs {
 
 export const MathRandomSimplexNoiseNode: NodeDefinition<SimplexNoiseInputs, SimplexNoiseOutputs, SimplexNoiseParams> = {
   id: 'Math::SimplexNoise',
+  type: 'Math::SimplexNoise',
   category: 'Math',
   label: 'SimplexNoise',
   description: 'Simplex noise',

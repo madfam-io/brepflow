@@ -16,6 +16,7 @@ interface ParapetWallOutputs {
 
 export const ArchitectureWallsParapetWallNode: NodeDefinition<ParapetWallInputs, ParapetWallOutputs, ParapetWallParams> = {
   id: 'Architecture::ParapetWall',
+  type: 'Architecture::ParapetWall',
   category: 'Architecture',
   label: 'ParapetWall',
   description: 'Roof parapet wall',

@@ -15,6 +15,7 @@ interface FieldRotateOutputs {
 
 export const FieldDeformFieldRotateNode: NodeDefinition<FieldRotateInputs, FieldRotateOutputs, FieldRotateParams> = {
   id: 'Field::FieldRotate',
+  type: 'Field::FieldRotate',
   category: 'Field',
   label: 'FieldRotate',
   description: 'Rotate by field',

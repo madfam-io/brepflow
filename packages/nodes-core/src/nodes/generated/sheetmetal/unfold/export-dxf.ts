@@ -17,6 +17,7 @@ interface ExportDXFOutputs {
 
 export const SheetMetalUnfoldExportDXFNode: NodeDefinition<ExportDXFInputs, ExportDXFOutputs, ExportDXFParams> = {
   id: 'SheetMetal::ExportDXF',
+  type: 'SheetMetal::ExportDXF',
   category: 'SheetMetal',
   label: 'ExportDXF',
   description: 'Export flat pattern to DXF',

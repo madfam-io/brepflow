@@ -17,6 +17,7 @@ interface GrammarShapesOutputs {
 
 export const PatternsProceduralGrammarShapesNode: NodeDefinition<GrammarShapesInputs, GrammarShapesOutputs, GrammarShapesParams> = {
   id: 'Patterns::GrammarShapes',
+  type: 'Patterns::GrammarShapes',
   category: 'Patterns',
   label: 'GrammarShapes',
   description: 'Shape grammar generation',

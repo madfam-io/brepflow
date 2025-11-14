@@ -15,6 +15,7 @@ interface IsoparametricCurveOutputs {
 
 export const SurfaceCurveOpsIsoparametricCurveNode: NodeDefinition<IsoparametricCurveInputs, IsoparametricCurveOutputs, IsoparametricCurveParams> = {
   id: 'Surface::IsoparametricCurve',
+  type: 'Surface::IsoparametricCurve',
   category: 'Surface',
   label: 'IsoparametricCurve',
   description: 'Extract isoparametric curve',

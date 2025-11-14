@@ -13,6 +13,7 @@ interface ListAppendOutputs {
 
 export const DataListListAppendNode: NodeDefinition<ListAppendInputs, ListAppendOutputs, ListAppendParams> = {
   id: 'Data::ListAppend',
+  type: 'Data::ListAppend',
   category: 'Data',
   label: 'ListAppend',
   description: 'Append to list',

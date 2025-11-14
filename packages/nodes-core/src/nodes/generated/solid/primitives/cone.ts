@@ -18,6 +18,7 @@ interface ConeOutputs {
 
 export const SolidPrimitivesConeNode: NodeDefinition<ConeInputs, ConeOutputs, ConeParams> = {
   id: 'Solid::Cone',
+  type: 'Solid::Cone',
   category: 'Solid',
   label: 'Cone',
   description: 'Create a parametric cone or truncated cone',

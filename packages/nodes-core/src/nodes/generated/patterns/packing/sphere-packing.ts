@@ -16,6 +16,7 @@ interface SpherePackingOutputs {
 
 export const PatternsPackingSpherePackingNode: NodeDefinition<SpherePackingInputs, SpherePackingOutputs, SpherePackingParams> = {
   id: 'Patterns::SpherePacking',
+  type: 'Patterns::SpherePacking',
   category: 'Patterns',
   label: 'SpherePacking',
   description: '3D sphere packing',

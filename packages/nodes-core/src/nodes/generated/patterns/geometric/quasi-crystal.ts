@@ -15,6 +15,7 @@ interface QuasiCrystalOutputs {
 
 export const PatternsGeometricQuasiCrystalNode: NodeDefinition<QuasiCrystalInputs, QuasiCrystalOutputs, QuasiCrystalParams> = {
   id: 'Patterns::QuasiCrystal',
+  type: 'Patterns::QuasiCrystal',
   category: 'Patterns',
   label: 'QuasiCrystal',
   description: 'Quasicrystalline pattern',

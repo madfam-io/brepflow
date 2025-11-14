@@ -18,6 +18,7 @@ interface TreeGeneratorOutputs {
 
 export const PatternsLSystemsTreeGeneratorNode: NodeDefinition<TreeGeneratorInputs, TreeGeneratorOutputs, TreeGeneratorParams> = {
   id: 'Patterns::TreeGenerator',
+  type: 'Patterns::TreeGenerator',
   category: 'Patterns',
   label: 'TreeGenerator',
   description: 'Parametric tree generator',

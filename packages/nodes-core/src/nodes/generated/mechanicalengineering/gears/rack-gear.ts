@@ -18,6 +18,7 @@ interface RackGearOutputs {
 
 export const MechanicalEngineeringGearsRackGearNode: NodeDefinition<RackGearInputs, RackGearOutputs, RackGearParams> = {
   id: 'MechanicalEngineering::RackGear',
+  type: 'MechanicalEngineering::RackGear',
   category: 'MechanicalEngineering',
   label: 'RackGear',
   description: 'Create linear rack gear',

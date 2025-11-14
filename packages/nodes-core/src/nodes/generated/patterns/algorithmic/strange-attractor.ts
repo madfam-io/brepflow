@@ -17,6 +17,7 @@ interface StrangeAttractorOutputs {
 
 export const PatternsAlgorithmicStrangeAttractorNode: NodeDefinition<StrangeAttractorInputs, StrangeAttractorOutputs, StrangeAttractorParams> = {
   id: 'Patterns::StrangeAttractor',
+  type: 'Patterns::StrangeAttractor',
   category: 'Patterns',
   label: 'StrangeAttractor',
   description: 'Strange attractor patterns',

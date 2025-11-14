@@ -19,6 +19,7 @@ interface VisibilityGraphOutputs {
 
 export const AlgorithmicGeometryVisibilityGraphNode: NodeDefinition<VisibilityGraphInputs, VisibilityGraphOutputs, VisibilityGraphParams> = {
   id: 'Algorithmic::VisibilityGraph',
+  type: 'Algorithmic::VisibilityGraph',
   category: 'Algorithmic',
   label: 'VisibilityGraph',
   description: 'Compute visibility graph for path planning',

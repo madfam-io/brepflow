@@ -14,6 +14,7 @@ interface SineOutputs {
 
 export const MathTrigonometrySineNode: NodeDefinition<SineInputs, SineOutputs, SineParams> = {
   id: 'Math::Sine',
+  type: 'Math::Sine',
   category: 'Math',
   label: 'Sine',
   description: 'Sine function',

@@ -15,6 +15,7 @@ interface RaftGenerationOutputs {
 
 export const Fabrication3DPrintingRaftGenerationNode: NodeDefinition<RaftGenerationInputs, RaftGenerationOutputs, RaftGenerationParams> = {
   id: 'Fabrication::RaftGeneration',
+  type: 'Fabrication::RaftGeneration',
   category: 'Fabrication',
   label: 'RaftGeneration',
   description: 'Generate raft for adhesion',

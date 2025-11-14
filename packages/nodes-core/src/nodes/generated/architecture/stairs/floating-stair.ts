@@ -17,6 +17,7 @@ interface FloatingStairOutputs {
 
 export const ArchitectureStairsFloatingStairNode: NodeDefinition<FloatingStairInputs, FloatingStairOutputs, FloatingStairParams> = {
   id: 'Architecture::FloatingStair',
+  type: 'Architecture::FloatingStair',
   category: 'Architecture',
   label: 'FloatingStair',
   description: 'Floating cantilevered stairs',

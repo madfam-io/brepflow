@@ -15,6 +15,7 @@ interface CurveConvexHullOutputs {
 
 export const AnalysisCurvesCurveConvexHullNode: NodeDefinition<CurveConvexHullInputs, CurveConvexHullOutputs, CurveConvexHullParams> = {
   id: 'Analysis::CurveConvexHull',
+  type: 'Analysis::CurveConvexHull',
   category: 'Analysis',
   label: 'CurveConvexHull',
   description: 'Generate convex hull of curve points',

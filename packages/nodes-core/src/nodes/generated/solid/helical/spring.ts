@@ -16,6 +16,7 @@ interface SpringOutputs {
 
 export const SolidHelicalSpringNode: NodeDefinition<SpringInputs, SpringOutputs, SpringParams> = {
   id: 'Solid::Spring',
+  type: 'Solid::Spring',
   category: 'Solid',
   label: 'Spring',
   description: 'Create a spring solid',

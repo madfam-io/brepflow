@@ -18,6 +18,7 @@ interface MotionDriverOutputs {
 
 export const SimulationKinematicsMotionDriverNode: NodeDefinition<MotionDriverInputs, MotionDriverOutputs, MotionDriverParams> = {
   id: 'Simulation::MotionDriver',
+  type: 'Simulation::MotionDriver',
   category: 'Simulation',
   label: 'MotionDriver',
   description: 'Define motion driver',

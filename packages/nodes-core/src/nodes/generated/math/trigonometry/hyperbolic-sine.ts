@@ -12,6 +12,7 @@ interface HyperbolicSineOutputs {
 
 export const MathTrigonometryHyperbolicSineNode: NodeDefinition<HyperbolicSineInputs, HyperbolicSineOutputs, HyperbolicSineParams> = {
   id: 'Math::HyperbolicSine',
+  type: 'Math::HyperbolicSine',
   category: 'Math',
   label: 'HyperbolicSine',
   description: 'Hyperbolic sine',

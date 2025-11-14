@@ -15,6 +15,7 @@ interface BlueNoiseOutputs {
 
 export const PatternsStochasticBlueNoiseNode: NodeDefinition<BlueNoiseInputs, BlueNoiseOutputs, BlueNoiseParams> = {
   id: 'Patterns::BlueNoise',
+  type: 'Patterns::BlueNoise',
   category: 'Patterns',
   label: 'BlueNoise',
   description: 'Blue noise distribution',

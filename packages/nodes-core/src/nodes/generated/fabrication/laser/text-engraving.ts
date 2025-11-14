@@ -16,6 +16,7 @@ interface TextEngravingOutputs {
 
 export const FabricationLaserTextEngravingNode: NodeDefinition<TextEngravingInputs, TextEngravingOutputs, TextEngravingParams> = {
   id: 'Fabrication::TextEngraving',
+  type: 'Fabrication::TextEngraving',
   category: 'Fabrication',
   label: 'TextEngraving',
   description: 'Optimize text for engraving',

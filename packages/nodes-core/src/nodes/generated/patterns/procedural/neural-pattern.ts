@@ -15,6 +15,7 @@ interface NeuralPatternOutputs {
 
 export const PatternsProceduralNeuralPatternNode: NodeDefinition<NeuralPatternInputs, NeuralPatternOutputs, NeuralPatternParams> = {
   id: 'Patterns::NeuralPattern',
+  type: 'Patterns::NeuralPattern',
   category: 'Patterns',
   label: 'NeuralPattern',
   description: 'Neural network pattern',

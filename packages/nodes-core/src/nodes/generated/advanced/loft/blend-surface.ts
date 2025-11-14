@@ -18,6 +18,7 @@ interface BlendSurfaceOutputs {
 
 export const AdvancedLoftBlendSurfaceNode: NodeDefinition<BlendSurfaceInputs, BlendSurfaceOutputs, BlendSurfaceParams> = {
   id: 'Advanced::BlendSurface',
+  type: 'Advanced::BlendSurface',
   category: 'Advanced',
   label: 'BlendSurface',
   description: 'Blend between surfaces',

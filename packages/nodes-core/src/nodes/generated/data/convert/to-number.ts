@@ -13,6 +13,7 @@ interface ToNumberOutputs {
 
 export const DataConvertToNumberNode: NodeDefinition<ToNumberInputs, ToNumberOutputs, ToNumberParams> = {
   id: 'Data::ToNumber',
+  type: 'Data::ToNumber',
   category: 'Data',
   label: 'ToNumber',
   description: 'Convert to number',

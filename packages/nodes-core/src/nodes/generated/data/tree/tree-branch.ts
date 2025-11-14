@@ -13,6 +13,7 @@ interface TreeBranchOutputs {
 
 export const DataTreeTreeBranchNode: NodeDefinition<TreeBranchInputs, TreeBranchOutputs, TreeBranchParams> = {
   id: 'Data::TreeBranch',
+  type: 'Data::TreeBranch',
   category: 'Data',
   label: 'TreeBranch',
   description: 'Get tree branch',

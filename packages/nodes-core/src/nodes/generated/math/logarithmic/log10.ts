@@ -12,6 +12,7 @@ interface Log10Outputs {
 
 export const MathLogarithmicLog10Node: NodeDefinition<Log10Inputs, Log10Outputs, Log10Params> = {
   id: 'Math::Log10',
+  type: 'Math::Log10',
   category: 'Math',
   label: 'Log10',
   description: 'Base-10 logarithm',

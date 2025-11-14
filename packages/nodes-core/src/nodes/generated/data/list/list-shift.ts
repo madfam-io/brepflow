@@ -15,6 +15,7 @@ interface ListShiftOutputs {
 
 export const DataListListShiftNode: NodeDefinition<ListShiftInputs, ListShiftOutputs, ListShiftParams> = {
   id: 'Data::ListShift',
+  type: 'Data::ListShift',
   category: 'Data',
   label: 'ListShift',
   description: 'Shift list items',

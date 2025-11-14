@@ -20,6 +20,7 @@ interface HTTPRequestOutputs {
 
 export const InteroperabilityAPIHTTPRequestNode: NodeDefinition<HTTPRequestInputs, HTTPRequestOutputs, HTTPRequestParams> = {
   id: 'Interoperability::HTTPRequest',
+  type: 'Interoperability::HTTPRequest',
   category: 'Interoperability',
   label: 'HTTPRequest',
   description: 'Make HTTP REST API requests',

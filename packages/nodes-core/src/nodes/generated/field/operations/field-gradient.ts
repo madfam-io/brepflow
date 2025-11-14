@@ -12,6 +12,7 @@ interface FieldGradientOutputs {
 
 export const FieldOperationsFieldGradientNode: NodeDefinition<FieldGradientInputs, FieldGradientOutputs, FieldGradientParams> = {
   id: 'Field::FieldGradient',
+  type: 'Field::FieldGradient',
   category: 'Field',
   label: 'FieldGradient',
   description: 'Compute field gradient',

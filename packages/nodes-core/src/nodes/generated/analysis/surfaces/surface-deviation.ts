@@ -20,6 +20,7 @@ interface SurfaceDeviationOutputs {
 
 export const AnalysisSurfacesSurfaceDeviationNode: NodeDefinition<SurfaceDeviationInputs, SurfaceDeviationOutputs, SurfaceDeviationParams> = {
   id: 'Analysis::SurfaceDeviation',
+  type: 'Analysis::SurfaceDeviation',
   category: 'Analysis',
   label: 'SurfaceDeviation',
   description: 'Compare surface deviation from reference',

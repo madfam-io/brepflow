@@ -14,6 +14,7 @@ interface ListFlattenOutputs {
 
 export const DataListListFlattenNode: NodeDefinition<ListFlattenInputs, ListFlattenOutputs, ListFlattenParams> = {
   id: 'Data::ListFlatten',
+  type: 'Data::ListFlatten',
   category: 'Data',
   label: 'ListFlatten',
   description: 'Flatten nested lists',

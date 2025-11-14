@@ -12,6 +12,7 @@ interface MedianOutputs {
 
 export const MathStatisticsMedianNode: NodeDefinition<MedianInputs, MedianOutputs, MedianParams> = {
   id: 'Math::Median',
+  type: 'Math::Median',
   category: 'Math',
   label: 'Median',
   description: 'Calculate median',

@@ -18,6 +18,7 @@ interface CurveBoundingBoxOutputs {
 
 export const AnalysisCurvesCurveBoundingBoxNode: NodeDefinition<CurveBoundingBoxInputs, CurveBoundingBoxOutputs, CurveBoundingBoxParams> = {
   id: 'Analysis::CurveBoundingBox',
+  type: 'Analysis::CurveBoundingBox',
   category: 'Analysis',
   label: 'CurveBoundingBox',
   description: 'Calculate oriented bounding box',

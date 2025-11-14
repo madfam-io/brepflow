@@ -15,6 +15,7 @@ interface PlantGrowthOutputs {
 
 export const PatternsLSystemsPlantGrowthNode: NodeDefinition<PlantGrowthInputs, PlantGrowthOutputs, PlantGrowthParams> = {
   id: 'Patterns::PlantGrowth',
+  type: 'Patterns::PlantGrowth',
   category: 'Patterns',
   label: 'PlantGrowth',
   description: 'Parametric plant growth',

@@ -16,6 +16,7 @@ interface VehicleRampOutputs {
 
 export const ArchitectureRampsVehicleRampNode: NodeDefinition<VehicleRampInputs, VehicleRampOutputs, VehicleRampParams> = {
   id: 'Architecture::VehicleRamp',
+  type: 'Architecture::VehicleRamp',
   category: 'Architecture',
   label: 'VehicleRamp',
   description: 'Vehicular access ramp',

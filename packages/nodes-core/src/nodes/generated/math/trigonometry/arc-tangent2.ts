@@ -15,6 +15,7 @@ interface ArcTangent2Outputs {
 
 export const MathTrigonometryArcTangent2Node: NodeDefinition<ArcTangent2Inputs, ArcTangent2Outputs, ArcTangent2Params> = {
   id: 'Math::ArcTangent2',
+  type: 'Math::ArcTangent2',
   category: 'Math',
   label: 'ArcTangent2',
   description: 'Two-argument arc tangent',

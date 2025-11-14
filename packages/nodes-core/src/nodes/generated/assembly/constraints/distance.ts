@@ -17,6 +17,7 @@ interface DistanceOutputs {
 
 export const AssemblyConstraintsDistanceNode: NodeDefinition<DistanceInputs, DistanceOutputs, DistanceParams> = {
   id: 'Assembly::Distance',
+  type: 'Assembly::Distance',
   category: 'Assembly',
   label: 'Distance',
   description: 'Set distance between entities',

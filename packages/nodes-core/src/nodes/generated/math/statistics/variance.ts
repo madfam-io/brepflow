@@ -14,6 +14,7 @@ interface VarianceOutputs {
 
 export const MathStatisticsVarianceNode: NodeDefinition<VarianceInputs, VarianceOutputs, VarianceParams> = {
   id: 'Math::Variance',
+  type: 'Math::Variance',
   category: 'Math',
   label: 'Variance',
   description: 'Calculate variance',

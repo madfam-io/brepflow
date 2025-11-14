@@ -15,6 +15,7 @@ interface MinimalSurfaceOutputs {
 
 export const PatternsGeometricMinimalSurfaceNode: NodeDefinition<MinimalSurfaceInputs, MinimalSurfaceOutputs, MinimalSurfaceParams> = {
   id: 'Patterns::MinimalSurface',
+  type: 'Patterns::MinimalSurface',
   category: 'Patterns',
   label: 'MinimalSurface',
   description: 'Minimal surface pattern',

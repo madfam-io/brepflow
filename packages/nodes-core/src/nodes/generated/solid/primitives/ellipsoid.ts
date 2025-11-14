@@ -17,6 +17,7 @@ interface EllipsoidOutputs {
 
 export const SolidPrimitivesEllipsoidNode: NodeDefinition<EllipsoidInputs, EllipsoidOutputs, EllipsoidParams> = {
   id: 'Solid::Ellipsoid',
+  type: 'Solid::Ellipsoid',
   category: 'Solid',
   label: 'Ellipsoid',
   description: 'Create a parametric ellipsoid',

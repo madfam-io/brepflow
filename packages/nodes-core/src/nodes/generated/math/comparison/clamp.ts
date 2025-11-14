@@ -14,6 +14,7 @@ interface ClampOutputs {
 
 export const MathComparisonClampNode: NodeDefinition<ClampInputs, ClampOutputs, ClampParams> = {
   id: 'Math::Clamp',
+  type: 'Math::Clamp',
   category: 'Math',
   label: 'Clamp',
   description: 'Clamp value between min and max',

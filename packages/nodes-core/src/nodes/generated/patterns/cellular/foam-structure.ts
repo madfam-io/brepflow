@@ -15,6 +15,7 @@ interface FoamStructureOutputs {
 
 export const PatternsCellularFoamStructureNode: NodeDefinition<FoamStructureInputs, FoamStructureOutputs, FoamStructureParams> = {
   id: 'Patterns::FoamStructure',
+  type: 'Patterns::FoamStructure',
   category: 'Patterns',
   label: 'FoamStructure',
   description: 'Foam bubble structure',

@@ -18,6 +18,7 @@ interface ChainSprocketOutputs {
 
 export const MechanicalEngineeringGearsChainSprocketNode: NodeDefinition<ChainSprocketInputs, ChainSprocketOutputs, ChainSprocketParams> = {
   id: 'MechanicalEngineering::ChainSprocket',
+  type: 'MechanicalEngineering::ChainSprocket',
   category: 'MechanicalEngineering',
   label: 'ChainSprocket',
   description: 'Create chain drive sprocket',

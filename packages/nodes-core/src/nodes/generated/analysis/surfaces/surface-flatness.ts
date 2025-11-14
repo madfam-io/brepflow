@@ -18,6 +18,7 @@ interface SurfaceFlatnessOutputs {
 
 export const AnalysisSurfacesSurfaceFlatnessNode: NodeDefinition<SurfaceFlatnessInputs, SurfaceFlatnessOutputs, SurfaceFlatnessParams> = {
   id: 'Analysis::SurfaceFlatness',
+  type: 'Analysis::SurfaceFlatness',
   category: 'Analysis',
   label: 'SurfaceFlatness',
   description: 'Analyze surface flatness',

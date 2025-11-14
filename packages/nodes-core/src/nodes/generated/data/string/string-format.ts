@@ -13,6 +13,7 @@ interface StringFormatOutputs {
 
 export const DataStringStringFormatNode: NodeDefinition<StringFormatInputs, StringFormatOutputs, StringFormatParams> = {
   id: 'Data::StringFormat',
+  type: 'Data::StringFormat',
   category: 'Data',
   label: 'StringFormat',
   description: 'Format string',

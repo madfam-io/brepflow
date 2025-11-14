@@ -19,6 +19,7 @@ interface HollowShaftOutputs {
 
 export const MechanicalEngineeringShaftsHollowShaftNode: NodeDefinition<HollowShaftInputs, HollowShaftOutputs, HollowShaftParams> = {
   id: 'MechanicalEngineering::HollowShaft',
+  type: 'MechanicalEngineering::HollowShaft',
   category: 'MechanicalEngineering',
   label: 'HollowShaft',
   description: 'Create hollow shaft',

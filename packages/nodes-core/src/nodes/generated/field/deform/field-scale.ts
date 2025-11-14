@@ -16,6 +16,7 @@ interface FieldScaleOutputs {
 
 export const FieldDeformFieldScaleNode: NodeDefinition<FieldScaleInputs, FieldScaleOutputs, FieldScaleParams> = {
   id: 'Field::FieldScale',
+  type: 'Field::FieldScale',
   category: 'Field',
   label: 'FieldScale',
   description: 'Scale by field',

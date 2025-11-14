@@ -20,6 +20,7 @@ interface LinkageMechanismOutputs {
 
 export const MechanicalEngineeringMechanismsLinkageMechanismNode: NodeDefinition<LinkageMechanismInputs, LinkageMechanismOutputs, LinkageMechanismParams> = {
   id: 'MechanicalEngineering::LinkageMechanism',
+  type: 'MechanicalEngineering::LinkageMechanism',
   category: 'MechanicalEngineering',
   label: 'LinkageMechanism',
   description: 'Create linkage mechanism',

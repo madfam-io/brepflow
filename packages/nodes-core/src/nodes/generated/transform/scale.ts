@@ -21,6 +21,7 @@ interface ScaleOutputs {
 
 export const TransformScaleNode: NodeDefinition<ScaleInputs, ScaleOutputs, ScaleParams> = {
   id: 'Transform::Scale',
+  type: 'Transform::Scale',
   category: 'Transform',
   label: 'Scale',
   description: 'Scale shape uniformly or non-uniformly',

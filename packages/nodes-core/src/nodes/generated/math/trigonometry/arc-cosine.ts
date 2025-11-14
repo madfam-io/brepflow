@@ -14,6 +14,7 @@ interface ArcCosineOutputs {
 
 export const MathTrigonometryArcCosineNode: NodeDefinition<ArcCosineInputs, ArcCosineOutputs, ArcCosineParams> = {
   id: 'Math::ArcCosine',
+  type: 'Math::ArcCosine',
   category: 'Math',
   label: 'ArcCosine',
   description: 'Arc cosine function',

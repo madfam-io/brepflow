@@ -16,6 +16,7 @@ interface CubicInterpOutputs {
 
 export const MathInterpolationCubicInterpNode: NodeDefinition<CubicInterpInputs, CubicInterpOutputs, CubicInterpParams> = {
   id: 'Math::CubicInterp',
+  type: 'Math::CubicInterp',
   category: 'Math',
   label: 'CubicInterp',
   description: 'Cubic interpolation',

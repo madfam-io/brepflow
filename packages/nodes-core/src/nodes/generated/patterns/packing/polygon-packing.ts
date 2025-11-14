@@ -17,6 +17,7 @@ interface PolygonPackingOutputs {
 
 export const PatternsPackingPolygonPackingNode: NodeDefinition<PolygonPackingInputs, PolygonPackingOutputs, PolygonPackingParams> = {
   id: 'Patterns::PolygonPacking',
+  type: 'Patterns::PolygonPacking',
   category: 'Patterns',
   label: 'PolygonPacking',
   description: 'Irregular polygon packing',

@@ -15,6 +15,7 @@ interface CompositeCurveOutputs {
 
 export const SurfaceCurvesCompositeCurveNode: NodeDefinition<CompositeCurveInputs, CompositeCurveOutputs, CompositeCurveParams> = {
   id: 'Surface::CompositeCurve',
+  type: 'Surface::CompositeCurve',
   category: 'Surface',
   label: 'CompositeCurve',
   description: 'Create composite curve',

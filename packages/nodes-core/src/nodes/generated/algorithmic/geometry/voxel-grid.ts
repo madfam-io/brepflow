@@ -18,6 +18,7 @@ interface VoxelGridOutputs {
 
 export const AlgorithmicGeometryVoxelGridNode: NodeDefinition<VoxelGridInputs, VoxelGridOutputs, VoxelGridParams> = {
   id: 'Algorithmic::VoxelGrid',
+  type: 'Algorithmic::VoxelGrid',
   category: 'Algorithmic',
   label: 'VoxelGrid',
   description: 'Convert geometry to voxel representation',

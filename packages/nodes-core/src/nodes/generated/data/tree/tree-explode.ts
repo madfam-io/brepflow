@@ -12,6 +12,7 @@ interface TreeExplodeOutputs {
 
 export const DataTreeTreeExplodeNode: NodeDefinition<TreeExplodeInputs, TreeExplodeOutputs, TreeExplodeParams> = {
   id: 'Data::TreeExplode',
+  type: 'Data::TreeExplode',
   category: 'Data',
   label: 'TreeExplode',
   description: 'Explode tree to branches',

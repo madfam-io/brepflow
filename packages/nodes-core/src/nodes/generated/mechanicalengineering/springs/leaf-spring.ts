@@ -19,6 +19,7 @@ interface LeafSpringOutputs {
 
 export const MechanicalEngineeringSpringsLeafSpringNode: NodeDefinition<LeafSpringInputs, LeafSpringOutputs, LeafSpringParams> = {
   id: 'MechanicalEngineering::LeafSpring',
+  type: 'MechanicalEngineering::LeafSpring',
   category: 'MechanicalEngineering',
   label: 'LeafSpring',
   description: 'Create leaf spring assembly',

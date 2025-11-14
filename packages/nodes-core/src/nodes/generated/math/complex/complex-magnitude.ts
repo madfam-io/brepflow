@@ -12,6 +12,7 @@ interface ComplexMagnitudeOutputs {
 
 export const MathComplexComplexMagnitudeNode: NodeDefinition<ComplexMagnitudeInputs, ComplexMagnitudeOutputs, ComplexMagnitudeParams> = {
   id: 'Math::ComplexMagnitude',
+  type: 'Math::ComplexMagnitude',
   category: 'Math',
   label: 'ComplexMagnitude',
   description: 'Complex magnitude',

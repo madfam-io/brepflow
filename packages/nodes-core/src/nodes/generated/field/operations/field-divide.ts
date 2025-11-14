@@ -15,6 +15,7 @@ interface FieldDivideOutputs {
 
 export const FieldOperationsFieldDivideNode: NodeDefinition<FieldDivideInputs, FieldDivideOutputs, FieldDivideParams> = {
   id: 'Field::FieldDivide',
+  type: 'Field::FieldDivide',
   category: 'Field',
   label: 'FieldDivide',
   description: 'Divide fields',

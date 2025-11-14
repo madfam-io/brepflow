@@ -15,6 +15,7 @@ interface Chamfer2DOutputs {
 
 export const SketchCurvesChamfer2DNode: NodeDefinition<Chamfer2DInputs, Chamfer2DOutputs, Chamfer2DParams> = {
   id: 'Sketch::Chamfer2D',
+  type: 'Sketch::Chamfer2D',
   category: 'Sketch',
   label: 'Chamfer2D',
   description: 'Chamfer corners of a 2D shape',

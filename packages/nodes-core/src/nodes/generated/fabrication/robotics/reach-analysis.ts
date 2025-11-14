@@ -16,6 +16,7 @@ interface ReachAnalysisOutputs {
 
 export const FabricationRoboticsReachAnalysisNode: NodeDefinition<ReachAnalysisInputs, ReachAnalysisOutputs, ReachAnalysisParams> = {
   id: 'Fabrication::ReachAnalysis',
+  type: 'Fabrication::ReachAnalysis',
   category: 'Fabrication',
   label: 'ReachAnalysis',
   description: 'Analyze robot reach',

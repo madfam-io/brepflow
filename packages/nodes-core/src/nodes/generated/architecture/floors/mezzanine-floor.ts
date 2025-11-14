@@ -16,6 +16,7 @@ interface MezzanineFloorOutputs {
 
 export const ArchitectureFloorsMezzanineFloorNode: NodeDefinition<MezzanineFloorInputs, MezzanineFloorOutputs, MezzanineFloorParams> = {
   id: 'Architecture::MezzanineFloor',
+  type: 'Architecture::MezzanineFloor',
   category: 'Architecture',
   label: 'MezzanineFloor',
   description: 'Mezzanine floor structure',

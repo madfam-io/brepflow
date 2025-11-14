@@ -21,6 +21,7 @@ interface LinearRegressionOutputs {
 
 export const AlgorithmicMachineLearningLinearRegressionNode: NodeDefinition<LinearRegressionInputs, LinearRegressionOutputs, LinearRegressionParams> = {
   id: 'Algorithmic::LinearRegression',
+  type: 'Algorithmic::LinearRegression',
   category: 'Algorithmic',
   label: 'LinearRegression',
   description: 'Linear regression analysis',

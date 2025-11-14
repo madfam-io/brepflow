@@ -14,6 +14,7 @@ interface KochSnowflakeOutputs {
 
 export const PatternsFractalsKochSnowflakeNode: NodeDefinition<KochSnowflakeInputs, KochSnowflakeOutputs, KochSnowflakeParams> = {
   id: 'Patterns::KochSnowflake',
+  type: 'Patterns::KochSnowflake',
   category: 'Patterns',
   label: 'KochSnowflake',
   description: 'Koch snowflake fractal',

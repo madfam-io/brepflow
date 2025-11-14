@@ -17,6 +17,7 @@ interface GrasshopperExportOutputs {
 
 export const InteroperabilityIntegrationGrasshopperExportNode: NodeDefinition<GrasshopperExportInputs, GrasshopperExportOutputs, GrasshopperExportParams> = {
   id: 'Interoperability::GrasshopperExport',
+  type: 'Interoperability::GrasshopperExport',
   category: 'Interoperability',
   label: 'GrasshopperExport',
   description: 'Export definitions compatible with Grasshopper',

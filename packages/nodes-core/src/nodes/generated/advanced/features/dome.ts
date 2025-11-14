@@ -15,6 +15,7 @@ interface DomeOutputs {
 
 export const AdvancedFeaturesDomeNode: NodeDefinition<DomeInputs, DomeOutputs, DomeParams> = {
   id: 'Advanced::Dome',
+  type: 'Advanced::Dome',
   category: 'Advanced',
   label: 'Dome',
   description: 'Create dome on face',

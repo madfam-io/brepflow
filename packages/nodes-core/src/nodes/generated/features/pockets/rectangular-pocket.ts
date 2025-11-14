@@ -19,6 +19,7 @@ interface RectangularPocketOutputs {
 
 export const FeaturesPocketsRectangularPocketNode: NodeDefinition<RectangularPocketInputs, RectangularPocketOutputs, RectangularPocketParams> = {
   id: 'Features::RectangularPocket',
+  type: 'Features::RectangularPocket',
   category: 'Features',
   label: 'RectangularPocket',
   description: 'Creates a rectangular pocket with optional corner radius',

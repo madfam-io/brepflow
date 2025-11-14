@@ -16,6 +16,7 @@ interface CircleOutputs {
 
 export const SketchBasicCircleNode: NodeDefinition<CircleInputs, CircleOutputs, CircleParams> = {
   id: 'Sketch::Circle',
+  type: 'Sketch::Circle',
   category: 'Sketch',
   label: 'Circle',
   description: 'Create a circle',

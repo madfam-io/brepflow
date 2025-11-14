@@ -14,6 +14,7 @@ interface RobotMaintenanceOutputs {
 
 export const FabricationRoboticsRobotMaintenanceNode: NodeDefinition<RobotMaintenanceInputs, RobotMaintenanceOutputs, RobotMaintenanceParams> = {
   id: 'Fabrication::RobotMaintenance',
+  type: 'Fabrication::RobotMaintenance',
   category: 'Fabrication',
   label: 'RobotMaintenance',
   description: 'Maintenance scheduling',

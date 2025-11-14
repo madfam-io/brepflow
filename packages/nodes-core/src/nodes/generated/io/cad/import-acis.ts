@@ -15,6 +15,7 @@ interface ImportACISOutputs {
 
 export const IOCADImportACISNode: NodeDefinition<ImportACISInputs, ImportACISOutputs, ImportACISParams> = {
   id: 'IO::ImportACIS',
+  type: 'IO::ImportACIS',
   category: 'IO',
   label: 'ImportACIS',
   description: 'Import ACIS SAT file',

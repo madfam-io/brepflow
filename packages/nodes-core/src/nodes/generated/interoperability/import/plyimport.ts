@@ -18,6 +18,7 @@ interface PLYImportOutputs {
 
 export const InteroperabilityImportPLYImportNode: NodeDefinition<PLYImportInputs, PLYImportOutputs, PLYImportParams> = {
   id: 'Interoperability::PLYImport',
+  type: 'Interoperability::PLYImport',
   category: 'Interoperability',
   label: 'PLYImport',
   description: 'Import PLY point cloud files',

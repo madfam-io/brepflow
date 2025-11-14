@@ -18,6 +18,7 @@ interface RollerBearingOutputs {
 
 export const MechanicalEngineeringBearingsRollerBearingNode: NodeDefinition<RollerBearingInputs, RollerBearingOutputs, RollerBearingParams> = {
   id: 'MechanicalEngineering::RollerBearing',
+  type: 'MechanicalEngineering::RollerBearing',
   category: 'MechanicalEngineering',
   label: 'RollerBearing',
   description: 'Create roller bearing',

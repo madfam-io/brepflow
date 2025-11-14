@@ -19,6 +19,7 @@ interface CurtainWallOutputs {
 
 export const ArchitectureWallsCurtainWallNode: NodeDefinition<CurtainWallInputs, CurtainWallOutputs, CurtainWallParams> = {
   id: 'Architecture::CurtainWall',
+  type: 'Architecture::CurtainWall',
   category: 'Architecture',
   label: 'CurtainWall',
   description: 'Glass curtain wall system',

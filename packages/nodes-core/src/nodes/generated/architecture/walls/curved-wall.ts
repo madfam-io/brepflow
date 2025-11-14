@@ -16,6 +16,7 @@ interface CurvedWallOutputs {
 
 export const ArchitectureWallsCurvedWallNode: NodeDefinition<CurvedWallInputs, CurvedWallOutputs, CurvedWallParams> = {
   id: 'Architecture::CurvedWall',
+  type: 'Architecture::CurvedWall',
   category: 'Architecture',
   label: 'CurvedWall',
   description: 'Create curved wall segment',

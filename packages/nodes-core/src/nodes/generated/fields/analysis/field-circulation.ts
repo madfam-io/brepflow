@@ -13,6 +13,7 @@ interface FieldCirculationOutputs {
 
 export const FieldsAnalysisFieldCirculationNode: NodeDefinition<FieldCirculationInputs, FieldCirculationOutputs, FieldCirculationParams> = {
   id: 'Fields::FieldCirculation',
+  type: 'Fields::FieldCirculation',
   category: 'Fields',
   label: 'FieldCirculation',
   description: 'Calculate circulation along curve',

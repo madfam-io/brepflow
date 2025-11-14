@@ -14,6 +14,7 @@ interface PointToPointOutputs {
 
 export const AssemblyMatesPointToPointNode: NodeDefinition<PointToPointInputs, PointToPointOutputs, PointToPointParams> = {
   id: 'Assembly::PointToPoint',
+  type: 'Assembly::PointToPoint',
   category: 'Assembly',
   label: 'PointToPoint',
   description: 'Mate two points together',

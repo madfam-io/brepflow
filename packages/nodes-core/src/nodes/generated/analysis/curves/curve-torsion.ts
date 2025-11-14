@@ -18,6 +18,7 @@ interface CurveTorsionOutputs {
 
 export const AnalysisCurvesCurveTorsionNode: NodeDefinition<CurveTorsionInputs, CurveTorsionOutputs, CurveTorsionParams> = {
   id: 'Analysis::CurveTorsion',
+  type: 'Analysis::CurveTorsion',
   category: 'Analysis',
   label: 'CurveTorsion',
   description: 'Calculate curve torsion values',

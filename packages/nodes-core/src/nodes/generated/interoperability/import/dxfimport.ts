@@ -19,6 +19,7 @@ interface DXFImportOutputs {
 
 export const InteroperabilityImportDXFImportNode: NodeDefinition<DXFImportInputs, DXFImportOutputs, DXFImportParams> = {
   id: 'Interoperability::DXFImport',
+  type: 'Interoperability::DXFImport',
   category: 'Interoperability',
   label: 'DXFImport',
   description: 'Import DXF 2D drawing files',

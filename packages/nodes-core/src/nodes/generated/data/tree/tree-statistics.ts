@@ -14,6 +14,7 @@ interface TreeStatisticsOutputs {
 
 export const DataTreeTreeStatisticsNode: NodeDefinition<TreeStatisticsInputs, TreeStatisticsOutputs, TreeStatisticsParams> = {
   id: 'Data::TreeStatistics',
+  type: 'Data::TreeStatistics',
   category: 'Data',
   label: 'TreeStatistics',
   description: 'Tree statistics',

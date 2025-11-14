@@ -18,6 +18,7 @@ interface SurfaceIsoCurvesOutputs {
 
 export const AnalysisSurfacesSurfaceIsoCurvesNode: NodeDefinition<SurfaceIsoCurvesInputs, SurfaceIsoCurvesOutputs, SurfaceIsoCurvesParams> = {
   id: 'Analysis::SurfaceIsoCurves',
+  type: 'Analysis::SurfaceIsoCurves',
   category: 'Analysis',
   label: 'SurfaceIsoCurves',
   description: 'Extract surface isocurves',

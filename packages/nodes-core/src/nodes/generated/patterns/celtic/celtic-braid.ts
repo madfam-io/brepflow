@@ -15,6 +15,7 @@ interface CelticBraidOutputs {
 
 export const PatternsCelticCelticBraidNode: NodeDefinition<CelticBraidInputs, CelticBraidOutputs, CelticBraidParams> = {
   id: 'Patterns::CelticBraid',
+  type: 'Patterns::CelticBraid',
   category: 'Patterns',
   label: 'CelticBraid',
   description: 'Celtic braid pattern',

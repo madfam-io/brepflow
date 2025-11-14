@@ -15,6 +15,7 @@ interface VoronoiOffsetOutputs {
 
 export const PatternsVoronoiVoronoiOffsetNode: NodeDefinition<VoronoiOffsetInputs, VoronoiOffsetOutputs, VoronoiOffsetParams> = {
   id: 'Patterns::VoronoiOffset',
+  type: 'Patterns::VoronoiOffset',
   category: 'Patterns',
   label: 'VoronoiOffset',
   description: 'Offset Voronoi cells',

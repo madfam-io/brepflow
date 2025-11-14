@@ -16,6 +16,7 @@ interface MeshBooleanOutputs {
 
 export const MeshRepairMeshBooleanNode: NodeDefinition<MeshBooleanInputs, MeshBooleanOutputs, MeshBooleanParams> = {
   id: 'Mesh::MeshBoolean',
+  type: 'Mesh::MeshBoolean',
   category: 'Mesh',
   label: 'MeshBoolean',
   description: 'Boolean operations on meshes',

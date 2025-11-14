@@ -16,6 +16,7 @@ interface RadialFieldOutputs {
 
 export const FieldGenerateRadialFieldNode: NodeDefinition<RadialFieldInputs, RadialFieldOutputs, RadialFieldParams> = {
   id: 'Field::RadialField',
+  type: 'Field::RadialField',
   category: 'Field',
   label: 'RadialField',
   description: 'Radial gradient field',

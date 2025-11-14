@@ -17,6 +17,7 @@ interface FieldHistogramOutputs {
 
 export const FieldsAnalysisFieldHistogramNode: NodeDefinition<FieldHistogramInputs, FieldHistogramOutputs, FieldHistogramParams> = {
   id: 'Fields::FieldHistogram',
+  type: 'Fields::FieldHistogram',
   category: 'Fields',
   label: 'FieldHistogram',
   description: 'Generate histogram of field values',

@@ -15,6 +15,7 @@ interface BiomimeticStructureOutputs {
 
 export const SpecializedOrganicBiomimeticStructureNode: NodeDefinition<BiomimeticStructureInputs, BiomimeticStructureOutputs, BiomimeticStructureParams> = {
   id: 'Specialized::BiomimeticStructure',
+  type: 'Specialized::BiomimeticStructure',
   category: 'Specialized',
   label: 'BiomimeticStructure',
   description: 'Nature-inspired structures',

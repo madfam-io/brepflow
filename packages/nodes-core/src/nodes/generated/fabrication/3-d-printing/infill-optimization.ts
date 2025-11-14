@@ -17,6 +17,7 @@ interface InfillOptimizationOutputs {
 
 export const Fabrication3DPrintingInfillOptimizationNode: NodeDefinition<InfillOptimizationInputs, InfillOptimizationOutputs, InfillOptimizationParams> = {
   id: 'Fabrication::InfillOptimization',
+  type: 'Fabrication::InfillOptimization',
   category: 'Fabrication',
   label: 'InfillOptimization',
   description: 'Adaptive infill generation',

@@ -21,6 +21,7 @@ interface ParticleSwarmOptimizerOutputs {
 
 export const AlgorithmicOptimizationParticleSwarmOptimizerNode: NodeDefinition<ParticleSwarmOptimizerInputs, ParticleSwarmOptimizerOutputs, ParticleSwarmOptimizerParams> = {
   id: 'Algorithmic::ParticleSwarmOptimizer',
+  type: 'Algorithmic::ParticleSwarmOptimizer',
   category: 'Algorithmic',
   label: 'ParticleSwarmOptimizer',
   description: 'Particle swarm optimization',

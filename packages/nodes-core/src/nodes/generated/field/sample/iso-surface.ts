@@ -15,6 +15,7 @@ interface IsoSurfaceOutputs {
 
 export const FieldSampleIsoSurfaceNode: NodeDefinition<IsoSurfaceInputs, IsoSurfaceOutputs, IsoSurfaceParams> = {
   id: 'Field::IsoSurface',
+  type: 'Field::IsoSurface',
   category: 'Field',
   label: 'IsoSurface',
   description: 'Extract iso-surface',

@@ -16,6 +16,7 @@ interface EngraveRasterOutputs {
 
 export const FabricationLaserEngraveRasterNode: NodeDefinition<EngraveRasterInputs, EngraveRasterOutputs, EngraveRasterParams> = {
   id: 'Fabrication::EngraveRaster',
+  type: 'Fabrication::EngraveRaster',
   category: 'Fabrication',
   label: 'EngraveRaster',
   description: 'Generate raster engraving',

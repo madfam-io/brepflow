@@ -13,6 +13,7 @@ interface Delaunay3DOutputs {
 
 export const PatternsDelaunayDelaunay3DNode: NodeDefinition<Delaunay3DInputs, Delaunay3DOutputs, Delaunay3DParams> = {
   id: 'Patterns::Delaunay3D',
+  type: 'Patterns::Delaunay3D',
   category: 'Patterns',
   label: 'Delaunay3D',
   description: 'Create 3D Delaunay tetrahedralization',

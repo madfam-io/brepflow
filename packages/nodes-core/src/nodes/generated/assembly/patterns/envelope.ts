@@ -14,6 +14,7 @@ interface EnvelopeOutputs {
 
 export const AssemblyPatternsEnvelopeNode: NodeDefinition<EnvelopeInputs, EnvelopeOutputs, EnvelopeParams> = {
   id: 'Assembly::Envelope',
+  type: 'Assembly::Envelope',
   category: 'Assembly',
   label: 'Envelope',
   description: 'Create assembly envelope',

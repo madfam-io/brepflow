@@ -17,6 +17,7 @@ interface SplineOutputs {
 
 export const SketchCurvesSplineNode: NodeDefinition<SplineInputs, SplineOutputs, SplineParams> = {
   id: 'Sketch::Spline',
+  type: 'Sketch::Spline',
   category: 'Sketch',
   label: 'Spline',
   description: 'Create a spline curve through points',

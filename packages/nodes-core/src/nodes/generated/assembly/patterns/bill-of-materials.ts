@@ -15,6 +15,7 @@ interface BillOfMaterialsOutputs {
 
 export const AssemblyPatternsBillOfMaterialsNode: NodeDefinition<BillOfMaterialsInputs, BillOfMaterialsOutputs, BillOfMaterialsParams> = {
   id: 'Assembly::BillOfMaterials',
+  type: 'Assembly::BillOfMaterials',
   category: 'Assembly',
   label: 'BillOfMaterials',
   description: 'Generate bill of materials',

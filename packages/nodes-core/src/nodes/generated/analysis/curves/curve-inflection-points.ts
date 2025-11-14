@@ -17,6 +17,7 @@ interface CurveInflectionPointsOutputs {
 
 export const AnalysisCurvesCurveInflectionPointsNode: NodeDefinition<CurveInflectionPointsInputs, CurveInflectionPointsOutputs, CurveInflectionPointsParams> = {
   id: 'Analysis::CurveInflectionPoints',
+  type: 'Analysis::CurveInflectionPoints',
   category: 'Analysis',
   label: 'CurveInflectionPoints',
   description: 'Find curve inflection points',

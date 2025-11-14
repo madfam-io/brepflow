@@ -19,6 +19,7 @@ interface STEPImportOutputs {
 
 export const InteroperabilityImportSTEPImportNode: NodeDefinition<STEPImportInputs, STEPImportOutputs, STEPImportParams> = {
   id: 'Interoperability::STEPImport',
+  type: 'Interoperability::STEPImport',
   category: 'Interoperability',
   label: 'STEPImport',
   description: 'Import STEP (.stp) CAD files',

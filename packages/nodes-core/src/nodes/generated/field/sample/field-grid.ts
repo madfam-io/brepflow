@@ -19,6 +19,7 @@ interface FieldGridOutputs {
 
 export const FieldSampleFieldGridNode: NodeDefinition<FieldGridInputs, FieldGridOutputs, FieldGridParams> = {
   id: 'Field::FieldGrid',
+  type: 'Field::FieldGrid',
   category: 'Field',
   label: 'FieldGrid',
   description: 'Sample field on grid',
