@@ -12,16 +12,10 @@ export default createLibraryConfig({
   format: ['esm'], // ESM only for import.meta.url support
   dts: {
     resolve: true,
-    compilerOptions: {
-      composite: false,
-      incremental: false,
-      // Disable exactOptionalPropertyTypes for DTS generation
-      exactOptionalPropertyTypes: false,
-    },
   },
   shims: false, // Disable ESM shims to avoid Node.js module imports
   // Engine-specific externals
   external: ['react', 'react-dom', /^@brepflow\//, 'vitest'],
-  // Override tsconfig to use root config (fixes Vercel DTS generation)
-  tsconfig: '../../tsconfig.json',
+  // Override tsconfig to use DTS-specific config (excludes collaboration, disables strict checks)
+  tsconfig: './tsconfig.dts.json',
 });

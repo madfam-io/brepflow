@@ -60,8 +60,9 @@ const getLogger = (): LoggerLike => {
 
   const engineOcctModule = requireEngineOCCTSafely();
   if (engineOcctModule?.ProductionLogger) {
-    logger = new engineOcctModule.ProductionLogger('GeometryAPIFactory');
-    return logger;
+    const occtLogger: LoggerLike = new engineOcctModule.ProductionLogger('GeometryAPIFactory');
+    logger = occtLogger;
+    return occtLogger;
   }
 
   // Fallback to console methods when OCCT logger is unavailable (tests or build failures)
