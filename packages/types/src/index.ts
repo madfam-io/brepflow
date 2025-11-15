@@ -189,8 +189,8 @@ export interface ErrorContext {
   userId?: string;
   sessionId?: string;
   metadata?: Record<string, unknown>;
-  stackTrace?: string;
-  timestamp?: number;
+  stackTrace?: string | undefined;
+  timestamp?: number | undefined;
 }
 
 /**
