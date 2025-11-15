@@ -21,7 +21,7 @@ export {
   GraphId,
   UserId,
   SessionId,
-  ProjectId
+  ProjectId,
 } from './core/identifiers';
 
 // ============================================================================
@@ -215,8 +215,8 @@ export class BrepFlowError extends Error {
     this.severity = severity;
     this.context = {
       ...context,
-      timestamp: context.timestamp || Date.now(),
-      stackTrace: context.stackTrace || this.stack,
+      timestamp: context.timestamp ?? Date.now(),
+      stackTrace: context.stackTrace ?? this.stack,
     };
     this.isRetryable = isRetryable;
 
@@ -304,14 +304,7 @@ export interface ErrorHandler {
 // (Import types are now inlined above to avoid esbuild module resolution issues)
 
 // Parameter types
-export type ParamValue =
-  | number
-  | string
-  | boolean
-  | Vec3
-  | Mat4
-  | EnumValue
-  | Expression;
+export type ParamValue = number | string | boolean | Vec3 | Mat4 | EnumValue | Expression;
 
 export interface EnumValue {
   value: string;
@@ -379,7 +372,7 @@ export interface NodeInstance<I = any, O = any, P = any> {
 
 export interface NodeDefinition<I = any, O = any, P = any> {
   id: string;
-  type: string;  // Node type identifier (same as id for compatibility)
+  type: string; // Node type identifier (same as id for compatibility)
   category: string;
   label: string;
   description?: string;
@@ -568,7 +561,14 @@ export interface AssemblyHandle {
 // Assembly constraint types
 export interface MateConstraint {
   id: string;
-  type: 'coincident' | 'concentric' | 'parallel' | 'perpendicular' | 'tangent' | 'distance' | 'angle';
+  type:
+    | 'coincident'
+    | 'concentric'
+    | 'parallel'
+    | 'perpendicular'
+    | 'tangent'
+    | 'distance'
+    | 'angle';
   part1: HandleId;
   part2: HandleId;
   axis1?: Vec3;
@@ -584,8 +584,6 @@ export interface MeshData {
   indices: Uint32Array;
   edges?: Uint32Array;
 }
-
-
 
 // Export formats
 export type ExportFormat = 'step' | 'iges' | 'stl' | 'obj' | '3dm' | 'gltf' | 'usd';

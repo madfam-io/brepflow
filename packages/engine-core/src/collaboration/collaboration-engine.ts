@@ -3,19 +3,17 @@
  * Handles real-time multi-user collaboration with conflict resolution, presence awareness, and optimistic updates
  */
 
-import type {
-  CollaborationSession,
-  Operation,
-  OperationConflict,
-  ConflictResolution,
-  PresenceData,
-  ParameterLock,
-  ParticipantData,
-  SessionId,
-  UserId,
-  ParameterId,
-  NodeId,
-} from '@brepflow/types';
+import type { SessionId, UserId, NodeId } from '@brepflow/types';
+
+// Collaboration-specific types from collaboration package
+export type CollaborationSession = any; // TODO: Import from @brepflow/collaboration when available
+export type Operation = any;
+export type OperationConflict = any;
+export type ConflictResolution = any;
+export type PresenceData = any;
+export type ParameterLock = any;
+export type ParticipantData = any;
+export type ParameterId = string;
 
 // Add missing type definitions
 export type User = ParticipantData;
@@ -73,7 +71,7 @@ export interface CollaborationEvents {
   'parameter-unlocked': { sessionId: SessionId; parameterId: ParameterId; userId: UserId };
   'connection-lost': { sessionId: SessionId };
   'connection-restored': { sessionId: SessionId };
-  'broadcast': { sessionId: SessionId; userId: UserId; message: any };
+  broadcast: { sessionId: SessionId; userId: UserId; message: any };
 }
 
 /**
@@ -106,7 +104,7 @@ export class BrepFlowCollaborationEngine {
       users: new Map(),
       presence: {
         users: new Map(),
-        lastUpdated: Date.now()
+        lastUpdated: Date.now(),
       },
       state: {
         nodes: new Map(),
@@ -154,7 +152,7 @@ export class BrepFlowCollaborationEngine {
       cursor: null,
       selection: null,
       lastActivity: Date.now(),
-      currentActivity: 'joined'
+      currentActivity: 'joined',
     });
 
     // Connect to WebSocket if available
@@ -206,7 +204,9 @@ export class BrepFlowCollaborationEngine {
       const conflicts = await this.detectConflicts(session, operation);
 
       if (conflicts.length > 0) {
-        console.warn(`[Collaboration] Detected ${conflicts.length} conflicts for operation ${operation.id}`);
+        console.warn(
+          `[Collaboration] Detected ${conflicts.length} conflicts for operation ${operation.id}`
+        );
 
         // Resolve conflicts
         for (const conflict of conflicts) {
@@ -233,7 +233,9 @@ export class BrepFlowCollaborationEngine {
       // Emit operation applied event
       this.emit('operation-applied', { sessionId, operation });
 
-      console.log(`[Collaboration] Applied operation ${operation.id} (type: ${operation.type}) to session ${sessionId}`);
+      console.log(
+        `[Collaboration] Applied operation ${operation.id} (type: ${operation.type}) to session ${sessionId}`
+      );
     } catch (error) {
       console.error('Error processing operation:', error);
       throw new CollaborationError(
@@ -278,17 +280,11 @@ export class BrepFlowCollaborationEngine {
   ): Promise<void> {
     // Validate operation parameter
     if (!operation) {
-      throw new CollaborationError(
-        'Operation is null or undefined',
-        'INVALID_OPERATION'
-      );
+      throw new CollaborationError('Operation is null or undefined', 'INVALID_OPERATION');
     }
 
     if (!operation.type) {
-      throw new CollaborationError(
-        'Operation type is missing or undefined',
-        'INVALID_OPERATION'
-      );
+      throw new CollaborationError('Operation type is missing or undefined', 'INVALID_OPERATION');
     }
 
     const { state } = session;
@@ -310,7 +306,10 @@ export class BrepFlowCollaborationEngine {
         state.nodes.delete(deleteNodeOp.nodeId);
         // Also remove edges connected to this node
         for (const [edgeId, edge] of state.edges) {
-          if (edge.sourceNodeId === deleteNodeOp.nodeId || edge.targetNodeId === deleteNodeOp.nodeId) {
+          if (
+            edge.sourceNodeId === deleteNodeOp.nodeId ||
+            edge.targetNodeId === deleteNodeOp.nodeId
+          ) {
             state.edges.delete(edgeId);
           }
         }
@@ -383,7 +382,11 @@ export class BrepFlowCollaborationEngine {
   /**
    * Update user presence in a session
    */
-  async updatePresence(sessionId: SessionId, userId: UserId, presence: PresenceData): Promise<void> {
+  async updatePresence(
+    sessionId: SessionId,
+    userId: UserId,
+    presence: PresenceData
+  ): Promise<void> {
     const session = this.sessions.get(sessionId);
     if (!session) {
       throw new CollaborationError(`Session not found: ${sessionId}`, 'SESSION_NOT_FOUND');
@@ -439,7 +442,11 @@ export class BrepFlowCollaborationEngine {
   /**
    * Lock a parameter for exclusive editing
    */
-  async lockParameter(sessionId: SessionId, parameterId: ParameterId, userId: UserId): Promise<void> {
+  async lockParameter(
+    sessionId: SessionId,
+    parameterId: ParameterId,
+    userId: UserId
+  ): Promise<void> {
     const session = this.sessions.get(sessionId);
     if (!session) {
       throw new CollaborationError(`Session not found: ${sessionId}`, 'SESSION_NOT_FOUND');
@@ -452,7 +459,11 @@ export class BrepFlowCollaborationEngine {
   /**
    * Unlock a parameter
    */
-  async unlockParameter(sessionId: SessionId, parameterId: ParameterId, userId: UserId): Promise<void> {
+  async unlockParameter(
+    sessionId: SessionId,
+    parameterId: ParameterId,
+    userId: UserId
+  ): Promise<void> {
     await this.lockManager.releaseLock(sessionId, parameterId, userId);
     this.emit('parameter-unlocked', { sessionId, parameterId, userId });
   }
@@ -490,13 +501,10 @@ export class BrepFlowCollaborationEngine {
     }
   }
 
-  private emit<K extends keyof CollaborationEvents>(
-    event: K,
-    data: CollaborationEvents[K]
-  ): void {
+  private emit<K extends keyof CollaborationEvents>(event: K, data: CollaborationEvents[K]): void {
     const listeners = this.eventListeners.get(event);
     if (listeners) {
-      listeners.forEach(listener => {
+      listeners.forEach((listener) => {
         try {
           listener(data);
         } catch (error) {
@@ -654,13 +662,13 @@ export class BrepFlowCollaborationEngine {
     if (!session) return [];
 
     return Array.from(session.users.values())
-      .filter(user => {
+      .filter((user) => {
         // Consider user online if they're in the users list (they joined)
         // and either have no presence data yet or are marked as online
         const presenceData = session.presence.users.get(user.id);
         return !presenceData || presenceData.isOnline !== false;
       })
-      .map(user => {
+      .map((user) => {
         const presenceData = session.presence.users.get(user.id);
         return {
           ...user,
@@ -692,12 +700,16 @@ export class BrepFlowCollaborationEngine {
       presenceData.cursor = cursor;
 
       // Broadcast cursor update to other users
-      await this.broadcastToSession(sessionId, {
-        type: 'cursor-update',
-        userId,
-        cursor,
-        timestamp: Date.now()
-      }, userId);
+      await this.broadcastToSession(
+        sessionId,
+        {
+          type: 'cursor-update',
+          userId,
+          cursor,
+          timestamp: Date.now(),
+        },
+        userId
+      );
     }
 
     // Send via WebSocket
@@ -716,7 +728,11 @@ export class BrepFlowCollaborationEngine {
   /**
    * Broadcast cursor position to other users
    */
-  async broadcastCursor(sessionId: SessionId, userId: UserId, cursor: CursorPosition): Promise<void> {
+  async broadcastCursor(
+    sessionId: SessionId,
+    userId: UserId,
+    cursor: CursorPosition
+  ): Promise<void> {
     // Alias for updateCursor for compatibility
     await this.updateCursor(sessionId, userId, cursor);
   }
@@ -735,12 +751,16 @@ export class BrepFlowCollaborationEngine {
       presenceData.selection = selection;
 
       // Broadcast selection update to other users
-      await this.broadcastToSession(sessionId, {
-        type: 'selection-update',
-        userId,
-        selection,
-        timestamp: Date.now()
-      }, userId);
+      await this.broadcastToSession(
+        sessionId,
+        {
+          type: 'selection-update',
+          userId,
+          selection,
+          timestamp: Date.now(),
+        },
+        userId
+      );
     }
 
     // Send via WebSocket
@@ -759,7 +779,11 @@ export class BrepFlowCollaborationEngine {
   /**
    * Broadcast selection to other users
    */
-  async broadcastSelection(sessionId: SessionId, userId: UserId, selection: Selection): Promise<void> {
+  async broadcastSelection(
+    sessionId: SessionId,
+    userId: UserId,
+    selection: Selection
+  ): Promise<void> {
     // Alias for updateSelection for compatibility
     await this.updateSelection(sessionId, userId, selection);
   }
@@ -767,7 +791,11 @@ export class BrepFlowCollaborationEngine {
   /**
    * Broadcast message to all users in a session
    */
-  private async broadcastToSession(sessionId: SessionId, message: any, excludeUserId?: UserId): Promise<void> {
+  private async broadcastToSession(
+    sessionId: SessionId,
+    message: any,
+    excludeUserId?: UserId
+  ): Promise<void> {
     const session = this.sessions.get(sessionId);
     if (!session) return;
 
@@ -881,7 +909,7 @@ class LockManager {
       }
     }
 
-    toDelete.forEach(key => this.locks.delete(key));
+    toDelete.forEach((key) => this.locks.delete(key));
   }
 
   cleanup(): void {
@@ -895,6 +923,6 @@ class LockManager {
       }
     }
 
-    toDelete.forEach(key => this.locks.delete(key));
+    toDelete.forEach((key) => this.locks.delete(key));
   }
 }
