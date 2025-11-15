@@ -65,7 +65,15 @@ export const MateConstraintNode: NodeDefinition<
       type: 'string',
       label: 'Mate Type',
       default: 'coincident',
-      options: ['coincident', 'parallel', 'perpendicular', 'tangent', 'concentric', 'distance', 'angle'],
+      options: [
+        'coincident',
+        'parallel',
+        'perpendicular',
+        'tangent',
+        'concentric',
+        'distance',
+        'angle',
+      ],
     },
     offset: {
       type: 'number',
@@ -457,14 +465,14 @@ export const KinematicSolverNode: NodeDefinition<
   },
 };
 
-export const AssemblyNode: NodeDefinition<
-  { parts: "GeometryHandle[]", constraints: "unknown[]" },
-  { assembly: "AssemblyHandle" },
+export const AdvancedAssemblyNode: NodeDefinition<
+  { parts: 'GeometryHandle[]'; constraints: 'unknown[]' },
+  { assembly: 'AssemblyHandle' },
   { tolerance: number }
 > = {
-  id: 'Assembly::Assembly',
+  id: 'Assembly::AdvancedAssembly',
   category: 'Assembly',
-  label: 'Assembly',
+  label: 'Advanced Assembly',
   description: 'Create assembly from parts and constraints',
   inputs: {
     parts: { type: 'GeometryHandle', multiple: true },
@@ -485,19 +493,20 @@ export const AssemblyNode: NodeDefinition<
     const parts = inputs.parts as unknown[];
     const constraints = inputs.constraints as unknown[];
     const tolerance = params.tolerance as unknown;
-    
+
     // Assembly logic with parts and constraints
-    const result = await ctx.geom.invoke("MAKE_ASSEMBLY", {
+    const result = await ctx.geom.invoke('MAKE_ASSEMBLY', {
       parts,
       constraints,
-      tolerance
+      tolerance,
     });
-    
+
     return { assembly: result as unknown };
-  }
+  },
 };
 
 export const advancedAssemblyNodes = [
+  AdvancedAssemblyNode,
   AssemblyComponentNode,
   MateConstraintNode,
   AssemblyHierarchyNode,

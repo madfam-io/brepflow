@@ -10,7 +10,7 @@ export default defineConfig([
     // Main entry - Library configuration for ESM
     ...createLibraryConfig({
       entry: ['src/index.ts'],
-      format: ['esm', 'cjs'], // Provide both module formats for Node + bundlers
+      format: ['esm'], // ESM only - import.meta.url required for WASM loading
       dts: {
         resolve: true,
       },

@@ -1885,7 +1885,7 @@ export const nodeRegistry = {
   'Assembly::Spherical': AssemblyJointsSphericalNode,
   'Assembly::Planar': AssemblyJointsPlanarNode,
   'Assembly::Universal': AssemblyJointsUniversalNode,
-  'Assembly::Fixed': AssemblyJointsFixedNode,
+  'Assembly::FixedJoint': AssemblyJointsFixedNode,
   'Assembly::Screw': AssemblyJointsScrewNode,
   'Assembly::Belt': AssemblyJointsBeltNode,
   'Assembly::RackPinion': AssemblyJointsRackPinionNode,
