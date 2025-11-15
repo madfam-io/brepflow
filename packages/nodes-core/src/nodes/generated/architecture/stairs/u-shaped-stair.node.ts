@@ -1,5 +1,11 @@
-
 import { NodeDefinition } from '@brepflow/types';
+import {
+  NumberParam,
+  BoolParam,
+  StringParam,
+  EnumParam,
+  Vector3Param,
+} from '../../../../utils/param-utils.js';
 
 interface Params {
   totalRise: number;
@@ -12,52 +18,49 @@ interface Outputs {
   staircase: Shape;
 }
 
-export const UShapedStairNode: NodeDefinition<UShapedStairInputs, UShapedStairOutputs, UShapedStairParams> = {
-  type: 'Architecture::UShapedStair',
+export const UShapedStairNode: NodeDefinition<Inputs, Outputs, Params> = {
+  type: 'Architecture::UShaped Stair',
   category: 'Architecture',
   subcategory: 'Stairs',
 
   metadata: {
-    label: 'UShapedStair',
+    label: 'UShaped Stair',
     description: 'U-shaped staircase',
-    
-    
   },
 
   params: {
-        totalRise: {
-      "default": 3000,
-      "min": 1000,
-      "max": 6000
-    },
-    clearance: {
-      "default": 100,
-      "min": 50,
-      "max": 300
-    }
+    totalRise: NumberParam({
+      default: 3000,
+      min: 1000,
+      max: 6000,
+    }),
+    clearance: NumberParam({
+      default: 100,
+      min: 50,
+      max: 300,
+    }),
   },
 
   inputs: {
-        startPoint: 'Point'
+    startPoint: 'Point',
   },
 
   outputs: {
-        staircase: 'Shape'
+    staircase: 'Shape',
   },
 
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'uShapedStair',
       params: {
         startPoint: inputs.startPoint,
         totalRise: params.totalRise,
-        clearance: params.clearance
-      }
+        clearance: params.clearance,
+      },
     });
 
     return {
-      staircase: result
+      staircase: result,
     };
-  }
+  },
 };

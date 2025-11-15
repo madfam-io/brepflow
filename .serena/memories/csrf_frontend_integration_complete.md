@@ -1,7 +1,7 @@
 # CSRF Frontend Integration - Complete Implementation
 
 **Date**: 2025-11-14
-**Status**: ✅ Implementation Complete | ⚠️ Build Configuration Pending
+**Status**: ✅ Implementation Complete | ✅ Build Configuration Fixed
 
 ## Summary
 
@@ -10,6 +10,7 @@ Completed full CSRF authentication integration for real-time collaboration in Br
 ## Completed Work
 
 ### 1. CollaborationProvider Enhancement ✅
+
 **File**: `packages/collaboration/src/client/collaboration-provider.tsx`
 
 - Replaced `CollaborationClient` with `CSRFCollaborationClient`
@@ -19,13 +20,14 @@ Completed full CSRF authentication integration for real-time collaboration in Br
 - Automatic connection initiation in useEffect
 
 **Key Changes**:
+
 ```typescript
 export interface CollaborationProviderProps {
   options: CollaborationOptions;
-  apiBaseUrl: string;        // NEW: HTTP API URL for CSRF tokens
-  sessionId: string;          // NEW: Session ID for token generation
+  apiBaseUrl: string; // NEW: HTTP API URL for CSRF tokens
+  sessionId: string; // NEW: Session ID for token generation
   // ... existing props
-  onCSRFError?: (error: Error) => void;  // NEW: CSRF error callback
+  onCSRFError?: (error: Error) => void; // NEW: CSRF error callback
 }
 
 // Client instantiation now uses CSRFCollaborationClient
@@ -43,6 +45,7 @@ collaborationClient.connect().catch((error) => {
 ```
 
 ### 2. Studio App Integration ✅
+
 **File**: `apps/studio/src/App.tsx`
 
 - Wrapped `AppContent` with `CollaborationProvider` when session exists
@@ -51,6 +54,7 @@ collaborationClient.connect().catch((error) => {
 - Added comprehensive error handling callbacks
 
 **Implementation**:
+
 ```typescript
 {sessionId ? (
   <CollaborationProvider
@@ -94,6 +98,7 @@ collaborationClient.connect().catch((error) => {
 ```
 
 ### 3. Environment Configuration ✅
+
 **File**: `apps/studio/.env.example`
 
 Created comprehensive environment variable template:
@@ -115,9 +120,11 @@ VITE_WASM_WORKERS=true
 ```
 
 ### 4. Package Dependencies ✅
+
 **File**: `apps/studio/package.json`
 
 Added collaboration package to Studio dependencies:
+
 ```json
 "dependencies": {
   "@brepflow/collaboration": "workspace:*",
@@ -126,45 +133,62 @@ Added collaboration package to Studio dependencies:
 ```
 
 ### 5. Type Declaration Stubs ✅
-**Files**: 
+
+**Files**:
+
 - `packages/collaboration/dist/index.d.ts`
 - `packages/collaboration/dist/client/index.d.ts`
 - `packages/collaboration/dist/server/index.d.ts`
 
 Created manual type declaration files to enable TypeScript resolution while tsup dts generation remains disabled.
 
-## Remaining Issue
+## Build Configuration Issue - RESOLVED ✅
 
-### Build Configuration Optimization ⚠️
+**Original Issue**: Build Configuration Optimization
 
-**Problem**: Collaboration package bundles Node.js-specific code from `engine-core` (path, url, fs modules) that cannot run in browser environments.
+**Status**: **FIXED** in commit `2213c2e` (2025-11-14)
+
+**Original Problem**: Collaboration package bundles Node.js-specific code from `engine-core` (path, url, fs modules) that cannot run in browser environments.
 
 **Root Cause**: `tsup.config.ts` setting `noExternal: [/^@brepflow\//]` bundles all workspace packages, including server-only code.
 
-**Impact**: Vite build fails when trying to bundle Studio:
-```
-error during build:
-"pathToFileURL" is not exported by "__vite-browser-external"
-```
+**Original Impact**: Vite build failed with `"pathToFileURL" is not exported by "__vite-browser-external"`
 
-**Solution Options**:
+**Solution Applied**: Combination approach
+
+1. Removed `noExternal: [/^@brepflow\//]` from collaboration tsup.config.ts
+2. Added `@brepflow/engine-core` and `@brepflow/types` to external array
+3. Updated Studio to import from `@brepflow/collaboration/client` (not main entry)
+
+**Results**:
+
+- ✅ Studio production build: 8.46s (SUCCESS)
+- ✅ Package size: 90% reduction (159KB vs 1.77MB)
+- ✅ ESLint: 0 errors (502 pre-existing warnings)
+- ✅ Build artifacts: dist/index.html 0.68kB, main bundle 1.01MB gzipped to 290kB
+
+**Full Fix Documentation**: See `csrf_build_fix_complete.md` memory for complete details
+
+**Original Solution Options Considered**:
 
 1. **Recommended**: Split collaboration package into separate client/server builds
+
    ```typescript
    // tsup.config.ts
    export default defineConfig([
      {
        entry: { 'client/index': 'src/client/index.ts' },
-       external: ['@brepflow/engine-core'],  // Don't bundle engine-core for client
+       external: ['@brepflow/engine-core'], // Don't bundle engine-core for client
      },
      {
        entry: { 'server/index': 'src/server/index.ts' },
-       noExternal: [/^@brepflow\//],  // Bundle for server
+       noExternal: [/^@brepflow\//], // Bundle for server
      },
    ]);
    ```
 
 2. **Alternative**: Update package.json exports to separate browser/node builds
+
    ```json
    "exports": {
      "./client": {
@@ -186,16 +210,19 @@ error during build:
 ## Testing Status
 
 ### Unit Tests
+
 - ✅ Collaboration package builds successfully (CJS + ESM)
 - ✅ CSRF client implementation verified
 - ✅ Provider integration confirmed
 
 ### Integration Tests
-- ⚠️ Studio build fails due to Node.js module bundling
+
+- ✅ Studio build succeeds (Node.js module bundling fixed)
 - ⏳ Runtime testing pending build fix
 - ⏳ E2E collaboration flow untested
 
 ### Manual Testing Plan (Post-Fix)
+
 1. Start collaboration server: `pnpm --filter @brepflow/collaboration run dev`
 2. Start Studio: `pnpm --filter @brepflow/studio run dev`
 3. Open two browser tabs to same session URL
@@ -217,18 +244,21 @@ error during build:
 ## Architecture Benefits
 
 ### Fleeting Sessions
+
 - No user accounts required
 - Instant session creation
 - 24-hour automatic cleanup
 - Share link generation built-in
 
 ### Multiplayer Ready
+
 - Real-time operation synchronization
 - Presence awareness (cursors, selections, viewports)
 - Operational Transform conflict resolution
 - CSRF-protected WebSocket connections
 
 ### Production Security
+
 - Token-based authentication
 - Session-specific CSRF tokens
 - Automatic token rotation
@@ -237,19 +267,15 @@ error during build:
 ## Next Steps
 
 ### Immediate (Required for MVP)
-1. **Fix Build Configuration** (1-2 hours)
-   - Split collaboration package builds OR
-   - Mark engine-core as external for client build
-   - Verify Studio builds successfully
-   - Test in development mode
 
-2. **Runtime Validation** (2-3 hours)
+1. **Runtime Validation** (2-3 hours)
    - Start collaboration server
    - Test CSRF token flow in browser DevTools
    - Verify WebSocket connection establishment
    - Test basic operation synchronization
 
 ### Short-term (Week 1-2)
+
 3. **Operation Wiring** (6-8 hours)
    - Connect React Flow onNodesChange → submitOperation
    - Handle incoming operations → update React Flow state
@@ -263,6 +289,7 @@ error during build:
    - Viewport tracking indicators
 
 ### Medium-term (Week 2-3)
+
 5. **Testing & Polish** (12-16 hours)
    - E2E tests for collaboration flows
    - Multi-user stress testing
@@ -277,6 +304,7 @@ error during build:
 ## Files Modified
 
 ### Created
+
 1. `packages/collaboration/src/server/csrf-routes.ts` (95 lines)
 2. `packages/collaboration/src/client/collaboration-client-csrf.ts` (520 lines)
 3. `apps/studio/.env.example` (11 lines)
@@ -285,6 +313,7 @@ error during build:
 6. `packages/collaboration/dist/server/index.d.ts` (8 lines)
 
 ### Modified
+
 1. `packages/collaboration/src/client/collaboration-provider.tsx` (+35 lines)
 2. `apps/studio/src/App.tsx` (+44 lines)
 3. `packages/collaboration/src/server/standalone-server.ts` (+7 lines)
@@ -304,6 +333,7 @@ error during build:
 ## Success Criteria
 
 ### MVP Ready ✅
+
 - [x] CSRF token generation (backend)
 - [x] CSRF token fetching (frontend)
 - [x] Automatic token refresh logic
@@ -313,7 +343,8 @@ error during build:
 - [x] Environment configuration
 
 ### Pending ⏳
-- [ ] Build configuration fix
+
+- [x] Build configuration fix (commit 2213c2e)
 - [ ] Runtime validation
 - [ ] Operation synchronization wiring
 - [ ] Presence UI components
@@ -322,15 +353,19 @@ error during build:
 ## Risks & Mitigations
 
 ### Risk: Build Configuration Complexity
+
 **Mitigation**: Three documented solution options with quick-fix fallback
 
 ### Risk: Type System Gaps
+
 **Mitigation**: Manual .d.ts stubs created, full dts generation can be fixed post-MVP
 
 ### Risk: WebSocket Connection Stability
+
 **Mitigation**: Exponential backoff retry + reconnection logic implemented
 
 ### Risk: Token Expiration During Active Use
+
 **Mitigation**: 55-minute auto-refresh (5 min before expiration) + seamless reconnection
 
 ## References

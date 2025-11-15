@@ -1,5 +1,11 @@
-
 import { NodeDefinition } from '@brepflow/types';
+import {
+  NumberParam,
+  BoolParam,
+  StringParam,
+  EnumParam,
+  Vector3Param,
+} from '../../../../utils/param-utils.js';
 
 interface Params {
   totalRise: number;
@@ -14,62 +20,56 @@ interface Outputs {
   landing: Shape;
 }
 
-export const LShapedStairNode: NodeDefinition<LShapedStairInputs, LShapedStairOutputs, LShapedStairParams> = {
-  type: 'Architecture::LShapedStair',
+export const LShapedStairNode: NodeDefinition<Inputs, Outputs, Params> = {
+  type: 'Architecture::LShaped Stair',
   category: 'Architecture',
   subcategory: 'Stairs',
 
   metadata: {
-    label: 'LShapedStair',
+    label: 'LShaped Stair',
     description: 'L-shaped staircase',
-    
-    
   },
 
   params: {
-        totalRise: {
-      "default": 3000,
-      "min": 1000,
-      "max": 6000
-    },
-    landingSize: {
-      "default": 1200,
-      "min": 900,
-      "max": 2000
-    },
-    turnDirection: {
-      "default": "right",
-      "options": [
-        "left",
-        "right"
-      ]
-    }
+    totalRise: NumberParam({
+      default: 3000,
+      min: 1000,
+      max: 6000,
+    }),
+    landingSize: NumberParam({
+      default: 1200,
+      min: 900,
+      max: 2000,
+    }),
+    turnDirection: EnumParam({
+      default: 'right',
+      options: ['left', 'right'],
+    }),
   },
 
   inputs: {
-        startPoint: 'Point'
+    startPoint: 'Point',
   },
 
   outputs: {
-        staircase: 'Shape',
-    landing: 'Shape'
+    staircase: 'Shape',
+    landing: 'Shape',
   },
 
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'lShapedStair',
       params: {
         startPoint: inputs.startPoint,
         totalRise: params.totalRise,
         landingSize: params.landingSize,
-        turnDirection: params.turnDirection
-      }
+        turnDirection: params.turnDirection,
+      },
     });
 
     return {
       staircase: result,
-      landing: result
+      landing: result,
     };
-  }
+  },
 };

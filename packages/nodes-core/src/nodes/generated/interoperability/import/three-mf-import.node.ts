@@ -1,6 +1,11 @@
-
 import { NodeDefinition } from '@brepflow/types';
-import { NumberParam, BoolParam, StringParam, EnumParam, Vector3Param } from '../../../../utils/param-utils.js';
+import {
+  NumberParam,
+  BoolParam,
+  StringParam,
+  EnumParam,
+  Vector3Param,
+} from '../../../../utils/param-utils.js';
 
 interface Params {
   loadTextures: boolean;
@@ -16,7 +21,7 @@ interface Outputs {
   build: Properties;
 }
 
-export const 3MFImportNode: NodeDefinition<3MFImportInputs, 3MFImportOutputs, 3MFImportParams> = {
+export const ThreeMFImportNode: NodeDefinition<Inputs, Outputs, Params> = {
   type: 'Interoperability::3MFImport',
   category: 'Interoperability',
   subcategory: 'Import',
@@ -24,54 +29,46 @@ export const 3MFImportNode: NodeDefinition<3MFImportInputs, 3MFImportOutputs, 3M
   metadata: {
     label: '3MFImport',
     description: 'Import 3D Manufacturing Format files',
-    
-    
   },
 
   params: {
-        loadTextures: BoolParam({
-      "default": true
+    loadTextures: BoolParam({
+      default: true,
     }),
     loadMaterials: BoolParam({
-      "default": true
+      default: true,
     }),
     units: EnumParam({
-      "default": "auto",
-      "options": [
-        "auto",
-        "mm",
-        "cm",
-        "m"
-      ]
-    })
+      default: 'auto',
+      options: ['auto', 'mm', 'cm', 'm'],
+    }),
   },
 
   inputs: {
-        filePath: 'string'
+    filePath: 'string',
   },
 
   outputs: {
-        models: 'Shape[]',
+    models: 'Shape[]',
     materials: 'Properties[]',
-    build: 'Properties'
+    build: 'Properties',
   },
 
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'threeMFImport',
       params: {
         filePath: inputs.filePath,
         loadTextures: params.loadTextures,
         loadMaterials: params.loadMaterials,
-        units: params.units
-      }
+        units: params.units,
+      },
     });
 
     return {
       models: result,
       materials: result,
-      build: result
+      build: result,
     };
-  }
+  },
 };

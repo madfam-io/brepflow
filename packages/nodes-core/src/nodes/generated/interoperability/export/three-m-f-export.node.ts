@@ -1,5 +1,11 @@
-
 import { NodeDefinition } from '@brepflow/types';
+import {
+  NumberParam,
+  BoolParam,
+  StringParam,
+  EnumParam,
+  Vector3Param,
+} from '../../../../utils/param-utils.js';
 
 interface Params {
   units: string;
@@ -15,47 +21,40 @@ interface Outputs {
   modelCount: number;
 }
 
-export const ThreeMFExportNode: NodeDefinition<ThreeMFExportInputs, ThreeMFExportOutputs, ThreeMFExportParams> = {
-  type: 'Interoperability::ThreeMFExport',
+export const ThreeMFExportNode: NodeDefinition<Inputs, Outputs, Params> = {
+  type: 'Interoperability::3MFExport',
   category: 'Interoperability',
   subcategory: 'Export',
 
   metadata: {
-    label: 'ThreeMFExport',
+    label: '3MFExport',
     description: 'Export to 3D Manufacturing Format',
-    
-    
   },
 
   params: {
-        units: {
-      "default": "mm",
-      "options": [
-        "mm",
-        "cm",
-        "m"
-      ]
-    },
-    includeColors: {
-      "default": true
-    },
-    compression: {
-      "default": true
-    }
+    units: EnumParam({
+      default: 'mm',
+      options: ['mm', 'cm', 'm'],
+    }),
+    includeColors: BoolParam({
+      default: true,
+    }),
+    compression: BoolParam({
+      default: true,
+    }),
   },
 
   inputs: {
-        models: 'Shape[]',
-    filePath: 'string'
+    models: 'Shape[]',
+    filePath: 'string',
   },
 
   outputs: {
-        success: 'boolean',
-    modelCount: 'number'
+    success: 'boolean',
+    modelCount: 'number',
   },
 
   async evaluate(context, inputs, params) {
-    
     const result = await context.geometry.execute({
       type: 'threeMFExport',
       params: {
@@ -63,13 +62,13 @@ export const ThreeMFExportNode: NodeDefinition<ThreeMFExportInputs, ThreeMFExpor
         filePath: inputs.filePath,
         units: params.units,
         includeColors: params.includeColors,
-        compression: params.compression
-      }
+        compression: params.compression,
+      },
     });
 
     return {
       success: result,
-      modelCount: result
+      modelCount: result,
     };
-  }
+  },
 };
