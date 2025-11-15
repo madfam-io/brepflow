@@ -10,31 +10,31 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@react-three/drei": "^9.96.0",
+    "@react-three/fiber": "^8.15.0",
+    "autoprefixer": "^10.4.16",
+    "clsx": "^2.1.0",
     "framer-motion": "^11.0.0",
     "lucide-react": "^0.300.0",
-    "@react-three/fiber": "^8.15.0",
-    "@react-three/drei": "^9.96.0",
-    "three": "^0.160.0",
-    "react-intersection-observer": "^9.5.3",
-    "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.0",
-    "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
-    "tailwindcss": "^3.4.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.5.3",
+    "tailwind-merge": "^2.2.0",
+    "tailwindcss": "^3.4.0",
+    "three": "^0.160.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@types/three": "^0.160.0",
-    "@typescript-eslint/eslint-plugin": "^6.14.0",
-    "@typescript-eslint/parser": "^6.14.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^7.2.2"
   }
 }
