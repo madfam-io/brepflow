@@ -197,14 +197,21 @@ export function useSession(): SessionHookResult {
    * Effect: Load or create session on mount
    */
   useEffect(() => {
-    if (sessionId) {
-      // Load existing session
-      loadSession(sessionId);
-    } else {
-      // Create new session
-      createNewSession();
+    // Skip if no sessionId from route params
+    if (!sessionId) {
+      return;
     }
-  }, [sessionId, loadSession, createNewSession]);
+
+    // If sessionId is "new", create a new session
+    if (sessionId === 'new') {
+      createNewSession();
+      return;
+    }
+
+    // Load existing session
+    loadSession(sessionId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionId]); // Only depend on sessionId to prevent infinite loops
 
   return {
     sessionId: sessionId || null,

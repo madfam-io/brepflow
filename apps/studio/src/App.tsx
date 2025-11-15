@@ -56,6 +56,7 @@ import { CollaborationProvider } from '@brepflow/collaboration/client';
 // @ts-expect-error - types not generated yet
 import type { Operation, Conflict } from '@brepflow/collaboration/client';
 import { useSession } from './hooks/useSession';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 const debugLog = (...args: unknown[]) => {
   if (import.meta.env.DEV) {
@@ -585,7 +586,6 @@ function AppContent() {
 function App() {
   // Hooks must be called before any early returns
   const [isMonitoringReady, setIsMonitoringReady] = useState(false);
-  const { sessionId } = useSession();
 
   useEffect(() => {
     // Initialize monitoring system
@@ -660,52 +660,74 @@ function App() {
   return (
     <ErrorBoundary>
       <ReactFlowProvider>
-        <ErrorBoundary>
-          {sessionId ? (
-            <CollaborationProvider
-              options={{
-                serverUrl:
-                  import.meta.env.VITE_COLLABORATION_WS_URL ||
-                  (import.meta.env.PROD ? '' : 'http://localhost:8080'),
-                documentId: sessionId,
-                user: {
-                  id: `user_${Math.random().toString(36).slice(2, 11)}`,
-                  name: `User ${Math.floor(Math.random() * 1000)}`,
-                  color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-                },
-                reconnectAttempts: 5,
-                reconnectDelay: 1000,
-                presenceThrottle: 50,
-              }}
-              apiBaseUrl={
-                import.meta.env.VITE_COLLABORATION_API_URL ||
-                (import.meta.env.PROD ? '' : 'http://localhost:8080')
-              }
-              sessionId={sessionId}
-              onOperation={(operation: Operation) => {
-                console.log('[Collaboration] Received operation:', operation);
-              }}
-              onConflict={(conflict: Conflict) => {
-                console.warn('[Collaboration] Conflict detected:', conflict);
-              }}
-              onError={(error: Error) => {
-                console.error('[Collaboration] Error:', error);
-              }}
-              onCSRFError={(error: Error) => {
-                console.error('[Collaboration] CSRF authentication failed:', error);
-              }}
-            >
-              <OnboardingOrchestrator>
-                <AppContent />
-              </OnboardingOrchestrator>
-            </CollaborationProvider>
-          ) : (
-            <OnboardingOrchestrator>
-              <AppContent />
-            </OnboardingOrchestrator>
-          )}
-        </ErrorBoundary>
+        <Routes>
+          <Route path="/" element={<Navigate to="/session/new" replace />} />
+          <Route path="/session/:sessionId" element={<SessionWrapper />} />
+          <Route path="*" element={<Navigate to="/session/new" replace />} />
+        </Routes>
       </ReactFlowProvider>
+    </ErrorBoundary>
+  );
+}
+
+/**
+ * SessionWrapper component that manages session state and provides collaboration
+ */
+function SessionWrapper() {
+  const { sessionId } = useSession();
+
+  return (
+    <ErrorBoundary>
+      {sessionId ? (
+        <CollaborationProvider
+          options={{
+            serverUrl:
+              import.meta.env.VITE_COLLABORATION_WS_URL ||
+              (import.meta.env.PROD ? '' : 'http://localhost:8080'),
+            documentId: sessionId,
+            user: {
+              id: `user_${Math.random().toString(36).slice(2, 11)}`,
+              name: `User ${Math.floor(Math.random() * 1000)}`,
+              color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+            },
+            reconnectAttempts: 5,
+            reconnectDelay: 1000,
+            presenceThrottle: 50,
+          }}
+          apiBaseUrl={
+            import.meta.env.VITE_COLLABORATION_API_URL ||
+            (import.meta.env.PROD ? '' : 'http://localhost:8080')
+          }
+          sessionId={sessionId}
+          onOperation={(operation: Operation) => {
+            console.log('[Collaboration] Received operation:', operation);
+          }}
+          onConflict={(conflict: Conflict) => {
+            console.warn('[Collaboration] Conflict detected:', conflict);
+          }}
+          onError={(error: Error) => {
+            console.error('[Collaboration] Error:', error);
+          }}
+          onCSRFError={(error: Error) => {
+            console.error('[Collaboration] CSRF authentication failed:', error);
+          }}
+        >
+          <OnboardingOrchestrator>
+            <AppContent />
+          </OnboardingOrchestrator>
+        </CollaborationProvider>
+      ) : (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+          }}
+        >
+          <div>Loading session...</div>
+        </div>
+      )}
     </ErrorBoundary>
   );
 }

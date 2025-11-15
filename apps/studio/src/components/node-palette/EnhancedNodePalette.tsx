@@ -20,9 +20,8 @@ export function EnhancedNodePalette({
   enableCategoryTree = true,
   defaultViewMode = 'list',
   compact = false,
-  className
+  className,
 }: EnhancedNodePaletteProps) {
-  console.log('🚀 EnhancedNodePalette component instantiated');
   const {
     registry,
     categoryTree,
@@ -49,10 +48,10 @@ export function EnhancedNodePalette({
     setViewMode,
     setSelectedCategory,
     toggleCategoryExpansion,
-    clearFilters
+    clearFilters,
   } = useNodePalette({
     initialView: defaultViewMode,
-    enableAdvancedFeatures: enableAdvancedSearch
+    enableAdvancedFeatures: enableAdvancedSearch,
   });
 
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
@@ -69,7 +68,7 @@ export function EnhancedNodePalette({
   };
 
   const handleFavoriteToggle = (nodeType: string) => {
-    setFavoriteNodes(prev => {
+    setFavoriteNodes((prev) => {
       const next = new Set(prev);
       if (next.has(nodeType)) {
         next.delete(nodeType);
@@ -94,15 +93,18 @@ export function EnhancedNodePalette({
             <>
               <div className="placeholder-icon">⌛</div>
               <h4>Node catalogue is initializing</h4>
-              <p>Hang tight—generated nodes will appear once the enhanced registry finishes loading.</p>
+              <p>
+                Hang tight—generated nodes will appear once the enhanced registry finishes loading.
+              </p>
             </>
           ) : (
             <>
               <div className="placeholder-icon">🚧</div>
               <h4>Node catalogue build required</h4>
               <p>
-                Generated nodes stay hidden until the registry validates the latest build.
-                Run <code>pnpm --filter @brepflow/nodes-core build</code> (or the full workspace build) and refresh Studio to enable the complete palette.
+                Generated nodes stay hidden until the registry validates the latest build. Run{' '}
+                <code>pnpm --filter @brepflow/nodes-core build</code> (or the full workspace build)
+                and refresh Studio to enable the complete palette.
               </p>
               {discoveryErrors.length > 0 && (
                 <details className="placeholder-errors">
@@ -125,7 +127,8 @@ export function EnhancedNodePalette({
         <div className="no-nodes-found">
           <div className="no-nodes-icon">🔍</div>
           <div className="no-nodes-text">
-            {searchQuery || Object.values(filters).some(f => (Array.isArray(f) ? f.length > 0 : f)) ? (
+            {searchQuery ||
+            Object.values(filters).some((f) => (Array.isArray(f) ? f.length > 0 : f)) ? (
               <>
                 <h4>No nodes found</h4>
                 <p>Try adjusting your search or filters</p>
@@ -212,7 +215,8 @@ export function EnhancedNodePalette({
     }
   };
 
-  const hasActiveFilters = searchQuery.trim() ||
+  const hasActiveFilters =
+    searchQuery.trim() ||
     filters.categories.length > 0 ||
     filters.tags.length > 0 ||
     filters.complexity.length > 0 ||
@@ -224,9 +228,7 @@ export function EnhancedNodePalette({
     <div className={`enhanced-node-palette ${compact ? 'compact' : ''} ${className || ''}`}>
       <div className="panel-header">
         <div className="panel-title-group">
-          <h3 className="panel-title">
-            {compact ? 'Nodes' : 'Enhanced Node Library'}
-          </h3>
+          <h3 className="panel-title">{compact ? 'Nodes' : 'Enhanced Node Library'}</h3>
           <div className="panel-subtitle">
             {isCatalogReady
               ? `${totalNodeCount} nodes across ${allCategories.length} categories`
@@ -238,7 +240,9 @@ export function EnhancedNodePalette({
       </div>
 
       {!isCatalogReady && (
-        <div className={`palette-status ${isCatalogFallback ? 'palette-status--warning' : 'palette-status--info'}`}>
+        <div
+          className={`palette-status ${isCatalogFallback ? 'palette-status--warning' : 'palette-status--info'}`}
+        >
           {isCatalogInitializing
             ? 'The enhanced node registry is still initializing. Generated nodes will appear once validation completes.'
             : 'Fallback catalogue detected. Run a fresh build for @brepflow/nodes-core so the enhanced node registry can load real nodes.'}
@@ -260,11 +264,13 @@ export function EnhancedNodePalette({
           resultCount={filteredCount}
           totalCount={totalNodeCount}
           disabled={!isCatalogReady}
-          statusText={!isCatalogReady
-            ? isCatalogInitializing
-              ? 'Node catalogue is initializing…'
-              : 'Build required to surface generated nodes'
-            : undefined}
+          statusText={
+            !isCatalogReady
+              ? isCatalogInitializing
+                ? 'Node catalogue is initializing…'
+                : 'Build required to surface generated nodes'
+              : undefined
+          }
         />
       )}
 
@@ -316,9 +322,7 @@ export function EnhancedNodePalette({
               )}
             </div>
 
-            <div className="nodes-container">
-              {renderNodes()}
-            </div>
+            <div className="nodes-container">{renderNodes()}</div>
           </div>
         </div>
       </div>
