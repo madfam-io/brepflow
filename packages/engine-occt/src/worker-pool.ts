@@ -5,7 +5,11 @@
  */
 
 import { WorkerClient } from './worker-client';
-import { WASMCapabilityDetector, WASMPerformanceMonitor, type OCCTConfig } from './wasm-capability-detector';
+import {
+  WASMCapabilityDetector,
+  WASMPerformanceMonitor,
+  type OCCTConfig,
+} from './wasm-capability-detector';
 import type { WorkerRequest, WorkerResponse, HealthCheckResult } from './worker-types';
 import type { ShapeHandle, MeshData } from '@brepflow/types';
 
@@ -113,7 +117,7 @@ export class WorkerPool {
       const client = new WorkerClient(this.config.workerUrl, {
         occtMode,
         capabilities: this.globalCapabilities,
-        enablePerformanceMonitoring: this.config.enablePerformanceMonitoring
+        enablePerformanceMonitoring: this.config.enablePerformanceMonitoring,
       });
 
       await client.init();
@@ -161,9 +165,9 @@ export class WorkerPool {
 
     // Adaptive selection based on current pool composition
     if (this.config.adaptiveScaling) {
-      const workerModes = Array.from(this.workers.values()).map(w => w.occtMode);
-      const fullOCCTCount = workerModes.filter(m => m === 'full-occt').length;
-      const optimizedCount = workerModes.filter(m => m === 'optimized-occt').length;
+      const workerModes = Array.from(this.workers.values()).map((w) => w.occtMode);
+      const fullOCCTCount = workerModes.filter((m) => m === 'full-occt').length;
+      const optimizedCount = workerModes.filter((m) => m === 'optimized-occt').length;
 
       // Balance the pool - prefer having at least one of each type if capabilities allow
       if (this.globalCapabilities?.hasWASM && fullOCCTCount === 0) {
@@ -187,7 +191,12 @@ export class WorkerPool {
     // Find idle worker with preferred mode
     if (preferredMode) {
       for (const worker of this.workers.values()) {
-        if (!worker.busy && !worker.memoryPressure && !worker.circuitBreakerTripped && worker.occtMode === preferredMode) {
+        if (
+          !worker.busy &&
+          !worker.memoryPressure &&
+          !worker.circuitBreakerTripped &&
+          worker.occtMode === preferredMode
+        ) {
           return worker;
         }
       }
@@ -227,7 +236,12 @@ export class WorkerPool {
         // Check for preferred mode first
         if (preferredMode) {
           for (const worker of this.workers.values()) {
-            if (!worker.busy && !worker.memoryPressure && !worker.circuitBreakerTripped && worker.occtMode === preferredMode) {
+            if (
+              !worker.busy &&
+              !worker.memoryPressure &&
+              !worker.circuitBreakerTripped &&
+              worker.occtMode === preferredMode
+            ) {
               resolve(worker);
               return;
             }
@@ -271,92 +285,97 @@ export class WorkerPool {
 
     let performanceEndMeasurement: (() => number) | null = null;
     if (this.config.enablePerformanceMonitoring) {
-      performanceEndMeasurement = WASMPerformanceMonitor.startMeasurement(`operation-${operation.toLowerCase()}`);
+      performanceEndMeasurement = WASMPerformanceMonitor.startMeasurement(
+        `operation-${operation.toLowerCase()}`
+      );
     }
 
-    return new Promise<T>(async (resolve, reject) => {
+    return new Promise<T>((resolve, reject) => {
       // Set up timeout
       const timeoutId = setTimeout(() => {
         if (performanceEndMeasurement) performanceEndMeasurement();
         reject(new Error(`Task ${taskId} timeout after ${timeout}ms`));
       }, timeout);
 
-      try {
-        const worker = await this.getAvailableWorker(preferredMode);
-
-        // Mark worker as busy
-        worker.busy = true;
-        worker.lastUsed = Date.now();
-        worker.taskCount++;
-
-        const taskStartTime = Date.now();
-
+      // Wrap async logic in IIFE to avoid async promise executor
+      (async () => {
         try {
-          const result = await worker.client.invoke<T>(operation, params);
+          const worker = await this.getAvailableWorker(preferredMode);
 
-          // Task completed successfully
-          const taskDuration = Date.now() - taskStartTime;
-          worker.busy = false;
+          // Mark worker as busy
+          worker.busy = true;
+          worker.lastUsed = Date.now();
+          worker.taskCount++;
 
-          // Update worker performance metrics
-          if (worker.taskCount === 1) {
-            worker.averageTaskDuration = taskDuration;
-          } else {
-            worker.averageTaskDuration = (worker.averageTaskDuration * (worker.taskCount - 1) + taskDuration) / worker.taskCount;
+          const taskStartTime = Date.now();
+
+          try {
+            const result = await worker.client.invoke<T>(operation, params);
+
+            // Task completed successfully
+            const taskDuration = Date.now() - taskStartTime;
+            worker.busy = false;
+
+            // Update worker performance metrics
+            if (worker.taskCount === 1) {
+              worker.averageTaskDuration = taskDuration;
+            } else {
+              worker.averageTaskDuration =
+                (worker.averageTaskDuration * (worker.taskCount - 1) + taskDuration) /
+                worker.taskCount;
+            }
+
+            // Reset circuit breaker on success
+            if (worker.circuitBreakerTripped) {
+              worker.circuitBreakerTripped = false;
+              console.log(`[WorkerPool] Circuit breaker reset for worker ${worker.id}`);
+            }
+
+            clearTimeout(timeoutId);
+            if (performanceEndMeasurement) performanceEndMeasurement();
+            resolve(result);
+
+            // Process next queued task if any
+            this.processQueue();
+          } catch (error) {
+            worker.busy = false;
+            worker.errorCount++;
+
+            // Circuit breaker logic
+            if (this.config.enableCircuitBreaker && worker.errorCount >= 3) {
+              worker.circuitBreakerTripped = true;
+              console.warn(`[WorkerPool] Circuit breaker tripped for worker ${worker.id}`);
+            }
+
+            // Check if worker should be replaced due to errors
+            if (worker.errorCount > 5) {
+              console.warn(`[WorkerPool] Replacing worker ${worker.id} due to repeated errors`);
+              this.replaceWorker(worker.id);
+            }
+
+            clearTimeout(timeoutId);
+            if (performanceEndMeasurement) performanceEndMeasurement();
+            reject(error);
           }
-
-          // Reset circuit breaker on success
-          if (worker.circuitBreakerTripped) {
-            worker.circuitBreakerTripped = false;
-            console.log(`[WorkerPool] Circuit breaker reset for worker ${worker.id}`);
-          }
-
-          clearTimeout(timeoutId);
-          if (performanceEndMeasurement) performanceEndMeasurement();
-          resolve(result);
-
-          // Process next queued task if any
-          this.processQueue();
-
         } catch (error) {
-          worker.busy = false;
-          worker.errorCount++;
-
-          // Circuit breaker logic
-          if (this.config.enableCircuitBreaker && worker.errorCount >= 3) {
-            worker.circuitBreakerTripped = true;
-            console.warn(`[WorkerPool] Circuit breaker tripped for worker ${worker.id}`);
+          // Could not get worker - queue for retry if high priority
+          if (priority > 0) {
+            this.queue.push({
+              request: { operation, params },
+              resolve,
+              reject,
+              priority,
+              timeout,
+              operation,
+            });
+            this.queue.sort((a, b) => b.priority - a.priority);
+          } else {
+            clearTimeout(timeoutId);
+            if (performanceEndMeasurement) performanceEndMeasurement();
+            reject(error);
           }
-
-          // Check if worker should be replaced due to errors
-          if (worker.errorCount > 5) {
-            console.warn(`[WorkerPool] Replacing worker ${worker.id} due to repeated errors`);
-            this.replaceWorker(worker.id);
-          }
-
-          clearTimeout(timeoutId);
-          if (performanceEndMeasurement) performanceEndMeasurement();
-          reject(error);
         }
-
-      } catch (error) {
-        // Could not get worker - queue for retry if high priority
-        if (priority > 0) {
-          this.queue.push({
-            request: { operation, params },
-            resolve,
-            reject,
-            priority,
-            timeout,
-            operation
-          });
-          this.queue.sort((a, b) => b.priority - a.priority);
-        } else {
-          clearTimeout(timeoutId);
-          if (performanceEndMeasurement) performanceEndMeasurement();
-          reject(error);
-        }
-      }
+      })();
     });
   }
 
@@ -366,8 +385,9 @@ export class WorkerPool {
   private processQueue(): void {
     if (this.queue.length === 0) return;
 
-    const availableWorkers = Array.from(this.workers.values())
-      .filter(w => !w.busy && !w.memoryPressure);
+    const availableWorkers = Array.from(this.workers.values()).filter(
+      (w) => !w.busy && !w.memoryPressure
+    );
 
     while (this.queue.length > 0 && availableWorkers.length > 0) {
       const task = this.queue.shift()!;
@@ -377,13 +397,14 @@ export class WorkerPool {
       worker.lastUsed = Date.now();
       worker.taskCount++;
 
-      worker.client.invoke(task.request.operation, task.request.params)
-        .then(result => {
+      worker.client
+        .invoke(task.request.operation, task.request.params)
+        .then((result) => {
           worker.busy = false;
           task.resolve(result);
           this.processQueue();
         })
-        .catch(error => {
+        .catch((error) => {
           worker.busy = false;
           worker.errorCount++;
           task.reject(error);
@@ -434,7 +455,6 @@ export class WorkerPool {
             console.log(`[WorkerPool] Replacing worker ${workerId} due to memory pressure`);
             this.replaceWorker(workerId);
           }
-
         } catch (error) {
           console.warn(`[WorkerPool] Health check failed for worker ${workerId}:`, error);
           worker.errorCount++;
@@ -453,8 +473,9 @@ export class WorkerPool {
   private startCleanupTimer(): void {
     this.cleanupTimer = setInterval(() => {
       const now = Date.now();
-      const idleWorkers = Array.from(this.workers.values())
-        .filter(w => !w.busy && (now - w.lastUsed) > this.config.idleTimeout);
+      const idleWorkers = Array.from(this.workers.values()).filter(
+        (w) => !w.busy && now - w.lastUsed > this.config.idleTimeout
+      );
 
       // Keep minimum workers
       const workersToRemove = idleWorkers.slice(this.config.minWorkers);
@@ -474,10 +495,10 @@ export class WorkerPool {
    */
   getStats() {
     const workers = Array.from(this.workers.values());
-    const busyWorkers = workers.filter(w => w.busy).length;
+    const busyWorkers = workers.filter((w) => w.busy).length;
     const totalTasks = workers.reduce((sum, w) => sum + w.taskCount, 0);
     const totalErrors = workers.reduce((sum, w) => sum + w.errorCount, 0);
-    const memoryPressureWorkers = workers.filter(w => w.memoryPressure).length;
+    const memoryPressureWorkers = workers.filter((w) => w.memoryPressure).length;
 
     return {
       totalWorkers: this.workers.size,
@@ -515,8 +536,9 @@ export class WorkerPool {
     this.queue.length = 0;
 
     // Terminate all workers
-    const terminatePromises = Array.from(this.workers.values())
-      .map(worker => worker.client.terminate());
+    const terminatePromises = Array.from(this.workers.values()).map((worker) =>
+      worker.client.terminate()
+    );
 
     await Promise.all(terminatePromises);
     this.workers.clear();

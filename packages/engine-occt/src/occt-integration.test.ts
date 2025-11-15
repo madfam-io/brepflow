@@ -14,12 +14,12 @@ const TEST_CONFIG = {
   timeout: 30000, // 30 seconds for WASM operations
   precision: 0.01,
   angleTolerance: 0.1,
-  memoryThreshold: 100 // MB
+  memoryThreshold: 100, // MB
 };
 
 describe('OCCT Integration Tests', () => {
   let occtModule: any = null;
-  let testShapes: Map<string, ShapeHandle> = new Map();
+  const testShapes: Map<string, ShapeHandle> = new Map();
 
   // Helper function to skip tests when OCCT is not available or detect Node.js mock
   const skipIfNoOCCT = () => {
@@ -139,7 +139,7 @@ describe('OCCT Integration Tests', () => {
       expect(sphere.id).toBeDefined();
 
       expect(sphere.type).toBe('solid');
-      const expectedVolume = (4/3) * Math.PI * Math.pow(15, 3);
+      const expectedVolume = (4 / 3) * Math.PI * Math.pow(15, 3);
       expect(sphere.volume).toBeCloseTo(expectedVolume, 1);
 
       testShapes.set('test_sphere', sphere);

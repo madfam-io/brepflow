@@ -10,14 +10,18 @@ import type { ShapeHandle, MeshData } from './worker-types';
 const originalUnhandledRejection = process.listeners('unhandledRejection');
 process.removeAllListeners('unhandledRejection');
 process.on('unhandledRejection', (reason, promise) => {
-  if (reason && typeof reason === 'object' && 'message' in reason && 
-      String(reason.message).includes('OCCT module loading failed')) {
+  if (
+    reason &&
+    typeof reason === 'object' &&
+    'message' in reason &&
+    String(reason.message).includes('OCCT module loading failed')
+  ) {
     // Silently ignore OCCT loading failures in test environment
     console.log('Suppressed OCCT loading error in test environment');
     return;
   }
   // Re-emit other unhandled rejections
-  originalUnhandledRejection.forEach(listener => {
+  originalUnhandledRejection.forEach((listener) => {
     if (typeof listener === 'function') {
       listener(reason, promise);
     }
@@ -25,7 +29,7 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 describe('OCCT Production API', () => {
-  let testShapeIds: string[] = [];
+  const testShapeIds: string[] = [];
   let mockMode = false;
   let initializationFailed = false;
 
@@ -80,11 +84,11 @@ describe('OCCT Production API', () => {
 
   afterAll(() => {
     // Clean up test shapes
-    testShapeIds.forEach(id => {
+    testShapeIds.forEach((id) => {
       occtProductionAPI.execute({
         id: 'cleanup',
         type: 'DELETE_SHAPE',
-        params: { shape: id }
+        params: { shape: id },
       });
     });
   });
@@ -141,7 +145,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'test-box',
         type: 'MAKE_BOX',
-        params: { width: 100, height: 50, depth: 25 }
+        params: { width: 100, height: 50, depth: 25 },
       });
 
       expect(response.success).toBe(true);
@@ -165,7 +169,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'test-sphere',
         type: 'MAKE_SPHERE',
-        params: { radius: 50 }
+        params: { radius: 50 },
       });
 
       expect(response.success).toBe(true);
@@ -185,7 +189,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'test-cylinder',
         type: 'MAKE_CYLINDER',
-        params: { radius: 30, height: 80 }
+        params: { radius: 30, height: 80 },
       });
 
       expect(response.success).toBe(true);
@@ -204,7 +208,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'test-cone',
         type: 'MAKE_CONE',
-        params: { radius1: 40, radius2: 20, height: 60 }
+        params: { radius1: 40, radius2: 20, height: 60 },
       });
 
       expect(response.success).toBe(true);
@@ -223,7 +227,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'test-torus',
         type: 'MAKE_TORUS',
-        params: { majorRadius: 50, minorRadius: 10 }
+        params: { majorRadius: 50, minorRadius: 10 },
       });
 
       expect(response.success).toBe(true);
@@ -248,7 +252,7 @@ describe('OCCT Production API', () => {
       const box1Response = await occtProductionAPI.execute({
         id: 'bool-box1',
         type: 'MAKE_BOX',
-        params: { width: 50, height: 50, depth: 50 }
+        params: { width: 50, height: 50, depth: 50 },
       });
       box1Id = (box1Response.result as ShapeHandle).id;
       testShapeIds.push(box1Id);
@@ -256,7 +260,7 @@ describe('OCCT Production API', () => {
       const box2Response = await occtProductionAPI.execute({
         id: 'bool-box2',
         type: 'MAKE_BOX',
-        params: { width: 30, height: 30, depth: 30, center: [25, 25, 25] }
+        params: { width: 30, height: 30, depth: 30, center: [25, 25, 25] },
       });
       box2Id = (box2Response.result as ShapeHandle).id;
       testShapeIds.push(box2Id);
@@ -270,7 +274,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'bool-union',
         type: 'BOOLEAN_UNION',
-        params: { shape1: box1Id, shape2: box2Id }
+        params: { shape1: box1Id, shape2: box2Id },
       });
 
       expect(response.success).toBe(true);
@@ -289,7 +293,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'bool-subtract',
         type: 'BOOLEAN_SUBTRACT',
-        params: { shape1: box1Id, shape2: box2Id }
+        params: { shape1: box1Id, shape2: box2Id },
       });
 
       expect(response.success).toBe(true);
@@ -309,7 +313,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'bool-intersect',
         type: 'BOOLEAN_INTERSECT',
-        params: { shape1: box1Id, shape2: box2Id }
+        params: { shape1: box1Id, shape2: box2Id },
       });
 
       expect(response.success).toBe(true);
@@ -330,7 +334,7 @@ describe('OCCT Production API', () => {
       const boxResponse = await occtProductionAPI.execute({
         id: 'tess-box',
         type: 'MAKE_BOX',
-        params: { width: 20, height: 20, depth: 20 }
+        params: { width: 20, height: 20, depth: 20 },
       });
       const boxId = (boxResponse.result as ShapeHandle).id;
       testShapeIds.push(boxId);
@@ -339,7 +343,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'tessellate',
         type: 'TESSELLATE',
-        params: { shape: boxId, precision: 0.1 }
+        params: { shape: boxId, precision: 0.1 },
       });
 
       expect(response.success).toBe(true);
@@ -371,7 +375,7 @@ describe('OCCT Production API', () => {
       const sphereResponse = await occtProductionAPI.execute({
         id: 'tess-sphere',
         type: 'MAKE_SPHERE',
-        params: { radius: 10 }
+        params: { radius: 10 },
       });
       const sphereId = (sphereResponse.result as ShapeHandle).id;
       testShapeIds.push(sphereId);
@@ -380,7 +384,7 @@ describe('OCCT Production API', () => {
       const lowPrecResponse = await occtProductionAPI.execute({
         id: 'tess-low',
         type: 'TESSELLATE',
-        params: { shape: sphereId, precision: 1.0 }
+        params: { shape: sphereId, precision: 1.0 },
       });
       const lowMesh = lowPrecResponse.result as MeshData;
 
@@ -388,7 +392,7 @@ describe('OCCT Production API', () => {
       const highPrecResponse = await occtProductionAPI.execute({
         id: 'tess-high',
         type: 'TESSELLATE',
-        params: { shape: sphereId, precision: 0.01 }
+        params: { shape: sphereId, precision: 0.01 },
       });
       const highMesh = highPrecResponse.result as MeshData;
 
@@ -407,7 +411,7 @@ describe('OCCT Production API', () => {
       const boxResponse = await occtProductionAPI.execute({
         id: 'fillet-box',
         type: 'MAKE_BOX',
-        params: { width: 40, height: 40, depth: 40 }
+        params: { width: 40, height: 40, depth: 40 },
       });
       const boxId = (boxResponse.result as ShapeHandle).id;
       testShapeIds.push(boxId);
@@ -416,7 +420,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'fillet',
         type: 'MAKE_FILLET',
-        params: { shape: boxId, radius: 5 }
+        params: { shape: boxId, radius: 5 },
       });
 
       expect(response.success).toBe(true);
@@ -437,7 +441,7 @@ describe('OCCT Production API', () => {
       const boxResponse = await occtProductionAPI.execute({
         id: 'chamfer-box',
         type: 'MAKE_BOX',
-        params: { width: 30, height: 30, depth: 30 }
+        params: { width: 30, height: 30, depth: 30 },
       });
       const boxId = (boxResponse.result as ShapeHandle).id;
       testShapeIds.push(boxId);
@@ -446,7 +450,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'chamfer',
         type: 'MAKE_CHAMFER',
-        params: { shape: boxId, distance: 3 }
+        params: { shape: boxId, distance: 3 },
       });
 
       expect(response.success).toBe(true);
@@ -465,7 +469,7 @@ describe('OCCT Production API', () => {
       const boxResponse = await occtProductionAPI.execute({
         id: 'shell-box',
         type: 'MAKE_BOX',
-        params: { width: 50, height: 50, depth: 50 }
+        params: { width: 50, height: 50, depth: 50 },
       });
       const boxId = (boxResponse.result as ShapeHandle).id;
       testShapeIds.push(boxId);
@@ -474,7 +478,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'shell',
         type: 'MAKE_SHELL',
-        params: { shape: boxId, thickness: 2 }
+        params: { shape: boxId, thickness: 2 },
       });
 
       expect(response.success).toBe(true);
@@ -497,7 +501,7 @@ describe('OCCT Production API', () => {
       const boxResponse = await occtProductionAPI.execute({
         id: 'transform-box',
         type: 'MAKE_BOX',
-        params: { width: 20, height: 20, depth: 20 }
+        params: { width: 20, height: 20, depth: 20 },
       });
       const boxId = (boxResponse.result as ShapeHandle).id;
       testShapeIds.push(boxId);
@@ -510,8 +514,8 @@ describe('OCCT Production API', () => {
           shape: boxId,
           translation: [10, 20, 30],
           rotation: [0, 0, Math.PI / 4],
-          scale: [1, 1, 1]
-        }
+          scale: [1, 1, 1],
+        },
       });
 
       expect(response.success).toBe(true);
@@ -534,7 +538,7 @@ describe('OCCT Production API', () => {
       const sphereResponse = await occtProductionAPI.execute({
         id: 'copy-sphere',
         type: 'MAKE_SPHERE',
-        params: { radius: 15 }
+        params: { radius: 15 },
       });
       const sphereId = (sphereResponse.result as ShapeHandle).id;
       testShapeIds.push(sphereId);
@@ -543,7 +547,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'copy',
         type: 'COPY_SHAPE',
-        params: { shape: sphereId }
+        params: { shape: sphereId },
       });
 
       expect(response.success).toBe(true);
@@ -568,7 +572,7 @@ describe('OCCT Production API', () => {
       const response = await occtProductionAPI.execute({
         id: 'mem-box',
         type: 'MAKE_BOX',
-        params: { width: 10, height: 10, depth: 10 }
+        params: { width: 10, height: 10, depth: 10 },
       });
       const shapeId = (response.result as ShapeHandle).id;
 
@@ -580,7 +584,7 @@ describe('OCCT Production API', () => {
       await occtProductionAPI.execute({
         id: 'delete',
         type: 'DELETE_SHAPE',
-        params: { shape: shapeId }
+        params: { shape: shapeId },
       });
 
       // Check count decreased
@@ -597,19 +601,19 @@ describe('OCCT Production API', () => {
       await occtProductionAPI.execute({
         id: 'clear-box1',
         type: 'MAKE_BOX',
-        params: { width: 10, height: 10, depth: 10 }
+        params: { width: 10, height: 10, depth: 10 },
       });
       await occtProductionAPI.execute({
         id: 'clear-box2',
         type: 'MAKE_BOX',
-        params: { width: 20, height: 20, depth: 20 }
+        params: { width: 20, height: 20, depth: 20 },
       });
 
       // Clear all
       await occtProductionAPI.execute({
         id: 'clear',
         type: 'CLEAR_ALL',
-        params: {}
+        params: {},
       });
 
       // Check count is 0

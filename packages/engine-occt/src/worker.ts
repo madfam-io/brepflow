@@ -74,7 +74,10 @@ const toFiniteNumber = (value: unknown, fallback = 0): number => {
   return Number.isFinite(numeric) ? numeric : fallback;
 };
 
-const toVector3 = (value: any, fallback: [number, number, number] = [0, 0, 0]): [number, number, number] => {
+const toVector3 = (
+  value: any,
+  fallback: [number, number, number] = [0, 0, 0]
+): [number, number, number] => {
   if (Array.isArray(value) && value.length >= 3) {
     return [toFiniteNumber(value[0]), toFiniteNumber(value[1]), toFiniteNumber(value[2])];
   }
@@ -83,19 +86,20 @@ const toVector3 = (value: any, fallback: [number, number, number] = [0, 0, 0]): 
     return [
       toFiniteNumber(value.x ?? (value as any)[0]),
       toFiniteNumber(value.y ?? (value as any)[1]),
-      toFiniteNumber(value.z ?? (value as any)[2])
+      toFiniteNumber(value.z ?? (value as any)[2]),
     ];
   }
 
   return fallback;
 };
 
-const toVec3Object = (value: any, fallback: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 }) => {
-  const [x, y, z] = toVector3(value ?? fallback, [fallback.x, fallback.y, fallback.z]);
-  return { x, y, z };
-};
+// Utility functions for future use
+// const toVec3Object = (value: any, fallback: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 }) => {
+//   const [x, y, z] = toVector3(value ?? fallback, [fallback.x, fallback.y, fallback.z]);
+//   return { x, y, z };
+// };
 
-const unwrapShape = (shape: any) => (shape?.raw ? shape.raw : shape);
+// const unwrapShape = (shape: any) => (shape?.raw ? shape.raw : shape);
 
 const buildBoundingBox = (source: any) => {
   if (source?.bbox?.min && source?.bbox?.max) {
@@ -278,8 +282,12 @@ const handleWithBindings = (request: WorkerRequest): any => {
       const handle = occtModule.revolve(
         getShapeId(profile),
         angle,
-        axis[0], axis[1], axis[2],
-        origin[0], origin[1], origin[2]
+        axis[0],
+        axis[1],
+        axis[2],
+        origin[0],
+        origin[1],
+        origin[2]
       );
       return normalizeShapeHandle(handle);
     }
@@ -298,7 +306,7 @@ const handleWithBindings = (request: WorkerRequest): any => {
       if (sections.length < 2) {
         throw new Error('LOFT requires at least two section handles');
       }
-      const sectionIds = sections.map(section => getShapeId(section));
+      const sectionIds = sections.map((section) => getShapeId(section));
       const handle = occtModule.makeLoft(sectionIds, params.options ?? {});
       return normalizeShapeHandle(handle);
     }
@@ -343,9 +351,15 @@ const handleWithBindings = (request: WorkerRequest): any => {
       const scale = toVector3(params.scale ?? [1, 1, 1], [1, 1, 1]);
       const handle = occtModule.transform(
         shapeId,
-        translation[0], translation[1], translation[2],
-        rotation[0], rotation[1], rotation[2],
-        scale[0], scale[1], scale[2]
+        translation[0],
+        translation[1],
+        translation[2],
+        rotation[0],
+        rotation[1],
+        rotation[2],
+        scale[0],
+        scale[1],
+        scale[2]
       );
       return normalizeShapeHandle(handle);
     }
@@ -434,11 +448,17 @@ const handleWithBindings = (request: WorkerRequest): any => {
       return {
         mesh: {
           positions:
-            mesh.positions instanceof Float32Array ? mesh.positions : new Float32Array(mesh.positions ?? []),
+            mesh.positions instanceof Float32Array
+              ? mesh.positions
+              : new Float32Array(mesh.positions ?? []),
           normals:
-            mesh.normals instanceof Float32Array ? mesh.normals : new Float32Array(mesh.normals ?? []),
+            mesh.normals instanceof Float32Array
+              ? mesh.normals
+              : new Float32Array(mesh.normals ?? []),
           indices:
-            mesh.indices instanceof Uint32Array ? mesh.indices : new Uint32Array(mesh.indices ?? []),
+            mesh.indices instanceof Uint32Array
+              ? mesh.indices
+              : new Uint32Array(mesh.indices ?? []),
           uvs: mesh.uvs instanceof Float32Array ? mesh.uvs : undefined,
         },
         bbox: params.shape?.bbox,
@@ -546,7 +566,6 @@ addHostMessageListener(async (event: { data: WorkerRequest }) => {
     if (request.type === 'INIT') {
       if (!isInitialized) {
         const canUseProductionAPI = !isTestMode && isBrowserLikeWorker;
-        let productionInitialized = false;
 
         if (canUseProductionAPI) {
           try {
@@ -555,7 +574,7 @@ addHostMessageListener(async (event: { data: WorkerRequest }) => {
             await api.ensureInitialized();
             useProduction = true;
             isInitialized = true;
-            productionInitialized = true;
+            // productionInitialized = true; // Tracked via useProduction
             console.log('✅ OCCT worker initialized with production API (real geometry)');
           } catch (prodError) {
             console.warn('[OCCT Worker] Production API failed:', prodError);
@@ -577,7 +596,8 @@ addHostMessageListener(async (event: { data: WorkerRequest }) => {
         }
 
         if (!isInitialized) {
-          const errorMsg = 'CRITICAL: Failed to initialize real OCCT geometry. No fallback available.';
+          const errorMsg =
+            'CRITICAL: Failed to initialize real OCCT geometry. No fallback available.';
           console.error(errorMsg);
           throw new Error(errorMsg);
         }
@@ -603,7 +623,7 @@ addHostMessageListener(async (event: { data: WorkerRequest }) => {
         const message =
           typeof errorInfo === 'string'
             ? errorInfo
-            : errorInfo?.message ?? `OCCT operation ${request.type} failed`;
+            : (errorInfo?.message ?? `OCCT operation ${request.type} failed`);
         throw new Error(message);
       }
 
@@ -632,7 +652,6 @@ addHostMessageListener(async (event: { data: WorkerRequest }) => {
     });
   }
 });
-
 
 // Export for TypeScript
 export {};
