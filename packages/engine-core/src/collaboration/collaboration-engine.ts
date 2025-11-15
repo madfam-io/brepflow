@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build (branded type violations)
 // TODO: Fix SessionId branded type usage and unknown type assertions
 /**
  * Comprehensive Real-time Collaboration System for BrepFlow

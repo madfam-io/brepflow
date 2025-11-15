@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * Real-Time Parameter Synchronization
  * Handles synchronized editing of node parameters across multiple users
@@ -43,14 +42,11 @@ export class ParameterSynchronizer {
   private config: ParameterSyncConfig;
   private pendingChanges = new Map<string, ParameterChange>();
   private parameterLocks = new Map<string, ParameterLock>();
-  private throttleTimers = new Map<string, any>();  // Use any to support both browser and Node.js
-  private batchTimer: any = null;  // Use any to support both browser and Node.js
+  private throttleTimers = new Map<string, any>(); // Use any to support both browser and Node.js
+  private batchTimer: any = null; // Use any to support both browser and Node.js
   private changeListeners = new Map<string, ((change: ParameterChange) => void)[]>();
 
-  constructor(
-    collaborationEngine: CollaborationEngine,
-    config: Partial<ParameterSyncConfig> = {}
-  ) {
+  constructor(collaborationEngine: CollaborationEngine, config: Partial<ParameterSyncConfig> = {}) {
     this.collaborationEngine = collaborationEngine;
     this.config = {
       throttleDelay: 300,
@@ -107,11 +103,7 @@ export class ParameterSynchronizer {
   /**
    * Acquire a lock on a specific parameter
    */
-  async lockParameter(
-    nodeId: NodeId,
-    paramName: string,
-    userId: UserId
-  ): Promise<boolean> {
+  async lockParameter(nodeId: NodeId, paramName: string, userId: UserId): Promise<boolean> {
     if (!this.config.enableParameterLocking) {
       return true; // Locking disabled
     }
@@ -146,11 +138,7 @@ export class ParameterSynchronizer {
   /**
    * Release a parameter lock
    */
-  releaseParameterLock(
-    nodeId: NodeId,
-    paramName: string,
-    userId: UserId
-  ): boolean {
+  releaseParameterLock(nodeId: NodeId, paramName: string, userId: UserId): boolean {
     const lockKey = this.getLockKey(nodeId, paramName);
     const lock = this.parameterLocks.get(lockKey);
 
@@ -165,11 +153,7 @@ export class ParameterSynchronizer {
   /**
    * Check if a parameter is locked
    */
-  isParameterLocked(
-    nodeId: NodeId,
-    paramName: string,
-    userId?: UserId
-  ): boolean {
+  isParameterLocked(nodeId: NodeId, paramName: string, userId?: UserId): boolean {
     const lockKey = this.getLockKey(nodeId, paramName);
     const lock = this.parameterLocks.get(lockKey);
 
@@ -353,7 +337,7 @@ export class ParameterSynchronizer {
     const key = this.getChangeKey(change.nodeId, change.paramName);
     const listeners = this.changeListeners.get(key);
     if (listeners) {
-      listeners.forEach(listener => {
+      listeners.forEach((listener) => {
         try {
           listener(change);
         } catch (error) {
@@ -397,11 +381,7 @@ export class ParameterSyncManager {
   private parameterStates = new Map<string, ParameterSyncState>();
   private subscriptions = new Map<string, (value: any) => void>();
 
-  constructor(
-    synchronizer: ParameterSynchronizer,
-    sessionId: SessionId,
-    userId: UserId
-  ) {
+  constructor(synchronizer: ParameterSynchronizer, sessionId: SessionId, userId: UserId) {
     this.synchronizer = synchronizer;
     this.sessionId = sessionId;
     this.userId = userId;
@@ -572,11 +552,7 @@ export class ParameterSyncManager {
         value: change.value,
         lastModified: change.timestamp,
         lastModifiedBy: change.userId,
-        isLocked: this.synchronizer.isParameterLocked(
-          change.nodeId,
-          change.paramName,
-          this.userId
-        ),
+        isLocked: this.synchronizer.isParameterLocked(change.nodeId, change.paramName, this.userId),
         lockedBy: this.getParameterLockOwner(change.nodeId, change.paramName),
       });
       return;
@@ -587,11 +563,7 @@ export class ParameterSyncManager {
       value: change.value,
       lastModified: change.timestamp,
       lastModifiedBy: change.userId,
-      isLocked: this.synchronizer.isParameterLocked(
-        change.nodeId,
-        change.paramName,
-        this.userId
-      ),
+      isLocked: this.synchronizer.isParameterLocked(change.nodeId, change.paramName, this.userId),
       lockedBy: this.getParameterLockOwner(change.nodeId, change.paramName),
     };
 
@@ -606,7 +578,7 @@ export class ParameterSyncManager {
 
   private getParameterLockOwner(nodeId: NodeId, paramName: string): UserId | undefined {
     const locks = this.synchronizer.getParameterLocks();
-    const lock = locks.find(l => l.nodeId === nodeId && l.paramName === paramName);
+    const lock = locks.find((l) => l.nodeId === nodeId && l.paramName === paramName);
     return lock?.userId;
   }
 

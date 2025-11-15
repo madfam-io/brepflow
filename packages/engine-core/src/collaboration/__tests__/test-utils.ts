@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * Testing Utilities for Collaboration Features
  * Helper functions and mocks for testing collaboration functionality
@@ -114,7 +113,7 @@ export class MockWebSocketClient {
   emit(event: string, data: any): void {
     const listeners = this.eventListeners.get(event);
     if (listeners) {
-      listeners.forEach(listener => listener(data));
+      listeners.forEach((listener) => listener(data));
     }
   }
 
@@ -131,7 +130,10 @@ export class MockWebSocketClient {
   }
 }
 
-export function createTestUser(id: string, overrides: Partial<CollaborationUser> = {}): CollaborationUser {
+export function createTestUser(
+  id: string,
+  overrides: Partial<CollaborationUser> = {}
+): CollaborationUser {
   return {
     id: id as UserId,
     name: `Test User ${id}`,
@@ -188,7 +190,10 @@ export function createTestCursor(overrides: Partial<CursorPosition> = {}): Curso
   };
 }
 
-export function createTestSelection(nodeIds: string[] = [], edgeIds: string[] = []): SelectionState {
+export function createTestSelection(
+  nodeIds: string[] = [],
+  edgeIds: string[] = []
+): SelectionState {
   return {
     selectedNodes: nodeIds as any[],
     selectedEdges: edgeIds as any[],
@@ -196,7 +201,9 @@ export function createTestSelection(nodeIds: string[] = [], edgeIds: string[] = 
   };
 }
 
-export function createTestConfig(overrides: Partial<CollaborationConfig> = {}): CollaborationConfig {
+export function createTestConfig(
+  overrides: Partial<CollaborationConfig> = {}
+): CollaborationConfig {
   return {
     websocket: {
       url: 'ws://localhost:3001/test',
@@ -235,10 +242,13 @@ export function createTestConfig(overrides: Partial<CollaborationConfig> = {}): 
 }
 
 export class CollaborationTestHarness {
-  private users: Map<UserId, {
-    user: CollaborationUser;
-    client: MockWebSocketClient;
-  }> = new Map();
+  private users: Map<
+    UserId,
+    {
+      user: CollaborationUser;
+      client: MockWebSocketClient;
+    }
+  > = new Map();
   private engine: any = null;
 
   setEngine(engine: any): void {
@@ -291,7 +301,7 @@ export class CollaborationTestHarness {
   }
 
   simulateNetworkPartition(userIds: UserId[]): void {
-    userIds.forEach(userId => {
+    userIds.forEach((userId) => {
       const client = this.getClient(userId);
       if (client) {
         client.emit('connection-status-changed', { connected: false });
@@ -300,7 +310,7 @@ export class CollaborationTestHarness {
   }
 
   simulateNetworkReconnection(userIds: UserId[]): void {
-    userIds.forEach(userId => {
+    userIds.forEach((userId) => {
       const client = this.getClient(userId);
       if (client) {
         client.emit('connection-status-changed', { connected: true });
@@ -357,7 +367,7 @@ export function waitFor(
 // Removed: createMockGeometryContext - mock geometry no longer exists
 
 export function delay(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 // Mock WebSocket Client that integrates with the harness
@@ -444,7 +454,7 @@ export function createTestCollaborationEngine(harness: CollaborationTestHarness)
   // Override WebSocket broadcasting to use harness
   const originalBroadcastOperation = engine.broadcastOperation?.bind(engine);
   if (originalBroadcastOperation) {
-    engine.broadcastOperation = async function(sessionId: any, operation: any) {
+    engine.broadcastOperation = async function (sessionId: any, operation: any) {
       // Broadcast to all clients in harness
       harness.broadcastToOthers(operation.userId, 'operation', operation);
       // Still emit the event for local listeners

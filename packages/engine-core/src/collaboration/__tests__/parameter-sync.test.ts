@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * Parameter Synchronization Tests
  * Tests for real-time parameter sync and conflict resolution
@@ -6,13 +5,7 @@
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 import { ParameterSynchronizer, ParameterSyncManager } from '../parameter-sync';
-import type {
-  CollaborationEngine,
-  ParameterChange,
-  SessionId,
-  UserId,
-  NodeId,
-} from '../types';
+import type { CollaborationEngine, ParameterChange, SessionId, UserId, NodeId } from '../types';
 
 // Mock collaboration engine
 const mockCollaborationEngine: Partial<CollaborationEngine> = {
@@ -25,16 +18,13 @@ describe('ParameterSynchronizer', () => {
   let synchronizer: ParameterSynchronizer;
 
   beforeEach(() => {
-    synchronizer = new ParameterSynchronizer(
-      mockCollaborationEngine as CollaborationEngine,
-      {
-        throttleDelay: 100,
-        batchDelay: 50,
-        conflictResolutionStrategy: 'last-writer-wins',
-        enableParameterLocking: true,
-        lockTimeout: 5000,
-      }
-    );
+    synchronizer = new ParameterSynchronizer(mockCollaborationEngine as CollaborationEngine, {
+      throttleDelay: 100,
+      batchDelay: 50,
+      conflictResolutionStrategy: 'last-writer-wins',
+      enableParameterLocking: true,
+      lockTimeout: 5000,
+    });
 
     vi.clearAllMocks();
     vi.useFakeTimers();
@@ -55,13 +45,7 @@ describe('ParameterSynchronizer', () => {
       // Mock getCurrentParameterValue to return previous value
       vi.spyOn(synchronizer as any, 'getCurrentParameterValue').mockResolvedValue(10);
 
-      await synchronizer.updateParameter(
-        sessionId,
-        nodeId,
-        paramName,
-        value,
-        userId
-      );
+      await synchronizer.updateParameter(sessionId, nodeId, paramName, value, userId);
 
       // Fast-forward timers to trigger throttled update
       await vi.runAllTimersAsync();
@@ -126,10 +110,7 @@ describe('ParameterSynchronizer', () => {
       };
 
       // Simulate conflict resolution
-      const resolvedChange = await (synchronizer as any).resolveParameterConflict(
-        change1,
-        change2
-      );
+      const resolvedChange = await (synchronizer as any).resolveParameterConflict(change1, change2);
 
       // Later timestamp should win with last-writer-wins strategy
       expect(resolvedChange.value).toBe(15);
@@ -250,14 +231,8 @@ describe('ParameterSyncManager', () => {
   let manager: ParameterSyncManager;
 
   beforeEach(() => {
-    synchronizer = new ParameterSynchronizer(
-      mockCollaborationEngine as CollaborationEngine
-    );
-    manager = new ParameterSyncManager(
-      synchronizer,
-      'session1' as SessionId,
-      'user1' as UserId
-    );
+    synchronizer = new ParameterSynchronizer(mockCollaborationEngine as CollaborationEngine);
+    manager = new ParameterSyncManager(synchronizer, 'session1' as SessionId, 'user1' as UserId);
 
     vi.clearAllMocks();
     vi.useFakeTimers();

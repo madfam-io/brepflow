@@ -1,10 +1,9 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * Collaboration Features Test Suite
  * Comprehensive integration tests for all collaboration functionality
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { BrepFlowCollaborationEngine } from '../collaboration-engine';
 import {
   MockWebSocketClient,
@@ -35,7 +34,13 @@ class MockParameterSynchronizer {
     return true;
   }
 
-  async updateParameter(sessionId: SessionId, nodeId: string, paramName: string, value: any, userId: UserId): Promise<void> {
+  async updateParameter(
+    sessionId: SessionId,
+    nodeId: string,
+    paramName: string,
+    value: any,
+    userId: UserId
+  ): Promise<void> {
     // Mock implementation
     return Promise.resolve();
   }
@@ -141,7 +146,7 @@ describe('Collaboration Features Integration', () => {
       }
 
       // Apply all operations
-      await Promise.all(operations.map(op => engine.applyOperation(sessionId, op)));
+      await Promise.all(operations.map((op) => engine.applyOperation(sessionId, op)));
 
       // Verify all nodes were created
       const sessionState = engine.getSessionState(sessionId);
@@ -221,9 +226,8 @@ describe('Collaboration Features Integration', () => {
       // User 2 should eventually receive the operation (simplified for stability)
       await delay(100); // Give time for message processing
       const messages = client2.getMessageQueue();
-      const hasOperationMessage = messages.some(msg =>
-        msg.type === 'operation' &&
-        msg.data?.nodeId === 'node1'
+      const hasOperationMessage = messages.some(
+        (msg) => msg.type === 'operation' && msg.data?.nodeId === 'node1'
       );
       // For now, just verify the operation was applied to the session
       // (message broadcasting will be tested separately)
@@ -249,7 +253,7 @@ describe('Collaboration Features Integration', () => {
       // Should have fewer messages due to throttling (simplified check)
       await delay(100); // Shorter wait for stability
       const messages = client1.getMessageQueue();
-      const cursorMessages = messages.filter(msg => msg.type === 'cursor');
+      const cursorMessages = messages.filter((msg) => msg.type === 'cursor');
       expect(cursorMessages.length).toBeGreaterThanOrEqual(0); // Just verify no crash
     });
   });
@@ -334,9 +338,7 @@ describe('Collaboration Features Integration', () => {
       } as any;
 
       // Should not crash the session
-      await expect(
-        engine.applyOperation(sessionId, malformedOp)
-      ).resolves.not.toThrow();
+      await expect(engine.applyOperation(sessionId, malformedOp)).resolves.not.toThrow();
 
       // Session should still be functional
       const sessionState = engine.getSessionState(sessionId);
@@ -364,9 +366,7 @@ describe('Collaboration Features Integration', () => {
       });
 
       // Should handle gracefully
-      await expect(
-        engine.applyOperation(sessionId, corruptOp)
-      ).resolves.not.toThrow();
+      await expect(engine.applyOperation(sessionId, corruptOp)).resolves.not.toThrow();
 
       // Session should recover
       const sessionState = engine.getSessionState(sessionId);
@@ -409,7 +409,7 @@ describe('Collaboration Features Integration', () => {
       const batchSize = 20;
       for (let i = 0; i < operations.length; i += batchSize) {
         const batch = operations.slice(i, i + batchSize);
-        await Promise.all(batch.map(op => engine.applyOperation(sessionId, op)));
+        await Promise.all(batch.map((op) => engine.applyOperation(sessionId, op)));
       }
 
       const endTime = performance.now();

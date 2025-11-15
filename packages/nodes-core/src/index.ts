@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build (DTS generation errors)
 // TODO: Fix NodeDefinition type mismatches, error type assertions, and duplicate exports
 import { NodeRegistry } from '@brepflow/engine-core';
 
@@ -46,7 +45,7 @@ export function registerCoreNodes(): void {
     ...advancedAssemblyNodes,
     ...simulationNodes,
     ...Object.values(advancedFilletNodes),
-    ...Object.values(sheetMetalNodes)
+    ...Object.values(sheetMetalNodes),
   ]);
 }
 
@@ -82,11 +81,14 @@ export async function registerAllNodes(): Promise<EnhancedNodeRegistry> {
   console.log(`🔍 DEBUG: Created legacyNodes array with ${legacyNodes.length} nodes`);
 
   console.log('🔍 DEBUG: About to call enhancedRegistry.registerNodes...');
-  console.log('🔍 DEBUG: enhancedRegistry.registerNodes exists?', typeof enhancedRegistry.registerNodes);
+  console.log(
+    '🔍 DEBUG: enhancedRegistry.registerNodes exists?',
+    typeof enhancedRegistry.registerNodes
+  );
 
   // Fix legacy nodes: convert 'id' property to 'type' property for EnhancedNodeRegistry compatibility
   console.log('🔍 DEBUG: Converting legacy nodes from id to type...');
-  const fixedLegacyNodes = legacyNodes.map(node => {
+  const fixedLegacyNodes = legacyNodes.map((node) => {
     if (node && (node as any).id && !node.type) {
       return { ...node, type: (node as any).id };
     }

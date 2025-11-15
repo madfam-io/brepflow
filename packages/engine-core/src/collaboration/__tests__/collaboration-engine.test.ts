@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * Comprehensive BrepFlowCollaborationEngine Tests
  * Tests all aspects of real-time collaboration functionality
@@ -413,9 +412,7 @@ describe('BrepFlowCollaborationEngine', () => {
     it('should handle lock conflicts', async () => {
       await engine.lockParameter(sessionId, 'param1', user1.id);
 
-      await expect(
-        engine.lockParameter(sessionId, 'param1', user2.id)
-      ).rejects.toThrow();
+      await expect(engine.lockParameter(sessionId, 'param1', user2.id)).rejects.toThrow();
     });
   });
 });
@@ -445,7 +442,7 @@ describe('ParameterSynchronizer', () => {
     updateParameter(paramId: string, value: any): void {
       const callbacks = this.listeners.get(paramId);
       if (callbacks) {
-        callbacks.forEach(callback => callback(value));
+        callbacks.forEach((callback) => callback(value));
       }
     }
   }

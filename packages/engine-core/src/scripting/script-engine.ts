@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * Script Engine for BrepFlow Custom Nodes
  * Provides secure JavaScript execution environment
@@ -77,19 +76,13 @@ export class BrepFlowScriptEngine implements ScriptEngine {
     const executor = this.executors.get(language);
 
     if (!executor) {
-      throw new ScriptValidationError(
-        `No executor found for language: ${language}`,
-        []
-      );
+      throw new ScriptValidationError(`No executor found for language: ${language}`, []);
     }
 
     // Validate script
     const validationResult = await executor.validate(script);
     if (!validationResult.valid) {
-      throw new ScriptValidationError(
-        'Script validation failed',
-        validationResult.errors
-      );
+      throw new ScriptValidationError('Script validation failed', validationResult.errors);
     }
 
     // Compile script if executor supports it
@@ -104,7 +97,12 @@ export class BrepFlowScriptEngine implements ScriptEngine {
     // Validate extracted node definition if it exists
     if (nodeDefFromScript && typeof nodeDefFromScript === 'object') {
       // Check for required fields
-      if (!nodeDefFromScript.inputs && !nodeDefFromScript.outputs && !nodeDefFromScript.params && !nodeDefFromScript.evaluate) {
+      if (
+        !nodeDefFromScript.inputs &&
+        !nodeDefFromScript.outputs &&
+        !nodeDefFromScript.params &&
+        !nodeDefFromScript.evaluate
+      ) {
         throw new ScriptValidationError(
           'Script validation failed: Node definition must include at least one of: inputs, outputs, params, or evaluate function',
           ['Missing required node definition fields']
@@ -154,7 +152,9 @@ export class BrepFlowScriptEngine implements ScriptEngine {
               }, permissions.timeoutMS);
             });
 
-            const executionPromise = Promise.resolve(nodeDefFromScript.evaluate(ctx, inputs, params));
+            const executionPromise = Promise.resolve(
+              nodeDefFromScript.evaluate(ctx, inputs, params)
+            );
 
             const result = await Promise.race([executionPromise, timeoutPromise]);
             return result;
@@ -203,10 +203,7 @@ export class BrepFlowScriptEngine implements ScriptEngine {
     return nodeDefinition;
   }
 
-  async updateNodeScript(
-    nodeId: NodeId,
-    script: string
-  ): Promise<ScriptedNodeDefinition> {
+  async updateNodeScript(nodeId: NodeId, script: string): Promise<ScriptedNodeDefinition> {
     // This would update an existing scripted node
     // For now, recompile from scratch
     const metadata: ScriptMetadata = {
@@ -238,13 +235,13 @@ export class BrepFlowScriptEngine implements ScriptEngine {
 
   getTemplates(category?: string): ScriptTemplate[] {
     if (category) {
-      return this.templates.filter(t => t.category === category);
+      return this.templates.filter((t) => t.category === category);
     }
     return [...this.templates];
   }
 
   generateFromTemplate(templateName: string, placeholders: Record<string, string>): string {
-    const template = this.templates.find(t => t.name === templateName);
+    const template = this.templates.find((t) => t.name === templateName);
     if (!template) {
       throw new Error(`Template not found: ${templateName}`);
     }
@@ -267,7 +264,9 @@ export class BrepFlowScriptEngine implements ScriptEngine {
     if (!executor) {
       return {
         valid: false,
-        errors: [{ line: 1, column: 1, message: 'No JavaScript executor available', severity: 'error' }],
+        errors: [
+          { line: 1, column: 1, message: 'No JavaScript executor available', severity: 'error' },
+        ],
         warnings: [],
       };
     }
@@ -294,7 +293,7 @@ export class BrepFlowScriptEngine implements ScriptEngine {
     let hash = 0;
     for (let i = 0; i < script.length; i++) {
       const char = script.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
+      hash = (hash << 5) - hash + char;
       hash = hash & hash; // Convert to 32-bit integer
     }
     return Math.abs(hash).toString(16);
@@ -310,7 +309,9 @@ export class BrepFlowScriptEngine implements ScriptEngine {
       };
 
       // Create a function that evaluates the script and captures the return value
-      const scriptFunction = new Function('sandbox', `
+      const scriptFunction = new Function(
+        'sandbox',
+        `
         "use strict";
         const { console, Math, Vector3 } = sandbox;
 
@@ -330,7 +331,8 @@ export class BrepFlowScriptEngine implements ScriptEngine {
         } catch (e) {
           return null;
         }
-      `);
+      `
+      );
 
       const result = scriptFunction(sandbox);
       return result;
@@ -442,7 +444,7 @@ return {
     const returnMatches = script.matchAll(/return\s*\{\s*([^}]+)\}/g);
     for (const match of returnMatches) {
       const properties = match[1].split(',');
-      properties.forEach(prop => {
+      properties.forEach((prop) => {
         const name = prop.split(':')[0].trim();
         outputs[name] = { type: 'any' };
       });

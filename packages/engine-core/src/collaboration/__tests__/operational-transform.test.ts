@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * Operational Transform Tests
  * Tests for conflict resolution and operation transformation
@@ -299,10 +298,10 @@ describe('OperationalTransformEngine', () => {
       const result = await engine.transform(localOp, remoteOp);
       expect(result.type).toBe('BATCH');
       const batchResult = result as BatchOperation;
-      
+
       // Should have 1 operation remaining after filtering out the NOOP
       expect(batchResult.operations).toHaveLength(1);
-      
+
       // The remaining operation should be the CREATE_NODE for node2
       const remainingOp = batchResult.operations[0] as CreateNodeOperation;
       expect(remainingOp.nodeId).toBe('node2');

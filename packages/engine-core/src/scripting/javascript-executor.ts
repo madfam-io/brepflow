@@ -1,8 +1,7 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * JavaScript Script Executor
  * Secure JavaScript execution environment for custom nodes
- * 
+ *
  * SECURITY: Uses isolated-vm for true sandboxing instead of Function() constructor
  */
 
@@ -29,7 +28,7 @@ import {
 export class JavaScriptExecutor implements ScriptExecutor {
   private workers: Map<string, Worker> = new Map();
   private executionContexts: Map<string, AbortController> = new Map();
-  
+
   // SECURITY: Track script hashes to prevent repeated malicious attempts
   private scriptBlacklist: Set<string> = new Set();
   private static readonly MAX_SCRIPT_SIZE = 100000; // 100KB limit
@@ -178,7 +177,10 @@ export class JavaScriptExecutor implements ScriptExecutor {
     };
   }
 
-  private validateNodeStructure(script: string): { errors: ScriptError[]; warnings: ScriptError[] } {
+  private validateNodeStructure(script: string): {
+    errors: ScriptError[];
+    warnings: ScriptError[];
+  } {
     const errors: ScriptError[] = [];
     const warnings: ScriptError[] = [];
 
@@ -217,7 +219,11 @@ export class JavaScriptExecutor implements ScriptExecutor {
       }
 
       // Validate type field format
-      if (nodeDefinition.type && typeof nodeDefinition.type === 'string' && !nodeDefinition.type.includes('::')) {
+      if (
+        nodeDefinition.type &&
+        typeof nodeDefinition.type === 'string' &&
+        !nodeDefinition.type.includes('::')
+      ) {
         warnings.push({
           line: 1,
           column: 1,
@@ -226,7 +232,6 @@ export class JavaScriptExecutor implements ScriptExecutor {
           code: 'TYPE_FORMAT_WARNING',
         });
       }
-
     } catch (error) {
       // This is okay - script might just be an evaluate function
     }
@@ -237,12 +242,12 @@ export class JavaScriptExecutor implements ScriptExecutor {
   private extractNodeDefinition(script: string): any {
     // SECURITY: DO NOT use Function() constructor
     // Instead, use a proper sandbox or worker-based execution
-    
+
     // TEMPORARY: Return null until proper sandboxing is implemented
     // This prevents arbitrary code execution but breaks functionality
     console.warn('extractNodeDefinition: Sandboxed execution not yet implemented');
     return null;
-    
+
     // TODO: Implement using isolated-vm or worker-based sandbox
     // Example with isolated-vm:
     // const ivm = require('isolated-vm');
@@ -254,24 +259,109 @@ export class JavaScriptExecutor implements ScriptExecutor {
   getSyntaxHighlighting(): SyntaxHighlightRules {
     return {
       keywords: [
-        'const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'while',
-        'do', 'break', 'continue', 'switch', 'case', 'default', 'try', 'catch',
-        'finally', 'throw', 'class', 'extends', 'import', 'export', 'async', 'await',
-        'true', 'false', 'null', 'undefined', 'typeof', 'instanceof', 'new', 'this',
+        'const',
+        'let',
+        'var',
+        'function',
+        'return',
+        'if',
+        'else',
+        'for',
+        'while',
+        'do',
+        'break',
+        'continue',
+        'switch',
+        'case',
+        'default',
+        'try',
+        'catch',
+        'finally',
+        'throw',
+        'class',
+        'extends',
+        'import',
+        'export',
+        'async',
+        'await',
+        'true',
+        'false',
+        'null',
+        'undefined',
+        'typeof',
+        'instanceof',
+        'new',
+        'this',
       ],
       operators: [
-        '+', '-', '*', '/', '%', '**', '=', '==', '===', '!=', '!==', '<', '>',
-        '<=', '>=', '&&', '||', '!', '&', '|', '^', '~', '<<', '>>', '>>>', '?',
-        ':', '++', '--', '+=', '-=', '*=', '/=', '%=',
+        '+',
+        '-',
+        '*',
+        '/',
+        '%',
+        '**',
+        '=',
+        '==',
+        '===',
+        '!=',
+        '!==',
+        '<',
+        '>',
+        '<=',
+        '>=',
+        '&&',
+        '||',
+        '!',
+        '&',
+        '|',
+        '^',
+        '~',
+        '<<',
+        '>>',
+        '>>>',
+        '?',
+        ':',
+        '++',
+        '--',
+        '+=',
+        '-=',
+        '*=',
+        '/=',
+        '%=',
       ],
       builtins: [
-        'console', 'Math', 'Date', 'JSON', 'Array', 'Object', 'String', 'Number',
-        'Boolean', 'RegExp', 'Error', 'Promise', 'Set', 'Map', 'WeakSet', 'WeakMap',
-        'Symbol', 'Proxy', 'Reflect', 'parseInt', 'parseFloat', 'isNaN', 'isFinite',
+        'console',
+        'Math',
+        'Date',
+        'JSON',
+        'Array',
+        'Object',
+        'String',
+        'Number',
+        'Boolean',
+        'RegExp',
+        'Error',
+        'Promise',
+        'Set',
+        'Map',
+        'WeakSet',
+        'WeakMap',
+        'Symbol',
+        'Proxy',
+        'Reflect',
+        'parseInt',
+        'parseFloat',
+        'isNaN',
+        'isFinite',
       ],
       comments: [/\/\/.*$/, /\/\*[\s\S]*?\*\//],
       strings: [/"(?:[^"\\]|\\.)*"/, /'(?:[^'\\]|\\.)*'/, /`(?:[^`\\]|\\.)*`/],
-      numbers: [/\b\d+\.?\d*([eE][+-]?\d+)?\b/, /\b0[xX][0-9a-fA-F]+\b/, /\b0[bB][01]+\b/, /\b0[oO][0-7]+\b/],
+      numbers: [
+        /\b\d+\.?\d*([eE][+-]?\d+)?\b/,
+        /\b0[xX][0-9a-fA-F]+\b/,
+        /\b0[bB][01]+\b/,
+        /\b0[oO][0-7]+\b/,
+      ],
     };
   }
 
@@ -344,11 +434,12 @@ async function evaluate(ctx, inputs, params) {
           type: 'function',
           signature: 'getInput<T>(name: string): T | undefined',
           description: 'Get input value by name',
-          parameters: [
-            { name: 'name', type: 'string', description: 'Input socket name' }
-          ],
-          returns: { type: 'T | undefined', description: 'Input value or undefined if not connected' },
-          examples: ['const shape = ctx.script.getInput("shape");']
+          parameters: [{ name: 'name', type: 'string', description: 'Input socket name' }],
+          returns: {
+            type: 'T | undefined',
+            description: 'Input value or undefined if not connected',
+          },
+          examples: ['const shape = ctx.script.getInput("shape");'],
         },
         {
           name: 'ctx.script.setOutput',
@@ -357,9 +448,9 @@ async function evaluate(ctx, inputs, params) {
           description: 'Set output value by name',
           parameters: [
             { name: 'name', type: 'string', description: 'Output socket name' },
-            { name: 'value', type: 'any', description: 'Value to output' }
+            { name: 'value', type: 'any', description: 'Value to output' },
           ],
-          examples: ['ctx.script.setOutput("result", myShape);']
+          examples: ['ctx.script.setOutput("result", myShape);'],
         },
       ],
       examples: [
@@ -378,8 +469,8 @@ async function evaluate(ctx, inputs, params) {
 
   return { shape: box };
 }
-          `
-        }
+          `,
+        },
       ],
       troubleshooting: [
         {
@@ -388,10 +479,10 @@ async function evaluate(ctx, inputs, params) {
           solutions: [
             'Reduce computational complexity',
             'Use async/await for long operations',
-            'Request higher timeout limit'
-          ]
-        }
-      ]
+            'Request higher timeout limit',
+          ],
+        },
+      ],
     };
   }
 
@@ -408,21 +499,21 @@ async function evaluate(ctx, inputs, params) {
         if (typeof name !== 'string' || name.length > 100) {
           throw new Error('Invalid input name');
         }
-        return context.inputs?.[name];
+        return (context as any).inputs?.[name];
       },
       getParameter: (name: string, defaultValue?: any) => {
         if (typeof name !== 'string' || name.length > 100) {
           throw new Error('Invalid parameter name');
         }
-        return context.params?.[name] ?? defaultValue;
+        return (context as any).params?.[name] ?? defaultValue;
       },
       setOutput: (name: string, value: any) => {
         if (typeof name !== 'string' || name.length > 100) {
           throw new Error('Invalid output name');
         }
         // SECURITY: Deep freeze outputs to prevent mutation
-        if (!context.outputs) context.outputs = {};
-        context.outputs[name] = Object.freeze(value);
+        if (!(context as any).outputs) (context as any).outputs = {};
+        (context as any).outputs[name] = Object.freeze(value);
       },
       log: (message: string, level: 'info' | 'warn' | 'error' = 'info') => {
         // SECURITY: Sanitize log messages
@@ -440,14 +531,17 @@ async function evaluate(ctx, inputs, params) {
 
     // SECURITY: Create sandbox with frozen prototype chain
     const sandbox = Object.create(null);
-    
+
     // Whitelist safe objects only (no prototype access)
     Object.defineProperties(sandbox, {
       console: {
         value: Object.freeze({
-          log: (message: string) => this.addLog(logs, 'info', String(message).substring(0, 1000), context.runtime.nodeId),
-          warn: (message: string) => this.addLog(logs, 'warn', String(message).substring(0, 1000), context.runtime.nodeId),
-          error: (message: string) => this.addLog(logs, 'error', String(message).substring(0, 1000), context.runtime.nodeId),
+          log: (message: string) =>
+            this.addLog(logs, 'info', String(message).substring(0, 1000), context.runtime.nodeId),
+          warn: (message: string) =>
+            this.addLog(logs, 'warn', String(message).substring(0, 1000), context.runtime.nodeId),
+          error: (message: string) =>
+            this.addLog(logs, 'error', String(message).substring(0, 1000), context.runtime.nodeId),
         }),
         writable: false,
         enumerable: true,
@@ -469,7 +563,9 @@ async function evaluate(ctx, inputs, params) {
         configurable: false,
       },
       Vector3: {
-        value: Object.freeze((x: number, y: number, z: number) => scriptUtils.createVector(x, y, z)),
+        value: Object.freeze((x: number, y: number, z: number) =>
+          scriptUtils.createVector(x, y, z)
+        ),
         writable: false,
         enumerable: true,
         configurable: false,
@@ -503,10 +599,14 @@ async function evaluate(ctx, inputs, params) {
 
       // SECURITY: Execute in web worker instead of main thread
       // This provides true isolation and prevents access to main thread objects
-      
+
       // TEMPORARY: Reject execution until worker-based sandbox is implemented
-      reject(new Error('Worker-based sandboxing not yet implemented. Please update to use isolated-vm or web worker execution.'));
-      
+      reject(
+        new Error(
+          'Worker-based sandboxing not yet implemented. Please update to use isolated-vm or web worker execution.'
+        )
+      );
+
       // TODO: Implement worker-based execution
       // const worker = new Worker('./script-sandbox-worker.js');
       // worker.postMessage({ script, sandbox, timeout: permissions.timeoutMS });
@@ -580,7 +680,10 @@ async function evaluate(ctx, inputs, params) {
     } catch (error) {
       // Add to blacklist
       this.scriptBlacklist.add(scriptHash);
-      return { passed: false, reason: error instanceof Error ? error.message : 'Script validation failed' };
+      return {
+        passed: false,
+        reason: error instanceof Error ? error.message : 'Script validation failed',
+      };
     }
 
     // 4. CSP compliance check (if CSP is enabled)
@@ -602,7 +705,7 @@ async function evaluate(ctx, inputs, params) {
       /data:text\/html/, // data: URLs
     ];
 
-    return !cspViolations.some(pattern => pattern.test(script));
+    return !cspViolations.some((pattern) => pattern.test(script));
   }
 
   /**
@@ -613,7 +716,7 @@ async function evaluate(ctx, inputs, params) {
     let hash = 0;
     for (let i = 0; i < script.length; i++) {
       const char = script.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
+      hash = (hash << 5) - hash + char;
       hash = hash & hash; // Convert to 32bit integer
     }
     return hash.toString(36);
@@ -699,7 +802,7 @@ async function evaluate(ctx, inputs, params) {
       timestamp: Date.now(),
       level,
       message,
-      nodeId,
+      nodeId: nodeId as any, // TODO: Fix NodeId branded type
       executionId: 'current',
     });
   }
@@ -716,7 +819,7 @@ async function evaluate(ctx, inputs, params) {
       value,
       unit,
       timestamp: Date.now(),
-      nodeId,
+      nodeId: nodeId as any, // TODO: Fix NodeId branded type
     });
   }
 
@@ -733,7 +836,7 @@ async function evaluate(ctx, inputs, params) {
         label: 'Math.PI',
         kind: 'variable',
         detail: 'number',
-        documentation: 'The ratio of a circle\'s circumference to its diameter',
+        documentation: "The ratio of a circle's circumference to its diameter",
       },
     ];
   }

@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * Operational Transform Engine
  * Implementation of operational transformation for collaborative editing
@@ -19,7 +18,11 @@ import {
   BatchOperation,
 } from './types';
 
-export type ConflictResolutionStrategy = 'merge' | 'last-writer-wins' | 'first-writer-wins' | 'user-decision';
+export type ConflictResolutionStrategy =
+  | 'merge'
+  | 'last-writer-wins'
+  | 'first-writer-wins'
+  | 'user-decision';
 
 export class OperationalTransformEngine {
   /**
@@ -178,12 +181,12 @@ export class OperationalTransformEngine {
     // Special handling for batch operations
     if (op1.type === 'BATCH') {
       const batchOp = op1 as BatchOperation;
-      return batchOp.operations.some(subOp => this.doOperationsConflict(subOp, op2));
+      return batchOp.operations.some((subOp) => this.doOperationsConflict(subOp, op2));
     }
-    
+
     if (op2.type === 'BATCH') {
       const batchOp = op2 as BatchOperation;
-      return batchOp.operations.some(subOp => this.doOperationsConflict(op1, subOp));
+      return batchOp.operations.some((subOp) => this.doOperationsConflict(op1, subOp));
     }
 
     // Special cases for edge operations
@@ -192,7 +195,7 @@ export class OperationalTransformEngine {
       const deleteOp = op2 as DeleteNodeOperation;
       return edgeOp.sourceNodeId === deleteOp.nodeId || edgeOp.targetNodeId === deleteOp.nodeId;
     }
-    
+
     if (op2.type === 'CREATE_EDGE' && op1.type === 'DELETE_NODE') {
       const edgeOp = op2 as CreateEdgeOperation;
       const deleteOp = op1 as DeleteNodeOperation;
@@ -205,7 +208,7 @@ export class OperationalTransformEngine {
       const deleteOp = op2 as DeleteNodeOperation;
       return createOp.nodeId === deleteOp.nodeId;
     }
-    
+
     if (op2.type === 'CREATE_NODE' && op1.type === 'DELETE_NODE') {
       const createOp = op2 as CreateNodeOperation;
       const deleteOp = op1 as DeleteNodeOperation;
@@ -233,7 +236,7 @@ export class OperationalTransformEngine {
 
       case 'BATCH': {
         // For batch operations, get entities from all sub-operations
-        const entities = (op as BatchOperation).operations.map(subOp =>
+        const entities = (op as BatchOperation).operations.map((subOp) =>
           this.getOperationEntity(subOp)
         );
         return entities.join(',');
@@ -252,7 +255,7 @@ export class OperationalTransformEngine {
       // Same node ID, generate conflict-avoided ID
       return {
         ...localOp,
-        nodeId: `${localOp.nodeId}_conflict_${Date.now()}`
+        nodeId: `${localOp.nodeId}_conflict_${Date.now()}`,
       };
     }
     return localOp;
@@ -325,7 +328,7 @@ export class OperationalTransformEngine {
     if (localOp.nodeId === remoteOp.nodeId) {
       // Check for conflicting parameters
       const conflictingParams = Object.keys(localOp.paramUpdates).filter(
-        key => key in remoteOp.paramUpdates
+        (key) => key in remoteOp.paramUpdates
       );
 
       if (conflictingParams.length === 0) {
@@ -341,7 +344,7 @@ export class OperationalTransformEngine {
 
       if (Object.keys(mergedParams).length === 0) {
         const noop: Operation = { ...localOp, type: 'NOOP' as any };
-      return noop;
+        return noop;
       }
 
       return {
@@ -448,7 +451,7 @@ export class OperationalTransformEngine {
         transformedOps.push(transformedSubOp);
       }
     }
-    
+
     return {
       ...localOp,
       operations: transformedOps,
@@ -485,7 +488,7 @@ export class OperationalTransformEngine {
       const updateOp2 = op2 as UpdateNodeParamsOperation;
       if (updateOp1.nodeId === updateOp2.nodeId) {
         const conflictingParams = Object.keys(updateOp1.paramUpdates).filter(
-          key => key in updateOp2.paramUpdates
+          (key) => key in updateOp2.paramUpdates
         );
         if (conflictingParams.length > 0) {
           return 'PARAMETER_CONFLICT';
@@ -501,9 +504,7 @@ export class OperationalTransformEngine {
       const updateOp1 = op1 as UpdateNodeParamsOperation;
       const updateOp2 = op2 as UpdateNodeParamsOperation;
       if (updateOp1.nodeId === updateOp2.nodeId) {
-        return Object.keys(updateOp1.paramUpdates).filter(
-          key => key in updateOp2.paramUpdates
-        );
+        return Object.keys(updateOp1.paramUpdates).filter((key) => key in updateOp2.paramUpdates);
       }
     }
     return [];
@@ -516,8 +517,12 @@ export class OperationalTransformEngine {
     }
 
     // Medium severity for structural changes
-    if (op1.type === 'CREATE_EDGE' || op2.type === 'CREATE_EDGE' ||
-        op1.type === 'DELETE_EDGE' || op2.type === 'DELETE_EDGE') {
+    if (
+      op1.type === 'CREATE_EDGE' ||
+      op2.type === 'CREATE_EDGE' ||
+      op1.type === 'DELETE_EDGE' ||
+      op2.type === 'DELETE_EDGE'
+    ) {
       return 'medium';
     }
 
@@ -540,11 +545,11 @@ export class OperationalTransformEngine {
     if (localOp.type === 'UPDATE_NODE_PARAMS' && remoteOp.type === 'UPDATE_NODE_PARAMS') {
       const localParams = (localOp as UpdateNodeParamsOperation).paramUpdates;
       const remoteParams = (remoteOp as UpdateNodeParamsOperation).paramUpdates;
-      
+
       const mergedParams = { ...localParams, ...remoteParams };
-      
+
       const resolvedOperation: UpdateNodeParamsOperation = {
-        ...localOp as UpdateNodeParamsOperation,
+        ...(localOp as UpdateNodeParamsOperation),
         paramUpdates: mergedParams,
       };
 

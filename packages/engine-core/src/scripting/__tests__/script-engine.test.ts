@@ -1,12 +1,10 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * Script Engine Integration Tests
  * Tests for JavaScript execution and node generation
  */
 
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { BrepFlowScriptEngine } from '../script-engine';
-import { JavaScriptExecutor } from '../javascript-executor';
 import type {
   ScriptContext,
   ScriptPermissions,
@@ -256,9 +254,7 @@ describe('ScriptEngine', () => {
         },
       };
 
-      await expect(
-        nodeDefinition.evaluate(context, {}, {})
-      ).rejects.toThrow('Intentional error');
+      await expect(nodeDefinition.evaluate(context, {}, {})).rejects.toThrow('Intentional error');
     });
 
     it('should enforce execution timeout', async () => {
@@ -310,9 +306,7 @@ describe('ScriptEngine', () => {
         },
       };
 
-      await expect(
-        nodeDefinition.evaluate(context, {}, {})
-      ).rejects.toThrow('timeout');
+      await expect(nodeDefinition.evaluate(context, {}, {})).rejects.toThrow('timeout');
     });
   });
 
@@ -384,11 +378,11 @@ describe('ScriptEngine', () => {
 
       const mathTemplates = engine.getTemplates('Math');
       expect(mathTemplates.length).toBeGreaterThanOrEqual(1);
-      expect(mathTemplates.some(t => t.name === 'Math Template')).toBe(true);
+      expect(mathTemplates.some((t) => t.name === 'Math Template')).toBe(true);
 
       const geometryTemplates = engine.getTemplates('Geometry');
       expect(geometryTemplates.length).toBeGreaterThanOrEqual(1);
-      expect(geometryTemplates.some(t => t.name === 'Geometry Template')).toBe(true);
+      expect(geometryTemplates.some((t) => t.name === 'Geometry Template')).toBe(true);
     });
 
     it('should delete templates', async () => {
@@ -410,7 +404,7 @@ describe('ScriptEngine', () => {
 
       engine.registerTemplate(template);
       const templates = engine.getTemplates();
-      expect(templates.some(t => t.name === 'Temporary Template')).toBe(true);
+      expect(templates.some((t) => t.name === 'Temporary Template')).toBe(true);
     });
   });
 
@@ -605,11 +599,7 @@ describe('ScriptEngine', () => {
         },
       };
 
-      const executionResult = await result.evaluate(
-        context,
-        { base: 3 },
-        { exponent: 3 }
-      );
+      const executionResult = await result.evaluate(context, { base: 3 }, { exponent: 3 });
 
       expect(executionResult.result).toBe(27); // 3^3
     });

@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * WebSocket Client for Real-Time Collaboration
  * Handles bidirectional communication for collaborative editing
@@ -43,7 +42,10 @@ export class CollaborationWebSocketClient {
   private isConnecting = false;
   private isManualClose = false;
   private messageQueue: WebSocketMessage[] = [];
-  private pendingOperations = new Map<string, { resolve: (value?: any) => void; reject: (reason?: any) => void }>();
+  private pendingOperations = new Map<
+    string,
+    { resolve: (value?: any) => void; reject: (reason?: any) => void }
+  >();
   private eventListeners = new Map<string, CollaborationEventListener[]>();
   private heartbeatTimer: number | null = null;
   private sessionId: SessionId | null = null;
@@ -156,20 +158,14 @@ export class CollaborationWebSocketClient {
   }
 
   // Event Management
-  addEventListener(
-    type: string,
-    listener: CollaborationEventListener
-  ): void {
+  addEventListener(type: string, listener: CollaborationEventListener): void {
     if (!this.eventListeners.has(type)) {
       this.eventListeners.set(type, []);
     }
     this.eventListeners.get(type)!.push(listener);
   }
 
-  removeEventListener(
-    type: string,
-    listener: CollaborationEventListener
-  ): void {
+  removeEventListener(type: string, listener: CollaborationEventListener): void {
     const listeners = this.eventListeners.get(type);
     if (listeners) {
       const index = listeners.indexOf(listener);
@@ -188,11 +184,16 @@ export class CollaborationWebSocketClient {
     if (!this.ws) return 'closed';
 
     switch (this.ws.readyState) {
-      case WebSocket.CONNECTING: return 'connecting';
-      case WebSocket.OPEN: return 'open';
-      case WebSocket.CLOSING: return 'closing';
-      case WebSocket.CLOSED: return 'closed';
-      default: return 'closed';
+      case WebSocket.CONNECTING:
+        return 'connecting';
+      case WebSocket.OPEN:
+        return 'open';
+      case WebSocket.CLOSING:
+        return 'closing';
+      case WebSocket.CLOSED:
+        return 'closed';
+      default:
+        return 'closed';
     }
   }
 
@@ -210,11 +211,13 @@ export class CollaborationWebSocketClient {
       const connectionTimeout = setTimeout(() => {
         if (this.ws?.readyState !== WebSocket.OPEN) {
           this.ws?.close();
-          reject(new WebSocketConnectionError(
-            'Connection timeout',
-            this.reconnectAttempts,
-            this.options.reconnectAttempts
-          ));
+          reject(
+            new WebSocketConnectionError(
+              'Connection timeout',
+              this.reconnectAttempts,
+              this.options.reconnectAttempts
+            )
+          );
         }
       }, this.options.connectionTimeout);
 
@@ -255,25 +258,30 @@ export class CollaborationWebSocketClient {
           data: {
             status: 'disconnected',
             code: event.code,
-            reason: event.reason
+            reason: event.reason,
           },
           timestamp: Date.now(),
         });
 
         // Auto-reconnect unless manually closed
         if (!this.isManualClose && this.reconnectAttempts < this.options.reconnectAttempts) {
-          setTimeout(() => {
-            this.reconnectAttempts++;
-            this.establishConnection().catch(() => {
-              // Reconnection failed
-            });
-          }, this.options.reconnectDelay * Math.pow(2, this.reconnectAttempts));
+          setTimeout(
+            () => {
+              this.reconnectAttempts++;
+              this.establishConnection().catch(() => {
+                // Reconnection failed
+              });
+            },
+            this.options.reconnectDelay * Math.pow(2, this.reconnectAttempts)
+          );
         } else if (this.reconnectAttempts >= this.options.reconnectAttempts) {
-          reject(new WebSocketConnectionError(
-            'Max reconnection attempts reached',
-            this.reconnectAttempts,
-            this.options.reconnectAttempts
-          ));
+          reject(
+            new WebSocketConnectionError(
+              'Max reconnection attempts reached',
+              this.reconnectAttempts,
+              this.options.reconnectAttempts
+            )
+          );
         }
       };
 
@@ -494,7 +502,7 @@ export class CollaborationWebSocketClient {
   private flushMessageQueue(): void {
     while (this.messageQueue.length > 0 && this.isConnected) {
       const message = this.messageQueue.shift()!;
-      this.sendMessage(message).catch(error => {
+      this.sendMessage(message).catch((error) => {
         console.warn('Failed to send queued message:', error);
       });
     }
@@ -510,7 +518,7 @@ export class CollaborationWebSocketClient {
   private emit(event: CollaborationEvent): void {
     const listeners = this.eventListeners.get(event.type);
     if (listeners) {
-      listeners.forEach(listener => {
+      listeners.forEach((listener) => {
         try {
           listener(event);
         } catch (error) {
