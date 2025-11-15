@@ -27,60 +27,229 @@ const getNodeParameterConfig = (nodeType: string): ParameterConfig[] => {
   switch (type) {
     case 'box':
       return [
-        { name: 'width', label: 'Width', type: 'number', min: 0.1, step: 0.1, unit: 'mm', description: 'Box width dimension' },
-        { name: 'height', label: 'Height', type: 'number', min: 0.1, step: 0.1, unit: 'mm', description: 'Box height dimension' },
-        { name: 'depth', label: 'Depth', type: 'number', min: 0.1, step: 0.1, unit: 'mm', description: 'Box depth dimension' },
+        {
+          name: 'width',
+          label: 'Width',
+          type: 'number',
+          min: 0.1,
+          step: 0.1,
+          unit: 'mm',
+          description: 'Box width dimension',
+        },
+        {
+          name: 'height',
+          label: 'Height',
+          type: 'number',
+          min: 0.1,
+          step: 0.1,
+          unit: 'mm',
+          description: 'Box height dimension',
+        },
+        {
+          name: 'depth',
+          label: 'Depth',
+          type: 'number',
+          min: 0.1,
+          step: 0.1,
+          unit: 'mm',
+          description: 'Box depth dimension',
+        },
       ];
     case 'cylinder':
       return [
-        { name: 'radius', label: 'Radius', type: 'number', min: 0.1, step: 0.1, unit: 'mm', description: 'Cylinder radius' },
-        { name: 'height', label: 'Height', type: 'number', min: 0.1, step: 0.1, unit: 'mm', description: 'Cylinder height' },
+        {
+          name: 'radius',
+          label: 'Radius',
+          type: 'number',
+          min: 0.1,
+          step: 0.1,
+          unit: 'mm',
+          description: 'Cylinder radius',
+        },
+        {
+          name: 'height',
+          label: 'Height',
+          type: 'number',
+          min: 0.1,
+          step: 0.1,
+          unit: 'mm',
+          description: 'Cylinder height',
+        },
       ];
     case 'sphere':
       return [
-        { name: 'radius', label: 'Radius', type: 'number', min: 0.1, step: 0.1, unit: 'mm', description: 'Sphere radius' },
+        {
+          name: 'radius',
+          label: 'Radius',
+          type: 'number',
+          min: 0.1,
+          step: 0.1,
+          unit: 'mm',
+          description: 'Sphere radius',
+        },
       ];
     case 'extrude':
       return [
-        { name: 'distance', label: 'Distance', type: 'number', min: 0.1, step: 0.1, unit: 'mm', description: 'Extrusion distance' },
+        {
+          name: 'distance',
+          label: 'Distance',
+          type: 'number',
+          min: 0.1,
+          step: 0.1,
+          unit: 'mm',
+          description: 'Extrusion distance',
+        },
       ];
     case 'revolve':
       return [
-        { name: 'angle', label: 'Angle', type: 'angle', min: 1, max: 360, step: 1, unit: '°', description: 'Revolution angle' },
+        {
+          name: 'angle',
+          label: 'Angle',
+          type: 'angle',
+          min: 1,
+          max: 360,
+          step: 1,
+          unit: '°',
+          description: 'Revolution angle',
+        },
       ];
     case 'fillet':
       return [
-        { name: 'radius', label: 'Radius', type: 'number', min: 0.1, step: 0.1, unit: 'mm', description: 'Fillet radius' },
+        {
+          name: 'radius',
+          label: 'Radius',
+          type: 'number',
+          min: 0.1,
+          step: 0.1,
+          unit: 'mm',
+          description: 'Fillet radius',
+        },
       ];
     case 'chamfer':
       return [
-        { name: 'distance', label: 'Distance', type: 'number', min: 0.1, step: 0.1, unit: 'mm', description: 'Chamfer distance' },
+        {
+          name: 'distance',
+          label: 'Distance',
+          type: 'number',
+          min: 0.1,
+          step: 0.1,
+          unit: 'mm',
+          description: 'Chamfer distance',
+        },
       ];
     case 'move':
       return [
-        { name: 'x', label: 'X', type: 'number', step: 0.1, unit: 'mm', description: 'X translation' },
-        { name: 'y', label: 'Y', type: 'number', step: 0.1, unit: 'mm', description: 'Y translation' },
-        { name: 'z', label: 'Z', type: 'number', step: 0.1, unit: 'mm', description: 'Z translation' },
+        {
+          name: 'x',
+          label: 'X',
+          type: 'number',
+          step: 0.1,
+          unit: 'mm',
+          description: 'X translation',
+        },
+        {
+          name: 'y',
+          label: 'Y',
+          type: 'number',
+          step: 0.1,
+          unit: 'mm',
+          description: 'Y translation',
+        },
+        {
+          name: 'z',
+          label: 'Z',
+          type: 'number',
+          step: 0.1,
+          unit: 'mm',
+          description: 'Z translation',
+        },
       ];
     case 'rotate':
       return [
-        { name: 'x', label: 'X Rotation', type: 'angle', min: -360, max: 360, step: 1, unit: '°', description: 'Rotation around X axis' },
-        { name: 'y', label: 'Y Rotation', type: 'angle', min: -360, max: 360, step: 1, unit: '°', description: 'Rotation around Y axis' },
-        { name: 'z', label: 'Z Rotation', type: 'angle', min: -360, max: 360, step: 1, unit: '°', description: 'Rotation around Z axis' },
+        {
+          name: 'x',
+          label: 'X Rotation',
+          type: 'angle',
+          min: -360,
+          max: 360,
+          step: 1,
+          unit: '°',
+          description: 'Rotation around X axis',
+        },
+        {
+          name: 'y',
+          label: 'Y Rotation',
+          type: 'angle',
+          min: -360,
+          max: 360,
+          step: 1,
+          unit: '°',
+          description: 'Rotation around Y axis',
+        },
+        {
+          name: 'z',
+          label: 'Z Rotation',
+          type: 'angle',
+          min: -360,
+          max: 360,
+          step: 1,
+          unit: '°',
+          description: 'Rotation around Z axis',
+        },
       ];
     case 'scale':
       return [
-        { name: 'factor', label: 'Scale Factor', type: 'number', min: 0.01, step: 0.01, description: 'Uniform scale factor' },
+        {
+          name: 'factor',
+          label: 'Scale Factor',
+          type: 'number',
+          min: 0.01,
+          step: 0.01,
+          description: 'Uniform scale factor',
+        },
       ];
     case 'lineararray':
       return [
-        { name: 'count', label: 'Count', type: 'count', min: 2, max: 100, step: 1, description: 'Number of instances' },
-        { name: 'spacing', label: 'Spacing', type: 'number', min: 0.1, step: 0.1, unit: 'mm', description: 'Distance between instances' },
+        {
+          name: 'count',
+          label: 'Count',
+          type: 'count',
+          min: 2,
+          max: 100,
+          step: 1,
+          description: 'Number of instances',
+        },
+        {
+          name: 'spacing',
+          label: 'Spacing',
+          type: 'number',
+          min: 0.1,
+          step: 0.1,
+          unit: 'mm',
+          description: 'Distance between instances',
+        },
       ];
     case 'circulararray':
       return [
-        { name: 'count', label: 'Count', type: 'count', min: 2, max: 100, step: 1, description: 'Number of instances' },
-        { name: 'angle', label: 'Total Angle', type: 'angle', min: 1, max: 360, step: 1, unit: '°', description: 'Total angle of array' },
+        {
+          name: 'count',
+          label: 'Count',
+          type: 'count',
+          min: 2,
+          max: 100,
+          step: 1,
+          description: 'Number of instances',
+        },
+        {
+          name: 'angle',
+          label: 'Total Angle',
+          type: 'angle',
+          min: 1,
+          max: 360,
+          step: 1,
+          unit: '°',
+          description: 'Total angle of array',
+        },
       ];
     default:
       return [];
@@ -128,12 +297,16 @@ interface ParameterFieldProps {
 }
 
 function ParameterField({ config, value, onChange, error }: ParameterFieldProps) {
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = config.type === 'number' || config.type === 'angle' || config.type === 'count'
-      ? parseFloat(e.target.value) || 0
-      : e.target.value;
-    onChange(newValue);
-  }, [config.type, onChange]);
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue =
+        config.type === 'number' || config.type === 'angle' || config.type === 'count'
+          ? parseFloat(e.target.value) || 0
+          : e.target.value;
+      onChange(newValue);
+    },
+    [config.type, onChange]
+  );
 
   const inputStyle = {
     width: '100%',
@@ -167,7 +340,8 @@ function ParameterField({ config, value, onChange, error }: ParameterFieldProps)
         {config.label}
         {config.unit && (
           <span style={{ color: 'var(--color-text-secondary)', fontWeight: 'normal' }}>
-            {' '}({config.unit})
+            {' '}
+            ({config.unit})
           </span>
         )}
       </label>
@@ -175,14 +349,19 @@ function ParameterField({ config, value, onChange, error }: ParameterFieldProps)
       <div style={{ position: 'relative' }}>
         <input
           type="number"
-          value={value || 0}
+          value={value ?? 0}
           onChange={handleChange}
           min={config.min}
           max={config.max}
           step={config.step}
           style={inputStyle}
           onFocus={(e) => Object.assign(e.target.style, focusStyle)}
-          onBlur={(e) => Object.assign(e.target.style, { borderColor: error ? 'var(--color-error-500)' : 'var(--color-border)', boxShadow: 'none' })}
+          onBlur={(e) =>
+            Object.assign(e.target.style, {
+              borderColor: error ? 'var(--color-error-500)' : 'var(--color-border)',
+              boxShadow: 'none',
+            })
+          }
         />
         {config.unit && (
           <div
@@ -249,52 +428,58 @@ export function NodeParameterDialog({
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const validateParams = useCallback((paramValues: Record<string, any>): Record<string, string> => {
-    const validationErrors: Record<string, string> = {};
+  const validateParams = useCallback(
+    (paramValues: Record<string, any>): Record<string, string> => {
+      const validationErrors: Record<string, string> = {};
 
-    parameterConfigs.forEach(config => {
-      const value = paramValues[config.name];
+      parameterConfigs.forEach((config) => {
+        const value = paramValues[config.name];
 
-      if (value === undefined || value === null || value === '') {
-        validationErrors[config.name] = `${config.label} is required`;
-        return;
-      }
-
-      if (typeof value === 'number') {
-        if (isNaN(value)) {
-          validationErrors[config.name] = `${config.label} must be a number`;
+        if (value === undefined || value === null || value === '') {
+          validationErrors[config.name] = `${config.label} is required`;
           return;
         }
 
-        if (config.min !== undefined && value < config.min) {
-          validationErrors[config.name] = `${config.label} must be at least ${config.min}`;
-          return;
+        if (typeof value === 'number') {
+          if (isNaN(value)) {
+            validationErrors[config.name] = `${config.label} must be a number`;
+            return;
+          }
+
+          if (config.min !== undefined && value < config.min) {
+            validationErrors[config.name] = `${config.label} must be at least ${config.min}`;
+            return;
+          }
+
+          if (config.max !== undefined && value > config.max) {
+            validationErrors[config.name] = `${config.label} must be at most ${config.max}`;
+            return;
+          }
         }
-
-        if (config.max !== undefined && value > config.max) {
-          validationErrors[config.name] = `${config.label} must be at most ${config.max}`;
-          return;
-        }
-      }
-    });
-
-    return validationErrors;
-  }, [parameterConfigs]);
-
-  const handleParamChange = useCallback((paramName: string, value: any) => {
-    const newParams = { ...params, [paramName]: value };
-    setParams(newParams);
-
-    // Clear error for this field if it becomes valid
-    const fieldErrors = validateParams({ [paramName]: value });
-    if (!fieldErrors[paramName] && errors[paramName]) {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[paramName];
-        return newErrors;
       });
-    }
-  }, [params, errors, validateParams]);
+
+      return validationErrors;
+    },
+    [parameterConfigs]
+  );
+
+  const handleParamChange = useCallback(
+    (paramName: string, value: any) => {
+      const newParams = { ...params, [paramName]: value };
+      setParams(newParams);
+
+      // Clear error for this field if it becomes valid
+      const fieldErrors = validateParams({ [paramName]: value });
+      if (!fieldErrors[paramName] && errors[paramName]) {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors[paramName];
+          return newErrors;
+        });
+      }
+    },
+    [params, errors, validateParams]
+  );
 
   const handleConfirm = useCallback(() => {
     const validationErrors = validateParams(params);
@@ -372,7 +557,7 @@ export function NodeParameterDialog({
 
         {/* Parameter form */}
         <div style={{ marginBottom: 'var(--spacing-4)' }}>
-          {parameterConfigs.map(config => (
+          {parameterConfigs.map((config) => (
             <ParameterField
               key={config.name}
               config={config}

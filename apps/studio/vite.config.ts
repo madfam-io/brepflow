@@ -5,6 +5,7 @@ import { resolve } from 'path';
 import { wasmPlugin } from './vite-plugin-wasm';
 import { nodePolyfillsPlugin } from './vite-plugin-node-polyfills';
 import { wasmAssetsPlugin } from './vite-plugin-wasm-assets';
+import { wasmWorkerFixPlugin } from './vite-plugin-wasm-worker-fix';
 
 const NODE_BUILTIN_WARNING_PATTERNS = [
   'Module "fs" has been externalized for browser compatibility',
@@ -130,6 +131,7 @@ let originalConsoleWarn: ((...args: unknown[]) => void) | undefined;
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    wasmWorkerFixPlugin(), // Must run first to fix worker calls in WASM files
     react(),
     wasmPlugin(),
     nodePolyfillsPlugin(),

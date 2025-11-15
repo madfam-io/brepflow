@@ -161,6 +161,7 @@ function AppContent() {
   // The useEffect below handles proper synchronization
 
   // Sync ReactFlow state with graph store
+  // Note: Only depend on graph object itself, not graph.nodes/graph.edges to avoid double updates
   useEffect(() => {
     const { nodes: newNodes, edges: newEdges } = convertToReactFlow(
       graph,
@@ -173,7 +174,7 @@ function AppContent() {
     });
     setNodes(newNodes);
     setEdges(newEdges);
-  }, [graph, graph.nodes, graph.edges, selectedNodes, errorTracker.errors]);
+  }, [graph, selectedNodes, errorTracker.errors]);
 
   useEffect(() => {
     const studioApi = {
@@ -571,7 +572,6 @@ function AppContent() {
       />
       {/* Monitoring Dashboard */}
       $1
-      <SessionControls />
       {/* Node Parameter Dialog */}
       <NodeParameterDialog
         isOpen={parameterDialog.isOpen}

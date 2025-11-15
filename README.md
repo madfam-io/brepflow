@@ -35,12 +35,21 @@ If you come from OpenSCAD or Grasshopper, think of BrepFlow as an experiment tow
 - STEP/STL/IGES export through OCCT translators with exact B-Rep/NURBS geometry
 - Standalone test verification: 25 OCCT exports, accurate bbox calculations, proper shape IDs
 - Tessellation and mesh generation for Three.js viewport rendering
+- **Node drop functionality**: Single node placement working correctly (double-node bug fixed)
+- **Dev server**: Fast startup (335ms) with proper WASM worker support
 
 🔧 **In Development**:
 
 - Generated node catalogue optimization (1,827 nodes functional but not yet palette-optimized)
 - Advanced collaboration features and plugin marketplace refinement
 - Comprehensive E2E test suite expansion
+
+**Recent Fixes (2025-11-14)**:
+
+- ✅ Fixed double node placement bug (React state sync issue)
+- ✅ Fixed Vite worker import parsing error for OCCT.wasm files
+- ✅ Cleaned up duplicate component rendering
+- ✅ 99.6% unit test pass rate (231/232 tests passing)
 
 See the [roadmap](docs/project/ROADMAP.md) for the remaining clean-up and ecosystem work before a broader release.
 

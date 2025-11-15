@@ -40,7 +40,9 @@ export class WorkerClient implements WorkerAPI {
             if (import.meta.url.includes('/assets/')) {
               // Production bundle - use relative path from assets
               const workerPath = './worker' + '.mjs';
-              this.worker = new Worker(new URL(workerPath, import.meta.url), { type: 'module' });
+              this.worker = new Worker(/* @vite-ignore */ new URL(workerPath, import.meta.url), {
+                type: 'module',
+              });
             } else {
               // Development - try engine-occt dist path
               const workerUrl = new URL(
@@ -52,7 +54,9 @@ export class WorkerClient implements WorkerAPI {
           } catch {
             // Final fallback: construct path dynamically to avoid Vite static analysis
             const workerPath = './worker' + '.mjs';
-            this.worker = new Worker(new URL(workerPath, import.meta.url), { type: 'module' });
+            this.worker = new Worker(/* @vite-ignore */ new URL(workerPath, import.meta.url), {
+              type: 'module',
+            });
           }
         }
 
