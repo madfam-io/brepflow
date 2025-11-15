@@ -159,6 +159,9 @@ importers:
 
   apps/studio:
     dependencies:
+      '@brepflow/collaboration':
+        specifier: workspace:*
+        version: link:../../packages/collaboration
       '@brepflow/engine-core':
         specifier: workspace:*
         version: link:../../packages/engine-core

@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import { CollaborationClient } from './collaboration-client';
+import { CSRFCollaborationClient } from './collaboration-client-csrf';
 import type {
   CollaborationOptions,
   Document,
@@ -27,7 +27,7 @@ import {
 } from '@brepflow/types';
 
 export interface CollaborationContextValue {
-  client: CollaborationClient | null;
+  client: CSRFCollaborationClient | null;
   document: Document | null;
   presence: Presence[];
   isConnected: boolean;
@@ -46,10 +46,13 @@ const CollaborationContext = createContext<CollaborationContextValue | null>(
 
 export interface CollaborationProviderProps {
   options: CollaborationOptions;
+  apiBaseUrl: string;
+  sessionId: string;
   children: React.ReactNode;
   onOperation?: (operation: Operation) => void;
   onConflict?: (conflict: Conflict) => void;
   onError?: (error: Error) => void;
+  onCSRFError?: (error: Error) => void;
 }
 
 const normaliseNodeId = (value: NodeId | string): NodeId =>
@@ -124,20 +127,27 @@ function normaliseOperation(
 
 export function CollaborationProvider({
   options,
+  apiBaseUrl,
+  sessionId,
   children,
   onOperation,
   onConflict,
   onError,
+  onCSRFError,
 }: CollaborationProviderProps) {
-  const [client, setClient] = useState<CollaborationClient | null>(null);
+  const [client, setClient] = useState<CSRFCollaborationClient | null>(null);
   const [document, setDocument] = useState<Document | null>(null);
   const [presence, setPresence] = useState<Presence[]>([]);
   const [isConnected, setIsConnected] = useState(false);
-  const clientRef = useRef<CollaborationClient | null>(null);
+  const clientRef = useRef<CSRFCollaborationClient | null>(null);
 
   useEffect(() => {
-    // Create collaboration client
-    const collaborationClient = new CollaborationClient(options);
+    // Create CSRF-aware collaboration client
+    const collaborationClient = new CSRFCollaborationClient({
+      ...options,
+      apiBaseUrl,
+      sessionId,
+    });
     clientRef.current = collaborationClient;
 
     // Set up event handlers
@@ -166,16 +176,26 @@ export function CollaborationProvider({
         console.error('Collaboration error:', error);
         onError?.(error);
       },
+      onCSRFError: (error) => {
+        console.error('CSRF authentication error:', error);
+        onCSRFError?.(error);
+      },
     });
 
     setClient(collaborationClient);
+
+    // Connect to server
+    collaborationClient.connect().catch((error) => {
+      console.error('Failed to connect to collaboration server:', error);
+      onError?.(error);
+    });
 
     // Cleanup on unmount
     return () => {
       collaborationClient.destroy();
       clientRef.current = null;
     };
-  }, [options.serverUrl, options.documentId, options.user.id]);
+  }, [options.serverUrl, options.documentId, options.user.id, apiBaseUrl, sessionId]);
 
   const submitOperation = useCallback(
     (input: OperationInput) => {

@@ -7,7 +7,7 @@ export default defineConfig({
     'client/index': 'src/client/index.ts',
   },
   format: ['cjs', 'esm'],
-  dts: false, // Temporarily disabled - rollup-plugin-dts build error with noExternal config
+  dts: false, // Temporarily disabled - type issues with project file list
   splitting: false,
   sourcemap: true,
   clean: true,

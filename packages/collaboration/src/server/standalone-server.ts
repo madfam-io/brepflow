@@ -10,6 +10,7 @@ import { createServer } from 'http';
 import cors from 'cors';
 import { CollaborationServer } from './collaboration-server';
 import { registerSessionRoutes } from './session-routes';
+import { registerCSRFRoutes } from './csrf-routes';
 
 const PORT = process.env.PORT || 8080;
 const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
@@ -52,6 +53,11 @@ export async function startCollaborationServer() {
   const router = express.Router();
   registerSessionRoutes(router);
   app.use(router);
+
+  // Register CSRF token routes
+  const csrfRouter = express.Router();
+  registerCSRFRoutes(csrfRouter, { collaborationServer });
+  app.use('/api/collaboration', csrfRouter);
 
   // Start server
   httpServer.listen(PORT, () => {
