@@ -1,4 +1,6 @@
 // Test setup for viewport
+/* eslint-disable no-console */
+
 import { beforeAll, afterAll } from 'vitest';
 
 // Mock WebGL context if needed

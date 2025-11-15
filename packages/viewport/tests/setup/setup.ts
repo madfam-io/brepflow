@@ -3,6 +3,9 @@
  * Configures test environment for Three.js and WebGL tests
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { vi } from 'vitest';
 
 // Mock performance if not available
