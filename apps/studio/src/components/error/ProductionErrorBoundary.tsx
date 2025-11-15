@@ -4,12 +4,12 @@
 
 import React, { Component, ReactNode, ErrorInfo } from 'react';
 import { getConfig } from '@brepflow/engine-core';
+import { ProductionLogger } from '@brepflow/engine-occt';
 
 // Lazy logger initialization to avoid constructor issues during module loading
 let logger: any = null;
 const getLogger = () => {
   if (!logger) {
-    const { ProductionLogger } = require('@brepflow/engine-occt');
     logger = new ProductionLogger('ErrorBoundary');
   }
   return logger;
@@ -51,7 +51,7 @@ export class ProductionErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     const { errorId } = this.state;
-    
+
     // Log to production logging system
     getLogger().error('React error boundary caught error', {
       errorId,
@@ -119,11 +119,9 @@ export class ProductionErrorBoundary extends Component<Props, State> {
       <div className="error-boundary-fallback">
         <div className="error-container">
           <h1 className="error-title">
-            {config.isProduction 
-              ? 'Something went wrong' 
-              : 'Application Error'}
+            {config.isProduction ? 'Something went wrong' : 'Application Error'}
           </h1>
-          
+
           <p className="error-message">
             {config.isProduction
               ? 'An unexpected error occurred. Please try refreshing the page.'
@@ -144,16 +142,10 @@ export class ProductionErrorBoundary extends Component<Props, State> {
           )}
 
           <div className="error-actions">
-            <button 
-              onClick={this.handleReset}
-              className="btn btn-secondary"
-            >
+            <button onClick={this.handleReset} className="btn btn-secondary">
               Try Again
             </button>
-            <button 
-              onClick={this.handleReload}
-              className="btn btn-primary"
-            >
+            <button onClick={this.handleReload} className="btn btn-primary">
               Reload Page
             </button>
           </div>
@@ -285,10 +277,7 @@ export class ProductionErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       // Use custom fallback if provided, otherwise use default
       if (this.props.fallback) {
-        return this.props.fallback(
-          this.state.error!,
-          this.state.errorInfo!
-        );
+        return this.props.fallback(this.state.error!, this.state.errorInfo!);
       }
       return this.renderDefaultFallback();
     }

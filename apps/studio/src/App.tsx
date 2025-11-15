@@ -38,7 +38,11 @@ import { useErrorTracking } from './hooks/useErrorTracking';
 import { convertToReactFlow, convertFromReactFlow } from './utils/graph-converter';
 import type { NodeId, SocketId } from '@brepflow/types';
 import { createNodeId, createSocketId } from '@brepflow/types';
-import { ErrorBoundary, WASMErrorBoundary, GeometryErrorBoundary } from './lib/error-handling/error-boundary';
+import {
+  ErrorBoundary,
+  WASMErrorBoundary,
+  GeometryErrorBoundary,
+} from './lib/error-handling/error-boundary';
 import { MonitoringDashboard } from './components/monitoring/MonitoringDashboard';
 import { useMonitoring, useHealthMonitoring } from './hooks/useMonitoring';
 import { initializeMonitoring } from './lib/monitoring';
@@ -97,19 +101,19 @@ function AppContent() {
       // Ctrl+K to open command palette
       if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
         event.preventDefault();
-        setShowCommandPalette(prev => !prev);
+        setShowCommandPalette((prev) => !prev);
         recordUserInteraction({
           type: 'keyboard_shortcut',
-          target: 'command_palette_toggle'
+          target: 'command_palette_toggle',
         });
       }
       // Ctrl+Shift+M to toggle monitoring dashboard
       if (event.ctrlKey && event.shiftKey && event.key === 'M') {
         event.preventDefault();
-        setShowMonitoringDashboard(prev => !prev);
+        setShowMonitoringDashboard((prev) => !prev);
         recordUserInteraction({
           type: 'keyboard_shortcut',
-          target: 'monitoring_dashboard_toggle'
+          target: 'monitoring_dashboard_toggle',
         });
       }
     };
@@ -120,15 +124,23 @@ function AppContent() {
 
   // Convert graph to ReactFlow format with enhanced node data
   const errorTracker = useErrorTracking();
-  const handleOpenParameterDialog = useCallback((nodeType: string, position: { x: number; y: number }) => {
-    setParameterDialog({
-      isOpen: true,
-      nodeType,
-      position,
-    });
-  }, []);
+  const handleOpenParameterDialog = useCallback(
+    (nodeType: string, position: { x: number; y: number }) => {
+      setParameterDialog({
+        isOpen: true,
+        nodeType,
+        position,
+      });
+    },
+    []
+  );
 
-  const { nodes: rfNodes, edges: rfEdges } = convertToReactFlow(graph, selectedNodes, errorTracker.errors, handleOpenParameterDialog);
+  const { nodes: rfNodes, edges: rfEdges } = convertToReactFlow(
+    graph,
+    selectedNodes,
+    errorTracker.errors,
+    handleOpenParameterDialog
+  );
 
   const [nodes, setNodes, onNodesChange] = useNodesState(rfNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(rfEdges);
@@ -145,8 +157,15 @@ function AppContent() {
 
   // Sync ReactFlow state with graph store
   useEffect(() => {
-    const { nodes: newNodes, edges: newEdges } = convertToReactFlow(graph, selectedNodes, errorTracker.errors);
-    debugLog('Syncing nodes from store', { nodeCount: newNodes.length, edgeCount: newEdges.length });
+    const { nodes: newNodes, edges: newEdges } = convertToReactFlow(
+      graph,
+      selectedNodes,
+      errorTracker.errors
+    );
+    debugLog('Syncing nodes from store', {
+      nodeCount: newNodes.length,
+      edgeCount: newEdges.length,
+    });
     setNodes(newNodes);
     setEdges(newEdges);
   }, [graph, graph.nodes, graph.edges, selectedNodes, errorTracker.errors]);
@@ -219,22 +238,31 @@ function AppContent() {
     [addGraphEdge]
   );
 
-  const onNodeClick = useCallback((_: React.MouseEvent, node: RFNode) => {
-    selectNode(createNodeId(node.id));
-    recordUserInteraction({
-      type: 'node_click',
-      target: node.type,
-      data: { nodeId: node.id }
-    });
-  }, [selectNode, recordUserInteraction]);
+  const onNodeClick = useCallback(
+    (_: React.MouseEvent, node: RFNode) => {
+      selectNode(createNodeId(node.id));
+      recordUserInteraction({
+        type: 'node_click',
+        target: node.type,
+        data: { nodeId: node.id },
+      });
+    },
+    [selectNode, recordUserInteraction]
+  );
 
-  const onNodesDelete = useCallback((nodes: RFNode[]) => {
-    nodes.forEach(node => removeNode(createNodeId(node.id)));
-  }, [removeNode]);
+  const onNodesDelete = useCallback(
+    (nodes: RFNode[]) => {
+      nodes.forEach((node) => removeNode(createNodeId(node.id)));
+    },
+    [removeNode]
+  );
 
-  const onEdgesDelete = useCallback((edges: RFEdge[]) => {
-    edges.forEach(edge => removeEdge(edge.id));
-  }, [removeEdge]);
+  const onEdgesDelete = useCallback(
+    (edges: RFEdge[]) => {
+      edges.forEach((edge) => removeEdge(edge.id));
+    },
+    [removeEdge]
+  );
 
   // Get default parameters based on node type
   const getDefaultParams = (nodeType: string) => {
@@ -270,30 +298,27 @@ function AppContent() {
     }
   };
 
-  const onDrop = useCallback(
-    (event: React.DragEvent) => {
-      event.preventDefault();
+  const onDrop = useCallback((event: React.DragEvent) => {
+    event.preventDefault();
 
-      const nodeType = event.dataTransfer.getData('application/reactflow');
-      if (!nodeType) return;
+    const nodeType = event.dataTransfer.getData('application/reactflow');
+    if (!nodeType) return;
 
-      const reactFlowBounds = event.currentTarget.getBoundingClientRect();
-      const position = {
-        x: event.clientX - reactFlowBounds.left,
-        y: event.clientY - reactFlowBounds.top,
-      };
+    const reactFlowBounds = event.currentTarget.getBoundingClientRect();
+    const position = {
+      x: event.clientX - reactFlowBounds.left,
+      y: event.clientY - reactFlowBounds.top,
+    };
 
-      // Open parameter dialog instead of directly creating node
-      setParameterDialog({
-        isOpen: true,
-        nodeType,
-        position,
-      });
+    // Open parameter dialog instead of directly creating node
+    setParameterDialog({
+      isOpen: true,
+      nodeType,
+      position,
+    });
 
-      debugLog('Opening parameter dialog', { nodeType, position });
-    },
-    []
-  );
+    debugLog('Opening parameter dialog', { nodeType, position });
+  }, []);
 
   const onDragOver = useCallback((event: React.DragEvent) => {
     event.preventDefault();
@@ -317,7 +342,7 @@ function AppContent() {
       recordUserInteraction({
         type: 'node_created',
         target: parameterDialog.nodeType,
-        data: { params, position: parameterDialog.position }
+        data: { params, position: parameterDialog.position },
       });
     },
     [parameterDialog, addNode, recordUserInteraction]
@@ -332,20 +357,18 @@ function AppContent() {
     });
   }, []);
 
-  const selectedNode = selectedNodes.size === 1
-    ? graph.nodes.find(n => n.id === Array.from(selectedNodes)[0])
-    : null;
+  const selectedNode =
+    selectedNodes.size === 1
+      ? graph.nodes.find((n) => n.id === Array.from(selectedNodes)[0])
+      : null;
 
   // Auto-evaluate when graph changes with monitoring
   useEffect(() => {
-    const dirtyNodes = graph.nodes.filter(n => n.dirty);
+    const dirtyNodes = graph.nodes.filter((n) => n.dirty);
     if (dirtyNodes.length > 0) {
       // Debounce evaluation
       const timer = setTimeout(() => {
-        executeWasmOperation(
-          () => evaluateGraph(),
-          'graph_evaluation'
-        ).catch(error => {
+        executeWasmOperation(() => evaluateGraph(), 'graph_evaluation').catch((error) => {
           console.error('Graph evaluation failed:', error);
         });
       }, 500);
@@ -355,10 +378,7 @@ function AppContent() {
 
   return (
     <>
-      <CommandPalette
-        isOpen={showCommandPalette}
-        onClose={() => setShowCommandPalette(false)}
-      />
+      <CommandPalette isOpen={showCommandPalette} onClose={() => setShowCommandPalette(false)} />
       <ResponsiveLayoutManager
         panels={{
           nodeEditor: {
@@ -437,11 +457,14 @@ function AppContent() {
                   </Panel>
                   <Panel position="bottom-left">
                     <div className="status">
-                      Units: {graph.units} | Tolerance: {graph.tolerance} |
-                      Nodes: {graph.nodes.length} |
+                      Units: {graph.units} | Tolerance: {graph.tolerance} | Nodes:{' '}
+                      {graph.nodes.length} |
                       {crossOriginIsolated ? ' ✅ WASM Ready' : ' ⚠️ WASM Limited'}
                       {alerts.length > 0 && (
-                        <span className="status-alerts" style={{ color: '#f59e0b', marginLeft: '0.5rem' }}>
+                        <span
+                          className="status-alerts"
+                          style={{ color: '#f59e0b', marginLeft: '0.5rem' }}
+                        >
                           | ⚠️ {alerts.length} Alert{alerts.length > 1 ? 's' : ''}
                         </span>
                       )}
@@ -453,7 +476,7 @@ function AppContent() {
                   </Panel>
                 </ReactFlow>
               </ErrorBoundary>
-            )
+            ),
           },
           viewport: {
             id: 'viewport',
@@ -471,14 +494,14 @@ function AppContent() {
                       recordUserInteraction({
                         type: 'viewport_layout_change',
                         target: layout.type,
-                        data: { viewports: layout.viewports.length }
+                        data: { viewports: layout.viewports.length },
                       });
                     }}
                     onViewportSelect={(viewportId) => {
                       debugLog('Viewport selected', viewportId);
                       recordUserInteraction({
                         type: 'viewport_select',
-                        target: viewportId
+                        target: viewportId,
                       });
                     }}
                     onCameraChange={(viewportId, camera) => {
@@ -489,14 +512,14 @@ function AppContent() {
                       recordUserInteraction({
                         type: 'viewport_render_mode_change',
                         target: mode,
-                        data: { viewportId }
+                        data: { viewportId },
                       });
                     }}
                     geometryData={graph}
                   />
                 </GeometryErrorBoundary>
               </WASMErrorBoundary>
-            )
+            ),
           },
           palette: {
             id: 'palette',
@@ -514,7 +537,7 @@ function AppContent() {
                   defaultViewMode="list"
                 />
               </ErrorBoundary>
-            )
+            ),
           },
           inspector: {
             id: 'inspector',
@@ -524,7 +547,7 @@ function AppContent() {
               <ErrorBoundary>
                 <Inspector selectedNode={selectedNode || null} onParamChange={updateNode} />
               </ErrorBoundary>
-            )
+            ),
           },
           console: {
             id: 'console',
@@ -534,18 +557,16 @@ function AppContent() {
               <ErrorBoundary>
                 <Console />
               </ErrorBoundary>
-            )
-          }
+            ),
+          },
         }}
         enableGestures={true}
         enableKeyboardShortcuts={true}
         theme="auto"
       />
-
       {/* Monitoring Dashboard */}
       $1
       <SessionControls />
-
       {/* Node Parameter Dialog */}
       <NodeParameterDialog
         isOpen={parameterDialog.isOpen}
@@ -558,60 +579,67 @@ function AppContent() {
 }
 
 function App() {
-  // Check if we're in test mode
-  const isTestMode = window.location.search.includes('test=wasm');
-  
-  if (isTestMode) {
-    return <BrowserWASMTestSuite />;
-  }
+  // Hooks must be called before any early returns
   const [isMonitoringReady, setIsMonitoringReady] = useState(false);
 
   useEffect(() => {
     // Initialize monitoring system
-    const environment = (import.meta as any).env?.MODE as 'development' | 'production' || 'production';
+    const environment =
+      ((import.meta as any).env?.MODE as 'development' | 'production') || 'production';
 
     initializeMonitoring(environment, {
       monitoring: {
         errorReporting: {
           enabled: true,
           sampleRate: environment === 'production' ? 0.1 : 1.0,
-          includeStackTrace: true
+          includeStackTrace: true,
         },
         performance: {
           enabled: true,
-          sampleRate: environment === 'production' ? 0.1 : 1.0
+          sampleRate: environment === 'production' ? 0.1 : 1.0,
         },
         userAnalytics: {
           enabled: false,
-          anonymize: true
+          anonymize: true,
         },
         logging: {
           level: environment === 'production' ? 'warn' : 'debug',
           console: true,
           remote: false, // Configure this based on your logging service
-          structured: true
-        }
-      }
-    }).then(() => {
-      debugLog('Monitoring system initialized');
-      setIsMonitoringReady(true);
-    }).catch((error) => {
-      console.error('❌ Failed to initialize monitoring system:', error);
-      // Still allow the app to load without monitoring
-      setIsMonitoringReady(true);
-    });
+          structured: true,
+        },
+      },
+    })
+      .then(() => {
+        debugLog('Monitoring system initialized');
+        setIsMonitoringReady(true);
+      })
+      .catch((error) => {
+        console.error('❌ Failed to initialize monitoring system:', error);
+        // Still allow the app to load without monitoring
+        setIsMonitoringReady(true);
+      });
   }, []);
+
+  // Check if we're in test mode (after hooks)
+  const isTestMode = window.location.search.includes('test=wasm');
+
+  if (isTestMode) {
+    return <BrowserWASMTestSuite />;
+  }
 
   if (!isMonitoringReady) {
     return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        fontSize: '1.2rem',
-        color: '#6b7280'
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          fontSize: '1.2rem',
+          color: '#6b7280',
+        }}
+      >
         <div>
           <div style={{ marginBottom: '1rem', textAlign: 'center' }}>
             🔧 Initializing BrepFlow Studio...

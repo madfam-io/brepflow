@@ -1,0 +1,19 @@
+{
+  "extends": ["../../.eslintrc.json"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/ban-types": "warn",
+    "no-case-declarations": "warn",
+    "no-useless-escape": "warn",
+    "no-console": "off",
+    "react/no-unescaped-entities": "warn",
+    "react/display-name": "warn",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}
