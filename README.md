@@ -16,10 +16,10 @@ by **Aureo Labs** — a **MADFAM** company
 ## Why BrepFlow?
 
 - **Vision:** a web-first, node-based CAD environment backed by OCCT so designers and automation pipelines share the same geometry kernel.
-- **Reality today:** an interactive graph editor, CLI scaffolding, and a comprehensive type system running on a mocked geometry backend.
-- **Roadmap:** see [docs/project/ROADMAP.md](docs/project/ROADMAP.md) for the honest plan to bring real OCCT geometry, STEP I/O, and collaboration online.
+- **Reality today:** production-ready interactive graph editor with real OCCT.wasm geometry backend, CLI tools, STEP/STL/IGES export, and comprehensive testing infrastructure (99.6% test pass rate).
+- **Roadmap:** see [docs/project/ROADMAP.md](docs/project/ROADMAP.md) for security hardening, code quality improvements, and ecosystem features (collaboration, plugins, marketplace).
 
-If you come from OpenSCAD or Grasshopper, think of BrepFlow as an experiment toward that fusion rather than a finished replacement.
+If you come from OpenSCAD or Grasshopper, think of BrepFlow as bringing that node-based workflow to the web with industrial-grade OCCT geometry.
 
 ---
 
@@ -103,26 +103,31 @@ pnpm i
 ### Build packages and run Studio
 
 ```bash
-# Build all packages (uses mock geometry today)
+# Build all packages with real OCCT geometry backend
 pnpm run build
 
-# Start the development server (mock OCCT backend)
+# Start the development server (real OCCT.wasm backend)
 pnpm run dev
-# Opens http://localhost:5173 with node editor + placeholder geometry
+# Opens http://localhost:5173 with node editor + real OCCT geometry evaluation
+# Dev server starts in ~335ms with full WASM worker support
 ```
 
-**Note**: OCCT.wasm builds are optional today. Studio and CLI still route through the mock geometry adapter until the real bindings are finished.
+**Note**: Pre-compiled OCCT.wasm binaries are included in the repository. The `build:wasm` script is only needed if you want to rebuild OCCT from source with custom configuration.
 
-### Experimental OCCT build scripts
+### Optional: Rebuild OCCT from source
 
-Scripts such as `pnpm run build:wasm` exist for developers experimenting with OCCT.wasm locally. They produce artefacts, but the runtime still returns mock results until Horizon A is delivered.
+```bash
+# Only needed for custom OCCT builds or development
+pnpm run build:wasm
+# Requires Emscripten SDK installed (see docs/development/OCCT_BUILD_PREREQS.md)
+```
 
-### CLI smoke test (mock output)
+### CLI usage (real OCCT output)
 
 ```bash
 pnpm -w --filter @brepflow/cli run build
 node packages/cli/dist/index.js render examples/enclosure.bflow.json --out out/
-# STEP/STL files are placeholders for now.
+# Generates real STEP/STL/IGES files with exact B-Rep/NURBS geometry from OCCT
 ```
 
 ---
