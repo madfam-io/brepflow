@@ -13,15 +13,11 @@ export default defineConfig([
       format: ['esm', 'cjs'], // Provide both module formats for Node + bundlers
       dts: {
         resolve: true,
-        compilerOptions: {
-          composite: false,
-          incremental: false,
-        },
       },
       shims: false, // Disable ESM shims to avoid Node.js module imports
       external: ['fs', 'path', 'url', 'node:fs', 'node:path', 'node:url', /^@brepflow\//],
-      // Override tsconfig to use root config (fixes Vercel DTS file list issues)
-      tsconfig: '../../tsconfig.json',
+      // Override tsconfig to use DTS-specific config (disables strict checks)
+      tsconfig: './tsconfig.dts.json',
     }),
   },
   {
