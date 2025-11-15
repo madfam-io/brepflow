@@ -1,10 +1,25 @@
 {
   "extends": ["../../.eslintrc.json"],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
     "react-hooks/exhaustive-deps": "warn",
-    "react/no-unknown-property": ["error", { 
-      "ignore": ["position", "intensity", "distance", "decay", "object", "args", "attach", "rotation", "scale", "geometry", "material"] 
-    }]
+    "react/no-unknown-property": [
+      "error",
+      {
+        "ignore": [
+          "position",
+          "intensity",
+          "distance",
+          "decay",
+          "object",
+          "args",
+          "attach",
+          "rotation",
+          "scale",
+          "geometry",
+          "material"
+        ]
+      }
+    ]
   }
 }

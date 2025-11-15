@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build (OCCTModule optional methods)
 // TODO: Add exportIGES and exportOBJ as optional properties to OCCTModule interface
 /**
  * Thin wrapper over the OCCT WebAssembly bindings.

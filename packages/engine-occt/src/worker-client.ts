@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build (HandleId branded type violation)
 // TODO: Align ShapeHandle interface between @brepflow/types and local occt-bindings.ts
 import type { WorkerAPI, ShapeHandle, MeshData } from '@brepflow/types';
 import type {

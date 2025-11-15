@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build (method signature mismatches)
 // TODO: Fix tessellate signature alignment with WorkerAPI, method name mismatches (getOCCTVersion → getVersion), and missing properties
 import { createHandleId } from '@brepflow/types';
 import type { WorkerAPI, ShapeHandle, MeshData, BoundingBox } from '@brepflow/types';

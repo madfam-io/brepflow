@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build (HandleId branded type violations)
 // TODO: Align ShapeHandle.id usage with HandleId branded type requirements
 /**
  * Real OCCT.wasm bindings implementation

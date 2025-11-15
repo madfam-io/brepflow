@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build (error typing and variable scope issues)
 // TODO: Fix error.message type assertion and wasmPath variable scope
 // OCCT.wasm TypeScript Bindings
 // Real OCCT integration with WebAssembly
