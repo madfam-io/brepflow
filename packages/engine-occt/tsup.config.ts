@@ -11,9 +11,17 @@ export default defineConfig([
     ...createLibraryConfig({
       entry: ['src/index.ts'],
       format: ['esm', 'cjs'], // Provide both module formats for Node + bundlers
-      dts: true, // Generate TypeScript declaration files
+      dts: {
+        resolve: true,
+        compilerOptions: {
+          composite: false,
+          incremental: false,
+        },
+      },
       shims: false, // Disable ESM shims to avoid Node.js module imports
       external: ['fs', 'path', 'url', 'node:fs', 'node:path', 'node:url', /^@brepflow\//],
+      // Override tsconfig to use root config (fixes Vercel DTS file list issues)
+      tsconfig: '../../tsconfig.json',
     }),
   },
   {
