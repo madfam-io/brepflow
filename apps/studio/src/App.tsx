@@ -676,46 +676,56 @@ function App() {
 function SessionWrapper() {
   const { sessionId } = useSession();
 
+  // Check if collaboration server is configured
+  const collaborationServerUrl =
+    import.meta.env.VITE_COLLABORATION_WS_URL ||
+    (import.meta.env.PROD ? '' : 'http://localhost:8080');
+  const collaborationApiUrl =
+    import.meta.env.VITE_COLLABORATION_API_URL ||
+    (import.meta.env.PROD ? '' : 'http://localhost:8080');
+  const hasCollaborationServer = Boolean(collaborationServerUrl && collaborationApiUrl);
+
   return (
     <ErrorBoundary>
       {sessionId ? (
-        <CollaborationProvider
-          options={{
-            serverUrl:
-              import.meta.env.VITE_COLLABORATION_WS_URL ||
-              (import.meta.env.PROD ? '' : 'http://localhost:8080'),
-            documentId: sessionId,
-            user: {
-              id: `user_${Math.random().toString(36).slice(2, 11)}`,
-              name: `User ${Math.floor(Math.random() * 1000)}`,
-              color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-            },
-            reconnectAttempts: 5,
-            reconnectDelay: 1000,
-            presenceThrottle: 50,
-          }}
-          apiBaseUrl={
-            import.meta.env.VITE_COLLABORATION_API_URL ||
-            (import.meta.env.PROD ? '' : 'http://localhost:8080')
-          }
-          sessionId={sessionId}
-          onOperation={(operation: Operation) => {
-            console.log('[Collaboration] Received operation:', operation);
-          }}
-          onConflict={(conflict: Conflict) => {
-            console.warn('[Collaboration] Conflict detected:', conflict);
-          }}
-          onError={(error: Error) => {
-            console.error('[Collaboration] Error:', error);
-          }}
-          onCSRFError={(error: Error) => {
-            console.error('[Collaboration] CSRF authentication failed:', error);
-          }}
-        >
+        hasCollaborationServer ? (
+          <CollaborationProvider
+            options={{
+              serverUrl: collaborationServerUrl,
+              documentId: sessionId,
+              user: {
+                id: `user_${Math.random().toString(36).slice(2, 11)}`,
+                name: `User ${Math.floor(Math.random() * 1000)}`,
+                color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+              },
+              reconnectAttempts: 5,
+              reconnectDelay: 1000,
+              presenceThrottle: 50,
+            }}
+            apiBaseUrl={collaborationApiUrl}
+            sessionId={sessionId}
+            onOperation={(operation: Operation) => {
+              console.log('[Collaboration] Received operation:', operation);
+            }}
+            onConflict={(conflict: Conflict) => {
+              console.warn('[Collaboration] Conflict detected:', conflict);
+            }}
+            onError={(error: Error) => {
+              console.error('[Collaboration] Error:', error);
+            }}
+            onCSRFError={(error: Error) => {
+              console.error('[Collaboration] CSRF authentication failed:', error);
+            }}
+          >
+            <OnboardingOrchestrator>
+              <AppContent />
+            </OnboardingOrchestrator>
+          </CollaborationProvider>
+        ) : (
           <OnboardingOrchestrator>
             <AppContent />
           </OnboardingOrchestrator>
-        </CollaborationProvider>
+        )
       ) : (
         <div
           style={{
