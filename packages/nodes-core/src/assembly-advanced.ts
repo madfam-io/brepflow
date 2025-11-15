@@ -517,5 +517,5 @@ export const advancedAssemblyNodes = [
   AssemblySequenceNode,
   JointDefinitionNode,
   KinematicSolverNode,
-  AssemblyNode,
+  AdvancedAssemblyNode,
 ];

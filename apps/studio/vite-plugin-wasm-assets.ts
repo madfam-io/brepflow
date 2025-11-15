@@ -8,11 +8,7 @@ import { resolve, join } from 'path';
  * and ensures they're available at runtime
  */
 export function wasmAssetsPlugin(): Plugin {
-  const wasmFiles = [
-    'occt-core.wasm',
-    'occt.wasm',
-    'occt_geometry.wasm'
-  ];
+  const wasmFiles = ['occt-core.wasm', 'occt.wasm', 'occt_geometry.wasm'];
 
   return {
     name: 'vite-plugin-wasm-assets',
@@ -29,7 +25,7 @@ export function wasmAssetsPlugin(): Plugin {
         }
 
         // Copy WASM files to public directory
-        wasmFiles.forEach(file => {
+        wasmFiles.forEach((file) => {
           const sourcePath = join(wasmSourceDir, file);
           const destPath = join(publicDir, file);
 
@@ -46,15 +42,18 @@ export function wasmAssetsPlugin(): Plugin {
       if (id.includes('engine-occt') && code.includes('import.meta.url')) {
         // Replace relative WASM paths with absolute public paths in production
         if (process.env.NODE_ENV === 'production') {
-          return code
-            .replace(
-              /new URL\(['"]\.\.\/wasm\/([\w-]+\.wasm)['"]/g,
-              'new URL(\'/wasm/$1\''
-            )
+          const transformed = code
+            .replace(/new URL\(['"]\.\.\/wasm\/([\w-]+\.wasm)['"]/g, "new URL('/wasm/$1'")
             .replace(
               /new URL\(['"]\.\.\/engine-occt\/dist\/worker\.mjs['"]/g,
-              'new URL(\'/assets/worker.mjs\''
+              "new URL('/assets/worker.mjs'"
             );
+
+          // Return with sourcemap to eliminate warning
+          return {
+            code: transformed,
+            map: null, // Let Vite handle sourcemap generation
+          };
         }
       }
       return null;
@@ -70,11 +69,11 @@ export function wasmAssetsPlugin(): Plugin {
             // Ensure worker can load WASM files
             chunk.code = chunk.code.replace(
               /new URL\(['"]\.\.\/wasm\/([\w-]+\.wasm)['"]/g,
-              'new URL(\'/wasm/$1\''
+              "new URL('/wasm/$1'"
             );
           }
         }
       }
-    }
+    },
   };
 }
