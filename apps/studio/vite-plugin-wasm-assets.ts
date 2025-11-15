@@ -8,7 +8,14 @@ import { resolve, join } from 'path';
  * and ensures they're available at runtime
  */
 export function wasmAssetsPlugin(): Plugin {
-  const wasmFiles = ['occt-core.wasm', 'occt.wasm', 'occt_geometry.wasm'];
+  // Copy both WASM files and their JavaScript loaders
+  const wasmFiles = [
+    'occt-core.wasm',
+    'occt.wasm',
+    'occt_geometry.wasm',
+    'occt-core.js',
+    'occt.js',
+  ];
 
   return {
     name: 'vite-plugin-wasm-assets',

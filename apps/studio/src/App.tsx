@@ -664,7 +664,9 @@ function App() {
           {sessionId ? (
             <CollaborationProvider
               options={{
-                serverUrl: import.meta.env.VITE_COLLABORATION_WS_URL || 'http://localhost:8080',
+                serverUrl:
+                  import.meta.env.VITE_COLLABORATION_WS_URL ||
+                  (import.meta.env.PROD ? '' : 'http://localhost:8080'),
                 documentId: sessionId,
                 user: {
                   id: `user_${Math.random().toString(36).slice(2, 11)}`,
@@ -675,7 +677,10 @@ function App() {
                 reconnectDelay: 1000,
                 presenceThrottle: 50,
               }}
-              apiBaseUrl={import.meta.env.VITE_COLLABORATION_API_URL || 'http://localhost:8080'}
+              apiBaseUrl={
+                import.meta.env.VITE_COLLABORATION_API_URL ||
+                (import.meta.env.PROD ? '' : 'http://localhost:8080')
+              }
               sessionId={sessionId}
               onOperation={(operation: Operation) => {
                 console.log('[Collaboration] Received operation:', operation);

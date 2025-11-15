@@ -1,6 +1,6 @@
 /**
  * Session Controls Component
- * 
+ *
  * UI for session sharing and geometry export
  */
 
@@ -24,7 +24,17 @@ export function SessionControls() {
     setExporting(true);
 
     try {
-      const response = await fetch(`http://localhost:8080/api/sessions/${sessionId}/export`, {
+      const API_BASE_URL =
+        import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? '' : 'http://localhost:8080');
+
+      // If no API server configured, export is not available in production
+      if (!API_BASE_URL) {
+        throw new Error(
+          'Export feature requires collaboration server - not available in offline mode'
+        );
+      }
+
+      const response = await fetch(`${API_BASE_URL}/api/sessions/${sessionId}/export`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ format }),
@@ -44,7 +54,9 @@ export function SessionControls() {
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error('[SessionControls] Export error:', error);
-      alert(`Failed to export ${format.toUpperCase()}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      alert(
+        `Failed to export ${format.toUpperCase()}: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     } finally {
       setExporting(false);
     }
@@ -74,14 +86,17 @@ export function SessionControls() {
   }
 
   return (
-    <div className="session-controls" style={{
-      position: 'fixed',
-      top: '20px',
-      right: '20px',
-      display: 'flex',
-      gap: '10px',
-      zIndex: 1000,
-    }}>
+    <div
+      className="session-controls"
+      style={{
+        position: 'fixed',
+        top: '20px',
+        right: '20px',
+        display: 'flex',
+        gap: '10px',
+        zIndex: 1000,
+      }}
+    >
       {/* Export Buttons */}
       <div style={{ display: 'flex', gap: '5px' }}>
         <button
@@ -141,15 +156,17 @@ export function SessionControls() {
       </button>
 
       {/* Session ID Display */}
-      <div style={{
-        padding: '8px 12px',
-        backgroundColor: '#f5f5f5',
-        border: '1px solid #ddd',
-        borderRadius: '4px',
-        fontSize: '12px',
-        color: '#666',
-        fontFamily: 'monospace',
-      }}>
+      <div
+        style={{
+          padding: '8px 12px',
+          backgroundColor: '#f5f5f5',
+          border: '1px solid #ddd',
+          borderRadius: '4px',
+          fontSize: '12px',
+          color: '#666',
+          fontFamily: 'monospace',
+        }}
+      >
         Session: {sessionId.slice(0, 8)}
       </div>
     </div>

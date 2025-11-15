@@ -1,6 +1,6 @@
 /**
  * Session Management Hook
- * 
+ *
  * Manages session lifecycle: create, load, save, share
  */
 
@@ -19,7 +19,10 @@ export interface SessionHookResult {
   deleteSession: () => Promise<void>;
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+// In production, if no API URL is configured, use empty string to skip collaboration features
+// In development, default to localhost:8080
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? '' : 'http://localhost:8080');
 
 /**
  * Create empty graph template
@@ -40,7 +43,7 @@ function createEmptyGraph(): GraphInstance {
 export function useSession(): SessionHookResult {
   const { sessionId } = useParams<{ sessionId?: string }>();
   const navigate = useNavigate();
-  
+
   const [graph, setGraph] = useState<GraphInstance | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -48,36 +51,58 @@ export function useSession(): SessionHookResult {
   /**
    * Load session from server
    */
-  const loadSession = useCallback(async (id: string) => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const response = await fetch(`${API_BASE_URL}/api/sessions/${id}`);
-      
-      if (!response.ok) {
-        if (response.status === 404) {
-          throw new Error('Session not found or expired');
-        }
-        throw new Error(`Failed to load session: ${response.statusText}`);
+  const loadSession = useCallback(
+    async (id: string) => {
+      // Skip API call if no collaboration server is configured - use local session
+      if (!API_BASE_URL) {
+        console.log('[useSession] Collaboration server not configured, using local session');
+        const emptyGraph = createEmptyGraph();
+        setGraph(emptyGraph);
+        setLoading(false);
+        return;
       }
 
-      const data = await response.json();
-      setGraph(data.graph);
-    } catch (err) {
-      console.error('[useSession] Error loading session:', err);
-      setError(err instanceof Error ? err : new Error('Unknown error'));
-      // Redirect to home on error
-      navigate('/', { replace: true });
-    } finally {
-      setLoading(false);
-    }
-  }, [navigate]);
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(`${API_BASE_URL}/api/sessions/${id}`);
+
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error('Session not found or expired');
+          }
+          throw new Error(`Failed to load session: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setGraph(data.graph);
+      } catch (err) {
+        console.error('[useSession] Error loading session:', err);
+        setError(err instanceof Error ? err : new Error('Unknown error'));
+        // Redirect to home on error
+        navigate('/', { replace: true });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [navigate]
+  );
 
   /**
    * Create new session
    */
   const createNewSession = useCallback(async () => {
+    // Skip API call if no collaboration server is configured
+    if (!API_BASE_URL) {
+      console.log('[useSession] Collaboration server not configured, using local session');
+      const localSessionId = crypto.randomUUID();
+      const emptyGraph = createEmptyGraph();
+      setGraph(emptyGraph);
+      navigate(`/session/${localSessionId}`, { replace: true });
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
@@ -106,29 +131,32 @@ export function useSession(): SessionHookResult {
   /**
    * Update session graph
    */
-  const updateSession = useCallback(async (updatedGraph: GraphInstance) => {
-    if (!sessionId) {
-      console.warn('[useSession] Cannot update session: no session ID');
-      return;
-    }
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/sessions/${sessionId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ graph: updatedGraph }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to update session: ${response.statusText}`);
+  const updateSession = useCallback(
+    async (updatedGraph: GraphInstance) => {
+      if (!sessionId) {
+        console.warn('[useSession] Cannot update session: no session ID');
+        return;
       }
 
-      setGraph(updatedGraph);
-    } catch (err) {
-      console.error('[useSession] Error updating session:', err);
-      setError(err instanceof Error ? err : new Error('Unknown error'));
-    }
-  }, [sessionId]);
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/sessions/${sessionId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ graph: updatedGraph }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to update session: ${response.statusText}`);
+        }
+
+        setGraph(updatedGraph);
+      } catch (err) {
+        console.error('[useSession] Error updating session:', err);
+        setError(err instanceof Error ? err : new Error('Unknown error'));
+      }
+    },
+    [sessionId]
+  );
 
   /**
    * Delete session

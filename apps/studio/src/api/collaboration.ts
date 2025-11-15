@@ -53,7 +53,7 @@ class CollaborationAPI {
       const data = await response.json();
 
       // Calculate expiration (1 hour from now)
-      const expiresAt = Date.now() + (60 * 60 * 1000);
+      const expiresAt = Date.now() + 60 * 60 * 1000;
 
       this.currentToken = {
         csrfToken: data.csrfToken,
@@ -133,10 +133,10 @@ class CollaborationAPI {
 
 // Export singleton instance
 // Default to localhost for development, can be overridden
+// In production, use environment variable or empty string (disables collaboration)
 const defaultServerUrl =
-  process.env.NODE_ENV === 'production'
-    ? 'https://collab.brepflow.com'
-    : 'http://localhost:8080';
+  import.meta.env.VITE_COLLABORATION_API_URL ||
+  (import.meta.env.PROD ? '' : 'http://localhost:8080');
 
 export const collaborationAPI = new CollaborationAPI({
   serverUrl: defaultServerUrl,

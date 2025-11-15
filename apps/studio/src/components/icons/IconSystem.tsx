@@ -1,39 +1,102 @@
 import React from 'react';
 import {
   // Geometry icons
-  Box, Circle, Square, Move, RotateCw, Scale, FlipHorizontal,
+  Box,
+  Circle,
+  Square,
+  Move,
+  RotateCw,
+  Scale,
+  FlipHorizontal,
   // Sketch icons
-  Pencil, RectangleHorizontal, Spline,
+  Pencil,
+  RectangleHorizontal,
+  Spline,
   // Boolean operations
-  Plus, Minus, X,
+  Plus,
+  Minus,
+  X,
   // Features
-  CornerDownRight, Scissors, Layers, TrendingDown,
+  CornerDownRight,
+  Scissors,
+  Layers,
+  TrendingDown,
   // Transform
-  Move3d, RotateCcw, Copy,
+  Move3d,
+  RotateCcw,
+  Copy,
   // File operations
-  Upload, Download, Save, FolderOpen,
+  Upload,
+  Download,
+  Save,
+  FolderOpen,
   // UI controls
-  Play, Pause, Square as Stop, Trash2, Settings,
-  Eye, EyeOff, ZoomIn, ZoomOut, Maximize2,
+  Play,
+  Pause,
+  Square as Stop,
+  Trash2,
+  Settings,
+  Eye,
+  EyeOff,
+  ZoomIn,
+  ZoomOut,
+  Maximize2,
   // Status
-  CheckCircle, AlertCircle, XCircle, Clock,
+  CheckCircle,
+  AlertCircle,
+  XCircle,
+  Clock,
   // Measurement
-  Ruler, Triangle, Calculator, CircleDot,
+  Ruler,
+  Triangle,
+  Calculator,
+  CircleDot,
   // Navigation
-  Grid3X3, Layers3, Palette, Lightbulb,
+  Grid3X3,
+  Layers3,
+  Palette,
+  Lightbulb,
   // Additional icons for error fixing
-  Loader, ChevronUp, ChevronDown, ChevronRight, Sun,
-  MoreVertical, Mail, Activity, Zap, Menu, Folder,
-  HelpCircle, StopCircle, RotateCcw as Rotate3d, Maximize,
+  Loader,
+  ChevronUp,
+  ChevronDown,
+  ChevronRight,
+  Sun,
+  MoreVertical,
+  Mail,
+  Activity,
+  Zap,
+  Menu,
+  Folder,
+  HelpCircle,
+  StopCircle,
+  RotateCcw as Rotate3d,
+  Maximize,
   // Viewport layout icons
-  Columns, Rows, LayoutGrid, Link, Lock, Image, Camera,
+  Columns,
+  Rows,
+  LayoutGrid,
+  Link,
+  Lock,
+  Image,
+  Camera,
   Monitor,
   // Additional icons from common/Icon.tsx
-  RefreshCw, Info, FileText, Trash, 
-  Cylinder, TrendingUp as Sweep,
-  CornerDownRight as Fillet, FlipHorizontal as Mirror,
-  Grid as Pattern, Loader as Loading, AlertTriangle, 
-  SquareStack, RotateCcw as Undo, RotateCw as Redo, Unlink
+  RefreshCw,
+  Info,
+  FileText,
+  Trash,
+  Cylinder,
+  TrendingUp as Sweep,
+  CornerDownRight as Fillet,
+  FlipHorizontal as Mirror,
+  Grid as Pattern,
+  Loader as Loading,
+  AlertTriangle,
+  SquareStack,
+  RotateCcw as Undo,
+  RotateCw as Redo,
+  Unlink,
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
@@ -108,15 +171,15 @@ export const IconMap = {
   'Analysis::BoundingBox': Box,
 
   // Toolbar Actions
-  'evaluate': Play,
-  'pause': Pause,
-  'stop': Stop,
-  'import': Upload,
-  'export': Download,
-  'save': Save,
-  'open': FolderOpen,
-  'clear': Trash2,
-  'settings': Settings,
+  evaluate: Play,
+  pause: Pause,
+  stop: Stop,
+  import: Upload,
+  export: Download,
+  save: Save,
+  open: FolderOpen,
+  clear: Trash2,
+  settings: Settings,
 
   // Viewport Controls
   'zoom-in': ZoomIn,
@@ -126,80 +189,80 @@ export const IconMap = {
   'toggle-wireframe': Layers3,
   'toggle-shaded': Palette,
   'toggle-visibility': Eye,
-  'hide': EyeOff,
+  hide: EyeOff,
 
   // Node Status
-  'success': CheckCircle,
-  'warning': AlertCircle,
-  'error': XCircle,
-  'computing': Clock,
+  success: CheckCircle,
+  warning: AlertCircle,
+  error: XCircle,
+  computing: Clock,
 
   // Measurement Tools
   'measure-distance': Ruler,
   'measure-angle': Triangle,
   'measure-radius': CircleDot,
   'measure-area': Calculator,
-  'visibility': Eye,
+  visibility: Eye,
 
   // UI Elements
-  'help': Lightbulb,
-  'info': AlertCircle,
-  'ruler': Ruler,
-  
+  help: Lightbulb,
+  info: AlertCircle,
+  ruler: Ruler,
+
   // Additional UI icons
-  'loader': Loader,
+  loader: Loader,
   'chevron-up': ChevronUp,
   'chevron-down': ChevronDown,
   'chevron-right': ChevronRight,
-  'sun': Sun,
+  sun: Sun,
   'more-vertical': MoreVertical,
-  'mail': Mail,
-  'activity': Activity,
-  'zap': Zap,
-  'menu': Menu,
-  'folder': Folder,
+  mail: Mail,
+  activity: Activity,
+  zap: Zap,
+  menu: Menu,
+  folder: Folder,
   'help-circle': HelpCircle,
   'stop-circle': StopCircle,
   'rotate-3d': Rotate3d,
-  'maximize': Maximize,
+  maximize: Maximize,
   'alert-circle': AlertCircle,
-  'close': X,
-  'x': X,
-  'copy': Copy,
+  close: X,
+  x: X,
+  copy: Copy,
   'trash-2': Trash2,
-  'eye': Eye,
-  'move': Move,
+  eye: Eye,
+  move: Move,
   'grid-3x3': Grid3X3,
-  'scissors': Scissors,
-  'layers': Layers,
-  'triangle': Triangle,
-  'circle': Circle,
-  'download': Download,
-  'play': Play,
+  scissors: Scissors,
+  layers: Layers,
+  triangle: Triangle,
+  circle: Circle,
+  download: Download,
+  play: Play,
 
   // Viewport layout icons
-  'columns': Columns,
-  'rows': Rows,
+  columns: Columns,
+  rows: Rows,
   'layout-grid': LayoutGrid,
-  'link': Link,
-  'lock': Lock,
-  'image': Image,
-  'camera': Camera,
-  'monitor': Monitor,
+  link: Link,
+  lock: Lock,
+  image: Image,
+  camera: Camera,
+  monitor: Monitor,
 
   // Additional missing icons
-  'upload': Upload,
-  'template': SquareStack,
-  'check': CheckCircle,
-  'code': FileText,
-  'undo': Undo,
-  'redo': Redo,
+  upload: Upload,
+  template: SquareStack,
+  check: CheckCircle,
+  code: FileText,
+  undo: Undo,
+  redo: Redo,
   'folder-open': FolderOpen,
   'refresh-cw': RefreshCw,
-  'square': Square,
-  'box': Box,
-  'unlink': Unlink,
-  'sphere': Circle  // Using Circle as fallback for sphere
+  square: Square,
+  box: Box,
+  unlink: Unlink,
+  sphere: Circle, // Using Circle as fallback for sphere
 } as const;
 
 export type IconName = keyof typeof IconMap;
@@ -214,7 +277,10 @@ export const Icon: React.FC<IconProps> = ({
   const IconComponent = IconMap[name as IconName];
 
   if (!IconComponent) {
-    console.warn(`Icon "${name}" not found in IconMap`);
+    // Only warn in development - production uses fallback icon silently
+    if (import.meta.env.DEV) {
+      console.warn(`Icon "${name}" not found in IconMap - using fallback`);
+    }
     return (
       <AlertCircle
         size={size}
@@ -239,7 +305,7 @@ export const Icon: React.FC<IconProps> = ({
 export const NodeIcon: React.FC<{ nodeType: string; size?: number; className?: string }> = ({
   nodeType,
   size = 16,
-  className
+  className,
 }) => {
   return <Icon name={nodeType} size={size} className={clsx('node-icon', className)} />;
 };
@@ -247,7 +313,7 @@ export const NodeIcon: React.FC<{ nodeType: string; size?: number; className?: s
 export const ToolbarIcon: React.FC<{ action: string; size?: number; className?: string }> = ({
   action,
   size = 16,
-  className
+  className,
 }) => {
   return <Icon name={action} size={size} className={clsx('toolbar-icon', className)} />;
 };
@@ -261,7 +327,7 @@ export const StatusIcon: React.FC<{
     success: 'text-success',
     warning: 'text-warning',
     error: 'text-error',
-    computing: 'text-info'
+    computing: 'text-info',
   };
 
   return (
