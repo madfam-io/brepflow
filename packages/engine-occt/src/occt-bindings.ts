@@ -1,4 +1,3 @@
-// TODO: Fix error.message type assertion and wasmPath variable scope
 // OCCT.wasm TypeScript Bindings
 // Real OCCT integration with WebAssembly
 
@@ -258,7 +257,7 @@ async function attemptWASMLoad(): Promise<any> {
   } catch (error) {
     // WASM loading failed - allow app to start but geometry will fail on use
     console.error('[OCCT] CRITICAL: WASM loading failed. ONLY real geometry is supported.');
-    console.error('[OCCT] Error:', error.message);
+    console.error('[OCCT] Error:', (error as Error).message);
     console.error('[OCCT] Geometry operations will fail when attempted.');
     return null; // Fail on use, not on load
   }
@@ -650,7 +649,7 @@ export async function loadOCCT(): Promise<OCCTModule | null> {
       console.error(
         '[OCCT] CRITICAL: Real OCCT WASM not available. ONLY real geometry is supported.'
       );
-      console.error('[OCCT] Expected WASM files at: ' + wasmPath);
+      console.error('[OCCT] Expected WASM files at: /wasm/occt.js or /wasm/occt-core.js');
       console.error('[OCCT] Geometry operations will fail when attempted.');
       return null; // Fail on use, not on load
     }
