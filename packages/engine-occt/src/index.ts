@@ -8,7 +8,8 @@ export * from './occt-bindings'; // WASM loader functions for testing
 // Note: occt-worker.ts is not exported here - it's loaded as a Web Worker
 // export * from './production-worker'; // Worker only - don't export in main thread
 // export * from './production-api'; // Node.js only - uses node:path and node:url
-// export * from './production-logger'; // Node.js only - used by production-api
+export { ProductionLogger } from './production-logger'; // Browser-safe logger with fallbacks
+export type { LogLevel, LogEntry } from './production-logger';
 export * from './geometry-validator';
 // export * from './node-adapter'; // Node.js only - imports GeometryAPIFactory from engine-core
 // export * from './occt-operation-router'; // Node.js only - imports GeometryAPIFactory from engine-core

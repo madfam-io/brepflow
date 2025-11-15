@@ -135,7 +135,7 @@ class CollaborationAPI {
 // Default to localhost for development, can be overridden
 // In production, use environment variable or empty string (disables collaboration)
 const defaultServerUrl =
-  import.meta.env.VITE_COLLABORATION_API_URL ||
+  import.meta.env['VITE_COLLABORATION_API_URL'] ||
   (import.meta.env.PROD ? '' : 'http://localhost:8080');
 
 export const collaborationAPI = new CollaborationAPI({

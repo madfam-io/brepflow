@@ -1,4 +1,3 @@
-// @ts-nocheck - Temporarily disable type checking for MVP build
 /**
  * Advanced Node Scripting API Types
  * Provides type-safe interfaces for creating custom nodes through scripts

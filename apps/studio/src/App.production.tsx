@@ -194,7 +194,7 @@ function AppContent() {
         <details>
           <summary>Technical Details</summary>
           <pre>{JSON.stringify({
-            environment: process.env.NODE_ENV,
+            environment: process.env['NODE_ENV'],
             wasmSupport: typeof WebAssembly !== 'undefined',
             sharedArrayBuffer: typeof SharedArrayBuffer !== 'undefined',
             timestamp: new Date().toISOString()

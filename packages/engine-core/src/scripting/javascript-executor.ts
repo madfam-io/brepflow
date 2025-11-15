@@ -521,13 +521,13 @@ async function evaluate(ctx, inputs, params) {
   private validateScriptSyntax(script: string): void {
     // Use esprima or acorn for AST parsing (no execution)
     // For now, basic regex-based validation as temporary measure
-    
+
     // Check for obvious security issues
     const dangerousPatterns = [
       /\beval\s*\(/,
       /\bFunction\s*\(/,
       /\b__proto__\b/,
-      /\bprototype\b.*?=/, 
+      /\bprototype\b.*?=/,
       /\bconstructor\b.*?\(/,
       /\bprocess\b/,
       /\brequire\s*\(/,
@@ -542,6 +542,20 @@ async function evaluate(ctx, inputs, params) {
       if (pattern.test(script)) {
         throw new SyntaxError(`Potentially unsafe pattern detected: ${pattern.source}`);
       }
+    }
+
+    // SYNTAX VALIDATION: Use Function constructor for syntax checking only (no execution)
+    // This is safe because we're only parsing, not calling the function
+    try {
+      // Wrap in function to allow return statements
+      new Function(script);
+    } catch (error) {
+      // Re-throw syntax errors
+      if (error instanceof SyntaxError) {
+        throw error;
+      }
+      // For other errors, wrap in SyntaxError
+      throw new SyntaxError(error instanceof Error ? error.message : String(error));
     }
   }
 

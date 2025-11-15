@@ -11,16 +11,20 @@ export * from './errors';
 export * from './diagnostics/evaluation-profiler';
 
 // Collaboration types and interfaces
-// Collaboration exports temporarily disabled for MVP build (TypeScript strict mode violations)
-// TODO: Fix branded type usage in collaboration-engine.ts
+// NOTE: Collaboration exports temporarily disabled due to DTS build issues
+// The collaboration-engine.ts file has @ts-nocheck and type branding issues
+// that prevent successful TypeScript declaration generation.
+// TODO: Fix branded type usage and remove @ts-nocheck from collaboration files
 // export * from './collaboration/types';
-// export * from './collaboration/collaboration-engine';
-// export * from './collaboration/operational-transform';
-// export * from './collaboration/parameter-sync';
-// export * from './collaboration/websocket-client';
+// export { BrepFlowCollaborationEngine } from './collaboration/collaboration-engine';
+// export { OperationalTransformEngine } from './collaboration/operational-transform';
+// export { ParameterSynchronizer, ParameterSyncManager } from './collaboration/parameter-sync';
+// export { CollaborationWebSocketClient } from './collaboration/websocket-client';
 
-// Scripting types and interfaces - temporarily disabled for MVP build (type export errors)
-// TODO: Fix NodeId export issue in scripting/types.ts
+// Scripting types and interfaces
+// NOTE: Scripting exports temporarily disabled due to DTS build issues
+// The script-engine.ts file has @ts-nocheck and needs type cleanup
+// TODO: Fix type issues and remove @ts-nocheck from scripting files
 // export * from './scripting/types';
-// export * from './scripting/script-engine';
+// export { BrepFlowScriptEngine } from './scripting/script-engine';
 export * from './scripting/javascript-executor';

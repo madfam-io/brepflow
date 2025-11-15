@@ -33,7 +33,7 @@ export const Console: React.FC = () => {
         timestamp: new Date(),
         level: 'info',
         message: `Evaluating ${dirtyNodes.length} node${dirtyNodes.length !== 1 ? 's' : ''}...`,
-        source: 'graph'
+        source: 'graph' as string
       };
       setMessages(prev => [...prev, newMessage]);
     }
@@ -45,7 +45,7 @@ export const Console: React.FC = () => {
       timestamp: new Date(),
       level,
       message,
-      source
+      ...(source !== undefined && { source })
     };
     setMessages(prev => [...prev.slice(-99), newMessage]); // Keep last 100 messages
   };

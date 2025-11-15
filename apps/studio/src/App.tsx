@@ -249,7 +249,7 @@ function AppContent() {
       selectNode(createNodeId(node.id));
       recordUserInteraction({
         type: 'node_click',
-        target: node.type,
+        ...(node.type && { target: node.type }),
         data: { nodeId: node.id },
       });
     },
@@ -678,10 +678,10 @@ function SessionWrapper() {
 
   // Check if collaboration server is configured
   const collaborationServerUrl =
-    import.meta.env.VITE_COLLABORATION_WS_URL ||
+    import.meta.env['VITE_COLLABORATION_WS_URL'] ||
     (import.meta.env.PROD ? '' : 'http://localhost:8080');
   const collaborationApiUrl =
-    import.meta.env.VITE_COLLABORATION_API_URL ||
+    import.meta.env['VITE_COLLABORATION_API_URL'] ||
     (import.meta.env.PROD ? '' : 'http://localhost:8080');
   const hasCollaborationServer = Boolean(collaborationServerUrl && collaborationApiUrl);
 
