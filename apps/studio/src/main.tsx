@@ -3,6 +3,7 @@ import './polyfills';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './design-system/tokens.css';
 import './index.css';
@@ -11,12 +12,14 @@ import './index.css';
 if (!crossOriginIsolated) {
   console.warn(
     'SharedArrayBuffer is not available. WASM threads will be disabled.\n' +
-    'Make sure the server sends proper COOP/COEP headers.'
+      'Make sure the server sends proper COOP/COEP headers.'
   );
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );

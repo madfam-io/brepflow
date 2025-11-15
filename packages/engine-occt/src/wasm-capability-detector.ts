@@ -42,7 +42,7 @@ export class WASMCapabilityDetector {
       memoryCeiling: await this.estimateMemoryLimit(),
       browserEngine: this.detectBrowserEngine(),
       workerSupport: this.detectWorkerSupport(),
-      crossOriginIsolated: this.detectCrossOriginIsolation()
+      crossOriginIsolated: this.detectCrossOriginIsolation(),
     };
 
     this.cachedCapabilities = capabilities;
@@ -57,32 +57,53 @@ export class WASMCapabilityDetector {
   static async getOptimalConfiguration(): Promise<OCCTConfig> {
     const caps = await this.detectCapabilities();
 
+    console.log('[WASM] Capability details:', {
+      hasWASM: caps.hasWASM,
+      hasSharedArrayBuffer: caps.hasSharedArrayBuffer,
+      hasThreads: caps.hasThreads,
+      hasSimd: caps.hasSimd,
+      memoryCeiling: caps.memoryCeiling,
+      crossOriginIsolated: caps.crossOriginIsolated,
+      browserEngine: caps.browserEngine,
+    });
+
     // Full OCCT with threading (best performance)
-    if (caps.hasSharedArrayBuffer && caps.hasThreads && caps.memoryCeiling >= 1024 && caps.crossOriginIsolated) {
+    if (caps.hasSharedArrayBuffer && caps.hasThreads && caps.crossOriginIsolated) {
+      console.log('[WASM] Using full-occt mode with threading');
       return {
         mode: 'full-occt',
-        wasmFile: 'occt.wasm', // 33MB version with full features
+        wasmFile: 'occt.wasm', // 13MB version with full features
         workers: Math.min(navigator.hardwareConcurrency || 4, 8),
         memory: '2GB',
         useThreads: true,
-        enableSIMD: caps.hasSimd
+        enableSIMD: caps.hasSimd,
       };
     }
 
-    // Optimized OCCT without threading (good performance)
-    if (caps.hasWASM && caps.memoryCeiling >= 512) {
+    // Optimized OCCT without threading - ALWAYS AVAILABLE if WASM is supported
+    // Real geometry is NON-NEGOTIABLE for this application
+    if (caps.hasWASM) {
+      console.log('[WASM] Using optimized-occt mode (no threading)');
       return {
         mode: 'optimized-occt',
-        wasmFile: 'occt-core.wasm', // 9.6MB optimized version
+        wasmFile: 'occt-core.wasm', // 8.7MB optimized version
         workers: Math.min(navigator.hardwareConcurrency || 2, 4),
         memory: '1GB',
         useThreads: false,
-        enableSIMD: caps.hasSimd
+        enableSIMD: caps.hasSimd,
       };
     }
 
-    // No supported configuration available
-    throw new Error('[WASM] Browser capabilities insufficient for OCCT WebAssembly modules');
+    // Final fallback - if browser has ANY WASM support, force optimized mode
+    console.warn('[WASM] Forcing optimized-occt mode despite capability detection');
+    return {
+      mode: 'optimized-occt',
+      wasmFile: 'occt-core.wasm',
+      workers: 2,
+      memory: '512MB',
+      useThreads: false,
+      enableSIMD: false,
+    };
   }
 
   /**
@@ -96,10 +117,30 @@ export class WASMCapabilityDetector {
 
       // Test with a minimal WASM module
       const wasmCode = new Uint8Array([
-        0, 97, 115, 109, 1, 0, 0, 0, // WASM magic number and version
-        1, 4, 1, 96, 0, 0,          // Function type section
-        3, 2, 1, 0,                 // Function section
-        10, 4, 1, 2, 0, 11          // Code section with empty function
+        0,
+        97,
+        115,
+        109,
+        1,
+        0,
+        0,
+        0, // WASM magic number and version
+        1,
+        4,
+        1,
+        96,
+        0,
+        0, // Function type section
+        3,
+        2,
+        1,
+        0, // Function section
+        10,
+        4,
+        1,
+        2,
+        0,
+        11, // Code section with empty function
       ]);
 
       const module = await WebAssembly.compile(wasmCode);
@@ -117,8 +158,7 @@ export class WASMCapabilityDetector {
    */
   private static detectSharedArrayBuffer(): boolean {
     try {
-      return typeof SharedArrayBuffer !== 'undefined' &&
-             typeof Atomics !== 'undefined';
+      return typeof SharedArrayBuffer !== 'undefined' && typeof Atomics !== 'undefined';
     } catch {
       return false;
     }
@@ -128,9 +168,11 @@ export class WASMCapabilityDetector {
    * Detect thread support
    */
   private static detectThreadSupport(): boolean {
-    return typeof Worker !== 'undefined' &&
-           'hardwareConcurrency' in navigator &&
-           (navigator.hardwareConcurrency || 0) > 1;
+    return (
+      typeof Worker !== 'undefined' &&
+      'hardwareConcurrency' in navigator &&
+      (navigator.hardwareConcurrency || 0) > 1
+    );
   }
 
   /**
@@ -140,10 +182,35 @@ export class WASMCapabilityDetector {
     try {
       // Test WASM module with SIMD instructions
       const simdWasm = new Uint8Array([
-        0, 97, 115, 109, 1, 0, 0, 0,  // WASM magic
-        1, 5, 1, 96, 0, 1, 123,       // Function type (returns v128)
-        3, 2, 1, 0,                   // Function section
-        10, 9, 1, 7, 0, 253, 15, 253, 15, 11 // Code with SIMD
+        0,
+        97,
+        115,
+        109,
+        1,
+        0,
+        0,
+        0, // WASM magic
+        1,
+        5,
+        1,
+        96,
+        0,
+        1,
+        123, // Function type (returns v128)
+        3,
+        2,
+        1,
+        0, // Function section
+        10,
+        9,
+        1,
+        7,
+        0,
+        253,
+        15,
+        253,
+        15,
+        11, // Code with SIMD
       ]);
 
       await WebAssembly.compile(simdWasm);
@@ -206,9 +273,9 @@ export class WASMCapabilityDetector {
    */
   private static detectWorkerSupport(): boolean {
     try {
-      return typeof Worker !== 'undefined' &&
-             typeof URL !== 'undefined' &&
-             typeof Blob !== 'undefined';
+      return (
+        typeof Worker !== 'undefined' && typeof URL !== 'undefined' && typeof Blob !== 'undefined'
+      );
     } catch {
       return false;
     }
