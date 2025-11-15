@@ -65,6 +65,8 @@ export interface OCCTModule {
   importSTEP(fileData: string): ShapeHandle;
   exportSTEP(shapeId: string): string;
   exportSTL(shapeId: string, binary?: boolean): string;
+  exportIGES?(shapeId: string): string; // Optional - may not be available in all builds
+  exportOBJ?(shapeId: string): string; // Optional - may not be available in all builds
 
   // Memory management
   deleteShape(shapeId: string): void;
