@@ -20,7 +20,8 @@ export default defineConfig({
     'uuid',
     'socket.io',
     'socket.io-client',
+    '@brepflow/engine-core', // Has Node.js modules (path, url, fs)
+    '@brepflow/types', // Type-only package, no need to bundle
   ],
-  noExternal: [/^@brepflow\//], // Bundle workspace packages
   tsconfig: 'tsconfig.json',
 });
