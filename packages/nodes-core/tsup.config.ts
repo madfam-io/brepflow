@@ -43,6 +43,8 @@ export default createLibraryConfig({
   esbuildPlugins: [nodeExtensionResolver],
   // Skip the native .node module plugin that tsup adds by default
   skipNodeModulesBundle: true,
+  // Override tsconfig to use DTS-specific config (disables strict checks)
+  tsconfig: './tsconfig.dts.json',
   // Additional node categories can be added as entry points
   // entry: ['src/index.ts', 'src/geometry/index.ts', 'src/math/index.ts'],
 });
