@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Icon, type IconName } from '../icons/IconSystem';
 import './Input.css';
 
@@ -19,144 +19,180 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   onClear?: () => void;
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(({
-  label,
-  helpText,
-  errorText,
-  successText,
-  warningText,
-  size = 'md',
-  variant = 'default',
-  validationState,
-  leftIcon,
-  rightIcon,
-  unit,
-  clearable = false,
-  loading = false,
-  className = '',
-  disabled = false,
-  value,
-  onClear,
-  ...props
-}, ref) => {
-  const [isFocused, setIsFocused] = useState(false);
-  const hasError = Boolean(errorText) || validationState === 'error';
-  const hasSuccess = Boolean(successText) || validationState === 'success';
-  const hasWarning = Boolean(warningText) || validationState === 'warning';
-  const hasValue = Boolean(value && String(value).length > 0);
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      label,
+      helpText,
+      errorText,
+      successText,
+      warningText,
+      size = 'md',
+      variant = 'default',
+      validationState,
+      leftIcon,
+      rightIcon,
+      unit,
+      clearable = false,
+      loading = false,
+      className = '',
+      disabled = false,
+      value,
+      onClear,
+      ...props
+    },
+    ref
+  ) => {
+    // Generate IDs at the top (hooks must be called unconditionally)
+    const generatedId = React.useId();
+    const inputId = props.id || `input-${generatedId}`;
+    const errorId = `${inputId}-error`;
+    const helpId = `${inputId}-help`;
 
-  // Determine the actual validation state
-  const currentValidationState = validationState ||
-    (hasError ? 'error' : hasSuccess ? 'success' : hasWarning ? 'warning' : 'default');
+    const [isFocused, setIsFocused] = useState(false);
+    const hasError = Boolean(errorText) || validationState === 'error';
+    const hasSuccess = Boolean(successText) || validationState === 'success';
+    const hasWarning = Boolean(warningText) || validationState === 'warning';
+    const hasValue = Boolean(value && String(value).length > 0);
 
-  const inputClasses = [
-    'form-input',
-    `form-input-${size}`,
-    `form-input-${variant}`,
-    currentValidationState !== 'default' && `form-input-${currentValidationState}`,
-    isFocused && 'form-input-focused',
-    leftIcon && 'form-input-with-left-icon',
-    (rightIcon || unit || clearable || loading) && 'form-input-with-right-icon',
-    disabled && 'form-input-disabled',
-    className
-  ].filter(Boolean).join(' ');
+    // Determine the actual validation state
+    const currentValidationState =
+      validationState ||
+      (hasError ? 'error' : hasSuccess ? 'success' : hasWarning ? 'warning' : 'default');
 
-  const containerClasses = [
-    'form-group',
-    currentValidationState !== 'default' && `form-group-${currentValidationState}`,
-    isFocused && 'form-group-focused'
-  ].filter(Boolean).join(' ');
+    const inputClasses = [
+      'form-input',
+      `form-input-${size}`,
+      `form-input-${variant}`,
+      currentValidationState !== 'default' && `form-input-${currentValidationState}`,
+      isFocused && 'form-input-focused',
+      leftIcon && 'form-input-with-left-icon',
+      (rightIcon || unit || clearable || loading) && 'form-input-with-right-icon',
+      disabled && 'form-input-disabled',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
 
-  const showClearButton = clearable && hasValue && !disabled && !loading;
+    const containerClasses = [
+      'form-group',
+      currentValidationState !== 'default' && `form-group-${currentValidationState}`,
+      isFocused && 'form-group-focused',
+    ]
+      .filter(Boolean)
+      .join(' ');
 
-  return (
-    <div className={containerClasses}>
-      {label && (
-        <label className="form-label">
-          {label}
-          {props.required && <span className="form-label-required">*</span>}
-        </label>
-      )}
+    const showClearButton = clearable && hasValue && !disabled && !loading;
 
-      <div className="form-input-container">
-        {leftIcon && (
-          <div className="form-input-icon form-input-icon-left">
-            <Icon name={leftIcon} size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} />
+    return (
+      <div className={containerClasses}>
+        {label && (
+          <label className="form-label" htmlFor={inputId}>
+            {label}
+            {props.required && (
+              <span className="form-label-required" aria-label="required">
+                *
+              </span>
+            )}
+          </label>
+        )}
+
+        <div className="form-input-container">
+          {leftIcon && (
+            <div className="form-input-icon form-input-icon-left">
+              <Icon name={leftIcon} size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} />
+            </div>
+          )}
+
+          <input
+            ref={ref}
+            id={inputId}
+            className={inputClasses}
+            disabled={disabled}
+            value={value}
+            aria-invalid={hasError}
+            aria-describedby={
+              [
+                helpText && !hasError && !hasSuccess && !hasWarning ? helpId : null,
+                hasError ? errorId : null,
+              ]
+                .filter(Boolean)
+                .join(' ') || undefined
+            }
+            onFocus={(e) => {
+              setIsFocused(true);
+              props.onFocus?.(e);
+            }}
+            onBlur={(e) => {
+              setIsFocused(false);
+              props.onBlur?.(e);
+            }}
+            {...props}
+          />
+
+          {(rightIcon || unit || showClearButton || loading) && (
+            <div className="form-input-icon form-input-icon-right">
+              {loading && (
+                <Icon
+                  name="loader"
+                  size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16}
+                  className="form-input-loading"
+                />
+              )}
+
+              {showClearButton && !loading && (
+                <button
+                  type="button"
+                  className="form-input-clear"
+                  onClick={onClear}
+                  tabIndex={-1}
+                  aria-label="Clear input"
+                >
+                  <Icon name="x" size={size === 'sm' ? 12 : 14} />
+                </button>
+              )}
+
+              {unit && !showClearButton && !loading && (
+                <span className="form-input-unit">{unit}</span>
+              )}
+
+              {rightIcon && !showClearButton && !loading && !unit && (
+                <Icon name={rightIcon} size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} />
+              )}
+            </div>
+          )}
+        </div>
+
+        {helpText && currentValidationState === 'default' && (
+          <div className="form-help-text" id={helpId}>
+            {helpText}
           </div>
         )}
 
-        <input
-          ref={ref}
-          className={inputClasses}
-          disabled={disabled}
-          value={value}
-          onFocus={(e) => {
-            setIsFocused(true);
-            props.onFocus?.(e);
-          }}
-          onBlur={(e) => {
-            setIsFocused(false);
-            props.onBlur?.(e);
-          }}
-          {...props}
-        />
+        {(hasError || currentValidationState === 'error') && (
+          <div className="form-error-text" id={errorId} role="alert" aria-live="polite">
+            <Icon name="alert-circle" size={14} aria-hidden="true" />
+            {errorText || 'Invalid input'}
+          </div>
+        )}
 
-        {(rightIcon || unit || showClearButton || loading) && (
-          <div className="form-input-icon form-input-icon-right">
-            {loading && (
-              <Icon name="loader" size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} className="form-input-loading" />
-            )}
+        {(hasSuccess || currentValidationState === 'success') && (
+          <div className="form-success-text" role="status" aria-live="polite">
+            <Icon name="check-circle" size={14} aria-hidden="true" />
+            {successText || 'Valid input'}
+          </div>
+        )}
 
-            {showClearButton && !loading && (
-              <button
-                type="button"
-                className="form-input-clear"
-                onClick={onClear}
-                tabIndex={-1}
-                aria-label="Clear input"
-              >
-                <Icon name="x" size={size === 'sm' ? 12 : 14} />
-              </button>
-            )}
-
-            {unit && !showClearButton && !loading && (
-              <span className="form-input-unit">{unit}</span>
-            )}
-
-            {rightIcon && !showClearButton && !loading && !unit && (
-              <Icon name={rightIcon} size={size === 'sm' ? 14 : size === 'lg' ? 20 : 16} />
-            )}
+        {(hasWarning || currentValidationState === 'warning') && (
+          <div className="form-warning-text" role="alert" aria-live="polite">
+            <Icon name="alert-triangle" size={14} aria-hidden="true" />
+            {warningText || 'Input warning'}
           </div>
         )}
       </div>
-
-      {helpText && currentValidationState === 'default' && (
-        <div className="form-help-text">{helpText}</div>
-      )}
-
-      {(hasError || currentValidationState === 'error') && (
-        <div className="form-error-text" role="alert">
-          <Icon name="alert-circle" size={14} />
-          {errorText || 'Invalid input'}
-        </div>
-      )}
-
-      {(hasSuccess || currentValidationState === 'success') && (
-        <div className="form-success-text" role="status">
-          <Icon name="check-circle" size={14} />
-          {successText || 'Valid input'}
-        </div>
-      )}
-
-      {(hasWarning || currentValidationState === 'warning') && (
-        <div className="form-warning-text" role="alert">
-          <Icon name="alert-triangle" size={14} />
-          {warningText || 'Input warning'}
-        </div>
-      )}
-    </div>
-  );
-});
+    );
+  }
+);
 
 Input.displayName = 'Input';
 
@@ -171,117 +207,122 @@ export interface NumberInputProps extends Omit<InputProps, 'type' | 'variant'> {
   onValueChange?: (value: number | undefined) => void;
 }
 
-export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(({
-  min,
-  max,
-  step = 1,
-  precision,
-  showSteppers = false,
-  variant = 'technical',
-  value,
-  onChange,
-  onValueChange,
-  ...props
-}, ref) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const stringValue = e.target.value;
-    let numValue: number | undefined;
+export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
+  (
+    {
+      min,
+      max,
+      step = 1,
+      precision,
+      showSteppers = false,
+      variant = 'technical',
+      value,
+      onChange,
+      onValueChange,
+      ...props
+    },
+    ref
+  ) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const stringValue = e.target.value;
+      let numValue: number | undefined;
 
-    if (stringValue === '' || stringValue === '-') {
-      numValue = undefined;
-    } else {
-      numValue = parseFloat(stringValue);
-      if (isNaN(numValue)) {
-        return; // Don't update if not a valid number
+      if (stringValue === '' || stringValue === '-') {
+        numValue = undefined;
+      } else {
+        numValue = parseFloat(stringValue);
+        if (isNaN(numValue)) {
+          return; // Don't update if not a valid number
+        }
+
+        // Apply precision if specified
+        if (precision !== undefined) {
+          numValue = parseFloat(numValue.toFixed(precision));
+        }
+
+        // Apply min/max constraints
+        if (min !== undefined && numValue < min) {
+          numValue = min;
+        }
+        if (max !== undefined && numValue > max) {
+          numValue = max;
+        }
       }
 
-      // Apply precision if specified
-      if (precision !== undefined) {
-        numValue = parseFloat(numValue.toFixed(precision));
-      }
+      // Update the input value
+      const syntheticEvent = {
+        ...e,
+        target: {
+          ...e.target,
+          value: numValue?.toString() || '',
+        },
+      };
 
-      // Apply min/max constraints
-      if (min !== undefined && numValue < min) {
-        numValue = min;
-      }
-      if (max !== undefined && numValue > max) {
-        numValue = max;
-      }
-    }
-
-    // Update the input value
-    const syntheticEvent = {
-      ...e,
-      target: {
-        ...e.target,
-        value: numValue?.toString() || ''
-      }
+      onChange?.(syntheticEvent);
+      onValueChange?.(numValue);
     };
 
-    onChange?.(syntheticEvent);
-    onValueChange?.(numValue);
-  };
+    const handleStep = (direction: 'up' | 'down') => {
+      const currentValue = typeof value === 'string' ? parseFloat(value) : (value as number) || 0;
+      const stepValue = direction === 'up' ? step : -step;
+      let newValue = currentValue + stepValue;
 
-  const handleStep = (direction: 'up' | 'down') => {
-    const currentValue = typeof value === 'string' ? parseFloat(value) : (value as number) || 0;
-    const stepValue = direction === 'up' ? step : -step;
-    let newValue = currentValue + stepValue;
+      if (min !== undefined && newValue < min) {
+        newValue = min;
+      }
+      if (max !== undefined && newValue > max) {
+        newValue = max;
+      }
 
-    if (min !== undefined && newValue < min) {
-      newValue = min;
-    }
-    if (max !== undefined && newValue > max) {
-      newValue = max;
-    }
+      if (precision !== undefined) {
+        newValue = parseFloat(newValue.toFixed(precision));
+      }
 
-    if (precision !== undefined) {
-      newValue = parseFloat(newValue.toFixed(precision));
-    }
+      onValueChange?.(newValue);
+    };
 
-    onValueChange?.(newValue);
-  };
+    return (
+      <div className="number-input-container">
+        <Input
+          ref={ref}
+          type="number"
+          variant={variant}
+          value={value}
+          onChange={handleChange}
+          min={min}
+          max={max}
+          step={step}
+          {...props}
+        />
 
-  return (
-    <div className="number-input-container">
-      <Input
-        ref={ref}
-        type="number"
-        variant={variant}
-        value={value}
-        onChange={handleChange}
-        min={min}
-        max={max}
-        step={step}
-        {...props}
-      />
-
-      {showSteppers && (
-        <div className="number-input-steppers">
-          <button
-            type="button"
-            className="number-input-stepper number-input-stepper-up"
-            onClick={() => handleStep('up')}
-            disabled={props.disabled || (max !== undefined && (value as number) >= max)}
-            tabIndex={-1}
-            aria-label="Increase value"
-          >
-            <Icon name="chevron-up" size={12} />
-          </button>
-          <button
-            type="button"
-            className="number-input-stepper number-input-stepper-down"
-            onClick={() => handleStep('down')}
-            disabled={props.disabled || (min !== undefined && (value as number) <= min)}
-            tabIndex={-1}
-            aria-label="Decrease value"
-          >
-            <Icon name="chevron-down" size={12} />
-          </button>
-        </div>
-      )}
-    </div>
-  );
-});
+        {showSteppers && (
+          <div className="number-input-steppers">
+            <button
+              type="button"
+              className="number-input-stepper number-input-stepper-up"
+              onClick={() => handleStep('up')}
+              disabled={props.disabled || (max !== undefined && (value as number) >= max)}
+              tabIndex={-1}
+              aria-label="Increase value"
+            >
+              <Icon name="chevron-up" size={12} />
+            </button>
+            <button
+              type="button"
+              className="number-input-stepper number-input-stepper-down"
+              onClick={() => handleStep('down')}
+              disabled={props.disabled || (min !== undefined && (value as number) <= min)}
+              tabIndex={-1}
+              aria-label="Decrease value"
+            >
+              <Icon name="chevron-down" size={12} />
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+);
 
 NumberInput.displayName = 'NumberInput';
 
@@ -305,12 +346,12 @@ export const CoordinateInput: React.FC<CoordinateInputProps> = ({
   precision = 2,
   disabled = false,
   size = 'md',
-  className = ''
+  className = '',
 }) => {
   const handleCoordinateChange = (axis: 'x' | 'y' | 'z', newValue: number | undefined) => {
     onChange?.({
       ...value,
-      [axis]: newValue
+      [axis]: newValue,
     });
   };
 
