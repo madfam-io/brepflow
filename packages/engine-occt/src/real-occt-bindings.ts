@@ -200,7 +200,7 @@ export class RealOCCT implements WorkerAPI {
     this.shapes.set(id, shape);
 
     return {
-      id,
+      id: id as any, // TODO: Fix HandleId branded type
       type,
       bbox,
       hash: id.substring(0, 16),
@@ -1404,7 +1404,7 @@ export class RealOCCT implements WorkerAPI {
     const id = this.generateId();
     this.shapes.set(id, shape);
 
-    return { id, type: 'Point' };
+    return { id: id as any, type: 'Point' }; // TODO: Fix HandleId branded type
   }
 
   /**
@@ -1437,7 +1437,7 @@ export class RealOCCT implements WorkerAPI {
     const id = this.generateId();
     this.shapes.set(id, shape);
 
-    return { id, type: 'Curve' };
+    return { id: id as any, type: 'Curve' }; // TODO: Fix HandleId branded type
   }
 
   /**
@@ -1480,7 +1480,7 @@ export class RealOCCT implements WorkerAPI {
     const id = this.generateId();
     this.shapes.set(id, shape);
 
-    return { id, type: 'Wire' };
+    return { id: id as any, type: 'Wire' }; // TODO: Fix HandleId branded type
   }
 
   /**
