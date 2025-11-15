@@ -37,7 +37,7 @@ const nodeExtensionResolver: Plugin = {
 export default createLibraryConfig({
   entry: ['src/index.ts'],
   format: ['esm'], // ESM only for import.meta.url support
-  dts: true, // Generate TypeScript declaration files
+  dts: false, // Temporarily disable DTS generation due to TS4023 errors with generated nodes
   shims: false, // Disable ESM shims to avoid Node.js module imports
   platform: 'neutral',
   esbuildPlugins: [nodeExtensionResolver],
