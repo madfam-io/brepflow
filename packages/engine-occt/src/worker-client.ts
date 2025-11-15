@@ -152,7 +152,7 @@ export class WorkerClient implements WorkerAPI {
     const result = (await this.sendRequest({
       type: 'TESSELLATE',
       params: {
-        shape: { id: shapeId, type: 'solid' },
+        shape: { id: shapeId as any, type: 'solid' }, // TODO: Fix HandleId branded type
         deflection,
       },
     })) as TessellationResult;
