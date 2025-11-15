@@ -65,14 +65,19 @@ const getLogger = (): LoggerLike => {
   }
 
   // Fallback to console methods when OCCT logger is unavailable (tests or build failures)
-  logger = {
-    error: (message: string, data?: unknown) => console.error(`[GeometryAPIFactory] ${message}`, data ?? ''),
-    warn: (message: string, data?: unknown) => console.warn(`[GeometryAPIFactory] ${message}`, data ?? ''),
-    info: (message: string, data?: unknown) => console.info(`[GeometryAPIFactory] ${message}`, data ?? ''),
-    debug: (message: string, data?: unknown) => console.debug(`[GeometryAPIFactory] ${message}`, data ?? ''),
+  const consoleLogger: LoggerLike = {
+    error: (message: string, data?: unknown) =>
+      console.error(`[GeometryAPIFactory] ${message}`, data ?? ''),
+    warn: (message: string, data?: unknown) =>
+      console.warn(`[GeometryAPIFactory] ${message}`, data ?? ''),
+    info: (message: string, data?: unknown) =>
+      console.info(`[GeometryAPIFactory] ${message}`, data ?? ''),
+    debug: (message: string, data?: unknown) =>
+      console.debug(`[GeometryAPIFactory] ${message}`, data ?? ''),
   };
 
-  return logger;
+  logger = consoleLogger;
+  return consoleLogger;
 };
 
 export interface GeometryAPIConfig {
@@ -100,7 +105,9 @@ export class GeometryAPIFactory {
     });
 
     if (!wasmConfig.forceRealWASM && !shouldUseRealWASM()) {
-      getLogger().warn('WASM configuration does not force real OCCT - overriding to ensure real geometry usage');
+      getLogger().warn(
+        'WASM configuration does not force real OCCT - overriding to ensure real geometry usage'
+      );
     }
 
     return this.getRealAPI(options);
@@ -124,7 +131,7 @@ export class GeometryAPIFactory {
 
     // Start new initialization
     this.initializationPromise = this.initializeRealAPI(options);
-    
+
     try {
       this.realAPI = await this.initializationPromise;
       return this.realAPI;
@@ -167,7 +174,7 @@ export class GeometryAPIFactory {
           await integratedAPI.init();
         },
         invoke: async <T = any>(operation: string, params: any): Promise<T> => {
-          const result = await integratedAPI.invoke<T>(operation, params);
+          const result = await integratedAPI.invoke(operation, params);
           if (!result.success) {
             throw new Error(result.error || `Operation ${operation} failed`);
           }
@@ -188,7 +195,7 @@ export class GeometryAPIFactory {
         },
         terminate: async () => {
           await integratedAPI.shutdown();
-        }
+        },
       };
 
       // Verify initialization
@@ -199,7 +206,6 @@ export class GeometryAPIFactory {
 
       getLogger().info('Real OCCT geometry API initialized successfully');
       return api;
-
     } catch (error) {
       getLogger().error('Failed to initialize real OCCT geometry API', error);
 
@@ -211,21 +217,23 @@ export class GeometryAPIFactory {
 
   /**
    * Initialize API with retry logic
+   * @internal Reserved for future use
    */
-  private static async initializeWithRetry(api: WorkerAPI, attempts: number): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private static async _initializeWithRetry(api: WorkerAPI, attempts: number): Promise<void> {
     for (let i = 0; i < attempts; i++) {
       try {
-        await api.init();
+        await api.init?.();
         return;
       } catch (error) {
         getLogger().warn(`Geometry API initialization attempt ${i + 1} failed`, error);
-        
+
         if (i === attempts - 1) {
           throw error;
         }
-        
+
         // Wait before retry
-        await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+        await new Promise((resolve) => setTimeout(resolve, 1000 * (i + 1)));
       }
     }
   }
@@ -309,17 +317,19 @@ export class GeometryAPIFactory {
 
       const missing: string[] = [];
 
-      await Promise.all(requiredArtifacts.map(async artifact => {
-        const url = `${fetchBase}/${artifact}`;
-        try {
-          const response = await fetch(url, { method: 'HEAD' });
-          if (!response.ok) {
+      await Promise.all(
+        requiredArtifacts.map(async (artifact) => {
+          const url = `${fetchBase}/${artifact}`;
+          try {
+            const response = await fetch(url, { method: 'HEAD' });
+            if (!response.ok) {
+              missing.push(url);
+            }
+          } catch {
             missing.push(url);
           }
-        } catch {
-          missing.push(url);
-        }
-      }));
+        })
+      );
 
       if (missing.length > 0) {
         throw new Error(`Missing OCCT artifacts: ${missing.join(', ')}`);
@@ -359,34 +369,36 @@ export class GeometryAPIFactory {
     return this.getAPI({
       validateOutput: true,
       enableRetry: false,
-      ...config
+      ...config,
     });
   }
 
   /**
    * Create API for specific use case
    */
-  static async createForUseCase(useCase: 'development' | 'testing' | 'production'): Promise<WorkerAPI> {
+  static async createForUseCase(
+    useCase: 'development' | 'testing' | 'production'
+  ): Promise<WorkerAPI> {
     switch (useCase) {
       case 'development':
-        return this.getAPI({ 
+        return this.getAPI({
           enableRetry: true,
           retryAttempts: 2,
         });
-      
+
       case 'testing':
-        return this.getAPI({ 
+        return this.getAPI({
           validateOutput: false,
           enableRetry: true,
-          retryAttempts: 1
+          retryAttempts: 1,
         });
-      
+
       case 'production':
-        return this.getAPI({ 
+        return this.getAPI({
           validateOutput: true,
           enableRetry: false,
         });
-      
+
       default:
         throw new Error(`Unknown use case: ${useCase}`);
     }
@@ -396,11 +408,9 @@ export class GeometryAPIFactory {
 // Convenience exports
 export const getGeometryAPI = () => GeometryAPIFactory.getAPI();
 
-export const getRealGeometryAPI = () =>
-  GeometryAPIFactory.getAPI();
+export const getRealGeometryAPI = () => GeometryAPIFactory.getAPI();
 
 export const getProductionAPI = (config?: any) =>
   GeometryAPIFactory.getAPI({ ...config, validateOutput: true, enableRetry: false });
 
-export const isRealGeometryAvailable = () =>
-  GeometryAPIFactory.isRealAPIAvailable();
+export const isRealGeometryAvailable = () => GeometryAPIFactory.isRealAPIAvailable();
