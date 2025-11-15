@@ -16,7 +16,7 @@ import {
   createProductionErrorBoundary,
   logProductionSafetyStatus,
   ProductionSafetyError,
-  type EnvironmentConfig
+  type EnvironmentConfig,
 } from './production-safety';
 import type { ShapeHandle, MeshData } from '@brepflow/types';
 
@@ -135,20 +135,36 @@ export class IntegratedGeometryAPI {
 
         this.usingRealOCCT = true;
         console.log('[IntegratedGeometryAPI] Real OCCT module loaded successfully');
-        console.log('[IntegratedGeometryAPI] DEBUG: usingRealOCCT value:', this.usingRealOCCT, 'type:', typeof this.usingRealOCCT);
+        console.log(
+          '[IntegratedGeometryAPI] DEBUG: usingRealOCCT value:',
+          this.usingRealOCCT,
+          'type:',
+          typeof this.usingRealOCCT
+        );
       } catch (occtError) {
         console.error('[IntegratedGeometryAPI] Failed to load real OCCT:', occtError);
-        const boundaryError = createProductionErrorBoundary('OCCT_INITIALIZATION', this.environment);
+        const boundaryError = createProductionErrorBoundary(
+          'OCCT_INITIALIZATION',
+          this.environment
+        );
         (boundaryError as any).cause = occtError;
         throw boundaryError;
       }
 
       // CRITICAL: Final production safety validation
-      // TODO: Fix production safety check - temporarily disabled to verify OCCT works
-      // console.log('[IntegratedGeometryAPI] DEBUG: About to validate with value:', this.usingRealOCCT, 'type:', typeof this.usingRealOCCT);
-      // validateProductionSafety(this.usingRealOCCT, this.environment);
-      // logProductionSafetyStatus(this.usingRealOCCT, this.environment);
-      console.log('[IntegratedGeometryAPI] Production safety check temporarily disabled - using real OCCT:', this.usingRealOCCT);
+      // Skip validation in test environment where test-specific real OCCT module is used
+      if (!this.environment.isTest) {
+        console.log(
+          '[IntegratedGeometryAPI] Validating production safety with real OCCT:',
+          this.usingRealOCCT
+        );
+        validateProductionSafety(this.usingRealOCCT, this.environment);
+        logProductionSafetyStatus(this.usingRealOCCT, this.environment);
+      } else {
+        console.log(
+          '✅ [IntegratedGeometryAPI] Test environment - using test-specific real OCCT module'
+        );
+      }
 
       this.initialized = true;
       console.log('[IntegratedGeometryAPI] Initialization complete');
@@ -173,7 +189,9 @@ export class IntegratedGeometryAPI {
 
     await this.init();
 
-    const endMeasurement = WASMPerformanceMonitor?.startMeasurement(`operation-${operation.toLowerCase()}`);
+    const endMeasurement = WASMPerformanceMonitor?.startMeasurement(
+      `operation-${operation.toLowerCase()}`
+    );
 
     try {
       if (this.memoryManager) {
@@ -196,7 +214,7 @@ export class IntegratedGeometryAPI {
                 operation,
                 params,
                 timestamp: Date.now(),
-                retryCount: 0
+                retryCount: 0,
               },
               false
             );
@@ -220,10 +238,10 @@ export class IntegratedGeometryAPI {
             performance: {
               duration,
               memoryUsed: 0,
-              cacheHit: true
+              cacheHit: true,
             },
             fallbackUsed,
-            retryCount
+            retryCount,
           };
         }
       }
@@ -233,7 +251,7 @@ export class IntegratedGeometryAPI {
         if (this.workerPool) {
           const workerResult = await this.workerPool.execute(operation, params, {
             timeout: this.config.operationTimeout,
-            priority: this.determinePriority(operation)
+            priority: this.determinePriority(operation),
           });
           rawResult = workerResult.result ?? workerResult;
         } else {
@@ -241,7 +259,9 @@ export class IntegratedGeometryAPI {
         }
       } catch (executionError) {
         if (this.errorRecovery) {
-          console.log(`[IntegratedGeometryAPI] Error occurred, attempting recovery for ${operation}`);
+          console.log(
+            `[IntegratedGeometryAPI] Error occurred, attempting recovery for ${operation}`
+          );
 
           const recoveryResult = await this.errorRecovery.handleError(
             executionError,
@@ -249,7 +269,7 @@ export class IntegratedGeometryAPI {
             params,
             {
               timestamp: Date.now(),
-              retryCount
+              retryCount,
             }
           );
 
@@ -289,18 +309,20 @@ export class IntegratedGeometryAPI {
         performance: {
           duration,
           memoryUsed,
-          cacheHit
+          cacheHit,
         },
         fallbackUsed,
-        retryCount
+        retryCount,
       };
-
     } catch (error) {
       if (endMeasurement) endMeasurement();
 
       const duration = Date.now() - startTime;
       const normalizedError = error instanceof Error ? error : new Error(String(error));
-      console.error(`[IntegratedGeometryAPI] Operation ${operation} failed after ${duration}ms:`, normalizedError);
+      console.error(
+        `[IntegratedGeometryAPI] Operation ${operation} failed after ${duration}ms:`,
+        normalizedError
+      );
 
       return {
         success: false,
@@ -308,10 +330,10 @@ export class IntegratedGeometryAPI {
         performance: {
           duration,
           memoryUsed: 0,
-          cacheHit
+          cacheHit,
         },
         fallbackUsed,
-        retryCount
+        retryCount,
       };
     }
   }
@@ -319,7 +341,10 @@ export class IntegratedGeometryAPI {
   /**
    * Enhanced tessellation with memory management and caching
    */
-  async tessellate(shape: ShapeHandle, tolerance: number = 0.1): Promise<OperationResult<MeshData>> {
+  async tessellate(
+    shape: ShapeHandle,
+    tolerance: number = 0.1
+  ): Promise<OperationResult<MeshData>> {
     const startTime = Date.now();
     const cacheKey = `${shape.id}:${tolerance}`;
 
@@ -335,8 +360,8 @@ export class IntegratedGeometryAPI {
             performance: {
               duration: Date.now() - startTime,
               memoryUsed: 0,
-              cacheHit: true
-            }
+              cacheHit: true,
+            },
           };
         }
       } else {
@@ -349,8 +374,8 @@ export class IntegratedGeometryAPI {
             performance: {
               duration: Date.now() - startTime,
               memoryUsed: 0,
-              cacheHit: true
-            }
+              cacheHit: true,
+            },
           };
         }
       }
@@ -372,7 +397,6 @@ export class IntegratedGeometryAPI {
       }
 
       return tessellationResult;
-
     } catch (error) {
       return {
         success: false,
@@ -380,8 +404,8 @@ export class IntegratedGeometryAPI {
         performance: {
           duration: Date.now() - startTime,
           memoryUsed: 0,
-          cacheHit: false
-        }
+          cacheHit: false,
+        },
       };
     }
   }
@@ -390,7 +414,12 @@ export class IntegratedGeometryAPI {
    * Determine operation priority for caching and worker pool
    */
   private determinePriority(operation: string): number {
-    const highPriorityOps = ['TESSELLATE', 'BOOLEAN_UNION', 'BOOLEAN_SUBTRACT', 'BOOLEAN_INTERSECT'];
+    const highPriorityOps = [
+      'TESSELLATE',
+      'BOOLEAN_UNION',
+      'BOOLEAN_SUBTRACT',
+      'BOOLEAN_INTERSECT',
+    ];
     const mediumPriorityOps = ['MAKE_FILLET', 'MAKE_CHAMFER', 'MAKE_EXTRUDE'];
 
     if (highPriorityOps.includes(operation)) return 3;
@@ -437,7 +466,7 @@ export class IntegratedGeometryAPI {
       usingRealOCCT: this.usingRealOCCT,
       environment: this.environment,
       productionSafe: this.environment.isProduction ? this.usingRealOCCT : true,
-      subsystems: {}
+      subsystems: {},
     };
 
     if (this.memoryManager) {
@@ -577,13 +606,13 @@ Capabilities: ${this.capabilities ? 'Detected' : 'Not Available'}
         center: { x: 0, y: 0, z: 0 },
         width: 10,
         height: 10,
-        depth: 10
+        depth: 10,
       });
 
       if (!boxResult.success) {
         return {
           success: false,
-          report: `Box creation failed: ${boxResult.error}`
+          report: `Box creation failed: ${boxResult.error}`,
         };
       }
 
@@ -594,7 +623,7 @@ Capabilities: ${this.capabilities ? 'Detected' : 'Not Available'}
         if (!meshResult.success) {
           return {
             success: false,
-            report: `Tessellation failed: ${meshResult.error}`
+            report: `Tessellation failed: ${meshResult.error}`,
           };
         }
       }
@@ -603,13 +632,12 @@ Capabilities: ${this.capabilities ? 'Detected' : 'Not Available'}
 
       return {
         success: true,
-        report: `API test successful!\n\n${diagnostics}`
+        report: `API test successful!\n\n${diagnostics}`,
       };
-
     } catch (error) {
       return {
         success: false,
-        report: `API test failed: ${error instanceof Error ? error.message : String(error)}`
+        report: `API test failed: ${error instanceof Error ? error.message : String(error)}`,
       };
     }
   }
@@ -624,7 +652,9 @@ Capabilities: ${this.capabilities ? 'Detected' : 'Not Available'}
   /**
    * Execute multiple operations in batch
    */
-  async batchExecute(operations: Array<{ operation: string; params: any }>): Promise<OperationResult[]> {
+  async batchExecute(
+    operations: Array<{ operation: string; params: any }>
+  ): Promise<OperationResult[]> {
     const results: OperationResult[] = [];
 
     for (const { operation, params } of operations) {
@@ -638,8 +668,8 @@ Capabilities: ${this.capabilities ? 'Detected' : 'Not Available'}
           performance: {
             duration: 0,
             memoryUsed: 0,
-            cacheHit: false
-          }
+            cacheHit: false,
+          },
         });
       }
     }
@@ -655,7 +685,7 @@ const runtimeEnvironment = detectEnvironment();
 export const DEFAULT_API_CONFIG: GeometryAPIConfig = createProductionSafeConfig({
   enableRealOCCT: true,
   workerPoolConfig: runtimeEnvironment.isTest ? undefined : DEFAULT_POOL_CONFIG, // No worker pool in vitest to keep tests stable
-  memoryConfig: DEFAULT_CACHE_CONFIG
+  memoryConfig: DEFAULT_CACHE_CONFIG,
 });
 
 // Global API instance
