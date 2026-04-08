@@ -75,3 +75,4 @@ artifacts/
 !packages/engine-occt/wasm/*.wasm
 !packages/engine-occt/wasm/*.js
 !packages/engine-occt/wasm/*.worker.js
+.serena/
