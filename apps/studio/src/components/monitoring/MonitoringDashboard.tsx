@@ -79,16 +79,29 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({ isVisi
     return new Date(timestamp).toLocaleTimeString();
   };
 
-  const getSeverityColor = (severity: string): string => {
+  const getSeverityTextClass = (severity: string): string => {
     switch (severity) {
       case 'critical':
-        return '#dc2626';
+        return 'text-red-600';
       case 'warning':
-        return '#f59e0b';
+        return 'text-amber-500';
       case 'info':
-        return '#3b82f6';
+        return 'text-blue-500';
       default:
-        return '#6b7280';
+        return 'text-gray-500';
+    }
+  };
+
+  const getSeverityBorderClass = (severity: string): string => {
+    switch (severity) {
+      case 'critical':
+        return 'border-l-red-600';
+      case 'warning':
+        return 'border-l-amber-500';
+      case 'info':
+        return 'border-l-blue-500';
+      default:
+        return 'border-l-gray-500';
     }
   };
 
@@ -104,7 +117,7 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({ isVisi
           <div className={styles.metric}>
             <label>Error Rate:</label>
             <span
-              style={{ color: dashboardData.systemHealth.errorRate > 5 ? '#dc2626' : '#10b981' }}
+              className={dashboardData.systemHealth.errorRate > 5 ? 'text-red-600' : 'text-emerald-500'}
             >
               {formatPercent(dashboardData.systemHealth.errorRate)}
             </span>
@@ -112,10 +125,7 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({ isVisi
           <div className={styles.metric}>
             <label>Avg Response Time:</label>
             <span
-              style={{
-                color:
-                  dashboardData.systemHealth.averageResponseTime > 1000 ? '#f59e0b' : '#10b981',
-              }}
+              className={dashboardData.systemHealth.averageResponseTime > 1000 ? 'text-amber-500' : 'text-emerald-500'}
             >
               {dashboardData.systemHealth.averageResponseTime.toFixed(0)}ms
             </span>
@@ -136,14 +146,12 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({ isVisi
             {dashboardData.activeAlerts.map((alert: HealthAlert) => (
               <div
                 key={alert.id}
-                className={styles['alert-item']}
-                style={{ borderLeft: `4px solid ${getSeverityColor(alert.severity)}` }}
+                className={`${styles['alert-item']} border-l-4 ${getSeverityBorderClass(alert.severity)}`}
               >
                 <div className={styles['alert-header']}>
                   <span className={styles['alert-type']}>{alert.type}</span>
                   <span
-                    className={styles['alert-severity']}
-                    style={{ color: getSeverityColor(alert.severity) }}
+                    className={`${styles['alert-severity']} ${getSeverityTextClass(alert.severity)}`}
                   >
                     {alert.severity}
                   </span>
@@ -171,8 +179,7 @@ export const MonitoringDashboard: React.FC<MonitoringDashboardProps> = ({ isVisi
                 <div className={styles['error-header']}>
                   <span className={styles['error-code']}>{error.code}</span>
                   <span
-                    className={styles['error-severity']}
-                    style={{ color: getSeverityColor(error.severity) }}
+                    className={`${styles['error-severity']} ${getSeverityTextClass(error.severity)}`}
                   >
                     {error.severity}
                   </span>

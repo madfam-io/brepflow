@@ -73,16 +73,16 @@ export function TemplateGallery({
     }
   };
 
-  const getDifficultyColor = (difficulty: string) => {
+  const getDifficultyClass = (difficulty: string) => {
     switch (difficulty) {
       case 'beginner':
-        return 'var(--difficulty-beginner, #4caf50)';
+        return 'text-green-500';
       case 'intermediate':
-        return 'var(--difficulty-intermediate, #ff9800)';
+        return 'text-amber-500';
       case 'advanced':
-        return 'var(--difficulty-advanced, #f44336)';
+        return 'text-red-500';
       default:
-        return 'var(--text-secondary, #666)';
+        return 'text-gray-500';
     }
   };
 
@@ -261,8 +261,7 @@ export function TemplateGallery({
               >
                 <div className="template-header">
                   <div
-                    className="template-difficulty"
-                    style={{ color: getDifficultyColor(template.difficulty) }}
+                    className={`template-difficulty ${getDifficultyClass(template.difficulty)}`}
                   >
                     <span className="difficulty-icon">
                       {getDifficultyIcon(template.difficulty)}

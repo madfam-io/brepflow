@@ -77,9 +77,19 @@ const getTourSteps = (skillLevel: SkillLevel): TourStep[] => {
   return baseSteps;
 };
 
+// Joyride styles use CSS color values (third-party API requirement).
+// Colors aligned with Tailwind palette: indigo-500, gray-800, gray-600, gray-500, gray-400.
+const COLORS = {
+  indigo500: 'rgb(99, 102, 241)',   // tailwind indigo-500
+  gray800: 'rgb(31, 41, 55)',       // tailwind gray-800
+  gray600: 'rgb(75, 85, 99)',       // tailwind gray-600
+  gray500: 'rgb(107, 114, 128)',    // tailwind gray-500
+  gray400: 'rgb(156, 163, 175)',    // tailwind gray-400
+} as const;
+
 const joyrideStyles = {
   options: {
-    primaryColor: '#6366f1',
+    primaryColor: COLORS.indigo500,
     backgroundColor: '#ffffff',
     overlayColor: 'rgba(0, 0, 0, 0.4)',
     spotlightShadow: '0 0 15px rgba(0, 0, 0, 0.5)',
@@ -97,34 +107,34 @@ const joyrideStyles = {
     fontSize: '20px',
     fontWeight: '600',
     marginBottom: '8px',
-    color: '#1f2937',
+    color: COLORS.gray800,
   },
   tooltipContent: {
     fontSize: '16px',
     lineHeight: '1.6',
-    color: '#4b5563',
+    color: COLORS.gray600,
     marginBottom: '16px',
   },
   buttonNext: {
-    backgroundColor: '#6366f1',
+    backgroundColor: COLORS.indigo500,
     borderRadius: '8px',
     fontSize: '14px',
     fontWeight: '600',
     padding: '10px 20px',
   },
   buttonBack: {
-    color: '#6b7280',
+    color: COLORS.gray500,
     marginRight: '12px',
     fontSize: '14px',
     fontWeight: '500',
   },
   buttonSkip: {
-    color: '#9ca3af',
+    color: COLORS.gray400,
     fontSize: '14px',
   },
   beacon: {
-    inner: '#6366f1',
-    outer: '#6366f1',
+    inner: COLORS.indigo500,
+    outer: COLORS.indigo500,
   },
 };
 

@@ -64,18 +64,33 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
     }
   };
 
-  const getSeverityColor = (severity: ErrorSeverity): string => {
+  const getSeverityTextClass = (severity: ErrorSeverity): string => {
     switch (severity) {
       case ErrorSeverity.LOW:
-        return '#10b981'; // green
+        return 'text-emerald-500';
       case ErrorSeverity.MEDIUM:
-        return '#f59e0b'; // amber
+        return 'text-amber-500';
       case ErrorSeverity.HIGH:
-        return '#ef4444'; // red
+        return 'text-red-500';
       case ErrorSeverity.CRITICAL:
-        return '#dc2626'; // dark red
+        return 'text-red-600';
       default:
-        return '#6b7280'; // gray
+        return 'text-gray-500';
+    }
+  };
+
+  const getSeverityBorderClass = (severity: ErrorSeverity): string => {
+    switch (severity) {
+      case ErrorSeverity.LOW:
+        return 'border-emerald-500';
+      case ErrorSeverity.MEDIUM:
+        return 'border-amber-500';
+      case ErrorSeverity.HIGH:
+        return 'border-red-500';
+      case ErrorSeverity.CRITICAL:
+        return 'border-red-600';
+      default:
+        return 'border-gray-500';
     }
   };
 
@@ -170,33 +185,13 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
 
   return (
     <div
-      className={`error-display ${isolated ? 'isolated' : 'full'} severity-${displayError.severity}`}
-      style={{
-        padding: '2rem',
-        margin: isolated ? '1rem' : '0',
-        border: `2px solid ${getSeverityColor(displayError.severity)}`,
-        borderRadius: '8px',
-        backgroundColor: '#fef2f2',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
-        maxWidth: isolated ? '500px' : '100%',
-      }}
+      className={`error-display ${isolated ? 'isolated' : 'full'} severity-${displayError.severity} p-8 ${isolated ? 'm-4' : 'm-0'} border-2 ${getSeverityBorderClass(displayError.severity)} rounded-lg bg-red-50 font-sans ${isolated ? 'max-w-[500px]' : 'w-full'}`}
     >
-      <div className="error-header" style={{ marginBottom: '1.5rem' }}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            marginBottom: '0.5rem',
-          }}
-        >
-          <span style={{ fontSize: '1.5rem' }}>{getSeverityIcon(displayError.severity)}</span>
+      <div className="error-header mb-6">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-2xl">{getSeverityIcon(displayError.severity)}</span>
           <h3
-            style={{
-              margin: 0,
-              color: getSeverityColor(displayError.severity),
-              fontSize: '1.25rem',
-            }}
+            className={`m-0 text-xl ${getSeverityTextClass(displayError.severity)}`}
           >
             {displayError.severity === ErrorSeverity.CRITICAL
               ? 'Critical Error'
@@ -208,14 +203,7 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
           </h3>
         </div>
 
-        <p
-          style={{
-            margin: 0,
-            fontSize: '1rem',
-            color: '#374151',
-            fontWeight: 500,
-          }}
-        >
+        <p className="m-0 text-base text-gray-700 font-medium">
           {displayError.userMessage}
         </p>
       </div>
@@ -223,27 +211,11 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
       {getSpecializedMessage()}
 
       {/* Technical details (collapsible) */}
-      <details style={{ marginBottom: '1.5rem' }}>
-        <summary
-          style={{
-            cursor: 'pointer',
-            color: '#6b7280',
-            fontSize: '0.875rem',
-            marginBottom: '0.5rem',
-          }}
-        >
+      <details className="mb-6">
+        <summary className="cursor-pointer text-gray-500 text-sm mb-2">
           Technical Details
         </summary>
-        <div
-          style={{
-            padding: '0.75rem',
-            backgroundColor: '#f9fafb',
-            borderRadius: '4px',
-            fontSize: '0.8rem',
-            color: '#374151',
-            fontFamily: 'monospace',
-          }}
-        >
+        <div className="p-3 bg-gray-50 rounded text-xs text-gray-700 font-mono">
           <p>
             <strong>Error Code:</strong> {displayError.code}
           </p>
@@ -261,13 +233,7 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
           {displayError.technicalDetails && (
             <details>
               <summary>Stack Trace</summary>
-              <pre
-                style={{
-                  whiteSpace: 'pre-wrap',
-                  fontSize: '0.75rem',
-                  marginTop: '0.5rem',
-                }}
-              >
+              <pre className="whitespace-pre-wrap text-xs mt-2">
                 {displayError.technicalDetails}
               </pre>
             </details>
@@ -279,35 +245,24 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
       {displayError.recoverable &&
         displayError.recoveryActions &&
         displayError.recoveryActions.length > 0 && (
-          <div className="recovery-actions" style={{ marginBottom: '1rem' }}>
-            <h4
-              style={{
-                margin: '0 0 0.75rem 0',
-                fontSize: '1rem',
-                color: '#374151',
-              }}
-            >
+          <div className="recovery-actions mb-4">
+            <h4 className="mt-0 mb-3 text-base text-gray-700">
               What would you like to do?
             </h4>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <div className="flex flex-wrap gap-2">
               {displayError.recoveryActions.map((action) => (
                 <button
                   key={action.id}
                   onClick={() => handleRecoveryAction(action)}
                   disabled={isExecutingRecovery === action.id}
-                  style={{
-                    padding: '0.5rem 1rem',
-                    border:
-                      (action.destructive ?? false) ? '1px solid #ef4444' : '1px solid #d1d5db',
-                    borderRadius: '6px',
-                    backgroundColor: (action.destructive ?? false) ? '#fef2f2' : '#ffffff',
-                    color: (action.destructive ?? false) ? '#dc2626' : '#374151',
-                    cursor: isExecutingRecovery ? 'not-allowed' : 'pointer',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    opacity: isExecutingRecovery && isExecutingRecovery !== action.id ? 0.5 : 1,
-                  }}
+                  className={`px-4 py-2 rounded-md text-sm font-medium ${
+                    (action.destructive ?? false)
+                      ? 'border border-red-500 bg-red-50 text-red-600'
+                      : 'border border-gray-300 bg-white text-gray-700'
+                  } ${isExecutingRecovery ? 'cursor-not-allowed' : 'cursor-pointer'} ${
+                    isExecutingRecovery && isExecutingRecovery !== action.id ? 'opacity-50' : 'opacity-100'
+                  }`}
                   title={action.description}
                 >
                   {isExecutingRecovery === action.id ? '...' : action.label}
@@ -321,31 +276,14 @@ export const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
       {(!displayError.recoveryActions || displayError.recoveryActions.length === 0) && (
         <button
           onClick={onReset}
-          style={{
-            padding: '0.75rem 1.5rem',
-            border: 'none',
-            borderRadius: '6px',
-            backgroundColor: '#3b82f6',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '0.875rem',
-            fontWeight: '500',
-          }}
+          className="px-6 py-3 border-none rounded-md bg-blue-500 text-white cursor-pointer text-sm font-medium"
         >
           Try Again
         </button>
       )}
 
       {/* Error reporting status */}
-      <div
-        style={{
-          marginTop: '1rem',
-          fontSize: '0.75rem',
-          color: '#6b7280',
-          borderTop: '1px solid #e5e7eb',
-          paddingTop: '0.75rem',
-        }}
-      >
+      <div className="mt-4 text-xs text-gray-500 border-t border-gray-200 pt-3">
         {displayError.reportedToService ? (
           <span>✅ Error has been automatically reported</span>
         ) : (

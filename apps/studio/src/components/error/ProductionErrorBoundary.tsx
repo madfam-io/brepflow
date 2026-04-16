@@ -116,159 +116,46 @@ export class ProductionErrorBoundary extends Component<Props, State> {
     const config = getConfig();
 
     return (
-      <div className="error-boundary-fallback">
-        <div className="error-container">
-          <h1 className="error-title">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-400 to-purple-600 p-8">
+        <div className="bg-white rounded-lg p-8 max-w-[600px] w-full shadow-2xl">
+          <h1 className="text-red-600 text-3xl font-bold mb-4">
             {config.isProduction ? 'Something went wrong' : 'Application Error'}
           </h1>
 
-          <p className="error-message">
+          <p className="text-gray-600 text-lg mb-6">
             {config.isProduction
               ? 'An unexpected error occurred. Please try refreshing the page.'
               : error?.message || 'Unknown error'}
           </p>
 
           {!config.isProduction && error?.stack && (
-            <details className="error-details">
-              <summary>Error Details</summary>
-              <pre className="error-stack">{error.stack}</pre>
+            <details className="bg-gray-50 border border-gray-200 rounded p-4 mb-6">
+              <summary className="cursor-pointer font-semibold text-gray-800 mb-2">Error Details</summary>
+              <pre className="font-mono text-sm text-red-600 overflow-x-auto whitespace-pre-wrap break-words m-0">{error.stack}</pre>
             </details>
           )}
 
           {errorId && (
-            <p className="error-id">
-              Error ID: <code>{errorId}</code>
+            <p className="text-gray-500 text-sm mb-6">
+              Error ID: <code className="bg-gray-100 px-2 py-1 rounded font-mono">{errorId}</code>
             </p>
           )}
 
-          <div className="error-actions">
-            <button onClick={this.handleReset} className="btn btn-secondary">
+          <div className="flex gap-4">
+            <button onClick={this.handleReset} className="px-6 py-3 rounded font-semibold cursor-pointer transition-all duration-200 border-none text-base bg-gray-100 text-gray-600 hover:bg-gray-200">
               Try Again
             </button>
-            <button onClick={this.handleReload} className="btn btn-primary">
+            <button onClick={this.handleReload} className="px-6 py-3 rounded font-semibold cursor-pointer transition-all duration-200 border-none text-base bg-indigo-500 text-white hover:bg-indigo-600">
               Reload Page
             </button>
           </div>
 
           {config.isProduction && (
-            <p className="error-support">
+            <p className="mt-6 pt-6 border-t border-gray-200 text-gray-500 text-sm text-center">
               If this problem persists, please contact support with the error ID above.
             </p>
           )}
         </div>
-
-        <style>{`
-          .error-boundary-fallback {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 2rem;
-          }
-
-          .error-container {
-            background: white;
-            border-radius: 8px;
-            padding: 2rem;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-          }
-
-          .error-title {
-            color: #e53e3e;
-            font-size: 1.875rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-          }
-
-          .error-message {
-            color: #4a5568;
-            font-size: 1.125rem;
-            margin-bottom: 1.5rem;
-          }
-
-          .error-details {
-            background: #f7fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-          }
-
-          .error-details summary {
-            cursor: pointer;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 0.5rem;
-          }
-
-          .error-stack {
-            font-family: 'Courier New', monospace;
-            font-size: 0.875rem;
-            color: #e53e3e;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-break: break-word;
-            margin: 0;
-          }
-
-          .error-id {
-            color: #718096;
-            font-size: 0.875rem;
-            margin-bottom: 1.5rem;
-          }
-
-          .error-id code {
-            background: #edf2f7;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-          }
-
-          .error-actions {
-            display: flex;
-            gap: 1rem;
-          }
-
-          .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            font-size: 1rem;
-          }
-
-          .btn-primary {
-            background: #667eea;
-            color: white;
-          }
-
-          .btn-primary:hover {
-            background: #5a67d8;
-          }
-
-          .btn-secondary {
-            background: #edf2f7;
-            color: #4a5568;
-          }
-
-          .btn-secondary:hover {
-            background: #e2e8f0;
-          }
-
-          .error-support {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e2e8f0;
-            color: #718096;
-            font-size: 0.875rem;
-            text-align: center;
-          }
-        `}</style>
       </div>
     );
   }

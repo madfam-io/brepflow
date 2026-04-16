@@ -91,33 +91,18 @@ export function SessionControls() {
 
   return (
     <div
-      className="session-controls"
+      className="session-controls fixed top-5 right-5 flex gap-2.5 z-[1000]"
       data-testid="session-controls"
-      style={{
-        position: 'fixed',
-        top: '20px',
-        right: '20px',
-        display: 'flex',
-        gap: '10px',
-        zIndex: 1000,
-      }}
     >
       {/* Export Buttons */}
-      <div style={{ display: 'flex', gap: '5px' }}>
+      <div className="flex gap-1.5">
         <button
           data-testid="export-step-btn"
           onClick={() => handleExport('step')}
           disabled={exporting || !graph || graph.nodes.length === 0}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#4CAF50',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: exporting ? 'not-allowed' : 'pointer',
-            fontSize: '14px',
-            fontWeight: 500,
-          }}
+          className={`px-4 py-2 bg-green-500 text-white border-none rounded text-sm font-medium ${
+            exporting ? 'cursor-not-allowed' : 'cursor-pointer'
+          }`}
           title="Export geometry as STEP file (CAD interchange format)"
         >
           {exporting ? '...' : 'Export STEP'}
@@ -127,16 +112,9 @@ export function SessionControls() {
           data-testid="export-stl-btn"
           onClick={() => handleExport('stl')}
           disabled={exporting || !graph || graph.nodes.length === 0}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#2196F3',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: exporting ? 'not-allowed' : 'pointer',
-            fontSize: '14px',
-            fontWeight: 500,
-          }}
+          className={`px-4 py-2 bg-blue-500 text-white border-none rounded text-sm font-medium ${
+            exporting ? 'cursor-not-allowed' : 'cursor-pointer'
+          }`}
           title="Export geometry as STL file (3D printing format)"
         >
           {exporting ? '...' : 'Export STL'}
@@ -147,17 +125,9 @@ export function SessionControls() {
       <button
         data-testid="share-btn"
         onClick={handleShare}
-        style={{
-          padding: '8px 16px',
-          backgroundColor: copySuccess ? '#4CAF50' : '#FF9800',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          fontSize: '14px',
-          fontWeight: 500,
-          transition: 'background-color 0.2s',
-        }}
+        className={`px-4 py-2 text-white border-none rounded cursor-pointer text-sm font-medium transition-colors duration-200 ${
+          copySuccess ? 'bg-green-500' : 'bg-amber-500'
+        }`}
         title="Copy shareable link to clipboard"
       >
         {copySuccess ? '✓ Copied!' : '🔗 Share'}
@@ -166,15 +136,7 @@ export function SessionControls() {
       {/* Session ID Display */}
       <div
         data-testid="session-id"
-        style={{
-          padding: '8px 12px',
-          backgroundColor: '#f5f5f5',
-          border: '1px solid #ddd',
-          borderRadius: '4px',
-          fontSize: '12px',
-          color: '#666',
-          fontFamily: 'monospace',
-        }}
+        className="px-3 py-2 bg-gray-100 border border-gray-300 rounded text-xs text-gray-500 font-mono"
       >
         Session: {sessionId.slice(0, 8)}
       </div>

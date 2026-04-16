@@ -77,7 +77,13 @@ export const Console: React.FC = () => {
   };
 
   const getMessageClass = (level: ConsoleMessage['level']) => {
-    return `console-message console-message--${level}`;
+    const colorClass = {
+      info: 'text-blue-500',
+      warn: 'text-amber-500',
+      error: 'text-red-500',
+      success: 'text-emerald-500',
+    }[level];
+    return `console-message console-message--${level} ${colorClass}`;
   };
 
   // Initialize with welcome message
@@ -215,10 +221,7 @@ export const Console: React.FC = () => {
           color: var(--text-primary);
         }
 
-        .console-message--info { color: #3b82f6; }
-        .console-message--warn { color: #f59e0b; }
-        .console-message--error { color: #ef4444; }
-        .console-message--success { color: #10b981; }
+        /* Message level colors applied via Tailwind classes on elements */
 
         .console-time {
           color: var(--text-secondary);
