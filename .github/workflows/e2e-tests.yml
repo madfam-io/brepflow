@@ -8,7 +8,6 @@ on:
 
 env:
   NODE_VERSION: '20.11.1'
-  PNPM_VERSION: '8.6.7'
 
 jobs:
   e2e-tests:
@@ -21,8 +20,6 @@ jobs:
 
     - name: Install pnpm
       uses: pnpm/action-setup@v4
-      with:
-        version: ${{ env.PNPM_VERSION }}
 
     - name: Setup Node.js
       uses: actions/setup-node@v6
@@ -106,8 +103,6 @@ jobs:
 
     - name: Install pnpm
       uses: pnpm/action-setup@v4
-      with:
-        version: ${{ env.PNPM_VERSION }}
 
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
@@ -147,8 +142,6 @@ jobs:
 
     - name: Install pnpm
       uses: pnpm/action-setup@v4
-      with:
-        version: ${{ env.PNPM_VERSION }}
 
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
