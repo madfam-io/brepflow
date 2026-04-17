@@ -21,5 +21,13 @@
         ]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["src/components/**/*.{ts,tsx}"],
+      "rules": {
+        "max-lines-per-function": "warn"
+      }
+    }
+  ]
 }
