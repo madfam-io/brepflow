@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Sim4D is a web-first, node-based parametric CAD application with exact B-Rep/NURBS geometry. It's built by Aureo Labs (a MADFAM company) and provides Grasshopper-style visual parametrics with manufacturing-grade geometry that runs in the browser.
+Sim4D is a web-first, node-based parametric CAD application with exact B-Rep/NURBS geometry. It's built by Innovaciones MADFAM and provides Grasshopper-style visual parametrics with manufacturing-grade geometry that runs in the browser.
 
 ## Architecture
 

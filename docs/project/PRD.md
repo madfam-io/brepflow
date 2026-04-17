@@ -1,8 +1,8 @@
 # Sim4D — Product Requirements Document
 
-_Owner:_ Aureo Labs (a MADFAM company)
+_Owner:_ Innovaciones MADFAM
 _Product:_ **Sim4D** — web-first, node-based parametric CAD with exact B‑Rep/NURBS
-_Domains:_ sim4d\.com · aureolabs.dev · madfam.io
+_Domains:_ sim4d\.com · innovacionesmadfam.dev · madfam.io
 _Doc status:_ Draft v0.1 (2025‑09‑13)
 
 ---
@@ -29,7 +29,7 @@ _Doc status:_ Draft v0.1 (2025‑09‑13)
 
 **Success (12 months):**
 
-- ≥10 internal MADFAM/Aureo projects shipped with Sim4D;
+- ≥10 internal MADFAM projects shipped with Sim4D;
 - ≥3 external pilot teams;
 - 80% of target users complete a parametric part → STEP in <30 min;
 - Mean compute <1.5s for typical part edits;
@@ -184,9 +184,9 @@ _Doc status:_ Draft v0.1 (2025‑09‑13)
 
 ## 12) Packaging, Licensing, Pricing (prelim)
 
-- **Model:** **Open‑core**. Core Sim4D under **MPL‑2.0** (or LGPL‑3.0); pro features (cloud sync, team spaces, private registry) under commercial license by Aureo Labs.
+- **Model:** **Open‑core**. Core Sim4D under **MPL‑2.0** (or LGPL‑3.0); pro features (cloud sync, team spaces, private registry) under commercial license by Innovaciones MADFAM.
 - **SKU:** Sim4D Studio (free), Studio Pro (teams), CLI (free for OSS graphs, pro for private registries).
-- **Brand:** “Sim4D by Aureo Labs, a MADFAM company.”
+- **Brand:** “Sim4D by Innovaciones MADFAM.”
 
 ---
 

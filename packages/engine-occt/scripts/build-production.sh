@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# BrepFlow OCCT Production Build Script
+# Sim4D OCCT Production Build Script
 # Optimized WebAssembly module generation
 
 set -e
 
-echo -e "\033[0;32mBrepFlow OCCT Production WebAssembly Build\033[0m"
+echo -e "\033[0;32mSim4D OCCT Production WebAssembly Build\033[0m"
 echo "============================================"
 
 # Check if Emscripten is available

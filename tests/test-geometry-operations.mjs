@@ -7,7 +7,7 @@
 import { GeometryAPI } from '../packages/engine-occt/dist/index.mjs';
 
 console.log('═══════════════════════════════════════════════');
-console.log('  Testing BrepFlow Geometry Operations');
+console.log('  Testing Sim4D Geometry Operations');
 console.log('═══════════════════════════════════════════════\n');
 
 async function testGeometry() {

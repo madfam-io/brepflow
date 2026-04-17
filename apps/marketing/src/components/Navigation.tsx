@@ -19,7 +19,7 @@ export function Navigation() {
   const navItems = [
     { label: 'Features', href: '#features' },
     { label: 'Demo', href: '#demo' },
-    { label: 'GitHub', href: 'https://github.com/aureo-labs/sim4d', external: true },
+    { label: 'GitHub', href: 'https://github.com/madfam/sim4d', external: true },
   ];
 
   return (

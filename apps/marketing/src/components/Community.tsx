@@ -18,7 +18,7 @@ export function Community() {
       icon: Github,
       title: 'Open Source',
       description: 'Contribute to the codebase and shape the future of CAD',
-      link: 'https://github.com/aureo-labs/sim4d',
+      link: 'https://github.com/madfam/sim4d',
       color: 'from-gray-600 to-gray-700',
     },
     {

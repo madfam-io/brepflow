@@ -102,7 +102,7 @@ console.log('\n🎨 TEST 6: Studio App Integration');
 const studioPath = path.join(root, 'apps/studio/src');
 // Use proper escaping to prevent command injection
 const escapedPath = studioPath.replace(/'/g, "'\\''");
-const hasEngineImports = execSync(`grep -r "@brepflow/engine" '${escapedPath}' 2>/dev/null | wc -l`, { encoding: 'utf-8' });
+const hasEngineImports = execSync(`grep -r "@sim4d/engine" '${escapedPath}' 2>/dev/null | wc -l`, { encoding: 'utf-8' });
 const integrated = parseInt(hasEngineImports.trim()) > 0;
 console.log(`  ${integrated ? '✅' : '❌'} Engine integrated in Studio (${hasEngineImports.trim()} imports)`);
 tests.push({ name: 'Studio Integration', passed: integrated });

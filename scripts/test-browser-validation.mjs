@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * BrepFlow Browser Test Validation Script
+ * Sim4D Browser Test Validation Script
  * Executes comprehensive browser testing and validation
  */
 
@@ -310,7 +310,7 @@ class BrowserTestValidator {
   }
 
   async run() {
-    console.log('🚀 Starting BrepFlow Browser Test Validation...\n');
+    console.log('🚀 Starting Sim4D Browser Test Validation...\n');
 
     // Run all validations
     await this.validateUnitTests();

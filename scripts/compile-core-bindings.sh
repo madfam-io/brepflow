@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# BrepFlow Core OCCT Bindings Compilation Script
+# Sim4D Core OCCT Bindings Compilation Script
 # Compiles core geometry operations without complex dependencies
 
 set -e
@@ -18,7 +18,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}BrepFlow Core OCCT Bindings Compilation${NC}"
+echo -e "${GREEN}Sim4D Core OCCT Bindings Compilation${NC}"
 echo "============================================"
 
 # Activate Emscripten if needed

@@ -5,22 +5,22 @@ export function Footer() {
   const socialLinks = [
     {
       name: 'GitHub',
-      href: 'https://github.com/aureo-labs/sim4d',
+      href: 'https://github.com/madfam/sim4d',
       icon: Github,
     },
     {
       name: 'Twitter',
-      href: 'https://twitter.com/aureo_labs',
+      href: 'https://twitter.com/madfam',
       icon: Twitter,
     },
     {
       name: 'LinkedIn',
-      href: 'https://linkedin.com/company/aureo-labs',
+      href: 'https://linkedin.com/company/madfam',
       icon: Linkedin,
     },
     {
       name: 'Email',
-      href: 'mailto:hello@aureo-labs.com',
+      href: 'mailto:hello@madfam.com',
       icon: Mail,
     },
   ];
@@ -28,12 +28,12 @@ export function Footer() {
   const quickLinks = [
     { name: 'Features', href: '#features' },
     { name: 'Demo', href: '#demo' },
-    { name: 'GitHub', href: 'https://github.com/aureo-labs/sim4d' },
+    { name: 'GitHub', href: 'https://github.com/madfam/sim4d' },
     { name: 'Documentation', href: '#docs' },
   ];
 
   const companyLinks = [
-    { name: 'About Aureo Labs', href: '#about' },
+    { name: 'About Innovaciones MADFAM', href: '#about' },
     { name: 'MADFAM', href: 'https://madfam.com', external: true },
     { name: 'Careers', href: '#careers' },
     { name: 'Contact', href: '#contact' },
@@ -61,7 +61,7 @@ export function Footer() {
             </div>
             <p className="text-gray-400 mb-6 max-w-md">
               The future of parametric CAD. Browser-based, collaborative, and powered by
-              manufacturing-grade geometry. Built by Aureo Labs, a MADFAM company.
+              manufacturing-grade geometry. Built by Innovaciones MADFAM.
             </p>
 
             {/* Social Links */}
@@ -136,7 +136,7 @@ export function Footer() {
           className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center"
         >
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Aureo Labs. All rights reserved.
+            © {new Date().getFullYear()} Innovaciones MADFAM. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#privacy" className="text-gray-500 hover:text-gray-400 text-sm">

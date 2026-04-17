@@ -41,9 +41,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/aureolabs/sim4d.git",
+    "url": "https://github.com/innovacionesmadfam/sim4d.git",
     "directory": "packages/sdk"
   },
-  "author": "Aureo Labs (a MADFAM company)",
+  "author": "Innovaciones MADFAM",
   "license": "MPL-2.0"
 }

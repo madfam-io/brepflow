@@ -15,7 +15,7 @@ ERRORS=0
 WARNINGS=0
 
 echo "════════════════════════════════════════════════════════════════"
-echo "          BrepFlow CI/CD Health Check"
+echo "          Sim4D CI/CD Health Check"
 echo "════════════════════════════════════════════════════════════════"
 echo ""
 

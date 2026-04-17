@@ -58,5 +58,5 @@ For AI-assisted development context and analysis, see [/claudedocs](../claudedoc
 ## External Resources
 
 - [Sim4D Website](https://sim4d.com)
-- [GitHub Repository](https://github.com/aureo-labs/sim4d)
+- [GitHub Repository](https://github.com/madfam/sim4d)
 - [Discord Community](#)

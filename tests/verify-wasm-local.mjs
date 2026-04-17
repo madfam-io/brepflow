@@ -13,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
 
 console.log('╔════════════════════════════════════════════════╗');
-console.log('║   BrepFlow WASM Implementation Verification   ║');
+console.log('║   Sim4D WASM Implementation Verification   ║');
 console.log('╚════════════════════════════════════════════════╝\n');
 
 let totalTests = 0;

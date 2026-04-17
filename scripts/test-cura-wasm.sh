@@ -226,8 +226,8 @@ else
     echo ""
 fi
 
-# Copy binaries to BrepFlow wasm directory
-echo "📦 Packaging WASM binaries for BrepFlow..."
+# Copy binaries to Sim4D wasm directory
+echo "📦 Packaging WASM binaries for Sim4D..."
 
 WASM_OUTPUT_DIR="$PROJECT_ROOT/packages/engine-occt/wasm"
 mkdir -p "$WASM_OUTPUT_DIR"
@@ -248,13 +248,13 @@ echo "Test artifacts created:"
 echo "  - Test STL: $TEST_DIR/cube.stl"
 echo "  - Settings: $TEST_DIR/settings.json"
 echo ""
-echo "WASM binaries packaged for BrepFlow:"
+echo "WASM binaries packaged for Sim4D:"
 echo "  - packages/engine-occt/wasm/cura-engine.wasm"
 echo "  - packages/engine-occt/wasm/cura-engine.js"
 echo ""
 echo "Next steps:"
-echo "1. Integrate cura-slicer-worker.ts into BrepFlow worker system"
+echo "1. Integrate cura-slicer-worker.ts into Sim4D worker system"
 echo "2. Create CuraSlicerNode in packages/nodes-core/"
 echo "3. Add slicer UI to Studio app"
-echo "4. Test end-to-end: BrepFlow graph → STL → G-code"
+echo "4. Test end-to-end: Sim4D graph → STL → G-code"
 echo ""

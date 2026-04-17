@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ═══════════════════════════════════════════════════════════════════════════
-# BrepFlow Security Audit Script
+# Sim4D Security Audit Script
 # ═══════════════════════════════════════════════════════════════════════════
 #
 # Comprehensive security scanning for dependencies, code, secrets, and headers
@@ -104,7 +104,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         --help|-h)
             cat << EOF
-BrepFlow Security Audit Script
+Sim4D Security Audit Script
 
 Usage:
   ./scripts/security-audit.sh [OPTIONS]
@@ -151,7 +151,7 @@ mkdir -p "$SECURITY_DIR"
 REPORT_FILE="$SECURITY_DIR/audit_${TIMESTAMP}.json"
 echo '{"timestamp":"'$(date -Iseconds)'","checks":[]}' > "$REPORT_FILE"
 
-log_info "BrepFlow Security Audit - $(date)"
+log_info "Sim4D Security Audit - $(date)"
 log_info "Project: $PROJECT_ROOT"
 log_info "Mode: $([ "$CI_MODE" = true ] && echo "CI" || echo "Interactive")"
 echo ""
