@@ -12,7 +12,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-REPO_OWNER="${GITHUB_REPO_OWNER:-aureo-labs}"
+REPO_OWNER="${GITHUB_REPO_OWNER:-madfam}"
 REPO_NAME="${GITHUB_REPO_NAME:-sim4d}"
 DAYS_BACK="${CI_MONITOR_DAYS:-7}"
 
@@ -216,7 +216,7 @@ main() {
             echo "  help      - Show this help message"
             echo ""
             echo "Environment variables:"
-            echo "  GITHUB_REPO_OWNER - Repository owner (default: aureo-labs)"
+            echo "  GITHUB_REPO_OWNER - Repository owner (default: madfam)"
             echo "  GITHUB_REPO_NAME  - Repository name (default: sim4d)"
             echo "  CI_MONITOR_DAYS   - Days of history (default: 7)"
             ;;

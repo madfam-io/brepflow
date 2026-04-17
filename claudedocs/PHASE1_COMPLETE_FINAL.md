@@ -488,7 +488,7 @@ The application is ready for user validation testing and data collection to info
 
 ---
 
-**Team**: Sim4D Development (Aureo Labs)  
+**Team**: Sim4D Development (Innovaciones MADFAM)  
 **Sprint Duration**: 1 focused session  
 **Total Implementation**: ~5,000 lines of code  
 **Features Delivered**: 7/7 (100%)  

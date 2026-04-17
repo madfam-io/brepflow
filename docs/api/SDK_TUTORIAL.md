@@ -112,9 +112,7 @@ Create `src/nodes/scalable-box.ts`:
 ```typescript
 import { NodeBuilder } from '@sim4d/sdk';
 
-export const ScalableBoxNode = new NodeBuilder(
-  'Tutorial::ScalableBox'
-)
+export const ScalableBoxNode = new NodeBuilder('Tutorial::ScalableBox')
   .name('Scalable Box')
   .description('Creates a box with uniform scaling')
   .category('Tutorial')
@@ -173,9 +171,7 @@ Create `src/nodes/pattern-array.ts`:
 ```typescript
 import { NodeBuilder } from '@sim4d/sdk';
 
-export const PatternArrayNode = new NodeBuilder(
-  'Tutorial::PatternArray'
-)
+export const PatternArrayNode = new NodeBuilder('Tutorial::PatternArray')
   .name('Pattern Array')
   .description('Create linear array of shapes')
   .category('Tutorial')
@@ -247,9 +243,7 @@ Create `src/nodes/parametric-bracket.ts`:
 ```typescript
 import { NodeBuilder } from '@sim4d/sdk';
 
-export const ParametricBracketNode = new NodeBuilder(
-  'Tutorial::ParametricBracket'
-)
+export const ParametricBracketNode = new NodeBuilder('Tutorial::ParametricBracket')
   .name('Parametric Bracket')
   .description('L-shaped mounting bracket with holes')
   .category('Tutorial')
@@ -362,11 +356,7 @@ export default class TutorialPlugin extends Sim4DPlugin {
       license: 'MIT',
 
       // Declare nodes
-      nodes: [
-        'Tutorial::ScalableBox',
-        'Tutorial::PatternArray',
-        'Tutorial::ParametricBracket',
-      ],
+      nodes: ['Tutorial::ScalableBox', 'Tutorial::PatternArray', 'Tutorial::ParametricBracket'],
 
       // Request permissions
       permissions: [
@@ -404,11 +394,7 @@ export default class TutorialPlugin extends Sim4DPlugin {
   }
 
   getNodes() {
-    return [
-      ScalableBoxNode,
-      PatternArrayNode,
-      ParametricBracketNode,
-    ];
+    return [ScalableBoxNode, PatternArrayNode, ParametricBracketNode];
   }
 
   getCommands() {
@@ -487,29 +473,29 @@ Create `test/index.html`:
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Plugin Test</title>
-</head>
-<body>
-  <h1>Sim4D Plugin Test</h1>
-  <div id="app"></div>
+  <head>
+    <title>Plugin Test</title>
+  </head>
+  <body>
+    <h1>Sim4D Plugin Test</h1>
+    <div id="app"></div>
 
-  <script type="module">
-    import { pluginManager } from '@sim4d/sdk';
-    import TutorialPlugin from '../dist/index.js';
+    <script type="module">
+      import { pluginManager } from '@sim4d/sdk';
+      import TutorialPlugin from '../dist/index.js';
 
-    // Load plugin
-    const plugin = new TutorialPlugin();
-    await pluginManager.loadPlugin(plugin);
+      // Load plugin
+      const plugin = new TutorialPlugin();
+      await pluginManager.loadPlugin(plugin);
 
-    // Activate plugin
-    await pluginManager.activatePlugin('tutorial-plugin');
+      // Activate plugin
+      await pluginManager.activatePlugin('tutorial-plugin');
 
-    console.log('Plugin loaded and activated!');
-    console.log('Nodes:', plugin.getNodes());
-    console.log('Commands:', plugin.getCommands());
-  </script>
-</body>
+      console.log('Plugin loaded and activated!');
+      console.log('Nodes:', plugin.getNodes());
+      console.log('Commands:', plugin.getCommands());
+    </script>
+  </body>
 </html>
 ```
 
@@ -575,15 +561,15 @@ describe('Tutorial Plugin Integration', () => {
 
   it('should load plugin successfully', () => {
     const loaded = pluginManager.getPlugins();
-    expect(loaded.find(p => p.id === 'tutorial-plugin')).toBeDefined();
+    expect(loaded.find((p) => p.id === 'tutorial-plugin')).toBeDefined();
   });
 
   it('should register all nodes', () => {
     const nodes = plugin.getNodes();
     expect(nodes).toHaveLength(3);
-    expect(nodes.map(n => n.id)).toContain('Tutorial::ScalableBox');
-    expect(nodes.map(n => n.id)).toContain('Tutorial::PatternArray');
-    expect(nodes.map(n => n.id)).toContain('Tutorial::ParametricBracket');
+    expect(nodes.map((n) => n.id)).toContain('Tutorial::ScalableBox');
+    expect(nodes.map((n) => n.id)).toContain('Tutorial::PatternArray');
+    expect(nodes.map((n) => n.id)).toContain('Tutorial::ParametricBracket');
   });
 
   it('should register commands', () => {
@@ -609,17 +595,8 @@ describe('Tutorial Plugin Integration', () => {
     "type": "git",
     "url": "https://github.com/yourusername/my-sim4d-plugin.git"
   },
-  "keywords": [
-    "sim4d",
-    "plugin",
-    "cad",
-    "parametric"
-  ],
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ]
+  "keywords": ["sim4d", "plugin", "cad", "parametric"],
+  "files": ["dist", "README.md", "LICENSE"]
 }
 ```
 
@@ -724,6 +701,6 @@ Congratulations! You've created your first Sim4D plugin. Here are some ideas for
 
 ## Support
 
-- [GitHub Issues](https://github.com/aureolabs/sim4d/issues)
+- [GitHub Issues](https://github.com/innovacionesmadfam/sim4d/issues)
 - [Discord Community](https://discord.gg/sim4d)
 - [Documentation](https://docs.sim4d.com)

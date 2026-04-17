@@ -238,9 +238,9 @@ Track these metrics in GitHub Actions dashboard:
 
 ### Dashboards
 
-- **Actions**: https://github.com/aureo-labs/sim4d/actions
-- **Security**: https://github.com/aureo-labs/sim4d/security
-- **Insights**: https://github.com/aureo-labs/sim4d/pulse
+- **Actions**: https://github.com/madfam/sim4d/actions
+- **Security**: https://github.com/madfam/sim4d/security
+- **Insights**: https://github.com/madfam/sim4d/pulse
 
 ## Recent Changes
 

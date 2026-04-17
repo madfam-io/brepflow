@@ -1,6 +1,6 @@
 /**
  * OCCT WebAssembly Bindings - Production Version
- * Complete implementation of OCCT geometry operations for BrepFlow
+ * Complete implementation of OCCT geometry operations for Sim4D
  */
 
 #include <emscripten/bind.h>

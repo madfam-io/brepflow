@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# BrepFlow Full OCCT Bindings Compilation Script
+# Sim4D Full OCCT Bindings Compilation Script
 # Compiles the complete C++ bindings with all OCCT libraries
 
 set -e
@@ -18,7 +18,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}BrepFlow Full OCCT Bindings Compilation${NC}"
+echo -e "${GREEN}Sim4D Full OCCT Bindings Compilation${NC}"
 echo "============================================"
 
 # Activate Emscripten if needed

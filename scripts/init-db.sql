@@ -1,4 +1,4 @@
--- BrepFlow Database Initialization Script
+-- Sim4D Database Initialization Script
 -- PostgreSQL schema for collaboration and session persistence
 
 -- Enable UUID extension

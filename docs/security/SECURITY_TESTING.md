@@ -572,4 +572,4 @@ const value = obj[userInput];
 - **Security Issues**: security@sim4d.com
 - **Security Team Lead**: [TBD]
 - **CISO**: [TBD]
-- **Security Advisories**: https://github.com/aureolabs/sim4d/security/advisories
+- **Security Advisories**: https://github.com/innovacionesmadfam/sim4d/security/advisories

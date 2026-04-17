@@ -407,7 +407,7 @@ The new Docker workflows complement existing CI workflows:
 Monitor workflows at:
 
 ```
-https://github.com/aureo-labs/sim4d/actions
+https://github.com/madfam/sim4d/actions
 ```
 
 Key metrics:

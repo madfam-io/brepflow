@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Direct Import Fix for BrepFlow Generated Tests
+# Direct Import Fix for Sim4D Generated Tests
 # This script directly maps the problematic import patterns to correct ones
 
 set -e
 
-echo "🔧 Direct Import Fix for BrepFlow Tests"
+echo "🔧 Direct Import Fix for Sim4D Tests"
 echo "="$(printf '=%.0s' {1..50})
 
 # Navigate to nodes-core

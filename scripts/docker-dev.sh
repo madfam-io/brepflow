@@ -1,5 +1,5 @@
 #!/bin/bash
-# BrepFlow Docker Development Environment
+# Sim4D Docker Development Environment
 # Complete local development setup with all services
 
 set -e
@@ -12,7 +12,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 echo -e "${BLUE}╔═══════════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║   BrepFlow Docker Development Setup     ║${NC}"
+echo -e "${BLUE}║   Sim4D Docker Development Setup     ║${NC}"
 echo -e "${BLUE}╚═══════════════════════════════════════════╝${NC}"
 echo ""
 

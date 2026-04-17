@@ -1,6 +1,6 @@
 # Sim4D — SOFTWARE_SPEC.md
 
-_Owner:_ Aureo Labs (a MADFAM company)
+_Owner:_ Innovaciones MADFAM
 _Product:_ **Sim4D** — Web‑first, node‑based parametric CAD on exact B‑Rep/NURBS
 _Doc:_ Software Specification
 _Status:_ Draft v0.1 · 2025‑09‑13

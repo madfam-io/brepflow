@@ -1,4 +1,4 @@
-// Simplified OCCT WebAssembly Bindings for BrepFlow
+// Simplified OCCT WebAssembly Bindings for Sim4D
 // Uses minimal OCCT dependencies to ensure successful compilation
 
 #include <emscripten/bind.h>

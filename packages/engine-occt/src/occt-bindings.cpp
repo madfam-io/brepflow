@@ -1,4 +1,4 @@
-// OCCT WebAssembly Bindings for BrepFlow
+// OCCT WebAssembly Bindings for Sim4D
 // Provides a TypeScript-friendly interface to Open CASCADE Technology
 
 #include <emscripten/bind.h>

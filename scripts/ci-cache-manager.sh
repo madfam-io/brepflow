@@ -16,7 +16,7 @@ CACHE_WARNING_THRESHOLD_GB=10
 CACHE_CRITICAL_THRESHOLD_GB=20
 
 echo "════════════════════════════════════════════════════════════════"
-echo "          BrepFlow CI/CD Cache Manager"
+echo "          Sim4D CI/CD Cache Manager"
 echo "════════════════════════════════════════════════════════════════"
 echo ""
 

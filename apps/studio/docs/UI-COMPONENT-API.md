@@ -439,6 +439,6 @@ If upgrading from previous UI system:
 
 For issues or questions:
 
-- GitHub Issues: [github.com/aureo-labs/sim4d/issues](https://github.com/aureo-labs/sim4d/issues)
+- GitHub Issues: [github.com/madfam/sim4d/issues](https://github.com/madfam/sim4d/issues)
 - Documentation: [docs.sim4d.com](https://docs.sim4d.com)
 - Discord: [discord.gg/sim4d](https://discord.gg/sim4d)

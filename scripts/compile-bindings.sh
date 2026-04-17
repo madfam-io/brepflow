@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# BrepFlow OCCT Bindings Compilation Script
+# Sim4D OCCT Bindings Compilation Script
 # Compiles the C++ bindings with OCCT libraries to create the final WASM module
 
 set -e
@@ -20,7 +20,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}BrepFlow OCCT Bindings Compilation${NC}"
+echo -e "${GREEN}Sim4D OCCT Bindings Compilation${NC}"
 echo "===================================="
 
 # Activate Emscripten if needed

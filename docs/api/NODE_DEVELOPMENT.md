@@ -19,6 +19,7 @@ Complete guide to developing custom nodes for Sim4D.
 ### What is a Node?
 
 A node in Sim4D is a reusable computational unit that:
+
 - Takes typed inputs from other nodes
 - Has configurable parameters
 - Performs geometry operations or calculations
@@ -61,6 +62,7 @@ const MyNode = new NodeBuilder('Category::NodeName')
 Node IDs follow the pattern: `Category::NodeName`
 
 **Examples:**
+
 - `Primitives::Box`
 - `Operations::Union`
 - `Features::Fillet`
@@ -68,6 +70,7 @@ Node IDs follow the pattern: `Category::NodeName`
 - `Custom::MyNode`
 
 **Rules:**
+
 - Use PascalCase for both category and name
 - Category groups related nodes
 - Name should be descriptive and unique
@@ -189,10 +192,11 @@ Node IDs follow the pattern: `Category::NodeName`
 ### Function Signature
 
 ```typescript
-async (ctx: EvalContext, inputs: I, params: P) => Promise<O>
+async (ctx: EvalContext, inputs: I, params: P) => Promise<O>;
 ```
 
 **Parameters:**
+
 - `ctx` - Evaluation context with worker API
 - `inputs` - Values from input sockets
 - `params` - Parameter values
@@ -202,10 +206,10 @@ async (ctx: EvalContext, inputs: I, params: P) => Promise<O>
 
 ```typescript
 interface EvalContext {
-  nodeId: string;           // Current node ID
-  worker: WorkerAPI;        // Geometry worker
-  cache: Map<string, any>;  // Per-node cache
-  abort: AbortController;   // Cancellation signal
+  nodeId: string; // Current node ID
+  worker: WorkerAPI; // Geometry worker
+  cache: Map<string, any>; // Per-node cache
+  abort: AbortController; // Cancellation signal
 }
 ```
 
@@ -406,9 +410,9 @@ describe('MyCustomNode', () => {
     const inputs = {};
     const params = { width: 100, height: 50 };
 
-    await expect(
-      MyCustomNode.evaluate(ctx, inputs, params)
-    ).rejects.toThrow('Input shape is required');
+    await expect(MyCustomNode.evaluate(ctx, inputs, params)).rejects.toThrow(
+      'Input shape is required'
+    );
   });
 });
 ```
@@ -480,11 +484,13 @@ function createMockContext(): EvalContext {
 ### 1. Clear Naming
 
 ✅ **Good:**
+
 ```typescript
 .param('holeDiameter', 'number', 10, { min: 1, max: 50, unit: 'mm' })
 ```
 
 ❌ **Bad:**
+
 ```typescript
 .param('d', 'number', 10)
 ```
@@ -533,9 +539,7 @@ Provide clear error messages:
 throw new Error('Invalid input');
 
 // ✅ Good
-throw new Error(
-  `Fillet radius (${radius}mm) must be less than edge length (${edgeLength}mm)`
-);
+throw new Error(`Fillet radius (${radius}mm) must be less than edge length (${edgeLength}mm)`);
 ```
 
 ### 5. Performance Optimization
@@ -717,6 +721,6 @@ Organize nodes into logical categories:
 
 ## Support
 
-- [GitHub Issues](https://github.com/aureolabs/sim4d/issues)
+- [GitHub Issues](https://github.com/innovacionesmadfam/sim4d/issues)
 - [Discord Community](https://discord.gg/sim4d)
 - [Documentation](https://docs.sim4d.com)

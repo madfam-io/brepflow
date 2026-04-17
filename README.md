@@ -1,11 +1,11 @@
 # Sim4D
 
 **Web-first, node-based parametric CAD (alpha)**
-by **Aureo Labs** — a **MADFAM** company
+by **Innovaciones MADFAM** — a **MADFAM** company
 
-[![Docker Tests](https://github.com/aureo-labs/sim4d/actions/workflows/test-docker.yml/badge.svg)](https://github.com/aureo-labs/sim4d/actions/workflows/test-docker.yml)
-[![PR Quality Gate](https://github.com/aureo-labs/sim4d/actions/workflows/pr-quality-gate.yml/badge.svg)](https://github.com/aureo-labs/sim4d/actions/workflows/pr-quality-gate.yml)
-[![CI Pipeline](https://github.com/aureo-labs/sim4d/actions/workflows/ci.yml/badge.svg)](https://github.com/aureo-labs/sim4d/actions/workflows/ci.yml)
+[![Docker Tests](https://github.com/madfam/sim4d/actions/workflows/test-docker.yml/badge.svg)](https://github.com/madfam/sim4d/actions/workflows/test-docker.yml)
+[![PR Quality Gate](https://github.com/madfam/sim4d/actions/workflows/pr-quality-gate.yml/badge.svg)](https://github.com/madfam/sim4d/actions/workflows/pr-quality-gate.yml)
+[![CI Pipeline](https://github.com/madfam/sim4d/actions/workflows/ci.yml/badge.svg)](https://github.com/madfam/sim4d/actions/workflows/ci.yml)
 [![License: MPL‑2.0](https://img.shields.io/badge/license-MPL--2.0-blue.svg)](#license)
 
 > ✅ Sim4D now runs on **real OCCT.wasm** geometry kernel. All 25 core OCCT operations verified and functional. WASM binaries are pre-compiled and included in the repository for immediate use.
@@ -98,7 +98,7 @@ For detailed setup instructions, see [docs/development/SETUP.md](./docs/developm
 ### Clone & Install
 
 ```bash
-git clone https://github.com/aureolabs/sim4d.git
+git clone https://github.com/innovacionesmadfam/sim4d.git
 cd sim4d
 pnpm i
 ```
@@ -345,7 +345,7 @@ pnpm -w run lint       # eslint
 
 - Workers isolated; geometry ops cannot access host resources.
 - Plugin registry requires **signed packages (ed25519)**.
-- Report vulnerabilities to **[security@aureolabs.dev](mailto:security@aureolabs.dev)** (PGP key in `SECURITY.md`).
+- Report vulnerabilities to **[security@innovacionesmadfam.dev](mailto:security@innovacionesmadfam.dev)** (PGP key in `SECURITY.md`).
 
 ---
 
@@ -361,7 +361,7 @@ Anonymous aggregates only (compute timings, feature usage). Off by default. Enab
 - **Geometry kernel:** Open CASCADE Technology (OCCT) — LGPL‑2.1 with exception, dynamically linked via WASM.
 - External libraries retain their respective licenses.
 
-**Copyright ©** Aureo Labs, a MADFAM company.
+**Copyright ©** Innovaciones MADFAM.
 
 ---
 
@@ -374,7 +374,7 @@ Anonymous aggregates only (compute timings, feature usage). Off by default. Enab
 - **Setup**: See [docs/development/SETUP.md](docs/development/SETUP.md) for detailed development environment setup
 
 - Join the conversation on **Discord** (link soon) and **GitHub Discussions**.
-- Follow updates: @aureolabs on X/GitHub; blog at [https://aureolabs.dev](https://aureolabs.dev).
+- Follow updates: @innovacionesmadfam on X/GitHub; blog at [https://innovacionesmadfam.dev](https://innovacionesmadfam.dev).
 
 ---
 

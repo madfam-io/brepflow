@@ -1,4 +1,4 @@
-// Core OCCT WebAssembly Bindings for BrepFlow
+// Core OCCT WebAssembly Bindings for Sim4D
 // Essential geometry operations without complex dependencies
 
 #include <emscripten/bind.h>
