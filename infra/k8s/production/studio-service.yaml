@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sim4d-studio
+  namespace: sim4d
+spec:
+  selector:
+    app: sim4d-studio
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  type: ClusterIP

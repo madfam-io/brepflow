@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: sim4d
+
+resources:
+  - namespace.yaml
+  - studio-deployment.yaml
+  - studio-service.yaml
+  - network-policies.yaml
+
+images:
+  - name: ghcr.io/madfam-org/sim4d-studio
+    newName: ghcr.io/madfam-org/sim4d-studio
+    newTag: latest
