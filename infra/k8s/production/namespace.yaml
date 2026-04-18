@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sim4d
+  labels:
+    app.kubernetes.io/part-of: madfam-platform
+    enclii.dev/type: application
