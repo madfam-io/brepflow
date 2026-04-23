@@ -3,6 +3,12 @@
  * Data persistence and querying for Sim4D cloud services
  */
 
+/* eslint-disable max-lines --
+ * This service predates the 500-line cap and needs a focused refactor
+ * (separate user/project/share-link repositories). Tracking that as
+ * tech-debt outside the scope of audit 2026-04-23 H10 SQL-injection fix
+ * so the security change can ship without a drive-by rewrite. */
+
 import EventEmitter from 'events';
 import {
   ProjectId,
@@ -211,9 +217,17 @@ export class CloudDatabaseService extends EventEmitter {
     const setClause = [];
     const values = [];
 
-    for (const [key, value] of Object.entries(updates)) {
-      if (key === 'id') continue; // Don't update ID
-
+    const allowed = this.filterUpdatable(
+      updates,
+      CloudDatabaseService.UPDATABLE_USER_FIELDS,
+      'users'
+    );
+    if (allowed.length === 0) {
+      // Nothing legal to update — return current row rather than emitting
+      // a malformed `UPDATE users SET  WHERE id = ?`.
+      return (await this.getUserById(userId))!;
+    }
+    for (const [key, value] of allowed) {
       const dbKey = this.camelToSnake(key);
       setClause.push(`${dbKey} = ?`);
 
@@ -319,6 +333,11 @@ export class CloudDatabaseService extends EventEmitter {
     for (const [key, value] of Object.entries(updates)) {
       if (key === 'id') continue;
 
+      if (!CloudDatabaseService.UPDATABLE_PROJECT_FIELDS.has(key)) {
+        console.warn(`[cloud-database-service] Rejected unknown update key projects.${key}`);
+        continue;
+      }
+
       const dbKey = this.camelToSnake(key);
       setClause.push(`${dbKey} = ?`);
 
@@ -327,6 +346,10 @@ export class CloudDatabaseService extends EventEmitter {
       } else {
         values.push(value);
       }
+    }
+
+    if (setClause.length === 0) {
+      return (await this.getProjectById(projectId))!;
     }
 
     values.push(projectId);
@@ -472,9 +495,15 @@ export class CloudDatabaseService extends EventEmitter {
     const setClause = [];
     const values = [];
 
-    for (const [key, value] of Object.entries(updates)) {
-      if (key === 'id') continue;
-
+    const allowed = this.filterUpdatable(
+      updates,
+      CloudDatabaseService.UPDATABLE_SHARE_LINK_FIELDS,
+      'share_links'
+    );
+    if (allowed.length === 0) {
+      return (await this.getShareLink(shareId)) as ShareLink;
+    }
+    for (const [key, value] of allowed) {
       const dbKey = this.camelToSnake(key);
       setClause.push(`${dbKey} = ?`);
       values.push(value);
@@ -708,6 +737,74 @@ export class CloudDatabaseService extends EventEmitter {
    */
   private camelToSnake(str: string): string {
     return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+  }
+
+  /**
+   * Per-table column allowlist for UPDATE operations (audit 2026-04-23 H10).
+   *
+   * Prepared-statement placeholders (`?`) only parameterize values, not
+   * identifiers. An attacker-controlled key in the PATCH body (for example
+   * `{ "isAdmin": true }`) would otherwise be snake_cased into
+   * `UPDATE users SET is_admin = ?` — a silent privilege escalation if the
+   * table has such a column, a SQL error leak otherwise.
+   *
+   * These sets list the camelCase client-facing keys that may reach the
+   * column-building loop. `id` is always rejected. Anything else is
+   * dropped silently with a log line.
+   */
+  private static readonly UPDATABLE_USER_FIELDS = new Set<string>([
+    'email',
+    'name',
+    'avatar',
+    'isEmailVerified',
+    'preferences',
+    'subscription',
+    'teams',
+    'lastLoginAt',
+  ]);
+
+  private static readonly UPDATABLE_PROJECT_FIELDS = new Set<string>([
+    'name',
+    'description',
+    'ownerId',
+    'teamId',
+    'visibility',
+    'collaborators',
+    'tags',
+    'thumbnail',
+    'lastModified',
+    'size',
+    'nodeCount',
+    'cloudMetadata',
+  ]);
+
+  private static readonly UPDATABLE_SHARE_LINK_FIELDS = new Set<string>([
+    'expiresAt',
+    'accessLevel',
+    'isPublic',
+    'allowAnonymous',
+    'maxUses',
+    'currentUses',
+    'isActive',
+  ]);
+
+  private filterUpdatable<T extends object>(
+    updates: Partial<T>,
+    allowed: ReadonlySet<string>,
+    tableName: string
+  ): Array<[string, unknown]> {
+    const out: Array<[string, unknown]> = [];
+    for (const [key, value] of Object.entries(updates)) {
+      if (key === 'id') continue;
+      if (!allowed.has(key)) {
+        // Dropping silently would hide bugs; logging helps catch client
+        // mistakes without 500-ing the request.
+        console.warn(`[cloud-database-service] Rejected unknown update key ${tableName}.${key}`);
+        continue;
+      }
+      out.push([key, value]);
+    }
+    return out;
   }
 
   private generateUserId(): UserId {
