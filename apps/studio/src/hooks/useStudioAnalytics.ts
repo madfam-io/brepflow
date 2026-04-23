@@ -11,7 +11,7 @@ import {
   useAnalytics,
   useFeatureTracking,
   useErrorTracking,
-  type AnalyticsConfig
+  type AnalyticsConfig,
 } from '@madfam/analytics';
 
 // CAD-specific event types
@@ -71,8 +71,10 @@ export function initializeStudioAnalytics(): void {
   try {
     analytics.initialize(STUDIO_ANALYTICS_CONFIG);
     analyticsInitialized = true;
-    console.log('[Analytics] Studio analytics initialized');
+    // Dev-only chatter (audit 2026-04-23).
+    if (import.meta.env.DEV) console.log('[Analytics] Studio analytics initialized');
   } catch (error) {
+    // Warnings stay on in prod — ops needs analytics-backend outages.
     console.warn('[Analytics] Failed to initialize:', error);
   }
 }
@@ -80,6 +82,7 @@ export function initializeStudioAnalytics(): void {
 /**
  * Main hook for studio analytics
  */
+// eslint-disable-next-line max-lines-per-function -- pre-existing 131-line hook; refactor tracked separately (audit 2026-04-23 follow-up)
 export function useStudioAnalytics() {
   const baseAnalytics = useAnalytics();
   const { trackFeatureUsed, trackSearch, trackFilterApplied } = useFeatureTracking();
@@ -91,99 +94,135 @@ export function useStudioAnalytics() {
   }, []);
 
   // Node operations
-  const trackNodeAdded = useCallback((props: NodeEventProps) => {
-    trackFeatureUsed('Node Added', props.nodeType);
-    baseAnalytics.trackEventBatched('Feature Used' as any, {
-      feature: 'node_added',
-      node_type: props.nodeType,
-      source: props.source || 'palette',
-    });
-  }, [baseAnalytics, trackFeatureUsed]);
+  const trackNodeAdded = useCallback(
+    (props: NodeEventProps) => {
+      trackFeatureUsed('Node Added', props.nodeType);
+      baseAnalytics.trackEventBatched('Feature Used' as any, {
+        feature: 'node_added',
+        node_type: props.nodeType,
+        source: props.source || 'palette',
+      });
+    },
+    [baseAnalytics, trackFeatureUsed]
+  );
 
-  const trackNodeConnected = useCallback((sourceType: string, targetType: string) => {
-    trackFeatureUsed('Node Connected', `${sourceType} → ${targetType}`);
-  }, [trackFeatureUsed]);
+  const trackNodeConnected = useCallback(
+    (sourceType: string, targetType: string) => {
+      trackFeatureUsed('Node Connected', `${sourceType} → ${targetType}`);
+    },
+    [trackFeatureUsed]
+  );
 
-  const trackNodeDeleted = useCallback((nodeType: string, nodeCount: number = 1) => {
-    trackFeatureUsed('Node Deleted', nodeType);
-    baseAnalytics.trackEventBatched('Feature Used' as any, {
-      feature: 'node_deleted',
-      node_type: nodeType,
-      count: nodeCount.toString(),
-    });
-  }, [baseAnalytics, trackFeatureUsed]);
+  const trackNodeDeleted = useCallback(
+    (nodeType: string, nodeCount: number = 1) => {
+      trackFeatureUsed('Node Deleted', nodeType);
+      baseAnalytics.trackEventBatched('Feature Used' as any, {
+        feature: 'node_deleted',
+        node_type: nodeType,
+        count: nodeCount.toString(),
+      });
+    },
+    [baseAnalytics, trackFeatureUsed]
+  );
 
   // Model operations
-  const trackModelExported = useCallback((props: ExportEventProps) => {
-    baseAnalytics.trackGoal('model_export', props.fileSize);
-    trackFeatureUsed('Model Exported', props.format);
-    baseAnalytics.trackEventBatched('Feature Used' as any, {
-      feature: 'model_exported',
-      format: props.format,
-      node_count: props.nodeCount.toString(),
-      duration_ms: props.duration?.toString(),
-    });
-  }, [baseAnalytics, trackFeatureUsed]);
+  const trackModelExported = useCallback(
+    (props: ExportEventProps) => {
+      baseAnalytics.trackGoal('model_export', props.fileSize);
+      trackFeatureUsed('Model Exported', props.format);
+      baseAnalytics.trackEventBatched('Feature Used' as any, {
+        feature: 'model_exported',
+        format: props.format,
+        node_count: props.nodeCount.toString(),
+        duration_ms: props.duration?.toString(),
+      });
+    },
+    [baseAnalytics, trackFeatureUsed]
+  );
 
-  const trackModelImported = useCallback((format: string, success: boolean) => {
-    trackFeatureUsed('Model Imported', format);
-    if (!success) {
-      trackError('import_failed', format, 'medium');
-    }
-  }, [trackFeatureUsed, trackError]);
+  const trackModelImported = useCallback(
+    (format: string, success: boolean) => {
+      trackFeatureUsed('Model Imported', format);
+      if (!success) {
+        trackError('import_failed', format, 'medium');
+      }
+    },
+    [trackFeatureUsed, trackError]
+  );
 
   // Collaboration
-  const trackCollaborationStarted = useCallback((props: CollaborationEventProps) => {
-    baseAnalytics.trackProductFunnelStep('demo', 'sim4d-collaboration', {
-      session_id: props.sessionId,
-      role: props.role,
-    });
-    trackFeatureUsed('Collaboration Started', props.role);
-  }, [baseAnalytics, trackFeatureUsed]);
+  const trackCollaborationStarted = useCallback(
+    (props: CollaborationEventProps) => {
+      baseAnalytics.trackProductFunnelStep('demo', 'sim4d-collaboration', {
+        session_id: props.sessionId,
+        role: props.role,
+      });
+      trackFeatureUsed('Collaboration Started', props.role);
+    },
+    [baseAnalytics, trackFeatureUsed]
+  );
 
-  const trackCollaborationEnded = useCallback((props: CollaborationEventProps & { duration: number }) => {
-    trackFeatureUsed('Collaboration Ended', props.role);
-    baseAnalytics.trackEngagement('focus', 'collaboration_session', props.duration);
-  }, [baseAnalytics, trackFeatureUsed]);
+  const trackCollaborationEnded = useCallback(
+    (props: CollaborationEventProps & { duration: number }) => {
+      trackFeatureUsed('Collaboration Ended', props.role);
+      baseAnalytics.trackEngagement('focus', 'collaboration_session', props.duration);
+    },
+    [baseAnalytics, trackFeatureUsed]
+  );
 
   // Template usage
-  const trackTemplateUsed = useCallback((props: TemplateEventProps) => {
-    trackFeatureUsed('Template Used', props.templateName);
-    baseAnalytics.trackEventBatched('Feature Used' as any, {
-      feature: 'template_used',
-      template_id: props.templateId,
-      template_name: props.templateName,
-      category: props.category,
-    });
-  }, [baseAnalytics, trackFeatureUsed]);
+  const trackTemplateUsed = useCallback(
+    (props: TemplateEventProps) => {
+      trackFeatureUsed('Template Used', props.templateName);
+      baseAnalytics.trackEventBatched('Feature Used' as any, {
+        feature: 'template_used',
+        template_id: props.templateId,
+        template_name: props.templateName,
+        category: props.category,
+      });
+    },
+    [baseAnalytics, trackFeatureUsed]
+  );
 
   // Viewport interactions
-  const trackViewportChanged = useCallback((action: 'zoom' | 'pan' | 'rotate' | 'fit') => {
-    // Batch viewport events to avoid noise
-    baseAnalytics.trackEventBatched('Feature Used' as any, {
-      feature: 'viewport_changed',
-      action,
-    });
-  }, [baseAnalytics]);
+  const trackViewportChanged = useCallback(
+    (action: 'zoom' | 'pan' | 'rotate' | 'fit') => {
+      // Batch viewport events to avoid noise
+      baseAnalytics.trackEventBatched('Feature Used' as any, {
+        feature: 'viewport_changed',
+        action,
+      });
+    },
+    [baseAnalytics]
+  );
 
   // Parameter changes
-  const trackParameterChanged = useCallback((nodeType: string, parameterName: string) => {
-    baseAnalytics.trackEventBatched('Feature Used' as any, {
-      feature: 'parameter_changed',
-      node_type: nodeType,
-      parameter: parameterName,
-    });
-  }, [baseAnalytics]);
+  const trackParameterChanged = useCallback(
+    (nodeType: string, parameterName: string) => {
+      baseAnalytics.trackEventBatched('Feature Used' as any, {
+        feature: 'parameter_changed',
+        node_type: nodeType,
+        parameter: parameterName,
+      });
+    },
+    [baseAnalytics]
+  );
 
   // Node search
-  const trackNodeSearch = useCallback((query: string, resultsCount: number) => {
-    trackSearch(query, resultsCount, 'node_palette');
-  }, [trackSearch]);
+  const trackNodeSearch = useCallback(
+    (query: string, resultsCount: number) => {
+      trackSearch(query, resultsCount, 'node_palette');
+    },
+    [trackSearch]
+  );
 
   // Node filter
-  const trackNodeFilter = useCallback((category: string) => {
-    trackFilterApplied('node_category', category, 'node_palette');
-  }, [trackFilterApplied]);
+  const trackNodeFilter = useCallback(
+    (category: string) => {
+      trackFilterApplied('node_category', category, 'node_palette');
+    },
+    [trackFilterApplied]
+  );
 
   // Session tracking
   const trackSessionStarted = useCallback(() => {
@@ -191,25 +230,31 @@ export function useStudioAnalytics() {
     trackFeatureUsed('Session Started', 'studio');
   }, [baseAnalytics, trackFeatureUsed]);
 
-  const trackSessionEnded = useCallback((duration: number, nodeCount: number) => {
-    baseAnalytics.trackSessionQuality(
-      Math.min(100, Math.round((nodeCount / Math.max(1, duration / 60000)) * 10)),
-      {
-        duration_minutes: Math.round(duration / 60000).toString(),
-        node_count: nodeCount.toString(),
-      }
-    );
-    baseAnalytics.flush();
-  }, [baseAnalytics]);
+  const trackSessionEnded = useCallback(
+    (duration: number, nodeCount: number) => {
+      baseAnalytics.trackSessionQuality(
+        Math.min(100, Math.round((nodeCount / Math.max(1, duration / 60000)) * 10)),
+        {
+          duration_minutes: Math.round(duration / 60000).toString(),
+          node_count: nodeCount.toString(),
+        }
+      );
+      baseAnalytics.flush();
+    },
+    [baseAnalytics]
+  );
 
   // Error tracking
-  const trackStudioError = useCallback((
-    error: string,
-    context: 'engine' | 'viewport' | 'collaboration' | 'export' | 'import',
-    severity: 'low' | 'medium' | 'high' = 'medium'
-  ) => {
-    trackError(error, context, severity);
-  }, [trackError]);
+  const trackStudioError = useCallback(
+    (
+      error: string,
+      context: 'engine' | 'viewport' | 'collaboration' | 'export' | 'import',
+      severity: 'low' | 'medium' | 'high' = 'medium'
+    ) => {
+      trackError(error, context, severity);
+    },
+    [trackError]
+  );
 
   return {
     // Node operations
