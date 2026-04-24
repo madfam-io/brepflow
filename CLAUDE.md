@@ -243,3 +243,11 @@ types → schemas → engine-core → engine-occt → sdk → nodes-core → vie
 5. **Determinism**: All geometry operations must be deterministic for content-addressed caching
 6. **Memory Management**: LRU caches for meshes, worker restarts on memory pressure
 7. **Testing Philosophy**: Unit tests for logic, integration for workflows, E2E for user journeys
+
+## Known Issues — Audit 2026-04-23
+
+See `/Users/aldoruizluna/labspace/claudedocs/ECOSYSTEM_AUDIT_2026-04-23.md` for the full ecosystem audit.
+
+- ~~**🟠 H10: Dynamic column names in UPDATE `setClause`**~~ — Fixed 2026-04-23: per-table allowlists (`UPDATABLE_USER_FIELDS`, `UPDATABLE_PROJECT_FIELDS`, `UPDATABLE_SHARE_LINK_FIELDS`) + `filterUpdatable` helper. Unknown keys (e.g. attacker-supplied `isAdmin`) are dropped with a console warn and never reach the SQL generator.
+- **🟡 a11y: missing `<html lang>`** — add to root layout.
+- **🟡 UI: `console.log` in production** — `hooks/useStudioAnalytics.ts:74`, `components/monitoring/MonitoringDashboard.tsx:267`. Gate on `NODE_ENV !== 'production'`.
