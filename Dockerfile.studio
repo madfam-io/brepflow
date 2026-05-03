@@ -1,9 +1,18 @@
+# syntax=docker/dockerfile:1.7
 FROM node:22.12-bullseye
 
 # Install pnpm
 ENV PNPM_HOME=/root/.local/share/pnpm
 ENV PATH=$PNPM_HOME:$PATH
 RUN corepack enable && corepack prepare pnpm@8.6.7 --activate
+
+# Configure pnpm to keep its store inside the BuildKit cache mount
+# below — without this, pnpm hard-link-fallback materializes copies
+# inside /app on every build and the engine-occt + viewport packages
+# blow past default ubuntu-latest runner memory pressure (exit 254 at
+# install time). Cache mount keeps the store on tmpfs/cache layer and
+# only the linked outputs land in the image.
+RUN pnpm config set store-dir /pnpm-store
 
 WORKDIR /app
 
@@ -17,8 +26,14 @@ COPY apps/studio ./apps/studio
 COPY config ./config
 COPY scripts ./scripts
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# Install dependencies — `--mount=type=cache` keeps the pnpm store
+# across builds, drastically reducing both install time and the
+# peak-memory footprint that was OOM-ing ubuntu-latest runners
+# (sim4d enclii-build.yml run 24868316640 onward, 2026-04-18+).
+# `sharing=locked` serializes concurrent builds so the store doesn't
+# corrupt under matrix parallelism.
+RUN --mount=type=cache,id=sim4d-pnpm-store,target=/pnpm-store,sharing=locked \
+    pnpm install --frozen-lockfile
 
 # Build dependencies (types, engine-core, etc.)
 RUN pnpm --filter @sim4d/types run build
