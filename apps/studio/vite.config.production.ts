@@ -50,11 +50,15 @@ export default defineConfig({
       'Cross-Origin-Opener-Policy': 'same-origin',
       'Cross-Origin-Embedder-Policy': 'require-corp',
       // Security headers
+      // X-Frame-Options downgraded from DENY to SAMEORIGIN as a legacy fallback for
+      // the Selva Atrium iframe pattern; modern browsers honor frame-ancestors below.
       'X-Content-Type-Options': 'nosniff',
-      'X-Frame-Options': 'DENY',
+      'X-Frame-Options': 'SAMEORIGIN',
       'X-XSS-Protection': '1; mode=block',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
       // CSP for production
+      // frame-ancestors: allows the Selva Atrium (selva-office consumer feature)
+      // to embed the Studio. Same operator on both sides.
       'Content-Security-Policy': [
         "default-src 'self'",
         "script-src 'self' 'wasm-unsafe-eval'",
@@ -63,6 +67,7 @@ export default defineConfig({
         "connect-src 'self' https://api.sim4d.com",
         "worker-src 'self' blob:",
         "frame-src 'none'",
+        "frame-ancestors 'self' https://selva.town https://*.selva.town https://*.madfam.io",
         "object-src 'none'",
         "base-uri 'self'",
         "form-action 'self'",
