@@ -7,7 +7,7 @@ metadata:
     app: sim4d-studio
     app.kubernetes.io/name: sim4d-studio
     app.kubernetes.io/component: frontend
-    app.kubernetes.io/part-of: madfam-platform
+    app.kubernetes.io/part-of: sim4d
 spec:
   replicas: 2
   selector:
@@ -18,7 +18,7 @@ spec:
       labels:
         app: sim4d-studio
         app.kubernetes.io/name: sim4d-studio
-        app.kubernetes.io/part-of: madfam-platform
+        app.kubernetes.io/part-of: sim4d
     spec:
       securityContext:
         runAsNonRoot: true
