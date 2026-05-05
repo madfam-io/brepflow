@@ -1,0 +1,117 @@
+diff --git a/apps/studio/vite.config.production.ts b/apps/studio/vite.config.production.ts
+index f7154185..c49661c2 100644
+--- a/apps/studio/vite.config.production.ts
++++ b/apps/studio/vite.config.production.ts
+@@ -50,11 +50,15 @@ export default defineConfig({
+       'Cross-Origin-Opener-Policy': 'same-origin',
+       'Cross-Origin-Embedder-Policy': 'require-corp',
+       // Security headers
++      // X-Frame-Options downgraded from DENY to SAMEORIGIN as a legacy fallback for
++      // the Selva Atrium iframe pattern; modern browsers honor frame-ancestors below.
+       'X-Content-Type-Options': 'nosniff',
+-      'X-Frame-Options': 'DENY',
++      'X-Frame-Options': 'SAMEORIGIN',
+       'X-XSS-Protection': '1; mode=block',
+       'Referrer-Policy': 'strict-origin-when-cross-origin',
+       // CSP for production
++      // frame-ancestors: allows the Selva Atrium (selva-office consumer feature)
++      // to embed the Studio. Same operator on both sides.
+       'Content-Security-Policy': [
+         "default-src 'self'",
+         "script-src 'self' 'wasm-unsafe-eval'",
+@@ -63,6 +67,7 @@ export default defineConfig({
+         "connect-src 'self' https://api.sim4d.com",
+         "worker-src 'self' blob:",
+         "frame-src 'none'",
++        "frame-ancestors 'self' https://selva.town https://*.selva.town https://*.madfam.io",
+         "object-src 'none'",
+         "base-uri 'self'",
+         "form-action 'self'",
+diff --git a/apps/studio/vite.config.ts b/apps/studio/vite.config.ts
+index 8d8b2136..8ba6b25c 100644
+--- a/apps/studio/vite.config.ts
++++ b/apps/studio/vite.config.ts
+@@ -158,6 +158,8 @@ export default defineConfig({
+       // SECURITY: Content Security Policy
+       // Note: 'unsafe-inline' is allowed in development for React Fast Refresh (HMR)
+       // Production builds use strict CSP without inline scripts
++      // frame-ancestors: allows the Selva Atrium (selva-office consumer feature) to
++      // embed the Studio. Same operator (Innovaciones MADFAM) on both sides.
+       'Content-Security-Policy': [
+         "default-src 'self'",
+         "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'", // unsafe-inline required for React Fast Refresh in dev
+@@ -166,14 +168,16 @@ export default defineConfig({
+         "img-src 'self' data: blob:",
+         "font-src 'self' data:",
+         "connect-src 'self' ws: wss:", // WebSocket for dev server HMR
+-        "frame-ancestors 'none'",
++        "frame-ancestors 'self' https://selva.town https://*.selva.town https://*.madfam.io",
+         "base-uri 'self'",
+         "form-action 'self'",
+       ].join('; '),
+ 
+       // SECURITY: Additional security headers
++      // X-Frame-Options downgraded from DENY to SAMEORIGIN as a legacy fallback
++      // for the Selva Atrium iframe pattern; modern browsers honor frame-ancestors.
+       'X-Content-Type-Options': 'nosniff',
+-      'X-Frame-Options': 'DENY',
++      'X-Frame-Options': 'SAMEORIGIN',
+       'X-XSS-Protection': '1; mode=block',
+       'Referrer-Policy': 'strict-origin-when-cross-origin',
+       'Permissions-Policy': 'geolocation=(), microphone=(), camera=()',
+@@ -201,6 +205,7 @@ export default defineConfig({
+       'Cross-Origin-Embedder-Policy': 'require-corp',
+ 
+       // SECURITY: Content Security Policy (same as dev server)
++      // frame-ancestors: see dev server comment above — Selva Atrium allowance.
+       'Content-Security-Policy': [
+         "default-src 'self'",
+         "script-src 'self' 'wasm-unsafe-eval'",
+@@ -209,14 +214,14 @@ export default defineConfig({
+         "img-src 'self' data: blob:",
+         "font-src 'self' data:",
+         "connect-src 'self' ws: wss:",
+-        "frame-ancestors 'none'",
++        "frame-ancestors 'self' https://selva.town https://*.selva.town https://*.madfam.io",
+         "base-uri 'self'",
+         "form-action 'self'",
+       ].join('; '),
+ 
+       // SECURITY: Additional security headers
+       'X-Content-Type-Options': 'nosniff',
+-      'X-Frame-Options': 'DENY',
++      'X-Frame-Options': 'SAMEORIGIN',
+       'X-XSS-Protection': '1; mode=block',
+       'Referrer-Policy': 'strict-origin-when-cross-origin',
+       'Permissions-Policy': 'geolocation=(), microphone=(), camera=()',
+diff --git a/tests/security/csp-enforcement.test.ts b/tests/security/csp-enforcement.test.ts
+index 28842c8c..a73f4a52 100644
+--- a/tests/security/csp-enforcement.test.ts
++++ b/tests/security/csp-enforcement.test.ts
+@@ -106,12 +106,23 @@ describe('Content Security Policy (CSP)', () => {
+       expect(policy['connect-src']).toContain('wss:');
+     });
+ 
+-    it('should block frame embedding', () => {
++    it('should permit Selva Atrium and same-origin to embed (frame-ancestors)', () => {
++      // Selva Atrium (selva-office consumer feature) is permitted to iframe the
++      // Studio. Same operator owns both — no third-party trust boundary relaxed.
+       const policy = {
+-        'frame-ancestors': ["'none'"], // Prevent clickjacking
++        'frame-ancestors': [
++          "'self'",
++          'https://selva.town',
++          'https://*.selva.town',
++          'https://*.madfam.io',
++        ],
+       };
+ 
+-      expect(policy['frame-ancestors']).toContain("'none'");
++      expect(policy['frame-ancestors']).toContain("'self'");
++      expect(policy['frame-ancestors']).toContain('https://selva.town');
++      expect(policy['frame-ancestors']).toContain('https://*.selva.town');
++      expect(policy['frame-ancestors']).toContain('https://*.madfam.io');
++      expect(policy['frame-ancestors']).not.toContain("'none'");
+     });
+ 
+     it('should enable upgrade-insecure-requests', () => {
