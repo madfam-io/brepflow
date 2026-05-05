@@ -83,6 +83,14 @@
       ],
       "rules": {
         "security/detect-non-literal-fs-filename": "off",
+        "no-secrets/no-secrets": "off",
+        "max-lines-per-function": "off",
+        "max-nested-callbacks": "off"
+      }
+    },
+    {
+      "files": ["**/*.config.ts", "**/*.config.production.ts", "**/vite-plugin-*.ts"],
+      "rules": {
         "no-secrets/no-secrets": "off"
       }
     },

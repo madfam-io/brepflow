@@ -106,12 +106,23 @@ describe('Content Security Policy (CSP)', () => {
       expect(policy['connect-src']).toContain('wss:');
     });
 
-    it('should block frame embedding', () => {
+    it('should permit Selva Atrium and same-origin to embed (frame-ancestors)', () => {
+      // Selva Atrium (selva-office consumer feature) is permitted to iframe the
+      // Studio. Same operator owns both — no third-party trust boundary relaxed.
       const policy = {
-        'frame-ancestors': ["'none'"], // Prevent clickjacking
+        'frame-ancestors': [
+          "'self'",
+          'https://selva.town',
+          'https://*.selva.town',
+          'https://*.madfam.io',
+        ],
       };
 
-      expect(policy['frame-ancestors']).toContain("'none'");
+      expect(policy['frame-ancestors']).toContain("'self'");
+      expect(policy['frame-ancestors']).toContain('https://selva.town');
+      expect(policy['frame-ancestors']).toContain('https://*.selva.town');
+      expect(policy['frame-ancestors']).toContain('https://*.madfam.io');
+      expect(policy['frame-ancestors']).not.toContain("'none'");
     });
 
     it('should enable upgrade-insecure-requests', () => {
@@ -142,7 +153,7 @@ describe('Content Security Policy (CSP)', () => {
       // CSP blocks javascript: and other dangerous protocol URLs
       const testUrl = 'javascript:alert(1)';
       const dangerousSchemes = ['javascript:', 'data:', 'vbscript:', 'file:', 'about:'];
-      const isDangerousUrl = dangerousSchemes.some(scheme =>
+      const isDangerousUrl = dangerousSchemes.some((scheme) =>
         testUrl.toLowerCase().startsWith(scheme)
       );
 

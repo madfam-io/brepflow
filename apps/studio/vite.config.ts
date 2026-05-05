@@ -15,6 +15,66 @@ const NODE_BUILTIN_WARNING_PATTERNS = [
 
 const OCCT_ASSET_DOC_PATH = 'docs/implementation/OCCT_ASSET_STRATEGY.md';
 
+/**
+ * Manual-chunk routing rules. Each rule's `match` runs against the resolved
+ * module id; the first hit decides the chunk name. Extracted from manualChunks
+ * to keep that function below the eslint complexity limit (15).
+ */
+const MANUAL_CHUNK_RULES: Array<{ chunk: string; match: (id: string) => boolean }> = [
+  {
+    chunk: 'react-vendor',
+    match: (id) => id.includes('node_modules/react/') || id.includes('node_modules/react-dom/'),
+  },
+  {
+    chunk: 'router-vendor',
+    match: (id) =>
+      id.includes('node_modules/react-router-dom/') || id.includes('node_modules/@remix-run/'),
+  },
+  {
+    chunk: 'reactflow-vendor',
+    match: (id) =>
+      id.includes('node_modules/reactflow/') || id.includes('node_modules/@reactflow/'),
+  },
+  {
+    chunk: 'three-vendor',
+    match: (id) =>
+      id.includes('node_modules') &&
+      (id.match(/[\\/]three[\\/]/) !== null ||
+        id.match(/[\\/]three-stdlib[\\/]/) !== null ||
+        id.endsWith('/three') ||
+        id.endsWith('\\three')),
+  },
+  {
+    chunk: 'animation-vendor',
+    match: (id) => id.includes('node_modules/framer-motion/'),
+  },
+  {
+    chunk: 'ui-vendor',
+    match: (id) =>
+      id.includes('node_modules/@dnd-kit/') ||
+      id.includes('node_modules/react-resizable-panels/') ||
+      id.includes('node_modules/lucide-react/'),
+  },
+  {
+    chunk: 'state-vendor',
+    match: (id) =>
+      id.includes('node_modules/zustand/') ||
+      id.includes('node_modules/immer/') ||
+      id.includes('node_modules/comlink/'),
+  },
+  { chunk: 'engine-core', match: (id) => id.includes('@sim4d/engine-core') },
+  { chunk: 'engine-occt', match: (id) => id.includes('@sim4d/engine-occt') },
+  { chunk: 'nodes-core', match: (id) => id.includes('@sim4d/nodes-core') },
+  { chunk: 'sim4d-vendor', match: (id) => id.includes('@sim4d/') },
+];
+
+function resolveManualChunk(id: string): string | undefined {
+  for (const rule of MANUAL_CHUNK_RULES) {
+    if (rule.match(id)) return rule.chunk;
+  }
+  return undefined;
+}
+
 interface SuppressedLogDescriptor {
   onceKey: string;
   test(message: string): boolean;
@@ -158,6 +218,8 @@ export default defineConfig({
       // SECURITY: Content Security Policy
       // Note: 'unsafe-inline' is allowed in development for React Fast Refresh (HMR)
       // Production builds use strict CSP without inline scripts
+      // frame-ancestors: allows the Selva Atrium (selva-office consumer feature) to
+      // embed the Studio. Same operator (Innovaciones MADFAM) on both sides.
       'Content-Security-Policy': [
         "default-src 'self'",
         "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'", // unsafe-inline required for React Fast Refresh in dev
@@ -166,14 +228,16 @@ export default defineConfig({
         "img-src 'self' data: blob:",
         "font-src 'self' data:",
         "connect-src 'self' ws: wss:", // WebSocket for dev server HMR
-        "frame-ancestors 'none'",
+        "frame-ancestors 'self' https://selva.town https://*.selva.town https://*.madfam.io",
         "base-uri 'self'",
         "form-action 'self'",
       ].join('; '),
 
       // SECURITY: Additional security headers
+      // X-Frame-Options downgraded from DENY to SAMEORIGIN as a legacy fallback
+      // for the Selva Atrium iframe pattern; modern browsers honor frame-ancestors.
       'X-Content-Type-Options': 'nosniff',
-      'X-Frame-Options': 'DENY',
+      'X-Frame-Options': 'SAMEORIGIN',
       'X-XSS-Protection': '1; mode=block',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
       'Permissions-Policy': 'geolocation=(), microphone=(), camera=()',
@@ -201,6 +265,7 @@ export default defineConfig({
       'Cross-Origin-Embedder-Policy': 'require-corp',
 
       // SECURITY: Content Security Policy (same as dev server)
+      // frame-ancestors: see dev server comment above — Selva Atrium allowance.
       'Content-Security-Policy': [
         "default-src 'self'",
         "script-src 'self' 'wasm-unsafe-eval'",
@@ -209,14 +274,14 @@ export default defineConfig({
         "img-src 'self' data: blob:",
         "font-src 'self' data:",
         "connect-src 'self' ws: wss:",
-        "frame-ancestors 'none'",
+        "frame-ancestors 'self' https://selva.town https://*.selva.town https://*.madfam.io",
         "base-uri 'self'",
         "form-action 'self'",
       ].join('; '),
 
       // SECURITY: Additional security headers
       'X-Content-Type-Options': 'nosniff',
-      'X-Frame-Options': 'DENY',
+      'X-Frame-Options': 'SAMEORIGIN',
       'X-XSS-Protection': '1; mode=block',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
       'Permissions-Policy': 'geolocation=(), microphone=(), camera=()',
@@ -313,79 +378,7 @@ export default defineConfig({
       },
       // Don't externalize - these are polyfilled/mocked
       output: {
-        manualChunks: (id) => {
-          // Core React dependencies
-          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
-            return 'react-vendor';
-          }
-
-          // React Router
-          if (
-            id.includes('node_modules/react-router-dom/') ||
-            id.includes('node_modules/@remix-run/')
-          ) {
-            return 'router-vendor';
-          }
-
-          // ReactFlow and its dependencies
-          if (id.includes('node_modules/reactflow/') || id.includes('node_modules/@reactflow/')) {
-            return 'reactflow-vendor';
-          }
-
-          // Three.js and related 3D libraries
-          if (id.includes('node_modules')) {
-            if (
-              id.match(/[\\/]three[\\/]/) ||
-              id.match(/[\\/]three-stdlib[\\/]/) ||
-              id.endsWith('/three') ||
-              id.endsWith('\\three')
-            ) {
-              return 'three-vendor';
-            }
-          }
-
-          // UI animation libraries
-          if (id.includes('node_modules/framer-motion/')) {
-            return 'animation-vendor';
-          }
-
-          // UI component libraries
-          if (
-            id.includes('node_modules/@dnd-kit/') ||
-            id.includes('node_modules/react-resizable-panels/') ||
-            id.includes('node_modules/lucide-react/')
-          ) {
-            return 'ui-vendor';
-          }
-
-          // State management and utilities
-          if (
-            id.includes('node_modules/zustand/') ||
-            id.includes('node_modules/immer/') ||
-            id.includes('node_modules/comlink/')
-          ) {
-            return 'state-vendor';
-          }
-
-          // Sim4D engine packages - split into separate chunks
-          if (id.includes('@sim4d/engine-core')) {
-            return 'engine-core';
-          }
-
-          if (id.includes('@sim4d/engine-occt')) {
-            return 'engine-occt';
-          }
-
-          // Sim4D nodes - large package, separate chunk
-          if (id.includes('@sim4d/nodes-core')) {
-            return 'nodes-core';
-          }
-
-          // Other Sim4D packages
-          if (id.includes('@sim4d/')) {
-            return 'sim4d-vendor';
-          }
-        },
+        manualChunks: (id) => resolveManualChunk(id),
         // Optimize chunk names for better caching
         chunkFileNames: (chunkInfo) => {
           const facadeModuleId = chunkInfo.facadeModuleId
