@@ -9,6 +9,8 @@ build
 .turbo
 **/dist
 **/build
+!packages/geom-core/dist
+!packages/geom-core/dist/**
 
 # Development
 .vite
