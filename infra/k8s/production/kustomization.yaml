@@ -4,12 +4,12 @@ kind: Kustomization
 namespace: sim4d
 
 resources:
-  - namespace.yaml
-  - studio-deployment.yaml
-  - studio-service.yaml
-  - network-policies.yaml
+- namespace.yaml
+- studio-deployment.yaml
+- studio-service.yaml
+- network-policies.yaml
 
 images:
-  - name: ghcr.io/madfam-org/sim4d-studio
-    newName: ghcr.io/madfam-org/sim4d-studio
-    newTag: latest
+- digest: sha256:879302dbe133423de5ec9cd4eaccb2bcd9dd39c230dc4696eee4d8d3ce2c15b7
+  name: ghcr.io/madfam-org/sim4d-studio
+  newName: ghcr.io/madfam-org/sim4d-studio
