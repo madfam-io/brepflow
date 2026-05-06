@@ -47,5 +47,8 @@ RUN pnpm --filter @sim4d/viewport run build
 
 EXPOSE 5173
 
-# Development server with hot reload
-CMD ["pnpm", "--filter", "@sim4d/studio", "run", "dev", "--host", "0.0.0.0"]
+WORKDIR /app/apps/studio
+
+# Development server with hot reload. Use node directly so runtime does
+# not depend on Corepack writing to a home cache under the non-root user.
+CMD ["node", "node_modules/vite/bin/vite.js", "--host", "0.0.0.0"]
