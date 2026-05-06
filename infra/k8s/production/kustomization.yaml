@@ -10,6 +10,6 @@ resources:
 - network-policies.yaml
 
 images:
-- digest: sha256:57aa16ab5484c76529351d9ad2148843cedbc79a0b8749dff2e2587c823da59b
+- digest: sha256:b5981a39ca1cb26dff321249f6673aa57357eb81ab59ac6cf3b9364031947974
   name: ghcr.io/madfam-org/sim4d-studio
   newName: ghcr.io/madfam-org/sim4d-studio
