@@ -14,6 +14,15 @@ on:
     paths:
       - 'apps/studio/**'
       - 'packages/**'
+      - 'config/**'
+      - 'scripts/**'
+      - '.dockerignore'
+      - '.npmrc'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'tsconfig*.json'
+      - 'turbo.json'
       - 'Dockerfile.studio'
       - '.github/workflows/enclii-build.yml'
   workflow_dispatch: {}
