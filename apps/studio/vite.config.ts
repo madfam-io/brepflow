@@ -192,6 +192,7 @@ let originalConsoleWarn: ((...args: unknown[]) => void) | undefined;
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  cacheDir: process.env.VITE_CACHE_DIR ?? '/tmp/sim4d-studio-vite-cache',
   plugins: [
     wasmWorkerFixPlugin(), // Must run first to fix worker calls in WASM files
     react({
@@ -301,6 +302,10 @@ export default defineConfig({
       '@sim4d/engine-occt': resolve(configDir, '../../packages/engine-occt/src/index.ts'),
       '@sim4d/types': resolve(configDir, '../../packages/types/src/index.ts'),
       '@sim4d/viewport': resolve(configDir, '../../packages/viewport/src/index.ts'),
+      '@sim4d/collaboration/client': resolve(
+        configDir,
+        '../../packages/collaboration/src/client/index.ts'
+      ),
       // Polyfills
       'xxhash-wasm': resolve(configDir, './src/polyfills/xxhash-mock.ts'),
       uuid: resolve(configDir, './src/polyfills/uuid-mock.ts'),
