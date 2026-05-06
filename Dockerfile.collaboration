@@ -27,7 +27,7 @@ RUN pnpm install --frozen-lockfile
 # Build packages in dependency order
 RUN pnpm --filter @sim4d/types run build
 RUN pnpm --filter @sim4d/schemas run build || true
-RUN pnpm --filter @sim4d/engine-occt run build
+RUN SIM4D_EMIT_DTS=false pnpm --filter @sim4d/engine-occt run build
 RUN pnpm --filter @sim4d/engine-core run build
 RUN pnpm --filter @sim4d/collaboration run build
 

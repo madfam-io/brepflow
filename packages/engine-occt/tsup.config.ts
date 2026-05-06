@@ -1,6 +1,8 @@
 import { createWorkerConfig, createLibraryConfig } from '../../config/tsup.base.config';
 import { defineConfig } from 'tsup';
 
+const emitDeclarations = process.env.SIM4D_EMIT_DTS !== 'false';
+
 /**
  * Engine OCCT build configuration
  * WASM geometry engine with worker-based execution
@@ -11,9 +13,11 @@ export default defineConfig([
     ...createLibraryConfig({
       entry: ['src/index.ts', 'src/hybrid-geometry-api.ts'],
       format: ['esm'], // ESM only - import.meta.url required for WASM loading
-      dts: {
-        resolve: true,
-      },
+      dts: emitDeclarations
+        ? {
+            resolve: true,
+          }
+        : false,
       shims: false, // Disable ESM shims to avoid Node.js module imports
       external: ['fs', 'path', 'url', 'node:fs', 'node:path', 'node:url', /^@sim4d\//],
       // Override tsconfig to use DTS-specific config (disables strict checks)
