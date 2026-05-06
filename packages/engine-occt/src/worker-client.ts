@@ -1,4 +1,5 @@
 // NOTE: ShapeHandle interface alignment deferred - types package vs local occt-bindings (non-blocking).
+import { getLogger } from './production-logger';
 import type { WorkerAPI, ShapeHandle as _ShapeHandle, MeshData } from '@sim4d/types';
 import { createHandleId } from '@sim4d/types';
 import type {
@@ -7,6 +8,8 @@ import type {
   GeometryResult as _GeometryResult,
   TessellationResult,
 } from './worker-types';
+
+const logger = getLogger('WorkerClient');
 
 export class WorkerClient implements WorkerAPI {
   private worker: Worker | null = null;
