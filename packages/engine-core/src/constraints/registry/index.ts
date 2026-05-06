@@ -56,6 +56,8 @@ export interface ConstraintDefinition {
   validator: ConstraintValidator;
 }
 
+type ConstraintParams = Record<string, unknown>;
+
 /**
  * Constraint registry singleton
  */
@@ -244,12 +246,15 @@ export class ConstraintRegistry {
   }
 
   // Constraint factory methods
-  private createDistanceConstraint(elements: GeometryElement[], params: unknown): DistanceConstraint {
+  private createDistanceConstraint(
+    elements: GeometryElement[],
+    params: unknown
+  ): DistanceConstraint {
     return {
       id: '',
       type: ConstraintType.DISTANCE,
       elements: [elements[0].id, elements[1].id],
-      distance: params.distance,
+      distance: this.getNumberParam(params, 'distance'),
       priority: 1,
       enabled: true,
     };
@@ -268,7 +273,10 @@ export class ConstraintRegistry {
     };
   }
 
-  private createParallelConstraint(elements: GeometryElement[], params: unknown): ParallelConstraint {
+  private createParallelConstraint(
+    elements: GeometryElement[],
+    params: unknown
+  ): ParallelConstraint {
     return {
       id: '',
       type: ConstraintType.PARALLEL,
@@ -304,7 +312,10 @@ export class ConstraintRegistry {
     };
   }
 
-  private createVerticalConstraint(elements: GeometryElement[], params: unknown): VerticalConstraint {
+  private createVerticalConstraint(
+    elements: GeometryElement[],
+    params: unknown
+  ): VerticalConstraint {
     return {
       id: '',
       type: ConstraintType.VERTICAL,
@@ -319,7 +330,7 @@ export class ConstraintRegistry {
       id: '',
       type: ConstraintType.ANGLE,
       elements: [elements[0].id, elements[1].id],
-      angle: params.angle,
+      angle: this.getNumberParam(params, 'angle'),
       priority: 1,
       enabled: true,
     };
@@ -330,7 +341,7 @@ export class ConstraintRegistry {
       id: '',
       type: ConstraintType.RADIUS,
       elements: [elements[0].id],
-      radius: params.radius,
+      radius: this.getNumberParam(params, 'radius'),
       priority: 1,
       enabled: true,
     };
@@ -349,7 +360,8 @@ export class ConstraintRegistry {
       return { valid: false, error: 'Distance constraint requires two Point2D elements' };
     }
 
-    if (typeof params.distance !== 'number' || params.distance < 0) {
+    const distance = this.asParams(params).distance;
+    if (typeof distance !== 'number' || distance < 0) {
       return { valid: false, error: 'Distance must be a non-negative number' };
     }
 
@@ -443,7 +455,8 @@ export class ConstraintRegistry {
       return { valid: false, error: 'Angle constraint requires two Line2D elements' };
     }
 
-    if (typeof params.angle !== 'number' || params.angle < 0 || params.angle > 180) {
+    const angle = this.asParams(params).angle;
+    if (typeof angle !== 'number' || angle < 0 || angle > 180) {
       return { valid: false, error: 'Angle must be between 0 and 180 degrees' };
     }
 
@@ -462,7 +475,8 @@ export class ConstraintRegistry {
       return { valid: false, error: 'Radius constraint requires a Circle2D element' };
     }
 
-    if (typeof params.radius !== 'number' || params.radius <= 0) {
+    const radius = this.asParams(params).radius;
+    if (typeof radius !== 'number' || radius <= 0) {
       return { valid: false, error: 'Radius must be a positive number' };
     }
 
@@ -480,6 +494,15 @@ export class ConstraintRegistry {
 
   private isCircle(element: GeometryElement): element is Circle2D {
     return 'center' in element && 'radius' in element;
+  }
+
+  private asParams(params: unknown): ConstraintParams {
+    return params && typeof params === 'object' ? (params as ConstraintParams) : {};
+  }
+
+  private getNumberParam(params: unknown, name: string): number {
+    const value = this.asParams(params)[name];
+    return typeof value === 'number' ? value : 0;
   }
 
   /**

@@ -40,6 +40,16 @@ export interface PerformanceThresholds {
   maxTriangles: number;
 }
 
+interface PerformanceMemory {
+  usedJSHeapSize: number;
+  totalJSHeapSize: number;
+}
+
+interface ReactLike {
+  useState<T>(initialValue: T): [T, (value: T) => void];
+  useEffect(effect: () => void | (() => void), dependencies: unknown[]): void;
+}
+
 export class PerformanceMonitor {
   private metrics: PerformanceMetrics = this.createEmptyMetrics();
   private history: PerformanceMetrics[] = [];
@@ -92,8 +102,8 @@ export class PerformanceMonitor {
    * Update memory metrics
    */
   updateMemoryMetrics(): void {
-    if ('memory' in performance) {
-      const memory = (performance as unknown).memory;
+    const memory = (performance as Performance & { memory?: PerformanceMemory }).memory;
+    if (memory) {
       this.metrics.heapUsed = memory.usedJSHeapSize / 1048576; // Convert to MB
       this.metrics.heapTotal = memory.totalJSHeapSize / 1048576;
     }
@@ -376,11 +386,13 @@ export function measurePerformance(
  */
 export function usePerformanceMonitor() {
   // Dynamic import to avoid dependency on React in this package
-  if (typeof window === 'undefined' || !(window as any).React) {
+  const React =
+    typeof window === 'undefined' ? undefined : (window as Window & { React?: ReactLike }).React;
+
+  if (!React) {
     throw new Error('usePerformanceMonitor requires React to be available');
   }
 
-  const React = (window as any).React;
   const [metrics, setMetrics] = React.useState<PerformanceMetrics>(performanceMonitor.getMetrics());
 
   React.useEffect(() => {

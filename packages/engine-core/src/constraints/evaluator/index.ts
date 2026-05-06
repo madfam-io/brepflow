@@ -63,7 +63,7 @@ export class ConstraintEvaluator {
       case ConstraintType.RADIUS:
         return this.evaluateRadius(constraint as RadiusConstraint);
       default:
-        throw new Error(`Unsupported constraint type: ${(constraint as unknown).type}`);
+        throw new Error(`Unsupported constraint type: ${(constraint as { type?: string }).type}`);
     }
   }
 

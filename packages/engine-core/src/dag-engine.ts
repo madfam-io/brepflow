@@ -1,4 +1,11 @@
-import type { NodeId, NodeInstance, GraphInstance, EvalContext, WorkerAPI } from '@sim4d/types';
+import type {
+  NodeId,
+  NodeInstance,
+  GraphInstance,
+  EvalContext,
+  SocketRef,
+  WorkerAPI,
+} from '@sim4d/types';
 import { NodeRegistry } from './node-registry';
 import { ComputeCache } from './cache';
 import { hashNode } from './hash';
@@ -16,6 +23,8 @@ interface LoggerLike {
 
 const dagLogger = createLogger('DAGEngine');
 
+type GeometryProxyConstructor = new (worker: WorkerAPI) => unknown;
+
 let loggerInstance: LoggerLike | null = null;
 function getLogger(): LoggerLike {
   if (loggerInstance) {
@@ -28,10 +37,14 @@ function getLogger(): LoggerLike {
   } catch (error) {
     // Fallback to structured logger when OCCT logger is unavailable
     loggerInstance = {
-      error: (message: string, data?: unknown) => dagLogger.error(message, undefined, data ? { data } : undefined),
-      warn: (message: string, data?: unknown) => dagLogger.warn(message, data ? { data } : undefined),
-      info: (message: string, data?: unknown) => dagLogger.info(message, data ? { data } : undefined),
-      debug: (message: string, data?: unknown) => dagLogger.debug(message, data ? { data } : undefined),
+      error: (message: string, data?: unknown) =>
+        dagLogger.error(message, undefined, data ? { data } : undefined),
+      warn: (message: string, data?: unknown) =>
+        dagLogger.warn(message, data ? { data } : undefined),
+      info: (message: string, data?: unknown) =>
+        dagLogger.info(message, data ? { data } : undefined),
+      debug: (message: string, data?: unknown) =>
+        dagLogger.debug(message, data ? { data } : undefined),
     };
   }
 
@@ -39,11 +52,29 @@ function getLogger(): LoggerLike {
 }
 
 // Try-catch import for optional GeometryProxy to handle test environments
-let GeometryProxy: unknown;
+let GeometryProxy: GeometryProxyConstructor;
 try {
   // eslint-disable-next-line @typescript-eslint/no-var-requires -- Optional dependency, fallback needed for tests
-  const occtModule = require('@sim4d/engine-occt');
-  GeometryProxy = occtModule.GeometryProxy;
+  const occtModule = require('@sim4d/engine-occt') as {
+    GeometryProxy?: GeometryProxyConstructor;
+  };
+  GeometryProxy =
+    occtModule.GeometryProxy ??
+    class FallbackGeometryProxy {
+      constructor(worker: WorkerAPI) {
+        this.worker = worker;
+      }
+      private worker: WorkerAPI;
+
+      async execute(operation: { type: string; params: unknown }): Promise<unknown> {
+        const params =
+          operation.params && typeof operation.params === 'object'
+            ? (operation.params as Record<string, unknown>)
+            : { value: operation.params };
+
+        return { type: operation.type, ...params };
+      }
+    };
 } catch (error) {
   // Fallback for test environments or when OCCT is not available
   GeometryProxy = class FallbackGeometryProxy {
@@ -54,7 +85,12 @@ try {
 
     async execute(operation: { type: string; params: unknown }): Promise<unknown> {
       // Mock implementation for tests
-      return { type: operation.type, ...operation.params };
+      const params =
+        operation.params && typeof operation.params === 'object'
+          ? (operation.params as Record<string, unknown>)
+          : { value: operation.params };
+
+      return { type: operation.type, ...params };
     }
   };
 }
@@ -144,7 +180,7 @@ export class DAGEngine {
       inputs = await this.collectInputs(graph, node);
       cacheKey = hashNode(node, inputs);
 
-      let outputs = this.cache.get(cacheKey);
+      let outputs = this.cache.get<Record<string, unknown>>(cacheKey);
       cacheHit = !!outputs;
 
       if (!outputs) {
@@ -160,7 +196,11 @@ export class DAGEngine {
         const context = this.createEnhancedContext(baseContext);
 
         this.abortControllers.set(nodeId, abortController);
-        outputs = await definition.evaluate(context, inputs, node.params);
+        outputs = await definition.evaluate(
+          context,
+          inputs,
+          node.params as Record<string, unknown>
+        );
         this.cache.set(cacheKey, outputs);
         this.abortControllers.delete(nodeId);
       }
@@ -245,7 +285,7 @@ export class DAGEngine {
    * Create enhanced context with geometry adapter
    * This bridges the gap between context.worker and context.geometry
    */
-  private createEnhancedContext(baseContext: EvalContext): unknown {
+  private createEnhancedContext(baseContext: EvalContext): EvalContext & { geometry: unknown } {
     try {
       const geometry = new GeometryProxy(baseContext.worker);
       return {
@@ -264,10 +304,17 @@ export class DAGEngine {
   /**
    * Collect input values for a node
    */
-  private async collectInputs(graph: GraphInstance, node: NodeInstance): Promise<unknown> {
+  private async collectInputs(
+    graph: GraphInstance,
+    node: NodeInstance
+  ): Promise<Record<string, unknown>> {
     const inputs: Record<string, unknown> = {};
 
-    for (const [inputName, socketRef] of Object.entries(node.inputs)) {
+    const inputEntries = Object.entries(node.inputs) as Array<
+      [string, SocketRef | SocketRef[] | undefined]
+    >;
+
+    for (const [inputName, socketRef] of inputEntries) {
       if (!socketRef) continue;
 
       if (Array.isArray(socketRef)) {
@@ -287,7 +334,7 @@ export class DAGEngine {
   /**
    * Get value from a socket reference
    */
-  private async getSocketValue(graph: GraphInstance, ref: unknown): Promise<unknown> {
+  private async getSocketValue(graph: GraphInstance, ref: SocketRef): Promise<unknown> {
     const sourceNode = graph.nodes.find((n) => n.id === ref.nodeId);
     if (!sourceNode) {
       throw new Error(`Source node ${ref.nodeId} not found`);

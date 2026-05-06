@@ -15,7 +15,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@janua/react-sdk": "file:../../../janua/packages/react-sdk",
+    "@janua/react-sdk": "^0.1.4",
     "@sim4d/collaboration": "workspace:*",
     "@sim4d/engine-core": "workspace:*",
     "@sim4d/engine-occt": "workspace:*",

@@ -27,6 +27,7 @@
     "build:wasm": "bash scripts/build-bindings.sh"
   },
   "dependencies": {
+    "@madfam/geom-core": "workspace:*",
     "@sim4d/engine-core": "workspace:*",
     "@sim4d/types": "workspace:*",
     "comlink": "^4.4.1",

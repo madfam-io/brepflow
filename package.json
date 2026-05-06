@@ -102,7 +102,7 @@
     }
   },
   "dependencies": {
-    "@madfam/geom-core": "file:../geom-core",
+    "@madfam/geom-core": "workspace:*",
     "dompurify": "^3.3.0"
   }
 }

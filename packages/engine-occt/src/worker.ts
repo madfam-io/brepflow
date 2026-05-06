@@ -40,7 +40,7 @@ const postMessageToHost = (message: WorkerResponse | unknown) => {
 
 const addHostMessageListener = (handler: (event: { data: WorkerRequest }) => void) => {
   if (isBrowserLikeWorker) {
-    (self as unknown).addEventListener('message', (event: MessageEvent) => {
+    const listener = ((event: MessageEvent) => {
       // Security: Origin verification for Web Workers
       // For dedicated workers, event.origin may not be set, but if it is, verify it
       if (typeof event.origin === 'string' && event.origin !== self.location.origin) {
@@ -55,7 +55,9 @@ const addHostMessageListener = (handler: (event: { data: WorkerRequest }) => voi
       }
 
       handler({ data: event.data });
-    } as unknown as EventListener);
+    }) as EventListener;
+
+    (self as unknown as EventTarget).addEventListener('message', listener);
   } else if (parentPort) {
     parentPort.on('message', (data: WorkerRequest) => handler({ data }));
   } else {
@@ -599,7 +601,11 @@ addHostMessageListener(async (event: { data: WorkerRequest }) => {
   }
 
   // Validate request ID if present
-  if (request.id !== undefined && typeof request.id !== 'string' && typeof request.id !== 'number') {
+  if (
+    request.id !== undefined &&
+    typeof request.id !== 'string' &&
+    typeof request.id !== 'number'
+  ) {
     logger.warn('Invalid request ID format');
     return;
   }

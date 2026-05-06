@@ -32,6 +32,7 @@ COPY packages/constraint-solver/package.json ./packages/constraint-solver/
 COPY packages/engine-core/package.json ./packages/engine-core/
 COPY packages/engine-occt/package.json ./packages/engine-occt/
 COPY packages/examples/package.json ./packages/examples/
+COPY packages/geom-core/package.json ./packages/geom-core/
 COPY packages/nodes-core/package.json ./packages/nodes-core/
 COPY packages/schemas/package.json ./packages/schemas/
 COPY packages/sdk/package.json ./packages/sdk/

@@ -3,10 +3,8 @@
  * These enhanced nodes automatically register geometry with the constraint system
  */
 
-import type {
 import { createLogger } from '@sim4d/engine-core';
-
-const logger = createLogger('NodesCore');
+import type {
   NodeDefinition,
   Vec3,
   ShapeHandle,
@@ -14,6 +12,8 @@ const logger = createLogger('NodesCore');
   ConstraintElement,
   ConstraintInfo,
 } from '@sim4d/types';
+
+const logger = createLogger('NodesCore');
 
 /**
  * Enhanced LineNode with constraint integration

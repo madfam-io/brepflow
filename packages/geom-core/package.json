@@ -1,0 +1,27 @@
+{
+  "name": "@madfam/geom-core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Unified B-Rep geometry engine for MADFAM ecosystem - zero-lag browser execution with remote GPU compute",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./wasm": {
+      "import": "./dist/wasm/geom-core.js",
+      "require": "./dist/wasm/geom-core.js",
+      "types": "./dist/wasm/geom-core.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "license": "Apache-2.0"
+}

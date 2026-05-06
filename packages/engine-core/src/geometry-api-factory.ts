@@ -5,7 +5,7 @@
 
 import { getConfig } from './config/environment';
 import { shouldUseRealWASM, getWASMConfig } from './config/wasm-config';
-import type { WorkerAPI } from '@sim4d/types';
+import type { HandleId, MeshData, WorkerAPI } from '@sim4d/types';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createLogger } from './logger';
@@ -15,6 +15,30 @@ interface LoggerLike {
   warn(message: string, data?: unknown): void;
   info(message: string, data?: unknown): void;
   debug(message: string, data?: unknown): void;
+}
+
+interface OperationResultLike<T = unknown> {
+  success: boolean;
+  result?: T;
+  error?: string;
+}
+
+interface IntegratedGeometryAPILike {
+  init(): Promise<void>;
+  invoke<T = unknown>(operation: string, params: unknown): Promise<OperationResultLike<T>>;
+  shutdown(): Promise<void>;
+}
+
+interface EngineOCCTModuleLike {
+  createGeometryAPI(config: {
+    enableRealOCCT: boolean;
+    enablePerformanceMonitoring: boolean;
+    enableMemoryManagement: boolean;
+    enableErrorRecovery: boolean;
+    maxRetries: number;
+    operationTimeout: number;
+  }): IntegratedGeometryAPILike;
+  ProductionLogger?: new (context: string) => LoggerLike;
 }
 
 const factoryLogger = createLogger('GeometryAPIFactory');
@@ -49,7 +73,7 @@ const importEngineOCCTSafely = async (): Promise<unknown> => {
       return await import(pathToFileURL(distPath).href);
     } catch (fallbackError) {
       const error = new Error('Failed to load @sim4d/engine-occt module');
-      (error as unknown).cause = primaryError;
+      (error as Error & { cause?: unknown }).cause = primaryError;
       throw error;
     }
   }
@@ -61,7 +85,7 @@ const getLogger = (): LoggerLike => {
     return logger;
   }
 
-  const engineOcctModule = requireEngineOCCTSafely();
+  const engineOcctModule = requireEngineOCCTSafely() as Partial<EngineOCCTModuleLike> | null;
   if (engineOcctModule?.ProductionLogger) {
     const occtLogger: LoggerLike = new engineOcctModule.ProductionLogger('GeometryAPIFactory');
     logger = occtLogger;
@@ -70,10 +94,14 @@ const getLogger = (): LoggerLike => {
 
   // Fallback to structured logger when OCCT logger is unavailable
   const structuredLogger: LoggerLike = {
-    error: (message: string, data?: unknown) => factoryLogger.error(message, undefined, data ? { data } : undefined),
-    warn: (message: string, data?: unknown) => factoryLogger.warn(message, data ? { data } : undefined),
-    info: (message: string, data?: unknown) => factoryLogger.info(message, data ? { data } : undefined),
-    debug: (message: string, data?: unknown) => factoryLogger.debug(message, data ? { data } : undefined),
+    error: (message: string, data?: unknown) =>
+      factoryLogger.error(message, undefined, data ? { data } : undefined),
+    warn: (message: string, data?: unknown) =>
+      factoryLogger.warn(message, data ? { data } : undefined),
+    info: (message: string, data?: unknown) =>
+      factoryLogger.info(message, data ? { data } : undefined),
+    debug: (message: string, data?: unknown) =>
+      factoryLogger.debug(message, data ? { data } : undefined),
   };
 
   logger = structuredLogger;
@@ -153,7 +181,7 @@ export class GeometryAPIFactory {
 
     try {
       // Dynamic import to avoid loading in environments where it's not available
-      const { createGeometryAPI } = await importEngineOCCTSafely();
+      const { createGeometryAPI } = (await importEngineOCCTSafely()) as EngineOCCTModuleLike;
 
       const integratedAPI = createGeometryAPI({
         enableRealOCCT: true,
@@ -180,14 +208,14 @@ export class GeometryAPIFactory {
           }
           return result.result as T;
         },
-        tessellate: async (shapeId: string, deflection: number) => {
+        tessellate: async (shapeId: HandleId, deflection: number): Promise<MeshData> => {
           const result = await integratedAPI.invoke('TESSELLATE', { shapeId, deflection });
           if (!result.success) {
             throw new Error(result.error || 'Tessellation failed');
           }
-          return result.result;
+          return result.result as MeshData;
         },
-        dispose: async (handleId: string) => {
+        dispose: async (handleId: HandleId) => {
           const result = await integratedAPI.invoke('DISPOSE', { handleId });
           if (!result.success) {
             throw new Error(result.error || 'Dispose failed');
@@ -200,7 +228,8 @@ export class GeometryAPIFactory {
 
       // Verify initialization
       const health = await api.invoke('HEALTH_CHECK', {});
-      if (!(health as unknown)?.healthy) {
+      const healthStatus = health as { healthy?: boolean } | null;
+      if (!healthStatus?.healthy) {
         throw new Error('Geometry API health check failed after initialization');
       }
 
@@ -289,7 +318,7 @@ export class GeometryAPIFactory {
       }
 
       const fetchBase = sanitizedBase.startsWith('//')
-        ? `${(globalThis as unknown)?.location?.protocol ?? 'https:'}${sanitizedBase}`
+        ? `${(globalThis as typeof globalThis & { location?: { protocol?: string } }).location?.protocol ?? 'https:'}${sanitizedBase}`
         : sanitizedBase;
 
       const missing: string[] = [];
@@ -343,10 +372,13 @@ export class GeometryAPIFactory {
    * Get production API with strict configuration
    */
   static async getProductionAPI(config?: unknown): Promise<WorkerAPI> {
+    const productionConfig =
+      typeof config === 'object' && config !== null ? (config as GeometryAPIConfig) : {};
+
     return this.getAPI({
       validateOutput: true,
       enableRetry: false,
-      ...config,
+      ...productionConfig,
     });
   }
 
@@ -387,7 +419,15 @@ export const getGeometryAPI = () => GeometryAPIFactory.getAPI();
 
 export const getRealGeometryAPI = () => GeometryAPIFactory.getAPI();
 
-export const getProductionAPI = (config?: unknown) =>
-  GeometryAPIFactory.getAPI({ ...config, validateOutput: true, enableRetry: false });
+export const getProductionAPI = (config?: unknown) => {
+  const productionConfig =
+    typeof config === 'object' && config !== null ? (config as GeometryAPIConfig) : {};
+
+  return GeometryAPIFactory.getAPI({
+    ...productionConfig,
+    validateOutput: true,
+    enableRetry: false,
+  });
+};
 
 export const isRealGeometryAvailable = () => GeometryAPIFactory.isRealAPIAvailable();

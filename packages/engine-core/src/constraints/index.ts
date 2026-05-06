@@ -25,6 +25,15 @@ export * from './evaluator';
 export * from './solver';
 export * from './registry';
 
+interface SerializedConstraintSystem {
+  geometry?: Array<[string, GeometryElement]>;
+  constraints?: Array<[string, Constraint]>;
+  variables?: Array<[string, number]>;
+  solved?: boolean;
+  lastSolveTime?: number;
+  iterations?: number;
+}
+
 /**
  * Main constraint manager class
  */
@@ -316,7 +325,7 @@ export class ConstraintManager {
   /**
    * Export system to JSON
    */
-  exportToJSON(): any {
+  exportToJSON(): SerializedConstraintSystem {
     return {
       geometry: Array.from(this.system.geometry.entries()),
       constraints: Array.from(this.system.constraints.entries()),
@@ -333,27 +342,33 @@ export class ConstraintManager {
   importFromJSON(data: unknown): void {
     this.clear();
 
-    if (data.geometry) {
-      data.geometry.forEach(([id, element]: [string, GeometryElement]) => {
+    if (!data || typeof data !== 'object') {
+      return;
+    }
+
+    const serialized = data as SerializedConstraintSystem;
+
+    if (Array.isArray(serialized.geometry)) {
+      serialized.geometry.forEach(([id, element]) => {
         this.system.geometry.set(id, element);
       });
     }
 
-    if (data.constraints) {
-      data.constraints.forEach(([id, constraint]: [string, Constraint]) => {
+    if (Array.isArray(serialized.constraints)) {
+      serialized.constraints.forEach(([id, constraint]) => {
         this.system.constraints.set(id, constraint);
       });
     }
 
-    if (data.variables) {
-      data.variables.forEach(([name, value]: [string, number]) => {
+    if (Array.isArray(serialized.variables)) {
+      serialized.variables.forEach(([name, value]) => {
         this.system.variables.set(name, value);
       });
     }
 
-    this.system.solved = data.solved || false;
-    this.system.lastSolveTime = data.lastSolveTime || 0;
-    this.system.iterations = data.iterations || 0;
+    this.system.solved = serialized.solved ?? false;
+    this.system.lastSolveTime = serialized.lastSolveTime ?? 0;
+    this.system.iterations = serialized.iterations ?? 0;
   }
 
   // Private helper methods
