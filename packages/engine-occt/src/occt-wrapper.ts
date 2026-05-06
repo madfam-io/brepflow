@@ -7,6 +7,9 @@
 
 import type { MeshData, ShapeHandle } from '@sim4d/types';
 import { loadOCCT, getOCCTModule as _getOCCTModule, type OCCTModule } from './occt-bindings';
+import { getLogger } from './production-logger';
+
+const logger = getLogger('OCCTWrapper');
 
 export type RawShapeHandle = ShapeHandle & {
   bbox_min_x?: number;
@@ -291,7 +294,7 @@ export class OCCTWrapper {
     if (Array.isArray(data)) {
       return new Float32Array(data);
     }
-    if (data && typeof (data as unknown).length === 'number') {
+    if (this.isArrayLikeNumber(data)) {
       return Float32Array.from(data as ArrayLike<number>);
     }
     return new Float32Array();
@@ -304,10 +307,18 @@ export class OCCTWrapper {
     if (Array.isArray(data)) {
       return new Uint32Array(data);
     }
-    if (data && typeof (data as unknown).length === 'number') {
+    if (this.isArrayLikeNumber(data)) {
       return Uint32Array.from(data as ArrayLike<number>);
     }
     return new Uint32Array();
+  }
+
+  private isArrayLikeNumber(data: unknown): data is ArrayLike<number> {
+    return (
+      !!data &&
+      typeof data === 'object' &&
+      typeof (data as { length?: unknown }).length === 'number'
+    );
   }
 }
 
