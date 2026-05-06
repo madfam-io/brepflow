@@ -2,11 +2,13 @@ import { defineConfig } from 'vite';
 import type { Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import { fileURLToPath } from 'node:url';
 import { wasmPlugin } from './vite-plugin-wasm';
 import { nodePolyfillsPlugin } from './vite-plugin-node-polyfills';
 import { wasmAssetsPlugin } from './vite-plugin-wasm-assets';
 import { wasmWorkerFixPlugin } from './vite-plugin-wasm-worker-fix';
 
+const configDir = fileURLToPath(new URL('.', import.meta.url));
 const NODE_BUILTIN_WARNING_PATTERNS = [
   'Module "fs" has been externalized for browser compatibility',
   'Module "path" has been externalized for browser compatibility',
@@ -245,13 +247,13 @@ export default defineConfig({
     fs: {
       // Allow serving files from the entire monorepo
       allow: [
-        resolve(__dirname, '../..'), // Project root
-        resolve(__dirname, '../../packages'), // Packages directory
-        resolve(__dirname, '../../packages/nodes-core'), // nodes-core package
-        resolve(__dirname, '../../packages/engine-core'), // engine-core package
-        resolve(__dirname, '../../packages/engine-occt'), // engine-occt package
-        resolve(__dirname, '../../packages/types'), // types package
-        resolve(__dirname, '../../packages/viewport'), // viewport package
+        resolve(configDir, '../..'), // Project root
+        resolve(configDir, '../../packages'), // Packages directory
+        resolve(configDir, '../../packages/nodes-core'), // nodes-core package
+        resolve(configDir, '../../packages/engine-core'), // engine-core package
+        resolve(configDir, '../../packages/engine-occt'), // engine-occt package
+        resolve(configDir, '../../packages/types'), // types package
+        resolve(configDir, '../../packages/viewport'), // viewport package
       ],
     },
   },
@@ -292,20 +294,20 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
+      '@': resolve(configDir, './src'),
       // Sim4D package aliases for monorepo - point to source index files
-      '@sim4d/nodes-core': resolve(__dirname, '../../packages/nodes-core/src/index.ts'),
-      '@sim4d/engine-core': resolve(__dirname, '../../packages/engine-core/src/index.ts'),
-      '@sim4d/engine-occt': resolve(__dirname, '../../packages/engine-occt/src/index.ts'),
-      '@sim4d/types': resolve(__dirname, '../../packages/types/src/index.ts'),
-      '@sim4d/viewport': resolve(__dirname, '../../packages/viewport/src/index.ts'),
+      '@sim4d/nodes-core': resolve(configDir, '../../packages/nodes-core/src/index.ts'),
+      '@sim4d/engine-core': resolve(configDir, '../../packages/engine-core/src/index.ts'),
+      '@sim4d/engine-occt': resolve(configDir, '../../packages/engine-occt/src/index.ts'),
+      '@sim4d/types': resolve(configDir, '../../packages/types/src/index.ts'),
+      '@sim4d/viewport': resolve(configDir, '../../packages/viewport/src/index.ts'),
       // Polyfills
-      'xxhash-wasm': resolve(__dirname, './src/polyfills/xxhash-mock.ts'),
-      uuid: resolve(__dirname, './src/polyfills/uuid-mock.ts'),
-      path: resolve(__dirname, './src/polyfills/path-mock.ts'),
-      url: resolve(__dirname, './src/polyfills/url-mock.ts'),
-      fs: resolve(__dirname, './src/polyfills/fs-mock.ts'),
-      crypto: resolve(__dirname, './src/polyfills/crypto-mock.ts'),
+      'xxhash-wasm': resolve(configDir, './src/polyfills/xxhash-mock.ts'),
+      uuid: resolve(configDir, './src/polyfills/uuid-mock.ts'),
+      path: resolve(configDir, './src/polyfills/path-mock.ts'),
+      url: resolve(configDir, './src/polyfills/url-mock.ts'),
+      fs: resolve(configDir, './src/polyfills/fs-mock.ts'),
+      crypto: resolve(configDir, './src/polyfills/crypto-mock.ts'),
     },
   },
   optimizeDeps: {
