@@ -1,7 +1,9 @@
 name: Enclii build & publish
 
-# GitOps flow: push → build studio image → cosign sign → push to GHCR → commit
-# digest to infra/k8s/production/kustomization.yaml → ArgoCD auto-syncs.
+# GitOps flow: app/workflow push → build studio image → cosign sign → push
+# to GHCR → commit digest to infra/k8s/production/kustomization.yaml →
+# ArgoCD auto-syncs. Digest-only commits intentionally do not retrigger
+# this workflow; use workflow_dispatch for manual rebuilds.
 #
 # Image: ghcr.io/madfam-org/sim4d-studio:<sha>
 # Follows the MADFAM internal-devops pattern (routecraft / madlab / karafiel).
@@ -13,7 +15,6 @@ on:
       - 'apps/studio/**'
       - 'packages/**'
       - 'Dockerfile.studio'
-      - 'infra/k8s/production/**'
       - '.github/workflows/enclii-build.yml'
   workflow_dispatch: {}
 
