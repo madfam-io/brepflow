@@ -11,6 +11,8 @@ const pluginDir = fileURLToPath(new URL('.', import.meta.url));
  * and ensures they're available at runtime
  */
 export function wasmAssetsPlugin(): Plugin {
+  let isBuildCommand = false;
+
   // Copy both WASM files and their JavaScript loaders
   const wasmFiles = [
     'occt-core.wasm',
@@ -23,9 +25,14 @@ export function wasmAssetsPlugin(): Plugin {
   return {
     name: 'vite-plugin-wasm-assets',
 
+    configResolved(config) {
+      isBuildCommand = config.command === 'build';
+    },
+
     buildStart() {
-      // In development, WASM files are served from their original location
-      if (process.env.NODE_ENV === 'production') {
+      // Runtime dev servers serve the committed public/wasm assets directly.
+      // Only production builds need to refresh those files from engine-occt.
+      if (isBuildCommand && process.env.NODE_ENV === 'production') {
         const wasmSourceDir = resolve(pluginDir, '../../packages/engine-occt/wasm');
         const publicDir = resolve(pluginDir, 'public/wasm');
 
