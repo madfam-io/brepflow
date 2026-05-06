@@ -1,6 +1,9 @@
 import { Plugin } from 'vite';
 import { copyFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, join } from 'path';
+import { fileURLToPath } from 'node:url';
+
+const pluginDir = fileURLToPath(new URL('.', import.meta.url));
 
 /**
  * Vite plugin to handle WASM assets properly
@@ -23,8 +26,8 @@ export function wasmAssetsPlugin(): Plugin {
     buildStart() {
       // In development, WASM files are served from their original location
       if (process.env.NODE_ENV === 'production') {
-        const wasmSourceDir = resolve(__dirname, '../../packages/engine-occt/wasm');
-        const publicDir = resolve(__dirname, 'public/wasm');
+        const wasmSourceDir = resolve(pluginDir, '../../packages/engine-occt/wasm');
+        const publicDir = resolve(pluginDir, 'public/wasm');
 
         // Create public/wasm directory if it doesn't exist
         if (!existsSync(publicDir)) {

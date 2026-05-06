@@ -4,7 +4,10 @@
  */
 
 import { resolve } from 'path';
+import { fileURLToPath } from 'node:url';
 import type { Plugin } from 'vite';
+
+const pluginDir = fileURLToPath(new URL('.', import.meta.url));
 
 const NODE_MODULES_MAP = {
   path: './src/polyfills/path-mock.ts',
@@ -21,7 +24,7 @@ export function nodePolyfillsPlugin(): Plugin {
     resolveId(id) {
       // Handle direct imports of Node.js modules
       if (NODE_MODULES_MAP[id as keyof typeof NODE_MODULES_MAP]) {
-        return resolve(__dirname, NODE_MODULES_MAP[id as keyof typeof NODE_MODULES_MAP]);
+        return resolve(pluginDir, NODE_MODULES_MAP[id as keyof typeof NODE_MODULES_MAP]);
       }
       return null;
     },
