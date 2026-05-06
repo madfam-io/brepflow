@@ -8,6 +8,6 @@ spec:
     app: sim4d-studio
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: 5173
       protocol: TCP
   type: ClusterIP

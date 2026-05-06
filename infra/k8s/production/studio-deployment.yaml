@@ -32,7 +32,7 @@ spec:
         - name: studio
           image: ghcr.io/madfam-org/sim4d-studio:latest
           ports:
-            - containerPort: 80
+            - containerPort: 5173
           envFrom:
             - secretRef:
                 name: sim4d-secrets
@@ -49,23 +49,22 @@ spec:
             runAsNonRoot: true
             capabilities:
               drop: [ALL]
-              add: [NET_BIND_SERVICE]
           startupProbe:
             httpGet:
               path: /
-              port: 80
+              port: 5173
             initialDelaySeconds: 3
             periodSeconds: 3
             failureThreshold: 30
           readinessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 5173
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 5173
             periodSeconds: 30
           volumeMounts:
             - name: nginx-cache
