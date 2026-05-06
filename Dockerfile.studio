@@ -3,6 +3,7 @@ FROM node:22.12-bullseye
 
 # Install pnpm
 ENV PNPM_HOME=/root/.local/share/pnpm
+ENV COREPACK_DEFAULT_TO_LATEST=0
 ENV PATH=$PNPM_HOME:$PATH
 RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 
