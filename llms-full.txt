@@ -1,0 +1,48 @@
+# Sim4D Full LLM Context
+
+Generated: 2026-05-13
+
+## Purpose
+
+This file gives LLM agents a stable, tool-agnostic map for working in this
+repository without depending on vendor-specific instruction files.
+
+## Canonical instruction order
+
+1. `AGENTS.md`
+2. `README.md` if present
+3. `ECOSYSTEM.md` if present
+4. Relevant files under `docs/`, `infra/`, `.github/workflows/`, and source
+   directories for the specific task
+
+## Agent compatibility
+
+`AGENTS.md` is the source of truth. `CLAUDE.md` exists only to redirect Claude
+and other legacy agent integrations to `AGENTS.md`.
+
+## Enclii-first operations contract
+
+Use Enclii web, API, or CLI for routine production provisioning, deployment,
+observability, domain management, secrets, provider operations, scaling,
+rollback, and remediation.
+
+Raw `kubectl`, `helm`, SSH, provider CLIs/APIs, `docker exec`, and direct
+container access are allowed only for platform bootstrap or documented
+break-glass emergencies when Enclii is unavailable or lacks an implemented
+adapter. Any break-glass use must record the actor, reason, target
+service/environment, commands executed, result, and follow-up Enclii adapter
+gap or incident link.
+
+## Repo entrypoints detected
+
+- `README.md`
+- `ECOSYSTEM.md`
+- `docs/`
+- `infra/`
+- `.github/workflows/`
+
+## Maintenance
+
+These files are maintained by `internal-devops/scripts/sync-agent-docs.py`.
+If repo-specific long-form agent guidance is needed, put it in `AGENTS.md`,
+not `CLAUDE.md`.

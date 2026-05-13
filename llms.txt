@@ -1,0 +1,16 @@
+# Sim4D
+
+Compact LLM context index for this repository.
+
+## Read first
+
+- `AGENTS.md` — canonical agent operating instructions.
+- `README.md` — human/product overview when present.
+- `ECOSYSTEM.md` — MADFAM ecosystem and Enclii deployment context when present.
+- `llms-full.txt` — full context map and durable operating contract.
+
+## Production operations
+
+Routine production operations are Enclii-first. Use Enclii web, API, or CLI
+before raw infrastructure tools. Direct `kubectl`, `helm`, SSH, provider CLIs,
+`docker exec`, or direct container access is bootstrap/break-glass only.
