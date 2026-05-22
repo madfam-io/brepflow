@@ -1,0 +1,22 @@
+# Cursor indexing excludes — match .gitignore build/dep bloat
+node_modules/
+.pnp
+.pnp.js
+**/dist/
+dist/
+build/
+build-occt/
+.turbo/
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+third_party/occt/
+third_party/openNURBS/
+third_party/emsdk/
+third_party/OCCT-*/
+third_party/*.tar.gz
+.cache/
+artifacts/
+audit-report/
+**/__pycache__/
