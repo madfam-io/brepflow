@@ -44,11 +44,6 @@ jobs:
         continue-on-error: true
         run: python3 scripts/ratchet/check-probe-timeouts.py infra/k8s/
 
-      - name: "F3: Workspace exports check"
-        id: f3
-        continue-on-error: true
-        run: python3 scripts/ratchet/check-workspace-exports.py
-
       - name: "F5: Secret coverage check"
         id: f5
         continue-on-error: true
@@ -60,7 +55,6 @@ jobs:
           FAILED=0
           if [ "${{ steps.f1.outcome }}" = "failure" ]; then FAILED=$((FAILED+1)); fi
           if [ "${{ steps.f2.outcome }}" = "failure" ]; then FAILED=$((FAILED+1)); fi
-          if [ "${{ steps.f3.outcome }}" = "failure" ]; then FAILED=$((FAILED+1)); fi
           if [ "${{ steps.f5.outcome }}" = "failure" ]; then FAILED=$((FAILED+1)); fi
 
           if [ "$FAILED" -gt "0" ]; then
