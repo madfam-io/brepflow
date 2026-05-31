@@ -1,0 +1,70 @@
+name: Production Readiness Ratchet
+
+# Self-contained ratchet (scripts vendored from internal-devops). Cross-repo
+# reusable workflows require internal-devops to be accessible to Actions callers;
+# until org policy enables that, each consumer vendors scripts/ratchet/ locally.
+
+on:
+  pull_request:
+    paths:
+      - 'infra/k8s/**'
+      - 'scripts/ratchet/**'
+      - '.github/workflows/production-readiness-ratchet.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'infra/k8s/**'
+      - 'scripts/ratchet/**'
+      - '.github/workflows/production-readiness-ratchet.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  ratchet:
+    name: Production Readiness Ratchet
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install --quiet pyyaml
+
+      - name: "F1: Image pinning check"
+        id: f1
+        continue-on-error: true
+        run: python3 scripts/ratchet/check-image-pinning.py infra/k8s/
+
+      - name: "F2: Probe timeout check"
+        id: f2
+        continue-on-error: true
+        run: python3 scripts/ratchet/check-probe-timeouts.py infra/k8s/
+
+      - name: "F3: Workspace exports check"
+        id: f3
+        continue-on-error: true
+        run: python3 scripts/ratchet/check-workspace-exports.py
+
+      - name: "F5: Secret coverage check"
+        id: f5
+        continue-on-error: true
+        run: python3 scripts/ratchet/check-secret-coverage.py infra/k8s/
+
+      - name: Ratchet gate
+        if: always()
+        run: |
+          FAILED=0
+          if [ "${{ steps.f1.outcome }}" = "failure" ]; then FAILED=$((FAILED+1)); fi
+          if [ "${{ steps.f2.outcome }}" = "failure" ]; then FAILED=$((FAILED+1)); fi
+          if [ "${{ steps.f3.outcome }}" = "failure" ]; then FAILED=$((FAILED+1)); fi
+          if [ "${{ steps.f5.outcome }}" = "failure" ]; then FAILED=$((FAILED+1)); fi
+
+          if [ "$FAILED" -gt "0" ]; then
+            echo "🔴 Production Readiness Ratchet: $FAILED check(s) failed."
+            exit 1
+          fi
+          echo "✅ All production readiness ratchet checks passed."
