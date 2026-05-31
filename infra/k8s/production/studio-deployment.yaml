@@ -30,7 +30,7 @@ spec:
         - name: ghcr-credentials
       containers:
         - name: studio
-          image: ghcr.io/madfam-org/sim4d-studio:latest
+          image: ghcr.io/madfam-org/sim4d-studio@sha256:749e1a6b9ac6e150eb17b9127dd9d48c5cdd3b5cbdb35c9b9c7042c9755e2fc8
           ports:
             - containerPort: 5173
           envFrom:
@@ -61,11 +61,13 @@ spec:
               path: /
               port: 5173
             periodSeconds: 10
+            timeoutSeconds: 5
           livenessProbe:
             httpGet:
               path: /
               port: 5173
             periodSeconds: 30
+            timeoutSeconds: 5
           volumeMounts:
             - name: nginx-cache
               mountPath: /var/cache/nginx
