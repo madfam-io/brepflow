@@ -63,20 +63,20 @@ below is embedded here so this document stands alone.
 
 ### The platforms every repo should know about
 
-| Platform        | Repo                          | Role                                                                                               |
-| --------------- | ----------------------------- | -------------------------------------------------------------------------------------------------- |
-| **Enclii**      | `madfam-org/enclii`           | PaaS control plane — all deploys go through this                                                   |
-| **Janua**       | `madfam-org/janua`            | OIDC/OAuth 2.0 provider — RS256 JWKS at `auth.madfam.io/.well-known/jwks.json`                     |
-| **Dhanam**      | `madfam-org/dhanam`           | Billing + payment gateways (Stripe, Mercado Pago, SPEI, etc.)                                      |
-| **Selva**       | `madfam-org/autoswarm-office` | LLM inference routing + agent orchestration                                                        |
-| **Karafiel**    | `madfam-org/karafiel`         | Operational compliance — CFDI, NOM-151, e.firma, SAT-adjacent. Owns legal-ops / contract templates |
-| **Tezca**       | `madfam-org/tezca`            | Mexican law oracle (informational only — feeds Karafiel)                                           |
-| **Cotiza**      | `madfam-org/digifab-quoting`  | MADFAM's quoting engine (fabrication + services)                                                   |
-| **Forgesight**  | `madfam-org/forgesight`       | Digital fabrication industry intelligence (pricing/vendor feed to Cotiza)                          |
-| **Pravara MES** | `madfam-org/pravara-mes`      | Fabrication-node routing and dispatch (physical jobs)                                              |
-| **PhyndCRM**    | `madfam-org/phynd-crm`        | Client-facing deliverables portal (single pane of glass per engagement)                            |
-| **Fortuna**     | `madfam-org/fortuna`          | Problem intelligence / zeitgeist analysis                                                          |
-| **Avala**       | `madfam-org/avala`            | Learning verification platform                                                                     |
+| Platform        | Repo                         | Role                                                                                               |
+| --------------- | ---------------------------- | -------------------------------------------------------------------------------------------------- |
+| **Enclii**      | `madfam-org/enclii`          | PaaS control plane — all deploys go through this                                                   |
+| **Janua**       | `madfam-org/janua`           | OIDC/OAuth 2.0 provider — RS256 JWKS at `auth.madfam.io/.well-known/jwks.json`                     |
+| **Dhanam**      | `madfam-org/dhanam`          | Billing + payment gateways (Stripe, Mercado Pago, SPEI, etc.)                                      |
+| **Selva**       | `madfam-org/selva-office`    | LLM inference routing + agent orchestration                                                        |
+| **Karafiel**    | `madfam-org/karafiel`        | Operational compliance — CFDI, NOM-151, e.firma, SAT-adjacent. Owns legal-ops / contract templates |
+| **Tezca**       | `madfam-org/tezca`           | Mexican law oracle (informational only — feeds Karafiel)                                           |
+| **Cotiza**      | `madfam-org/digifab-quoting` | MADFAM's quoting engine (fabrication + services)                                                   |
+| **Forgesight**  | `madfam-org/forgesight`      | Digital fabrication industry intelligence (pricing/vendor feed to Cotiza)                          |
+| **Pravara MES** | `madfam-org/pravara-mes`     | Fabrication-node routing and dispatch (physical jobs)                                              |
+| **PhyndCRM**    | `madfam-org/phynd-crm`       | Client-facing deliverables portal (single pane of glass per engagement)                            |
+| **Fortuna**     | `madfam-org/fortuna`         | Problem intelligence / zeitgeist analysis                                                          |
+| **Avala**       | `madfam-org/avala`           | Learning verification platform                                                                     |
 
 ### Cross-repo conventions
 
@@ -86,7 +86,7 @@ below is embedded here so this document stands alone.
 - **Billing**: credit metering + entitlements flow through Dhanam. See
   `madfam-org/dhanam` for the meter/entitlement/invoice APIs.
 - **Inference**: every LLM call should route through Selva
-  (`autoswarm-office`) at `/v1` (OpenAI-compatible). Do not talk directly
+  (`selva-office`) at `/v1` (OpenAI-compatible). Do not talk directly
   to OpenAI / Anthropic from service code.
 - **CORS**: explicit allowlist per service. Wildcards are banned
   (audit 2026-04-23 H2/H5/H6).
