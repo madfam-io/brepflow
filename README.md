@@ -19,8 +19,8 @@ by **Innovaciones MADFAM** — a **MADFAM** company
 ## Why Sim4D?
 
 - **Vision:** a web-first, node-based CAD environment backed by OCCT so designers and automation pipelines share the same geometry kernel.
-- **Reality today:** production-ready interactive graph editor with real OCCT.wasm geometry backend, CLI tools, STEP/STL/IGES export, and comprehensive testing infrastructure (99.6% test pass rate).
-- **Roadmap:** see [docs/project/ROADMAP.md](docs/project/ROADMAP.md) for security hardening, code quality improvements, and ecosystem features (collaboration, plugins, marketplace).
+- **Reality today:** an **alpha** interactive graph editor with a real OCCT.wasm geometry backend, CLI tools, STEP/STL/IGES export, and a large test suite (see "Current status" below).
+- **Roadmap:** see [docs/project/ROADMAP.md](docs/project/ROADMAP.md) (last substantively updated **2025-11-18**) for security hardening, code quality improvements, and ecosystem features (collaboration, plugins, marketplace).
 
 If you come from OpenSCAD or Grasshopper, think of Sim4D as bringing that node-based workflow to the web with industrial-grade OCCT geometry.
 
@@ -28,9 +28,31 @@ If you come from OpenSCAD or Grasshopper, think of Sim4D as bringing that node-b
 
 ## Status
 
-**Production Ready · Real OCCT WASM Backend · Stable API**
+**Alpha · Real OCCT WASM Backend**
 
-✅ **Fully Operational**:
+### Current status (verified 2026-07-04)
+
+Sim4D is **alpha software**. An earlier version of this section claimed
+"Production Ready · Stable API" alongside the alpha label; that contradiction
+is resolved here in favor of the evidence:
+
+- Large monorepo: 15 packages + 2 apps (`studio`, `marketing`), ~4,800
+  tracked files, ~1,000 test/spec files.
+- Real, pre-compiled OCCT.wasm binaries ship in
+  `packages/engine-occt/wasm/` (web, single-thread, and Node builds) and
+  back both Studio and the CLI.
+- Heavy CI: 11 GitHub Actions workflows (unit/E2E/docker tests, quality
+  gate, security scan, production-readiness ratchet, container/Enclii
+  builds, nightly CLI).
+- Known gaps that keep this alpha: the generated ~1.8k-node catalogue is
+  disabled pending type fixes; `pnpm typecheck` fails in the collaboration
+  package; collaboration/marketplace/plugin ecosystem features are
+  incomplete; API stability is **not** guaranteed.
+
+The subsections below reflect the last detailed engineering snapshot
+(2025-11), kept for reference:
+
+✅ **Operational (as of 2025-11 snapshot)**:
 
 - Studio launches with complete OCCT WASM geometry backend (55MB compiled binaries)
 - All geometry operations verified: primitives, booleans, fillets, transformations
@@ -204,7 +226,7 @@ After setup you can:
 - `occt-core.wasm` (8.7MB) - Optimized single-thread web version
 - `occt-core.node.wasm` (8.3MB) - Node.js version for CLI
 
-**No compilation required** for standard use. WASM binaries are production-ready and verified.
+**No compilation required** for standard use. The WASM binaries are pre-compiled and verified against the core OCCT operation suite (the binaries are usable as-is; this is not a claim that the overall product is production-ready — see Status).
 
 > 📘 **Prerequisites:** See [docs/development/OCCT_BUILD_PREREQS.md](./docs/development/OCCT_BUILD_PREREQS.md) for required toolchains, environment variables, and expected outputs before invoking the build.
 
@@ -316,7 +338,7 @@ All project documentation is organized in the `docs/` directory:
 - **[API Reference](docs/technical/API.md)** - Complete API documentation
 - **[Setup Guide](docs/development/SETUP.md)** - Development environment setup
 - **[Contributing](docs/development/CONTRIBUTING.md)** - Contribution guidelines
-- **[Roadmap](docs/product/ROADMAP.md)** - Product roadmap and milestones
+- **[Roadmap](docs/project/ROADMAP.md)** - Product roadmap and milestones (last updated 2025-11-18)
 - **[Implementation Guides](docs/implementation/)** - Feature implementation details
 - **[Business Strategy](docs/business/)** - Go-to-market and business planning
 

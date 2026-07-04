@@ -4,6 +4,15 @@ _Org:_ **Innovaciones MADFAM**
 _Product:_ **Sim4D** – Web-first, node-based parametric CAD
 _Status:_ Updated 2025-11-18 · Maintainer: Core Platform Team
 
+> [!WARNING]
+> **Stale document (noted 2026-07-04, RFC 0024 P3).** This roadmap has not
+> been substantively revised since **2025-11-18**; every date, score, and
+> "where we are today" claim below should be read as of that date, not the
+> present. In particular, its "production-ready with A- grade" framing
+> conflicts with the repository's current **alpha** status (see the README
+> "Current status" section, which is authoritative). Timelines for Horizons
+> A+ have not been re-baselined.
+
 > This roadmap reflects the current, shipping reality of the codebase as of November 2025, updated based on comprehensive audit findings. **MAJOR UPDATE (2025-11-18)**: Horizon 0 security work completed ahead of schedule - platform is now production-ready with A- grade (87/100). Platform has achieved zero security vulnerabilities and comprehensive security implementation. Recent critical bug fixes (double node placement, Vite worker import) have been successfully completed. Current focus shifts to Horizon A (Geometry Hardening) and strategic positioning decision. Timelines are indicative; execution depends on resourcing and addressing audit-identified priorities.
 
 ---
