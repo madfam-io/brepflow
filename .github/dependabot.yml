@@ -5,10 +5,30 @@ version: 2
 
 updates:
   # ═══════════════════════════════════════════════════════════════════════════
-  # NPM Dependencies (Root & Monorepo Packages)
+  # NPM Dependencies — the WHOLE pnpm workspace, from the root
+  #
+  # ┌─────────────────────────────────────────────────────────────────────────┐
+  # │ SINGLE-LOCKFILE WORKSPACE: declare npm updates for '/' ONLY.            │
+  # │ Never add a per-app or per-package npm entry.                          │
+  # └─────────────────────────────────────────────────────────────────────────┘
+  #
+  # /pnpm-lock.yaml is the only lockfile in this repo and it covers every member
+  # of pnpm-workspace.yaml (apps/*, packages/*).
+  #
+  # Dependabot treats each configured `directory` as an independent project.
+  # From a sub-directory it finds that directory's package.json and no lockfile
+  # beside it, so it edits the manifest and never touches /pnpm-lock.yaml. The
+  # resulting PR is unmergeable on arrival: every gate here begins with
+  # `pnpm install --frozen-lockfile` (ci.yml, test.yml, e2e-tests.yml,
+  # security-scan.yml, test-docker.yml, nightly-cli.yml) and dies with
+  # ERR_PNPM_OUTDATED_LOCKFILE. No rebase can repair it — the config that
+  # produced the PR is incapable of producing a lockfile.
+  #
+  # The root entry below updates the member manifests AND the lockfile in one
+  # commit, which is the only shape that can go green here.
   # ═══════════════════════════════════════════════════════════════════════════
 
-  # Root package.json
+  # Root package.json + every apps/* and packages/* workspace member
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
@@ -65,56 +85,13 @@ updates:
     # assignees:
     #   - "lead-developer"
 
-    # Ignore specific dependencies (if needed)
-    ignore:
-      # Example: Ignore major version updates for stable packages
-      # - dependency-name: "react"
-      #   update-types: ["version-update:semver-major"]
-
-  # Studio app
-  - package-ecosystem: 'npm'
-    directory: '/apps/studio'
-    schedule:
-      interval: 'weekly'
-      day: 'monday'
-      time: '03:00'
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: 'deps(studio)'
-    labels:
-      - 'dependencies'
-      - 'studio'
-      - 'automated'
-
-  # Marketing app
-  - package-ecosystem: 'npm'
-    directory: '/apps/marketing'
-    schedule:
-      interval: 'weekly'
-      day: 'monday'
-      time: '03:30'
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: 'deps(marketing)'
-    labels:
-      - 'dependencies'
-      - 'marketing'
-      - 'automated'
-
-  # Engine Core
-  - package-ecosystem: 'npm'
-    directory: '/packages/engine-core'
-    schedule:
-      interval: 'weekly'
-      day: 'monday'
-      time: '04:00'
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: 'deps(engine-core)'
-    labels:
-      - 'dependencies'
-      - 'engine-core'
-      - 'automated'
+    # Ignore specific dependencies (if needed) — add an `ignore:` key here with
+    # real rules when one is needed. It is deliberately absent rather than
+    # present-and-empty, because a null `ignore:` is not a valid rule list.
+    # Example:
+    #   ignore:
+    #     - dependency-name: "react"
+    #       update-types: ["version-update:semver-major"]
 
   # ═══════════════════════════════════════════════════════════════════════════
   # GitHub Actions
